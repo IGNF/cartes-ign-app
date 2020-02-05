@@ -1,0 +1,123 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#ffffff;
+    font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+    font-size:12px;
+    height:100vh;
+    margin:0px;
+    padding:0px;
+    /* Padding to avoid the "unsafe" areas behind notches in the screen */
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
+    width:100%;
+}
+
+/* Portrait layout (default) */
+.app {
+    position:absolute;             /* position in the center of the screen */
+    left:50%;
+    /* top:50%; */
+    height:50px;                   /* text area height */
+    width:275px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -138px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:25px 0px 75px 0px;  /* padding-top + padding-bottom + text area = image height */
+        margin: 0px 0px 0px -45vw;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+        width:90vw;                   /* text area width */
+  }
+}
+
+h1 {
+    font-size:30px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+#message {
+  font-size:20px;
+}
+
+
+#btnGppWeb {
+  color: #FFF;
+  background-color: #0B6BA7;
+  border-radius: 30px;
+  padding: 5px 20px;
+  font-family: OpenSansExtraBold,"Open Sans",Arial,sans-serif;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+  font-size:14px;
+}
+
+/* Loader */
+
+#loader {
+  z-index: 20000;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-color: #EBEEEB;
+}
+
+@media (min-width: 421px) and (min-height: 321px) {
+  #loader {
+    background-position: center 15%;
+    background-image: url('../img/splash_screen.png');
+    background: url('../img/splash_screen.png') center 15% no-repeat, -moz-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+    background: url('../img/splash_screen.png') center 15% no-repeat, -webkit-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+    background: url('../img/splash_screen.png') center 15% no-repeat, -o-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+    background: url('../img/splash_screen.png') center 15% no-repeat, -ms-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+    background: url('../img/splash_screen.png') center 15% no-repeat, linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+  }
+}
+
+@media (max-width: 420px), (max-height: 320px) {
+  #loader {
+    background-position: center 20%;
+    background-image: url('../img/splash_screen_mini.png');
+    background: url('../img/splash_screen_mini.png') center 15% no-repeat, -moz-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+    background: url('../img/splash_screen_mini.png') center 15% no-repeat, -webkit-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+    background: url('../img/splash_screen_mini.png') center 15% no-repeat, -o-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+    background: url('../img/splash_screen_mini.png') center 15% no-repeat, -ms-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+    background: url('../img/splash_screen_mini.png') center 15% no-repeat, linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+  }
+}
