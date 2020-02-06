@@ -54,46 +54,38 @@ body {
     /* position:absolute;             position in the center of the screen */
     /* top:50%; */
     /* height:50px;                   text area height */
-    width:75vw;                   /* text area width */
+    /* width:90vw;                   text area width */
     text-align:center;
     padding: 12.5vh 20px 20px 20px;     /* image height is 200px (bottom 20px are overlapped with text) */
     margin: 0 auto;  /*offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding: 12.5vh 20px 20px 20px;  /* padding-top + padding-bottom + text area = image height */
-        /* margin: 0px 0px 0px -45vw;  offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-        width:75vw;                   /* text area width */
-  }
-}
-
 .semibold {
-  font-size:2.3em;
+  width: 83%;
+  font-size:1.7em;
+  margin: 0 auto;
   font-family: 'Open Sans Semibold',Arial,sans-serif;
 }
 
 #retrouvez {
-  width: 90%;
-  margin: 0 auto;
+  width: 75%;
+  margin: 1em auto;
 }
 
 .bold {
-  font-size:2.3em;
+  font-size:1.7em;
   font-family: 'Open Sans Bold',Arial,sans-serif;
-  margin-bottom: 2em;
+  margin-bottom: 1.7em;
 }
 
 #gpplogo {
   width:75vw;
-  margin-bottom: 6vh;
+  margin-bottom: 5vh;
 }
 
 #btnGppWeb {
+  display: inline-block;
   color: #146cac;
   background-color: white;
   border-radius: 30px;
@@ -102,7 +94,38 @@ body {
   cursor: pointer;
   text-transform: uppercase;
   text-decoration: none;
-  font-size:2.3em;
+  font-size:1.7em;
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+  .app {
+        background-position:left center;
+        padding: 5vh 20px 20px 20px;  /* padding-top + padding-bottom + text area = image height */
+        /* margin: 0px 0px 0px -45vw;  offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+        /* width:75vw;                   text area width */
+
+  }
+
+  #gpplogo {
+    width:50vw;
+    margin-bottom: 5vh;
+  }
+
+  .bold {
+    margin-bottom: 1em
+  }
+
+  #retrouvez {
+    width: auto;
+    margin: 1em 10px 0;
+  }
+
+  #inlinepaysage {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 /* Loader */
