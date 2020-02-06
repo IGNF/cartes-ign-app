@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -33,7 +34,7 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
-        parentElement.setAttribute('style', 'display:none;');
+        // parentElement.setAttribute('style', 'display:none;');
     }
 };
 

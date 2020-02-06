@@ -16,6 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ @font-face {
+  font-family: "Open Sans Semibold";
+  src: url("OpenSans-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Open Sans Bold";
+  src: url("OpenSans-Bold.ttf");
+}
+@font-face {
+  font-family: "Open Sans Extrabold";
+  src: url("OpenSans-ExtraBold.ttf");
+}
+
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
@@ -24,7 +37,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#ffffff;
+    background-color:#146cac;
     font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
     font-size:12px;
     height:100vh;
@@ -33,18 +46,18 @@ body {
     /* Padding to avoid the "unsafe" areas behind notches in the screen */
     padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
     width:100%;
+    color:white;
 }
 
 /* Portrait layout (default) */
 .app {
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
+    /* position:absolute;             position in the center of the screen */
     /* top:50%; */
-    height:50px;                   /* text area height */
-    width:275px;                   /* text area width */
+    /* height:50px;                   text area height */
+    width:75vw;                   /* text area width */
     text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -138px;  /* offset vertical: half of image height and text area height */
+    padding: 12.5vh 20px 20px 20px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: 0 auto;  /*offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
 }
 
@@ -52,43 +65,49 @@ body {
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {
         background-position:left center;
-        padding:25px 0px 75px 0px;  /* padding-top + padding-bottom + text area = image height */
-        margin: 0px 0px 0px -45vw;  /* offset vertical: half of image height */
+        padding: 12.5vh 20px 20px 20px;  /* padding-top + padding-bottom + text area = image height */
+        /* margin: 0px 0px 0px -45vw;  offset vertical: half of image height */
                                       /* offset horizontal: half of image width and text area width */
-        width:90vw;                   /* text area width */
+        width:75vw;                   /* text area width */
   }
 }
 
-h1 {
-    font-size:30px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
+.semibold {
+  font-size:2.3em;
+  font-family: 'Open Sans Semibold',Arial,sans-serif;
 }
 
-#message {
-  font-size:20px;
+#retrouvez {
+  width: 90%;
+  margin: 0 auto;
 }
 
+.bold {
+  font-size:2.3em;
+  font-family: 'Open Sans Bold',Arial,sans-serif;
+  margin-bottom: 2em;
+}
+
+#gpplogo {
+  width:75vw;
+  margin-bottom: 6vh;
+}
 
 #btnGppWeb {
-  color: #FFF;
-  background-color: #0B6BA7;
+  color: #146cac;
+  background-color: white;
   border-radius: 30px;
-  padding: 5px 20px;
-  font-family: OpenSansExtraBold,"Open Sans",Arial,sans-serif;
+  padding: 10px 40px;
+  font-family: 'Open Sans Extrabold',Arial,sans-serif;
   cursor: pointer;
   text-transform: uppercase;
   text-decoration: none;
-  font-weight: 700;
-  font-size:14px;
+  font-size:2.3em;
 }
 
 /* Loader */
 
-#loader {
+/* #loader {
   z-index: 20000;
   position: absolute;
   top: 0;
@@ -120,4 +139,4 @@ h1 {
     background: url('../img/splash_screen_mini.png') center 15% no-repeat, -ms-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
     background: url('../img/splash_screen_mini.png') center 15% no-repeat, linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
   }
-}
+} */

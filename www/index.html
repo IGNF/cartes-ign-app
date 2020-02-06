@@ -15,22 +15,23 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Application Géoportail - Message d'information</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <title>Arrêt de l'application Géoportail</title>
     </head>
     <body>
         <div class="app">
-            <img src="img/favicon.png" height="100px" />
-            <h1>Application en maintenance</h1>
+            <img id="gpplogo" src="img/logo-geoportail.svg" />
             <div id="message">
-                <p>L'application mobile Géoportail est actuellement en maintenance, nous vous conseillons pour l'instant de privilégier le site web.</p>
-                <!-- <p><input type="checkbox" id="understoodChkBx" name="okchk">
-                <label for="okchk">Ne plus m'afficher ce message et me rediriger automatiquement sur le site web à l'avenir.</label></p> -->
-                <p><a id="btnGppWeb" href="https://www.geoportail.gouv.fr/carte">Aller sur le site Géoportail</a></p>
+                <p class="semibold">L'application Géoportail fait place à la version mobile du Géoportail.</p>
+                <p class="semibold" id="retrouvez">Retrouvez-nous désormais sur</p>
+                <p class="bold">geoportail.gouv.fr</p>
+                <p><a id="btnGppWeb" href="https://www.geoportail.gouv.fr/carte">Aller sur le site</a></p>
             </div>
         </div>
+        <!-- <div id="loader"></div> -->
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 
-    <div id="loader"></div>
 </html>
