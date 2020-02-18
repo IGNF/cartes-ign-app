@@ -49,8 +49,47 @@ body {
     color:white;
 }
 
+.titre {
+  color: #002A50;
+  text-transform: uppercase;
+  font-family: "Open Sans Extrabold";
+  font-size: 22pt;
+  text-align: center;
+}
+
+.textCouche {
+  font-family: "Open Sans Semibold";
+  color: #0B6BA7;
+}
+
+.lien {
+  position:relative;
+  border-bottom: 1px solid #FFFFFF;
+  color: white;
+  margin: 0 1em;
+  padding: 0.5em 0;
+  font-family: Arial;
+  font-size: 15pt;
+  text-align: left;
+}
+
+.lien img {
+
+  position: absolute;
+  right: 0em;
+  top: 50%;
+  height: 30px;
+  margin-top: -15px;
+
+}
+
+.lien a, .lienNoBorder a {
+  color: white;
+  text-decoration: none;
+}
+
 /* Portrait layout (default) */
-.app {
+#popup {
     /* position:absolute;             position in the center of the screen */
     /* top:50%; */
     /* height:50px;                   text area height */
@@ -59,6 +98,7 @@ body {
     padding: 12.5vh 20px 20px 20px;     /* image height is 200px (bottom 20px are overlapped with text) */
     margin: 0 auto;  /*offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
+    display: none;
 }
 
 .semibold {
@@ -99,12 +139,13 @@ body {
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-  .app {
+  #popup {
         background-position:left center;
         padding: 5vh 20px 20px 20px;  /* padding-top + padding-bottom + text area = image height */
         /* margin: 0px 0px 0px -45vw;  offset vertical: half of image height */
                                       /* offset horizontal: half of image width and text area width */
         /* width:75vw;                   text area width */
+        display: none;
 
   }
 
@@ -128,38 +169,308 @@ body {
   }
 }
 
-/* Loader */
 
-/* #loader {
-  z-index: 20000;
+
+
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 3000;
+}
+
+#footer #logo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#logo img {
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+  margin-bottom: 0.2em;
+  width: inherit;
+  height: 21px;
+}
+
+
+/* Map */
+#map {
+  height: 100vh;
+}
+
+.gp-control-attribution-image {
+  height: 30px;
+  width: 30px;
+  vertical-align: middle;
+  border-style: none;
+}
+
+/* Menus */
+.backButton {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  width: 20px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 30px;
+}
+
+#header {
   position: absolute;
   top: 0;
   width: 100%;
+  z-index: 2999;
+}
+
+#header #searchBar {
+  margin: 0 auto;
+  padding: 0;
+  width: 90%;
+  background-color: #0B6BA7;
+}
+
+#geoloc {
+  width: 40px;
+  text-align: center;
+}
+
+#tracing {
+  width: 40px;
+  text-align: center;
+}
+
+#search {
+  padding: 0;
+  margin: 0;
+}
+
+#searchForm {
+  height: 42px;
+  position: relative;
+  background-color: white;
+  padding-right: 42px;
+}
+
+#search input {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 42px;
+  font-size: 18px;
+  border: none;
+}
+
+#search input.placeholder {
+  vertical-align: middle;
+}
+
+#search input:focus {
+  outline: none;
+}
+
+#search #clearSearch {
+  position: absolute;
+  width: 30px;
+  right: 0;
+  top: 50%;
+  margin: -15px 6px 0 0;
+}
+
+#resultsRech {
+  font-size: 18px;
+  position: absolute;
+  background-color: white;
+  z-index: 3;
+}
+
+#resultsRech div {
+  border-bottom: solid 1px #EBEFF1;
+  padding: 0.4em 0.2em;
+}
+
+.gpGeocodeAutoCompleteProposalHighlighted {
+  background-color: #ddd;
+}
+
+#visu #geolocBtn, #visu #geolocBtnAct {
+  vertical-align: middle;
+  width: 30px;
+}
+
+#main-buttons {
+  margin:0;
+  padding:0;
+  display: flex;
+  justify-content: space-between;
+}
+
+#main-buttons li {
+  margin-right: 1em;
+}
+
+#main-buttons li:last-child {
+  margin-right: 0;
+}
+
+.button {
+  background-color: #0B6BA7;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
+
+#catalogBtn {
+  border-bottom-right-radius: 10px;
+}
+
+#shareBtn {
+  border-bottom-left-radius: 10px;
+}
+
+#searchBtn {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.button img {
+  width: 100%;
+}
+
+/* Autres menus */
+
+#catalog {
+  height: 100vh;
+  width: 0;
+  z-index: 3000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: 0.5s;
+  overflow: auto;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-y: hidden; /* Disable vertical scroll */
+}
+
+#share {
+  height: 100vh;
+  width: 0;
+  z-index: 3000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: 0.5s;
+  overflow: auto;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-y: hidden; /* Disable vertical scroll */
+}
+
+
+#catalog, #reglages, #parameters, #credits, #cookies, #share {
+  background-color: #EBEFF1;
   height: 100%;
-  background-size: 100% 100%;
-  background-color: #EBEEEB;
+  padding-top: 8em;
+  box-sizing: border-box;
 }
 
-@media (min-width: 421px) and (min-height: 321px) {
-  #loader {
-    background-position: center 15%;
-    background-image: url('../img/splash_screen.png');
-    background: url('../img/splash_screen.png') center 15% no-repeat, -moz-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
-    background: url('../img/splash_screen.png') center 15% no-repeat, -webkit-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
-    background: url('../img/splash_screen.png') center 15% no-repeat, -o-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
-    background: url('../img/splash_screen.png') center 15% no-repeat, -ms-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
-    background: url('../img/splash_screen.png') center 15% no-repeat, linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
-  }
+#catalog .layer img {
+  width: 120px;
 }
 
-@media (max-width: 420px), (max-height: 320px) {
-  #loader {
-    background-position: center 20%;
-    background-image: url('../img/splash_screen_mini.png');
-    background: url('../img/splash_screen_mini.png') center 15% no-repeat, -moz-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
-    background: url('../img/splash_screen_mini.png') center 15% no-repeat, -webkit-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
-    background: url('../img/splash_screen_mini.png') center 15% no-repeat, -o-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
-    background: url('../img/splash_screen_mini.png') center 15% no-repeat, -ms-linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
-    background: url('../img/splash_screen_mini.png') center 15% no-repeat, linear-gradient(to bottom, #FFFFFF 12%,#abbaab 100%);
+#catalog #menuC {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 450px;
+}
+
+#catalog .layer {
+  display: inline-block;
+  width: 150px;
+  padding-bottom: 1em;
+}
+
+#catHeader, #reglagesHeader, #parametersHeader, #creditsHeader, #cookiesHeader, #shareHeader {
+  top:0;
+  padding-bottom: 2em;
+  padding-top: 1em;
+  text-align: center;
+  background-color: #EBEFF1;
+  z-index: 5;
+}
+
+#catalog #menuC {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 450px;
+}
+
+#catalog .layer {
+  display: inline-block;
+  width: 150px;
+  padding-bottom: 1em;
+}
+
+
+@media (min-width: 768px) /*and (max-width: 1024px)*/ {
+
+  #header #searchBar {
+      width: 768px;
   }
-} */
+
+  .button {
+      width: 60px;
+      height: 60px;
+  }
+
+  #catalogBtn {
+    border-bottom-right-radius: 20px;
+  }
+
+  #shareBtn {
+    border-bottom-left-radius: 20px;
+  }
+
+  #searchBtn {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  #logo img {
+      margin-right: 1em;
+      width: inherit;
+      height: 42px;
+  }
+
+  #catalog #catHeader {
+      padding-bottom: 4em;
+  }
+
+  #catalog #menuC {
+      max-width: 900px;
+  }
+
+  #catalog .layer {
+      display: inline-block;
+      width: 300px;
+      padding-bottom: 2em;
+  }
+
+  #catalog .layer img {
+      width: 240px;
+  }
+
+  #catalog .textCouche {
+      font-size: 14pt;
+  }
+
+}

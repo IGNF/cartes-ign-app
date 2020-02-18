@@ -11,27 +11,113 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
         <meta charset="utf-8">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' wxs.ign.fr">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/leaflet.css">
         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
-    <title>Arrêt de l'application Géoportail</title>
+    <title>Géoportail</title>
     </head>
     <body>
         <div class="app">
-            <img id="gpplogo" src="img/logo-geoportail.svg" />
-            <div id="message">
-                <p class="semibold">L'application Géoportail fait place à la version mobile du Géoportail.</p>
-                <div id="inlinepaysage"><p class="semibold" id="retrouvez">Retrouvez-nous désormais sur</p>
-                <p class="bold">geoportail.gouv.fr</p></div>
-                <p><a id="btnGppWeb" href="https://www.geoportail.gouv.fr/carte">Aller sur le site</a></p>
+            <div id="popup">
+              <img id="gpplogo" src="img/logo-geoportail.svg" />
+              <div id="message">
+                  <p class="semibold">L'application Géoportail fait place à la version mobile du Géoportail.</p>
+                  <div id="inlinepaysage"><p class="semibold" id="retrouvez">Retrouvez-nous désormais sur</p>
+                  <p class="bold">geoportail.gouv.fr</p></div>
+                  <p><a id="btnGppWeb" href="https://www.geoportail.gouv.fr/carte">Aller sur le site</a></p>
+              </div>
+            </div>
+
+            <div id="map"></div>
+
+            <div id="header">
+              <div id="recherche">
+              </div>
+              <ul id="main-buttons">
+                <li class="button" id="catalogBtn">
+                  <img src="img/cartes_off.png" alt="cartes" />
+                </li>
+                <li class="button" id="searchBtn">
+                  <img src="img/search.png" alt="recherche" />
+                </li>
+                <li class="button" id="shareBtn">
+                  <img src="img/share.png" alt="partage"/>
+                </li>
+              </ul>
+            </div>
+
+            <div id="footer">
+              <div id="logo">
+                <img src="img/logo-geoportail.svg" alt="logo GP" />
+              </div>
+            </div>
+
+            <div id="catalog">
+              <div id="catHeader">
+                <img class="backButton" src="img/back.png" alt="retour" />
+                <span class="titre">Choisir</span>
+                <img class="closeButton" src="img/croix.png" alt="fermer" />
+              </div>
+
+              <div id="menuC">
+                <div class="layer" id="layerOrtho">
+                  <img name="photos" id="photos" class="couche floatL" src="img/couches/photos.jpg" alt="photos" /></a>
+                  <div id="lphotos" class="textCouche">Vue aérienne</div>
+                </div>
+                <div class="layer" id="layerRoutes">
+                  <img name="routes" id="routes" class="couche floatR" src="img/couches/routes.jpg" alt="routes" /></a>
+                  <div id="lroutes" class="textCouche">Routes</div>
+                </div>
+                <div class="layer" id="layerCartes">
+                  <img name="cartes" id="cartes" class="couche floatL" src="img/couches/cartes.jpg" alt="cartes" /></a>
+                  <div id="lcartes" class="textCouche">Cartes</div>
+                </div>
+                <div class="layer" id="layerPlan">
+                  <img name="plan-ign" id="plan-ign" class="couche floatL" src="img/couches/plan-ign.jpg" alt="plan-ign" /></a>
+                  <div id="lplan-ign" class="textCouche">Plan IGN</div>
+                </div>
+                <div class="layer" id="layerParcels">
+                  <img name="cadastre" id="cadastre" class="couche floatL" src="img/couches/cadastre.jpg" alt="cadastre" /></a>
+                  <div id="lcadastre" class="textCouche">Parcelles cadastrales</div>
+                </div>
+                <div class="layer" id="layerEtatMajor">
+                  <img name="etat-major" id="etat-major" class="couche floatR" src="img/couches/etat-major.jpg" alt="etat major" /></a>
+                  <div id="letat-major" class="textCouche">Carte de l'état-major</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="share">
+              <div id="shareHeader">
+                <img class="backButton" src="img/back.png" alt="retour" />
+                <span class="titre">Partager</span>
+                <img class="closeButton" src="img/croix.png" alt="fermer" />
+              </div>
+              <div id="menuS">
+                <div class="lien">
+                  <a id="shareByMail" href="#">
+                    <div class="params">Envoyer par email</div>
+                  </a>
+                </div>
+                <div class="lien">
+                  <a id="shareByFacebook" href="#">
+                    <div class="params">Partager sur Facebook</div>
+                  </a>
+                </div>
+                <div class="lien">
+                  <a id="shareByTwitter" href="#">
+                    <div class="params">Poster sur Twitter</div>
+                  </a>
+                </div>
+              </div>
             </div>
         </div>
-        <!-- <div id="loader"></div> -->
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/leaflet.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 
