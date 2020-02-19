@@ -57,6 +57,19 @@ body {
   text-align: center;
 }
 
+a {
+  font-family: "Open Sans Semibold";
+  color: #9FE4FF;
+}
+
+.leaflet-container a {
+  color: #9FE4FF;
+}
+
+.d-none {
+  display: none;
+}
+
 .textCouche {
   font-family: "Open Sans Semibold";
   color: #0B6BA7;
@@ -74,7 +87,6 @@ body {
 }
 
 .lien img {
-
   position: absolute;
   right: 0em;
   top: 50%;
@@ -180,18 +192,43 @@ body {
   z-index: 3000;
 }
 
+#mentions-legales {
+  text-decoration: none;
+  font-size: 11px;
+}
+
 #footer #logo {
   position: absolute;
   bottom: 0;
   left: 0;
+  padding-right: 0.5em;
+  background-color: rgba(64,64,64,0.7);
+  height: 30px;
+  line-height: 29px;
 }
 
 #logo img {
-  margin-right: 0.5em;
+  margin-right: 0.2em;
   margin-left: 0.5em;
-  margin-bottom: 0.2em;
   width: inherit;
-  height: 21px;
+  height: 1.5em;
+  pointer-events: none;
+  vertical-align: middle;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  line-height: 30px;
+  height: 30px;
+  background-color: rgba(64,64,64,0.7);
+  color: white;
+}
+
+.gp-control-attribution-image {
+  width: 25px;
+  vertical-align: middle;
+  border-style: none;
+  pointer-events: none;
+  padding-bottom: 2px;
 }
 
 
@@ -200,12 +237,6 @@ body {
   height: 100vh;
 }
 
-.gp-control-attribution-image {
-  height: 30px;
-  width: 30px;
-  vertical-align: middle;
-  border-style: none;
-}
 
 /* Menus */
 .backButton {
@@ -226,15 +257,11 @@ body {
   position: absolute;
   top: 0;
   width: 100%;
+  background-color: white;
   z-index: 2999;
+  height: 40px;
 }
 
-#header #searchBar {
-  margin: 0 auto;
-  padding: 0;
-  width: 90%;
-  background-color: #0B6BA7;
-}
 
 #geoloc {
   width: 40px;
@@ -249,22 +276,29 @@ body {
 #search {
   padding: 0;
   margin: 0;
-}
-
-#searchForm {
-  height: 42px;
   position: relative;
-  background-color: white;
-  padding-right: 42px;
 }
 
 #search input {
+  color: #002A50;
   margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 42px;
-  font-size: 18px;
-  border: none;
+  margin-top: 5px;
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-left: 33px;
+  padding-right: 25px;
+  width: 180px;
+  height: 28px;
+  border: 1px solid #D6D6D6;
+  border-radius: 20px;
+}
+
+#searchImage {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  margin-left: 8px;
 }
 
 #search input.placeholder {
@@ -275,24 +309,31 @@ body {
   outline: none;
 }
 
-#search #clearSearch {
+#clearSpan {
   position: absolute;
-  width: 30px;
-  right: 0;
-  top: 50%;
-  margin: -15px 6px 0 0;
+  right: 7px;
+  top: 10px;
+}
+
+#search #clearSearch {
+  width: 20px;
+  height: 20px;
 }
 
 #resultsRech {
-  font-size: 18px;
   position: absolute;
-  background-color: white;
+  color: #0B6BA7;
+  background-color: #EEF2F3;
   z-index: 3;
+  top: 35px;
+  left: 20px;
+  width: calc(100% - 40px);
 }
 
-#resultsRech div {
-  border-bottom: solid 1px #EBEFF1;
+#resultsRech p {
+  border-bottom: solid 1px #D8DFE4;
   padding: 0.4em 0.2em;
+  margin: 0;
 }
 
 .gpGeocodeAutoCompleteProposalHighlighted {
@@ -326,23 +367,26 @@ body {
   display: inline-block;
 }
 
-#catalogBtn {
-  border-bottom-right-radius: 10px;
-}
-
-#shareBtn {
-  border-bottom-left-radius: 10px;
-}
-
-#searchBtn {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-right-radius: 10px;
-}
 
 .button img {
   width: 100%;
+}
+
+#catalogBtn {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#catalogBtn img {
+  width: 70%;
+  margin: 0 auto;
+}
+
+#open-nav-menu-text {
+  color: #CCC;
+  font-size: 8px;
+  font-family: 'Open Sans Extrabold';
 }
 
 /* Autres menus */
@@ -357,20 +401,6 @@ body {
   transition: 0.5s;
   overflow: auto;
   overflow-x: hidden; /* Disable horizontal scroll */
-  overflow-y: hidden; /* Disable vertical scroll */
-}
-
-#share {
-  height: 100vh;
-  width: 0;
-  z-index: 3000;
-  position: fixed;
-  top: 0;
-  right: 0;
-  transition: 0.5s;
-  overflow: auto;
-  overflow-x: hidden; /* Disable horizontal scroll */
-  overflow-y: hidden; /* Disable vertical scroll */
 }
 
 
@@ -418,11 +448,30 @@ body {
   padding-bottom: 1em;
 }
 
+/* mode paysage */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+  #catalog {
+    max-width: 75%;
+  }
+  #catalog #menuC {
+    max-width: 75%;
+  }
 
-@media (min-width: 768px) /*and (max-width: 1024px)*/ {
+  #search  {
+    display: flex;
+  }
 
-  #header #searchBar {
-      width: 768px;
+  #search input {
+    width: 100%;
+  }
+
+}
+
+/* ecrans larges*/
+@media (min-width: 768px) {
+
+  #header {
+    height: 60px;
   }
 
   .button {
@@ -430,12 +479,8 @@ body {
       height: 60px;
   }
 
-  #catalogBtn {
-    border-bottom-right-radius: 20px;
-  }
-
-  #shareBtn {
-    border-bottom-left-radius: 20px;
+  #open-nav-menu-text {
+    font-size: 0.9em;
   }
 
   #searchBtn {
@@ -445,18 +490,41 @@ body {
     border-top-right-radius: 20px;
   }
 
-  #logo img {
-      margin-right: 1em;
-      width: inherit;
-      height: 42px;
+  #search input {
+    margin-top: 10px;
+    padding-left: 40px;
+    width: 100%;
+    height: 38px;
+  }
+
+  #searchImage {
+    width: 24px;
+    height: 24px;
+    top: 18px;
+  }
+
+  #search #clearSearch {
+    width: 24px;
+    height: 24px;
+  }
+
+  #clearSpan {
+    top: 18px;
+  }
+
+  #resultsRech {
+    top: 50px;
   }
 
   #catalog #catHeader {
       padding-bottom: 4em;
   }
 
-  #catalog #menuC {
+  #catalog {
       max-width: 900px;
+  }
+  #catalog #menuC {
+    max-width: 900px;
   }
 
   #catalog .layer {
@@ -473,4 +541,21 @@ body {
       font-size: 14pt;
   }
 
+  #footer #logo {
+    height: 38px;
+    line-height: 37px;
+  }
+
+  #logo img {
+    height: 30px;
+  }
+
+  .leaflet-container .leaflet-control-attribution {
+    line-height: 38px;
+    height: 38px;
+  }
+
+  .gp-control-attribution-image {
+    width: 30px;
+  }
 }

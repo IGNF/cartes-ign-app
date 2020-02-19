@@ -15,8 +15,8 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/leaflet.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
     <title>Géoportail</title>
     </head>
@@ -35,24 +35,28 @@
             <div id="map"></div>
 
             <div id="header">
-              <div id="recherche">
-              </div>
-              <ul id="main-buttons">
-                <li class="button" id="catalogBtn">
+              <div id="main-buttons">
+                <div class="button" id="catalogBtn">
                   <img src="img/cartes_off.png" alt="cartes" />
-                </li>
-                <li class="button" id="searchBtn">
-                  <img src="img/search.png" alt="recherche" />
-                </li>
-                <li class="button" id="shareBtn">
-                  <img src="img/share.png" alt="partage"/>
-                </li>
-              </ul>
+                  <span id="open-nav-menu-text">CARTES</span>
+                </div>
+                <div id="search">
+                  <img id="searchImage" src="img/search.png" alt="rechercher"/>
+                  <input id="lieuRech" name="lieuRech" type="text" placeholder="Rechercher un lieu, une adresse..." autocorrect="off" autocomplete="off" autocapitalize="off"/>
+                  <span id="clearSpan" class="d-none"><img id="clearSearch" src="img/effacer.png" alt="effacer"/></span>
+                  <div id="resultsRech"></div>
+                </div>
+                <div class="button" id="geolocateBtn">
+                  <img src="img/locate.png" alt="gélolocalisation" />
+                </div>
+              </div>
             </div>
 
             <div id="footer">
               <div id="logo">
                 <img src="img/logo-geoportail.svg" alt="logo GP" />
+                |
+                <a id="mentions-legales" target="_blank" href="https://www.geoportail.gouv.fr/mentions-legales" title="Mentions Légales">Mentions Légales</a>
               </div>
             </div>
 
@@ -91,30 +95,6 @@
               </div>
             </div>
 
-            <div id="share">
-              <div id="shareHeader">
-                <img class="backButton" src="img/back.png" alt="retour" />
-                <span class="titre">Partager</span>
-                <img class="closeButton" src="img/croix.png" alt="fermer" />
-              </div>
-              <div id="menuS">
-                <div class="lien">
-                  <a id="shareByMail" href="#">
-                    <div class="params">Envoyer par email</div>
-                  </a>
-                </div>
-                <div class="lien">
-                  <a id="shareByFacebook" href="#">
-                    <div class="params">Partager sur Facebook</div>
-                  </a>
-                </div>
-                <div class="lien">
-                  <a id="shareByTwitter" href="#">
-                    <div class="params">Poster sur Twitter</div>
-                  </a>
-                </div>
-              </div>
-            </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/leaflet.js"></script>
