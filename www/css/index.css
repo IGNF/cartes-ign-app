@@ -29,6 +29,11 @@
   src: url("OpenSans-ExtraBold.ttf");
 }
 
+@font-face {
+  font-family: "Open Sans";
+  src: url("OpenSans-Regular.ttf");
+}
+
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
@@ -38,7 +43,7 @@ body {
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:#146cac;
-    font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+    font-family: "Open Sans", -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
     font-size:12px;
     height:100vh;
     margin:0px;
@@ -334,6 +339,8 @@ a {
   border-bottom: solid 1px #D8DFE4;
   padding: 0.4em 0.2em;
   margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .gpGeocodeAutoCompleteProposalHighlighted {

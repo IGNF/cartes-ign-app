@@ -11,7 +11,9 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
         <meta charset="utf-8">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' wxs.ign.fr">
+
+        <!-- FIXME -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *"> -->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -98,6 +100,7 @@
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/leaflet.js"></script>
+        <script type="text/javascript" src="js/GpServices.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 
