@@ -105,6 +105,11 @@ a {
   text-decoration: none;
 }
 
+
+
+
+
+
 /* Portrait layout (default) */
 #popup {
     /* position:absolute;             position in the center of the screen */
@@ -116,11 +121,12 @@ a {
     margin: 0 auto;  /*offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
     display: none;
+    color:#146cac;
+    background-color: #EBEFF1;
 }
 
 .semibold {
   width: 83%;
-  font-size:1.7em;
   margin: 0 auto;
   font-family: 'Open Sans Semibold',Arial,sans-serif;
 }
@@ -131,28 +137,28 @@ a {
 }
 
 .bold {
-  font-size:1.7em;
   font-family: 'Open Sans Bold',Arial,sans-serif;
   margin-bottom: 1.7em;
 }
 
 #gpplogo {
-  width:75vw;
-  margin-bottom: 5vh;
+  width:75%;
 }
 
-#btnGppWeb {
+.btnGpp {
   display: inline-block;
-  color: #146cac;
-  background-color: white;
+  color: white;
+  background-color: #146cac;
   border-radius: 30px;
   padding: 10px 40px;
   font-family: 'Open Sans Extrabold',Arial,sans-serif;
   cursor: pointer;
   text-transform: uppercase;
   text-decoration: none;
-  font-size:1.7em;
 }
+
+
+
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {

@@ -174,14 +174,20 @@ function app() {
   function displayOrtho() {
     removeAllLayers();
     orthoLyr.addTo(map);
-    closeCat()
+    if (gpMarkerLayer) {
+      gpMarkerLayer.addTo(map);
+    }
+    closeCat();
   }
 
   function displayOrthoAndRoads() {
     removeAllLayers();
     orthoLyr.addTo(map);
     roadsLyr.addTo(map);
-    closeCat()
+    if (gpMarkerLayer) {
+      gpMarkerLayer.addTo(map);
+    }
+    closeCat();
   }
 
   function displayOrthoAndParcels() {
@@ -189,25 +195,37 @@ function app() {
     parcelLyr.addTo(map);
     orthoLyr.addTo(map);
     orthoLyr.setOpacity(0.5);
-    closeCat()
+    if (gpMarkerLayer) {
+      gpMarkerLayer.addTo(map);
+    }
+    closeCat();
   }
 
   function displayPlan() {
     removeAllLayers();
     planLyr.addTo(map);
-    closeCat()
+    if (gpMarkerLayer) {
+      gpMarkerLayer.addTo(map);
+    }
+    closeCat();
   }
 
   function displayCartes() {
     removeAllLayers();
     cartesLyr.addTo(map);
+    if (gpMarkerLayer) {
+      gpMarkerLayer.addTo(map);
+    }
     closeCat()
   }
 
   function displayEtatMajor() {
     removeAllLayers();
     etatmajorLyr.addTo(map);
-    closeCat()
+    if (gpMarkerLayer) {
+      gpMarkerLayer.addTo(map);
+    }
+    closeCat();
   }
 
   document.getElementById("layerEtatMajor").addEventListener('click', displayEtatMajor);
@@ -259,8 +277,7 @@ function app() {
           lat: location.position.x,
           lon: location.position.y
         };
-        goToCoords(coords);
-        map.setZoom(14);
+        goToCoords(coords, 14);
       },
       onFailure: function(error) {
         console.log("Erreur lors de l'appel à l'ancien géocodeur : ", error);
@@ -268,7 +285,7 @@ function app() {
     });
   }
 
-  function goToCoords(coords) {
+  function goToCoords(coords, zoom=map.getZoom()) {
     cleanResults();
     gpMarkerLayer = L.featureGroup().addTo(map);
     let markerLayer = L.featureGroup([L.marker(
@@ -280,7 +297,7 @@ function app() {
 
     gpMarkerLayer.addLayer(markerLayer);
 
-    map.panTo(new L.LatLng(coords.lat, coords.lon));
+    map.setView(new L.LatLng(coords.lat, coords.lon), zoom);
   }
 
 
