@@ -25,13 +25,13 @@
     <body>
         <div class="app">
             <div id="popup">
-              <img id="gpplogo" src="img/logo-geoportail.svg" />
               <div id="message">
-                  <p class="semibold">L'application Géoportail fait place à la version mobile du Géoportail.</p>
-                  <div id="inlinepaysage"><p class="semibold" id="retrouvez">Retrouvez-nous désormais sur</p>
-                  <p class="bold">geoportail.gouv.fr</p></div>
-                  <p><a class="btnGpp" href="https://www.geoportail.gouv.fr/carte">Aller sur le site</a></p>
-                  <p><a class="btnGpp" href>Compris</a></p>
+                <img id="gpplogo" src="img/logo-geoportail-bleu.svg" />
+                <p class="semibold">L'application Géoportail est une version simplifiée du site web.</p>
+                <p class="semibold">Pour accéder à toutes les données et fonctionnalités, rendez-vous sur</p>
+                <p class="bold">geoportail.gouv.fr</p>
+                <p><a class="btnGpp" href="https://www.geoportail.gouv.fr/carte">Aller sur le site</a></p>
+                <p><a class="btnGpp" id="compris">Compris</a></p>
               </div>
             </div>
 
@@ -91,6 +91,10 @@
                   <img name="cadastre" id="cadastre" class="couche floatL" src="img/couches/cadastre.jpg" alt="cadastre" /></a>
                   <div id="lcadastre" class="textCouche">Parcelles cadastrales</div>
                 </div>
+                <div class="layer" id="layerDrones">
+                  <img name="drones" id="drones" class="couche floatR" src="img/couches/restrictions-drones.jpg" alt="restrictions pour drones" /></a>
+                  <div id="ldrones" class="textCouche">Restrictions pour drones de loisir</div>
+                </div>
                 <div class="layer" id="layerEtatMajor">
                   <img name="etat-major" id="etat-major" class="couche floatR" src="img/couches/etat-major.jpg" alt="etat major" /></a>
                   <div id="letat-major" class="textCouche">Carte de l'état-major</div>
@@ -102,6 +106,8 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/leaflet.js"></script>
         <script type="text/javascript" src="js/GpServices.js"></script>
+        <script type="text/javascript" src="js/pouchdb.min.js"></script>
+        <script type="text/javascript" src="js/leaflet.tilelayer.fallback.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 

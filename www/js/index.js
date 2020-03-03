@@ -36,7 +36,7 @@ function app() {
   //Définition de la carte et des couches
   const map = new L.map('map', { zoomControl: false }).setView([47.33, 2.0], 5) ;
 
-  const orthoLyr = L.tileLayer(
+  const orthoLyr = L.tileLayer.fallback(
     "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
@@ -51,11 +51,12 @@ function app() {
     maxZoom : 19,
     maxNativeZoom : 19,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-    tileSize : 256 // les tuiles du Géooportail font 256x256px
+    tileSize : 256, // les tuiles du Géooportail font 256x256px
+    useCache: false,
     }
   );
 
-  const roadsLyr = L.tileLayer(
+  const roadsLyr = L.tileLayer.fallback(
     "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
@@ -70,11 +71,12 @@ function app() {
     maxZoom : 19,
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-    tileSize : 256 // les tuiles du Géooportail font 256x256px
+    tileSize : 256, // les tuiles du Géooportail font 256x256px
+    useCache: false,
     }
   );
 
-  const planLyr = L.tileLayer(
+  const planLyr = L.tileLayer.fallback(
     "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
@@ -89,11 +91,12 @@ function app() {
     maxZoom : 19,
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-    tileSize : 256 // les tuiles du Géooportail font 256x256px
+    tileSize : 256, // les tuiles du Géooportail font 256x256px
+    useCache: false,
     }
   );
 
-  const parcelLyr = L.tileLayer(
+  const parcelLyr = L.tileLayer.fallback(
     "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
@@ -108,11 +111,12 @@ function app() {
     maxZoom : 19,
     maxNativeZoom : 19,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-    tileSize : 256 // les tuiles du Géooportail font 256x256px
+    tileSize : 256 ,// les tuiles du Géooportail font 256x256px
+    useCache: false,
     }
   );
 
-  const etatmajorLyr = L.tileLayer(
+  const etatmajorLyr = L.tileLayer.fallback(
     "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
@@ -127,11 +131,12 @@ function app() {
     maxZoom : 19,
     maxNativeZoom : 15,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-    tileSize : 256 // les tuiles du Géooportail font 256x256px
+    tileSize : 256, // les tuiles du Géooportail font 256x256px
+    useCache: false,
     }
   );
 
-  const cartesLyr = L.tileLayer(
+  const cartesLyr = L.tileLayer.fallback(
     "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
@@ -146,7 +151,28 @@ function app() {
     maxZoom : 19,
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-    tileSize : 256 // les tuiles du Géooportail font 256x256px
+    tileSize : 256, // les tuiles du Géooportail font 256x256px
+    useCache: false,
+    }
+  );
+
+  const dronesLyr = L.tileLayer.fallback(
+    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
+    "&STYLE=normal" +
+    "&TILEMATRIXSET=PM" +
+    "&FORMAT=image/png"+
+    "&LAYER=TRANSPORTS.DRONES.RESTRICTIONS"+
+    "&TILEMATRIX={z}" +
+      "&TILEROW={y}" +
+      "&TILECOL={x}",
+    {
+    minZoom : 0,
+    maxZoom : 19,
+    maxNativeZoom : 18,
+    attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
+    tileSize : 256, // les tuiles du Géooportail font 256x256px
+    useCache: false,
     }
   );
 
@@ -228,12 +254,23 @@ function app() {
     closeCat();
   }
 
+  function displayDrones() {
+    removeAllLayers();
+    cartesLyr.addTo(map);
+    dronesLyr.addTo(map);
+    if (gpMarkerLayer) {
+      gpMarkerLayer.addTo(map);
+    }
+    closeCat();
+  }
+
   document.getElementById("layerEtatMajor").addEventListener('click', displayEtatMajor);
   document.getElementById("layerOrtho").addEventListener('click', displayOrtho);
   document.getElementById("layerRoutes").addEventListener('click', displayOrthoAndRoads);
   document.getElementById("layerCartes").addEventListener('click', displayCartes);
   document.getElementById("layerPlan").addEventListener('click', displayPlan);
   document.getElementById("layerParcels").addEventListener('click', displayOrthoAndParcels);
+  document.getElementById("layerDrones").addEventListener('click', displayDrones);
 
   // Ouverture et fermeture des menus
   function openCat() {
@@ -248,6 +285,12 @@ function app() {
   document.getElementById("catalog").getElementsByClassName("backButton")[0].addEventListener('click', closeCat);
   document.getElementById("catalogBtn").addEventListener('click', openCat);
 
+  const $popup = document.getElementById("popup");
+
+  document.getElementById("compris").addEventListener('click', e => {
+    e.preventDefault();
+    $popup.hidden = true;
+  });
 
   /* Recherche et positionnnement */
   function cleanResults() {
@@ -285,7 +328,7 @@ function app() {
     });
   }
 
-  function goToCoords(coords, zoom=map.getZoom()) {
+  function goToCoords(coords, zoom=map.getZoom(), panTo=true) {
     cleanResults();
     gpMarkerLayer = L.featureGroup().addTo(map);
     let markerLayer = L.featureGroup([L.marker(
@@ -296,16 +339,17 @@ function app() {
     )]);
 
     gpMarkerLayer.addLayer(markerLayer);
-
-    map.setView(new L.LatLng(coords.lat, coords.lon), zoom);
+    if (panTo) {
+      map.setView(new L.LatLng(coords.lat, coords.lon), zoom);
+    }
   }
 
 
   /* Autocompletion */
   let autocompletion_results = []
-  let resultDiv = document.getElementById("resultsRech");
-  let rech = document.getElementById('lieuRech');
-  let clear = document.getElementById('clearSpan');
+  let $resultDiv = document.getElementById("resultsRech");
+  let $rech = document.getElementById('lieuRech');
+  let $clear = document.getElementById('clearSpan');
 
   async function suggest() {
     controller.abort();
@@ -335,14 +379,14 @@ function app() {
   }
 
 
-  rech.addEventListener("keyup", (event) => {
+  $rech.addEventListener("keyup", (event) => {
     if (event.keyCode === 13) {
       // Cancel the default action, if needed
       event.preventDefault();
       // Trigger the button element with a click
-      resultDiv.hidden = true;
-      resultDiv.innerHTML = "";
-      rechercheEtPosition(rech.value);
+      $resultDiv.hidden = true;
+      $resultDiv.innerHTML = "";
+      rechercheEtPosition($rech.value);
     } else {
       let resultStr = "";
       suggest().then( () => {
@@ -350,8 +394,8 @@ function app() {
           for (i = 0 ; i < autocompletion_results.length; i++) {
             resultStr += "<p class='autocompresult'>" + autocompletion_results[i] + "</p>" ;
           }
-          resultDiv.innerHTML = resultStr;
-          resultDiv.hidden = false;
+          $resultDiv.innerHTML = resultStr;
+          $resultDiv.hidden = false;
         }
       });
     }
@@ -359,11 +403,11 @@ function app() {
 
   document.querySelector('body').addEventListener('click', (evt) => {
     if ( evt.target.classList.contains('autocompresult') ) {
-      rech.value = evt.target.innerHTML;
-      resultDiv.hidden = true;
-      resultDiv.innerHTML = "";
-      clear.classList.remove('d-none');
-      rechercheEtPosition(rech.value);
+      $rech.value = evt.target.innerHTML;
+      $resultDiv.hidden = true;
+      $resultDiv.innerHTML = "";
+      $clear.classList.remove('d-none');
+      rechercheEtPosition($rech.value);
     } else if (evt.target.classList.contains("leaflet-marker-icon")) {
       cleanResults();
     }
@@ -371,42 +415,65 @@ function app() {
 
   /* Clear button */
   /* Plugin to integrate in your js. By djibe, MIT license */
-  rech.addEventListener('keydown', function() {
-    if (rech.value.length > 0) {
-      clear.classList.remove('d-none');
+  $rech.addEventListener('keydown', function() {
+    if ($rech.value.length > 0) {
+      $clear.classList.remove('d-none');
     }
   });
 
-  rech.addEventListener('keydown', function() {
-    if (rech.value.length === 0) {
-      clear.classList.add('d-none');
+  $rech.addEventListener('keydown', function() {
+    if ($rech.value.length === 0) {
+      $clear.classList.add('d-none');
     }
   });
 
-  clear.addEventListener('click', function() {
-    rech.value = '';
-    resultDiv.hidden = true;
-    resultDiv.innerHTML = "";
-    clear.classList.add('d-none');
+  $clear.addEventListener('click', function() {
+    $rech.value = '';
+    $resultDiv.hidden = true;
+    $resultDiv.innerHTML = "";
+    $clear.classList.add('d-none');
   });
 
 
 
   /* Géolocalisation */
-  function getLocation() {
-    console.log("coucou");
+  let tracking_active = false;
+  let set_interval;
+  const $geolocateBtn = document.getElementById("geolocateBtn");
+
+  function trackLocation() {
     if (navigator.geolocation) {
-      console.log("je suis la");
       navigator.geolocation.getCurrentPosition((position) => {
         goToCoords({
           lat: position.coords.latitude,
           lon: position.coords.longitude
         });
       });
+      set_interval = setInterval( () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+          goToCoords({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          }, zoom=map.getZoom(), panTo=false);
+        });
+      }, 5000);
     }
   }
 
-  document.getElementById("geolocateBtn").addEventListener('click', getLocation);
+  function locationOnOff() {
+    if (!tracking_active) {
+      $geolocateBtn.getElementsByTagName("img")[0].setAttribute("src", "img/locate-on.png");
+      trackLocation();
+      tracking_active = true;
+    } else {
+      $geolocateBtn.getElementsByTagName("img")[0].setAttribute("src", "img/locate.png");
+      clearInterval(set_interval);
+      tracking_active = false;
+    }
+  }
+
+  $geolocateBtn.addEventListener('click', locationOnOff);
+
 }
 
 document.addEventListener('deviceready', () => {

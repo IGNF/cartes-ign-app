@@ -34,6 +34,10 @@
   src: url("OpenSans-Regular.ttf");
 }
 
+[hidden] {
+  display: none !important;
+}
+
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
@@ -112,28 +116,37 @@ a {
 
 /* Portrait layout (default) */
 #popup {
-    /* position:absolute;             position in the center of the screen */
-    /* top:50%; */
-    /* height:50px;                   text area height */
-    /* width:90vw;                   text area width */
-    text-align:center;
-    padding: 12.5vh 20px 20px 20px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin: 0 auto;  /*offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
-    display: none;
-    color:#146cac;
-    background-color: #EBEFF1;
+  text-align:center;
+  padding: 12.5vh 20px 20px 20px;     /* image height is 200px (bottom 20px are overlapped with text) */
+  margin: 0 auto;  /*offset vertical: half of image height and text area height */
+                                  /* offset horizontal: half of text area width */
+  display: none;
+  color:#146cac;
+  background-color: rgba(55, 55, 55, 0.4);
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  display: flex;
+  z-index: 10000;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+}
+
+#message {
+  background-color: #EBEFF1;
+  border-radius: 20px;
+  width: auto;
+  margin: 0 auto;
+  border: 2px solid #146cac;
+  padding-top: 12px;
+  max-width: 75%;
 }
 
 .semibold {
   width: 83%;
   margin: 0 auto;
   font-family: 'Open Sans Semibold',Arial,sans-serif;
-}
-
-#retrouvez {
-  width: 75%;
-  margin: 1em auto;
 }
 
 .bold {
@@ -143,6 +156,7 @@ a {
 
 #gpplogo {
   width:75%;
+  padding: 12px 0 12px 0;
 }
 
 .btnGpp {
@@ -157,39 +171,9 @@ a {
   text-decoration: none;
 }
 
-
-
-
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-  #popup {
-        background-position:left center;
-        padding: 5vh 20px 20px 20px;  /* padding-top + padding-bottom + text area = image height */
-        /* margin: 0px 0px 0px -45vw;  offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-        /* width:75vw;                   text area width */
-        display: none;
 
-  }
-
-  #gpplogo {
-    width:50vw;
-    margin-bottom: 5vh;
-  }
-
-  .bold {
-    margin-bottom: 1em
-  }
-
-  #retrouvez {
-    width: auto;
-    margin: 1em 10px 0;
-  }
-
-  #inlinepaysage {
-    display: flex;
-    justify-content: center;
-  }
 }
 
 
@@ -420,7 +404,7 @@ a {
 #catalog, #reglages, #parameters, #credits, #cookies, #share {
   background-color: #EBEFF1;
   height: 100%;
-  padding-top: 8em;
+  padding-top: 0;
   box-sizing: border-box;
 }
 
@@ -432,6 +416,9 @@ a {
   text-align: center;
   margin: 0 auto;
   max-width: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 #catalog .layer {
