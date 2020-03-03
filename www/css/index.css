@@ -495,7 +495,29 @@ a {
   left: 0;
 }
 
+#mapCenterCoords {
+  position: absolute;
+  z-index: 20000;
+  width: 43px;
+  height: 43px;
+  top: 50%;
+  left: 50%;
+  margin-left: -21px;
+  margin-top: -21px;
+}
 
+#coordsWindow{
+  position: relative;
+  top: -90px;
+  background-color: #505050aa;
+  padding: 3px;
+  width: 64px;
+  left: -11px;
+}
+
+#coordsWindow p{
+  margin: 0;
+}
 
 /* mode paysage */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {

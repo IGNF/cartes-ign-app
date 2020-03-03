@@ -440,7 +440,7 @@ function app() {
 
   /* Géolocalisation */
   let tracking_active = false;
-  let set_interval;
+  let tracking_interval;
   const $geolocateBtn = document.getElementById("geolocateBtn");
 
   function trackLocation() {
@@ -451,7 +451,7 @@ function app() {
           lon: position.coords.longitude
         });
       });
-      set_interval = setInterval( () => {
+      tracking_interval = setInterval( () => {
         navigator.geolocation.getCurrentPosition((position) => {
           goToCoords({
             lat: position.coords.latitude,
@@ -469,7 +469,7 @@ function app() {
       tracking_active = true;
     } else {
       $geolocateBtn.getElementsByTagName("img")[0].setAttribute("src", "img/locate.png");
-      clearInterval(set_interval);
+      clearInterval(tracking_interval);
       tracking_active = false;
     }
   }
@@ -477,6 +477,7 @@ function app() {
   $geolocateBtn.addEventListener('click', locationOnOff);
 
   /* Boutons en bas à droite */
+  /* Légende */
   function openLegend() {
     document.getElementById("legendPopup").classList.remove('d-none');
   }
@@ -488,6 +489,34 @@ function app() {
   document.getElementById("btnLegend").addEventListener('click', openLegend);
 
 
+  /* Coordonnées */
+  let coordinates_active = false;
+  let coordinates_interval;
+  const $btnCoords = document.getElementById("btnCoords");
+  const $mapCenterCoords = document.getElementById("mapCenterCoords");
+
+  let $centerLat = document.getElementById("centerLat");
+  let $centerLon = document.getElementById("centerLon");
+
+
+
+  function coordinatesOnOff() {
+    if (!coordinates_active) {
+      coordinates_interval = setInterval( () => {
+        $centerLat.innerHTML = map.getCenter().lat;
+        $centerLon.innerHTML = map.getCenter().lng;
+      }, 100);
+      coordinates_active = true;
+      $mapCenterCoords.classList.remove('d-none');
+    } else {
+      $mapCenterCoords.classList.add('d-none');
+      $geolocateBtn.getElementsByTagName("img")[0].setAttribute("src", "img/locate.png");
+      clearInterval(coordinates_interval);
+      coordinates_active = false;
+    }
+  }
+
+  $btnCoords.addEventListener('click', coordinatesOnOff);
 }
 
 document.addEventListener('deviceready', () => {
