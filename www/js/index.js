@@ -192,6 +192,7 @@ function app() {
   // Fonctions de changements d'affichages de couches
   function removeAllLayers() {
     orthoLyr.setOpacity(1);
+    document.getElementById("btnLegend").classList.add('d-none');
     map.eachLayer( (layer) => {
       map.removeLayer(layer);
   });
@@ -258,6 +259,7 @@ function app() {
     removeAllLayers();
     cartesLyr.addTo(map);
     dronesLyr.addTo(map);
+    document.getElementById("btnLegend").classList.remove('d-none');
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
     }
@@ -285,11 +287,11 @@ function app() {
   document.getElementById("catalog").getElementsByClassName("backButton")[0].addEventListener('click', closeCat);
   document.getElementById("catalogBtn").addEventListener('click', openCat);
 
-  const $popup = document.getElementById("popup");
+  const $startPopup = document.getElementById("startPopup");
 
   document.getElementById("compris").addEventListener('click', e => {
     e.preventDefault();
-    $popup.hidden = true;
+    $startPopup.hidden = true;
   });
 
   /* Recherche et positionnnement */
@@ -473,6 +475,18 @@ function app() {
   }
 
   $geolocateBtn.addEventListener('click', locationOnOff);
+
+  /* Boutons en bas à droite */
+  function openLegend() {
+    document.getElementById("legendPopup").classList.remove('d-none');
+  }
+  function closeLegend() {
+    document.getElementById("legendPopup").classList.add('d-none');
+  }
+
+  document.getElementById("legendContainer").getElementsByClassName("closeButton")[0].addEventListener('click', closeLegend);
+  document.getElementById("btnLegend").addEventListener('click', openLegend);
+
 
 }
 

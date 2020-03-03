@@ -76,7 +76,7 @@ a {
 }
 
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 .textCouche {
@@ -111,21 +111,18 @@ a {
 
 
 
-
-
-
-/* Portrait layout (default) */
-#popup {
+.popup {
   text-align:center;
   padding: 12.5vh 20px 20px 20px;     /* image height is 200px (bottom 20px are overlapped with text) */
   margin: 0 auto;  /*offset vertical: half of image height and text area height */
                                   /* offset horizontal: half of text area width */
-  display: none;
   color:#146cac;
   background-color: rgba(55, 55, 55, 0.4);
   width: 100vw;
   height: 100vh;
   position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   z-index: 10000;
   flex-direction: column;
@@ -141,6 +138,13 @@ a {
   border: 2px solid #146cac;
   padding-top: 12px;
   max-width: 75%;
+  max-height: 75%;
+  overflow: auto;
+}
+
+#message p {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
 }
 
 .semibold {
@@ -170,14 +174,6 @@ a {
   text-transform: uppercase;
   text-decoration: none;
 }
-
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-
-}
-
-
-
 
 
 #footer {
@@ -386,6 +382,40 @@ a {
   font-family: 'Open Sans Extrabold';
 }
 
+.btnControl {
+  background-color: #FFF;
+  color: #505050;
+  box-shadow: 0 0 5px #000;
+  width: 50px;
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 15px;
+  border: none;
+  text-align: center;
+  overflow: hidden;
+  z-index: 1000;
+  position: absolute;
+  right: 10px;
+}
+
+.btnControl img {
+  width: 30px;
+}
+
+#btnCoords {
+  bottom: 60px;
+}
+
+#btnLegend {
+  bottom: 140px;
+}
+
+#btnMeasures {
+  bottom: 100px;
+}
+
+
 /* Autres menus */
 
 #catalog {
@@ -447,6 +477,25 @@ a {
   width: 150px;
   padding-bottom: 1em;
 }
+
+#legendContainer {
+  position: relative;
+  width: 300px;
+  height: 250px;
+  background-color: white;
+  margin: 0 auto;
+  border: 2px solid #146cac;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.legendImg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+
 
 /* mode paysage */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
@@ -557,5 +606,17 @@ a {
 
   .gp-control-attribution-image {
     width: 30px;
+  }
+
+  #btnCoords {
+    bottom: 80px;
+  }
+
+  #btnLegend {
+    bottom: 160px;
+  }
+
+  #btnMeasures {
+    bottom: 120px;
   }
 }
