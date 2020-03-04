@@ -24,6 +24,9 @@ function app() {
 
   let img_path = cordova.file.applicationDirectory + 'www/img/map-center.png';
 
+  // Pour la mise en cache de tuiles (mode hors ligne) -> désactivé jusqu'à mention contraire...
+  const useCachedTiles = false;
+
   // Définition du marker
   let gpMarkerIcon = L.icon({
     iconUrl: img_path,
@@ -52,7 +55,7 @@ function app() {
     maxNativeZoom : 19,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: false,
+    useCache: useCachedTiles,
     }
   );
 
@@ -72,7 +75,7 @@ function app() {
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: false,
+    useCache: useCachedTiles,
     }
   );
 
@@ -92,7 +95,7 @@ function app() {
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: false,
+    useCache: useCachedTiles,
     }
   );
 
@@ -112,7 +115,7 @@ function app() {
     maxNativeZoom : 19,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256 ,// les tuiles du Géooportail font 256x256px
-    useCache: false,
+    useCache: useCachedTiles,
     }
   );
 
@@ -132,7 +135,7 @@ function app() {
     maxNativeZoom : 15,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: false,
+    useCache: useCachedTiles,
     }
   );
 
@@ -152,7 +155,7 @@ function app() {
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: false,
+    useCache: useCachedTiles,
     }
   );
 
@@ -172,7 +175,7 @@ function app() {
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: false,
+    useCache: useCachedTiles,
     }
   );
 
@@ -490,22 +493,50 @@ function app() {
 
 
   /* Coordonnées */
+  /* CRS */
+  proj4.defs("EPSG:2154","+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+  proj4.defs("EPSG:3857","+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs");
+  proj4.defs("EPSG:27572","+proj=lcc +lat_1=46.8 +lat_0=46.8 +lon_0=0 +k_0=0.99987742 +x_0=600000 +y_0=2200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs");
+
   let coordinates_active = false;
   let coordinates_interval;
   const $btnCoords = document.getElementById("btnCoords");
   const $mapCenterCoords = document.getElementById("mapCenterCoords");
+  let crs = 'latlng';
 
   let $centerLat = document.getElementById("centerLat");
   let $centerLon = document.getElementById("centerLon");
 
+  function getCoords() {
+    let coords = [map.getCenter().lng, map.getCenter().lat];
+    let new_coords;
+    switch (crs) {
+      case 'latlng':
+        $centerLat.innerHTML = coords[1].toFixed(6);
+        $centerLon.innerHTML = coords[0].toFixed(6);
+        break;
+      case 'merc':
+        new_coords = proj4('EPSG:3857', coords)
+        $centerX.innerHTML = new_coords[0].toFixed(1);
+        $centerY.innerHTML = new_coords[1].toFixed(1);
+        break;
+      case 'l93':
+        new_coords = proj4('EPSG:2154', coords)
+        $centerX.innerHTML = new_coords[0].toFixed(1);
+        $centerY.innerHTML = new_coords[1].toFixed(1);
+        break;
+      case 'l2e':
+        new_coords = proj4('EPSG:27572', coords)
+        $centerX.innerHTML = new_coords[0].toFixed(1);
+        $centerY.innerHTML = new_coords[1].toFixed(1);
+        break;
+    }
 
+  }
 
   function coordinatesOnOff() {
     if (!coordinates_active) {
-      coordinates_interval = setInterval( () => {
-        $centerLat.innerHTML = map.getCenter().lat;
-        $centerLon.innerHTML = map.getCenter().lng;
-      }, 100);
+      coordinates_interval = setInterval(getCoords, 100);
       coordinates_active = true;
       $mapCenterCoords.classList.remove('d-none');
     } else {

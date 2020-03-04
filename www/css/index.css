@@ -408,9 +408,10 @@ a {
 }
 
 #btnLegend {
-  bottom: 140px;
+  bottom: 100px;
 }
 
+/* TODO : décaler quand mesures implémentées */
 #btnMeasures {
   bottom: 100px;
 }
@@ -511,8 +512,8 @@ a {
   top: -90px;
   background-color: #505050aa;
   padding: 3px;
-  width: 64px;
-  left: -11px;
+  width: 100px;
+  left: -30px;
 }
 
 #coordsWindow p{
@@ -635,9 +636,10 @@ a {
   }
 
   #btnLegend {
-    bottom: 160px;
+    bottom: 120px;
   }
 
+  /* TODO : décaler quand mesures implémentées */
   #btnMeasures {
     bottom: 120px;
   }

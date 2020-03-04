@@ -57,11 +57,16 @@
             <div id="mapCenterCoords" class="d-none">
               <img src="img/map-center-blue.png" alt="centre de la carte">
               <div id= "coordsWindow">
-                <p>Lat : <span id="centerLat">...</span></p>
-                <p>Lon : <span id="centerLon">...</span></p>
+                <div id="latlngcoords">
+                  <p>Lat  : <span id="centerLat">...</span></p>
+                  <p>Lon : <span id="centerLon">...</span></p>
+                </div>
+                <div id="XYcoords" class="d-none">
+                  <p>X : <span id="centerX">...</span></p>
+                  <p>Y : <span id="centerY">...</span></p>
+                </div>
               </div>
             </div>
-
 
             <div id="header">
               <div id="main-buttons">
@@ -95,7 +100,8 @@
             <div id="btnLegend" class="btnControl d-none">
               <img src="img/legend.png" alt="légende">
             </div>
-            <div id="btnMeasures" class="btnControl">
+            <!-- TODO display one day... -->
+            <div id="btnMeasures" class="btnControl d-none">
               <img src="img/measure.png" alt="mesures">
             </div>
 
@@ -142,6 +148,7 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/leaflet.js"></script>
         <script type="text/javascript" src="js/GpServices.js"></script>
+        <script type="text/javascript" src="js/proj4.js"></script>
         <script type="text/javascript" src="js/pouchdb.min.js"></script>
         <script type="text/javascript" src="js/leaflet.tilelayer.fallback.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
