@@ -21,10 +21,17 @@
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
+
     <platform name="ios">
+        <feature name="CDVWKWebViewEngine">
+          <param name="ios-package" value="CDVWKWebViewEngine" />
+        </feature>
+        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+
         <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
           <string>Nécessite la géolocalisation pour centrer la carte sur l'utilisateur</string>
         </edit-config>
+        <preference name="WKWebViewOnly" value="true" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>

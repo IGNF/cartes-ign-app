@@ -17,6 +17,7 @@
     "cordova-browser": "^6.0.0",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-geolocation": "4.0.2",
+    "cordova-plugin-wkwebview-engine": "1.2.1",
     "leaflet": "^1.6.0"
   },
   "devDependencies": {
@@ -26,7 +27,8 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-geolocation": {},
-      "cordova-plugin-file": {}
+      "cordova-plugin-file": {},
+      "cordova-plugin-wkwebview-engine": {}
     },
     "platforms": [
       "android",

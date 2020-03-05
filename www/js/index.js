@@ -18,6 +18,16 @@
 */
 
 function app() {
+  /* Message du jour (message of the day) */
+  const $message = document.getElementById("message");
+  const motd_url = cordova.file.applicationDirectory + 'www/js/motd.json';
+  fetch(motd_url).then( response => {
+    response.json().then( data => {
+      $message.innerHTML = DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
+    } )
+  })
+
+
   // Pour l'annulation de fetch
   let controller = new AbortController();
   let signal = controller.signal;
@@ -292,10 +302,24 @@ function app() {
 
   const $startPopup = document.getElementById("startPopup");
 
-  document.getElementById("compris").addEventListener('click', e => {
-    e.preventDefault();
-    $startPopup.hidden = true;
-  });
+  /* event listeners pour élément non existants qu démarrage */
+  document.querySelector('body').addEventListener('click', (evt) => {
+    /* Résultats autocompletion */
+    if ( evt.target.classList.contains('autocompresult') ) {
+      $rech.value = evt.target.innerHTML;
+      $resultDiv.hidden = true;
+      $resultDiv.innerHTML = "";
+      $clear.classList.remove('d-none');
+      rechercheEtPosition($rech.value);
+    /* marqueur de recherche/position */
+    } else if (evt.target.classList.contains("leaflet-marker-icon")) {
+      cleanResults();
+    /* bouton "compris" du motd */
+    } else if (evt.target.id == "compris") {
+      evt.preventDefault();
+      $startPopup.hidden = true;
+    }
+  }, true);
 
   /* Recherche et positionnnement */
   function cleanResults() {
@@ -405,18 +429,6 @@ function app() {
       });
     }
   });
-
-  document.querySelector('body').addEventListener('click', (evt) => {
-    if ( evt.target.classList.contains('autocompresult') ) {
-      $rech.value = evt.target.innerHTML;
-      $resultDiv.hidden = true;
-      $resultDiv.innerHTML = "";
-      $clear.classList.remove('d-none');
-      rechercheEtPosition($rech.value);
-    } else if (evt.target.classList.contains("leaflet-marker-icon")) {
-      cleanResults();
-    }
-  }, true);
 
   /* Clear button */
   /* Plugin to integrate in your js. By djibe, MIT license */
@@ -531,7 +543,6 @@ function app() {
         $centerY.innerHTML = new_coords[1].toFixed(1);
         break;
     }
-
   }
 
   function coordinatesOnOff() {
