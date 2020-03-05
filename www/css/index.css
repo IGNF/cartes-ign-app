@@ -140,6 +140,7 @@ a {
   max-width: 75%;
   max-height: 75%;
   overflow: auto;
+  position: relative;
 }
 
 #message p {

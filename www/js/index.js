@@ -17,29 +17,43 @@
  * under the License.
 */
 
+// Pour la mise en cache de tuiles (mode hors ligne) -> désactivé jusqu'à mention contraire...
+const useCachedTiles = false;
+
 function app() {
-  /* Message du jour (message of the day) */
+
+  /* DOM elements */
+  const $startPopup = document.getElementById("startPopup");
   const $message = document.getElementById("message");
+  const $resultDiv = document.getElementById("resultsRech");
+  const $rech = document.getElementById('lieuRech');
+  const $clear = document.getElementById('clearSpan');
+  const $geolocateBtn = document.getElementById("geolocateBtn");
+  const $centerLat = document.getElementById("centerLat");
+  const $centerLon = document.getElementById("centerLon");
+  const $centerX = document.getElementById("centerX");
+  const $centerY = document.getElementById("centerY");
+  const $btnCoords = document.getElementById("btnCoords");
+  const $mapCenterCoords = document.getElementById("mapCenterCoords");
+
+  /* Message du jour (message of the day) */
   const motd_url = cordova.file.applicationDirectory + 'www/js/motd.json';
   fetch(motd_url).then( response => {
     response.json().then( data => {
-      $message.innerHTML = DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
+      $message.innerHTML += DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
+      $message.getElementsByClassName("closeButton")[0].addEventListener('click', () => { $startPopup.hidden = true; });
     } )
   })
-
 
   // Pour l'annulation de fetch
   let controller = new AbortController();
   let signal = controller.signal;
 
-  let img_path = cordova.file.applicationDirectory + 'www/img/map-center.png';
-
-  // Pour la mise en cache de tuiles (mode hors ligne) -> désactivé jusqu'à mention contraire...
-  const useCachedTiles = false;
+  let marker_img_path = cordova.file.applicationDirectory + 'www/img/map-center.png';
 
   // Définition du marker
   let gpMarkerIcon = L.icon({
-    iconUrl: img_path,
+    iconUrl: marker_img_path,
     iconSize:     [43, 43], // size of the icon
     iconAnchor:   [21, 21], // point of the icon which will correspond to marker's location
   });
@@ -279,14 +293,6 @@ function app() {
     closeCat();
   }
 
-  document.getElementById("layerEtatMajor").addEventListener('click', displayEtatMajor);
-  document.getElementById("layerOrtho").addEventListener('click', displayOrtho);
-  document.getElementById("layerRoutes").addEventListener('click', displayOrthoAndRoads);
-  document.getElementById("layerCartes").addEventListener('click', displayCartes);
-  document.getElementById("layerPlan").addEventListener('click', displayPlan);
-  document.getElementById("layerParcels").addEventListener('click', displayOrthoAndParcels);
-  document.getElementById("layerDrones").addEventListener('click', displayDrones);
-
   // Ouverture et fermeture des menus
   function openCat() {
     document.getElementById("catalog").style.width = "100vw";
@@ -295,31 +301,6 @@ function app() {
   function closeCat() {
     document.getElementById("catalog").style.width = "0";
   }
-
-  document.getElementById("catalog").getElementsByClassName("closeButton")[0].addEventListener('click', closeCat);
-  document.getElementById("catalog").getElementsByClassName("backButton")[0].addEventListener('click', closeCat);
-  document.getElementById("catalogBtn").addEventListener('click', openCat);
-
-  const $startPopup = document.getElementById("startPopup");
-
-  /* event listeners pour élément non existants qu démarrage */
-  document.querySelector('body').addEventListener('click', (evt) => {
-    /* Résultats autocompletion */
-    if ( evt.target.classList.contains('autocompresult') ) {
-      $rech.value = evt.target.innerHTML;
-      $resultDiv.hidden = true;
-      $resultDiv.innerHTML = "";
-      $clear.classList.remove('d-none');
-      rechercheEtPosition($rech.value);
-    /* marqueur de recherche/position */
-    } else if (evt.target.classList.contains("leaflet-marker-icon")) {
-      cleanResults();
-    /* bouton "compris" du motd */
-    } else if (evt.target.id == "compris") {
-      evt.preventDefault();
-      $startPopup.hidden = true;
-    }
-  }, true);
 
   /* Recherche et positionnnement */
   function cleanResults() {
@@ -376,9 +357,6 @@ function app() {
 
   /* Autocompletion */
   let autocompletion_results = []
-  let $resultDiv = document.getElementById("resultsRech");
-  let $rech = document.getElementById('lieuRech');
-  let $clear = document.getElementById('clearSpan');
 
   async function suggest() {
     controller.abort();
@@ -451,12 +429,9 @@ function app() {
     $clear.classList.add('d-none');
   });
 
-
-
   /* Géolocalisation */
   let tracking_active = false;
   let tracking_interval;
-  const $geolocateBtn = document.getElementById("geolocateBtn");
 
   function trackLocation() {
     if (navigator.geolocation) {
@@ -489,8 +464,6 @@ function app() {
     }
   }
 
-  $geolocateBtn.addEventListener('click', locationOnOff);
-
   /* Boutons en bas à droite */
   /* Légende */
   function openLegend() {
@@ -499,9 +472,6 @@ function app() {
   function closeLegend() {
     document.getElementById("legendPopup").classList.add('d-none');
   }
-
-  document.getElementById("legendContainer").getElementsByClassName("closeButton")[0].addEventListener('click', closeLegend);
-  document.getElementById("btnLegend").addEventListener('click', openLegend);
 
 
   /* Coordonnées */
@@ -512,12 +482,7 @@ function app() {
 
   let coordinates_active = false;
   let coordinates_interval;
-  const $btnCoords = document.getElementById("btnCoords");
-  const $mapCenterCoords = document.getElementById("mapCenterCoords");
   let crs = 'latlng';
-
-  let $centerLat = document.getElementById("centerLat");
-  let $centerLon = document.getElementById("centerLon");
 
   function getCoords() {
     let coords = [map.getCenter().lng, map.getCenter().lat];
@@ -558,6 +523,43 @@ function app() {
     }
   }
 
+  /* Event listeners */
+  /* event listeners pour élément non existants qu démarrage */
+  document.querySelector('body').addEventListener('click', (evt) => {
+    /* Résultats autocompletion */
+    if ( evt.target.classList.contains('autocompresult') ) {
+      $rech.value = evt.target.innerHTML;
+      $resultDiv.hidden = true;
+      $resultDiv.innerHTML = "";
+      $clear.classList.remove('d-none');
+      rechercheEtPosition($rech.value);
+    /* marqueur de recherche/position */
+    } else if (evt.target.classList.contains("leaflet-marker-icon")) {
+      cleanResults();
+    /* bouton "compris" du motd */
+    } else if (evt.target.id == "compris") {
+      evt.preventDefault();
+      $startPopup.hidden = true;
+    }
+  }, true);
+
+  /* event listeners statiques */
+  // Couches
+  document.getElementById("layerEtatMajor").addEventListener('click', displayEtatMajor);
+  document.getElementById("layerOrtho").addEventListener('click', displayOrtho);
+  document.getElementById("layerRoutes").addEventListener('click', displayOrthoAndRoads);
+  document.getElementById("layerCartes").addEventListener('click', displayCartes);
+  document.getElementById("layerPlan").addEventListener('click', displayPlan);
+  document.getElementById("layerParcels").addEventListener('click', displayOrthoAndParcels);
+  document.getElementById("layerDrones").addEventListener('click', displayDrones);
+  // Ouverture-Fermeture
+  document.getElementById("catalog").getElementsByClassName("closeButton")[0].addEventListener('click', closeCat);
+  document.getElementById("catalog").getElementsByClassName("backButton")[0].addEventListener('click', closeCat);
+  document.getElementById("catalogBtn").addEventListener('click', openCat);
+  document.getElementById("legendContainer").getElementsByClassName("closeButton")[0].addEventListener('click', closeLegend);
+  document.getElementById("btnLegend").addEventListener('click', openLegend);
+  // Boutons on-off
+  $geolocateBtn.addEventListener('click', locationOnOff);
   $btnCoords.addEventListener('click', coordinatesOnOff);
 }
 
