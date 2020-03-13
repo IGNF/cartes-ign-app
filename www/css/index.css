@@ -124,7 +124,7 @@ a {
   top: 0;
   left: 0;
   display: flex;
-  z-index: 10000;
+  z-index: 30000;
   flex-direction: column;
   justify-content: center;
   padding: 0;
