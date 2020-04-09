@@ -210,7 +210,7 @@ function app() {
   L.control.scale({
     imperial: false,
     maxWidth: 150,
-    position: "bottomright",
+    position: "bottomleft",
   }).addTo(map);
 
   // Ouverture dans un nouvel onglet pour lien leaflet
