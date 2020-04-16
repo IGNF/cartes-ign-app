@@ -295,11 +295,11 @@ function app() {
 
   // Ouverture et fermeture des menus
   function openCat() {
-    document.getElementById("catalog").style.width = "100vw";
+    document.getElementById("catalog").classList.remove('d-none');
   }
 
   function closeCat() {
-    document.getElementById("catalog").style.width = "0";
+    document.getElementById("catalog").classList.add('d-none');
   }
 
   /* Recherche et positionnnement */
@@ -553,8 +553,8 @@ function app() {
   document.getElementById("layerParcels").addEventListener('click', displayOrthoAndParcels);
   document.getElementById("layerDrones").addEventListener('click', displayDrones);
   // Ouverture-Fermeture
-  document.getElementById("catalog").getElementsByClassName("closeButton")[0].addEventListener('click', closeCat);
-  document.getElementById("catalog").getElementsByClassName("backButton")[0].addEventListener('click', closeCat);
+  // document.getElementById("catalog").getElementsByClassName("closeButton")[0].addEventListener('click', closeCat);
+  // document.getElementById("catalog").getElementsByClassName("backButton")[0].addEventListener('click', closeCat);
   document.getElementById("catalogBtn").addEventListener('click', openCat);
   document.getElementById("legendContainer").getElementsByClassName("closeButton")[0].addEventListener('click', closeLegend);
   document.getElementById("btnLegend").addEventListener('click', openLegend);

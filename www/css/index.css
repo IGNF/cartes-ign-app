@@ -281,7 +281,7 @@ a {
 }
 
 #search input {
-  color: #002A50;
+  color: #393939;
   margin: 0;
   margin-top: 5px;
   padding-bottom: 0;
@@ -323,12 +323,13 @@ a {
 
 #resultsRech {
   position: absolute;
-  color: #0B6BA7;
-  background-color: #EEF2F3;
+  color: #393939;
+  background-color: white;
   z-index: 3;
-  top: 35px;
+  top: 40px;
   left: 20px;
   width: calc(100% - 40px);
+  border-radius: 5px;
 }
 
 #resultsRech p {
@@ -337,6 +338,10 @@ a {
   margin: 0;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+#resultsRech p:last-child {
+  border-bottom: none;
 }
 
 .gpGeocodeAutoCompleteProposalHighlighted {
@@ -361,17 +366,19 @@ a {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 25px;
+  right: 15px;
 }
 
 #catalogBtn {
   background-image: url("images/layers-2x.png");
   position: absolute;
-  right: 20px;
   top: 50px;
 }
 
 #geolocateBtn {
   background-image: url("images/locate.png");
+  position: absolute;
+  bottom: 15px;
 }
 
 #menuBtn {
@@ -423,27 +430,28 @@ a {
 /* Autres menus */
 
 #catalog {
-  height: 100vh;
-  width: 0;
   z-index: 30000;
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
+  top: 50px;
+  right: 8px;
   transition: 0.5s;
   overflow: auto;
   overflow-x: hidden; /* Disable horizontal scroll */
+  width: 80%;
+  padding-top: 15px;
+  border-radius: 5px;
 }
 
 
 #catalog, #reglages, #parameters, #credits, #cookies, #share {
-  background-color: #EBEFF1;
-  height: 100%;
-  padding-top: 0;
+  background-color: white;
   box-sizing: border-box;
 }
 
 #catalog .layer img {
-  width: 120px;
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
 }
 
 #catalog #menuC {
@@ -453,12 +461,6 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-}
-
-#catalog .layer {
-  display: inline-block;
-  width: 150px;
-  padding-bottom: 1em;
 }
 
 #catHeader, #reglagesHeader, #parametersHeader, #creditsHeader, #cookiesHeader, #shareHeader {
@@ -478,8 +480,10 @@ a {
 
 #catalog .layer {
   display: inline-block;
-  width: 150px;
   padding-bottom: 1em;
+  display: inline-block;
+  padding-bottom: 1em;
+  width: 26%;
 }
 
 #legendContainer {
