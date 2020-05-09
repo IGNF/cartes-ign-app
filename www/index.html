@@ -24,6 +24,7 @@
     </head>
     <body>
         <div class="app">
+            <div id="blueBg" class="d-none"></div>
             <div class="popup" id="startPopup">
               <div id="message">
                 <img class="closeButton" src="img/croix.png" alt="fermer" />
@@ -55,16 +56,15 @@
 
             <div id="header">
               <div id="search">
-                <img id="searchImage" src="img/search.png" alt="rechercher"/>
+                <span id="searchImage" alt="rechercher"></span>
                 <input id="lieuRech" name="lieuRech" type="text" placeholder="Rechercher un lieu, une adresse..." autocorrect="off" autocomplete="off" autocapitalize="off"/>
-                <span id="clearSpan" class="d-none"><img id="clearSearch" src="img/effacer.png" alt="effacer"/></span>
+                <span id="clearSpan" class="d-none"><img id="clearSearch" src="img/effacer.png" alt="effacer"></span>
                 <div id="resultsRech"></div>
               </div>
               <div class="button" id="menuBtn">
-                <img src="img/cartes_off.png" alt="menu" />
               </div>
-              <div class="button" id="catalogBtn">
-              </div>
+            </div>
+            <div class="button" id="catalogBtn">
             </div>
 
             <div id="footer">
@@ -72,16 +72,16 @@
               </div>
             </div>
 
-            <div id="btnCoords" class="btnControl">
+            <!-- <div id="btnCoords" class="btnControl">
               <img src="img/coords.png" alt="coordonnées">
             </div>
             <div id="btnLegend" class="btnControl d-none">
               <img src="img/legend.png" alt="légende">
-            </div>
+            </div> -->
             <!-- TODO display one day... -->
-            <div id="btnMeasures" class="btnControl d-none">
+            <!-- <div id="btnMeasures" class="btnControl d-none">
               <img src="img/measure.png" alt="mesures">
-            </div>
+            </div> -->
 
             <div id="catalog" class="d-none">
 

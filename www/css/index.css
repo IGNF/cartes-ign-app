@@ -114,6 +114,13 @@ a {
 }
 
 
+#blueBg {
+  width: 100vw;
+  height: 100vh;
+  background-color: #7fb5d3;
+  z-index: 2999;
+  position: fixed;
+}
 
 .popup {
   text-align:center;
@@ -185,7 +192,6 @@ a {
   position: absolute;
   bottom: 0;
   width: 100%;
-  z-index: 3000;
 }
 
 #mentions-legales {
@@ -253,7 +259,7 @@ a {
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 2999;
+  z-index: 3000;
   height: 40px;
   display: flex;
   justify-content: center;
@@ -276,30 +282,38 @@ a {
   margin: 0;
   position: relative;
   width: 100%;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #search input {
-  color: #393939;
+  color: #4b4b4b;
   margin: 0;
-  margin-top: 5px;
+  margin-top: 10px;
   padding-bottom: 0;
   padding-top: 0;
   padding-left: 33px;
   padding-right: 33px;
   width: 100%;
-  height: 28px;
-  border: 1px solid #D6D6D6;
+  height: 35px;
+  border: 0px solid #D6D6D6;
   border-radius: 5px;
+}
+
+#search input::placeholder {
+  color: #4b4b4b;
+  opacity: 1;
 }
 
 #searchImage {
   width: 20px;
   height: 20px;
   position: absolute;
-  top: 10px;
+  top: 18px;
   margin-left: 8px;
+  background-image: url("assets/search.svg");
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 #search input.placeholder {
@@ -325,7 +339,7 @@ a {
   position: absolute;
   color: #393939;
   background-color: white;
-  z-index: 3;
+  z-index: 3000;
   top: 40px;
   left: 20px;
   width: calc(100% - 40px);
@@ -349,9 +363,8 @@ a {
 }
 
 .button {
-  background-color: #0B6BA7;
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   display: inline-block;
 }
 
@@ -365,25 +378,33 @@ a {
   border-radius: 60px;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 25px;
+  /* background-size: 25px; */
   right: 15px;
+  background-color: #0B6BA7;
+  z-index: 2998;
 }
 
 #catalogBtn {
-  background-image: url("images/layers-2x.png");
+  background-image: url("assets/layers.svg");
   position: absolute;
-  top: 50px;
+  top: 60px;
 }
 
 #geolocateBtn {
-  background-image: url("images/locate.png");
+  background-image: url("assets/localisation.svg");
   position: absolute;
   bottom: 15px;
 }
 
 #menuBtn {
+  background-image: url("assets/menu.svg");
+  background-position: center;
+  background-repeat: no-repeat;
   position: absolute;
+  top: 13px;
   right: 20px;
+  width: 28px;
+  height: 28px;
 }
 
 #open-nav-menu-text {
@@ -432,7 +453,7 @@ a {
 #catalog {
   z-index: 30000;
   position: absolute;
-  top: 50px;
+  top: 60px;
   right: 8px;
   transition: 0.5s;
   overflow: auto;

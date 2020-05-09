@@ -33,8 +33,9 @@ function app() {
   const $centerLon = document.getElementById("centerLon");
   const $centerX = document.getElementById("centerX");
   const $centerY = document.getElementById("centerY");
-  const $btnCoords = document.getElementById("btnCoords");
+  // const $btnCoords = document.getElementById("btnCoords");
   const $mapCenterCoords = document.getElementById("mapCenterCoords");
+  const $blueBg = document.getElementById("blueBg");
 
   /* Message du jour (message of the day) */
   const motd_url = cordova.file.applicationDirectory + 'www/js/motd.json';
@@ -219,7 +220,6 @@ function app() {
   // Fonctions de changements d'affichages de couches
   function removeAllLayers() {
     orthoLyr.setOpacity(1);
-    document.getElementById("btnLegend").classList.add('d-none');
     map.eachLayer( (layer) => {
       map.removeLayer(layer);
   });
@@ -308,6 +308,10 @@ function app() {
       map.removeLayer(gpMarkerLayer);
       gpMarkerLayer = null;
     }
+  }
+
+  function displayBlueBg() {
+    $blueBg.classList.remove('d-none');
   }
 
   /* FIXME later : a adapter au nouveau géocodage */
@@ -454,11 +458,12 @@ function app() {
 
   function locationOnOff() {
     if (!tracking_active) {
-      $geolocateBtn.getElementsByTagName("img")[0].setAttribute("src", "img/locate-on.png");
+      $geolocateBtn.style.backgroundImage = 'url("css/assets/location-fixed.svg")';
       trackLocation();
       tracking_active = true;
+      console.log("toto")
     } else {
-      $geolocateBtn.getElementsByTagName("img")[0].setAttribute("src", "img/locate.png");
+      $geolocateBtn.style.backgroundImage = 'url("css/assets/localisation.svg")';
       clearInterval(tracking_interval);
       tracking_active = false;
     }
@@ -533,6 +538,7 @@ function app() {
       $resultDiv.innerHTML = "";
       $clear.classList.remove('d-none');
       rechercheEtPosition($rech.value);
+      $blueBg.classList.add('d-none');
     /* marqueur de recherche/position */
     } else if (evt.target.classList.contains("leaflet-marker-icon")) {
       cleanResults();
@@ -552,15 +558,20 @@ function app() {
   document.getElementById("layerPlan").addEventListener('click', displayPlan);
   document.getElementById("layerParcels").addEventListener('click', displayOrthoAndParcels);
   document.getElementById("layerDrones").addEventListener('click', displayDrones);
+
   // Ouverture-Fermeture
   // document.getElementById("catalog").getElementsByClassName("closeButton")[0].addEventListener('click', closeCat);
   // document.getElementById("catalog").getElementsByClassName("backButton")[0].addEventListener('click', closeCat);
   document.getElementById("catalogBtn").addEventListener('click', openCat);
   document.getElementById("legendContainer").getElementsByClassName("closeButton")[0].addEventListener('click', closeLegend);
-  document.getElementById("btnLegend").addEventListener('click', openLegend);
+  // document.getElementById("btnLegend").addEventListener('click', openLegend);
+
   // Boutons on-off
   $geolocateBtn.addEventListener('click', locationOnOff);
-  $btnCoords.addEventListener('click', coordinatesOnOff);
+  // $btnCoords.addEventListener('click', coordinatesOnOff);
+
+  // Recherche
+  document.getElementById("lieuRech").addEventListener('focus', displayBlueBg);
 }
 
 document.addEventListener('deviceready', () => {
