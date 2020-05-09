@@ -27,7 +27,6 @@ function app() {
   const $message = document.getElementById("message");
   const $resultDiv = document.getElementById("resultsRech");
   const $rech = document.getElementById('lieuRech');
-  const $clear = document.getElementById('clearSpan');
   const $geolocateBtn = document.getElementById("geolocateBtn");
   const $centerLat = document.getElementById("centerLat");
   const $centerLon = document.getElementById("centerLon");
@@ -36,6 +35,8 @@ function app() {
   // const $btnCoords = document.getElementById("btnCoords");
   const $mapCenterCoords = document.getElementById("mapCenterCoords");
   const $blueBg = document.getElementById("blueBg");
+  const $closeSearch = document.getElementById("closeSearch");
+  const $menuBtn = document.getElementById("menuBtn");
 
   /* Message du jour (message of the day) */
   const motd_url = cordova.file.applicationDirectory + 'www/js/motd.json';
@@ -50,13 +51,13 @@ function app() {
   let controller = new AbortController();
   let signal = controller.signal;
 
-  let marker_img_path = cordova.file.applicationDirectory + 'www/img/map-center.png';
+  let marker_img_path = cordova.file.applicationDirectory + 'www/css/assets/position.svg';
 
   // Définition du marker
   let gpMarkerIcon = L.icon({
     iconUrl: marker_img_path,
-    iconSize:     [43, 43], // size of the icon
-    iconAnchor:   [21, 21], // point of the icon which will correspond to marker's location
+    iconSize:     [23, 23], // size of the icon
+    iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location
   });
 
   let gpMarkerLayer;
@@ -310,8 +311,24 @@ function app() {
     }
   }
 
-  function displayBlueBg() {
+  function searchScreenOn() {
+    $rech.value = "";
     $blueBg.classList.remove('d-none');
+    $menuBtn.classList.add('d-none');
+    $closeSearch.classList.remove('d-none');
+  }
+  
+  function searchScreenOff() {
+    $resultDiv.hidden = true;
+    $resultDiv.innerHTML = "";
+    $blueBg.classList.add('d-none');
+    $menuBtn.classList.remove('d-none');
+    $closeSearch.classList.add('d-none');
+  }
+
+  function closeSearchScreen() {
+    searchScreenOff();
+    $rech.value = "";
   }
 
   /* FIXME later : a adapter au nouveau géocodage */
@@ -412,26 +429,6 @@ function app() {
     }
   });
 
-  /* Clear button */
-  /* Plugin to integrate in your js. By djibe, MIT license */
-  $rech.addEventListener('keydown', function() {
-    if ($rech.value.length > 0) {
-      $clear.classList.remove('d-none');
-    }
-  });
-
-  $rech.addEventListener('keydown', function() {
-    if ($rech.value.length === 0) {
-      $clear.classList.add('d-none');
-    }
-  });
-
-  $clear.addEventListener('click', function() {
-    $rech.value = '';
-    $resultDiv.hidden = true;
-    $resultDiv.innerHTML = "";
-    $clear.classList.add('d-none');
-  });
 
   /* Géolocalisation */
   let tracking_active = false;
@@ -534,11 +531,8 @@ function app() {
     /* Résultats autocompletion */
     if ( evt.target.classList.contains('autocompresult') ) {
       $rech.value = evt.target.innerHTML;
-      $resultDiv.hidden = true;
-      $resultDiv.innerHTML = "";
-      $clear.classList.remove('d-none');
       rechercheEtPosition($rech.value);
-      $blueBg.classList.add('d-none');
+      searchScreenOff();
     /* marqueur de recherche/position */
     } else if (evt.target.classList.contains("leaflet-marker-icon")) {
       cleanResults();
@@ -560,18 +554,16 @@ function app() {
   document.getElementById("layerDrones").addEventListener('click', displayDrones);
 
   // Ouverture-Fermeture
-  // document.getElementById("catalog").getElementsByClassName("closeButton")[0].addEventListener('click', closeCat);
-  // document.getElementById("catalog").getElementsByClassName("backButton")[0].addEventListener('click', closeCat);
   document.getElementById("catalogBtn").addEventListener('click', openCat);
   document.getElementById("legendContainer").getElementsByClassName("closeButton")[0].addEventListener('click', closeLegend);
   // document.getElementById("btnLegend").addEventListener('click', openLegend);
 
   // Boutons on-off
   $geolocateBtn.addEventListener('click', locationOnOff);
-  // $btnCoords.addEventListener('click', coordinatesOnOff);
 
   // Recherche
-  document.getElementById("lieuRech").addEventListener('focus', displayBlueBg);
+  document.getElementById("lieuRech").addEventListener('focus', searchScreenOn);
+  $closeSearch.addEventListener("click", closeSearchScreen);
 }
 
 document.addEventListener('deviceready', () => {

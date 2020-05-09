@@ -127,8 +127,8 @@ a {
   padding: 12.5vh 20px 20px 20px;     /* image height is 200px (bottom 20px are overlapped with text) */
   margin: 0 auto;  /*offset vertical: half of image height and text area height */
                                   /* offset horizontal: half of text area width */
-  color:#146cac;
-  background-color: rgba(55, 55, 55, 0.4);
+  color:#0B6BA7;
+  background-color: #0B6BA799;
   width: 100vw;
   height: 100vh;
   position: absolute;
@@ -146,7 +146,7 @@ a {
   border-radius: 20px;
   width: auto;
   margin: 0 auto;
-  border: 2px solid #146cac;
+  border: 2px solid #0B6BA7;
   padding-top: 12px;
   max-width: 75%;
   max-height: 75%;
@@ -178,7 +178,7 @@ a {
 .btnGpp {
   display: inline-block;
   color: white;
-  background-color: #146cac;
+  background-color: #0B6BA7;
   border-radius: 30px;
   padding: 10px 40px;
   font-family: 'Open Sans Extrabold',Arial,sans-serif;
@@ -324,17 +324,6 @@ a {
   outline: none;
 }
 
-#clearSpan {
-  position: absolute;
-  right: 7px;
-  top: 10px;
-}
-
-#search #clearSearch {
-  width: 20px;
-  height: 20px;
-}
-
 #resultsRech {
   position: absolute;
   color: #393939;
@@ -396,8 +385,7 @@ a {
   bottom: 15px;
 }
 
-#menuBtn {
-  background-image: url("assets/menu.svg");
+#menuBtn, #closeSearch {
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
@@ -405,6 +393,14 @@ a {
   right: 20px;
   width: 28px;
   height: 28px;
+}
+
+#menuBtn {
+  background-image: url("assets/menu.svg");
+}
+
+#closeSearch {
+  background-image: url("assets/close.svg");
 }
 
 #open-nav-menu-text {
@@ -596,15 +592,6 @@ a {
   #searchImage {
     width: 24px;
     height: 24px;
-    top: 18px;
-  }
-
-  #search #clearSearch {
-    width: 24px;
-    height: 24px;
-  }
-
-  #clearSpan {
     top: 18px;
   }
 
