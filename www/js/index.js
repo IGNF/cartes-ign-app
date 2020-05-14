@@ -145,26 +145,6 @@ function app() {
     }
   );
 
-  const etatmajorLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
-    "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
-    "&STYLE=normal" +
-    "&TILEMATRIXSET=PM" +
-    "&FORMAT=image/jpeg"+
-    "&LAYER=GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40"+
-    "&TILEMATRIX={z}" +
-      "&TILEROW={y}" +
-      "&TILECOL={x}",
-    {
-    minZoom : 0,
-    maxZoom : 19,
-    maxNativeZoom : 15,
-    attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-    tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: useCachedTiles,
-    }
-  );
-
   const cartesLyr = L.tileLayer.fallback(
     "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
@@ -271,15 +251,6 @@ function app() {
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
     }
-    closeCat()
-  }
-
-  function displayEtatMajor() {
-    removeAllLayers();
-    etatmajorLyr.addTo(map);
-    if (gpMarkerLayer) {
-      gpMarkerLayer.addTo(map);
-    }
     closeCat();
   }
 
@@ -287,7 +258,6 @@ function app() {
     removeAllLayers();
     cartesLyr.addTo(map);
     dronesLyr.addTo(map);
-    document.getElementById("btnLegend").classList.remove('d-none');
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
     }
@@ -545,7 +515,6 @@ function app() {
 
   /* event listeners statiques */
   // Couches
-  document.getElementById("layerEtatMajor").addEventListener('click', displayEtatMajor);
   document.getElementById("layerOrtho").addEventListener('click', displayOrtho);
   document.getElementById("layerRoutes").addEventListener('click', displayOrthoAndRoads);
   document.getElementById("layerCartes").addEventListener('click', displayCartes);
