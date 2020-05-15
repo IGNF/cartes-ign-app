@@ -38,6 +38,9 @@ function app() {
   const $closeSearch = document.getElementById("closeSearch");
   const $menuBtn = document.getElementById("menuBtn");
 
+  /* global: back button state */
+  let backButtonState = 'default';
+
   /* Message du jour (message of the day) */
   const motd_url = cordova.file.applicationDirectory + 'www/js/motd.json';
   fetch(motd_url).then( response => {
@@ -286,6 +289,7 @@ function app() {
     $blueBg.classList.remove('d-none');
     $menuBtn.classList.add('d-none');
     $closeSearch.classList.remove('d-none');
+    backButtonState = 'search';
   }
   
   function searchScreenOff() {
@@ -294,6 +298,7 @@ function app() {
     $blueBg.classList.add('d-none');
     $menuBtn.classList.remove('d-none');
     $closeSearch.classList.add('d-none');
+    document.activeElement.blur()
   }
 
   function closeSearchScreen() {
@@ -533,6 +538,15 @@ function app() {
   // Recherche
   document.getElementById("lieuRech").addEventListener('focus', searchScreenOn);
   $closeSearch.addEventListener("click", closeSearchScreen);
+
+  // Action du backbutton
+  document.addEventListener("backbutton", onBackKeyDown, false);
+  function onBackKeyDown() {
+    // Handle the back button
+    if (backButtonState === 'search') {
+      closeSearchScreen();
+    }
+  }
 }
 
 document.addEventListener('deviceready', () => {
