@@ -143,7 +143,7 @@ a {
 
 #message {
   background-color: #EBEFF1;
-  border-radius: 20px;
+  border-radius: 5px;
   width: auto;
   margin: 0 auto;
   border: 2px solid #0B6BA7;
@@ -238,6 +238,72 @@ a {
 #map {
   height: 100vh;
 }
+
+/* Menu Burger */
+#menuItems {
+  background-color: white;
+  color: #4b4b4b;
+  bottom: 0;
+  position: absolute;
+  width: 100vw;
+  text-align: left;
+  padding-top: 15px;
+  border-radius: 5px 5px 0 0;
+  padding-bottom: 15px;
+  font-size: 15px;
+}
+
+#menuItems div, hr {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+#menuItems div {
+  display: flex;
+}
+
+#menuItems div span{
+  line-height: 34px;
+}
+
+#menuItems hr {
+  border-color: #e5e5e5;
+  border-width: 1px;
+  border-style: solid;
+}
+
+#menuItems .bigMenuItem {
+  font-family: 'Open Sans Bold';
+}
+
+.menuItemIcon {
+  width: 34px;
+  height: 34px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 5px 0 5px;
+}
+
+#menuItemLegendIcon {
+  background-image: url("assets/legend.svg");
+}
+
+
+#menuItemInfoIcon {
+  background-image: url("assets/info.svg");
+}
+
+#menuItemParamsIcon {
+  background-image: url("assets/parameters.svg");
+}
+
+#menuItemParams {
+  margin-bottom: 0;
+  margin-top: -7px;
+}
+
 
 
 /* Menus */
@@ -408,41 +474,6 @@ a {
   font-size: 8px;
   font-family: 'Open Sans Extrabold';
 }
-
-.btnControl {
-  background-color: #FFF;
-  color: #505050;
-  box-shadow: 0 0 5px #000;
-  width: 50px;
-  display: block;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 15px;
-  border: none;
-  text-align: center;
-  overflow: hidden;
-  z-index: 1000;
-  position: absolute;
-  right: 10px;
-}
-
-.btnControl img {
-  width: 30px;
-}
-
-#btnCoords {
-  bottom: 60px;
-}
-
-#btnLegend {
-  bottom: 100px;
-}
-
-/* TODO : décaler quand mesures implémentées */
-#btnMeasures {
-  bottom: 100px;
-}
-
 
 /* Autres menus */
 
