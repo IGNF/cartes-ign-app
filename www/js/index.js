@@ -37,6 +37,7 @@ function app() {
   const $blueBg = document.getElementById("blueBg");
   const $closeSearch = document.getElementById("closeSearch");
   const $menuBtn = document.getElementById("menuBtn");
+  const $menu = document.getElementById("menu");
 
   /* global: back button state */
   let backButtonState = 'default';
@@ -267,7 +268,7 @@ function app() {
     closeCat();
   }
 
-  // Ouverture et fermeture des menus
+  // Ouverture/fermeture catalogue
   function openCat() {
     document.getElementById("catalog").classList.remove('d-none');
   }
@@ -304,6 +305,16 @@ function app() {
   function closeSearchScreen() {
     searchScreenOff();
     $rech.value = "";
+  }
+
+  // Ouverture/fermeture menu burger
+  function openMenu() {
+    $menu.classList.remove('d-none');
+    backButtonState = 'mainMenu';
+  }
+
+  function closeMenu() {
+    $menu.classList.add('d-none');
   }
 
   /* FIXME later : a adapter au nouveau géocodage */
@@ -539,12 +550,18 @@ function app() {
   document.getElementById("lieuRech").addEventListener('focus', searchScreenOn);
   $closeSearch.addEventListener("click", closeSearchScreen);
 
+  // Menu burger
+  $menuBtn.addEventListener("click", openMenu)
+
   // Action du backbutton
   document.addEventListener("backbutton", onBackKeyDown, false);
   function onBackKeyDown() {
     // Handle the back button
     if (backButtonState === 'search') {
       closeSearchScreen();
+    }
+    if (backButtonState === 'mainMenu') {
+      closeMenu();
     }
   }
 }
