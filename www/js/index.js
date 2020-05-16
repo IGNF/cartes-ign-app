@@ -285,6 +285,7 @@ function app() {
     }
   }
 
+  // Ouverture/fermeture de l'écran recherche
   function searchScreenOn() {
     $rech.value = "";
     $blueBg.classList.remove('d-none');
@@ -315,6 +316,27 @@ function app() {
 
   function closeMenu() {
     $menu.classList.add('d-none');
+  }
+
+  // Ouverture/fermeture de l'écran paramètres
+  function openParamsScreen() {
+    closeMenu();
+    $rech.disabled = true;
+    $rech.placeholder = "Paramètres";
+    $rech.style.fontFamily = 'Open Sans Bold';
+    $blueBg.classList.remove('d-none');
+    $menuBtn.classList.add('d-none');
+    $closeSearch.classList.remove('d-none');
+    backButtonState = 'params';
+  }
+
+  function closeParamsScreen() {
+    $rech.disabled = false;
+    $rech.placeholder = "Rechercher un lieu, une adresse...";
+    $rech.removeAttribute('style');
+    $blueBg.classList.add('d-none');
+    $menuBtn.classList.remove('d-none');
+    $closeSearch.classList.add('d-none');
   }
 
   /* FIXME later : a adapter au nouveau géocodage */
@@ -369,7 +391,7 @@ function app() {
     controller.abort();
     controller = new AbortController();
     signal = controller.signal;
-    let location = document.getElementById("lieuRech").value;
+    let location = $rech.value;
     let url = new URL("https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/ols/apis/completion");
     let params =
         {
@@ -547,11 +569,12 @@ function app() {
   $geolocateBtn.addEventListener('click', locationOnOff);
 
   // Recherche
-  document.getElementById("lieuRech").addEventListener('focus', searchScreenOn);
-  $closeSearch.addEventListener("click", closeSearchScreen);
+  $rech.addEventListener('focus', searchScreenOn);
+  $closeSearch.addEventListener("click", onBackKeyDown);
 
   // Menu burger
-  $menuBtn.addEventListener("click", openMenu)
+  $menuBtn.addEventListener("click", openMenu);
+  document.getElementById('menuItemParams').addEventListener('click', openParamsScreen);
 
   // Action du backbutton
   document.addEventListener("backbutton", onBackKeyDown, false);
@@ -562,6 +585,9 @@ function app() {
     }
     if (backButtonState === 'mainMenu') {
       closeMenu();
+    }
+    if (backButtonState === 'params') {
+      closeParamsScreen();
     }
   }
 }
