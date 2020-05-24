@@ -38,6 +38,10 @@ function app() {
   const $closeSearch = document.getElementById("closeSearch");
   const $menuBtn = document.getElementById("menuBtn");
   const $menu = document.getElementById("menu");
+  const $searchImage = document.getElementById("searchImage");
+  const $backTopLeft = document.getElementById("backTopLeft");
+  const $parameterMenu = document.getElementById("parameterMenu");
+  const $menuContainer = document.getElementById("menuContainer");
 
   /* global: back button state */
   let backButtonState = 'default';
@@ -47,7 +51,6 @@ function app() {
   fetch(motd_url).then( response => {
     response.json().then( data => {
       $message.innerHTML += DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
-      $message.getElementsByClassName("closeButton")[0].addEventListener('click', () => { $startPopup.hidden = true; });
     } )
   })
 
@@ -301,6 +304,7 @@ function app() {
     $menuBtn.classList.remove('d-none');
     $closeSearch.classList.add('d-none');
     document.activeElement.blur()
+    backButtonState = 'default';
   }
 
   function closeSearchScreen() {
@@ -316,6 +320,7 @@ function app() {
 
   function closeMenu() {
     $menu.classList.add('d-none');
+    backButtonState = 'default';
   }
 
   // Ouverture/fermeture de l'écran paramètres
@@ -326,7 +331,11 @@ function app() {
     $rech.style.fontFamily = 'Open Sans Bold';
     $blueBg.classList.remove('d-none');
     $menuBtn.classList.add('d-none');
+    $searchImage.classList.add('d-none');
+    $backTopLeft.classList.remove('d-none');
     $closeSearch.classList.remove('d-none');
+    $parameterMenu.classList.remove('d-none');
+    $menuContainer.classList.remove('d-none');
     backButtonState = 'params';
   }
 
@@ -337,6 +346,11 @@ function app() {
     $blueBg.classList.add('d-none');
     $menuBtn.classList.remove('d-none');
     $closeSearch.classList.add('d-none');
+    $backTopLeft.classList.add('d-none');
+    $searchImage.classList.remove('d-none');
+    $parameterMenu.classList.add('d-none');
+    $menuContainer.classList.add('d-none');
+    backButtonState = 'default';
   }
 
   /* FIXME later : a adapter au nouveau géocodage */
@@ -492,11 +506,11 @@ function app() {
 
   let coordinates_active = false;
   let coordinates_interval;
-  let crs = 'latlng';
 
   function getCoords() {
     let coords = [map.getCenter().lng, map.getCenter().lat];
     let new_coords;
+    let crs = document.querySelector('input[name="coordRadio"]:checked').value;
     switch (crs) {
       case 'latlng':
         $centerLat.innerHTML = coords[1].toFixed(6);
@@ -562,6 +576,7 @@ function app() {
 
   // Ouverture-Fermeture
   document.getElementById("catalogBtn").addEventListener('click', openCat);
+  $backTopLeft.addEventListener("click", onBackKeyDown);
   document.getElementById("legendContainer").getElementsByClassName("closeButton")[0].addEventListener('click', closeLegend);
   // document.getElementById("btnLegend").addEventListener('click', openLegend);
 

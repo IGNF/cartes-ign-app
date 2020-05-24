@@ -25,9 +25,8 @@
     <body>
         <div class="app">
             <div id="blueBg" class="d-none"></div>
-            <div class="popup d-none" id="startPopup">
+            <div class="popup" id="startPopup">
               <div id="message">
-                <img class="closeButton" src="img/croix.png" alt="fermer" />
               </div>
             </div>
 
@@ -67,6 +66,7 @@
             </div>
 
             <div id="header">
+              <div class="button, d-none" id="backTopLeft"></div>
               <div id="search">
                 <span id="searchImage" alt="rechercher"></span>
                 <input id="lieuRech" name="lieuRech" type="text" placeholder="Rechercher un lieu, une adresse..." autocorrect="off" autocomplete="off" autocapitalize="off"/>
@@ -77,9 +77,22 @@
               <div class="button, d-none" id="closeSearch">
               </div>
             </div>
+
             <div class="button" id="catalogBtn">
             </div>
 
+            <div class="d-none" id="menuContainer">
+              <div class="d-none" id="parameterMenu">
+                <div id="coordType">
+                  <h3>Type de coordonnées</h3>
+                  <p><input type="radio" id="coordGeoBtn" name="coordRadio" value="latlng" checked><label for="coordGeoBtn">Géographiques</label></p>
+                  <p><input type="radio" id="coordMercBtn" name="coordRadio" value="merc"><label for="coordMercBtn">Mercator</label></p>
+                  <p><input type="radio" id="coordL93Btn" name="coordRadio" value="l93"><label for="coordL93Btn">Lambert93</label></p>
+                  <p><input type="radio" id="coordL2EBtn" name="coordRadio" value="l2e"><label for="coordL2EBtn">Lambert II étendu</label></p>
+                </div>
+              </div>
+            </div>
+            
             <div id="footer">
               <div class="button" id="geolocateBtn">
               </div>

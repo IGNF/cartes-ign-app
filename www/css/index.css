@@ -58,14 +58,6 @@ body {
     color:white;
 }
 
-.titre {
-  color: #002A50;
-  text-transform: uppercase;
-  font-family: "Open Sans Extrabold";
-  font-size: 22pt;
-  text-align: center;
-}
-
 a {
   font-family: "Open Sans Semibold";
   color: #9FE4FF;
@@ -305,6 +297,78 @@ a {
 }
 
 
+input[type=radio]{
+  /* hide original inputs */
+  visibility: hidden;
+  position: absolute;
+}
+
+input[type='radio'] + label:before {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: white;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid #0B6BA7;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+input[type='radio']:checked + label:before {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #0B6BA7;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid #0B6BA7;
+    box-shadow: inset 0 0 0 2px white;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Menu parametres */
+#menuContainer {
+  z-index: 3001;
+  height: auto;
+  top: 55px;
+  display: flex;
+  width: 100%;
+  position: absolute
+}
+
+#parameterMenu {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #4b4b4b;
+  width: 100%;
+  border: 0px solid #D6D6D6;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
+  font-size: 1.1em;
+}
+
+#parameterMenu h3 {
+  font-family: "Open Sans Semibold";
+  color: #0B6BA7;
+}
 
 /* Menus */
 .backButton {
@@ -364,6 +428,8 @@ a {
   height: 35px;
   border: 0px solid #D6D6D6;
   border-radius: 5px;
+  background-color: white;
+  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
 }
 
 #search input::placeholder {
@@ -378,6 +444,19 @@ a {
   top: 18px;
   margin-left: 8px;
   background-image: url("assets/search.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#backTopLeft {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: 3001;
+  top: 18px;
+  left: 10px;
+  margin-left: 8px;
+  background-image: url("assets/back.svg");
   background-position: center;
   background-repeat: no-repeat;
 }
