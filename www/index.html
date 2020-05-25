@@ -41,33 +41,28 @@
                 <div class="smallMenuItem" id="menuItemCookies">Cookies et statistiques</div>
               </div>
             </div>
+            
+            <div id="cartoContainer">
+              <div id="map">
+                <div id="footer">
+                  <div class="button" id="geolocateBtn">
+                </div>
+              </div></div>
 
-            <div id="map"></div>
-
-            <div class="d-none" id="infoWindow">
-              <div id=infoWindowContent>
-                <div id="infoWindowClose"></div>
-                <h3>Informations</h3>
-                <div id="infoText">
-
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin volutpat lacinia pharetra. Etiam sem augue, consequat id odio lobortis, dignissim convallis ligula. Aliquam hendrerit lorem non massa tincidunt ultricies. Donec quam tortor, consequat id mauris in, malesuada blandit tellus. Fusce rutrum, risus eu sagittis suscipit, purus erat condimentum ante, eu aliquet felis tellus vel nulla. Phasellus vel ornare nulla. Sed facilisis est feugiat, commodo lorem quis, vestibulum lectus. Duis rhoncus leo in nulla mollis, nec ornare ligula blandit. Nam posuere purus in ligula blandit convallis. Cras justo metus, lobortis eu placerat at, pharetra vel nulla.
-
-                  Etiam a sem nisl. Sed ullamcorper semper arcu, quis feugiat lorem congue posuere. Suspendisse ac purus scelerisque, posuere nunc ac, aliquet ex. Vestibulum sit amet vulputate sapien. Maecenas pellentesque at neque in vehicula. Fusce efficitur eros vitae mi elementum venenatis. Duis sapien quam, vulputate vel leo non, convallis porta mi. Vivamus et lobortis massa. Quisque malesuada ipsum vitae tincidunt consectetur.
-
-                  Phasellus dictum magna nec aliquet mollis. Morbi sollicitudin turpis egestas, scelerisque quam a, imperdiet augue. Integer malesuada gravida quam, eu rutrum mi tincidunt vitae. Curabitur arcu tellus, fringilla at vulputate vitae, posuere a nisl. Ut tempus turpis feugiat ligula finibus viverra. Vestibulum sit amet suscipit velit. Sed cursus facilisis lorem nec fringilla. Nullam venenatis mattis volutpat. Curabitur quis vulputate urna, vitae porttitor mauris.
-
-                  Etiam ut ex dictum, posuere felis sit amet, dictum ex. Maecenas id nisi et justo laoreet ornare id vitae libero. Nulla ipsum dolor, ultricies quis sollicitudin at, vehicula eget ipsum. Vivamus urna libero, accumsan a tempor vel, lobortis vitae quam. Nam et nibh ipsum. Nunc diam leo, aliquet ut sem accumsan, maximus molestie nulla. Nunc ultrices augue ac metus volutpat tristique. Nulla a egestas dui, eu facilisis lacus. Nunc in rhoncus libero, sit amet porttitor lorem. Quisque mattis risus leo, at ultrices sem elementum sit amet. Pellentesque accumsan diam sapien, nec feugiat nibh placerat non. Proin tempor dui quis dui mollis, a mattis enim placerat. Proin sed elit interdum, feugiat nunc varius, scelerisque lorem. Fusce viverra eu orci ac feugiat. Praesent vitae eros id orci iaculis commodo. Vivamus id tristique diam, in suscipit tellus.
-
-                  Vestibulum pulvinar ligula nec luctus efficitur. Sed venenatis quam sit amet ipsum imperdiet tristique. Nunc nec suscipit dolor, eu blandit leo. Nam rutrum commodo purus vel pretium. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer hendrerit risus in finibus dignissim. Cras bibendum sem dui, at sollicitudin nulla ornare ac. Morbi ut quam sit amet enim mollis porta. Donec at scelerisque elit, in luctus arcu. Ut eu velit lectus. 
+              <div class="d-none" id="infoWindow">
+                <div id=infoWindowContent>
+                  <div id="infoWindowClose"></div>
+                  <h3>Informations</h3>
+                  <div id="infoText">Prises de vues satellitaires ou aériennes des territoires.</div>
                 </div>
               </div>
-            </div>
 
-            <div class="d-none" id="legendWindow">
-              <div id=legendWindowContent>
-                <div id="legendWindowClose"></div>
-                <h3>Légende de la carte</h3>
-                <div id="legendImg"></div>
+              <div class="d-none" id="legendWindow">
+                <div id=legendWindowContent>
+                  <div id="legendWindowClose"></div>
+                  <h3>Légende de la carte</h3>
+                  <div id="legendImg"></div>
+                </div>
               </div>
             </div>
 
@@ -113,36 +108,31 @@
               </div>
             </div>
             
-            <div id="footer">
-              <div class="button" id="geolocateBtn">
-              </div>
-            </div>
-
             <div id="catalog" class="d-none">
 
               <div id="menuC">
                 <div class="layer" id="layerOrtho">
-                  <img name="photos" id="photos" class="couche floatL" src="img/couches/photos.jpg" alt="photos" /></a>
+                  <img name="photos" id="photos" class="selectedLayer" src="img/couches/photos.jpg" alt="photos" /></a>
                   <div id="lphotos" class="textCouche">Vue aérienne</div>
                 </div>
                 <div class="layer" id="layerRoutes">
-                  <img name="routes" id="routes" class="couche floatR" src="img/couches/routes.jpg" alt="routes" /></a>
+                  <img name="routes" id="routes"  src="img/couches/routes.jpg" alt="routes" /></a>
                   <div id="lroutes" class="textCouche">Routes</div>
                 </div>
                 <div class="layer" id="layerCartes">
-                  <img name="cartes" id="cartes" class="couche floatL" src="img/couches/cartes.jpg" alt="cartes" /></a>
+                  <img name="cartes" id="cartes" src="img/couches/cartes.jpg" alt="cartes" /></a>
                   <div id="lcartes" class="textCouche">Cartes</div>
                 </div>
                 <div class="layer" id="layerPlan">
-                  <img name="plan-ign" id="plan-ign" class="couche floatL" src="img/couches/plan-ign.jpg" alt="plan-ign" /></a>
+                  <img name="plan-ign" id="plan-ign" src="img/couches/plan-ign.jpg" alt="plan-ign" /></a>
                   <div id="lplan-ign" class="textCouche">Plan IGN</div>
                 </div>
                 <div class="layer" id="layerParcels">
-                  <img name="cadastre" id="cadastre" class="couche floatL" src="img/couches/cadastre.jpg" alt="cadastre" /></a>
+                  <img name="cadastre" id="cadastre" src="img/couches/cadastre.jpg" alt="cadastre" /></a>
                   <div id="lcadastre" class="textCouche">Parcelles cadastrales</div>
                 </div>
                 <div class="layer" id="layerDrones">
-                  <img name="drones" id="drones" class="couche floatR" src="img/couches/restrictions-drones.jpg" alt="restrictions pour drones" /></a>
+                  <img name="drones" id="drones"  src="img/couches/restrictions-drones.jpg" alt="restrictions pour drones" /></a>
                   <div id="ldrones" class="textCouche">Restrictions pour drones de loisir</div>
                 </div>
               </div>

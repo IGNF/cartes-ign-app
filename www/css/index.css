@@ -76,6 +76,10 @@ a {
   display: none;
 }
 
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 10px;
+}
+
 .d-none {
   display: none !important;
 }
@@ -233,7 +237,14 @@ a {
 
 /* Map */
 #map {
-  height: 100vh;
+  min-height: 50vh;
+  flex-grow: 1;
+}
+
+#cartoContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Menu Burger */
@@ -303,14 +314,15 @@ a {
 
 /* fenetres infos et legende */
 #infoWindow, #legendWindow {
-  position: absolute;
-  top: 50vh;
+  margin-top: -5px;
+  position: relative;
   background: white;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   color:#4b4b4b;
   font-size: 1.1em;
   text-align: justify;
+  z-index: 3000;
 }
 
 #infoWindowClose, #legendWindowClose {
@@ -322,12 +334,13 @@ a {
   position: absolute;
   right: 10px;
   top: 10px;
+  z-index: 3001;
 }
 
 #infoWindowContent, #legendWindowContent {
   margin-right: 20px;
   margin-left: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 /* Boutons */
@@ -609,6 +622,7 @@ input[type='radio']:checked + label:before {
   width: 75px;
   height: 75px;
   object-fit: cover;
+  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
 }
 
 #catalog #menuC {
@@ -618,6 +632,11 @@ input[type='radio']:checked + label:before {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+}
+
+.selectedLayer {
+  border: solid 5px #0B6BA7;
+  box-sizing: border-box;
 }
 
 #catHeader, #reglagesHeader, #parametersHeader, #creditsHeader, #cookiesHeader, #shareHeader {
@@ -643,22 +662,6 @@ input[type='radio']:checked + label:before {
   width: 26%;
 }
 
-#legendContainer {
-  position: relative;
-  width: 300px;
-  height: 250px;
-  background-color: white;
-  margin: 0 auto;
-  border: 2px solid #146cac;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.legendImg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
 
 #mapCenterCoords {
   position: absolute;

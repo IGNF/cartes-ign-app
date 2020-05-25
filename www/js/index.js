@@ -22,6 +22,25 @@ const useCachedTiles = false;
 
 function app() {
 
+  const informationTexts = {
+    photos: "Prises de vues satellitaires ou aériennes des territoires.",
+    routes: "Affichage du réseau routier français et européen.",
+    cartes: "Cinq types de cartes adaptées aux échelles d’affichage : cartes à grande échelle, cartes topographiques, cartes de tourisme, cartes administratives et routières, cartes à petite échelle.",
+    plan_ign: "Plan IGN permet de naviguer en France, sur tout le territoire métropolitain et une partie des DOM, à toutes les échelles.",
+    cadastre: "Limites des parcelles cadastrales issues de plans scannés et de plans numériques, de 2013 à 2018.",
+    drones: "Représentation des zones soumises à interdictions ou à restrictions pour l’usage, à titre de loisir, d’aéronefs télépilotés (ou drones), sur le territoire métropolitain.<br/><br/>Cette carte intègre partiellement les interdictions s’appuyant sur des données publiées hors de l’AIP (Aeronautical Information Publication) et ne couvre pas les interdictions temporaires. Cette carte est basée sur l’arrêté « espace » du 30 mars 2017.<br/><br/>La représentation des zones soumises à interdictions ou à restrictions n’engage pas la responsabilité des producteurs de la donnée. Le contour des agglomérations est fourni à titre purement indicatif : quelle que soit la couleur représentée, le survol d'un fleuve ou d'un parc en agglomération est interdit.<br/><br/>Consulter la carte ne dispense pas de connaitre la réglementation, de l’appliquer avec discernement et de rester prudent en toute occasion."
+  }
+
+  const legendImgs = {
+    photos: '<img src="img/couches/photos-legend.png" alt="légende photos aeriennes">',
+    routes: '<img src="img/couches/routes-legend.png" alt="légende routes">',
+    cartes: '<img src="img/couches/cartes-legend.png" alt="légende cartes">',
+    plan_ign: '<img src="img/couches/drone-legend.png" alt="légende restriction drones">',
+    cadastre: '<img src="img/couches/cadastre-legend.png" alt="légende cadastre">',
+    drones: '<img src="img/couches/drone-legend.png" alt="légende restriction drones">',
+    
+  }
+
   /* DOM elements */
   const $map = document.getElementById("map");
   const $startPopup = document.getElementById("startPopup");
@@ -45,6 +64,8 @@ function app() {
   const $altMenuContainer = document.getElementById("altMenuContainer");
   const $legendWindow = document.getElementById("legendWindow");
   const $infoWindow = document.getElementById("infoWindow");
+  const $infoText = document.getElementById("infoText");
+  const $legendImg = document.getElementById("legendImg");
 
   /* global: back button state */
   let backButtonState = 'default';
@@ -213,11 +234,17 @@ function app() {
     orthoLyr.setOpacity(1);
     map.eachLayer( (layer) => {
       map.removeLayer(layer);
-  });
+    });
+    document.querySelectorAll("#menuC img").forEach(elem => {
+      elem.classList.remove('selectedLayer');
+    });
   }
 
   function displayOrtho() {
     removeAllLayers();
+    document.getElementById("photos").classList.add("selectedLayer");
+    $infoText.innerHTML = informationTexts.photos;
+    $legendImg.innerHTML = legendImgs.photos;
     orthoLyr.addTo(map);
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
@@ -227,6 +254,9 @@ function app() {
 
   function displayOrthoAndRoads() {
     removeAllLayers();
+    document.getElementById("routes").classList.add("selectedLayer");
+    $infoText.innerHTML = informationTexts.routes;
+    $legendImg.innerHTML = legendImgs.routes;
     orthoLyr.addTo(map);
     roadsLyr.addTo(map);
     if (gpMarkerLayer) {
@@ -237,6 +267,9 @@ function app() {
 
   function displayOrthoAndParcels() {
     removeAllLayers();
+    document.getElementById("cadastre").classList.add("selectedLayer");
+    $infoText.innerHTML = informationTexts.cadastre;
+    $legendImg.innerHTML = legendImgs.cadastre;
     parcelLyr.addTo(map);
     orthoLyr.addTo(map);
     orthoLyr.setOpacity(0.5);
@@ -248,6 +281,9 @@ function app() {
 
   function displayPlan() {
     removeAllLayers();
+    document.getElementById("plan-ign").classList.add("selectedLayer");
+    $infoText.innerHTML = informationTexts.plan_ign;
+    $legendImg.innerHTML = legendImgs.plan_ign;
     planLyr.addTo(map);
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
@@ -257,6 +293,9 @@ function app() {
 
   function displayCartes() {
     removeAllLayers();
+    document.getElementById("cartes").classList.add("selectedLayer");
+    $infoText.innerHTML = informationTexts.cartes;
+    $legendImg.innerHTML = legendImgs.cartes;
     cartesLyr.addTo(map);
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
@@ -266,6 +305,9 @@ function app() {
 
   function displayDrones() {
     removeAllLayers();
+    document.getElementById("drones").classList.add("selectedLayer");
+    $infoText.innerHTML = informationTexts.drones;
+    $legendImg.innerHTML = legendImgs.drones;
     cartesLyr.addTo(map);
     dronesLyr.addTo(map);
     if (gpMarkerLayer) {
@@ -317,6 +359,8 @@ function app() {
 
   // Ouverture/fermeture menu burger
   function openMenu() {
+    closeInfos();
+    closeLegend();
     $menu.classList.remove('d-none');
     backButtonState = 'mainMenu';
   }
@@ -330,30 +374,22 @@ function app() {
   function openLegend(){
     closeMenu();
     $legendWindow.classList.remove("d-none");
-    $map.style.height = '50vh';
-    document.getElementById("footer").style.bottom = '50vh';
     backButtonState = 'legend';
   }
 
   function closeLegend(){
     $legendWindow.classList.add("d-none");
-    $map.style.height = '100vh';
-    document.getElementById("footer").style.bottom = '0';
     backButtonState = 'default';
   }
 
   function openInfos(){
     closeMenu();
     $infoWindow.classList.remove("d-none");
-    $map.style.height = '50vh';
-    document.getElementById("footer").style.bottom = '50vh';
     backButtonState = 'infos';
   }
 
   function closeInfos(){
     $infoWindow.classList.add("d-none");
-    $map.style.height = '100vh';
-    document.getElementById("footer").style.bottom = '0';
     backButtonState = 'default';
   }
 
