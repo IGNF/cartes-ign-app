@@ -35,10 +35,16 @@ function app() {
     photos: '<img src="img/couches/photos-legend.png" alt="légende photos aeriennes">',
     routes: '<img src="img/couches/routes-legend.png" alt="légende routes">',
     cartes: '<img src="img/couches/cartes-legend.png" alt="légende cartes">',
-    plan_ign: '<img src="img/couches/drone-legend.png" alt="légende restriction drones">',
+    plan_ign: '<img src="img/couches/planign-legend_0-9.png" alt="légende plan IGN">',
     cadastre: '<img src="img/couches/cadastre-legend.png" alt="légende cadastre">',
     drones: '<img src="img/couches/drone-legend.png" alt="légende restriction drones">',
-    
+  }
+
+  const planIGNLegendImgs = {
+    nine: '<img src="img/couches/planign-legend_0-9.png" alt="légende plan IGN">',
+    thirteen: '<img src="img/couches/planign-legend_10-13.png" alt="légende plan IGN">',
+    fifteen: '<img src="img/couches/planign-legend_14-15.png" alt="légende plan IGN">',
+    eighteen: '<img src="img/couches/planign-legend_16-18.png" alt="légende plan IGN">',
   }
 
   /* DOM elements */
@@ -69,6 +75,8 @@ function app() {
 
   /* global: back button state */
   let backButtonState = 'default';
+  /* global: layer display state */
+  let layerDisplayed = 'photos'; 
 
   /* Message du jour (message of the day) */
   const motd_url = cordova.file.applicationDirectory + 'www/js/motd.json';
@@ -249,6 +257,7 @@ function app() {
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
     }
+    layerDisplayed = 'photos';
     closeCat();
   }
 
@@ -262,6 +271,7 @@ function app() {
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
     }
+    layerDisplayed = 'routes';
     closeCat();
   }
 
@@ -276,6 +286,7 @@ function app() {
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
     }
+    layerDisplayed = 'cadastre';
     closeCat();
   }
 
@@ -288,6 +299,7 @@ function app() {
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
     }
+    layerDisplayed = 'plan-ign';
     closeCat();
   }
 
@@ -300,6 +312,7 @@ function app() {
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
     }
+    layerDisplayed = 'cartes';
     closeCat();
   }
 
@@ -313,6 +326,7 @@ function app() {
     if (gpMarkerLayer) {
       gpMarkerLayer.addTo(map);
     }
+    layerDisplayed = 'drones';
     closeCat();
   }
 
@@ -653,6 +667,25 @@ function app() {
 
   document.getElementById("infoWindowClose").addEventListener('click', closeInfos);
   document.getElementById("legendWindowClose").addEventListener('click', closeLegend);
+
+  // Légende en fonction du zoom
+  map.on("zoomend", () => {
+    let zoomLvl = map.getZoom();
+
+    if (zoomLvl <= 9) {
+      legendImgs.plan_ign = planIGNLegendImgs.nine;
+    } else if (zoomLvl <= 13){
+      legendImgs.plan_ign = planIGNLegendImgs.thirteen;
+    } else if (zoomLvl <= 15){
+      legendImgs.plan_ign = planIGNLegendImgs.fifteen;
+    } else {
+      legendImgs.plan_ign = planIGNLegendImgs.eighteen;
+    }
+
+    if (layerDisplayed === 'plan-ign') {
+      $legendImg.innerHTML = legendImgs.plan_ign;
+    }
+  });
 
   // Action du backbutton
   document.addEventListener("backbutton", onBackKeyDown, false);
