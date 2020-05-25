@@ -23,6 +23,7 @@ const useCachedTiles = false;
 function app() {
 
   /* DOM elements */
+  const $map = document.getElementById("map");
   const $startPopup = document.getElementById("startPopup");
   const $message = document.getElementById("message");
   const $resultDiv = document.getElementById("resultsRech");
@@ -41,7 +42,9 @@ function app() {
   const $searchImage = document.getElementById("searchImage");
   const $backTopLeft = document.getElementById("backTopLeft");
   const $parameterMenu = document.getElementById("parameterMenu");
-  const $menuContainer = document.getElementById("menuContainer");
+  const $altMenuContainer = document.getElementById("altMenuContainer");
+  const $legendWindow = document.getElementById("legendWindow");
+  const $infoWindow = document.getElementById("infoWindow");
 
   /* global: back button state */
   let backButtonState = 'default';
@@ -323,6 +326,37 @@ function app() {
     backButtonState = 'default';
   }
 
+  // Ouverture/fermeture des fentres infos et légende
+  function openLegend(){
+    closeMenu();
+    $legendWindow.classList.remove("d-none");
+    $map.style.height = '50vh';
+    document.getElementById("footer").style.bottom = '50vh';
+    backButtonState = 'legend';
+  }
+
+  function closeLegend(){
+    $legendWindow.classList.add("d-none");
+    $map.style.height = '100vh';
+    document.getElementById("footer").style.bottom = '0';
+    backButtonState = 'default';
+  }
+
+  function openInfos(){
+    closeMenu();
+    $infoWindow.classList.remove("d-none");
+    $map.style.height = '50vh';
+    document.getElementById("footer").style.bottom = '50vh';
+    backButtonState = 'infos';
+  }
+
+  function closeInfos(){
+    $infoWindow.classList.add("d-none");
+    $map.style.height = '100vh';
+    document.getElementById("footer").style.bottom = '0';
+    backButtonState = 'default';
+  }
+
   // Ouverture/fermeture de l'écran paramètres
   function openParamsScreen() {
     closeMenu();
@@ -335,7 +369,7 @@ function app() {
     $backTopLeft.classList.remove('d-none');
     $closeSearch.classList.remove('d-none');
     $parameterMenu.classList.remove('d-none');
-    $menuContainer.classList.remove('d-none');
+    $altMenuContainer.classList.remove('d-none');
     backButtonState = 'params';
   }
 
@@ -349,7 +383,7 @@ function app() {
     $backTopLeft.classList.add('d-none');
     $searchImage.classList.remove('d-none');
     $parameterMenu.classList.add('d-none');
-    $menuContainer.classList.add('d-none');
+    $altMenuContainer.classList.add('d-none');
     backButtonState = 'default';
   }
 
@@ -488,16 +522,6 @@ function app() {
     }
   }
 
-  /* Boutons en bas à droite */
-  /* Légende */
-  function openLegend() {
-    document.getElementById("legendPopup").classList.remove('d-none');
-  }
-  function closeLegend() {
-    document.getElementById("legendPopup").classList.add('d-none');
-  }
-
-
   /* Coordonnées */
   /* CRS */
   proj4.defs("EPSG:2154","+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
@@ -577,8 +601,6 @@ function app() {
   // Ouverture-Fermeture
   document.getElementById("catalogBtn").addEventListener('click', openCat);
   $backTopLeft.addEventListener("click", onBackKeyDown);
-  document.getElementById("legendContainer").getElementsByClassName("closeButton")[0].addEventListener('click', closeLegend);
-  // document.getElementById("btnLegend").addEventListener('click', openLegend);
 
   // Boutons on-off
   $geolocateBtn.addEventListener('click', locationOnOff);
@@ -590,6 +612,11 @@ function app() {
   // Menu burger
   $menuBtn.addEventListener("click", openMenu);
   document.getElementById('menuItemParams').addEventListener('click', openParamsScreen);
+  document.getElementById('menuItemLegend').addEventListener('click', openLegend);
+  document.getElementById('menuItemInfo').addEventListener('click', openInfos);
+
+  document.getElementById("infoWindowClose").addEventListener('click', closeInfos);
+  document.getElementById("legendWindowClose").addEventListener('click', closeLegend);
 
   // Action du backbutton
   document.addEventListener("backbutton", onBackKeyDown, false);
@@ -603,6 +630,12 @@ function app() {
     }
     if (backButtonState === 'params') {
       closeParamsScreen();
+    }
+    if (backButtonState === 'infos') {
+      closeInfos();
+    }
+    if (backButtonState === 'legend') {
+      closeLegend();
     }
   }
 }

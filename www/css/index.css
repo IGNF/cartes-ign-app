@@ -58,6 +58,11 @@ body {
     color:white;
 }
 
+h3 {
+  font-family: "Open Sans Semibold";
+  color: #0B6BA7;
+}
+
 a {
   font-family: "Open Sans Semibold";
   color: #9FE4FF;
@@ -296,6 +301,36 @@ a {
   margin-top: -7px;
 }
 
+/* fenetres infos et legende */
+#infoWindow, #legendWindow {
+  position: absolute;
+  top: 50vh;
+  background: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color:#4b4b4b;
+  font-size: 1.1em;
+  text-align: justify;
+}
+
+#infoWindowClose, #legendWindowClose {
+  width: 34px;
+  height: 34px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("assets/close.svg");
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#infoWindowContent, #legendWindowContent {
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 50px;
+}
+
+/* Boutons */
 
 input[type=radio]{
   /* hide original inputs */
@@ -337,7 +372,7 @@ input[type='radio']:checked + label:before {
 }
 
 /* Menu parametres */
-#menuContainer {
+#altMenuContainer {
   z-index: 3001;
   height: auto;
   top: 55px;
@@ -363,11 +398,6 @@ input[type='radio']:checked + label:before {
   background-color: white;
   box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
   font-size: 1.1em;
-}
-
-#parameterMenu h3 {
-  font-family: "Open Sans Semibold";
-  color: #0B6BA7;
 }
 
 /* Menus */
