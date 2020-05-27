@@ -34,7 +34,7 @@ function app() {
   const legendImgs = {
     photos: '<img src="img/couches/photos-legend.png" alt="légende photos aeriennes">',
     routes: '<img src="img/couches/routes-legend.png" alt="légende routes">',
-    cartes: '<img src="img/couches/cartes-legend.png" alt="légende cartes">',
+    cartes: '<img src="img/couches/cartes-legend_0-12.png" alt="légende cartes">',
     plan_ign: '<img src="img/couches/planign-legend_0-9.png" alt="légende plan IGN">',
     cadastre: '<img src="img/couches/cadastre-legend.png" alt="légende cadastre">',
     drones: '<img src="img/couches/drone-legend.png" alt="légende restriction drones">',
@@ -45,6 +45,13 @@ function app() {
     thirteen: '<img src="img/couches/planign-legend_10-13.png" alt="légende plan IGN">',
     fifteen: '<img src="img/couches/planign-legend_14-15.png" alt="légende plan IGN">',
     eighteen: '<img src="img/couches/planign-legend_16-18.png" alt="légende plan IGN">',
+  }
+
+  const carteIGNLegendImgs = {
+    twelve: '<img src="img/couches/cartes-legend_0-12.png" alt="légende cartes">',
+    forteen: '<img src="img/couches/cartes-legend_13-14.png" alt="légende cartes">',
+    sixteen: '<img src="img/couches/cartes-legend_15-16.png" alt="légende cartes">',
+    eighteen: '<img src="img/couches/cartes-legend_17-18.png" alt="légende cartes">',
   }
 
   /* DOM elements */
@@ -167,10 +174,10 @@ function app() {
   const parcelLyr = L.tileLayer.fallback(
     "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
-    "&STYLE=normal" +
+    "&STYLE=PCI%20vecteur" +
     "&TILEMATRIXSET=PM" +
     "&FORMAT=image/png"+
-    "&LAYER=CADASTRALPARCELS.PARCELS"+
+    "&LAYER=CADASTRALPARCELS.PARCELLAIRE_EXPRESS"+
     "&TILEMATRIX={z}" +
       "&TILEROW={y}" +
       "&TILECOL={x}",
@@ -564,7 +571,6 @@ function app() {
       $geolocateBtn.style.backgroundImage = 'url("css/assets/location-fixed.svg")';
       trackLocation();
       tracking_active = true;
-      console.log("toto")
     } else {
       $geolocateBtn.style.backgroundImage = 'url("css/assets/localisation.svg")';
       clearInterval(tracking_interval);
@@ -682,8 +688,20 @@ function app() {
       legendImgs.plan_ign = planIGNLegendImgs.eighteen;
     }
 
+    if (zoomLvl <= 12) {
+      legendImgs.cartes = carteIGNLegendImgs.twelve;
+    } else if (zoomLvl <= 14){
+      legendImgs.cartes = carteIGNLegendImgs.forteen;
+    } else if (zoomLvl <= 16){
+      legendImgs.cartes = carteIGNLegendImgs.sixteen;
+    } else {
+      legendImgs.cartes = carteIGNLegendImgs.eighteen;
+    }
+
     if (layerDisplayed === 'plan-ign') {
       $legendImg.innerHTML = legendImgs.plan_ign;
+    } else if (layerDisplayed === 'cartes') {
+      $legendImg.innerHTML = legendImgs.cartes;
     }
   });
 
