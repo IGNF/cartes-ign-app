@@ -1,3 +1,3 @@
 {
- "motd": "<p class='semibold'>L'application Géoportail est une version simplifiée du site web.</p>\n<p class='semibold'>Pour accéder à toutes les données et fonctionnalités, rendez-vous sur</p>\n<p class='bold'>geoportail.gouv.fr</p>\n<p>\n  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam erat purus, eu vehicula nunc placerat id. Ut dictum mauris consequat est consequat suscipit.  </p>\n<p><a class='btnGpp' href='https://www.geoportail.gouv.fr/carte'>Aller sur le site</a></p>\n<p><a class='btnGpp' id='compris'>Compris</a></p>"
+ "motd": "<p class='msgTitle'>Géoportail app, l'application officielle du Géoportail !</p>\n<p class='msgRegular'>Accédez facilement et rapidement aux cartes essentielles depuis votre mobile.</p>\n<p class='msgRegular'>Pour plus de cartes et d'outils, et pour aller plus loin, consultez le site Géoportail et les services en ligne proposés par l'IGN. <span class='msgGreen'>+ d'infos</span></p>"
 }

@@ -84,11 +84,11 @@ function app() {
   fetch(motd_url).then( response => {
     response.json().then( data => {
       $message.innerHTML += DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
+    }).then( () => {
+      if($message.innerHTML == '') {
+        $startPopup.classList.add('d-none');
+      }
     });
-  }).then( () => {
-    if($message.innerHTML == '') {
-      $startPopup.classList.add('d-none');
-    }
   }).catch( () => {
     $startPopup.classList.add('d-none');
   });

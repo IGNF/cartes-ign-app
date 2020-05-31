@@ -58,6 +58,11 @@ body {
     color:white;
 }
 
+h2 {
+  font-family: "Open Sans Semibold";
+  color: #0B6BA7;
+}
+
 h3 {
   font-family: "Open Sans Semibold";
   color: #0B6BA7;
@@ -123,12 +128,15 @@ a {
   position: fixed;
 }
 
+.centered {
+  text-align: center;
+}
+
 .popup {
-  text-align:center;
+  text-align: left;
   padding: 12.5vh 20px 20px 20px;     /* image height is 200px (bottom 20px are overlapped with text) */
   margin: 0 auto;  /*offset vertical: half of image height and text area height */
                                   /* offset horizontal: half of text area width */
-  color:#0B6BA7;
   background-color: #0B6BA799;
   width: 100vw;
   height: 100vh;
@@ -142,34 +150,56 @@ a {
   padding: 0;
 }
 
-#message {
-  background-color: #EBEFF1;
+#messageContainer {
+  background-color: white;
   border-radius: 5px;
   width: auto;
   margin: 0 auto;
-  border: 2px solid #0B6BA7;
   padding-top: 12px;
-  max-width: 75%;
+  max-width: 90%;
   max-height: 75%;
   overflow: auto;
   position: relative;
   font-family: 'Open Sans';
+  color: #4b4b4b;
+  font-size: 1.25em;
+  padding-bottom: 1.5em;
 }
 
-#message p {
+#nePlusAff {
   padding-left: 1.5em;
   padding-right: 1.5em;
 }
 
-.semibold {
-  width: 83%;
-  margin: 0 auto;
-  font-family: 'Open Sans Semibold',Arial,sans-serif;
+#chkNePlusAff {
+  margin: 0 5px 0 0;
 }
 
-.bold {
+#messageContainer div {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+.msgTitle {
+  color: #0B6BA7;
   font-family: 'Open Sans Bold',Arial,sans-serif;
-  margin-bottom: 1.7em;
+  font-size: 1.3em;
+  margin-top: 0.2em;
+}
+
+.msgRegular {
+  font-family: 'Open Sans',Arial,sans-serif;
+}
+
+.msgGreen {
+  font-family: 'Open Sans Bold',Arial,sans-serif;
+  color: #00ae90;
+}
+
+#nePlusAff {
+  margin: 2em 0 2em 0;
+  font-family: 'Open Sans Bold';
+  font-size: 0.88em;
 }
 
 #gpplogo {
@@ -255,7 +285,6 @@ a {
   bottom: 0;
   position: absolute;
   width: 100vw;
-  text-align: left;
   padding-top: 15px;
   border-radius: 5px 5px 0 0;
   padding-bottom: 15px;
