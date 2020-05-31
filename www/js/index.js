@@ -35,17 +35,17 @@ function app() {
     photos: '<img src="img/couches/photos-legend.png" alt="légende photos aeriennes">',
     routes: '<img src="img/couches/routes-legend.png" alt="légende routes">',
     cartes: '<img src="img/couches/cartes-legend_0-12.png" alt="légende cartes">',
-    plan_ign: '<img src="img/couches/planign-legend_0-9.png" alt="légende plan IGN">',
+    plan_ign: '<img src="img/couches/planign-legend.png" alt="légende plan IGN">',
     cadastre: '<img src="img/couches/cadastre-legend.png" alt="légende cadastre">',
     drones: '<img src="img/couches/drone-legend.png" alt="légende restriction drones">',
   }
 
-  const planIGNLegendImgs = {
-    nine: '<img src="img/couches/planign-legend_0-9.png" alt="légende plan IGN">',
-    thirteen: '<img src="img/couches/planign-legend_10-13.png" alt="légende plan IGN">',
-    fifteen: '<img src="img/couches/planign-legend_14-15.png" alt="légende plan IGN">',
-    eighteen: '<img src="img/couches/planign-legend_16-18.png" alt="légende plan IGN">',
-  }
+  // const planIGNLegendImgs = {
+  //   nine: '<img src="img/couches/planign-legend_0-9.png" alt="légende plan IGN">',
+  //   thirteen: '<img src="img/couches/planign-legend_10-13.png" alt="légende plan IGN">',
+  //   fifteen: '<img src="img/couches/planign-legend_14-15.png" alt="légende plan IGN">',
+  //   eighteen: '<img src="img/couches/planign-legend_16-18.png" alt="légende plan IGN">',
+  // }
 
   const carteIGNLegendImgs = {
     twelve: '<img src="img/couches/cartes-legend_0-12.png" alt="légende cartes">',
@@ -61,12 +61,6 @@ function app() {
   const $resultDiv = document.getElementById("resultsRech");
   const $rech = document.getElementById('lieuRech');
   const $geolocateBtn = document.getElementById("geolocateBtn");
-  const $centerLat = document.getElementById("centerLat");
-  const $centerLon = document.getElementById("centerLon");
-  const $centerX = document.getElementById("centerX");
-  const $centerY = document.getElementById("centerY");
-  // const $btnCoords = document.getElementById("btnCoords");
-  const $mapCenterCoords = document.getElementById("mapCenterCoords");
   const $blueBg = document.getElementById("blueBg");
   const $closeSearch = document.getElementById("closeSearch");
   const $menuBtn = document.getElementById("menuBtn");
@@ -90,8 +84,14 @@ function app() {
   fetch(motd_url).then( response => {
     response.json().then( data => {
       $message.innerHTML += DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
-    } )
-  })
+    });
+  }).then( () => {
+    if($message.innerHTML == '') {
+      $startPopup.classList.add('d-none');
+    }
+  }).catch( () => {
+    $startPopup.classList.add('d-none');
+  });
 
   // Pour l'annulation de fetch
   let controller = new AbortController();
@@ -156,8 +156,8 @@ function app() {
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
-    "&FORMAT=image/jpeg"+
-    "&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN"+
+    "&FORMAT=image/png"+
+    "&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2"+
     "&TILEMATRIX={z}" +
       "&TILEROW={y}" +
       "&TILECOL={x}",
@@ -356,6 +356,7 @@ function app() {
 
   // Ouverture/fermeture de l'écran recherche
   function searchScreenOn() {
+    closeCat();
     $rech.value = "";
     $blueBg.classList.remove('d-none');
     $menuBtn.classList.add('d-none');
@@ -382,6 +383,7 @@ function app() {
   function openMenu() {
     closeInfos();
     closeLegend();
+    closeCat();
     $menu.classList.remove('d-none');
     backButtonState = 'mainMenu';
   }
@@ -443,6 +445,18 @@ function app() {
     $altMenuContainer.classList.add('d-none');
     backButtonState = 'default';
   }
+
+
+  // Ouverture de la popu coordonnées
+  function openCoords (latlng) {
+    let coords = [latlng.lng, latlng.lat];
+    let convertedCoords = convertCoords(coords); 
+    L.popup()
+    .setLatLng(latlng)
+    .setContent(convertedCoords[0] + ", " + convertedCoords[1])
+    .openOn(map);
+  }
+
 
   /* FIXME later : a adapter au nouveau géocodage */
   function rechercheEtPosition(text) {
@@ -584,46 +598,36 @@ function app() {
   proj4.defs("EPSG:3857","+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs");
   proj4.defs("EPSG:27572","+proj=lcc +lat_1=46.8 +lat_0=46.8 +lon_0=0 +k_0=0.99987742 +x_0=600000 +y_0=2200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs");
 
-  let coordinates_active = false;
-  let coordinates_interval;
-
-  function getCoords() {
-    let coords = [map.getCenter().lng, map.getCenter().lat];
+  function convertCoords(coords) {
+    /**
+     * Returns [lat, lng] if geographic, [x, y] otherwise
+     */
+    let X;
+    let Y;
+    let lat;
+    let lng;
     let new_coords;
     let crs = document.querySelector('input[name="coordRadio"]:checked').value;
     switch (crs) {
       case 'latlng':
-        $centerLat.innerHTML = coords[1].toFixed(6);
-        $centerLon.innerHTML = coords[0].toFixed(6);
-        break;
+        lat = coords[1].toFixed(6);
+        lng = coords[0].toFixed(6);
+        return [lat, lng];
       case 'merc':
         new_coords = proj4('EPSG:3857', coords)
-        $centerX.innerHTML = new_coords[0].toFixed(1);
-        $centerY.innerHTML = new_coords[1].toFixed(1);
-        break;
+        X = new_coords[0].toFixed(1);
+        Y = new_coords[1].toFixed(1);
+        return [X, Y];
       case 'l93':
         new_coords = proj4('EPSG:2154', coords)
-        $centerX.innerHTML = new_coords[0].toFixed(1);
-        $centerY.innerHTML = new_coords[1].toFixed(1);
-        break;
+        X = new_coords[0].toFixed(1);
+        Y = new_coords[1].toFixed(1);
+        return [X, Y];
       case 'l2e':
         new_coords = proj4('EPSG:27572', coords)
-        $centerX.innerHTML = new_coords[0].toFixed(1);
-        $centerY.innerHTML = new_coords[1].toFixed(1);
-        break;
-    }
-  }
-
-  function coordinatesOnOff() {
-    if (!coordinates_active) {
-      coordinates_interval = setInterval(getCoords, 100);
-      coordinates_active = true;
-      $mapCenterCoords.classList.remove('d-none');
-    } else {
-      $mapCenterCoords.classList.add('d-none');
-      $geolocateBtn.getElementsByTagName("img")[0].setAttribute("src", "img/locate.png");
-      clearInterval(coordinates_interval);
-      coordinates_active = false;
+        X = new_coords[0].toFixed(1);
+        Y = new_coords[1].toFixed(1);
+        return [X, Y];
     }
   }
 
@@ -678,15 +682,15 @@ function app() {
   map.on("zoomend", () => {
     let zoomLvl = map.getZoom();
 
-    if (zoomLvl <= 9) {
-      legendImgs.plan_ign = planIGNLegendImgs.nine;
-    } else if (zoomLvl <= 13){
-      legendImgs.plan_ign = planIGNLegendImgs.thirteen;
-    } else if (zoomLvl <= 15){
-      legendImgs.plan_ign = planIGNLegendImgs.fifteen;
-    } else {
-      legendImgs.plan_ign = planIGNLegendImgs.eighteen;
-    }
+    // if (zoomLvl <= 9) {
+    //   legendImgs.plan_ign = planIGNLegendImgs.nine;
+    // } else if (zoomLvl <= 13){
+    //   legendImgs.plan_ign = planIGNLegendImgs.thirteen;
+    // } else if (zoomLvl <= 15){
+    //   legendImgs.plan_ign = planIGNLegendImgs.fifteen;
+    // } else {
+    //   legendImgs.plan_ign = planIGNLegendImgs.eighteen;
+    // }
 
     if (zoomLvl <= 12) {
       legendImgs.cartes = carteIGNLegendImgs.twelve;
@@ -704,6 +708,12 @@ function app() {
       $legendImg.innerHTML = legendImgs.cartes;
     }
   });
+
+  // Event coordonnées
+  map.on('contextmenu', (event) => {
+    let latlng = map.mouseEventToLatLng(event.originalEvent);
+    openCoords(latlng);
+  })
 
   // Action du backbutton
   document.addEventListener("backbutton", onBackKeyDown, false);

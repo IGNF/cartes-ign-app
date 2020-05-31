@@ -47,7 +47,7 @@ body {
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:#146cac;
-    font-family: "Open Sans", -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+    font-family: "Open Sans Bold", -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
     font-size:12px;
     height:100vh;
     margin:0px;
@@ -153,6 +153,7 @@ a {
   max-height: 75%;
   overflow: auto;
   position: relative;
+  font-family: 'Open Sans';
 }
 
 #message p {
@@ -310,6 +311,10 @@ a {
 #menuItemParams {
   margin-bottom: 0;
   margin-top: -7px;
+}
+
+.smallMenuItem {
+  font-family: 'Open Sans';
 }
 
 /* fenetres infos et legende */
@@ -473,6 +478,7 @@ input[type='radio']:checked + label:before {
   border-radius: 5px;
   background-color: white;
   box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
+  font-family: 'Open Sans Bold';
 }
 
 #search input::placeholder {
