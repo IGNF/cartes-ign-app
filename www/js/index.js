@@ -68,6 +68,9 @@ function app() {
   const $searchImage = document.getElementById("searchImage");
   const $backTopLeft = document.getElementById("backTopLeft");
   const $parameterMenu = document.getElementById("parameterMenu");
+  const $legalMenu = document.getElementById("legalMenu");
+  const $privacyMenu = document.getElementById("privacyMenu");
+  const $plusLoinMenu = document.getElementById("plusLoinMenu");
   const $altMenuContainer = document.getElementById("altMenuContainer");
   const $legendWindow = document.getElementById("legendWindow");
   const $infoWindow = document.getElementById("infoWindow");
@@ -441,23 +444,20 @@ function app() {
     backButtonState = 'default';
   }
 
-  // Ouverture/fermeture de l'écran paramètres
-  function openParamsScreen() {
+  // Ouverture/fermeture des écrans atlernatifs
+  function altScreenOn() {
     closeMenu();
     $rech.disabled = true;
-    $rech.placeholder = "Paramètres";
     $rech.style.fontFamily = 'Open Sans Bold';
     $blueBg.classList.remove('d-none');
     $menuBtn.classList.add('d-none');
     $searchImage.classList.add('d-none');
     $backTopLeft.classList.remove('d-none');
     $closeSearch.classList.remove('d-none');
-    $parameterMenu.classList.remove('d-none');
     $altMenuContainer.classList.remove('d-none');
-    backButtonState = 'params';
   }
 
-  function closeParamsScreen() {
+  function altScreenOff() {
     $rech.disabled = false;
     $rech.placeholder = "Rechercher un lieu, une adresse...";
     $rech.removeAttribute('style');
@@ -468,6 +468,57 @@ function app() {
     $searchImage.classList.remove('d-none');
     $parameterMenu.classList.add('d-none');
     $altMenuContainer.classList.add('d-none');
+  }
+
+  // Ouverture/fermeture de l'écran paramètres
+  function openParamsScreen() {
+    altScreenOn();
+    $parameterMenu.classList.remove('d-none');
+    backButtonState = 'params';
+  }
+
+  function closeParamsScreen() {
+    altScreenOff();
+    $parameterMenu.classList.add('d-none');
+    backButtonState = 'default';
+  }
+
+  // Ouverture/fermeture de l'écran mentions légales
+  function openLegalScreen() {
+    altScreenOn();
+    $legalMenu.classList.remove('d-none');
+    backButtonState = 'legal';
+  }
+
+  function closeLegalScreen(){
+    altScreenOff();
+    $legalMenu.classList.add('d-none');
+    backButtonState = 'default';
+  }
+
+  // Ouverture/fermeture de l'écran vie privée
+  function openPrivacyScreen() {
+    altScreenOn();
+    $privacyMenu.classList.remove('d-none');
+    backButtonState = 'privacy';
+  }
+
+  function closePrivacyScreen(){
+    altScreenOff();
+    $privacyMenu.classList.add('d-none');
+    backButtonState = 'default';
+  }
+
+  // Ouverture/fermeture de l'écran aller plus loin
+  function openPlusLoinScreen() {
+    altScreenOn();
+    $plusLoinMenu.classList.remove('d-none');
+    backButtonState = 'plusLoin';
+  }
+
+  function closePlusLoinScreen(){
+    altScreenOff();
+    $plusLoinMenu.classList.add('d-none');
     backButtonState = 'default';
   }
 
@@ -671,6 +722,10 @@ function app() {
     /* marqueur de recherche/position */
     } else if (evt.target.classList.contains("leaflet-marker-icon")) {
       cleanResults();
+    /* pour aller + loin du message d'accueil */
+    } else if (evt.target.classList.contains("msgGreen")) {
+      $startPopup.hidden = true;
+      openPlusLoinScreen();
     }
   }, true);
 
@@ -698,14 +753,19 @@ function app() {
 
   // Menu burger
   $menuBtn.addEventListener("click", openMenu);
+
   $menu.addEventListener('click', (evt) => {
     if (evt.target.id === 'menu') {
       closeMenu();
     }
   });
+
   document.getElementById('menuItemParams').addEventListener('click', openParamsScreen);
   document.getElementById('menuItemLegend').addEventListener('click', openLegend);
   document.getElementById('menuItemInfo').addEventListener('click', openInfos);
+  document.getElementById('menuItemPlusLoin').addEventListener('click', openPlusLoinScreen);
+  document.getElementById('menuItemLegal').addEventListener('click', openLegalScreen);
+  document.getElementById('menuItemPrivacy').addEventListener('click', openPrivacyScreen);
 
   document.getElementById("infoWindowClose").addEventListener('click', closeInfos);
   document.getElementById("legendWindowClose").addEventListener('click', closeLegend);
@@ -759,6 +819,15 @@ function app() {
     }
     if (backButtonState === 'params') {
       closeParamsScreen();
+    }
+    if (backButtonState === 'legal') {
+      closeLegalScreen();
+    }
+    if (backButtonState === 'privacy') {
+      closePrivacyScreen();
+    }
+    if (backButtonState === 'plusLoin') {
+      closePlusLoinScreen();
     }
     if (backButtonState === 'infos') {
       closeInfos();

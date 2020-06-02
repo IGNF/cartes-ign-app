@@ -346,6 +346,14 @@ a {
   font-family: 'Open Sans';
 }
 
+#menuItemPlusLoin {
+  background-color: #00ae90;
+  color: white;
+  border-radius: 5px;
+  padding: 13px 0 13px 20px;
+  margin-top: 30px;
+}
+
 /* fenetres infos et legende */
 #infoWindow, #legendWindow {
   margin-top: -5px;
