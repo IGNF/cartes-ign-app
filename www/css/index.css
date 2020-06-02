@@ -436,7 +436,7 @@ input[type='radio']:checked + label:before {
   position: absolute
 }
 
-#parameterMenu {
+.altMenu {
   display: flex;
   padding: 0;
   margin: 0;
@@ -444,15 +444,24 @@ input[type='radio']:checked + label:before {
   width: 100%;
   margin-left: 10px;
   margin-right: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
   color: #4b4b4b;
   width: 100%;
+  font-size: 1.1em;
+  flex-direction: column;
+}
+
+.altMenu div {
   border: 0px solid #D6D6D6;
   border-radius: 5px;
   background-color: white;
   box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
-  font-size: 1.1em;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+#legalMenu, #privacyMenu, #plusLoinMenu {
+  font-family: 'Open Sans';
 }
 
 /* Menus */
