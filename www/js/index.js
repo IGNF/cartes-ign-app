@@ -73,11 +73,21 @@ function app() {
   const $infoWindow = document.getElementById("infoWindow");
   const $infoText = document.getElementById("infoText");
   const $legendImg = document.getElementById("legendImg");
+  const $chkNePlusAff = document.getElementById("chkNePlusAff");
 
   /* global: back button state */
   let backButtonState = 'default';
   /* global: layer display state */
   let layerDisplayed = 'photos'; 
+
+  /* Check du timestamp "ne plus afficher ce message". Si + d'1 semaine : suppression */
+  if (localStorage.getItem("nePasAfficherPopup")) {
+    let localNePlusAff = JSON.parse(localStorage.getItem("nePasAfficherPopup"));
+    let now = new Date().getTime();
+    if (now - localNePlusAff.timestamp > 604800000) {
+      localStorage.removeItem("nePasAfficherPopup");
+    }
+  }
 
   /* Message du jour (message of the day) */
   const motd_url = cordova.file.applicationDirectory + 'www/js/motd.json';
@@ -92,6 +102,10 @@ function app() {
   }).catch( () => {
     $startPopup.classList.add('d-none');
   });
+
+  if (localStorage.getItem("nePasAfficherPopup")) {
+    $startPopup.classList.add('d-none');
+  }
 
   // Pour l'annulation de fetch
   let controller = new AbortController();
@@ -337,9 +351,20 @@ function app() {
     closeCat();
   }
 
+
+  // Fermeture popup démarrage
+  function startPopupValidation() {
+    $startPopup.hidden = true;
+    if ($chkNePlusAff.checked) {
+      let nePlusAfficherLocal = {value: true, timestamp: new Date().getTime()};
+      localStorage.setItem("nePasAfficherPopup", JSON.stringify(nePlusAfficherLocal));
+    }
+  }
+
   // Ouverture/fermeture catalogue
   function openCat() {
     document.getElementById("catalog").classList.remove('d-none');
+    backButtonState = 'catalog';
   }
 
   function closeCat() {
@@ -447,7 +472,7 @@ function app() {
   }
 
 
-  // Ouverture de la popu coordonnées
+  // Ouverture de la popup coordonnées
   function openCoords (latlng) {
     let coords = [latlng.lng, latlng.lat];
     let convertedCoords = convertCoords(coords); 
@@ -632,8 +657,12 @@ function app() {
   }
 
   /* Event listeners */
-  /* event listeners pour élément non existants qu démarrage */
+  /* event listeners pour élément non existants au démarrage */
   document.querySelector('body').addEventListener('click', (evt) => {
+    /* fermeture catalogue */
+    if ( evt.target.id !== 'catalog') {
+      closeCat();
+    }
     /* Résultats autocompletion */
     if ( evt.target.classList.contains('autocompresult') ) {
       $rech.value = evt.target.innerHTML;
@@ -642,10 +671,6 @@ function app() {
     /* marqueur de recherche/position */
     } else if (evt.target.classList.contains("leaflet-marker-icon")) {
       cleanResults();
-    /* bouton "compris" du motd */
-    } else if (evt.target.id == "compris") {
-      evt.preventDefault();
-      $startPopup.hidden = true;
     }
   }, true);
 
@@ -657,6 +682,8 @@ function app() {
   document.getElementById("layerPlan").addEventListener('click', displayPlan);
   document.getElementById("layerParcels").addEventListener('click', displayOrthoAndParcels);
   document.getElementById("layerDrones").addEventListener('click', displayDrones);
+
+  document.getElementById("compris").addEventListener('click', startPopupValidation);
 
   // Ouverture-Fermeture
   document.getElementById("catalogBtn").addEventListener('click', openCat);
@@ -671,6 +698,11 @@ function app() {
 
   // Menu burger
   $menuBtn.addEventListener("click", openMenu);
+  $menu.addEventListener('click', (evt) => {
+    if (evt.target.id === 'menu') {
+      closeMenu();
+    }
+  });
   document.getElementById('menuItemParams').addEventListener('click', openParamsScreen);
   document.getElementById('menuItemLegend').addEventListener('click', openLegend);
   document.getElementById('menuItemInfo').addEventListener('click', openInfos);
@@ -733,6 +765,10 @@ function app() {
     }
     if (backButtonState === 'legend') {
       closeLegend();
+    }
+    if (backButtonState === 'catalog') {
+      closeCat();
+      backButtonState = 'default';
     }
   }
 }
