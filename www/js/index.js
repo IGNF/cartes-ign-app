@@ -77,6 +77,7 @@ function app() {
   const $infoText = document.getElementById("infoText");
   const $legendImg = document.getElementById("legendImg");
   const $chkNePlusAff = document.getElementById("chkNePlusAff");
+  const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
 
   /* global: back button state */
   let backButtonState = 'default';
@@ -98,17 +99,13 @@ function app() {
     response.json().then( data => {
       $message.innerHTML += DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
     }).then( () => {
-      if($message.innerHTML == '') {
-        $startPopup.classList.add('d-none');
+      if (!localStorage.getItem("nePasAfficherPopup")) {
+        if($message.innerHTML !== '') {
+          $startPopup.classList.remove('d-none');
+        }
       }
     });
-  }).catch( () => {
-    $startPopup.classList.add('d-none');
   });
-
-  if (localStorage.getItem("nePasAfficherPopup")) {
-    $startPopup.classList.add('d-none');
-  }
 
   // Pour l'annulation de fetch
   let controller = new AbortController();
@@ -803,8 +800,10 @@ function app() {
 
   // Event coordonnées
   map.on('contextmenu', (event) => {
-    let latlng = map.mouseEventToLatLng(event.originalEvent);
-    openCoords(latlng);
+    if ($chkPrintCoordsOnContext.checked) {
+      let latlng = map.mouseEventToLatLng(event.originalEvent);
+      openCoords(latlng);
+    }
   })
 
   // Action du backbutton
