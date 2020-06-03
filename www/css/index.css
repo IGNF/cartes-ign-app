@@ -194,6 +194,7 @@ a {
 .msgGreen {
   font-family: 'Open Sans Bold',Arial,sans-serif;
   color: #00ae90;
+  cursor: pointer;
 }
 
 #nePlusAff {
@@ -462,6 +463,48 @@ input[type='radio']:checked + label:before {
 
 #legalMenu, #privacyMenu, #plusLoinMenu {
   font-family: 'Open Sans';
+}
+
+#plusLoinMenu div {
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.plusLoinTitle {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.plusLoinTitle img {
+  margin-top: 23px;
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+}
+
+.plusLoinTitleText {
+  font-size: 2.5em;
+  color: #7a7a7a;
+  position: absolute;
+  bottom: 0;
+  left: 115px;
+}
+
+#ignRandoLogo {
+  border-radius: 25px;
+}
+
+#imgIgnRandoPlayStore {
+  width: 155px;
+}
+
+#imgIgnRandoAppStore {
+  padding: 10px;
+}
+
+#gppLogo {
+  margin-top: 23px;
 }
 
 #privacyMenu iframe {
