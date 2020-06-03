@@ -464,6 +464,11 @@ input[type='radio']:checked + label:before {
   font-family: 'Open Sans';
 }
 
+#privacyMenu iframe {
+  border: 0;
+  height: 230px;
+}
+
 /* Menus */
 .backButton {
   position: absolute;
