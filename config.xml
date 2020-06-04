@@ -20,9 +20,11 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <preference name="AppendUserAgent" value="GeoportailAppAndroid" />
     </platform>
 
     <platform name="ios">
+        <preference name="AppendUserAgent" value="GeoportailAppIOS" />
         <feature name="CDVWKWebViewEngine">
           <param name="ios-package" value="CDVWKWebViewEngine" />
         </feature>
