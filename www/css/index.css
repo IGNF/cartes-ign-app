@@ -58,11 +58,6 @@ body {
     color:white;
 }
 
-h2 {
-  font-family: "Open Sans Semibold";
-  color: #0B6BA7;
-}
-
 h3 {
   font-family: "Open Sans Semibold";
   color: #0B6BA7;
@@ -93,32 +88,6 @@ a {
   font-family: "Open Sans Semibold";
   color: #0B6BA7;
 }
-
-.lien {
-  position:relative;
-  border-bottom: 1px solid #FFFFFF;
-  color: white;
-  margin: 0 1em;
-  padding: 0.5em 0;
-  font-family: Arial;
-  font-size: 15pt;
-  text-align: left;
-}
-
-.lien img {
-  position: absolute;
-  right: 0em;
-  top: 50%;
-  height: 30px;
-  margin-top: -15px;
-
-}
-
-.lien a, .lienNoBorder a {
-  color: white;
-  text-decoration: none;
-}
-
 
 #blueBg {
   width: 100vw;
@@ -203,11 +172,6 @@ a {
   font-size: 0.88em;
 }
 
-#gpplogo {
-  width:75%;
-  padding: 12px 0 12px 0;
-}
-
 .btnGpp {
   display: inline-block;
   color: white;
@@ -227,45 +191,12 @@ a {
   width: 100%;
 }
 
-#mentions-legales {
-  text-decoration: none;
-  font-size: 11px;
-}
-
-#footer #logo {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  padding-right: 0.5em;
-  background-color: rgba(64,64,64,0.7);
-  height: 30px;
-  line-height: 29px;
-}
-
-#logo img {
-  margin-right: 0.2em;
-  margin-left: 0.5em;
-  width: inherit;
-  height: 1.5em;
-  pointer-events: none;
-  vertical-align: middle;
-}
-
 .leaflet-container .leaflet-control-attribution {
   line-height: 30px;
   height: 30px;
   background-color: rgba(64,64,64,0.7);
   color: white;
 }
-
-.gp-control-attribution-image {
-  width: 25px;
-  vertical-align: middle;
-  border-style: none;
-  pointer-events: none;
-  padding-bottom: 2px;
-}
-
 
 /* Map */
 #map {
@@ -339,7 +270,7 @@ a {
 }
 
 #menuItemParams {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
   margin-top: -7px;
 }
 
@@ -513,20 +444,6 @@ input[type='radio']:checked + label:before {
 }
 
 /* Menus */
-.backButton {
-  position: absolute;
-  top: 1em;
-  left: 1em;
-  width: 20px;
-}
-
-.closeButton {
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  width: 30px;
-}
-
 #header {
   position: absolute;
   top: 0;
@@ -535,17 +452,6 @@ input[type='radio']:checked + label:before {
   height: 40px;
   display: flex;
   justify-content: center;
-}
-
-
-#geoloc {
-  width: 40px;
-  text-align: center;
-}
-
-#tracing {
-  width: 40px;
-  text-align: center;
 }
 
 #search {
@@ -604,10 +510,6 @@ input[type='radio']:checked + label:before {
   background-repeat: no-repeat;
 }
 
-#search input.placeholder {
-  vertical-align: middle;
-}
-
 #search input:focus {
   outline: none;
 }
@@ -635,19 +537,10 @@ input[type='radio']:checked + label:before {
   border-bottom: none;
 }
 
-.gpGeocodeAutoCompleteProposalHighlighted {
-  background-color: #ddd;
-}
-
 .button {
   width: 34px;
   height: 34px;
   display: inline-block;
-}
-
-
-.button img {
-  width: 100%;
 }
 
 #catalogBtn, #geolocateBtn  {
@@ -691,12 +584,6 @@ input[type='radio']:checked + label:before {
   background-image: url("assets/close.svg");
 }
 
-#open-nav-menu-text {
-  color: #CCC;
-  font-size: 8px;
-  font-family: 'Open Sans Extrabold';
-}
-
 /* Autres menus */
 
 #catalog {
@@ -708,6 +595,7 @@ input[type='radio']:checked + label:before {
   overflow: auto;
   overflow-x: hidden; /* Disable horizontal scroll */
   width: 80%;
+  max-width: 450px;
   padding-top: 15px;
   border-radius: 5px;
 }
@@ -739,15 +627,6 @@ input[type='radio']:checked + label:before {
   box-sizing: border-box;
 }
 
-#catHeader, #reglagesHeader, #parametersHeader, #creditsHeader, #cookiesHeader, #shareHeader {
-  top:0;
-  padding-bottom: 2em;
-  padding-top: 1em;
-  text-align: center;
-  background-color: #EBEFF1;
-  z-index: 5;
-}
-
 #catalog #menuC {
   text-align: center;
   margin: 0 auto;
@@ -762,139 +641,47 @@ input[type='radio']:checked + label:before {
   width: 26%;
 }
 
-
-#mapCenterCoords {
-  position: absolute;
-  z-index: 20000;
-  width: 43px;
-  height: 43px;
-  top: 50%;
-  left: 50%;
-  margin-left: -21px;
-  margin-top: -21px;
-}
-
-#coordsWindow{
-  position: relative;
-  top: -90px;
-  background-color: #505050aa;
-  padding: 3px;
-  width: 100px;
-  left: -30px;
-}
-
-#coordsWindow p{
-  margin: 0;
-}
-
 /* mode paysage */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-  #catalog {
-    max-width: 75%;
-  }
-  #catalog #menuC {
-    max-width: 75%;
+  #menuItems {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: auto;
+    height: 100vh;
+    border-radius: 5px 0 0 5px;
+    right: 0;
+    padding-bottom: 0;
+    padding-top: 0;
   }
 
+  #menuItemLegend {
+    margin-top: 15px;
+  }
+
+  #menuItemPlusLoin {
+    margin-top: 0;
+  }
 }
 
 /* ecrans larges*/
-@media (min-width: 768px) {
-
-  #header {
-    height: 60px;
+@media (min-height: 500px) {
+  #menuItems {
+    display: block;
+    bottom: 0;
+    width: 100vw;
+    height: auto;
+    padding-top: 15px;
+    border-radius: 5px 5px 0 0;
+    padding-bottom: 15px;
+    font-size: 15px;
   }
 
-  .button {
-    width: 60px;
-    height: 60px;
+  #menuItemLegend {
+    margin-top: 0px;
   }
 
-  #catalogBtn {
-    background-size: 45px;
-  }
-
-  #open-nav-menu-text {
-    font-size: 0.9em;
-  }
-
-  #searchBtn {
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
-  }
-
-  #search input {
-    margin-top: 10px;
-    padding-left: 40px;
-    width: 100%;
-    height: 38px;
-  }
-
-  #searchImage {
-    width: 24px;
-    height: 24px;
-    top: 18px;
-  }
-
-  #resultsRech {
-    top: 50px;
-  }
-
-  #catalog #catHeader {
-      padding-bottom: 4em;
-  }
-
-  #catalog {
-      max-width: 900px;
-  }
-  #catalog #menuC {
-    max-width: 900px;
-  }
-
-  #catalog .layer {
-      display: inline-block;
-      width: 300px;
-      padding-bottom: 2em;
-  }
-
-  #catalog .layer img {
-      width: 240px;
-  }
-
-  #catalog .textCouche {
-      font-size: 14pt;
-  }
-
-  #footer #logo {
-    height: 38px;
-    line-height: 37px;
-  }
-
-  #logo img {
-    height: 30px;
-  }
-
-  .leaflet-container .leaflet-control-attribution {
-    line-height: 38px;
-    height: 38px;
-  }
-
-  .gp-control-attribution-image {
-    width: 30px;
-  }
-
-  #btnCoords {
-    bottom: 80px;
-  }
-
-  #btnLegend {
-    bottom: 120px;
-  }
-
-  /* TODO : décaler quand mesures implémentées */
-  #btnMeasures {
-    bottom: 120px;
+  #menuItemPlusLoin {
+    margin-top: 30px;
   }
 }
