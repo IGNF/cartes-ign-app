@@ -112,15 +112,25 @@ function app() {
   let signal = controller.signal;
 
   let marker_img_path = cordova.file.applicationDirectory + 'www/css/assets/position.svg';
+  let marker2_img_path = cordova.file.applicationDirectory + 'www/css/assets/map-center.svg';
 
   // Définition du marker
   let gpMarkerIcon = L.icon({
     iconUrl: marker_img_path,
     iconSize:     [23, 23], // size of the icon
     iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location
+    className:    'gpsMarker',
   });
 
-  let gpMarkerLayer;
+  let gpMarkerIcon2 = L.icon({
+    iconUrl: marker2_img_path,
+    iconSize:     [23, 23], // size of the icon
+    iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location
+    className:    'adressMarker',
+  });
+
+  let gpsMarkerLayer;
+  let adressMarkerLayer;
 
   //Définition de la carte et des couches
   const map = new L.map('map', { zoomControl: false }).setView([47.33, 2.0], 5) ;
@@ -275,8 +285,11 @@ function app() {
     $infoText.innerHTML = informationTexts.photos;
     $legendImg.innerHTML = legendImgs.photos;
     orthoLyr.addTo(map);
-    if (gpMarkerLayer) {
-      gpMarkerLayer.addTo(map);
+    if (gpsMarkerLayer) {
+      gpsMarkerLayer.addTo(map);
+    }
+    if (adressMarkerLayer) {
+      adressMarkerLayer.addTo(map);
     }
     layerDisplayed = 'photos';
     closeCat();
@@ -289,8 +302,11 @@ function app() {
     $legendImg.innerHTML = legendImgs.routes;
     orthoLyr.addTo(map);
     roadsLyr.addTo(map);
-    if (gpMarkerLayer) {
-      gpMarkerLayer.addTo(map);
+    if (gpsMarkerLayer) {
+      gpsMarkerLayer.addTo(map);
+    }
+    if (adressMarkerLayer) {
+      adressMarkerLayer.addTo(map);
     }
     layerDisplayed = 'routes';
     closeCat();
@@ -304,8 +320,11 @@ function app() {
     parcelLyr.addTo(map);
     orthoLyr.addTo(map);
     orthoLyr.setOpacity(0.5);
-    if (gpMarkerLayer) {
-      gpMarkerLayer.addTo(map);
+    if (gpsMarkerLayer) {
+      gpsMarkerLayer.addTo(map);
+    }
+    if (adressMarkerLayer) {
+      adressMarkerLayer.addTo(map);
     }
     layerDisplayed = 'cadastre';
     closeCat();
@@ -317,8 +336,11 @@ function app() {
     $infoText.innerHTML = informationTexts.plan_ign;
     $legendImg.innerHTML = legendImgs.plan_ign;
     planLyr.addTo(map);
-    if (gpMarkerLayer) {
-      gpMarkerLayer.addTo(map);
+    if (gpsMarkerLayer) {
+      gpsMarkerLayer.addTo(map);
+    }
+    if (adressMarkerLayer) {
+      adressMarkerLayer.addTo(map);
     }
     layerDisplayed = 'plan-ign';
     closeCat();
@@ -330,8 +352,11 @@ function app() {
     $infoText.innerHTML = informationTexts.cartes;
     $legendImg.innerHTML = legendImgs.cartes;
     cartesLyr.addTo(map);
-    if (gpMarkerLayer) {
-      gpMarkerLayer.addTo(map);
+    if (gpsMarkerLayer) {
+      gpsMarkerLayer.addTo(map);
+    }
+    if (adressMarkerLayer) {
+      adressMarkerLayer.addTo(map);
     }
     layerDisplayed = 'cartes';
     closeCat();
@@ -344,8 +369,11 @@ function app() {
     $legendImg.innerHTML = legendImgs.drones;
     cartesLyr.addTo(map);
     dronesLyr.addTo(map);
-    if (gpMarkerLayer) {
-      gpMarkerLayer.addTo(map);
+    if (gpsMarkerLayer) {
+      gpsMarkerLayer.addTo(map);
+    }
+    if (adressMarkerLayer) {
+      adressMarkerLayer.addTo(map);
     }
     layerDisplayed = 'drones';
     closeCat();
@@ -373,9 +401,16 @@ function app() {
 
   /* Recherche et positionnnement */
   function cleanResults() {
-    if (gpMarkerLayer != null) {
-      map.removeLayer(gpMarkerLayer);
-      gpMarkerLayer = null;
+    if (adressMarkerLayer != null) {
+      map.removeLayer(adressMarkerLayer);
+      adressMarkerLayer = null;
+    }
+  }
+
+  function cleanGPS() {
+    if (gpsMarkerLayer != null) {
+      map.removeLayer(gpsMarkerLayer);
+      gpsMarkerLayer = null;
     }
   }
 
@@ -551,7 +586,7 @@ function app() {
           lat: location.position.x,
           lon: location.position.y
         };
-        goToCoords(coords, 14);
+        goToAddressCoords(coords, 14);
       },
       onFailure: function(error) {
         console.log("Erreur lors de l'appel à l'ancien géocodeur : ", error);
@@ -559,9 +594,25 @@ function app() {
     });
   }
 
-  function goToCoords(coords, zoom=map.getZoom(), panTo=true) {
+  function goToAddressCoords(coords, zoom=map.getZoom(), panTo=true) {
     cleanResults();
-    gpMarkerLayer = L.featureGroup().addTo(map);
+    adressMarkerLayer = L.featureGroup().addTo(map);
+    let markerLayer = L.featureGroup([L.marker(
+      [coords.lat, coords.lon],
+      {
+        icon:	gpMarkerIcon2
+      }
+    )]);
+
+    adressMarkerLayer.addLayer(markerLayer);
+    if (panTo) {
+      map.setView(new L.LatLng(coords.lat, coords.lon), zoom);
+    }
+  }
+
+  function goToGPSCoords(coords, zoom=map.getZoom(), panTo=true) {
+    cleanGPS();
+    gpsMarkerLayer = L.featureGroup().addTo(map);
     let markerLayer = L.featureGroup([L.marker(
       [coords.lat, coords.lon],
       {
@@ -569,7 +620,7 @@ function app() {
       }
     )]);
 
-    gpMarkerLayer.addLayer(markerLayer);
+    gpsMarkerLayer.addLayer(markerLayer);
     if (panTo) {
       map.setView(new L.LatLng(coords.lat, coords.lon), zoom);
     }
@@ -633,18 +684,17 @@ function app() {
   /* Géolocalisation */
   let tracking_active = false;
   let tracking_interval;
-
   function trackLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        goToCoords({
+        goToGPSCoords({
           lat: position.coords.latitude,
           lon: position.coords.longitude
         });
       });
       tracking_interval = setInterval( () => {
         navigator.geolocation.getCurrentPosition((position) => {
-          goToCoords({
+          goToGPSCoords({
             lat: position.coords.latitude,
             lon: position.coords.longitude
           }, zoom=map.getZoom(), panTo=false);
@@ -717,8 +767,10 @@ function app() {
       rechercheEtPosition($rech.value);
       searchScreenOff();
     /* marqueur de recherche/position */
-    } else if (evt.target.classList.contains("leaflet-marker-icon")) {
+    } else if (evt.target.classList.contains("adressMarker")) {
       cleanResults();
+    } else if (evt.target.classList.contains("gpsMarker")) {
+      cleanGPS();
     /* pour aller + loin du message d'accueil */
     } else if (evt.target.classList.contains("msgGreen")) {
       $startPopup.hidden = true;
