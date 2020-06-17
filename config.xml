@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="fr.ign.geoportail" version="1.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="fr.ign.geoportail" version="2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Géoportail</name>
     <description>
       Géoportail, le portail des territoires et des citoyens !
@@ -21,6 +21,18 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="AppendUserAgent" value="GeoportailAppAndroid" />
+
+        <splash src="res/screen/android/splash2732x2732.png" density="land-hdpi"/>
+        <splash src="res/screen/android/splash2732x2732.png" density="land-ldpi"/>
+        <splash src="res/screen/android/splash2732x2732.png" density="land-mdpi"/>
+        <splash src="res/screen/android/splash2732x2732.png" density="land-xhdpi"/>
+
+        <splash src="res/screen/android/splash2732x2732.png" density="port-hdpi"/>
+        <splash src="res/screen/android/splash2732x2732.png" density="port-ldpi"/>
+        <splash src="res/screen/android/splash2732x2732.png" density="port-mdpi"/>
+        <splash src="res/screen/android/splash2732x2732.png" density="port-xhdpi"/>
+
+        <preference name="SplashMaintainAspectRatio" value="true" />
     </platform>
 
     <platform name="ios">
@@ -36,6 +48,7 @@
         <preference name="WKWebViewOnly" value="true" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <splash src="res/screen/ios/Default@2x~universal~anyany.png" />
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="^1.3.4" />
 </widget>
