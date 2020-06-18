@@ -33,6 +33,11 @@
         <splash src="res/screen/android/splash2732x2732.png" density="port-xhdpi"/>
 
         <preference name="SplashMaintainAspectRatio" value="true" />
+        <preference name="ShowSplashScreenSpinner" value="false"/>
+    </platform>
+
+    <platform name="browser">
+      <preference name="SplashScreenDelay" value="0" />
     </platform>
 
     <platform name="ios">

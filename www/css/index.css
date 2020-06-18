@@ -392,6 +392,10 @@ input[type='radio']:checked + label:before {
   margin-bottom: 10px;
 }
 
+.altMenu b {
+  font-family: 'Open Sans Semibold';
+}
+
 #legalMenu, #privacyMenu, #plusLoinMenu {
   font-family: 'Open Sans';
 }
