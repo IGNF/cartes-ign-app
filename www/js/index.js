@@ -84,22 +84,15 @@ function app() {
   /* global: layer display state */
   let layerDisplayed = 'photos'; 
 
-  /* Check du timestamp "ne plus afficher ce message". Si + d'1 semaine : suppression */
-  if (localStorage.getItem("nePasAfficherPopup")) {
-    let localNePlusAff = JSON.parse(localStorage.getItem("nePasAfficherPopup"));
-    let now = new Date().getTime();
-    if (now - localNePlusAff.timestamp > 604800000) {
-      localStorage.removeItem("nePasAfficherPopup");
-    }
-  }
-
   /* Message du jour (message of the day) */
-  const motd_url = cordova.file.applicationDirectory + 'www/js/motd.json';
-  fetch(motd_url).then( response => {
+  const motd_url = 'https://www.geoportail.gouv.fr/depot/app/motd.json';
+  let motd_id;
+  fetch(motd_url, {mode: 'cors'}).then( response => {
     response.json().then( data => {
       $message.innerHTML += DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
+      motd_id = data.id;
     }).then( () => {
-      if (!localStorage.getItem("nePasAfficherPopup")) {
+      if (!localStorage.getItem("lastMotdID") || (localStorage.getItem("lastMotdID") && (localStorage.getItem("lastMotdID") < motd_id))) {
         if($message.innerHTML !== '') {
           $startPopup.classList.remove('d-none');
         }
@@ -384,8 +377,7 @@ function app() {
   function startPopupValidation() {
     $startPopup.hidden = true;
     if ($chkNePlusAff.checked) {
-      let nePlusAfficherLocal = {value: true, timestamp: new Date().getTime()};
-      localStorage.setItem("nePasAfficherPopup", JSON.stringify(nePlusAfficherLocal));
+      localStorage.setItem("lastMotdID", motd_id);
     }
   }
 

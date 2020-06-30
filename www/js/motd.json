@@ -1,3 +1,4 @@
 {
- "motd": "<p class='msgTitle'>Géoportail app, l'application officielle du Géoportail !</p>\n<p class='msgRegular'>Accédez facilement et rapidement aux cartes essentielles depuis votre mobile.</p>\n<p class='msgRegular'>Pour plus de cartes et d'outils, et pour aller plus loin, consultez le site Géoportail et les services en ligne proposés par l'IGN. <span class='msgGreen'>+ d'infos</span></p>"
+ "motd": "<p class='msgTitle'>Géoportail app, l'application officielle du Géoportail !</p>\n<p class='msgRegular'>Accédez facilement et rapidement aux cartes essentielles depuis votre mobile.</p>\n<p class='msgRegular'>Pour plus de cartes et d'outils, et pour aller plus loin, consultez le site Géoportail et les services en ligne proposés par l'IGN. <span class='msgGreen'>+ d'infos</span></p>",
+ "id": 1
 }
