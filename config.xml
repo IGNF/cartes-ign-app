@@ -38,6 +38,7 @@
 
     <platform name="browser">
       <preference name="SplashScreenDelay" value="0" />
+      <preference name="ShowSplashScreen" value="false" />
     </platform>
 
     <platform name="ios">
