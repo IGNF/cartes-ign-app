@@ -881,7 +881,6 @@ function app() {
 
 function onLoad() {
   document.addEventListener('deviceready', () => {
-    console.log('tato')
     StatusBar.overlaysWebView(false);
     StatusBar.backgroundColorByHexString("#146cac");
     app();
