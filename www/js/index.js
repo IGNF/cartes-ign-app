@@ -85,7 +85,7 @@ function app() {
   let layerDisplayed = 'photos'; 
 
   /* Message du jour (message of the day) */
-  const motd_url = 'https://www.geoportail.gouv.fr/depot/app/motd.json';
+  const motd_url = 'https://azarz.github.io/geoportail-app-demo/js/motd.json';
   let motd_id;
   fetch(motd_url, {mode: 'cors'}).then( response => {
     response.json().then( data => {
@@ -144,7 +144,6 @@ function app() {
     maxNativeZoom : 19,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: useCachedTiles,
     }
   );
 
@@ -164,7 +163,6 @@ function app() {
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: useCachedTiles,
     }
   );
 
@@ -184,7 +182,6 @@ function app() {
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: useCachedTiles,
     }
   );
 
@@ -204,7 +201,6 @@ function app() {
     maxNativeZoom : 19,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256 ,// les tuiles du Géooportail font 256x256px
-    useCache: useCachedTiles,
     }
   );
 
@@ -224,7 +220,6 @@ function app() {
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: useCachedTiles,
     }
   );
 
@@ -244,7 +239,6 @@ function app() {
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
-    useCache: useCachedTiles,
     }
   );
 
@@ -885,6 +879,13 @@ function app() {
   }
 }
 
-document.addEventListener('deviceready', () => {
-  app();
-});
+function onLoad() {
+  document.addEventListener('deviceready', () => {
+    console.log('tato')
+    StatusBar.overlaysWebView(false);
+    StatusBar.backgroundColorByHexString("#146cac");
+    app();
+  },
+  false);
+}
+
