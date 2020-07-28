@@ -400,6 +400,10 @@ input[type='radio']:checked + label:before {
   font-family: 'Open Sans';
 }
 
+#legalMenu a {
+  color: #0B6BA7;
+}
+
 #plusLoinMenu div {
   padding-left: 18px;
   padding-right: 18px;
