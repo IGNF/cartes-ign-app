@@ -498,6 +498,7 @@ function app() {
   function openParamsScreen() {
     altScreenOn();
     $parameterMenu.classList.remove('d-none');
+    $rech.placeholder = "Paramètres";
     backButtonState = 'params';
   }
 
@@ -510,6 +511,7 @@ function app() {
   // Ouverture/fermeture de l'écran mentions légales
   function openLegalScreen() {
     altScreenOn();
+    $rech.placeholder = "Mentions légales";
     $legalMenu.classList.remove('d-none');
     backButtonState = 'legal';
   }
@@ -524,6 +526,7 @@ function app() {
   function openPrivacyScreen() {
     altScreenOn();
     $privacyMenu.classList.remove('d-none');
+    $rech.placeholder = "Vie privée";
     backButtonState = 'privacy';
   }
 
@@ -538,13 +541,14 @@ function app() {
     altScreenOn();
     $plusLoinMenu.classList.remove('d-none');
     backButtonState = 'plusLoin';
+    $rech.placeholder = "Pour aller plus loin...";
   }
 
   function closePlusLoinScreen(){
     altScreenOff();
     $plusLoinMenu.classList.add('d-none');
     backButtonState = 'default';
-  }q
+  }
 
 
   // Ouverture de la popup coordonnées
