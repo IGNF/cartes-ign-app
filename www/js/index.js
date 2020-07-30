@@ -82,7 +82,7 @@ function app() {
   /* global: back button state */
   let backButtonState = 'default';
   /* global: layer display state */
-  let layerDisplayed = 'photos'; 
+  let layerDisplayed = 'photos';
 
   /* Message du jour (message of the day) */
   const motd_url = 'https://azarz.github.io/geoportail-app-demo/js/motd.json';
@@ -129,7 +129,7 @@ function app() {
   const map = new L.map('map', { zoomControl: false }).setView([47.33, 2.0], 5) ;
 
   const orthoLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9srzhqefn5ts85vtgihkbz3h/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -148,7 +148,7 @@ function app() {
   );
 
   const roadsLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9srzhqefn5ts85vtgihkbz3h/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -167,7 +167,7 @@ function app() {
   );
 
   const planLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9srzhqefn5ts85vtgihkbz3h/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -186,7 +186,7 @@ function app() {
   );
 
   const parcelLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9srzhqefn5ts85vtgihkbz3h/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=PCI%20vecteur" +
     "&TILEMATRIXSET=PM" +
@@ -205,7 +205,7 @@ function app() {
   );
 
   const cartesLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9srzhqefn5ts85vtgihkbz3h/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -224,7 +224,7 @@ function app() {
   );
 
   const dronesLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9srzhqefn5ts85vtgihkbz3h/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -409,7 +409,7 @@ function app() {
     $closeSearch.classList.remove('d-none');
     backButtonState = 'search';
   }
-  
+
   function searchScreenOff() {
     $resultDiv.hidden = true;
     $resultDiv.innerHTML = "";
@@ -538,13 +538,13 @@ function app() {
     altScreenOff();
     $plusLoinMenu.classList.add('d-none');
     backButtonState = 'default';
-  }
+  }q
 
 
   // Ouverture de la popup coordonnées
   function openCoords (latlng) {
     let coords = [latlng.lng, latlng.lat];
-    let convertedCoords = convertCoords(coords); 
+    let convertedCoords = convertCoords(coords);
     L.popup()
     .setLatLng(latlng)
     .setContent(convertedCoords[0] + ", " + convertedCoords[1])
@@ -556,7 +556,7 @@ function app() {
   function rechercheEtPosition(text) {
     /* Récupération des coordonnées avec l'API (bibliothèque d'accès aux services) */
     Gp.Services.geocode({
-      apiKey: "mkndr2u5p00n57ez211i19ok",
+      apiKey: "9srzhqefn5ts85vtgihkbz3h",
       location: text,
       filterOptions: {
         type: "PositionOfInterest,StreetAddress",
@@ -621,7 +621,7 @@ function app() {
     controller = new AbortController();
     signal = controller.signal;
     let location = $rech.value;
-    let url = new URL("https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/ols/apis/completion");
+    let url = new URL("https://wxs.ign.fr/9srzhqefn5ts85vtgihkbz3h/ols/apis/completion");
     let params =
         {
           text: location,
@@ -676,7 +676,7 @@ function app() {
         goToGPSCoords({
           lat: position.coords.latitude,
           lon: position.coords.longitude
-        });
+        }, zoom=14);
       });
       tracking_interval = setInterval( () => {
         navigator.geolocation.getCurrentPosition((position) => {
