@@ -129,7 +129,7 @@ function app() {
   const map = new L.map('map', { zoomControl: false }).setView([47.33, 2.0], 5) ;
 
   const orthoLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -149,7 +149,7 @@ function app() {
   );
 
   const roadsLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -169,7 +169,7 @@ function app() {
   );
 
   const planLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -189,7 +189,7 @@ function app() {
   );
 
   const parcelLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=PCI%20vecteur" +
     "&TILEMATRIXSET=PM" +
@@ -209,7 +209,7 @@ function app() {
   );
 
   const cartesLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -229,7 +229,7 @@ function app() {
   );
 
   const dronesLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -562,7 +562,7 @@ function app() {
   function rechercheEtPosition(text) {
     /* Récupération des coordonnées avec l'API (bibliothèque d'accès aux services) */
     Gp.Services.geocode({
-      apiKey: "mkndr2u5p00n57ez211i19ok",
+      apiKey: "9esztucptkoj5lgfzi0g6lmu",
       location: text,
       filterOptions: {
         type: "PositionOfInterest,StreetAddress",
@@ -627,7 +627,7 @@ function app() {
     controller = new AbortController();
     signal = controller.signal;
     let location = $rech.value;
-    let url = new URL("https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/ols/apis/completion");
+    let url = new URL("https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/ols/apis/completion");
     let params =
         {
           text: location,
