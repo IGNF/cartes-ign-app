@@ -82,7 +82,7 @@ function app() {
   /* global: back button state */
   let backButtonState = 'default';
   /* global: layer display state */
-  let layerDisplayed = 'photos'; 
+  let layerDisplayed = 'photos';
 
   /* Message du jour (message of the day) */
   const motd_url = 'https://www.geoportail.gouv.fr/depot/app/motd.json';
@@ -415,7 +415,7 @@ function app() {
     $closeSearch.classList.remove('d-none');
     backButtonState = 'search';
   }
-  
+
   function searchScreenOff() {
     $resultDiv.hidden = true;
     $resultDiv.innerHTML = "";
@@ -544,13 +544,13 @@ function app() {
     altScreenOff();
     $plusLoinMenu.classList.add('d-none');
     backButtonState = 'default';
-  }
+  }q
 
 
   // Ouverture de la popup coordonnées
   function openCoords (latlng) {
     let coords = [latlng.lng, latlng.lat];
-    let convertedCoords = convertCoords(coords); 
+    let convertedCoords = convertCoords(coords);
     L.popup()
     .setLatLng(latlng)
     .setContent(convertedCoords[0] + ", " + convertedCoords[1])
@@ -682,7 +682,7 @@ function app() {
         goToGPSCoords({
           lat: position.coords.latitude,
           lon: position.coords.longitude
-        });
+        }, zoom=14);
       });
       tracking_interval = setInterval( () => {
         navigator.geolocation.getCurrentPosition((position) => {
