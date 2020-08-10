@@ -166,6 +166,7 @@ function app() {
       "&TILECOL={x}",
     {
     minZoom : 0,
+    minNativeZoom : 6,
     maxZoom : 19,
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
@@ -186,6 +187,7 @@ function app() {
       "&TILECOL={x}",
     {
     minZoom : 0,
+    minNativeZoom : 3,
     maxZoom : 19,
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
@@ -246,6 +248,7 @@ function app() {
       "&TILECOL={x}",
     {
     minZoom : 0,
+    minNativeZoom : 3,
     maxZoom : 19,
     maxNativeZoom : 18,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
