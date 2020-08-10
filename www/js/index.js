@@ -82,7 +82,7 @@ function app() {
   /* global: back button state */
   let backButtonState = 'default';
   /* global: layer display state */
-  let layerDisplayed = 'photos';
+  let layerDisplayed = localStorage.getItem("lastLayerDisplayed") || 'photos';
 
   /* global: last text in search bar */
   let lastTextInSearch = '';
@@ -128,8 +128,11 @@ function app() {
   let gpsMarkerLayer;
   let adressMarkerLayer;
 
-  //Définition de la carte et des couches
   const map = new L.map('map', { zoomControl: false }).setView([47.33, 2.0], 5) ;
+  //Définition de la carte et des couches
+  if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
+    map.setView([localStorage.getItem("lastMapLat"), localStorage.getItem("lastMapLng")], localStorage.getItem("lastMapZoom"));
+  }
 
   const orthoLyr = L.tileLayer.fallback(
     "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
@@ -252,7 +255,26 @@ function app() {
   );
 
   // Par défaut : couche ortho
-  orthoLyr.addTo(map);
+  switch (layerDisplayed) {
+    case 'photos':
+      displayOrtho();
+      break;
+    case 'routes':
+      displayOrthoAndRoads();
+      break;
+    case 'cadastre':
+      displayOrthoAndParcels();
+      break;
+    case 'plan-ign':
+      displayPlan();
+      break;
+    case 'cartes':
+      displayCartes();
+      break;
+    case 'drones':
+      displayDrones();
+      break;
+  }
 
   // Ajout de l'échelle
   L.control.scale({
@@ -895,6 +917,14 @@ function app() {
       backButtonState = 'default';
     }
   }
+
+  window.addEventListener('unload', () => {
+    localStorage.setItem("lastMapLat", map.getCenter().lat);
+    localStorage.setItem("lastMapLng", map.getCenter().lng);
+    localStorage.setItem("lastMapZoom", map.getZoom());
+    localStorage.setItem("lastLayerDisplayed", layerDisplayed);
+  });
+
 }
 
 document.addEventListener('deviceready', () => {
