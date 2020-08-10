@@ -68,6 +68,10 @@ a {
   color: #9FE4FF;
 }
 
+.leaflet-popup-content {
+  user-select: text;
+}
+
 .leaflet-container a {
   color: #9FE4FF;
 }
@@ -648,6 +652,21 @@ input[type='radio']:checked + label:before {
   display: inline-block;
   padding-bottom: 1em;
   width: 26%;
+}
+
+
+.GPlayerInfo-originators {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.GPlayerInfo-originators a {
+  color: #0B6BA7;
+  text-decoration: none;
+}
+
+.GPlayerInfo-originators li {
+  padding: 5px;
 }
 
 /* mode paysage */
