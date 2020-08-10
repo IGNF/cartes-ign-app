@@ -84,6 +84,9 @@ function app() {
   /* global: layer display state */
   let layerDisplayed = 'photos';
 
+  /* global: last text in search bar */
+  let lastTextInSearch = '';
+
   /* Message du jour (message of the day) */
   const motd_url = 'https://www.geoportail.gouv.fr/depot/app/motd.json';
   let motd_id;
@@ -479,11 +482,13 @@ function app() {
     $backTopLeft.classList.remove('d-none');
     $closeSearch.classList.remove('d-none');
     $altMenuContainer.classList.remove('d-none');
+    lastTextInSearch = $rech.value;
+
   }
 
   function altScreenOff() {
     $rech.disabled = false;
-    $rech.placeholder = "Rechercher un lieu, une adresse...";
+    $rech.value = lastTextInSearch;
     $rech.removeAttribute('style');
     $blueBg.classList.add('d-none');
     $menuBtn.classList.remove('d-none');
@@ -498,7 +503,7 @@ function app() {
   function openParamsScreen() {
     altScreenOn();
     $parameterMenu.classList.remove('d-none');
-    $rech.placeholder = "Paramètres";
+    $rech.value = "Paramètres";
     backButtonState = 'params';
   }
 
@@ -511,7 +516,7 @@ function app() {
   // Ouverture/fermeture de l'écran mentions légales
   function openLegalScreen() {
     altScreenOn();
-    $rech.placeholder = "Mentions légales";
+    $rech.value = "Mentions légales";
     $legalMenu.classList.remove('d-none');
     backButtonState = 'legal';
   }
@@ -526,7 +531,7 @@ function app() {
   function openPrivacyScreen() {
     altScreenOn();
     $privacyMenu.classList.remove('d-none');
-    $rech.placeholder = "Vie privée";
+    $rech.value = "Vie privée";
     backButtonState = 'privacy';
   }
 
@@ -541,7 +546,7 @@ function app() {
     altScreenOn();
     $plusLoinMenu.classList.remove('d-none');
     backButtonState = 'plusLoin';
-    $rech.placeholder = "Pour aller plus loin...";
+    $rech.value = "Pour aller plus loin...";
   }
 
   function closePlusLoinScreen(){

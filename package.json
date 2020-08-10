@@ -1,7 +1,7 @@
 {
   "name": "geoportail",
   "displayName": "Géoportail",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "description": "Application Géoportail",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "author": "IGN",
   "license": "Apache-2.0",
   "dependencies": {
-    "cordova-android": "^8.1.0",
+    "cordova-android": "^9.0.0",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-geolocation": "4.0.2",
