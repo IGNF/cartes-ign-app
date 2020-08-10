@@ -653,6 +653,21 @@ input[type='radio']:checked + label:before {
   width: 26%;
 }
 
+
+.GPlayerInfo-originators {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.GPlayerInfo-originators a {
+  color: #0B6BA7;
+  text-decoration: none;
+}
+
+.GPlayerInfo-originators li {
+  padding: 5px;
+}
+
 /* mode paysage */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #menuItems {
