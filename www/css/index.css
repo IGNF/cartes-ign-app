@@ -527,9 +527,9 @@ input[type='radio']:checked + label:before {
   color: #393939;
   background-color: white;
   z-index: 3000;
-  top: 40px;
-  left: 20px;
-  width: calc(100% - 40px);
+  top: 50px;
+  left: 10px;
+  width: calc(100% - 20px);
   border-radius: 5px;
 }
 
@@ -692,5 +692,18 @@ input[type='radio']:checked + label:before {
 
   #menuItemPlusLoin {
     margin-top: 30px;
+  }
+}
+
+@media (max-width: 350px) {
+  .plusLoinTitleText {
+    font-size: 2em;
+    bottom: 14px;
+  }
+}
+
+@media (min-width: 510px) {
+  .plusLoinTitleText {
+    bottom: 30px;
   }
 }

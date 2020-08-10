@@ -1,10 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="fr.ign.geoportail" version="2.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="fr.ign.geoportail" version="2.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Géoportail</name>
     <description>
-      Géoportail, le portail des territoires et des citoyens !
-      Visualisez l'information géographique de référence sur le territoire national.
-      Photographies aériennes, cartes contemporaines (dont les cartes topographiques IGN), cartes anciennes, composantes du référentiel géographique à grande échelle et parcelles cadastrales sont accessibles directement depuis votre mobile ou votre tablette.
+      Géoportail, le portail des territoires et des citoyens ! Visualisez l’information géographique de référence sur le territoire national. Photographies aériennes, cartes topographiques IGN, composantes du référentiel géographique à grande échelle, parcelles cadastrales, et maintenant les zones de restriction de survol des drones de loisir sont accessibles directement depuis votre mobile ou votre tablette.
     </description>
     <author email="ecom@ign.fr" href="http://www.geoportail.gouv.fr">
         IGN - Géoportail
@@ -51,7 +49,7 @@
         <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
 
         <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
-          <string>Nécessite la géolocalisation pour centrer la carte sur l'utilisateur</string>
+          <string>Nécessite l'accès à la géolocalisation pour centrer la carte sur l'utilisateur</string>
         </edit-config>
         <preference name="WKWebViewOnly" value="true" />
         <allow-intent href="itms:*" />
