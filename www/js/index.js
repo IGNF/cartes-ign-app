@@ -631,6 +631,7 @@ function app() {
   /* Autocompletion */
   let autocompletion_results = []
 
+  /* TODO: adapter à la nouvelle autocompletion */
   async function suggest() {
     controller.abort();
     controller = new AbortController();
@@ -764,9 +765,11 @@ function app() {
     }
     /* Résultats autocompletion */
     if ( evt.target.classList.contains('autocompresult') ) {
+      evt.target.style.backgroundColor = '#0B6BA7';
+      evt.target.style.color = 'white';
       $rech.value = evt.target.innerHTML;
       rechercheEtPosition($rech.value);
-      searchScreenOff();
+      setTimeout(searchScreenOff, 150)
     /* marqueur de recherche/position */
     } else if (evt.target.classList.contains("adressMarker")) {
       cleanResults();
