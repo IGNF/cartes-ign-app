@@ -915,7 +915,7 @@ function app() {
     }
   }
 
-  window.addEventListener('unload', () => {
+  document.addEventListener('pause', () => {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
