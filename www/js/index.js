@@ -873,6 +873,89 @@ function app() {
     }
   });
 
+  //  thank you to https://github.com/ilblog   
+  // (https://github.com/Leaflet/Leaflet/issues/6817)   
+  if(navigator.userAgent === "GeoportailAppIOS"){
+    let timer = null;
+    function fireLongPressEvent(originalEvent) {
+      clearLongPressTimer();
+      const el = originalEvent.target,
+            x = originalEvent.touches[0].clientX,
+            y = originalEvent.touches[0].clientY
+      // This will emulate contextmenu mouse event
+      const event = new MouseEvent('contextmenu', {
+        bubbles: true,
+        cancelable: true,
+        clientX: x,
+        clientY: y
+      });
+
+      // fire the long-press event
+      const suppressClickEvent = el.dispatchEvent.call(el,event);
+      if (suppressClickEvent) {
+        // temporarily intercept and clear the next click
+        $map.addEventListener('touchend', function clearMouseUp(e) {
+          $map.removeEventListener('touchend', clearMouseUp, true);
+          cancelEvent(e);
+        }, true);
+      }
+    }
+
+    function startLongPressTimer(e) {
+      clearLongPressTimer(e);
+      timer = setTimeout( fireLongPressEvent.bind(null,e), 1000 );
+    }
+
+    function clearLongPressTimer() {
+      if(timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+    }
+
+    function cancelEvent(e){
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    // hook events that clear a pending long press event
+    $map.addEventListener('touchcancel', clearLongPressTimer, true);
+    $map.addEventListener('touchend', clearLongPressTimer, true);
+    $map.addEventListener('touchmove', clearLongPressTimer, true);
+    // hook events that can trigger a long press event
+    $map.addEventListener('touchstart', startLongPressTimer, true); // <- start
+
+    function makeDoubleClick(doubleClickCallback, singleClickCallback) {
+      var clicks = 0, timeout;
+      return function(originalEvent) {
+        clicks++;               
+        if (clicks == 1) {
+          singleClickCallback && singleClickCallback.apply(this, arguments);
+          timeout = setTimeout(function() { clicks = 0; }, 400);
+        } else { 
+          timeout && clearTimeout(timeout);
+          const x = originalEvent.clientX,
+                y = originalEvent.clientY;
+
+          const event = new MouseEvent('contextmenu', {
+            bubbles: true,
+            cancelable: true, 
+            clientX: x,
+            clientY: y
+          });
+
+          let latlng = map.mouseEventToLatLng(event);
+          map.setZoomAround(latlng, map.getZoom() + 1);
+          doubleClickCallback && doubleClickCallback.apply(this, arguments);
+          clicks = 0;
+        }
+      };
+    }    
+              
+    $map.addEventListener('click', makeDoubleClick(), false);   
+  }
+
   // Event coordonnées
   map.on('contextmenu', (event) => {
     if ($chkPrintCoordsOnContext.checked) {
