@@ -1010,7 +1010,7 @@ function app() {
 function onLoad() {
   document.addEventListener('deviceready', () => {
     StatusBar.overlaysWebView(false);
-    StatusBar.backgroundColorByHexString("#146cac");
+    StatusBar.backgroundColorByHexString("#006ba7");
     app();
   },
   false);
