@@ -79,7 +79,8 @@ a {
 }
 
 .leaflet-bottom .leaflet-control-scale {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
+  margin-left: 15px;
 }
 
 .d-none {
@@ -686,6 +687,12 @@ input[type='radio']:checked + label:before {
 
   #menuItemPlusLoin {
     margin-top: 0;
+  }
+
+  #header {
+    margin-left: calc(env(safe-area-inset-left, 0px) / 2);
+    margin-right: calc(env(safe-area-inset-right, 0px) / 2);
+    width: calc(100% - calc(env(safe-area-inset-left, 0px) / 2) - calc(env(safe-area-inset-right, 0px) / 2));
   }
 }
 
