@@ -441,7 +441,6 @@ function app() {
   // Ouverture/fermeture de l'écran recherche
   function searchScreenOn() {
     closeCat();
-    $rech.value = "";
     $blueBg.classList.remove('d-none');
     $menuBtn.classList.add('d-none');
     $closeSearch.classList.remove('d-none');
