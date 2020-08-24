@@ -554,7 +554,7 @@ input[type='radio']:checked + label:before {
   display: inline-block;
 }
 
-#catalogBtn, #geolocateBtn  {
+#catalogBtn, #geolocateBtn, #compassBtn  {
   border: 5px solid white;
   border-radius: 60px;
   background-position: center;
@@ -575,6 +575,15 @@ input[type='radio']:checked + label:before {
   background-image: url("assets/localisation.svg");
   position: absolute;
   bottom: 15px;
+}
+
+#compassBtn {
+  background-image: url("assets/compass.svg");
+  position: absolute;
+  bottom: 70px;
+  /* background-color: #0B6BA7;
+  border: 5px solid #ffffff; */
+
 }
 
 #menuBtn, #closeSearch {

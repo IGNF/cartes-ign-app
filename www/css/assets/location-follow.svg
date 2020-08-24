@@ -12,7 +12,7 @@
    height="24"
    viewBox="0 0 24 24"
    version="1.1"
-   sodipodi:docname="location-fixed.svg"
+   sodipodi:docname="location-follow.svg"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
   <metadata
      id="metadata9">
@@ -22,14 +22,14 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <defs
      id="defs7" />
   <sodipodi:namedview
-     pagecolor="#0b56ff"
+     pagecolor="#0b6ba7"
      bordercolor="#666666"
      borderopacity="1"
      objecttolerance="10"
@@ -41,9 +41,10 @@
      inkscape:window-height="1017"
      id="namedview5"
      showgrid="false"
+     inkscape:pagecheckerboard="false"
      inkscape:zoom="19.666667"
-     inkscape:cx="14.02451"
-     inkscape:cy="10.781007"
+     inkscape:cx="4.1400475"
+     inkscape:cy="9.9596008"
      inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -56,8 +57,7 @@
   <path
      id="Tracé_2"
      data-name="Tracé 2"
-     d="M 20.94,11 C 20.473469,6.8233184 17.176682,3.5265313 13,3.06 V 1 H 11 V 3.06 C 6.8233184,3.5265313 3.5265313,6.8233184 3.06,11 H 1 v 2 h 2.06 c 0.4665313,4.176682 3.7633184,7.473469 7.94,7.94 V 23 h 2 V 20.94 C 17.176682,20.473469 20.473469,17.176682 20.94,13 H 23 V 11 Z M 12,19 C 5.7632323,19 2.6409778,11.46003 7.050504,7.050504 11.46003,2.6409778 19,5.7632323 19,12 c 0.0028,3.867138 -3.132862,7.002765 -7,7 z"
-     inkscape:connector-curvature="0"
-     style="fill:#ffffff"
-     sodipodi:nodetypes="ccccccccccccccccccscc" />
+     d="M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm8.94,3A8.994,8.994,0,0,0,13,3.06V1H11V3.06A8.994,8.994,0,0,0,3.06,11H1v2H3.06A8.994,8.994,0,0,0,11,20.94V23h2V20.94A8.994,8.994,0,0,0,20.94,13H23V11H20.94ZM12,19a7,7,0,1,1,7-7A6.995,6.995,0,0,1,12,19Z"
+     style="fill:#ffffff;fill-opacity:1"
+     fill="#fff" />
 </svg>

@@ -78,6 +78,7 @@ function app() {
   const $legendImg = document.getElementById("legendImg");
   const $chkNePlusAff = document.getElementById("chkNePlusAff");
   const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
+  const $compassBtn = document.getElementById("compassBtn");
 
   /* global: back button state */
   let backButtonState = 'default';
@@ -86,6 +87,9 @@ function app() {
 
   /* global: last text in search bar */
   let lastTextInSearch = '';
+
+  /* global: current map rotation */
+  let currentRotation = 0;
 
   /* Message du jour (message of the day) */
   const motd_url = 'https://www.geoportail.gouv.fr/depot/app/motd.json';
@@ -650,7 +654,13 @@ function app() {
 
     gpsMarkerLayer.addLayer(markerLayer);
     if (panTo) {
-      map.setView(new L.LatLng(coords.lat, coords.lon), zoom);
+      if (currentRotation !== 0){
+        map.setBearing(0);
+        map.setView(new L.LatLng(coords.lat, coords.lon), zoom, {animate: false});
+        map.setBearing(currentRotation);
+      } else {
+        map.setView(new L.LatLng(coords.lat, coords.lon), zoom);
+      }
     }
   }
 
@@ -711,6 +721,7 @@ function app() {
 
 
   /* Géolocalisation */
+  let location_active = false;
   let tracking_active = false;
   let tracking_interval;
   function trackLocation() {
@@ -719,28 +730,32 @@ function app() {
         goToGPSCoords({
           lat: position.coords.latitude,
           lon: position.coords.longitude
-        }, zoom=14);
+        }, zoom=Math.max(map.getZoom(), 14));
       });
       tracking_interval = setInterval( () => {
         navigator.geolocation.getCurrentPosition((position) => {
           goToGPSCoords({
             lat: position.coords.latitude,
             lon: position.coords.longitude
-          }, zoom=map.getZoom(), panTo=false);
+          }, zoom=map.getZoom(), panTo=tracking_active);
         });
       }, 5000);
     }
   }
 
   function locationOnOff() {
-    if (!tracking_active) {
+    if (!location_active) {
       $geolocateBtn.style.backgroundImage = 'url("css/assets/location-fixed.svg")';
       requestLocationAccuracy();
       trackLocation();
+      location_active = true;
+    } else if (!tracking_active) {
+      $geolocateBtn.style.backgroundImage = 'url("css/assets/location-follow.svg")';
       tracking_active = true;
     } else {
       $geolocateBtn.style.backgroundImage = 'url("css/assets/localisation.svg")';
       clearInterval(tracking_interval);
+      location_active = false;
       tracking_active = false;
     }
   }
@@ -797,7 +812,7 @@ function app() {
           case cordova.plugins.diagnostic.permissionStatus.GRANTED:
               if(platform === "ios"){
                   onError("Location services is already switched ON");
-              }else{
+              } else{
                   _makeRequest();
               }
               break;
@@ -807,7 +822,7 @@ function app() {
           case cordova.plugins.diagnostic.permissionStatus.DENIED:
               if(platform === "android"){
                   onError("User denied permission to use location");
-              }else{
+              } else{
                   _makeRequest();
               }
               break;
@@ -906,6 +921,13 @@ function app() {
 
   // Menu burger
   $menuBtn.addEventListener("click", openMenu);
+
+  $compassBtn.addEventListener("click", () => {
+    currentRotation = 0;
+    map.setBearing(0);
+    $compassBtn.style.transform = "rotate(" + 0 + "deg)";
+    $compassBtn.classList.add("d-none");
+  })
 
   $menu.addEventListener('click', (evt) => {
     if (evt.target.id === 'menu') {
@@ -1009,7 +1031,6 @@ function app() {
   let hammertime = new Hammer($map);
   hammertime.get('rotate').set({enable: true});
 
-  let currentRotation = 0;
   let lastRotation;
   let startRotation;
   
@@ -1018,6 +1039,8 @@ function app() {
     if (Math.abs(diff) > 5){
       currentRotation = lastRotation - diff;
       map.setBearing(currentRotation);
+      $compassBtn.style.transform = "rotate(" + currentRotation + "deg)";
+      $compassBtn.classList.remove("d-none");
     }
   });
 
