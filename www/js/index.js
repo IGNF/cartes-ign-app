@@ -128,7 +128,7 @@ function app() {
   let gpsMarkerLayer;
   let adressMarkerLayer;
 
-  const map = new L.map('map', { zoomControl: false }).setView([47.33, 2.0], 5) ;
+  const map = new L.map('map', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5) ;
   //Définition de la carte et des couches
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
     map.setView([localStorage.getItem("lastMapLat"), localStorage.getItem("lastMapLng")], localStorage.getItem("lastMapZoom"));
@@ -922,6 +922,7 @@ function app() {
 
   document.getElementById("infoWindowClose").addEventListener('click', closeInfos);
   document.getElementById("legendWindowClose").addEventListener('click', closeLegend);
+  /**/ 
 
   // Légende en fonction du zoom
   map.on("zoomend", () => {
@@ -996,12 +997,39 @@ function app() {
     }
   }
 
+  // Sauvegarde de l'état de l'application
   document.addEventListener('pause', () => {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayerDisplayed", layerDisplayed);
   });
+
+  // Rotation de la carte avec le mutlitouch
+  let hammertime = new Hammer($map);
+  hammertime.get('rotate').set({enable: true});
+
+  let currentRotation = 0;
+  let lastRotation;
+  let startRotation;
+  
+  hammertime.on('rotatemove', (e) => {
+    let diff = startRotation - Math.round(e.rotation);
+    if (Math.abs(diff) > 5){
+      currentRotation = lastRotation - diff;
+      map.setBearing(currentRotation);
+    }
+  });
+
+  hammertime.on('rotatestart', (e) => {
+    lastRotation = currentRotation;
+    startRotation = Math.round(e.rotation);
+  });
+
+  hammertime.on('rotateend', () => {
+    lastRotation = currentRotation;
+  });
+
 }
 
 document.addEventListener('deviceready', () => {
