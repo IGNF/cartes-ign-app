@@ -18,6 +18,8 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <hook type="after_prepare" src="remove_permissions.js"/>
+
         <preference name="OverrideUserAgent" value="GeoportailAppAndroid" />
 
         <splash src="res/screen/android/splash2732x2732.png" density="land-hdpi"/>
