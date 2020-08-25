@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="30"
-   height="30"
-   viewBox="0 0 7.9374998 7.9375001"
-   version="1.1"
-   id="svg8"
+   sodipodi:docname="compass.svg"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-   sodipodi:docname="compass.svg">
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 7.9374998 7.9375001"
+   height="30"
+   width="30">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,11 +25,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.4"
-     inkscape:cx="9.9253351"
-     inkscape:cy="15.248806"
+     inkscape:zoom="31.678384"
+     inkscape:cx="8.1648247"
+     inkscape:cy="7.6311254"
      inkscape:document-units="px"
-     inkscape:current-layer="g873"
+     inkscape:current-layer="text829"
      showgrid="true"
      units="px"
      inkscape:window-width="1920"
@@ -51,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -96,18 +96,17 @@
            x="80.820137"
            y="146.92085"
            style="stroke-width:0.82903028" /></text>
-      <text
-         xml:space="preserve"
+      <g
+         aria-label="N"
+         transform="scale(1.0000029,0.9999971)"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.05373669px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.82903028"
-         x="82.05381"
-         y="114.62309"
-         id="text829"
-         transform="scale(1.0000029,0.9999971)"><tspan
-           sodipodi:role="line"
-           id="tspan827"
-           x="82.05381"
-           y="114.62309"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.84298992px;line-height:1;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.82903028">N</tspan></text>
+         id="text829">
+        <path
+           d="m 88.163593,113.96935 h -1.701239 l -2.746163,-4.77556 h -0.03886 q 0.08204,1.26514 0.08204,1.80487 v 2.97069 h -1.196049 v -6.31272 h 1.688286 l 2.741845,4.72807 h 0.03023 q -0.06477,-1.2306 -0.06477,-1.7401 v -2.98797 h 1.204685 z"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.84298992px;line-height:1;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.82903028"
+           id="path843"
+           inkscape:connector-curvature="0" />
+      </g>
     </g>
   </g>
 </svg>
