@@ -46,14 +46,12 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#146cac;
+    background-color:#006ba7;
     font-family: "Open Sans Bold", -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
     font-size:12px;
     height:100vh;
     margin:0px;
     padding:0px;
-    /* Padding to avoid the "unsafe" areas behind notches in the screen */
-    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
     width:100%;
     color:white;
 }
@@ -68,6 +66,10 @@ a {
   color: #9FE4FF;
 }
 
+.leaflet-popup-content {
+  user-select: text;
+}
+
 .leaflet-container a {
   color: #9FE4FF;
 }
@@ -77,7 +79,8 @@ a {
 }
 
 .leaflet-bottom .leaflet-control-scale {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
+  margin-left: 15px;
 }
 
 .d-none {
@@ -551,12 +554,11 @@ input[type='radio']:checked + label:before {
   display: inline-block;
 }
 
-#catalogBtn, #geolocateBtn  {
+#catalogBtn, #geolocateBtn, #compassBtn  {
   border: 5px solid white;
   border-radius: 60px;
   background-position: center;
   background-repeat: no-repeat;
-  /* background-size: 25px; */
   right: 15px;
   background-color: #0B6BA7;
   z-index: 2998;
@@ -574,14 +576,20 @@ input[type='radio']:checked + label:before {
   bottom: 15px;
 }
 
+#compassBtn {
+  background-image: url("assets/compass.svg");
+  position: absolute;
+  bottom: 70px;
+}
+
 #menuBtn, #closeSearch {
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
-  top: 13px;
-  right: 20px;
-  width: 28px;
-  height: 28px;
+  top: 10px;
+  right: 0px;
+  width: 58px;
+  height: 35px;
 }
 
 #menuBtn {
@@ -649,6 +657,21 @@ input[type='radio']:checked + label:before {
   width: 26%;
 }
 
+
+.GPlayerInfo-originators {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.GPlayerInfo-originators a {
+  color: #0B6BA7;
+  text-decoration: none;
+}
+
+.GPlayerInfo-originators li {
+  padding: 5px;
+}
+
 /* mode paysage */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #menuItems {
@@ -669,6 +692,12 @@ input[type='radio']:checked + label:before {
 
   #menuItemPlusLoin {
     margin-top: 0;
+  }
+
+  #header {
+    margin-left: calc(env(safe-area-inset-left, 0px) / 2);
+    margin-right: calc(env(safe-area-inset-right, 0px) / 2);
+    width: calc(100% - calc(env(safe-area-inset-left, 0px) / 2) - calc(env(safe-area-inset-right, 0px) / 2));
   }
 }
 
