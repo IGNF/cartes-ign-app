@@ -559,7 +559,6 @@ input[type='radio']:checked + label:before {
   border-radius: 60px;
   background-position: center;
   background-repeat: no-repeat;
-  /* background-size: 25px; */
   right: 15px;
   background-color: #0B6BA7;
   z-index: 2998;
@@ -581,9 +580,6 @@ input[type='radio']:checked + label:before {
   background-image: url("assets/compass.svg");
   position: absolute;
   bottom: 70px;
-  /* background-color: #0B6BA7;
-  border: 5px solid #ffffff; */
-
 }
 
 #menuBtn, #closeSearch {
