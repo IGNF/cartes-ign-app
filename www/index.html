@@ -29,7 +29,7 @@
               <div id="messageContainer">
                 <div id="message"></div>
                 <p id="nePlusAff"><input type="checkbox" id="chkNePlusAff"> Ne plus afficher ce message</p>
-                <p class='centered'><a class='btnGpp' id='compris'>CONTINUER</a></p>
+                <p class="centered"><a class="btnGpp" id="compris">CONTINUER</a></p>
               </div>
             </div>
 
@@ -49,12 +49,13 @@
             <div id="cartoContainer">
               <div id="map">
                 <div id="footer">
-                  <div class="button" id="geolocateBtn">
+                  <div class="button" id="geolocateBtn"></div>
+                  <div class="button d-none" id="compassBtn"></div>
                 </div>
-              </div></div>
+              </div>
 
               <div class="d-none" id="infoWindow">
-                <div id=infoWindowContent>
+                <div id="infoWindowContent">
                   <div id="infoWindowClose"></div>
                   <h3>Informations</h3>
                   <div id="infoText">Prises de vues satellitaires ou aériennes des territoires.</div>
@@ -62,7 +63,7 @@
               </div>
 
               <div class="d-none" id="legendWindow">
-                <div id=legendWindowContent>
+                <div id="legendWindowContent">
                   <div id="legendWindowClose"></div>
                   <h3>Légende de la carte</h3>
                   <div id="legendImg"><img src="img/couches/photos-legend.png" alt="légende photos aeriennes"></div>
@@ -170,10 +171,10 @@
                   <p class='centered'><a href='https://apps.apple.com/fr/app/ignrando-gps-officiel-ign/id1454207995'><img id="imgIgnRandoAppStore" alt="Disponible sur l'AppStore" src='img/Download_on_the_App_Store_Badge_FR_RGB_blk_100517.svg'></a></p>
                 </div>
                 <div>
-                  <p class='plusLoinTitle'><img src="img/IGN_logo_2012.svg" id='ignLogo'> <span class='plusLoinTitleText'>REMONTER LE TEMPS</span></p>
+                  <p class="plusLoinTitle"><img src="img/IGN_logo_2012.svg" id="ignLogo"> <span class="plusLoinTitleText">REMONTER LE TEMPS</span></p>
                   <p>De Cassini à nos jours, avec le site remonterletemps.ign.fr, vous pouvez <b>visualiser et comparer</b> l'évolution des territoires au fil des siècles.</p>
                   <p>En un clin d'œil, vous avez accès à différents modes de comparaison des cartes de Cassini (XVIIIème), cartes de l'état-major (XIXème), cartes IGN (XXème et XXIème) et des photographies aériennes d'hier et d'aujourd'hui.</p>
-                  <p class='centered'><a class='btnGpp' href="https://remonterletemps.ign.fr/comparer/">CONSULTER</a></p>
+                  <p class="centered"><a class="btnGpp" href="https://remonterletemps.ign.fr/comparer/">CONSULTER</a></p>
                 </div>
               </div>
             </div>
@@ -213,8 +214,11 @@
         <script type="text/javascript" src="js/leaflet.js"></script>
         <script type="text/javascript" src="js/GpServices.js"></script>
         <script type="text/javascript" src="js/proj4.js"></script>
+        <script type="text/javascript" src="js/pouchdb.min.js"></script>
+        <script type="text/javascript" src="js/leaflet-src.js"></script>
         <script type="text/javascript" src="js/leaflet.tilelayer.fallback.js"></script>
         <script type="text/javascript" src="js/purify.min.js"></script>
+        <script type="text/javascript" src="js/hammer.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 

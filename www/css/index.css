@@ -68,6 +68,7 @@ a {
 
 .leaflet-popup-content {
   user-select: text;
+  -webkit-user-select: text;
 }
 
 .leaflet-container a {
@@ -555,12 +556,11 @@ input[type='radio']:checked + label:before {
   display: inline-block;
 }
 
-#catalogBtn, #geolocateBtn  {
+#catalogBtn, #geolocateBtn, #compassBtn  {
   border: 5px solid white;
   border-radius: 60px;
   background-position: center;
   background-repeat: no-repeat;
-  /* background-size: 25px; */
   right: 15px;
   background-color: #0B6BA7;
   z-index: 2998;
@@ -576,6 +576,12 @@ input[type='radio']:checked + label:before {
   background-image: url("assets/localisation.svg");
   position: absolute;
   bottom: 15px;
+}
+
+#compassBtn {
+  background-image: url("assets/compass.svg");
+  position: absolute;
+  bottom: 70px;
 }
 
 #menuBtn, #closeSearch {

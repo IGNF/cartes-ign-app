@@ -1,7 +1,7 @@
 {
   "name": "geoportail",
   "displayName": "Géoportail",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Application Géoportail",
   "main": "index.js",
   "scripts": {
@@ -36,7 +36,8 @@
       "cordova.plugins.diagnostic": {},
       "cordova-plugin-request-location-accuracy": {
         "PLAY_SERVICES_LOCATION_VERSION": "16.+"
-      }
+      },
+      "cordova-plugin-androidx": {}
     },
     "platforms": [
       "browser",
