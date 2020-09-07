@@ -54,6 +54,7 @@
         <access origin="*" />
         <allow-intent href="http://*/*" />
         <allow-intent href="https://*/*" />
+        <allow-navigation href="*://piwik.ign.fr/*" />
         <splash src="res/screen/ios/Default@2x~universal~anyany.png" />
         <icon height="144" src="resources/ios/icon/icon-72@2x.png" width="144" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
