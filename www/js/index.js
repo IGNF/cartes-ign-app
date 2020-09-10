@@ -79,6 +79,7 @@ function app() {
   const $chkNePlusAff = document.getElementById("chkNePlusAff");
   const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
   const $compassBtn = document.getElementById("compassBtn");
+  const $chkRotate = document.getElementById("chkRotate");
 
   /* global: back button state */
   let backButtonState = 'default';
@@ -937,7 +938,7 @@ function app() {
 
   document.getElementById("infoWindowClose").addEventListener('click', closeInfos);
   document.getElementById("legendWindowClose").addEventListener('click', closeLegend);
-  /**/ 
+  /**/
 
   // Légende en fonction du zoom
   map.on("zoomend", () => {
@@ -1109,20 +1110,24 @@ function app() {
 
   let lastRotation;
   let startRotation;
-  
+
   hammertime.on('rotatemove', (e) => {
-    let diff = startRotation - Math.round(e.rotation);
-    if (Math.abs(diff) > 5){
-      currentRotation = lastRotation - diff;
-      map.setBearing(currentRotation);
-      $compassBtn.style.transform = "rotate(" + currentRotation + "deg)";
-      $compassBtn.classList.remove("d-none");
+    if ($chkRotate) {
+      let diff = startRotation - Math.round(e.rotation);
+      if (Math.abs(diff) > 10){
+        currentRotation = lastRotation - (diff - 10) ;
+        map.setBearing(currentRotation);
+        $compassBtn.style.transform = "rotate(" + currentRotation + "deg)";
+        $compassBtn.classList.remove("d-none");
+      }
     }
   });
 
   hammertime.on('rotatestart', (e) => {
-    lastRotation = currentRotation;
-    startRotation = Math.round(e.rotation);
+    if ($chkRotate) {
+      lastRotation = currentRotation;
+      startRotation = Math.round(e.rotation);
+    }
   });
 
   hammertime.on('rotateend', () => {
