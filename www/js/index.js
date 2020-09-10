@@ -1105,17 +1105,19 @@ function app() {
   });
 
   // Rotation de la carte avec le mutlitouch
-  let hammertime = new Hammer($map);
-  hammertime.get('rotate').set({enable: true});
+  let hammertime = new Hammer.Manager($map);
+
+  const rotate = new Hammer.Rotate()
+  hammertime.add(rotate)
 
   let lastRotation;
   let startRotation;
 
   hammertime.on('rotatemove', (e) => {
-    if ($chkRotate) {
+    if ($chkRotate.checked) {
       let diff = startRotation - Math.round(e.rotation);
-      if (Math.abs(diff) > 10){
-        currentRotation = lastRotation - (diff - 10) ;
+      if (Math.abs(diff) > 15){
+        currentRotation = lastRotation - (diff - Math.sign(diff) * 15) ;
         map.setBearing(currentRotation);
         $compassBtn.style.transform = "rotate(" + currentRotation + "deg)";
         $compassBtn.classList.remove("d-none");
@@ -1124,14 +1126,16 @@ function app() {
   });
 
   hammertime.on('rotatestart', (e) => {
-    if ($chkRotate) {
+    if ($chkRotate.checked) {
       lastRotation = currentRotation;
       startRotation = Math.round(e.rotation);
     }
   });
 
   hammertime.on('rotateend', () => {
-    lastRotation = currentRotation;
+    if ($chkRotate.checked) {
+      lastRotation = currentRotation;
+    }
   });
 
 }
