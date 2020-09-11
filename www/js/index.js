@@ -1035,15 +1035,20 @@ function app() {
 
   let lastRotation;
   let startRotation;
+  let rotationStarted = false;
 
   hammertime.on('rotatemove', (e) => {
     if ($chkRotate.checked) {
       let diff = startRotation - Math.round(e.rotation);
-      if (Math.abs(diff) > 15){
-        currentRotation = lastRotation - (diff - Math.sign(diff) * 15) ;
+      currentRotation = lastRotation - diff;
+      if (rotationStarted) {
         map.setBearing(currentRotation);
         $compassBtn.style.transform = "rotate(" + currentRotation + "deg)";
         $compassBtn.classList.remove("d-none");
+      }
+      if (Math.abs(diff) > 15){
+        rotationStarted = true;
+        startRotation = Math.round(e.rotation);
       }
     }
   });
@@ -1057,7 +1062,8 @@ function app() {
 
   hammertime.on('rotateend', () => {
     if ($chkRotate.checked) {
-      lastRotation = currentRotation;
+        rotationStarted = false;
+        lastRotation = currentRotation;
     }
   });
 
