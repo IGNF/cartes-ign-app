@@ -451,7 +451,7 @@ input[type='radio']:checked + label:before {
 
 #privacyMenu iframe {
   border: 0;
-  height: 230px;
+  height: 250px;
 }
 
 /* Menus */
