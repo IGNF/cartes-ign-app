@@ -1039,9 +1039,10 @@ function app() {
   let lastRotation;
   let startRotation;
   let rotationStarted = false;
+  let disableRotation = false;
 
   hammertime.on('rotatemove', (e) => {
-    if ($chkRotate.checked) {
+    if ($chkRotate.checked && !disableRotation) {
       let diff = startRotation - Math.round(e.rotation);
       currentRotation = lastRotation - diff;
       if (rotationStarted) {
@@ -1049,7 +1050,7 @@ function app() {
         $compassBtn.style.transform = "rotate(" + currentRotation + "deg)";
         $compassBtn.classList.remove("d-none");
       }
-      if (Math.abs(diff) > 15){
+      if (Math.abs(diff) > 15 && !rotationStarted){
         rotationStarted = true;
         startRotation = Math.round(e.rotation);
       }
@@ -1057,18 +1058,37 @@ function app() {
   });
 
   hammertime.on('rotatestart', (e) => {
-    if ($chkRotate.checked) {
+    if ($chkRotate.checked && !disableRotation) {
       lastRotation = currentRotation;
       startRotation = Math.round(e.rotation);
     }
   });
 
   hammertime.on('rotateend', () => {
-    if ($chkRotate.checked) {
+    if ($chkRotate.checked && !disableRotation) {
         rotationStarted = false;
         lastRotation = currentRotation;
     }
   });
+
+  // Pas de rotation quand zoom
+  let currentZoom = 0;
+  map.on("zoomstart", () => {
+    currentZoom = map.getZoom();
+    console.log('currentzoom: ' + currentZoom);
+  });
+
+  map.on("zoom", () => {
+    if (Math.round(map.getZoom()) !== currentZoom && !rotationStarted) {
+      console.log('getzoom: ' + map.getZoom());
+      disableRotation = true;
+    }
+  });
+
+  map.on("zoomend", () => {
+    disableRotation = false;
+  });
+
 
 }
 
