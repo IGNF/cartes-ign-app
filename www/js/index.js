@@ -442,6 +442,7 @@ function app() {
   // Ouverture/fermeture de l'écran recherche
   function searchScreenOn() {
     closeCat();
+    document.getElementById("catalogBtn").classList.add('d-none');
     // $blueBg.classList.remove('d-none');
     $menuBtn.classList.add('d-none');
     $closeSearch.classList.remove('d-none');
@@ -451,6 +452,7 @@ function app() {
   function searchScreenOff() {
     $resultDiv.hidden = true;
     $resultDiv.innerHTML = "";
+    document.getElementById("catalogBtn").classList.remove('d-none');
     // $blueBg.classList.add('d-none');
     $menuBtn.classList.remove('d-none');
     $closeSearch.classList.add('d-none');
