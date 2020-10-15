@@ -442,7 +442,7 @@ function app() {
   // Ouverture/fermeture de l'écran recherche
   function searchScreenOn() {
     closeCat();
-    $blueBg.classList.remove('d-none');
+    // $blueBg.classList.remove('d-none');
     $menuBtn.classList.add('d-none');
     $closeSearch.classList.remove('d-none');
     backButtonState = 'search';
@@ -451,7 +451,7 @@ function app() {
   function searchScreenOff() {
     $resultDiv.hidden = true;
     $resultDiv.innerHTML = "";
-    $blueBg.classList.add('d-none');
+    // $blueBg.classList.add('d-none');
     $menuBtn.classList.remove('d-none');
     $closeSearch.classList.add('d-none');
     document.activeElement.blur()

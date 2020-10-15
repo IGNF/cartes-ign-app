@@ -8,6 +8,7 @@
         IGN - Géoportail
     </author>
     <icon src="www/img/apple-touch-icon.png" />
+    <preference name="loadUrlTimeoutValue" value="100000" />
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -24,11 +25,13 @@
         <splash src="res/screen/android/splash2732x2732.png" density="land-ldpi"/>
         <splash src="res/screen/android/splash2732x2732.png" density="land-mdpi"/>
         <splash src="res/screen/android/splash2732x2732.png" density="land-xhdpi"/>
+        <splash src="res/screen/android/splash2732x2732.png" density="land-xxhdpi"/>
 
         <splash src="res/screen/android/splash2732x2732.png" density="port-hdpi"/>
         <splash src="res/screen/android/splash2732x2732.png" density="port-ldpi"/>
         <splash src="res/screen/android/splash2732x2732.png" density="port-mdpi"/>
         <splash src="res/screen/android/splash2732x2732.png" density="port-xhdpi"/>
+        <splash src="res/screen/android/splash2732x2732.png" density="port-xxhdpi"/>
 
         <preference name="SplashMaintainAspectRatio" value="true" />
         <preference name="ShowSplashScreenSpinner" value="false"/>
