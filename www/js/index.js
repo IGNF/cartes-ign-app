@@ -731,13 +731,30 @@ function app() {
           lat: position.coords.latitude,
           lon: position.coords.longitude
         }, zoom=Math.max(map.getZoom(), 14));
+      },
+      (err) => {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      },
+      {
+        maximumAge: 15000,
+        timeout: 10000,
+        enableHighAccuracy: true
       });
+
       tracking_interval = setInterval( () => {
         navigator.geolocation.getCurrentPosition((position) => {
           goToGPSCoords({
             lat: position.coords.latitude,
             lon: position.coords.longitude
           }, zoom=map.getZoom(), panTo=tracking_active);
+        },
+        (err) => {
+          console.warn(`ERROR(${err.code}): ${err.message}`);
+        },
+        {
+          maximumAge: 15000,
+          timeout: 10000,
+          enableHighAccuracy: true
         });
       }, 5000);
     }
