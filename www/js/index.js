@@ -450,6 +450,9 @@ function app() {
   }
 
   function searchScreenOff() {
+    controller.abort();
+    controller = new AbortController();
+    signal = controller.signal;
     $resultDiv.hidden = true;
     $resultDiv.innerHTML = "";
     document.getElementById("catalogBtn").classList.remove('d-none');
@@ -700,13 +703,14 @@ function app() {
 
 
   $rech.addEventListener("keyup", (event) => {
-    if (event.keyCode === 13) {
+    if (event.key === 'Enter' || event.keyCode === 13) {
       // Cancel the default action, if needed
       event.preventDefault();
       // Trigger the button element with a click
       $resultDiv.hidden = true;
       $resultDiv.innerHTML = "";
       rechercheEtPosition($rech.value);
+      searchScreenOff();
     } else {
       let resultStr = "";
       suggest().then( () => {
