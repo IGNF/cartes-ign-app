@@ -450,6 +450,9 @@ function app() {
   }
 
   function searchScreenOff() {
+    controller.abort();
+    controller = new AbortController();
+    signal = controller.signal;
     $resultDiv.hidden = true;
     $resultDiv.innerHTML = "";
     document.getElementById("catalogBtn").classList.remove('d-none');
@@ -707,6 +710,7 @@ function app() {
       $resultDiv.hidden = true;
       $resultDiv.innerHTML = "";
       rechercheEtPosition($rech.value);
+      searchScreenOff();
     } else {
       let resultStr = "";
       suggest().then( () => {
