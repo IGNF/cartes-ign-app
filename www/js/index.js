@@ -93,7 +93,7 @@ function app() {
   let currentRotation = 0;
 
   /* Message du jour (message of the day) */
-  const motd_url = 'https://azarz.github.io/geoportail-app-demo/js/motd.json';
+  const motd_url = 'https://www.geoportail.gouv.fr/depot/app/motd.json';
   let motd_id;
   fetch(motd_url, {mode: 'cors'}).then( response => {
     response.json().then( data => {
@@ -436,7 +436,8 @@ function app() {
   // Ouverture/fermeture de l'écran recherche
   function searchScreenOn() {
     closeCat();
-    $blueBg.classList.remove('d-none');
+    document.getElementById("catalogBtn").classList.add('d-none');
+    // $blueBg.classList.remove('d-none');
     $menuBtn.classList.add('d-none');
     $closeSearch.classList.remove('d-none');
     backButtonState = 'search';
@@ -445,7 +446,8 @@ function app() {
   function searchScreenOff() {
     $resultDiv.hidden = true;
     $resultDiv.innerHTML = "";
-    $blueBg.classList.add('d-none');
+    document.getElementById("catalogBtn").classList.remove('d-none');
+    // $blueBg.classList.add('d-none');
     $menuBtn.classList.remove('d-none');
     $closeSearch.classList.add('d-none');
     document.activeElement.blur()
@@ -725,13 +727,30 @@ function app() {
           lat: position.coords.latitude,
           lon: position.coords.longitude
         }, zoom=Math.max(map.getZoom(), 14));
+      },
+      (err) => {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      },
+      {
+        maximumAge: 15000,
+        timeout: 10000,
+        enableHighAccuracy: true
       });
+
       tracking_interval = setInterval( () => {
         navigator.geolocation.getCurrentPosition((position) => {
           goToGPSCoords({
             lat: position.coords.latitude,
             lon: position.coords.longitude
           }, zoom=map.getZoom(), panTo=tracking_active);
+        },
+        (err) => {
+          console.warn(`ERROR(${err.code}): ${err.message}`);
+        },
+        {
+          maximumAge: 15000,
+          timeout: 10000,
+          enableHighAccuracy: true
         });
       }, 5000);
     }
