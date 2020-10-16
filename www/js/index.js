@@ -700,7 +700,7 @@ function app() {
 
 
   $rech.addEventListener("keyup", (event) => {
-    if (event.keyCode === 13) {
+    if (event.key === 'Enter' || event.keyCode === 13) {
       // Cancel the default action, if needed
       event.preventDefault();
       // Trigger the button element with a click
