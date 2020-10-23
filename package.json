@@ -1,7 +1,7 @@
 {
-  "name": "geoportail",
-  "displayName": "Géoportail",
-  "version": "2.0.11",
+  "name": "geoportail-app",
+  "displayName": "Géoportail App",
+  "version": "2.0.12",
   "description": "Application Géoportail",
   "main": "index.js",
   "scripts": {
