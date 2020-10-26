@@ -687,32 +687,32 @@ function app() {
   }
 
 
-  /* FIXME later : a adapter au nouveau géocodage */
-  function rechercheEtPosition(text) {
-    /* Récupération des coordonnées avec l'API (bibliothèque d'accès aux services) */
-    Gp.Services.geocode({
-      apiKey: "mkndr2u5p00n57ez211i19ok",
-      location: text,
-      filterOptions: {
-        type: "PositionOfInterest,StreetAddress",
-      },
-      protocol: 'XHR',
-      httpMethod: 'GET',
-      rawResponse: false,
-      returnFreeForm: true,
-      /* fonction exécutée une fois la réponse récupérée, avec succès */
-      onSuccess: function(response) {
-        let location = response.locations[0];
-        let coords = {
-          lat: location.position.x,
-          lon: location.position.y
+  async function rechercheEtPosition(text) {
+    /* Récupération des coordonnées avec look4 */
+    let url = new URL("https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/look4/user/search");
+    let params =
+        {
+          indices: "locating",
+          method: "prefix",
+          types: "address,position,toponyme,w3w",
+          nb: 1,
+          "match[fulltext]": text,
         };
-        goToAddressCoords(coords, 14);
-      },
-      onFailure: function(error) {
-        console.log("Erreur lors de l'appel à l'ancien géocodeur : ", error);
-      }
-    });
+
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    let responseprom = await fetch(url);
+    let response = await responseprom.json()
+
+    let geocode_result = response.features[0];
+
+    $rech.value = computeLocationFullText(geocode_result);
+
+    let geom = geocode_result.geometry;
+    let coords = {
+      lat: geom.coordinates[1],
+      lon: geom.coordinates[0]
+    };
+    goToAddressCoords(coords, 14);
   }
 
   function goToAddressCoords(coords, zoom=map.getZoom(), panTo=true) {
@@ -763,27 +763,51 @@ function app() {
     controller = new AbortController();
     signal = controller.signal;
     let location = $rech.value;
-    let url = new URL("https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/ols/apis/completion");
+    let url = new URL("https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/look4/user/search");
     let params =
         {
-          text: location,
-          maximumResponses: 20,
-          type: "PositionOfInterest,StreetAddress",
+          indices: "locating",
+          method: "prefix",
+          types: "address,position,toponyme,w3w",
+          nb: 15,
+          "match[fulltext]": location,
         };
 
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     let responseprom = await fetch(url, {signal});
     let response = await responseprom.json()
     autocompletion_results = [];
-    for (i = 0 ; i < response.results.length; i++) {
-      elem = response.results[i];
-      autocompletion_results.push(elem.fulltext);
+    for (i = 0 ; i < response.features.length; i++) {
+      elem = response.features[i];
+      autocompletion_results.push(computeLocationFullText(elem));
     }
     // Seulement les valeurs uniques
     autocompletion_results = autocompletion_results
       .filter((val, idx, s) => s.indexOf(val) === idx)
       .slice(0,5);
   }
+
+  function computeLocationFullText(locationResult) {
+    var properties = locationResult.properties;
+    var fullText = "";
+
+    if (properties._type === "position" && properties.coord) {
+        fullText = "Coordonnées : " + properties.coord;
+    } else if (properties._type === "w3w" && properties.w3w) {
+        fullText = "what3words : " + properties.w3w;
+    } else {
+        if (properties.nyme) {
+            fullText += properties.nyme + ", ";
+        }
+        if (properties.street) {
+            fullText += properties.number + " " + properties.street + ", ";
+        }
+        fullText += properties.postalCode + " " + properties.city;
+    }
+
+    return fullText;
+  }
+
 
 
   $rech.addEventListener("keyup", (event) => {
@@ -1184,12 +1208,10 @@ function app() {
   let currentZoom = 0;
   map.on("zoomstart", () => {
     currentZoom = map.getZoom();
-    console.log('currentzoom: ' + currentZoom);
   });
 
   map.on("zoom", () => {
     if (Math.round(map.getZoom()) !== currentZoom && !rotationStarted) {
-      console.log('getzoom: ' + map.getZoom());
       disableRotation = true;
     }
   });
