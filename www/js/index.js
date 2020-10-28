@@ -1,27 +1,12 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
-*/
-
-// Pour la mise en cache de tuiles (mode hors ligne) -> désactivé jusqu'à mention contraire...
+/* Pour la mise en cache de tuiles (mode hors ligne) -> désactivé jusqu'à mention contraire... */
 const useCachedTiles = false;
 
 function app() {
+  /**
+   * Fonction définissant l'application
+   */
 
+  /* Object contenant les descriptions associées aux couches */
   const informationTexts = {
     photos: 'Prises de vues satellitaires ou aériennes des territoires. <p><a style="color: #00b798; text-decoration: none;" href="https://www.geoportail.gouv.fr/depot/fiches/photographiesaeriennes/geoportail_dates_des_prises_de_vues_aeriennes.pdf" target="_blank" rel="noopener">»&nbsp;Consulter les dates des prises de vues aériennes</a></p><p><a style="color: #00b798; text-decoration: none;" href="http://professionnels.ign.fr/doc/ENR_liste_partenariats%20_orthoHR_pour_diffusion.pdf" target="_blank" rel="noopener">»&nbsp;Consulter les partenariats</a></p><ul class="GPlayerInfo-originators"><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Institut national de l’information géographique et forestière" target="_blank" href="http://www.ign.fr">Institut national de l’information géographique et forestière</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Planet Observer" target="_blank" href="http://www.planetobserver.com/">Planet Observer</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Centre Régional Auvergnat de l’Information Géographique (CRAIG)" target="_blank" href="http://www.craig.fr/">Centre Régional Auvergnat de l’Information Géographique (CRAIG)</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Conseil départemental des Alpes-Maritimes" target="_blank" href="https://www.departement06.fr/">Conseil départemental des Alpes-Maritimes</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Régie de Gestion de Données des Pays de Savoie (RGD-73-74)" target="_blank" href="http://www.rgd73-74.fr/">Régie de Gestion de Données des Pays de Savoie (RGD-73-74)</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Centre régional de l’information géographique Provence-Alpes-Côte d’Azur (CRIGE-PACA)" target="_blank" href="http://www.crige-paca.org/">Centre régional de l’information géographique Provence-Alpes-Côte d’Azur (CRIGE-PACA)</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Fonds européen de développement régional (FEDER)" target="_blank" href="http://www.europe-en-france.gouv.fr/L-Europe-s-engage/Fonds-europeens-2014-2020/Politique-de-cohesion-economique-sociale-et-territoriale/FEDER">Fonds européen de développement régional (FEDER)</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Mégalis Bretagne" target="_blank" href="https://www.megalisbretagne.org">Mégalis Bretagne</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Collectivité Territoriale de Corse" target="_blank" href="http://www.corse.fr">Collectivité Territoriale de Corse</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Région Grand-Est" target="_blank" href="http://www.grandest.fr/">Région Grand-Est</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Préfecture de la région Grand-Est" target="_blank" href="http://www.prefectures-regions.gouv.fr/grand-est/">Préfecture de la région Grand-Est</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Établissement Public Foncier Nord-Pas-de-Calais" target="_blank" href="http://www.epf-npdc.fr">Établissement Public Foncier Nord-Pas-de-Calais</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Conseil départemental du Haut-Rhin" target="_blank" href="https://www.haut-rhin.fr/">Conseil départemental du Haut-Rhin</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Région Normandie" target="_blank" href="https://www.normandie.fr">Région Normandie</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Conseil départemental du Bas-Rhin" target="_blank" href="http://www.bas-rhin.fr">Conseil départemental du Bas-Rhin</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Soluris" target="_blank" href="http://www.soluris.fr/">Soluris</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Syndicat Intercommunal d’Energie des Deux-Sèvres (SIEDS)" target="_blank" href="https://www.sieds.fr/">Syndicat Intercommunal d’Energie des Deux-Sèvres (SIEDS)</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Région Occitanie" target="_blank" href="http://www.laregion.fr/">Région Occitanie</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Préfecture de la région Occitanie" target="_blank" href="http://www.prefectures-regions.gouv.fr/occitanie">Préfecture de la région Occitanie</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Région Pays-de-la-Loire" target="_blank" href="http://www.paysdelaloire.fr/">Région Pays-de-la-Loire</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Préfecture de la région Pays-de-la-Loire" target="_blank" href="http://www.prefectures-regions.gouv.fr/pays-de-la-loire">Préfecture de la région Pays-de-la-Loire</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Région Provence-Alpes-Côte d’Azur" target="_blank" href="http://www.regionpaca.fr">Région Provence-Alpes-Côte d’Azur</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Région Hauts-de-France" target="_blank" href="http://www.hautsdefrance.fr/">Région Hauts-de-France</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Département de la Loire-Atlantique" target="_blank" href="http://www.loire-atlantique.fr">Département de la Loire-Atlantique</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Département des Alpes-de-Haute-Provence" target="_blank" href="http://www.mondepartement04.fr/accueil.html">Département des Alpes-de-Haute-Provence</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Département des Hautes-Alpes" target="_blank" href="http://www.hautes-alpes.fr/">Département des Hautes-Alpes</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Département du Vaucluse" target="_blank" href="http://www.vaucluse.fr/accueil/">Département du Vaucluse</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Gouvernement de la Nouvelle-Calédonie" target="_blank" href="https://gouv.nc/">Gouvernement de la Nouvelle-Calédonie</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Département du Var" target="_blank" href="https://www.var.fr/">Département du Var</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Région Bourgogne-Franche-Comté" target="_blank" href="https://www.bourgognefranchecomte.fr/">Région Bourgogne-Franche-Comté</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Département des Bouches-du-Rhône" target="_blank" href="https://www.departement13.fr/">Département des Bouches-du-Rhône</a></li></ul>',
     routes: 'Affichage du réseau routier français et européen. <p><a style="color: #00b798; text-decoration: none;" href="https://www.geoportail.gouv.fr/depot/fiches/donnees-vecteur/composition-donnees-vecteur.pdf" target="_blank" rel="noopener">»&nbsp;Consulter les dates de mise à jour des données</a></p><ul class="GPlayerInfo-originators"><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Institut national de l’information géographique et forestière" target="_blank" href="http://www.ign.fr">Institut national de l’information géographique et forestière</a></li></ul>',
@@ -33,6 +18,7 @@ function app() {
     etatmajor: "Carte française en couleurs du XIXè siècle en couleurs superposable aux cartes et données modernes.",
   }
 
+  /* Object contenant les liens vers les légendes associées aux couches */
   const legendImgs = {
     photos: '<img src="img/couches/photos-legend.png" alt="légende photos aeriennes">',
     routes: '<img src="img/couches/routes-legend.png" alt="légende routes">',
@@ -51,6 +37,7 @@ function app() {
   //   eighteen: '<img src="img/couches/planign-legend_16-18.png" alt="légende plan IGN">',
   // }
 
+  /* Object contenant les liens vers les légendes associées aux niveaux de zoom de la carte */
   const carteIGNLegendImgs = {
     twelve: '<img src="img/couches/cartes-legend_0-12.png" alt="légende cartes">',
     forteen: '<img src="img/couches/cartes-legend_13-14.png" alt="légende cartes">',
@@ -308,6 +295,7 @@ function app() {
     }
   );
 
+  // Pour le "chargement" de l'état précédent
   // Par défaut : couche ortho
   switch (layerDisplayed) {
     case 'photos':
@@ -358,6 +346,9 @@ function app() {
   }
 
   function displayOrtho() {
+    /**
+     * Affiche la couche ortho
+     */
     removeAllLayers();
     document.getElementById("photos").classList.add("selectedLayer");
     $infoText.innerHTML = informationTexts.photos;
@@ -374,6 +365,9 @@ function app() {
   }
 
   function displayOrthoAndRoads() {
+    /**
+     * Affiche la couche ortho + route
+     */
     removeAllLayers();
     document.getElementById("routes").classList.add("selectedLayer");
     $infoText.innerHTML = informationTexts.routes;
@@ -391,6 +385,9 @@ function app() {
   }
 
   function displayOrthoAndParcels() {
+    /**
+     * Affiche la couche ortho + cadastre
+     */
     removeAllLayers();
     document.getElementById("cadastre").classList.add("selectedLayer");
     $infoText.innerHTML = informationTexts.cadastre;
@@ -409,6 +406,9 @@ function app() {
   }
 
   function displayPlan() {
+    /**
+     * Affiche la couche plan IGN
+     */
     removeAllLayers();
     document.getElementById("plan-ign").classList.add("selectedLayer");
     $infoText.innerHTML = informationTexts.plan_ign;
@@ -425,6 +425,9 @@ function app() {
   }
 
   function displayCartes() {
+    /**
+     * Affiche la couche cartes IGN
+     */
     removeAllLayers();
     document.getElementById("cartes").classList.add("selectedLayer");
     $infoText.innerHTML = informationTexts.cartes;
@@ -441,6 +444,9 @@ function app() {
   }
 
   function displayDrones() {
+    /**
+     * Affiche la couche carte des drones
+     */
     removeAllLayers();
     document.getElementById("drones").classList.add("selectedLayer");
     $infoText.innerHTML = informationTexts.drones;
@@ -458,6 +464,9 @@ function app() {
   }
 
   function displayTopo() {
+    /**
+     * Affiche la couche carte topo
+     */
     removeAllLayers();
     document.getElementById("topo").classList.add("selectedLayer");
     $infoText.innerHTML = informationTexts.topo;
@@ -474,6 +483,9 @@ function app() {
   }
 
   function displayEtatMajor() {
+    /**
+     * Affiche la couche carte d'état major
+     */
     removeAllLayers();
     document.getElementById("etat-major").classList.add("selectedLayer");
     $infoText.innerHTML = informationTexts.etatmajor;
@@ -510,6 +522,9 @@ function app() {
 
   /* Recherche et positionnnement */
   function cleanResults() {
+    /**
+     * Enlève le marqueur adresse
+     */
     if (adressMarkerLayer != null) {
       map.removeLayer(adressMarkerLayer);
       adressMarkerLayer = null;
@@ -517,6 +532,9 @@ function app() {
   }
 
   function cleanGPS() {
+    /**
+     * Enlève le marqueur GPS
+     */
     if (gpsMarkerLayer != null) {
       map.removeLayer(gpsMarkerLayer);
       gpsMarkerLayer = null;
@@ -527,7 +545,6 @@ function app() {
   function searchScreenOn() {
     closeCat();
     document.getElementById("catalogBtn").classList.add('d-none');
-    // $blueBg.classList.remove('d-none');
     $menuBtn.classList.add('d-none');
     $closeSearch.classList.remove('d-none');
     backButtonState = 'search';
@@ -540,7 +557,6 @@ function app() {
     $resultDiv.hidden = true;
     $resultDiv.innerHTML = "";
     document.getElementById("catalogBtn").classList.remove('d-none');
-    // $blueBg.classList.add('d-none');
     $menuBtn.classList.remove('d-none');
     $closeSearch.classList.add('d-none');
     $rech.blur()
@@ -688,7 +704,9 @@ function app() {
 
 
   async function rechercheEtPosition(text) {
-    /* Récupération des coordonnées avec look4 */
+    /**
+     * Recherche un texte et le géocode à l'aide de look4, puis va à sa position en ajoutant un marqueur
+     */
     let url = new URL("https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/look4/user/search");
     let params =
         {
@@ -716,6 +734,10 @@ function app() {
   }
 
   function goToAddressCoords(coords, zoom=map.getZoom(), panTo=true) {
+    /**
+     * Ajoute un marqueur de type adresse à la position définie par le coods, et déplace la carte au zoom demandé
+     * si panTo est True
+     */
     cleanResults();
     adressMarkerLayer = L.featureGroup().addTo(map);
     let markerLayer = L.featureGroup([L.marker(
@@ -732,6 +754,10 @@ function app() {
   }
 
   function goToGPSCoords(coords, zoom=map.getZoom(), panTo=true) {
+    /**
+     * Ajoute un marqueur de type GPS à la position définie par le coods, et déplace la carte au zoom demandé
+     * si panTo est True
+     */
     cleanGPS();
     gpsMarkerLayer = L.featureGroup().addTo(map);
     let markerLayer = L.featureGroup([L.marker(
@@ -757,8 +783,11 @@ function app() {
   /* Autocompletion */
   let autocompletion_results = []
 
-  /* TODO: adapter à la nouvelle autocompletion */
   async function suggest() {
+    /**
+     * Ajoute des suggestions en dessous de la barre de recherche en fonction de ce qui est tapé
+     * à l'aide de look4
+     */
     controller.abort();
     controller = new AbortController();
     signal = controller.signal;
@@ -808,8 +837,7 @@ function app() {
     return fullText;
   }
 
-
-
+  // Recherche du 1er résultat de l'autocomplétion si appui sur entrée
   $rech.addEventListener("keyup", (event) => {
     if (event.key === 'Enter' || event.keyCode === 13) {
       // Cancel the default action, if needed
@@ -835,10 +863,16 @@ function app() {
 
 
   /* Géolocalisation */
+  // Positionnement du mobile
   let location_active = false;
+  // Suivi de la carte
   let tracking_active = false;
-  let tracking_interval;
+  let watch_id;
+
   function trackLocation() {
+    /**
+     * Suit la position de l'utilisateur
+     */
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         goToGPSCoords({
@@ -855,25 +889,24 @@ function app() {
         enableHighAccuracy: true
       });
 
-      tracking_interval = setInterval( () => {
-        navigator.geolocation.getCurrentPosition((position) => {
-          goToGPSCoords({
-            lat: position.coords.latitude,
-            lon: position.coords.longitude
-          }, zoom=map.getZoom(), panTo=tracking_active);
-        },
-        (err) => {
-          console.warn(`ERROR(${err.code}): ${err.message}`);
-        },
-        {
-          maximumAge: 1500000,
-          timeout: 100000,
-          enableHighAccuracy: true
-        });
-      }, 5000);
+      watch_id = navigator.geolocation.watchPosition((position) => {
+        goToGPSCoords({
+          lat: position.coords.latitude,
+          lon: position.coords.longitude
+        }, zoom=map.getZoom(), panTo=tracking_active);
+      },
+      (err) => {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      },
+      {
+        maximumAge: 1500000,
+        timeout: 100000,
+        enableHighAccuracy: true
+      });
     }
   }
 
+  // Modification du statut de localisation
   function locationOnOff() {
     if (!location_active) {
       $geolocateBtn.style.backgroundImage = 'url("css/assets/location-fixed.svg")';
@@ -885,7 +918,7 @@ function app() {
       tracking_active = true;
     } else {
       $geolocateBtn.style.backgroundImage = 'url("css/assets/localisation.svg")';
-      clearInterval(tracking_interval);
+      navigator.geolocation.clearWatch(watch_id);
       location_active = false;
       tracking_active = false;
     }
@@ -935,37 +968,41 @@ function app() {
   const platform = cordova.platformId;
 
   function onError(error) {
-      console.error("The following error occurred: " + error);
+    console.error("The following error occurred: " + error);
+  }
+
+  function handleSuccess(msg) {
+
   }
 
   function handleLocationAuthorizationStatus(status) {
-      switch (status) {
-          case cordova.plugins.diagnostic.permissionStatus.GRANTED:
-              if(platform === "ios"){
-                  onError("Location services is already switched ON");
-              } else{
-                  _makeRequest();
-              }
-              break;
-          case cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED:
-              requestLocationAuthorization();
-              break;
-          case cordova.plugins.diagnostic.permissionStatus.DENIED:
-              if(platform === "android"){
-                  onError("User denied permission to use location");
-              } else{
-                  _makeRequest();
-              }
-              break;
-          case cordova.plugins.diagnostic.permissionStatus.DENIED_ALWAYS:
-              // Android only
-              onError("User denied permission to use location");
-              break;
-          case cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE:
-              // iOS only
-              onError("Location services is already switched ON");
-              break;
-      }
+    switch (status) {
+      case cordova.plugins.diagnostic.permissionStatus.GRANTED:
+        if(platform === "ios"){
+            onError("Location services is already switched ON");
+        } else{
+            _makeRequest();
+        }
+        break;
+      case cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED:
+        requestLocationAuthorization();
+        break;
+      case cordova.plugins.diagnostic.permissionStatus.DENIED:
+        if(platform === "android"){
+            onError("User denied permission to use location");
+        } else{
+            _makeRequest();
+        }
+        break;
+      case cordova.plugins.diagnostic.permissionStatus.DENIED_ALWAYS:
+        // Android only
+        onError("User denied permission to use location");
+        break;
+      case cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE:
+        // iOS only
+        onError("Location services is already switched ON");
+        break;
+    }
   }
 
   function requestLocationAuthorization() {
@@ -977,29 +1014,29 @@ function app() {
   }
 
   function _makeRequest(){
-      cordova.plugins.locationAccuracy.canRequest(function(canRequest){
-          if (canRequest) {
-              cordova.plugins.locationAccuracy.request(function () {
-                      handleSuccess("Location accuracy request successful");
-                  }, function (error) {
-                      onError("Error requesting location accuracy: " + JSON.stringify(error));
-                      if (error) {
-                          // Android only
-                          onError("error code=" + error.code + "; error message=" + error.message);
-                          if (platform === "android" && error.code !== cordova.plugins.locationAccuracy.ERROR_USER_DISAGREED) {
-                              if (window.confirm("Failed to automatically set Location Mode to 'High Accuracy'. Would you like to switch to the Location Settings page and do this manually?")) {
-                                  cordova.plugins.diagnostic.switchToLocationSettings();
-                              }
-                          }
-                      }
-                  }, cordova.plugins.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY // iOS will ignore this
-              );
-          } else {
-              // On iOS, this will occur if Location Services is currently on OR a request is currently in progress.
-              // On Android, this will occur if the app doesn't have authorization to use location.
-              onError("Cannot request location accuracy");
-          }
-      });
+    cordova.plugins.locationAccuracy.canRequest(function(canRequest){
+      if (canRequest) {
+        cordova.plugins.locationAccuracy.request(function () {
+            handleSuccess("Location accuracy request successful");
+          }, function (error) {
+            onError("Error requesting location accuracy: " + JSON.stringify(error));
+            if (error) {
+              // Android only
+              onError("error code=" + error.code + "; error message=" + error.message);
+              if (platform === "android" && error.code !== cordova.plugins.locationAccuracy.ERROR_USER_DISAGREED) {
+                if (window.confirm("Failed to automatically set Location Mode to 'High Accuracy'. Would you like to switch to the Location Settings page and do this manually?")) {
+                  cordova.plugins.diagnostic.switchToLocationSettings();
+                }
+              }
+            }
+          }, cordova.plugins.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY // iOS will ignore this
+        );
+      } else {
+        // On iOS, this will occur if Location Services is currently on OR a request is currently in progress.
+        // On Android, this will occur if the app doesn't have authorization to use location.
+        onError("Cannot request location accuracy");
+      }
+    });
   }
 
   /* Event listeners */
@@ -1039,6 +1076,7 @@ function app() {
   document.getElementById("layerTopo").addEventListener('click', displayTopo);
   document.getElementById("layerEtatMajor").addEventListener('click', displayEtatMajor);
 
+  // Bouton compris de la popup démarrage
   document.getElementById("compris").addEventListener('click', startPopupValidation);
 
   // Ouverture-Fermeture
@@ -1055,6 +1093,7 @@ function app() {
   // Menu burger
   $menuBtn.addEventListener("click", openMenu);
 
+  // Rotation
   $compassBtn.addEventListener("click", () => {
     currentRotation = 0;
     map.setBearing(0);
