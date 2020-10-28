@@ -1,4 +1,4 @@
 {
- "motd": "<p class='msgTitle'>Géoportail app, l'application officielle du Géoportail !</p>\n<p class='msgRegular'>Accédez facilement et rapidement aux cartes essentielles depuis votre mobile.</p>\n<p class='msgRegular'>Pour plus de cartes et d'outils, et pour aller plus loin, consultez le site Géoportail et les services en ligne proposés par l'IGN. <span class='msgGreen'>+ d'infos</span></p>",
- "id": 1
+ "motd": "<p class='msgTitle'>Géoportail app, l'application officielle du Géoportail !</p>\n<p class='msgRegular'>Accédez facilement et rapidement aux cartes essentielles depuis votre mobile.</p>\n<p class='msgRegular'>La géolocalisation est possible en 3 modes. Par défaut, elle est désactivée (icône grise) ; après un clic sur l'icône, la position est récupérée (icône blanche) ; après un deuxième clic sur l'icône, l'écran suit la position (icône blanche et pleine) ; enfin, un dernier clic désactive la géolocalisation.</p>\n<p class='msgRegular'>Pour plus de cartes et d'outils, et pour aller plus loin, consultez le site Géoportail et les services en ligne proposés par l'IGN. <span class='msgGreen'>+ d'infos</span></p>",
+ "id": 2
 }

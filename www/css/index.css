@@ -63,7 +63,8 @@ h3 {
 
 a {
   font-family: "Open Sans Semibold";
-  color: #9FE4FF;
+  color: #00b798;
+  text-decoration: none;
 }
 
 .leaflet-popup-content {
@@ -612,6 +613,7 @@ input[type='radio']:checked + label:before {
   overflow-x: hidden; /* Disable horizontal scroll */
   width: 80%;
   max-width: 450px;
+  max-height: 65%;
   padding-top: 15px;
   border-radius: 5px;
 }
