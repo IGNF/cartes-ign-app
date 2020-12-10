@@ -254,7 +254,7 @@ function app() {
   );
 
   const topoLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -275,7 +275,7 @@ function app() {
   );
 
   const etatmajorLyr = L.tileLayer.fallback(
-    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
