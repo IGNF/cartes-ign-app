@@ -539,7 +539,7 @@ input[type='radio']:checked + label:before {
 
 #resultsRech p {
   border-bottom: solid 1px #D8DFE4;
-  padding: 0.4em 0.2em;
+  padding: 0.6em 0.2em;
   margin: 0;
   padding-left: 10px;
   padding-right: 10px;
