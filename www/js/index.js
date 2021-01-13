@@ -1,3 +1,5 @@
+"use strict";
+
 /* Pour la mise en cache de tuiles (mode hors ligne) -> désactivé jusqu'à mention contraire... */
 const useCachedTiles = false;
 
@@ -16,6 +18,7 @@ function app() {
     drones: "Représentation des zones soumises à interdictions ou à restrictions pour l’usage, à titre de loisir, d’aéronefs télépilotés (ou drones), sur le territoire métropolitain.<br/><br/>Cette carte intègre partiellement les interdictions s’appuyant sur des données publiées hors de l’AIP (Aeronautical Information Publication) et ne couvre pas les interdictions temporaires. Cette carte est basée sur l’arrêté « espace » du 30 mars 2017.<br/><br/>La représentation des zones soumises à interdictions ou à restrictions n’engage pas la responsabilité des producteurs de la donnée. Le contour des agglomérations est fourni à titre purement indicatif : quelle que soit la couleur représentée, le survol d'un fleuve ou d'un parc en agglomération est interdit.<br/><br/>Consulter la carte ne dispense pas de connaitre la réglementation, de l’appliquer avec discernement et de rester prudent en toute occasion.<p><a style='color: #00b798; text-decoration: none;' href='https://www.sia.aviation-civile.gouv.fr/' target='_blank' rel='noopener'>» Consulter les interdictions temporaires</a></p><p><a style='color: #00b798; text-decoration: none;' href='http://www.developpement-durable.gouv.fr/drones-loisir-et-competition'>» Plus d'informations</a></p>",
     topo: "<p>La carte topographique représente avec précision le relief, symbolisé par des courbes de niveaux, ainsi que les détails du terrain : routes, sentiers, constructions, bois, arbres isolé, rivières, sources… </p><p>Cette carte présente également des parcours et des informations pour la randonnée fournies par la Fédération Française de la Randonnée Pédestre (FFRandonnée) et le Club Vosgien.</p><p></p><p><a style='color: #00b798; font-weight: bold; text-decoration: none;' href='https://edito.geoportail.rie.gouv.fr/donnees/graphe-de-mosaique-scan25' target='_blank'>»&nbsp;Consulter le zonage des mises à jour</a></p>",
     etatmajor: "Carte française en couleurs du XIXè siècle en couleurs superposable aux cartes et données modernes.",
+    orthohisto: 'Photographies aériennes de la France de 1950 à 1965. <ul class="GPlayerInfo-originators"><li class="GPlayerInfo-otherCities"><a class="inner-link" title="Institut national de l’information géographique et forestière" target="_blank" href="http://www.ign.fr">Institut national de l’information géographique et forestière</a></li><li class="GPlayerInfo-otherCities"><a class="inner-link" title="GÉOPAL" target="_blank" href="http://www.geopal.org/accueil">GÉOPAL</a></li></ul>',
   }
 
   /* Object contenant les liens vers les légendes associées aux couches */
@@ -28,6 +31,7 @@ function app() {
     drones: '<img src="img/couches/drone-legend.png" alt="légende restriction drones">',
     topo: '<img src="img/couches/topo-legend.png" alt="légende carte topo">',
     etatmajor: '<a href="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40/legendes/GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40-legend.pdf" target="_blank" class="inner-link legend-entry-pdf">Afficher la légende de la couche "Carte de l’état-major (1820-1866)" en PDF</a>',
+    orthohisto: '<img src="img/couches/histo-legend.png" alt="légende photos historiques">',
   }
 
   // const planIGNLegendImgs = {
@@ -82,6 +86,12 @@ function app() {
 
   /* global: current map rotation */
   let currentRotation = 0;
+
+  /* Demande d'autorisation au 1er lancement de l'appli */
+  if (!localStorage.getItem("firstLocRequestDone")){
+    requestLocationAccuracy();
+    localStorage.setItem("firstLocRequestDone", true);
+  }
 
   /* Message du jour (message of the day) */
   const motd_url = 'https://www.geoportail.gouv.fr/depot/app/motd.json?v=2';
@@ -289,6 +299,27 @@ function app() {
     }
   );
 
+  const orthoHistoLyr = L.tileLayer.fallback(
+    "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
+    "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
+    "&STYLE=normal" +
+    "&TILEMATRIXSET=PM" +
+    "&FORMAT=image/png"+
+    "&LAYER=ORTHOIMAGERY.ORTHOPHOTOS.1950-1965"+
+    "&TILEMATRIX={z}" +
+      "&TILEROW={y}" +
+      "&TILECOL={x}",
+    {
+    minZoom : 0,
+    minNativeZoom : 3,
+    maxZoom : 19,
+    maxNativeZoom : 18,
+    attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
+    tileSize : 256, // les tuiles du Géooportail font 256x256px
+    useCache: useCachedTiles,
+    }
+  );
+
   // Pour le "chargement" de l'état précédent
   // Par défaut : couche ortho
   switch (layerDisplayed) {
@@ -315,6 +346,9 @@ function app() {
       break;
     case 'etat-major':
       displayEtatMajor();
+      break;
+    case 'ortho-histo':
+      displayOrthoHisto();
       break;
   }
 
@@ -492,6 +526,25 @@ function app() {
       adressMarkerLayer.addTo(map);
     }
     layerDisplayed = 'etat-major';
+    closeCat();
+  }
+
+  function displayOrthoHisto() {
+    /**
+     * Affiche la couche Photographies aériennes anciennes
+     */
+    removeAllLayers();
+    document.getElementById("ortho-histo").classList.add("selectedLayer");
+    $infoText.innerHTML = informationTexts.orthohisto;
+    $legendImg.innerHTML = legendImgs.orthohisto;
+    orthoHistoLyr.addTo(map);
+    if (gpsMarkerLayer) {
+      gpsMarkerLayer.addTo(map);
+    }
+    if (adressMarkerLayer) {
+      adressMarkerLayer.addTo(map);
+    }
+    layerDisplayed = 'ortho-histo';
     closeCat();
   }
 
@@ -676,7 +729,7 @@ function app() {
     altScreenOn();
     $plusLoinMenu.classList.remove('d-none');
     backButtonState = 'plusLoin';
-    $rech.value = "Pour aller plus loin...";
+    $rech.value = "À découvrir également...";
   }
 
   function closePlusLoinScreen(){
@@ -800,8 +853,8 @@ function app() {
     let responseprom = await fetch(url, {signal});
     let response = await responseprom.json()
     autocompletion_results = [];
-    for (i = 0 ; i < response.features.length; i++) {
-      elem = response.features[i];
+    for (let i = 0 ; i < response.features.length; i++) {
+      let elem = response.features[i];
       autocompletion_results.push(computeLocationFullText(elem));
     }
     // Seulement les valeurs uniques
@@ -841,11 +894,11 @@ function app() {
       $resultDiv.innerHTML = "";
       rechercheEtPosition($rech.value);
       searchScreenOff();
-    } else {
+    } else if ($rech.value !== ""){
       let resultStr = "";
       suggest().then( () => {
         if (autocompletion_results.length > 0){
-          for (i = 0 ; i < autocompletion_results.length; i++) {
+          for (let i = 0 ; i < autocompletion_results.length; i++) {
             resultStr += "<p class='autocompresult'>" + autocompletion_results[i] + "</p>" ;
           }
           $resultDiv.innerHTML = resultStr;
@@ -1069,6 +1122,7 @@ function app() {
   document.getElementById("layerDrones").addEventListener('click', displayDrones);
   document.getElementById("layerTopo").addEventListener('click', displayTopo);
   document.getElementById("layerEtatMajor").addEventListener('click', displayEtatMajor);
+  document.getElementById("layerOrthoHisto").addEventListener('click', displayOrthoHisto);
 
   // Bouton compris de la popup démarrage
   document.getElementById("compris").addEventListener('click', startPopupValidation);
@@ -1110,6 +1164,7 @@ function app() {
 
   document.getElementById("infoWindowClose").addEventListener('click', closeInfos);
   document.getElementById("legendWindowClose").addEventListener('click', closeLegend);
+  document.getElementById("menuWindowClose").addEventListener('click', closeMenu);
   /**/
 
   // Légende en fonction du zoom
