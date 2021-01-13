@@ -1,3 +1,5 @@
+"use strict";
+
 /* Pour la mise en cache de tuiles (mode hors ligne) -> désactivé jusqu'à mention contraire... */
 const useCachedTiles = false;
 
@@ -84,6 +86,12 @@ function app() {
 
   /* global: current map rotation */
   let currentRotation = 0;
+
+  /* Demande d'autorisation au 1er lancement de l'appli */
+  if (!localStorage.getItem("firstLocRequestDone")){
+    requestLocationAccuracy();
+    localStorage.setItem("firstLocRequestDone", true);
+  }
 
   /* Message du jour (message of the day) */
   const motd_url = 'https://www.geoportail.gouv.fr/depot/app/motd.json?v=2';
@@ -727,7 +735,7 @@ function app() {
     altScreenOn();
     $plusLoinMenu.classList.remove('d-none');
     backButtonState = 'plusLoin';
-    $rech.value = "Pour aller plus loin...";
+    $rech.value = "À découvrir également...";
   }
 
   function closePlusLoinScreen(){
@@ -851,8 +859,8 @@ function app() {
     let responseprom = await fetch(url, {signal});
     let response = await responseprom.json()
     autocompletion_results = [];
-    for (i = 0 ; i < response.features.length; i++) {
-      elem = response.features[i];
+    for (let i = 0 ; i < response.features.length; i++) {
+      let elem = response.features[i];
       autocompletion_results.push(computeLocationFullText(elem));
     }
     // Seulement les valeurs uniques
@@ -892,11 +900,11 @@ function app() {
       $resultDiv.innerHTML = "";
       rechercheEtPosition($rech.value);
       searchScreenOff();
-    } else {
+    } else if ($rech.value !== ""){
       let resultStr = "";
       suggest().then( () => {
         if (autocompletion_results.length > 0){
-          for (i = 0 ; i < autocompletion_results.length; i++) {
+          for (let i = 0 ; i < autocompletion_results.length; i++) {
             resultStr += "<p class='autocompresult'>" + autocompletion_results[i] + "</p>" ;
           }
           $resultDiv.innerHTML = resultStr;
@@ -1162,6 +1170,7 @@ function app() {
 
   document.getElementById("infoWindowClose").addEventListener('click', closeInfos);
   document.getElementById("legendWindowClose").addEventListener('click', closeLegend);
+  document.getElementById("menuWindowClose").addEventListener('click', closeMenu);
   /**/
 
   // Légende en fonction du zoom
