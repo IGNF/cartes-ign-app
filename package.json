@@ -1,7 +1,7 @@
 {
   "name": "geoportail-app",
   "displayName": "Géoportail App",
-  "version": "2.0.20",
+  "version": "2.0.21",
   "description": "Application Géoportail",
   "main": "index.js",
   "scripts": {
@@ -13,8 +13,7 @@
   "author": "IGN",
   "license": "Apache-2.0",
   "dependencies": {
-    "cordova-browser": "^6.0.0",
-    "cordova-plugin-geolocation": "4.0.2",
+    "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-request-location-accuracy": "^2.3.0",
     "cordova-plugin-splashscreen": "5.0.4",
     "cordova-plugin-wkwebview-engine": "1.2.1",
@@ -22,7 +21,7 @@
   },
   "devDependencies": {
     "cordova-android": "^9.0.0",
-    "cordova-plugin-androidx": "^2.0.0",
+    "cordova-plugin-androidx": "^3.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.1",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-file": "^4.3.3",
