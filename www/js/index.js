@@ -925,7 +925,7 @@ function app() {
         goToGPSCoords({
           lat: position.coords.latitude,
           lon: position.coords.longitude
-        }, zoom=Math.max(map.getZoom(), 14));
+        }, Math.max(map.getZoom(), 14));
       },
       (err) => {
         console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -940,7 +940,7 @@ function app() {
         goToGPSCoords({
           lat: position.coords.latitude,
           lon: position.coords.longitude
-        }, zoom=map.getZoom(), panTo=tracking_active);
+        }, map.getZoom(), tracking_active);
       },
       (err) => {
         console.warn(`ERROR(${err.code}): ${err.message}`);
