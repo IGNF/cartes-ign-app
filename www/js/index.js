@@ -73,8 +73,10 @@ function app() {
   const $legendImg = document.getElementById("legendImg");
   const $chkNePlusAff = document.getElementById("chkNePlusAff");
   const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
+  const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule");
   const $compassBtn = document.getElementById("compassBtn");
   const $chkRotate = document.getElementById("chkRotate");
+  const $centerCoords = document.getElementById("centerCoords");
 
   /* global: back button state */
   let backButtonState = 'default';
@@ -135,10 +137,12 @@ function app() {
   let adressMarkerLayer;
 
   const map = new L.map('map', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5) ;
-  //Définition de la carte et des couches
+  // Définition de la carte et des couches
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
     map.setView([localStorage.getItem("lastMapLat"), localStorage.getItem("lastMapLng")], localStorage.getItem("lastMapZoom"));
   }
+  // Initialisation des coordonnées du centre
+  updateCenterCoords(map.getCenter());
 
   const orthoLyr = L.tileLayer.fallback(
     "https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/geoportail/wmts?" +
@@ -744,7 +748,6 @@ function app() {
     backButtonState = 'default';
   }
 
-
   // Ouverture de la popup coordonnées
   function openCoords (latlng) {
     let coords = [latlng.lng, latlng.lat];
@@ -992,7 +995,8 @@ function app() {
     let lat;
     let lng;
     let new_coords;
-    let crs = document.querySelector('input[name="coordRadio"]:checked').value;
+    const crs = document.querySelector('input[name="coordRadio"]:checked').value;
+    console.log(crs);
     switch (crs) {
       case 'latlng':
         lat = coords[1].toFixed(6);
@@ -1013,6 +1017,28 @@ function app() {
         X = new_coords[0].toFixed(1);
         Y = new_coords[1].toFixed(1);
         return [X, Y];
+    }
+  }
+
+  /**
+   *
+   * @param {Object} coords Résultat de map.getCoords(), contient un champ lat et un champ lng
+   */
+  function updateCenterCoords(coords) {
+    const coordsToDisplay = convertCoords([coords.lng, coords.lat]);
+    $centerCoords.innerHTML = coordsToDisplay[0] + ", " + coordsToDisplay[1];
+  }
+
+  function reticuleOnOff() {
+    const checked = $chkPrintCoordsReticule.checked;
+    if (checked) {
+      document.getElementById("centerCoords").classList.remove("d-none");
+      document.getElementById("centerReticule").classList.remove("d-none");
+      document.getElementById("coordTypeClone").classList.remove("d-none");
+    } else {
+      document.getElementById("centerCoords").classList.add("d-none");
+      document.getElementById("centerReticule").classList.add("d-none");
+      document.getElementById("coordTypeClone").classList.add("d-none");
     }
   }
 
@@ -1139,6 +1165,7 @@ function app() {
 
   // Boutons on-off
   $geolocateBtn.addEventListener('click', locationOnOff);
+  $chkPrintCoordsReticule.addEventListener('change', reticuleOnOff);
 
   // Recherche
   $rech.addEventListener('focus', searchScreenOn);
@@ -1155,6 +1182,7 @@ function app() {
     $compassBtn.classList.add("d-none");
   })
 
+  // Fermeture menu
   $menu.addEventListener('click', (evt) => {
     if (evt.target.id === 'menu') {
       closeMenu();
@@ -1171,6 +1199,30 @@ function app() {
   document.getElementById("infoWindowClose").addEventListener('click', closeInfos);
   document.getElementById("legendWindowClose").addEventListener('click', closeLegend);
   document.getElementById("menuWindowClose").addEventListener('click', closeMenu);
+
+  // Synchronisation des radio button pour le type de coordonnées
+  Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
+    elem.addEventListener("change", () => {
+      Array.from(document.getElementsByName("coordRadioClone")).forEach( elem => {
+        if (elem.value === document.querySelector('input[name="coordRadio"]:checked').value) {
+          elem.checked = true;
+        }
+      });
+    });
+  });
+
+  Array.from(document.getElementsByName("coordRadioClone")).forEach( elem => {
+    elem.addEventListener("change", () => {
+      Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
+        if (elem.value === document.querySelector('input[name="coordRadioClone"]:checked').value) {
+          elem.checked = true;
+        }
+      });
+      updateCenterCoords(map.getCenter());
+    });
+  });
+
+
   /**/
 
   // Légende en fonction du zoom
@@ -1210,7 +1262,12 @@ function app() {
       let latlng = map.mouseEventToLatLng(event.originalEvent);
       openCoords(latlng);
     }
-  })
+  });
+
+  // Coordonnées au déplacement de la carte
+  map.on('move', () => {
+    updateCenterCoords(map.getCenter());
+  });
 
   // Action du backbutton
   document.addEventListener("backbutton", onBackKeyDown, false);
