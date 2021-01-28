@@ -23,30 +23,40 @@ function app() {
 
   /* Object contenant les liens vers les légendes associées aux couches */
   const legendImgs = {
-    photos: '<img src="img/couches/photos-legend.png" alt="légende photos aeriennes">',
-    routes: '<img src="img/couches/routes-legend.png" alt="légende routes">',
-    cartes: '<img src="img/couches/cartes-legend_0-12.png" alt="légende cartes">',
-    plan_ign: '<img src="img/couches/planign-legend.png" alt="légende plan IGN">',
-    cadastre: '<img src="img/couches/cadastre-legend.png" alt="légende cadastre">',
-    drones: '<img src="img/couches/drone-legend.png" alt="légende restriction drones">',
-    topo: '<img src="img/couches/topo-legend.png" alt="légende carte topo">',
+    photos: '<img src="https://www.geoportail.gouv.fr/depot/layers/ORTHOIMAGERY.ORTHOPHOTOS/legendes/ORTHOIMAGERY.ORTHOPHOTOS-legend.png" alt="légende photos aeriennes">',
+    routes: '<img src="https://www.geoportail.gouv.fr/depot/layers/TRANSPORTNETWORKS.ROADS/legendes/TRANSPORTNETWORKS.ROADS-legend.png" alt="légende routes">',
+    cartes: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/legendes/GEOGRAPHICALGRIDSYSTEMS.MAPS_EUROPOL-legend.png" alt="légende cartes">',
+    plan_ign: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_1-7-legend.png" alt="légende plan IGN">',
+    cadastre: '<img src="https://www.geoportail.gouv.fr/depot/layers/CADASTRALPARCELS.PARCELLAIRE_EXPRESS/legendes/CADASTRALPARCELS.PARCELLAIRE_EXPRESS-legend.png" alt="légende cadastre">',
+    drones: '<img src="https://www.geoportail.gouv.fr/depot/layers/TRANSPORTS.DRONES.RESTRICTIONS/legendes/TRANSPORTS.DRONES.RESTRICTIONS-legend.png" alt="légende restriction drones">',
+    topo: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR/legendes/GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR-legend.png" alt="légende carte topo">',
     etatmajor: '<a href="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40/legendes/GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40-legend.pdf" target="_blank" class="inner-link legend-entry-pdf">Afficher la légende de la couche "Carte de l’état-major (1820-1866)" en PDF</a>',
-    orthohisto: '<img src="img/couches/histo-legend.png" alt="légende photos historiques">',
+    orthohisto: '<img src="https://www.geoportail.gouv.fr/depot/layers/ORTHOIMAGERY.ORTHOPHOTOS.1950-1965/legendes/ORTHOIMAGERY.ORTHOPHOTOS.1950-1965-legend.png" alt="légende photos historiques">',
   }
 
-  // const planIGNLegendImgs = {
-  //   nine: '<img src="img/couches/planign-legend_0-9.png" alt="légende plan IGN">',
-  //   thirteen: '<img src="img/couches/planign-legend_10-13.png" alt="légende plan IGN">',
-  //   fifteen: '<img src="img/couches/planign-legend_14-15.png" alt="légende plan IGN">',
-  //   eighteen: '<img src="img/couches/planign-legend_16-18.png" alt="légende plan IGN">',
-  // }
+  const planIGNLegendImgs = {
+    seven: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_1-7-legend.png" alt="légende plan IGN">',
+    eight: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_8-legend.png" alt="légende plan IGN">',
+    nine: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_9-legend.png" alt="légende plan IGN">',
+    ten: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_10-legend.png" alt="légende plan IGN">',
+    eleven: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_11-legend.png" alt="légende plan IGN">',
+    twelve: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_12-legend.png" alt="légende plan IGN">',
+    thirteen: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_13-legend.png" alt="légende plan IGN">',
+    fourteen: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_14-legend.png" alt="légende plan IGN">',
+    fifteen: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_15-legend.png" alt="légende plan IGN">',
+    sixteen: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_16-legend.png" alt="légende plan IGN">',
+    eighteen: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_17-18-legend.png" alt="légende plan IGN">',
+    nineteen: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2/legendes/GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2_19-legend.png" alt="légende plan IGN">',
+  }
 
   /* Object contenant les liens vers les légendes associées aux niveaux de zoom de la carte */
   const carteIGNLegendImgs = {
-    twelve: '<img src="img/couches/cartes-legend_0-12.png" alt="légende cartes">',
-    forteen: '<img src="img/couches/cartes-legend_13-14.png" alt="légende cartes">',
-    sixteen: '<img src="img/couches/cartes-legend_15-16.png" alt="légende cartes">',
-    eighteen: '<img src="img/couches/cartes-legend_17-18.png" alt="légende cartes">',
+    seven: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/legendes/GEOGRAPHICALGRIDSYSTEMS.MAPS_EUROPOL-legend.png" alt="légende cartes">',
+    ten: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/legendes/GEOGRAPHICALGRIDSYSTEMS.MAPS_1000k-legend.png" alt="légende cartes">',
+    twelve: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/legendes/GEOGRAPHICALGRIDSYSTEMS.MAPS_REG-legend.png" alt="légende cartes">',
+    fourteen: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/legendes/GEOGRAPHICALGRIDSYSTEMS.MAPS_100k-legend.png" alt="légende cartes">',
+    sixteen: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/legendes/GEOGRAPHICALGRIDSYSTEMS.MAPS_25k-legend.png" alt="légende cartes">',
+    eighteen: '<img src="https://www.geoportail.gouv.fr/depot/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/legendes/GEOGRAPHICALGRIDSYSTEMS.MAPS_10k-legend.png" alt="légende cartes">',
   }
 
   /* DOM elements */
@@ -199,7 +209,7 @@ function app() {
     minZoom : 0,
     minNativeZoom : 3,
     maxZoom : 19,
-    maxNativeZoom : 18,
+    maxNativeZoom : 19,
     attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
     tileSize : 256, // les tuiles du Géooportail font 256x256px
     useCache: useCachedTiles,
@@ -381,6 +391,7 @@ function app() {
     document.querySelectorAll("#menuC img").forEach(elem => {
       elem.classList.remove('selectedLayer');
     });
+    updateLegend();
   }
 
   function displayOrtho() {
@@ -1042,6 +1053,59 @@ function app() {
     }
   }
 
+
+  /* Légende en fonction du zoom */
+  function updateLegend() {
+    let zoomLvl = map.getZoom();
+
+    // Je n'avais pas prévu autant de légendes différentes en fonction du zoom pour plan ign v2...
+    if (zoomLvl <= 7) {
+      legendImgs.plan_ign = planIGNLegendImgs.seven;
+    } else if (zoomLvl <= 8){
+      legendImgs.plan_ign = planIGNLegendImgs.eight;
+    } else if (zoomLvl <= 9){
+      legendImgs.plan_ign = planIGNLegendImgs.nine;
+    } else if (zoomLvl <= 10){
+      legendImgs.plan_ign = planIGNLegendImgs.ten;
+    } else if (zoomLvl <= 11){
+      legendImgs.plan_ign = planIGNLegendImgs.eleven;
+    } else if (zoomLvl <= 12){
+      legendImgs.plan_ign = planIGNLegendImgs.twelve;
+    } else if (zoomLvl <= 13){
+      legendImgs.plan_ign = planIGNLegendImgs.thirteen;
+    } else if (zoomLvl <= 14){
+      legendImgs.plan_ign = planIGNLegendImgs.fourteen;
+    } else if (zoomLvl <= 15){
+      legendImgs.plan_ign = planIGNLegendImgs.fifteen;
+    } else if (zoomLvl <= 16){
+      legendImgs.plan_ign = planIGNLegendImgs.sixteen;
+    } else if (zoomLvl <= 18){
+      legendImgs.plan_ign = planIGNLegendImgs.eighteen;
+    } else {
+      legendImgs.plan_ign = planIGNLegendImgs.nineteen;
+    }
+
+    if (zoomLvl <= 7) {
+      legendImgs.cartes = carteIGNLegendImgs.seven;
+    } else if (zoomLvl <= 10){
+      legendImgs.cartes = carteIGNLegendImgs.ten;
+    } else if (zoomLvl <= 12){
+      legendImgs.cartes = carteIGNLegendImgs.twelve;
+    } else if (zoomLvl <= 14){
+      legendImgs.cartes = carteIGNLegendImgs.fourteen;
+    } else if (zoomLvl <= 16){
+      legendImgs.cartes = carteIGNLegendImgs.sixteen;
+    } else {
+      legendImgs.cartes = carteIGNLegendImgs.eighteen;
+    }
+
+    if (layerDisplayed === 'plan-ign') {
+      $legendImg.innerHTML = legendImgs.plan_ign;
+    } else if (layerDisplayed === 'cartes') {
+      $legendImg.innerHTML = legendImgs.cartes;
+    }
+  }
+
   /* Code pour l'activation de la localisation de l'appareil */
   // https://github.com/dpa99c/cordova-plugin-request-location-accuracy
   const platform = cordova.platformId;
@@ -1051,7 +1115,7 @@ function app() {
   }
 
   function handleSuccess(msg) {
-
+    console.log(msg);
   }
 
   function handleLocationAuthorizationStatus(status) {
@@ -1226,35 +1290,7 @@ function app() {
   /**/
 
   // Légende en fonction du zoom
-  map.on("zoomend", () => {
-    let zoomLvl = map.getZoom();
-
-    // if (zoomLvl <= 9) {
-    //   legendImgs.plan_ign = planIGNLegendImgs.nine;
-    // } else if (zoomLvl <= 13){
-    //   legendImgs.plan_ign = planIGNLegendImgs.thirteen;
-    // } else if (zoomLvl <= 15){
-    //   legendImgs.plan_ign = planIGNLegendImgs.fifteen;
-    // } else {
-    //   legendImgs.plan_ign = planIGNLegendImgs.eighteen;
-    // }
-
-    if (zoomLvl <= 12) {
-      legendImgs.cartes = carteIGNLegendImgs.twelve;
-    } else if (zoomLvl <= 14){
-      legendImgs.cartes = carteIGNLegendImgs.forteen;
-    } else if (zoomLvl <= 16){
-      legendImgs.cartes = carteIGNLegendImgs.sixteen;
-    } else {
-      legendImgs.cartes = carteIGNLegendImgs.eighteen;
-    }
-
-    if (layerDisplayed === 'plan-ign') {
-      $legendImg.innerHTML = legendImgs.plan_ign;
-    } else if (layerDisplayed === 'cartes') {
-      $legendImg.innerHTML = legendImgs.cartes;
-    }
-  });
+  map.on("zoomend", updateLegend);
 
   // Event coordonnées
   map.on('contextmenu', (event) => {
