@@ -118,6 +118,19 @@
             <div class="button" id="catalogBtn">
             </div>
 
+            <div id="centerCoords" class="d-none">
+            </div>
+
+            <div id="coordTypeClone" class="d-none">
+              <p><input type="radio" id="coordGeoBtnClone" name="coordRadioClone" value="latlng" checked><label for="coordGeoBtnClone">Géographiques</label></p>
+              <p><input type="radio" id="coordMercBtnClone" name="coordRadioClone" value="merc"><label for="coordMercBtnClone">Web Mercator</label></p>
+              <p><input type="radio" id="coordL93BtnClone" name="coordRadioClone" value="l93"><label for="coordL93BtnClone">Lambert93</label></p>
+              <p><input type="radio" id="coordL2EBtnClone" name="coordRadioClone" value="l2e"><label for="coordL2EBtnClone">Lambert II étendu</label></p>
+            </div>
+
+            <div id="centerReticule" class="button d-none">
+            </div>
+
             <div class="d-none" id="altMenuContainer">
               <div class="d-none altMenu" id="parameterMenu">
                 <div id="paramsInterface">
@@ -127,11 +140,12 @@
                 <div id="paramsPrintCoords">
                   <h3>Affichage des coordonnées</h3>
                   <p><input type="checkbox" id="chkPrintCoordsOnContext" checked> Afficher les coordonnées avec un appui long</p>
+                  <p><input type="checkbox" id="chkPrintCoordsReticule"> Afficher les coordonnées avec la croix centrale</p>
                 </div>
                 <div id="coordType">
                   <h3>Type de coordonnées</h3>
                   <p><input type="radio" id="coordGeoBtn" name="coordRadio" value="latlng" checked><label for="coordGeoBtn">Géographiques</label></p>
-                  <p><input type="radio" id="coordMercBtn" name="coordRadio" value="merc"><label for="coordMercBtn">Mercator</label></p>
+                  <p><input type="radio" id="coordMercBtn" name="coordRadio" value="merc"><label for="coordMercBtn">Web Mercator</label></p>
                   <p><input type="radio" id="coordL93Btn" name="coordRadio" value="l93"><label for="coordL93Btn">Lambert93</label></p>
                   <p><input type="radio" id="coordL2EBtn" name="coordRadio" value="l2e"><label for="coordL2EBtn">Lambert II étendu</label></p>
                 </div>
@@ -141,7 +155,7 @@
                   <h3>1. Editeur</h3>
                   <p>L’application mobile Géoportail est éditée par l’Institut national de l’information géographique et forestière (IGN), 73 avenue de Paris, 94165 SAINT-MANDE CEDEX, France.<br />
                   Tél : 01 43 98 80 00<br />
-                  Directeur de la publication : le Directeur général de l’IGN Sylvain Latarget<br />
+                  Directeur de la publication : Sébastien Soriano, directeur général de l’IGN<br />
                   Numéro ISSN : 2490-9068 </p>
                   <h3>2. Hébergement</h3>
                   <p>Ministère de l’Agriculture et de l’Alimentation<br />

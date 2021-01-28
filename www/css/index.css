@@ -643,6 +643,40 @@ input[type='radio']:checked + label:before {
   width: 26%;
 }
 
+#centerCoords {
+  position: absolute;
+  top: 60px;
+  z-index: 1000;
+  left: 10px;
+  color: #4b4b4b;
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#coordTypeClone {
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  z-index: 1000;
+  background-color: white;
+  color: #4b4b4b;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+#centerReticule {
+  background: url("assets/reticule.svg") center center no-repeat;
+  z-index: 1000;
+  background-size: 50px;
+  display: block;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+
 /* mode paysage */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #menuItems {
