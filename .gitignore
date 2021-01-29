@@ -9,4 +9,4 @@ platforms/*
 
 node_modules
 
-www/index.bundle.js
+www/js/index.bundle.js
