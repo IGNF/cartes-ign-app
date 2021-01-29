@@ -1,39 +1,12 @@
-import Layers from './layers';
-import Texts from './texts';
+import * as LayerSwitch from './layer-switch';
+import Map from './globals';
+import * as UpdateLegend from './update-legend';
+
 
 function app() {
   /**
    * Fonction définissant l'application
    */
-
-  /* DOM elements */
-  const $map = document.getElementById("map");
-  const $startPopup = document.getElementById("startPopup");
-  const $message = document.getElementById("message");
-  const $resultDiv = document.getElementById("resultsRech");
-  const $rech = document.getElementById('lieuRech');
-  const $geolocateBtn = document.getElementById("geolocateBtn");
-  const $blueBg = document.getElementById("blueBg");
-  const $closeSearch = document.getElementById("closeSearch");
-  const $menuBtn = document.getElementById("menuBtn");
-  const $menu = document.getElementById("menu");
-  const $searchImage = document.getElementById("searchImage");
-  const $backTopLeft = document.getElementById("backTopLeft");
-  const $parameterMenu = document.getElementById("parameterMenu");
-  const $legalMenu = document.getElementById("legalMenu");
-  const $privacyMenu = document.getElementById("privacyMenu");
-  const $plusLoinMenu = document.getElementById("plusLoinMenu");
-  const $altMenuContainer = document.getElementById("altMenuContainer");
-  const $legendWindow = document.getElementById("legendWindow");
-  const $infoWindow = document.getElementById("infoWindow");
-  const $infoText = document.getElementById("infoText");
-  const $legendImg = document.getElementById("legendImg");
-  const $chkNePlusAff = document.getElementById("chkNePlusAff");
-  const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
-  const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule");
-  const $compassBtn = document.getElementById("compassBtn");
-  const $chkRotate = document.getElementById("chkRotate");
-  const $centerCoords = document.getElementById("centerCoords");
 
   /* global: back button state */
   let backButtonState = 'default';
@@ -93,7 +66,8 @@ function app() {
   let gpsMarkerLayer;
   let adressMarkerLayer;
 
-  const map = new L.map('map', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5) ;
+  const map = Map.map;
+
   // Définition de la carte et des couches
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
     map.setView([localStorage.getItem("lastMapLat"), localStorage.getItem("lastMapLng")], localStorage.getItem("lastMapZoom"));
@@ -105,31 +79,31 @@ function app() {
   // Par défaut : couche ortho
   switch (layerDisplayed) {
     case 'photos':
-      displayOrtho();
+      LayerSwitch.displayOrtho();
       break;
     case 'routes':
-      displayOrthoAndRoads();
+      LayerSwitch.displayOrthoAndRoads();
       break;
     case 'cadastre':
-      displayOrthoAndParcels();
+      LayerSwitch.displayOrthoAndParcels();
       break;
     case 'plan-ign':
-      displayPlan();
+      LayerSwitch.displayPlan();
       break;
     case 'cartes':
-      displayCartes();
+      LayerSwitch.displayCartes();
       break;
     case 'drones':
-      displayDrones();
+      LayerSwitch.displayDrones();
       break;
     case 'topo':
-      displayTopo();
+      LayerSwitch.displayTopo();
       break;
     case 'etat-major':
-      displayEtatMajor();
+      LayerSwitch.displayEtatMajor();
       break;
     case 'ortho-histo':
-      displayOrthoHisto();
+      LayerSwitch.displayOrthoHisto();
       break;
   }
 
@@ -142,194 +116,6 @@ function app() {
 
   // Ouverture dans un nouvel onglet pour lien leaflet
   document.getElementsByClassName("leaflet-control-attribution")[0].getElementsByTagName("a")[0].setAttribute("target", "_blank");
-
-  // Fonctions de changements d'affichages de couches
-  function removeAllLayers() {
-    Layers.orthoLyr.setOpacity(1);
-    map.eachLayer( (layer) => {
-      map.removeLayer(layer);
-    });
-    document.querySelectorAll("#menuC img").forEach(elem => {
-      elem.classList.remove('selectedLayer');
-    });
-    updateLegend();
-  }
-
-  function displayOrtho() {
-    /**
-     * Affiche la couche ortho
-     */
-    removeAllLayers();
-    document.getElementById("photos").classList.add("selectedLayer");
-    $infoText.innerHTML = Texts.informationTexts.photos;
-    $legendImg.innerHTML = Texts.legendImgs.photos;
-    Layers.orthoLyr.addTo(map);
-    if (gpsMarkerLayer) {
-      gpsMarkerLayer.addTo(map);
-    }
-    if (adressMarkerLayer) {
-      adressMarkerLayer.addTo(map);
-    }
-    layerDisplayed = 'photos';
-    closeCat();
-  }
-
-  function displayOrthoAndRoads() {
-    /**
-     * Affiche la couche ortho + route
-     */
-    removeAllLayers();
-    document.getElementById("routes").classList.add("selectedLayer");
-    $infoText.innerHTML = Texts.informationTexts.routes;
-    $legendImg.innerHTML = Texts.legendImgs.routes;
-    Layers.orthoLyr.addTo(map);
-    Layers.roadsLyr.addTo(map);
-    if (gpsMarkerLayer) {
-      gpsMarkerLayer.addTo(map);
-    }
-    if (adressMarkerLayer) {
-      adressMarkerLayer.addTo(map);
-    }
-    layerDisplayed = 'routes';
-    closeCat();
-  }
-
-  function displayOrthoAndParcels() {
-    /**
-     * Affiche la couche ortho + cadastre
-     */
-    removeAllLayers();
-    document.getElementById("cadastre").classList.add("selectedLayer");
-    $infoText.innerHTML = Texts.informationTexts.cadastre;
-    $legendImg.innerHTML = Texts.legendImgs.cadastre;
-    Layers.parcelLyr.addTo(map);
-    Layers.orthoLyr.addTo(map);
-    Layers.orthoLyr.setOpacity(0.5);
-    if (gpsMarkerLayer) {
-      gpsMarkerLayer.addTo(map);
-    }
-    if (adressMarkerLayer) {
-      adressMarkerLayer.addTo(map);
-    }
-    layerDisplayed = 'cadastre';
-    closeCat();
-  }
-
-  function displayPlan() {
-    /**
-     * Affiche la couche plan IGN
-     */
-    removeAllLayers();
-    document.getElementById("plan-ign").classList.add("selectedLayer");
-    $infoText.innerHTML = Texts.informationTexts.plan_ign;
-    $legendImg.innerHTML = Texts.legendImgs.plan_ign;
-    Layers.planLyr.addTo(map);
-    if (gpsMarkerLayer) {
-      gpsMarkerLayer.addTo(map);
-    }
-    if (adressMarkerLayer) {
-      adressMarkerLayer.addTo(map);
-    }
-    layerDisplayed = 'plan-ign';
-    closeCat();
-  }
-
-  function displayCartes() {
-    /**
-     * Affiche la couche cartes IGN
-     */
-    removeAllLayers();
-    document.getElementById("cartes").classList.add("selectedLayer");
-    $infoText.innerHTML = Texts.informationTexts.cartes;
-    $legendImg.innerHTML = Texts.legendImgs.cartes;
-    Layers.cartesLyr.addTo(map);
-    if (gpsMarkerLayer) {
-      gpsMarkerLayer.addTo(map);
-    }
-    if (adressMarkerLayer) {
-      adressMarkerLayer.addTo(map);
-    }
-    layerDisplayed = 'cartes';
-    closeCat();
-  }
-
-  function displayDrones() {
-    /**
-     * Affiche la couche carte des drones
-     */
-    removeAllLayers();
-    document.getElementById("drones").classList.add("selectedLayer");
-    $infoText.innerHTML = Texts.informationTexts.drones;
-    $legendImg.innerHTML = Texts.legendImgs.drones;
-    Layers.cartesLyr.addTo(map);
-    Layers.dronesLyr.addTo(map);
-    if (gpsMarkerLayer) {
-      gpsMarkerLayer.addTo(map);
-    }
-    if (adressMarkerLayer) {
-      adressMarkerLayer.addTo(map);
-    }
-    layerDisplayed = 'drones';
-    closeCat();
-  }
-
-  function displayTopo() {
-    /**
-     * Affiche la couche carte topo
-     */
-    removeAllLayers();
-    document.getElementById("topo").classList.add("selectedLayer");
-    $infoText.innerHTML = Texts.informationTexts.topo;
-    $legendImg.innerHTML = Texts.legendImgs.topo;
-    Layers.topoLyr.addTo(map);
-    if (gpsMarkerLayer) {
-      gpsMarkerLayer.addTo(map);
-    }
-    if (adressMarkerLayer) {
-      adressMarkerLayer.addTo(map);
-    }
-    layerDisplayed = 'topo';
-    closeCat();
-  }
-
-  function displayEtatMajor() {
-    /**
-     * Affiche la couche carte d'état major
-     */
-    removeAllLayers();
-    document.getElementById("etat-major").classList.add("selectedLayer");
-    $infoText.innerHTML = Texts.informationTexts.etatmajor;
-    $legendImg.innerHTML = Texts.legendImgs.etatmajor;
-    Layers.etatmajorLyr.addTo(map);
-    if (gpsMarkerLayer) {
-      gpsMarkerLayer.addTo(map);
-    }
-    if (adressMarkerLayer) {
-      adressMarkerLayer.addTo(map);
-    }
-    layerDisplayed = 'etat-major';
-    closeCat();
-  }
-
-  function displayOrthoHisto() {
-    /**
-     * Affiche la couche Photographies aériennes anciennes
-     */
-    removeAllLayers();
-    document.getElementById("ortho-histo").classList.add("selectedLayer");
-    $infoText.innerHTML = Texts.informationTexts.orthohisto;
-    $legendImg.innerHTML = Texts.legendImgs.orthohisto;
-    Layers.orthoHistoLyr.addTo(map);
-    if (gpsMarkerLayer) {
-      gpsMarkerLayer.addTo(map);
-    }
-    if (adressMarkerLayer) {
-      adressMarkerLayer.addTo(map);
-    }
-    layerDisplayed = 'ortho-histo';
-    closeCat();
-  }
-
 
   // Fermeture popup démarrage
   function startPopupValidation() {
@@ -813,59 +599,6 @@ function app() {
     }
   }
 
-
-  /* Légende en fonction du zoom */
-  function updateLegend() {
-    let zoomLvl = map.getZoom();
-
-    // Je n'avais pas prévu autant de légendes différentes en fonction du zoom pour plan ign v2...
-    if (zoomLvl <= 7) {
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.seven;
-    } else if (zoomLvl <= 8){
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.eight;
-    } else if (zoomLvl <= 9){
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.nine;
-    } else if (zoomLvl <= 10){
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.ten;
-    } else if (zoomLvl <= 11){
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.eleven;
-    } else if (zoomLvl <= 12){
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.twelve;
-    } else if (zoomLvl <= 13){
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.thirteen;
-    } else if (zoomLvl <= 14){
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.fourteen;
-    } else if (zoomLvl <= 15){
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.fifteen;
-    } else if (zoomLvl <= 16){
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.sixteen;
-    } else if (zoomLvl <= 18){
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.eighteen;
-    } else {
-      legendImgs.plan_ign = Texts.planIGNLegendImgs.nineteen;
-    }
-
-    if (zoomLvl <= 7) {
-      legendImgs.cartes = Texts.carteIGNLegendImgs.seven;
-    } else if (zoomLvl <= 10){
-      legendImgs.cartes = Texts.carteIGNLegendImgs.ten;
-    } else if (zoomLvl <= 12){
-      legendImgs.cartes = Texts.carteIGNLegendImgs.twelve;
-    } else if (zoomLvl <= 14){
-      legendImgs.cartes = Texts.carteIGNLegendImgs.fourteen;
-    } else if (zoomLvl <= 16){
-      legendImgs.cartes = Texts.carteIGNLegendImgs.sixteen;
-    } else {
-      legendImgs.cartes = Texts.carteIGNLegendImgs.eighteen;
-    }
-
-    if (layerDisplayed === 'plan-ign') {
-      $legendImg.innerHTML = legendImgs.plan_ign;
-    } else if (layerDisplayed === 'cartes') {
-      $legendImg.innerHTML = legendImgs.cartes;
-    }
-  }
-
   /* Code pour l'activation de la localisation de l'appareil */
   // https://github.com/dpa99c/cordova-plugin-request-location-accuracy
   const platform = cordova.platformId;
@@ -970,15 +703,15 @@ function app() {
 
   /* event listeners statiques */
   // Couches
-  document.getElementById("layerOrtho").addEventListener('click', displayOrtho);
-  document.getElementById("layerRoutes").addEventListener('click', displayOrthoAndRoads);
-  document.getElementById("layerCartes").addEventListener('click', displayCartes);
-  document.getElementById("layerPlan").addEventListener('click', displayPlan);
-  document.getElementById("layerParcels").addEventListener('click', displayOrthoAndParcels);
-  document.getElementById("layerDrones").addEventListener('click', displayDrones);
-  document.getElementById("layerTopo").addEventListener('click', displayTopo);
-  document.getElementById("layerEtatMajor").addEventListener('click', displayEtatMajor);
-  document.getElementById("layerOrthoHisto").addEventListener('click', displayOrthoHisto);
+  document.getElementById("layerOrtho").addEventListener('click', LayerSwitch.displayOrtho);
+  document.getElementById("layerRoutes").addEventListener('click', LayerSwitch.displayOrthoAndRoads);
+  document.getElementById("layerCartes").addEventListener('click', LayerSwitch.displayCartes);
+  document.getElementById("layerPlan").addEventListener('click', LayerSwitch.displayPlan);
+  document.getElementById("layerParcels").addEventListener('click', LayerSwitch.displayOrthoAndParcels);
+  document.getElementById("layerDrones").addEventListener('click', LayerSwitch.displayDrones);
+  document.getElementById("layerTopo").addEventListener('click', LayerSwitch.displayTopo);
+  document.getElementById("layerEtatMajor").addEventListener('click', LayerSwitch.displayEtatMajor);
+  document.getElementById("layerOrthoHisto").addEventListener('click', LayerSwitch.displayOrthoHisto);
 
   // Bouton compris de la popup démarrage
   document.getElementById("compris").addEventListener('click', startPopupValidation);
@@ -1050,7 +783,7 @@ function app() {
   /**/
 
   // Légende en fonction du zoom
-  map.on("zoomend", updateLegend);
+  map.on("zoomend", UpdateLegend.updateLegend);
 
   // Event coordonnées
   map.on('contextmenu', (event) => {
