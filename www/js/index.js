@@ -1007,7 +1007,6 @@ function app() {
     let lng;
     let new_coords;
     const crs = document.querySelector('input[name="coordRadio"]:checked').value;
-    console.log(crs);
     switch (crs) {
       case 'latlng':
         lat = coords[1].toFixed(6);
