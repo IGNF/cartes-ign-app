@@ -1,6 +1,8 @@
 import * as LayerSwitch from './layer-switch';
-import Map from './globals';
+import Globals from './globals';
+import DOM from './dom';
 import * as UpdateLegend from './update-legend';
+import * as MenuDisplay from './menu-display';
 
 
 function app() {
@@ -10,8 +12,6 @@ function app() {
 
   /* global: back button state */
   let backButtonState = 'default';
-  /* global: layer display state */
-  let layerDisplayed = localStorage.getItem("lastLayerDisplayed") || 'photos';
 
   /* global: last text in search bar */
   let lastTextInSearch = '';
@@ -30,12 +30,12 @@ function app() {
   let motd_id;
   fetch(motd_url, {mode: 'cors'}).then( response => {
     response.json().then( data => {
-      $message.innerHTML += DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
+      DOM.$message.innerHTML += DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
       motd_id = data.id;
     }).then( () => {
       if (!localStorage.getItem("lastMotdID") || (localStorage.getItem("lastMotdID") && (localStorage.getItem("lastMotdID") < motd_id))) {
-        if($message.innerHTML !== '') {
-          $startPopup.classList.remove('d-none');
+        if(DOM.$message.innerHTML !== '') {
+          DOM.$startPopup.classList.remove('d-none');
         }
       }
     });
@@ -63,10 +63,7 @@ function app() {
     className:    'adressMarker',
   });
 
-  let gpsMarkerLayer;
-  let adressMarkerLayer;
-
-  const map = Map.map;
+  const map = Globals.map;
 
   // Définition de la carte et des couches
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
@@ -77,7 +74,7 @@ function app() {
 
   // Pour le "chargement" de l'état précédent
   // Par défaut : couche ortho
-  switch (layerDisplayed) {
+  switch (Globals.layerDisplayed) {
     case 'photos':
       LayerSwitch.displayOrtho();
       break;
@@ -119,20 +116,10 @@ function app() {
 
   // Fermeture popup démarrage
   function startPopupValidation() {
-    $startPopup.hidden = true;
-    if ($chkNePlusAff.checked) {
+    DOM.$startPopup.hidden = true;
+    if (DOM.$chkNePlusAff.checked) {
       localStorage.setItem("lastMotdID", motd_id);
     }
-  }
-
-  // Ouverture/fermeture catalogue
-  function openCat() {
-    document.getElementById("catalog").classList.remove('d-none');
-    backButtonState = 'catalog';
-  }
-
-  function closeCat() {
-    document.getElementById("catalog").classList.add('d-none');
   }
 
   /* Recherche et positionnnement */
@@ -140,9 +127,9 @@ function app() {
     /**
      * Enlève le marqueur adresse
      */
-    if (adressMarkerLayer != null) {
-      map.removeLayer(adressMarkerLayer);
-      adressMarkerLayer = null;
+    if (Globals.adressMarkerLayer != null) {
+      map.removeLayer(Globals.adressMarkerLayer);
+      Globals.adressMarkerLayer = null;
     }
   }
 
@@ -150,18 +137,18 @@ function app() {
     /**
      * Enlève le marqueur GPS
      */
-    if (gpsMarkerLayer != null) {
-      map.removeLayer(gpsMarkerLayer);
-      gpsMarkerLayer = null;
+    if (Globals.gpsMarkerLayer != null) {
+      map.removeLayer(Globals.gpsMarkerLayer);
+      Globals.gpsMarkerLayer = null;
     }
   }
 
   // Ouverture/fermeture de l'écran recherche
   function searchScreenOn() {
-    closeCat();
+    MenuDisplay.closeCat();
     document.getElementById("catalogBtn").classList.add('d-none');
-    $menuBtn.classList.add('d-none');
-    $closeSearch.classList.remove('d-none');
+    DOM.$menuBtn.classList.add('d-none');
+    DOM.$closeSearch.classList.remove('d-none');
     backButtonState = 'search';
   }
 
@@ -169,55 +156,55 @@ function app() {
     controller.abort();
     controller = new AbortController();
     signal = controller.signal;
-    $resultDiv.hidden = true;
-    $resultDiv.innerHTML = "";
+    DOM.$resultDiv.hidden = true;
+    DOM.$resultDiv.innerHTML = "";
     document.getElementById("catalogBtn").classList.remove('d-none');
-    $menuBtn.classList.remove('d-none');
-    $closeSearch.classList.add('d-none');
-    $rech.blur()
+    DOM.$menuBtn.classList.remove('d-none');
+    DOM.$closeSearch.classList.add('d-none');
+    DOM.$rech.blur()
     backButtonState = 'default';
   }
 
   function closeSearchScreen() {
     searchScreenOff();
-    $rech.value = "";
+    DOM.$rech.value = "";
   }
 
   // Ouverture/fermeture menu burger
   function openMenu() {
     closeInfos();
     closeLegend();
-    closeCat();
-    $menu.classList.remove('d-none');
+    MenuDisplay.closeCat();
+    DOM.$menu.classList.remove('d-none');
     backButtonState = 'mainMenu';
   }
 
   function closeMenu() {
-    $menu.classList.add('d-none');
+    DOM.$menu.classList.add('d-none');
     backButtonState = 'default';
   }
 
   // Ouverture/fermeture des fentres infos et légende
   function openLegend(){
     closeMenu();
-    $legendWindow.classList.remove("d-none");
+    DOM.$legendWindow.classList.remove("d-none");
     backButtonState = 'legend';
   }
 
   function closeLegend(){
-    $legendWindow.classList.add("d-none");
+    DOM.$legendWindow.classList.add("d-none");
     scroll(0,0);
     backButtonState = 'default';
   }
 
   function openInfos(){
     closeMenu();
-    $infoWindow.classList.remove("d-none");
+    DOM.$infoWindow.classList.remove("d-none");
     backButtonState = 'infos';
   }
 
   function closeInfos(){
-    $infoWindow.classList.add("d-none");
+    DOM.$infoWindow.classList.add("d-none");
     scroll(0,0);
     backButtonState = 'default';
   }
@@ -225,84 +212,84 @@ function app() {
   // Ouverture/fermeture des écrans atlernatifs
   function altScreenOn() {
     closeMenu();
-    $rech.disabled = true;
-    $rech.style.fontFamily = 'Open Sans Bold';
-    $blueBg.classList.remove('d-none');
-    $menuBtn.classList.add('d-none');
-    $searchImage.classList.add('d-none');
-    $backTopLeft.classList.remove('d-none');
-    $closeSearch.classList.remove('d-none');
-    $altMenuContainer.classList.remove('d-none');
-    lastTextInSearch = $rech.value;
+    DOM.$rech.disabled = true;
+    DOM.$rech.style.fontFamily = 'Open Sans Bold';
+    DOM.$blueBg.classList.remove('d-none');
+    DOM.$menuBtn.classList.add('d-none');
+    DOM.$searchImage.classList.add('d-none');
+    DOM.$backTopLeft.classList.remove('d-none');
+    DOM.$closeSearch.classList.remove('d-none');
+    DOM.$altMenuContainer.classList.remove('d-none');
+    lastTextInSearch = DOM.$rech.value;
 
   }
 
   function altScreenOff() {
-    $rech.disabled = false;
-    $rech.value = lastTextInSearch;
-    $rech.removeAttribute('style');
-    $blueBg.classList.add('d-none');
-    $menuBtn.classList.remove('d-none');
-    $closeSearch.classList.add('d-none');
-    $backTopLeft.classList.add('d-none');
-    $searchImage.classList.remove('d-none');
-    $parameterMenu.classList.add('d-none');
-    $altMenuContainer.classList.add('d-none');
+    DOM.$rech.disabled = false;
+    DOM.$rech.value = lastTextInSearch;
+    DOM.$rech.removeAttribute('style');
+    DOM.$blueBg.classList.add('d-none');
+    DOM.$menuBtn.classList.remove('d-none');
+    DOM.$closeSearch.classList.add('d-none');
+    DOM.$backTopLeft.classList.add('d-none');
+    DOM.$searchImage.classList.remove('d-none');
+    DOM.$parameterMenu.classList.add('d-none');
+    DOM.$altMenuContainer.classList.add('d-none');
   }
 
   // Ouverture/fermeture de l'écran paramètres
   function openParamsScreen() {
     altScreenOn();
-    $parameterMenu.classList.remove('d-none');
-    $rech.value = "Paramètres";
+    DOM.$parameterMenu.classList.remove('d-none');
+    DOM.$rech.value = "Paramètres";
     backButtonState = 'params';
   }
 
   function closeParamsScreen() {
     altScreenOff();
-    $parameterMenu.classList.add('d-none');
+    DOM.$parameterMenu.classList.add('d-none');
     backButtonState = 'default';
   }
 
   // Ouverture/fermeture de l'écran mentions légales
   function openLegalScreen() {
     altScreenOn();
-    $rech.value = "Mentions légales";
-    $legalMenu.classList.remove('d-none');
+    DOM.$rech.value = "Mentions légales";
+    DOM.$legalMenu.classList.remove('d-none');
     backButtonState = 'legal';
   }
 
   function closeLegalScreen(){
     altScreenOff();
-    $legalMenu.classList.add('d-none');
+    DOM.$legalMenu.classList.add('d-none');
     backButtonState = 'default';
   }
 
   // Ouverture/fermeture de l'écran vie privée
   function openPrivacyScreen() {
     altScreenOn();
-    $privacyMenu.classList.remove('d-none');
-    $rech.value = "Vie privée";
+    DOM.$privacyMenu.classList.remove('d-none');
+    DOM.$rech.value = "Vie privée";
     backButtonState = 'privacy';
   }
 
   function closePrivacyScreen(){
     altScreenOff();
-    $privacyMenu.classList.add('d-none');
+    DOM.$privacyMenu.classList.add('d-none');
     backButtonState = 'default';
   }
 
   // Ouverture/fermeture de l'écran aller plus loin
   function openPlusLoinScreen() {
     altScreenOn();
-    $plusLoinMenu.classList.remove('d-none');
+    DOM.$plusLoinMenu.classList.remove('d-none');
     backButtonState = 'plusLoin';
-    $rech.value = "À découvrir également...";
+    DOM.$rech.value = "À découvrir également...";
   }
 
   function closePlusLoinScreen(){
     altScreenOff();
-    $plusLoinMenu.classList.add('d-none');
+    DOM.$plusLoinMenu.classList.add('d-none');
     backButtonState = 'default';
   }
 
@@ -337,7 +324,7 @@ function app() {
 
     let geocode_result = response.features[0];
 
-    $rech.value = computeLocationFullText(geocode_result);
+    DOM.$rech.value = computeLocationFullText(geocode_result);
 
     let geom = geocode_result.geometry;
     let coords = {
@@ -353,7 +340,7 @@ function app() {
      * si panTo est True
      */
     cleanResults();
-    adressMarkerLayer = L.featureGroup().addTo(map);
+    Globals.adressMarkerLayer = L.featureGroup().addTo(map);
     let markerLayer = L.featureGroup([L.marker(
       [coords.lat, coords.lon],
       {
@@ -361,7 +348,7 @@ function app() {
       }
     )]);
 
-    adressMarkerLayer.addLayer(markerLayer);
+    Globals.adressMarkerLayer.addLayer(markerLayer);
     if (panTo) {
       map.setView(new L.LatLng(coords.lat, coords.lon), zoom);
     }
@@ -373,7 +360,7 @@ function app() {
      * si panTo est True
      */
     cleanGPS();
-    gpsMarkerLayer = L.featureGroup().addTo(map);
+    Globals.gpsMarkerLayer = L.featureGroup().addTo(map);
     let markerLayer = L.featureGroup([L.marker(
       [coords.lat, coords.lon],
       {
@@ -381,7 +368,7 @@ function app() {
       }
     )]);
 
-    gpsMarkerLayer.addLayer(markerLayer);
+    Globals.gpsMarkerLayer.addLayer(markerLayer);
     if (panTo) {
       if (currentRotation !== 0){
         map.setBearing(0);
@@ -405,7 +392,7 @@ function app() {
     controller.abort();
     controller = new AbortController();
     signal = controller.signal;
-    let location = $rech.value;
+    let location = DOM.$rech.value;
     let url = new URL("https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/look4/user/search");
     let params =
         {
@@ -452,24 +439,24 @@ function app() {
   }
 
   // Recherche du 1er résultat de l'autocomplétion si appui sur entrée
-  $rech.addEventListener("keyup", (event) => {
+  DOM.$rech.addEventListener("keyup", (event) => {
     if (event.key === 'Enter' || event.keyCode === 13) {
       // Cancel the default action, if needed
       event.preventDefault();
       // Trigger the button element with a click
-      $resultDiv.hidden = true;
-      $resultDiv.innerHTML = "";
-      rechercheEtPosition($rech.value);
+      DOM.$resultDiv.hidden = true;
+      DOM.$resultDiv.innerHTML = "";
+      rechercheEtPosition(DOM.$rech.value);
       searchScreenOff();
-    } else if ($rech.value !== ""){
+    } else if (DOM.$rech.value !== ""){
       let resultStr = "";
       suggest().then( () => {
         if (autocompletion_results.length > 0){
           for (let i = 0 ; i < autocompletion_results.length; i++) {
             resultStr += "<p class='autocompresult'>" + autocompletion_results[i] + "</p>" ;
           }
-          $resultDiv.innerHTML = resultStr;
-          $resultDiv.hidden = false;
+          DOM.$resultDiv.innerHTML = resultStr;
+          DOM.$resultDiv.hidden = false;
         }
       });
     }
@@ -495,7 +482,7 @@ function app() {
         }, Math.max(map.getZoom(), 14));
       },
       (err) => {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
+        console.warn(`ERROR(DOM.${err.code}): DOM.${err.message}`);
       },
       {
         maximumAge: 1500000,
@@ -510,7 +497,7 @@ function app() {
         }, map.getZoom(), tracking_active);
       },
       (err) => {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
+        console.warn(`ERROR(DOM.${err.code}): DOM.${err.message}`);
       },
       {
         maximumAge: 1500000,
@@ -523,15 +510,15 @@ function app() {
   // Modification du statut de localisation
   function locationOnOff() {
     if (!location_active) {
-      $geolocateBtn.style.backgroundImage = 'url("css/assets/location-fixed.svg")';
+      DOM.$geolocateBtn.style.backgroundImage = 'url("css/assets/location-fixed.svg")';
       requestLocationAccuracy();
       trackLocation();
       location_active = true;
     } else if (!tracking_active) {
-      $geolocateBtn.style.backgroundImage = 'url("css/assets/location-follow.svg")';
+      DOM.$geolocateBtn.style.backgroundImage = 'url("css/assets/location-follow.svg")';
       tracking_active = true;
     } else {
-      $geolocateBtn.style.backgroundImage = 'url("css/assets/localisation.svg")';
+      DOM.$geolocateBtn.style.backgroundImage = 'url("css/assets/localisation.svg")';
       navigator.geolocation.clearWatch(watch_id);
       location_active = false;
       tracking_active = false;
@@ -583,11 +570,11 @@ function app() {
    */
   function updateCenterCoords(coords) {
     const coordsToDisplay = convertCoords([coords.lng, coords.lat]);
-    $centerCoords.innerHTML = coordsToDisplay[0] + ", " + coordsToDisplay[1];
+    DOM.$centerCoords.innerHTML = coordsToDisplay[0] + ", " + coordsToDisplay[1];
   }
 
   function reticuleOnOff() {
-    const checked = $chkPrintCoordsReticule.checked;
+    const checked = DOM.$chkPrintCoordsReticule.checked;
     if (checked) {
       document.getElementById("centerCoords").classList.remove("d-none");
       document.getElementById("centerReticule").classList.remove("d-none");
@@ -680,14 +667,14 @@ function app() {
   document.querySelector('body').addEventListener('click', (evt) => {
     /* fermeture catalogue */
     if ( evt.target.id !== 'catalog') {
-      closeCat();
+      MenuDisplay.closeCat();
     }
     /* Résultats autocompletion */
     if ( evt.target.classList.contains('autocompresult') ) {
       evt.target.style.backgroundColor = '#0B6BA7';
       evt.target.style.color = 'white';
-      $rech.value = evt.target.innerHTML;
-      rechercheEtPosition($rech.value);
+      DOM.$rech.value = evt.target.innerHTML;
+      rechercheEtPosition(DOM.$rech.value);
       setTimeout(searchScreenOff, 150)
     /* marqueur de recherche/position */
     } else if (evt.target.classList.contains("adressMarker")) {
@@ -696,7 +683,7 @@ function app() {
       cleanGPS();
     /* pour aller + loin du message d'accueil */
     } else if (evt.target.classList.contains("msgGreen")) {
-      $startPopup.hidden = true;
+      DOM.$startPopup.hidden = true;
       openPlusLoinScreen();
     }
   }, true);
@@ -717,30 +704,30 @@ function app() {
   document.getElementById("compris").addEventListener('click', startPopupValidation);
 
   // Ouverture-Fermeture
-  document.getElementById("catalogBtn").addEventListener('click', openCat);
-  $backTopLeft.addEventListener("click", onBackKeyDown);
+  document.getElementById("catalogBtn").addEventListener('click', MenuDisplay.openCat);
+  DOM.$backTopLeft.addEventListener("click", onBackKeyDown);
 
   // Boutons on-off
-  $geolocateBtn.addEventListener('click', locationOnOff);
-  $chkPrintCoordsReticule.addEventListener('change', reticuleOnOff);
+  DOM.$geolocateBtn.addEventListener('click', locationOnOff);
+  DOM.$chkPrintCoordsReticule.addEventListener('change', reticuleOnOff);
 
   // Recherche
-  $rech.addEventListener('focus', searchScreenOn);
-  $closeSearch.addEventListener("click", onBackKeyDown);
+  DOM.$rech.addEventListener('focus', searchScreenOn);
+  DOM.$closeSearch.addEventListener("click", onBackKeyDown);
 
   // Menu burger
-  $menuBtn.addEventListener("click", openMenu);
+  DOM.$menuBtn.addEventListener("click", openMenu);
 
   // Rotation
-  $compassBtn.addEventListener("click", () => {
+  DOM.$compassBtn.addEventListener("click", () => {
     currentRotation = 0;
     map.setBearing(0);
-    $compassBtn.style.transform = "rotate(" + 0 + "deg)";
-    $compassBtn.classList.add("d-none");
+    DOM.$compassBtn.style.transform = "rotate(" + 0 + "deg)";
+    DOM.$compassBtn.classList.add("d-none");
   })
 
   // Fermeture menu
-  $menu.addEventListener('click', (evt) => {
+  DOM.$menu.addEventListener('click', (evt) => {
     if (evt.target.id === 'menu') {
       closeMenu();
     }
@@ -773,7 +760,7 @@ function app() {
 
   // Event coordonnées
   map.on('contextmenu', (event) => {
-    if ($chkPrintCoordsOnContext.checked) {
+    if (DOM.$chkPrintCoordsOnContext.checked) {
       let latlng = map.mouseEventToLatLng(event.originalEvent);
       openCoords(latlng);
     }
@@ -816,7 +803,7 @@ function app() {
       closeLegend();
     }
     if (backButtonState === 'catalog') {
-      closeCat();
+      MenuDisplay.closeCat();
       backButtonState = 'default';
     }
   }
@@ -826,11 +813,11 @@ function app() {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
-    localStorage.setItem("lastLayerDisplayed", layerDisplayed);
+    localStorage.setItem("lastLayerDisplayed", Globals.layerDisplayed);
   });
 
   // Rotation de la carte avec le mutlitouch
-  let hammertime = new Hammer.Manager($map);
+  let hammertime = new Hammer.Manager(DOM.$map);
 
   const rotate = new Hammer.Rotate()
   hammertime.add(rotate)
@@ -841,13 +828,13 @@ function app() {
   let disableRotation = false;
 
   hammertime.on('rotatemove', (e) => {
-    if ($chkRotate.checked && !disableRotation) {
+    if (DOM.$chkRotate.checked && !disableRotation) {
       let diff = startRotation - Math.round(e.rotation);
       currentRotation = lastRotation - diff;
       if (rotationStarted) {
         map.setBearing(currentRotation);
-        $compassBtn.style.transform = "rotate(" + currentRotation + "deg)";
-        $compassBtn.classList.remove("d-none");
+        DOM.$compassBtn.style.transform = "rotate(" + currentRotation + "deg)";
+        DOM.$compassBtn.classList.remove("d-none");
       }
       if (Math.abs(diff) > 15 && !rotationStarted){
         rotationStarted = true;
@@ -857,14 +844,14 @@ function app() {
   });
 
   hammertime.on('rotatestart', (e) => {
-    if ($chkRotate.checked && !disableRotation) {
+    if (DOM.$chkRotate.checked && !disableRotation) {
       lastRotation = currentRotation;
       startRotation = Math.round(e.rotation);
     }
   });
 
   hammertime.on('rotateend', () => {
-    if ($chkRotate.checked && !disableRotation) {
+    if (DOM.$chkRotate.checked && !disableRotation) {
         rotationStarted = false;
         lastRotation = currentRotation;
     }
