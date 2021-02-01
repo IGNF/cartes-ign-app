@@ -1267,7 +1267,8 @@ function app() {
   Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
     elem.addEventListener("change", () => {
       updateCenterCoords(map.getCenter());
-      document.getElementById("coordTypeDisplay").innerHTML = document.querySelector('input[name="coordRadio"]:checked').innerHTML;
+      const radioCheckedId = document.querySelector('input[name="coordRadio"]:checked').id;
+      document.getElementById("coordTypeDisplay").innerHTML = document.querySelector(`label[for="${radioCheckedId}"]`).innerHTML;
     });
   });
 
