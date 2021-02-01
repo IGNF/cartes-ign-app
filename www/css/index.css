@@ -652,7 +652,7 @@ input[type='radio']:checked + label:before {
   border-radius: 5px;
 }
 
-#coordTypeClone {
+#coordTypeDisplay {
   position: absolute;
   top: 100px;
   left: 10px;
