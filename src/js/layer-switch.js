@@ -1,9 +1,11 @@
 import Layers from './layers';
 import Texts from './texts';
-import Map from './globals';
+import Globals from './globals';
+import DOM from './dom';
 import * as UpdateLegend from './update-legend';
+import * as MenuDisplay from './menu-display';
 
-const map = Map.map;
+const map = Globals.map;
 
 // Fonctions de changements d'affichages de couches
 function removeAllLayers() {
@@ -23,17 +25,17 @@ function displayOrtho() {
    */
   removeAllLayers();
   document.getElementById("photos").classList.add("selectedLayer");
-  $infoText.innerHTML = Texts.informationTexts.photos;
-  $legendImg.innerHTML = Texts.legendImgs.photos;
+  DOM.$infoText.innerHTML = Texts.informationTexts.photos;
+  DOM.$legendImg.innerHTML = Texts.legendImgs.photos;
   Layers.orthoLyr.addTo(map);
-  if (gpsMarkerLayer) {
-    gpsMarkerLayer.addTo(map);
+  if (Globals.gpsMarkerLayer) {
+    Globals.gpsMarkerLayer.addTo(map);
   }
-  if (adressMarkerLayer) {
-    adressMarkerLayer.addTo(map);
+  if (Globals.adressMarkerLayer) {
+    Globals.adressMarkerLayer.addTo(map);
   }
-  layerDisplayed = 'photos';
-  closeCat();
+  Globals.layerDisplayed = 'photos';
+  MenuDisplay.closeCat();
 }
 
 function displayOrthoAndRoads() {
@@ -42,18 +44,18 @@ function displayOrthoAndRoads() {
    */
   removeAllLayers();
   document.getElementById("routes").classList.add("selectedLayer");
-  $infoText.innerHTML = Texts.informationTexts.routes;
-  $legendImg.innerHTML = Texts.legendImgs.routes;
+  DOM.$infoText.innerHTML = Texts.informationTexts.routes;
+  DOM.$legendImg.innerHTML = Texts.legendImgs.routes;
   Layers.orthoLyr.addTo(map);
   Layers.roadsLyr.addTo(map);
-  if (gpsMarkerLayer) {
-    gpsMarkerLayer.addTo(map);
+  if (Globals.gpsMarkerLayer) {
+    Globals.gpsMarkerLayer.addTo(map);
   }
-  if (adressMarkerLayer) {
-    adressMarkerLayer.addTo(map);
+  if (Globals.adressMarkerLayer) {
+    Globals.adressMarkerLayer.addTo(map);
   }
-  layerDisplayed = 'routes';
-  closeCat();
+  Globals.layerDisplayed = 'routes';
+  MenuDisplay.closeCat();
 }
 
 function displayOrthoAndParcels() {
@@ -62,19 +64,19 @@ function displayOrthoAndParcels() {
    */
   removeAllLayers();
   document.getElementById("cadastre").classList.add("selectedLayer");
-  $infoText.innerHTML = Texts.informationTexts.cadastre;
-  $legendImg.innerHTML = Texts.legendImgs.cadastre;
+  DOM.$infoText.innerHTML = Texts.informationTexts.cadastre;
+  DOM.$legendImg.innerHTML = Texts.legendImgs.cadastre;
   Layers.parcelLyr.addTo(map);
   Layers.orthoLyr.addTo(map);
   Layers.orthoLyr.setOpacity(0.5);
-  if (gpsMarkerLayer) {
-    gpsMarkerLayer.addTo(map);
+  if (Globals.gpsMarkerLayer) {
+    Globals.gpsMarkerLayer.addTo(map);
   }
-  if (adressMarkerLayer) {
-    adressMarkerLayer.addTo(map);
+  if (Globals.adressMarkerLayer) {
+    Globals.adressMarkerLayer.addTo(map);
   }
-  layerDisplayed = 'cadastre';
-  closeCat();
+  Globals.layerDisplayed = 'cadastre';
+  MenuDisplay.closeCat();
 }
 
 function displayPlan() {
@@ -83,17 +85,17 @@ function displayPlan() {
    */
   removeAllLayers();
   document.getElementById("plan-ign").classList.add("selectedLayer");
-  $infoText.innerHTML = Texts.informationTexts.plan_ign;
-  $legendImg.innerHTML = Texts.legendImgs.plan_ign;
+  DOM.$infoText.innerHTML = Texts.informationTexts.plan_ign;
+  DOM.$legendImg.innerHTML = Texts.legendImgs.plan_ign;
   Layers.planLyr.addTo(map);
-  if (gpsMarkerLayer) {
-    gpsMarkerLayer.addTo(map);
+  if (Globals.gpsMarkerLayer) {
+    Globals.gpsMarkerLayer.addTo(map);
   }
-  if (adressMarkerLayer) {
-    adressMarkerLayer.addTo(map);
+  if (Globals.adressMarkerLayer) {
+    Globals.adressMarkerLayer.addTo(map);
   }
-  layerDisplayed = 'plan-ign';
-  closeCat();
+  Globals.layerDisplayed = 'plan-ign';
+  MenuDisplay.closeCat();
 }
 
 function displayCartes() {
@@ -102,17 +104,17 @@ function displayCartes() {
    */
   removeAllLayers();
   document.getElementById("cartes").classList.add("selectedLayer");
-  $infoText.innerHTML = Texts.informationTexts.cartes;
-  $legendImg.innerHTML = Texts.legendImgs.cartes;
+  DOM.$infoText.innerHTML = Texts.informationTexts.cartes;
+  DOM.$legendImg.innerHTML = Texts.legendImgs.cartes;
   Layers.cartesLyr.addTo(map);
-  if (gpsMarkerLayer) {
-    gpsMarkerLayer.addTo(map);
+  if (Globals.gpsMarkerLayer) {
+    Globals.gpsMarkerLayer.addTo(map);
   }
-  if (adressMarkerLayer) {
-    adressMarkerLayer.addTo(map);
+  if (Globals.adressMarkerLayer) {
+    Globals.adressMarkerLayer.addTo(map);
   }
-  layerDisplayed = 'cartes';
-  closeCat();
+  Globals.layerDisplayed = 'cartes';
+  MenuDisplay.closeCat();
 }
 
 function displayDrones() {
@@ -121,18 +123,18 @@ function displayDrones() {
    */
   removeAllLayers();
   document.getElementById("drones").classList.add("selectedLayer");
-  $infoText.innerHTML = Texts.informationTexts.drones;
-  $legendImg.innerHTML = Texts.legendImgs.drones;
+  DOM.$infoText.innerHTML = Texts.informationTexts.drones;
+  DOM.$legendImg.innerHTML = Texts.legendImgs.drones;
   Layers.cartesLyr.addTo(map);
   Layers.dronesLyr.addTo(map);
-  if (gpsMarkerLayer) {
-    gpsMarkerLayer.addTo(map);
+  if (Globals.gpsMarkerLayer) {
+    Globals.gpsMarkerLayer.addTo(map);
   }
-  if (adressMarkerLayer) {
-    adressMarkerLayer.addTo(map);
+  if (Globals.adressMarkerLayer) {
+    Globals.adressMarkerLayer.addTo(map);
   }
-  layerDisplayed = 'drones';
-  closeCat();
+  Globals.layerDisplayed = 'drones';
+  MenuDisplay.closeCat();
 }
 
 function displayTopo() {
@@ -141,17 +143,17 @@ function displayTopo() {
    */
   removeAllLayers();
   document.getElementById("topo").classList.add("selectedLayer");
-  $infoText.innerHTML = Texts.informationTexts.topo;
-  $legendImg.innerHTML = Texts.legendImgs.topo;
+  DOM.$infoText.innerHTML = Texts.informationTexts.topo;
+  DOM.$legendImg.innerHTML = Texts.legendImgs.topo;
   Layers.topoLyr.addTo(map);
-  if (gpsMarkerLayer) {
-    gpsMarkerLayer.addTo(map);
+  if (Globals.gpsMarkerLayer) {
+    Globals.gpsMarkerLayer.addTo(map);
   }
-  if (adressMarkerLayer) {
-    adressMarkerLayer.addTo(map);
+  if (Globals.adressMarkerLayer) {
+    Globals.adressMarkerLayer.addTo(map);
   }
-  layerDisplayed = 'topo';
-  closeCat();
+  Globals.layerDisplayed = 'topo';
+  MenuDisplay.closeCat();
 }
 
 function displayEtatMajor() {
@@ -160,17 +162,17 @@ function displayEtatMajor() {
    */
   removeAllLayers();
   document.getElementById("etat-major").classList.add("selectedLayer");
-  $infoText.innerHTML = Texts.informationTexts.etatmajor;
-  $legendImg.innerHTML = Texts.legendImgs.etatmajor;
+  DOM.$infoText.innerHTML = Texts.informationTexts.etatmajor;
+  DOM.$legendImg.innerHTML = Texts.legendImgs.etatmajor;
   Layers.etatmajorLyr.addTo(map);
-  if (gpsMarkerLayer) {
-    gpsMarkerLayer.addTo(map);
+  if (Globals.gpsMarkerLayer) {
+    Globals.gpsMarkerLayer.addTo(map);
   }
-  if (adressMarkerLayer) {
-    adressMarkerLayer.addTo(map);
+  if (Globals.adressMarkerLayer) {
+    Globals.adressMarkerLayer.addTo(map);
   }
-  layerDisplayed = 'etat-major';
-  closeCat();
+  Globals.layerDisplayed = 'etat-major';
+  MenuDisplay.closeCat();
 }
 
 function displayOrthoHisto() {
@@ -179,17 +181,17 @@ function displayOrthoHisto() {
    */
   removeAllLayers();
   document.getElementById("ortho-histo").classList.add("selectedLayer");
-  $infoText.innerHTML = Texts.informationTexts.orthohisto;
-  $legendImg.innerHTML = Texts.legendImgs.orthohisto;
+  DOM.$infoText.innerHTML = Texts.informationTexts.orthohisto;
+  DOM.$legendImg.innerHTML = Texts.legendImgs.orthohisto;
   Layers.orthoHistoLyr.addTo(map);
-  if (gpsMarkerLayer) {
-    gpsMarkerLayer.addTo(map);
+  if (Globals.gpsMarkerLayer) {
+    Globals.gpsMarkerLayer.addTo(map);
   }
-  if (adressMarkerLayer) {
-    adressMarkerLayer.addTo(map);
+  if (Globals.adressMarkerLayer) {
+    Globals.adressMarkerLayer.addTo(map);
   }
-  layerDisplayed = 'ortho-histo';
-  closeCat();
+  Globals.layerDisplayed = 'ortho-histo';
+  MenuDisplay.closeCat();
 }
 
 export {removeAllLayers,

@@ -1,7 +1,8 @@
-import Map from './globals';
+import Globals from './globals';
+import DOM from './dom';
 import Texts from './texts';
 
-const map = Map.map;
+const map = Globals.map;
 
 /* Légende en fonction du zoom */
 function updateLegend() {
@@ -48,10 +49,10 @@ function updateLegend() {
     Texts.legendImgs.cartes = Texts.carteIGNLegendImgs.eighteen;
   }
 
-  if (layerDisplayed === 'plan-ign') {
-    $legendImg.innerHTML = Texts.legendImgs.plan_ign;
-  } else if (layerDisplayed === 'cartes') {
-    $legendImg.innerHTML = Texts.legendImgs.cartes;
+  if (Globals.layerDisplayed === 'plan-ign') {
+    DOM.$legendImg.innerHTML = Texts.legendImgs.plan_ign;
+  } else if (Globals.layerDisplayed === 'cartes') {
+    DOM.$legendImg.innerHTML = Texts.legendImgs.cartes;
   }
 }
 
