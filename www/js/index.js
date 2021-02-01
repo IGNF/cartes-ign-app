@@ -1007,7 +1007,6 @@ function app() {
     let lng;
     let new_coords;
     const crs = document.querySelector('input[name="coordRadio"]:checked').value;
-    console.log(crs);
     switch (crs) {
       case 'latlng':
         lat = coords[1].toFixed(6);
@@ -1045,11 +1044,11 @@ function app() {
     if (checked) {
       document.getElementById("centerCoords").classList.remove("d-none");
       document.getElementById("centerReticule").classList.remove("d-none");
-      document.getElementById("coordTypeClone").classList.remove("d-none");
+      document.getElementById("coordTypeDisplay").classList.remove("d-none");
     } else {
       document.getElementById("centerCoords").classList.add("d-none");
       document.getElementById("centerReticule").classList.add("d-none");
-      document.getElementById("coordTypeClone").classList.add("d-none");
+      document.getElementById("coordTypeDisplay").classList.add("d-none");
     }
   }
 
@@ -1267,25 +1266,11 @@ function app() {
   // Synchronisation des radio button pour le type de coordonnées
   Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
     elem.addEventListener("change", () => {
-      Array.from(document.getElementsByName("coordRadioClone")).forEach( elem => {
-        if (elem.value === document.querySelector('input[name="coordRadio"]:checked').value) {
-          elem.checked = true;
-        }
-      });
-    });
-  });
-
-  Array.from(document.getElementsByName("coordRadioClone")).forEach( elem => {
-    elem.addEventListener("change", () => {
-      Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
-        if (elem.value === document.querySelector('input[name="coordRadioClone"]:checked').value) {
-          elem.checked = true;
-        }
-      });
       updateCenterCoords(map.getCenter());
+      const radioCheckedId = document.querySelector('input[name="coordRadio"]:checked').id;
+      document.getElementById("coordTypeDisplay").innerHTML = document.querySelector(`label[for="${radioCheckedId}"]`).innerHTML;
     });
   });
-
 
   /**/
 
