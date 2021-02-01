@@ -118,15 +118,15 @@
             <div class="button" id="catalogBtn">
             </div>
 
-            <div id="centerCoords" class="d-none">
+            <div id="centerTargetInfo">
+              <div id="centerCoords" class="d-none">
+              </div>
+
+              <div id="coordTypeDisplay" class="d-none">
+                Géographique
+              </div>
             </div>
 
-            <div id="coordTypeClone" class="d-none">
-              <p><input type="radio" id="coordGeoBtnClone" name="coordRadioClone" value="latlng" checked><label for="coordGeoBtnClone">Géographiques</label></p>
-              <p><input type="radio" id="coordMercBtnClone" name="coordRadioClone" value="merc"><label for="coordMercBtnClone">Web Mercator</label></p>
-              <p><input type="radio" id="coordL93BtnClone" name="coordRadioClone" value="l93"><label for="coordL93BtnClone">Lambert93</label></p>
-              <p><input type="radio" id="coordL2EBtnClone" name="coordRadioClone" value="l2e"><label for="coordL2EBtnClone">Lambert II étendu</label></p>
-            </div>
 
             <div id="centerReticule" class="button d-none">
             </div>
@@ -135,18 +135,18 @@
               <div class="d-none altMenu" id="parameterMenu">
                 <div id="paramsInterface">
                   <h3>Interface</h3>
-                  <p><input type="checkbox" id="chkRotate"> Rotation de la carte avec les deux doigts</p>
+                  <p><input type="checkbox" id="chkRotate"><label for="chkRotate"> Rotation de la carte avec les deux doigts</label></p>
                 </div>
                 <div id="paramsPrintCoords">
                   <h3>Affichage des coordonnées</h3>
-                  <p><input type="checkbox" id="chkPrintCoordsOnContext" checked> Afficher les coordonnées avec un appui long</p>
-                  <p><input type="checkbox" id="chkPrintCoordsReticule"> Afficher les coordonnées avec la croix centrale</p>
+                  <p><input type="checkbox" id="chkPrintCoordsOnContext" checked><label for="chkPrintCoordsOnContext"> Afficher les coordonnées avec un appui long</label></p>
+                  <p><input type="checkbox" id="chkPrintCoordsReticule"><label for="chkPrintCoordsReticule"> Afficher les coordonnées avec la croix centrale</label></p>
                 </div>
                 <div id="coordType">
-                  <h3>Type de coordonnées</h3>
-                  <p><input type="radio" id="coordGeoBtn" name="coordRadio" value="latlng" checked><label for="coordGeoBtn">Géographiques</label></p>
+                  <h3>Système de référence</h3>
+                  <p><input type="radio" id="coordGeoBtn" name="coordRadio" value="latlng" checked><label for="coordGeoBtn">Géographique</label></p>
                   <p><input type="radio" id="coordMercBtn" name="coordRadio" value="merc"><label for="coordMercBtn">Web Mercator</label></p>
-                  <p><input type="radio" id="coordL93Btn" name="coordRadio" value="l93"><label for="coordL93Btn">Lambert93</label></p>
+                  <p><input type="radio" id="coordL93Btn" name="coordRadio" value="l93"><label for="coordL93Btn">Lambert 93</label></p>
                   <p><input type="radio" id="coordL2EBtn" name="coordRadio" value="l2e"><label for="coordL2EBtn">Lambert II étendu</label></p>
                 </div>
               </div>
@@ -272,13 +272,13 @@
 
         </div>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/leaflet.js"></script>
-        <script type="text/javascript" src="js/proj4.js"></script>
-        <script type="text/javascript" src="js/pouchdb.min.js"></script>
-        <script type="text/javascript" src="js/leaflet-src.js"></script>
-        <script type="text/javascript" src="js/leaflet.tilelayer.fallback.js"></script>
-        <script type="text/javascript" src="js/purify.min.js"></script>
-        <script type="text/javascript" src="js/hammer.min.js"></script>
+        <script type="text/javascript" src="js/external/leaflet.js"></script>
+        <script type="text/javascript" src="js/external/proj4.js"></script>
+        <script type="text/javascript" src="js/external/pouchdb.min.js"></script>
+        <script type="text/javascript" src="js/external/leaflet-src.js"></script>
+        <script type="text/javascript" src="js/external/leaflet.tilelayer.fallback.js"></script>
+        <script type="text/javascript" src="js/external/purify.min.js"></script>
+        <script type="text/javascript" src="js/external/hammer.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 
