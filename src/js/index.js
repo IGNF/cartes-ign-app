@@ -10,12 +10,6 @@ function app() {
    * Fonction définissant l'application
    */
 
-  /* global: back button state */
-  let backButtonState = 'default';
-
-  /* global: last text in search bar */
-  let lastTextInSearch = '';
-
   /* global: current map rotation */
   let currentRotation = 0;
 
@@ -141,156 +135,6 @@ function app() {
       map.removeLayer(Globals.gpsMarkerLayer);
       Globals.gpsMarkerLayer = null;
     }
-  }
-
-  // Ouverture/fermeture de l'écran recherche
-  function searchScreenOn() {
-    MenuDisplay.closeCat();
-    document.getElementById("catalogBtn").classList.add('d-none');
-    DOM.$menuBtn.classList.add('d-none');
-    DOM.$closeSearch.classList.remove('d-none');
-    backButtonState = 'search';
-  }
-
-  function searchScreenOff() {
-    controller.abort();
-    controller = new AbortController();
-    signal = controller.signal;
-    DOM.$resultDiv.hidden = true;
-    DOM.$resultDiv.innerHTML = "";
-    document.getElementById("catalogBtn").classList.remove('d-none');
-    DOM.$menuBtn.classList.remove('d-none');
-    DOM.$closeSearch.classList.add('d-none');
-    DOM.$rech.blur()
-    backButtonState = 'default';
-  }
-
-  function closeSearchScreen() {
-    searchScreenOff();
-    DOM.$rech.value = "";
-  }
-
-  // Ouverture/fermeture menu burger
-  function openMenu() {
-    closeInfos();
-    closeLegend();
-    MenuDisplay.closeCat();
-    DOM.$menu.classList.remove('d-none');
-    backButtonState = 'mainMenu';
-  }
-
-  function closeMenu() {
-    DOM.$menu.classList.add('d-none');
-    backButtonState = 'default';
-  }
-
-  // Ouverture/fermeture des fentres infos et légende
-  function openLegend(){
-    closeMenu();
-    DOM.$legendWindow.classList.remove("d-none");
-    backButtonState = 'legend';
-  }
-
-  function closeLegend(){
-    DOM.$legendWindow.classList.add("d-none");
-    scroll(0,0);
-    backButtonState = 'default';
-  }
-
-  function openInfos(){
-    closeMenu();
-    DOM.$infoWindow.classList.remove("d-none");
-    backButtonState = 'infos';
-  }
-
-  function closeInfos(){
-    DOM.$infoWindow.classList.add("d-none");
-    scroll(0,0);
-    backButtonState = 'default';
-  }
-
-  // Ouverture/fermeture des écrans atlernatifs
-  function altScreenOn() {
-    closeMenu();
-    DOM.$rech.disabled = true;
-    DOM.$rech.style.fontFamily = 'Open Sans Bold';
-    DOM.$blueBg.classList.remove('d-none');
-    DOM.$menuBtn.classList.add('d-none');
-    DOM.$searchImage.classList.add('d-none');
-    DOM.$backTopLeft.classList.remove('d-none');
-    DOM.$closeSearch.classList.remove('d-none');
-    DOM.$altMenuContainer.classList.remove('d-none');
-    lastTextInSearch = DOM.$rech.value;
-
-  }
-
-  function altScreenOff() {
-    DOM.$rech.disabled = false;
-    DOM.$rech.value = lastTextInSearch;
-    DOM.$rech.removeAttribute('style');
-    DOM.$blueBg.classList.add('d-none');
-    DOM.$menuBtn.classList.remove('d-none');
-    DOM.$closeSearch.classList.add('d-none');
-    DOM.$backTopLeft.classList.add('d-none');
-    DOM.$searchImage.classList.remove('d-none');
-    DOM.$parameterMenu.classList.add('d-none');
-    DOM.$altMenuContainer.classList.add('d-none');
-  }
-
-  // Ouverture/fermeture de l'écran paramètres
-  function openParamsScreen() {
-    altScreenOn();
-    DOM.$parameterMenu.classList.remove('d-none');
-    DOM.$rech.value = "Paramètres";
-    backButtonState = 'params';
-  }
-
-  function closeParamsScreen() {
-    altScreenOff();
-    DOM.$parameterMenu.classList.add('d-none');
-    backButtonState = 'default';
-  }
-
-  // Ouverture/fermeture de l'écran mentions légales
-  function openLegalScreen() {
-    altScreenOn();
-    DOM.$rech.value = "Mentions légales";
-    DOM.$legalMenu.classList.remove('d-none');
-    backButtonState = 'legal';
-  }
-
-  function closeLegalScreen(){
-    altScreenOff();
-    DOM.$legalMenu.classList.add('d-none');
-    backButtonState = 'default';
-  }
-
-  // Ouverture/fermeture de l'écran vie privée
-  function openPrivacyScreen() {
-    altScreenOn();
-    DOM.$privacyMenu.classList.remove('d-none');
-    DOM.$rech.value = "Vie privée";
-    backButtonState = 'privacy';
-  }
-
-  function closePrivacyScreen(){
-    altScreenOff();
-    DOM.$privacyMenu.classList.add('d-none');
-    backButtonState = 'default';
-  }
-
-  // Ouverture/fermeture de l'écran aller plus loin
-  function openPlusLoinScreen() {
-    altScreenOn();
-    DOM.$plusLoinMenu.classList.remove('d-none');
-    backButtonState = 'plusLoin';
-    DOM.$rech.value = "À découvrir également...";
-  }
-
-  function closePlusLoinScreen(){
-    altScreenOff();
-    DOM.$plusLoinMenu.classList.add('d-none');
-    backButtonState = 'default';
   }
 
   // Ouverture de la popup coordonnées
@@ -447,7 +291,7 @@ function app() {
       DOM.$resultDiv.hidden = true;
       DOM.$resultDiv.innerHTML = "";
       rechercheEtPosition(DOM.$rech.value);
-      searchScreenOff();
+      MenuDisplay.searchScreenOff();
     } else if (DOM.$rech.value !== ""){
       let resultStr = "";
       suggest().then( () => {
@@ -675,7 +519,7 @@ function app() {
       evt.target.style.color = 'white';
       DOM.$rech.value = evt.target.innerHTML;
       rechercheEtPosition(DOM.$rech.value);
-      setTimeout(searchScreenOff, 150)
+      setTimeout(MenuDisplay.searchScreenOff, 150)
     /* marqueur de recherche/position */
     } else if (evt.target.classList.contains("adressMarker")) {
       cleanResults();
@@ -684,7 +528,7 @@ function app() {
     /* pour aller + loin du message d'accueil */
     } else if (evt.target.classList.contains("msgGreen")) {
       DOM.$startPopup.hidden = true;
-      openPlusLoinScreen();
+      MenuDisplay.openPlusLoinScreen();
     }
   }, true);
 
@@ -712,11 +556,11 @@ function app() {
   DOM.$chkPrintCoordsReticule.addEventListener('change', reticuleOnOff);
 
   // Recherche
-  DOM.$rech.addEventListener('focus', searchScreenOn);
+  DOM.$rech.addEventListener('focus', MenuDisplay.searchScreenOn);
   DOM.$closeSearch.addEventListener("click", onBackKeyDown);
 
   // Menu burger
-  DOM.$menuBtn.addEventListener("click", openMenu);
+  DOM.$menuBtn.addEventListener("click", MenuDisplay.openMenu);
 
   // Rotation
   DOM.$compassBtn.addEventListener("click", () => {
@@ -729,20 +573,20 @@ function app() {
   // Fermeture menu
   DOM.$menu.addEventListener('click', (evt) => {
     if (evt.target.id === 'menu') {
-      closeMenu();
+      MenuDisplay.closeMenu();
     }
   });
 
-  document.getElementById('menuItemParams').addEventListener('click', openParamsScreen);
-  document.getElementById('menuItemLegend').addEventListener('click', openLegend);
-  document.getElementById('menuItemInfo').addEventListener('click', openInfos);
-  document.getElementById('menuItemPlusLoin').addEventListener('click', openPlusLoinScreen);
-  document.getElementById('menuItemLegal').addEventListener('click', openLegalScreen);
-  document.getElementById('menuItemPrivacy').addEventListener('click', openPrivacyScreen);
+  document.getElementById('menuItemParams').addEventListener('click', MenuDisplay.openParamsScreen);
+  document.getElementById('menuItemLegend').addEventListener('click', MenuDisplay.openLegend);
+  document.getElementById('menuItemInfo').addEventListener('click', MenuDisplay.openInfos);
+  document.getElementById('menuItemPlusLoin').addEventListener('click', MenuDisplay.openPlusLoinScreen);
+  document.getElementById('menuItemLegal').addEventListener('click', MenuDisplay.openLegalScreen);
+  document.getElementById('menuItemPrivacy').addEventListener('click', MenuDisplay.openPrivacyScreen);
 
-  document.getElementById("infoWindowClose").addEventListener('click', closeInfos);
-  document.getElementById("legendWindowClose").addEventListener('click', closeLegend);
-  document.getElementById("menuWindowClose").addEventListener('click', closeMenu);
+  document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
+  document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
+  document.getElementById("menuWindowClose").addEventListener('click', MenuDisplay.closeMenu);
 
   // Synchronisation des radio button pour le type de coordonnées
   Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
@@ -775,36 +619,36 @@ function app() {
   document.addEventListener("backbutton", onBackKeyDown, false);
   function onBackKeyDown() {
     // Handle the back button
-    if (backButtonState == 'default') {
+    if (Globals.backButtonState == 'default') {
       navigator.app.exitApp();
     }
-    if (backButtonState === 'search') {
-      closeSearchScreen();
+    if (Globals.backButtonState === 'search') {
+      MenuDisplay.closeSearchScreen();
     }
-    if (backButtonState === 'mainMenu') {
-      closeMenu();
+    if (Globals.backButtonState === 'mainMenu') {
+      MenuDisplay.closeMenu();
     }
-    if (backButtonState === 'params') {
-      closeParamsScreen();
+    if (Globals.backButtonState === 'params') {
+      MenuDisplay.closeParamsScreen();
     }
-    if (backButtonState === 'legal') {
-      closeLegalScreen();
+    if (Globals.backButtonState === 'legal') {
+      MenuDisplay.closeLegalScreen();
     }
-    if (backButtonState === 'privacy') {
-      closePrivacyScreen();
+    if (Globals.backButtonState === 'privacy') {
+      MenuDisplay.closePrivacyScreen();
     }
-    if (backButtonState === 'plusLoin') {
-      closePlusLoinScreen();
+    if (Globals.backButtonState === 'plusLoin') {
+      MenuDisplay.closePlusLoinScreen();
     }
-    if (backButtonState === 'infos') {
-      closeInfos();
+    if (Globals.backButtonState === 'infos') {
+      MenuDisplay.closeInfos();
     }
-    if (backButtonState === 'legend') {
-      closeLegend();
+    if (Globals.backButtonState === 'legend') {
+      MenuDisplay.closeLegend();
     }
-    if (backButtonState === 'catalog') {
+    if (Globals.backButtonState === 'catalog') {
       MenuDisplay.closeCat();
-      backButtonState = 'default';
+      Globals.backButtonState = 'default';
     }
   }
 
