@@ -1,9 +1,9 @@
+import * as MenuDisplay from './menu-display';
+import * as UpdateLegend from './update-legend';
+import DOM from './dom';
+import Globals from './globals';
 import Layers from './layers';
 import Texts from './texts';
-import Globals from './globals';
-import DOM from './dom';
-import * as UpdateLegend from './update-legend';
-import * as MenuDisplay from './menu-display';
 
 const map = Globals.map;
 
