@@ -643,26 +643,24 @@ input[type='radio']:checked + label:before {
   width: 26%;
 }
 
-#centerCoords {
+#centerTargetInfo {
   position: absolute;
   top: 60px;
   z-index: 1000;
   left: 10px;
-  color: #4b4b4b;
-  background-color: white;
-  padding: 5px;
-  border-radius: 5px;
+  display: flex;
+  line-height: 25px;
+  font-size: 13px;
 }
 
-#coordTypeClone {
-  position: absolute;
-  top: 100px;
-  left: 10px;
-  z-index: 1000;
-  background-color: white;
+
+#centerTargetInfo div {
   color: #4b4b4b;
-  padding: 8px;
+  background-color: white;
+  padding: 5px 8px 5px 8px;
   border-radius: 5px;
+  height: 25px;
+  margin-right: 8px;
 }
 
 #centerReticule {
