@@ -1,6 +1,14 @@
 import DOM from './dom';
 import Globals from './globals';
 
+// Fermeture popup démarrage
+function startPopupValidation() {
+  DOM.$startPopup.hidden = true;
+  if (DOM.$chkNePlusAff.checked) {
+    localStorage.setItem("lastMotdID", motd_id);
+  }
+}
+
 // Ouverture/fermeture catalogue
 function openCat() {
   document.getElementById("catalog").classList.remove('d-none');
@@ -21,9 +29,9 @@ function searchScreenOn() {
 }
 
 function searchScreenOff() {
-  controller.abort();
-  controller = new AbortController();
-  signal = controller.signal;
+  Globals.controller.abort();
+  Globals.controller = new AbortController();
+  Globals.signal = Globals.controller.signal;
   DOM.$resultDiv.hidden = true;
   DOM.$resultDiv.innerHTML = "";
   document.getElementById("catalogBtn").classList.remove('d-none');
@@ -162,6 +170,7 @@ function closePlusLoinScreen(){
 }
 
 export {
+  startPopupValidation,
   openCat,
   closeCat,
   searchScreenOn,

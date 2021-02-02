@@ -1,5 +1,5 @@
-import Globals from './globals';
 import DOM from './dom';
+import Globals from './globals';
 import Texts from './texts';
 
 const map = Globals.map;
