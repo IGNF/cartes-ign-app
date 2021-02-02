@@ -1,3 +1,4 @@
+import DOM from './dom';
 import Globals from './globals';
 
 const map = Globals.map;
