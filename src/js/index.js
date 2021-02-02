@@ -1,8 +1,8 @@
 import * as LayerSwitch from './layer-switch';
-import Globals from './globals';
-import DOM from './dom';
-import * as UpdateLegend from './update-legend';
 import * as MenuDisplay from './menu-display';
+import * as UpdateLegend from './update-legend';
+import DOM from './dom';
+import Globals from './globals';
 
 
 function app() {
@@ -872,7 +872,6 @@ function app() {
   map.on("zoomend", () => {
     disableRotation = false;
   });
-
 
 }
 
