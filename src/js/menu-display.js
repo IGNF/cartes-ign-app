@@ -5,7 +5,7 @@ import Globals from './globals';
 function startPopupValidation() {
   DOM.$startPopup.hidden = true;
   if (DOM.$chkNePlusAff.checked) {
-    localStorage.setItem("lastMotdID", motd_id);
+    localStorage.setItem("lastMotdID", Globals.motd_id);
   }
 }
 
