@@ -231,8 +231,11 @@ function addEventListeners() {
 
   hammertime.on('rotateend', () => {
     if (DOM.$chkRotate.checked && !disableRotation) {
-        rotationStarted = false;
-        lastRotation = Globals.currentRotation;
+      if (!rotationStarted) {
+        Globals.currentRotation = lastRotation;
+      }
+      rotationStarted = false;
+      lastRotation = Globals.currentRotation;
     }
   });
 
