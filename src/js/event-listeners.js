@@ -92,14 +92,6 @@ function addEventListeners() {
   // Menu burger
   DOM.$menuBtn.addEventListener("click", MenuDisplay.openMenu);
 
-  // Rotation
-  DOM.$compassBtn.addEventListener("click", () => {
-    Globals.currentRotation = 0;
-    map.setBearing(0);
-    DOM.$compassBtn.style.transform = "rotate(" + 0 + "deg)";
-    DOM.$compassBtn.classList.add("d-none");
-  })
-
   // Fermeture menu
   DOM.$menu.addEventListener('click', (evt) => {
     if (evt.target.id === 'menu') {
@@ -230,9 +222,12 @@ function addEventListeners() {
   });
 
   hammertime.on('rotateend', () => {
-    if (DOM.$chkRotate.checked && !disableRotation) {
-        rotationStarted = false;
-        lastRotation = Globals.currentRotation;
+    if (DOM.$chkRotate.checked) {
+      if (!rotationStarted) {
+        Globals.currentRotation = lastRotation;
+      }
+      rotationStarted = false;
+      lastRotation = Globals.currentRotation;
     }
   });
 
@@ -259,6 +254,14 @@ function addEventListeners() {
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayerDisplayed", Globals.layerDisplayed);
   });
+
+  // Rotation
+  DOM.$compassBtn.addEventListener("click", () => {
+    Globals.currentRotation = 0;
+    map.setBearing(0);
+    DOM.$compassBtn.style.transform = "rotate(" + 0 + "deg)";
+    DOM.$compassBtn.classList.add("d-none");
+  })
 
 }
 

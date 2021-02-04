@@ -1,4 +1,8 @@
+// Leaflet map
 const map = new L.map('map', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5);
+
+// Motd id
+let motd_id;
 
 /* global: layer display state */
 let layerDisplayed = localStorage.getItem("lastLayerDisplayed") || 'photos';
@@ -37,5 +41,7 @@ export default {
   controller,
   signal,
   gpMarkerIcon,
-  gpMarkerIcon2
+  gpMarkerIcon2,
+  autocompletion_results,
+  motd_id
 };
