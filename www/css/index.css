@@ -449,6 +449,8 @@ input[type='radio']:checked + label:before {
   height: 40px;
   display: flex;
   justify-content: center;
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
 }
 
 #search {
@@ -552,6 +554,8 @@ input[type='radio']:checked + label:before {
 }
 
 #catalogBtn {
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
   background-image: url("assets/layers.svg");
   position: absolute;
   top: 60px;
