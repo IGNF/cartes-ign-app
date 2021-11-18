@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="fr.ign.geoportail" version="2.1.5-ios" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="fr.ign.geoportail" version="2.1.6-ios" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Géoportail</name>
     <description>
       L’application Géoportail réunit les 8 cartes et données les plus plébiscitées par les utilisateurs du Géoportail, le portail de l’information géographique de référence sur le territoire national.

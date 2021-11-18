@@ -351,7 +351,8 @@ input[type='radio']:checked + label:before {
 #altMenuContainer {
   z-index: 3001;
   height: auto;
-  top: 55px;
+  top: calc(55px + constant(safe-area-inset-top));
+  top: calc(55px + env(safe-area-inset-top));
   display: flex;
   width: 100%;
   position: absolute
