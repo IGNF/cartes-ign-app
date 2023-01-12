@@ -11,14 +11,12 @@ async function suggest() {
   Globals.controller = new AbortController();
   Globals.signal = Globals.controller.signal;
   let location = DOM.$rech.value;
-  let url = new URL("https://wxs.ign.fr/mkndr2u5p00n57ez211i19ok/look4/user/search");
+  let url = new URL("https://wxs.ign.fr/calcul/geoportail/geocodage/rest/0.1/completion");
   let params =
       {
-        indices: "locating",
-        method: "prefix",
-        types: "address,position,toponyme,w3w",
-        nb: 15,
-        "match[fulltext]": location,
+        type: "StreetAddress,PositionOfInterest",
+        maximumResponses: 5,
+        text: location,
       };
 
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -26,8 +24,8 @@ async function suggest() {
   let responseprom = await fetch(url, {signal});
   let response = await responseprom.json()
   Globals.autocompletion_results = [];
-  for (let i = 0 ; i < response.features.length; i++) {
-    let elem = response.features[i];
+  for (let i = 0 ; i < response.results.length; i++) {
+    let elem = response.results[i];
     Globals.autocompletion_results.push(computeLocationFullText(elem));
   }
   // Seulement les valeurs uniques
@@ -37,24 +35,7 @@ async function suggest() {
 }
 
 function computeLocationFullText(locationResult) {
-  var properties = locationResult.properties;
-  var fullText = "";
-
-  if (properties._type === "position" && properties.coord) {
-      fullText = "Coordonnées : " + properties.coord;
-  } else if (properties._type === "w3w" && properties.w3w) {
-      fullText = "what3words : " + properties.w3w;
-  } else {
-      if (properties.nyme) {
-          fullText += properties.nyme + ", ";
-      }
-      if (properties.street) {
-          fullText += properties.number + " " + properties.street + ", ";
-      }
-      fullText += properties.postalCode + " " + properties.city;
-  }
-
-  return fullText;
+  return locationResult.fulltext;
 }
 
 export {
