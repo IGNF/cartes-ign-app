@@ -20,28 +20,25 @@ async function rechercheEtPosition(text) {
   /**
    * Recherche un texte et le géocode à l'aide de look4, puis va à sa position en ajoutant un marqueur
    */
-  let url = new URL("https://wxs.ign.fr/9srzhqefn5ts85vtgihkbz3h/look4/user/search");
+  let url = new URL("https://wxs.ign.fr/calcul/geoportail/geocodage/rest/0.1/completion");
   let params =
       {
-        indices: "locating",
-        method: "prefix",
-        types: "address,position,toponyme,w3w",
-        nb: 1,
-        "match[fulltext]": text,
+        type: "StreetAddress,PositionOfInterest",
+        maximumResponses: 1,
+        text: text,
       };
 
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
   let responseprom = await fetch(url);
   let response = await responseprom.json()
 
-  let geocode_result = response.features[0];
+  let geocode_result = response.results[0];
 
   DOM.$rech.value = Autocomp.computeLocationFullText(geocode_result);
 
-  let geom = geocode_result.geometry;
   let coords = {
-    lat: geom.coordinates[1],
-    lon: geom.coordinates[0]
+    lat: geocode_result.y,
+    lon: geocode_result.x
   };
   _goToAddressCoords(coords, 14);
 }
