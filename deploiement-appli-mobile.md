@@ -21,9 +21,11 @@ Voici les étapes à réaliser pour déployer la dernière version du code de l'
 - `cd appli-mobile-geoportail`
 - `git checkout android`
 - `cordova platform add android`
-- `cordova build android release`
+- `npm install`
+- `cordova build android --release --prod -- --packageType apk`
 - `jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore /<chemin_vers>/ign.keystore ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk geoportail_mobile` (passphrase : G3oportail)
 - `zipalign 4 ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ./platforms/android/app/build/outputs/apk/release/app-release.apk`
+- `apksigner sign --ks /<chemin_vers>/ign.keystore --v1-signing-enabled true --v2-signing-enabled true ./platforms/android/app/build/outputs/apk/release/app-release.apk`
 
 Le fichier `app-release.apk` ainsi créé est signé et est prête à être déposé sur la Google Play Console.
 
@@ -65,7 +67,7 @@ Le fichier `app-release.apk` ainsi créé est signé et est prête à être dép
 - Une nouvelle fenêtre s'ouvre après la construction du binaire (quelques minutes). Cliquer sur `Distribute App`.
 - Appuyer sur Next et OK 6 fois, jusqu'à ce que l'application soit téléversée.
 
-#### Déploiement en bêta
+#### Déploiement en bêta
 - Accéder à [App Store Connect](https://appstoreconnect.apple.com/apps/748345888/testflight/ios) et sélectionner l'application mobile Géoportail.
 - Dans la section `TestFlight`, le dernier binaire doit appparaître. Sinon, attendre quelques minutes.
 - Cliquer sur la version du build à tester, entrer les informations et les groupes de testeurs, puis lancer la vérification manuelle.
