@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="fr.ign.geoportail" version="2.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="fr.ign.geoportail" version="2.2.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Géoportail</name>
     <description>
       L’application Géoportail réunit les 8 cartes et données les plus plébiscitées par les utilisateurs du Géoportail, le portail de l’information géographique de référence sur le territoire national.
@@ -18,6 +18,10 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
+        <resource-file src="res/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
+        <resource-file src="res/certificates/certigna.crt" target="app/src/main/res/raw/certigna.crt" />
+        <resource-file src="res/certificates/wildca.der" target="app/src/main/res/raw/wildca.der" />
+
         <allow-intent href="market:*" />
         <hook src="remove_permissions.js" type="after_prepare" />
         <preference name="OverrideUserAgent" value="GeoportailAppAndroid" />
@@ -30,6 +34,8 @@
         <preference name="SplashMaintainAspectRatio" value="true" />
         <preference name="ShowSplashScreenSpinner" value="false" />
         <preference name="android-targetSdkVersion" value="31" />
+        <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+        <preference name="AndroidInsecureFileModeEnabled" value="true" />
     </platform>
     <platform name="browser">
         <preference name="SplashScreenDelay" value="0" />
