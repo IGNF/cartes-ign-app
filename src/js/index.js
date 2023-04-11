@@ -55,7 +55,7 @@ function app() {
   L.control.scale({
     imperial: false,
     maxWidth: 150,
-    position: "bottomleft",
+    position: "topleft",
   }).addTo(map);
 
   // Chargement de la postition précédente

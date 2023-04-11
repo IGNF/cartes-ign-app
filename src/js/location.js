@@ -183,5 +183,6 @@ function _makeRequest(){
 export {
   cleanGPS,
   locationOnOff,
-  requestLocationAccuracy
+  requestLocationAccuracy,
+  location_active,
 }

@@ -25,6 +25,12 @@ function searchScreenOn() {
   document.getElementById("catalogBtn").classList.add('d-none');
   DOM.$menuBtn.classList.add('d-none');
   DOM.$closeSearch.classList.remove('d-none');
+  const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
+  window.scroll({
+    top: maxScroll,
+    left: 0,
+    behavior: 'smooth'
+  });
   Globals.backButtonState = 'search';
 }
 

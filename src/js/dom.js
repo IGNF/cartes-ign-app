@@ -26,6 +26,7 @@ const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule"
 const $compassBtn = document.getElementById("compassBtn");
 const $chkRotate = document.getElementById("chkRotate");
 const $centerCoords = document.getElementById("centerCoords");
+const $bottomMenu = document.getElementById("bottomMenu");
 
 export default {
   $map,
@@ -55,4 +56,5 @@ export default {
   $compassBtn,
   $chkRotate,
   $centerCoords,
+  $bottomMenu,
 };

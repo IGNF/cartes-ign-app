@@ -28,7 +28,9 @@ function addEventListeners() {
       Autocomp.suggest().then( () => {
         if (Globals.autocompletion_results.length > 0){
           for (let i = 0 ; i < Globals.autocompletion_results.length; i++) {
-            resultStr += "<p class='autocompresult'>" + Globals.autocompletion_results[i] + "</p>" ;
+            resultStr += `<p class='autocompresult'>
+            <em class='autocompkind'>${Globals.autocompletion_results[i].kind}</em><br/>
+            ${Globals.autocompletion_results[i].fulltext} </p>` ;
           }
           DOM.$resultDiv.innerHTML = resultStr;
           DOM.$resultDiv.hidden = false;
@@ -247,6 +249,16 @@ function addEventListeners() {
     disableRotation = false;
   });
 
+  map.on('movestart', function (e) {
+    if (e.hard) {
+      // moved by bounds
+    } else {
+      while (Location.location_active) {
+        Location.locationOnOff();
+      }
+    }
+});
+
   // Sauvegarde de l'état de l'application
   document.addEventListener('pause', () => {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
@@ -261,7 +273,42 @@ function addEventListeners() {
     map.setBearing(0);
     DOM.$compassBtn.style.transform = "rotate(" + 0 + "deg)";
     DOM.$compassBtn.classList.add("d-none");
-  })
+  });
+
+
+  // Bottom menu scroll
+  const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight)
+  const anchors = [0, maxScroll / 2.5, maxScroll];
+  let currentScrollIndex = anchors.indexOf(window.scrollY);
+  let currentScroll = window.scrollY;
+  let hammertimeScroll = new Hammer(DOM.$bottomMenu);
+  hammertimeScroll.add( new Hammer.Pan({ direction: Hammer.DIRECTION_VERTICAL, threshold: 0 }) );
+
+  hammertimeScroll.on("panend", () => {
+    let anchor = anchors[currentScrollIndex];
+    if (window.scrollY > anchor) {
+      currentScrollIndex += 1;
+    } else if (window.scrollY < anchor) {
+      currentScrollIndex -= 1;
+    }
+
+    anchor = anchors[currentScrollIndex];
+
+    window.scroll({
+      top: anchor,
+      left: 0,
+      behavior: 'smooth'
+    });
+    currentScroll = anchor;
+  });
+
+  hammertimeScroll.on("pan", (e) => {
+    window.scroll({
+      top: currentScroll - e.deltaY,
+      left: 0,
+      behavior: 'smooth'
+    });
+  });
 
 }
 
