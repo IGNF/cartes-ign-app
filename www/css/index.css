@@ -28,6 +28,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:#006ba7;
     font-family: "Open Sans Bold", -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
     font-size:12px;
@@ -49,6 +50,17 @@ a {
   text-decoration: none;
 }
 
+#hrBottom {
+  width: 10%;
+  text-align: center;
+  margin: auto;
+  margin-top: auto;
+  margin-top: 8px;
+  color: #DDD;
+  border: 1px solid #AAA;
+  border-radius: 2px;
+}
+
 .leaflet-popup-content {
   user-select: text;
 }
@@ -62,7 +74,7 @@ a {
 }
 
 .leaflet-bottom .leaflet-control-scale {
-  margin-bottom: 10px;
+  margin-top: 10px;
   margin-left: 15px;
 }
 
@@ -188,14 +200,29 @@ a {
 
 /* Map */
 #map {
-  min-height: 50vh;
+  height: 100vh;
+  width: 100vw;
   flex-grow: 1;
+  position: fixed;
 }
 
 #cartoContainer {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Bottom menu */
+
+#bottomMenu {
+  position: absolute;
+  top: 89%;
+  height: 100%;
+  width: 100%;
+  background-color: #FFFFFE;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  scroll-snap-type: y mandatory;
 }
 
 /* Menu Burger */
@@ -453,11 +480,9 @@ input[type='radio']:checked + label:before {
 #search {
   display: flex;
   padding: 0;
-  margin: 0;
+  margin: auto;
   position: relative;
-  width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 95%;
 }
 
 #search input {
@@ -472,14 +497,13 @@ input[type='radio']:checked + label:before {
   height: 35px;
   border: 0px solid #D6D6D6;
   border-radius: 5px;
-  background-color: white;
-  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
+  background-color: #E5E5FF;
   font-family: 'Open Sans Bold';
 }
 
 #search input::placeholder {
   color: #4b4b4b;
-  opacity: 1;
+  opacity: 0.6;
 }
 
 #searchImage {
@@ -529,6 +553,11 @@ input[type='radio']:checked + label:before {
   padding-right: 10px;
 }
 
+#resultsRech p em {
+  opacity: 0.2;
+  font-size: 0.7em;
+}
+
 #resultsRech p:last-child {
   border-bottom: none;
 }
@@ -552,19 +581,19 @@ input[type='radio']:checked + label:before {
 #catalogBtn {
   background-image: url("assets/layers.svg");
   position: absolute;
-  top: 60px;
+  bottom: 70px;
 }
 
 #geolocateBtn {
   background-image: url("assets/localisation.svg");
   position: absolute;
-  bottom: 15px;
+  top: 20px;
 }
 
 #compassBtn {
   background-image: url("assets/compass.svg");
   position: absolute;
-  bottom: 70px;
+  bottom: 60px;
 }
 
 #menuBtn, #closeSearch {

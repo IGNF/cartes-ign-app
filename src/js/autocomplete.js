@@ -15,7 +15,7 @@ async function suggest() {
   let params =
       {
         type: "StreetAddress,PositionOfInterest",
-        maximumResponses: 5,
+        maximumResponses: 10,
         text: location,
       };
 
@@ -26,12 +26,20 @@ async function suggest() {
   Globals.autocompletion_results = [];
   for (let i = 0 ; i < response.results.length; i++) {
     let elem = response.results[i];
-    Globals.autocompletion_results.push(computeLocationFullText(elem));
+    let kind = elem.kind;
+    if (kind === null) {
+      kind = "adresse";
+    }
+    Globals.autocompletion_results.push({
+      fulltext: computeLocationFullText(elem),
+      kind: kind
+    }
+    );
   }
   // Seulement les valeurs uniques
   Globals.autocompletion_results = Globals.autocompletion_results
     .filter((val, idx, s) => s.indexOf(val) === idx)
-    .slice(0,5);
+    .slice(0,9);
 }
 
 function computeLocationFullText(locationResult) {

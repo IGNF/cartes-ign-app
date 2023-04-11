@@ -3,7 +3,7 @@ const useCachedTiles = false;
 
 export default {
   orthoLyr: L.tileLayer.fallback(
-    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
+    "https://wxs.ign.fr/essentiels/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -23,7 +23,7 @@ export default {
   ),
 
   roadsLyr: L.tileLayer.fallback(
-    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
+    "https://wxs.ign.fr/essentiels/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -44,7 +44,7 @@ export default {
   ),
 
   planLyr: L.tileLayer.fallback(
-    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
+    "https://wxs.ign.fr/essentiels/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -65,7 +65,7 @@ export default {
   ),
 
   parcelLyr: L.tileLayer.fallback(
-    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
+    "https://wxs.ign.fr/essentiels/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=PCI%20vecteur" +
     "&TILEMATRIXSET=PM" +
@@ -85,7 +85,7 @@ export default {
   ),
 
   cartesLyr: L.tileLayer.fallback(
-    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
+    "https://wxs.ign.fr/essentiels/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -105,7 +105,7 @@ export default {
   ),
 
   dronesLyr: L.tileLayer.fallback(
-    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
+    "https://wxs.ign.fr/essentiels/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -126,7 +126,7 @@ export default {
   ),
 
   topoLyr: L.tileLayer.fallback(
-    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
+    "https://wxs.ign.fr/essentiels/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -147,7 +147,7 @@ export default {
   ),
 
   etatmajorLyr: L.tileLayer.fallback(
-    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
+    "https://wxs.ign.fr/essentiels/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
@@ -168,7 +168,7 @@ export default {
   ),
 
   orthoHistoLyr: L.tileLayer.fallback(
-    "https://wxs.ign.fr/9esztucptkoj5lgfzi0g6lmu/geoportail/wmts?" +
+    "https://wxs.ign.fr/essentiels/geoportail/wmts?" +
     "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
     "&STYLE=normal" +
     "&TILEMATRIXSET=PM" +
