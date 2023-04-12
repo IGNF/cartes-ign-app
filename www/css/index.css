@@ -56,6 +56,7 @@ a {
   margin: auto;
   margin-top: auto;
   margin-top: 8px;
+  margin-bottom: 0px;
   color: #DDD;
   border: 1px solid #AAA;
   border-radius: 2px;
@@ -213,16 +214,85 @@ a {
 }
 
 /* Bottom menu */
-
 #bottomMenu {
   position: absolute;
-  top: 89%;
+  top: calc(100% - 65px);
   height: 100%;
   width: 100%;
   background-color: #FFFFFE;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   scroll-snap-type: y mandatory;
+  color: #4b4b4b;
+  display: flex;
+  flex-direction: column;
+}
+
+#defaultMenu {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#defaultMenuNotSearch {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+#tools h3 {
+  text-align: center;
+}
+
+#tools div {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#tools div div {
+  width: 38%;
+  background-color: #EEE;
+  border-radius: 5px;
+  height: 50px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+#otherMenus {
+  display: grid;
+}
+
+#menuItemLegal {
+  grid-row: 1;
+  grid-column: 1;
+  margin-bottom: 5px;
+}
+
+#menuItemPrivacy {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+#menuItemParams {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  text-align: right;
+}
+
+#menuItemPlusLoin {
+  grid-row: 3;
+  grid-column: 1 / span 2;
+}
+
+
+#menuItemLegal, #menuItemPrivacy {
+  text-decoration: underline;
 }
 
 /* Menu Burger */
@@ -258,13 +328,14 @@ a {
   border-style: solid;
 }
 
-#menuItems .bigMenuItem {
+.bigMenuItem {
   font-family: 'Open Sans Bold';
+  text-align: center;
 }
 
 .menuItemIcon {
-  width: 34px;
-  height: 34px;
+  height: 10px;
+  width: 10px;
   display: inline-block;
   background-position: center;
   background-repeat: no-repeat;
@@ -273,15 +344,18 @@ a {
 
 #menuItemLegendIcon {
   background-image: url("assets/legend.svg");
+  background-size: cover;
 }
 
 
 #menuItemInfoIcon {
   background-image: url("assets/info.svg");
+  background-size: cover;
 }
 
 #menuItemParamsIcon {
-  background-image: url("assets/parameters.svg");
+  background-image: url("assets/settings.svg");
+  background-size: cover;
 }
 
 #menuItemParams {
@@ -296,7 +370,8 @@ a {
 #menuItemPlusLoin {
   background-color: #00ae90;
   color: white;
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   padding: 13px 0 13px 20px;
   margin-top: 30px;
 }
@@ -314,7 +389,7 @@ a {
   z-index: 3000;
 }
 
-#infoWindowClose, #legendWindowClose, #menuWindowClose {
+#infoWindowClose, #legendWindowClose, #menuWindowClose, #catalogWindowClose {
   width: 34px;
   height: 34px;
   background-position: center;
@@ -445,6 +520,17 @@ input[type='radio']:checked + label:before {
   left: 115px;
 }
 
+.headerText {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translate(-50%);
+  color: #555;
+  background-color: white;
+  padding: 5px 20px 5px 20px;
+  border-radius: 5px;
+}
+
 #ignRandoLogo {
   border-radius: 25px;
 }
@@ -481,8 +567,11 @@ input[type='radio']:checked + label:before {
   display: flex;
   padding: 0;
   margin: auto;
+  margin-top: 0;
+  margin-bottom: 15px;
   position: relative;
   width: 95%;
+  flex-grow: 0;
 }
 
 #search input {
@@ -495,14 +584,14 @@ input[type='radio']:checked + label:before {
   padding-right: 33px;
   width: 100%;
   height: 35px;
-  border: 0px solid #D6D6D6;
+  border: 0px solid #e8f1f6;
   border-radius: 5px;
-  background-color: #E5E5FF;
+  background-color: #e8f1f6;
   font-family: 'Open Sans Bold';
 }
 
 #search input::placeholder {
-  color: #4b4b4b;
+  color: #bac3ca;
   opacity: 0.6;
 }
 
@@ -596,18 +685,14 @@ input[type='radio']:checked + label:before {
   bottom: 60px;
 }
 
-#menuBtn, #closeSearch {
+#closeSearch {
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
   top: 10px;
-  right: 0px;
+  right: -10px;
   width: 58px;
   height: 35px;
-}
-
-#menuBtn {
-  background-image: url("assets/menu.svg");
 }
 
 #closeSearch {
@@ -749,7 +834,7 @@ input[type='radio']:checked + label:before {
   }
 
   #menuItemPlusLoin {
-    margin-top: 30px;
+    margin-top: 20px;
   }
 }
 

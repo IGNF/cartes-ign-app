@@ -2,7 +2,6 @@ import * as Coords from './coordinates';
 import * as EventListeners from './event-listeners';
 import * as LayerSwitch from './layer-switch';
 import * as Location from './location';
-import DOM from './dom';
 import Globals from './globals';
 
 function app() {
@@ -15,22 +14,6 @@ function app() {
     Location.requestLocationAccuracy();
     localStorage.setItem("firstLocRequestDone", true);
   }
-  /**/
-
-  /* Message du jour (message of the day) */
-  const motd_url = 'https://www.geoportail.gouv.fr/depot/app/motd.json?v=2';
-  fetch(motd_url, {mode: 'cors'}).then( response => {
-    response.json().then( data => {
-      DOM.$message.innerHTML += DOMPurify.sanitize(data.motd, {FORBID_TAGS: ['input']});
-      Globals.motd_id = data.id;
-    }).then( () => {
-      if (!localStorage.getItem("lastMotdID") || (localStorage.getItem("lastMotdID") && (localStorage.getItem("lastMotdID") < Globals.motd_id))) {
-        if(DOM.$message.innerHTML !== '') {
-          DOM.$startPopup.classList.remove('d-none');
-        }
-      }
-    });
-  });
   /**/
 
   /* Définition des marker icons */
