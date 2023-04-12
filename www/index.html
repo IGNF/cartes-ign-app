@@ -26,48 +26,10 @@
     <body>
         <div class="app">
             <div id="blueBg" class="d-none"></div>
-            <div class="popup d-none" id="startPopup">
-              <div id="messageContainer">
-                <div id="message"></div>
-                <p id="nePlusAff"><input type="checkbox" id="chkNePlusAff"><label for="chkNePlusAff"> Ne plus afficher ce message</label></p>
-                <p class="centered"><a class="btnGpp" id="compris">CONTINUER</a></p>
-              </div>
-            </div>
-
-            <div class="popup d-none" id="menu">
-              <div id="menuItems">
-                <div id="menuWindowClose"></div>
-                <div class="bigMenuItem" id="menuItemLegend"><span class="menuItemIcon" id="menuItemLegendIcon"></span><span>Légende de la carte</span></div>
-                <div class="bigMenuItem" id="menuItemInfo"><span class="menuItemIcon" id="menuItemInfoIcon"></span><span>Informations</span></div>
-                <hr>
-                <div class="bigMenuItem" id="menuItemParams"><span class="menuItemIcon" id="menuItemParamsIcon"></span><span>Paramètres</span></div>
-                <hr>
-                <div class="smallMenuItem" id="menuItemLegal">Mentions légales</div>
-                <div class="smallMenuItem" id="menuItemPrivacy">Vie privée</div>
-                <div id="menuItemPlusLoin">À découvrir également...</div>
-              </div>
-            </div>
-
             <div id="cartoContainer">
               <div id="map">
                   <div class="button" id="geolocateBtn"></div>
                   <div class="button d-none" id="compassBtn"></div>
-              </div>
-
-              <div class="d-none" id="infoWindow">
-                <div id="infoWindowContent">
-                  <div id="infoWindowClose"></div>
-                  <h3>Informations</h3>
-                  <div id="infoText">Prises de vues satellitaires ou aériennes des territoires.</div>
-                </div>
-              </div>
-
-              <div class="d-none" id="legendWindow">
-                <div id="legendWindowContent">
-                  <div id="legendWindowClose"></div>
-                  <h3>Légende de la carte</h3>
-                  <div id="legendImg"><img src="https://www.geoportail.gouv.fr/depot/layers/ORTHOIMAGERY.ORTHOPHOTOS/legendes/ORTHOIMAGERY.ORTHOPHOTOS-legend.png" alt="légende photos aeriennes"></div>
-                </div>
               </div>
             </div>
 
@@ -94,23 +56,55 @@
 
               <hr id="hrBottom">
 
-              <div id="search">
-                <span id="searchImage" alt="rechercher"></span>
-                <input id="lieuRech" name="lieuRech" type="text" placeholder="Rechercher un lieu, une adresse..." autocorrect="off" autocomplete="off" autocapitalize="off"/>
-                <div class="button, d-none" id="closeSearch">
+              <div id="defaultMenu">
+                <div id="search">
+                  <span id="searchImage" alt="rechercher"></span>
+                  <input id="lieuRech" name="lieuRech" type="text" placeholder="Rechercher un lieu, une adresse..." autocorrect="off" autocomplete="off" autocapitalize="off"/>
+                  <div class="button, d-none" id="closeSearch">
+                  </div>
+                  <div id="resultsRech"></div>
                 </div>
-                <div id="resultsRech"></div>
-              </div>
 
-              <div></div>
+                <div id="defaultMenuNotSearch">
+                  <div>
+                    <div class="bigMenuItem" id="menuItemLegend"><span class="menuItemIcon" id="menuItemLegendIcon"></span><span>Légende de la carte</span></div>
+                    <div class="bigMenuItem" id="menuItemInfo"><span class="menuItemIcon" id="menuItemInfoIcon"></span><span>Informations</span></div>
+                    <hr>
+                  </div>
 
-
-
-              <div class="button" id="menuBtn">
+                  <div id="tools">
+                    <h3>Outils</h3>
+                    <div>
+                      <div>
+                        <p>Itinéraire</p>
+                      </div>
+                      <div>
+                        <p>Mesurer</p>
+                      </div>
+                      <div>
+                        <p>Signalement</p>
+                      </div>
+                      <div>
+                        <p>Cartes hors ligne</p>
+                      </div>
+                      <div>
+                        <p>Saucisse</p>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                  <div id="otherMenus">
+                    <div class="bigMenuItem" id="menuItemParams"><span class="menuItemIcon" id="menuItemParamsIcon"></span></div>
+                    <div class="smallMenuItem" id="menuItemLegal">Mentions légales</div>
+                    <div class="smallMenuItem" id="menuItemPrivacy">Vie privée</div>
+                    <div id="menuItemPlusLoin">À découvrir également...</div>
+                  </div>
+                </div>
               </div>
 
               <div id="catalog" class="d-none">
-
+                <div id="catalogWindowClose"></div>
+                <h3>Cartes</h3>
                 <div id="menuC">
                   <div class="layer" id="layerPlan">
                     <img name="plan-ign" id="plan-ign" src="img/couches/plan-ign.jpg" alt="plan-ign" /></a>
@@ -151,10 +145,27 @@
                 </div>
               </div>
 
+              <div class="d-none" id="infoWindow">
+                <div id="infoWindowContent">
+                  <div id="infoWindowClose"></div>
+                  <h3>Informations</h3>
+                  <div id="infoText">Prises de vues satellitaires ou aériennes des territoires.</div>
+                </div>
+              </div>
+
+              <div class="d-none" id="legendWindow">
+                <div id="legendWindowContent">
+                  <div id="legendWindowClose"></div>
+                  <h3>Légende de la carte</h3>
+                  <div id="legendImg"><img src="https://www.geoportail.gouv.fr/depot/layers/ORTHOIMAGERY.ORTHOPHOTOS/legendes/ORTHOIMAGERY.ORTHOPHOTOS-legend.png" alt="légende photos aeriennes"></div>
+                </div>
+              </div>
+
             </div>
 
             <div class="d-none" id="altMenuContainer">
               <div class="d-none altMenu" id="parameterMenu">
+                <h3 class="headerText">Paramètres</h3>
                 <div id="paramsInterface">
                   <h3>Interface</h3>
                   <p><input type="checkbox" id="chkRotate" checked><label for="chkRotate"> Rotation de la carte avec les deux doigts</label></p>
@@ -173,6 +184,7 @@
                 </div>
               </div>
               <div class="d-none altMenu" id="legalMenu">
+                <h3 class="headerText">Mention légales</h3>
                 <div>
                   <h3>1. Editeur</h3>
                   <p>L’application mobile Géoportail est éditée par l’Institut national de l’information géographique et forestière (IGN), 73 avenue de Paris, 94165 SAINT-MANDE CEDEX, France.<br />
@@ -221,6 +233,7 @@
                 </div>
               </div>
               <div class="d-none altMenu" id="privacyMenu">
+                <h3 class="headerText">Vie privée</h3>
                 <div>
                   <p>En vue d'adapter l'application Géoportail aux demandes de ses visiteurs, l'IGN mesure le nombre de visites et leur fréquence de retour sur l'application.</p>
                   <p>Les requêtes à la plateforme faites via l'application sont donc identifiées comme telles.</p>

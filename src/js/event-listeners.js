@@ -36,6 +36,9 @@ function addEventListeners() {
           DOM.$resultDiv.hidden = false;
         }
       });
+    } else if (DOM.$rech.value === "") {
+      DOM.$resultDiv.hidden = true;
+      DOM.$resultDiv.innerHTML = "";
     }
   });
 
@@ -76,11 +79,8 @@ function addEventListeners() {
   document.getElementById("layerEtatMajor").addEventListener('click', LayerSwitch.displayEtatMajor);
   document.getElementById("layerOrthoHisto").addEventListener('click', LayerSwitch.displayOrthoHisto);
 
-  // Bouton compris de la popup démarrage
-  document.getElementById("compris").addEventListener('click', MenuDisplay.startPopupValidation);
-
   // Ouverture-Fermeture
-  document.getElementById("catalogBtn").addEventListener('click', MenuDisplay.openCat);
+  DOM.$catalogBtn.addEventListener('click', MenuDisplay.openCat);
   DOM.$backTopLeft.addEventListener("click", onBackKeyDown);
 
   // Boutons on-off
@@ -91,17 +91,7 @@ function addEventListeners() {
   DOM.$rech.addEventListener('focus', MenuDisplay.searchScreenOn);
   DOM.$closeSearch.addEventListener("click", onBackKeyDown);
 
-  // Menu burger
-  DOM.$menuBtn.addEventListener("click", MenuDisplay.openMenu);
-
-  // Fermeture menu
-  DOM.$menu.addEventListener('click', (evt) => {
-    if (evt.target.id === 'menu') {
-      MenuDisplay.closeMenu();
-    }
-  });
-
-  document.getElementById('menuItemParams').addEventListener('click', MenuDisplay.openParamsScreen);
+  document.getElementById('menuItemParamsIcon').addEventListener('click', MenuDisplay.openParamsScreen);
   document.getElementById('menuItemLegend').addEventListener('click', MenuDisplay.openLegend);
   document.getElementById('menuItemInfo').addEventListener('click', MenuDisplay.openInfos);
   document.getElementById('menuItemPlusLoin').addEventListener('click', MenuDisplay.openPlusLoinScreen);
@@ -109,8 +99,8 @@ function addEventListeners() {
   document.getElementById('menuItemPrivacy').addEventListener('click', MenuDisplay.openPrivacyScreen);
 
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
+  document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
-  document.getElementById("menuWindowClose").addEventListener('click', MenuDisplay.closeMenu);
 
   // Synchronisation des radio button pour le type de coordonnées
   Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
@@ -277,7 +267,7 @@ function addEventListeners() {
 
 
   // Bottom menu scroll
-  const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight)
+  const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
   const anchors = [0, maxScroll / 2.5, maxScroll];
   let currentScrollIndex = anchors.indexOf(window.scrollY);
   let currentScroll = window.scrollY;
@@ -300,9 +290,16 @@ function addEventListeners() {
       behavior: 'smooth'
     });
     currentScroll = anchor;
+
+    if (anchor > 0) {
+      Globals.backButtonState = 'mainMenu';
+    }
   });
 
   hammertimeScroll.on("pan", (e) => {
+    if (e.target.id == "lieuRech") {
+      return
+    }
     window.scroll({
       top: currentScroll - e.deltaY,
       left: 0,

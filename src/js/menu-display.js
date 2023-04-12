@@ -11,21 +11,26 @@ function startPopupValidation() {
 
 // Ouverture/fermeture catalogue
 function openCat() {
-  document.getElementById("catalog").classList.remove('d-none');
+  DOM.$defaultMenu.classList.add("d-none");
+  DOM.$catalog.classList.remove('d-none');
+  DOM.$catalogBtn.classList.add('d-none');
   Globals.backButtonState = 'catalog';
 }
 
 function closeCat() {
-  document.getElementById("catalog").classList.add('d-none');
+  DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$catalogBtn.classList.remove('d-none');
+  DOM.$catalog.classList.add('d-none');
 }
 
 // Ouverture/fermeture de l'écran recherche
 function searchScreenOn() {
   closeCat();
-  document.getElementById("catalogBtn").classList.add('d-none');
-  DOM.$menuBtn.classList.add('d-none');
+  DOM.$catalogBtn.classList.add('d-none');
   DOM.$closeSearch.classList.remove('d-none');
   const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
+  DOM.$defaultMenuNotSearch.classList.add('d-none');
+
   window.scroll({
     top: maxScroll,
     left: 0,
@@ -40,70 +45,90 @@ function searchScreenOff() {
   Globals.signal = Globals.controller.signal;
   DOM.$resultDiv.hidden = true;
   DOM.$resultDiv.innerHTML = "";
-  document.getElementById("catalogBtn").classList.remove('d-none');
-  DOM.$menuBtn.classList.remove('d-none');
+  DOM.$catalogBtn.classList.remove('d-none');
   DOM.$closeSearch.classList.add('d-none');
   DOM.$rech.blur()
+  DOM.$defaultMenuNotSearch.classList.remove('d-none');
   Globals.backButtonState = 'default';
 }
 
 function closeSearchScreen() {
   searchScreenOff();
   DOM.$rech.value = "";
+  openMenu();
 }
 
 // Ouverture/fermeture menu burger
 function openMenu() {
-  closeInfos();
-  closeLegend();
-  closeCat();
-  DOM.$menu.classList.remove('d-none');
   Globals.backButtonState = 'mainMenu';
+  const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
+  window.scroll({
+    top: maxScroll / 2.5,
+    left: 0,
+    behavior: 'smooth'
+  });
 }
 
 function closeMenu() {
-  DOM.$menu.classList.add('d-none');
   Globals.backButtonState = 'default';
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  });
 }
 
 // Ouverture/fermeture des fentres infos et légende
 function openLegend(){
-  closeMenu();
+  DOM.$defaultMenu.classList.add("d-none");
   DOM.$legendWindow.classList.remove("d-none");
   Globals.backButtonState = 'legend';
 }
 
 function closeLegend(){
   DOM.$legendWindow.classList.add("d-none");
-  scroll(0,0);
+  DOM.$defaultMenu.classList.remove("d-none");
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  });
   Globals.backButtonState = 'default';
 }
 
 function openInfos(){
-  closeMenu();
+  DOM.$defaultMenu.classList.add("d-none");
   DOM.$infoWindow.classList.remove("d-none");
   Globals.backButtonState = 'infos';
 }
 
 function closeInfos(){
   DOM.$infoWindow.classList.add("d-none");
-  scroll(0,0);
+  DOM.$defaultMenu.classList.remove("d-none");
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  });
   Globals.backButtonState = 'default';
 }
 
 // Ouverture/fermeture des écrans atlernatifs
 function altScreenOn() {
-  closeMenu();
+  DOM.$defaultMenu.classList.add("d-none");
   DOM.$rech.disabled = true;
   DOM.$rech.style.fontFamily = 'Open Sans Bold';
   DOM.$blueBg.classList.remove('d-none');
-  DOM.$menuBtn.classList.add('d-none');
   DOM.$searchImage.classList.add('d-none');
   DOM.$backTopLeft.classList.remove('d-none');
   DOM.$closeSearch.classList.remove('d-none');
   DOM.$altMenuContainer.classList.remove('d-none');
   Globals.lastTextInSearch = DOM.$rech.value;
-
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'auto'
+  });
 }
 
 function altScreenOff() {
@@ -111,12 +136,17 @@ function altScreenOff() {
   DOM.$rech.value = Globals.lastTextInSearch;
   DOM.$rech.removeAttribute('style');
   DOM.$blueBg.classList.add('d-none');
-  DOM.$menuBtn.classList.remove('d-none');
   DOM.$closeSearch.classList.add('d-none');
   DOM.$backTopLeft.classList.add('d-none');
   DOM.$searchImage.classList.remove('d-none');
   DOM.$parameterMenu.classList.add('d-none');
   DOM.$altMenuContainer.classList.add('d-none');
+  DOM.$defaultMenu.classList.remove("d-none");
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'auto'
+  });
 }
 
 // Ouverture/fermeture de l'écran paramètres
