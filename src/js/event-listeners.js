@@ -291,8 +291,7 @@ function addEventListeners() {
   // Bottom menu scroll
   const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
   const anchors = [0, maxScroll / 2.5, maxScroll];
-  let currentScrollIndex = Math.max(anchors.indexOf(window.scrollY), 0);
-  let currentScroll = anchors[currentScrollIndex];
+  let currentScroll = 0;
   let hammertimeSwipe = new Hammer(DOM.$bottomMenu);
   hammertimeSwipe.get('swipe').set({
     direction: Hammer.DIRECTION_VERTICAL,
@@ -310,13 +309,13 @@ function addEventListeners() {
   }
 
   hammertimeSwipe.on("swipeup swipedown", (e) => {
-    if (e.type == "swipeup" && currentScrollIndex < anchors.length - 1) {
-      currentScrollIndex += 1;
+    if (e.type == "swipeup" && Globals.currentScrollIndex < anchors.length - 1) {
+      Globals.currentScrollIndex += 1;
     }
-    if (e.type == "swipedown" && currentScrollIndex > 0) {
-      currentScrollIndex -= 1;
+    if (e.type == "swipedown" && Globals.currentScrollIndex > 0) {
+      Globals.currentScrollIndex -= 1;
     }
-    scrollTo(anchors[currentScrollIndex]);
+    scrollTo(anchors[Globals.currentScrollIndex]);
     if (currentScroll > 0) {
       Globals.backButtonState = 'mainMenu';
     }
@@ -327,5 +326,5 @@ function addEventListeners() {
 }
 
 export {
-  addEventListeners
+  addEventListeners,
 };

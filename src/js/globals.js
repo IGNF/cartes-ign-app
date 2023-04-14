@@ -31,6 +31,8 @@ let gpMarkerIcon;
 let gpMarkerIcon2;
 let positionBearing = 0;
 
+let currentScrollIndex = 0;
+
 export default {
   map,
   layerDisplayed,
@@ -46,4 +48,5 @@ export default {
   autocompletion_results,
   movedFromCode,
   positionBearing,
+  currentScrollIndex,
 };
