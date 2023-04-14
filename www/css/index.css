@@ -132,7 +132,7 @@ h3 {
   color: #4b4b4b;
   display: flex;
   flex-direction: column;
-  z-index: 10000;
+  z-index: 2850;
 }
 
 #menuItemLegend {
@@ -287,7 +287,7 @@ hr {
   color:#4b4b4b;
   font-size: 1.1em;
   text-align: justify;
-  z-index: 3000;
+  overflow-y: scroll;
 }
 
 #infoWindowClose, #legendWindowClose, #menuWindowClose, #catalogWindowClose {

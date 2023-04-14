@@ -8,6 +8,7 @@ function midScroll() {
     left: 0,
     behavior: 'smooth'
   });
+  Globals.currentScrollIndex = 1;
 }
 
 // Fermeture popup démarrage
@@ -46,6 +47,7 @@ function searchScreenOn() {
     left: 0,
     behavior: 'smooth'
   });
+  Globals.currentScrollIndex = 2;
   Globals.backButtonState = 'search';
 }
 
@@ -86,6 +88,7 @@ function closeMenu() {
     left: 0,
     behavior: 'smooth'
   });
+  Globals.currentScrollIndex = 0;
 }
 
 // Ouverture/fermeture des fentres infos et légende
@@ -117,6 +120,7 @@ function closeInfos(){
 
 // Ouverture/fermeture des écrans atlernatifs
 function altScreenOn() {
+  document.body.style.overflowY = "scroll";
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$rech.disabled = true;
   DOM.$rech.style.fontFamily = 'Open Sans Bold';
@@ -131,9 +135,11 @@ function altScreenOn() {
     left: 0,
     behavior: 'auto'
   });
+  Globals.currentScrollIndex = 0;
 }
 
 function altScreenOff() {
+  document.body.style.overflowY = "hidden";
   DOM.$rech.disabled = false;
   DOM.$rech.value = Globals.lastTextInSearch;
   DOM.$rech.removeAttribute('style');
@@ -149,6 +155,7 @@ function altScreenOff() {
     left: 0,
     behavior: 'auto'
   });
+  Globals.currentScrollIndex = 0;
 }
 
 // Ouverture/fermeture de l'écran paramètres
