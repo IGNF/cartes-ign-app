@@ -29,7 +29,7 @@ let autocompletion_results = []
 // Markers
 let gpMarkerIcon;
 let gpMarkerIcon2;
-
+let positionBearing = 0;
 
 export default {
   map,
@@ -45,4 +45,5 @@ export default {
   gpMarkerIcon2,
   autocompletion_results,
   movedFromCode,
+  positionBearing,
 };

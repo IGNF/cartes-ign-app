@@ -9,6 +9,7 @@ let location_active = false;
 // Suivi de la carte
 let tracking_active = false;
 let watch_id;
+let positionMarker;
 
 function cleanGPS() {
   /**
@@ -27,13 +28,14 @@ function _goToGPSCoords(coords, zoom=map.getZoom(), panTo=true) {
    */
   cleanGPS();
   Globals.gpsMarkerLayer = L.featureGroup().addTo(map);
-  let markerLayer = L.featureGroup([L.marker(
+  positionMarker = L.rotatedMarker(
     [coords.lat, coords.lon],
     {
-      icon:	Globals.gpMarkerIcon
+      icon:	Globals.gpMarkerIcon,
     }
-  )]);
-
+  )
+  positionMarker.setRotationAngle(Globals.positionBearing);
+  let markerLayer = L.featureGroup([positionMarker]);
   Globals.gpsMarkerLayer.addLayer(markerLayer);
   if (panTo) {
     Globals.movedFromCode = true;

@@ -194,7 +194,8 @@ function displayOrthoHisto() {
   MenuDisplay.midScroll();
 }
 
-export {removeAllLayers,
+export {
+  removeAllLayers,
   displayOrtho,
   displayOrthoAndRoads,
   displayOrthoAndParcels,
