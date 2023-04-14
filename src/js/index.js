@@ -79,6 +79,11 @@ function app() {
       LayerSwitch.displayOrthoHisto();
       break;
   }
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  });
   /**/
 
   // Ajout des event listeners

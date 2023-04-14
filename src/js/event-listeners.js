@@ -185,6 +185,7 @@ function addEventListeners() {
   hammertime.add(rotate)
 
   let lastRotation;
+  let lastMarkerRotation;
   let startRotation;
   let rotationStarted = false;
   let disableRotation = false;
@@ -193,6 +194,8 @@ function addEventListeners() {
     if (DOM.$chkRotate.checked && !disableRotation) {
       let diff = startRotation - Math.round(e.rotation);
       Globals.currentRotation = lastRotation - diff;
+      Globals.positionBearing = lastMarkerRotation - diff;
+
       if (rotationStarted) {
         map.setBearing(Globals.currentRotation);
         DOM.$compassBtn.style.transform = "rotate(" + Globals.currentRotation + "deg)";
@@ -208,6 +211,7 @@ function addEventListeners() {
   hammertime.on('rotatestart', (e) => {
     if (DOM.$chkRotate.checked && !disableRotation) {
       lastRotation = Globals.currentRotation;
+      lastMarkerRotation = Globals.positionBearing;
       startRotation = Math.round(e.rotation);
     }
   });
@@ -216,10 +220,13 @@ function addEventListeners() {
     if (DOM.$chkRotate.checked) {
       if (!rotationStarted) {
         Globals.currentRotation = lastRotation;
+        Globals.positionBearing = lastMarkerRotation;
       }
       rotationStarted = false;
       lastRotation = Globals.currentRotation;
+      lastMarkerRotation = Globals.positionBearing;
     }
+    console.log(Globals.currentRotation);
   });
 
   // Pas de rotation quand zoom
@@ -258,54 +265,65 @@ function addEventListeners() {
 
   // Rotation
   DOM.$compassBtn.addEventListener("click", () => {
-    Globals.currentRotation = 0;
-    map.setBearing(0);
-    DOM.$compassBtn.style.transform = "rotate(" + 0 + "deg)";
-    DOM.$compassBtn.classList.add("d-none");
+    Globals.currentRotation = ((Globals.currentRotation % 360) + 360 ) % 360;
+
+    let interval;
+
+    function animateRotate() {
+      if (Globals.currentRotation < 180) {
+        Globals.currentRotation -= 1;
+      } else {
+        Globals.currentRotation += 1;
+      }
+      map.setBearing(Globals.currentRotation);
+      DOM.$compassBtn.style.transform = "rotate(" + Globals.currentRotation + "deg)";
+      if (Globals.currentRotation % 360 == 0) {
+        clearInterval(interval);
+        DOM.$compassBtn.classList.add("d-none");
+      }
+    }
+
+    interval = setInterval(animateRotate, 2);
+
   });
 
 
   // Bottom menu scroll
   const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
   const anchors = [0, maxScroll / 2.5, maxScroll];
-  let currentScrollIndex = anchors.indexOf(window.scrollY);
-  let currentScroll = window.scrollY;
-  let hammertimeScroll = new Hammer(DOM.$bottomMenu);
-  hammertimeScroll.add( new Hammer.Pan({ direction: Hammer.DIRECTION_VERTICAL, threshold: 0 }) );
+  let currentScrollIndex = Math.max(anchors.indexOf(window.scrollY), 0);
+  let currentScroll = anchors[currentScrollIndex];
+  let hammertimeSwipe = new Hammer(DOM.$bottomMenu);
+  hammertimeSwipe.get('swipe').set({
+    direction: Hammer.DIRECTION_VERTICAL,
+    threshold: 1,
+    velocity: 0.1
+  });
 
-  hammertimeScroll.on("panend", () => {
-    let anchor = anchors[currentScrollIndex];
-    if (window.scrollY > anchor) {
+  function scrollTo(scrollValue) {
+    window.scroll({
+      top: scrollValue,
+      left: 0,
+      behavior: 'smooth'
+    });
+    currentScroll = scrollValue;
+  }
+
+  hammertimeSwipe.on("swipeup swipedown", (e) => {
+    if (e.type == "swipeup" && currentScrollIndex < anchors.length - 1) {
       currentScrollIndex += 1;
-    } else if (window.scrollY < anchor) {
+    }
+    if (e.type == "swipedown" && currentScrollIndex > 0) {
       currentScrollIndex -= 1;
     }
-
-    anchor = anchors[currentScrollIndex];
-
-    window.scroll({
-      top: anchor,
-      left: 0,
-      behavior: 'smooth'
-    });
-    currentScroll = anchor;
-
-    if (anchor > 0) {
+    scrollTo(anchors[currentScrollIndex]);
+    if (currentScroll > 0) {
       Globals.backButtonState = 'mainMenu';
     }
-  });
-
-  hammertimeScroll.on("pan", (e) => {
-    if (e.target.id == "lieuRech") {
-      return
+    if (currentScroll == 0) {
+      Globals.backButtonState = 'default';
     }
-    window.scroll({
-      top: currentScroll - e.deltaY,
-      left: 0,
-      behavior: 'smooth'
-    });
   });
-
 }
 
 export {
