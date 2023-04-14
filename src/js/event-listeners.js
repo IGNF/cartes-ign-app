@@ -44,10 +44,6 @@ function addEventListeners() {
 
   /* event listeners pour élément non existants au démarrage */
   document.querySelector('body').addEventListener('click', (evt) => {
-    /* fermeture catalogue */
-    if ( evt.target.id !== 'catalog') {
-      MenuDisplay.closeCat();
-    }
     /* Résultats autocompletion */
     if ( evt.target.classList.contains('autocompresult') ) {
       evt.target.style.backgroundColor = '#0B6BA7';

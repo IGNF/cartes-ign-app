@@ -1,6 +1,15 @@
 import DOM from './dom';
 import Globals from './globals';
 
+function midScroll() {
+  const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
+  window.scroll({
+    top: maxScroll / 2.5,
+    left: 0,
+    behavior: 'smooth'
+  });
+}
+
 // Fermeture popup démarrage
 function startPopupValidation() {
   DOM.$startPopup.hidden = true;
@@ -15,6 +24,7 @@ function openCat() {
   DOM.$catalog.classList.remove('d-none');
   DOM.$catalogBtn.classList.add('d-none');
   Globals.backButtonState = 'catalog';
+  midScroll();
 }
 
 function closeCat() {
@@ -88,11 +98,7 @@ function openLegend(){
 function closeLegend(){
   DOM.$legendWindow.classList.add("d-none");
   DOM.$defaultMenu.classList.remove("d-none");
-  window.scroll({
-    top: 0,
-    left: 0,
-    behavior: 'smooth'
-  });
+  midScroll();
   Globals.backButtonState = 'default';
 }
 
@@ -105,11 +111,7 @@ function openInfos(){
 function closeInfos(){
   DOM.$infoWindow.classList.add("d-none");
   DOM.$defaultMenu.classList.remove("d-none");
-  window.scroll({
-    top: 0,
-    left: 0,
-    behavior: 'smooth'
-  });
+  midScroll();
   Globals.backButtonState = 'default';
 }
 
@@ -227,5 +229,6 @@ export {
   openPrivacyScreen,
   closePrivacyScreen,
   openPlusLoinScreen,
-  closePlusLoinScreen
+  closePlusLoinScreen,
+  midScroll,
 };

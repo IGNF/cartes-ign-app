@@ -35,7 +35,7 @@ function displayOrtho() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'photos';
-  MenuDisplay.closeCat();
+  MenuDisplay.midScroll();
 }
 
 function displayOrthoAndRoads() {
@@ -55,7 +55,7 @@ function displayOrthoAndRoads() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'routes';
-  MenuDisplay.closeCat();
+  MenuDisplay.midScroll();mid
 }
 
 function displayOrthoAndParcels() {
@@ -76,7 +76,7 @@ function displayOrthoAndParcels() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'cadastre';
-  MenuDisplay.closeCat();
+  MenuDisplay.midScroll();mid
 }
 
 function displayPlan() {
@@ -95,7 +95,7 @@ function displayPlan() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'plan-ign';
-  MenuDisplay.closeCat();
+  MenuDisplay.midScroll();mid
 }
 
 function displayCartes() {
@@ -114,7 +114,7 @@ function displayCartes() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'cartes';
-  MenuDisplay.closeCat();
+  MenuDisplay.midScroll();mid
 }
 
 function displayDrones() {
@@ -134,7 +134,7 @@ function displayDrones() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'drones';
-  MenuDisplay.closeCat();
+  MenuDisplay.midScroll();mid
 }
 
 function displayTopo() {
@@ -153,7 +153,7 @@ function displayTopo() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'topo';
-  MenuDisplay.closeCat();
+  MenuDisplay.midScroll();mid
 }
 
 function displayEtatMajor() {
@@ -172,7 +172,7 @@ function displayEtatMajor() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'etat-major';
-  MenuDisplay.closeCat();
+  MenuDisplay.midScroll();mid
 }
 
 function displayOrthoHisto() {
@@ -191,7 +191,7 @@ function displayOrthoHisto() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'ortho-histo';
-  MenuDisplay.closeCat();
+  MenuDisplay.midScroll();mid
 }
 
 export {removeAllLayers,
