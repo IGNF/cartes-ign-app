@@ -27,6 +27,7 @@
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-file": "^7.0.0",
     "cordova-plugin-webpack": "^1.0.5",
+    "cordova-plugin-x-toast": "^2.7.3",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2"
@@ -50,7 +51,8 @@
         "ANDROIDX_WEBKIT_VERSION": "1.4.0"
       },
       "cordova-plugin-webpack": {},
-      "cordova-plugin-androidx-adapter": {}
+      "cordova-plugin-androidx-adapter": {},
+      "cordova-plugin-x-toast": {}
     },
     "platforms": [
       "android",

@@ -28,7 +28,7 @@ function addEventListeners() {
       Autocomp.suggest().then( () => {
         if (Globals.autocompletion_results.length > 0){
           for (let i = 0 ; i < Globals.autocompletion_results.length; i++) {
-            resultStr += `<p class='autocompresult'>
+            resultStr += `<p class='autocompresult' fulltext='${Globals.autocompletion_results[i].fulltext}'>
             <em class='autocompkind'>${Globals.autocompletion_results[i].kind}</em><br/>
             ${Globals.autocompletion_results[i].fulltext} </p>` ;
           }
@@ -48,7 +48,7 @@ function addEventListeners() {
     if ( evt.target.classList.contains('autocompresult') ) {
       evt.target.style.backgroundColor = '#0B6BA7';
       evt.target.style.color = 'white';
-      DOM.$rech.value = evt.target.innerHTML;
+      DOM.$rech.value = evt.target.getAttribute("fulltext");
       Geocode.rechercheEtPosition(DOM.$rech.value);
       setTimeout(MenuDisplay.searchScreenOff, 150)
     /* marqueur de recherche/position */
@@ -97,6 +97,9 @@ function addEventListeners() {
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
   document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
+
+  // Rotation du marqueur de position
+  window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
 
   // Synchronisation des radio button pour le type de coordonnées
   Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
@@ -236,12 +239,12 @@ function addEventListeners() {
   });
 
   map.on('movestart', function (e) {
-    if (e.hard) {
-      // moved by bounds
-    } else {
-      while (Location.location_active) {
-        Location.locationOnOff();
-      }
+    if (Globals.movedFromCode) {
+      return
+    } else if (Location.tracking_active){
+      // De tracking a simple suivi de position
+      Location.locationOnOff();
+      Location.locationOnOff();
     }
 });
 

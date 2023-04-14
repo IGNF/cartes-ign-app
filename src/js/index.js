@@ -17,10 +17,11 @@ function app() {
   /**/
 
   /* Définition des marker icons */
-  Globals.gpMarkerIcon = L.icon({
+  Globals.gpMarkerIcon = L.divIcon({
     iconUrl: cordova.file.applicationDirectory + 'www/css/assets/position.svg',
-    iconSize:     [23, 23], // size of the icon
-    iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location
+    html: '<img class="gpsMarker" id="markerRotate" src="' + cordova.file.applicationDirectory + 'www/css/assets/position.svg"></img>',
+    iconSize:     [51, 51], // size of the icon
+    iconAnchor:   [26, 26], // point of the icon which will correspond to marker's location
     className:    'gpsMarker',
   });
 

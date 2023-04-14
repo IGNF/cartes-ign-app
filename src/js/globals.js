@@ -1,9 +1,6 @@
 // Leaflet map
 const map = new L.map('map', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5);
 
-// Motd id
-let motd_id;
-
 /* global: layer display state */
 let layerDisplayed = localStorage.getItem("lastLayerDisplayed") || 'photos';
 
@@ -15,6 +12,9 @@ let lastTextInSearch = '';
 
 /* global: current map rotation */
 let currentRotation = 0;
+
+/* global: flag to check if map move fired by code */
+let movedFromCode = false;
 
 let gpsMarkerLayer;
 let adressMarkerLayer;
@@ -30,6 +30,7 @@ let autocompletion_results = []
 let gpMarkerIcon;
 let gpMarkerIcon2;
 
+
 export default {
   map,
   layerDisplayed,
@@ -43,5 +44,5 @@ export default {
   gpMarkerIcon,
   gpMarkerIcon2,
   autocompletion_results,
-  motd_id
+  movedFromCode,
 };
