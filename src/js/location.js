@@ -36,6 +36,7 @@ function _goToGPSCoords(coords, zoom=map.getZoom(), panTo=true) {
 
   Globals.gpsMarkerLayer.addLayer(markerLayer);
   if (panTo) {
+    Globals.movedFromCode = true;
     if (Globals.currentRotation !== 0){
       map.setBearing(0);
       map.setView(new L.LatLng(coords.lat, coords.lon), zoom, {animate: false});
@@ -43,6 +44,7 @@ function _goToGPSCoords(coords, zoom=map.getZoom(), panTo=true) {
     } else {
       map.setView(new L.LatLng(coords.lat, coords.lon), zoom);
     }
+    Globals.movedFromCode = false;
   }
 }
 
@@ -90,14 +92,20 @@ function locationOnOff() {
     requestLocationAccuracy();
     _trackLocation();
     location_active = true;
+    window.plugins.toast.hide();
+    window.plugins.toast.showLongBottom("Suivi de position activé");
   } else if (!tracking_active) {
     DOM.$geolocateBtn.style.backgroundImage = 'url("css/assets/location-follow.svg")';
     tracking_active = true;
+    window.plugins.toast.hide();
+    window.plugins.toast.showLongBottom("Mode navigation activé");
   } else {
     DOM.$geolocateBtn.style.backgroundImage = 'url("css/assets/localisation.svg")';
     navigator.geolocation.clearWatch(watch_id);
     location_active = false;
     tracking_active = false;
+    window.plugins.toast.hide();
+    window.plugins.toast.showLongBottom("Navigation et suivi de position désactivés");
   }
 }
 
@@ -179,10 +187,25 @@ function _makeRequest(){
   });
 }
 
+function getOrientation(event) {
+  if (tracking_active) {
+    Globals.currentRotation = event.alpha;
+    Globals.map.setBearing(event.alpha);
+    DOM.$compassBtn.classList.remove("d-none");
+    DOM.$compassBtn.style.transform = "rotate(" + event.alpha + "deg)";
+  }
+  Globals.positionBearing = Number(Number(360 - event.alpha).toFixed(1)) + Globals.currentRotation;
+  if (positionMarker) {
+    positionMarker.setRotationAngle(Globals.positionBearing);
+  }
+}
+
 
 export {
   cleanGPS,
   locationOnOff,
   requestLocationAccuracy,
   location_active,
+  tracking_active,
+  getOrientation,
 }

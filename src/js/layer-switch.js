@@ -55,7 +55,7 @@ function displayOrthoAndRoads() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'routes';
-  MenuDisplay.midScroll();mid
+  MenuDisplay.midScroll();
 }
 
 function displayOrthoAndParcels() {
@@ -76,7 +76,7 @@ function displayOrthoAndParcels() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'cadastre';
-  MenuDisplay.midScroll();mid
+  MenuDisplay.midScroll();
 }
 
 function displayPlan() {
@@ -95,7 +95,7 @@ function displayPlan() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'plan-ign';
-  MenuDisplay.midScroll();mid
+  MenuDisplay.midScroll();
 }
 
 function displayCartes() {
@@ -114,7 +114,7 @@ function displayCartes() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'cartes';
-  MenuDisplay.midScroll();mid
+  MenuDisplay.midScroll();
 }
 
 function displayDrones() {
@@ -134,7 +134,7 @@ function displayDrones() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'drones';
-  MenuDisplay.midScroll();mid
+  MenuDisplay.midScroll();
 }
 
 function displayTopo() {
@@ -153,7 +153,7 @@ function displayTopo() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'topo';
-  MenuDisplay.midScroll();mid
+  MenuDisplay.midScroll();
 }
 
 function displayEtatMajor() {
@@ -172,7 +172,7 @@ function displayEtatMajor() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'etat-major';
-  MenuDisplay.midScroll();mid
+  MenuDisplay.midScroll();
 }
 
 function displayOrthoHisto() {
@@ -191,7 +191,7 @@ function displayOrthoHisto() {
     Globals.adressMarkerLayer.addTo(map);
   }
   Globals.layerDisplayed = 'ortho-histo';
-  MenuDisplay.midScroll();mid
+  MenuDisplay.midScroll();
 }
 
 export {removeAllLayers,
