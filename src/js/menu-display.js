@@ -102,7 +102,7 @@ function closeLegend(){
   DOM.$legendWindow.classList.add("d-none");
   DOM.$defaultMenu.classList.remove("d-none");
   midScroll();
-  Globals.backButtonState = 'default';
+  Globals.backButtonState = 'mainMenu';
 }
 
 function openInfos(){
@@ -115,7 +115,7 @@ function closeInfos(){
   DOM.$infoWindow.classList.add("d-none");
   DOM.$defaultMenu.classList.remove("d-none");
   midScroll();
-  Globals.backButtonState = 'default';
+  Globals.backButtonState = 'mainMenu';
 }
 
 // Ouverture/fermeture des écrans atlernatifs
