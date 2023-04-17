@@ -316,10 +316,10 @@ function addEventListeners() {
       Globals.currentScrollIndex -= 1;
     }
     scrollTo(anchors[Globals.currentScrollIndex]);
-    if (currentScroll > 0) {
+    if (currentScroll > 0 && Globals.backButtonState == 'default') {
       Globals.backButtonState = 'mainMenu';
     }
-    if (currentScroll == 0) {
+    if (currentScroll == 0 && Globals.backButtonState == 'mainMenu') {
       Globals.backButtonState = 'default';
     }
   });
