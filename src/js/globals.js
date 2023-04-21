@@ -31,6 +31,9 @@ let gpMarkerIcon;
 let gpMarkerIcon2;
 let positionBearing = 0;
 
+// Scroll
+let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
+let anchors = [0, maxScroll / 2.5, maxScroll];
 let currentScrollIndex = 0;
 
 export default {
@@ -49,4 +52,6 @@ export default {
   movedFromCode,
   positionBearing,
   currentScrollIndex,
+  maxScroll,
+  anchors,
 };

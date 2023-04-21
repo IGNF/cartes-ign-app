@@ -1,14 +1,23 @@
 import DOM from './dom';
 import Globals from './globals';
 
+function updateScrollAnchors() {
+  Globals.maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
+  Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
+  scrollTo(Globals.anchors[Globals.currentScrollIndex]);
+}
+
 function midScroll() {
-  const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
+  Globals.currentScrollIndex = 1;
+  updateScrollAnchors();
+}
+
+function scrollTo(scrollValue) {
   window.scroll({
-    top: maxScroll / 2.5,
+    top: scrollValue,
     left: 0,
     behavior: 'smooth'
   });
-  Globals.currentScrollIndex = 1;
 }
 
 // Fermeture popup démarrage
@@ -214,6 +223,23 @@ function closePlusLoinScreen(){
   Globals.backButtonState = 'default';
 }
 
+// Menu outils
+function openRoute() {
+  DOM.$defaultMenu.classList.add("d-none");
+  document.querySelector("[id^=GPelevationPath-]").classList.remove("d-none");
+  midScroll();
+  Globals.backButtonState = 'route';
+}
+
+function closeRoute() {
+  DOM.$defaultMenu.classList.remove("d-none");
+  document.querySelector("[id^=GPelevationPath-]").classList.add("d-none");
+  midScroll();
+  Globals.backButtonState = 'mainMenu';
+}
+
+
+
 export {
   startPopupValidation,
   openCat,
@@ -238,4 +264,8 @@ export {
   openPlusLoinScreen,
   closePlusLoinScreen,
   midScroll,
+  scrollTo,
+  updateScrollAnchors,
+  openRoute,
+  closeRoute,
 };
