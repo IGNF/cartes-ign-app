@@ -264,6 +264,11 @@ function addEventListeners() {
 
   // Rotation
   DOM.$compassBtn.addEventListener("click", () => {
+    if (Location.tracking_active){
+      // De tracking a simple suivi de position
+      Location.locationOnOff();
+      Location.locationOnOff();
+    }
     Globals.currentRotation = ((Globals.currentRotation % 360) + 360 ) % 360;
 
     let interval;
@@ -286,8 +291,13 @@ function addEventListeners() {
 
   });
 
+  // Screen dimentions change
+  window.addEventListener("resize", () => {
+    MenuDisplay.updateScrollAnchors();
+  })
 
   // Bottom menu scroll
+  delete Hammer.defaults.cssProps.userSelect;
   let hammertimeSwipe = new Hammer(DOM.$bottomMenu);
   hammertimeSwipe.get('swipe').set({
     direction: Hammer.DIRECTION_VERTICAL,
@@ -343,7 +353,14 @@ function addEventListeners() {
       DOM.$measureUnit.innerText = "km";
       DOM.$totalMeasure.innerText = Math.round(distance / 1000);
     }
-  })
+  });
+
+  map.on('polylinemeasure:finish', () => {
+    Globals.currentScrollIndex = 2;
+    MenuDisplay.updateScrollAnchors();
+  });
+
+
 
   map.on("draw:created", function (e) {
     Globals.polygonLayer = e.layer;
@@ -365,6 +382,9 @@ function addEventListeners() {
       surface = Math.round(surface / 1000) / 10;
     }
     DOM.$areaMeasureText.innerText = `${surface} ${unit}`;
+
+    Globals.currentScrollIndex = 2;
+    MenuDisplay.updateScrollAnchors();
   });
 
 }

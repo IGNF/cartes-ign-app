@@ -81,6 +81,7 @@ function app() {
     left: 0,
     behavior: 'smooth'
   });
+  Globals.currentScrollIndex = 0;
   /**/
 
   // Ajout des event listeners
