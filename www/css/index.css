@@ -204,7 +204,28 @@ h3 {
   background-image: url("assets/itineraire.png");
 }
 
+#measureIcon {
+  background-image: url("assets/mesure.png");
+}
+
+#measureAreaIcon {
+  background-image: url("assets/mesureArea.png");
+}
+
+#measureMenu h3, #measureAreaMenu h3 {
+  text-align: center;
+}
+#measureMenu p, #measureAreaMenu p {
+  text-align: center;
+  font-size: 1.2em;
+}
+
 /**/
+
+/* Leaflet plugin adaptations */
+#polyline-measure-control, .leaflet-draw {
+  display: none;
+}
 
 /* GP plugin adaptations */
 input[id^="GPshowElevationPath-"] + label, input[id^="GPshowRoute-"] + label {
@@ -353,7 +374,7 @@ hr {
   overflow-y: scroll;
 }
 
-#infoWindowClose, #legendWindowClose, #menuWindowClose, #catalogWindowClose {
+.windowClose {
   width: 34px;
   height: 34px;
   background-position: center;

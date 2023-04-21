@@ -31,6 +31,8 @@ let gpMarkerIcon;
 let gpMarkerIcon2;
 let positionBearing = 0;
 
+let polygonLayer;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -54,4 +56,5 @@ export default {
   currentScrollIndex,
   maxScroll,
   anchors,
+  polygonLayer,
 };
