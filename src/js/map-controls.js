@@ -5,6 +5,7 @@ import * as MenuDisplay from './menu-display';
 
 function addMapControls() {
   const map = Globals.map;
+
   // Échelle graphique
   L.control.scale({
     imperial: false,
@@ -12,6 +13,10 @@ function addMapControls() {
     position: "topleft",
   }).addTo(map);
 
+  // Polyline measure
+  L.control.polylineMeasure().addTo(map);
+
+  /* GP plugin*/
   // Geoportail widget route
   const route = L.geoportalControl.Route({
     apiKey: "calcul",

@@ -1,6 +1,8 @@
 import DOM from './dom';
 import Globals from './globals';
 
+let polygonHandler;
+
 function updateScrollAnchors() {
   Globals.maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
   Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
@@ -238,6 +240,41 @@ function closeRoute() {
   Globals.backButtonState = 'mainMenu';
 }
 
+function openMeasure() {
+  document.getElementById("polyline-measure-control").click();
+  DOM.$defaultMenu.classList.add("d-none");
+  DOM.$measureMenu.classList.remove("d-none");
+  Globals.currentScrollIndex = 2;
+  updateScrollAnchors();
+}
+
+function closeMeasure() {
+  document.getElementById("polyline-measure-control").click();
+  DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$measureMenu.classList.add("d-none");
+  DOM.$totalMeasure.innerText = "0";
+  DOM.$measureUnit.innerText = "m";
+  midScroll();
+}
+
+function openMeasureArea() {
+  polygonHandler = new L.Draw.Polygon(Globals.map);
+  polygonHandler.enable();
+  DOM.$defaultMenu.classList.add("d-none");
+  DOM.$measureAreaMenu.classList.remove("d-none");
+  Globals.currentScrollIndex = 2;
+  updateScrollAnchors();
+}
+
+function closeMeasureArea() {
+  polygonHandler.disable();
+  Globals.map.removeLayer(Globals.polygonLayer);
+  DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$measureAreaMenu.classList.add("d-none");
+  DOM.$areaMeasureText.innerText = "0 m²";
+  midScroll();
+}
+
 
 
 export {
@@ -268,4 +305,8 @@ export {
   updateScrollAnchors,
   openRoute,
   closeRoute,
+  openMeasure,
+  closeMeasure,
+  openMeasureArea,
+  closeMeasureArea,
 };

@@ -19,6 +19,7 @@
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <link rel="stylesheet" type="text/css" href="css/leaflet.css">
         <link rel="stylesheet" type="text/css" href="css/GpPluginLeaflet.css">
+        <link rel="stylesheet" type="text/css" href="css/Leaflet.PolylineMeasure.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 
@@ -79,14 +80,13 @@
                         <p>Itinéraire</p>
                         <p class="toolIcon" id="itiIcon"></p>
                       </div>
-                      <div>
-                        <p>Mesurer</p>
+                      <div id="measure">
+                        <p>Mesurer une distance</p>
+                        <p class="toolIcon" id="measureIcon"></p>
                       </div>
-                      <div>
-                        <p>Signalement</p>
-                      </div>
-                      <div>
-                        <p>Cartes hors ligne</p>
+                      <div id="measureArea">
+                        <p>Mesurer une surface</p>
+                        <p class="toolIcon" id="measureAreaIcon"></p>
                       </div>
                     </div>
                   </div>
@@ -101,7 +101,7 @@
               </div>
 
               <div id="catalog" class="d-none">
-                <div id="catalogWindowClose"></div>
+                <div id="catalogWindowClose" class="windowClose"></div>
                 <h3>Cartes</h3>
                 <div id="menuC">
                   <div class="layer" id="layerPlan">
@@ -145,7 +145,7 @@
 
               <div class="d-none" id="infoWindow">
                 <div id="infoWindowContent">
-                  <div id="infoWindowClose"></div>
+                  <div id="infoWindowClose" class="windowClose"></div>
                   <h3>Informations</h3>
                   <div id="infoText">Prises de vues satellitaires ou aériennes des territoires.</div>
                 </div>
@@ -153,10 +153,22 @@
 
               <div class="d-none" id="legendWindow">
                 <div id="legendWindowContent">
-                  <div id="legendWindowClose"></div>
+                  <div id="legendWindowClose" class="windowClose"></div>
                   <h3>Légende de la carte</h3>
                   <div id="legendImg"><img src="https://www.geoportail.gouv.fr/depot/layers/ORTHOIMAGERY.ORTHOPHOTOS/legendes/ORTHOIMAGERY.ORTHOPHOTOS-legend.png" alt="légende photos aeriennes"></div>
                 </div>
+              </div>
+
+              <div id="measureMenu" class="d-none">
+                <div id="measureWindowClose" class="windowClose"></div>
+                <h3>Mesure de distance</h3>
+                <p>Distance totale : <span id="totalMeasure">0</span> <span id="measureUnit">m</span></p>
+              </div>
+
+              <div id="measureAreaMenu" class="d-none">
+                <div id="measureAreaWindowClose" class="windowClose"></div>
+                <h3>Mesure de surface</h3>
+                <p>Surface totale : <span id="areaMeasureText">0 m²</span></p>
               </div>
 
             </div>
@@ -270,6 +282,8 @@
         <script type="text/javascript" src="js/external/leaflet.tilelayer.fallback.js"></script>
         <script type="text/javascript" src="js/external/purify.min.js"></script>
         <script type="text/javascript" src="js/external/hammer.min.js"></script>
+        <script type="text/javascript" src="js/external/leaflet.rotatedMarker.js"></script>
+        <script type="text/javascript" src="js/external/Leaflet.PolylineMeasure.js"></script>
         <script type="text/javascript" src="js/external/GpPluginLeaflet.js"></script>
         <script type="text/javascript" src="js/index.bundle.js"></script>
     </body>

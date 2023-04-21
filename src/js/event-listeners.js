@@ -8,7 +8,6 @@ import * as UpdateLegend from './update-legend';
 import DOM from './dom';
 import Globals from './globals';
 
-
 function addEventListeners() {
 
   const map = Globals.map;
@@ -93,6 +92,8 @@ function addEventListeners() {
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
   document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
+  document.getElementById("measureWindowClose").addEventListener('click', MenuDisplay.closeMeasure);
+  document.getElementById("measureAreaWindowClose").addEventListener('click', MenuDisplay.closeMeasureArea);
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -169,7 +170,9 @@ function addEventListeners() {
     }
     if (Globals.backButtonState === 'catalog') {
       MenuDisplay.closeCat();
-      Globals.backButtonState = 'default';
+    }
+    if (Globals.backButtonState === 'route') {
+      document.querySelector("div[id^=GProutePanelClose-]").click();
     }
   }
 
@@ -249,7 +252,7 @@ function addEventListeners() {
       Location.locationOnOff();
       Location.locationOnOff();
     }
-});
+  });
 
   // Sauvegarde de l'état de l'application
   document.addEventListener('pause', () => {
@@ -313,6 +316,57 @@ function addEventListeners() {
     document.querySelector('[id^="GPshowRouteOpen-"]').click();
     MenuDisplay.openRoute();
   });
+
+  document.getElementById("measure").addEventListener("click", () => {
+    MenuDisplay.openMeasure();
+  });
+
+  document.getElementById("measureArea").addEventListener("click", () => {
+    MenuDisplay.openMeasureArea();
+  });
+
+  /* Mesure sur la carte */
+  map.on("polylinemeasure:change", (line) => {
+    let distance = line.distance;
+    if (distance < 100) {
+      distance = Math.round(distance * 100) / 100;
+    } else {
+      distance = Math.round(distance);
+    }
+    if (distance < 1000) {
+      DOM.$measureUnit.innerText = "m";
+      DOM.$totalMeasure.innerText = distance;
+    } else if (distance < 10000) {
+      DOM.$measureUnit.innerText = "km";
+      DOM.$totalMeasure.innerText = Math.round(distance / 100) / 10;
+    } else {
+      DOM.$measureUnit.innerText = "km";
+      DOM.$totalMeasure.innerText = Math.round(distance / 1000);
+    }
+  })
+
+  map.on("draw:created", function (e) {
+    Globals.polygonLayer = e.layer;
+    map.addLayer(Globals.polygonLayer);
+    let surface = L.GeometryUtil.geodesicArea(Globals.polygonLayer.getLatLngs()[0]);
+    let unit = "m²";
+    if (surface < 100) {
+      surface = Math.round(surface * 100) / 100;
+    } else {
+      surface = Math.round(surface);
+    }
+    if (surface < 1000) {
+      unit = "m²";
+    } else if (surface < 10000) {
+      unit = "ha";
+      surface = Math.round(surface / 100) / 100;
+    } else {
+      unit = "ha";
+      surface = Math.round(surface / 1000) / 10;
+    }
+    DOM.$areaMeasureText.innerText = `${surface} ${unit}`;
+  });
+
 }
 
 export {
