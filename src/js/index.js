@@ -3,6 +3,7 @@ import * as EventListeners from './event-listeners';
 import * as LayerSwitch from './layer-switch';
 import * as Location from './location';
 import Globals from './globals';
+import * as MapControls from './map-controls';
 
 function app() {
   /**
@@ -35,12 +36,8 @@ function app() {
 
   /* Récupération de la carte */
   const map = Globals.map;
-  // Ajout de l'échelle
-  L.control.scale({
-    imperial: false,
-    maxWidth: 150,
-    position: "topleft",
-  }).addTo(map);
+  // Ajout des contrôles
+  MapControls.addMapControls();
 
   // Chargement de la postition précédente
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {

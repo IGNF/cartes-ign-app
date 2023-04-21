@@ -56,10 +56,6 @@ function addEventListeners() {
       Geocode.cleanResults();
     } else if (evt.target.classList.contains("gpsMarker")) {
       Location.cleanGPS();
-    /* pour aller + loin du message d'accueil */
-    } else if (evt.target.classList.contains("msgGreen")) {
-      DOM.$startPopup.hidden = true;
-      MenuDisplay.openPlusLoinScreen();
     }
   }, true);
 
@@ -289,9 +285,6 @@ function addEventListeners() {
 
 
   // Bottom menu scroll
-  const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
-  const anchors = [0, maxScroll / 2.5, maxScroll];
-  let currentScroll = 0;
   let hammertimeSwipe = new Hammer(DOM.$bottomMenu);
   hammertimeSwipe.get('swipe').set({
     direction: Hammer.DIRECTION_VERTICAL,
@@ -299,29 +292,26 @@ function addEventListeners() {
     velocity: 0.1
   });
 
-  function scrollTo(scrollValue) {
-    window.scroll({
-      top: scrollValue,
-      left: 0,
-      behavior: 'smooth'
-    });
-    currentScroll = scrollValue;
-  }
-
   hammertimeSwipe.on("swipeup swipedown", (e) => {
-    if (e.type == "swipeup" && Globals.currentScrollIndex < anchors.length - 1) {
+    if (e.type == "swipeup" && Globals.currentScrollIndex < Globals.anchors.length - 1) {
       Globals.currentScrollIndex += 1;
     }
     if (e.type == "swipedown" && Globals.currentScrollIndex > 0) {
       Globals.currentScrollIndex -= 1;
     }
-    scrollTo(anchors[Globals.currentScrollIndex]);
-    if (currentScroll > 0 && Globals.backButtonState == 'default') {
+    MenuDisplay.scrollTo(Globals.anchors[Globals.currentScrollIndex]);
+    if (Globals.currentScrollIndex > 0 && Globals.backButtonState == 'default') {
       Globals.backButtonState = 'mainMenu';
     }
-    if (currentScroll == 0 && Globals.backButtonState == 'mainMenu') {
+    if (Globals.currentScrollIndex == 0 && Globals.backButtonState == 'mainMenu') {
       Globals.backButtonState = 'default';
     }
+  });
+
+  /* Menu Buttons */
+  document.getElementById("calculateRoute").addEventListener("click", () => {
+    document.querySelector('[id^="GPshowRouteOpen-"]').click();
+    MenuDisplay.openRoute();
   });
 }
 
