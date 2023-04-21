@@ -63,6 +63,7 @@ function addMapControls() {
     elevationpath._panelContainer.style.display = "block";
     elevationpath._altiRequest();
     elevationpath.options.elevationPathOptions.sampling = 200;
+    MenuDisplay.updateScrollAnchors();
   };
 
   // Add route from my position
@@ -92,29 +93,36 @@ function addMapControls() {
 
   // Move controls in DOM
   DOM.$bottomMenu.appendChild(document.querySelector("div[id^=GProute-]"));
-  DOM.$bottomMenu.appendChild(document.querySelector("div[id^=GPelevationPath-]"));
+  document.querySelector("div[id^=GProuteResultsPanel-]").appendChild(document.querySelector("div[id^=GPelevationPath-]"));
 
   document.querySelector("div[id^=GProutePanelClose-]").addEventListener('click', MenuDisplay.closeRoute);
 
   const gpAddStage = document.querySelector("div[id^=GPlocationStageAdd-]");
   gpAddStage.addEventListener('click', () => {
-    if (Globals.currentScrollIndex != 2) {
-      window.scrollBy({
-        top: gpAddStage.clientHeight,
-        left: 0,
-        behavior : "smooth"
-      });
-    }
+    setTimeout( () => {
+      MenuDisplay.updateScrollAnchors();
+      if (Globals.currentScrollIndex != 2) {
+        window.scrollBy({
+          top: gpAddStage.clientHeight,
+          left: 0,
+          behavior : "smooth"
+        });
+      }
+    }, 250);
   });
 
   document.querySelector("[id^=GPshowRouteExclusionsPicto-]").addEventListener('click', () => {
-    if (Globals.currentScrollIndex != 2) {
+    setTimeout( () => {
+      MenuDisplay.updateScrollAnchors();
+      if (Globals.currentScrollIndex != 2) {
       window.scrollBy({
         top: document.querySelector("[id^=GProuteExclusions-]").clientHeight,
         left: 0,
         behavior : "smooth"
       });
-    }
+      }
+
+    }, 600);
   });
 }
 

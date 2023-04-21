@@ -48,17 +48,12 @@ function closeCat() {
 // Ouverture/fermeture de l'écran recherche
 function searchScreenOn() {
   closeCat();
+  DOM.$bottomMenu.style.height = "100%";
   DOM.$catalogBtn.classList.add('d-none');
   DOM.$closeSearch.classList.remove('d-none');
-  const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
   DOM.$defaultMenuNotSearch.classList.add('d-none');
-
-  window.scroll({
-    top: maxScroll,
-    left: 0,
-    behavior: 'smooth'
-  });
   Globals.currentScrollIndex = 2;
+  updateScrollAnchors();
   Globals.backButtonState = 'search';
 }
 
@@ -73,23 +68,19 @@ function searchScreenOff() {
   DOM.$rech.blur()
   DOM.$defaultMenuNotSearch.classList.remove('d-none');
   Globals.backButtonState = 'default';
+  openMenu();
 }
 
 function closeSearchScreen() {
   searchScreenOff();
   DOM.$rech.value = "";
-  openMenu();
 }
 
 // Ouverture/fermeture menu burger
 function openMenu() {
   Globals.backButtonState = 'mainMenu';
-  const maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
-  window.scroll({
-    top: maxScroll / 2.5,
-    left: 0,
-    behavior: 'smooth'
-  });
+  Globals.currentScrollIndex = 1;
+  updateScrollAnchors();
 }
 
 function closeMenu() {
@@ -268,7 +259,11 @@ function openMeasureArea() {
 
 function closeMeasureArea() {
   polygonHandler.disable();
-  Globals.map.removeLayer(Globals.polygonLayer);
+  try {
+    Globals.map.removeLayer(Globals.polygonLayer);
+  } catch  {
+    console.log("no layer to remove");
+  }
   DOM.$defaultMenu.classList.remove("d-none");
   DOM.$measureAreaMenu.classList.add("d-none");
   DOM.$areaMeasureText.innerText = "0 m²";
