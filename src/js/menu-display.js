@@ -15,6 +15,7 @@ function midScroll() {
 }
 
 function scrollTo(scrollValue) {
+  Globals.ignoreNextScrollEvent = true;
   window.scroll({
     top: scrollValue,
     left: 0,
@@ -68,6 +69,7 @@ function searchScreenOff() {
   DOM.$rech.blur()
   DOM.$defaultMenuNotSearch.classList.remove('d-none');
   Globals.backButtonState = 'default';
+  DOM.$bottomMenu.style.height = "";
   openMenu();
 }
 
@@ -85,6 +87,7 @@ function openMenu() {
 
 function closeMenu() {
   Globals.backButtonState = 'default';
+  Globals.ignoreNextScrollEvent = true;
   window.scroll({
     top: 0,
     left: 0,
@@ -132,6 +135,7 @@ function altScreenOn() {
   DOM.$closeSearch.classList.remove('d-none');
   DOM.$altMenuContainer.classList.remove('d-none');
   Globals.lastTextInSearch = DOM.$rech.value;
+  Globals.ignoreNextScrollEvent = true;
   window.scroll({
     top: 0,
     left: 0,
@@ -152,6 +156,7 @@ function altScreenOff() {
   DOM.$parameterMenu.classList.add('d-none');
   DOM.$altMenuContainer.classList.add('d-none');
   DOM.$defaultMenu.classList.remove("d-none");
+  Globals.ignoreNextScrollEvent = true;
   window.scroll({
     top: 0,
     left: 0,

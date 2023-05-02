@@ -296,21 +296,27 @@ function addEventListeners() {
     MenuDisplay.updateScrollAnchors();
   })
 
-  // Bottom menu scroll
-  delete Hammer.defaults.cssProps.userSelect;
-  let hammertimeSwipe = new Hammer(DOM.$bottomMenu);
-  hammertimeSwipe.get('swipe').set({
-    direction: Hammer.DIRECTION_VERTICAL,
-    threshold: 1,
-    velocity: 0.1
-  });
+  document.addEventListener("scrollend", () => {
+    if (Globals.ignoreNextScrollEvent) {
+      // Ignore this event because it was done programmatically
+      Globals.ignoreNextScrollEvent = false;
+      Globals.currentScroll = window.scrollY;
+      return;
+  }
+    let isScrollUp = window.scrollY > Globals.currentScroll;
+    let isScrollDown = window.scrollY < Globals.currentScroll;
 
-  hammertimeSwipe.on("swipeup swipedown", (e) => {
-    if (e.type == "swipeup" && Globals.currentScrollIndex < Globals.anchors.length - 1) {
+    if (isScrollUp && Globals.currentScrollIndex < Globals.anchors.length - 1) {
       Globals.currentScrollIndex += 1;
+      if (window.scrollY > Globals.maxScroll - 50) {
+        Globals.currentScrollIndex = Globals.anchors.length - 1;
+      }
     }
-    if (e.type == "swipedown" && Globals.currentScrollIndex > 0) {
+    if (isScrollDown && Globals.currentScrollIndex > 0) {
       Globals.currentScrollIndex -= 1;
+      if (window.scrollY < 50) {
+        Globals.currentScrollIndex = 0;
+      }
     }
     MenuDisplay.scrollTo(Globals.anchors[Globals.currentScrollIndex]);
     if (Globals.currentScrollIndex > 0 && Globals.backButtonState == 'default') {

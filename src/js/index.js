@@ -76,6 +76,7 @@ function app() {
       LayerSwitch.displayOrthoHisto();
       break;
   }
+  Globals.ignoreNextScrollEvent = true;
   window.scroll({
     top: 0,
     left: 0,
