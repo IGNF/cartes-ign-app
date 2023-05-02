@@ -225,6 +225,7 @@ function closePlusLoinScreen(){
 function openRoute() {
   DOM.$defaultMenu.classList.add("d-none");
   document.querySelector("[id^=GPelevationPath-]").classList.remove("d-none");
+  DOM.$bottomMenu.style.height = "100%";
   midScroll();
   Globals.backButtonState = 'route';
 }
@@ -234,6 +235,7 @@ function closeRoute() {
   document.querySelector("[id^=GPelevationPath-]").classList.add("d-none");
   midScroll();
   Globals.backButtonState = 'mainMenu';
+  DOM.$bottomMenu.style.height = "";
 }
 
 function openMeasure() {

@@ -294,15 +294,18 @@ function addEventListeners() {
   // Screen dimentions change
   window.addEventListener("resize", () => {
     MenuDisplay.updateScrollAnchors();
-  })
+  });
 
-  document.addEventListener("scrollend", () => {
+  document.onscroll = scrollEndCallback;
+
+  function scrollEndCallback() {
+    /** TODO: scroll end snapping
     if (Globals.ignoreNextScrollEvent) {
       // Ignore this event because it was done programmatically
       Globals.ignoreNextScrollEvent = false;
       Globals.currentScroll = window.scrollY;
       return;
-  }
+    }
     let isScrollUp = window.scrollY > Globals.currentScroll;
     let isScrollDown = window.scrollY < Globals.currentScroll;
 
@@ -319,13 +322,17 @@ function addEventListeners() {
       }
     }
     MenuDisplay.scrollTo(Globals.anchors[Globals.currentScrollIndex]);
+    **/
     if (Globals.currentScrollIndex > 0 && Globals.backButtonState == 'default') {
       Globals.backButtonState = 'mainMenu';
     }
     if (Globals.currentScrollIndex == 0 && Globals.backButtonState == 'mainMenu') {
       Globals.backButtonState = 'default';
     }
-  });
+  }
+
+  /* TODO: Not supported... */
+  // document.addEventListener("scrollend", scrollEndCallback);
 
   /* Menu Buttons */
   document.getElementById("calculateRoute").addEventListener("click", () => {
