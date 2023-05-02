@@ -16,6 +16,9 @@ let currentRotation = 0;
 /* global: flag to check if map move fired by code */
 let movedFromCode = false;
 
+/* global: flag to check if scoll fired by code */
+let ignoreNextScrollEvent = false;
+
 let gpsMarkerLayer;
 let adressMarkerLayer;
 
@@ -37,6 +40,7 @@ let polygonLayer;
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
 let currentScrollIndex = 0;
+let currentScroll = window.scrollY;
 
 export default {
   map,
@@ -52,9 +56,11 @@ export default {
   gpMarkerIcon2,
   autocompletion_results,
   movedFromCode,
+  ignoreNextScrollEvent,
   positionBearing,
   currentScrollIndex,
   maxScroll,
   anchors,
   polygonLayer,
+  currentScroll,
 };
