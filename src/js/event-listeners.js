@@ -269,7 +269,7 @@ function addEventListeners() {
       Location.locationOnOff();
       Location.locationOnOff();
     }
-    Globals.currentRotation = ((Globals.currentRotation % 360) + 360 ) % 360;
+    Globals.currentRotation = Math.round((Globals.currentRotation % 360) + 360 ) % 360;
 
     let interval;
 
@@ -283,12 +283,13 @@ function addEventListeners() {
       DOM.$compassBtn.style.transform = "rotate(" + Globals.currentRotation + "deg)";
       if (Globals.currentRotation % 360 == 0) {
         clearInterval(interval);
+        DOM.$compassBtn.style.pointerEvents = "";
         DOM.$compassBtn.classList.add("d-none");
       }
     }
 
+    DOM.$compassBtn.style.pointerEvents = "none";
     interval = setInterval(animateRotate, 2);
-
   });
 
   // Screen dimentions change
