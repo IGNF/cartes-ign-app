@@ -124,6 +124,11 @@ function addMapControls() {
 
     }, 600);
   });
+
+  document.querySelector("[id^=GPelevationPathProfil]").addEventListener("scroll", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
 }
 
 export {
