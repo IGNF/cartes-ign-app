@@ -36,6 +36,8 @@ function app() {
 
   /* Récupération de la carte */
   const map = Globals.map;
+  Globals.baseLayers = L.layerGroup([]).setZIndex(0).addTo(map);
+  Globals.dataLayers = L.layerGroup([]).setZIndex(1).addTo(map);
   // Ajout des contrôles
   MapControls.addMapControls();
 
@@ -47,35 +49,9 @@ function app() {
   Coords.updateCenterCoords(map.getCenter());
 
   // Chargement de la couche précédente
-  switch (Globals.layerDisplayed) {
-    case 'photos':
-      LayerSwitch.displayOrtho();
-      break;
-    case 'routes':
-      LayerSwitch.displayOrthoAndRoads();
-      break;
-    case 'cadastre':
-      LayerSwitch.displayOrthoAndParcels();
-      break;
-    case 'plan-ign':
-      LayerSwitch.displayPlan();
-      break;
-    case 'cartes':
-      LayerSwitch.displayCartes();
-      break;
-    case 'drones':
-      LayerSwitch.displayDrones();
-      break;
-    case 'topo':
-      LayerSwitch.displayTopo();
-      break;
-    case 'etat-major':
-      LayerSwitch.displayEtatMajor();
-      break;
-    case 'ortho-histo':
-      LayerSwitch.displayOrthoHisto();
-      break;
-  }
+  LayerSwitch.displayBaseLayer(Globals.baseLayerDisplayed);
+  LayerSwitch.displayDataLayer(Globals.dataLayerDisplayed, true);
+
   Globals.ignoreNextScrollEvent = true;
   window.scroll({
     top: 0,

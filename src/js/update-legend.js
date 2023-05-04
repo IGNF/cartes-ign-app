@@ -35,24 +35,8 @@ function updateLegend() {
     Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.nineteen;
   }
 
-  if (zoomLvl <= 7) {
-    Texts.legendImgs.cartes = Texts.carteIGNLegendImgs.seven;
-  } else if (zoomLvl <= 10){
-    Texts.legendImgs.cartes = Texts.carteIGNLegendImgs.ten;
-  } else if (zoomLvl <= 12){
-    Texts.legendImgs.cartes = Texts.carteIGNLegendImgs.twelve;
-  } else if (zoomLvl <= 14){
-    Texts.legendImgs.cartes = Texts.carteIGNLegendImgs.fourteen;
-  } else if (zoomLvl <= 16){
-    Texts.legendImgs.cartes = Texts.carteIGNLegendImgs.sixteen;
-  } else {
-    Texts.legendImgs.cartes = Texts.carteIGNLegendImgs.eighteen;
-  }
-
-  if (Globals.layerDisplayed === 'plan-ign') {
+  if (Globals.baseLayerDisplayed === 'plan-ign') {
     DOM.$legendImg.innerHTML = Texts.legendImgs.plan_ign;
-  } else if (Globals.layerDisplayed === 'cartes') {
-    DOM.$legendImg.innerHTML = Texts.legendImgs.cartes;
   }
 }
 

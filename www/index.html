@@ -102,42 +102,43 @@
 
               <div id="catalog" class="d-none">
                 <div id="catalogWindowClose" class="windowClose"></div>
-                <h3>Cartes</h3>
-                <div id="menuC">
-                  <div class="layer" id="layerPlan">
-                    <img name="plan-ign" id="plan-ign" src="img/couches/plan-ign.jpg" alt="plan-ign" /></a>
+                <h3>Cartes et données</h3>
+                <h4>Cartes</h4>
+                <div class="subCatMenu" id="baseLayers">
+                  <div class="layer baseLayer" id="layerPlan">
+                    <img name="plan-ign" id="plan-ign" src="img/couches/plan-ign.jpg" alt="plan-ign" />
                     <div id="lplan-ign" class="textCouche">Plan IGN</div>
                   </div>
-                  <div class="layer" id="layerTopo">
-                    <img name="topo" id="topo" src="img/couches/topo.jpg" alt="carte topographique IGN" /></a>
+                  <div class="layer baseLayer" id="layerTopo">
+                    <img name="topo" id="topo" src="img/couches/topo.jpg" alt="carte topographique IGN" />
                     <div id="ltopo" class="textCouche">Carte topographique IGN</div>
                   </div>
-                  <div class="layer" id="layerCartes">
-                    <img name="cartes" id="cartes" src="img/couches/cartes.jpg" alt="cartes" /></a>
-                    <div id="lcartes" class="textCouche">Cartes IGN classiques</div>
-                  </div>
-                  <div class="layer" id="layerOrtho">
-                    <img name="photos" id="photos" class="selectedLayer" src="img/couches/photos.jpg" alt="photos" /></a>
+                  <div class="layer baseLayer" id="layerOrtho">
+                    <img name="photos" id="photos" class="selectedLayer" src="img/couches/photos.jpg" alt="photos" />
                     <div id="lphotos" class="textCouche">Photographies aériennes</div>
                   </div>
-                  <div class="layer" id="layerRoutes">
-                    <img name="routes" id="routes"  src="img/couches/routes.jpg" alt="routes" /></a>
-                    <div id="lroutes" class="textCouche">Routes</div>
-                  </div>
-                  <div class="layer" id="layerParcels">
-                    <img name="cadastre" id="cadastre" src="img/couches/cadastre.jpg" alt="cadastre" /></a>
-                    <div id="lcadastre" class="textCouche">Parcelles cadastrales</div>
-                  </div>
-                  <div class="layer" id="layerEtatMajor">
-                    <img name="etat-major" id="etat-major" src="img/couches/etat-major.jpg" alt="carte d'état major" /></a>
+                  <div class="layer baseLayer" id="layerEtatMajor">
+                    <img name="etat-major" id="etat-major" src="img/couches/etat-major.jpg" alt="carte d'état major" />
                     <div id="letat-major" class="textCouche">Carte de l’état-major (1820-1866)</div>
                   </div>
-                  <div class="layer" id="layerOrthoHisto">
-                    <img name="ortho-histo" id="ortho-histo" src="img/couches/histo.jpg" alt="photographie aerienne historique" /></a>
+                  <div class="layer baseLayer" id="layerOrthoHisto">
+                    <img name="ortho-histo" id="ortho-histo" src="img/couches/histo.jpg" alt="photographie aerienne historique" />
                     <div id="lortho-histo" class="textCouche">Photographies aériennes 1950-1965</div>
                   </div>
-                  <div class="layer" id="layerDrones">
-                    <img name="drones" id="drones"  src="img/couches/restrictions-drones.jpg" alt="restrictions pour drones" /></a>
+                </div>
+                <h4>Données</h4>
+                <div class="subCatMenu" id="dataLayers">
+                  <div class="layer dataLayer" id="layerRoutes">
+                    <img name="routes" id="routes"  src="img/couches/routes.jpg" alt="routes" />
+                    <div id="lroutes" class="textCouche">Routes</div>
+                  </div>
+                  <div class="layer dataLayer" id="layerParcels">
+                    <img name="cadastre" id="cadastre" src="img/couches/cadastre.jpg" alt="cadastre" />
+                    <div id="lcadastre" class="textCouche">Parcelles cadastrales</div>
+                  </div>
+
+                  <div class="layer dataLayer" id="layerDrones">
+                    <img name="drones" id="drones"  src="img/couches/restrictions-drones.jpg" alt="restrictions pour drones" />
                     <div id="ldrones" class="textCouche">Restrictions UAS catégorie Ouverte et aéromodélisme</div>
                   </div>
                 </div>
