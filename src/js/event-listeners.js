@@ -193,10 +193,13 @@ function addEventListeners() {
     if (DOM.$chkRotate.checked && !disableRotation) {
       let diff = startRotation - Math.round(e.rotation);
       Globals.currentRotation = lastRotation - diff;
+
       Globals.positionBearing = lastMarkerRotation - diff;
 
       if (rotationStarted) {
         map.setBearing(Globals.currentRotation);
+        Location.positionMarker.setRotationAngle(Globals.positionBearing);
+
         DOM.$compassBtn.style.transform = "rotate(" + Globals.currentRotation + "deg)";
         DOM.$compassBtn.classList.remove("d-none");
       }
@@ -225,7 +228,6 @@ function addEventListeners() {
       lastRotation = Globals.currentRotation;
       lastMarkerRotation = Globals.positionBearing;
     }
-    console.log(Globals.currentRotation);
   });
 
   // Pas de rotation quand zoom
@@ -276,10 +278,15 @@ function addEventListeners() {
     function animateRotate() {
       if (Globals.currentRotation < 180) {
         Globals.currentRotation -= 1;
+        Globals.positionBearing -= 1;
+
       } else {
         Globals.currentRotation += 1;
+        Globals.positionBearing += 1;
+
       }
       map.setBearing(Globals.currentRotation);
+      Location.positionMarker.setRotationAngle(Globals.positionBearing);
       DOM.$compassBtn.style.transform = "rotate(" + Globals.currentRotation + "deg)";
       if (Globals.currentRotation % 360 == 0) {
         clearInterval(interval);
@@ -380,8 +387,6 @@ function addEventListeners() {
     Globals.currentScrollIndex = 2;
     MenuDisplay.updateScrollAnchors();
   });
-
-
 
   map.on("draw:created", function (e) {
     Globals.polygonLayer = e.layer;

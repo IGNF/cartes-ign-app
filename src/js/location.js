@@ -210,4 +210,5 @@ export {
   location_active,
   tracking_active,
   getOrientation,
+  positionMarker,
 }
