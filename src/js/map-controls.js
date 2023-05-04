@@ -70,7 +70,6 @@ function addMapControls() {
   const reference = document.querySelector('form[id^="GProuteForm"]').firstChild.firstChild.lastChild;
   const routeFromMe = document.createElement("label");
   routeFromMe.id = "routeFromMe";
-  routeFromMe.classList.add("GPlocationOriginPointerImg");
   routeFromMe.classList.add("GPlocationOriginPointerImgFromMyPosition");
   routeFromMe.title = "Itinéraire depuis ma position";
   reference.parentNode.insertBefore(routeFromMe, reference);
@@ -125,7 +124,19 @@ function addMapControls() {
     }, 600);
   });
 
-  document.querySelector("[id^=GPelevationPathProfil]").addEventListener("scroll", (e) => {
+  const gpLocationImgs = document.querySelectorAll(".GPlocationOriginPointerImg");
+  gpLocationImgs.forEach(el => el.addEventListener("click", () => {
+    if (Globals.firstClickNeeded) {
+      DOM.$map.click();
+    }
+    Globals.firstClickNeeded = false;
+  }));
+
+  document.querySelector("[id^=GProuteResultsNew-]").addEventListener("click", () => {
+    Globals.firstClickNeeded = true;
+  });
+
+  document.querySelector("[id^=GPelevationPathProfil]").addEventListener("touchmove", (e) => {
     e.preventDefault();
     e.stopPropagation();
   });

@@ -122,13 +122,12 @@ h3 {
 #bottomMenu {
   position: absolute;
   top: calc(100% - 65px);
-  /* height: 100%; */
+  max-height: 100%;
   height: fit-content;
   width: 100%;
   background-color: #FFFFFE;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  scroll-snap-type: y mandatory;
   color: #4b4b4b;
   display: flex;
   flex-direction: column;
@@ -144,6 +143,7 @@ h3 {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  scroll-snap-type: y mandatory;
 }
 
 #defaultMenuNotSearch {
@@ -273,6 +273,7 @@ label.GPlocationOriginPointerImg[id="routeFromMe"] {
   background-image: url(
     data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAEK0lEQVRIx+2WXUhcRxTHz5m5dy93d/EjMTR+PEi1kqK4bPsQ8SulFor0g3VFZDE0b5sEpLUU+rGVkoiGFJWmD01CHwpNNAXZrmIFSVPzYKjY+iTLtpTSvojGmkRdb/fz3pnTFy2y3VUTpE/5P545M79zZs7MHICnOmThQR37+vqUxcXFl4UQJ4moGAAIEVc45wtut/tub2+vdSjAjo6O4nQ6fY6I3gUACxF/JaKHAACIWEREJwDAxhi7YrPZro2Nja08EbCnpweXlpbeME3zJgCsaJrW63Q6p2KxmCWllAAAjDHmcDgUwzBeS6fT/QBQoqrqW+Xl5d8NDw/TgYHd3d24vLz8gWVZF2w228e6rl8dGRlJ7BV5V1eXnkgkzpqmeVlRlE8qKioGh4aG6EBAj8fTKoQIcc5PT0xMfPs4ReHxeLxCiFFVVTtCodBU5jjLNHi93uNCiFFFUT58HFhjY+OzXq9XmZiYCHHO3zNN82Z7e3txpp+SabAs6xwirmia9uV+kKampiMA8GI6ne5NpVKu9fX1CgB4pCjKV0KI86Zp+gHgYs4tDQQCGA6H1zVNOxMMBiezQerr67nD4XjOMIyLUsqXiOgYACDnfHR+fv70jl9bW9vrlmXdcLlcR/v7+ylrhpFI5BQAWHa7/XYmqKWl5Vg8HvcLIdo3NzfdmRujKMrwboPD4bgTjUZFOBxuBIB7WYFEVIeIvxiGYW1DnLFY7BQRndna2mrLdgTbus8Y+323IR6P79zZ+pxAACghoodEhA0NDRcMw3ibiPKzFdducc7HZmdn/86oBUlEDwDgeM6iQUQkImZZFhHRjby8vFAsFnMQURHn/KgQohAACqWUbxKRa3uaabfbhw5azZkZrjLGXtA0Daampv7MNamurk4IIVzbQc4nk8kHWbJmQogiAFjIeQ8ZYz8R0Yn8/Hxln0A3ds0Jzs3NiUwHXdc5ET3PGJvPCaysrLxLRMrGxkbrXjTGWHRnOwsLC7/O5pNKpVoBQKuurp7NCRwcHJSMsc/S6fSAz+fTcwGllOs7xTI9PR3NHPf5fLppmpcYY58PDAzIPZ82zvl1IipJJpP+XEBVVaMAIDnnt3Jkd56IilVVvbrvWxoKhVY55z7Lsi57PB5vtgWdTqeBiFsFBQX3sjze7aZpXuKcdwWDwdX/JJRtwebm5j/i8fiWlPJaTU1NzO12L4bD4X9/9LKyMgciJmZmZr7fsXV2dupVVVXdQogvOOfvl5aW3lpYWDj4B+z3+3Ftbe1VIcQ3iLiiqupHuq7fTiaTViKRAM45KopCqqryVCr1ihDiUwAoQcTOycnJH564xfB6vcVCiLNSyncAQCDibwDwCAAIAI5stxgKIl7hnF8fHx//61CaqEAgwCKRSBMRnSSiZwBAAsB9RPy5trb2x90/wlP9r/oHXozkvTHat1AAAAAASUVORK5CYII=
   );
+  width: 28px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
   background-position: 0 !important;

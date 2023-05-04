@@ -145,7 +145,7 @@ function altScreenOn() {
 }
 
 function altScreenOff() {
-  document.body.style.overflowY = "hidden";
+  document.body.style.overflowY = "auto";
   DOM.$rech.disabled = false;
   DOM.$rech.value = Globals.lastTextInSearch;
   DOM.$rech.removeAttribute('style');
@@ -227,6 +227,7 @@ function openRoute() {
   document.querySelector("[id^=GPelevationPath-]").classList.remove("d-none");
   DOM.$bottomMenu.style.height = "100%";
   midScroll();
+  Globals.firstClickNeeded = true;
   Globals.backButtonState = 'route';
 }
 
