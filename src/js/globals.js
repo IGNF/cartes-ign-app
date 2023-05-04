@@ -1,8 +1,11 @@
 // Leaflet map
 const map = new L.map('map', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5);
+let baseLayers;
+let dataLayers;
 
 /* global: layer display state */
-let layerDisplayed = localStorage.getItem("lastLayerDisplayed") || 'photos';
+let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'plan-ign';
+let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
 
 /* global: back button state */
 let backButtonState = 'default';
@@ -47,7 +50,10 @@ let currentScroll = window.scrollY;
 
 export default {
   map,
-  layerDisplayed,
+  baseLayers,
+  dataLayers,
+  baseLayerDisplayed,
+  dataLayerDisplayed,
   backButtonState,
   lastTextInSearch,
   currentRotation,

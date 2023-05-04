@@ -60,15 +60,12 @@ function addEventListeners() {
 
   /* event listeners statiques */
   // Couches
-  document.getElementById("layerOrtho").addEventListener('click', LayerSwitch.displayOrtho);
-  document.getElementById("layerRoutes").addEventListener('click', LayerSwitch.displayOrthoAndRoads);
-  document.getElementById("layerCartes").addEventListener('click', LayerSwitch.displayCartes);
-  document.getElementById("layerPlan").addEventListener('click', LayerSwitch.displayPlan);
-  document.getElementById("layerParcels").addEventListener('click', LayerSwitch.displayOrthoAndParcels);
-  document.getElementById("layerDrones").addEventListener('click', LayerSwitch.displayDrones);
-  document.getElementById("layerTopo").addEventListener('click', LayerSwitch.displayTopo);
-  document.getElementById("layerEtatMajor").addEventListener('click', LayerSwitch.displayEtatMajor);
-  document.getElementById("layerOrthoHisto").addEventListener('click', LayerSwitch.displayOrthoHisto);
+  document.querySelectorAll(".baseLayer").forEach((el) => {
+    el.addEventListener('click', () => LayerSwitch.displayBaseLayer(el.firstElementChild.id));
+  });
+  document.querySelectorAll(".dataLayer").forEach((el) => {
+    el.addEventListener('click', () => LayerSwitch.displayDataLayer(el.firstElementChild.id));
+  });
 
   // Ouverture-Fermeture
   DOM.$catalogBtn.addEventListener('click', MenuDisplay.openCat);
@@ -261,7 +258,8 @@ function addEventListeners() {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
-    localStorage.setItem("lastLayerDisplayed", Globals.layerDisplayed);
+    localStorage.setItem("lastBaseLayerDisplayed", Globals.baseLayerDisplayed);
+    localStorage.setItem("lastDataLayerDisplayed", Globals.dataLayerDisplayed);
   });
 
   // Rotation
