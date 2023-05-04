@@ -19,6 +19,9 @@ let movedFromCode = false;
 /* global: flag to check if scoll fired by code */
 let ignoreNextScrollEvent = false;
 
+/* global: flag to check if first click needed for route */
+let firstClickNeeded = true;
+
 let gpsMarkerLayer;
 let adressMarkerLayer;
 
@@ -63,4 +66,5 @@ export default {
   anchors,
   polygonLayer,
   currentScroll,
+  firstClickNeeded,
 };
