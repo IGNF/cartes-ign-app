@@ -33,9 +33,16 @@ function startPopupValidation() {
 
 // Ouverture/fermeture catalogue
 function openCat() {
+  if (document.querySelector("[id^=GProutePanelClose-]").offsetParent !== null){
+    document.querySelector("[id^=GProutePanelClose-]").click();
+  }
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$catalog.classList.remove('d-none');
   DOM.$catalogBtn.classList.add('d-none');
+  DOM.$infoWindow.classList.add('d-none')
+  DOM.$legendWindow.classList.add('d-none')
+  DOM.$measureMenu.classList.add('d-none')
+  DOM.$measureAreaMenu.classList.add('d-none')
   Globals.backButtonState = 'catalog';
   midScroll();
 }
@@ -245,6 +252,10 @@ function openMeasure() {
   DOM.$measureMenu.classList.remove("d-none");
   Globals.currentScrollIndex = 2;
   updateScrollAnchors();
+  setTimeout(() => {
+    window.scrollBy(0, -10);
+    window.scroll(0, Globals.anchors[2]);
+  }, 100);
 }
 
 function closeMeasure() {

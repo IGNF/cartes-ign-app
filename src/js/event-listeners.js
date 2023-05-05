@@ -333,9 +333,8 @@ function addEventListeners() {
       Globals.currentScrollIndex = 0;
     } else if (window.scrollY === Globals.maxScroll) {
       Globals.currentScrollIndex = 2;
-    } else {
-      Globals.currentScrollIndex = 1;
     }
+
     if (Globals.currentScrollIndex > 0 && Globals.backButtonState == 'default') {
       Globals.backButtonState = 'mainMenu';
     }

@@ -713,7 +713,6 @@ input[type='radio']:checked + label:before {
 #catalog .subCatMenu {
   text-align: center;
   margin: 0 15px 0 15px;
-  max-width: 450px;
   display: grid;
   flex-wrap: wrap;
   justify-content: space-evenly;
