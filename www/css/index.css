@@ -704,12 +704,18 @@ input[type='radio']:checked + label:before {
   background-image: url("assets/close.svg");
 }
 
-.subCatMenu .layer img {
+.subCatMenu .layer .layerImg img {
   width: 75px;
   height: 50px;
   object-fit: cover;
   border-radius: 2px;
   box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
+}
+
+.layerImg {
+  width: 75px;
+  position: relative;
+  margin: auto;
 }
 
 #catalog .subCatMenu {
@@ -738,7 +744,7 @@ input[type='radio']:checked + label:before {
   height: 19px;
   background-color: #fff;
   position: absolute;
-  left: 5px;
+  left: -10px;
   border-radius: 13px;
   background-size: contain;
   background-repeat: no-repeat;
