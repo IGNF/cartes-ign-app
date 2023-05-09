@@ -1,6 +1,6 @@
 // Leaflet map
 const map = new L.map('map', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5);
-let baseLayers;
+let baseLayer;
 let dataLayers;
 
 /* global: layer display state */
@@ -50,7 +50,7 @@ let currentScroll = window.scrollY;
 
 export default {
   map,
-  baseLayers,
+  baseLayer,
   dataLayers,
   baseLayerDisplayed,
   dataLayerDisplayed,

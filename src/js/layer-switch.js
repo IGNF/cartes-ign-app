@@ -14,8 +14,8 @@ function displayBaseLayer(layerName) {
   });
   document.getElementById(layerName).classList.add("selectedLayer");
 
-  Globals.baseLayers.clearLayers();
-  Globals.baseLayers.addLayer(Layers.baseLayers[layerName]);
+  Globals.baseLayer.clearLayers();
+  Globals.baseLayer.addLayer(Layers.baseLayers[layerName]);
 
   UpdateLegend.updateLegend();
 
