@@ -664,12 +664,14 @@ input[type='radio']:checked + label:before {
 }
 
 #catalogBtn, #geolocateBtn, #compassBtn  {
-  border: 5px solid white;
+  width: 40px;
+  height: 40px;
   border-radius: 60px;
   background-position: center;
   background-repeat: no-repeat;
   right: 15px;
-  background-color: #0B6BA7;
+  background-color: white;
+  box-shadow: black 0px 0px 5px;
   z-index: 2998;
 }
 
@@ -728,6 +730,29 @@ input[type='radio']:checked + label:before {
   display: inline-block;
   padding-bottom: 1em;
   width: 100%;
+  position: relative;
+}
+
+.layer .layer-info, .layer .layer-legend {
+  width: 19px;
+  height: 19px;
+  background-color: #fff;
+  position: absolute;
+  left: 5px;
+  border-radius: 13px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.layer .layer-info {
+  top: -10px;
+  background-image: url("assets/info.svg");
+}
+
+.layer .layer-legend {
+  top: 40px;
+  background-image: url("assets/legend.svg");
 }
 
 #centerTargetInfo {

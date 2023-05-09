@@ -7,6 +7,7 @@ import * as MenuDisplay from './menu-display';
 import * as UpdateLegend from './update-legend';
 import DOM from './dom';
 import Globals from './globals';
+import Texts from './texts';
 
 function addEventListeners() {
 
@@ -66,6 +67,22 @@ function addEventListeners() {
   document.querySelectorAll(".dataLayer").forEach((el) => {
     el.addEventListener('click', () => LayerSwitch.displayDataLayer(el.firstElementChild.id));
   });
+  document.querySelectorAll(".layer-info").forEach((el) => {
+    el.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      DOM.$infoText.innerHTML = Texts.informationTexts[el.getAttribute("layername")];
+      MenuDisplay.closeCat();
+      MenuDisplay.openInfos();
+    });
+  });
+  document.querySelectorAll(".layer-legend").forEach((el) => {
+    el.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      DOM.$legendImg.innerHTML = Texts.legendImgs[el.getAttribute("layername")];
+      MenuDisplay.closeCat();
+      MenuDisplay.openLegend();
+    });
+  });
 
   // Ouverture-Fermeture
   DOM.$catalogBtn.addEventListener('click', MenuDisplay.openCat);
@@ -80,8 +97,6 @@ function addEventListeners() {
   DOM.$closeSearch.addEventListener("click", onBackKeyDown);
 
   document.getElementById('menuItemParamsIcon').addEventListener('click', MenuDisplay.openParamsScreen);
-  document.getElementById('menuItemLegend').addEventListener('click', MenuDisplay.openLegend);
-  document.getElementById('menuItemInfo').addEventListener('click', MenuDisplay.openInfos);
   document.getElementById('menuItemPlusLoin').addEventListener('click', MenuDisplay.openPlusLoinScreen);
   document.getElementById('menuItemLegal').addEventListener('click', MenuDisplay.openLegalScreen);
   document.getElementById('menuItemPrivacy').addEventListener('click', MenuDisplay.openPrivacyScreen);

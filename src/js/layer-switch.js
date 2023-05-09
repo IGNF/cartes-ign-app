@@ -1,9 +1,7 @@
 import * as MenuDisplay from './menu-display';
 import * as UpdateLegend from './update-legend';
-import DOM from './dom';
 import Globals from './globals';
 import Layers from './layers';
-import Texts from './texts';
 
 // Fonctions de changements d'affichages de couches
 /* Base Layers */
@@ -15,8 +13,6 @@ function displayBaseLayer(layerName) {
     elem.classList.remove('selectedLayer');
   });
   document.getElementById(layerName).classList.add("selectedLayer");
-  DOM.$infoText.innerHTML = Texts.informationTexts[layerName];
-  DOM.$legendImg.innerHTML = Texts.legendImgs[layerName];
 
   Globals.baseLayers.clearLayers();
   Globals.baseLayers.addLayer(Layers.baseLayers[layerName]);
@@ -41,8 +37,6 @@ function displayDataLayer(layerName, force=false) {
   if (Globals.dataLayerDisplayed !== layerName || force) {
     document.getElementById(layerName).classList.add("selectedLayer");
   }
-  DOM.$infoText.innerHTML = Texts.informationTexts[layerName];
-  DOM.$legendImg.innerHTML = Texts.legendImgs[layerName];
 
   Globals.dataLayers.clearLayers();
 
