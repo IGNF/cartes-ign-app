@@ -1,7 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="6.988" height="22.927" viewBox="0 0 6.988 22.927">
-  <g id="Groupe_354" data-name="Groupe 354" transform="translate(-37.375 -415)">
-    <path id="Tracé_169" data-name="Tracé 169" d="M11.632,39.7h-5.3a.626.626,0,0,0-.628.628v5.3a.626.626,0,0,0,.628.628h5.3a.626.626,0,0,0,.628-.628v-5.3A.675.675,0,0,0,11.632,39.7Z" transform="translate(31.788 383.257)" fill="#006ba7"/>
-    <path id="Tracé_170" data-name="Tracé 170" d="M5.977,22.867h5.444a.576.576,0,0,0,.523-.314.667.667,0,0,0,0-.628L9.222,17.214A.649.649,0,0,0,8.7,16.9a.576.576,0,0,0-.523.314L5.454,21.96a.666.666,0,0,0,0,.628A.545.545,0,0,0,5.977,22.867Z" transform="translate(32 398.1)" fill="#006ba7"/>
-    <path id="Tracé_171" data-name="Tracé 171" d="M8.89,62.6a3.49,3.49,0,1,0,3.49,3.49A3.5,3.5,0,0,0,8.89,62.6Z" transform="translate(31.984 368.348)" fill="#006ba7"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="info-24px"
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   sodipodi:docname="legend.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs7" />
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="8.1458333"
+     inkscape:cx="-7.3043478"
+     inkscape:cy="5.8925831"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="info-24px" />
+  <path
+     id="Tracé_172"
+     data-name="Tracé 172"
+     d="M0,0H24V24H0Z"
+     fill="none" />
+  <path
+     id="Tracé_173"
+     data-name="Tracé 173"
+     d="M 12,2 C 3.0903319,2 -1.3700317,12.771386 4.9292914,19.070709 11.228614,25.370032 22,20.909668 22,12 22,6.4771525 17.522847,2 12,2 Z m 0,18 C 4.8722655,20 1.3039747,11.382892 6.3434331,6.3434331 11.382892,1.3039747 20,4.8722655 20,12 c -0.0061,4.415766 -3.584234,7.993941 -8,8 z"
+     fill="#006ba7"
+     sodipodi:nodetypes="sssscscc" />
+  <g
+     id="Groupe_354"
+     data-name="Groupe 354"
+     transform="matrix(0.57160846,0,0,0.57160846,-11.26404,-232.37593)">
+    <path
+       id="Tracé_169"
+       data-name="Tracé 169"
+       d="m 11.632,39.7 h -5.3 a 0.626,0.626 0 0 0 -0.628,0.628 v 5.3 a 0.626,0.626 0 0 0 0.628,0.628 h 5.3 a 0.626,0.626 0 0 0 0.628,-0.628 v -5.3 A 0.675,0.675 0 0 0 11.632,39.7 Z"
+       transform="translate(31.788,383.257)"
+       fill="#006ba7" />
+    <path
+       id="Tracé_170"
+       data-name="Tracé 170"
+       d="m 5.977,22.867 h 5.444 a 0.576,0.576 0 0 0 0.523,-0.314 0.667,0.667 0 0 0 0,-0.628 L 9.222,17.214 A 0.649,0.649 0 0 0 8.7,16.9 0.576,0.576 0 0 0 8.177,17.214 L 5.454,21.96 a 0.666,0.666 0 0 0 0,0.628 0.545,0.545 0 0 0 0.523,0.279 z"
+       transform="translate(32,398.1)"
+       fill="#006ba7" />
+    <path
+       id="Tracé_171"
+       data-name="Tracé 171"
+       d="M 8.89,62.6 A 3.49,3.49 0 1 0 12.38,66.09 3.5,3.5 0 0 0 8.89,62.6 Z"
+       transform="translate(31.984,368.348)"
+       fill="#006ba7" />
   </g>
 </svg>

@@ -10,34 +10,31 @@ function updateLegend() {
 
   // Je n'avais pas prévu autant de légendes différentes en fonction du zoom pour plan ign v2...
   if (zoomLvl <= 7) {
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.seven;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.seven;
   } else if (zoomLvl <= 8){
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.eight;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.eight;
   } else if (zoomLvl <= 9){
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.nine;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.nine;
   } else if (zoomLvl <= 10){
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.ten;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.ten;
   } else if (zoomLvl <= 11){
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.eleven;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.eleven;
   } else if (zoomLvl <= 12){
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.twelve;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.twelve;
   } else if (zoomLvl <= 13){
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.thirteen;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.thirteen;
   } else if (zoomLvl <= 14){
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.fourteen;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.fourteen;
   } else if (zoomLvl <= 15){
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.fifteen;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.fifteen;
   } else if (zoomLvl <= 16){
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.sixteen;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.sixteen;
   } else if (zoomLvl <= 18){
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.eighteen;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.eighteen;
   } else {
-    Texts.legendImgs.plan_ign = Texts.planIGNLegendImgs.nineteen;
+    Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.nineteen;
   }
 
-  if (Globals.baseLayerDisplayed === 'plan-ign') {
-    DOM.$legendImg.innerHTML = Texts.legendImgs.plan_ign;
-  }
 }
 
 export {updateLegend};
