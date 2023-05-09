@@ -1,182 +1,110 @@
-/* Pour la mise en cache de tuiles (mode hors ligne) -> désactivé jusqu'à mention contraire... */
-const useCachedTiles = false;
+const layerProps = {
+  "photos": {
+    layer: "ORTHOIMAGERY.ORTHOPHOTOS",
+    style: "normal",
+    format: "image/jpeg",
+    minNativeZoom: 0,
+    maxNativeZoom: 19,
+  },
+  "plan-ign": {
+    layer: "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+    style: "normal",
+    format: "image/png",
+    minNativeZoom: 3,
+    maxNativeZoom: 19,
+  },
+  "topo": {
+    layer: "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV",
+    style: "normal",
+    format: "image/jpeg",
+    minNativeZoom: 6,
+    maxNativeZoom: 16,
+  },
+  "etat-major": {
+    layer: "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40",
+    style: "normal",
+    format: "image/jpeg",
+    minNativeZoom: 6,
+    maxNativeZoom: 15,
+  },
+  "ortho-histo": {
+    layer: "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+    style: "normal",
+    format: "image/png",
+    minNativeZoom: 3,
+    maxNativeZoom: 18,
+  },
+  "cadastre": {
+  layer: "CADASTRALPARCELS.PARCELLAIRE_EXPRESS",
+    style: "PCI%20vecteur",
+    format: "image/png",
+    minNativeZoom: 0,
+    maxNativeZoom: 19,
+  },
+  "drones": {
+    layer: "TRANSPORTS.DRONES.RESTRICTIONS",
+    style: "normal",
+    format: "image/png",
+    minNativeZoom: 3,
+    maxNativeZoom: 15,
+  },
+  "routes": {
+    layer: "TRANSPORTNETWORKS.ROADS",
+    style: "normal",
+    format: "image/png",
+    minNativeZoom: 6,
+    maxNativeZoom: 18,
+  },
+}
+
+const baseLayerList = [
+  "photos",
+  "ortho-histo",
+  "etat-major",
+  "topo",
+  "plan-ign",
+];
+
+const dataLayerList = [
+  "cadastre",
+  "drones",
+  "routes",
+]
+
+function createWmtsUrlFromId (layerId) {
+  return `https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?` +
+  `&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0` +
+  `&STYLE=${layerProps[layerId].style}` +
+  `&TILEMATRIXSET=PM` +
+  `&FORMAT=${layerProps[layerId].format}`+
+  `&LAYER=${layerProps[layerId].layer}`+
+  `&TILEMATRIX={z}` +
+    `&TILEROW={y}` +
+    `&TILECOL={x}`
+}
+
+function createTileLayer(layerId, zIndex=0) {
+  return L.tileLayer.fallback(
+    createWmtsUrlFromId(layerId),
+    {
+      minZoom : 0,
+      maxZoom : 19,
+      minNativeZoom : layerProps[layerId].minNativeZoom,
+      maxNativeZoom : layerProps[layerId].maxNativeZoom,
+      tileSize : 256, // les tuiles du Géooportail font 256x256px
+      zIndex: zIndex,
+      useCache: true,
+    }
+  )
+}
+
 
 export default {
-  baseLayers: {
-    "photos": L.tileLayer.fallback(
-      "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?" +
-      "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
-      "&STYLE=normal" +
-      "&TILEMATRIXSET=PM" +
-      "&FORMAT=image/jpeg"+
-      "&LAYER=ORTHOIMAGERY.ORTHOPHOTOS"+
-      "&TILEMATRIX={z}" +
-        "&TILEROW={y}" +
-        "&TILECOL={x}",
-      {
-        minZoom : 0,
-        maxZoom : 19,
-        maxNativeZoom : 19,
-        attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-        tileSize : 256, // les tuiles du Géooportail font 256x256px
-        zIndex: 0,
-        useCache: useCachedTiles,
-      }
-    ),
-
-    "plan-ign": L.tileLayer.fallback(
-      "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?" +
-      "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
-      "&STYLE=normal" +
-      "&TILEMATRIXSET=PM" +
-      "&FORMAT=image/png"+
-      "&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2"+
-      "&TILEMATRIX={z}" +
-        "&TILEROW={y}" +
-        "&TILECOL={x}",
-      {
-        minZoom : 0,
-        minNativeZoom : 3,
-        maxZoom : 19,
-        maxNativeZoom : 19,
-        attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-        tileSize : 256, // les tuiles du Géooportail font 256x256px
-        zIndex: 0,
-        useCache: useCachedTiles,
-      }
-    ),
-
-    "topo": L.tileLayer.fallback(
-      "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?" +
-      "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
-      "&STYLE=normal" +
-      "&TILEMATRIXSET=PM" +
-      "&FORMAT=image/jpeg"+
-      "&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV"+
-      "&TILEMATRIX={z}" +
-        "&TILEROW={y}" +
-        "&TILECOL={x}",
-      {
-        minZoom : 0,
-        minNativeZoom : 6,
-        maxZoom : 19,
-        maxNativeZoom : 16,
-        attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-        tileSize : 256, // les tuiles du Géooportail font 256x256px
-        zIndex: 0,
-        useCache: useCachedTiles,
-      }
-    ),
-
-    "etat-major": L.tileLayer.fallback(
-      "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?" +
-      "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
-      "&STYLE=normal" +
-      "&TILEMATRIXSET=PM" +
-      "&FORMAT=image/jpeg"+
-      "&LAYER=GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40"+
-      "&TILEMATRIX={z}" +
-        "&TILEROW={y}" +
-        "&TILECOL={x}",
-      {
-        minZoom : 0,
-        minNativeZoom : 6,
-        maxZoom : 19,
-        maxNativeZoom : 15,
-        attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-        tileSize : 256, // les tuiles du Géooportail font 256x256px
-        zIndex: 0,
-        useCache: useCachedTiles,
-      }
-    ),
-
-    "ortho-histo": L.tileLayer.fallback(
-      "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?" +
-      "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
-      "&STYLE=normal" +
-      "&TILEMATRIXSET=PM" +
-      "&FORMAT=image/png"+
-      "&LAYER=ORTHOIMAGERY.ORTHOPHOTOS.1950-1965"+
-      "&TILEMATRIX={z}" +
-        "&TILEROW={y}" +
-        "&TILECOL={x}",
-      {
-        minZoom : 0,
-        minNativeZoom : 3,
-        maxZoom : 19,
-        maxNativeZoom : 18,
-        attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-        tileSize : 256, // les tuiles du Géooportail font 256x256px
-        zIndex: 0,
-        useCache: useCachedTiles,
-      }
-    ),
-  },
-
-  dataLayers: {
-    "cadastre": L.tileLayer.fallback(
-      "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?" +
-      "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
-      "&STYLE=PCI%20vecteur" +
-      "&TILEMATRIXSET=PM" +
-      "&FORMAT=image/png"+
-      "&LAYER=CADASTRALPARCELS.PARCELLAIRE_EXPRESS"+
-      "&TILEMATRIX={z}" +
-        "&TILEROW={y}" +
-        "&TILECOL={x}",
-      {
-        minZoom : 0,
-        maxZoom : 19,
-        maxNativeZoom : 19,
-        attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-        tileSize : 256 ,// les tuiles du Géooportail font 256x256px
-        zIndex: 1,
-        useCache: useCachedTiles,
-      }
-    ),
-
-    "drones": L.tileLayer.fallback(
-      "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?" +
-      "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
-      "&STYLE=normal" +
-      "&TILEMATRIXSET=PM" +
-      "&FORMAT=image/png"+
-      "&LAYER=TRANSPORTS.DRONES.RESTRICTIONS"+
-      "&TILEMATRIX={z}" +
-        "&TILEROW={y}" +
-        "&TILECOL={x}",
-      {
-        minZoom : 0,
-        minNativeZoom : 3,
-        maxZoom : 19,
-        maxNativeZoom : 18,
-        attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-        tileSize : 256, // les tuiles du Géooportail font 256x256px
-        zIndex: 1,
-        useCache: useCachedTiles,
-      }
-    ),
-
-    "routes": L.tileLayer.fallback(
-      "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?" +
-      "&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0" +
-      "&STYLE=normal" +
-      "&TILEMATRIXSET=PM" +
-      "&FORMAT=image/png"+
-      "&LAYER=TRANSPORTNETWORKS.ROADS"+
-      "&TILEMATRIX={z}" +
-        "&TILEROW={y}" +
-        "&TILECOL={x}",
-      {
-        minZoom : 0,
-        minNativeZoom : 6,
-        maxZoom : 19,
-        maxNativeZoom : 18,
-        attribution : '<a class="gp-control-attribution-link" target="_blank" href="http://www.ign.fr"><img class="gp-control-attribution-image" src="https://wxs.ign.fr/static/logos/IGN/IGN.gif" title="Institut national de l\'information géographique et forestière"></a>',
-        tileSize : 256, // les tuiles du Géooportail font 256x256px
-        zIndex: 1,
-        useCache: useCachedTiles,
-      }
-    ),
-  },
+  layerProps,
+  baseLayers: Object.fromEntries(
+    baseLayerList.map( layerId => [layerId, createTileLayer(layerId)] )
+  ),
+  dataLayers: Object.fromEntries(
+    dataLayerList.map( layerId => [layerId, createTileLayer(layerId, 1)] )
+  ),
 }

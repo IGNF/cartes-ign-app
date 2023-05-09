@@ -36,7 +36,7 @@ function app() {
 
   /* Récupération de la carte */
   const map = Globals.map;
-  Globals.baseLayers = L.layerGroup([]).setZIndex(0).addTo(map);
+  Globals.baseLayer = L.layerGroup([]).setZIndex(0).addTo(map);
   Globals.dataLayers = L.layerGroup([]).setZIndex(1).addTo(map);
   // Ajout des contrôles
   MapControls.addMapControls();

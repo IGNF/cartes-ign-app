@@ -8,6 +8,7 @@ import * as UpdateLegend from './update-legend';
 import DOM from './dom';
 import Globals from './globals';
 import Texts from './texts';
+import Layers from './layers';
 
 function addEventListeners() {
 
@@ -62,10 +63,10 @@ function addEventListeners() {
   /* event listeners statiques */
   // Couches
   document.querySelectorAll(".baseLayer").forEach((el) => {
-    el.addEventListener('click', () => LayerSwitch.displayBaseLayer(el.firstElementChild.id));
+    el.addEventListener('click', () => LayerSwitch.displayBaseLayer(el.getAttribute("layername")));
   });
   document.querySelectorAll(".dataLayer").forEach((el) => {
-    el.addEventListener('click', () => LayerSwitch.displayDataLayer(el.firstElementChild.id));
+    el.addEventListener('click', () => LayerSwitch.displayDataLayer(el.getAttribute("layername")));
   });
   document.querySelectorAll(".layer-info").forEach((el) => {
     el.addEventListener('click', (ev) => {
@@ -424,6 +425,54 @@ function addEventListeners() {
     Globals.currentScrollIndex = 2;
     MenuDisplay.updateScrollAnchors();
   });
+
+  // GetFeatureInfo on map click
+  function latlngToTilePixel(latlng, zoom) {
+    const layerPoint = map.options.crs.latLngToPoint(latlng, zoom).floor();
+    const tile = layerPoint.divideBy(256).floor();
+    const tileCorner = tile.multiplyBy(256).subtract(map.getPixelOrigin());
+    const tilePixel = layerPoint.subtract(map.getPixelOrigin()).subtract(tileCorner);
+
+    return [tile, tilePixel]
+  }
+
+  map.on("click", (ev) => {
+    let currentLayer = Globals.baseLayerDisplayed;
+    if (Globals.dataLayerDisplayed !== '') {
+      currentLayer = Globals.dataLayerDisplayed;
+    }
+    const layerProps = Layers.layerProps[currentLayer];
+    let computeZoom = map.getZoom();
+    if (computeZoom > layerProps.maxNativeZoom) {
+      computeZoom = layerProps.maxNativeZoom;
+    } else if (computeZoom < layerProps.minNativeZoom) {
+      computeZoom = layerProps.minNativeZoom;
+    }
+
+    const [ tile, tilePixel ] = latlngToTilePixel(ev.latlng, computeZoom);
+    fetch(
+      `https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?` +
+      `SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetFeatureInfo&` +
+      `LAYER=${layerProps.layer}` +
+      `&TILECOL=${tile.x}&TILEROW=${tile.y}&TILEMATRIX=${computeZoom}&TILEMATRIXSET=PM` +
+      `&FORMAT=${layerProps.format}` +
+      `&STYLE=${layerProps.style}&INFOFORMAT=text/html&I=${tilePixel.x}&J=${tilePixel.y}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error("HTTP error");
+      }
+      return response.text()
+    }).then((html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      if (doc.body.innerText === "\n  \n  \n") {
+        throw new Error("Empty GFI");
+      }
+      L.popup().setLatLng(ev.latlng).setContent(html).openOn(map);
+    }).catch(() => {
+      return
+    })
+  })
 
 }
 
