@@ -4,6 +4,7 @@ import * as Geocode from './geocode';
 import * as LayerSwitch from './layer-switch';
 import * as Location from './location';
 import * as MenuDisplay from './menu-display';
+import * as MapControls from './map-controls';
 import * as UpdateLegend from './update-legend';
 import DOM from './dom';
 import Globals from './globals';
@@ -63,10 +64,10 @@ function addEventListeners() {
   /* event listeners statiques */
   // Couches
   document.querySelectorAll(".baseLayer").forEach((el) => {
-    el.addEventListener('click', () => LayerSwitch.displayBaseLayer(el.getAttribute("layername")));
+    el.addEventListener('click', () => LayerSwitch.displayBaseLayer(el.id));
   });
   document.querySelectorAll(".dataLayer").forEach((el) => {
-    el.addEventListener('click', () => LayerSwitch.displayDataLayer(el.getAttribute("layername")));
+    el.addEventListener('click', () => LayerSwitch.displayDataLayer(el.id));
   });
   document.querySelectorAll(".layer-info").forEach((el) => {
     el.addEventListener('click', (ev) => {
@@ -444,6 +445,8 @@ function addEventListeners() {
     let currentLayer = Globals.baseLayerDisplayed;
     if (Globals.dataLayerDisplayed !== '') {
       currentLayer = Globals.dataLayerDisplayed;
+    } else if (Globals.sideBySideOn) {
+      return
     }
     const layerProps = Layers.layerProps[currentLayer];
     let computeZoom = map.getZoom();
@@ -476,8 +479,10 @@ function addEventListeners() {
     }).catch(() => {
       return
     })
-  })
+  });
 
+  document.getElementById("sideBySideOn").addEventListener("click", MapControls.addSideBySide)
+  document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide)
 }
 
 export {
