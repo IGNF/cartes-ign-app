@@ -1,5 +1,4 @@
-import * as MenuDisplay from './menu-display';
-import * as UpdateLegend from './update-legend';
+import * as MapControls from './map-controls';
 import Globals from './globals';
 import Layers from './layers';
 
@@ -7,20 +6,29 @@ import Layers from './layers';
 /* Base Layers */
 function displayBaseLayer(layerName) {
   /**
-   * Affiche la couche de fond correspondant à l'id de l'objet baseLayers
+   * Affiche la couche de fond correspondant à l'id de l'objet baseLayers, en comparaison si
+   * le contrôle de comparaison est activé
    */
-  document.querySelectorAll("#baseLayers img").forEach(elem => {
-    elem.classList.remove('selectedLayer');
-  });
-  document.getElementById(layerName).classList.add("selectedLayer");
+  if (Globals.sideBySideOn) {
+    document.querySelectorAll(".baseLayer").forEach(elem => {
+      elem.classList.remove('comparedLayer');
+    });
+    document.getElementById(layerName).classList.add("comparedLayer");
 
-  Globals.baseLayer.clearLayers();
-  Globals.baseLayer.addLayer(Layers.baseLayers[layerName]);
+    Globals.compareLayer.clearLayers();
+    Globals.compareLayer.addLayer(Layers.baseLayers[layerName]);
+    MapControls.sideBySide.setRightLayers(Globals.compareLayer.getLayers()[0]);
 
-  UpdateLegend.updateLegend();
+  } else {
+    document.querySelectorAll(".baseLayer").forEach(elem => {
+      elem.classList.remove('selectedLayer');
+    });
+    document.getElementById(layerName).classList.add("selectedLayer");
 
-  Globals.baseLayerDisplayed = layerName;
-  MenuDisplay.midScroll();
+    Globals.baseLayer.clearLayers();
+    Globals.baseLayer.addLayer(Layers.baseLayers[layerName]);
+    Globals.baseLayerDisplayed = layerName;
+  }
 }
 
 /* Data Layers */
@@ -31,7 +39,7 @@ function displayDataLayer(layerName, force=false) {
   if (layerName == '') {
     return
   }
-  document.querySelectorAll("#dataLayers img").forEach(elem => {
+  document.querySelectorAll(".dataLayer").forEach(elem => {
     elem.classList.remove('selectedLayer');
   });
   if (Globals.dataLayerDisplayed !== layerName || force) {
@@ -46,7 +54,6 @@ function displayDataLayer(layerName, force=false) {
     Globals.dataLayers.addLayer(Layers.dataLayers[layerName]);
     Globals.dataLayerDisplayed = layerName;
   }
-  UpdateLegend.updateLegend();
 }
 
 export {

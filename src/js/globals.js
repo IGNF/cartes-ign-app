@@ -2,6 +2,7 @@
 const map = new L.map('map', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5);
 let baseLayer;
 let dataLayers;
+let compareLayer;
 
 /* global: layer display state */
 let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'plan-ign';
@@ -42,6 +43,9 @@ let positionBearing = 0;
 
 let polygonLayer;
 
+// Flag to check if side by side conparison is on
+let sideBySideOn = false;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -73,4 +77,5 @@ export default {
   polygonLayer,
   currentScroll,
   firstClickNeeded,
+  sideBySideOn,
 };
