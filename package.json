@@ -5,6 +5,7 @@
   "description": "Application Géoportail",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -13,51 +14,25 @@
   "author": "IGN",
   "license": "Apache-2.0",
   "dependencies": {
-    "cordova-plugin-geolocation": "^4.1.0",
+    "@capacitor/android": "5.2.2",
+    "@capacitor/app": "5.0.6",
+    "@capacitor/core": "5.2.2",
+    "@capacitor/geolocation": "5.0.6",
+    "@capacitor/haptics": "5.0.6",
+    "@capacitor/ios": "5.2.2",
+    "@capacitor/keyboard": "5.0.6",
+    "@capacitor/splash-screen": "5.0.6",
+    "@capacitor/status-bar": "5.0.6",
     "cordova-plugin-request-location-accuracy": "^2.3.0",
-    "cordova-plugin-splashscreen": "5.0.4",
-    "cordova-plugin-wkwebview-engine": "1.2.1",
     "cordova.diagnostic.plugin": "^4.0.10"
   },
   "devDependencies": {
-    "cordova-android": "^10.1.2",
+    "@capacitor/cli": "5.2.2",
     "cordova-browser": "^6.0.0",
-    "cordova-ios": "^6.2.0",
-    "cordova-plugin-androidx": "^3.0.0",
-    "cordova-plugin-androidx-adapter": "^1.1.3",
-    "cordova-plugin-compat": "^1.2.0",
-    "cordova-plugin-file": "^7.0.0",
     "cordova-plugin-webpack": "^1.0.5",
     "cordova-plugin-x-toast": "^2.7.3",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2"
-  },
-  "cordova": {
-    "plugins": {
-      "cordova-plugin-geolocation": {
-        "GPS_REQUIRED": "true"
-      },
-      "cordova-plugin-wkwebview-engine": {},
-      "cordova-plugin-splashscreen": {},
-      "cordova.plugins.diagnostic": {
-        "ANDROIDX_VERSION": "1.0.0",
-        "ANDROIDX_APPCOMPAT_VERSION": "1.3.1"
-      },
-      "cordova-plugin-request-location-accuracy": {
-        "PLAY_SERVICES_LOCATION_VERSION": "16.+"
-      },
-      "cordova-plugin-androidx": {},
-      "cordova-plugin-file": {
-        "ANDROIDX_WEBKIT_VERSION": "1.4.0"
-      },
-      "cordova-plugin-webpack": {},
-      "cordova-plugin-androidx-adapter": {},
-      "cordova-plugin-x-toast": {}
-    },
-    "platforms": [
-      "browser",
-      "android"
-    ]
   }
 }

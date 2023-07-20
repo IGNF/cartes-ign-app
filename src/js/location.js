@@ -1,6 +1,8 @@
 import DOM from './dom';
 import Globals from './globals';
 
+import { Geolocation } from '@capacitor/geolocation';
+
 const map = Globals.map;
 
 /* Géolocalisation */
@@ -54,8 +56,8 @@ function _trackLocation() {
   /**
    * Suit la position de l'utilisateur
    */
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
+  if (Geolocation) {
+    Geolocation.getCurrentPosition((position) => {
       _goToGPSCoords({
         lat: position.coords.latitude,
         lon: position.coords.longitude
@@ -70,7 +72,7 @@ function _trackLocation() {
       enableHighAccuracy: true
     });
 
-    watch_id = navigator.geolocation.watchPosition((position) => {
+    watch_id = Geolocation.watchPosition((position) => {
       _goToGPSCoords({
         lat: position.coords.latitude,
         lon: position.coords.longitude
@@ -103,7 +105,7 @@ function locationOnOff() {
     window.plugins.toast.showLongBottom("Mode navigation activé");
   } else {
     DOM.$geolocateBtn.style.backgroundImage = 'url("css/assets/localisation.svg")';
-    navigator.geolocation.clearWatch(watch_id);
+    Geolocation.clearWatch(watch_id);
     location_active = false;
     tracking_active = false;
     window.plugins.toast.hide();

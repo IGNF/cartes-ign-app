@@ -1,0 +1,7 @@
+{
+  "name": "geoportail-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
