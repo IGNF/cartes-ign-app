@@ -79,8 +79,8 @@ function addMapControls() {
   reference.parentNode.insertBefore(routeFromMe, reference);
 
   routeFromMe.addEventListener("click", () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition( (position) => {
+    if (Geolocation) {
+      Geolocation.getCurrentPosition( (position) => {
         const latlng = {lat: position.coords.latitude, lng: position.coords.longitude};
         route._currentPoints[0]._inputShowPointerContainer.checked = true;
         route._currentPoints[0]._inputAutoCompleteContainer.className = "GPlocationOriginHidden";
