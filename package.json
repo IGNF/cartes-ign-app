@@ -23,16 +23,13 @@
     "@capacitor/keyboard": "5.0.6",
     "@capacitor/splash-screen": "5.0.6",
     "@capacitor/status-bar": "5.0.6",
-    "cordova-plugin-request-location-accuracy": "^2.3.0",
-    "cordova.diagnostic.plugin": "^4.0.10"
+    "@capacitor/toast": "^5.0.6"
   },
   "devDependencies": {
+    "@capacitor/assets": "^2.0.4",
     "@capacitor/cli": "5.2.2",
-    "cordova-browser": "^6.0.0",
-    "cordova-plugin-webpack": "^1.0.5",
-    "cordova-plugin-x-toast": "^2.7.3",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.2"
+    "webpack": "5.88.2",
+    "webpack-cli": "5.1.4",
+    "webpack-dev-server": "4.15.1"
   }
 }
