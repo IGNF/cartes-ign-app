@@ -3,6 +3,8 @@ import DOM from './dom';
 import * as LayerSwitch from './layer-switch';
 import * as MenuDisplay from './menu-display';
 
+import { Geolocation } from '@capacitor/geolocation';
+
 let sideBySide = L.control.sideBySide();
 const map = Globals.map;
 
@@ -79,20 +81,22 @@ function addMapControls() {
   reference.parentNode.insertBefore(routeFromMe, reference);
 
   routeFromMe.addEventListener("click", () => {
-    if (Geolocation) {
-      Geolocation.getCurrentPosition( (position) => {
-        const latlng = {lat: position.coords.latitude, lng: position.coords.longitude};
-        route._currentPoints[0]._inputShowPointerContainer.checked = true;
-        route._currentPoints[0]._inputAutoCompleteContainer.className = "GPlocationOriginHidden";
-        route._currentPoints[0]._inputCoordinateContainer.className = "GPlocationOriginVisible";
-        route._currentPoints[0]._setLabel();
-        route._currentPoints[0]._clearResults();
-        route._currentPoints[0]._setMarker(latlng, null, false);
-        route._currentPoints[0]._setCoordinate(latlng);
-        document.querySelector('input[id^="GProuteSubmit"]').click();
-      });
-    }
-  })
+    Geolocation.checkPermissions().then((status) => {
+      if (status.location != 'denied') {
+        Geolocation.getCurrentPosition().then((position) => {
+          const latlng = {lat: position.coords.latitude, lng: position.coords.longitude};
+          route._currentPoints[0]._inputShowPointerContainer.checked = true;
+          route._currentPoints[0]._inputAutoCompleteContainer.className = "GPlocationOriginHidden";
+          route._currentPoints[0]._inputCoordinateContainer.className = "GPlocationOriginVisible";
+          route._currentPoints[0]._setLabel();
+          route._currentPoints[0]._clearResults();
+          route._currentPoints[0]._setMarker(latlng, null, false);
+          route._currentPoints[0]._setCoordinate(latlng);
+          document.querySelector('input[id^="GProuteSubmit"]').click();
+        });
+      }
+    });
+  });
 
   // Move controls in DOM
   DOM.$bottomMenu.appendChild(document.querySelector("div[id^=GProute-]"));

@@ -10,13 +10,13 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':capacitor-app')
+    implementation project(':capacitor-geolocation')
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
+    implementation project(':capacitor-splash-screen')
     implementation project(':capacitor-status-bar')
-    implementation "com.google.android.gms:play-services-location:16.+"
-    implementation "com.android.support:support-v4:26.+"
-    implementation "com.android.support:appcompat-v7:26.+"
-    implementation "androidx.webkit:webkit:1.4.0"
+    implementation project(':capacitor-toast')
+
 }
 
 

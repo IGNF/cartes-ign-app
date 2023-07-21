@@ -10,13 +10,6 @@ function app() {
    * Fonction définissant l'application
    */
 
-  /* Demande d'autorisation au 1er lancement de l'appli */
-  if (!localStorage.getItem("firstLocRequestDone")){
-    Location.requestLocationAccuracy();
-    localStorage.setItem("firstLocRequestDone", true);
-  }
-  /**/
-
   /* Définition des marker icons */
   Globals.gpMarkerIcon = L.divIcon({
     iconUrl: 'css/assets/position.svg',
