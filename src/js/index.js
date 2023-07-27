@@ -1,7 +1,6 @@
 import * as Coords from './coordinates';
 import * as EventListeners from './event-listeners';
 import * as LayerSwitch from './layer-switch';
-import * as Location from './location';
 import Globals from './globals';
 import * as MapControls from './map-controls';
 

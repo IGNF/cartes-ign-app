@@ -432,12 +432,11 @@ function addEventListeners() {
   });
 
   // GetFeatureInfo on map click
-  function latlngToTilePixel(latlng, zoom) {
-    const layerPoint = map.options.crs.latLngToPoint(latlng, zoom).floor();
-    const tile = layerPoint.divideBy(256).floor();
-    const tileCorner = tile.multiplyBy(256).subtract(map.getPixelOrigin());
-    const tilePixel = layerPoint.subtract(map.getPixelOrigin()).subtract(tileCorner);
-
+  function latlngToTilePixel(lat, lng, zoom) {
+    const fullXTile = (lon + 180) / 360 * Math.pow(2, zoom);
+    const fullYTile = (1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom);
+    const tile = [Math.floor(fullXTile), Math.floor(fullYTile)];
+    const tilePixel = [Math.floor((fullXTile - tile[0]) * 256), Math.floor((fullYTile - tile[1]) * 256)];
     return [tile, tilePixel]
   }
 
@@ -456,7 +455,7 @@ function addEventListeners() {
       computeZoom = layerProps.minNativeZoom;
     }
 
-    const [ tile, tilePixel ] = latlngToTilePixel(ev.latlng, computeZoom);
+    const [ tile, tilePixel ] = latlngToTilePixel(ev.latlng.lat, ev.latlng.lng, computeZoom);
     fetch(
       `https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?` +
       `SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetFeatureInfo&` +
