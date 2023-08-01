@@ -111,7 +111,7 @@ async function locationOnOff() {
     location_active = true;
     Toast.show({
       text: "Suivi de position activé",
-      duration: "long",
+      duration: "short",
       position: "bottom"
     });
   } else if (!tracking_active) {
@@ -119,7 +119,7 @@ async function locationOnOff() {
     tracking_active = true;
     Toast.show({
       text: "Mode navigation activé",
-      duration: "long",
+      duration: "short",
       position: "bottom"
     });
   } else {
@@ -129,7 +129,7 @@ async function locationOnOff() {
     tracking_active = false;
     Toast.show({
       text: "Navigation et suivi de position désactivés",
-      duration: "long",
+      duration: "short",
       position: "bottom"
     });
   }

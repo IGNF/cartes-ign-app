@@ -15,13 +15,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@capacitor/android": "5.2.2",
-    "@capacitor/app": "5.0.6",
     "@capacitor/core": "5.2.2",
     "@capacitor/geolocation": "5.0.6",
-    "@capacitor/haptics": "5.0.6",
     "@capacitor/ios": "5.2.2",
-    "@capacitor/keyboard": "5.0.6",
-    "@capacitor/splash-screen": "5.0.6",
     "@capacitor/status-bar": "5.0.6",
     "@capacitor/toast": "^5.0.6"
   },

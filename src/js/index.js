@@ -58,6 +58,4 @@ function app() {
   EventListeners.addEventListeners();
 }
 
-document.addEventListener('deviceready', () => {
-  app();
-});
+app();
