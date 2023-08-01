@@ -4,11 +4,5 @@
   "webDir": "www",
   "server": {
     "androidScheme": "https"
-  },
-  "cordova": {
-    "preferences": {
-      "loadUrlTimeoutValue": "100000",
-      "DisallowOverscroll": "true"
-    }
   }
 }

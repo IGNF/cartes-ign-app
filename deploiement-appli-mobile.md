@@ -5,6 +5,10 @@
 - [node](https://nodejs.org/en/)
 - [Cordova](https://cordova.apache.org/#getstarted)
 
+## Capacitor
+- `npm run build`
+- `npx cap sync`
+
 ## Android
 
 ### Prérequis spécifiques

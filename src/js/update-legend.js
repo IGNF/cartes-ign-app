@@ -1,4 +1,3 @@
-import DOM from './dom';
 import Globals from './globals';
 import Texts from './texts';
 
