@@ -83,6 +83,17 @@ function createWmtsUrlFromId (layerId) {
     `&TILECOL={x}`
 }
 
+function createRasterSource(layerId) {
+  return {
+    type: "raster",
+    tiles: [createWmtsUrlFromId(layerId)],
+    tileSize: 256,
+    maxzoom: layerProps[layerId].maxNativeZoom,
+    minzoom: layerProps[layerId].minNativeZoom,
+  }
+}
+
+// REMOVEME
 function createTileLayer(layerId, zIndex=0) {
   return L.tileLayer.fallback(
     createWmtsUrlFromId(layerId),
@@ -98,12 +109,19 @@ function createTileLayer(layerId, zIndex=0) {
   )
 }
 
-
 export default {
   layerProps,
+  baseLayerSources: Object.fromEntries(
+    baseLayerList.map( layerId => [layerId, createRasterSource(layerId)] )
+  ),
+  dataLayerSources: Object.fromEntries(
+    dataLayerList.map( layerId => [layerId, createRasterSource(layerId)] )
+  ),
+  // REMOVEME
   baseLayers: Object.fromEntries(
     baseLayerList.map( layerId => [layerId, createTileLayer(layerId)] )
   ),
+  // REMOVEME
   dataLayers: Object.fromEntries(
     dataLayerList.map( layerId => [layerId, createTileLayer(layerId, 1)] )
   ),
