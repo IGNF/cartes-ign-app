@@ -1,5 +1,15 @@
-// Leaflet map
-const map = new L.map('map', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5);
+// Maplibrz map
+const map2 = new maplibregl.Map({
+  container: "map",
+  zoom: 5,
+  center: [2.0, 47.33],
+  attributionControl: false,
+  locale: "fr",
+  maxPitch: 0,
+  touchPitch: false,
+});
+// REMOVEME
+const map = new L.map('map2', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5);
 let baseLayer;
 let dataLayers;
 let compareLayer;
@@ -26,8 +36,12 @@ let ignoreNextScrollEvent = false;
 /* global: flag to check if first click needed for route */
 let firstClickNeeded = true;
 
+// REMOVEME
 let gpsMarkerLayer;
 let adressMarkerLayer;
+
+let myPositionIcon;
+let searchResultIcon;
 
 // Pour l'annulation de fetch
 let controller = new AbortController();
@@ -54,6 +68,7 @@ let currentScroll = window.scrollY;
 
 export default {
   map,
+  map2,
   baseLayer,
   dataLayers,
   baseLayerDisplayed,
@@ -63,6 +78,8 @@ export default {
   currentRotation,
   gpsMarkerLayer,
   adressMarkerLayer,
+  myPositionIcon,
+  searchResultIcon,
   controller,
   signal,
   gpMarkerIcon,
