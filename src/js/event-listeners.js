@@ -14,6 +14,7 @@ import Layers from './layers';
 function addEventListeners() {
 
   const map = Globals.map;
+  const map2 = Globals.map2;
 
   // Recherche du 1er résultat de l'autocomplétion si appui sur entrée
   DOM.$rech.addEventListener("keyup", (event) => {
@@ -107,7 +108,6 @@ function addEventListeners() {
   document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
   document.getElementById("measureWindowClose").addEventListener('click', MenuDisplay.closeMeasure);
-  document.getElementById("measureAreaWindowClose").addEventListener('click', MenuDisplay.closeMeasureArea);
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -115,7 +115,7 @@ function addEventListeners() {
   // Synchronisation des radio button pour le type de coordonnées
   Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
     elem.addEventListener("change", () => {
-      Coords.updateCenterCoords(map.getCenter());
+      Coords.updateCenterCoords(map2.getCenter());
       const radioCheckedId = document.querySelector('input[name="coordRadio"]:checked').id;
       document.getElementById("coordTypeDisplay").innerHTML = document.querySelector(`label[for="${radioCheckedId}"]`).innerHTML;
     });
@@ -124,29 +124,10 @@ function addEventListeners() {
   /**/
 
   // Légende en fonction du zoom
-  map.on("zoomend", UpdateLegend.updateLegend);
-
-
-  // Event coordonnées
-  // Ouverture de la popup coordonnées
-  function openCoords (latlng) {
-    let coords = [latlng.lng, latlng.lat];
-    let convertedCoords = Coords.convertCoords(coords);
-    L.popup()
-    .setLatLng(latlng)
-    .setContent(convertedCoords[0] + ", " + convertedCoords[1])
-    .openOn(map);
-  }
-
-  map.on('contextmenu', (event) => {
-    if (DOM.$chkPrintCoordsOnContext.checked) {
-      let latlng = map.mouseEventToLatLng(event.originalEvent);
-      openCoords(latlng);
-    }
-  });
+  map2.on("zoomend", UpdateLegend.updateLegend);
 
   // Coordonnées au déplacement de la carte
-  map.on('move', () => {
+  map2.on('move', () => {
     Coords.updateCenterCoords(map.getCenter());
   });
 
@@ -190,79 +171,7 @@ function addEventListeners() {
     }
   }
 
-
-  // Rotation de la carte avec le mutlitouch
-  let hammertime = new Hammer.Manager(DOM.$map);
-
-  const rotate = new Hammer.Rotate()
-  hammertime.add(rotate)
-
-  let lastRotation;
-  let lastMarkerRotation;
-  let startRotation;
-  let rotationStarted = false;
-  let disableRotation = false;
-
-  hammertime.on('rotatemove', (e) => {
-    if (DOM.$chkRotate.checked && !disableRotation) {
-      let diff = startRotation - Math.round(e.rotation);
-      Globals.currentRotation = lastRotation - diff;
-
-      Globals.positionBearing = lastMarkerRotation - diff;
-
-      if (rotationStarted) {
-        map.setBearing(Globals.currentRotation);
-        if (Location.positionMarker) {
-          Location.positionMarker.setRotationAngle(Globals.positionBearing);
-        }
-
-        DOM.$compassBtn.style.transform = "rotate(" + Globals.currentRotation + "deg)";
-        DOM.$compassBtn.classList.remove("d-none");
-      }
-      if (Math.abs(diff) > 15 && !rotationStarted){
-        rotationStarted = true;
-        startRotation = Math.round(e.rotation);
-      }
-    }
-  });
-
-  hammertime.on('rotatestart', (e) => {
-    if (DOM.$chkRotate.checked && !disableRotation) {
-      lastRotation = Globals.currentRotation;
-      lastMarkerRotation = Globals.positionBearing;
-      startRotation = Math.round(e.rotation);
-    }
-  });
-
-  hammertime.on('rotateend', () => {
-    if (DOM.$chkRotate.checked) {
-      if (!rotationStarted) {
-        Globals.currentRotation = lastRotation;
-        Globals.positionBearing = lastMarkerRotation;
-      }
-      rotationStarted = false;
-      lastRotation = Globals.currentRotation;
-      lastMarkerRotation = Globals.positionBearing;
-    }
-  });
-
-  // Pas de rotation quand zoom
-  let currentZoom = 0;
-  map.on("zoomstart", () => {
-    currentZoom = map.getZoom();
-  });
-
-  map.on("zoom", () => {
-    if (Math.round(map.getZoom()) !== currentZoom && !rotationStarted) {
-      disableRotation = true;
-    }
-  });
-
-  map.on("zoomend", () => {
-    disableRotation = false;
-  });
-
-  map.on('movestart', function (e) {
+  map2.on('movestart', function () {
     if (Globals.movedFromCode) {
       return
     } else if (Location.tracking_active){
@@ -274,48 +183,11 @@ function addEventListeners() {
 
   // Sauvegarde de l'état de l'application
   document.addEventListener('pause', () => {
-    localStorage.setItem("lastMapLat", map.getCenter().lat);
-    localStorage.setItem("lastMapLng", map.getCenter().lng);
-    localStorage.setItem("lastMapZoom", map.getZoom());
+    localStorage.setItem("lastMapLat", map2.getCenter().lat);
+    localStorage.setItem("lastMapLng", map2.getCenter().lng);
+    localStorage.setItem("lastMapZoom", map2.getZoom());
     localStorage.setItem("lastBaseLayerDisplayed", Globals.baseLayerDisplayed);
     localStorage.setItem("lastDataLayerDisplayed", Globals.dataLayerDisplayed);
-  });
-
-  // Rotation
-  DOM.$compassBtn.addEventListener("click", () => {
-    if (Location.tracking_active){
-      // De tracking a simple suivi de position
-      Location.locationOnOff();
-      Location.locationOnOff();
-    }
-    Globals.currentRotation = Math.round((Globals.currentRotation % 360) + 360 ) % 360;
-
-    let interval;
-
-    function animateRotate() {
-      if (Globals.currentRotation < 180) {
-        Globals.currentRotation -= 1;
-        Globals.positionBearing -= 1;
-
-      } else {
-        Globals.currentRotation += 1;
-        Globals.positionBearing += 1;
-
-      }
-      map.setBearing(Globals.currentRotation);
-      if (Location.positionMarker) {
-        Location.positionMarker.setRotationAngle(Globals.positionBearing);
-      }
-      DOM.$compassBtn.style.transform = "rotate(" + Globals.currentRotation + "deg)";
-      if (Globals.currentRotation % 360 == 0) {
-        clearInterval(interval);
-        DOM.$compassBtn.style.pointerEvents = "";
-        DOM.$compassBtn.classList.add("d-none");
-      }
-    }
-
-    DOM.$compassBtn.style.pointerEvents = "none";
-    interval = setInterval(animateRotate, 2);
   });
 
   // Screen dimentions change
@@ -377,60 +249,6 @@ function addEventListeners() {
     MenuDisplay.openMeasure();
   });
 
-  document.getElementById("measureArea").addEventListener("click", () => {
-    MenuDisplay.openMeasureArea();
-  });
-
-  /* Mesure sur la carte */
-  map.on("polylinemeasure:change", (line) => {
-    let distance = line.distance;
-    if (distance < 100) {
-      distance = Math.round(distance * 100) / 100;
-    } else {
-      distance = Math.round(distance);
-    }
-    if (distance < 1000) {
-      DOM.$measureUnit.innerText = "m";
-      DOM.$totalMeasure.innerText = distance;
-    } else if (distance < 10000) {
-      DOM.$measureUnit.innerText = "km";
-      DOM.$totalMeasure.innerText = Math.round(distance / 100) / 10;
-    } else {
-      DOM.$measureUnit.innerText = "km";
-      DOM.$totalMeasure.innerText = Math.round(distance / 1000);
-    }
-  });
-
-  map.on('polylinemeasure:finish', () => {
-    Globals.currentScrollIndex = 2;
-    MenuDisplay.updateScrollAnchors();
-  });
-
-  map.on("draw:created", function (e) {
-    Globals.polygonLayer = e.layer;
-    map.addLayer(Globals.polygonLayer);
-    let surface = L.GeometryUtil.geodesicArea(Globals.polygonLayer.getLatLngs()[0]);
-    let unit = "m²";
-    if (surface < 100) {
-      surface = Math.round(surface * 100) / 100;
-    } else {
-      surface = Math.round(surface);
-    }
-    if (surface < 1000) {
-      unit = "m²";
-    } else if (surface < 10000) {
-      unit = "ha";
-      surface = Math.round(surface / 100) / 100;
-    } else {
-      unit = "ha";
-      surface = Math.round(surface / 1000) / 10;
-    }
-    DOM.$areaMeasureText.innerText = `${surface} ${unit}`;
-
-    Globals.currentScrollIndex = 2;
-    MenuDisplay.updateScrollAnchors();
-  });
-
   // GetFeatureInfo on map click
   function latlngToTilePixel(lat, lng, zoom) {
     const fullXTile = (lon + 180) / 360 * Math.pow(2, zoom);
@@ -440,7 +258,7 @@ function addEventListeners() {
     return [tile, tilePixel]
   }
 
-  map.on("click", (ev) => {
+  map2.on("click", (ev) => {
     let currentLayer = Globals.baseLayerDisplayed;
     if (Globals.dataLayerDisplayed !== '') {
       currentLayer = Globals.dataLayerDisplayed;
@@ -448,14 +266,14 @@ function addEventListeners() {
       return
     }
     const layerProps = Layers.layerProps[currentLayer];
-    let computeZoom = map.getZoom();
+    let computeZoom = map2.getZoom();
     if (computeZoom > layerProps.maxNativeZoom) {
       computeZoom = layerProps.maxNativeZoom;
     } else if (computeZoom < layerProps.minNativeZoom) {
       computeZoom = layerProps.minNativeZoom;
     }
 
-    const [ tile, tilePixel ] = latlngToTilePixel(ev.latlng.lat, ev.latlng.lng, computeZoom);
+    const [ tile, tilePixel ] = latlngToTilePixel(ev.lngLat.lat, ev.lngLat.lng, computeZoom);
     fetch(
       `https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?` +
       `SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetFeatureInfo&` +
@@ -474,7 +292,10 @@ function addEventListeners() {
       if (doc.body.innerText === "\n  \n  \n") {
         throw new Error("Empty GFI");
       }
-      L.popup().setLatLng(ev.latlng).setContent(html).openOn(map);
+      new maplibregl.Popup()
+        .setLngLat(ev.lngLat)
+        .setHTML(html)
+        .addTo(map);
     }).catch(() => {
       return
     })
