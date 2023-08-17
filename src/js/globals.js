@@ -8,6 +8,7 @@ const map2 = new maplibregl.Map({
   maxPitch: 0,
   touchPitch: false,
 });
+map2.scrollZoom.setWheelZoomRate(1);
 // REMOVEME
 const map = new L.map('map2', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5);
 let baseLayer;

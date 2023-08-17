@@ -57,8 +57,9 @@ h3 {
   border-radius: 2px;
 }
 
-.leaflet-popup-content {
+.mapboxgl-popup-content {
   user-select: text;
+  color: black;
 }
 
 .leaflet-control-attribution {
@@ -223,15 +224,6 @@ h3 {
 #stopCompareIcon {
   background-image: url("assets/stop-compare.png");
 }
-
-#measureMenu h3, #measureAreaMenu h3 {
-  text-align: center;
-}
-#measureMenu p, #measureAreaMenu p {
-  text-align: center;
-  font-size: 1.2em;
-}
-
 /**/
 
 /* Allow scroll on GP plugins */
