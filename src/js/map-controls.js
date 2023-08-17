@@ -19,9 +19,6 @@ function addMapControls() {
     position: "topleft",
   }).addTo(map);
 
-  // Polyline measure
-  L.control.polylineMeasure().addTo(map);
-
   /* GP plugin*/
   // Geoportail widget route
   const route = L.geoportalControl.Route({

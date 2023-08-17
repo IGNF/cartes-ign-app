@@ -42,23 +42,28 @@ function app() {
   /**/
 
   /* Récupération de la carte */
-  const map2 = Globals.map2;
-  const map = Globals.map;
-  Globals.baseLayer = L.layerGroup([]).setZIndex(0).addTo(map);
-  Globals.compareLayer = L.layerGroup([]).setZIndex(0).addTo(map);
-  Globals.dataLayers = L.layerGroup([]).setZIndex(1).addTo(map);
+  const map = Globals.map2;
+
   /* Ajout des soucres à la carte */
   for (let layer in Layers.baseLayerSources) {
-    map2.addSource(layer, Layers.baseLayerSources[layer]);
+    map.addSource(layer, Layers.baseLayerSources[layer]);
   }
   for (let layer in Layers.dataLayerSources) {
-    map2.addSource(layer, Layers.dataLayerSources[layer]);
+    map.addSource(layer, Layers.dataLayerSources[layer]);
   }
   // REMOVEME
-  map2.addLayer({
-    id: "plan-ign",
+  map.addLayer({
+    id: "basemap",
     type: "raster",
     source: "plan-ign",
+  })
+
+  map.addLayer({
+    id: "data-layer",
+    type: "background",
+    "paint": {
+      "background-opacity": 0,
+    }
   })
 
   // Ajout des contrôles
@@ -66,11 +71,11 @@ function app() {
 
   // Chargement de la postition précédente
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
-    map2.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
-    map2.setZoom(localStorage.getItem("lastMapZoom"));
+    map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
+    map.setZoom(localStorage.getItem("lastMapZoom"));
   }
   // Initialisation des coordonnées du centre
-  Coords.updateCenterCoords(map2.getCenter());
+  Coords.updateCenterCoords(map.getCenter());
 
   // Chargement de la couche précédente
   LayerSwitch.displayBaseLayer(Globals.baseLayerDisplayed);

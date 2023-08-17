@@ -11,10 +11,11 @@ import Globals from './globals';
 import Texts from './texts';
 import Layers from './layers';
 
+import { App } from '@capacitor/app';
+
 function addEventListeners() {
 
-  const map = Globals.map;
-  const map2 = Globals.map2;
+  const map = Globals.map2;
 
   // Recherche du 1er résultat de l'autocomplétion si appui sur entrée
   DOM.$rech.addEventListener("keyup", (event) => {
@@ -107,7 +108,6 @@ function addEventListeners() {
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
   document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
-  document.getElementById("measureWindowClose").addEventListener('click', MenuDisplay.closeMeasure);
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -115,7 +115,7 @@ function addEventListeners() {
   // Synchronisation des radio button pour le type de coordonnées
   Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
     elem.addEventListener("change", () => {
-      Coords.updateCenterCoords(map2.getCenter());
+      Coords.updateCenterCoords(map.getCenter());
       const radioCheckedId = document.querySelector('input[name="coordRadio"]:checked').id;
       document.getElementById("coordTypeDisplay").innerHTML = document.querySelector(`label[for="${radioCheckedId}"]`).innerHTML;
     });
@@ -124,10 +124,10 @@ function addEventListeners() {
   /**/
 
   // Légende en fonction du zoom
-  map2.on("zoomend", UpdateLegend.updateLegend);
+  map.on("zoomend", UpdateLegend.updateLegend);
 
   // Coordonnées au déplacement de la carte
-  map2.on('move', () => {
+  map.on("move", () => {
     Coords.updateCenterCoords(map.getCenter());
   });
 
@@ -137,7 +137,7 @@ function addEventListeners() {
   function onBackKeyDown() {
     // Handle the back button
     if (Globals.backButtonState == 'default') {
-      navigator.app.exitApp();
+      App.exitApp();
     }
     if (Globals.backButtonState === 'search') {
       MenuDisplay.closeSearchScreen();
@@ -171,7 +171,7 @@ function addEventListeners() {
     }
   }
 
-  map2.on('movestart', function () {
+  map.on('movestart', function () {
     if (Globals.movedFromCode) {
       return
     } else if (Location.tracking_active){
@@ -183,9 +183,17 @@ function addEventListeners() {
 
   // Sauvegarde de l'état de l'application
   document.addEventListener('pause', () => {
-    localStorage.setItem("lastMapLat", map2.getCenter().lat);
-    localStorage.setItem("lastMapLng", map2.getCenter().lng);
-    localStorage.setItem("lastMapZoom", map2.getZoom());
+    localStorage.setItem("lastMapLat", map.getCenter().lat);
+    localStorage.setItem("lastMapLng", map.getCenter().lng);
+    localStorage.setItem("lastMapZoom", map.getZoom());
+    localStorage.setItem("lastBaseLayerDisplayed", Globals.baseLayerDisplayed);
+    localStorage.setItem("lastDataLayerDisplayed", Globals.dataLayerDisplayed);
+  });
+
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem("lastMapLat", map.getCenter().lat);
+    localStorage.setItem("lastMapLng", map.getCenter().lng);
+    localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastBaseLayerDisplayed", Globals.baseLayerDisplayed);
     localStorage.setItem("lastDataLayerDisplayed", Globals.dataLayerDisplayed);
   });
@@ -245,20 +253,22 @@ function addEventListeners() {
     MenuDisplay.openRoute();
   });
 
-  document.getElementById("measure").addEventListener("click", () => {
-    MenuDisplay.openMeasure();
-  });
-
   // GetFeatureInfo on map click
   function latlngToTilePixel(lat, lng, zoom) {
-    const fullXTile = (lon + 180) / 360 * Math.pow(2, zoom);
+    const fullXTile = (lng + 180) / 360 * Math.pow(2, zoom);
     const fullYTile = (1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom);
-    const tile = [Math.floor(fullXTile), Math.floor(fullYTile)];
-    const tilePixel = [Math.floor((fullXTile - tile[0]) * 256), Math.floor((fullYTile - tile[1]) * 256)];
+    const tile = {
+      x: Math.floor(fullXTile),
+      y: Math.floor(fullYTile),
+    };
+    const tilePixel = {
+      x: Math.floor((fullXTile - tile.x) * 256),
+      y: Math.floor((fullYTile - tile.y) * 256),
+    };
     return [tile, tilePixel]
   }
 
-  map2.on("click", (ev) => {
+  map.on("click", (ev) => {
     let currentLayer = Globals.baseLayerDisplayed;
     if (Globals.dataLayerDisplayed !== '') {
       currentLayer = Globals.dataLayerDisplayed;
@@ -266,7 +276,7 @@ function addEventListeners() {
       return
     }
     const layerProps = Layers.layerProps[currentLayer];
-    let computeZoom = map2.getZoom();
+    let computeZoom = map.getZoom();
     if (computeZoom > layerProps.maxNativeZoom) {
       computeZoom = layerProps.maxNativeZoom;
     } else if (computeZoom < layerProps.minNativeZoom) {
