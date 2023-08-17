@@ -2,6 +2,8 @@ import * as MapControls from './map-controls';
 import Globals from './globals';
 import Layers from './layers';
 
+const map2 = Globals.map2
+
 // Fonctions de changements d'affichages de couches
 /* Base Layers */
 function displayBaseLayer(layerName) {
@@ -25,8 +27,7 @@ function displayBaseLayer(layerName) {
     });
     document.getElementById(layerName).classList.add("selectedLayer");
 
-    Globals.baseLayer.clearLayers();
-    Globals.baseLayer.addLayer(Layers.baseLayers[layerName]);
+    setLayerSource(layerName, "basemap");
     Globals.baseLayerDisplayed = layerName;
   }
 }
@@ -46,14 +47,34 @@ function displayDataLayer(layerName, force=false) {
     document.getElementById(layerName).classList.add("selectedLayer");
   }
 
-  Globals.dataLayers.clearLayers();
+  setLayerSource("", "data-layer");
 
   if (Globals.dataLayerDisplayed === layerName && !force) {
     Globals.dataLayerDisplayed = '';
   } else {
-    Globals.dataLayers.addLayer(Layers.dataLayers[layerName]);
+    setLayerSource(layerName, "data-layer");
     Globals.dataLayerDisplayed = layerName;
   }
+}
+
+function setLayerSource (source, layerType="basemap") {
+  const oldLayers = map2.getStyle().layers;
+  const layerIndex = oldLayers.findIndex(l => l.id === layerType);
+  const layerDef = oldLayers[layerIndex];
+  const before = oldLayers[layerIndex + 1] && oldLayers[layerIndex + 1].id;
+  if (source !== "") {
+    layerDef.source = source;
+    layerDef.type = "raster";
+    delete layerDef.paint;
+  } else {
+    delete layerDef.source;
+    layerDef.type = "background",
+    layerDef.paint = {
+      "background-opacity": 0,
+    }
+  }
+  map2.removeLayer(layerType);
+  map2.addLayer(layerDef, before);
 }
 
 export {

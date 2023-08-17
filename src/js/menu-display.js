@@ -39,10 +39,8 @@ function openCat() {
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$catalog.classList.remove('d-none');
   DOM.$catalogBtn.classList.add('d-none');
-  DOM.$infoWindow.classList.add('d-none')
-  DOM.$legendWindow.classList.add('d-none')
-  DOM.$measureMenu.classList.add('d-none')
-  DOM.$measureAreaMenu.classList.add('d-none')
+  DOM.$infoWindow.classList.add('d-none');
+  DOM.$legendWindow.classList.add('d-none');
   Globals.backButtonState = 'catalog';
   midScroll();
 }

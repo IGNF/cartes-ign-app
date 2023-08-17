@@ -26,11 +26,6 @@ const $defaultMenu = document.getElementById("defaultMenu");
 const $defaultMenuNotSearch = document.getElementById("defaultMenuNotSearch");
 const $catalog = document.getElementById("catalog");
 const $catalogBtn = document.getElementById("catalogBtn");
-const $measureMenu = document.getElementById("measureMenu");
-const $totalMeasure = document.getElementById("totalMeasure");
-const $measureUnit = document.getElementById("measureUnit");areaMeasureText
-const $measureAreaMenu = document.getElementById("measureAreaMenu");
-const $areaMeasureText = document.getElementById("areaMeasureText");
 
 export default {
   $map,
@@ -60,9 +55,4 @@ export default {
   $defaultMenuNotSearch,
   $catalog,
   $catalogBtn,
-  $measureMenu,
-  $totalMeasure,
-  $measureUnit,
-  $measureAreaMenu,
-  $areaMeasureText,
 };
