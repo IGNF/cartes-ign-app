@@ -93,22 +93,6 @@ function createRasterSource(layerId) {
   }
 }
 
-// REMOVEME
-function createTileLayer(layerId, zIndex=0) {
-  return L.tileLayer.fallback(
-    createWmtsUrlFromId(layerId),
-    {
-      minZoom : 0,
-      maxZoom : 19,
-      minNativeZoom : layerProps[layerId].minNativeZoom,
-      maxNativeZoom : layerProps[layerId].maxNativeZoom,
-      tileSize : 256, // les tuiles du Géooportail font 256x256px
-      zIndex: zIndex,
-      useCache: true,
-    }
-  )
-}
-
 export default {
   layerProps,
   baseLayerSources: Object.fromEntries(
@@ -116,13 +100,5 @@ export default {
   ),
   dataLayerSources: Object.fromEntries(
     dataLayerList.map( layerId => [layerId, createRasterSource(layerId)] )
-  ),
-  // REMOVEME
-  baseLayers: Object.fromEntries(
-    baseLayerList.map( layerId => [layerId, createTileLayer(layerId)] )
-  ),
-  // REMOVEME
-  dataLayers: Object.fromEntries(
-    dataLayerList.map( layerId => [layerId, createTileLayer(layerId, 1)] )
   ),
 }

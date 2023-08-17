@@ -55,11 +55,6 @@ function addEventListeners() {
       DOM.$rech.value = evt.target.getAttribute("fulltext");
       Geocode.rechercheEtPosition(DOM.$rech.value);
       setTimeout(MenuDisplay.searchScreenOff, 150)
-    /* marqueur de recherche/position */
-    } else if (evt.target.classList.contains("adressMarker")) {
-      Geocode.cleanResults();
-    } else if (evt.target.classList.contains("gpsMarker")) {
-      Location.cleanGPS();
     }
   }, true);
 
