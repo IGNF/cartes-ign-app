@@ -37,9 +37,8 @@ let ignoreNextScrollEvent = false;
 /* global: flag to check if first click needed for route */
 let firstClickNeeded = true;
 
-// REMOVEME
-let gpsMarkerLayer;
-let adressMarkerLayer;
+let myPositionMarker;
+let searchResultMarker;
 
 let myPositionIcon;
 let searchResultIcon;
@@ -52,8 +51,6 @@ let signal = controller.signal;
 let autocompletion_results = []
 
 // Markers
-let gpMarkerIcon;
-let gpMarkerIcon2;
 let positionBearing = 0;
 
 let polygonLayer;
@@ -77,14 +74,12 @@ export default {
   backButtonState,
   lastTextInSearch,
   currentRotation,
-  gpsMarkerLayer,
-  adressMarkerLayer,
+  myPositionMarker,
+  searchResultMarker,
   myPositionIcon,
   searchResultIcon,
   controller,
   signal,
-  gpMarkerIcon,
-  gpMarkerIcon2,
   autocompletion_results,
   movedFromCode,
   ignoreNextScrollEvent,
