@@ -4,7 +4,7 @@ import Globals from './globals';
 import { Geolocation } from '@capacitor/geolocation';
 import { Toast } from '@capacitor/toast';
 
-const map = Globals.map;
+const map = Globals.map2;
 
 /* Géolocalisation */
 // Positionnement du mobile
@@ -12,15 +12,22 @@ let location_active = false;
 // Suivi de la carte
 let tracking_active = false;
 let watch_id;
-let positionMarker;
+
+let positionBearing = 0
 
 function cleanGPS() {
   /**
    * Enlève le marqueur GPS
    */
-  if (Globals.gpsMarkerLayer != null) {
-    map.removeLayer(Globals.gpsMarkerLayer);
-    Globals.gpsMarkerLayer = null;
+  if (Globals.myPositionMarker != null) {
+    Globals.myPositionMarker.remove();
+    Globals.myPositionMarker = null;
+  }
+}
+
+function setMarkerRotation(positionBearing) {
+  if (Globals.myPositionMarker) {
+    Globals.myPositionMarker.setRotation(positionBearing);
   }
 }
 
@@ -30,25 +37,17 @@ function _goToGPSCoords(coords, zoom=map.getZoom(), panTo=true) {
    * si panTo est True
    */
   cleanGPS();
-  Globals.gpsMarkerLayer = L.featureGroup().addTo(map);
-  positionMarker = L.rotatedMarker(
-    [coords.lat, coords.lon],
-    {
-      icon:	Globals.gpMarkerIcon,
-    }
-  )
-  positionMarker.setRotationAngle(Globals.positionBearing);
-  let markerLayer = L.featureGroup([positionMarker]);
-  Globals.gpsMarkerLayer.addLayer(markerLayer);
+  Globals.myPositionMarker = new maplibregl.Marker({element: Globals.myPositionIcon})
+    .setLngLat([coords.lon, coords.lat])
+    .addTo(map);
+  Globals.myPositionMarker.setRotationAlignment("map");
+
+  setMarkerRotation(positionBearing);
+
   if (panTo) {
     Globals.movedFromCode = true;
-    if (Globals.currentRotation !== 0){
-      map.setBearing(0);
-      map.setView(new L.LatLng(coords.lat, coords.lon), zoom, {animate: false});
-      map.setBearing(Globals.currentRotation);
-    } else {
-      map.setView(new L.LatLng(coords.lat, coords.lon), zoom);
-    }
+    map.setCenter([coords.lon, coords.lat]);
+    map.setZoom(zoom);
     Globals.movedFromCode = false;
   }
 }
@@ -60,8 +59,8 @@ function _trackLocation() {
   Geolocation.checkPermissions().then((status) => {
     if (status.location != 'denied') {
       Geolocation.getCurrentPosition({
-        maximumAge: 1500000,
-        timeout: 100000,
+        maximumAge: 0,
+        timeout: 10000,
         enableHighAccuracy: true
       }).then((position) => {
         _goToGPSCoords({
@@ -69,20 +68,23 @@ function _trackLocation() {
           lon: position.coords.longitude
         }, Math.max(map.getZoom(), 14));
       }).catch((err) => {
-        console.warn(`ERROR(DOM.${err.code}): DOM.${err.message}`);
+        console.warn(`${err.message}`);
       });
 
-      watch_id = Geolocation.watchPosition({
-        maximumAge: 1500000,
-        timeout: 100000,
+      Geolocation.watchPosition({
+        maximumAge: 0,
+        timeout: 10000,
         enableHighAccuracy: true
-      }).then((position) => {
+      },
+      (position) => {
         _goToGPSCoords({
           lat: position.coords.latitude,
           lon: position.coords.longitude
         }, map.getZoom(), tracking_active);
+      }).then( (watchId) => {
+        watch_id = watchId
       }).catch((err) => {
-        console.warn(`ERROR(DOM.${err.code}): DOM.${err.message}`);
+        console.warn(`${err.message}`);
       });
     }
   }).catch(() => {
@@ -136,24 +138,24 @@ async function locationOnOff() {
 }
 
 function getOrientation(event) {
+  Globals.movedFromCode = true;
   if (tracking_active) {
-    Globals.currentRotation = event.alpha;
-    Globals.map.setBearing(event.alpha);
+    map.setBearing(-event.alpha);
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + event.alpha + "deg)";
   }
-  Globals.positionBearing = Number(Number(360 - event.alpha).toFixed(1)) + Globals.currentRotation;
-  if (positionMarker) {
-    positionMarker.setRotationAngle(Globals.positionBearing);
+  positionBearing = Number(Number(360 - event.alpha).toFixed(1));
+  if (Globals.myPositionMarker) {
+    setMarkerRotation(positionBearing);
   }
+  Globals.movedFromCode = false;
 }
 
 
 export {
-  cleanGPS,
   locationOnOff,
   location_active,
   tracking_active,
   getOrientation,
-  positionMarker,
+  setMarkerRotation,
 }
