@@ -2,7 +2,7 @@ import * as Autocomp from './autocomplete';
 import DOM from './dom';
 import Globals from './globals';
 
-const map = Globals.map2;
+const map = Globals.map;
 
 /* Recherche et positionnnement */
 function cleanResults() {

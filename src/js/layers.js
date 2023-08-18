@@ -10,7 +10,7 @@ const layerProps = {
     layer: "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
     style: "normal",
     format: "image/png",
-    minNativeZoom: 3,
+    minNativeZoom: 1,
     maxNativeZoom: 19,
   },
   "topo": {

@@ -7,6 +7,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "build:dev": "webpack --config dev.config.js",
+    "serve:dev": "webpack-dev-server --config dev.config.js",
     "run:android": "npm run build:dev && npx cap sync && npx cap run android"
   },
   "keywords": [
@@ -21,7 +22,8 @@
     "@capacitor/geolocation": "5.0.6",
     "@capacitor/ios": "5.2.2",
     "@capacitor/status-bar": "5.0.6",
-    "@capacitor/toast": "^5.0.6"
+    "@capacitor/toast": "^5.0.6",
+    "@mapbox/mapbox-gl-sync-move": "^0.3.1"
   },
   "devDependencies": {
     "@capacitor/assets": "^2.0.4",
