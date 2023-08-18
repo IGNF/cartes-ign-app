@@ -107,7 +107,7 @@ h3 {
 }
 
 /* Map */
-#map {
+.map {
   height: 100vh;
   width: 100vw;
   flex-grow: 1;

@@ -28,11 +28,13 @@ function app() {
   /**/
 
   /* Récupération de la carte */
-  const map = Globals.map2;
+  const map = Globals.map;
+  const mapRLT = Globals.mapRLT;
 
   /* Ajout des soucres à la carte */
   for (let layer in Layers.baseLayerSources) {
     map.addSource(layer, Layers.baseLayerSources[layer]);
+    mapRLT.addSource(layer, Layers.baseLayerSources[layer]);
   }
   for (let layer in Layers.dataLayerSources) {
     map.addSource(layer, Layers.dataLayerSources[layer]);
@@ -42,14 +44,20 @@ function app() {
     id: "basemap",
     type: "raster",
     source: "plan-ign",
-  })
+  });
   map.addLayer({
     id: "data-layer",
     type: "background",
     "paint": {
       "background-opacity": 0,
     }
-  })
+  });
+
+  mapRLT.addLayer({
+    id: "basemap",
+    type: "raster",
+    source: "ortho-histo",
+  });
 
   // Ajout des contrôles
   MapControls.addMapControls();

@@ -18,8 +18,7 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <link rel="stylesheet" type="text/css" href="css/maplibre-gl.css">
-        <link rel="stylesheet" type="text/css" href="css/leaflet.css">
-        <link rel="stylesheet" type="text/css" href="css/GpPluginLeaflet.css">
+        <link rel='stylesheet' type="text/css" href="css/maplibre-gl-compare.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 
@@ -29,14 +28,14 @@
         <div class="app">
             <div id="blueBg" class="d-none"></div>
             <div id="cartoContainer">
-              <div id="map">
-                  <div class="button" id="geolocateBtn"></div>
-                  <div class="button d-none" id="compassBtn"></div>
-              </div>
-              <div id="map2">
+              <div id="mapRLT" class="map">
                 <div class="button" id="geolocateBtn"></div>
                 <div class="button d-none" id="compassBtn"></div>
-            </div>
+              </div>
+              <div id="map" class="map">
+                <div class="button" id="geolocateBtn"></div>
+                <div class="button d-none" id="compassBtn"></div>
+              </div>
             </div>
 
             <div id="header">
@@ -303,16 +302,8 @@
         </div>
 
         <script type="text/javascript" src="js/external/maplibre-gl.js"></script>
-        <script type="text/javascript" src="js/external/leaflet.js"></script>
+        <script type="text/javascript" src="js/external/maplibre-gl-compare.js"></script>
         <script type="text/javascript" src="js/external/proj4.js"></script>
-        <script type="text/javascript" src="js/external/pouchdb.min.js"></script>
-        <script type="text/javascript" src="js/external/leaflet-src.js"></script>
-        <script type="text/javascript" src="js/external/leaflet.tilelayer.fallback.js"></script>
-        <script type="text/javascript" src="js/external/purify.min.js"></script>
-        <script type="text/javascript" src="js/external/hammer.min.js"></script>
-        <script type="text/javascript" src="js/external/leaflet.rotatedMarker.js"></script>
-        <script type="text/javascript" src="js/external/leaflet-side-by-side.min.js"></script>
-        <script type="text/javascript" src="js/external/GpPluginLeaflet.js"></script>
         <script type="text/javascript" src="js/index.bundle.js"></script>
     </body>
 

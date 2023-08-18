@@ -33,9 +33,6 @@ function startPopupValidation() {
 
 // Ouverture/fermeture catalogue
 function openCat() {
-  if (document.querySelector("[id^=GProutePanelClose-]").offsetParent !== null){
-    document.querySelector("[id^=GProutePanelClose-]").click();
-  }
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$catalog.classList.remove('d-none');
   DOM.$catalogBtn.classList.add('d-none');
@@ -226,20 +223,11 @@ function closePlusLoinScreen(){
 
 // Menu outils
 function openRoute() {
-  DOM.$defaultMenu.classList.add("d-none");
-  document.querySelector("[id^=GPelevationPath-]").classList.remove("d-none");
-  DOM.$bottomMenu.style.height = "100%";
-  midScroll();
-  Globals.firstClickNeeded = true;
-  Globals.backButtonState = 'route';
+
 }
 
 function closeRoute() {
-  DOM.$defaultMenu.classList.remove("d-none");
-  document.querySelector("[id^=GPelevationPath-]").classList.add("d-none");
-  midScroll();
-  Globals.backButtonState = 'mainMenu';
-  DOM.$bottomMenu.style.height = "";
+
 }
 
 export {

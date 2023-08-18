@@ -1,5 +1,7 @@
-// Maplibrz map
-const map2 = new maplibregl.Map({
+import * as syncMaps from '@mapbox/mapbox-gl-sync-move'
+
+// Main map
+const map = new maplibregl.Map({
   container: "map",
   zoom: 5,
   center: [2.0, 47.33],
@@ -8,12 +10,23 @@ const map2 = new maplibregl.Map({
   maxPitch: 0,
   touchPitch: false,
 });
-map2.scrollZoom.setWheelZoomRate(1);
-// REMOVEME
-const map = new L.map('map2', { zoomControl: false, rotate: true }).setView([47.33, 2.0], 5);
+map.scrollZoom.setWheelZoomRate(1);
+// Secondary map for RLT
+const mapRLT = new maplibregl.Map({
+  container: "mapRLT",
+  zoom: 5,
+  center: [2.0, 47.33],
+  attributionControl: false,
+  locale: "fr",
+  maxPitch: 0,
+  touchPitch: false,
+});
+mapRLT.scrollZoom.setWheelZoomRate(1);
+
+// syncMaps(map, mapRLT);
+
 let baseLayer;
 let dataLayers;
-let compareLayer;
 
 /* global: layer display state */
 let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'plan-ign';
@@ -60,7 +73,7 @@ let currentScroll = window.scrollY;
 
 export default {
   map,
-  map2,
+  mapRLT,
   baseLayer,
   dataLayers,
   baseLayerDisplayed,

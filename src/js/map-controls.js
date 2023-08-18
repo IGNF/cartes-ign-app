@@ -2,23 +2,27 @@ import Globals from './globals';
 import * as LayerSwitch from './layer-switch';
 import * as MenuDisplay from './menu-display';
 
-let sideBySide = L.control.sideBySide();
+let sideBySide;
 const map = Globals.map;
+const mapRLT = Globals.mapRLT;
 
 let prevDataLayerDisplayed = '';
 
 function addMapControls() {
   // Échelle graphique
-  L.control.scale({
-    imperial: false,
-    maxWidth: 150,
-    position: "topleft",
-  }).addTo(map);
+  const scale = new maplibregl.ScaleControl({
+    maxWidth: 80,
+    unit: 'metric'
+  });
+  map.addControl(scale, "top-left");
 }
 
 function addSideBySide() {
-  sideBySide.addTo(map);
-  sideBySide.setLeftLayers(Globals.baseLayer.getLayers()[0]);
+  const container = "#cartoContainer";
+  mapRLT.setCenter(map.getCenter());
+  mapRLT.setZoom(map.getZoom());
+  sideBySide = new maplibregl.Compare(map, mapRLT, container);
+
   Globals.sideBySideOn = true;
   document.querySelector(".baseLayer:not(.selectedLayer)").click();
 
@@ -33,13 +37,11 @@ function addSideBySide() {
 }
 
 function removeSideBySide() {
-  map.removeControl(sideBySide);
   document.querySelectorAll(".baseLayer").forEach(elem => {
     elem.classList.remove('comparedLayer');
   });
-  Globals.compareLayer.clearLayers();
   document.querySelector(".selectedLayer").style.pointerEvents = "";
-  Globals.sideBySideOn = false;
+  sideBySide.remove();
   document.querySelector("#dataLayers").classList.remove("d-none");
   document.querySelector("#dataLayersLabel").classList.remove("d-none");
   document.querySelector("#sideBySideOff").classList.add("d-none");
@@ -49,7 +51,6 @@ function removeSideBySide() {
 
 export {
   addMapControls,
-  sideBySide,
   addSideBySide,
   removeSideBySide,
 }
