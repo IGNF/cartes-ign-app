@@ -284,10 +284,6 @@ function addEventListeners() {
   // document.addEventListener("scrollend", scrollEndCallback);
 
   /* Menu Buttons */
-  document.getElementById("calculateRoute").addEventListener("click", () => {
-    document.querySelector('[id^="GPshowRouteOpen-"]').click();
-    MenuDisplay.openRoute();
-  });
 
   // GetFeatureInfo on map click
   function latlngToTilePixel(lat, lng, zoom) {
