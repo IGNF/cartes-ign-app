@@ -25,9 +25,6 @@ let backButtonState = 'default';
 /* global: last text in search bar */
 let lastTextInSearch = '';
 
-/* global: current map rotation */
-let currentRotation = 0;
-
 /* global: flag to check if map move fired by code */
 let movedFromCode = false;
 
@@ -50,9 +47,6 @@ let signal = controller.signal;
 // Autocompletion
 let autocompletion_results = []
 
-// Markers
-let positionBearing = 0;
-
 let polygonLayer;
 
 // Flag to check if side by side conparison is on
@@ -73,7 +67,6 @@ export default {
   dataLayerDisplayed,
   backButtonState,
   lastTextInSearch,
-  currentRotation,
   myPositionMarker,
   searchResultMarker,
   myPositionIcon,
@@ -83,7 +76,6 @@ export default {
   autocompletion_results,
   movedFromCode,
   ignoreNextScrollEvent,
-  positionBearing,
   currentScrollIndex,
   maxScroll,
   anchors,

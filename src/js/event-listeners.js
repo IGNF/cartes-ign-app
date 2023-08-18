@@ -166,6 +166,47 @@ function addEventListeners() {
     }
   }
 
+  // Rotation de la carte avec le mutlitouch
+  map.on('rotate', () => {
+    console.log(map.getBearing());
+    DOM.$compassBtn.style.transform = "rotate(" + (map.getBearing() * -1) + "deg)";
+    DOM.$compassBtn.classList.remove("d-none");
+  });
+
+  // Rotation de la boussole
+  DOM.$compassBtn.addEventListener("click", () => {
+    if (Location.tracking_active){
+      // De tracking a simple suivi de position
+      Location.locationOnOff();
+      Location.locationOnOff();
+    }
+    map.setBearing(Math.round((map.getBearing() % 360) + 360 ) % 360);
+
+    let interval;
+    let currentRotation
+
+    function animateRotate() {
+      if (map.getBearing() < 0) {
+        currentRotation = map.getBearing() + 1;
+
+      } else {
+        currentRotation = map.getBearing() - 1;
+      }
+
+      map.setBearing(currentRotation);
+
+      if (currentRotation % 360 == 0) {
+        clearInterval(interval);
+        DOM.$compassBtn.style.pointerEvents = "";
+        DOM.$compassBtn.classList.add("d-none");
+      }
+    }
+
+    DOM.$compassBtn.style.pointerEvents = "none";
+    interval = setInterval(animateRotate, 2);
+  });
+
+  // Désactivation du tracking au déplacement non programmatique de la carte
   map.on('movestart', function () {
     if (Globals.movedFromCode) {
       return
