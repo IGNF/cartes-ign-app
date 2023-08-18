@@ -15,7 +15,7 @@ import { App } from '@capacitor/app';
 
 function addEventListeners() {
 
-  const map = Globals.map2;
+  const map = Globals.map;
 
   // Recherche du 1er résultat de l'autocomplétion si appui sur entrée
   DOM.$rech.addEventListener("keyup", (event) => {

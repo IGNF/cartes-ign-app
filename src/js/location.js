@@ -4,7 +4,7 @@ import Globals from './globals';
 import { Geolocation } from '@capacitor/geolocation';
 import { Toast } from '@capacitor/toast';
 
-const map = Globals.map2;
+const map = Globals.map;
 
 /* Géolocalisation */
 // Positionnement du mobile

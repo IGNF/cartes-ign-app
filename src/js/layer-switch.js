@@ -1,8 +1,7 @@
-import * as MapControls from './map-controls';
 import Globals from './globals';
-import Layers from './layers';
 
-const map2 = Globals.map2
+const map = Globals.map
+const mapRLT = Globals.mapRLT
 
 // Fonctions de changements d'affichages de couches
 /* Base Layers */
@@ -17,10 +16,7 @@ function displayBaseLayer(layerName) {
     });
     document.getElementById(layerName).classList.add("comparedLayer");
 
-    Globals.compareLayer.clearLayers();
-    Globals.compareLayer.addLayer(Layers.baseLayers[layerName]);
-    MapControls.sideBySide.setRightLayers(Globals.compareLayer.getLayers()[0]);
-
+    setLayerSource(layerName, "basemap", "mapRLT");
   } else {
     document.querySelectorAll(".baseLayer").forEach(elem => {
       elem.classList.remove('selectedLayer');
@@ -57,8 +53,14 @@ function displayDataLayer(layerName, force=false) {
   }
 }
 
-function setLayerSource (source, layerType="basemap") {
-  const oldLayers = map2.getStyle().layers;
+function setLayerSource (source, layerType="basemap", glMap="map") {
+  let oldLayers;
+  if (glMap === "map") {
+    oldLayers = map.getStyle().layers;
+  } else if (glMap === "mapRLT") {
+    oldLayers = mapRLT.getStyle().layers;
+  }
+
   const layerIndex = oldLayers.findIndex(l => l.id === layerType);
   const layerDef = oldLayers[layerIndex];
   const before = oldLayers[layerIndex + 1] && oldLayers[layerIndex + 1].id;
@@ -73,8 +75,13 @@ function setLayerSource (source, layerType="basemap") {
       "background-opacity": 0,
     }
   }
-  map2.removeLayer(layerType);
-  map2.addLayer(layerDef, before);
+  if (glMap === "map") {
+    map.removeLayer(layerType);
+    map.addLayer(layerDef, before);
+  } else if (glMap === "mapRLT") {
+    mapRLT.removeLayer(layerType);
+    mapRLT.addLayer(layerDef, before);
+  }
 }
 
 export {
