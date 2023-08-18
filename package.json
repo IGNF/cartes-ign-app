@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "build:dev": "webpack --config dev.config.js"
+    "build:dev": "webpack --config dev.config.js",
+    "run:android": "npm run build:dev && npx cap sync && npx cap run android"
   },
   "keywords": [
     "ecosystem:cordova"

@@ -2,8 +2,7 @@ import * as Autocomp from './autocomplete';
 import DOM from './dom';
 import Globals from './globals';
 
-const map = Globals.map;
-const map2 = Globals.map2;
+const map = Globals.map2;
 
 /* Recherche et positionnnement */
 function cleanResults() {
@@ -11,9 +10,8 @@ function cleanResults() {
    * Enlève le marqueur adresse
    */
   if (Globals.searchResultMarker != null) {
-    console.log("aaaa");
-    searchResultMarker.remove()
-    Globals.adressMarkerLayer = null;
+    Globals.searchResultMarker.remove()
+    Globals.searchResultMarker = null;
   }
 }
 
@@ -53,17 +51,16 @@ function _goToAddressCoords(coords, zoom=map.getZoom(), panTo=true) {
   cleanResults();
   Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon})
     .setLngLat([coords.lon, coords.lat])
-    .addTo(map2);
+    .addTo(map);
 
-  Globals.searchResultMarker.getElement().addEventListener("click", cleanResults);
+  Globals.searchResultIcon.addEventListener("click", cleanResults);
 
   if (panTo) {
-    map2.setCenter([coords.lon, coords.lat]);
-    map2.setZoom(zoom);
+    map.setCenter([coords.lon, coords.lat]);
+    map.setZoom(zoom);
   }
 }
 
 export {
-  cleanResults,
   rechercheEtPosition
 }
