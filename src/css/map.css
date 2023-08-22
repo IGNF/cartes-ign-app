@@ -1,0 +1,18 @@
+.mapboxgl-popup-content {
+  user-select: text;
+  color: black;
+}
+
+/* Map */
+.map {
+  height: 100vh;
+  width: 100vw;
+  flex-grow: 1;
+  position: fixed;
+}
+
+#cartoContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

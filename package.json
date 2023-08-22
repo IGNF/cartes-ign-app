@@ -11,7 +11,7 @@
     "run:android": "npm run build:dev && npx cap sync && npx cap run android"
   },
   "keywords": [
-    "ecosystem:cordova"
+    "ecosystem:capacitor"
   ],
   "author": "IGN",
   "license": "Apache-2.0",
@@ -28,8 +28,13 @@
   "devDependencies": {
     "@capacitor/assets": "^2.0.4",
     "@capacitor/cli": "5.2.2",
+    "css-loader": "^6.8.1",
+    "mini-css-extract-plugin": "^2.7.6",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3",
     "webpack": "5.88.2",
     "webpack-cli": "5.1.4",
-    "webpack-dev-server": "4.15.1"
+    "webpack-dev-server": "4.15.1",
+    "sass": "^1.66.1"
   }
 }

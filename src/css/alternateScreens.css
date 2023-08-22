@@ -1,0 +1,130 @@
+#otherMenus {
+  display: grid;
+}
+
+#menuItemLegal {
+  grid-row: 1;
+  grid-column: 1;
+  margin-bottom: 5px;
+}
+
+
+#menuItemPrivacy {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+#menuItemParams {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  text-align: right;
+}
+
+#menuItemPlusLoin {
+  grid-row: 3;
+  grid-column: 1 / span 2;
+}
+
+
+#menuItemLegal, #menuItemPrivacy {
+  text-decoration: underline;
+  padding-left: 15px;
+}
+
+#altMenuContainer {
+  z-index: 3001;
+  height: auto;
+  top: 55px;
+  display: flex;
+  width: 100%;
+  position: absolute
+}
+
+.altMenu {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #4b4b4b;
+  width: 100%;
+  font-size: 1.1em;
+  flex-direction: column;
+}
+
+.altMenu div {
+  border: 0px solid #D6D6D6;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+.altMenu b {
+  font-family: 'Open Sans Semibold';
+}
+
+#legalMenu, #privacyMenu, #plusLoinMenu {
+  font-family: 'Open Sans';
+}
+
+#legalMenu a {
+  color: #0B6BA7;
+}
+
+#plusLoinMenu div {
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.plusLoinTitle {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.plusLoinTitle img {
+  margin-top: 23px;
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+}
+
+.plusLoinTitleText {
+  font-size: 2.5em;
+  color: #7a7a7a;
+  position: absolute;
+  bottom: 0;
+  left: 115px;
+}
+
+.headerText {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translate(-50%);
+  color: #555;
+  background-color: white;
+  padding: 5px 20px 5px 20px;
+  border-radius: 5px;
+}
+
+#ignRandoLogo {
+  border-radius: 25px;
+}
+
+#imgIgnRandoPlayStore {
+  width: 155px;
+}
+
+#imgIgnRandoAppStore {
+  padding: 10px;
+}
+
+#gppLogo {
+  margin-top: 23px;
+}

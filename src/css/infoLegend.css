@@ -1,0 +1,30 @@
+/* fenetres infos et legende */
+#infoWindow, #legendWindow, #catalog {
+  margin-top: 10px;
+  position: relative;
+  background: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color:#4b4b4b;
+  font-size: 1.1em;
+  text-align: justify;
+  overflow-y: scroll;
+}
+
+.windowClose {
+  width: 34px;
+  height: 34px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("assets/close.svg");
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 3001;
+}
+
+#infoWindowContent, #legendWindowContent {
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+}
