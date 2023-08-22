@@ -46,7 +46,7 @@ function computeLocationFullText(locationResult) {
   return locationResult.fulltext;
 }
 
-export {
+export default {
   suggest,
   computeLocationFullText
 }

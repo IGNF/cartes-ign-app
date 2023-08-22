@@ -1,11 +1,11 @@
-import * as Autocomp from './autocomplete';
-import * as Coords from './coordinates';
-import * as Geocode from './geocode';
-import * as LayerSwitch from './layer-switch';
-import * as Location from './location';
-import * as MenuDisplay from './menu-display';
-import * as MapControls from './map-controls';
-import * as UpdateLegend from './update-legend';
+import Autocomp from './autocomplete';
+import Coords from './coordinates';
+import Geocode from './geocode';
+import LayerSwitch from './layer-switch';
+import Location from './location';
+import MenuDisplay from './menu-display';
+import MapControls from './map-controls';
+import UpdateLegend from './update-legend';
 import DOM from './dom';
 import Globals from './globals';
 import Texts from './texts';
@@ -162,7 +162,7 @@ function addEventListeners() {
       MenuDisplay.closeCat();
     }
     if (Globals.backButtonState === 'route') {
-      document.querySelector("div[id^=GProutePanelClose-]").click();
+      MenuDisplay.closeRoute();
     }
   }
 
@@ -284,6 +284,9 @@ function addEventListeners() {
   // document.addEventListener("scrollend", scrollEndCallback);
 
   /* Menu Buttons */
+  document.getElementById("calculateRoute").addEventListener("click", () => {
+    MenuDisplay.openRoute();
+  });
 
   // GetFeatureInfo on map click
   function latlngToTilePixel(lat, lng, zoom) {
@@ -347,6 +350,6 @@ function addEventListeners() {
   document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide)
 }
 
-export {
+export default {
   addEventListeners,
 };

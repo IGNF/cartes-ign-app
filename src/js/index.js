@@ -1,9 +1,9 @@
-import * as Coords from './coordinates';
-import * as EventListeners from './event-listeners';
-import * as LayerSwitch from './layer-switch';
+import Coords from './coordinates';
+import EventListeners from './event-listeners';
+import LayerSwitch from './layer-switch';
 import Layers from './layers';
 import Globals from './globals';
-import * as MapControls from './map-controls';
+import MapControls from './map-controls';
 
 import '../css/app.scss';
 
@@ -58,7 +58,7 @@ function app() {
   mapRLT.addLayer({
     id: "basemap",
     type: "raster",
-    source: "ortho-histo",
+    source: "plan-ign",
   });
 
   // Ajout des contrôles

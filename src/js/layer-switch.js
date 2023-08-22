@@ -84,7 +84,7 @@ function setLayerSource (source, layerType="basemap", glMap="map") {
   }
 }
 
-export {
+export default {
   displayBaseLayer,
   displayDataLayer,
 };

@@ -1,5 +1,3 @@
-import * as syncMaps from '@mapbox/mapbox-gl-sync-move'
-
 // Main map
 const map = new maplibregl.Map({
   container: "map",
@@ -23,11 +21,6 @@ const mapRLT = new maplibregl.Map({
 });
 mapRLT.scrollZoom.setWheelZoomRate(1);
 
-// syncMaps(map, mapRLT);
-
-let baseLayer;
-let dataLayers;
-
 /* global: layer display state */
 let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'plan-ign';
 let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
@@ -44,9 +37,6 @@ let movedFromCode = false;
 /* global: flag to check if scoll fired by code */
 let ignoreNextScrollEvent = false;
 
-/* global: flag to check if first click needed for route */
-let firstClickNeeded = true;
-
 let myPositionMarker;
 let searchResultMarker;
 
@@ -60,8 +50,6 @@ let signal = controller.signal;
 // Autocompletion
 let autocompletion_results = []
 
-let polygonLayer;
-
 // Flag to check if side by side conparison is on
 let sideBySideOn = false;
 
@@ -74,8 +62,6 @@ let currentScroll = window.scrollY;
 export default {
   map,
   mapRLT,
-  baseLayer,
-  dataLayers,
   baseLayerDisplayed,
   dataLayerDisplayed,
   backButtonState,
@@ -92,8 +78,6 @@ export default {
   currentScrollIndex,
   maxScroll,
   anchors,
-  polygonLayer,
   currentScroll,
-  firstClickNeeded,
   sideBySideOn,
 };
