@@ -1,5 +1,4 @@
 /* DOM elements */
-const $map = document.getElementById("map");
 const $resultDiv = document.getElementById("resultsRech");
 const $rech = document.getElementById('lieuRech');
 const $geolocateBtn = document.getElementById("geolocateBtn");
@@ -27,7 +26,6 @@ const $catalog = document.getElementById("catalog");
 const $catalogBtn = document.getElementById("catalogBtn");
 
 export default {
-  $map,
   $resultDiv,
   $rech,
   $geolocateBtn,

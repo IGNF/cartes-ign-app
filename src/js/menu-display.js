@@ -1,8 +1,6 @@
 import DOM from './dom';
 import Globals from './globals';
 
-let polygonHandler;
-
 function updateScrollAnchors() {
   Globals.maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
   Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
@@ -21,14 +19,6 @@ function scrollTo(scrollValue) {
     left: 0,
     behavior: 'smooth'
   });
-}
-
-// Fermeture popup démarrage
-function startPopupValidation() {
-  DOM.$startPopup.hidden = true;
-  if (DOM.$chkNePlusAff.checked) {
-    localStorage.setItem("lastMotdID", Globals.motd_id);
-  }
 }
 
 // Ouverture/fermeture catalogue
@@ -223,28 +213,30 @@ function closePlusLoinScreen(){
 
 // Menu outils
 function openRoute() {
-
+  DOM.$defaultMenu.classList.add("d-none");
+  DOM.$bottomMenu.style.height = "100%";
+  midScroll();
+  Globals.backButtonState = 'route';
 }
 
 function closeRoute() {
-
+  DOM.$defaultMenu.classList.remove("d-none");
+  midScroll();
+  Globals.backButtonState = 'mainMenu';
+  DOM.$bottomMenu.style.height = "";
 }
 
-export {
-  startPopupValidation,
+export default {
   openCat,
   closeCat,
   searchScreenOn,
   searchScreenOff,
   closeSearchScreen,
-  openMenu,
   closeMenu,
   openLegend,
   closeLegend,
   openInfos,
   closeInfos,
-  altScreenOn,
-  altScreenOff,
   openParamsScreen,
   closeParamsScreen,
   openLegalScreen,
@@ -253,7 +245,6 @@ export {
   closePrivacyScreen,
   openPlusLoinScreen,
   closePlusLoinScreen,
-  midScroll,
   scrollTo,
   updateScrollAnchors,
   openRoute,

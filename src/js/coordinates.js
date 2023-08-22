@@ -61,8 +61,7 @@ function reticuleOnOff() {
   }
 }
 
-export {
+export default {
   updateCenterCoords,
   reticuleOnOff,
-  convertCoords
 }

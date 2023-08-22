@@ -152,10 +152,8 @@ function getOrientation(event) {
 }
 
 
-export {
+export default {
   locationOnOff,
-  location_active,
   tracking_active,
   getOrientation,
-  setMarkerRotation,
 }

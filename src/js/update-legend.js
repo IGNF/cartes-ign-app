@@ -35,4 +35,4 @@ function updateLegend() {
 
 }
 
-export {updateLegend};
+export default {updateLegend};

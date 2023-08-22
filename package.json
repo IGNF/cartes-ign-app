@@ -22,8 +22,7 @@
     "@capacitor/geolocation": "5.0.6",
     "@capacitor/ios": "5.2.2",
     "@capacitor/status-bar": "5.0.6",
-    "@capacitor/toast": "^5.0.6",
-    "@mapbox/mapbox-gl-sync-move": "^0.3.1"
+    "@capacitor/toast": "^5.0.6"
   },
   "devDependencies": {
     "@capacitor/assets": "^2.0.4",

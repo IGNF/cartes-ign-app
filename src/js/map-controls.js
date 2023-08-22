@@ -1,6 +1,7 @@
 import Globals from './globals';
-import * as LayerSwitch from './layer-switch';
-import * as MenuDisplay from './menu-display';
+import DOM from './dom';
+import LayerSwitch from './layer-switch';
+import MenuDisplay from './menu-display';
 
 let sideBySide;
 const map = Globals.map;
@@ -49,7 +50,7 @@ function removeSideBySide() {
   LayerSwitch.displayDataLayer(prevDataLayerDisplayed);
 }
 
-export {
+export default {
   addMapControls,
   addSideBySide,
   removeSideBySide,

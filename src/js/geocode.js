@@ -1,4 +1,4 @@
-import * as Autocomp from './autocomplete';
+import Autocomp from './autocomplete';
 import DOM from './dom';
 import Globals from './globals';
 
@@ -61,6 +61,6 @@ function _goToAddressCoords(coords, zoom=map.getZoom(), panTo=true) {
   }
 }
 
-export {
+export default {
   rechercheEtPosition
 }
