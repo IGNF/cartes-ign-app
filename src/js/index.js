@@ -5,6 +5,8 @@ import Layers from './layers';
 import Globals from './globals';
 import * as MapControls from './map-controls';
 
+import '../css/app.scss';
+
 function app() {
   /**
    * Fonction définissant l'application

@@ -1,3 +1,5 @@
 node_modules
 
 www/js/*index.bundle.js*
+www/css/*index.bundle.css*
+www/css/assets
