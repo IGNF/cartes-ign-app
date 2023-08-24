@@ -1,9 +1,11 @@
 import Globals from './globals';
-import DOM from './dom';
 import LayerSwitch from './layer-switch';
 import MenuDisplay from './menu-display';
 
+import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
+
 let sideBySide;
+let directions;
 const map = Globals.map;
 const mapRLT = Globals.mapRLT;
 
@@ -16,6 +18,9 @@ function addMapControls() {
     unit: 'metric'
   });
   map.addControl(scale, "top-left");
+
+  // Calcul d'itinéraire
+  directions = new MapLibreGlDirections(map);
 }
 
 function addSideBySide() {
