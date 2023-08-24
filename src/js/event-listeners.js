@@ -346,8 +346,9 @@ function addEventListeners() {
     })
   });
 
-  document.getElementById("sideBySideOn").addEventListener("click", MapControls.addSideBySide)
-  document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide)
+  document.getElementById("sideBySideOn").addEventListener("click", MapControls.addSideBySide);
+  document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide);
+  document.getElementById("calculateRoute").addEventListener("click", MapControls.removeSideBySide);
 }
 
 export default {

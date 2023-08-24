@@ -1,5 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -12,6 +14,9 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/index.bundle.css",
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/index.html'
     }),
   ],
   module: {
@@ -29,5 +34,12 @@ module.exports = {
         type: 'asset/resource',
       },
    ]
-  }
+  },
+  optimization: {
+    minimizer: [
+      // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
+      // `...`,
+      new CssMinimizerPlugin(),
+    ],
+  },
 };
