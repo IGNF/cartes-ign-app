@@ -69,8 +69,6 @@ function app() {
     map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
     map.setZoom(localStorage.getItem("lastMapZoom"));
   }
-  // Initialisation des coordonnées du centre
-  Coords.updateCenterCoords(map.getCenter());
 
   // Chargement de la couche précédente
   LayerSwitch.displayBaseLayer(Globals.baseLayerDisplayed);

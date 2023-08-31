@@ -18,7 +18,6 @@ const $legendImg = document.getElementById("legendImg");
 const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
 const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule");
 const $compassBtn = document.getElementById("compassBtn");
-const $centerCoords = document.getElementById("centerCoords");
 const $bottomMenu = document.getElementById("bottomMenu");
 const $defaultMenu = document.getElementById("defaultMenu");
 const $defaultMenuNotSearch = document.getElementById("defaultMenuNotSearch");
@@ -45,7 +44,6 @@ export default {
   $chkPrintCoordsOnContext,
   $chkPrintCoordsReticule,
   $compassBtn,
-  $centerCoords,
   $bottomMenu,
   $defaultMenu,
   $defaultMenuNotSearch,
