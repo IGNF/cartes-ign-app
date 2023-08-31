@@ -106,25 +106,10 @@ function addEventListeners() {
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
-
-  // Synchronisation des radio button pour le type de coordonnées
-  Array.from(document.getElementsByName("coordRadio")).forEach( elem => {
-    elem.addEventListener("change", () => {
-      Coords.updateCenterCoords(map.getCenter());
-      const radioCheckedId = document.querySelector('input[name="coordRadio"]:checked').id;
-      document.getElementById("coordTypeDisplay").innerHTML = document.querySelector(`label[for="${radioCheckedId}"]`).innerHTML;
-    });
-  });
-
   /**/
 
   // Légende en fonction du zoom
   map.on("zoomend", UpdateLegend.updateLegend);
-
-  // Coordonnées au déplacement de la carte
-  map.on("move", () => {
-    Coords.updateCenterCoords(map.getCenter());
-  });
 
   // Action du backbutton
   document.addEventListener("backbutton", onBackKeyDown, false);
