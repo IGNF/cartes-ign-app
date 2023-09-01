@@ -29,7 +29,7 @@ function addSideBySide() {
   mapRLT.setZoom(map.getZoom());
   sideBySide = new maplibregl.Compare(map, mapRLT, container);
 
-  Globals.sideBySideOn = true;
+  Globals.mapState = "compare";
   document.querySelector(".baseLayer:not(.selectedLayer)").click();
 
   prevDataLayerDisplayed = Globals.dataLayerDisplayed;
@@ -48,6 +48,7 @@ function removeSideBySide() {
   });
   document.querySelector(".selectedLayer").style.pointerEvents = "";
   sideBySide.remove();
+  Globals.mapState = "default";
   document.querySelector("#dataLayers").classList.remove("d-none");
   document.querySelector("#dataLayersLabel").classList.remove("d-none");
   document.querySelector("#sideBySideOff").classList.add("d-none");
@@ -55,8 +56,13 @@ function removeSideBySide() {
   LayerSwitch.displayDataLayer(prevDataLayerDisplayed);
 }
 
+function startDrawRoute() {
+  Globals.mapState = "drawRoute";
+}
+
 export default {
   addMapControls,
   addSideBySide,
   removeSideBySide,
+  startDrawRoute,
 }
