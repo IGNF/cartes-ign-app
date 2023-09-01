@@ -26,7 +26,12 @@ let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'plan
 let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
 
 /* global: back button state */
+/* is one of: 'default' 'search' 'mainMenu' 'params' 'legal' 'privacy' 'plusLoin' 'infos' 'legend' 'catalog' 'route'*/
 let backButtonState = 'default';
+
+/* global: map state */
+/* is one of: 'default' 'drawRoute' 'compare' */
+let mapState = 'default';
 
 /* global: last text in search bar */
 let lastTextInSearch = '';
@@ -50,9 +55,6 @@ let signal = controller.signal;
 // Autocompletion
 let autocompletion_results = []
 
-// Flag to check if side by side conparison is on
-let sideBySideOn = false;
-
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -65,6 +67,7 @@ export default {
   baseLayerDisplayed,
   dataLayerDisplayed,
   backButtonState,
+  mapState,
   lastTextInSearch,
   myPositionMarker,
   searchResultMarker,
@@ -79,5 +82,4 @@ export default {
   maxScroll,
   anchors,
   currentScroll,
-  sideBySideOn,
 };

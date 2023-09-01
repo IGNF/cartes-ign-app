@@ -10,7 +10,7 @@ function displayBaseLayer(layerName) {
    * Affiche la couche de fond correspondant à l'id de l'objet baseLayers, en comparaison si
    * le contrôle de comparaison est activé
    */
-  if (Globals.sideBySideOn) {
+  if (Globals.mapState === "compare") {
     document.querySelectorAll(".baseLayer").forEach(elem => {
       elem.classList.remove('comparedLayer');
     });
