@@ -1,11 +1,13 @@
+import maplibregl from "maplibre-gl";
+import MapLibreGlCompare from "@maplibre/maplibre-gl-compare";
+
 import Globals from './globals';
 import LayerSwitch from './layer-switch';
+import Directions from "./directions";
 import MenuDisplay from './menu-display';
 
-import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
-
 let sideBySide;
-let directions;
+
 const map = Globals.map;
 const mapRLT = Globals.mapRLT;
 
@@ -20,14 +22,16 @@ function addMapControls() {
   map.addControl(scale, "top-left");
 
   // Calcul d'itinéraire
-  directions = new MapLibreGlDirections(map);
+  map.on("load", () => {
+    Globals.directions = new Directions(map, {});
+  });
 }
 
 function addSideBySide() {
   const container = "#cartoContainer";
   mapRLT.setCenter(map.getCenter());
   mapRLT.setZoom(map.getZoom());
-  sideBySide = new maplibregl.Compare(map, mapRLT, container);
+  sideBySide = new MapLibreGlCompare(map, mapRLT, container);
 
   Globals.sideBySideOn = true;
   document.querySelector(".baseLayer:not(.selectedLayer)").click();
@@ -47,7 +51,9 @@ function removeSideBySide() {
     elem.classList.remove('comparedLayer');
   });
   document.querySelector(".selectedLayer").style.pointerEvents = "";
-  sideBySide.remove();
+  if (sideBySide) {
+    sideBySide.remove();
+  }
   document.querySelector("#dataLayers").classList.remove("d-none");
   document.querySelector("#dataLayersLabel").classList.remove("d-none");
   document.querySelector("#sideBySideOff").classList.add("d-none");

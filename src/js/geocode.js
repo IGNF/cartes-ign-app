@@ -1,3 +1,5 @@
+import maplibregl from "maplibre-gl";
+
 import Autocomp from './autocomplete';
 import DOM from './dom';
 import Globals from './globals';

@@ -212,18 +212,25 @@ function closePlusLoinScreen(){
 }
 
 // Menu outils
-function openRoute() {
+function openDirections() {
   DOM.$defaultMenu.classList.add("d-none");
+  DOM.$infoWindow.classList.add('d-none');
+  DOM.$legendWindow.classList.add('d-none');
+  DOM.$directionsWindow.classList.remove("d-none");
   DOM.$bottomMenu.style.height = "100%";
   midScroll();
-  Globals.backButtonState = 'route';
+  Globals.backButtonState = 'directions';
+  Globals.directions.interactive(true);
 }
 
-function closeRoute() {
+function closeDirections() {
   DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$directionsWindow.classList.add("d-none");
   midScroll();
   Globals.backButtonState = 'mainMenu';
   DOM.$bottomMenu.style.height = "";
+  Globals.directions.clear();
+  Globals.directions.interactive(false);
 }
 
 export default {
@@ -247,6 +254,6 @@ export default {
   closePlusLoinScreen,
   scrollTo,
   updateScrollAnchors,
-  openRoute,
-  closeRoute,
+  openDirections,
+  closeDirections,
 };

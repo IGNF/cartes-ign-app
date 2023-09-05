@@ -1,3 +1,5 @@
+import maplibregl from "maplibre-gl";
+
 import DOM from './dom';
 import Globals from './globals';
 

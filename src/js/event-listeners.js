@@ -1,5 +1,7 @@
+import maplibregl from "maplibre-gl";
+
 import Autocomp from './autocomplete';
-import Coords from './coordinates';
+// import Coords from './coordinates';
 import Geocode from './geocode';
 import LayerSwitch from './layer-switch';
 import Location from './location';
@@ -89,7 +91,7 @@ function addEventListeners() {
 
   // Boutons on-off
   DOM.$geolocateBtn.addEventListener('click', Location.locationOnOff);
-  DOM.$chkPrintCoordsReticule.addEventListener('change', Coords.reticuleOnOff);
+  // DOM.$chkPrintCoordsReticule.addEventListener('change', Coords.reticuleOnOff);
 
   // Recherche
   DOM.$rech.addEventListener('focus', MenuDisplay.searchScreenOn);
@@ -103,6 +105,7 @@ function addEventListeners() {
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
   document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
+  document.getElementById("directionsWindowClose").addEventListener('click', MenuDisplay.closeDirections);
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -146,8 +149,8 @@ function addEventListeners() {
     if (Globals.backButtonState === 'catalog') {
       MenuDisplay.closeCat();
     }
-    if (Globals.backButtonState === 'route') {
-      MenuDisplay.closeRoute();
+    if (Globals.backButtonState === 'directions') {
+      MenuDisplay.closeDirections();
     }
   }
 
@@ -269,8 +272,8 @@ function addEventListeners() {
   // document.addEventListener("scrollend", scrollEndCallback);
 
   /* Menu Buttons */
-  document.getElementById("calculateRoute").addEventListener("click", () => {
-    MenuDisplay.openRoute();
+  document.getElementById("directions").addEventListener("click", () => {
+    MenuDisplay.openDirections();
   });
 
   // GetFeatureInfo on map click
@@ -333,7 +336,7 @@ function addEventListeners() {
 
   document.getElementById("sideBySideOn").addEventListener("click", MapControls.addSideBySide);
   document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide);
-  document.getElementById("calculateRoute").addEventListener("click", MapControls.removeSideBySide);
+  document.getElementById("directions").addEventListener("click", MapControls.removeSideBySide);
 }
 
 export default {

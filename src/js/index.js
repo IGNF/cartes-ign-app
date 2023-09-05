@@ -1,10 +1,12 @@
-import Coords from './coordinates';
+// import Coords from './coordinates';
 import EventListeners from './event-listeners';
 import LayerSwitch from './layer-switch';
 import Layers from './layers';
 import Globals from './globals';
 import MapControls from './map-controls';
 
+import '@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import '../css/app.scss';
 
 function app() {
