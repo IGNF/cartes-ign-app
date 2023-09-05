@@ -23,7 +23,10 @@
     "@capacitor/ios": "5.2.2",
     "@capacitor/status-bar": "5.0.6",
     "@capacitor/toast": "^5.0.6",
-    "@maplibre/maplibre-gl-directions": "^0.4.2"
+    "@mapbox/mapbox-gl-sync-move": "^0.3.1",
+    "@maplibre/maplibre-gl-compare": "^0.5.0",
+    "@maplibre/maplibre-gl-directions": "^0.4.2",
+    "maplibre-gl": "^3.3.1"
   },
   "devDependencies": {
     "@capacitor/assets": "^2.0.4",

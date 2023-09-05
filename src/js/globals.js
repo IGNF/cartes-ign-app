@@ -1,3 +1,5 @@
+import maplibregl from "maplibre-gl";
+
 // Main map
 const map = new maplibregl.Map({
   container: "map",
@@ -53,6 +55,9 @@ let autocompletion_results = []
 // Flag to check if side by side conparison is on
 let sideBySideOn = false;
 
+// Global Route plugin
+let directions = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -80,4 +85,5 @@ export default {
   anchors,
   currentScroll,
   sideBySideOn,
+  directions,
 };

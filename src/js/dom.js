@@ -23,6 +23,7 @@ const $defaultMenu = document.getElementById("defaultMenu");
 const $defaultMenuNotSearch = document.getElementById("defaultMenuNotSearch");
 const $catalog = document.getElementById("catalog");
 const $catalogBtn = document.getElementById("catalogBtn");
+const $directionsWindow = document.getElementById("directionsWindow");
 
 export default {
   $resultDiv,
@@ -49,4 +50,5 @@ export default {
   $defaultMenuNotSearch,
   $catalog,
   $catalogBtn,
+  $directionsWindow,
 };
