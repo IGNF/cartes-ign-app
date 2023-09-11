@@ -138,8 +138,7 @@
 }
 
 .divDirectionsComputation input[type="radio"]:checked + label {
-  background-color: #26a581;
-  color: #fff;
+  color: #26a581;
 }
 
 .lblDirectionsComputation {
@@ -197,7 +196,7 @@
   background-image: url("assets/directions/location-first.svg");
 }
 
-#directionsLocation_first {}
+#directionsLocation_start {}
 
 .lblDirectionsLocationsImg_middle {
   /* background-image: url("assets/directions/location-middle.svg"); */
@@ -207,7 +206,7 @@
   background-image: url("assets/directions/location-last.svg");
 }
 
-#directionsLocation_last {}
+#directionsLocation_end {}
 
 #directionsLocationImg_reverse {
   width: 40px;

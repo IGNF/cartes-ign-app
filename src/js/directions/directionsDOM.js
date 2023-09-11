@@ -1,5 +1,12 @@
 let DirectionsDOM = {
 
+    dom : {
+        inputCar : null,
+        inputPedestrian : null,
+        inputFastest : null,
+        inputShortest : null
+    },
+
     /**
      * transforme un texte html en dom
      * @param {String} str 
@@ -62,23 +69,65 @@ let DirectionsDOM = {
         form.id = "directionsForm";
         form.setAttribute("onkeypress", "return event.keyCode != 13;"); // FIXME hack pour desactiver l'execution via 'enter' au clavier !
 
+        // contexte de la classse
+        var self = this;
         form.addEventListener("submit", function (e) {
-            logger.log(e);
             e.preventDefault();
-            // TODO
+
             // recuperer les valeurs des composants HTML:
             // - transport
             // - computation
             // - locations
 
+            var transport = null;
+            // voiture ?
+            if (self.dom.inputCar) {
+                if (self.dom.inputCar.checked) {
+                    transport = self.dom.inputCar.value;
+                }
+            }
+            // pieton ?
+            if (self.dom.inputPedestrian) {
+                if (self.dom.inputPedestrian.checked) {
+                    transport = self.dom.inputPedestrian.value;
+                }
+            }
+
+            var computation = null;
+            // fast ?
+            if (self.dom.inputFastest) {
+                if (self.dom.inputFastest.checked) {
+                    computation = self.dom.inputFastest.value;
+                }
+            }
+            // short ?
+            if (self.dom.inputShortest) {
+                if (self.dom.inputShortest.checked) {
+                    computation = self.dom.inputShortest.value;
+                }
+            }
+
+            // recuperation des coordonnées issues du geocodage
+            // le geocodage enregistre les coordonnées dans la tag data-coordinates :
+            //   data-coordinates = "[2.24,48.80]"
+            var locations = [];
+            var points = document.getElementsByClassName("inputDirectionsLocations");
+            var start = points[0].dataset.coordinates;
+            var end = points[points.length - 1].dataset.coordinates;
+            locations.push(start);
+            locations.push(end);
+            for (let i = 1; i < points.length - 1; i++) {
+                locations.push(points[i].dataset.coordinates);
+            }
+
             // mise en place d'une patience ?
             // https://uiverse.io/barisdogansutcu/light-rat-32
             
             // passer les valeurs au service
-            this.compute({
-                transport : null,
-                computation : null,
-                locations : null
+            self.compute({
+                transport : transport,
+                computation : computation,
+                locations : locations
             });
 
             return false;
@@ -112,7 +161,7 @@ let DirectionsDOM = {
         var div = document.createElement("div");
         div.className = "divDirectionsTransport";
 
-        var inputPedestrian = document.createElement("input");
+        var inputPedestrian = this.dom.inputPedestrian = document.createElement("input");
         inputPedestrian.id = "directionsTransportPieton";
         inputPedestrian.type = "radio";
         inputPedestrian.name = "Transport";
@@ -120,6 +169,7 @@ let DirectionsDOM = {
         inputPedestrian.checked = true;
         inputPedestrian.addEventListener("change", function (e) {
             // TODO
+            console.log(e);
         });
         div.appendChild(inputPedestrian);
 
@@ -130,13 +180,14 @@ let DirectionsDOM = {
         labelPedestrian.textContent = "A pied";
         div.appendChild(labelPedestrian);
 
-        var inputCar = document.createElement("input");
+        var inputCar = this.dom.inputCar = document.createElement("input");
         inputCar.id = "directionsTransportVoiture";
         inputCar.type = "radio";
         inputCar.name = "Transport";
         inputCar.value = "Voiture";
         inputCar.addEventListener("change", function (e) {
             // TODO
+            console.log(e);
         });
         div.appendChild(inputCar);
 
@@ -164,7 +215,7 @@ let DirectionsDOM = {
         var div = document.createElement("div");
         div.className = "divDirectionsComputation";
         
-        var inputFastest = document.createElement("input");
+        var inputFastest = this.dom.inputFastest = document.createElement("input");
         inputFastest.id = "directionsComputationFastest";
         inputFastest.type = "radio";
         inputFastest.name = "Computation";
@@ -172,6 +223,7 @@ let DirectionsDOM = {
         inputFastest.checked = true;
         inputFastest.addEventListener("change", function (e) {
             // TODO
+            console.log(e);
         });
         div.appendChild(inputFastest);
 
@@ -182,13 +234,14 @@ let DirectionsDOM = {
         labelFastest.textContent = "Plus rapide";
         div.appendChild(labelFastest);
 
-        var inputShortest = document.createElement("input");
+        var inputShortest = this.dom.inputShortest = document.createElement("input");
         inputShortest.id = "directionsComputationShortest";
         inputShortest.type = "radio";
         inputShortest.name = "Computation";
         inputShortest.value = "Shortest";
         inputShortest.addEventListener("change", function (e) {
             // TODO
+            console.log(e);
         });
         div.appendChild(inputShortest);
 
@@ -208,6 +261,9 @@ let DirectionsDOM = {
      * @private
      */
     __addContainerLocationsDOMElement () {
+        // contexte de la classse
+        var self = this;
+
         // https://uiverse.io/satyamchaudharydev/plastic-bobcat-37
         var div = document.createElement("div");
         div.className = "divDirectionsLocations";
@@ -221,13 +277,17 @@ let DirectionsDOM = {
         divDefault.appendChild(labelDeparture);
 
         var inputLocationDeparture = document.createElement("input");
-        inputLocationDeparture.id = "directionsLocation_first";
+        inputLocationDeparture.id = "directionsLocation_start";
         inputLocationDeparture.className = "inputDirectionsLocations";
         inputLocationDeparture.type = "text";
         inputLocationDeparture.placeholder = "Choisir un point de départ...";
-        inputLocationDeparture.name = "departure";
-        inputLocationDeparture.addEventListener("change", function (e) {
-            // TODO
+        inputLocationDeparture.name = "start";
+        // le geocodage enregistre les coordonnées dans la tag data-coordinates :
+        //   data-coordinates = "[2.24,48.80]"
+        inputLocationDeparture.dataset.coordinates = "";
+        inputLocationDeparture.addEventListener("click", function (e) {
+            // ouverture du menu de recherche
+            self.onOpenSearchDirections(e);
         });
         divDefault.appendChild(inputLocationDeparture);
 
@@ -242,19 +302,27 @@ let DirectionsDOM = {
         divDefault.appendChild(labelArrival);
 
         var inputLocationArrival  = document.createElement("input");
-        inputLocationArrival.id = "directionsLocation_last";
+        inputLocationArrival.id = "directionsLocation_end";
         inputLocationArrival.className = "inputDirectionsLocations";
         inputLocationArrival.type = "text";
         inputLocationArrival.placeholder = "Choisir une destination...";
-        inputLocationArrival.name = "arrival";
-        inputLocationArrival.addEventListener("change", function (e) {
-            // TODO
+        inputLocationArrival.name = "end";
+        // le geocodage enregistre les coordonnées dans la tag data-coordinates :
+        //   data-coordinates = "[2.24,48.80]"
+        inputLocationArrival.dataset.coordinates = "";
+        inputLocationArrival.addEventListener("click", function (e) {
+            // ouverture du menu de recherche
+            self.onOpenSearchDirections(e);
         });
         divDefault.appendChild(inputLocationArrival);
 
         var labelReverse = document.createElement("label");
         labelReverse.id = "directionsLocationImg_reverse";
         labelReverse.className = "lblDirectionsLocations";
+        labelReverse.addEventListener("click", function (e) {
+            // TODO
+            console.log(e);
+        });
         divDefault.appendChild(labelReverse);
 
         div.appendChild(divDefault);
@@ -267,6 +335,10 @@ let DirectionsDOM = {
         labelAddStep.className = "lblDirectionsLocations";
         labelAddStep.title = "Ajouter une étape";
         labelAddStep.textContent = "Ajouter une étape";
+        labelAddStep.addEventListener("click", function (e) {
+            // TODO
+            console.log(e);
+        });
         divStep.appendChild(labelAddStep);
 
         div.appendChild(divStep);
