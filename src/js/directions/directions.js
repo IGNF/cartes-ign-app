@@ -21,8 +21,10 @@ class Directions {
         // cf. https://maplibre.org/maplibre-gl-directions/#/examples/restyling
 
         // configuration du service
-        var configuration = this.options.configuration || {
-            api: "https://router.project-osrm.org/route/v1",
+        // cf. https://project-osrm.org/docs/v5.24.0/api/#
+        // ex. https://map.project-osrm.org/
+        this.configuration = this.options.configuration || {
+            api: "https://routing.openstreetmap.de/routed-foot/route/v1/driving/",
             profile: "driving",
             requestOptions: {},
             requestTimeout: null,
@@ -50,9 +52,10 @@ class Directions {
             refreshOnMove: false,
             bearings: false
         };
-
+        // map
+        this.map = map;
         // objet
-        this.obj = new MapLibreGlDirections(map, configuration);
+        this.obj = new MapLibreGlDirections(this.map, this.configuration);
         // sans interaction par défaut !
         this.obj.interactive = false;
         // rendu graphique
@@ -87,11 +90,35 @@ class Directions {
      */
     compute (settings) {
         console.log(settings);
-        // TODO
-        // Les valeurs sont à retranscrire en param du service
-        // - transport : ex. voiture vers profile driving
-        // - computation : fastest vers ???
-        // - locations : coordinates vers waypoints
+        // Les valeurs sont à retranscrire en options du service utilisé
+        // - transport : ex. voiture vers l'option 'profile:driving'
+        // - computation
+        // - locations
+        if (settings.transport) {
+            // TODO mettre en place les diffrents types de profile selon le service utilisé !
+            switch (settings.transport) {
+                case "Pieton":
+                case "Voiture":
+                    this.configuration.profile = "driving";
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+        if (settings.computation) {
+            // TODO mettre en place le mode calcul quand le service le permet !
+        }
+        if (settings.locations && settings.locations.length) {
+            // les coordonnées sont en lon / lat en WGS84G
+            var start = JSON.parse(settings.locations[0]);
+            var end = JSON.parse(settings.locations[settings.locations.length - 1]);
+            if (start && end) {
+                this.obj.addWaypoint(start);
+                this.obj.addWaypoint(end);
+                this.map.fitBounds([start, end]); // FIXME utiliser le tracé !
+            }
+        }
     }
 
     /**
@@ -117,34 +144,37 @@ class Directions {
     onOpenSearchDirections (e) {
         // on ouvre le menu
         MenuDisplay.openSearchDirections();
+        
         // on procede à un nettoyage des resultats déjà selectionnés
         var selected = document.getElementsByClassName("autocompresultselected");
         for (let index = 0; index < selected.length; index++) {
             const element = selected[index];
             element.className = "autocompresult";
         }
+
         // on transmet d'où vient la demande de location : 
         // - point de départ,
         // - arrivée,
         // - étape
         var target = e.target;
 
-        // handler sur le geocodage
+        // les handler sur 
+        // - le geocodage
+        // - la fermeture du menu
+        // - le nettoyage des ecouteurs
         function setLocation (e) {
             // on enregistre dans le DOM :
-            // - les coordonnées 
+            // - les coordonnées en WGS84G soit lon / lat !
             // - la reponse du geocodage
-            target.dataset.coordinates = "[" + e.detail.coordinates.lat + "," + e.detail.coordinates.lon + "]";
+            target.dataset.coordinates = "[" + e.detail.coordinates.lon + "," + e.detail.coordinates.lat + "]";
             target.value = e.detail.text;
             cleanListeners();
         }
-        // handler sur la fermeture du menu
         function cleanLocation (e) {
             target.dataset.coordinates = "";
             target.value = "";
             cleanListeners();
         }
-        // handler sur le nettoyage des ecouteurs
         function cleanListeners () {
             closeSearchDirections.removeEventListener("click", cleanLocation);
             Geocode.target.removeEventListener("search", setLocation)
