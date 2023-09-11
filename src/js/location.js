@@ -7,9 +7,9 @@ import { Geolocation } from '@capacitor/geolocation';
 import { Toast } from '@capacitor/toast';
 
 // fichiers SVG
-import LocationImg from "css/assets/localisation.svg";
-import LocationFollowImg from "css/assets/location-follow.svg";
-import LocationFixeImg from "css/assets/location-fixed.svg";
+import LocationImg from "../css/assets/localisation.svg";
+import LocationFollowImg from "../css/assets/location-follow.svg";
+import LocationFixeImg from "../css/assets/location-fixed.svg";
 
 const map = Globals.map;
 
