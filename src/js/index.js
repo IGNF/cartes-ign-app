@@ -5,9 +5,14 @@ import Layers from './layers';
 import Globals from './globals';
 import MapControls from './map-controls';
 
+// import CSS
 import '@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import '../css/app.scss';
+
+// fichiers SVG
+import PositionImg from "../css/assets/position.svg";
+import MapCenterImg from "../css/assets/map-center.svg";
 
 function app() {
   /**
@@ -20,7 +25,7 @@ function app() {
   Globals.myPositionIcon.style.width = '51px';
   Globals.myPositionIcon.style.height = '51px';
   Globals.myPositionIcon.style.backgroundSize = "contain";
-  Globals.myPositionIcon.style.backgroundImage = "url(css/assets/position.svg)";
+  Globals.myPositionIcon.style.backgroundImage = "url(" + PositionImg + ")";
 
   Globals.searchResultIcon = document.createElement('div');
   Globals.searchResultIcon.class = 'searchResultIcon';
@@ -28,7 +33,7 @@ function app() {
   Globals.searchResultIcon.style.height = '23px';
   Globals.searchResultIcon.style.opacity = '0.8';
   Globals.searchResultIcon.style.backgroundSize = "contain";
-  Globals.searchResultIcon.style.backgroundImage = "url(css/assets/map-center.svg)";
+  Globals.searchResultIcon.style.backgroundImage = "url(" + MapCenterImg + ")";
   /**/
 
   /* Récupération de la carte */
