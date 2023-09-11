@@ -6,21 +6,51 @@ import Globals from './globals';
 
 const map = Globals.map;
 
-/* Recherche et positionnnement */
-function cleanResults() {
-  /**
-   * Enlève le marqueur adresse
-   */
+const target = new EventTarget();
+
+/**
+ * ...
+ */
+function clean() {
   if (Globals.searchResultMarker != null) {
     Globals.searchResultMarker.remove()
     Globals.searchResultMarker = null;
   }
 }
 
-
-async function rechercheEtPosition(text) {
+/**
+ * ...
+ * @param {*} coords 
+ * @param {*} zoom 
+ * @param {*} panTo 
+ */
+function moveTo(coords, zoom=map.getZoom(), panTo=true) {
   /**
-   * Recherche un texte et le géocode à l'aide de look4, puis va à sa position en ajoutant un marqueur
+   * Ajoute un marqueur de type adresse à la position définie par le coods, et déplace la carte au zoom demandé
+   * si panTo est True
+   */
+  clean();
+  Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon})
+    .setLngLat([coords.lon, coords.lat])
+    .addTo(map);
+
+  Globals.searchResultIcon.addEventListener("click", clean);
+
+  if (panTo) {
+    map.setCenter([coords.lon, coords.lat]);
+    map.setZoom(zoom);
+  }
+}
+
+/**
+ * ...
+ * @param {*} text 
+ * @returns 
+ */
+async function search (text) {
+  /**
+   * Recherche un texte et le géocode à l'aide de look4,
+   * puis va à sa position en ajoutant un marqueur
    */
   let url = new URL("https://wxs.ign.fr/calcul/geoportail/geocodage/rest/0.1/completion");
   let params =
@@ -38,31 +68,37 @@ async function rechercheEtPosition(text) {
 
   DOM.$rech.value = Autocomp.computeLocationFullText(geocode_result);
 
-  let coords = {
+  target.dispatchEvent(
+    new CustomEvent("search", {
+      bubbles: true,
+      detail: {
+        text : geocode_result.fulltext,
+        coordinates: {
+          lat: geocode_result.y,
+          lon: geocode_result.x
+        }
+      }
+    })
+  );
+
+  return {
     lat: geocode_result.y,
     lon: geocode_result.x
   };
-  _goToAddressCoords(coords, 14);
 }
 
-function _goToAddressCoords(coords, zoom=map.getZoom(), panTo=true) {
-  /**
-   * Ajoute un marqueur de type adresse à la position définie par le coods, et déplace la carte au zoom demandé
-   * si panTo est True
-   */
-  cleanResults();
-  Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon})
-    .setLngLat([coords.lon, coords.lat])
-    .addTo(map);
-
-  Globals.searchResultIcon.addEventListener("click", cleanResults);
-
-  if (panTo) {
-    map.setCenter([coords.lon, coords.lat]);
-    map.setZoom(zoom);
-  }
+/**
+ * ...
+ * @param {*} text 
+ */
+async function searchAndMoveTo(text) {
+  var coords = await search(text);
+  moveTo(coords, 14);
 }
 
 export default {
-  rechercheEtPosition
+  target,
+  moveTo,
+  search,
+  searchAndMoveTo,
 }

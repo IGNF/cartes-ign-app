@@ -27,7 +27,7 @@ function addEventListeners() {
       // Trigger the button element with a click
       DOM.$resultDiv.hidden = true;
       DOM.$resultDiv.innerHTML = "";
-      Geocode.rechercheEtPosition(DOM.$rech.value);
+      Geocode.searchAndMoveTo(DOM.$rech.value);
       MenuDisplay.searchScreenOff();
     } else if (DOM.$rech.value !== ""){
       let resultStr = "";
@@ -48,15 +48,25 @@ function addEventListeners() {
     }
   });
 
+  DOM.$rech.addEventListener("click", (event) => {
+    DOM.$rech.value = "";
+    DOM.$resultDiv.hidden = true;
+    DOM.$resultDiv.innerHTML = "";
+  });
+
   /* event listeners pour élément non existants au démarrage */
   document.querySelector('body').addEventListener('click', (evt) => {
     /* Résultats autocompletion */
     if ( evt.target.classList.contains('autocompresult') ) {
-      evt.target.style.backgroundColor = '#0B6BA7';
-      evt.target.style.color = 'white';
+      evt.target.className = "autocompresultselected";
       DOM.$rech.value = evt.target.getAttribute("fulltext");
-      Geocode.rechercheEtPosition(DOM.$rech.value);
-      setTimeout(MenuDisplay.searchScreenOff, 150)
+      if (Globals.backButtonState === "searchDirections") {
+        Geocode.search(DOM.$rech.value);
+        setTimeout(MenuDisplay.openDirections, 150);
+      } else {
+        Geocode.searchAndMoveTo(DOM.$rech.value);
+        setTimeout(MenuDisplay.searchScreenOff, 150)
+      }
     }
   }, true);
 
@@ -94,7 +104,11 @@ function addEventListeners() {
   // DOM.$chkPrintCoordsReticule.addEventListener('change', Coords.reticuleOnOff);
 
   // Recherche
-  DOM.$rech.addEventListener('focus', MenuDisplay.searchScreenOn);
+  DOM.$rech.addEventListener('focus', function () {
+    if (Globals.backButtonState === "default" || Globals.backButtonState === "mainMenu") {
+      MenuDisplay.searchScreenOn();
+    }
+  });
   DOM.$closeSearch.addEventListener("click", onBackKeyDown);
 
   document.getElementById('menuItemParamsIcon').addEventListener('click', MenuDisplay.openParamsScreen);
@@ -151,6 +165,9 @@ function addEventListeners() {
     }
     if (Globals.backButtonState === 'directions') {
       MenuDisplay.closeDirections();
+    }
+    if (Globals.backButtonState === 'searchDirections') {
+      MenuDisplay.closeSearchDirections();
     }
   }
 
