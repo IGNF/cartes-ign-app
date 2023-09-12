@@ -5,8 +5,6 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-    <link rel="stylesheet" type="text/css" href="css/maplibre-gl.css">
-    <link rel='stylesheet' type="text/css" href="css/maplibre-gl-compare.css" />
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 
     <title>Géoportail</title>
@@ -24,6 +22,7 @@
             <%= require('html-loader!./defaultBottomMenu.html').default %>
             <%= require('html-loader!./catalog.html').default %>
 
+            <%= require('html-loader!./directionsWindow.html').default %>
             <%= require('html-loader!./infoWindow.html').default %>
             <%= require('html-loader!./legendWindow.html').default %>
 
@@ -36,9 +35,5 @@
             <%= require('html-loader!./plusLoinMenu.html').default %>
           </div>
       </div>
-
-      <script type="text/javascript" src="js/external/maplibre-gl.js"></script>
-      <script type="text/javascript" src="js/external/maplibre-gl-compare.js"></script>
   </body>
-
 </html>

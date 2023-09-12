@@ -1,3 +1,5 @@
+import maplibregl from "maplibre-gl";
+
 // Main map
 const map = new maplibregl.Map({
   container: "map",
@@ -55,6 +57,9 @@ let signal = controller.signal;
 // Autocompletion
 let autocompletion_results = []
 
+// Global Route plugin
+let directions = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -82,4 +87,5 @@ export default {
   maxScroll,
   anchors,
   currentScroll,
+  directions,
 };

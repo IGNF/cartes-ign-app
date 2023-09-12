@@ -1,5 +1,7 @@
+import maplibregl from "maplibre-gl";
+
 import Autocomp from './autocomplete';
-import Coords from './coordinates';
+// import Coords from './coordinates';
 import Geocode from './geocode';
 import LayerSwitch from './layer-switch';
 import Location from './location';
@@ -25,7 +27,7 @@ function addEventListeners() {
       // Trigger the button element with a click
       DOM.$resultDiv.hidden = true;
       DOM.$resultDiv.innerHTML = "";
-      Geocode.rechercheEtPosition(DOM.$rech.value);
+      Geocode.searchAndMoveTo(DOM.$rech.value);
       MenuDisplay.searchScreenOff();
     } else if (DOM.$rech.value !== ""){
       let resultStr = "";
@@ -46,15 +48,25 @@ function addEventListeners() {
     }
   });
 
+  DOM.$rech.addEventListener("click", (event) => {
+    DOM.$rech.value = "";
+    DOM.$resultDiv.hidden = true;
+    DOM.$resultDiv.innerHTML = "";
+  });
+
   /* event listeners pour élément non existants au démarrage */
   document.querySelector('body').addEventListener('click', (evt) => {
     /* Résultats autocompletion */
     if ( evt.target.classList.contains('autocompresult') ) {
-      evt.target.style.backgroundColor = '#0B6BA7';
-      evt.target.style.color = 'white';
+      evt.target.className = "autocompresultselected";
       DOM.$rech.value = evt.target.getAttribute("fulltext");
-      Geocode.rechercheEtPosition(DOM.$rech.value);
-      setTimeout(MenuDisplay.searchScreenOff, 150)
+      if (Globals.backButtonState === "searchDirections") {
+        Geocode.search(DOM.$rech.value);
+        setTimeout(MenuDisplay.openDirections, 150);
+      } else {
+        Geocode.searchAndMoveTo(DOM.$rech.value);
+        setTimeout(MenuDisplay.searchScreenOff, 150)
+      }
     }
   }, true);
 
@@ -89,10 +101,14 @@ function addEventListeners() {
 
   // Boutons on-off
   DOM.$geolocateBtn.addEventListener('click', Location.locationOnOff);
-  DOM.$chkPrintCoordsReticule.addEventListener('change', Coords.reticuleOnOff);
+  // DOM.$chkPrintCoordsReticule.addEventListener('change', Coords.reticuleOnOff);
 
   // Recherche
-  DOM.$rech.addEventListener('focus', MenuDisplay.searchScreenOn);
+  DOM.$rech.addEventListener('focus', function () {
+    if (Globals.backButtonState === "default" || Globals.backButtonState === "mainMenu") {
+      MenuDisplay.searchScreenOn();
+    }
+  });
   DOM.$closeSearch.addEventListener("click", onBackKeyDown);
 
   document.getElementById('menuItemParamsIcon').addEventListener('click', MenuDisplay.openParamsScreen);
@@ -103,6 +119,7 @@ function addEventListeners() {
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
   document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
+  document.getElementById("directionsWindowClose").addEventListener('click', MenuDisplay.closeDirections);
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -146,8 +163,11 @@ function addEventListeners() {
     if (Globals.backButtonState === 'catalog') {
       MenuDisplay.closeCat();
     }
-    if (Globals.backButtonState === 'route') {
-      MenuDisplay.closeRoute();
+    if (Globals.backButtonState === 'directions') {
+      MenuDisplay.closeDirections();
+    }
+    if (Globals.backButtonState === 'searchDirections') {
+      MenuDisplay.closeSearchDirections();
     }
   }
 
@@ -269,8 +289,8 @@ function addEventListeners() {
   // document.addEventListener("scrollend", scrollEndCallback);
 
   /* Menu Buttons */
-  document.getElementById("calculateRoute").addEventListener("click", () => {
-    MenuDisplay.openRoute();
+  document.getElementById("directions").addEventListener("click", () => {
+    MenuDisplay.openDirections();
   });
 
   // GetFeatureInfo on map click
@@ -334,7 +354,7 @@ function addEventListeners() {
   document.getElementById("sideBySideOn").addEventListener("click", MapControls.addSideBySide);
   document.getElementById("drawRoute").addEventListener("click", MapControls.startDrawRoute);
   document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide);
-  document.getElementById("calculateRoute").addEventListener("click", MapControls.removeSideBySide);
+  document.getElementById("directions").addEventListener("click", MapControls.removeSideBySide);
 }
 
 export default {

@@ -30,9 +30,9 @@
   padding-right: 33px;
   width: 100%;
   height: 35px;
-  border: 0px solid #e8f1f6;
+  border: 1px solid #26a581;
   border-radius: 5px;
-  background-color: #e8f1f6;
+  background-color: white;
   font-family: 'Open Sans Bold';
 }
 
@@ -80,7 +80,8 @@
   border-radius: 5px;
 }
 
-#resultsRech p {
+.autocompresultselected,
+.autocompresult {
   border-bottom: solid 1px #D8DFE4;
   padding: 0.6em 0.2em;
   margin: 0;
@@ -88,13 +89,17 @@
   padding-right: 10px;
 }
 
-#resultsRech p em {
+.autocompresult em {
   opacity: 0.2;
   font-size: 0.7em;
 }
 
-#resultsRech p:last-child {
+.autocompresult:last-child {
   border-bottom: none;
+}
+
+.autocompresultselected {
+  background-color: #00ae90;
 }
 
 .button {

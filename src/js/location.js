@@ -1,8 +1,15 @@
+import maplibregl from "maplibre-gl";
+
 import DOM from './dom';
 import Globals from './globals';
 
 import { Geolocation } from '@capacitor/geolocation';
 import { Toast } from '@capacitor/toast';
+
+// fichiers SVG
+import LocationImg from "../css/assets/localisation.svg";
+import LocationFollowImg from "../css/assets/location-follow.svg";
+import LocationFixeImg from "../css/assets/location-fixed.svg";
 
 const map = Globals.map;
 
@@ -95,7 +102,7 @@ function _trackLocation() {
 // Modification du statut de localisation
 async function locationOnOff() {
   if (!location_active) {
-    DOM.$geolocateBtn.style.backgroundImage = 'url("css/assets/location-fixed.svg")';
+    DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFixeImg + '")';
     let permissionStatus;
     try {
       permissionStatus = await Geolocation.checkPermissions();
@@ -117,7 +124,7 @@ async function locationOnOff() {
       position: "bottom"
     });
   } else if (!tracking_active) {
-    DOM.$geolocateBtn.style.backgroundImage = 'url("css/assets/location-follow.svg")';
+    DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFollowImg + '")';
     tracking_active = true;
     Toast.show({
       text: "Mode navigation activé",
@@ -125,7 +132,7 @@ async function locationOnOff() {
       position: "bottom"
     });
   } else {
-    DOM.$geolocateBtn.style.backgroundImage = 'url("css/assets/localisation.svg")';
+    DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationImg + '")';
     Geolocation.clearWatch(watch_id);
     location_active = false;
     tracking_active = false;
