@@ -312,7 +312,7 @@ function addEventListeners() {
     let currentLayer = Globals.baseLayerDisplayed;
     if (Globals.dataLayerDisplayed !== '') {
       currentLayer = Globals.dataLayerDisplayed;
-    } else if (Globals.sideBySideOn) {
+    } else if (Globals.mapState === "compare") {
       return
     }
     const layerProps = Layers.layerProps[currentLayer];
@@ -352,6 +352,7 @@ function addEventListeners() {
   });
 
   document.getElementById("sideBySideOn").addEventListener("click", MapControls.addSideBySide);
+  document.getElementById("drawRoute").addEventListener("click", MapControls.startDrawRoute);
   document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide);
   document.getElementById("directions").addEventListener("click", MapControls.removeSideBySide);
 }
