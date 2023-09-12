@@ -45,6 +45,7 @@ function searchScreenOn() {
   DOM.$catalogBtn.classList.add('d-none');
   DOM.$closeSearch.classList.remove('d-none');
   DOM.$defaultMenuNotSearch.classList.add('d-none');
+  DOM.$directionsWindow.classList.add("d-none");
   Globals.currentScrollIndex = 2;
   updateScrollAnchors();
   Globals.backButtonState = 'search';
@@ -212,18 +213,50 @@ function closePlusLoinScreen(){
 }
 
 // Menu outils
-function openRoute() {
+function openDirections() {
   DOM.$defaultMenu.classList.add("d-none");
+  DOM.$infoWindow.classList.add('d-none');
+  DOM.$legendWindow.classList.add('d-none');
+  DOM.$directionsWindow.classList.remove("d-none");
   DOM.$bottomMenu.style.height = "100%";
   midScroll();
-  Globals.backButtonState = 'route';
+  Globals.backButtonState = 'directions';
+  Globals.directions.interactive(true);
 }
 
-function closeRoute() {
+function closeDirections() {
   DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$directionsWindow.classList.add("d-none");
+  DOM.$defaultMenuNotSearch.classList.remove('d-none');
   midScroll();
   Globals.backButtonState = 'mainMenu';
   DOM.$bottomMenu.style.height = "";
+  Globals.directions.clear();
+  Globals.directions.interactive(false);
+}
+
+function openSearchDirections() {
+  DOM.$bottomMenu.style.height = "100%";
+  DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$closeSearch.classList.remove('d-none');
+  DOM.$directionsWindow.classList.add("d-none");
+  DOM.$defaultMenuNotSearch.classList.add('d-none');
+  Globals.currentScrollIndex = 2;
+  updateScrollAnchors();
+  Globals.backButtonState = 'searchDirections';
+}
+
+function closeSearchDirections() {
+  Globals.controller.abort();
+  Globals.controller = new AbortController();
+  Globals.signal = Globals.controller.signal;
+  DOM.$resultDiv.hidden = true;
+  DOM.$resultDiv.innerHTML = "";
+  DOM.$defaultMenu.classList.add("d-none");
+  DOM.$closeSearch.classList.add('d-none');
+  DOM.$directionsWindow.classList.remove("d-none");
+  Globals.backButtonState = 'directions'; // on revient sur le contrôle !
+  midScroll();
 }
 
 export default {
@@ -247,6 +280,8 @@ export default {
   closePlusLoinScreen,
   scrollTo,
   updateScrollAnchors,
-  openRoute,
-  closeRoute,
+  openDirections,
+  closeDirections,
+  openSearchDirections,
+  closeSearchDirections,
 };

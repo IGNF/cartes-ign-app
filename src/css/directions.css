@@ -1,0 +1,227 @@
+/*********************************************************
+ * onglet d'affichage du controle de calcul d'itiniraire
+ * @fixme à placer dans une css dedié aux onglets !
+ *********************************************************/ 
+#directionsWindow {
+  margin-top: 10px;
+  position: relative;
+  background: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color:#4b4b4b;
+  font-size: 1.1em;
+  text-align: justify;
+  overflow-y: scroll;
+}
+
+.windowClose {
+  width: 34px;
+  height: 34px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("assets/close.svg");
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 3001;
+}
+
+/***********************************
+ * controle de calcul d'itiniraire 
+ ***********************************/
+
+/* 
+ * compute 
+ */
+.btnDirectionsCompute {
+  display: block;
+  width: 90%;
+  margin: auto;
+  border: none;
+  border-radius: 12px;
+  background-color: #26a581;
+  padding: 14px 28px;
+  font-family: "Fira Sans-SemiBold", Helvetica;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--white);
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+/* 
+ * transport 
+ */
+.divDirectionsTransport input[type="radio"] {
+  display: none;
+}
+
+.divDirectionsTransport * {
+  z-index: 2;
+}
+
+.divDirectionsTransport {
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  margin: auto;
+  height: 34px;
+  width: 220px;
+  background-color: #e9ecef;
+  /* box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15); */
+  padding: 10px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.lblDirectionsTransport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 120px;
+  /* font-size: .8rem;
+  color: black;
+  font-weight: 500; */
+  border-radius: 100px;
+  cursor: pointer;
+  transition: color 0.15s ease-in;
+  background-repeat: no-repeat;
+}
+.divDirectionsTransport input[type="radio"]:checked + label {}
+
+.divDirectionsTransport input[id="directionsTransportVoiture"]:checked ~ .glider {
+  transform: translateX(58px);
+}
+
+.divDirectionsTransport input[id="directionsTransportPieton"]:checked ~ .glider {
+  transform: translateX(-58px);
+}
+
+.glider {
+  position: absolute;
+  display: flex;
+  height: 44px;
+  width: 110px;
+  background-color: #ffffff;
+  z-index: 1;
+  border-radius: 100px;
+  transition: 0.25s ease-out;
+}
+
+#directionsTransportVoiture + label {
+  background-image: url("assets/directions/voiture.svg");
+}
+
+#directionsTransportPieton + label {
+  background-image: url("assets/directions/pieton.svg");
+}
+
+/* 
+ * calcul 
+ */
+.divDirectionsComputation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 60%;
+  margin-bottom: 10px;
+}
+
+.divDirectionsComputation input[type="radio"] {
+  display: none;
+}
+
+.divDirectionsComputation input[type="radio"]:checked + label {
+  color: #26a581;
+}
+
+.lblDirectionsComputation {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  border-radius: 50px;
+  margin-right: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+#directionsComputationFastest {}
+#directionsComputationShortest {}
+
+/* 
+ * locations 
+ */
+.divDirectionsLocations {
+  display: flex;
+  flex-direction: column;
+}
+
+.divDirectionsLocationsDefault {
+  display: grid;
+  grid-template-columns: repeat(3, 0fr);
+  align-items: center;
+  justify-content: space-evenly;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.lblDirectionsLocations {
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+}
+
+.inputDirectionsLocations {
+  position: relative;
+  width: 265px;
+  height: 45px;
+  margin: 4px;
+  padding-left: 15px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #788089;
+}
+
+#directionsLocationImg_first {
+  background-image: url("assets/directions/location-first.svg");
+}
+
+#directionsLocation_start {}
+
+.lblDirectionsLocationsImg_middle {
+  /* background-image: url("assets/directions/location-middle.svg"); */
+}
+
+#directionsLocationImg_last {
+  background-image: url("assets/directions/location-last.svg");
+}
+
+#directionsLocation_end {}
+
+#directionsLocationImg_reverse {
+  width: 40px;
+  height: 40px;
+  background-image: url("assets/directions/location-reverse.svg");
+}
+
+.divDirectionsLocationsStep {
+  display: flex;
+  margin: auto;
+}
+#directionsLocationImg_step {
+  display: flex;
+  width: 180px;
+  height: 40px;
+  justify-content: space-around;
+  background-image: url("assets/directions/location-step.svg");
+}
