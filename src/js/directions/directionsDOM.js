@@ -1,3 +1,13 @@
+/**
+ * DOM du contrôle du calcul d'itineraire
+ * @mixin DirectionsDOM
+ * @todo ajout des étapes
+ * @todo suppression des étapes
+ * @todo inversion des locations
+ * @todo menu du résumé du calcul
+ * @todo menu des détails du calcul
+ * @todo recherches recentes
+ */
 let DirectionsDOM = {
 
     dom : {

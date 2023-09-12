@@ -4,9 +4,18 @@ import DirectionsDOM from "./directionsDOM";
 import MenuDisplay from "../menu-display";
 import Geocode from "../geocode";
 
+/**
+ * contrôle sur le calcul d'itineraire
+ * @module Directions
+ * @todo gestion des styles
+ * @todo gestion de l'état du contrôle
+ * @todo monter le service IGN
+ * @todo ajouter les fonctionnalités : cf. DOM
+ */
 class Directions {
     /**
      * constructeur
+     * @constructs
      * @param {*} map 
      * @param {*} options 
      */
@@ -24,7 +33,7 @@ class Directions {
         // cf. https://project-osrm.org/docs/v5.24.0/api/#
         // ex. https://map.project-osrm.org/
         this.configuration = this.options.configuration || {
-            api: "https://routing.openstreetmap.de/routed-foot/route/v1/driving/",
+            api: "https://router.project-osrm.org/route/v1",
             profile: "driving",
             requestOptions: {},
             requestTimeout: null,
@@ -56,7 +65,8 @@ class Directions {
         this.map = map;
         // objet
         this.obj = new MapLibreGlDirections(this.map, this.configuration);
-        // sans interaction par défaut !
+        // INFO sans interaction par défaut !
+        // choix d'activer via la méthode publique...
         this.obj.interactive = false;
         // rendu graphique
         this.render();
@@ -110,13 +120,19 @@ class Directions {
             // TODO mettre en place le mode calcul quand le service le permet !
         }
         if (settings.locations && settings.locations.length) {
-            // les coordonnées sont en lon / lat en WGS84G
-            var start = JSON.parse(settings.locations[0]);
-            var end = JSON.parse(settings.locations[settings.locations.length - 1]);
-            if (start && end) {
-                this.obj.addWaypoint(start);
-                this.obj.addWaypoint(end);
-                this.map.fitBounds([start, end]); // FIXME utiliser le tracé !
+            try {
+                // les coordonnées sont en lon / lat en WGS84G
+                var start = JSON.parse(settings.locations[0]);
+                var end = JSON.parse(settings.locations[settings.locations.length - 1]);
+                if (start && end) {
+                    this.obj.addWaypoint(start);
+                    this.obj.addWaypoint(end);
+                    this.map.fitBounds([start, end]); // FIXME utiliser le tracé !
+                }
+            } catch (e) {
+                // catching des exceptions JSON
+                console.error(e);
+                return;
             }
         }
     }
@@ -141,6 +157,10 @@ class Directions {
     //////////////////////////////////////////
     // listeners dom / contrôle search
     /////////////////////////////////////////
+    /**
+     * ...
+     * @param {*} e 
+     */
     onOpenSearchDirections (e) {
         // on ouvre le menu
         MenuDisplay.openSearchDirections();
@@ -163,11 +183,14 @@ class Directions {
         // - la fermeture du menu
         // - le nettoyage des ecouteurs
         function setLocation (e) {
+            // on ferme le menu
+            MenuDisplay.closeSearchDirections();
             // on enregistre dans le DOM :
             // - les coordonnées en WGS84G soit lon / lat !
             // - la reponse du geocodage
             target.dataset.coordinates = "[" + e.detail.coordinates.lon + "," + e.detail.coordinates.lat + "]";
             target.value = e.detail.text;
+            // on supprime les écouteurs
             cleanListeners();
         }
         function cleanLocation (e) {
