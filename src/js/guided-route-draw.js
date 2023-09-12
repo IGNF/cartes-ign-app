@@ -5,7 +5,7 @@
  * @returns {Promise} - road2 promise
  */
 function requestRoute(from, to, profile) {
-  const road2url = `https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?resource=bdtopo-osrm&start=${from.lng},${from.lat}&end=${to.lng},${to.lat}&profile=${profile}`;
+  const road2url = `https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?resource=bdtopo-osrm&start=${from.lng},${from.lat}&end=${to.lng},${to.lat}&profile=${profile}&getSteps=false`;
   return fetch(road2url)
 }
 

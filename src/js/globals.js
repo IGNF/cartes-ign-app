@@ -28,7 +28,12 @@ let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'plan
 let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
 
 /* global: back button state */
+/* is one of: 'default' 'search' 'mainMenu' 'params' 'legal' 'privacy' 'plusLoin' 'infos' 'legend' 'catalog' 'route'*/
 let backButtonState = 'default';
+
+/* global: map state */
+/* is one of: 'default' 'drawRoute' 'compare' */
+let mapState = 'default';
 
 /* global: last text in search bar */
 let lastTextInSearch = '';
@@ -52,9 +57,6 @@ let signal = controller.signal;
 // Autocompletion
 let autocompletion_results = []
 
-// Flag to check if side by side conparison is on
-let sideBySideOn = false;
-
 // Global Route plugin
 let directions = null;
 
@@ -70,6 +72,7 @@ export default {
   baseLayerDisplayed,
   dataLayerDisplayed,
   backButtonState,
+  mapState,
   lastTextInSearch,
   myPositionMarker,
   searchResultMarker,
@@ -84,6 +87,5 @@ export default {
   maxScroll,
   anchors,
   currentScroll,
-  sideBySideOn,
   directions,
 };
