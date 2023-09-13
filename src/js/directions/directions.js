@@ -1,14 +1,17 @@
+import maplibregl from "maplibre-gl";
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
-import DirectionsDOM from "./directionsDOM";
+import DirectionsDOM from "./directions-dom";
 
 import MenuDisplay from "../menu-display";
+import DOM from "../dom";
 import Geocode from "../geocode";
+import DirectionsResults from "./directions-results";
 
 /**
  * contrôle sur le calcul d'itineraire
  * @module Directions
  * @todo gestion des styles
- * @todo gestion de l'état du contrôle
+ * @todo gestion de l'état du contrôle (local storage)
  * @todo monter le service IGN
  * @todo ajouter les fonctionnalités : cf. DOM
  */
@@ -23,15 +26,15 @@ class Directions {
         this.options = options || {
             target : null,
             configuration : {},
-            style : {} // TODO
+            style : {}
         };
 
-        // TODO style
-        // cf. https://maplibre.org/maplibre-gl-directions/#/examples/restyling
+        // TODO styles personnalisés
+        //   cf. https://maplibre.org/maplibre-gl-directions/#/examples/restyling
 
         // configuration du service
-        // cf. https://project-osrm.org/docs/v5.24.0/api/#
-        // ex. https://map.project-osrm.org/
+        //   cf. https://project-osrm.org/docs/v5.24.0/api/#
+        //   ex. https://map.project-osrm.org/
         this.configuration = this.options.configuration || {
             api: "https://router.project-osrm.org/route/v1",
             profile: "driving",
@@ -61,23 +64,30 @@ class Directions {
             refreshOnMove: false,
             bearings: false
         };
-        // map
+
+        // résultats du calcul
+        this.results = null;
+
+        // carte
         this.map = map;
+
         // objet
         this.obj = new MapLibreGlDirections(this.map, this.configuration);
+
         // INFO sans interaction par défaut !
-        // choix d'activer via la méthode publique...
+        // > choix d'activer via la méthode publique...
         this.obj.interactive = false;
+
         // rendu graphique
         this.render();
     }
 
     /**
-     * creation de l'interface
+     * creation de l'interface principale
      * @public
      */
     render () {
-        var target = this.options.target || document.getElementById("directionsWindow");
+        var target = this.options.target || DOM.$directionsWindow;
         if (!target) {
             console.warn();
             return;
@@ -100,12 +110,14 @@ class Directions {
      */
     compute (settings) {
         console.log(settings);
+        // nettoyage de l'ancien parcours !
+        this.obj.clear();
         // Les valeurs sont à retranscrire en options du service utilisé
         // - transport : ex. voiture vers l'option 'profile:driving'
         // - computation
         // - locations
         if (settings.transport) {
-            // TODO mettre en place les diffrents types de profile selon le service utilisé !
+            // mettre en place les differents types de profile si le service le permet !
             switch (settings.transport) {
                 case "Pieton":
                 case "Voiture":
@@ -117,7 +129,24 @@ class Directions {
             }
         }
         if (settings.computation) {
-            // TODO mettre en place le mode calcul quand le service le permet !
+            // mettre en place le mode calcul si le service le permet !
+            var code = settings.computation;
+            var message = "";
+            switch (code) {
+                case "Shortest":
+                    message = "Itinéraire le plus court";
+                    break;
+                case "Fastest":
+                    message = "Itinéraire le plus rapide";
+                    break;
+            
+                default:
+                    break;
+            }
+            settings.computation = {
+                code : code,
+                message : message
+            };
         }
         if (settings.locations && settings.locations.length) {
             try {
@@ -127,7 +156,9 @@ class Directions {
                 if (start && end) {
                     this.obj.addWaypoint(start);
                     this.obj.addWaypoint(end);
-                    this.map.fitBounds([start, end]); // FIXME utiliser le tracé !
+                    this.map.fitBounds([start, end], {
+                        padding : 20
+                    });
                 }
             } catch (e) {
                 // catching des exceptions JSON
@@ -135,6 +166,36 @@ class Directions {
                 return;
             }
         }
+
+        // events
+        this.obj.on("fetchroutesstart", (e) => {
+            // TODO utilisation d'une patience...
+        });
+        this.obj.on("fetchroutesend", (e) => {
+            console.log(e);
+            // affichage du menu du parcours : 
+            // - résumé
+            // - détails
+            // on transmet les données (en fonction du service) au composant DOM 
+            // pour l'affichage :
+            // ex.
+            // e.data.routes[0] : { 
+            //    distance, 
+            //    duration, 
+            //    geometry, 
+            //    legs[]
+            //  }
+            if (e.data.code === "Ok") {
+                this.results = new DirectionsResults(this.map, null, { 
+                    duration : e.data.routes[0].duration || "",
+                    distance : e.data.routes[0].distance || "",
+                    transport : settings.transport,
+                    computation : settings.computation.message,
+                    instructions : []
+                });
+                this.results.show();
+            }
+        });
     }
 
     /**
@@ -154,24 +215,19 @@ class Directions {
         this.obj.clear();
     }
 
-    //////////////////////////////////////////
-    // listeners dom / contrôle search
-    /////////////////////////////////////////
+    ////////////////////////////////////////////
+    // autres méthodes...
+    ////////////////////////////////////////////
     /**
-     * ...
+     * listener issu du dom sur l'interface du menu 'search'
      * @param {*} e 
+     * @see MenuDisplay.openSearchDirections()
+     * @see Geocode
      */
     onOpenSearchDirections (e) {
         // on ouvre le menu
         MenuDisplay.openSearchDirections();
         
-        // on procede à un nettoyage des resultats déjà selectionnés
-        var selected = document.getElementsByClassName("autocompresultselected");
-        for (let index = 0; index < selected.length; index++) {
-            const element = selected[index];
-            element.className = "autocompresult";
-        }
-
         // on transmet d'où vient la demande de location : 
         // - point de départ,
         // - arrivée,
@@ -199,7 +255,7 @@ class Directions {
             cleanListeners();
         }
         function cleanListeners () {
-            closeSearchDirections.removeEventListener("click", cleanLocation);
+            DOM.$closeSearch.removeEventListener("click", cleanLocation);
             Geocode.target.removeEventListener("search", setLocation)
         }
 
@@ -207,12 +263,8 @@ class Directions {
         Geocode.target.addEventListener("search", setLocation);
 
         // abonnement au bouton de fermeture du menu
-        var closeSearchDirections = document.getElementById("closeSearch");
-        if (closeSearchDirections) {
-            closeSearchDirections.addEventListener("click", cleanLocation);
-        }
+        DOM.$closeSearch.addEventListener("click", cleanLocation);
     }
-
 }
 
 // mixins

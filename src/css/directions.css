@@ -27,7 +27,7 @@
 }
 
 /***********************************
- * controle de calcul d'itiniraire 
+ * controle de calcul d'itinéraire 
  ***********************************/
 
 /* 
@@ -225,3 +225,4 @@
   justify-content: space-around;
   background-image: url("assets/directions/location-step.svg");
 }
+

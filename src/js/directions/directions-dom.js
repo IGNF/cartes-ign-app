@@ -4,13 +4,12 @@
  * @todo ajout des étapes
  * @todo suppression des étapes
  * @todo inversion des locations
- * @todo menu du résumé du calcul
- * @todo menu des détails du calcul
  * @todo recherches recentes
  */
 let DirectionsDOM = {
 
     dom : {
+        container : null,
         inputCar : null,
         inputPedestrian : null,
         inputFastest : null,
@@ -59,11 +58,11 @@ let DirectionsDOM = {
         // ajout du formulaire
         var container = this.__addComputeFormDOMElement();
         // ajout du mode de transport
-        container.appendChild(this.__addContainerTransportDOMElement());
+        container.appendChild(this.__addComputeContainerTransportDOMElement());
         // ajout des locations
-        container.appendChild(this.__addContainerLocationsDOMElement());
+        container.appendChild(this.__addComputeContainerLocationsDOMElement());
         // ajout du mode de calcul
-        container.appendChild(this.__addContainerComputationDOMElement());
+        container.appendChild(this.__addComputeContainerComputationDOMElement());
         // ajout du bouton submit
         container.appendChild(this.__addComputeButtonDOMElement());
         return container;
@@ -75,7 +74,7 @@ let DirectionsDOM = {
      * @private
      */
     __addComputeFormDOMElement () {
-        var form = document.createElement("form");
+        var form = this.dom.container = document.createElement("form");
         form.id = "directionsForm";
         form.setAttribute("onkeypress", "return event.keyCode != 13;"); // FIXME hack pour desactiver l'execution via 'enter' au clavier !
 
@@ -166,7 +165,7 @@ let DirectionsDOM = {
      * @returns {DOMElement}
      * @private
      */
-    __addContainerTransportDOMElement () {
+    __addComputeContainerTransportDOMElement () {
         // cf. https://uiverse.io/Pradeepsaranbishnoi/heavy-dragonfly-92
         var div = document.createElement("div");
         div.className = "divDirectionsTransport";
@@ -220,7 +219,7 @@ let DirectionsDOM = {
      * @returns {DOMElement}
      * @private
      */
-    __addContainerComputationDOMElement () {
+    __addComputeContainerComputationDOMElement () {
         // https://uiverse.io/Yaya12085/rude-mouse-79
         var div = document.createElement("div");
         div.className = "divDirectionsComputation";
@@ -270,7 +269,7 @@ let DirectionsDOM = {
      * @returns {DOMElement}
      * @private
      */
-    __addContainerLocationsDOMElement () {
+    __addComputeContainerLocationsDOMElement () {
         // contexte de la classse
         var self = this;
 
