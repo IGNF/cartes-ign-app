@@ -12,6 +12,7 @@ import DOM from './dom';
 import Globals from './globals';
 import Texts from './texts';
 import Layers from './layers';
+import RecentSearch from "./search-recent";
 
 import { App } from '@capacitor/app';
 
@@ -77,6 +78,7 @@ function addEventListeners() {
         Geocode.searchAndMoveTo(DOM.$rech.value);
         setTimeout(MenuDisplay.searchScreenOff, 150)
       }
+      RecentSearch.add(DOM.$rech.value);
     }
   }, true);
 
