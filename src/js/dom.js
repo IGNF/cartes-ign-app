@@ -24,6 +24,7 @@ const $defaultMenuNotSearch = document.getElementById("defaultMenuNotSearch");
 const $catalog = document.getElementById("catalog");
 const $catalogBtn = document.getElementById("catalogBtn");
 const $directionsWindow = document.getElementById("directionsWindow");
+const $directionsResultsWindow = document.getElementById("directionsResultsWindow");
 
 export default {
   $resultDiv,
@@ -51,4 +52,5 @@ export default {
   $catalog,
   $catalogBtn,
   $directionsWindow,
+  $directionsResultsWindow,
 };

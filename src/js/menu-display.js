@@ -28,12 +28,15 @@ function openCat() {
   DOM.$catalogBtn.classList.add('d-none');
   DOM.$infoWindow.classList.add('d-none');
   DOM.$legendWindow.classList.add('d-none');
+  DOM.$directionsWindow.classList.add('d-none');
+  DOM.$directionsResultsWindow.classList.add('d-none');
   Globals.backButtonState = 'catalog';
   midScroll();
 }
 
 function closeCat() {
   DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$defaultMenuNotSearch.classList.remove('d-none');
   DOM.$catalogBtn.classList.remove('d-none');
   DOM.$catalog.classList.add('d-none');
 }
@@ -212,7 +215,7 @@ function closePlusLoinScreen(){
   Globals.backButtonState = 'default';
 }
 
-// Menu outils
+// Menu outils du contrôle de calcul d'itineraire
 function openDirections() {
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$infoWindow.classList.add('d-none');
@@ -244,6 +247,8 @@ function openSearchDirections() {
   Globals.currentScrollIndex = 2;
   updateScrollAnchors();
   Globals.backButtonState = 'searchDirections';
+  DOM.$rech.focus();
+  DOM.$rech.click();
 }
 
 function closeSearchDirections() {
@@ -254,6 +259,22 @@ function closeSearchDirections() {
   DOM.$resultDiv.innerHTML = "";
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$closeSearch.classList.add('d-none');
+  DOM.$directionsWindow.classList.remove("d-none");
+  Globals.backButtonState = 'directions'; // on revient sur le contrôle !
+  midScroll();
+}
+
+function openResultsDirections () {
+  DOM.$bottomMenu.style.height = "";
+  DOM.$directionsWindow.classList.add("d-none");
+  DOM.$directionsResultsWindow.classList.remove("d-none");
+  midScroll();
+  Globals.backButtonState = 'resultsDirections';
+}
+
+function closeResultsDirections () {
+  DOM.$bottomMenu.style.height = "100%";
+  DOM.$directionsResultsWindow.classList.add("d-none");
   DOM.$directionsWindow.classList.remove("d-none");
   Globals.backButtonState = 'directions'; // on revient sur le contrôle !
   midScroll();
@@ -284,4 +305,6 @@ export default {
   closeDirections,
   openSearchDirections,
   closeSearchDirections,
+  openResultsDirections,
+  closeResultsDirections,
 };
