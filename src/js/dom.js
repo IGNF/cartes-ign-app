@@ -5,6 +5,7 @@ const $geolocateBtn = document.getElementById("geolocateBtn");
 const $blueBg = document.getElementById("blueBg");
 const $closeSearch = document.getElementById("closeSearch");
 const $searchResults = document.getElementById("searchResults");
+const $resultsRechRecent = document.getElementById("resultsRechRecent");
 const $searchImage = document.getElementById("searchImage");
 const $backTopLeft = document.getElementById("backTopLeft");
 const $parameterMenu = document.getElementById("parameterMenu");
@@ -34,6 +35,7 @@ export default {
   $blueBg,
   $closeSearch,
   $searchResults,
+  $resultsRechRecent,
   $searchImage,
   $backTopLeft,
   $parameterMenu,
