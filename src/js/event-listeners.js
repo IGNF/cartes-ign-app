@@ -56,10 +56,20 @@ function addEventListeners() {
 
   /* event listeners pour élément non existants au démarrage */
   document.querySelector('body').addEventListener('click', (evt) => {
+    var geocode = false;
     /* Résultats autocompletion */
     if ( evt.target.classList.contains('autocompresult') ) {
+      geocode = true;
       evt.target.className = "autocompresultselected";
       DOM.$rech.value = evt.target.getAttribute("fulltext");
+    }
+    /* Résultats recherches recentes */
+    if ( evt.target.classList.contains('recentresult') ) {
+      geocode = true;
+      DOM.$rech.value = evt.target.textContent;
+    }
+    // si recherches recentes ou autocompletion, on realise un geocodage
+    if (geocode) {
       if (Globals.backButtonState === "searchDirections") {
         Geocode.search(DOM.$rech.value);
         setTimeout(MenuDisplay.openDirections, 150);
