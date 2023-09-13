@@ -26,7 +26,8 @@ const removeEntry = (value) => {
 };
 
 /**
- * Liste des recherches recentes stockées dans le localStorage (5 entrées max).
+ * Affichage de la liste des recherches recentes stockées 
+ * dans le localStorage (5 entrées max) dans l'outil de recherche.
  */
 let RecentSearch = {
     /**

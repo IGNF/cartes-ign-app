@@ -56,10 +56,18 @@ class DirectionsResults {
         target.appendChild(container);
     }
 
+    /**
+     * affiche le menu des résultats du calcul
+     * @public
+     */
     show () {
         MenuDisplay.openResultsDirections();
     }
 
+    /**
+     * ferme le menu des résultats du calcul
+     * @public
+     */
     hide () {
         MenuDisplay.closeResultsDirections();
     }
