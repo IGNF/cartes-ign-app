@@ -1,0 +1,128 @@
+
+/*********************************************************
+ * onglet d'affichage du controle de calcul d'itiniraire
+ * @fixme à placer dans une css dedié aux onglets !
+ *********************************************************/ 
+#directionsResultsWindow {
+   margin-top: 10px;
+   position: relative;
+   background: white;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+   color:#4b4b4b;
+   font-size: 1.1em;
+   text-align: justify;
+   overflow-y: scroll;
+}
+ 
+#directionsResultsWindow {
+   height: 65px;
+}
+
+/***********************************
+ * résultats du calcul d'itinéraire 
+ ***********************************/
+
+#directionsResults {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  position: relative;
+  top: -10px;
+}
+ 
+ /* 
+  * bouton retour 
+  */
+#directionsReturnBack {}
+ 
+ .btnDirectionsReturnBack {
+   display: block;
+   width: 20px;
+   height: 20px;
+   position: relative;
+   z-index: 3001;
+   background-image: url("assets/directions/back.svg");
+   background-position: center;
+   background-repeat: no-repeat;
+}
+ 
+ /*
+  * résumé
+  */
+#directionsSummary {
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+
+}
+
+#directionsSummaryDuration {
+
+  color: #26a581;
+  font-size: medium;
+
+}
+
+.lblDirectionsSummaryDuration {}
+
+#directionsSummaryDistance {
+
+  font-size: medium;
+
+}
+
+.lblDirectionsSummaryDistance {}
+
+#directionsSummaryTransportPieton {
+  background-image: url("assets/directions/pieton.svg");
+}
+
+#directionsSummaryTransportVoiture {
+  background-image: url("assets/directions/voiture.svg");
+}
+
+.lblDirectionsSummaryTransport {
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+}
+
+#directionsSummaryComputation {
+  font-size: x-small;
+  font-weight: lighter;
+}
+
+.lblDirectionsSummaryComputation {}
+ 
+ /*
+  * détails
+  */
+#directionsDetails {}
+
+#directionsShowDetail {
+  display: none;
+}
+
+.lblDirectionsShowDetails {
+   display: block;
+   border: 1px solid #ccc;
+   background-color: #ffffff;
+   border-radius: 50px;
+   padding: 10px;
+   cursor: pointer;
+   text-align: center;
+   width: 70px;
+}
+
+#directionsDetails input[id="directionsShowDetail"]:checked + label {
+  background-color: #26a581;
+  color: white;
+  /* content: "\00d7"; */
+}

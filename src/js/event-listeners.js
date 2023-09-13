@@ -169,6 +169,9 @@ function addEventListeners() {
     if (Globals.backButtonState === 'searchDirections') {
       MenuDisplay.closeSearchDirections();
     }
+    if (Globals.backButtonState === 'resultsDirections') {
+      MenuDisplay.closeResultsDirections();
+    }
   }
 
   // Rotation de la carte avec le mutlitouch
