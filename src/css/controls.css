@@ -69,17 +69,29 @@
   outline: none;
 }
 
+#searchResults {
+  display: flex;
+  flex-flow: column;
+  position: relative;
+  left: 10px;
+}
+
+#resultsRechRecent {
+
+}
+
 #resultsRech {
-  position: absolute;
+  position: relative;
   color: #393939;
   background-color: white;
   z-index: 3000;
-  top: 50px;
+  /* top: 50px;
   left: 10px;
-  width: calc(100% - 20px);
+  width: calc(100% - 20px); */
   border-radius: 5px;
 }
 
+.recentresult,
 .autocompresultselected,
 .autocompresult {
   border-bottom: solid 1px #D8DFE4;
@@ -87,6 +99,13 @@
   margin: 0;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.recentresult {
+  background-position: left;
+  background-repeat: no-repeat;
+  background-image: url("assets/search.svg");
+  text-align: center;
 }
 
 .autocompresult em {

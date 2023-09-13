@@ -47,6 +47,7 @@ function searchScreenOn() {
   DOM.$bottomMenu.style.height = "100%";
   DOM.$catalogBtn.classList.add('d-none');
   DOM.$closeSearch.classList.remove('d-none');
+  DOM.$searchResults.classList.remove('d-none');
   DOM.$defaultMenuNotSearch.classList.add('d-none');
   DOM.$directionsWindow.classList.add("d-none");
   Globals.currentScrollIndex = 2;
@@ -62,6 +63,7 @@ function searchScreenOff() {
   DOM.$resultDiv.innerHTML = "";
   DOM.$catalogBtn.classList.remove('d-none');
   DOM.$closeSearch.classList.add('d-none');
+  DOM.$searchResults.classList.add('d-none');
   DOM.$rech.blur()
   DOM.$defaultMenuNotSearch.classList.remove('d-none');
   Globals.backButtonState = 'default';
@@ -242,6 +244,7 @@ function openSearchDirections() {
   DOM.$bottomMenu.style.height = "100%";
   DOM.$defaultMenu.classList.remove("d-none");
   DOM.$closeSearch.classList.remove('d-none');
+  DOM.$searchResults.classList.remove('d-none');
   DOM.$directionsWindow.classList.add("d-none");
   DOM.$defaultMenuNotSearch.classList.add('d-none');
   Globals.currentScrollIndex = 2;
@@ -259,6 +262,7 @@ function closeSearchDirections() {
   DOM.$resultDiv.innerHTML = "";
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$closeSearch.classList.add('d-none');
+  DOM.$searchResults.classList.add('d-none');
   DOM.$directionsWindow.classList.remove("d-none");
   Globals.backButtonState = 'directions'; // on revient sur le contrôle !
   midScroll();
