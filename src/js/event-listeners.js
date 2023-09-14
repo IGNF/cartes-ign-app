@@ -132,6 +132,7 @@ function addEventListeners() {
   document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
   document.getElementById("directionsWindowClose").addEventListener('click', MenuDisplay.closeDirections);
+  document.getElementById("isochronWindowClose").addEventListener('click', MenuDisplay.closeIsochron);
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -183,6 +184,9 @@ function addEventListeners() {
     }
     if (Globals.backButtonState === 'resultsDirections') {
       MenuDisplay.closeResultsDirections();
+    }
+    if (Globals.backButtonState === 'isochron') {
+      MenuDisplay.closeIsochron();
     }
   }
 
@@ -307,6 +311,9 @@ function addEventListeners() {
   document.getElementById("directions").addEventListener("click", () => {
     MenuDisplay.openDirections();
   });
+  document.getElementById("isochron").addEventListener("click", () => {
+    MenuDisplay.openIsochron();
+  });
 
   // GetFeatureInfo on map click
   function latlngToTilePixel(lat, lng, zoom) {
@@ -370,6 +377,7 @@ function addEventListeners() {
   document.getElementById("drawRoute").addEventListener("click", MapControls.startDrawRoute);
   document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide);
   document.getElementById("directions").addEventListener("click", MapControls.removeSideBySide);
+  document.getElementById("isochron").addEventListener("click", MapControls.removeSideBySide);
 }
 
 export default {
