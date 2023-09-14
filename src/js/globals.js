@@ -60,6 +60,9 @@ let autocompletion_results = []
 // Global Route plugin
 let directions = null;
 
+// Global Isochron plugin
+let isochron = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -88,4 +91,5 @@ export default {
   anchors,
   currentScroll,
   directions,
+  isochron
 };

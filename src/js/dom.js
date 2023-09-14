@@ -27,6 +27,7 @@ const $catalog = document.getElementById("catalog");
 const $catalogBtn = document.getElementById("catalogBtn");
 const $directionsWindow = document.getElementById("directionsWindow");
 const $directionsResultsWindow = document.getElementById("directionsResultsWindow");
+const $isochronWindow = document.getElementById("isochronWindow");
 
 export default {
   $resultDiv,
@@ -57,4 +58,5 @@ export default {
   $catalogBtn,
   $directionsWindow,
   $directionsResultsWindow,
+  $isochronWindow
 };

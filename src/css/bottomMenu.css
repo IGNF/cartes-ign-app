@@ -107,6 +107,10 @@
   background-image: url("assets/itineraire.png");
 }
 
+#isoIcon {
+  background-image: url("assets/itineraire.png");
+}
+
 #measureIcon {
   background-image: url("assets/mesure.png");
 }
