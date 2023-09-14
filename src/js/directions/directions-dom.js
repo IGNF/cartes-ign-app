@@ -295,7 +295,7 @@ let DirectionsDOM = {
         inputLocationDeparture.dataset.coordinates = "";
         inputLocationDeparture.addEventListener("click", function (e) {
             // ouverture du menu de recherche
-            self.onOpenSearchDirections(e);
+            self.onOpenSearchLocation(e);
         });
         divDefault.appendChild(inputLocationDeparture);
 
@@ -320,7 +320,7 @@ let DirectionsDOM = {
         inputLocationArrival.dataset.coordinates = "";
         inputLocationArrival.addEventListener("click", function (e) {
             // ouverture du menu de recherche
-            self.onOpenSearchDirections(e);
+            self.onOpenSearchLocation(e);
         });
         divDefault.appendChild(inputLocationArrival);
 

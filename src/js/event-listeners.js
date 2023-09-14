@@ -188,6 +188,9 @@ function addEventListeners() {
     if (Globals.backButtonState === 'isochron') {
       MenuDisplay.closeIsochron();
     }
+    if (Globals.backButtonState === 'searchIsochron') {
+      MenuDisplay.closeSearchIsochron();
+    }
   }
 
   // Rotation de la carte avec le mutlitouch

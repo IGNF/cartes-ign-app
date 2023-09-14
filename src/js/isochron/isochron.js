@@ -1,6 +1,7 @@
 import IsochronDOM from "./isochron-dom";
 import MenuDisplay from "../menu-display";
 import DOM from "../dom";
+import Geocode from "../geocode";
 
 /**
  * Interface sur le contrôle isochrone
@@ -120,6 +121,52 @@ class Isochron {
      */
     clear () {
         // TODO...
+    }
+
+    /**
+     * listener issu du dom sur l'interface du menu 'search'
+     * @param {*} e 
+     * @see MenuDisplay.openSearchIsochron()
+     * @see MenuDisplay.closeSearchIsochron()
+     * @see Geocode
+     */
+    onOpenSearchLocation (e) {
+        // on ouvre le menu
+        MenuDisplay.openSearchIsochron();
+        
+        // on transmet d'où vient la demande de location
+        var target = e.target;
+
+        // les handler sur 
+        // - le geocodage
+        // - la fermeture du menu
+        // - le nettoyage des ecouteurs
+        function setLocation (e) {
+            // on ferme le menu
+            MenuDisplay.closeSearchIsochron();
+            // on enregistre dans le DOM :
+            // - les coordonnées en WGS84G soit lon / lat !
+            // - la reponse du geocodage
+            target.dataset.coordinates = "[" + e.detail.coordinates.lon + "," + e.detail.coordinates.lat + "]";
+            target.value = e.detail.text;
+            // on supprime les écouteurs
+            cleanListeners();
+        }
+        function cleanLocation (e) {
+            target.dataset.coordinates = "";
+            target.value = "";
+            cleanListeners();
+        }
+        function cleanListeners () {
+            DOM.$closeSearch.removeEventListener("click", cleanLocation);
+            Geocode.target.removeEventListener("search", setLocation)
+        }
+
+        // abonnement au geocodage
+        Geocode.target.addEventListener("search", setLocation);
+
+        // abonnement au bouton de fermeture du menu
+        DOM.$closeSearch.addEventListener("click", cleanLocation);
     }
 
 }
