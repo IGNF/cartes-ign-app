@@ -4,6 +4,7 @@ import MapLibreGlCompare from "@maplibre/maplibre-gl-compare";
 import Globals from './globals';
 import LayerSwitch from './layer-switch';
 import Directions from "./directions/directions";
+import Isochron from "./isochron/isochron";
 import MenuDisplay from './menu-display';
 
 let sideBySide;
@@ -21,9 +22,10 @@ function addMapControls() {
   });
   map.addControl(scale, "top-left");
 
-  // Calcul d'itinéraire
+  // Calcul d'itinéraire / isochron
   map.on("load", () => {
     Globals.directions = new Directions(map, {});
+    Globals.isochron = new Isochron(map, {});
   });
 }
 

@@ -29,6 +29,7 @@ function openCat() {
   DOM.$infoWindow.classList.add('d-none');
   DOM.$legendWindow.classList.add('d-none');
   DOM.$directionsWindow.classList.add('d-none');
+  DOM.$isochronWindow.classList.add("d-none");
   DOM.$directionsResultsWindow.classList.add('d-none');
   Globals.backButtonState = 'catalog';
   midScroll();
@@ -50,6 +51,7 @@ function searchScreenOn() {
   DOM.$searchResults.classList.remove('d-none');
   DOM.$defaultMenuNotSearch.classList.add('d-none');
   DOM.$directionsWindow.classList.add("d-none");
+  DOM.$isochronWindow.classList.add("d-none");
   Globals.currentScrollIndex = 2;
   updateScrollAnchors();
   Globals.backButtonState = 'search';
@@ -284,6 +286,30 @@ function closeResultsDirections () {
   midScroll();
 }
 
+// Menu outils du contrôle isochrone
+function openIsochron() {
+  DOM.$defaultMenu.classList.add("d-none");
+  DOM.$infoWindow.classList.add('d-none');
+  DOM.$legendWindow.classList.add('d-none');
+  DOM.$directionsWindow.classList.add("d-none");
+  DOM.$isochronWindow.classList.remove('d-none');
+  DOM.$bottomMenu.style.height = "100%";
+  midScroll();
+  Globals.backButtonState = 'isochron';
+  // Globals.isochron.interactive(true);
+}
+
+function closeIsochron() {
+  DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$isochronWindow.classList.add("d-none");
+  DOM.$defaultMenuNotSearch.classList.remove('d-none');
+  midScroll();
+  Globals.backButtonState = 'mainMenu';
+  DOM.$bottomMenu.style.height = "";
+  Globals.isochron.clear();
+  // Globals.isochron.interactive(false);
+}
+
 export default {
   openCat,
   closeCat,
@@ -311,4 +337,6 @@ export default {
   closeSearchDirections,
   openResultsDirections,
   closeResultsDirections,
+  openIsochron,
+  closeIsochron,
 };
