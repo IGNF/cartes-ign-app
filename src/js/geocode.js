@@ -6,10 +6,16 @@ import Globals from './globals';
 
 const map = Globals.map;
 
+/**
+ * Interface pour les evenements
+ * @example
+ * target.dispatchEvent(new CustomEvent("myEvent", { detail : {} }));
+ * target.addEventListener("myEvent", handler);
+ */
 const target = new EventTarget();
 
 /**
- * ...
+ * supprime le marker de la recherche
  */
 function clean() {
   if (Globals.searchResultMarker != null) {
@@ -19,7 +25,7 @@ function clean() {
 }
 
 /**
- * ...
+ * deplacement sur la carte
  * @param {*} coords 
  * @param {*} zoom 
  * @param {*} panTo 
@@ -43,7 +49,7 @@ function moveTo(coords, zoom=map.getZoom(), panTo=true) {
 }
 
 /**
- * ...
+ * recherche
  * @param {*} text 
  * @returns 
  */
@@ -88,7 +94,7 @@ async function search (text) {
 }
 
 /**
- * ...
+ * recherche et deplacement sur la carte
  * @param {*} text 
  */
 async function searchAndMoveTo(text) {

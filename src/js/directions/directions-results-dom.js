@@ -1,7 +1,9 @@
+/**
+ * Fonctions utilitaires
+ */
 let utils = {
     /**
      * convert distance in meters or kilometers
-     *
      * @param {Number} distance - distance in meters
      * @returns {String} distance in km
      * @private
@@ -21,7 +23,6 @@ let utils = {
 
     /**
      * convert seconds to time : HH:MM:SS
-     *
      * @param {Number} duration - duration in seconds
      * @returns {String} time in hours/minutes/seconds
      * @private
@@ -67,7 +68,7 @@ let DirectionsResultsDOM = {
     },
 
     /**
-     * ...
+     * obtenir le container principal
      * @param {*} data
      * @returns {DOMElement}
      * @public
