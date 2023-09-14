@@ -4,7 +4,6 @@
  * @todo ajout des étapes
  * @todo suppression des étapes
  * @todo inversion des locations
- * @todo recherches recentes
  */
 let DirectionsDOM = {
 
@@ -50,7 +49,7 @@ let DirectionsDOM = {
     },
 
     /**
-     * ...
+     * obtenir le container principal
      * @returns {DOMElement}
      * @public
      */

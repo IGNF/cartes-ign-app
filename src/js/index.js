@@ -4,6 +4,7 @@ import LayerSwitch from './layer-switch';
 import Layers from './layers';
 import Globals from './globals';
 import MapControls from './map-controls';
+import RecentSearch from "./search-recent";
 
 // import CSS
 import '@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css';
@@ -92,6 +93,9 @@ function app() {
 
   // Ajout des event listeners
   EventListeners.addEventListeners();
+
+  // Ajout des recherches recentes issues du localStorage
+  RecentSearch.create();
 }
 
 app();

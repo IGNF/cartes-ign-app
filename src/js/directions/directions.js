@@ -8,11 +8,12 @@ import Geocode from "../geocode";
 import DirectionsResults from "./directions-results";
 
 /**
- * contrôle sur le calcul d'itineraire
+ * Interface du contrôle sur le calcul d'itineraire
  * @module Directions
  * @todo gestion des styles
  * @todo gestion de l'état du contrôle (local storage)
  * @todo monter le service IGN
+ * @todo ajouter "Ma Position" par defaut
  * @todo ajouter les fonctionnalités : cf. DOM
  */
 class Directions {
