@@ -310,6 +310,34 @@ function closeIsochron() {
   // Globals.isochron.interactive(false);
 }
 
+function openSearchIsochron() {
+  DOM.$bottomMenu.style.height = "100%";
+  DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$closeSearch.classList.remove('d-none');
+  DOM.$searchResults.classList.remove('d-none');
+  DOM.$isochronWindow.classList.add("d-none");
+  DOM.$defaultMenuNotSearch.classList.add('d-none');
+  Globals.currentScrollIndex = 2;
+  updateScrollAnchors();
+  Globals.backButtonState = 'searchIsochron';
+  DOM.$rech.focus();
+  DOM.$rech.click();
+}
+
+function closeSearchIsochron() {
+  Globals.controller.abort();
+  Globals.controller = new AbortController();
+  Globals.signal = Globals.controller.signal;
+  DOM.$resultDiv.hidden = true;
+  DOM.$resultDiv.innerHTML = "";
+  DOM.$defaultMenu.classList.add("d-none");
+  DOM.$closeSearch.classList.add('d-none');
+  DOM.$searchResults.classList.add('d-none');
+  DOM.$isochronWindow.classList.remove("d-none");
+  Globals.backButtonState = 'isochron'; // on revient sur le contrôle !
+  midScroll();
+}
+
 export default {
   openCat,
   closeCat,
@@ -339,4 +367,6 @@ export default {
   closeResultsDirections,
   openIsochron,
   closeIsochron,
+  openSearchIsochron,
+  closeSearchIsochron,
 };

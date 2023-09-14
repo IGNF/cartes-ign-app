@@ -1,0 +1,157 @@
+/*********************************************************
+ * onglet d'affichage du controle de calcul d'itiniraire
+ * @fixme à placer dans une css dedié aux onglets !
+ *********************************************************/ 
+#isochronWindow {
+  margin-top: 10px;
+  position: relative;
+  background: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color:#4b4b4b;
+  font-size: 1.1em;
+  text-align: justify;
+  overflow-y: scroll;
+}
+
+.windowClose {
+  width: 34px;
+  height: 34px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("assets/close.svg");
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 3001;
+}
+
+/***********************************
+ * controle de calcul d'isochron 
+ ***********************************/
+
+/* 
+ * compute 
+ */
+.btnIsochronCompute {
+  display: block;
+  width: 90%;
+  margin: auto;
+  border: none;
+  border-radius: 12px;
+  background-color: #26a581;
+  padding: 14px 28px;
+  font-family: "Fira Sans-SemiBold", Helvetica;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--white);
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+/* 
+ * transport 
+ */
+.divIsochronTransport input[type="radio"] {
+  display: none;
+}
+
+.divIsochronTransport * {
+  z-index: 2;
+}
+
+.divIsochronTransport {
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  margin: auto;
+  height: 34px;
+  width: 220px;
+  background-color: #e9ecef;
+  /* box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15); */
+  padding: 10px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.lblIsochronTransport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 120px;
+  /* font-size: .8rem;
+  color: black;
+  font-weight: 500; */
+  border-radius: 100px;
+  cursor: pointer;
+  transition: color 0.15s ease-in;
+  background-repeat: no-repeat;
+}
+.divIsochronTransport input[type="radio"]:checked + label {}
+
+.divIsochronTransport input[id="isochronTransportVoiture"]:checked ~ .glider {
+  transform: translateX(58px);
+}
+
+.divIsochronTransport input[id="isochronTransportPieton"]:checked ~ .glider {
+  transform: translateX(-58px);
+}
+
+.glider {
+  position: absolute;
+  display: flex;
+  height: 44px;
+  width: 110px;
+  background-color: #ffffff;
+  z-index: 1;
+  border-radius: 100px;
+  transition: 0.25s ease-out;
+}
+
+#isochronTransportVoiture + label {
+  background-image: url("assets/directions/voiture.svg");
+}
+
+#isochronTransportPieton + label {
+  background-image: url("assets/directions/pieton.svg");
+}
+
+/* 
+ * location
+ */
+.divIsochronLocation {
+  display: flex;
+  flex-direction: column;
+}
+
+.divIsochronLocationDefault {
+  display: grid;
+  grid-template-columns: repeat(3, 0fr);
+  align-items: center;
+  justify-content: space-evenly;
+  margin: auto;
+  margin-bottom: 10px; 
+}
+
+.lblIsochronLocation {
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+}
+
+.inputIsochronLocation {
+  position: relative;
+  width: 265px;
+  height: 45px;
+  margin: 4px;
+  padding-left: 15px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #788089;
+}

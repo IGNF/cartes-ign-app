@@ -223,9 +223,10 @@ class Directions {
      * listener issu du dom sur l'interface du menu 'search'
      * @param {*} e 
      * @see MenuDisplay.openSearchDirections()
+     * @see MenuDisplay.closeSearchDirections
      * @see Geocode
      */
-    onOpenSearchDirections (e) {
+    onOpenSearchLocation (e) {
         // on ouvre le menu
         MenuDisplay.openSearchDirections();
         
