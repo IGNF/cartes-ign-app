@@ -206,9 +206,9 @@ let DirectionsDOM = {
         labelCar.textContent = "Véhicule";
         div.appendChild(labelCar);
 
-        var glider = document.createElement("span");
-        glider.className = "glider";
-        div.appendChild(glider);
+        var slider = document.createElement("span");
+        slider.className = "sliderDirections";
+        div.appendChild(slider);
 
         return div;
     },

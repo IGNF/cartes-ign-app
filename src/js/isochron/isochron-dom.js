@@ -1,5 +1,3 @@
-import MyCSS from "!!raw-loader!../../css/isochron.css";
-
 /**
  * DOM du contrôle du calcul d'isochrone
  * @mixin IsochronDOM
@@ -55,26 +53,50 @@ let IsochronDOM = {
         // contexte
         var self = this;
 
-        // container avec la CSS inline
+        // container
         var strContainer = `
-        <style>${MyCSS}</style>
         <div id="isochronContainer">
             <form id="isochronForm" onkeypress="return event.keyCode != 13;">
                 <!-- titre -->
-                <p class="">Lancer une recherche à proximité</p> 
+                <p class="pIsochronTitle">Lancer une recherche à proximité</p> 
                 <!-- location -->
                 <input id="isochronLocation" class="inputIsochronLocation" type="text" placeholder="Saisir une adresse..." name="location" data-coordinates="">
                 <!-- type de calcul : distance / temps -->
-                <div class="divIsochronMode">
-                    <!-- TODO -->
+                <div class="section">
+                    <div class="divIsochronMode">
+                        <input id="isochronModeTemps" type="radio" name="Mode" value="Temps" checked="true">
+                        <label class="lblIsochronMode" for="isochronModeTemps" title="Durée">Durée</label>
+                        <input id="isochronModeDistance" type="radio" name="Mode" value="Distance">
+                        <label class="lblIsochronMode" for="isochronModeDistance" title="Distance">Distance</label>
+                        <span class="sliderIsochron"></span>
+                    </div>
+                    <div class="divIsochronModeValueTemps">
+                        <p class="pIsochronTitle">Definissez votre temps de trajet</p>
+                        <div id="isochronValueTemps" class="divIsochronValue">
+                            <input id="isochronValueTempsInput1" min="0" step="1" type="number">
+                            <label class="unit">h</label>
+                            <input id="isochronValueTempsInput2" min="0" max="59" step="1" type="number">
+                            <label class="unit">min</label>
+                        </div>
+                    </div>
+                    <div class="divIsochronModeValueDistance isochronValueHidden">
+                        <p class="pIsochronTitle">Definissez la distance</p>
+                        <div id="isochronValueDistance" class="divIsochronValue">
+                            <input id="isochronValueDistanceInput" min="0" step="any" type="number">
+                            <label class="unit">km</label>
+                        </div>
+                    </div>
                 </div>
                 <!-- transport -->
-                <div class="divIsochronTransport">
-                    <input id="isochronTransportPieton" type="radio" name="Transport" value="Pieton">
-                    <label class="lblIsochronTransport" for="isochronTransportPieton" title="A pied">A pied</label>
-                    <input id="isochronTransportVoiture" type="radio" name="Transport" value="Voiture">
-                    <label class="lblIsochronTransport" for="isochronTransportVoiture" title="Véhicule">Véhicule</label>
-                    <span class="glider"></span>
+                <div class="section">
+                    <p class="pIsochronTitle">Comment vous déplacez-vous ?</label>
+                    <div class="divIsochronTransport">
+                        <input id="isochronTransportPieton" type="radio" name="Transport" value="Pieton" checked="true">
+                        <label class="lblIsochronTransport" for="isochronTransportPieton" title="A pied">A pied</label>
+                        <input id="isochronTransportVoiture" type="radio" name="Transport" value="Voiture">
+                        <label class="lblIsochronTransport" for="isochronTransportVoiture" title="Véhicule">Véhicule</label>
+                        <span class="sliderIsochron"></span>
+                    </div>
                 </div>
                 <!-- TODO filtres POI -->
                 <!-- TODO option d'affichage -->
@@ -91,16 +113,9 @@ let IsochronDOM = {
         const shadow = container.attachShadow({ mode: "open" });
         shadow.innerHTML = strContainer.trim();
 
-        // FIXME 
-        // comment ajouter les CSS sur le shadow DOM ?
-        //  var css = new CSSStyleSheet();
-        //  css.replaceSync(MyCSS);
-        //  shadow.adoptedStyleSheets.push(css);
-
         // ajout des listeners principaux :
         // - le calcul
         // - l'ouverture du menu de recherche
-
         shadow.getElementById("isochronForm").addEventListener("submit", (e)  => {
             e.preventDefault();
             // TODO
@@ -118,14 +133,13 @@ let IsochronDOM = {
 
             return false;
         });
-
         shadow.getElementById("isochronLocation").addEventListener("click", (e) => {
             console.log(e);
             // ouverture du menu de recherche
             self.onOpenSearchLocation(e);
         });
 
-        return container;
+        return shadow;
     },
 };
 

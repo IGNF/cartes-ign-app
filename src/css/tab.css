@@ -1,5 +1,13 @@
-/* fenetres infos et legende */
-#infoWindow, #legendWindow, #catalog {
+/***********************************
+ * fenetres ou onglets
+ ***********************************/
+
+#infoWindow, 
+#legendWindow, 
+#isochronWindow,
+#directionsWindow,
+#directionsResultsWindow,
+#catalog {
   margin-top: 10px;
   position: relative;
   background: white;
@@ -23,7 +31,8 @@
   z-index: 3001;
 }
 
-#infoWindowContent, #legendWindowContent {
+#infoWindowContent, 
+#legendWindowContent {
   margin-right: 20px;
   margin-left: 20px;
   margin-bottom: 30px;
