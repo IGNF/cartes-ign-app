@@ -1,34 +1,32 @@
-/*********************************************************
- * onglet d'affichage du controle de calcul d'itiniraire
- * @fixme à placer dans une css dedié aux onglets !
- *********************************************************/ 
-#isochronWindow {
-  margin-top: 10px;
-  position: relative;
-  background: white;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  color:#4b4b4b;
-  font-size: 1.1em;
-  text-align: justify;
-  overflow-y: scroll;
-}
-
-.windowClose {
-  width: 34px;
-  height: 34px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url("assets/close.svg");
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 3001;
-}
-
 /***********************************
  * controle de calcul d'isochron 
  ***********************************/
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #788089;
+  padding: 15px;
+  margin: 10px;
+}
+
+.unit {
+  padding: 5px;
+}
+/*
+ * container
+ */
+#isochronContainer {}
+
+/*
+ * titre
+ */
+.pIsochronTitle {
+  text-align: center;
+}
 
 /* 
  * compute 
@@ -53,16 +51,19 @@
 }
 
 /* 
- * transport 
+ * transport / mode
  */
+.divIsochronMode input[type="radio"],
 .divIsochronTransport input[type="radio"] {
   display: none;
 }
 
+.divIsochronMode *,
 .divIsochronTransport * {
   z-index: 2;
 }
 
+.divIsochronMode,
 .divIsochronTransport {
   display: flex;
   position: relative;
@@ -78,6 +79,7 @@
   align-items: center;
 }
 
+.lblIsochronMode,
 .lblIsochronTransport {
   display: flex;
   align-items: center;
@@ -92,17 +94,20 @@
   transition: color 0.15s ease-in;
   background-repeat: no-repeat;
 }
+
 .divIsochronTransport input[type="radio"]:checked + label {}
 
-.divIsochronTransport input[id="isochronTransportVoiture"]:checked ~ .glider {
+.divIsochronMode input[id="isochronModeDistance"]:checked ~ .sliderIsochron,
+.divIsochronTransport input[id="isochronTransportVoiture"]:checked ~ .sliderIsochron {
   transform: translateX(58px);
 }
 
-.divIsochronTransport input[id="isochronTransportPieton"]:checked ~ .glider {
+.divIsochronMode input[id="isochronModeTemps"]:checked ~ .sliderIsochron,
+.divIsochronTransport input[id="isochronTransportPieton"]:checked ~ .sliderIsochron {
   transform: translateX(-58px);
 }
 
-.glider {
+.sliderIsochron {
   position: absolute;
   display: flex;
   height: 44px;
@@ -121,37 +126,82 @@
   background-image: url("assets/directions/pieton.svg");
 }
 
+/*
+ * mode
+ */
+
+.divIsochronModeValueTemps,
+.divIsochronModeValueDistance {}
+
+.divIsochronValue {
+  display: flex;
+}
+
+.isochronValueHidden {
+  display: none;
+}
+
+#isochronValueTemps {
+  margin: auto;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* fixme comment afficher les fleches */
+input#isochronValueTempsInput1[type=number]::-webkit-inner-spin-button,
+input#isochronValueTempsInput2[type=number]::-webkit-inner-spin-button {
+  opacity: 1
+}
+
+#isochronValueTempsInput1 {
+  flex: 1;
+  height: 35px;
+  width: 50%;
+  padding-left: 10px;
+}
+#isochronValueTempsInput2 {
+  flex: 1;
+  height: 35px;
+  width: 50%;
+  padding-left: 10px;
+}
+
+#isochronValueTempsInput1:focus,
+#isochronValueTempsInput2:focus {
+  outline: none;
+  border:1px solid #26a581;
+}
+
+#isochronValueDistance {
+  margin: auto;
+  flex-direction: row;
+  align-items: center;
+}
+#isochronValueDistanceInput {
+  flex: 1;
+  height: 40px;
+  width: 50%;
+}
+#isochronValueDistanceInputs:focus {
+  outline: none;
+  border:1px solid #26a581;
+}
+
 /* 
  * location
  */
-.divIsochronLocation {
-  display: flex;
-  flex-direction: column;
-}
-
-.divIsochronLocationDefault {
-  display: grid;
-  grid-template-columns: repeat(3, 0fr);
-  align-items: center;
-  justify-content: space-evenly;
-  margin: auto;
-  margin-bottom: 10px; 
-}
-
-.lblIsochronLocation {
-  width: 30px;
-  height: 30px;
-  background-repeat: no-repeat;
-}
+.divIsochronLocation {}
 
 .inputIsochronLocation {
+  display: block;
   position: relative;
-  width: 265px;
+  width: 90%;
   height: 45px;
-  margin: 4px;
+  margin: auto;
   padding-left: 15px;
   background-color: #ffffff;
   border-radius: 6px;
   border: 1px solid;
   border-color: #788089;
+  margin-bottom: 10px;
 }
