@@ -1,20 +1,8 @@
 
 /*********************************************************
- * onglet d'affichage du controle de calcul d'itiniraire
- * @fixme à placer dans une css dedié aux onglets !
+ * surcharge onglet d'affichage du controle d'itiniraire
  *********************************************************/ 
-#directionsResultsWindow {
-   margin-top: 10px;
-   position: relative;
-   background: white;
-   border-top-left-radius: 5px;
-   border-top-right-radius: 5px;
-   color:#4b4b4b;
-   font-size: 1.1em;
-   text-align: justify;
-   overflow-y: scroll;
-}
- 
+
 #directionsResultsWindow {
    height: 65px;
 }
