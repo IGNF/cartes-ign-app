@@ -1,14 +1,14 @@
 import maplibregl from "maplibre-gl";
 
 import IsochronDOM from "./isochron-dom";
-import MenuDisplay from "../menu-display";
+
 // dependance : abonnement au event du module
 import Geocode from "../geocode";
 
 /**
  * Interface sur le contrôle isochrone
  * @module Isochron
- * @todo brancher le service : cf. https://github.com/watergis/mapbox-gl-valhalla/blob/main/lib/valhalla.ts#L86
+ * @todo mise en place d'une patience
  * @todo ajouter les fonctionnalités : cf. DOM
  */
 class Isochron {

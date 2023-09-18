@@ -1,6 +1,8 @@
 /**
  * DOM du contrôle du calcul d'isochrone
  * @mixin IsochronDOM
+ * @todo filtrage des POI
+ * @todo gestion de l'option d'affichages
  */
 let IsochronDOM = {
 

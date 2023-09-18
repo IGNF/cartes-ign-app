@@ -9,7 +9,7 @@ import Geocode from "../geocode";
 /**
  * Interface du contrôle sur le calcul d'itineraire
  * @module Directions
- * @fixme supprimer les dependances
+ * @todo mise en place d'une patience
  * @todo gestion des styles
  * @todo gestion de l'état du contrôle (local storage)
  * @todo monter le service IGN
