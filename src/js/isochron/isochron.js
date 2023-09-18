@@ -254,6 +254,9 @@ class Isochron {
      * @see Geocode
      */
     onOpenSearchLocation (e) {
+        // contexte
+        var self = this;
+
         // on ouvre le menu
         if (this.options.openSearchControlCbk) {
             this.options.openSearchControlCbk();
@@ -268,8 +271,8 @@ class Isochron {
         // - le nettoyage des ecouteurs
         function setLocation (e) {
             // on ferme le menu
-            if (this.options.closeSearchControlCbk) {
-                this.options.closeSearchControlCbk();
+            if (self.options.closeSearchControlCbk) {
+                self.options.closeSearchControlCbk();
             }
             // on enregistre dans le DOM :
             // - les coordonnées en WGS84G soit lon / lat !
