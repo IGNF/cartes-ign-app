@@ -64,6 +64,12 @@ class Isochron {
         // rendu graphique
         this.render();
 
+        // annulation de la reqête fetch 
+        this.controller = new AbortController();
+        
+        // requête en cours d'execution ?
+        this.loading = false;
+
         return this;
     }
 
@@ -188,8 +194,10 @@ class Isochron {
                 }
             }));
         
-        var response = await fetch(url);
+        this.loading = true;
+        var response = await fetch(url, { signal : this.controller.signal });
         var geojson = await response.json();
+        this.loading = false;
         
         if (response.status !== 200) {
             throw new Error(response.message);
@@ -238,6 +246,13 @@ class Isochron {
      * @public
      */
     clear () {
+        // on stoppe le fetch en cours sur le service
+        if (this.loading) {
+            this.controller.abort();
+            this.controller = new AbortController();
+            this.loading = false;
+        }
+
         if (this.map.getLayer(this.configuration.source)) {
             this.map.removeLayer(this.configuration.source);
         }
