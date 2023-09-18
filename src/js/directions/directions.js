@@ -1,15 +1,15 @@
 import maplibregl from "maplibre-gl";
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
 import DirectionsDOM from "./directions-dom";
-
-import MenuDisplay from "../menu-display";
-import DOM from "../dom";
-import Geocode from "../geocode";
 import DirectionsResults from "./directions-results";
+
+// dependance : abonnement au event du module
+import Geocode from "../geocode";
 
 /**
  * Interface du contrôle sur le calcul d'itineraire
  * @module Directions
+ * @fixme supprimer les dependances
  * @todo gestion des styles
  * @todo gestion de l'état du contrôle (local storage)
  * @todo monter le service IGN
@@ -27,7 +27,10 @@ class Directions {
         this.options = options || {
             target : null,
             configuration : {},
-            style : {}
+            style : {},
+            // callback
+            openSearchControlCbk : null,
+            closeSearchControlCbk : null
         };
 
         // TODO styles personnalisés
@@ -88,7 +91,7 @@ class Directions {
      * @public
      */
     render () {
-        var target = this.options.target || DOM.$directionsWindow;
+        var target = this.options.target || document.getElementById("directionsWindow");
         if (!target) {
             console.warn();
             return;
@@ -170,10 +173,16 @@ class Directions {
 
         // events
         this.obj.on("fetchroutesstart", (e) => {
-            // TODO utilisation d'une patience...
+            // TODO 
+            // mise en place d'une patience...
+            // start !
         });
         this.obj.on("fetchroutesend", (e) => {
             console.log(e);
+            // TODO 
+            // mise en place d'une patience...
+            // finish !
+
             // affichage du menu du parcours : 
             // - résumé
             // - détails
@@ -227,8 +236,13 @@ class Directions {
      * @see Geocode
      */
     onOpenSearchLocation (e) {
+        // contexte
+        var self = this;
+
         // on ouvre le menu
-        MenuDisplay.openSearchDirections();
+        if (this.options.openSearchControlCbk) {
+            this.options.openSearchControlCbk();
+        }
         
         // on transmet d'où vient la demande de location : 
         // - point de départ,
@@ -242,7 +256,10 @@ class Directions {
         // - le nettoyage des ecouteurs
         function setLocation (e) {
             // on ferme le menu
-            MenuDisplay.closeSearchDirections();
+            if (self.options.closeSearchControlCbk) {
+                self.options.closeSearchControlCbk();
+            }
+
             // on enregistre dans le DOM :
             // - les coordonnées en WGS84G soit lon / lat !
             // - la reponse du geocodage
@@ -257,7 +274,10 @@ class Directions {
             cleanListeners();
         }
         function cleanListeners () {
-            DOM.$closeSearch.removeEventListener("click", cleanLocation);
+            var close = document.getElementById("closeSearch");
+            if (close) {
+                close.removeEventListener("click", cleanLocation);
+            }
             Geocode.target.removeEventListener("search", setLocation)
         }
 
@@ -265,7 +285,10 @@ class Directions {
         Geocode.target.addEventListener("search", setLocation);
 
         // abonnement au bouton de fermeture du menu
-        DOM.$closeSearch.addEventListener("click", cleanLocation);
+        var close = document.getElementById("closeSearch");
+        if (close) {
+            close.removeEventListener("click", cleanLocation);
+        }
     }
 }
 
