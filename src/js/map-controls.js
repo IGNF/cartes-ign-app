@@ -24,8 +24,16 @@ function addMapControls() {
 
   // Calcul d'itinéraire / isochron
   map.on("load", () => {
-    Globals.directions = new Directions(map, {});
-    Globals.isochron = new Isochron(map, {});
+    Globals.directions = new Directions(map, {
+      // callback sur l'ouverture / fermeture du panneau de recherche
+      openSearchControlCbk : () => { MenuDisplay.openSearchDirections(); },
+      closeSearchControlCbk : () => { MenuDisplay.closeSearchDirections(); }
+    });
+    Globals.isochron = new Isochron(map, {
+      // callback sur l'ouverture / fermeture du panneau de recherche
+      openSearchControlCbk : () => { MenuDisplay.openSearchIsochron(); },
+      closeSearchControlCbk : () => { MenuDisplay.closeSearchIsochron(); }
+    });
   });
 }
 
