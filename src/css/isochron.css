@@ -7,8 +7,7 @@
   flex-direction: column;
   align-items: center;
   border-radius: 6px;
-  border: 1px solid;
-  border-color: #788089;
+  border: 1px solid #ccc;
   padding: 15px;
   margin: 10px;
 }
@@ -102,7 +101,7 @@
   transform: translateX(58px);
 }
 
-.divIsochronMode input[id="isochronModeTemps"]:checked ~ .sliderIsochron,
+.divIsochronMode input[id="isochronModeDuration"]:checked ~ .sliderIsochron,
 .divIsochronTransport input[id="isochronTransportPieton"]:checked ~ .sliderIsochron {
   transform: translateX(-58px);
 }
@@ -130,8 +129,8 @@
  * mode
  */
 
-.divIsochronModeValueTemps,
-.divIsochronModeValueDistance {}
+#isochronModeValueDuration,
+#isochronModeValueDistance {}
 
 .divIsochronValue {
   display: flex;
@@ -141,33 +140,33 @@
   display: none;
 }
 
-#isochronValueTemps {
+#isochronValueDuration {
   margin: auto;
   flex-direction: row;
   align-items: center;
 }
 
 /* fixme comment afficher les fleches */
-input#isochronValueTempsInput1[type=number]::-webkit-inner-spin-button,
-input#isochronValueTempsInput2[type=number]::-webkit-inner-spin-button {
+/* input#isochronValueDurationInputHours[type=number]::-webkit-inner-spin-button,
+input#isochronValueDurationInputMinutes[type=number]::-webkit-inner-spin-button {
   opacity: 1
-}
+} */
 
-#isochronValueTempsInput1 {
+#isochronValueDurationInputHours {
   flex: 1;
   height: 35px;
   width: 50%;
   padding-left: 10px;
 }
-#isochronValueTempsInput2 {
+#isochronValueDurationInputMinutes {
   flex: 1;
   height: 35px;
   width: 50%;
   padding-left: 10px;
 }
 
-#isochronValueTempsInput1:focus,
-#isochronValueTempsInput2:focus {
+#isochronValueDurationInputHours:focus,
+#isochronValueDurationInputMinutes:focus {
   outline: none;
   border:1px solid #26a581;
 }
@@ -179,10 +178,11 @@ input#isochronValueTempsInput2[type=number]::-webkit-inner-spin-button {
 }
 #isochronValueDistanceInput {
   flex: 1;
-  height: 40px;
+  height: 35px;
   width: 50%;
+  padding-left: 10px;
 }
-#isochronValueDistanceInputs:focus {
+#isochronValueDistanceInput:focus {
   outline: none;
   border:1px solid #26a581;
 }
