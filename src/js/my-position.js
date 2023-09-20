@@ -92,17 +92,17 @@ class Position {
             <div id="positionTitle">Ma position</div>
             <div id="positionAddress">
                 <label id="positionImgAddress"></label>
-                <div id="positionSectionAddress">
+                <div id="positionSectionAddress" class="fontLight">
                     <span class="lblPositionAddress">${address.number} ${address.street},</span>
                     <span class="lblPositionAddress">${address.citycode} ${address.city}</span>
                 </div>
             </div>
             <div id="positionButtons">
-                <label id="positionShare" class="btnPositionButtons">Partager ma position</label>
-                <label id="positionNear" class="btnPositionButtons">A proximité</label>
+                <button id="positionShare" class="btnPositionButtons"><label id="positionShareImg"></label>Partager ma position</button>
+                <button id="positionNear" class="btnPositionButtons"><label id="positionNearImg"></label>A proximité</button>
             </div>
             <hr>
-            <div id="positionCoord">
+            <div id="positionCoord" class="fontLight">
                 <span class="lblPositionCoord">Latitude : ${latitude}</span>
                 <span class="lblPositionCoord">Longitude : ${longitude}</span>
                 <span class="lblPositionCoord">Altitude : ${altitude}</span>
