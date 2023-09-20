@@ -1,6 +1,5 @@
 import DirectionsResultsDOM from "./directions-results-dom";
 import MenuDisplay from "../menu-display";
-import DOM from "../dom";
 
 /**
  * Interface sur les resultats du calcul d'itineraire
@@ -40,7 +39,7 @@ class DirectionsResults {
      * @public
      */
     render () {
-        var target = this.target || DOM.$directionsResultsWindow;
+        var target = this.target || document.getElementById("directionsResultsWindow");
         if (!target) {
             console.warn();
             return;

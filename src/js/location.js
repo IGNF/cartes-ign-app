@@ -14,36 +14,45 @@ import LocationFixeImg from "../css/assets/location-fixed.svg";
 const map = Globals.map;
 
 /* Géolocalisation */
+
 // Positionnement du mobile
 let location_active = false;
+
 // Suivi de la carte
 let tracking_active = false;
 let watch_id;
 
 let positionBearing = 0
 
-function cleanGPS() {
-  /**
-   * Enlève le marqueur GPS
-   */
-  if (Globals.myPositionMarker != null) {
+/**
+ * Enlève le marqueur GPS
+ */
+const clean = () => {
+  if (Globals.myPositionMarker !== null) {
     Globals.myPositionMarker.remove();
     Globals.myPositionMarker = null;
   }
 }
 
-function setMarkerRotation(positionBearing) {
+/**
+ * Modifie la rotation du marqueur GPS
+ * @param {*} positionBearing 
+ */
+const setMarkerRotation = (positionBearing) => {
   if (Globals.myPositionMarker) {
     Globals.myPositionMarker.setRotation(positionBearing);
   }
 }
 
-function _goToGPSCoords(coords, zoom=map.getZoom(), panTo=true) {
-  /**
-   * Ajoute un marqueur de type GPS à la position définie par le coods, et déplace la carte au zoom demandé
-   * si panTo est True
-   */
-  cleanGPS();
+/**
+ * Ajoute un marqueur de type GPS à la position définie par le coods, et déplace la carte au zoom demandé
+ * si panTo est True
+ * @param {*} coords 
+ * @param {*} zoom 
+ * @param {*} panTo 
+ */
+const moveTo = (coords, zoom=map.getZoom(), panTo=true) => {
+  clean();
   Globals.myPositionMarker = new maplibregl.Marker({element: Globals.myPositionIcon})
     .setLngLat([coords.lon, coords.lat])
     .addTo(map);
@@ -59,10 +68,10 @@ function _goToGPSCoords(coords, zoom=map.getZoom(), panTo=true) {
   }
 }
 
-function _trackLocation() {
-  /**
-   * Suit la position de l'utilisateur
-   */
+/**
+ * Suit la position de l'utilisateur
+ */
+const trackLocation = () => {
   Geolocation.checkPermissions().then((status) => {
     if (status.location != 'denied') {
       Geolocation.getCurrentPosition({
@@ -70,7 +79,7 @@ function _trackLocation() {
         timeout: 10000,
         enableHighAccuracy: true
       }).then((position) => {
-        _goToGPSCoords({
+        moveTo({
           lat: position.coords.latitude,
           lon: position.coords.longitude
         }, Math.max(map.getZoom(), 14));
@@ -84,7 +93,7 @@ function _trackLocation() {
         enableHighAccuracy: true
       },
       (position) => {
-        _goToGPSCoords({
+        moveTo({
           lat: position.coords.latitude,
           lon: position.coords.longitude
         }, map.getZoom(), tracking_active);
@@ -99,8 +108,10 @@ function _trackLocation() {
   });
 }
 
-// Modification du statut de localisation
-async function locationOnOff() {
+/**
+ * Modification du statut de localisation
+ */
+const locationOnOff = async () => {
   if (!location_active) {
     DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFixeImg + '")';
     let permissionStatus;
@@ -116,7 +127,7 @@ async function locationOnOff() {
     if (permissionStatus == "denied") {
       return
     }
-    _trackLocation();
+    trackLocation();
     location_active = true;
     Toast.show({
       text: "Suivi de position activé",
@@ -144,7 +155,11 @@ async function locationOnOff() {
   }
 }
 
-function getOrientation(event) {
+/**
+ * ...
+ * @param {*} event 
+ */
+const getOrientation = (event) => {
   Globals.movedFromCode = true;
   if (tracking_active) {
     map.setBearing(-event.alpha);
@@ -157,7 +172,6 @@ function getOrientation(event) {
   }
   Globals.movedFromCode = false;
 }
-
 
 export default {
   locationOnOff,

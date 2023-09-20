@@ -133,6 +133,7 @@ function addEventListeners() {
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
   document.getElementById("directionsWindowClose").addEventListener('click', MenuDisplay.closeDirections);
   document.getElementById("isochronWindowClose").addEventListener('click', MenuDisplay.closeIsochron);
+  document.getElementById("mypositionWindowClose").addEventListener('click', MenuDisplay.closeMyPosition);
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -190,6 +191,9 @@ function addEventListeners() {
     }
     if (Globals.backButtonState === 'searchIsochron') {
       MenuDisplay.closeSearchIsochron();
+    }
+    if (Globals.backButtonState === 'myposition') {
+      MenuDisplay.closeMyPosition();
     }
   }
 
@@ -317,6 +321,9 @@ function addEventListeners() {
   document.getElementById("isochron").addEventListener("click", () => {
     MenuDisplay.openIsochron();
   });
+  document.getElementById("myposition").addEventListener("click", () => {
+    MenuDisplay.openMyPosition();
+  });
 
   // GetFeatureInfo on map click
   function latlngToTilePixel(lat, lng, zoom) {
@@ -381,6 +388,7 @@ function addEventListeners() {
   document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide);
   document.getElementById("directions").addEventListener("click", MapControls.removeSideBySide);
   document.getElementById("isochron").addEventListener("click", MapControls.removeSideBySide);
+  document.getElementById("myposition").addEventListener("click", MapControls.removeSideBySide);
 }
 
 export default {
