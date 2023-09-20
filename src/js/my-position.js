@@ -1,6 +1,7 @@
 import maplibregl from "maplibre-gl";
 import { Geolocation } from "@capacitor/geolocation";
 
+// TODO utiliser l'ecouteur sur l'event "target"
 import Reverse from "./reverse";
 
 // TODO mettre en place un icone de positionnement
@@ -12,7 +13,6 @@ import MyPositionImg from "../css/assets/map-center.svg";
  * 
  * Fonctionnalité utilisée par "Où suis-je ?"
  * @todo creation du DOM
- * @todo evenement click sur le marker
  * @todo service d'altimetrie
  * @todo appel aux fonctionnalités "partagé ma position" et "à proximité"
  */
@@ -80,10 +80,34 @@ class Position {
             return;
         }
  
-        // template litteral
-        var id = "container";
+        // template litteral number  street  citycode  city
+        var id = "positionContainer";
+        var address = this.address;
+        var latitude = this.coordinates.lat;
+        var longitude = this.coordinates.lon;
+        var altitude = this.elevation;
+
         var strContainer = `
-        <div id="${id}"></div>
+        <div id="${id}">
+            <div id="positionTitle">Ma position</div>
+            <div id="positionAddress">
+                <label id="positionImgAddress"></label>
+                <div id="positionSectionAddress">
+                    <span class="lblPositionAddress">${address.number} ${address.street},</span>
+                    <span class="lblPositionAddress">${address.citycode} ${address.city}</span>
+                </div>
+            </div>
+            <div id="positionButtons">
+                <label id="positionShare" class="btnPositionButtons">Partager ma position</label>
+                <label id="positionNear" class="btnPositionButtons">A proximité</label>
+            </div>
+            <hr>
+            <div id="positionCoord">
+                <span class="lblPositionCoord">Latitude : ${latitude}</span>
+                <span class="lblPositionCoord">Longitude : ${longitude}</span>
+                <span class="lblPositionCoord">Altitude : ${altitude}</span>
+            </div>
+        </div>
         `;
 
         const stringToHTML = (str) => {
@@ -131,7 +155,14 @@ class Position {
         }
         
         // ajout des listeners principaux :
-        // ...
+        shadowContainer.getElementById("positionShare").addEventListener("click", () => {
+            // TODO
+            // ouverture d'une popup
+        });
+        shadowContainer.getElementById("positionNear").addEventListener("click", () => {
+            // TODO
+            // ouverture du panneau Isochrone
+        });
 
         // ajout du container shadow
         target.appendChild(shadowContainer);

@@ -67,17 +67,27 @@ const compute = async (coordinates) => {
     return results;
 };
 
-/** obtenir les coordonnées */
+/** 
+ * obtenir les coordonnées
+ * @example
+ * { lon lat }
+ */
 const getCoordinates = () => {
     return results.coordinates;
 };
 
-/** obtenir l'adresse */
+/** 
+ * obtenir l'adresse
+ * @example
+ * { number  street  citycode  city }
+ */
 const getAddress = () => {
     return results.address;
 };
 
-/** obtenir l'altitude */
+/** 
+ * obtenir l'altitude
+ */
 const getElevation = () => {
     return results.elevation;
 };
