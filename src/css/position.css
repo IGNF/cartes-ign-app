@@ -3,6 +3,15 @@
  * controle "Où suis-je ?"
  ***********************************/
 
+.fontLight {
+ font-family: "Fira Sans", Helvetica;
+ font-weight: 500;
+ color: var(--variable-collection-grey800);
+ font-size: 13px;
+ letter-spacing: 0;
+ line-height: normal;
+}
+
 /*
  * container
  */
@@ -13,6 +22,7 @@
  */
 #positionTitle {
     text-align: center;
+    font-size: large;
     margin: 10px;
     padding-bottom: 10px;
 }
@@ -50,27 +60,28 @@
     padding-bottom: 10px;
 }
 #positionShare {
-    width: 170px;
-    /* height: 35px; */
-    background-position: left;
+}
+#positionShareImg {
+    height: 25px;
+    width: 25px;
     background-size: 20px;
     background-repeat: no-repeat;
     background-image: url("assets/share.svg");
 }
 #positionNear {
-    width: 110px;
-    /* height: 35px; */
-    background-position: left;
-    background-repeat: no-repeat;
-    background-image: url("assets/isochrone.svg");
 }
-
+#positionNearImg {
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-image: url("assets/isochrone-green.svg");
+}
 .btnPositionButtons {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     padding: 10px;
-    border: 1px solid #26a581;
+    border: 1px solid  #cccccc;
     background-color: #ffffff;
     border-radius: 50px;
     margin-right: 12px;
@@ -80,15 +91,15 @@
 }
   
 .btnPositionButtons:hover {
-    background-color: #f1f1f1;
+    border-color: #26a581;
 }
 
 /*
  * coordonnées
  */
 #positionCoord {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     margin: 10px;
     padding-bottom: 10px;
 }
