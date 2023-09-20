@@ -14,30 +14,42 @@ const mapRLT = Globals.mapRLT;
 
 let prevDataLayerDisplayed = '';
 
-function addMapControls() {
-  // Échelle graphique
-  const scale = new maplibregl.ScaleControl({
-    maxWidth: 80,
-    unit: 'metric'
-  });
-  map.addControl(scale, "top-left");
-
-  // Calcul d'itinéraire / isochron
+/**
+ * Ajout des contrôle à la fin du chargement de la carte
+ * @see maplibregl.ScaleControl
+ * @see Directions
+ * @see Isochron
+ */
+const addMapControls = () => {
+  // on ajoute les contrôles à la fin du chargement de la carte
   map.on("load", () => {
+
+    // contrôle de calcul d'itineraire
     Globals.directions = new Directions(map, {
       // callback sur l'ouverture / fermeture du panneau de recherche
       openSearchControlCbk : () => { MenuDisplay.openSearchDirections(); },
       closeSearchControlCbk : () => { MenuDisplay.closeSearchDirections(); }
     });
+
+    // contrôle de calcul d'isochrone
     Globals.isochron = new Isochron(map, {
       // callback sur l'ouverture / fermeture du panneau de recherche
       openSearchControlCbk : () => { MenuDisplay.openSearchIsochron(); },
       closeSearchControlCbk : () => { MenuDisplay.closeSearchIsochron(); }
     });
+
+    // échelle graphique
+    map.addControl(new maplibregl.ScaleControl({
+      maxWidth: 80,
+      unit: 'metric'
+    }), "top-left");
   });
 }
 
-function addSideBySide() {
+/**
+ * Ajout du contrôle de comparaison de carte
+ */
+const addSideBySide = () => {
   const container = "#cartoContainer";
   mapRLT.setCenter(map.getCenter());
   mapRLT.setZoom(map.getZoom());
@@ -56,7 +68,10 @@ function addSideBySide() {
   MenuDisplay.openCat();
 }
 
-function removeSideBySide() {
+/**
+ * Suppression du contrôle de comparaison de carte
+ */
+const removeSideBySide = () => {
   document.querySelectorAll(".baseLayer").forEach(elem => {
     elem.classList.remove('comparedLayer');
   });
@@ -72,7 +87,8 @@ function removeSideBySide() {
   LayerSwitch.displayDataLayer(prevDataLayerDisplayed);
 }
 
-function startDrawRoute() {
+/** ... */
+const startDrawRoute = () => {
   Globals.mapState = "drawRoute";
 }
 
