@@ -1,8 +1,6 @@
 import DOM from './dom';
 import Globals from './globals';
 
-import Position from "./my-position";
-
 function updateScrollAnchors() {
   Globals.maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
   Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
@@ -343,23 +341,15 @@ function closeSearchIsochron() {
 
 // Menu "Où suis-je ?"
 function openMyPosition() {
-  var position = new Position(Globals.map);
-  position.compute()
-  .then(() => {
-    position.addMarker();
-    position.moveTo();
-  })
-  .then(() => {
-      DOM.$defaultMenu.classList.add("d-none");
-      DOM.$infoWindow.classList.add('d-none');
-      DOM.$legendWindow.classList.add('d-none');
-      DOM.$directionsWindow.classList.add("d-none");
-      DOM.$isochronWindow.classList.add('d-none');
-      DOM.$mypositionWindow.classList.remove('d-none');
-      DOM.$bottomMenu.style.height = "100%";
-      midScroll();
-      Globals.backButtonState = 'myposition';
-    });
+  DOM.$defaultMenu.classList.add("d-none");
+  DOM.$infoWindow.classList.add('d-none');
+  DOM.$legendWindow.classList.add('d-none');
+  DOM.$directionsWindow.classList.add("d-none");
+  DOM.$isochronWindow.classList.add('d-none');
+  DOM.$mypositionWindow.classList.remove('d-none');
+  DOM.$bottomMenu.style.height = "100%";
+  midScroll();
+  Globals.backButtonState = 'myposition';
 }
 
 function closeMyPosition() {

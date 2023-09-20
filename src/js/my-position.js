@@ -10,8 +10,11 @@ import MyPositionImg from "../css/assets/map-center.svg";
  * Permet d'afficher ma position sur la carte
  * avec quelques informations utiles (adresse, lat/lon,"./ elevation, ...)
  * 
- * Module utilisé par "Ma Position" ou "Où suis-je ?"
- * @todo ...
+ * Fonctionnalité utilisée par "Où suis-je ?"
+ * @todo creation du DOM
+ * @todo evenement click sur le marker
+ * @todo service d'altimetrie
+ * @todo appel aux fonctionnalités "partagé ma position" et "à proximité"
  */
 class Position {
     /**
@@ -20,21 +23,27 @@ class Position {
      */
     constructor(map, options) {
         this.options = options || {
-            target : null
+            target : null,
+            // callback
+            openMyPositionCbk : null,
+            closeMyPositionCbk : null
         };
 
-        /**
+        /*****************************************************************
+         * 
          * Workflow "Où suis-je ?":
          * 
-         * 1. activer une geolocalisation
+         * 0. creer une instance de la classe
+         * 1. activer une geolocalisation à la demande (position.compute())
          * 2. recuperer les informations du reverse geocoding / alti :
          *  - adresse
          *  - lon / lat
          *  - alti
-         * 3. rendu des resultats
-         * 4. afficher le marker de position
-         * 5. evenement sur le marker de position pour l' affichage du menu
-         */
+         * 3. proceder au rendu des resultats
+         * 4. afficher le marker de position et deplacement sur la zone
+         * 5. cliquer sur le marker de position pour l' affichage du menu
+         * 
+         ******************************************************************/
 
         // carte
         this.map = map;
@@ -50,15 +59,21 @@ class Position {
         this.address = null;
         this.elevation = null;
 
+        // dom de l'interface
+        this.container = null;
+
+        // open/close interface
+        this.opened = false;
+
         return this;
     }
 
     /**
      * rendu
      * @param {*} settings
-     * @public
+     * @private
      */
-    render() {
+    #render() {
         var target = this.target || document.getElementById("mypositionWindow");
         if (!target) {
             console.warn();
@@ -66,7 +81,10 @@ class Position {
         }
  
         // template litteral
-        var strContainer = ``;
+        var id = "container";
+        var strContainer = `
+        <div id="${id}"></div>
+        `;
 
         const stringToHTML = (str) => {
 
@@ -98,6 +116,11 @@ class Position {
         // transformation du container : String -> DOM
         var container = stringToHTML(strContainer.trim());
 
+        if (!container) {
+            console.warn();
+            return;
+        }
+        
         // ajout du shadow DOM
         const shadowContainer = container.attachShadow({ mode: "open" });
         shadowContainer.innerHTML = strContainer.trim();
@@ -112,6 +135,9 @@ class Position {
 
         // ajout du container shadow
         target.appendChild(shadowContainer);
+
+        // enregistrement du dom
+        this.container = document.getElementById(id);
     }
 
     /**
@@ -140,21 +166,28 @@ class Position {
         this.address = Reverse.getAddress();
         this.elevation = Reverse.getElevation();
 
+        this.#render();
+        this.#addMarker();
+        this.#moveTo();
+
     }
 
     /**
      * deplacement sur la carte
-     * @public
+     * @private
      */
-    moveTo () {
+    #moveTo () {
         this.map.setCenter([this.coordinates.lon, this.coordinates.lat]);
     }
 
     /**
      * ajout un marker de positionnement sur la carte
-     * @public
+     * @private
      */
-    addMarker () {
+    #addMarker () {
+        // contexte
+        var self = this;
+
         // style
         var div = document.createElement("div");
         div.class = "myPositiontIcon";
@@ -163,6 +196,9 @@ class Position {
         div.style.opacity = "0.8";
         div.style.backgroundSize = "contain";
         div.style.backgroundImage = "url(" + MyPositionImg + ")";
+        div.addEventListener("click", (e) => {
+            (self.opened) ? self.hide() : self.show();
+        });
 
         this.marker = new maplibregl.Marker({ element : div })
             .setLngLat([this.coordinates.lon, this.coordinates.lat])
@@ -174,7 +210,10 @@ class Position {
      * @public
      */
     show() {
-
+        if (this.options.openMyPositionCbk) {
+            this.options.openMyPositionCbk();
+            this.opened = true;
+        }
     }
 
     /**
@@ -182,7 +221,10 @@ class Position {
      * @public
      */
     hide() {
-
+        if (this.options.closeMyPositionCbk) {
+            this.options.closeMyPositionCbk();
+            this.opened = false;
+        }
     }
 
     /** 
@@ -190,27 +232,19 @@ class Position {
      * @public
      */
     clear () {
+        // nettoyage du DOM
+        if (this.container) {
+            this.container.remove();
+        }
         this.coordinates = null;
         this.address = null;
         this.elevation = null;
+        this.opened = false;
         // on supprime le marker de position
         if (this.marker) {
             this.marker.remove();
             this.marker = null;
         }
-    }
-
-    ////////////////////////////////////////////
-    // autres méthodes...
-    ////////////////////////////////////////////
-
-    /**
-     * 
-     * @param {*} e 
-     * @private
-     */
-    onClickPositionMarker (e) {
-
     }
 
 }
