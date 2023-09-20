@@ -1,0 +1,95 @@
+
+/***********************************
+ * controle "Où suis-je ?"
+ ***********************************/
+
+/*
+ * container
+ */
+#positionContainer {}
+
+/*
+ * titre
+ */
+#positionTitle {
+    text-align: center;
+    margin: 10px;
+    padding-bottom: 10px;
+}
+
+/*
+ * addresse
+ */
+#positionAddress {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    padding-bottom: 10px;
+}
+#positionImgAddress {
+    width: 35px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-image: url("assets/location.svg");
+}
+#positionSectionAddress {
+
+}
+.lblPositionAddress {}
+
+/*
+ * boutons
+ */
+#positionButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding-bottom: 10px;
+}
+#positionShare {
+    width: 170px;
+    /* height: 35px; */
+    background-position: left;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-image: url("assets/share.svg");
+}
+#positionNear {
+    width: 110px;
+    /* height: 35px; */
+    background-position: left;
+    background-repeat: no-repeat;
+    background-image: url("assets/isochrone.svg");
+}
+
+.btnPositionButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #26a581;
+    background-color: #ffffff;
+    border-radius: 50px;
+    margin-right: 12px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+  
+.btnPositionButtons:hover {
+    background-color: #f1f1f1;
+}
+
+/*
+ * coordonnées
+ */
+#positionCoord {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding-bottom: 10px;
+}
+.lblPositionCoord {}
