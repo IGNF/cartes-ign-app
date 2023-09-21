@@ -1,5 +1,3 @@
-import Globals from './globals';
-
 /** resultats des services */
 let results;
 
@@ -54,7 +52,6 @@ const compute = async (coordinates) => {
             lat : geojson.features[0].geometry.coordinates[1]
         },
         address : address,
-        elevation : "..."
     };
 
     target.dispatchEvent(
@@ -85,13 +82,6 @@ const getAddress = () => {
     return results.address;
 };
 
-/** 
- * obtenir l'altitude
- */
-const getElevation = () => {
-    return results.elevation;
-};
-
 const clear = () => {
     controller.abort();
     results = null;
@@ -101,6 +91,5 @@ export default {
     target,
     compute,
     getCoordinates,
-    getAddress,
-    getElevation
+    getAddress
 };

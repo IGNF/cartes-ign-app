@@ -3,16 +3,16 @@ import { Geolocation } from "@capacitor/geolocation";
 
 // TODO utiliser l'ecouteur sur l'event "target"
 import Reverse from "./reverse";
+import Elevation from "./elevation";
 
 // TODO mettre en place un icone de positionnement
 import MyPositionImg from "../css/assets/map-center.svg";
 
 /**
  * Permet d'afficher ma position sur la carte
- * avec quelques informations utiles (adresse, lat/lon,"./ elevation, ...)
+ * avec quelques informations utiles (adresse, lat/lon, elevation, ...)
  * 
  * Fonctionnalité utilisée par "Où suis-je ?"
- * @todo brancher le service d'altimetrie
  */
 class Position {
     /**
@@ -261,18 +261,29 @@ class Position {
             enableHighAccuracy: true
         });
 
-        const response = await Reverse.compute({
+        const responseReverse = await Reverse.compute({
             lat: position.coords.latitude,
             lon: position.coords.longitude
         });
 
-        if (!response) {
+        if (!responseReverse) {
             throw new Error("Reverse response is empty !");
         }
 
         this.coordinates = Reverse.getCoordinates();
         this.address = Reverse.getAddress();
-        this.elevation = Reverse.getElevation();
+
+        const responseElevation = await Elevation.compute({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+        });
+
+        // FIXME le service fournit il toujours une reponse ?
+        if (!responseElevation) {
+            throw new Error("Elevation response is empty !");
+        }
+
+        this.elevation = Elevation.getElevation();
 
         this.#render();
         this.#addMarker();
