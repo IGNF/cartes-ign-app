@@ -12,6 +12,10 @@
  line-height: normal;
 }
 
+.hidden {
+    display: none;
+}
+
 /*
  * container
  */
@@ -20,7 +24,7 @@
 /*
  * titre
  */
-#positionTitle {
+.divPositionTitle {
     text-align: center;
     font-size: large;
     margin: 10px;
@@ -30,20 +34,20 @@
 /*
  * addresse
  */
-#positionAddress {
+.divPositionAddress {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 10px;
     padding-bottom: 10px;
 }
-#positionImgAddress {
+.lblPositionImgAddress {
     width: 35px;
     height: 35px;
     background-repeat: no-repeat;
     background-image: url("assets/location.svg");
 }
-#positionSectionAddress {
+.divPositionSectionAddress {
 
 }
 .lblPositionAddress {}
@@ -51,7 +55,7 @@
 /*
  * boutons
  */
-#positionButtons {
+.divPositionButtons {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -61,7 +65,7 @@
 }
 #positionShare {
 }
-#positionShareImg {
+.lblPositionShareImg {
     height: 25px;
     width: 25px;
     background-size: 20px;
@@ -70,7 +74,7 @@
 }
 #positionNear {
 }
-#positionNearImg {
+.lblPositionNearImg {
     width: 25px;
     height: 25px;
     background-repeat: no-repeat;
@@ -97,10 +101,52 @@
 /*
  * coordonnées
  */
-#positionCoord {
+.divPositionCoord {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     margin: 10px;
     padding-bottom: 10px;
 }
 .lblPositionCoord {}
+
+
+/*
+ * popup
+ */
+ 
+#positionPopup {
+
+}
+.positionPopup > .maplibregl-popup-content {
+    color: #4b4b4b;
+    border-radius: 15px;
+}
+.positionPopup > .maplibregl-popup-tip {
+    display: none;
+}
+
+/*
+ * boutons sociaux
+ */
+.divPositionShareButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#positionWhatsAppImg{
+    height: 25px;
+    width: 25px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-image: url("assets/whatsapp.svg");
+}
+ 
+#positionSmsImg{
+    height: 25px;
+    width: 25px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-image: url("assets/sms.svg");
+}
