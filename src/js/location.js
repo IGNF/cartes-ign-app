@@ -43,11 +43,14 @@ function _goToGPSCoords(coords, zoom=map.getZoom(), panTo=true) {
    * Ajoute un marqueur de type GPS à la position définie par le coods, et déplace la carte au zoom demandé
    * si panTo est True
    */
-  cleanGPS();
-  Globals.myPositionMarker = new maplibregl.Marker({element: Globals.myPositionIcon})
-    .setLngLat([coords.lon, coords.lat])
-    .addTo(map);
-  Globals.myPositionMarker.setRotationAlignment("map");
+  if (Globals.myPositionMarker == null) {
+    Globals.myPositionMarker = new maplibregl.Marker({element: Globals.myPositionIcon})
+      .setLngLat([coords.lon, coords.lat])
+      .addTo(map);
+    Globals.myPositionMarker.setRotationAlignment("map");
+  } else {
+    Globals.myPositionMarker.setLngLat([coords.lon, coords.lat]);
+  }
 
   setMarkerRotation(positionBearing);
 
@@ -134,6 +137,7 @@ async function locationOnOff() {
   } else {
     DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationImg + '")';
     Geolocation.clearWatch(watch_id);
+    cleanGPS();
     location_active = false;
     tracking_active = false;
     Toast.show({
