@@ -28,22 +28,6 @@ class Position {
             openIsochronCbk : null
         };
 
-        /*****************************************************************
-         * 
-         * Workflow "Où suis-je ?":
-         * 
-         * 0. creer une instance de la classe
-         * 1. activer une geolocalisation à la demande (position.compute())
-         * 2. recuperer les informations du reverse geocoding / alti :
-         *  - adresse
-         *  - lon / lat
-         *  - alti
-         * 3. proceder au rendu des resultats
-         * 4. afficher le marker de position et deplacement sur la zone
-         * 5. cliquer sur le marker de position pour l' affichage du menu
-         * 
-         ******************************************************************/
-
         // carte
         this.map = map;
 
@@ -118,7 +102,15 @@ class Position {
         // ajout des listeners
         var self = this;
         window.onClickSocialWhatsapp = (e) => {
-            console.log(self);
+            // message
+            var message = `${self.address.number} ${self.address.street}, ${self.address.citycode} ${self.address.city}
+            (latitiude: ${self.coordinates.lat} / longitude: ${self.coordinates.lon} / altitude: ${self.elevation} m)`;
+            // redirection vers...
+            if (self.isDesktop()) {
+                window.open(`https://api.whatsapp.com:/send?text= ${message}`);
+            } else {
+                window.open(`whatsapp://send?text= ${message}`);
+            }
         };
         window.onClickSocialSms = (e) => {
             console.log(self);
@@ -322,6 +314,22 @@ class Position {
         this.marker = new maplibregl.Marker({ element : div })
             .setLngLat([this.coordinates.lon, this.coordinates.lat])
             .addTo(this.map);
+    }
+
+    /**
+     * detecte l'environnement : mobile ou desktop
+     * @returns {Boolean}
+     */
+    isDesktop () {
+        var isDesktop = true;
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if (userAgent.indexOf('iphone')!==-1 || userAgent.indexOf('ipod')!==-1 || userAgent.indexOf('ipad')!==-1 || userAgent.indexOf('android')!==-1 || userAgent.indexOf('mobile')!==-1 || userAgent.indexOf('blackberry')!==-1 || userAgent.indexOf('tablet')!==-1 || userAgent.indexOf('phone')!==-1 || userAgent.indexOf('touch')!==-1 ) {
+            isDesktop = false;
+        }
+        if (userAgent.indexOf('msie')!== -1 || userAgent.indexOf('trident')!==-1) {
+            isDesktop = true;
+        }
+        return isDesktop;
     }
 
     /**
