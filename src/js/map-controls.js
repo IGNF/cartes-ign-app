@@ -5,6 +5,7 @@ import Globals from './globals';
 import LayerSwitch from './layer-switch';
 import Directions from "./directions/directions";
 import Isochron from "./isochron/isochron";
+import Position from "./my-position";
 import MenuDisplay from './menu-display';
 
 let sideBySide;
@@ -36,6 +37,14 @@ const addMapControls = () => {
       // callback sur l'ouverture / fermeture du panneau de recherche
       openSearchControlCbk : () => { MenuDisplay.openSearchIsochron(); },
       closeSearchControlCbk : () => { MenuDisplay.closeSearchIsochron(); }
+    });
+
+    // contrôle "Où suis-je ?"
+    Globals.myposition = new Position(map, {
+        // callback sur l'ouverture / fermeture du panneau
+        openMyPositionCbk : () => { MenuDisplay.openMyPosition(); },
+        closeMyPositionCbk : () => { MenuDisplay.closeMyPosition(); },
+        openIsochronCbk : () => { MenuDisplay.openIsochron(); }
     });
 
     // échelle graphique
