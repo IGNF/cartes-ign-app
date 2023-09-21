@@ -12,9 +12,7 @@ import MyPositionImg from "../css/assets/map-center.svg";
  * avec quelques informations utiles (adresse, lat/lon,"./ elevation, ...)
  * 
  * Fonctionnalité utilisée par "Où suis-je ?"
- * @todo creation du DOM
- * @todo service d'altimetrie
- * @todo appel aux fonctionnalités "partagé ma position" et "à proximité"
+ * @todo brancher le service d'altimetrie
  */
 class Position {
     /**
@@ -247,7 +245,7 @@ class Position {
         target.appendChild(shadowContainer);
 
         // enregistrement du dom
-        this.container = document.getElementById(id);
+        this.container = document.getElementById(id.main);
     }
 
     /**
