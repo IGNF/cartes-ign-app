@@ -328,7 +328,8 @@ function addEventListeners() {
       Globals.myposition = new Position(Globals.map, {
         // callback sur l'ouverture / fermeture du panneau
         openMyPositionCbk : () => { MenuDisplay.openMyPosition(); },
-        closeMyPositionCbk : () => { MenuDisplay.closeMyPosition(); }
+        closeMyPositionCbk : () => { MenuDisplay.closeMyPosition(); },
+        openIsochronCbk : () => { MenuDisplay.openIsochron(); }
       });
     }
     Globals.myposition.compute()

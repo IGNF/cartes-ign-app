@@ -26,7 +26,8 @@ class Position {
             target : null,
             // callback
             openMyPositionCbk : null,
-            closeMyPositionCbk : null
+            closeMyPositionCbk : null,
+            openIsochronCbk : null
         };
 
         /*****************************************************************
@@ -54,6 +55,10 @@ class Position {
         // marker de position
         this.marker = null;
 
+        // popup
+        this.popup = null;
+        this.contentPopup = null;
+
         // les données utiles du service
         this.coordinates = null;
         this.address = null;
@@ -80,29 +85,64 @@ class Position {
             return;
         }
  
-        // template litteral number  street  citycode  city
-        var id = "positionContainer";
+        var id = {
+            main : "positionContainer",
+            popup : "positionPopup"
+        };
         var address = this.address;
         var latitude = this.coordinates.lat;
         var longitude = this.coordinates.lon;
         var altitude = this.elevation;
-
-        var strContainer = `
-        <div id="${id}">
-            <div id="positionTitle">Ma position</div>
-            <div id="positionAddress">
-                <label id="positionImgAddress"></label>
-                <div id="positionSectionAddress" class="fontLight">
+        
+        // template litteral
+        this.contentPopup = `
+        <div id="${id.popup}">
+            <div class="divPositionTitle">Partager ma position</div>
+            <div class="divPositionAddress">
+                <label class="lblPositionImgAddress"></label>
+                <div class="divPositionSectionAddress fontLight">
                     <span class="lblPositionAddress">${address.number} ${address.street},</span>
                     <span class="lblPositionAddress">${address.citycode} ${address.city}</span>
                 </div>
             </div>
-            <div id="positionButtons">
-                <button id="positionShare" class="btnPositionButtons"><label id="positionShareImg"></label>Partager ma position</button>
-                <button id="positionNear" class="btnPositionButtons"><label id="positionNearImg"></label>A proximité</button>
+            <hr>
+            <div class="divPositionCoord fontLight">
+                <span class="lblPositionCoord">Latitude : ${latitude}</span>
+                <span class="lblPositionCoord">Longitude : ${longitude}</span>
+                <span class="lblPositionCoord">Altitude : ${altitude}</span>
+            </div>
+            <div class="divPositionShareButtons">
+                <label id="positionWhatsAppImg" onclick="onClickSocialWhatsapp(event)"></label>
+                <label id="positionSmsImg" onclick="onClickSocialSms(event)"></label>
+            </div>
+        </div>
+        `;
+        // ajout des listeners
+        var self = this;
+        window.onClickSocialWhatsapp = (e) => {
+            console.log(self);
+        };
+        window.onClickSocialSms = (e) => {
+            console.log(self);
+        };
+
+        // template litteral
+        var strContainer = `
+        <div id="${id.main}">
+            <div class="divPositionTitle">Ma position</div>
+            <div class="divPositionAddress">
+                <label class="lblPositionImgAddress"></label>
+                <div class="divPositionSectionAddress fontLight">
+                    <span class="lblPositionAddress">${address.number} ${address.street},</span>
+                    <span class="lblPositionAddress">${address.citycode} ${address.city}</span>
+                </div>
+            </div>
+            <div class="divPositionButtons">
+                <button id="positionShare" class="btnPositionButtons"><label class="lblPositionShareImg"></label>Partager ma position</button>
+                <button id="positionNear" class="btnPositionButtons"><label class="lblPositionNearImg"></label>A proximité</button>
             </div>
             <hr>
-            <div id="positionCoord" class="fontLight">
+            <div class="divPositionCoord fontLight">
                 <span class="lblPositionCoord">Latitude : ${latitude}</span>
                 <span class="lblPositionCoord">Longitude : ${longitude}</span>
                 <span class="lblPositionCoord">Altitude : ${altitude}</span>
@@ -153,15 +193,54 @@ class Position {
             console.warn();
             return;
         }
-        
+
         // ajout des listeners principaux :
         shadowContainer.getElementById("positionShare").addEventListener("click", () => {
-            // TODO
+            // on supprime la popup
+            if (this.popup) {
+                this.popup.remove();
+                this.popup = null;
+            }
+            // centre de la carte
+            var center = this.map.getCenter();
+            // content
+            var content = "Hello world !";
+            // position de la popup
+            let markerHeight = 50, markerRadius = 10, linearOffset = 25;
+            var popupOffsets = {
+                'top': [0, 0],
+                'top-left': [0,0],
+                'top-right': [0,0],
+                'bottom': [0, -markerHeight],
+                'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+                'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+                'left': [markerRadius, (markerHeight - markerRadius) * -1],
+                'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+            };
             // ouverture d'une popup
+            this.popup = new maplibregl.Popup({ 
+                    offset: popupOffsets,
+                    className: "positionPopup",
+                    closeOnClick: true,
+                    closeOnMove: true,
+                    closeButton: false
+                })
+                .setLngLat(center)
+                .setHTML(this.contentPopup)
+                .setMaxWidth("300px")
+                .addTo(this.map);
         });
         shadowContainer.getElementById("positionNear").addEventListener("click", () => {
-            // TODO
+            // fermeture du panneau actuel
+            if (this.options.closeMyPositionCbk) {
+                this.options.closeMyPositionCbk();
+                this.opened = false;
+            }
             // ouverture du panneau Isochrone
+            if (this.options.openIsochronCbk) {
+                this.options.openIsochronCbk();
+            }
+
         });
 
         // ajout du container shadow
@@ -263,18 +342,24 @@ class Position {
      * @public
      */
     clear () {
-        // nettoyage du DOM
-        if (this.container) {
-            this.container.remove();
-        }
         this.coordinates = null;
         this.address = null;
         this.elevation = null;
         this.opened = false;
+        this.contentPopup = null;
+        // nettoyage du DOM
+        if (this.container) {
+            this.container.remove();
+        }
         // on supprime le marker de position
         if (this.marker) {
             this.marker.remove();
             this.marker = null;
+        }
+        // on supprime la popup
+        if (this.popup) {
+            this.popup.remove();
+            this.popup = null;
         }
     }
 
