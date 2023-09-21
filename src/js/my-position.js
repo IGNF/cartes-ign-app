@@ -13,11 +13,15 @@ import MyPositionImg from "../css/assets/map-center.svg";
  * avec quelques informations utiles (adresse, lat/lon, elevation, ...)
  * 
  * Fonctionnalité utilisée par "Où suis-je ?"
+ * 
+ * @todo impl. la redirection vers sms
  */
 class Position {
     /**
      * constructeur
-     * @public
+     * @param {*} map 
+     * @param {*} options 
+     * @returns 
      */
     constructor(map, options) {
         this.options = options || {
@@ -56,8 +60,8 @@ class Position {
     }
 
     /**
-     * rendu
-     * @param {*} settings
+     * rendu du menu 
+     * (ainsi que la popup "partager ma position")
      * @private
      */
     #render() {
