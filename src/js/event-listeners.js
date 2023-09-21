@@ -13,7 +13,6 @@ import Globals from './globals';
 import Texts from './texts';
 import Layers from './layers';
 import RecentSearch from "./search-recent";
-import Position from "./my-position";
 
 import { App } from '@capacitor/app';
 
@@ -323,18 +322,9 @@ function addEventListeners() {
     MenuDisplay.openIsochron();
   });
   document.getElementById("myposition").addEventListener("click", () => {
-    // mode singleton
-    if (!Globals.myposition) {
-      Globals.myposition = new Position(Globals.map, {
-        // callback sur l'ouverture / fermeture du panneau
-        openMyPositionCbk : () => { MenuDisplay.openMyPosition(); },
-        closeMyPositionCbk : () => { MenuDisplay.closeMyPosition(); },
-        openIsochronCbk : () => { MenuDisplay.openIsochron(); }
-      });
-    }
     Globals.myposition.compute()
     .then(() => {
-      // other stuff...
+      MenuDisplay.openMyPosition();
     });
   });
 
