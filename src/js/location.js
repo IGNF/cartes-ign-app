@@ -145,6 +145,7 @@ const locationOnOff = async () => {
   } else {
     DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationImg + '")';
     Geolocation.clearWatch(watch_id);
+    cleanGPS();
     location_active = false;
     tracking_active = false;
     Toast.show({
