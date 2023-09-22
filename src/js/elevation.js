@@ -15,6 +15,7 @@ const target = new EventTarget();
  * service
  * @param {*} coordinates 
  * @returns 
+ * @fire elevation
  */
 const compute = async (coordinates) => {
 
