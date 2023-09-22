@@ -52,11 +52,14 @@ const setMarkerRotation = (positionBearing) => {
  * @param {*} panTo 
  */
 const moveTo = (coords, zoom=map.getZoom(), panTo=true) => {
-  clean();
-  Globals.myPositionMarker = new maplibregl.Marker({element: Globals.myPositionIcon})
-    .setLngLat([coords.lon, coords.lat])
-    .addTo(map);
-  Globals.myPositionMarker.setRotationAlignment("map");
+  if (Globals.myPositionMarker == null) {
+    Globals.myPositionMarker = new maplibregl.Marker({element: Globals.myPositionIcon})
+      .setLngLat([coords.lon, coords.lat])
+      .addTo(map);
+    Globals.myPositionMarker.setRotationAlignment("map");
+  } else {
+    Globals.myPositionMarker.setLngLat([coords.lon, coords.lat]);
+  }
 
   setMarkerRotation(positionBearing);
 
@@ -145,7 +148,7 @@ const locationOnOff = async () => {
   } else {
     DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationImg + '")';
     Geolocation.clearWatch(watch_id);
-    cleanGPS();
+    clean();
     location_active = false;
     tracking_active = false;
     Toast.show({
