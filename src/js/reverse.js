@@ -16,6 +16,7 @@ const target = new EventTarget();
  * service
  * @param {*} coordinates 
  * @returns 
+ * @fire reverse
  */
 const compute = async (coordinates) => {
     clear();

@@ -7,6 +7,7 @@ const $closeSearch = document.getElementById("closeSearch");
 const $searchResults = document.getElementById("searchResults");
 const $resultsRechRecent = document.getElementById("resultsRechRecent");
 const $searchImage = document.getElementById("searchImage");
+const $myGeoLocation = document.getElementById("myGeoLocation");
 const $backTopLeft = document.getElementById("backTopLeft");
 const $parameterMenu = document.getElementById("parameterMenu");
 const $legalMenu = document.getElementById("legalMenu");
@@ -39,6 +40,7 @@ export default {
   $searchResults,
   $resultsRechRecent,
   $searchImage,
+  $myGeoLocation,
   $backTopLeft,
   $parameterMenu,
   $legalMenu,

@@ -1,0 +1,14 @@
+#myGeoLocation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    left: 10px;
+}
+
+#myGeoLocationImg {
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-image: url("assets/ma-geolocation.svg");
+}

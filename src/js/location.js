@@ -25,6 +25,14 @@ let watch_id;
 let positionBearing = 0
 
 /**
+ * Interface pour les evenements
+ * @example
+ * target.dispatchEvent(new CustomEvent("myEvent", { detail : {} }));
+ * target.addEventListener("myEvent", handler);
+ */
+const target = new EventTarget();
+
+/**
  * Enlève le marqueur GPS
  */
 const clean = () => {
@@ -45,20 +53,28 @@ const setMarkerRotation = (positionBearing) => {
 }
 
 /**
- * Ajoute un marqueur de type GPS à la position définie par le coods, et déplace la carte au zoom demandé
- * si panTo est True
+ * Ajoute un marqueur de type GPS à la position définie par le coods, 
+ * et déplace la carte au zoom demandé si panTo est True
  * @param {*} coords 
  * @param {*} zoom 
  * @param {*} panTo 
+ * @param {*} gps - choix du type d'icone, GPS par defaut
  */
-const moveTo = (coords, zoom=map.getZoom(), panTo=true) => {
-  if (Globals.myPositionMarker == null) {
-    Globals.myPositionMarker = new maplibregl.Marker({element: Globals.myPositionIcon})
+const moveTo = (coords, zoom=map.getZoom(), panTo=true, gps=true) => {
+  // si l'icone est en mode gps, on ne reconstruit pas le marker
+  // mais, on met à jour la position !
+  if (Globals.myPositionMarker !== null && gps) {
+    Globals.myPositionMarker.setLngLat([coords.lon, coords.lat]);
+  } else {
+    // on reconstruit le marker
+    if (Globals.myPositionMarker !== null) {
+      Globals.myPositionMarker.remove();
+      Globals.myPositionMarker = null;
+    }
+    Globals.myPositionMarker = new maplibregl.Marker({element: (gps) ? Globals.myPositionIcon : Globals.searchResultIcon})
       .setLngLat([coords.lon, coords.lat])
       .addTo(map);
     Globals.myPositionMarker.setRotationAlignment("map");
-  } else {
-    Globals.myPositionMarker.setLngLat([coords.lon, coords.lat]);
   }
 
   setMarkerRotation(positionBearing);
@@ -177,8 +193,44 @@ const getOrientation = (event) => {
   Globals.movedFromCode = false;
 }
 
+/**
+ * ...
+ * @returns
+ * @fire geolocation
+ */
+const getLocation = async () => {
+  var results = null;
+  const status = await Geolocation.checkPermissions();
+  if (status.location != 'denied') {
+    var position = await Geolocation.getCurrentPosition({
+      maximumAge: 0,
+      timeout: 10000,
+      enableHighAccuracy: true
+    })
+      
+    results = {
+      coordinates : {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+      },
+      text : "Ma position"
+    };
+    
+    target.dispatchEvent(
+      new CustomEvent("geolocation", {
+        bubbles: true,
+        detail: results
+      })
+    );
+  }
+  return results;
+}
+
 export default {
-  locationOnOff,
+  target,
   tracking_active,
+  moveTo,
+  locationOnOff,
   getOrientation,
+  getLocation
 }

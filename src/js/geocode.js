@@ -52,6 +52,7 @@ function moveTo(coords, zoom=map.getZoom(), panTo=true) {
  * recherche
  * @param {*} text 
  * @returns 
+ * @fire search
  */
 async function search (text) {
   /**
