@@ -44,7 +44,7 @@ let movedFromCode = false;
 /* global: flag to check if scoll fired by code */
 let ignoreNextScrollEvent = false;
 
-let myPositionMarker;
+let myPositionMarker = null;
 let searchResultMarker;
 
 let myPositionIcon;
