@@ -1,0 +1,152 @@
+
+/***********************************
+ * controle "Où suis-je ?"
+ ***********************************/
+
+.fontLight {
+ font-family: "Fira Sans", Helvetica;
+ font-weight: 500;
+ color: var(--variable-collection-grey800);
+ font-size: 13px;
+ letter-spacing: 0;
+ line-height: normal;
+}
+
+.hidden {
+    display: none;
+}
+
+/*
+ * container
+ */
+#positionContainer {}
+
+/*
+ * titre
+ */
+.divPositionTitle {
+    text-align: center;
+    font-size: large;
+    margin: 10px;
+    padding-bottom: 10px;
+}
+
+/*
+ * addresse
+ */
+.divPositionAddress {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    padding-bottom: 10px;
+}
+.lblPositionImgAddress {
+    width: 35px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-image: url("assets/location.svg");
+}
+.divPositionSectionAddress {
+
+}
+.lblPositionAddress {}
+
+/*
+ * boutons
+ */
+.divPositionButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding-bottom: 10px;
+}
+#positionShare {
+}
+.lblPositionShareImg {
+    height: 25px;
+    width: 25px;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-image: url("assets/share.svg");
+}
+#positionNear {
+}
+.lblPositionNearImg {
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-image: url("assets/isochrone-green.svg");
+}
+.btnPositionButtons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px;
+    border: 1px solid  #cccccc;
+    background-color: #ffffff;
+    border-radius: 50px;
+    margin-right: 12px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+  
+.btnPositionButtons:hover {
+    border-color: #26a581;
+}
+
+/*
+ * coordonnées
+ */
+.divPositionCoord {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 10px;
+    padding-bottom: 10px;
+}
+.lblPositionCoord {}
+
+
+/*
+ * popup
+ */
+ 
+#positionPopup {
+
+}
+.positionPopup > .maplibregl-popup-content {
+    color: #4b4b4b;
+    border-radius: 15px;
+}
+.positionPopup > .maplibregl-popup-tip {
+    display: none;
+}
+
+/*
+ * boutons sociaux
+ */
+.divPositionShareButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#positionWhatsAppImg{
+    height: 25px;
+    width: 25px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-image: url("assets/whatsapp.svg");
+}
+ 
+#positionSmsImg{
+    height: 25px;
+    width: 25px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-image: url("assets/sms.svg");
+}

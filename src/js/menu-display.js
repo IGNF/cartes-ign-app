@@ -49,6 +49,7 @@ function searchScreenOn() {
   DOM.$catalogBtn.classList.add('d-none');
   DOM.$closeSearch.classList.remove('d-none');
   DOM.$searchResults.classList.remove('d-none');
+  DOM.$myGeoLocation.classList.remove('d-none');
   DOM.$defaultMenuNotSearch.classList.add('d-none');
   DOM.$directionsWindow.classList.add("d-none");
   DOM.$isochronWindow.classList.add("d-none");
@@ -66,6 +67,7 @@ function searchScreenOff() {
   DOM.$catalogBtn.classList.remove('d-none');
   DOM.$closeSearch.classList.add('d-none');
   DOM.$searchResults.classList.add('d-none');
+  DOM.$myGeoLocation.classList.add('d-none');
   DOM.$rech.blur()
   DOM.$defaultMenuNotSearch.classList.remove('d-none');
   Globals.backButtonState = 'default';
@@ -247,6 +249,7 @@ function openSearchDirections() {
   DOM.$defaultMenu.classList.remove("d-none");
   DOM.$closeSearch.classList.remove('d-none');
   DOM.$searchResults.classList.remove('d-none');
+  DOM.$myGeoLocation.classList.remove('d-none');
   DOM.$directionsWindow.classList.add("d-none");
   DOM.$defaultMenuNotSearch.classList.add('d-none');
   Globals.currentScrollIndex = 2;
@@ -265,6 +268,7 @@ function closeSearchDirections() {
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$closeSearch.classList.add('d-none');
   DOM.$searchResults.classList.add('d-none');
+  DOM.$myGeoLocation.classList.add('d-none');
   DOM.$directionsWindow.classList.remove("d-none");
   Globals.backButtonState = 'directions'; // on revient sur le contrôle !
   midScroll();
@@ -315,8 +319,10 @@ function openSearchIsochron() {
   DOM.$defaultMenu.classList.remove("d-none");
   DOM.$closeSearch.classList.remove('d-none');
   DOM.$searchResults.classList.remove('d-none');
+  DOM.$myGeoLocation.classList.remove('d-none');
   DOM.$isochronWindow.classList.add("d-none");
   DOM.$defaultMenuNotSearch.classList.add('d-none');
+
   Globals.currentScrollIndex = 2;
   updateScrollAnchors();
   Globals.backButtonState = 'searchIsochron';
@@ -333,9 +339,32 @@ function closeSearchIsochron() {
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$closeSearch.classList.add('d-none');
   DOM.$searchResults.classList.add('d-none');
+  DOM.$myGeoLocation.classList.add('d-none');
   DOM.$isochronWindow.classList.remove("d-none");
   Globals.backButtonState = 'isochron'; // on revient sur le contrôle !
   midScroll();
+}
+
+// Menu "Où suis-je ?"
+function openMyPosition() {
+  DOM.$defaultMenu.classList.add("d-none");
+  DOM.$infoWindow.classList.add('d-none');
+  DOM.$legendWindow.classList.add('d-none');
+  DOM.$directionsWindow.classList.add("d-none");
+  DOM.$isochronWindow.classList.add('d-none');
+  DOM.$mypositionWindow.classList.remove('d-none');
+  DOM.$bottomMenu.style.height = "100%";
+  midScroll();
+  Globals.backButtonState = 'myposition';
+}
+
+function closeMyPosition() {
+  DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$mypositionWindow.classList.add('d-none');
+  DOM.$defaultMenuNotSearch.classList.remove('d-none');
+  midScroll();
+  Globals.backButtonState = 'mainMenu';
+  DOM.$bottomMenu.style.height = "";
 }
 
 export default {
@@ -369,4 +398,6 @@ export default {
   closeIsochron,
   openSearchIsochron,
   closeSearchIsochron,
+  openMyPosition,
+  closeMyPosition,
 };

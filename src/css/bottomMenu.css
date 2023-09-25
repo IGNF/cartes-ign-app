@@ -108,7 +108,11 @@
 }
 
 #isoIcon {
-  background-image: url("assets/itineraire.png");
+  background-image: url("assets/isochrone.svg");
+}
+
+#mypositionIcon {
+  background-image: url("assets/my-position.svg");
 }
 
 #measureIcon {

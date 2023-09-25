@@ -1,7 +1,9 @@
 import DOM from './dom';
 import Globals from './globals';
 
-/* Autocompletion */
+/**
+ *  Autocompletion
+ */
 async function suggest() {
   /**
    * Ajoute des suggestions en dessous de la barre de recherche en fonction de ce qui est tapé
@@ -42,6 +44,11 @@ async function suggest() {
     .slice(0,9);
 }
 
+/**
+ * Retourne le texte complet du resultat de l'autocompletion
+ * @param {*} locationResult 
+ * @returns 
+ */
 function computeLocationFullText(locationResult) {
   return locationResult.fulltext;
 }

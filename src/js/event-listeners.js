@@ -74,12 +74,32 @@ function addEventListeners() {
       if (Globals.backButtonState === "searchDirections") {
         Geocode.search(DOM.$rech.value);
         setTimeout(MenuDisplay.openDirections, 150);
+      } else if(Globals.backButtonState === "searchIsochron") {
+        Geocode.search(DOM.$rech.value);
+        setTimeout(MenuDisplay.openIsochron, 150);
       } else {
         Geocode.searchAndMoveTo(DOM.$rech.value);
-        setTimeout(MenuDisplay.searchScreenOff, 150)
+        setTimeout(MenuDisplay.searchScreenOff, 150);
       }
       RecentSearch.add(DOM.$rech.value);
     }
+  }, true);
+
+  // on clique sur "Ma position"
+  DOM.$myGeoLocation.addEventListener("click", (e) => {
+    // on realise une geolocalisation
+    Location.getLocation()
+      .then((result) => {
+        DOM.$rech.value = "Ma position";
+        if (Globals.backButtonState === "searchDirections") {
+          setTimeout(MenuDisplay.openDirections, 150);
+        } else if (Globals.backButtonState === "searchIsochron") {
+          setTimeout(MenuDisplay.openIsochron, 150);
+        } else {
+          Location.moveTo(result.coordinates, Globals.map.getZoom(), true, false);
+          setTimeout(MenuDisplay.searchScreenOff, 150);
+        }
+      });
   }, true);
 
   /* event listeners statiques */
@@ -133,6 +153,7 @@ function addEventListeners() {
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
   document.getElementById("directionsWindowClose").addEventListener('click', MenuDisplay.closeDirections);
   document.getElementById("isochronWindowClose").addEventListener('click', MenuDisplay.closeIsochron);
+  document.getElementById("mypositionWindowClose").addEventListener('click', MenuDisplay.closeMyPosition);
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -190,6 +211,9 @@ function addEventListeners() {
     }
     if (Globals.backButtonState === 'searchIsochron') {
       MenuDisplay.closeSearchIsochron();
+    }
+    if (Globals.backButtonState === 'myposition') {
+      MenuDisplay.closeMyPosition();
     }
   }
 
@@ -317,6 +341,12 @@ function addEventListeners() {
   document.getElementById("isochron").addEventListener("click", () => {
     MenuDisplay.openIsochron();
   });
+  document.getElementById("myposition").addEventListener("click", () => {
+    Globals.myposition.compute()
+    .then(() => {
+      MenuDisplay.openMyPosition();
+    });
+  });
 
   // GetFeatureInfo on map click
   function latlngToTilePixel(lat, lng, zoom) {
@@ -381,6 +411,7 @@ function addEventListeners() {
   document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide);
   document.getElementById("directions").addEventListener("click", MapControls.removeSideBySide);
   document.getElementById("isochron").addEventListener("click", MapControls.removeSideBySide);
+  document.getElementById("myposition").addEventListener("click", MapControls.removeSideBySide);
 }
 
 export default {
