@@ -4,6 +4,7 @@ import IsochronDOM from "./isochron-dom";
 
 // dependance : abonnement au event du module
 import Geocode from "../geocode";
+import Location from "../location";
 
 /**
  * Interface sur le contrôle isochrone
@@ -307,11 +308,15 @@ class Isochron {
             if (close) {
                 close.removeEventListener("click", cleanLocation);
             }
-            Geocode.target.removeEventListener("search", setLocation)
+            Geocode.target.removeEventListener("search", setLocation);
+            Location.target.removeEventListener("geolocation", setLocation);
         }
 
         // abonnement au geocodage
         Geocode.target.addEventListener("search", setLocation);
+
+        // abonnement à la geolocalisation
+        Location.target.addEventListener("geolocation", setLocation);
 
         // abonnement au bouton de fermeture du menu
         var close = document.getElementById("closeSearch");

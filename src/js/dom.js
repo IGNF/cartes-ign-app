@@ -7,6 +7,7 @@ const $closeSearch = document.getElementById("closeSearch");
 const $searchResults = document.getElementById("searchResults");
 const $resultsRechRecent = document.getElementById("resultsRechRecent");
 const $searchImage = document.getElementById("searchImage");
+const $myGeoLocation = document.getElementById("myGeoLocation");
 const $backTopLeft = document.getElementById("backTopLeft");
 const $parameterMenu = document.getElementById("parameterMenu");
 const $legalMenu = document.getElementById("legalMenu");
@@ -28,6 +29,7 @@ const $catalogBtn = document.getElementById("catalogBtn");
 const $directionsWindow = document.getElementById("directionsWindow");
 const $directionsResultsWindow = document.getElementById("directionsResultsWindow");
 const $isochronWindow = document.getElementById("isochronWindow");
+const $mypositionWindow = document.getElementById("mypositionWindow");
 
 export default {
   $resultDiv,
@@ -38,6 +40,7 @@ export default {
   $searchResults,
   $resultsRechRecent,
   $searchImage,
+  $myGeoLocation,
   $backTopLeft,
   $parameterMenu,
   $legalMenu,
@@ -58,5 +61,6 @@ export default {
   $catalogBtn,
   $directionsWindow,
   $directionsResultsWindow,
-  $isochronWindow
+  $isochronWindow,
+  $mypositionWindow
 };
