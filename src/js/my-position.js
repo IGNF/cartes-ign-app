@@ -242,6 +242,9 @@ class Position {
 
         // enregistrement du dom
         this.container = document.getElementById(id.main);
+
+        // mise à jour du statut de la fenêtre
+        this.opened = true;
     }
 
     /**
@@ -312,6 +315,11 @@ class Position {
         div.style.backgroundSize = "contain";
         div.style.backgroundImage = "url(" + MyPositionImg + ")";
         div.addEventListener("click", (e) => {
+            // FIXME ...
+            var container = document.getElementById("mypositionWindow");
+            if (container.className === "d-none") {
+                self.opened = false;
+            }
             (self.opened) ? self.hide() : self.show();
         });
 
