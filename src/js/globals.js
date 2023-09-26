@@ -60,8 +60,8 @@ let autocompletion_results = []
 // Global Route plugin
 let directions = null;
 
-// Global Isochron plugin
-let isochron = null;
+// Global Isochrone plugin
+let isochrone = null;
 
 // Global MyPosition plugin
 let myposition = null;
@@ -94,6 +94,6 @@ export default {
   anchors,
   currentScroll,
   directions,
-  isochron,
-  myposition
+  isochrone,
+  myposition,
 };

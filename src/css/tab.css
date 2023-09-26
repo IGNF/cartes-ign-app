@@ -2,9 +2,9 @@
  * fenetres ou onglets
  ***********************************/
 
-#infoWindow, 
-#legendWindow, 
-#isochronWindow,
+#infoWindow,
+#legendWindow,
+#isochroneWindow,
 #directionsWindow,
 #directionsResultsWindow,
 #mypositionWindow,
@@ -32,7 +32,7 @@
   z-index: 3001;
 }
 
-#infoWindowContent, 
+#infoWindowContent,
 #legendWindowContent {
   margin-right: 20px;
   margin-left: 20px;

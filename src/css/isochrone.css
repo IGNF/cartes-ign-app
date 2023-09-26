@@ -1,5 +1,5 @@
 /***********************************
- * controle de calcul d'isochron 
+ * controle de calcul d'isochrone
  ***********************************/
 
 .section {
@@ -18,19 +18,19 @@
 /*
  * container
  */
-#isochronContainer {}
+#isochroneContainer {}
 
 /*
  * titre
  */
-.pIsochronTitle {
+.pIsochroneTitle {
   text-align: center;
 }
 
-/* 
- * compute 
+/*
+ * compute
  */
-.btnIsochronCompute {
+.btnIsochroneCompute {
   display: block;
   width: 90%;
   margin: auto;
@@ -49,21 +49,21 @@
   white-space: nowrap;
 }
 
-/* 
+/*
  * transport / mode
  */
-.divIsochronMode input[type="radio"],
-.divIsochronTransport input[type="radio"] {
+.divIsochroneMode input[type="radio"],
+.divIsochroneTransport input[type="radio"] {
   display: none;
 }
 
-.divIsochronMode *,
-.divIsochronTransport * {
+.divIsochroneMode *,
+.divIsochroneTransport * {
   z-index: 2;
 }
 
-.divIsochronMode,
-.divIsochronTransport {
+.divIsochroneMode,
+.divIsochroneTransport {
   display: flex;
   position: relative;
   justify-content: space-around;
@@ -78,8 +78,8 @@
   align-items: center;
 }
 
-.lblIsochronMode,
-.lblIsochronTransport {
+.lblIsochroneMode,
+.lblIsochroneeTransport {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,19 +94,19 @@
   background-repeat: no-repeat;
 }
 
-.divIsochronTransport input[type="radio"]:checked + label {}
+.divIsochroneTransport input[type="radio"]:checked + label {}
 
-.divIsochronMode input[id="isochronModeDistance"]:checked ~ .sliderIsochron,
-.divIsochronTransport input[id="isochronTransportVoiture"]:checked ~ .sliderIsochron {
+.divIsochroneMode input[id="isochroneModeDistance"]:checked ~ .sliderIsochrone,
+.divIsochroneTransport input[id="isochroneTransportVoiture"]:checked ~ .sliderIsochrone {
   transform: translateX(58px);
 }
 
-.divIsochronMode input[id="isochronModeDuration"]:checked ~ .sliderIsochron,
-.divIsochronTransport input[id="isochronTransportPieton"]:checked ~ .sliderIsochron {
+.divIsochroneMode input[id="isochroneModeDuration"]:checked ~ .sliderIsochrone,
+.divIsochroneTransport input[id="isochroneTransportPieton"]:checked ~ .sliderIsochrone {
   transform: translateX(-58px);
 }
 
-.sliderIsochron {
+.sliderIsochrone {
   position: absolute;
   display: flex;
   height: 44px;
@@ -117,11 +117,11 @@
   transition: 0.25s ease-out;
 }
 
-#isochronTransportVoiture + label {
+#isochroneTransportVoiture + label {
   background-image: url("assets/directions/voiture.svg");
 }
 
-#isochronTransportPieton + label {
+#isochroneTransportPieton + label {
   background-image: url("assets/directions/pieton.svg");
 }
 
@@ -129,70 +129,70 @@
  * mode
  */
 
-#isochronModeValueDuration,
-#isochronModeValueDistance {}
+#isochroneModeValueDuration,
+#isochroneModeValueDistance {}
 
-.divIsochronValue {
+.divIsochroneValue {
   display: flex;
 }
 
-.isochronValueHidden {
+.isochroneValueHidden {
   display: none;
 }
 
-#isochronValueDuration {
+#isochroneValueDuration {
   margin: auto;
   flex-direction: row;
   align-items: center;
 }
 
 /* fixme comment afficher les fleches */
-/* input#isochronValueDurationInputHours[type=number]::-webkit-inner-spin-button,
-input#isochronValueDurationInputMinutes[type=number]::-webkit-inner-spin-button {
+/* input#isochroneValueDurationInputHours[type=number]::-webkit-inner-spin-button,
+input#isochroneValueDurationInputMinutes[type=number]::-webkit-inner-spin-button {
   opacity: 1
 } */
 
-#isochronValueDurationInputHours {
+#isochroneValueDurationInputHours {
   flex: 1;
   height: 35px;
   width: 50%;
   padding-left: 10px;
 }
-#isochronValueDurationInputMinutes {
+#isochroneValueDurationInputMinutes {
   flex: 1;
   height: 35px;
   width: 50%;
   padding-left: 10px;
 }
 
-#isochronValueDurationInputHours:focus,
-#isochronValueDurationInputMinutes:focus {
+#isochroneValueDurationInputHours:focus,
+#isochroneValueDurationInputMinutes:focus {
   outline: none;
   border:1px solid #26a581;
 }
 
-#isochronValueDistance {
+#isochroneValueDistance {
   margin: auto;
   flex-direction: row;
   align-items: center;
 }
-#isochronValueDistanceInput {
+#isochroneValueDistanceInput {
   flex: 1;
   height: 35px;
   width: 50%;
   padding-left: 10px;
 }
-#isochronValueDistanceInput:focus {
+#isochroneValueDistanceInput:focus {
   outline: none;
   border:1px solid #26a581;
 }
 
-/* 
+/*
  * location
  */
-.divIsochronLocation {}
+.divIsochroneLocation {}
 
-.inputIsochronLocation {
+.inputIsochroneLocation {
   display: block;
   position: relative;
   width: 90%;

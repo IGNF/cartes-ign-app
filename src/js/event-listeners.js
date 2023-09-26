@@ -1,7 +1,6 @@
 import maplibregl from "maplibre-gl";
 
 import Autocomp from './autocomplete';
-// import Coords from './coordinates';
 import Geocode from './geocode';
 import LayerSwitch from './layer-switch';
 import Location from './location';
@@ -74,9 +73,9 @@ function addEventListeners() {
       if (Globals.backButtonState === "searchDirections") {
         Geocode.search(DOM.$rech.value);
         setTimeout(MenuDisplay.openDirections, 150);
-      } else if(Globals.backButtonState === "searchIsochron") {
+      } else if(Globals.backButtonState === "searchIsochrone") {
         Geocode.search(DOM.$rech.value);
-        setTimeout(MenuDisplay.openIsochron, 150);
+        setTimeout(MenuDisplay.openIsochrone, 150);
       } else {
         Geocode.searchAndMoveTo(DOM.$rech.value);
         setTimeout(MenuDisplay.searchScreenOff, 150);
@@ -93,8 +92,8 @@ function addEventListeners() {
         DOM.$rech.value = "Ma position";
         if (Globals.backButtonState === "searchDirections") {
           setTimeout(MenuDisplay.openDirections, 150);
-        } else if (Globals.backButtonState === "searchIsochron") {
-          setTimeout(MenuDisplay.openIsochron, 150);
+        } else if (Globals.backButtonState === "searchIsochrone") {
+          setTimeout(MenuDisplay.openIsochrone, 150);
         } else {
           Location.moveTo(result.coordinates, Globals.map.getZoom(), true, false);
           setTimeout(MenuDisplay.searchScreenOff, 150);
@@ -152,7 +151,7 @@ function addEventListeners() {
   document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
   document.getElementById("directionsWindowClose").addEventListener('click', MenuDisplay.closeDirections);
-  document.getElementById("isochronWindowClose").addEventListener('click', MenuDisplay.closeIsochron);
+  document.getElementById("isochroneWindowClose").addEventListener('click', MenuDisplay.closeIsochron);
   document.getElementById("mypositionWindowClose").addEventListener('click', MenuDisplay.closeMyPosition);
 
   // Rotation du marqueur de position
@@ -206,11 +205,11 @@ function addEventListeners() {
     if (Globals.backButtonState === 'resultsDirections') {
       MenuDisplay.closeResultsDirections();
     }
-    if (Globals.backButtonState === 'isochron') {
-      MenuDisplay.closeIsochron();
+    if (Globals.backButtonState === 'isochrone') {
+      MenuDisplay.closeIsochrone();
     }
-    if (Globals.backButtonState === 'searchIsochron') {
-      MenuDisplay.closeSearchIsochron();
+    if (Globals.backButtonState === 'searchIsochrone') {
+      MenuDisplay.closeSearchIsochrone();
     }
     if (Globals.backButtonState === 'myposition') {
       MenuDisplay.closeMyPosition();
@@ -338,8 +337,8 @@ function addEventListeners() {
   document.getElementById("directions").addEventListener("click", () => {
     MenuDisplay.openDirections();
   });
-  document.getElementById("isochron").addEventListener("click", () => {
-    MenuDisplay.openIsochron();
+  document.getElementById("isochrone").addEventListener("click", () => {
+    MenuDisplay.openIsochrone();
   });
   document.getElementById("myposition").addEventListener("click", () => {
     Globals.myposition.compute()
@@ -410,7 +409,7 @@ function addEventListeners() {
   document.getElementById("drawRoute").addEventListener("click", MapControls.startDrawRoute);
   document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide);
   document.getElementById("directions").addEventListener("click", MapControls.removeSideBySide);
-  document.getElementById("isochron").addEventListener("click", MapControls.removeSideBySide);
+  document.getElementById("isochrone").addEventListener("click", MapControls.removeSideBySide);
   document.getElementById("myposition").addEventListener("click", MapControls.removeSideBySide);
 }
 

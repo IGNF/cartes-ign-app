@@ -14,7 +14,6 @@ import LocationFixeImg from "../css/assets/location-fixed.svg";
 const map = Globals.map;
 
 /* Géolocalisation */
-
 // Positionnement du mobile
 let location_active = false;
 
@@ -44,7 +43,7 @@ const clean = () => {
 
 /**
  * Modifie la rotation du marqueur GPS
- * @param {*} positionBearing 
+ * @param {*} positionBearing
  */
 const setMarkerRotation = (positionBearing) => {
   if (Globals.myPositionMarker) {
@@ -53,11 +52,11 @@ const setMarkerRotation = (positionBearing) => {
 }
 
 /**
- * Ajoute un marqueur de type GPS à la position définie par le coods, 
+ * Ajoute un marqueur de type GPS à la position définie par le coods,
  * et déplace la carte au zoom demandé si panTo est True
- * @param {*} coords 
- * @param {*} zoom 
- * @param {*} panTo 
+ * @param {*} coords
+ * @param {*} zoom
+ * @param {*} panTo
  * @param {*} gps - choix du type d'icone, GPS par defaut
  */
 const moveTo = (coords, zoom=map.getZoom(), panTo=true, gps=true) => {
@@ -130,29 +129,33 @@ const trackLocation = () => {
 /**
  * Modification du statut de localisation
  */
+const enablePosition = async() => {
+  DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFixeImg + '")';
+  let permissionStatus;
+  try {
+    permissionStatus = await Geolocation.checkPermissions();
+  } catch {
+    console.warn("Location services disabled");
+    return
+  }
+  if (permissionStatus.location == "denied") {
+    permissionStatus = await Geolocation.requestPermissions(["location"]);
+  }
+  if (permissionStatus == "denied") {
+    return
+  }
+  trackLocation();
+  location_active = true;
+  Toast.show({
+    text: "Suivi de position activé",
+    duration: "short",
+    position: "bottom"
+  });
+}
+
 const locationOnOff = async () => {
   if (!location_active) {
-    DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFixeImg + '")';
-    let permissionStatus;
-    try {
-      permissionStatus = await Geolocation.checkPermissions();
-    } catch {
-      console.warn("Location services disabled");
-      return
-    }
-    if (permissionStatus.location == "denied") {
-      permissionStatus = await Geolocation.requestPermissions(["location"]);
-    }
-    if (permissionStatus == "denied") {
-      return
-    }
-    trackLocation();
-    location_active = true;
-    Toast.show({
-      text: "Suivi de position activé",
-      duration: "short",
-      position: "bottom"
-    });
+    enablePosition();
   } else if (!tracking_active) {
     DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFollowImg + '")';
     tracking_active = true;
@@ -177,7 +180,7 @@ const locationOnOff = async () => {
 
 /**
  * ...
- * @param {*} event 
+ * @param {*} event
  */
 const getOrientation = (event) => {
   Globals.movedFromCode = true;
@@ -207,7 +210,7 @@ const getLocation = async () => {
       timeout: 10000,
       enableHighAccuracy: true
     })
-      
+
     results = {
       coordinates : {
         lat: position.coords.latitude,
@@ -215,7 +218,7 @@ const getLocation = async () => {
       },
       text : "Ma position"
     };
-    
+
     target.dispatchEvent(
       new CustomEvent("geolocation", {
         bubbles: true,
@@ -228,9 +231,11 @@ const getLocation = async () => {
 
 export default {
   target,
+  location_active,
   tracking_active,
   moveTo,
+  enablePosition,
   locationOnOff,
   getOrientation,
-  getLocation
+  getLocation,
 }
