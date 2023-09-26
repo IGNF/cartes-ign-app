@@ -29,7 +29,7 @@ function openCat() {
   DOM.$infoWindow.classList.add('d-none');
   DOM.$legendWindow.classList.add('d-none');
   DOM.$directionsWindow.classList.add('d-none');
-  DOM.$isochronWindow.classList.add("d-none");
+  DOM.$isochroneWindow.classList.add("d-none");
   DOM.$directionsResultsWindow.classList.add('d-none');
   Globals.backButtonState = 'catalog';
   midScroll();
@@ -52,7 +52,7 @@ function searchScreenOn() {
   DOM.$myGeoLocation.classList.remove('d-none');
   DOM.$defaultMenuNotSearch.classList.add('d-none');
   DOM.$directionsWindow.classList.add("d-none");
-  DOM.$isochronWindow.classList.add("d-none");
+  DOM.$isochroneWindow.classList.add("d-none");
   Globals.currentScrollIndex = 2;
   updateScrollAnchors();
   Globals.backButtonState = 'search';
@@ -291,46 +291,46 @@ function closeResultsDirections () {
 }
 
 // Menu outils du contrôle isochrone
-function openIsochron() {
+function openIsochrone() {
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$infoWindow.classList.add('d-none');
   DOM.$legendWindow.classList.add('d-none');
   DOM.$directionsWindow.classList.add("d-none");
-  DOM.$isochronWindow.classList.remove('d-none');
+  DOM.$isochroneWindow.classList.remove('d-none');
   DOM.$bottomMenu.style.height = "100%";
   midScroll();
-  Globals.backButtonState = 'isochron';
-  // Globals.isochron.interactive(true);
+  Globals.backButtonState = 'isochrone';
+  // Globals.isochrone.interactive(true);
 }
 
-function closeIsochron() {
+function closeIsochrone() {
   DOM.$defaultMenu.classList.remove("d-none");
-  DOM.$isochronWindow.classList.add("d-none");
+  DOM.$isochroneWindow.classList.add("d-none");
   DOM.$defaultMenuNotSearch.classList.remove('d-none');
   midScroll();
   Globals.backButtonState = 'mainMenu';
   DOM.$bottomMenu.style.height = "";
-  Globals.isochron.clear();
-  // Globals.isochron.interactive(false);
+  Globals.isochrone.clear();
+  // Globals.isochrone.interactive(false);
 }
 
-function openSearchIsochron() {
+function openSearchIsochrone() {
   DOM.$bottomMenu.style.height = "100%";
   DOM.$defaultMenu.classList.remove("d-none");
   DOM.$closeSearch.classList.remove('d-none');
   DOM.$searchResults.classList.remove('d-none');
   DOM.$myGeoLocation.classList.remove('d-none');
-  DOM.$isochronWindow.classList.add("d-none");
+  DOM.$isochroneWindow.classList.add("d-none");
   DOM.$defaultMenuNotSearch.classList.add('d-none');
 
   Globals.currentScrollIndex = 2;
   updateScrollAnchors();
-  Globals.backButtonState = 'searchIsochron';
+  Globals.backButtonState = 'searchIsochrone';
   DOM.$rech.focus();
   DOM.$rech.click();
 }
 
-function closeSearchIsochron() {
+function closeSearchIsochrone() {
   Globals.controller.abort();
   Globals.controller = new AbortController();
   Globals.signal = Globals.controller.signal;
@@ -340,8 +340,8 @@ function closeSearchIsochron() {
   DOM.$closeSearch.classList.add('d-none');
   DOM.$searchResults.classList.add('d-none');
   DOM.$myGeoLocation.classList.add('d-none');
-  DOM.$isochronWindow.classList.remove("d-none");
-  Globals.backButtonState = 'isochron'; // on revient sur le contrôle !
+  DOM.$isochroneWindow.classList.remove("d-none");
+  Globals.backButtonState = 'isochrone'; // on revient sur le contrôle !
   midScroll();
 }
 
@@ -351,7 +351,7 @@ function openMyPosition() {
   DOM.$infoWindow.classList.add('d-none');
   DOM.$legendWindow.classList.add('d-none');
   DOM.$directionsWindow.classList.add("d-none");
-  DOM.$isochronWindow.classList.add('d-none');
+  DOM.$isochroneWindow.classList.add('d-none');
   DOM.$mypositionWindow.classList.remove('d-none');
   DOM.$bottomMenu.style.height = "100%";
   midScroll();
@@ -394,10 +394,10 @@ export default {
   closeSearchDirections,
   openResultsDirections,
   closeResultsDirections,
-  openIsochron,
-  closeIsochron,
-  openSearchIsochron,
-  closeSearchIsochron,
+  openIsochrone,
+  closeIsochrone,
+  openSearchIsochrone,
+  closeSearchIsochrone,
   openMyPosition,
   closeMyPosition,
 };
