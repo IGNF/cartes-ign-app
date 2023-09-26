@@ -1,6 +1,5 @@
 import maplibregl from "maplibre-gl";
 
-import Autocomp from './autocomplete';
 import Geocode from './geocode';
 import LayerSwitch from './layer-switch';
 import Location from './location';
@@ -18,41 +17,6 @@ import { App } from '@capacitor/app';
 function addEventListeners() {
 
   const map = Globals.map;
-
-  // Recherche du 1er résultat de l'autocomplétion si appui sur entrée
-  DOM.$rech.addEventListener("keyup", (event) => {
-    if (event.key === 'Enter' || event.keyCode === 13) {
-      // Cancel the default action, if needed
-      event.preventDefault();
-      // Trigger the button element with a click
-      DOM.$resultDiv.hidden = true;
-      DOM.$resultDiv.innerHTML = "";
-      Geocode.searchAndMoveTo(DOM.$rech.value);
-      MenuDisplay.searchScreenOff();
-    } else if (DOM.$rech.value !== ""){
-      let resultStr = "";
-      Autocomp.suggest().then( () => {
-        if (Globals.autocompletion_results.length > 0){
-          for (let i = 0 ; i < Globals.autocompletion_results.length; i++) {
-            resultStr += `<p class='autocompresult' fulltext='${Globals.autocompletion_results[i].fulltext}'>
-            <em class='autocompkind'>${Globals.autocompletion_results[i].kind}</em><br/>
-            ${Globals.autocompletion_results[i].fulltext} </p>` ;
-          }
-          DOM.$resultDiv.innerHTML = resultStr;
-          DOM.$resultDiv.hidden = false;
-        }
-      });
-    } else if (DOM.$rech.value === "") {
-      DOM.$resultDiv.hidden = true;
-      DOM.$resultDiv.innerHTML = "";
-    }
-  });
-
-  DOM.$rech.addEventListener("click", (event) => {
-    DOM.$rech.value = "";
-    DOM.$resultDiv.hidden = true;
-    DOM.$resultDiv.innerHTML = "";
-  });
 
   /* event listeners pour élément non existants au démarrage */
   document.querySelector('body').addEventListener('click', (evt) => {
@@ -82,23 +46,6 @@ function addEventListeners() {
       }
       RecentSearch.add(DOM.$rech.value);
     }
-  }, true);
-
-  // on clique sur "Ma position"
-  DOM.$myGeoLocation.addEventListener("click", (e) => {
-    // on realise une geolocalisation
-    Location.getLocation()
-      .then((result) => {
-        DOM.$rech.value = "Ma position";
-        if (Globals.backButtonState === "searchDirections") {
-          setTimeout(MenuDisplay.openDirections, 150);
-        } else if (Globals.backButtonState === "searchIsochrone") {
-          setTimeout(MenuDisplay.openIsochrone, 150);
-        } else {
-          Location.moveTo(result.coordinates, Globals.map.getZoom(), true, false);
-          setTimeout(MenuDisplay.searchScreenOff, 150);
-        }
-      });
   }, true);
 
   /* event listeners statiques */
@@ -132,7 +79,6 @@ function addEventListeners() {
 
   // Boutons on-off
   DOM.$geolocateBtn.addEventListener('click', Location.locationOnOff);
-  // DOM.$chkPrintCoordsReticule.addEventListener('change', Coords.reticuleOnOff);
 
   // Recherche
   DOM.$rech.addEventListener('focus', function () {
@@ -151,7 +97,7 @@ function addEventListeners() {
   document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
   document.getElementById("directionsWindowClose").addEventListener('click', MenuDisplay.closeDirections);
-  document.getElementById("isochroneWindowClose").addEventListener('click', MenuDisplay.closeIsochron);
+  document.getElementById("isochroneWindowClose").addEventListener('click', MenuDisplay.closeIsochrone);
   document.getElementById("mypositionWindowClose").addEventListener('click', MenuDisplay.closeMyPosition);
 
   // Rotation du marqueur de position
