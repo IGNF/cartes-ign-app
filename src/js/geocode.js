@@ -1,6 +1,5 @@
 import maplibregl from "maplibre-gl";
 
-import Autocomp from './autocomplete';
 import DOM from './dom';
 import Globals from './globals';
 
@@ -26,9 +25,9 @@ function clean() {
 
 /**
  * deplacement sur la carte
- * @param {*} coords 
- * @param {*} zoom 
- * @param {*} panTo 
+ * @param {*} coords
+ * @param {*} zoom
+ * @param {*} panTo
  */
 function moveTo(coords, zoom=map.getZoom(), panTo=true) {
   /**
@@ -50,8 +49,8 @@ function moveTo(coords, zoom=map.getZoom(), panTo=true) {
 
 /**
  * recherche
- * @param {*} text 
- * @returns 
+ * @param {*} text
+ * @returns
  * @fire search
  */
 async function search (text) {
@@ -73,7 +72,7 @@ async function search (text) {
 
   let geocode_result = response.results[0];
 
-  DOM.$rech.value = Autocomp.computeLocationFullText(geocode_result);
+  DOM.$rech.value = Globals.search.computeLocationFullText(geocode_result);
 
   target.dispatchEvent(
     new CustomEvent("search", {
@@ -96,7 +95,7 @@ async function search (text) {
 
 /**
  * recherche et deplacement sur la carte
- * @param {*} text 
+ * @param {*} text
  */
 async function searchAndMoveTo(text) {
   var coords = await search(text);
