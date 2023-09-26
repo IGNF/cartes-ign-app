@@ -4,7 +4,7 @@ import MapLibreGlCompare from "@maplibre/maplibre-gl-compare";
 import Globals from './globals';
 import LayerSwitch from './layer-switch';
 import Directions from "./directions/directions";
-import Isochron from "./isochron/isochron";
+import Isochrone from "./isochrone/isochrone";
 import Position from "./my-position";
 import MenuDisplay from './menu-display';
 
@@ -19,7 +19,7 @@ let prevDataLayerDisplayed = '';
  * Ajout des contrôle à la fin du chargement de la carte
  * @see maplibregl.ScaleControl
  * @see Directions
- * @see Isochron
+ * @see Isochrone
  */
 const addMapControls = () => {
   // on ajoute les contrôles à la fin du chargement de la carte
@@ -33,10 +33,10 @@ const addMapControls = () => {
     });
 
     // contrôle de calcul d'isochrone
-    Globals.isochron = new Isochron(map, {
+    Globals.isochrone = new Isochrone(map, {
       // callback sur l'ouverture / fermeture du panneau de recherche
-      openSearchControlCbk : () => { MenuDisplay.openSearchIsochron(); },
-      closeSearchControlCbk : () => { MenuDisplay.closeSearchIsochron(); }
+      openSearchControlCbk : () => { MenuDisplay.openSearchIsochrone(); },
+      closeSearchControlCbk : () => { MenuDisplay.closeSearchIsochrone(); }
     });
 
     // contrôle "Où suis-je ?"
@@ -44,7 +44,7 @@ const addMapControls = () => {
         // callback sur l'ouverture / fermeture du panneau
         openMyPositionCbk : () => { MenuDisplay.openMyPosition(); },
         closeMyPositionCbk : () => { MenuDisplay.closeMyPosition(); },
-        openIsochronCbk : () => { MenuDisplay.openIsochron(); }
+        openIsochroneCbk : () => { MenuDisplay.openIsochrone(); }
     });
 
     // échelle graphique
@@ -60,6 +60,7 @@ const addMapControls = () => {
  */
 const addSideBySide = () => {
   const container = "#cartoContainer";
+  document.querySelector("#mapRLT").classList.remove("d-none");
   mapRLT.setCenter(map.getCenter());
   mapRLT.setZoom(map.getZoom());
   sideBySide = new MapLibreGlCompare(map, mapRLT, container);
@@ -89,6 +90,7 @@ const removeSideBySide = () => {
     sideBySide.remove();
   }
   Globals.mapState = "default";
+  document.querySelector("#mapRLT").classList.add("d-none");
   document.querySelector("#dataLayers").classList.remove("d-none");
   document.querySelector("#dataLayersLabel").classList.remove("d-none");
   document.querySelector("#sideBySideOff").classList.add("d-none");
