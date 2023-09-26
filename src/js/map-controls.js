@@ -7,6 +7,7 @@ import Directions from "./directions/directions";
 import Isochrone from "./isochrone/isochrone";
 import Position from "./my-position";
 import MenuDisplay from './menu-display';
+import Search from "./search";
 
 let sideBySide;
 
@@ -46,6 +47,13 @@ const addMapControls = () => {
         closeMyPositionCbk : () => { MenuDisplay.closeMyPosition(); },
         openIsochroneCbk : () => { MenuDisplay.openIsochrone(); }
     });
+
+    // contrôle Recherche
+    Globals.search = new Search(map, {
+      // callback sur l'ouverture / fermeture du panneau
+      openSearchnCbk : () => { MenuDisplay.searchScreenOn(); },
+      closeSearchnCbk : () => { MenuDisplay.searchScreenOff(); },
+  });
 
     // échelle graphique
     map.addControl(new maplibregl.ScaleControl({

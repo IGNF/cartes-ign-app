@@ -41,7 +41,7 @@ function app() {
   const map = Globals.map;
   const mapRLT = Globals.mapRLT;
 
-  /* Ajout des soucres à la carte */
+  /* Ajout des sources à la carte */
   for (let layer in Layers.baseLayerSources) {
     map.addSource(layer, Layers.baseLayerSources[layer]);
     mapRLT.addSource(layer, Layers.baseLayerSources[layer]);

@@ -54,8 +54,8 @@ let searchResultIcon;
 let controller = new AbortController();
 let signal = controller.signal;
 
-// Autocompletion
-let autocompletion_results = []
+// Global Search plugin
+let search = null;
 
 // Global Route plugin
 let directions = null;
@@ -86,7 +86,6 @@ export default {
   searchResultIcon,
   controller,
   signal,
-  autocompletion_results,
   movedFromCode,
   ignoreNextScrollEvent,
   currentScrollIndex,
@@ -96,4 +95,5 @@ export default {
   directions,
   isochrone,
   myposition,
+  search,
 };
