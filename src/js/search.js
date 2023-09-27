@@ -1,5 +1,8 @@
 import Globals from './globals';
-import DOM from './dom'
+import DOM from './dom';
+import Location from './location';
+import Geocode from './geocode';
+import MenuDisplay from './menu-display';
 
 /**
  * Barre de recherche et géocodage
@@ -17,9 +20,8 @@ class Search {
     this.options = options || {
       target: null,
       // callback
-      openMyPositionCbk: null,
-      closeMyPositionCbk: null,
-      openIsochroneCbk: null
+      openSearchCbk: null,
+      closeSearchCbk: null,
     };
 
     this.autocompletion_results = [];
@@ -28,12 +30,6 @@ class Search {
 
     // target
     this.target = this.options.target;
-
-    // dom de l'interface
-    this.container = null;
-
-    // open/close interface
-    this.opened = false;
 
     this.#addEvents();
 
@@ -62,7 +58,7 @@ class Search {
         DOM.$resultDiv.hidden = true;
         DOM.$resultDiv.innerHTML = "";
         Geocode.searchAndMoveTo(DOM.$rech.value);
-        MenuDisplay.searchScreenOff();
+        this.hide();
       } else if (DOM.$rech.value !== ""){
         let resultStr = "";
         this.suggest().then( () => {
@@ -164,9 +160,8 @@ class Search {
    * @public
    */
   show() {
-    if (this.options.openMyPositionCbk) {
-      this.options.openMyPositionCbk();
-      this.opened = true;
+    if (this.options.openSearchCbk) {
+      this.options.openSearchCbk();
     }
   }
 
@@ -175,9 +170,8 @@ class Search {
    * @public
    */
   hide() {
-    if (this.options.closeMyPositionCbk) {
-      this.options.closeMyPositionCbk();
-      this.opened = false;
+    if (this.options.closeSearchCbk) {
+      this.options.closeSearchCbk();
     }
   }
 
