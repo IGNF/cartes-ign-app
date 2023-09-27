@@ -21,8 +21,8 @@ class Directions {
     /**
      * constructeur
      * @constructs
-     * @param {*} map 
-     * @param {*} options 
+     * @param {*} map
+     * @param {*} options
      */
     constructor (map, options) {
         this.options = options || {
@@ -43,26 +43,26 @@ class Directions {
         this.configuration = this.options.configuration || {
             api: "https://router.project-osrm.org/route/v1",
             profile: "driving",
-            requestOptions: {},
+            requestOptions: {overview: "full"},
             requestTimeout: null,
             makePostRequest: false,
             sourceName: "maplibre-gl-directions",
             pointsScalingFactor: 1,
             linesScalingFactor: 1,
             sensitiveWaypointLayers: [
-                "maplibre-gl-directions-waypoint", 
+                "maplibre-gl-directions-waypoint",
                 "maplibre-gl-directions-waypoint-casing"
             ],
             sensitiveSnappointLayers: [
-                "maplibre-gl-directions-snappoint", 
+                "maplibre-gl-directions-snappoint",
                 "maplibre-gl-directions-snappoint-casing"
             ],
             sensitiveRoutelineLayers: [
-                "maplibre-gl-directions-routeline", 
+                "maplibre-gl-directions-routeline",
                 "maplibre-gl-directions-routeline-casing"
             ],
             sensitiveAltRoutelineLayers: [
-                "maplibre-gl-directions-alt-routeline", 
+                "maplibre-gl-directions-alt-routeline",
                 "maplibre-gl-directions-alt-routeline-casing"
             ],
             dragThreshold: 10,
@@ -103,7 +103,7 @@ class Directions {
             console.warn();
             return;
         }
-        
+
         // ajout du container
         target.appendChild(container);
     }
@@ -128,7 +128,7 @@ class Directions {
                 case "Voiture":
                     this.configuration.profile = "driving";
                     break;
-            
+
                 default:
                     break;
             }
@@ -144,7 +144,7 @@ class Directions {
                 case "Fastest":
                     message = "Itinéraire le plus rapide";
                     break;
-            
+
                 default:
                     break;
             }
@@ -174,30 +174,30 @@ class Directions {
 
         // events
         this.obj.on("fetchroutesstart", (e) => {
-            // TODO 
+            // TODO
             // mise en place d'une patience...
             // start !
         });
         this.obj.on("fetchroutesend", (e) => {
             console.log(e);
-            // TODO 
+            // TODO
             // mise en place d'une patience...
             // finish !
 
-            // affichage du menu du parcours : 
+            // affichage du menu du parcours :
             // - résumé
             // - détails
-            // on transmet les données (en fonction du service) au composant DOM 
+            // on transmet les données (en fonction du service) au composant DOM
             // pour l'affichage :
             // ex.
-            // e.data.routes[0] : { 
-            //    distance, 
-            //    duration, 
-            //    geometry, 
+            // e.data.routes[0] : {
+            //    distance,
+            //    duration,
+            //    geometry,
             //    legs[]
             //  }
             if (e.data.code === "Ok") {
-                this.results = new DirectionsResults(this.map, null, { 
+                this.results = new DirectionsResults(this.map, null, {
                     duration : e.data.routes[0].duration || "",
                     distance : e.data.routes[0].distance || "",
                     transport : settings.transport,
@@ -211,7 +211,7 @@ class Directions {
 
     /**
      * activation du mode interaction
-     * @param {*} status 
+     * @param {*} status
      * @public
      */
     interactive (status) {
@@ -231,7 +231,7 @@ class Directions {
     ////////////////////////////////////////////
     /**
      * listener issu du dom sur l'interface du menu 'search'
-     * @param {*} e 
+     * @param {*} e
      * @see MenuDisplay.openSearchDirections()
      * @see MenuDisplay.closeSearchDirections
      * @see Geocode
@@ -244,14 +244,14 @@ class Directions {
         if (this.options.openSearchControlCbk) {
             this.options.openSearchControlCbk();
         }
-        
-        // on transmet d'où vient la demande de location : 
+
+        // on transmet d'où vient la demande de location :
         // - point de départ,
         // - arrivée,
         // - étape
         var target = e.target;
 
-        // les handler sur 
+        // les handler sur
         // - le geocodage
         // - la fermeture du menu
         // - le nettoyage des ecouteurs
