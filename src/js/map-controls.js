@@ -51,8 +51,8 @@ const addMapControls = () => {
     // contrôle Recherche
     Globals.search = new Search(map, {
       // callback sur l'ouverture / fermeture du panneau
-      openSearchnCbk : () => { MenuDisplay.searchScreenOn(); },
-      closeSearchnCbk : () => { MenuDisplay.searchScreenOff(); },
+      openSearchCbk : () => { MenuDisplay.searchScreenOn(); },
+      closeSearchCbk : () => { MenuDisplay.searchScreenOff(); },
   });
 
     // échelle graphique

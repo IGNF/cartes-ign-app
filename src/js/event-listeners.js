@@ -83,7 +83,7 @@ function addEventListeners() {
   // Recherche
   DOM.$rech.addEventListener('focus', function () {
     if (Globals.backButtonState === "default" || Globals.backButtonState === "mainMenu") {
-      MenuDisplay.searchScreenOn();
+      Globals.search.show();
     }
   });
   DOM.$closeSearch.addEventListener("click", onBackKeyDown);
