@@ -95,8 +95,8 @@ class Search {
         } else if (Globals.backButtonState === "searchIsochrone") {
           setTimeout(MenuDisplay.openIsochrone, 150);
         } else {
-          Location.moveTo(result.coordinates, Globals.map.getZoom(), true, false);
-          setTimeout(MenuDisplay.searchScreenOff, 150);
+          Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
+          setTimeout(this.hide(), 150);
         }
       });
     }, true);

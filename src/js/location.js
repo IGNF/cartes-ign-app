@@ -203,29 +203,27 @@ const getOrientation = (event) => {
  */
 const getLocation = async () => {
   var results = null;
-  const status = await Geolocation.checkPermissions();
-  if (status.location != 'denied') {
-    var position = await Geolocation.getCurrentPosition({
-      maximumAge: 0,
-      timeout: 10000,
-      enableHighAccuracy: true
+  enablePosition();
+  var position = await Geolocation.getCurrentPosition({
+    maximumAge: 0,
+    timeout: 10000,
+    enableHighAccuracy: true
+  })
+
+  results = {
+    coordinates : {
+      lat: position.coords.latitude,
+      lon: position.coords.longitude
+    },
+    text : "Ma position"
+  };
+
+  target.dispatchEvent(
+    new CustomEvent("geolocation", {
+      bubbles: true,
+      detail: results
     })
-
-    results = {
-      coordinates : {
-        lat: position.coords.latitude,
-        lon: position.coords.longitude
-      },
-      text : "Ma position"
-    };
-
-    target.dispatchEvent(
-      new CustomEvent("geolocation", {
-        bubbles: true,
-        detail: results
-      })
-    );
-  }
+  );
   return results;
 }
 
