@@ -1,15 +1,15 @@
 import maplibregl from "maplibre-gl";
 
-import DOM from './dom';
-import Globals from './globals';
+import DOM from '../dom';
+import Globals from '../globals';
 
 import { Geolocation } from '@capacitor/geolocation';
 import { Toast } from '@capacitor/toast';
 
 // fichiers SVG
-import LocationImg from "../css/assets/localisation.svg";
-import LocationFollowImg from "../css/assets/location-follow.svg";
-import LocationFixeImg from "../css/assets/location-fixed.svg";
+import LocationImg from "../../css/assets/localisation.svg";
+import LocationFollowImg from "../../css/assets/location-follow.svg";
+import LocationFixeImg from "../../css/assets/location-fixed.svg";
 
 const map = Globals.map;
 
@@ -227,10 +227,18 @@ const getLocation = async () => {
   return results;
 }
 
+const isLocationActive = () => {
+  return location_active;
+}
+
+const isTrackingActive = () => {
+  return tracking_active;
+}
+
 export default {
   target,
-  location_active,
-  tracking_active,
+  isLocationActive,
+  isTrackingActive,
   moveTo,
   enablePosition,
   locationOnOff,

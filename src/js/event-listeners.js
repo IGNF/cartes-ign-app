@@ -1,10 +1,10 @@
 import maplibregl from "maplibre-gl";
 
-import Geocode from './geocode';
+import Geocode from './services/geocode';
 import LayerSwitch from './layer-switch';
-import Location from './location';
+import Location from './services/location';
 import MenuDisplay from './menu-display';
-import MapControls from './map-controls';
+import Controls from './controls';
 import UpdateLegend from './update-legend';
 import DOM from './dom';
 import Globals from './globals';
@@ -74,8 +74,8 @@ function addEventListeners() {
   });
 
   // Ouverture-Fermeture
-  DOM.$catalogBtn.addEventListener('click', MenuDisplay.openCat);
-  DOM.$backTopLeft.addEventListener("click", onBackKeyDown);
+  DOM.$layerManagerBtn.addEventListener('click', MenuDisplay.openCat);
+  DOM.$backTopLeftBtn.addEventListener("click", onBackKeyDown);
 
   // Boutons on-off
   DOM.$geolocateBtn.addEventListener('click', Location.locationOnOff);
@@ -94,7 +94,7 @@ function addEventListeners() {
   document.getElementById('menuItemPrivacy').addEventListener('click', MenuDisplay.openPrivacyScreen);
 
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
-  document.getElementById("catalogWindowClose").addEventListener('click', MenuDisplay.closeCat);
+  document.getElementById("layerManagerWindowClose").addEventListener('click', MenuDisplay.closeCat);
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
   document.getElementById("directionsWindowClose").addEventListener('click', MenuDisplay.closeDirections);
   document.getElementById("isochroneWindowClose").addEventListener('click', MenuDisplay.closeIsochrone);
@@ -139,7 +139,7 @@ function addEventListeners() {
     if (Globals.backButtonState === 'legend') {
       MenuDisplay.closeLegend();
     }
-    if (Globals.backButtonState === 'catalog') {
+    if (Globals.backButtonState === 'layerManager') {
       MenuDisplay.closeCat();
     }
     if (Globals.backButtonState === 'directions') {
@@ -171,7 +171,7 @@ function addEventListeners() {
 
   // Rotation de la boussole
   DOM.$compassBtn.addEventListener("click", () => {
-    if (Location.tracking_active){
+    if (Location.isTrackingActive()){
       // De tracking a simple suivi de position
       Location.locationOnOff();
       Location.locationOnOff();
@@ -206,7 +206,7 @@ function addEventListeners() {
   map.on('movestart', function () {
     if (Globals.movedFromCode) {
       return
-    } else if (Location.tracking_active){
+    } else if (Location.isTrackingActive()){
       // De tracking a simple suivi de position
       Location.locationOnOff();
       Location.locationOnOff();
@@ -351,12 +351,14 @@ function addEventListeners() {
     })
   });
 
-  document.getElementById("sideBySideOn").addEventListener("click", MapControls.addSideBySide);
-  document.getElementById("drawRoute").addEventListener("click", MapControls.startDrawRoute);
-  document.getElementById("sideBySideOff").addEventListener("click", MapControls.removeSideBySide);
-  document.getElementById("directions").addEventListener("click", MapControls.removeSideBySide);
-  document.getElementById("isochrone").addEventListener("click", MapControls.removeSideBySide);
-  document.getElementById("myposition").addEventListener("click", MapControls.removeSideBySide);
+  document.getElementById("drawRoute").addEventListener("click", Controls.startDrawRoute);
+
+  document.getElementById("sideBySideBtn").addEventListener("click", () => { Globals.compare.toggle(); });
+  document.getElementById("sideBySideOn").addEventListener("click", () => { Globals.compare.show(); });
+  document.getElementById("sideBySideOff").addEventListener("click", () => { Globals.compare.hide(); });
+  document.getElementById("directions").addEventListener("click", () => { Globals.compare.hide(); });
+  document.getElementById("isochrone").addEventListener("click", () => { Globals.compare.hide(); });
+  document.getElementById("myposition").addEventListener("click", () => { Globals.compare.hide(); });
 }
 
 export default {

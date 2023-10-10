@@ -28,7 +28,7 @@ let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'plan
 let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
 
 /* global: back button state */
-/* is one of: 'default' 'search' 'mainMenu' 'params' 'legal' 'privacy' 'plusLoin' 'infos' 'legend' 'catalog' 'route'*/
+/* is one of: 'default' 'search' 'mainMenu' 'params' 'legal' 'privacy' 'plusLoin' 'infos' 'legend' 'layerManagerWindow' 'route'*/
 let backButtonState = 'default';
 
 /* global: map state */
@@ -66,6 +66,9 @@ let isochrone = null;
 // Global MyPosition plugin
 let myposition = null;
 
+// Global Compare Plugin
+let compare = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -96,4 +99,5 @@ export default {
   isochrone,
   myposition,
   search,
+  compare
 };

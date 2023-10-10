@@ -1,0 +1,121 @@
+
+.button {
+  width: 34px;
+  height: 34px;
+  display: inline-block;
+}
+
+#backTopLeftBtn {
+  position:fixed;
+  width: 20px;
+  height: 20px;
+  z-index: 3001;
+  top: 10px;
+  left: 10px;
+  background-image: url("assets/back.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#backTopLeftBtn,
+#sideBySideBtn,
+#layerManagerBtn, 
+#geolocateBtn, 
+#compassBtn  {
+  width: 40px;
+  height: 40px;
+  border-radius: 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+  right: 15px;
+  background-color: white;
+  box-shadow: black 0px 0px 5px;
+  z-index: 3001;
+}
+
+#layerManagerBtn {
+  background-image: url("assets/layers.svg");
+  position: absolute;
+  bottom: 15px;
+}
+
+#geolocateBtn {
+  background-image: url("assets/localisation.svg");
+  position: absolute;
+  bottom: 60px;
+}
+
+#sideBySideBtn {
+  background-image: url("assets/compare.svg");
+  position: absolute;
+  left: 15px;
+  bottom: 60px;
+}
+
+#compassBtn {
+  background-image: url("assets/compass.svg");
+  position: absolute;
+  bottom: 105px;
+}
+
+.subCatMenu .layer .layerImg img {
+  width: 75px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
+}
+
+.layerImg {
+  width: 75px;
+  position: relative;
+  margin: auto;
+}
+
+#layerManagerWindow .subCatMenu {
+  text-align: center;
+  margin: 0 15px 0 15px;
+  display: grid;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  grid-template-columns: 26% 26% 26%;
+}
+
+.selectedLayer img {
+  border: solid 5px #0B6BA7;
+  box-sizing: border-box;
+}
+
+.comparedLayer img {
+  border: solid 5px #00ae90;
+  box-sizing: border-box;
+}
+
+.subCatMenu .layer {
+  display: inline-block;
+  padding-bottom: 1em;
+  width: 100%;
+  position: relative;
+}
+
+.layer .layer-info, .layer .layer-legend {
+  width: 19px;
+  height: 19px;
+  background-color: #fff;
+  position: absolute;
+  left: -10px;
+  border-radius: 13px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.layer .layer-info {
+  top: -10px;
+  background-image: url("assets/info.svg");
+}
+
+.layer .layer-legend {
+  top: 40px;
+  background-image: url("assets/legend.svg");
+}
