@@ -3,7 +3,7 @@ import EventListeners from './event-listeners';
 import LayerSwitch from './layer-switch';
 import Layers from './layers';
 import Globals from './globals';
-import MapControls from './map-controls';
+import Controls from './controls';
 import RecentSearch from "./search-recent";
 
 // import CSS
@@ -15,10 +15,10 @@ import '../css/app.scss';
 import PositionImg from "../css/assets/position.svg";
 import MapCenterImg from "../css/assets/map-center.svg";
 
+/**
+ * Fonction définissant l'application
+ */
 function app() {
-  /**
-   * Fonction définissant l'application
-   */
 
   /* Définition des marker icons */
   Globals.myPositionIcon = document.createElement('div');
@@ -35,7 +35,6 @@ function app() {
   Globals.searchResultIcon.style.opacity = '0.8';
   Globals.searchResultIcon.style.backgroundSize = "contain";
   Globals.searchResultIcon.style.backgroundImage = "url(" + MapCenterImg + ")";
-  /**/
 
   /* Récupération de la carte */
   const map = Globals.map;
@@ -46,6 +45,7 @@ function app() {
     map.addSource(layer, Layers.baseLayerSources[layer]);
     mapRLT.addSource(layer, Layers.baseLayerSources[layer]);
   }
+
   for (let layer in Layers.dataLayerSources) {
     map.addSource(layer, Layers.dataLayerSources[layer]);
   }
@@ -55,6 +55,7 @@ function app() {
     type: "raster",
     source: "plan-ign",
   });
+
   map.addLayer({
     id: "data-layer",
     type: "background",
@@ -70,9 +71,9 @@ function app() {
   });
 
   // Ajout des contrôles
-  MapControls.addMapControls();
+  Controls.addControls();
 
-  // Chargement de la postition précédente
+  // Chargement de la position précédente
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
     map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
     map.setZoom(localStorage.getItem("lastMapZoom"));
@@ -89,7 +90,6 @@ function app() {
     behavior: 'smooth'
   });
   Globals.currentScrollIndex = 0;
-  /**/
 
   // Ajout des event listeners
   EventListeners.addEventListeners();

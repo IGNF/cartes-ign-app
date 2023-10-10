@@ -1,0 +1,118 @@
+#searchContainer {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3000;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+#search {
+  display: flex;
+  padding: 0;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 15px;
+  position: relative;
+  width: 95%;
+  flex-grow: 0;
+}
+
+#search input {
+  color: #4b4b4b;
+  margin: 0;
+  margin-top: 10px;
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-left: 33px;
+  padding-right: 33px;
+  width: 100%;
+  height: 35px;
+  border: 1px solid #26a581;
+  border-radius: 5px;
+  background-color: white;
+  font-family: "Open Sans Bold";
+}
+
+#search input::placeholder {
+  color: #bac3ca;
+  opacity: 0.6;
+}
+
+#searchImage {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 18px;
+  margin-left: 8px;
+  background-image: url("assets/search.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#search input:focus {
+  outline: none;
+}
+
+#searchResults {
+  display: flex;
+  flex-flow: column;
+  position: relative;
+  left: 10px;
+}
+
+#resultsRechRecent {
+}
+
+#resultsRech {
+  position: relative;
+  color: #393939;
+  background-color: white;
+  z-index: 3000;
+  /* top: 50px;
+    left: 10px;
+    width: calc(100% - 20px); */
+  border-radius: 5px;
+}
+
+.recentresult,
+.autocompresultselected,
+.autocompresult {
+  border-bottom: solid 1px #D8DFE4;
+  padding: 0.6em 0.2em;
+  margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.autocompresult em {
+  opacity: 0.2;
+  font-size: 0.7em;
+}
+
+.autocompresult:last-child {
+  border-bottom: none;
+}
+
+.autocompresultselected {
+  background-color: #00ae90;
+}
+
+.recentresult {
+  background-position: left;
+  background-repeat: no-repeat;
+  background-image: url("assets/search.svg");
+  text-align: center;
+}
+
+#closeSearch {
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 10px;
+  right: -10px;
+  width: 58px;
+  height: 35px;
+  background-image: url("assets/close.svg");
+}

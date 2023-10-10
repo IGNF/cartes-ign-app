@@ -1,0 +1,97 @@
+/***********************************
+ * fenetres ou onglets
+ ***********************************/
+
+#infoWindow,
+#legendWindow,
+#isochroneWindow,
+#directionsWindow,
+#directionsResultsWindow,
+#mypositionWindow,
+#layerManagerWindow {
+  margin-top: 10px;
+  position: relative;
+  background: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color:#4b4b4b;
+  font-size: 1.1em;
+  text-align: justify;
+  overflow-y: scroll;
+}
+
+.windowClose {
+  width: 34px;
+  height: 34px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("assets/close.svg");
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 3001;
+}
+
+#infoWindowContent,
+#legendWindowContent {
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+}
+
+/* Bottom menu */
+#tabContainer {
+  position: absolute;
+  top: calc(100% - 10px);
+  max-height: 100%;
+  height: fit-content;
+  width: 100%;
+  background-color: #FFFFFE;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  color: #4b4b4b;
+  display: flex;
+  flex-direction: column;
+  z-index: 101;
+}
+
+#hrBottom {
+  width: 10%;
+  text-align: center;
+  margin: auto;
+  margin-top: auto;
+  margin-top: 8px;
+  margin-bottom: 0px;
+  color: #DDD;
+  border: 1px solid #AAA;
+  border-radius: 2px;
+}
+
+#menuItemLegend {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+
+
+#tools h3, #layerManagerWindow h3 {
+  text-align: center;
+}
+
+.textCouche {
+  font-family: "Open Sans Semibold";
+  color: #0B6BA7;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+#layerManagerWindow h3 {
+  margin-bottom: 10px;
+}
+#layerManagerWindow h4 {
+  padding: 0 30px 5px;
+  margin: 0 0 10px 0;
+}
+
