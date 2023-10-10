@@ -4,8 +4,8 @@ import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
 
 // dependance : abonnement au event du module
-import Geocode from "../geocode";
-import Location from "../location";
+import Geocode from "../services/geocode";
+import Location from "../services/location";
 
 /**
  * Interface du contrôle sur le calcul d'itineraire
