@@ -1,7 +1,7 @@
 import maplibregl from "maplibre-gl";
 
-import DOM from './dom';
-import Globals from './globals';
+import DOM from '../dom';
+import Globals from '../globals';
 
 const map = Globals.map;
 

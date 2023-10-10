@@ -1,7 +1,7 @@
 import Globals from './globals';
 import DOM from './dom';
-import Location from './location';
-import Geocode from './geocode';
+import Location from './services/location';
+import Geocode from './services/geocode';
 import MenuDisplay from './menu-display';
 
 /**
@@ -86,19 +86,19 @@ class Search {
 
     // on clique sur "Ma position"
     document.getElementById(id.myLoc).addEventListener("click", (e) => {
-    // on realise une geolocalisation
-    Location.getLocation()
-      .then((result) => {
-        DOM.$rech.value = "Ma position";
-        if (Globals.backButtonState === "searchDirections") {
-          setTimeout(MenuDisplay.openDirections, 150);
-        } else if (Globals.backButtonState === "searchIsochrone") {
-          setTimeout(MenuDisplay.openIsochrone, 150);
-        } else {
-          Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
-          setTimeout(this.hide(), 150);
-        }
-      });
+      // on realise une geolocalisation
+      Location.getLocation()
+        .then((result) => {
+          DOM.$rech.value = "Ma position";
+          if (Globals.backButtonState === "searchDirections") {
+            setTimeout(MenuDisplay.openDirections, 150);
+          } else if (Globals.backButtonState === "searchIsochrone") {
+            setTimeout(MenuDisplay.openIsochrone, 150);
+          } else {
+            Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
+            setTimeout(this.hide(), 150);
+          }
+        });
     }, true);
   }
 

@@ -21,36 +21,36 @@ function scrollTo(scrollValue) {
   });
 }
 
-// Ouverture/fermeture catalogue
+// Ouverture/fermeture layerManager
 function openCat() {
   DOM.$defaultMenu.classList.add("d-none");
-  DOM.$catalog.classList.remove('d-none');
-  DOM.$catalogBtn.classList.add('d-none');
+  DOM.$layerManagerWindow.classList.remove('d-none');
+  DOM.$layerManagerBtn.classList.add('d-none');
   DOM.$infoWindow.classList.add('d-none');
   DOM.$legendWindow.classList.add('d-none');
   DOM.$directionsWindow.classList.add('d-none');
   DOM.$isochroneWindow.classList.add("d-none");
   DOM.$directionsResultsWindow.classList.add('d-none');
-  Globals.backButtonState = 'catalog';
+  Globals.backButtonState = 'layerManager';
   midScroll();
 }
 
 function closeCat() {
   DOM.$defaultMenu.classList.remove("d-none");
-  DOM.$defaultMenuNotSearch.classList.remove('d-none');
-  DOM.$catalogBtn.classList.remove('d-none');
-  DOM.$catalog.classList.add('d-none');
+  DOM.$layerManagerBtn.classList.remove('d-none');
+  DOM.$layerManagerWindow.classList.add('d-none');
 }
 
 // Ouverture/fermeture de l'écran recherche
 function searchScreenOn() {
   closeCat();
-  DOM.$bottomMenu.style.height = "100%";
-  DOM.$catalogBtn.classList.add('d-none');
+  DOM.$tabContainer.style.height = "100%";
+  DOM.$layerManagerBtn.classList.add('d-none');
+  DOM.$geolocateBtn.classList.add('d-none');
+  DOM.$searchresultsWindow.classList.remove('d-none');
   DOM.$closeSearch.classList.remove('d-none');
-  DOM.$searchResults.classList.remove('d-none');
-  DOM.$myGeoLocation.classList.remove('d-none');
-  DOM.$defaultMenuNotSearch.classList.add('d-none');
+
+  DOM.$defaultMenu.classList.add('d-none');
   DOM.$directionsWindow.classList.add("d-none");
   DOM.$isochroneWindow.classList.add("d-none");
   Globals.currentScrollIndex = 2;
@@ -64,14 +64,14 @@ function searchScreenOff() {
   Globals.signal = Globals.controller.signal;
   DOM.$resultDiv.hidden = true;
   DOM.$resultDiv.innerHTML = "";
-  DOM.$catalogBtn.classList.remove('d-none');
+  DOM.$layerManagerBtn.classList.remove('d-none');
+  DOM.$geolocateBtn.classList.remove('d-none');
   DOM.$closeSearch.classList.add('d-none');
-  DOM.$searchResults.classList.add('d-none');
-  DOM.$myGeoLocation.classList.add('d-none');
+  DOM.$searchresultsWindow.classList.add('d-none');
   DOM.$rech.blur()
-  DOM.$defaultMenuNotSearch.classList.remove('d-none');
+  DOM.$defaultMenu.classList.remove('d-none');
   Globals.backButtonState = 'default';
-  DOM.$bottomMenu.style.height = "";
+  DOM.$tabContainer.style.height = "";
   openMenu();
 }
 
@@ -130,9 +130,10 @@ function altScreenOn() {
   DOM.$rech.disabled = true;
   DOM.$rech.style.fontFamily = 'Open Sans Bold';
   DOM.$blueBg.classList.remove('d-none');
-  DOM.$searchImage.classList.add('d-none');
-  DOM.$backTopLeft.classList.remove('d-none');
-  DOM.$closeSearch.classList.remove('d-none');
+
+  DOM.$search.style.display = "none";
+  DOM.$backTopLeftBtn.classList.remove('d-none');
+
   DOM.$altMenuContainer.classList.remove('d-none');
   Globals.lastTextInSearch = DOM.$rech.value;
   Globals.ignoreNextScrollEvent = true;
@@ -150,9 +151,10 @@ function altScreenOff() {
   DOM.$rech.value = Globals.lastTextInSearch;
   DOM.$rech.removeAttribute('style');
   DOM.$blueBg.classList.add('d-none');
-  DOM.$closeSearch.classList.add('d-none');
-  DOM.$backTopLeft.classList.add('d-none');
-  DOM.$searchImage.classList.remove('d-none');
+
+  DOM.$search.style.display = "flex";
+  DOM.$backTopLeftBtn.classList.add('d-none');
+
   DOM.$parameterMenu.classList.add('d-none');
   DOM.$altMenuContainer.classList.add('d-none');
   DOM.$defaultMenu.classList.remove("d-none");
@@ -227,31 +229,37 @@ function openDirections() {
   DOM.$infoWindow.classList.add('d-none');
   DOM.$legendWindow.classList.add('d-none');
   DOM.$directionsWindow.classList.remove("d-none");
-  DOM.$bottomMenu.style.height = "100%";
+  DOM.$tabContainer.style.height = "100%";
+  DOM.$search.style.display = "none";
+  DOM.$backTopLeftBtn.classList.remove('d-none');
   midScroll();
   Globals.backButtonState = 'directions';
   Globals.directions.interactive(true);
 }
 
 function closeDirections() {
+  DOM.$search.style.display = "flex";
+  DOM.$backTopLeftBtn.classList.add('d-none');
   DOM.$defaultMenu.classList.remove("d-none");
   DOM.$directionsWindow.classList.add("d-none");
-  DOM.$defaultMenuNotSearch.classList.remove('d-none');
   midScroll();
   Globals.backButtonState = 'mainMenu';
-  DOM.$bottomMenu.style.height = "";
+  DOM.$tabContainer.style.height = "";
   Globals.directions.clear();
   Globals.directions.interactive(false);
 }
 
 function openSearchDirections() {
-  DOM.$bottomMenu.style.height = "100%";
-  DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$tabContainer.style.height = "100%";
+  DOM.$layerManagerBtn.classList.add('d-none');
+  DOM.$geolocateBtn.classList.add('d-none');
   DOM.$closeSearch.classList.remove('d-none');
-  DOM.$searchResults.classList.remove('d-none');
-  DOM.$myGeoLocation.classList.remove('d-none');
+  DOM.$searchresultsWindow.classList.remove('d-none');
+  DOM.$search.style.display = "flex";
+  DOM.$backTopLeftBtn.classList.add('d-none');
+
   DOM.$directionsWindow.classList.add("d-none");
-  DOM.$defaultMenuNotSearch.classList.add('d-none');
+  DOM.$defaultMenu.classList.add('d-none');
   Globals.currentScrollIndex = 2;
   updateScrollAnchors();
   Globals.backButtonState = 'searchDirections';
@@ -267,15 +275,18 @@ function closeSearchDirections() {
   DOM.$resultDiv.innerHTML = "";
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$closeSearch.classList.add('d-none');
-  DOM.$searchResults.classList.add('d-none');
-  DOM.$myGeoLocation.classList.add('d-none');
+  DOM.$searchresultsWindow.classList.add('d-none');
+  DOM.$search.style.display = "none";
+  DOM.$backTopLeftBtn.classList.remove('d-none');
+  DOM.$layerManagerBtn.classList.remove('d-none');
+  DOM.$geolocateBtn.classList.remove('d-none');
   DOM.$directionsWindow.classList.remove("d-none");
   Globals.backButtonState = 'directions'; // on revient sur le contrôle !
   midScroll();
 }
 
 function openResultsDirections () {
-  DOM.$bottomMenu.style.height = "";
+  DOM.$tabContainer.style.height = "";
   DOM.$directionsWindow.classList.add("d-none");
   DOM.$directionsResultsWindow.classList.remove("d-none");
   midScroll();
@@ -283,7 +294,7 @@ function openResultsDirections () {
 }
 
 function closeResultsDirections () {
-  DOM.$bottomMenu.style.height = "100%";
+  DOM.$tabContainer.style.height = "100%";
   DOM.$directionsResultsWindow.classList.add("d-none");
   DOM.$directionsWindow.classList.remove("d-none");
   Globals.backButtonState = 'directions'; // on revient sur le contrôle !
@@ -297,31 +308,34 @@ function openIsochrone() {
   DOM.$legendWindow.classList.add('d-none');
   DOM.$directionsWindow.classList.add("d-none");
   DOM.$isochroneWindow.classList.remove('d-none');
-  DOM.$bottomMenu.style.height = "100%";
+  DOM.$tabContainer.style.height = "100%";
+  DOM.$search.style.display = "none";
+  DOM.$backTopLeftBtn.classList.remove('d-none');
   midScroll();
   Globals.backButtonState = 'isochrone';
   // Globals.isochrone.interactive(true);
 }
 
 function closeIsochrone() {
+  DOM.$search.style.display = "flex";
+  DOM.$backTopLeftBtn.classList.add('d-none');
   DOM.$defaultMenu.classList.remove("d-none");
   DOM.$isochroneWindow.classList.add("d-none");
-  DOM.$defaultMenuNotSearch.classList.remove('d-none');
   midScroll();
   Globals.backButtonState = 'mainMenu';
-  DOM.$bottomMenu.style.height = "";
+  DOM.$tabContainer.style.height = "";
   Globals.isochrone.clear();
-  // Globals.isochrone.interactive(false);
 }
 
 function openSearchIsochrone() {
-  DOM.$bottomMenu.style.height = "100%";
-  DOM.$defaultMenu.classList.remove("d-none");
+  DOM.$tabContainer.style.height = "100%";
+  DOM.$layerManagerBtn.classList.add('d-none');
+  DOM.$geolocateBtn.classList.add('d-none');
   DOM.$closeSearch.classList.remove('d-none');
-  DOM.$searchResults.classList.remove('d-none');
-  DOM.$myGeoLocation.classList.remove('d-none');
+  DOM.$searchresultsWindow.classList.remove('d-none');
   DOM.$isochroneWindow.classList.add("d-none");
-  DOM.$defaultMenuNotSearch.classList.add('d-none');
+  DOM.$search.style.display = "flex";
+  DOM.$backTopLeftBtn.classList.add('d-none');
 
   Globals.currentScrollIndex = 2;
   updateScrollAnchors();
@@ -338,8 +352,11 @@ function closeSearchIsochrone() {
   DOM.$resultDiv.innerHTML = "";
   DOM.$defaultMenu.classList.add("d-none");
   DOM.$closeSearch.classList.add('d-none');
-  DOM.$searchResults.classList.add('d-none');
-  DOM.$myGeoLocation.classList.add('d-none');
+  DOM.$searchresultsWindow.classList.add('d-none');
+  DOM.$search.style.display = "none";
+  DOM.$backTopLeftBtn.classList.remove('d-none');
+  DOM.$layerManagerBtn.classList.remove('d-none');
+  DOM.$geolocateBtn.classList.remove('d-none');
   DOM.$isochroneWindow.classList.remove("d-none");
   Globals.backButtonState = 'isochrone'; // on revient sur le contrôle !
   midScroll();
@@ -353,7 +370,7 @@ function openMyPosition() {
   DOM.$directionsWindow.classList.add("d-none");
   DOM.$isochroneWindow.classList.add('d-none');
   DOM.$mypositionWindow.classList.remove('d-none');
-  DOM.$bottomMenu.style.height = "100%";
+  DOM.$tabContainer.style.height = "100%";
   midScroll();
   Globals.backButtonState = 'myposition';
 }
@@ -361,10 +378,10 @@ function openMyPosition() {
 function closeMyPosition() {
   DOM.$defaultMenu.classList.remove("d-none");
   DOM.$mypositionWindow.classList.add('d-none');
-  DOM.$defaultMenuNotSearch.classList.remove('d-none');
+  DOM.$defaultMenu.classList.remove('d-none');
   midScroll();
   Globals.backButtonState = 'mainMenu';
-  DOM.$bottomMenu.style.height = "";
+  DOM.$tabContainer.style.height = "";
 }
 
 export default {

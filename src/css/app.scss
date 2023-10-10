@@ -1,13 +1,14 @@
 @use 'index.css';
 @use 'map.css';
-@use 'controls.css';
-@use 'bottomMenu.css';
-@use 'alternateScreens.css';
-@use 'tab.css';
+@use 'map-buttons.css';
+@use 'search.css';
+@use 'default-menu.css';
+@use 'alt-menu.css';
+@use 'tabs.css';
 // @use 'buttons.css'; // ???
 @use 'directions.css';
 @use 'directions-results.css';
 @use 'isochrone.css';
-@use 'position.css';
-@use 'ma-geolocation.css';
-@use 'mediaQueries.css';
+@use 'my-position.css';
+@use 'my-geolocation.css';
+@use 'media-queries.css';

@@ -25,6 +25,39 @@
   grid-column: 1 / span 2;
 }
 
+#menuItemParamsIcon {
+  background-image: url("assets/settings.svg");
+  margin-top: 23px;
+  padding-right: 15px;
+}
+
+#menuItemParams {
+  margin-bottom: 0 !important;
+  margin-top: -7px;
+}
+
+.smallMenuItem {
+  font-family: 'Open Sans';
+}
+
+#menuItemPlusLoin {
+  background-color: #00ae90;
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 13px 0 13px 20px;
+  margin-top: 30px;
+}
+
+.menuItemIcon {
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 0 5px -3px 5px;
+}
 
 #menuItemLegal, #menuItemPrivacy {
   text-decoration: underline;

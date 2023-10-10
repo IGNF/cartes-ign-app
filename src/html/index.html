@@ -10,32 +10,62 @@
     <title>Géoportail</title>
   </head>
   <body>
+      <!-- background color -->
+      <div id="blueBg" class="d-none"></div>
+
       <div class="app">
-          <div id="blueBg" class="d-none"></div>
-          <%= require('html-loader!./carto.html').default %>
+
+          <!-- Cartographie avec ses boutons sur la carte :
+            - gestionnaire de couche
+            - geolocalisation
+            - echelles
+            - ...
+          -->
+          <%= require('html-loader!./map.html').default %>
           <%= require('html-loader!./mapButtons.html').default %>
+            
+          <!-- Outil de recheche sur la carte -->
+          <%= require('html-loader!./search.html').default %>
 
-          <div id="bottomMenu">
-
+          <!-- Menu de navigation -->
+          <div id="navContainer">
+            <div id ="" class="navitem">Explorer</div>
+            <div class="subnav">
+              <div id="" class="navitem">A proximité</div>
+              <div id="" class="navitem">Où suis-je ?</div>
+              <div id="" class="navitem">Créer un point de repère</div>
+            </div>
+            <div id="" class="navitem">Se déplacer</div>
+            <div class="subnav">
+              <div id="" class="navitem">S'y rendre</div>
+              <div id="" class="navitem">Tracer un itinéraire</div>
+            </div>
+            <div id="" class="navitem">Compte</div>
+          </div>
+          
+          <!-- Toutes les informations sont affichées dans un onglet resizable 
+            et ancré en bas de l'écran.
+          -->
+          <div id="tabContainer">
             <hr id="hrBottom">
-
-            <%= require('html-loader!./defaultBottomMenu.html').default %>
-            <%= require('html-loader!./catalog.html').default %>
-
-            <%= require('html-loader!./directionsWindow.html').default %>
-            <%= require('html-loader!./directionsResultsWindow.html').default %>
-            <%= require('html-loader!./infoWindow.html').default %>
-            <%= require('html-loader!./legendWindow.html').default %>
-            <%= require('html-loader!./isochroneWindow.html').default %>
-            <%= require('html-loader!./mypositionWindow.html').default %>
-
+              <%= require('html-loader!./defaultMenu.html').default %>
+              <%= require('html-loader!./tabs/searchresultsWindow.html').default %>
+              <%= require('html-loader!./tabs/layermanagerWindow.html').default %>
+              <%= require('html-loader!./tabs/directionsWindow.html').default %>
+              <%= require('html-loader!./tabs/directionsResultsWindow.html').default %>
+              <%= require('html-loader!./tabs/infoWindow.html').default %>
+              <%= require('html-loader!./tabs/legendWindow.html').default %>
+              <%= require('html-loader!./tabs/isochroneWindow.html').default %>
+              <%= require('html-loader!./tabs/mypositionWindow.html').default %>
+              <%= require('html-loader!./tabs/myaccountWindow.html').default %>
           </div>
 
+          <!-- Autres menus alternatifs -->
           <div class="d-none" id="altMenuContainer">
-            <%= require('html-loader!./parameterMenu.html').default %>
-            <%= require('html-loader!./legalMenu.html').default %>
-            <%= require('html-loader!./privacyMenu.html').default %>
-            <%= require('html-loader!./plusLoinMenu.html').default %>
+            <%= require('html-loader!./alt-menu/parameterMenu.html').default %>
+            <%= require('html-loader!./alt-menu/legalMenu.html').default %>
+            <%= require('html-loader!./alt-menu/privacyMenu.html').default %>
+            <%= require('html-loader!./alt-menu/plusLoinMenu.html').default %>
           </div>
       </div>
   </body>

@@ -1,11 +1,11 @@
 /* mode paysage et écrans larges */
 @media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {
-  #bottomMenu {
+  #tabContainer {
     width: 50%;
     height: fit-content;
   }
 
-  #catalogBtn {
+  #layerManagerBtn {
     position: fixed;
     bottom: 15px;
   }

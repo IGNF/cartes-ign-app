@@ -1,10 +1,9 @@
 import maplibregl from "maplibre-gl";
-import { Geolocation } from "@capacitor/geolocation";
 
 // TODO utiliser l'ecouteur sur l'event "target"
-import Reverse from "./reverse";
-import Elevation from "./elevation";
-import Location from './location';
+import Reverse from "./services/reverse";
+import Elevation from "./services/elevation";
+import Location from './services/location';
 import Globals from './globals';
 
 /**
@@ -250,19 +249,11 @@ class Position {
   async compute() {
     this.clear();
 
-    if (!Location.location_active) {
-      await Location.enablePosition();
-    }
-
-    const position = await Geolocation.getCurrentPosition({
-      maximumAge: 0,
-      timeout: 10000,
-      enableHighAccuracy: true
-    });
+    const position = await Location.getLocation();
 
     const responseReverse = await Reverse.compute({
-      lat: position.coords.latitude,
-      lon: position.coords.longitude
+      lat: position.coordinates.lat,
+      lon: position.coordinates.lon
     });
 
     if (!responseReverse) {
@@ -273,8 +264,8 @@ class Position {
     this.address = Reverse.getAddress();
 
     const responseElevation = await Elevation.compute({
-      lat: position.coords.latitude,
-      lon: position.coords.longitude
+      lat: position.coordinates.lat,
+      lon: position.coordinates.lon
     });
 
     // FIXME le service fournit il toujours une reponse ?
