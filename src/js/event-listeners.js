@@ -73,10 +73,10 @@ function addListeners() {
     });
   });
 
-  document.getElementById('menuItemParamsIcon').addEventListener('click', MenuDisplay.openParamsScreen);
-  document.getElementById('menuItemPlusLoin').addEventListener('click', MenuDisplay.openPlusLoinScreen);
-  document.getElementById('menuItemLegal').addEventListener('click', MenuDisplay.openLegalScreen);
-  document.getElementById('menuItemPrivacy').addEventListener('click', MenuDisplay.openPrivacyScreen);
+  document.getElementById('menuItemParamsIcon').addEventListener('click', () => { Globals.menu.open('parameterScreen')});
+  document.getElementById('menuItemPlusLoin').addEventListener('click', () => { Globals.menu.open('plusLoinScreen')});
+  document.getElementById('menuItemLegal').addEventListener('click', () => { Globals.menu.open('legalScreen')});
+  document.getElementById('menuItemPrivacy').addEventListener('click', () => { Globals.menu.open('privacyScreen')});
 
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
   document.getElementById("layerManagerWindowClose").addEventListener('click', () => { Globals.menu.close("layerManager"); });
@@ -107,7 +107,7 @@ function addListeners() {
 
   // Screen dimentions change
   window.addEventListener("resize", () => {
-    MenuDisplay.updateScrollAnchors();
+    Globals.menu.updateScrollAnchors();
   });
 
   document.onscroll = scrollEndCallback;
