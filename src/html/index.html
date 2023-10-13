@@ -28,27 +28,13 @@
           <%= require('html-loader!./search.html').default %>
 
           <!-- Menu de navigation -->
-          <div id="navContainer">
-            <div id ="" class="navitem">Explorer</div>
-            <div class="subnav">
-              <div id="" class="navitem">A proximité</div>
-              <div id="" class="navitem">Où suis-je ?</div>
-              <div id="" class="navitem">Créer un point de repère</div>
-            </div>
-            <div id="" class="navitem">Se déplacer</div>
-            <div class="subnav">
-              <div id="" class="navitem">S'y rendre</div>
-              <div id="" class="navitem">Tracer un itinéraire</div>
-            </div>
-            <div id="" class="navitem">Compte</div>
-          </div>
+          <%= require('html-loader!./nav.html').default %>
           
           <!-- Toutes les informations sont affichées dans un onglet resizable 
             et ancré en bas de l'écran.
           -->
           <div id="tabContainer">
             <hr id="hrBottom">
-              <%= require('html-loader!./defaultMenu.html').default %>
               <%= require('html-loader!./tabs/searchresultsWindow.html').default %>
               <%= require('html-loader!./tabs/layermanagerWindow.html').default %>
               <%= require('html-loader!./tabs/directionsWindow.html').default %>

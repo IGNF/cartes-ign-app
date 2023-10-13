@@ -24,6 +24,7 @@ class Position {
   constructor(map, options) {
     this.options = options || {
       target: null,
+      tracking : false, // suivi de la position
       // callback
       openMyPositionCbk: null,
       closeMyPositionCbk: null,
@@ -32,6 +33,9 @@ class Position {
 
     // carte
     this.map = map;
+
+    // tracking
+    this.tracking = this.options.tracking;
 
     // target
     this.target = this.options.target;
@@ -249,7 +253,7 @@ class Position {
   async compute() {
     this.clear();
 
-    const position = await Location.getLocation();
+    const position = await Location.getLocation(this.tracking);
 
     const responseReverse = await Reverse.compute({
       lat: position.coordinates.lat,

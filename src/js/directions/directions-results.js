@@ -1,5 +1,5 @@
 import DirectionsResultsDOM from "./directions-results-dom";
-import MenuDisplay from "../menu-display";
+import Globals from "../globals";
 
 /**
  * Interface sur les resultats du calcul d'itineraire
@@ -60,7 +60,7 @@ class DirectionsResults {
      * @public
      */
     show () {
-        MenuDisplay.openResultsDirections();
+        Globals.menu.open("directionsResults");
     }
 
     /**
@@ -68,7 +68,7 @@ class DirectionsResults {
      * @public
      */
     hide () {
-        MenuDisplay.closeResultsDirections();
+        Globals.menu.close("directionsResults");
     }
 
 }

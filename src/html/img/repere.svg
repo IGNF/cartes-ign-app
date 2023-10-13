@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="32px"
+   height="32px"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg7"
+   sodipodi:docname="repere.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs11" />
+  <sodipodi:namedview
+     id="namedview9"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="18.649941"
+     inkscape:cx="16.702465"
+     inkscape:cy="14.396828"
+     inkscape:window-width="1850"
+     inkscape:window-height="1016"
+     inkscape:window-x="70"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg7" />
+  <title
+     id="title2">02.Icons/Localisation</title>
+  <path
+     d="M 12.500868,3 C 16.642413,3 20,6.3580988 20,10.499754 c 0,2.528418 -1.351951,5.006773 -3.580499,7.359692 -0.764273,0.806619 -1.580654,1.541801 -2.397615,2.192046 -0.286023,0.22781 -0.552939,0.429746 -0.792643,0.602995 -0.146485,0.105749 -0.25302,0.179436 -0.313236,0.219373 -0.251862,0.168187 -0.580152,0.168187 -0.832014,0 -0.06022,-0.0405 -0.166751,-0.114186 -0.313236,-0.219373 -0.239704,-0.173249 -0.50662,-0.374622 -0.792643,-0.602995 C 10.161153,19.401247 9.3447717,18.666065 8.5804995,17.859446 6.3519512,15.50709 5,13.028734 5,10.499754 5,6.3575363 8.3575867,3 12.499132,3 Z m 0,1.5001758 c -3.3135827,0 -5.9995363,2.686479 -5.9995363,6.0001402 0,2.064922 1.179411,4.227155 3.1694137,6.328076 0.7121626,0.752057 1.4775926,1.440551 2.2430236,2.050296 0.209016,0.166499 0.405874,0.317248 0.587678,0.451122 0.181805,-0.134437 0.378663,-0.285185 0.587679,-0.451122 0.765431,-0.609182 1.530282,-1.298239 2.243024,-2.050296 1.990002,-2.100359 3.169413,-4.262592 3.169413,-6.328076 0,-3.3136612 -2.685953,-6.0001402 -5.999536,-6.0001402 z"
+     id="Shape"
+     style="fill:#ffffff;fill-rule:nonzero;stroke:none;stroke-width:1"
+     sodipodi:nodetypes="ssccccccccssssscscccsss" />
+  <metadata
+     id="metadata828">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>02.Icons/Localisation</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     d="m 15.625698,7.5598445 c -0.09339,0.00563 -0.176379,0.055299 -0.235808,0.1316731 l -1.73e-4,2.087e-4 -3.082655,3.8575417 -1.26515,-1.5832073 c -0.06324,-0.079922 -0.152296,-0.129795 -0.251055,-0.129795 -0.19128,0 -0.346175,0.1867633 -0.346175,0.4169303 0,0.113309 0.03742,0.215977 0.09824,0.291099 v 0 l 1.764141,2.206934 3.581646,-4.4814766 c 0.06203,-0.075331 0.100318,-0.179042 0.100318,-0.2936039 0,-0.2303757 -0.155068,-0.41693 -0.346175,-0.41693 -0.0061,0 -0.01213,2.087e-4 -0.01802,6.26e-4 z"
+     id="path4"
+     style="stroke-width:0.190145;fill:#ffffff" />
+</svg>
