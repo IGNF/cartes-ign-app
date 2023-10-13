@@ -102,15 +102,15 @@
   font-family: 'Open Sans Semibold';
 }
 
-#legalMenu, #privacyMenu, #plusLoinMenu {
+#legalScreenWindow, #privacyScreenWindow, #plusLoinScreenWindow {
   font-family: 'Open Sans';
 }
 
-#legalMenu a {
+#legalScreenWindow a {
   color: #0B6BA7;
 }
 
-#plusLoinMenu div {
+#plusLoinScreenWindow div {
   padding-left: 18px;
   padding-right: 18px;
 }

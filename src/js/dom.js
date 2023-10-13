@@ -10,10 +10,10 @@ const $resultsRechRecent = document.getElementById("resultsRechRecent");
 const $searchImage = document.getElementById("searchImage");
 const $myGeoLocation = document.getElementById("myGeoLocation");
 const $backTopLeftBtn = document.getElementById("backTopLeftBtn");
-const $parameterMenu = document.getElementById("parameterMenu");
-const $legalMenu = document.getElementById("legalMenu");
-const $privacyMenu = document.getElementById("privacyMenu");
-const $plusLoinMenu = document.getElementById("plusLoinMenu");
+const $parameterScreenWindow = document.getElementById("parameterScreenWindow");
+const $legalScreenWindow = document.getElementById("legalScreenWindow");
+const $privacyScreenWindow = document.getElementById("privacyScreenWindow");
+const $plusLoinScreenWindow = document.getElementById("plusLoinScreenWindow");
 const $altMenuContainer = document.getElementById("altMenuContainer");
 const $legendWindow = document.getElementById("legendWindow");
 const $infoWindow = document.getElementById("infoWindow");
@@ -46,10 +46,10 @@ export default {
   $searchImage,
   $myGeoLocation,
   $backTopLeftBtn,
-  $parameterMenu,
-  $legalMenu,
-  $privacyMenu,
-  $plusLoinMenu,
+  $parameterScreenWindow,
+  $legalScreenWindow,
+  $privacyScreenWindow,
+  $plusLoinScreenWindow,
   $altMenuContainer,
   $legendWindow,
   $infoWindow,

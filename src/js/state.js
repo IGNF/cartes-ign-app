@@ -18,17 +18,17 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'mainMenu') {
         // ...
     }
-    if (Globals.backButtonState === 'params') {
-        MenuDisplay.closeParamsScreen();
+    if (Globals.backButtonState === 'parameterScreen') {
+        Globals.menu.close('parameterScreen');
     }
-    if (Globals.backButtonState === 'legal') {
-        MenuDisplay.closeLegalScreen();
+    if (Globals.backButtonState === 'legalScreen') {
+        Globals.menu.close('legalScreen');
     }
-    if (Globals.backButtonState === 'privacy') {
-        MenuDisplay.closePrivacyScreen();
+    if (Globals.backButtonState === 'privacyScreen') {
+        Globals.menu.close('privacyScreen');
     }
-    if (Globals.backButtonState === 'plusLoin') {
-        MenuDisplay.closePlusLoinScreen();
+    if (Globals.backButtonState === 'plusLoinScreen') {
+        Globals.menu.close('plusLoinScreen');
     }
     if (Globals.backButtonState === 'infos') {
         MenuDisplay.closeInfos();

@@ -54,9 +54,6 @@ class MenuNavigation {
 
     /**
      * Ouvrir le panneau (tab) du composant
-     * - reinitilise le panneau courant
-     * - cache le menu de navigation
-     * - ...
      * @param {*} id 
      */
     open(id) {
@@ -104,7 +101,26 @@ class MenuNavigation {
                 DOM.$closeSearch.classList.remove('d-none');
                 Globals.currentScrollIndex = 2;
                 break;
-            case "resultsDirections":
+            case "parameterScreen":
+            case "legalScreen":
+            case "privacyScreen":
+            case "plusLoinScreen":
+                document.body.style.overflowY = "scroll";
+                DOM.$rech.disabled = true;
+                DOM.$rech.style.fontFamily = 'Open Sans Bold';
+                DOM.$blueBg.classList.remove('d-none');
+                DOM.$search.style.display = "none";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$altMenuContainer.classList.remove('d-none');
+                Globals.ignoreNextScrollEvent = true;
+                window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'auto'
+                });
+                Globals.currentScrollIndex = 0;
+                break;
+            case "directionsResults":
                 isSpecific = true;
                 break;
             case "searchDirections":
@@ -139,17 +155,16 @@ class MenuNavigation {
         // on procede à l'affichage du panneau
         DOM.$tabContainer.style.height = "100%";
         if (Globals.currentScrollIndex === 2) {
-            this.#updateScrollAnchors();
-        } else {
+            this.updateScrollAnchors();
+        } else if (Globals.currentScrollIndex === 1) {
             this.#midScroll();
+        } else {
+            // ...
         }
     }
 
     /**
      * Fermer le panneau (tab) du composant
-     * - reinitilise le panneau courant
-     * - affiche le menu de navigation
-     * - ...
      * @param {*} id 
      */
     close(id) {
@@ -160,6 +175,7 @@ class MenuNavigation {
 
         // y'a t il des particularités sur la fermeture du panneau en cours ?
         var isSpecific = false;
+        var isFinished = false; // hack pour search !
         switch (id) {
             case "myaccount":
                 DOM.$search.style.display = "flex";
@@ -178,22 +194,30 @@ class MenuNavigation {
                 Globals.isochrone.clear();
                 break;
             case "search":
-                Globals.controller.abort();
-                Globals.controller = new AbortController();
-                Globals.signal = Globals.controller.signal;
-                DOM.$resultDiv.hidden = true;
-                DOM.$resultDiv.innerHTML = "";
-                DOM.$closeSearch.classList.add('d-none');
-                DOM.$searchresultsWindow.classList.add('d-none');
-                DOM.$layerManagerBtn.classList.remove('d-none');
-                DOM.$geolocateBtn.classList.remove('d-none');
-                DOM.$search.style.display = "flex";
-                DOM.$backTopLeftBtn.classList.add('d-none');
+                isSpecific = true;
+                isFinished = true;
                 break;
             case "directionsResults":
             case "searchDirections":
             case "searchIsochrone":
                 isSpecific = true;
+                break;
+            case "parameterScreen":
+            case "legalScreen":
+            case "privacyScreen":
+            case "plusLoinScreen":
+                document.body.style.overflowY = "auto";
+                DOM.$blueBg.classList.add('d-none');
+                DOM.$search.style.display = "flex";
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$altMenuContainer.classList.add('d-none');
+                Globals.ignoreNextScrollEvent = true;
+                window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'auto'
+                });
+                Globals.currentScrollIndex = 0;
                 break;
             case "directions":
                 DOM.$search.style.display = "flex";
@@ -209,7 +233,9 @@ class MenuNavigation {
         // on passe donc par un autre mecanisme
         if (isSpecific) {
             this.#close(id);
-            return;
+            if (isFinished) {
+                return;
+            }
         }
 
         // on affiche le menu de navigation
@@ -247,29 +273,34 @@ class MenuNavigation {
         DOM.$layerManagerBtn.classList.remove('d-none');
         DOM.$geolocateBtn.classList.remove('d-none');
         switch (id) {
+            case "search":
+                DOM.$search.style.display = "flex";
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                break;
             case "directionsResults":
-                DOM.$tabContainer.style.height = "100%";
                 DOM.$directionsWindow.classList.remove("d-none");
                 Globals.backButtonState = 'directions'; // on revient sur le contrôle !
+                this.#midScroll();
                 break;
             case "searchIsochrone":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$isochroneWindow.classList.remove("d-none");
                 Globals.backButtonState = 'isochrone'; // on revient sur le contrôle !
+                this.#midScroll();
                 break;
             case "searchDirections":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$directionsWindow.classList.remove("d-none");
                 Globals.backButtonState = 'directions'; // on revient sur le contrôle !
+                this.#midScroll();
             default:
                 break;
         }
-        this.#midScroll();
     }
 
-    #updateScrollAnchors() {
+    updateScrollAnchors() {
         Globals.maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
         Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
         this.#scrollTo(Globals.anchors[Globals.currentScrollIndex]);
@@ -277,7 +308,7 @@ class MenuNavigation {
       
     #midScroll() {
         Globals.currentScrollIndex = 1;
-        this.#updateScrollAnchors();
+        this.updateScrollAnchors();
     }
       
     #scrollTo(value) {
