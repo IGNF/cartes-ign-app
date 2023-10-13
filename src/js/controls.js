@@ -6,7 +6,6 @@ import Isochrone from "./isochrone/isochrone";
 import Position from "./my-position";
 import Search from "./search";
 import Compare from './compare';
-import MenuDisplay from './menu-display';
 
 const map = Globals.map;
 
@@ -26,30 +25,31 @@ const addControls = () => {
     // contrôle de calcul d'itineraire
     Globals.directions = new Directions(map, {
       // callback sur l'ouverture / fermeture du panneau de recherche
-      openSearchControlCbk : () => { MenuDisplay.openSearchDirections(); },
-      closeSearchControlCbk : () => { MenuDisplay.closeSearchDirections(); }
+      openSearchControlCbk : () => { Globals.menu.open("searchDirections"); },
+      closeSearchControlCbk : () => { Globals.menu.close("searchDirections"); }
     });
 
     // contrôle de calcul d'isochrone
     Globals.isochrone = new Isochrone(map, {
       // callback sur l'ouverture / fermeture du panneau de recherche
-      openSearchControlCbk : () => { MenuDisplay.openSearchIsochrone(); },
-      closeSearchControlCbk : () => { MenuDisplay.closeSearchIsochrone(); }
+      openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
+      closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); }
     });
 
     // contrôle "Où suis-je ?"
     Globals.myposition = new Position(map, {
+      tracking : true, // activation du tracking !
       // callback sur l'ouverture / fermeture du panneau
-      openMyPositionCbk : () => { MenuDisplay.openMyPosition(); },
-      closeMyPositionCbk : () => { MenuDisplay.closeMyPosition(); },
-      openIsochroneCbk : () => { MenuDisplay.openIsochrone(); }
+      openMyPositionCbk : () => { Globals.menu.open("myposition"); },
+      closeMyPositionCbk : () => { Globals.menu.close("myposition"); },
+      openIsochroneCbk : () => { Globals.menu.open("isochrone"); }
     });
 
     // contrôle Recherche
     Globals.search = new Search(map, {
       // callback sur l'ouverture / fermeture du panneau
-      openSearchCbk : () => { MenuDisplay.searchScreenOn(); },
-      closeSearchCbk : () => { MenuDisplay.searchScreenOff(); },
+      openSearchCbk : () => { Globals.menu.open("search"); },
+      closeSearchCbk : () => { Globals.menu.close("search"); },
     });
 
     // contrôle de comparaison de carte
