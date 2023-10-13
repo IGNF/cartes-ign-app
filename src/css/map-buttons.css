@@ -36,26 +36,26 @@
 #layerManagerBtn {
   background-image: url("assets/layers.svg");
   position: absolute;
-  bottom: 15px;
+  bottom: 130px;
 }
 
 #geolocateBtn {
   background-image: url("assets/localisation.svg");
   position: absolute;
-  bottom: 60px;
+  bottom: 180px;
 }
 
 #sideBySideBtn {
   background-image: url("assets/compare.svg");
   position: absolute;
   left: 15px;
-  bottom: 60px;
+  bottom: 180px;
 }
 
 #compassBtn {
   background-image: url("assets/compass.svg");
   position: absolute;
-  bottom: 105px;
+  bottom: 225px;
 }
 
 .subCatMenu .layer .layerImg img {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>02.Icons/Menu</title>
+    <g id="02.Icons/Menu" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(12.500000, 12.500000) rotate(-90.000000) translate(-12.500000, -12.500000) translate(11.000000, 6.000000)" fill="#ffffff">
+            <rect id="Rectangle" x="0" y="0" width="3" height="3" rx="1.5"></rect>
+            <rect id="Rectangle" x="0" y="5" width="3" height="3" rx="1.5"></rect>
+            <rect id="Rectangle" x="0" y="10" width="3" height="3" rx="1.5"></rect>
+        </g>
+    </g>
+</svg>

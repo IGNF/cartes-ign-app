@@ -1,0 +1,4 @@
+/**
+ * Gestionnaire de couches
+ * @todo ...
+ */

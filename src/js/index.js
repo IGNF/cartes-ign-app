@@ -1,10 +1,12 @@
-// import Coords from './coordinates';
+import MapButtonsListeners from './map-buttons-listeners';
+import MapListeners from './map-listeners';
 import EventListeners from './event-listeners';
 import LayerSwitch from './layer-switch';
 import Layers from './layers';
 import Globals from './globals';
 import Controls from './controls';
 import RecentSearch from "./search-recent";
+import MenuNavigation from './nav';
 
 // import CSS
 import '@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css';
@@ -20,7 +22,7 @@ import MapCenterImg from "../css/assets/map-center.svg";
  */
 function app() {
 
-  /* Définition des marker icons */
+  // Définition des icones
   Globals.myPositionIcon = document.createElement('div');
   Globals.myPositionIcon.class = 'myPositionIcon';
   Globals.myPositionIcon.style.width = '51px';
@@ -36,11 +38,11 @@ function app() {
   Globals.searchResultIcon.style.backgroundSize = "contain";
   Globals.searchResultIcon.style.backgroundImage = "url(" + MapCenterImg + ")";
 
-  /* Récupération de la carte */
+  // Récupération de la carte
   const map = Globals.map;
   const mapRLT = Globals.mapRLT;
 
-  /* Ajout des sources à la carte */
+  // Ajout des sources à la carte
   for (let layer in Layers.baseLayerSources) {
     map.addSource(layer, Layers.baseLayerSources[layer]);
     mapRLT.addSource(layer, Layers.baseLayerSources[layer]);
@@ -50,6 +52,7 @@ function app() {
     map.addSource(layer, Layers.dataLayerSources[layer]);
   }
 
+  // Ajout des couches à la carte
   map.addLayer({
     id: "basemap",
     type: "raster",
@@ -70,9 +73,6 @@ function app() {
     source: "plan-ign",
   });
 
-  // Ajout des contrôles
-  Controls.addControls();
-
   // Chargement de la position précédente
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
     map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
@@ -91,11 +91,25 @@ function app() {
   });
   Globals.currentScrollIndex = 0;
 
-  // Ajout des event listeners
-  EventListeners.addEventListeners();
+  // Ajout des contrôles
+  Controls.addControls();
+
+  // Ajout des ecouteurs des boutons de la carte
+  MapButtonsListeners.addListeners();
+
+  // Ajout des ecouteurs de la carte
+  MapListeners.addListeners();
+
+  // Ajout d'autres ecouteurs
+  EventListeners.addListeners();
 
   // Ajout des recherches recentes issues du localStorage
   RecentSearch.create();
+
+  // Initialisation du menu de navigation
+  Globals.menu = new MenuNavigation();
+  Globals.menu.show();
+
 }
 
 app();

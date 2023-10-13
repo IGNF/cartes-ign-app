@@ -31,6 +31,8 @@ const $directionsWindow = document.getElementById("directionsWindow");
 const $directionsResultsWindow = document.getElementById("directionsResultsWindow");
 const $isochroneWindow = document.getElementById("isochroneWindow");
 const $mypositionWindow = document.getElementById("mypositionWindow");
+const $sideBySideBtn = document.getElementById("sideBySideBtn");
+const $myaccountWindow = document.getElementById("myaccountWindow");
 
 export default {
   $search,
@@ -64,5 +66,7 @@ export default {
   $directionsWindow,
   $directionsResultsWindow,
   $isochroneWindow,
-  $mypositionWindow
+  $mypositionWindow,
+  $sideBySideBtn,
+  $myaccountWindow
 };

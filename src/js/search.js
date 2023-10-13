@@ -2,12 +2,10 @@ import Globals from './globals';
 import DOM from './dom';
 import Location from './services/location';
 import Geocode from './services/geocode';
-import MenuDisplay from './menu-display';
+import State from './state';
 
 /**
  * Barre de recherche et géocodage
- *
- * @todo impl. la redirection vers sms
  */
 class Search {
   /**
@@ -46,10 +44,9 @@ class Search {
       myLoc: "myGeoLocation",
       recentSearches: "resultsRechRecent",
       searchResults: "resultsRech",
+      closeSearch: "closeSearch"
     };
 
-    // ajout des listeners
-    // Recherche du 1er résultat de l'autocomplétion si appui sur entrée
     document.getElementById(id.searchInput).addEventListener("keyup", (event) => {
       if (event.key === 'Enter' || event.keyCode === 13) {
         // Cancel the default action, if needed
@@ -84,22 +81,31 @@ class Search {
       DOM.$resultDiv.innerHTML = "";
     });
 
-    // on clique sur "Ma position"
     document.getElementById(id.myLoc).addEventListener("click", (e) => {
       // on realise une geolocalisation
       Location.getLocation()
         .then((result) => {
           DOM.$rech.value = "Ma position";
           if (Globals.backButtonState === "searchDirections") {
-            setTimeout(MenuDisplay.openDirections, 150);
+            setTimeout(Globals.menu.open("directions"), 150);
           } else if (Globals.backButtonState === "searchIsochrone") {
-            setTimeout(MenuDisplay.openIsochrone, 150);
+            setTimeout(Globals.menu.open("isochrone"), 150);
           } else {
             Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
             setTimeout(this.hide(), 150);
           }
         });
     }, true);
+
+    document.getElementById(id.closeSearch).addEventListener("click", () => {
+      State.onBackKeyDown();
+    });
+
+    document.getElementById(id.searchInput).addEventListener('focus', function () {
+      if (Globals.backButtonState === "default" || Globals.backButtonState === "mainMenu") {
+        Globals.search.show();
+      }
+    });
   }
 
   /**
