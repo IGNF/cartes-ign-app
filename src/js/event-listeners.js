@@ -5,16 +5,17 @@ import LayerSwitch from './layer-switch';
 import Location from './services/location';
 import MenuDisplay from './menu-display';
 import Controls from './controls';
-import UpdateLegend from './update-legend';
 import DOM from './dom';
 import Globals from './globals';
 import Texts from './texts';
-import Layers from './layers';
 import RecentSearch from "./search-recent";
+import State from "./state";
 
-import { App } from '@capacitor/app';
-
-function addEventListeners() {
+/**
+ * Ecouteurs generiques
+ * @xtodo terminer le nettoyage avec les ecouteurs pour les classes layerManager & MyAccount
+ */
+function addListeners() {
 
   const map = Globals.map;
 
@@ -36,20 +37,19 @@ function addEventListeners() {
     if (geocode) {
       if (Globals.backButtonState === "searchDirections") {
         Geocode.search(DOM.$rech.value);
-        setTimeout(MenuDisplay.openDirections, 150);
+        setTimeout(Globals.menu.open("directions"), 150);
       } else if(Globals.backButtonState === "searchIsochrone") {
         Geocode.search(DOM.$rech.value);
-        setTimeout(MenuDisplay.openIsochrone, 150);
+        setTimeout(Globals.menu.open("isochrone"), 150);
       } else {
         Geocode.searchAndMoveTo(DOM.$rech.value);
-        setTimeout(MenuDisplay.searchScreenOff, 150);
+        setTimeout(Globals.menu.close("search"), 150);
       }
       RecentSearch.add(DOM.$rech.value);
     }
   }, true);
 
-  /* event listeners statiques */
-  // Couches
+  // TODO Ecouteurs sur les couches : à ajouter sur le gestionnaire de couches
   document.querySelectorAll(".baseLayer").forEach((el) => {
     el.addEventListener('click', () => LayerSwitch.displayBaseLayer(el.id));
   });
@@ -60,7 +60,7 @@ function addEventListeners() {
     el.addEventListener('click', (ev) => {
       ev.stopPropagation();
       DOM.$infoText.innerHTML = Texts.informationTexts[el.getAttribute("layername")];
-      MenuDisplay.closeCat();
+      Globals.menu.close("layerManager");
       MenuDisplay.openInfos();
     });
   });
@@ -68,25 +68,10 @@ function addEventListeners() {
     el.addEventListener('click', (ev) => {
       ev.stopPropagation();
       DOM.$legendImg.innerHTML = Texts.legendImgs[el.getAttribute("layername")];
-      MenuDisplay.closeCat();
+      Globals.menu.close("layerManager");
       MenuDisplay.openLegend();
     });
   });
-
-  // Ouverture-Fermeture
-  DOM.$layerManagerBtn.addEventListener('click', MenuDisplay.openCat);
-  DOM.$backTopLeftBtn.addEventListener("click", onBackKeyDown);
-
-  // Boutons on-off
-  DOM.$geolocateBtn.addEventListener('click', Location.locationOnOff);
-
-  // Recherche
-  DOM.$rech.addEventListener('focus', function () {
-    if (Globals.backButtonState === "default" || Globals.backButtonState === "mainMenu") {
-      Globals.search.show();
-    }
-  });
-  DOM.$closeSearch.addEventListener("click", onBackKeyDown);
 
   document.getElementById('menuItemParamsIcon').addEventListener('click', MenuDisplay.openParamsScreen);
   document.getElementById('menuItemPlusLoin').addEventListener('click', MenuDisplay.openPlusLoinScreen);
@@ -94,124 +79,14 @@ function addEventListeners() {
   document.getElementById('menuItemPrivacy').addEventListener('click', MenuDisplay.openPrivacyScreen);
 
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
-  document.getElementById("layerManagerWindowClose").addEventListener('click', MenuDisplay.closeCat);
+  document.getElementById("layerManagerWindowClose").addEventListener('click', () => { Globals.menu.close("layerManager"); });
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
-  document.getElementById("directionsWindowClose").addEventListener('click', MenuDisplay.closeDirections);
-  document.getElementById("isochroneWindowClose").addEventListener('click', MenuDisplay.closeIsochrone);
-  document.getElementById("mypositionWindowClose").addEventListener('click', MenuDisplay.closeMyPosition);
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
-  /**/
-
-  // Légende en fonction du zoom
-  map.on("zoomend", UpdateLegend.updateLegend);
 
   // Action du backbutton
-  document.addEventListener("backbutton", onBackKeyDown, false);
-
-  function onBackKeyDown() {
-    // Handle the back button
-    if (Globals.backButtonState == 'default') {
-      App.exitApp();
-    }
-    if (Globals.backButtonState === 'search') {
-      MenuDisplay.closeSearchScreen();
-    }
-    if (Globals.backButtonState === 'mainMenu') {
-      MenuDisplay.closeMenu();
-    }
-    if (Globals.backButtonState === 'params') {
-      MenuDisplay.closeParamsScreen();
-    }
-    if (Globals.backButtonState === 'legal') {
-      MenuDisplay.closeLegalScreen();
-    }
-    if (Globals.backButtonState === 'privacy') {
-      MenuDisplay.closePrivacyScreen();
-    }
-    if (Globals.backButtonState === 'plusLoin') {
-      MenuDisplay.closePlusLoinScreen();
-    }
-    if (Globals.backButtonState === 'infos') {
-      MenuDisplay.closeInfos();
-    }
-    if (Globals.backButtonState === 'legend') {
-      MenuDisplay.closeLegend();
-    }
-    if (Globals.backButtonState === 'layerManager') {
-      MenuDisplay.closeCat();
-    }
-    if (Globals.backButtonState === 'directions') {
-      MenuDisplay.closeDirections();
-    }
-    if (Globals.backButtonState === 'searchDirections') {
-      MenuDisplay.closeSearchDirections();
-    }
-    if (Globals.backButtonState === 'resultsDirections') {
-      MenuDisplay.closeResultsDirections();
-    }
-    if (Globals.backButtonState === 'isochrone') {
-      MenuDisplay.closeIsochrone();
-    }
-    if (Globals.backButtonState === 'searchIsochrone') {
-      MenuDisplay.closeSearchIsochrone();
-    }
-    if (Globals.backButtonState === 'myposition') {
-      MenuDisplay.closeMyPosition();
-    }
-  }
-
-  // Rotation de la carte avec le mutlitouch
-  map.on('rotate', () => {
-    console.log(map.getBearing());
-    DOM.$compassBtn.style.transform = "rotate(" + (map.getBearing() * -1) + "deg)";
-    DOM.$compassBtn.classList.remove("d-none");
-  });
-
-  // Rotation de la boussole
-  DOM.$compassBtn.addEventListener("click", () => {
-    if (Location.isTrackingActive()){
-      // De tracking a simple suivi de position
-      Location.locationOnOff();
-      Location.locationOnOff();
-    }
-    map.setBearing(Math.round((map.getBearing() % 360) + 360 ) % 360);
-
-    let interval;
-    let currentRotation
-
-    function animateRotate() {
-      if (map.getBearing() < 0) {
-        currentRotation = map.getBearing() + 1;
-
-      } else {
-        currentRotation = map.getBearing() - 1;
-      }
-
-      map.setBearing(currentRotation);
-
-      if (currentRotation % 360 == 0) {
-        clearInterval(interval);
-        DOM.$compassBtn.style.pointerEvents = "";
-        DOM.$compassBtn.classList.add("d-none");
-      }
-    }
-
-    DOM.$compassBtn.style.pointerEvents = "none";
-    interval = setInterval(animateRotate, 2);
-  });
-
-  // Désactivation du tracking au déplacement non programmatique de la carte
-  map.on('movestart', function () {
-    if (Globals.movedFromCode) {
-      return
-    } else if (Location.isTrackingActive()){
-      // De tracking a simple suivi de position
-      Location.locationOnOff();
-      Location.locationOnOff();
-    }
-  });
+  document.addEventListener("backbutton", State.onBackKeyDown, false);
 
   // Sauvegarde de l'état de l'application
   document.addEventListener('pause', () => {
@@ -275,92 +150,11 @@ function addEventListeners() {
       Globals.backButtonState = 'default';
     }
   }
-
-  /* TODO: Not supported... */
-  // document.addEventListener("scrollend", scrollEndCallback);
-
-  /* Menu Buttons */
-  document.getElementById("directions").addEventListener("click", () => {
-    MenuDisplay.openDirections();
-  });
-  document.getElementById("isochrone").addEventListener("click", () => {
-    MenuDisplay.openIsochrone();
-  });
-  document.getElementById("myposition").addEventListener("click", () => {
-    Globals.myposition.compute()
-    .then(() => {
-      MenuDisplay.openMyPosition();
-    });
-  });
-
-  // GetFeatureInfo on map click
-  function latlngToTilePixel(lat, lng, zoom) {
-    const fullXTile = (lng + 180) / 360 * Math.pow(2, zoom);
-    const fullYTile = (1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom);
-    const tile = {
-      x: Math.floor(fullXTile),
-      y: Math.floor(fullYTile),
-    };
-    const tilePixel = {
-      x: Math.floor((fullXTile - tile.x) * 256),
-      y: Math.floor((fullYTile - tile.y) * 256),
-    };
-    return [tile, tilePixel]
-  }
-
-  map.on("click", (ev) => {
-    let currentLayer = Globals.baseLayerDisplayed;
-    if (Globals.dataLayerDisplayed !== '') {
-      currentLayer = Globals.dataLayerDisplayed;
-    } else if (Globals.mapState === "compare") {
-      return
-    }
-    const layerProps = Layers.layerProps[currentLayer];
-    let computeZoom = map.getZoom();
-    if (computeZoom > layerProps.maxNativeZoom) {
-      computeZoom = layerProps.maxNativeZoom;
-    } else if (computeZoom < layerProps.minNativeZoom) {
-      computeZoom = layerProps.minNativeZoom;
-    }
-
-    const [ tile, tilePixel ] = latlngToTilePixel(ev.lngLat.lat, ev.lngLat.lng, computeZoom);
-    fetch(
-      `https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?` +
-      `SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetFeatureInfo&` +
-      `LAYER=${layerProps.layer}` +
-      `&TILECOL=${tile.x}&TILEROW=${tile.y}&TILEMATRIX=${computeZoom}&TILEMATRIXSET=PM` +
-      `&FORMAT=${layerProps.format}` +
-      `&STYLE=${layerProps.style}&INFOFORMAT=text/html&I=${tilePixel.x}&J=${tilePixel.y}`
-    ).then((response) => {
-      if (!response.ok) {
-        throw new Error("HTTP error");
-      }
-      return response.text()
-    }).then((html) => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
-      if (doc.body.innerText === "\n  \n  \n") {
-        throw new Error("Empty GFI");
-      }
-      new maplibregl.Popup()
-        .setLngLat(ev.lngLat)
-        .setHTML(html)
-        .addTo(map);
-    }).catch(() => {
-      return
-    })
-  });
-
-  document.getElementById("drawRoute").addEventListener("click", Controls.startDrawRoute);
-
-  document.getElementById("sideBySideBtn").addEventListener("click", () => { Globals.compare.toggle(); });
-  document.getElementById("sideBySideOn").addEventListener("click", () => { Globals.compare.show(); });
-  document.getElementById("sideBySideOff").addEventListener("click", () => { Globals.compare.hide(); });
-  document.getElementById("directions").addEventListener("click", () => { Globals.compare.hide(); });
-  document.getElementById("isochrone").addEventListener("click", () => { Globals.compare.hide(); });
-  document.getElementById("myposition").addEventListener("click", () => { Globals.compare.hide(); });
+  
+  // FIXME à deplacer ? 
+  document.getElementById("drawroute").addEventListener("click", Controls.startDrawRoute);
 }
 
 export default {
-  addEventListeners,
+  addListeners,
 };

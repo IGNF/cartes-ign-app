@@ -129,7 +129,7 @@ const trackLocation = () => {
 /**
  * Modification du statut de localisation
  */
-const enablePosition = async() => {
+const enablePosition = async(tracking) => {
   DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFixeImg + '")';
   let permissionStatus;
   try {
@@ -144,13 +144,15 @@ const enablePosition = async() => {
   if (permissionStatus == "denied") {
     return
   }
-  trackLocation();
+  if (tracking) {
+    trackLocation();
+    Toast.show({
+      text: "Suivi de position activé",
+      duration: "short",
+      position: "bottom"
+    });
+  }
   location_active = true;
-  Toast.show({
-    text: "Suivi de position activé",
-    duration: "short",
-    position: "bottom"
-  });
 }
 
 const locationOnOff = async () => {
@@ -201,9 +203,9 @@ const getOrientation = (event) => {
  * @returns
  * @fire geolocation
  */
-const getLocation = async () => {
+const getLocation = async (tracking) => {
   var results = null;
-  enablePosition();
+  enablePosition(tracking);
   var position = await Geolocation.getCurrentPosition({
     maximumAge: 0,
     timeout: 10000,

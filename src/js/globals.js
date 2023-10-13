@@ -69,6 +69,9 @@ let myposition = null;
 // Global Compare Plugin
 let compare = null;
 
+// Global Menu navigation
+let menu = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -99,5 +102,6 @@ export default {
   isochrone,
   myposition,
   search,
-  compare
+  compare,
+  menu
 };

@@ -48,10 +48,10 @@ class Compare {
         LayerSwitch.displayDataLayer(Globals.dataLayerDisplayed);
         document.querySelector("#dataLayers").classList.add("d-none");
         document.querySelector("#dataLayersLabel").classList.add("d-none");
-        document.querySelector("#sideBySideOff").classList.remove("d-none");
-        document.querySelector("#sideBySideOn").classList.add("d-none");
+        // document.querySelector("#sideBySideOff").classList.remove("d-none");
+        // document.querySelector("#sideBySideOn").classList.add("d-none");
         document.querySelector(".selectedLayer").style.pointerEvents = "none";
-        MenuDisplay.openCat();
+        Globals.menu.open("layerManager");
     }
 
     /**
@@ -61,6 +61,8 @@ class Compare {
     hide() {
         this.actived = false;
 
+        Globals.menu.close("layerManager");
+        
         document.querySelectorAll(".baseLayer").forEach(elem => {
             elem.classList.remove('comparedLayer');
         });
@@ -72,8 +74,8 @@ class Compare {
         document.querySelector("#mapRLT").classList.add("d-none");
         document.querySelector("#dataLayers").classList.remove("d-none");
         document.querySelector("#dataLayersLabel").classList.remove("d-none");
-        document.querySelector("#sideBySideOff").classList.add("d-none");
-        document.querySelector("#sideBySideOn").classList.remove("d-none");
+        // document.querySelector("#sideBySideOff").classList.add("d-none");
+        // document.querySelector("#sideBySideOn").classList.remove("d-none");
         LayerSwitch.displayDataLayer(this.prevDataLayerDisplayed);
     }
 
