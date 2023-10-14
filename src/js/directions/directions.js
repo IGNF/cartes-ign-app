@@ -6,6 +6,7 @@ import DirectionsResults from "./directions-results";
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
 import Location from "../services/location";
+import Reverse from "../services/reverse";
 
 /**
  * Interface du contrôle sur le calcul d'itineraire
@@ -85,6 +86,9 @@ class Directions {
 
         // rendu graphique
         this.render();
+
+        // event interactif
+        this.#listeners();
     }
 
     /**
@@ -210,6 +214,57 @@ class Directions {
     }
 
     /**
+     * ajout d'ecouteurs pour la saisie interactive
+     */
+    #listeners() {
+        this.obj.on("addwaypoint", (e) => { this.#onAddWayPoint(e); });
+    }
+
+    /**
+     * ecouteur lors de l'ajout d'un point avec addWayPoint()
+     * @see https://maplibre.org/maplibre-gl-directions/api/interfaces/MapLibreGlDirectionsWaypointEventData.html
+     * @param {*} e 
+     * @returns 
+     */
+    #onAddWayPoint(e) {
+        var index = e.data.index;
+        if (!e.originalEvent) {
+            return;
+        }
+        var coordinates = e.originalEvent.lngLat;
+        var bResponse = false;
+        Reverse.compute({
+            lon : coordinates.lng,
+            lat : coordinates.lat
+        }).then(() => {
+            bResponse = true;
+        }).catch(() => {
+            bResponse = false;
+        }).finally(() => {
+            var target = null;
+            var c = (bResponse) ? Reverse.getCoordinates() : {lon : coordinates.lng, lat : coordinates.lat};
+            var a = (bResponse) ? Reverse.getAddress() : "inconnue";
+            var address = a;
+            if (bResponse) {
+                address = a.city + ", " + a.citycode;
+            }
+            // start
+            if (index === 0) {
+                target = document.getElementById("directionsLocation_start");
+            }
+            // end
+            if (index === 1) {
+                target = document.getElementById("directionsLocation_end");
+            }
+            // on ajoute les resultats dans le contrôle
+            if (target) {
+                target.dataset.coordinates = "[" + c.lon + "," + c.lat + "]";
+                target.value = address;
+            }
+        });
+    }
+
+    /**
      * activation du mode interaction
      * @param {*} status
      * @public
@@ -224,6 +279,7 @@ class Directions {
      */
     clear () {
         this.obj.clear();
+        this.obj.off("addwaypoint", (e) => { this.#onAddWayPoint(e); });
     }
 
     ////////////////////////////////////////////
