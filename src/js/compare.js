@@ -3,7 +3,6 @@ import MapLibreGlCompare from "@maplibre/maplibre-gl-compare";
 
 import Globals from './globals';
 import LayerSwitch from './layer-switch';
-import MenuDisplay from './menu-display';
 
 /**
  * Outil de comparaison de carte
@@ -48,8 +47,6 @@ class Compare {
         LayerSwitch.displayDataLayer(Globals.dataLayerDisplayed);
         document.querySelector("#dataLayers").classList.add("d-none");
         document.querySelector("#dataLayersLabel").classList.add("d-none");
-        // document.querySelector("#sideBySideOff").classList.remove("d-none");
-        // document.querySelector("#sideBySideOn").classList.add("d-none");
         document.querySelector(".selectedLayer").style.pointerEvents = "none";
         Globals.menu.open("layerManager");
     }
@@ -74,8 +71,6 @@ class Compare {
         document.querySelector("#mapRLT").classList.add("d-none");
         document.querySelector("#dataLayers").classList.remove("d-none");
         document.querySelector("#dataLayersLabel").classList.remove("d-none");
-        // document.querySelector("#sideBySideOff").classList.add("d-none");
-        // document.querySelector("#sideBySideOn").classList.remove("d-none");
         LayerSwitch.displayDataLayer(this.prevDataLayerDisplayed);
     }
 
