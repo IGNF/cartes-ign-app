@@ -44,19 +44,28 @@ class MenuNavigation {
         
     }
 
+    /**
+     * Cache le menu principal
+     */
     hide() {
         this.container.classList.add("d-none");
     }
 
+    /**
+     * Affiche le menu principal
+     */
     show() {
         this.container.classList.remove("d-none");
     }
 
     /**
-     * Ouvrir le panneau (tab) du composant
+     * Ouvre le panneau avec le contenu du composant (tab)
      * @param {*} id 
      */
     open(id) {
+        // HACK : on supprime l'interaction du calcul d'itineraire
+        Globals.directions.interactive(false);
+
         // on vide tous les panneaux
         var lstElements = DOM.$tabContainer.childNodes;
         for (let i = 0; i < lstElements.length; i++) {
@@ -77,6 +86,7 @@ class MenuNavigation {
         
         // y'a t il des particularités sur l'ouverture du panneau demandé ?
         var isSpecific = false;
+        var isSpecificSize = false;
         switch (id) {
             case "myaccount":
                 DOM.$search.style.display = "none";
@@ -125,7 +135,8 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 0;
                 break;
             case "directionsResults":
-                isSpecific = true;
+                isSpecificSize = true;
+                DOM.$tabContainer.style.height = "";
                 break;
             case "searchDirections":
             case "searchIsochrone":
@@ -158,7 +169,9 @@ class MenuNavigation {
         this.hide();
 
         // on procede à l'affichage du panneau
-        DOM.$tabContainer.style.height = "100%";
+        if(!isSpecificSize) {
+            DOM.$tabContainer.style.height = "100%";
+        }
         if (Globals.currentScrollIndex === 2) {
             this.updateScrollAnchors();
         } else if (Globals.currentScrollIndex === 1) {
@@ -169,7 +182,7 @@ class MenuNavigation {
     }
 
     /**
-     * Fermer le panneau (tab) du composant
+     * Ferme le panneau du composant (tab) 
      * @param {*} id 
      */
     close(id) {
@@ -258,19 +271,16 @@ class MenuNavigation {
         DOM.$tabContainer.style.height = "";
     }
 
-    #open(id) {
-        switch (id) {
-            case "directionsResults":
-                break;
-        
-            default:
-                break;
-        }
+    /**
+     * Ouverture spécifique d'un panneau
+     * @param {*} id 
+     */
+    #open(id) {}
 
-        this.#midScroll();
-        DOM.$tabContainer.style.height = "";
-    }
-
+    /**
+     * Fermeture spécifique d'un panneau
+     * @param {*} id 
+     */
     #close(id) {
         Globals.controller.abort();
         Globals.controller = new AbortController();
@@ -290,6 +300,7 @@ class MenuNavigation {
             case "directionsResults":
                 DOM.$directionsWindow.classList.remove("d-none");
                 Globals.backButtonState = 'directions'; // on revient sur le contrôle !
+                Globals.directions.interactive(true);
                 this.#midScroll();
                 break;
             case "searchIsochrone":
@@ -310,17 +321,20 @@ class MenuNavigation {
         }
     }
 
+    /** ... */
     updateScrollAnchors() {
         Globals.maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
         Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
         this.#scrollTo(Globals.anchors[Globals.currentScrollIndex]);
     }
-      
+     
+    /** ... */
     #midScroll() {
         Globals.currentScrollIndex = 1;
         this.updateScrollAnchors();
     }
-      
+    
+    /** ... */
     #scrollTo(value) {
         Globals.ignoreNextScrollEvent = true;
         window.scroll({
