@@ -5,19 +5,16 @@ import Globals from './globals';
 
 // Ouverture/fermeture des fentres infos et légende
 function openLegend(){
-  // DOM.$defaultMenu.classList.add("d-none");
   DOM.$legendWindow.classList.remove("d-none");
   Globals.backButtonState = 'legend';
 }
 
 function closeLegend(){
   DOM.$legendWindow.classList.add("d-none");
-  // DOM.$defaultMenu.classList.remove("d-none");
   openCat();
 }
 
 function openInfos(){
-  // DOM.$defaultMenu.classList.add("d-none");
   DOM.$infoWindow.classList.remove("d-none");
   Globals.backButtonState = 'infos';
 }
