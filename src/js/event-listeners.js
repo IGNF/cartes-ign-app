@@ -49,7 +49,8 @@ function addListeners() {
     }
   }, true);
 
-  // TODO Ecouteurs sur les couches : à ajouter sur le gestionnaire de couches
+  // TODO 
+  // Ecouteurs sur les couches : à ajouter sur le gestionnaire de couches
   document.querySelectorAll(".baseLayer").forEach((el) => {
     el.addEventListener('click', () => LayerSwitch.displayBaseLayer(el.id));
   });
@@ -73,11 +74,15 @@ function addListeners() {
     });
   });
 
+  // TODO
+  // Ecouteurs sur le menu du Compte : à ajouter sur la classe MyAccount
   document.getElementById('menuItemParamsIcon').addEventListener('click', () => { Globals.menu.open('parameterScreen')});
   document.getElementById('menuItemPlusLoin').addEventListener('click', () => { Globals.menu.open('plusLoinScreen')});
   document.getElementById('menuItemLegal').addEventListener('click', () => { Globals.menu.open('legalScreen')});
   document.getElementById('menuItemPrivacy').addEventListener('click', () => { Globals.menu.open('privacyScreen')});
 
+  // TODO 
+  // Ecouteurs sur les couches : à ajouter sur le gestionnaire de couches
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
   document.getElementById("layerManagerWindowClose").addEventListener('click', () => { Globals.menu.close("layerManager"); });
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
