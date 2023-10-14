@@ -18,6 +18,9 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'mainMenu') {
         // ...
     }
+    if (Globals.backButtonState === 'myaccount') {
+        Globals.menu.close('myaccount');
+    }
     if (Globals.backButtonState === 'parameterScreen') {
         Globals.menu.close('parameterScreen');
     }
@@ -30,9 +33,11 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'plusLoinScreen') {
         Globals.menu.close('plusLoinScreen');
     }
+    // TODO
     if (Globals.backButtonState === 'infos') {
         MenuDisplay.closeInfos();
     }
+    // TODO
     if (Globals.backButtonState === 'legend') {
         MenuDisplay.closeLegend();
     }
