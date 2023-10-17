@@ -1,0 +1,59 @@
+div#layerManagerWindowClose {
+  top: -10px;
+}
+
+.layer-tabs-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.layer-tabs-input {
+  display: none;
+}
+
+.layer-tabs-label {
+  width: auto;
+  height: 35px;
+	cursor: pointer;
+	display: block;
+	flex-grow: 1;
+	text-align: center;
+}
+
+.layer-tabs-label:hover {}
+.layer-tabs-label:active {}
+
+.layer-tabs-input:focus + .layer-tabs-label {}
+.layer-tabs-input:checked + .layer-tabs-label {
+  border-bottom: 2px inset #26a581;
+}
+
+.layer-tabs-input:checked:nth-of-type(1) ~ .layer-tabs-content:nth-of-type(1) {
+  opacity: 1;
+	position: relative;
+	top: 0;
+	z-index: 100;
+	transform: translateY(0px);
+}
+.layer-tabs-input:checked:nth-of-type(2) ~ .layer-tabs-content:nth-of-type(2) {
+  opacity: 1;
+	position: relative;
+	top: 0;
+	z-index: 100;
+	transform: translateY(0px);
+}
+
+.layer-tabs-content {
+  z-index: -1;
+	opacity: 0;
+	left: 0;
+}
+
+#layer-thematics-tab,
+#layer-switcher-tab {}
+
+#layer-thematics,
+#layer-switcher {}

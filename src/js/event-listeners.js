@@ -1,7 +1,7 @@
 import maplibregl from "maplibre-gl";
 
 import Geocode from './services/geocode';
-import LayerSwitch from './layer-switch';
+import LayerSwitch from './layer-thematics';
 import Location from './services/location';
 import MenuDisplay from './menu-display';
 import Controls from './controls';

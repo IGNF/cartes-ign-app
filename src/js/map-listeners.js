@@ -2,7 +2,7 @@ import DOM from './dom';
 import Globals from './globals';
 import Location from './services/location';
 import UpdateLegend from './update-legend';
-import Layers from './layers';
+import Layers from './layer-config';
 
 const addListeners = () => {
   const map = Globals.map;

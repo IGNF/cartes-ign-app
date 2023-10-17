@@ -1,3 +1,12 @@
+/**
+ * Configuration des couches :
+ * - liste des couches thematiques à selectionner
+ * - properties techniques des couches à utiliser
+ * @description
+ * On part de la configuration complète (local) des couches du Portail.
+ * On filtre ensuite les informations avec les paramètres de ce fichier.
+ * ex. liste de thematiques souhaitée
+ */
 const layerProps = {
   "photos": {
     layer: "ORTHOIMAGERY.ORTHOPHOTOS",

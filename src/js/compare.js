@@ -2,7 +2,7 @@ import maplibregl from "maplibre-gl";
 import MapLibreGlCompare from "@maplibre/maplibre-gl-compare";
 
 import Globals from './globals';
-import LayerSwitch from './layer-switch';
+import LayerSwitch from './layer-thematics';
 
 /**
  * Outil de comparaison de carte

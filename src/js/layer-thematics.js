@@ -1,5 +1,8 @@
+/**
+ * Gestion des thematiques
+ * @todo ...
+ */
 import Globals from './globals';
-
 const map = Globals.map
 const mapRLT = Globals.mapRLT
 
