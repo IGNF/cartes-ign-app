@@ -1,3 +1,7 @@
+/**
+ * Gestion additionnel sur les informations des couches
+ * @todo ...
+ */
 import Globals from './globals';
 import Texts from './texts';
 
