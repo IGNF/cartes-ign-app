@@ -24,7 +24,7 @@ const mapRLT = new maplibregl.Map({
 mapRLT.scrollZoom.setWheelZoomRate(1);
 
 /* global: layer display state */
-let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'plan-ign';
+let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS';
 let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
 
 /* global: back button state */

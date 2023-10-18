@@ -50,7 +50,7 @@ const addListeners = () => {
     } else if (Globals.mapState === "compare") {
       return
     }
-    const layerProps = Layers.layerProps[currentLayer];
+    const layerProps = Layers.getLayerProps(currentLayer);
     let computeZoom = map.getZoom();
     if (computeZoom > layerProps.maxNativeZoom) {
       computeZoom = layerProps.maxNativeZoom;

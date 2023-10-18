@@ -56,7 +56,7 @@ function app() {
   map.addLayer({
     id: "basemap",
     type: "raster",
-    source: "plan-ign",
+    source: "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS",
   });
 
   map.addLayer({
@@ -70,13 +70,13 @@ function app() {
   mapRLT.addLayer({
     id: "basemap",
     type: "raster",
-    source: "plan-ign",
+    source: "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS",
   });
 
   // Chargement de la position précédente
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
     map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
-    map.setZoom(localStorage.getItem("lastMapZoom"));
+    map.setZoom(localStorage.getItem("lastMapZoom") || map.getZoom());
   }
 
   // Chargement de la couche précédente
