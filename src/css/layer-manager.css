@@ -2,6 +2,19 @@ div#layerManagerWindowClose {
   top: -10px;
 }
 
+#layer-switcher-number {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	font-size: 0.9em;
+	margin: auto;
+	border-radius: 50%;
+	background-color: #00b798;
+  	color: #fff;
+}
+
 .layer-tabs-wrap {
   display: flex;
   flex-wrap: wrap;
