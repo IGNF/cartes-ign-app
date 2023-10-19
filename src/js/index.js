@@ -1,7 +1,7 @@
 import MapButtonsListeners from './map-buttons-listeners';
 import MapListeners from './map-listeners';
 import EventListeners from './event-listeners';
-import LayerSwitch from './layer-thematics';
+import LayerManager from './layer-manager';
 import Layers from './layer-config';
 import Globals from './globals';
 import Controls from './controls';
@@ -80,8 +80,9 @@ function app() {
   }
 
   // Chargement de la couche précédente
-  LayerSwitch.displayBaseLayer(Globals.baseLayerDisplayed);
-  LayerSwitch.displayDataLayer(Globals.dataLayerDisplayed, true);
+  Globals.manager = new LayerManager();
+  Globals.manager.addLayer("base", Globals.baseLayerDisplayed);
+  Globals.manager.addLayer("data", Globals.dataLayerDisplayed, true);
 
   Globals.ignoreNextScrollEvent = true;
   window.scroll({

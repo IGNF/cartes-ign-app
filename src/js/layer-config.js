@@ -1,10 +1,22 @@
 /**
- * Configuration des couches
- * @todo ...
+ * API de configuration des couches :
+ * - couches de base (fonds de carte)
+ * - couches de données
+ * - couches thématiques
+ * @description
+ * Les propriétés des couches sont issues de "l'autoconf",
+ * et elles sont transformées en configuration de couches Raster et Vector pour MapLibre.
+ * La liste des couches de fonds et thématiques est definie dans un fichier de configuration.
  */
 import BaseLayers from "./data-layer/base-layer-config.json";
+import ThematicLayers from "./data-layer/thematics-layer-config.json";
 import ConfigLayers from "./data-layer/geoportal-configuration.json";
 
+/**
+ * Obtenir le zoom à partir de l'échelle
+ * @param {*} scaleDenominator 
+ * @returns 
+ */
 const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
   // par defaut, on utilise la projection WebMercator (EPSG:3857 = PM)
   var resolutionsNatives = {
@@ -46,6 +58,12 @@ const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
   return 0;
 };
 
+/**
+ * Obtenir la liste des propriétés d'une couche
+ * @param {*} id 
+ * @returns 
+ * @todo prévoir les couches vecteurs tuilées
+ */
 const getLayerProps = (id) => {
   var props = ConfigLayers.layers[id];
   return {
@@ -57,14 +75,70 @@ const getLayerProps = (id) => {
   }
 };
 
+/**
+ * Liste des couches de fonds
+ * @returns 
+ */
 const getBaseLayers = () => {
   return BaseLayers["base-layer"];
 };
 
+/**
+ * Liste des couches de données
+ * @returns 
+ */
 const getDataLayers = () => {
   return BaseLayers["data-layer"];
 };
 
+/**
+ * Liste des thémes
+ * @returns
+ */
+const getThematics = () => {
+  return ThematicLayers.map((o) => {o.name});
+};
+
+/**
+ * Liste des couches pour un théme
+ * @param {*} name
+ * @returns 
+ * @todo prévoir les couches vecteurs tuilées
+ */
+const getLayersByThematic = (name) => {
+  var layers = {};
+  var thematics = getThematics();
+  for (let i = 0; i < thematics.length; i++) {
+    const element = thematics[i];
+    if (element.name === name) {
+      // on parcours les clefs thématiques pour trouver toutes les couches
+      for (let j = 0; j < element.keys.length; j++) {
+        const key = element.keys[j];
+        var lstLayersByKey = ConfigLayers.generalOptions.apiKeys[key];
+        for (let k = 0; k < lstLayersByKey.length; k++) {
+          const layer = lstLayersByKey[k];
+          if (layer.split("$")[1] === "GEOPORTAIL:OGC:WMTS") {
+            layers[layer] = 1;
+          }
+        }
+      }
+      // on parcours la liste des couches
+      for (let n = 0; n < element.layers.length; n++) {
+        const layer = element.layers[n];
+        if (layer.split("$")[1] === "GEOPORTAIL:OGC:WMTS") {
+          layers[layer] = 1;
+        }
+      }
+    }
+  }
+  return layers.map((id) => [id]);
+};
+
+/**
+ * Creer le template URL pour une couche
+ * @param {*} id 
+ * @returns 
+ */
 const createWmtsUrlFromId = (id) => {
   var props = getLayerProps(id);
   return `https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?` +
@@ -78,6 +152,11 @@ const createWmtsUrlFromId = (id) => {
   `TILECOL={x}`
 };
 
+/**
+ * Creer les propriétés d'une couche de type Raster pour la librairie MapLibre
+ * @param {*} id 
+ * @returns 
+ */
 const createRasterSource = (id) => {
   var props = getLayerProps(id);
   return {
@@ -89,8 +168,19 @@ const createRasterSource = (id) => {
   }
 };
 
+/**
+ * Creer les propriétés d'une couche de type Vector pour la librairie MapLibre
+ * @param {*} id 
+ * @todo
+ */
+const createVectorSource = (id) => {};
+
 export default {
   getLayerProps,
+  getBaseLayers,
+  getDataLayers,
+  getThematics,
+  getLayersByThematic,
   baseLayerSources: Object.fromEntries(
     getBaseLayers().map( (id) => [id, createRasterSource(id)] )
   ),

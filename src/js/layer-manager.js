@@ -1,4 +1,3 @@
-import LayerConfig from './layer-config';
 import LayerSwitcher from './layer-switcher';
 import LayerThematics from './layer-thematics';
 
@@ -6,7 +5,6 @@ import LayerThematics from './layer-thematics';
  * Manager des couches avec l'utilisation des 2 modules suivants :
  * - gestionnaire des couches (classique)
  * - gestion des thèmatiquess
- * @see LayerConfig
  * @see LayerSwitcher
  * @see LayerThematics
  * @todo ...
@@ -31,42 +29,43 @@ class LayerManger {
      * Rendu du menu de management des couches
      */
     #render() {
-        var target = this.options.target || document.getElementById("");
+        var target = this.options.target || document.getElementById("layerManagerWindow");
         if (!target) {
             console.warn();
             return;
         }
 
-        var container = this.getContainer();
-        if (!container) {
-            console.warn();
-            return;
-        }
-
-        // ajout du container
-        target.appendChild(container);
-
         // ajout du module thematique
         this.LayerThematics = new LayerThematics({
-            target : document.getElementById(""),
-            config : LayerConfig.default
+            target : document.getElementById("layer-thematics")
         });
 
         // ajout du module de gestionnaire de couche
         this.layerSwitcher = new LayerSwitcher({
-            target : document.getElementById("")
+            target : document.getElementById("layer-switcher")
         });
     }
     
     /**
      * Afficher le menu
+     * @public
      */
     show() {}
 
     /**
      * Fermer le menu
+     * @public
      */
     hide() {}
+
+    addLayer(type, layerName, force) {
+        if (type === "base") {
+            this.LayerThematics.addBaseLayer(layerName);
+        }
+        if (type === "data") {
+            this.LayerThematics.addDataLayer(layerName, force);
+        }
+    }
 }
 
 export default LayerManger;

@@ -2,7 +2,6 @@ import maplibregl from "maplibre-gl";
 import MapLibreGlCompare from "@maplibre/maplibre-gl-compare";
 
 import Globals from './globals';
-import LayerSwitch from './layer-thematics';
 
 /**
  * Outil de comparaison de carte
@@ -44,7 +43,7 @@ class Compare {
         document.querySelector(".baseLayer:not(.selectedLayer)").click();
 
         this.prevDataLayerDisplayed = Globals.dataLayerDisplayed;
-        LayerSwitch.displayDataLayer(Globals.dataLayerDisplayed);
+        Globals.manager.addLayer("data", Globals.dataLayerDisplayed);
         document.querySelector("#dataLayers").classList.add("d-none");
         document.querySelector("#dataLayersLabel").classList.add("d-none");
         document.querySelector(".selectedLayer").style.pointerEvents = "none";
@@ -71,7 +70,7 @@ class Compare {
         document.querySelector("#mapRLT").classList.add("d-none");
         document.querySelector("#dataLayers").classList.remove("d-none");
         document.querySelector("#dataLayersLabel").classList.remove("d-none");
-        LayerSwitch.displayDataLayer(this.prevDataLayerDisplayed);
+        Globals.manager.addLayer("data", this.prevDataLayerDisplayed);
     }
 
     /**
