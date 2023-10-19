@@ -1,7 +1,6 @@
 import maplibregl from "maplibre-gl";
 
 import Geocode from './services/geocode';
-import LayerSwitch from './layer-thematics';
 import Location from './services/location';
 import MenuDisplay from './menu-display';
 import Controls from './controls';
@@ -13,7 +12,7 @@ import State from "./state";
 
 /**
  * Ecouteurs generiques
- * @xtodo terminer le nettoyage avec les ecouteurs pour les classes layerManager & MyAccount
+ * @todo terminer le nettoyage avec les ecouteurs pour les classes layerManager & MyAccount
  */
 function addListeners() {
 
@@ -51,12 +50,6 @@ function addListeners() {
 
   // TODO 
   // Ecouteurs sur les couches : à ajouter sur le gestionnaire de couches
-  document.querySelectorAll(".baseLayer").forEach((el) => {
-    el.addEventListener('click', () => LayerSwitch.displayBaseLayer(el.id));
-  });
-  document.querySelectorAll(".dataLayer").forEach((el) => {
-    el.addEventListener('click', () => LayerSwitch.displayDataLayer(el.id));
-  });
   document.querySelectorAll(".layer-info").forEach((el) => {
     el.addEventListener('click', (ev) => {
       ev.stopPropagation();

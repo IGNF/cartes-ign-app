@@ -72,6 +72,9 @@ let compare = null;
 // Global Menu navigation
 let menu = null;
 
+// Global Layer Manager
+let manager = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -103,5 +106,6 @@ export default {
   myposition,
   search,
   compare,
-  menu
+  menu,
+  manager
 };

@@ -1,0 +1,62 @@
+.subCatMenu .layer .layerImg img {
+  width: 75px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
+}
+
+.layerImg {
+  width: 75px;
+  position: relative;
+  margin: auto;
+}
+
+#layerManagerWindow .subCatMenu {
+  text-align: center;
+  margin: 0 15px 0 15px;
+  display: grid;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  grid-template-columns: 26% 26% 26%;
+}
+
+.selectedLayer img {
+  border: solid 5px #0b6ba7;
+  box-sizing: border-box;
+}
+
+.comparedLayer img {
+  border: solid 5px #00ae90;
+  box-sizing: border-box;
+}
+
+.subCatMenu .layer {
+  display: inline-block;
+  padding-bottom: 1em;
+  width: 100%;
+  position: relative;
+}
+
+.layer .layer-info,
+.layer .layer-legend {
+  width: 19px;
+  height: 19px;
+  background-color: #fff;
+  position: absolute;
+  left: -10px;
+  border-radius: 13px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.layer .layer-info {
+  top: -10px;
+  background-image: url("assets/info.svg");
+}
+
+.layer .layer-legend {
+  top: 40px;
+  background-image: url("assets/legend.svg");
+}
