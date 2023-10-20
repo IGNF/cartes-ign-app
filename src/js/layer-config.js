@@ -68,6 +68,8 @@ const getLayerProps = (id) => {
   var props = ConfigLayers.layers[id];
   return {
     layer: props.name,
+    title: props.title,
+    desc: props.description,
     style: (props.styles.lenght > 0) ? props.styles[0].name : "normal",
     format: props.formats[0].name,
     minNativeZoom: getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 0,

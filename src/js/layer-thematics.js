@@ -1,4 +1,8 @@
 import Globals from './globals';
+import LayersConfig from './layer-config';
+import LayersAdditional from './layer-additional';
+
+import ImageNotFound from '../html/tabs/img/image-not-found.png';
 
 /**
  * Gestion des thematiques
@@ -22,7 +26,103 @@ class LayerThematics {
    * Rendu
    */
   #render() {
+    var target = this.options.target || document.getElementById("layer-thematics");
+    if (!target) {
+      console.warn();
+      return;
+    }
 
+    const tplLayer = (opts) => {
+      return `
+      <div class="layer ${opts.type}" id="${opts.layerID}">
+        <div class="layerImg">
+          <img src="${opts.layerQuickLook}" alt="${opts.layerName}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
+          <div class="layer-info" layername="${opts.layerName}"></div>
+          <div class="layer-legend" layername="${opts.layerName}"></div>
+        </div>
+        <div id="${opts.layerName}" class="textCouche">${opts.layerTitle}</div>
+      </div>
+      `;
+    }
+
+    var strBaseLayers = "";
+    var baseLayers = LayersConfig.getBaseLayers();
+    for(let i = 0; i < baseLayers.length; i++) {
+      var props = LayersConfig.getLayerProps(baseLayers[i]);
+      strBaseLayers += tplLayer({
+        type : "baseLayer",
+        layerID : baseLayers[i],
+        layerName : props.layer,
+        layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
+        layerTitle : props.title
+      });
+    }
+
+    var strDataLayers = "";
+    var dataLayers = LayersConfig.getDataLayers();
+    for(let j = 0; j < dataLayers.length; j++) {
+      var props = LayersConfig.getLayerProps(dataLayers[j]);
+      strDataLayers += tplLayer({
+        type : "dataLayer",
+        layerID : dataLayers[j],
+        layerName : props.layer,
+        layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
+        layerTitle : props.title
+      });
+    }
+    
+    var template = `
+    <div class="layer-thematics">
+      <h4 id="baseLayersLabel">Fonds de carte</h4>
+      <div class="subCatMenu" id="baseLayers">
+        ${strBaseLayers}
+      </div>
+      <h4 id="dataLayersLabel">Autres données</h4>
+      <div class="subCatMenu" id="dataLayers">
+        ${strDataLayers}
+      </div>
+      <h4 id="thematicLayersLabel">Données thématiques</h4>
+      <div class="subCatMenu" id="thematicLayers">
+        <!-- TODO -->
+      </div>
+    </div>`;
+
+    const stringToHTML = (str) => {
+
+      var support = function () {
+        if (!window.DOMParser) return false;
+        var parser = new DOMParser();
+        try {
+          parser.parseFromString('x', 'text/html');
+        } catch (err) {
+          return false;
+        }
+        return true;
+      };
+
+      // If DOMParser is supported, use it
+      if (support()) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(str, 'text/html');
+        return doc.body.firstChild;
+      }
+
+      // Otherwise, fallback to old-school method
+      var dom = document.createElement('div');
+      dom.innerHTML = str;
+      return dom;
+
+    };
+
+    // transformation du container : String -> DOM
+    var container = stringToHTML(template.trim());
+
+    if (!container) {
+      console.warn();
+      return;
+    }
+
+    target.appendChild(container);
   }
 
   /**
