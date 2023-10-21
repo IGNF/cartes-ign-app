@@ -5,8 +5,8 @@ import LayersAdditional from './layer-additional';
 import ImageNotFound from '../html/img/image-not-found.png';
 
 /**
- * Gestion des thematiques
- * @todo ...
+ * Gestion des couches thématiques et fonds de carte
+ * @todo ajouter les couches thématiques
  */
 class LayerThematics {
 
@@ -15,6 +15,7 @@ class LayerThematics {
       target : null
     };
 
+    // options ?
     this.map = Globals.map
     this.mapRLT = Globals.mapRLT;
 
@@ -131,121 +132,103 @@ class LayerThematics {
   #listeners() {
     // clic sur une couche de fonds
     document.querySelectorAll(".baseLayer").forEach((el) => {
-      el.addEventListener('click', () => this.addBaseLayer(el.id));
+      el.addEventListener('click', (e) => {
+        if (el.classList.contains("selectedLayer")) {
+          this.removeLayer(el.id);
+          Globals.baseLayerDisplayed = ""; // FIXME ajouter une liste !
+        } else {
+          this.addLayer(el.id);
+          Globals.baseLayerDisplayed = el.id;
+        }
+      });
     });
     // clic sur une couche de données
     document.querySelectorAll(".dataLayer").forEach((el) => {
-      el.addEventListener('click', () => this.addDataLayer(el.id));
+      el.addEventListener('click', (e) => {
+        if (el.classList.contains("selectedLayer")) {
+          this.removeLayer(el.id);
+          Globals.dataLayerDisplayed = ""; // FIXME ajouter une liste !
+        } else {
+          this.addLayer(el.id);
+          Globals.dataLayerDisplayed = el.id;
+        }
+      });
     });
   }
 
   /**
-   * Ajout de la couche de fonds sur la carte
+   * Ajout de la couche de fonds ou de données sur la carte
    * @param {*} layerName 
    * @public
    */
-  addBaseLayer(layerName) {
-    /**
-     * Affiche la couche de fond correspondant à l'id de l'objet baseLayers, en comparaison si
-     * le contrôle de comparaison est activé
-     */
+  addLayer(layerName) {
+    if (!layerName) {
+      return;
+    }
     if (Globals.mapState === "compare") {
-      document.querySelectorAll(".baseLayer").forEach(elem => {
-        elem.classList.remove('comparedLayer');
-      });
-      document.getElementById(layerName).classList.add("comparedLayer");
-  
-      this.#setLayerSource(layerName, "basemap", "mapRLT");
+      this.#addCompareLayer(layerName);
     } else {
-      document.querySelectorAll(".baseLayer").forEach(elem => {
-        elem.classList.remove('selectedLayer');
-      });
-      document.getElementById(layerName).classList.add("selectedLayer");
-  
-      this.#setLayerSource(layerName, "basemap");
-      Globals.baseLayerDisplayed = layerName;
+      var element = document.getElementById(layerName);
+      element.classList.add("selectedLayer");
+      this.#setLayerSource(layerName);
     }
   }
 
   /**
-   * Ajout de la couche de données sur la carte
+   * Suppression d'une couche
    * @param {*} layerName 
-   * @param {*} force 
-   * @returns 
-   * @public
    */
-  addDataLayer(layerName, force=false) {
-    /**
-     * Affiche la couche de données correspondant à l'id de l'objet baseLayers
-     */
-    if (layerName == '') {
-      return
+  removeLayer(layerName) {
+    if (!layerName) {
+      return;
     }
-    document.querySelectorAll(".dataLayer").forEach(elem => {
-      elem.classList.remove('selectedLayer');
+    var element = document.getElementById(layerName);
+    element.classList.remove('selectedLayer');
+    this.#setLayerSource(layerName);
+  }
+
+  /**
+   * Ajout d'une couche pour comparaison
+   * @param {*} layerName 
+   */
+  #addCompareLayer(layerName) {
+    // Affiche la couche de fond correspondant à l'id de l'objet baseLayers, 
+    // en comparaison si le contrôle de comparaison est activé
+    document.querySelectorAll(".baseLayer").forEach(elem => {
+      elem.classList.remove('comparedLayer');
     });
-    if (Globals.dataLayerDisplayed !== layerName || force) {
-      document.getElementById(layerName).classList.add("selectedLayer");
-    }
+    document.getElementById(layerName).classList.add("comparedLayer");
   
-    this.#setLayerSource("", "data-layer");
-  
-    if (Globals.dataLayerDisplayed === layerName && !force) {
-      Globals.dataLayerDisplayed = '';
-    } else {
-      this.#setLayerSource(layerName, "data-layer");
-      Globals.dataLayerDisplayed = layerName;
-    }
+    this.#setLayerSource(layerName, "mapRLT");
   }
 
   /**
    * ...
-   * @param {*} source 
-   * @param {*} layerType 
-   * @param {*} glMap 
+   * @param {*} source - nom de la source === nom de la couche
+   * @param {*} glMap - map | mapRLT
    */
-  #setLayerSource (source, layerType="basemap", glMap="map") {
-    let oldLayers;
-    if (glMap === "map") {
-      oldLayers = this.map.getStyle().layers;
-    } else if (glMap === "mapRLT") {
-      oldLayers = this.mapRLT.getStyle().layers;
-    }
-  
-    const layerIndex = oldLayers.findIndex(l => l.id === layerType);
-    const layerDef = oldLayers[layerIndex];
-    const before = oldLayers[layerIndex + 1] && oldLayers[layerIndex + 1].id;
-    if (source !== "") {
-      layerDef.source = source;
-      layerDef.type = "raster";
-      delete layerDef.paint;
-    } else {
-      delete layerDef.source;
-      layerDef.type = "background",
-      layerDef.paint = {
-        "background-opacity": 0,
+  #setLayerSource (source, glMap="map") {
+    var map = (glMap === "map") ? this.map : (glMap === "mapRLT") ? this.mapRLT : null;
+
+    let allLayersStyle = map.getStyle().layers;
+    var layerIndex = allLayersStyle.findIndex((l) => l.id === source);
+    var layerStyle = allLayersStyle[layerIndex] || null;
+
+    if (source) {
+      if (layerIndex === -1) {
+        // le style n'existe pas, on ajoute donc le nouveau style de type raster
+        layerStyle = {
+          id : source,
+          source : source,
+          type : "raster"
+        };
+        map.addLayer(layerStyle);
+      } else {
+        // le style existe, on le supprime
+        map.removeLayer(source);
       }
     }
-    if (glMap === "map") {
-      this.map.removeLayer(layerType);
-      this.map.addLayer(layerDef, before);
-    } else if (glMap === "mapRLT") {
-      this.mapRLT.removeLayer(layerType);
-      this.mapRLT.addLayer(layerDef, before);
-    }
   }
-  
-  /**
-   * Afficher le menu
-   * @public
-   */
-  show() {}
-
-  /**
-   * Fermer le menu
-   * @public
-   */
-  hide() {}
 }
 
 export default LayerThematics;

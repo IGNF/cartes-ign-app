@@ -7,8 +7,6 @@ import Position from "./my-position";
 import Search from "./search";
 import Compare from './compare';
 
-const map = Globals.map;
-
 /**
  * Ajout des contrôle à la fin du chargement de la carte
  * @see maplibregl.ScaleControl
@@ -19,6 +17,7 @@ const map = Globals.map;
  * @see Search
  */
 const addControls = () => {
+  const map = Globals.map;
   // on ajoute les contrôles à la fin du chargement de la carte
   map.on("load", () => {
 
@@ -63,7 +62,10 @@ const addControls = () => {
   });
 }
 
-/** ??? */
+/** 
+ * ??? 
+ * @fixme ???
+ */
 const startDrawRoute = () => {
   Globals.mapState = "drawRoute";
 }

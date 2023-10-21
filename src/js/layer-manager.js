@@ -1,3 +1,4 @@
+import Globals from './globals';
 import LayerSwitcher from './layer-switcher';
 import LayerThematics from './layer-thematics';
 
@@ -58,13 +59,40 @@ class LayerManger {
      */
     hide() {}
 
-    addLayer(type, layerName, force) {
+    /**
+     * Ajout d'une couche
+     * @param {*} layerName 
+     * @param {*} type - base | data | thematic
+     */
+    addLayer(layerName, type="base") {
+        // ajout d'une couche de fonds
         if (type === "base") {
-            this.LayerThematics.addBaseLayer(layerName);
+            this.LayerThematics.addLayer(layerName);
+            Globals.baseLayerDisplayed = layerName;
         }
+        // ajout d'une couche de données
         if (type === "data") {
-            this.LayerThematics.addDataLayer(layerName, force);
+            this.LayerThematics.addLayer(layerName);
+            Globals.dataLayerDisplayed = layerName;
         }
+        // mise à jour du compteur de couches
+        this.#updateLayerCounter();
+    }
+
+    /**
+     * Suppression d'une couche
+     * @todo
+     */
+    removeLayer() {
+
+    }
+
+    /**
+     * Mise à jour du comtpeur de couches
+     * @todo
+     */
+    #updateLayerCounter() {
+        var counter = document.getElementById("layer-switcher-number");
     }
 }
 

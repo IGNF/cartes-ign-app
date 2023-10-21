@@ -11,8 +11,6 @@ import LocationImg from "../../css/assets/localisation.svg";
 import LocationFollowImg from "../../css/assets/location-follow.svg";
 import LocationFixeImg from "../../css/assets/location-fixed.svg";
 
-const map = Globals.map;
-
 /* Géolocalisation */
 // Positionnement du mobile
 let location_active = false;
@@ -59,7 +57,7 @@ const setMarkerRotation = (positionBearing) => {
  * @param {*} panTo
  * @param {*} gps - choix du type d'icone, GPS par defaut
  */
-const moveTo = (coords, zoom=map.getZoom(), panTo=true, gps=true) => {
+const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
   // si l'icone est en mode gps, on ne reconstruit pas le marker
   // mais, on met à jour la position !
   if (Globals.myPositionMarker !== null && gps) {
@@ -72,7 +70,7 @@ const moveTo = (coords, zoom=map.getZoom(), panTo=true, gps=true) => {
     }
     Globals.myPositionMarker = new maplibregl.Marker({element: (gps) ? Globals.myPositionIcon : Globals.searchResultIcon})
       .setLngLat([coords.lon, coords.lat])
-      .addTo(map);
+      .addTo(Globals.map);
     Globals.myPositionMarker.setRotationAlignment("map");
   }
 
@@ -80,8 +78,8 @@ const moveTo = (coords, zoom=map.getZoom(), panTo=true, gps=true) => {
 
   if (panTo) {
     Globals.movedFromCode = true;
-    map.setCenter([coords.lon, coords.lat]);
-    map.setZoom(zoom);
+    Globals.map.setCenter([coords.lon, coords.lat]);
+    Globals.map.setZoom(zoom);
     Globals.movedFromCode = false;
   }
 }
@@ -100,7 +98,7 @@ const trackLocation = () => {
         moveTo({
           lat: position.coords.latitude,
           lon: position.coords.longitude
-        }, Math.max(map.getZoom(), 14));
+        }, Math.max(Globals.map.getZoom(), 14));
       }).catch((err) => {
         console.warn(`${err.message}`);
       });
@@ -114,7 +112,7 @@ const trackLocation = () => {
         moveTo({
           lat: position.coords.latitude,
           lon: position.coords.longitude
-        }, map.getZoom(), tracking_active);
+        }, Globals.map.getZoom(), tracking_active);
       }).then( (watchId) => {
         watch_id = watchId
       }).catch((err) => {
@@ -187,7 +185,7 @@ const locationOnOff = async () => {
 const getOrientation = (event) => {
   Globals.movedFromCode = true;
   if (tracking_active) {
-    map.setBearing(-event.alpha);
+    Globals.map.setBearing(-event.alpha);
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + event.alpha + "deg)";
   }

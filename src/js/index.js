@@ -1,8 +1,10 @@
+import maplibregl from "maplibre-gl";
+
 import MapButtonsListeners from './map-buttons-listeners';
 import MapListeners from './map-listeners';
 import EventListeners from './event-listeners';
 import LayerManager from './layer-manager';
-import Layers from './layer-config';
+import LayersConfig from './layer-config';
 import Globals from './globals';
 import Controls from './controls';
 import RecentSearch from "./search-recent";
@@ -38,40 +40,45 @@ function app() {
   Globals.searchResultIcon.style.backgroundSize = "contain";
   Globals.searchResultIcon.style.backgroundImage = "url(" + MapCenterImg + ")";
 
-  // Récupération de la carte
-  const map = Globals.map;
-  const mapRLT = Globals.mapRLT;
+  // Main map
+  const map = new maplibregl.Map({
+    container: "map",
+    zoom: 5,
+    center: [2.0, 47.33],
+    attributionControl: false,
+    locale: "fr",
+    maxPitch: 0,
+    touchPitch: false,
+  });
+  map.scrollZoom.setWheelZoomRate(1);
 
-  // Ajout des sources à la carte
-  for (let layer in Layers.baseLayerSources) {
-    map.addSource(layer, Layers.baseLayerSources[layer]);
-    mapRLT.addSource(layer, Layers.baseLayerSources[layer]);
+  // DEBUG
+  window.mapGlobal = map;
+
+  // Secondary map for RLT
+  const mapRLT = new maplibregl.Map({
+    container: "mapRLT",
+    zoom: 5,
+    center: [2.0, 47.33],
+    attributionControl: false,
+    locale: "fr",
+    maxPitch: 0,
+    touchPitch: false,
+  });
+  mapRLT.scrollZoom.setWheelZoomRate(1);
+
+  // Enregistrement de la carte
+  Globals.map = map;
+  Globals.mapRLT = mapRLT;
+
+  // Ajout des sources definies dans la configuration à la carte
+  for (let layer in LayersConfig.baseLayerSources) {
+    map.addSource(layer, LayersConfig.baseLayerSources[layer]);
+    mapRLT.addSource(layer, LayersConfig.baseLayerSources[layer]);
   }
-
-  for (let layer in Layers.dataLayerSources) {
-    map.addSource(layer, Layers.dataLayerSources[layer]);
+  for (let layer in LayersConfig.dataLayerSources) {
+    map.addSource(layer, LayersConfig.dataLayerSources[layer]);
   }
-
-  // Ajout des couches à la carte
-  map.addLayer({
-    id: "basemap",
-    type: "raster",
-    source: "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS",
-  });
-
-  map.addLayer({
-    id: "data-layer",
-    type: "background",
-    "paint": {
-      "background-opacity": 0,
-    }
-  });
-
-  mapRLT.addLayer({
-    id: "basemap",
-    type: "raster",
-    source: "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS",
-  });
 
   // Chargement de la position précédente
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
@@ -81,8 +88,8 @@ function app() {
 
   // Chargement de la couche précédente
   Globals.manager = new LayerManager();
-  Globals.manager.addLayer("base", Globals.baseLayerDisplayed);
-  Globals.manager.addLayer("data", Globals.dataLayerDisplayed, true);
+  Globals.manager.addLayer(Globals.baseLayerDisplayed, "base");
+  Globals.manager.addLayer(Globals.dataLayerDisplayed, "data");
 
   Globals.ignoreNextScrollEvent = true;
   window.scroll({
