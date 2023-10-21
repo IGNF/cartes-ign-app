@@ -41,7 +41,8 @@ class MenuNavigation {
         // "Compte"
         document.getElementById("myaccountWindowClose").addEventListener('click', () => { this.close("myaccount"); });
         document.getElementById("myaccount").addEventListener('click',  () => { this.open("myaccount"); });
-        
+        // Gestionnaire des couches
+        document.getElementById("layerManagerWindowClose").addEventListener('click', () => { this.close("layerManager"); });
     }
 
     /**

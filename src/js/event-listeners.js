@@ -3,7 +3,6 @@ import maplibregl from "maplibre-gl";
 import Geocode from './services/geocode';
 import Location from './services/location';
 import MenuDisplay from './menu-display';
-import Controls from './controls';
 import DOM from './dom';
 import Globals from './globals';
 import Texts from './texts';
@@ -77,7 +76,6 @@ function addListeners() {
   // TODO 
   // Ecouteurs sur les couches : à ajouter sur le gestionnaire de couches
   document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
-  document.getElementById("layerManagerWindowClose").addEventListener('click', () => { Globals.menu.close("layerManager"); });
   document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
 
   // Rotation du marqueur de position
@@ -150,7 +148,7 @@ function addListeners() {
   }
   
   // FIXME à deplacer ? 
-  document.getElementById("drawroute").addEventListener("click", Controls.startDrawRoute);
+  // document.getElementById("drawroute").addEventListener("click", Controls.startDrawRoute);
 }
 
 export default {

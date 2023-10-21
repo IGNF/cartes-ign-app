@@ -1,27 +1,6 @@
-import maplibregl from "maplibre-gl";
-
-// Main map
-const map = new maplibregl.Map({
-  container: "map",
-  zoom: 5,
-  center: [2.0, 47.33],
-  attributionControl: false,
-  locale: "fr",
-  maxPitch: 0,
-  touchPitch: false,
-});
-map.scrollZoom.setWheelZoomRate(1);
-// Secondary map for RLT
-const mapRLT = new maplibregl.Map({
-  container: "mapRLT",
-  zoom: 5,
-  center: [2.0, 47.33],
-  attributionControl: false,
-  locale: "fr",
-  maxPitch: 0,
-  touchPitch: false,
-});
-mapRLT.scrollZoom.setWheelZoomRate(1);
+/* global: map */
+let map = null;
+let mapRLT = null;
 
 /* global: layer display state */
 let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS';

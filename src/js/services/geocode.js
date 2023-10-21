@@ -3,8 +3,6 @@ import maplibregl from "maplibre-gl";
 import DOM from '../dom';
 import Globals from '../globals';
 
-const map = Globals.map;
-
 /**
  * Interface pour les evenements
  * @example
@@ -29,7 +27,7 @@ function clean() {
  * @param {*} zoom
  * @param {*} panTo
  */
-function moveTo(coords, zoom=map.getZoom(), panTo=true) {
+function moveTo(coords, zoom=Globals.map.getZoom(), panTo=true) {
   /**
    * Ajoute un marqueur de type adresse à la position définie par le coods, et déplace la carte au zoom demandé
    * si panTo est True
@@ -37,13 +35,13 @@ function moveTo(coords, zoom=map.getZoom(), panTo=true) {
   clean();
   Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon})
     .setLngLat([coords.lon, coords.lat])
-    .addTo(map);
+    .addTo(Globals.map);
 
   Globals.searchResultIcon.addEventListener("click", clean);
 
   if (panTo) {
-    map.setCenter([coords.lon, coords.lat]);
-    map.setZoom(zoom);
+    Globals.map.setCenter([coords.lon, coords.lat]);
+    Globals.map.setZoom(zoom);
   }
 }
 
