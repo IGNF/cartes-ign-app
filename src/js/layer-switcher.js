@@ -11,6 +11,10 @@ class LayerSwitcher {
         target : null
       };
   
+      // TODO
+      // options d'ajout de couches 
+      // avec un test si la couche est déjà disponible sur la carte
+
       this.target = this.options.target || document.getElementById("layer-switcher");
       this.map = Globals.map
   
@@ -29,7 +33,8 @@ class LayerSwitcher {
      * Ecouteurs
      */
     #listeners() {
-    
+      // TODO
+      // trouver un abonnement sur l'ajout / suppression des couches sur la cartes
     }
 
     #addLayerContainer(id, options) {

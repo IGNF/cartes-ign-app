@@ -4,6 +4,9 @@ import Location from './services/location';
 import UpdateLegend from './update-legend';
 import Layers from './layer-config';
 
+/**
+ * Ecouteurs sur la carte
+ */
 const addListeners = () => {
   const map = Globals.map;
 
@@ -28,7 +31,13 @@ const addListeners = () => {
   // Légende en fonction du zoom
   map.on("zoomend", UpdateLegend.updateLegend);
 
-  // GetFeatureInfo on map click
+  /**
+   * Fonction de transformation coordonnées vers pixels d'une tuile
+   * @param {*} lat 
+   * @param {*} lng 
+   * @param {*} zoom 
+   * @returns 
+   */
   const latlngToTilePixel = (lat, lng, zoom) => {
     const fullXTile = (lng + 180) / 360 * Math.pow(2, zoom);
     const fullYTile = (1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom);
@@ -43,6 +52,9 @@ const addListeners = () => {
     return [tile, tilePixel]
   }
 
+  // GetFeatureInfo
+  // FIXME le mecanisme de GFI est à revoir afin de pouvoir requêter toutes les couches
+  // ou la plus au dessus de la pile.
   map.on("click", (ev) => {
     let currentLayer = Globals.baseLayerDisplayed;
     if (Globals.dataLayerDisplayed !== '') {

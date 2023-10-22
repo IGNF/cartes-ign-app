@@ -19,6 +19,14 @@ class LayerThematics {
     this.map = Globals.map
     this.mapRLT = Globals.mapRLT;
 
+    /**
+     * Interface pour les evenements
+     * @example
+     * event.dispatchEvent(new CustomEvent("myEvent", { detail : {} }));
+     * event.addEventListener("myEvent", handler);
+     */
+    this.event = new EventTarget();
+
     this.#render();
     this.#listeners();
   }
@@ -171,6 +179,15 @@ class LayerThematics {
       var element = document.getElementById(layerName);
       element.classList.add("selectedLayer");
       this.#setLayerSource(layerName);
+
+      this.event.dispatchEvent(
+        new CustomEvent("addlayer", {
+          bubbles: true,
+          detail: {
+            id : layerName
+          }
+        })
+      );
     }
   }
 
@@ -185,6 +202,15 @@ class LayerThematics {
     var element = document.getElementById(layerName);
     element.classList.remove('selectedLayer');
     this.#setLayerSource(layerName);
+
+    this.event.dispatchEvent(
+      new CustomEvent("removelayer", {
+        bubbles: true,
+        detail: {
+          id : layerName
+        }
+      })
+    );
   }
 
   /**

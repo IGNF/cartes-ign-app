@@ -1,11 +1,12 @@
 import maplibregl from "maplibre-gl";
 
+import Globals from './globals';
+
 import MapButtonsListeners from './map-buttons-listeners';
 import MapListeners from './map-listeners';
 import EventListeners from './event-listeners';
 import LayerManager from './layer-manager';
 import LayersConfig from './layer-config';
-import Globals from './globals';
 import Controls from './controls';
 import RecentSearch from "./search-recent";
 import MenuNavigation from './nav';
@@ -52,9 +53,6 @@ function app() {
   });
   map.scrollZoom.setWheelZoomRate(1);
 
-  // DEBUG
-  window.mapGlobal = map;
-
   // Secondary map for RLT
   const mapRLT = new maplibregl.Map({
     container: "mapRLT",
@@ -66,12 +64,16 @@ function app() {
     touchPitch: false,
   });
   mapRLT.scrollZoom.setWheelZoomRate(1);
-
+  
   // Enregistrement de la carte
   Globals.map = map;
   Globals.mapRLT = mapRLT;
+  
+  // DEBUG
+  window.mapGlobal = map;
 
   // Ajout des sources definies dans la configuration à la carte
+  // (les couches de fonds et de données sont uniquement pre chargées)
   for (let layer in LayersConfig.baseLayerSources) {
     map.addSource(layer, LayersConfig.baseLayerSources[layer]);
     mapRLT.addSource(layer, LayersConfig.baseLayerSources[layer]);
@@ -88,8 +90,14 @@ function app() {
 
   // Chargement de la couche précédente
   Globals.manager = new LayerManager();
-  Globals.manager.addLayer(Globals.baseLayerDisplayed, "base");
-  Globals.manager.addLayer(Globals.dataLayerDisplayed, "data");
+  Globals.manager.addLayers({
+    layers : Globals.baseLayerDisplayed, 
+    type : "base"
+  });
+  Globals.manager.addLayers({
+    layers : Globals.dataLayerDisplayed, 
+    type : "data"
+  });
 
   Globals.ignoreNextScrollEvent = true;
   window.scroll({
