@@ -24,6 +24,19 @@ class LayerManger {
         this.LayerThematics = null;
         this.layerSwitcher = null;
         this.#render();
+        this.#listeners();
+    }
+
+    /**
+     * Ecouteurs
+     */
+    #listeners() {
+        this.LayerThematics.event.addEventListener("addlayer", (e) => {
+            this.#updateLayersCounter(e);
+        });
+        this.LayerThematics.event.addEventListener("removelayer", (e) => {
+            this.#updateLayersCounter(e);
+        });
     }
 
     /**
@@ -60,30 +73,35 @@ class LayerManger {
     hide() {}
 
     /**
-     * Ajout d'une couche
-     * @param {*} layerName 
-     * @param {*} type - base | data | thematic
+     * Ajout de plusieurs couches
+     * @param {Object} o
+     * @param {Array} o.layers - liste de couches
+     * @param {String} o.type - base | data | thematic
+     * @todo prendre en compte une liste de couches à ajouter
      */
-    addLayer(layerName, type="base") {
-        // ajout d'une couche de fonds
-        if (type === "base") {
-            this.LayerThematics.addLayer(layerName);
-            Globals.baseLayerDisplayed = layerName;
+    addLayers(o) {
+        var layers = o.layers.split(",");
+        for (let index = 0; index < layers.length; index++) {
+            const layerName = layers[index];
+            
+            // ajout d'une couche de fonds
+            if (o.type === "base") {
+                this.LayerThematics.addLayer(layerName);
+                Globals.baseLayerDisplayed = layerName; // TODO liste de couches !
+            }
+            // ajout d'une couche de données
+            if (o.type === "data") {
+                this.LayerThematics.addLayer(layerName);
+                Globals.dataLayerDisplayed = layerName; // TODO liste de couches !
+            }
         }
-        // ajout d'une couche de données
-        if (type === "data") {
-            this.LayerThematics.addLayer(layerName);
-            Globals.dataLayerDisplayed = layerName;
-        }
-        // mise à jour du compteur de couches
-        this.#updateLayerCounter();
     }
 
     /**
-     * Suppression d'une couche
+     * Suppression de plusieurs couches
      * @todo
      */
-    removeLayer() {
+    removeLayers() {
 
     }
 
@@ -91,7 +109,9 @@ class LayerManger {
      * Mise à jour du comtpeur de couches
      * @todo
      */
-    #updateLayerCounter() {
+    #updateLayersCounter(e) {
+        console.log(e);
+        // cf. l'abonnement à l'ajout / suppression de couche
         var counter = document.getElementById("layer-switcher-number");
     }
 }

@@ -1,4 +1,5 @@
-// ce fichier doit disparaitre quand les classes LayerManager et MyAccount seront en place
+// INFO
+// ce fichier doit disparaitre quand la classe LayerSwitcher sera en place
 
 import DOM from './dom';
 import Globals from './globals';
