@@ -3,16 +3,16 @@ div#layerManagerWindowClose {
 }
 
 #layer-switcher-number {
-	display: inline-block;
-	width: 18px;
-	height: 18px;
-	line-height: 18px;
-	text-align: center;
-	font-size: 0.9em;
-	margin: auto;
-	border-radius: 50%;
-	background-color: #00b798;
-  	color: #fff;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  font-size: 0.9em;
+  margin: auto;
+  border-radius: 50%;
+  background-color: #00b798;
+  color: #fff;
 }
 
 .layer-tabs-wrap {
@@ -20,7 +20,7 @@ div#layerManagerWindowClose {
   flex-wrap: wrap;
   position: relative;
   justify-content: space-evenly;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .layer-tabs-input {
@@ -30,43 +30,51 @@ div#layerManagerWindowClose {
 .layer-tabs-label {
   width: auto;
   height: 35px;
-	cursor: pointer;
-	display: block;
-	flex-grow: 1;
-	text-align: center;
+  cursor: pointer;
+  display: block;
+  flex-grow: 1;
+  text-align: center;
 }
 
-.layer-tabs-label:hover {}
-.layer-tabs-label:active {}
+.layer-tabs-label:hover {
+}
+.layer-tabs-label:active {
+}
 
-.layer-tabs-input:focus + .layer-tabs-label {}
+.layer-tabs-input:focus + .layer-tabs-label {
+}
 .layer-tabs-input:checked + .layer-tabs-label {
   border-bottom: 2px inset #26a581;
 }
 
 .layer-tabs-input:checked:nth-of-type(1) ~ .layer-tabs-content:nth-of-type(1) {
-  opacity: 1;
-	position: relative;
-	top: 0;
-	z-index: 100;
-	transform: translateY(0px);
+  /* opacity: 1; */
+  display: block;
+  position: relative;
+  top: 0;
+  z-index: 100;
+  transform: translateY(0px);
 }
 .layer-tabs-input:checked:nth-of-type(2) ~ .layer-tabs-content:nth-of-type(2) {
-  opacity: 1;
-	position: relative;
-	top: 0;
-	z-index: 100;
-	transform: translateY(0px);
+  /* opacity: 1; */
+  display: block;
+  position: relative;
+  top: 0;
+  z-index: 100;
+  transform: translateY(0px);
 }
 
 .layer-tabs-content {
   z-index: -1;
-	opacity: 0;
-	left: 0;
+  /* opacity: 0; */
+  display: none;
+  left: 0;
 }
 
 #layer-thematics-tab,
-#layer-switcher-tab {}
+#layer-switcher-tab {
+}
 
 #layer-thematics,
-#layer-switcher {}
+#layer-switcher {
+}
