@@ -1,13 +1,13 @@
 import Globals from './globals';
 import LayerSwitcher from './layer-switcher';
-import LayerThematics from './layer-thematics';
+import LayerCatalogue from './layer-catalogue';
 
 /**
  * Manager des couches avec l'utilisation des 2 modules suivants :
  * - gestionnaire des couches (classique)
- * - gestion des thèmatiquess
+ * - gestion des thèmatiques et fonds de carte
  * @see LayerSwitcher
- * @see LayerThematics
+ * @see LayerCatalogue
  * @todo ...
  */
 class LayerManger {
@@ -21,7 +21,7 @@ class LayerManger {
             target : null
         };
 
-        this.LayerThematics = null;
+        this.layerCatalogue = null;
         this.layerSwitcher = null;
         this.#render();
         this.#listeners();
@@ -31,11 +31,14 @@ class LayerManger {
      * Ecouteurs
      */
     #listeners() {
-        this.LayerThematics.event.addEventListener("addlayer", (e) => {
-            this.#updateLayersCounter(e);
+        this.layerCatalogue.event.addEventListener("addlayer", (e) => {
+            // TODO faire passer des informations additionnelles
+            this.layerSwitcher.addLayer(e.detail.id, {});
+            this.#updateLayersCounter(e.type);
         });
-        this.LayerThematics.event.addEventListener("removelayer", (e) => {
-            this.#updateLayersCounter(e);
+        this.layerCatalogue.event.addEventListener("removelayer", (e) => {
+            this.layerSwitcher.removeLayer(e.detail.id);
+            this.#updateLayersCounter(e.type);
         });
     }
 
@@ -50,7 +53,7 @@ class LayerManger {
         }
 
         // ajout du module thematique
-        this.LayerThematics = new LayerThematics({
+        this.layerCatalogue = new LayerCatalogue({
             target : document.getElementById("layer-thematics")
         });
 
@@ -86,12 +89,12 @@ class LayerManger {
             
             // ajout d'une couche de fonds
             if (o.type === "base") {
-                this.LayerThematics.addLayer(layerName);
+                this.layerCatalogue.addLayer(layerName);
                 Globals.baseLayerDisplayed = layerName; // TODO liste de couches !
             }
             // ajout d'une couche de données
             if (o.type === "data") {
-                this.LayerThematics.addLayer(layerName);
+                this.layerCatalogue.addLayer(layerName);
                 Globals.dataLayerDisplayed = layerName; // TODO liste de couches !
             }
         }
@@ -107,12 +110,19 @@ class LayerManger {
 
     /**
      * Mise à jour du comtpeur de couches
-     * @todo
+     * @param {*} type
      */
-    #updateLayersCounter(e) {
-        console.log(e);
+    #updateLayersCounter(type) {
         // cf. l'abonnement à l'ajout / suppression de couche
         var counter = document.getElementById("layer-switcher-number");
+        var value = parseInt(counter.textContent, 10);
+        if (type === "addlayer") {
+            value++;
+        }
+        if (type === "removelayer") {
+            value--;
+        }
+        counter.textContent = value;
     }
 }
 

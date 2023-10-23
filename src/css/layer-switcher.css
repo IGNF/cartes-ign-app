@@ -1,0 +1,99 @@
+.layer-switcher {
+  padding: 15px;
+}
+
+div[id^="container_ID_"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+div[id^="cross-picto_ID_"] {
+  width: 25px;
+  height: 25px;
+  background-image: url("./assets/drag-and-drop.svg");
+  background-repeat: no-repeat;
+}
+
+div[id^="basic-tools_ID_"] {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+}
+
+div[id^="thumbnail_ID_"] {
+}
+
+.tools-layer-thumbnail {
+  width: 50px;
+  height: 50px;
+}
+
+.wrap-tools-layers {
+}
+
+span[id^="title_ID_"] {
+  word-break: break-word;
+}
+
+div[id^="opacity-range-div_ID_"] {
+}
+input[id^="opacity-value-range_ID_"] {
+}
+div[id^="opacity-middle-div_ID_"] {
+}
+span[id^="opacity-value-middle_ID_"] {
+}
+.tools-layer-opacity {
+}
+
+input[id^="show-advanced-tools_ID_"] {
+  display: none;
+}
+label[id^="show-advanced-tools-picto_ID_"] {
+  width: 25px;
+  height: 25px;
+  background-image: url("./assets/options-layer.svg");
+  background-repeat: no-repeat;
+}
+div[id^="advanced-tools_ID_"] {
+  margin: auto;
+  display: none;
+}
+.tools-layer-advanced {
+}
+input[id^="show-advanced-tools_ID_"]:checked
+  + label[id^="show-advanced-tools-picto_ID_"]
+  + div[id^="advanced-tools_ID_"] {
+  display: flex;
+}
+
+input[id^="visibility_ID_"],
+input[id^="color_ID_"] {
+  display: none;
+}
+label[id^="color-picto_ID_"] {
+  background-image: url("./assets/nb-layer.svg");
+}
+
+label[id^="visibility-picto_ID_"] {
+  background-image: url("./assets/voir-layer.svg");
+}
+
+div[id^="info_ID_"] {
+  background-image: url("./assets/info-layer.svg");
+}
+
+div[id^="remove_ID_"] {
+  background-image: url("./assets/supprimer-layer.svg");
+}
+
+.tools-layer-color,
+.tools-layer-visibility,
+.tools-layer-info,
+.tools-layer-remove {
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+}

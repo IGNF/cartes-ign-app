@@ -70,7 +70,10 @@ class Compare {
         document.querySelector("#mapRLT").classList.add("d-none");
         document.querySelector("#dataLayers").classList.remove("d-none");
         document.querySelector("#dataLayersLabel").classList.remove("d-none");
-        Globals.manager.addLayer("data", this.prevDataLayerDisplayed);
+        Globals.manager.addLayers({
+            type : "data", 
+            layers : this.prevDataLayerDisplayed
+        });
     }
 
     /**

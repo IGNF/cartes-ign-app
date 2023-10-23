@@ -8,7 +8,7 @@ import ImageNotFound from '../html/img/image-not-found.png';
  * Gestion des couches thématiques et fonds de carte
  * @todo ajouter les couches thématiques
  */
-class LayerThematics {
+class LayerCatalogue {
 
   constructor(options) {
     this.options = options || {
@@ -257,4 +257,4 @@ class LayerThematics {
   }
 }
 
-export default LayerThematics;
+export default LayerCatalogue;
