@@ -94,6 +94,15 @@ const getDataLayers = () => {
 };
 
 /**
+ * Liste des couches de thématique
+ * @returns 
+ * @todo
+ */
+const getThematicLayers = () => {
+  return [];
+};
+
+/**
  * Liste des thémes
  * @returns
  */
@@ -181,6 +190,7 @@ export default {
   getLayerProps,
   getBaseLayers,
   getDataLayers,
+  getThematicLayers,
   getThematics,
   getLayersByThematic,
   baseLayerSources: Object.fromEntries(

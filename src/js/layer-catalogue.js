@@ -6,10 +6,17 @@ import ImageNotFound from '../html/img/image-not-found.png';
 
 /**
  * Gestion des couches thématiques et fonds de carte
+ * @fires addlayer
+ * @fires removelayer 
  * @todo ajouter les couches thématiques
  */
 class LayerCatalogue {
 
+  /**
+   * constructeur
+   * @param {*} options 
+   * @param {*} options.target  
+   */
   constructor(options) {
     this.options = options || {
       target : null
@@ -141,7 +148,7 @@ class LayerCatalogue {
     // clic sur une couche de fonds
     document.querySelectorAll(".baseLayer").forEach((el) => {
       el.addEventListener('click', (e) => {
-        if (el.classList.contains("selectedLayer")) {
+        if (el.classList.contains("selectedLayer") || el.classList.contains("comparedLayer")) {
           this.removeLayer(el.id);
           Globals.baseLayerDisplayed = ""; // FIXME ajouter une liste !
         } else {
@@ -153,7 +160,7 @@ class LayerCatalogue {
     // clic sur une couche de données
     document.querySelectorAll(".dataLayer").forEach((el) => {
       el.addEventListener('click', (e) => {
-        if (el.classList.contains("selectedLayer")) {
+        if (el.classList.contains("selectedLayer") || el.classList.contains("comparedLayer")) {
           this.removeLayer(el.id);
           Globals.dataLayerDisplayed = ""; // FIXME ajouter une liste !
         } else {
@@ -167,6 +174,7 @@ class LayerCatalogue {
   /**
    * Ajout de la couche de fonds ou de données sur la carte
    * @param {*} layerName 
+   * @fires addlayer
    * @public
    */
   addLayer(layerName) {
@@ -180,6 +188,12 @@ class LayerCatalogue {
       element.classList.add("selectedLayer");
       this.#setLayerSource(layerName);
 
+      /**
+       * Evenement "addlayer"
+       * @event addlayer
+       * @type {*}
+       * @property {*} id - 
+       */
       this.event.dispatchEvent(
         new CustomEvent("addlayer", {
           bubbles: true,
@@ -194,23 +208,35 @@ class LayerCatalogue {
   /**
    * Suppression d'une couche
    * @param {*} layerName 
+   * @fires removelayer
+   * @public
    */
   removeLayer(layerName) {
     if (!layerName) {
       return;
     }
-    var element = document.getElementById(layerName);
-    element.classList.remove('selectedLayer');
-    this.#setLayerSource(layerName);
+    if (Globals.mapState === "compare") {
+      this.#removeCompareLayer(layerName);
+    } else {
+      var element = document.getElementById(layerName);
+      element.classList.remove('selectedLayer');
+      this.#setLayerSource(layerName);
 
-    this.event.dispatchEvent(
-      new CustomEvent("removelayer", {
-        bubbles: true,
-        detail: {
-          id : layerName
-        }
-      })
-    );
+      /**
+       * Evenement "removelayer"
+       * @event removelayer
+       * @type {*}
+       * @property {*} id - 
+       */
+      this.event.dispatchEvent(
+        new CustomEvent("removelayer", {
+          bubbles: true,
+          detail: {
+            id : layerName
+          }
+        })
+      );
+    }
   }
 
   /**
@@ -218,13 +244,26 @@ class LayerCatalogue {
    * @param {*} layerName 
    */
   #addCompareLayer(layerName) {
-    // Affiche la couche de fond correspondant à l'id de l'objet baseLayers, 
-    // en comparaison si le contrôle de comparaison est activé
+    // on supprime la couche précédemment ajoutée car sur l'outil de comparaison
+    // on est l'affichage d'une seule couche à la fois !
+    document.querySelectorAll(".baseLayer").forEach(elem => {
+      if (elem.classList.contains('comparedLayer')) {
+        elem.classList.remove('comparedLayer');
+        this.#removeCompareLayer(elem.id);
+      }
+    });
+    document.getElementById(layerName).classList.add("comparedLayer");
+    this.#setLayerSource(layerName, "mapRLT");
+  }
+
+  /**
+   * Supprime la couche de comparaison
+   * @param {*} layerName 
+   */
+  #removeCompareLayer(layerName) {
     document.querySelectorAll(".baseLayer").forEach(elem => {
       elem.classList.remove('comparedLayer');
     });
-    document.getElementById(layerName).classList.add("comparedLayer");
-  
     this.#setLayerSource(layerName, "mapRLT");
   }
 

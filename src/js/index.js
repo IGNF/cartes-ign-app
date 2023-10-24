@@ -88,15 +88,18 @@ function app() {
     map.setZoom(localStorage.getItem("lastMapZoom") || map.getZoom());
   }
 
-  // Chargement de la couche précédente
-  Globals.manager = new LayerManager();
-  Globals.manager.addLayers({
-    layers : Globals.baseLayerDisplayed, 
-    type : "base"
-  });
-  Globals.manager.addLayers({
-    layers : Globals.dataLayerDisplayed, 
-    type : "data"
+  // Chargement des couches
+  Globals.manager = new LayerManager({
+    layers : [
+      {
+        layers : Globals.baseLayerDisplayed, 
+        type : "base"
+      },
+      {
+        layers : Globals.dataLayerDisplayed, 
+        type : "data"
+      }
+    ]
   });
 
   Globals.ignoreNextScrollEvent = true;

@@ -43,7 +43,7 @@ class Compare {
         document.querySelector(".baseLayer:not(.selectedLayer)").click();
 
         this.prevDataLayerDisplayed = Globals.dataLayerDisplayed;
-        Globals.manager.addLayer("data", Globals.dataLayerDisplayed);
+        
         document.querySelector("#dataLayers").classList.add("d-none");
         document.querySelector("#dataLayersLabel").classList.add("d-none");
         document.querySelector(".selectedLayer").style.pointerEvents = "none";
@@ -70,10 +70,6 @@ class Compare {
         document.querySelector("#mapRLT").classList.add("d-none");
         document.querySelector("#dataLayers").classList.remove("d-none");
         document.querySelector("#dataLayersLabel").classList.remove("d-none");
-        Globals.manager.addLayers({
-            type : "data", 
-            layers : this.prevDataLayerDisplayed
-        });
     }
 
     /**
