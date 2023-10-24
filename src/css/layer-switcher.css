@@ -1,4 +1,5 @@
 .layer-switcher {
+  position: relative;
   padding: 15px;
 }
 
@@ -7,6 +8,7 @@ div[id^="container_ID_"] {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 
 .tools-layer-panel {
