@@ -136,14 +136,14 @@ class LayerSwitcher {
         this.#setOpacity(id, e.target.value);
         // mise à jour du DOM
         var container = document.getElementById("opacity-value-middle_ID_" + index);
-        container.innerHTML = value + "%";
+        container.innerHTML = e.target.value + "%";
       });
       shadow.getElementById(`opacity-value-range_ID_${index}`).addEventListener("input", (e) => {
         var id = this.#getId(index);
         this.#setOpacity(id, e.target.value);
         // mise à jour du DOM
         var container = document.getElementById("opacity-value-middle_ID_" + index);
-        container.innerHTML = value + "%";
+        container.innerHTML = e.target.value + "%";
       });
 
       // ouverture des options avancées
