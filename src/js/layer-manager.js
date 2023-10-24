@@ -1,9 +1,10 @@
 import Globals from './globals';
 import LayerSwitcher from './layer-switcher';
 import LayerCatalogue from './layer-catalogue';
+import layerConfig from './layer-config';
 
 /**
- * Manager des couches avec l'utilisation des 2 modules suivants :
+ * Manager des couches avec l'initialisation des 2 modules suivants :
  * - gestionnaire des couches (classique)
  * - gestion des thèmatiques et fonds de carte
  * @see LayerSwitcher
@@ -15,9 +16,24 @@ class LayerManger {
      * constructeur
      * @param {*} options - 
      * @param {*} options.target - ...
+     * @param {*} options.layers - ...
+     * @example
+     * new LayerManger({
+     *   layers : [
+     *     layers : "couche1, couche2, ...", 
+     *     type : "base" // data ou thematic
+     *   ]
+     * });
      */
     constructor(options) {
         this.options = options || {
+            /**
+             * [{
+             *   layers : Globals.baseLayerDisplayed, 
+             *   type : "base"
+             * }]
+             */
+            layers : [],
             target : null
         };
 
@@ -25,6 +41,7 @@ class LayerManger {
         this.layerSwitcher = null;
         this.#render();
         this.#listeners();
+        this.#loadLayers();
     }
 
     /**
@@ -32,12 +49,22 @@ class LayerManger {
      */
     #listeners() {
         this.layerCatalogue.event.addEventListener("addlayer", (e) => {
-            // TODO faire passer des informations additionnelles
-            this.layerSwitcher.addLayer(e.detail.id, {});
-            this.#updateLayersCounter(e.type);
+            // cf. this.layerSwitcher.event.addEventListener("addlayer")
+            this.layerSwitcher.addLayer(e.detail.id);
         });
         this.layerCatalogue.event.addEventListener("removelayer", (e) => {
+            // cf. this.layerSwitcher.event.addEventListener("removelayer")
             this.layerSwitcher.removeLayer(e.detail.id);
+        });
+
+        this.layerSwitcher.event.addEventListener("addlayer", (e) => {
+            var element = document.getElementById(e.detail.id);
+            element.classList.add('selectedLayer');
+            this.#updateLayersCounter(e.type);
+        });
+        this.layerSwitcher.event.addEventListener("removelayer", (e) => {
+            var element = document.getElementById(e.detail.id);
+            element.classList.remove('selectedLayer');
             this.#updateLayersCounter(e.type);
         });
     }
@@ -61,6 +88,8 @@ class LayerManger {
         this.layerSwitcher = new LayerSwitcher({
             target : document.getElementById("layer-switcher")
         });
+
+        this.#getLayersAvailableCounter();
     }
     
     /**
@@ -76,40 +105,35 @@ class LayerManger {
     hide() {}
 
     /**
-     * Ajout de plusieurs couches
-     * @param {Object} o
-     * @param {Array} o.layers - liste de couches
-     * @param {String} o.type - base | data | thematic
-     * @todo prendre en compte une liste de couches à ajouter
+     * Chargement de plusieurs couches
+     * @todo prendre en compte une liste de couches
+     * @todo transmettre des options de la couches (ex. opacité)
      */
-    addLayers(o) {
-        var layers = o.layers.split(",");
-        for (let index = 0; index < layers.length; index++) {
-            const layerName = layers[index];
-            
-            // ajout d'une couche de fonds
-            if (o.type === "base") {
-                this.layerCatalogue.addLayer(layerName);
-                Globals.baseLayerDisplayed = layerName; // TODO liste de couches !
-            }
-            // ajout d'une couche de données
-            if (o.type === "data") {
-                this.layerCatalogue.addLayer(layerName);
-                Globals.dataLayerDisplayed = layerName; // TODO liste de couches !
+    #loadLayers() {
+        if (this.options.layers) {
+            for (let i = 0; i < this.options.layers.length; i++) {
+                const o = this.options.layers[i];
+                var layers = o.layers.split(","); // TODO récuperer une liste de couches !
+                for (let j = 0; j < layers.length; j++) {
+                    const layerName = layers[j];
+                    
+                    // ajout d'une couche de fonds
+                    if (o.type === "base") {
+                        this.layerCatalogue.addLayer(layerName); // TODO transmettre des options de la couches (ex. opacité)
+                        Globals.baseLayerDisplayed = layerName; // TODO transmettre une liste de couches !
+                    }
+                    // ajout d'une couche de données
+                    if (o.type === "data") {
+                        this.layerCatalogue.addLayer(layerName); // TODO transmettre des options de la couches (ex. opacité)
+                        Globals.dataLayerDisplayed = layerName; // TODO liste de couches !
+                    }
+                }
             }
         }
     }
 
     /**
-     * Suppression de plusieurs couches
-     * @todo
-     */
-    removeLayers() {
-
-    }
-
-    /**
-     * Mise à jour du comtpeur de couches
+     * Mise à jour du comtpeur de couches sur le gestionnaire de couches
      * @param {*} type
      */
     #updateLayersCounter(type) {
@@ -122,6 +146,17 @@ class LayerManger {
         if (type === "removelayer") {
             value--;
         }
+        counter.textContent = value;
+    }
+
+    /**
+     * Obtient le nombre de couches du catalogue disponibles
+     */
+    #getLayersAvailableCounter() {
+        var counter = document.getElementById("layer-thematics-number");
+        var value = layerConfig.getBaseLayers().length + 
+                    layerConfig.getDataLayers().length + 
+                    layerConfig.getThematicLayers().length;
         counter.textContent = value;
     }
 }

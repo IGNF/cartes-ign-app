@@ -2,6 +2,7 @@ div#layerManagerWindowClose {
   top: -10px;
 }
 
+#layer-thematics-number,
 #layer-switcher-number {
   display: inline-block;
   width: 18px;
