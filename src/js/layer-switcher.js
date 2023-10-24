@@ -1,6 +1,6 @@
 import Globals from './globals';
 import LayersConfig from './layer-config';
-import layerAdditional from './layer-additional';
+import LayersAdditional from './layer-additional';
 
 import ImageNotFound from '../html/img/image-not-found.png';
 
@@ -107,6 +107,18 @@ class LayerSwitcher {
     }
 
     /**
+     * N&B
+     * @param {*} id 
+     * @param {*} value
+     * @fixme non fonctionnel ! 
+     */
+    #setColor(id, value) {
+      this.layers[id].color = value;
+      // mise à jour de la couche (style)
+      this.map.setPaintProperty(id, "raster-contrast", (value) ? 1 : 0);
+    }
+
+    /**
      * Ajout des ecouteurs pour une couche
      * @description les ecouteurs disparaissent en supprimant le DOM
      */
@@ -124,10 +136,17 @@ class LayerSwitcher {
         this.map.removeLayer(id);
       });
       shadow.getElementById(`info_ID_${index}`).addEventListener("click", (e) => {
-        console.log("TODO", e);
+        var id = this.#getId(index);
+        var text = document.getElementById("informationsText");
+        var p = LayersConfig.getLayerProps(id);
+        text.innerHTML = p.desc;
+        var img = document.getElementById("informationsImg");
+        img.src = LayersAdditional.getLegend(id.split("$")[0]);
+        Globals.menu.open("informations");
       });
       shadow.getElementById(`color_ID_${index}`).addEventListener("click", (e) => {
-        console.log("TODO", e);
+        var id = this.#getId(index);
+        this.#setColor(id, e.target.checked);
       });
 
       // opacité des couches
@@ -161,9 +180,9 @@ class LayerSwitcher {
      */
     #addLayerContainer(id) {
       var quickLookUrl = this.layers[id].quickLookUrl || ImageNotFound;
-      var opacity = this.layers[id].opacity || 100;
-      var color = this.layers[id].color || true;
-      var visibility = this.layers[id].visibility || true;
+      var opacity = this.layers[id].opacity;
+      var color = this.layers[id].color;
+      var visibility = this.layers[id].visibility;
       var title =  this.layers[id].title || id.split("$")[0];
       
       var index = this.#getIndex(id);
@@ -191,9 +210,9 @@ class LayerSwitcher {
         <label id="show-advanced-tools-picto_ID_${index}" for="show-advanced-tools_ID_${index}" title="Plus d'outils" class="tools-layer-advanced"></label>
         <div id="advanced-tools_ID_${index}">
           <!-- N&B, visibility, info, remove -->
-          <input type="checkbox" id="color_ID_${index}" checked=${color}/>
+          <input type="checkbox" id="color_ID_${index}" checked="${color}" />
           <label id="color-picto_ID_${index}" for="color_ID_${index}" title="Couleur/NB" class="tools-layer-color"></label>
-          <input type="checkbox" id="visibility_ID_${index}" checked=${visibility}/>
+          <input type="checkbox" id="visibility_ID_${index}" checked="${visibility}" />
           <label id="visibility-picto_ID_${index}" for="visibility_ID_${index}" title="Afficher/masquer la couche" class="tools-layer-visibility"></label>
           <div id="info_ID_${index}" class="tools-layer-info" title="Informations de la couche"></div>
           <div id="remove_ID_${index}" class="tools-layer-remove" title="Supprimer la couche"></div>
@@ -273,7 +292,7 @@ class LayerSwitcher {
       var props = LayersConfig.getLayerProps(id);
       var options = {
           title : props.title,
-          quickLookUrl : layerAdditional.getQuickLookUrl(id.split("$")[0]),
+          quickLookUrl : LayersAdditional.getQuickLookUrl(id.split("$")[0]),
           opacity : 100,
           color : true,
           visibility : true,

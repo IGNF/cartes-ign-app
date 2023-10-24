@@ -43,6 +43,9 @@ class MenuNavigation {
         document.getElementById("myaccount").addEventListener('click',  () => { this.open("myaccount"); });
         // Gestionnaire des couches
         document.getElementById("layerManagerWindowClose").addEventListener('click', () => { this.close("layerManager"); });
+        document.getElementById("infoWindowClose").addEventListener('click', () => { this.close('info')});
+        document.getElementById("legendWindowClose").addEventListener('click', () => { this.close('legend')});
+        document.getElementById("informationsWindowClose").addEventListener('click', () => { this.close('informations')});
     }
 
     /**
@@ -97,6 +100,11 @@ class MenuNavigation {
             case "layerManager":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
+                Globals.currentScrollIndex = 1;
+                break;
+            case "informations":
+            case "info":
+            case "legend":
                 Globals.currentScrollIndex = 1;
                 break;
             case "myposition":
@@ -204,6 +212,12 @@ class MenuNavigation {
                 DOM.$search.style.display = "flex";
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 break;
+            case "informations":
+            case "info":
+            case "legend":
+                isSpecific = true;
+                isFinished = true;
+                break;
             case "myposition":
                 break;
             case "isochrone":
@@ -294,6 +308,13 @@ class MenuNavigation {
         DOM.$layerManagerBtn.classList.remove('d-none');
         DOM.$geolocateBtn.classList.remove('d-none');
         switch (id) {
+            case "informations":
+            case "info":
+            case "legend":
+                DOM.$layerManagerWindow.classList.remove("d-none");
+                Globals.backButtonState = 'layerManager'; // on revient sur le contrôle !
+                this.#midScroll();
+                break;
             case "search":
                 DOM.$search.style.display = "flex";
                 DOM.$backTopLeftBtn.classList.add('d-none');

@@ -28,6 +28,11 @@ const $infoWindow = document.getElementById("infoWindow");
 const $infoText = document.getElementById("infoText");
 const $legendImg = document.getElementById("legendImg");
 
+const $informationsWindow = document.getElementById("informationsWindow");
+const $informationsText = document.getElementById("informationsText");
+const $informationsImg = document.getElementById("informationsImg");
+
+
 const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
 const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule");
 
@@ -74,5 +79,8 @@ export default {
   $isochroneWindow,
   $mypositionWindow,
   $sideBySideBtn,
-  $myaccountWindow
+  $myaccountWindow,
+  $informationsWindow,
+  $informationsText,
+  $informationsImg
 };
