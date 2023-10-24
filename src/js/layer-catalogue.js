@@ -1,4 +1,5 @@
 import Globals from './globals';
+import DOM from './dom';
 import LayersConfig from './layer-config';
 import LayersAdditional from './layer-additional';
 
@@ -53,8 +54,8 @@ class LayerCatalogue {
       <div class="layer ${opts.type}" id="${opts.layerID}">
         <div class="layerImg">
           <img src="${opts.layerQuickLook}" alt="${opts.layerName}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
-          <div class="layer-info" layername="${opts.layerName}"></div>
-          <div class="layer-legend" layername="${opts.layerName}"></div>
+          <div class="layer-info" layername="${opts.layerID}"></div>
+          <div class="layer-legend" layername="${opts.layerID}"></div>
         </div>
         <div id="${opts.layerName}" class="textCouche">${opts.layerTitle}</div>
       </div>
@@ -167,6 +168,23 @@ class LayerCatalogue {
           this.addLayer(el.id);
           Globals.dataLayerDisplayed = el.id;
         }
+      });
+    });
+    // clic sur la puce d'information
+    document.querySelectorAll(".layer-info").forEach((el) => {
+      el.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        var p = LayersConfig.getLayerProps(el.getAttribute("layername"));
+        DOM.$infoText.innerHTML = p.desc;
+        Globals.menu.open("info");
+      });
+    });
+    // clic sur la puce de legende
+    document.querySelectorAll(".layer-legend").forEach((el) => {
+      el.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        DOM.$legendImg.src = LayersAdditional.getLegend(el.getAttribute("layername").split("$")[0]);
+        Globals.menu.open("legend");
       });
     });
   }

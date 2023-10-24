@@ -1,6 +1,5 @@
 import Globals from './globals';
 import { App } from '@capacitor/app';
-import MenuDisplay from './menu-display';
 
 /**
  * Back Button
@@ -33,13 +32,14 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'plusLoinScreen') {
         Globals.menu.close('plusLoinScreen');
     }
-    // TODO
-    if (Globals.backButtonState === 'infos') {
-        MenuDisplay.closeInfos();
+    if (Globals.backButtonState === 'informations') {
+        Globals.menu.close('informations');
     }
-    // TODO
+    if (Globals.backButtonState === 'info') {
+        Globals.menu.close('info');
+    }
     if (Globals.backButtonState === 'legend') {
-        MenuDisplay.closeLegend();
+        Globals.menu.close('legend');
     }
     if (Globals.backButtonState === 'layerManager') {
         Globals.menu.close('layerManager');
