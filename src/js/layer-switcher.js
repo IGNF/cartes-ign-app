@@ -2,6 +2,8 @@ import Globals from './globals';
 import LayersConfig from './layer-config';
 import LayersAdditional from './layer-additional';
 
+import Sortable from 'sortablejs';
+
 import ImageNotFound from '../html/img/image-not-found.png';
 
 /**
@@ -58,6 +60,7 @@ class LayerSwitcher {
       this.event = new EventTarget();
 
       this.#render();
+      
     }
   
     /**
@@ -65,7 +68,8 @@ class LayerSwitcher {
      */
     #render() {
       var container = document.createElement("div");
-      container.className = "layer-switcher";
+      container.id = "lst-layer-switcher";
+      container.className = "lst-layer-switcher";
 
       if (!container) {
         console.warn();
@@ -74,6 +78,20 @@ class LayerSwitcher {
   
       // ajout du container
       this.target.appendChild(container);
+
+      // dragn'drop !
+      Sortable.create(container, {
+        handle : ".handle-draggable-layer",
+        draggable : ".draggable-layer",
+        animation : 200,
+        forceFallback : true,
+        // Call event function on drag and drop
+        onEnd : (evt) => {
+          var index = evt.item.id.substring(evt.item.id.lastIndexOf("_") + 1);
+          var id = this.#getId(parseInt(index, 10));
+          this.#setPosition(id, evt.newDraggableIndex, evt.oldDraggableIndex);
+        }
+      });
     }
   
     #getId(index) {
@@ -94,6 +112,33 @@ class LayerSwitcher {
       return this.layers[id].index;
     }
 
+    #setPosition(id, newIndex, oldIndex) {
+      var direction = 1; // sens de deplacement
+      this.layers[id].position = newIndex;
+      if (typeof oldIndex !== "undefined") {
+        for (const e in this.layers) {
+          if (Object.hasOwnProperty.call(this.layers, e)) {
+            const o = this.layers[e];
+            if (oldIndex < newIndex) {
+              direction = 1;
+              if (o.position > oldIndex && o.position <= newIndex && e !== id) {
+                o.position--;
+              }
+            } else if (oldIndex > newIndex) {
+              direction = 0;
+              if (o.position <= oldIndex && o.position >= newIndex && e !== id) {
+                o.position++;
+              }
+            } else {}
+          }
+        }
+        var beforePos = newIndex + direction;
+        var beforeId = this.map.getStyle().layers[beforePos].id;
+        this.map.moveLayer(id, beforeId);
+        console.debug(this.layers, this.map.getStyle().layers);
+      }
+    }
+
     #setOpacity(id, value) {
       this.layers[id].opacity = value;
       // mise à jour de la couche (style)
@@ -110,7 +155,8 @@ class LayerSwitcher {
      * N&B
      * @param {*} id 
      * @param {*} value
-     * @fixme non fonctionnel ! 
+     * @fixme non fonctionnel !
+     * @todo gèrer les 2 types de données : raster / vector
      */
     #setColor(id, value) {
       this.layers[id].color = value;
@@ -189,8 +235,8 @@ class LayerSwitcher {
 
       // Template d'une couche
       var tplContainer = `
-      <div class="tools-layer-panel" id="container_ID_${index}">
-        <div id="cross-picto_ID_${index}"></div>
+      <div class="tools-layer-panel draggable-layer" id="container_ID_${index}">
+        <div class="handle-draggable-layer" id="cross-picto_ID_${index}"></div>
         <div id="basic-tools_ID_${index}">
           <div id="thumbnail_ID_${index}">
             <img class="tools-layer-quickLookUrl" src="${quickLookUrl}"/>
@@ -267,7 +313,7 @@ class LayerSwitcher {
       // ajout des écouteurs
       this.#addListeners(id, shadow);
 
-      var target = document.querySelector(".layer-switcher");
+      var target = document.getElementById("lst-layer-switcher");
       target.appendChild(shadow);
     }
 
@@ -290,15 +336,15 @@ class LayerSwitcher {
      */
     addLayer(id) {
       var props = LayersConfig.getLayerProps(id);
+      this.index++;
       var options = {
           title : props.title,
           quickLookUrl : LayersAdditional.getQuickLookUrl(id.split("$")[0]),
           opacity : 100,
           color : true,
           visibility : true,
-          position : 0 // TODO determiner la position dans la liste des styles
+          position : this.index
       };
-      this.index++;
       this.layers[id] = options;
       this.layers[id].index = this.index;
       this.#addLayerContainer(id);

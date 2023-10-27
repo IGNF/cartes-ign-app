@@ -296,7 +296,7 @@ class LayerCatalogue {
     let allLayersStyle = map.getStyle().layers;
     var layerIndex = allLayersStyle.findIndex((l) => l.id === source);
     var layerStyle = allLayersStyle[layerIndex] || null;
-
+    
     if (source) {
       if (layerIndex === -1) {
         // le style n'existe pas, on ajoute donc le nouveau style de type raster
@@ -305,7 +305,12 @@ class LayerCatalogue {
           source : source,
           type : "raster"
         };
-        map.addLayer(layerStyle);
+        // HACK 
+        // on positionne toujours le style avant ceux du calcul d'itineraires (directions)
+        // afin que le calcul soit toujours la couche visible du dessus !
+        var layerIndexBefore = allLayersStyle.findIndex((l) => l.source === "maplibre-gl-directions");
+        var layerIdBefore = (layerIndexBefore !== -1) ? allLayersStyle[layerIndexBefore].id : null;
+        map.addLayer(layerStyle, layerIdBefore);
       } else {
         // le style existe, on le supprime
         map.removeLayer(source);
