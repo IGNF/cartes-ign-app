@@ -1,3 +1,9 @@
+/* test pour transformer une carte en N&B :
+.maplibregl-canvas {
+  filter: grayscale(1);
+} 
+*/
+
 .layer-switcher {
   position: relative;
   padding: 15px;
@@ -26,6 +32,7 @@ div[id^="basic-tools_ID_"] {
   display: flex;
   flex-direction: row;
   padding: 10px;
+  max-width: 250px;
 }
 
 div[id^="thumbnail_ID_"] {

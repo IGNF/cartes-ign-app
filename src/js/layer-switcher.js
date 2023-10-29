@@ -16,11 +16,11 @@ import ImageNotFound from '../html/img/image-not-found.png';
  */
 class LayerSwitcher {
 
-  /**
-   * constructeur
-   * @param {*} options 
-   * @param {*} options.target
-   */
+   /**
+    * constructeur
+    * @param {*} options 
+    * @param {*} options.target
+    */
     constructor(options) {
       this.options = options || {
         target : null
@@ -94,6 +94,11 @@ class LayerSwitcher {
       });
     }
   
+    /**
+     * Obtenir le nom de la couche à partir de son numero d'indexe
+     * @param {*} index 
+     * @returns 
+     */
     #getId(index) {
       var id = null;
       for (const key in this.layers) {
@@ -108,43 +113,81 @@ class LayerSwitcher {
       return id;
     }
 
+    /**
+     * Obtenir le numero d'indexe à partir du nom de la couche
+     * @param {*} id 
+     * @returns 
+     */
     #getIndex(id) {
       return this.layers[id].index;
     }
 
+    /**
+     * Position de la couche dans le gestionnaire
+     * @param {*} id 
+     * @param {*} newIndex 
+     * @param {*} oldIndex 
+     * @todo prévoir un ordre inversé !
+     */
     #setPosition(id, newIndex, oldIndex) {
+      // position : 
+      // * ordre natif à mapbox 
+      // > cad même position dans le fichier de style !
+      // ex. 0,1,2
+      //   0 la couche de fonds
+      //   1 la couche intermediaire
+      //   2 la couche la plus au dessus
+      
+      // Mais on prévoit un ordre inversé !
+      //   2 la couche la plus au dessus
+      //   1 la couche intermediaire
+      //   0 la couche de fonds
+
+      var maxPosition = Object.keys(this.layers).length - 1;
+      var newPosition = maxPosition - newIndex;
+      var oldPosition = maxPosition - oldIndex;
       var direction = 1; // sens de deplacement
-      this.layers[id].position = newIndex;
+      this.layers[id].position = newPosition;
       if (typeof oldIndex !== "undefined") {
         for (const e in this.layers) {
           if (Object.hasOwnProperty.call(this.layers, e)) {
             const o = this.layers[e];
-            if (oldIndex < newIndex) {
+            if (oldPosition < newPosition) {
               direction = 1;
-              if (o.position > oldIndex && o.position <= newIndex && e !== id) {
+              if (o.position > oldPosition && o.position <= newPosition && e !== id) {
                 o.position--;
               }
-            } else if (oldIndex > newIndex) {
+            } else if (oldPosition > newPosition) {
               direction = 0;
-              if (o.position <= oldIndex && o.position >= newIndex && e !== id) {
+              if (o.position < oldPosition && o.position >= newPosition && e !== id) {
                 o.position++;
               }
             } else {}
           }
         }
-        var beforePos = newIndex + direction;
+        var beforePos = newPosition + direction;
         var beforeId = this.map.getStyle().layers[beforePos].id;
         this.map.moveLayer(id, beforeId);
         console.debug(this.layers, this.map.getStyle().layers);
       }
     }
 
+    /**
+     * Opacité de la couche
+     * @param {*} id 
+     * @param {*} value 
+     */
     #setOpacity(id, value) {
       this.layers[id].opacity = value;
       // mise à jour de la couche (style)
       this.map.setPaintProperty(id, "raster-opacity", value / 100);
     }
 
+    /**
+     * Visualisation de la couche
+     * @param {*} id 
+     * @param {*} value 
+     */
     #setVisibility(id, value) {
       this.layers[id].visibility = value;
       // mise à jour de la couche (style)
@@ -152,16 +195,17 @@ class LayerSwitcher {
     }
 
     /**
-     * N&B
+     * Affichage du N&B
      * @param {*} id 
      * @param {*} value
-     * @fixme non fonctionnel !
-     * @todo gèrer les 2 types de données : raster / vector
+     * @fixme not yet implemented !
      */
     #setColor(id, value) {
       this.layers[id].color = value;
-      // mise à jour de la couche (style)
-      this.map.setPaintProperty(id, "raster-contrast", (value) ? 1 : 0);
+      // INFO
+      // mise à jour de la couche via une property du style, 
+      // mais, il n'existe pas de fonctionnalité pour le N&B
+      // ex. this.map.setPaintProperty(id, "raster-contrast", (value) ? 1 : 0);
     }
 
     /**
@@ -314,7 +358,8 @@ class LayerSwitcher {
       this.#addListeners(id, shadow);
 
       var target = document.getElementById("lst-layer-switcher");
-      target.appendChild(shadow);
+      var theFirstChild = target.firstChild;
+      target.insertBefore(shadow, theFirstChild);
     }
 
     /**
