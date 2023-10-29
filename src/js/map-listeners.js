@@ -97,6 +97,16 @@ const addListeners = () => {
       return
     })
   });
+
+  // map.on("data", (e) => {
+  //   if (!e.isSourceLoaded)  {
+  //     return;
+  //   }
+  //   if (!e.tile) {
+  //     return;
+  //   }
+  //   console.debug("data", e);
+  // });
 }
 
 export default {
