@@ -1,0 +1,70 @@
+[
+    {
+        "name": "Tous",
+        "keys": [
+            "administratif",
+            "agriculture",
+            "altimetrie",
+            "cartes",
+            "cartovecto",
+            "clc",
+            "decouverte",
+            "economie",
+            "environnement",
+            "essentiels",
+            "geodesie",
+            "ortho",
+            "orthohisto",
+            "parcellaire",
+            "satellite",
+            "topographie",
+            "transports"
+        ],
+        "layers": []
+    },
+    {
+        "name": "Administratif",
+        "keys": ["administratif"],
+        "layers": []
+    },
+    {
+        "name": "Foncier",
+        "keys": ["parcellaire"],
+        "layers": []
+    },
+    {
+        "name": "Agriculture",
+        "keys": ["agriculture"],
+        "layers": []
+    },
+    {
+        "name": "Forêt",
+        "keys": [],
+        "layers": []
+    },
+    {
+        "name": "Hydrographie, mer et littoral",
+        "keys": [],
+        "layers": []
+    },
+    {
+        "name": "Espaces protégés",
+        "keys": [],
+        "layers": []
+    },
+    {
+        "name": "Risques naturels",
+        "keys": [],
+        "layers": []
+    },
+    {
+        "name": "Tourisme et loisirs",
+        "keys": [],
+        "layers": []
+    },
+    {
+        "name": "Transports",
+        "keys": ["transports"],
+        "layers": []
+    }
+]

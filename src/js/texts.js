@@ -1,3 +1,7 @@
+/**
+ * Gestion additionnel sur les informations des couches
+ * @todo ...
+ */
 export default {
   /* Object contenant les descriptions associées aux couches */
   informationTexts: {

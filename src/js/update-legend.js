@@ -1,11 +1,14 @@
+/**
+ * Gestion additionnel sur les informations des couches
+ * @todo ...
+ */
 import Globals from './globals';
 import Texts from './texts';
 
-const map = Globals.map;
 
 /* Légende en fonction du zoom */
 function updateLegend() {
-  let zoomLvl = map.getZoom();
+  let zoomLvl = Globals.map.getZoom();
   // Je n'avais pas prévu autant de légendes différentes en fonction du zoom pour plan ign v2...
   if (zoomLvl <= 7) {
     Texts.legendImgs["plan-ign"] = Texts.planIGNLegendImgs.seven;

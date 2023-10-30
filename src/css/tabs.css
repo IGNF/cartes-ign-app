@@ -4,6 +4,7 @@
 
 #infoWindow,
 #legendWindow,
+#informationsWindow,
 #isochroneWindow,
 #directionsWindow,
 #directionsResultsWindow,
@@ -32,6 +33,7 @@
   z-index: 3001;
 }
 
+#informationsWindowContent,
 #infoWindowContent,
 #legendWindowContent {
   margin-right: 20px;

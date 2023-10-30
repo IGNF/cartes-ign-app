@@ -1,47 +1,33 @@
-import maplibregl from "maplibre-gl";
+/** global: map */
+let map = null;
+let mapRLT = null;
 
-// Main map
-const map = new maplibregl.Map({
-  container: "map",
-  zoom: 5,
-  center: [2.0, 47.33],
-  attributionControl: false,
-  locale: "fr",
-  maxPitch: 0,
-  touchPitch: false,
-});
-map.scrollZoom.setWheelZoomRate(1);
-// Secondary map for RLT
-const mapRLT = new maplibregl.Map({
-  container: "mapRLT",
-  zoom: 5,
-  center: [2.0, 47.33],
-  attributionControl: false,
-  locale: "fr",
-  maxPitch: 0,
-  touchPitch: false,
-});
-mapRLT.scrollZoom.setWheelZoomRate(1);
-
-/* global: layer display state */
-let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'plan-ign';
+/**
+ * global: layer display state 
+ * @todo gerer une liste de couches
+ */
+let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS';
 let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
 
-/* global: back button state */
-/* is one of: 'default' 'search' 'mainMenu' 'params' 'legal' 'privacy' 'plusLoin' 'infos' 'legend' 'layerManagerWindow' 'route'*/
+/** 
+ * global: back button state 
+ * is one of: 'default' 'search' 'mainMenu' 'params' 'legal' 'privacy' 'plusLoin' 'infos' 'legend' 'layerManagerWindow' 'route' ...
+ */
 let backButtonState = 'default';
 
-/* global: map state */
-/* is one of: 'default' 'drawRoute' 'compare' */
+/** 
+ * global: map state 
+ * is one of: 'default' 'drawRoute' 'compare' ...
+ */
 let mapState = 'default';
 
-/* global: last text in search bar */
+/** global: last text in search bar */
 let lastTextInSearch = '';
 
-/* global: flag to check if map move fired by code */
+/** global: flag to check if map move fired by code */
 let movedFromCode = false;
 
-/* global: flag to check if scoll fired by code */
+/** global: flag to check if scoll fired by code */
 let ignoreNextScrollEvent = false;
 
 let myPositionMarker = null;
@@ -71,6 +57,9 @@ let compare = null;
 
 // Global Menu navigation
 let menu = null;
+
+// Global Layer Manager
+let manager = null;
 
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
@@ -103,5 +92,6 @@ export default {
   myposition,
   search,
   compare,
-  menu
+  menu,
+  manager
 };

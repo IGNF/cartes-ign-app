@@ -1,19 +1,15 @@
 import maplibregl from "maplibre-gl";
 
 import Geocode from './services/geocode';
-import LayerSwitch from './layer-switch';
 import Location from './services/location';
-import MenuDisplay from './menu-display';
-import Controls from './controls';
 import DOM from './dom';
 import Globals from './globals';
-import Texts from './texts';
 import RecentSearch from "./search-recent";
 import State from "./state";
 
 /**
  * Ecouteurs generiques
- * @xtodo terminer le nettoyage avec les ecouteurs pour les classes layerManager & MyAccount
+ * @todo terminer le nettoyage avec les ecouteurs pour les classes layerManager & MyAccount
  */
 function addListeners() {
 
@@ -49,43 +45,12 @@ function addListeners() {
     }
   }, true);
 
-  // TODO 
-  // Ecouteurs sur les couches : à ajouter sur le gestionnaire de couches
-  document.querySelectorAll(".baseLayer").forEach((el) => {
-    el.addEventListener('click', () => LayerSwitch.displayBaseLayer(el.id));
-  });
-  document.querySelectorAll(".dataLayer").forEach((el) => {
-    el.addEventListener('click', () => LayerSwitch.displayDataLayer(el.id));
-  });
-  document.querySelectorAll(".layer-info").forEach((el) => {
-    el.addEventListener('click', (ev) => {
-      ev.stopPropagation();
-      DOM.$infoText.innerHTML = Texts.informationTexts[el.getAttribute("layername")];
-      Globals.menu.close("layerManager");
-      MenuDisplay.openInfos();
-    });
-  });
-  document.querySelectorAll(".layer-legend").forEach((el) => {
-    el.addEventListener('click', (ev) => {
-      ev.stopPropagation();
-      DOM.$legendImg.innerHTML = Texts.legendImgs[el.getAttribute("layername")];
-      Globals.menu.close("layerManager");
-      MenuDisplay.openLegend();
-    });
-  });
-
   // TODO
   // Ecouteurs sur le menu du Compte : à ajouter sur la classe MyAccount
   document.getElementById('menuItemParamsIcon').addEventListener('click', () => { Globals.menu.open('parameterScreen')});
   document.getElementById('menuItemPlusLoin').addEventListener('click', () => { Globals.menu.open('plusLoinScreen')});
   document.getElementById('menuItemLegal').addEventListener('click', () => { Globals.menu.open('legalScreen')});
   document.getElementById('menuItemPrivacy').addEventListener('click', () => { Globals.menu.open('privacyScreen')});
-
-  // TODO 
-  // Ecouteurs sur les couches : à ajouter sur le gestionnaire de couches
-  document.getElementById("infoWindowClose").addEventListener('click', MenuDisplay.closeInfos);
-  document.getElementById("layerManagerWindowClose").addEventListener('click', () => { Globals.menu.close("layerManager"); });
-  document.getElementById("legendWindowClose").addEventListener('click', MenuDisplay.closeLegend);
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -157,7 +122,7 @@ function addListeners() {
   }
   
   // FIXME à deplacer ? 
-  document.getElementById("drawroute").addEventListener("click", Controls.startDrawRoute);
+  // document.getElementById("drawroute").addEventListener("click", Controls.startDrawRoute);
 }
 
 export default {
