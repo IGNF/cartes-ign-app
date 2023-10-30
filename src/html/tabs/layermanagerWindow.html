@@ -1,75 +1,15 @@
 <div class="d-none" id="layerManagerWindow">
   <div id="layerManagerWindowClose" class="windowClose"></div>
-  <h3>Cartes et données</h3>
-  <h4>Cartes</h4>
-  <div class="subCatMenu" id="baseLayers">
-    <div class="layer baseLayer" id="plan-ign">
-      <div class="layerImg">
-        <img src="img/plan-ign.jpg" alt="plan-ign" />
-        <div class="layer-info" layername="plan-ign" id="info-plan-ign"></div>
-        <div class="layer-legend" layername="plan-ign" id="legend-plan-ign"></div>
-      </div>
-      <div id="lplan-ign" class="textCouche">Plan IGN</div>
-    </div>
-    <div class="layer baseLayer" id="topo">
-      <div class="layerImg">
-        <img src="img/topo.jpg" alt="carte topographique IGN" />
-        <div class="layer-info" layername="topo" id="info-topo"></div>
-        <div class="layer-legend" layername="topo" id="legend-topo"></div>
-      </div>
-      <div id="ltopo" class="textCouche">Carte topographique IGN</div>
-    </div>
-    <div class="layer baseLayer" id="photos">
-      <div class="layerImg">
-        <img src="img/photos.jpg" alt="photos" />
-        <div class="layer-info" layername="photos"  id="info-photos"></div>
-        <div class="layer-legend" layername="photos"  id="legend-photos"></div>
-      </div>
-      <div id="lphotos" class="textCouche">Photographies aériennes</div>
-    </div>
-    <div class="layer baseLayer" id="etat-major">
-      <div class="layerImg">
-        <img src="img/etat-major.jpg" alt="carte d'état major" />
-        <div class="layer-info" layername="etat-major" id="info-etat-major"></div>
-        <div class="layer-legend" layername="etat-major" id="legend-etat-major"></div>
-      </div>
-      <div id="letat-major" class="textCouche">Carte de l’état-major (1820-1866)</div>
-    </div>
-    <div class="layer baseLayer" id="ortho-histo">
-      <div class="layerImg">
-        <img src="img/histo.jpg" alt="photographie aerienne historique" />
-        <div class="layer-info" layername="ortho-histo" id="info-ortho-histo"></div>
-        <div class="layer-legend" layername="ortho-histo" id="legend-ortho-histo"></div>
-      </div>
-      <div id="lortho-histo" class="textCouche">Photographies aériennes 1950-1965</div>
-    </div>
-  </div>
-  <h4 id="dataLayersLabel">Données</h4>
-  <div class="subCatMenu" id="dataLayers">
-    <div class="layer dataLayer" id="routes">
-      <div class="layerImg">
-        <img src="img/routes.jpg" alt="routes" />
-        <div class="layer-info" layername="routes" id="info-routes"></div>
-        <div class="layer-legend" layername="routes" id="legend-routes"></div>
-      </div>
-      <div id="lroutes" class="textCouche">Routes</div>
-    </div>
-    <div class="layer dataLayer" id="cadastre">
-      <div class="layerImg">
-        <img src="img/cadastre.jpg" alt="cadastre" />
-        <div class="layer-info" layername="cadastre" id="info-cadastre"></div>
-        <div class="layer-legend" layername="cadastre" id="legend-cadastre"></div>
-      </div>
-      <div id="lcadastre" class="textCouche">Parcelles cadastrales</div>
-    </div>
-
-    <div class="layer dataLayer" id="drones">
-      <div class="layerImg">
-        <img src="img/restrictions-drones.jpg" alt="restrictions pour drones" />
-        <div class="layer-info" layername="drones" id="info-plan-ign"></div>
-        <div class="layer-legend" layername="drones" id="legend-plan-ign"></div>
-      </div>
-      <div id="ldrones" class="textCouche">Restrictions UAS catégorie Ouverte et aéromodélisme</div>
-    </div>
+  <div class="layer-tabs-wrap">
+    <!-- panneau des couches thematiques actif par defaut -->
+    <input class="layer-tabs-input" name="layer-tabs" type="radio" id="layer-thematics-tab" checked="checked"/>
+    <label class="layer-tabs-label" for="layer-thematics-tab">Cartes <span id="layer-thematics-number">0</span></label>
+    <!-- panneau du gestionnaire de couches -->
+    <input class="layer-tabs-input" name="layer-tabs" type="radio" id="layer-switcher-tab"/>
+    <label class="layer-tabs-label" for="layer-switcher-tab">Ma sélection <span id="layer-switcher-number">0</span></label>
+    <!-- container dynamique de la gestion des couches thematiques -->
+    <div class="layer-tabs-content" id="layer-thematics"></div>
+    <!-- TODO container dynamique du gestionnaire de couches -->
+    <div class="layer-tabs-content" id="layer-switcher"></div>
   </div>
 </div>
