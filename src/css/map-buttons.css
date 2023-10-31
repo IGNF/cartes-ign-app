@@ -19,8 +19,8 @@
 
 #backTopLeftBtn,
 #sideBySideBtn,
-#layerManagerBtn, 
-#geolocateBtn, 
+#layerManagerBtn,
+#geolocateBtn,
 #compassBtn  {
   width: 40px;
   height: 40px;
@@ -31,18 +31,19 @@
   background-color: white;
   box-shadow: black 0px 0px 5px;
   z-index: 3001;
+  border: 1px solid white;
 }
 
 #layerManagerBtn {
   background-image: url("assets/layers.svg");
   position: absolute;
-  bottom: 130px;
+  bottom: 180px;
 }
 
 #geolocateBtn {
   background-image: url("assets/localisation.svg");
   position: absolute;
-  bottom: 180px;
+  bottom: 130px;
 }
 
 #sideBySideBtn {

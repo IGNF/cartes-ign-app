@@ -2,12 +2,12 @@
     display: flex;
     position: absolute;
     bottom: 0px;
-    top: calc(100% - 120px);
+    top: calc(100% - 78px);
     width: 100%;
-    height: 120px;
-    /* border-top-left-radius: 10px;
-    border-top-right-radius: 10px; */
-    background-color: #3F4A55;
+    height: 60px;
+    font-size: 12px;
+    background-color: white;
+    padding: 10px 0px 8px 0px;
     z-index: 3002;
     flex-direction: row;
     align-items: center;
@@ -21,20 +21,50 @@
     width: inherit;
     border: none;
     outline: none;
-    color: white;
+    color: #3f4a55;
     background-color: inherit;
     font-family: inherit;
     margin: 0;
     flex-direction: column;
     align-items: center;
-    height: 90px;
+    height: 60px;
     justify-content: center;
 }
 
-.navitembtn > span,
-.navitembtn > img {
+.navitembtn > span{
     vertical-align: middle;
     white-space: nowrap;
+}
+
+.navitembtn > div {
+    margin-bottom: 5px;
+    height: 42px;
+    width: 42px;
+    flex-shrink: 0
+}
+
+#navimg-explorer {
+    background-image: url(../html/img/explorer.svg);
+}
+
+.navitembtn:hover #navimg-explorer {
+    background-image: url(../html/img/explorer-s.svg);
+}
+
+#navimg-deplacer {
+  background-image: url(../html/img/deplacer.svg);
+}
+
+.navitembtn:hover #navimg-deplacer {
+  background-image: url(../html/img/deplacer-s.svg);
+}
+
+#navimg-compte {
+  background-image: url(../html/img/compte.svg);
+}
+
+.navitembtn:hover #navimg-compte {
+  background-image: url(../html/img/compte-s.svg);
 }
 
 .navbar {
@@ -45,15 +75,11 @@
     align-items: center;
 }
 
-.navbar:hover {
-    background-color: #26a581;
-}
-
 .subnav {
     display: none;
     position: absolute;
     background-color: #26a581;
-    bottom: 120px;
+    bottom: 78px;
     left: 0px;
     width: 100%;
     height: 120px;
