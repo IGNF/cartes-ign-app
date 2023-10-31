@@ -64,7 +64,7 @@ class MenuNavigation {
 
     /**
      * Ouvre le panneau avec le contenu du composant (tab)
-     * @param {*} id 
+     * @param {*} id
      */
     open(id) {
         // HACK : on supprime l'interaction du calcul d'itineraire
@@ -87,7 +87,7 @@ class MenuNavigation {
         if (element) {
             element.classList.remove('d-none');
         }
-        
+
         // y'a t il des particularités sur l'ouverture du panneau demandé ?
         var isSpecific = false;
         var isSpecificSize = false;
@@ -168,7 +168,7 @@ class MenuNavigation {
             default:
                 break;
         }
-        
+
         if (isSpecific) {
             this.#open(id);
             return;
@@ -191,8 +191,8 @@ class MenuNavigation {
     }
 
     /**
-     * Ferme le panneau du composant (tab) 
-     * @param {*} id 
+     * Ferme le panneau du composant (tab)
+     * @param {*} id
      */
     close(id) {
         var element = DOM["$" + id + "Window"];
@@ -288,13 +288,13 @@ class MenuNavigation {
 
     /**
      * Ouverture spécifique d'un panneau
-     * @param {*} id 
+     * @param {*} id
      */
     #open(id) {}
 
     /**
      * Fermeture spécifique d'un panneau
-     * @param {*} id 
+     * @param {*} id
      */
     #close(id) {
         Globals.controller.abort();
@@ -349,13 +349,13 @@ class MenuNavigation {
         Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
         this.#scrollTo(Globals.anchors[Globals.currentScrollIndex]);
     }
-     
+
     /** ... */
     #midScroll() {
         Globals.currentScrollIndex = 1;
         this.updateScrollAnchors();
     }
-    
+
     /** ... */
     #scrollTo(value) {
         Globals.ignoreNextScrollEvent = true;
