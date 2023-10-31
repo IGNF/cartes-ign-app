@@ -44,7 +44,10 @@ class Directions {
         this.configuration = this.options.configuration || {
             api: "https://router.project-osrm.org/route/v1",
             profile: "driving",
-            requestOptions: {overview: "full"},
+            requestOptions: {
+                overview: "full",
+                steps: "true"
+            },
             requestTimeout: null,
             makePostRequest: false,
             sourceName: "maplibre-gl-directions",
@@ -206,7 +209,7 @@ class Directions {
                     distance : e.data.routes[0].distance || "",
                     transport : settings.transport,
                     computation : settings.computation.message,
-                    instructions : []
+                    instructions : e.data.routes[0].legs
                 });
                 this.results.show();
             }
@@ -243,10 +246,10 @@ class Directions {
         }).finally(() => {
             var target = null;
             var c = (bResponse) ? Reverse.getCoordinates() : {lon : coordinates.lng, lat : coordinates.lat};
-            var a = (bResponse) ? Reverse.getAddress() : "inconnue";
+            var a = (bResponse) ? Reverse.getAddress() : c.lon.toFixed(6) + ", " + c.lat.toFixed(6);
             var address = a;
             if (bResponse) {
-                address = a.city + ", " + a.citycode;
+                address = a.street + ", " + a.city + ", " + a.citycode;
             }
             // start
             if (index === 0) {
