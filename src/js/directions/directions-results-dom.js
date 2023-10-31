@@ -89,8 +89,11 @@ let DirectionsResultsDOM = {
             data.transport,
             data.computation
         ));
+        // ajout du bouton détails
+        container.appendChild(this.__addResultsDetailsContainerDOMElement());
         // ajout des détails
-        container.appendChild(this.__addResultsDetailsContainerDOMElement(data.instructions));
+        container.appendChild(this.__addResultsListDetailsContainerDOMElement(data.instructions));
+        
         return container;
     },
 
@@ -165,13 +168,14 @@ let DirectionsResultsDOM = {
         return div;
     },
 
-    /** 
-     * ajoute le container sur les détails du parcours
-     * @param {*} instructions
-     * @returns {DOMElement}
-     * @private
+    /**
+     * ajoute le bouton d'affichage des détails
+     * @returns 
      */
-    __addResultsDetailsContainerDOMElement (instructions) {
+    __addResultsDetailsContainerDOMElement () {
+        // contexte de la classse
+        var self = this;
+
         var div = document.createElement("div");
         div.id = "directionsDetails";
         div.className = "";
@@ -180,8 +184,7 @@ let DirectionsResultsDOM = {
         inputShow.id = "directionsShowDetail";
         inputShow.type = "checkbox";
         inputShow.addEventListener("change", function (e) {
-            // TODO
-            console.log(e);
+            self.toggleDisplayDetails(e);
         });
         div.appendChild(inputShow);
 
@@ -192,35 +195,68 @@ let DirectionsResultsDOM = {
         labelShow.textContent = "Détails";
         labelShow.addEventListener("click", function (e) {
             // TODO
-            console.log(e);
         });
         div.appendChild(labelShow);
-
-        var divList = document.createElement("div");
-        divList.id = "directionsListDetails";
-        divList.className = "";
-
-        for (let index = 0; index < instructions.length; index++) {
-            const instruction = instructions[index];
-            var el = __addResultsDetailsInstructionDOMElement(instruction);
-            if (el) {
-                divList.appendChild(el);
-            }
-        }
-
-        div.appendChild(divList);
 
         return div;
     },
 
-    /**
-     * ajoute une instruction de parcours
-     * @param {*} instruction 
+    /** 
+     * ajoute le container sur les détails du parcours
+     * @param {*} instructions - routes[0].legs[]
      * @returns {DOMElement}
      * @private
      */
-    __addResultsDetailsInstructionDOMElement (instruction) {
-        return null;
+    __addResultsListDetailsContainerDOMElement (instructions) {
+        
+        var divList = document.createElement("div");
+        divList.id = "directionsListDetails";
+        divList.className = "";
+
+        // instructions = routes[0].legs[]
+        for (let index = 0; index < instructions.length; index++) {
+            // instruction = steps[]
+            const instruction = instructions[index];
+            instruction.steps.forEach((step) => {
+                // step = {
+                //     distance
+                //     driving_side
+                //     duration
+                //     maneuver: {
+                //         modifier
+                //         type
+                //     }
+                // }
+                var el = this.__addResultsDetailsInstructionDOMElement(step);
+                if (el) {
+                    divList.appendChild(el);
+                }
+            });
+        }
+
+        return divList;
+    },
+
+    /**
+     * ajoute une étape de parcours
+     * @param {*} step - routes[0].legs[].steps[]
+     * @returns {DOMElement}
+     * @private
+     */
+    __addResultsDetailsInstructionDOMElement (step) {
+        // step = {
+        //     distance
+        //     driving_side
+        //     duration
+        //     maneuver: {
+        //         modifier
+        //         type
+        //     }
+        // }
+        var div = document.createElement("div");
+        div.className = "";
+        div.innerHTML = "TODO";
+        return div;
     }
 
 };

@@ -1,10 +1,9 @@
-
 /*********************************************************
  * surcharge onglet d'affichage du controle d'itiniraire
- *********************************************************/ 
+ *********************************************************/
 
 #directionsResultsWindow {
-   height: 65px;
+  min-height: 65px;
 }
 
 /***********************************
@@ -12,61 +11,58 @@
  ***********************************/
 
 #directionsResults {
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: [one] 10% [two] 60% [three] 30%;/* repeat(3, 1fr) */
+  grid-template-rows: repeat(2,1fr);
+  justify-items: center;
   align-items: center;
   height: 100%;
   position: relative;
   /* top: -10px; */
 }
- 
- /* 
+
+/* 
   * bouton retour 
   */
-#directionsReturnBack {}
- 
- .btnDirectionsReturnBack {
-   display: block;
-   width: 20px;
-   height: 20px;
-   position: relative;
-   z-index: 3001;
-   background-image: url("assets/directions/back.svg");
-   background-position: center;
-   background-repeat: no-repeat;
+#directionsReturnBack {
 }
- 
- /*
+
+.btnDirectionsReturnBack {
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  z-index: 3001;
+  background-image: url("assets/directions/back.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/*
   * résumé
   */
 #directionsSummary {
-
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   justify-items: center;
   align-items: center;
-
 }
 
 #directionsSummaryDuration {
-
   color: #26a581;
   font-size: medium;
-
 }
 
-.lblDirectionsSummaryDuration {}
+.lblDirectionsSummaryDuration {
+}
 
 #directionsSummaryDistance {
-
   font-size: medium;
-
 }
 
-.lblDirectionsSummaryDistance {}
+.lblDirectionsSummaryDistance {
+}
 
 #directionsSummaryTransportPieton {
   background-image: url("assets/directions/pieton.svg");
@@ -87,26 +83,31 @@
   font-weight: lighter;
 }
 
-.lblDirectionsSummaryComputation {}
- 
- /*
+.lblDirectionsSummaryComputation {
+  display: inline-flex;
+  align-items : center; 
+  justify-content: center;
+}
+
+/*
   * détails
   */
-#directionsDetails {}
+#directionsDetails {
+}
 
 #directionsShowDetail {
   display: none;
 }
 
 .lblDirectionsShowDetails {
-   display: block;
-   border: 1px solid #ccc;
-   background-color: #ffffff;
-   border-radius: 50px;
-   padding: 10px;
-   cursor: pointer;
-   text-align: center;
-   width: 70px;
+  display: block;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  width: 70px;
 }
 
 #directionsDetails input[id="directionsShowDetail"]:checked + label {
@@ -114,3 +115,9 @@
   color: white;
   /* content: "\00d7"; */
 }
+
+/* INFO l'affichage est programmatique */
+#directionsListDetails {
+  display: none;
+}
+
