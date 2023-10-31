@@ -56,14 +56,14 @@ const addControls = () => {
 
     // échelle graphique
     map.addControl(new maplibregl.ScaleControl({
-      maxWidth: 80,
+      maxWidth: 150,
       unit: 'metric'
     }), "bottom-left");
   });
 }
 
-/** 
- * ??? 
+/**
+ * ???
  * @fixme ???
  */
 const startDrawRoute = () => {
