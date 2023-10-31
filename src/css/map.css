@@ -3,6 +3,29 @@
   color: black;
 }
 
+.maplibregl-ctrl-bottom-left {
+  bottom: 15px;
+  left: 10px;
+  background-color: hsla(0, 0%, 100%, 0.75);
+  border-radius: 4px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.maplibregl-ctrl-scale {
+  background-color: #0000;
+  font-family: "Open Sans";
+  text-align: center;
+  height: 10px;
+  line-height: 1px;
+}
+
+.maplibregl-ctrl-bottom-left .maplibregl-ctrl {
+  margin: 2px 5px;
+}
+
 /* Map */
 .map {
   height: calc(100vh - 78px);
