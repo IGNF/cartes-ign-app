@@ -119,3 +119,10 @@
   height: 35px;
   background-image: url("assets/close.svg");
 }
+
+@media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {
+  #searchContainer {
+    width: 40%;
+    left: 85px;
+  }
+}

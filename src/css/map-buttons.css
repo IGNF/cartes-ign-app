@@ -58,3 +58,22 @@
   position: absolute;
   bottom: 225px;
 }
+
+@media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {
+  #layerManagerBtn {
+    bottom: 65px;
+  }
+
+  #geolocateBtn {
+    bottom: 15px;
+  }
+
+  #sideBySideBtn {
+    left: 90px;
+    bottom: 65px;
+  }
+
+  #compassBtn {
+    top: 15px;
+  }
+}

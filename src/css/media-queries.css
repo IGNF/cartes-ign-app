@@ -3,11 +3,8 @@
   #tabContainer {
     width: 50%;
     height: fit-content;
-  }
-
-  #layerManagerBtn {
-    position: fixed;
-    bottom: 130px;
+    top: 100%;
+    left: 75px;
   }
 }
 
