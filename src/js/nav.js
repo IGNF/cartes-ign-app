@@ -17,6 +17,25 @@ class MenuNavigation {
      * - event clic sur un element du DOM ayant une interaction avec le menu de navigation
      */
     #listeners() {
+        // Menu global
+        document.querySelectorAll(".navbar").forEach( (navbar) => {
+          navbar.shouldOpen = true;
+          navbar.addEventListener("click", () => {
+            document.querySelectorAll(".navbar").forEach( (navbarOther) => {
+              if (navbarOther != navbar) {
+                navbarOther.shouldOpen = true;
+              }
+            });
+            if (navbar.shouldOpen) {
+              navbar.classList.add("hoverable");
+              navbar.shouldOpen = false;
+            }
+            else {
+              navbar.classList.remove("hoverable");
+              navbar.shouldOpen = true;
+            }
+          });
+        });
         // "Où suis-je ?"
         document.getElementById("mypositionWindowClose").addEventListener('click', () => { this.close("myposition"); });
         document.getElementById("myposition").addEventListener("click", () => {
