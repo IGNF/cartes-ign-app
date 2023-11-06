@@ -1,3 +1,5 @@
+import maplibregl from "maplibre-gl";
+
 import DOM from './dom';
 import Globals from './globals';
 import Location from './services/location';
@@ -63,7 +65,7 @@ const addListeners = () => {
       return
     }
     const layerProps = Layers.getLayerProps(currentLayer);
-    let computeZoom = map.getZoom();
+    let computeZoom = Math.round(map.getZoom());
     if (computeZoom > layerProps.maxNativeZoom) {
       computeZoom = layerProps.maxNativeZoom;
     } else if (computeZoom < layerProps.minNativeZoom) {
@@ -80,7 +82,7 @@ const addListeners = () => {
       `&STYLE=${layerProps.style}&INFOFORMAT=text/html&I=${tilePixel.x}&J=${tilePixel.y}`
     ).then((response) => {
       if (!response.ok) {
-        throw new Error("HTTP error");
+        throw new Error("GetFeatureInfo : HTTP error");
       }
       return response.text()
     }).then((html) => {
@@ -89,12 +91,13 @@ const addListeners = () => {
       if (doc.body.innerText === "\n  \n  \n") {
         throw new Error("Empty GFI");
       }
-      new maplibregl.Popup()
+      new maplibregl.Popup({className: 'getfeatureinfoPopup'})
         .setLngLat(ev.lngLat)
         .setHTML(html)
         .addTo(map);
-    }).catch(() => {
-      return
+    }).catch((e) => {
+      console.error("GetFeatureInfo", e);
+      return;
     })
   });
 

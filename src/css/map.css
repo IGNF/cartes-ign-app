@@ -1,6 +1,12 @@
-.mapboxgl-popup-content {
+/* Popup generique */
+.maplibregl-popup-content {
+  border-radius: 15px;
   user-select: text;
   color: black;
+}
+
+/* Popup getFeatureInfo */
+.getfeatureinfoPopup {
 }
 
 .maplibregl-ctrl-bottom-left {
