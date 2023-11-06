@@ -8,6 +8,8 @@ import Geocode from "../services/geocode";
 import Location from "../services/location";
 import Reverse from "../services/reverse";
 
+import Sortable from 'sortablejs';
+
 /**
  * Interface du contrôle sur le calcul d'itineraire
  * @module Directions
@@ -113,6 +115,16 @@ class Directions {
 
         // ajout du container
         target.appendChild(container);
+
+        // dragn'drop !
+        Sortable.create(document.getElementById("divDirectionsLocationsList"), {
+            handle : ".handle-draggable-layer",
+            draggable : ".draggable-layer",
+            animation : 200,
+            forceFallback : true,
+            // Call event function on drag and drop
+            onEnd : (evt) => {}
+        });
     }
 
     /**
@@ -163,11 +175,16 @@ class Directions {
         if (settings.locations && settings.locations.length) {
             try {
                 // les coordonnées sont en lon / lat en WGS84G
+                for (let index = 0; index < settings.locations.length; index++) {
+                    if (settings.locations[index]) {
+                        const point = JSON.parse(settings.locations[index]);
+                        this.obj.addWaypoint(point);
+                    }
+                }
+
                 var start = JSON.parse(settings.locations[0]);
                 var end = JSON.parse(settings.locations[settings.locations.length - 1]);
                 if (start && end) {
-                    this.obj.addWaypoint(start);
-                    this.obj.addWaypoint(end);
                     this.map.fitBounds([start, end], {
                         padding : 20
                     });
@@ -259,6 +276,12 @@ class Directions {
             if (index === 1) {
                 target = document.getElementById("directionsLocation_end");
             }
+
+            if (index > 1) {
+                target = document.getElementById("directionsLocation_step_" + (index - 1));
+                target.parentNode.classList.remove("hidden");
+            }
+
             // on ajoute les resultats dans le contrôle
             if (target) {
                 target.dataset.coordinates = "[" + c.lon + "," + c.lat + "]";
