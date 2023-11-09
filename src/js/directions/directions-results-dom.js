@@ -1,3 +1,6 @@
+import { SymbolInstanceStruct } from 'maplibre-gl';
+import Instruction from './directions-instructions';
+
 /**
  * Fonctions utilitaires
  */
@@ -213,11 +216,19 @@ let DirectionsResultsDOM = {
         divList.id = "directionsListDetails";
         divList.className = "";
 
-        // instructions = routes[0].legs[]
-        for (let index = 0; index < instructions.length; index++) {
-            // instruction = steps[]
-            const instruction = instructions[index];
-            instruction.steps.forEach((step) => {
+        // FIXME comment fusionner les points intermediaires ?
+        var first = instructions[0].steps[0];
+        var last = instructions.slice(-1)[0].steps.slice(-1)[0];
+        
+        var opts = {
+            duration : 0,
+            distance : 0
+        };
+        // instructions = routes[0].legs[n]
+        for (let i = 0; i < instructions.length; i++) {
+            // instruction = steps[n]
+            const instruction = instructions[i];
+            instruction.steps.forEach((step, index, array) => {
                 // step = {
                 //     distance
                 //     driving_side
@@ -227,7 +238,27 @@ let DirectionsResultsDOM = {
                 //         type
                 //     }
                 // }
-                var el = this.__addResultsDetailsInstructionDOMElement(step);
+                var type = null; // depart, arrive or other
+                // on additionne les temps et distances pour tous les troncons !
+                opts.duration += step.duration;
+                opts.distance += step.distance;
+                if (step === first) {
+                    // point de depart
+                    type = "first";
+                }
+                else if (step === last) {
+                    // point d'arrivée
+                    type = "last";
+                }
+                else if (index === (instruction.steps.length - 1)) {
+                    // étapes intermediares 
+                    // > arrivée d'un troncon et départ d'un autre troncon
+                    type = "step";
+
+                } else {
+                    // par defautt
+                }
+                var el = this.__addResultsDetailsInstructionDOMElement(step, type, opts);
                 if (el) {
                     divList.appendChild(el);
                 }
@@ -243,20 +274,56 @@ let DirectionsResultsDOM = {
      * @returns {DOMElement}
      * @private
      */
-    __addResultsDetailsInstructionDOMElement (step) {
+    __addResultsDetailsInstructionDOMElement (step, type, opts) {
         // step = {
         //     distance
         //     driving_side
         //     duration
+        //     name
+        //     mode
         //     maneuver: {
         //         modifier
         //         type
         //     }
         // }
-        var div = document.createElement("div");
-        div.className = "";
-        div.innerHTML = "TODO";
-        return div;
+        var instruction = new Instruction(step);
+
+        var divContainer = document.createElement("div");
+        divContainer.className = "divDirectionsDetailsItem";
+        
+        var labelIcon = document.createElement("label");
+        labelIcon.classList.add("lblDirectionsDetailsItemGuidance");
+        // HACK
+        labelIcon.classList.add((type && type === "step") ? "lblDirectionsDetailsItemGuidance-point-step" : instruction.getGuidance());
+        divContainer.appendChild(labelIcon);
+
+        var divDesc = document.createElement("div");
+        divDesc.className = "divDirectionsDetailsItemDesc";
+        divDesc.textContent = instruction.getDescription();
+        divContainer.appendChild(divDesc);
+
+        if (type && type === "first") {
+            var divDuration = document.createElement("div");
+            divDuration.className = "divDirectionsDetailsItemDuration";
+            divDuration.textContent = "0 min";
+            divContainer.appendChild(divDuration);
+        }
+
+        if (type && type === "last") {
+            var divDuration = document.createElement("div");
+            divDuration.className = "divDirectionsDetailsItemDuration";
+            divDuration.textContent = utils.convertSecondsToTime(opts.duration);
+            divContainer.appendChild(divDuration);
+        }
+
+        if (instruction.isStep()) {
+            var divDistance = document.createElement("div");
+            divDistance.className = "divDirectionsDetailsItemDistance";
+            divDistance.textContent = utils.convertDistance(step.distance);
+            divContainer.appendChild(divDistance);
+        }
+
+        return divContainer;
     }
 
 };

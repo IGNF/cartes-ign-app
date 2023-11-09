@@ -175,15 +175,18 @@ class Directions {
         if (settings.locations && settings.locations.length) {
             try {
                 // les coordonnées sont en lon / lat en WGS84G
+                var start = null;
+                var end = null;
+                var point = null;
                 for (let index = 0; index < settings.locations.length; index++) {
                     if (settings.locations[index]) {
-                        const point = JSON.parse(settings.locations[index]);
+                        point = (point === null) ? 
+                            start = JSON.parse(settings.locations[index]) : JSON.parse(settings.locations[index]);
                         this.obj.addWaypoint(point);
                     }
                 }
 
-                var start = JSON.parse(settings.locations[0]);
-                var end = JSON.parse(settings.locations[settings.locations.length - 1]);
+                var end = point;
                 if (start && end) {
                     this.map.fitBounds([start, end], {
                         padding : 20
@@ -276,12 +279,11 @@ class Directions {
             if (index === 1) {
                 target = document.getElementById("directionsLocation_end");
             }
-
+            // step
             if (index > 1) {
                 target = document.getElementById("directionsLocation_step_" + (index - 1));
                 target.parentNode.classList.remove("hidden");
             }
-
             // on ajoute les resultats dans le contrôle
             if (target) {
                 target.dataset.coordinates = "[" + c.lon + "," + c.lat + "]";
