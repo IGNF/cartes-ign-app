@@ -1,18 +1,18 @@
 import {
   Chart as ChartJS,
-  LineController,
+  ScatterController,
   LineElement,
   PointElement,
-  CategoryScale,
   LinearScale,
+  Filler
 } from 'chart.js';
 
 ChartJS.register(
-  LineController,
+  ScatterController,
   LineElement,
   PointElement,
-  CategoryScale,
   LinearScale,
+  Filler,
 );
 
 import maplibregl from 'maplibre-gl';
@@ -35,9 +35,11 @@ class ElevationLineControl {
     this.options = options || {
       target: null,
     }
-    this.points = null;
+    this.target = this.options.target;
     this.coordinates = null;    // [{lat: ..., lon: ...}, ...]
-    this.elevationData = null;  // {distances: [1, 10, ...], elevations: [15.3, 18.6, ...]}
+    this.elevationData = null;  // [{x: <distance>, y: <elevation}, ...]
+
+    this.unit = "m"; // unité pour la distance
 
     this.chart = null;
     return this;
@@ -48,29 +50,51 @@ class ElevationLineControl {
    * @public
    */
   render() {
-    var target = this.target || document.getElementById("elevation-line-canvas");
+    if (this.chart != null) {
+      this.clear();
+    }
+    var target = this.target || document.getElementById("directions-elevationline");
     if (!target) {
       console.warn();
       return;
     }
 
-    const chartLabels = this.elevationData.distances;
     const chartData = {
-      labels: chartLabels,
       datasets: [{
-        data: this.elevationData.elevations,
+        data: this.elevationData,
         fill: false,
+        borderWidth: 3,
         borderColor: '#26a581',
-        tension: 0.1
+        tension: 0.1,
+        pointRadius: 0,
+        showLine: true,
       }]
     };
 
     const chartConfig = {
-      type: 'line',
+      type: 'scatter',
       data: chartData,
+      options: {
+        scales: {
+            x: {
+              max: this.elevationData.slice(-1)[0].x,
+              title: {
+                display: true,
+                text: `Distance (${this.unit})`,
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: `Altitude (m)`
+              }
+            }
+        }
+      }
     };
 
-    this.chart = new ChartJS(document.getElementById('elevation-line-canvas'), chartConfig);
+
+    this.chart = new ChartJS(target, chartConfig);
   }
 
   /**
@@ -78,35 +102,51 @@ class ElevationLineControl {
    * @public
    */
   async compute() {
-    this.elevationData = {distances: [], elevations:[]};
+    this.elevationData = [];
 
     const responseElevation = await ElevationLine.compute(this.coordinates);
     let lastLngLat = null;
+    let currentDistance = 0;
+    this.unit = "m";
     responseElevation.elevations.forEach( (elevation) => {
-      let currentLngLat = maplibregl.LngLat(elevation.lon, elevation.lat);
-      if (lastLngLat == null) {
-        this.elevationData.distances.push(0);
-      } else {
-        this.elevationData.distances.push(currentLngLat.distanceTo(lastLngLat));
+      let currentLngLat = new maplibregl.LngLat(elevation.lon, elevation.lat);
+      if (lastLngLat != null) {
+        currentDistance += currentLngLat.distanceTo(lastLngLat);
       }
+      let currentDataPoint = {x: currentDistance, y: elevation.z}
+      this.elevationData.push(currentDataPoint);
       lastLngLat = currentLngLat;
-      this.elevationData.elevations.push(elevation.z);
     });
+
+    if (currentDistance > 2000) {
+      this.unit = "km";
+      this.elevationData.forEach((elevation) => {
+        elevation.x = elevation.x / 1000;
+      });
+    }
 
     this.render();
   }
+
+  /**
+   * remplissage des coordonnées pour le calcul de profil atlimétrique
+   * @param coordinates [{lat: ..., lon: ...}, ...]
+   * @public
+   */
+  setCoordinates(coordinates) {
+    this.coordinates = coordinates;
+  }
+
 
   /**
    * nettoyage du tracé
    * @public
    */
   clear() {
-
+    this.chart.destroy();
   }
 
 }
 
 // mixins
-Object.assign(ElevationLineControl.prototype, ElevationLineControlDOM);
-
 export default ElevationLineControl;

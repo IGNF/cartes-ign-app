@@ -125,7 +125,7 @@ let DirectionsResultsDOM = {
         return div;
     },
 
-    /** 
+    /**
      * ajoute le container le résumé du parcours
      * @param {*} distance
      * @param {*} duration
@@ -165,7 +165,7 @@ let DirectionsResultsDOM = {
         return div;
     },
 
-    /** 
+    /**
      * ajoute le container sur les détails du parcours
      * @param {*} instructions
      * @returns {DOMElement}
@@ -210,12 +210,17 @@ let DirectionsResultsDOM = {
 
         div.appendChild(divList);
 
+        var canvasProfile = document.createElement("canvas");
+        canvasProfile.id = "directions-elevationline";
+        canvasProfile.className = "elevationLineCanvas";
+        div.appendChild(canvasProfile);
+
         return div;
     },
 
     /**
      * ajoute une instruction de parcours
-     * @param {*} instruction 
+     * @param {*} instruction
      * @returns {DOMElement}
      * @private
      */
