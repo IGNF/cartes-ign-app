@@ -1,4 +1,4 @@
-import maplibregl from "maplibre-gl";
+import Polyline from "@mapbox/polyline"
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
 import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
@@ -7,6 +7,8 @@ import DirectionsResults from "./directions-results";
 import Geocode from "../services/geocode";
 import Location from "../services/location";
 import Reverse from "../services/reverse";
+
+import ElevationLineControl from "../elevation-line-control";
 
 /**
  * Interface du contrôle sur le calcul d'itineraire
@@ -83,6 +85,9 @@ class Directions {
         // INFO sans interaction par défaut !
         // > choix d'activer via la méthode publique...
         this.obj.interactive = false;
+
+        // Profil Altimétrique
+        this.elevation = new ElevationLineControl({target: document.getElementById("directions-elevationline")});
 
         // rendu graphique
         this.render();
@@ -209,6 +214,12 @@ class Directions {
                     instructions : []
                 });
                 this.results.show();
+                const routeCoordinates = [];
+                Polyline.decode(e.data.routes[0].geometry).forEach( (latlng) => {
+                  routeCoordinates.push({lat: latlng[0], lon: latlng[1]});
+                });
+                this.elevation.setCoordinates(routeCoordinates);
+                this.elevation.compute();
             }
         });
     }
@@ -223,8 +234,8 @@ class Directions {
     /**
      * ecouteur lors de l'ajout d'un point avec addWayPoint()
      * @see https://maplibre.org/maplibre-gl-directions/api/interfaces/MapLibreGlDirectionsWaypointEventData.html
-     * @param {*} e 
-     * @returns 
+     * @param {*} e
+     * @returns
      */
     #onAddWayPoint(e) {
         var index = e.data.index;
