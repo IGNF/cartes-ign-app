@@ -78,7 +78,7 @@
   position: absolute;
   display: flex;
   height: 44px;
-  width: 110px;
+  width: 115px;
   background-color: #ffffff;
   z-index: 1;
   border-radius: 100px;
@@ -165,6 +165,7 @@
   height: 45px;
   margin: 4px;
   padding-left: 15px;
+  /* padding-right: 25px; */
   background-color: #ffffff;
   border-radius: 6px;
   border: 1px solid;
