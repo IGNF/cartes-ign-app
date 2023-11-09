@@ -12,8 +12,8 @@
 
 #directionsResults {
   display: grid;
-  grid-template-columns: [one] 10% [two] 60% [three] 30%;/* repeat(3, 1fr) */
-  grid-template-rows: repeat(2,1fr);
+  grid-template-columns: [one] 10% [two] 60% [three] 30%; /* repeat(3, 1fr) */
+  grid-template-rows: [one] 65px [two] 100%;
   justify-items: center;
   align-items: center;
   height: 100%;
@@ -21,9 +21,9 @@
   /* top: -10px; */
 }
 
-/* 
-  * bouton retour 
-  */
+/***************
+* bouton retour 
+****************/
 #directionsReturnBack {
 }
 
@@ -38,9 +38,9 @@
   background-repeat: no-repeat;
 }
 
-/*
-  * résumé
-  */
+/********
+* résumé
+*********/
 #directionsSummary {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -89,9 +89,9 @@
   justify-content: center;
 }
 
-/*
-  * détails
-  */
+/**********
+ * détails
+ **********/
 #directionsDetails {
 }
 
@@ -107,7 +107,10 @@
   padding: 10px;
   cursor: pointer;
   text-align: center;
-  width: 70px;
+  width: 80px;
+  background-image: url("assets/directions/visible.svg");
+  background-repeat: no-repeat;
+  background-position: left;
 }
 
 #directionsDetails input[id="directionsShowDetail"]:checked + label {
@@ -119,5 +122,60 @@
 /* INFO l'affichage est programmatique */
 #directionsListDetails {
   display: none;
+  grid-area: 2 / 1 / auto / 4;
+  flex-direction: column;
+  padding: 15px;
 }
 
+.divDirectionsDetailsItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.lblDirectionsDetailsItemGuidance {
+  display: block;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: currentcolor;
+}
+.lblDirectionsDetailsItemGuidance-arrow {
+  background-image: url("assets/directions/arrow.svg");
+}
+.lblDirectionsDetailsItemGuidance-arrow-left {
+  background-image: url("assets/directions/arrow-left.svg");
+}
+.lblDirectionsDetailsItemGuidance-arrow-right {
+  background-image: url("assets/directions/arrow-right.svg");
+}
+.lblDirectionsDetailsItemGuidance-arrow-uturn {
+  background-image: url("assets/directions/arrow-uturn.svg");
+}
+.lblDirectionsDetailsItemGuidance-point-start {
+  background-color: unset;
+  background-image: url("assets/directions/point-start.svg");
+}
+.lblDirectionsDetailsItemGuidance-point-step {
+  /* background-color: unset; */
+  background-image: url("assets/directions/point-step.svg");
+}
+.lblDirectionsDetailsItemGuidance-point-finish {
+  background-color: unset;
+  background-image: url("assets/directions/point-finish.svg");
+}
+
+.divDirectionsDetailsItemDuration,
+.divDirectionsDetailsItemDistance {
+  color: #26a581;
+  font-size: medium;
+}
+.divDirectionsDetailsItemDesc {
+  font-size: x-small;
+  font-weight: lighter;
+}
