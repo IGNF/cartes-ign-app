@@ -1,45 +1,65 @@
 <div class="d-none" id="navContainer">
-    <div class="navbar">
-        <button id="" class="navitembtn">
-            <img src="img/explorer.svg" />
+    <div class="navbar hoverable">
+        <button class="navitembtn">
+            <div class="navitemimg" id="navimg-explorer"></div>
             <span>Explorer</span>
         </button>
         <div class="subnav">
+          <div class="navheader"></div>
           <div id="isochrone" class="navitem">
-            <img src="img/proximite.svg" />
-            <span>A proximité</span>
+            <div class="nav-picto"></div>
+            <div class="nav-text">
+              <p class="nav-text-header">A proximité</p>
+              <p class="nav-text-caption">Lancer une recherche et découvrer les points d'intérêt à proximité</p>
+            </div>
+            <div class="nav-arrow"></div>
           </div>
+          <hr />
           <div id="myposition" class="navitem">
-            <img src="img/position.svg" />
-            <span>Où suis-je ?</span>
+            <div class="nav-picto"></div>
+            <div class="nav-text">
+              <p class="nav-text-header">Où suis-je ?</p>
+              <p class="nav-text-caption">Afficher l'endroit précis où vous vous trouvez et partager vos coordonnées</p>
+            </div>
+            <div class="nav-arrow"></div>
           </div>
-          <div id="" class="navitem">
-            <img src="img/repere.svg" />
-            <span style="font-style: oblique;">Créer un point</span>
-            <span style="font-style: oblique;">de repère</span>
+          <hr />
+          <div id="repere" class="navitem">
+            <div class="nav-picto"></div>
+            <div class="nav-text">
+              <p class="nav-text-header">Créer un point de repère</p>
+              <p class="nav-text-caption">Enregistrer un point de repère sur la carte</p>
+            </div>
+            <div class="nav-arrow"></div>
           </div>
         </div>
     </div>
-    <div class="navbar">
-        <button id="" class="navitembtn">
-            <img src="img/deplacer.svg" />
+    <div class="navbar hoverable">
+        <button class="navitembtn">
+            <div class="navitemimg" id="navimg-deplacer"></div>
             <span>Se déplacer</span>
         </button>
         <div class="subnav">
+          <div class="navheader"></div>
           <div id="directions" class="navitem">
-            <img src="img/creer.svg" />
-            <span>S'y rendre</span>
+            <div class="nav-picto"></div>
+            <div class="nav-text">
+              <p class="nav-text-header">S'y rendre</p>
+              <p class="nav-text-caption">Calculer un itinéraire entre votre position ou un lieu vers un autre lieu</p>
+            </div>
           </div>
           <div id="drawroute" class="navitem">
-            <img src="img/tracer.svg" />
-            <span style="font-style: oblique;">Tracer</span>
-            <span style="font-style: oblique;">un itinéraire</span>
+            <div class="nav-picto"></div>
+            <div class="nav-text">
+              <p class="nav-text-header">Tracer un itinéraire</p>
+              <p class="nav-text-caption">Tracer un parcours point à point, en suivant ou non les routes</p>
+            </div>
           </div>
         </div>
     </div>
-    <div class="navbar">
+    <div class="navbar hoverable">
         <button id="myaccount" class="navitembtn">
-            <img src="img/compte.svg" />
+            <div class="navitemimg" id="navimg-compte"></div>
             <span>Compte</span>
         </button>
     </div>

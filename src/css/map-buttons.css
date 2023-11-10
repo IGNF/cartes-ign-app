@@ -19,8 +19,8 @@
 
 #backTopLeftBtn,
 #sideBySideBtn,
-#layerManagerBtn, 
-#geolocateBtn, 
+#layerManagerBtn,
+#geolocateBtn,
 #compassBtn  {
   width: 40px;
   height: 40px;
@@ -31,29 +31,49 @@
   background-color: white;
   box-shadow: black 0px 0px 5px;
   z-index: 3001;
+  border: 1px solid white;
 }
 
 #layerManagerBtn {
   background-image: url("assets/layers.svg");
   position: absolute;
-  bottom: 130px;
+  bottom: 180px;
 }
 
 #geolocateBtn {
   background-image: url("assets/localisation.svg");
   position: absolute;
-  bottom: 180px;
+  bottom: 130px;
 }
 
 #sideBySideBtn {
   background-image: url("assets/compare.svg");
   position: absolute;
   left: 15px;
-  bottom: 180px;
+  bottom: 130px;
 }
 
 #compassBtn {
   background-image: url("assets/compass.svg");
   position: absolute;
   bottom: 225px;
+}
+
+@media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {
+  #layerManagerBtn {
+    bottom: 65px;
+  }
+
+  #geolocateBtn {
+    bottom: 15px;
+  }
+
+  #sideBySideBtn {
+    left: 90px;
+    bottom: 65px;
+  }
+
+  #compassBtn {
+    top: 15px;
+  }
 }
