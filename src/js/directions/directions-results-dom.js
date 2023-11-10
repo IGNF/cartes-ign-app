@@ -60,7 +60,7 @@ let utils = {
 /**
  * DOM du contrôle du calcul d'itineraire - resultats du calcul
  * @mixin DirectionsResultsDOM
- * @todo menu des détails du calcul
+ * @fixme fusionner les points intermediaires
  */
 let DirectionsResultsDOM = {
 

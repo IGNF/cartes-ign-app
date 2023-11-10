@@ -308,6 +308,12 @@ class Directions {
     clear () {
         this.obj.clear();
         this.obj.off("addwaypoint", (e) => { this.#onAddWayPoint(e); });
+        var locations = document.querySelectorAll(".inputDirectionsLocations");
+        for (let index = 0; index < locations.length; index++) {
+            const element = locations[index];
+            element.value = "";
+            element.dataset.coordinates = "";
+        }
     }
 
     ////////////////////////////////////////////

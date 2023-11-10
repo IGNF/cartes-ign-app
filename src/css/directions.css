@@ -132,6 +132,11 @@
 /* 
  * locations 
  */
+
+#divDirectionsLocationsList {
+  width: 95%;
+}
+
 .divDirectionsLocations {
   display: flex;
   flex-direction: column;
