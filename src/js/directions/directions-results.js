@@ -4,7 +4,7 @@ import Globals from "../globals";
 /**
  * Interface sur les resultats du calcul d'itineraire
  * @module DirectionsResults
- * @todo ajouter les fonctionnalités : cf. DOM
+ * @todo revoir CSS
  */
 class DirectionsResults {
     /**
