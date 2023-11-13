@@ -15,7 +15,7 @@
   grid-template-columns: [one] 10% [two] 60% [three] 30%; /* repeat(3, 1fr) */
   grid-template-rows: [one] 65px [two] 100%;
   justify-items: center;
-  align-items: center;
+  /* align-items: center; */
   height: 100%;
   position: relative;
   /* top: -10px; */
@@ -122,9 +122,12 @@
 /* INFO l'affichage est programmatique */
 #directionsListDetails {
   display: none;
+  position: relative;
   grid-area: 2 / 1 / auto / 4;
   flex-direction: column;
   padding: 15px;
+  height: 50%;
+  overflow-y: scroll;
 }
 
 .divDirectionsDetailsItem {
@@ -162,7 +165,7 @@
   background-image: url("assets/directions/point-start.svg");
 }
 .lblDirectionsDetailsItemGuidance-point-step {
-  /* background-color: unset; */
+  background-color: #B8BCC1;
   background-image: url("assets/directions/point-step.svg");
 }
 .lblDirectionsDetailsItemGuidance-point-finish {
@@ -178,4 +181,7 @@
 .divDirectionsDetailsItemDesc {
   font-size: x-small;
   font-weight: lighter;
+  width: 240px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
