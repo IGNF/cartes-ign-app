@@ -126,7 +126,7 @@
   grid-area: 2 / 1 / auto / 4;
   flex-direction: column;
   padding: 15px;
-  height: 50%;
+  height: 80%;
   overflow-y: scroll;
 }
 
