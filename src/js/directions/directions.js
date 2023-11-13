@@ -74,6 +74,7 @@ class Directions {
                 "maplibre-gl-directions-alt-routeline",
                 "maplibre-gl-directions-alt-routeline-casing"
             ],
+            layers: DirectionsLayers,
             dragThreshold: 10,
             refreshOnMove: false,
             bearings: false
