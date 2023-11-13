@@ -27,39 +27,16 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          directory: .
-          file_name: .env
-          envkey_GP_TOKEN: ${{ secrets.GP_TOKEN }}
-          fail_on_empty: false
-
-      - name: Get the tagname
-        id: get_tagname
-        run: echo TAGNAME=$(echo ${GITHUB_REF##*/}) >> $GITHUB_OUTPUT
-
-      - name: Set up JDK 1.11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.11
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14
-
-      - name: Install Cordova
-        run: npm install -g cordova
+          node-version: 20
 
       - name: Install app dependencies
         run: npm install
 
-      - name: Add Browser platform
-        run: cordova platform add browser
-
       - name: Build
-        run: cordova build browser --prod
+        run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v2
@@ -67,7 +44,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: 'platforms/browser/www'
+          path: 'www'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
