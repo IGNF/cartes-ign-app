@@ -3,21 +3,13 @@
         "name": "Tous",
         "keys": [
             "administratif",
+            "foncier",
             "agriculture",
-            "altimetrie",
-            "cartes",
-            "cartovecto",
-            "clc",
-            "decouverte",
-            "economie",
-            "environnement",
-            "essentiels",
-            "geodesie",
-            "ortho",
-            "orthohisto",
-            "parcellaire",
-            "satellite",
-            "topographie",
+            "bois",
+            "hydrographie",
+            "parcs",
+            "risques",
+            "tourisme",
             "transports"
         ],
         "layers": []
@@ -25,12 +17,16 @@
     {
         "name": "Administratif",
         "keys": ["administratif"],
-        "layers": []
+        "layers": [
+            "ADMIN_EXPRESS$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Foncier",
-        "keys": ["parcellaire"],
-        "layers": []
+        "keys": ["foncier"],
+        "layers": [
+            "CADASTRALPARCELS.PARCELS$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Agriculture",
@@ -39,32 +35,85 @@
     },
     {
         "name": "Forêt",
-        "keys": [],
-        "layers": []
+        "keys": ["bois"],
+        "layers": [
+            "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Hydrographie, mer et littoral",
-        "keys": [],
-        "layers": []
+        "keys": ["hydrographie"],
+        "layers": [
+            "ELEVATION.LEVEL0$GEOPORTAIL:OGC:WMTS",
+            "HYDROGRAPHY.HYDROGRAPHY$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Espaces protégés",
-        "keys": [],
-        "layers": []
+        "keys": ["parcs"],
+        "layers": [
+            "DEBROUSSAILLEMENT$GEOPORTAIL:OGC:WMTS",
+            "GEOGRAPHICALGRIDSYSTEM.DFCI$GEOPORTAIL:OGC:WMTS",
+            "LANDCOVER.FORESTAREAS$GEOPORTAIL:OGC:WMTS",
+            "LANDCOVER.FORESTINVENTORY.V1$GEOPORTAIL:OGC:WMTS",
+            "LANDCOVER.FORESTINVENTORY.V2$GEOPORTAIL:OGC:WMTS",
+            "LANDCOVER.SYLVOECOREGIONS$GEOPORTAIL:OGC:WMTS",
+            "LANDCOVER.SYLVOECOREGIONS.ALLUVIUM$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.APB$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.APG$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.APHN$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.APLG$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.BIOS$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.GP$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.INPG$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.MNHN.CDL.PARCELS$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.MNHN.CDL.PERIMETER$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.MNHN.CONSERVATOIRES$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.MNHN.RN.PERIMETER$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.PNM$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.PNR$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.PRSF$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.RAMSAR$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.RB$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.RIPN$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.RN$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.RNC$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.RNCF$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.ZNIEFF1$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.ZNIEFF1.SEA$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.ZNIEFF2$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.ZNIEFF2.SEA$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.ZPR$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Risques naturels",
-        "keys": [],
-        "layers": []
+        "keys": ["risques"],
+        "layers": [
+            "GEOGRAPHICALGRIDSYSTEMS.SLOPES.PAC$GEOPORTAIL:OGC:WMTS",
+            "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$GEOPORTAIL:OGC:WMTS",
+            "ELEVATION.ELEVATIONGRIDCOVERAGE.THRESHOLD$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Tourisme et loisirs",
-        "keys": [],
-        "layers": []
+        "keys": ["tourisme"],
+        "layers": [
+            "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS",
+            "VILLAGESETAPE$GEOPORTAIL:OGC:WMS"
+        ]
     },
     {
         "name": "Transports",
         "keys": ["transports"],
-        "layers": []
+        "layers": [
+            "TRANSPORTNETWORKS.RAILWAYS$GEOPORTAIL:OGC:WMTS",
+            "TRANSPORTNETWORKS.ROADS$GEOPORTAIL:OGC:WMTS",
+            "TRANSPORTNETWORKS.RUNWAYS$GEOPORTAIL:OGC:WMTS"
+        ]
     }
 ]
