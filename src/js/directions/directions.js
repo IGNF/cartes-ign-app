@@ -2,6 +2,7 @@ import maplibregl from "maplibre-gl";
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
 import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
+import DirectionsLayers from "./directions-styles";
 
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
@@ -9,6 +10,11 @@ import Location from "../services/location";
 import Reverse from "../services/reverse";
 
 import Sortable from 'sortablejs';
+
+const merge = (a, b, prop) => {
+    var reduced = a.filter(aitem => !b.find(bitem => aitem[prop] === bitem[prop]))
+    return reduced.concat(b);
+};
 
 /**
  * Interface du contrôle sur le calcul d'itineraire
@@ -36,9 +42,6 @@ class Directions {
             openSearchControlCbk : null,
             closeSearchControlCbk : null
         };
-
-        // TODO styles personnalisés
-        //   cf. https://maplibre.org/maplibre-gl-directions/#/examples/restyling
 
         // configuration du service
         //   cf. https://project-osrm.org/docs/v5.24.0/api/#
