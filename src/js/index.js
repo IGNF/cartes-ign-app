@@ -73,13 +73,16 @@ function app() {
   window.mapGlobal = map;
 
   // Ajout des sources definies dans la configuration à la carte
-  // (les couches de fonds et de données sont uniquement pre chargées)
+  // (les couches de fonds, de données et thématiques sont pre chargées)
   for (let layer in LayersConfig.baseLayerSources) {
     map.addSource(layer, LayersConfig.baseLayerSources[layer]);
     mapRLT.addSource(layer, LayersConfig.baseLayerSources[layer]);
   }
   for (let layer in LayersConfig.dataLayerSources) {
     map.addSource(layer, LayersConfig.dataLayerSources[layer]);
+  }
+  for (let layer in LayersConfig.thematicLayerSources) {
+    map.addSource(layer, LayersConfig.thematicLayerSources[layer]);
   }
 
   // Chargement de la position précédente

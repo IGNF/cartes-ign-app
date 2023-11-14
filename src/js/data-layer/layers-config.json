@@ -6181,6 +6181,781 @@
             "quicklookUrl": "https://wxs.ign.fr/static/pictures/ign_carte2.jpg",
             "layerId": "PLAN.IGN$GEOPORTAIL:GPP:TMS",
             "defaultProjection": "EPSG:3857"
+        },
+        "DEBROUSSAILLEMENT$GEOPORTAIL:OGC:WMTS": {
+            "name": "DEBROUSSAILLEMENT",
+            "title": "Zonage informatif des obligations légales de débroussaillement",
+            "description": "Zonage informatif des obligations légales de débroussaillement",
+            "globalConstraint": {
+                "maxScaleDenominator": 559082264.0287179,
+                "minScaleDenominator": 266.5911979812229,
+                "bbox": {
+                    "left": -5.15047,
+                    "right": 9.57054,
+                    "top": 51.0991,
+                    "bottom": 41.3252
+                }
+            },
+            "serviceParams": {
+                "id": "OGC:WMTS",
+                "version": "1.0.0",
+                "serverUrl": {
+                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                }
+            },
+            "defaultProjection": "EPSG:3857",
+            "wmtsOptions": {
+                "tileMatrixSetLink": "PM",
+                "tileMatrixSetLimits": {
+                    "6": {
+                        "minTileRow": "21",
+                        "maxTileRow": "23",
+                        "minTileCol": "31",
+                        "maxTileCol": "33"
+                    },
+                    "7": {
+                        "minTileRow": "42",
+                        "maxTileRow": "47",
+                        "minTileCol": "62",
+                        "maxTileCol": "67"
+                    },
+                    "8": {
+                        "minTileRow": "85",
+                        "maxTileRow": "95",
+                        "minTileCol": "124",
+                        "maxTileCol": "134"
+                    },
+                    "9": {
+                        "minTileRow": "171",
+                        "maxTileRow": "191",
+                        "minTileCol": "248",
+                        "maxTileCol": "269"
+                    },
+                    "10": {
+                        "minTileRow": "342",
+                        "maxTileRow": "382",
+                        "minTileCol": "497",
+                        "maxTileCol": "539"
+                    },
+                    "11": {
+                        "minTileRow": "684",
+                        "maxTileRow": "765",
+                        "minTileCol": "994",
+                        "maxTileCol": "1078"
+                    },
+                    "12": {
+                        "minTileRow": "1369",
+                        "maxTileRow": "1530",
+                        "minTileCol": "1989",
+                        "maxTileCol": "2156"
+                    },
+                    "13": {
+                        "minTileRow": "2738",
+                        "maxTileRow": "3061",
+                        "minTileCol": "3978",
+                        "maxTileCol": "4313"
+                    },
+                    "14": {
+                        "minTileRow": "5477",
+                        "maxTileRow": "6123",
+                        "minTileCol": "7957",
+                        "maxTileCol": "8627"
+                    },
+                    "15": {
+                        "minTileRow": "10955",
+                        "maxTileRow": "12246",
+                        "minTileCol": "15915",
+                        "maxTileCol": "17255"
+                    },
+                    "16": {
+                        "minTileRow": "21911",
+                        "maxTileRow": "24492",
+                        "minTileCol": "31830",
+                        "maxTileCol": "34510"
+                    },
+                    "17": {
+                        "minTileRow": "43822",
+                        "maxTileRow": "48985",
+                        "minTileCol": "63660",
+                        "maxTileCol": "69020"
+                    },
+                    "18": {
+                        "minTileRow": "87645",
+                        "maxTileRow": "97970",
+                        "minTileCol": "127321",
+                        "maxTileCol": "138041"
+                    }
+                }
+            },
+            "styles": [{
+                "name": "nolegend",
+                "title": "Données sans légende",
+                "current": true,
+                "url": null
+            }],
+            "legends": [{
+                "format": "image/jpeg",
+                "url": "https://wxs.ign.fr/static/legends/LEGEND.jpg",
+                "minScaleDenominator": "200"
+            }],
+            "formats": [{
+                "name": "image/png",
+                "current": true
+            }]
+        },
+        "GEOGRAPHICALGRIDSYSTEM.DFCI$GEOPORTAIL:OGC:WMTS": {
+            "name": "GEOGRAPHICALGRIDSYSTEM.DFCI",
+            "title": "Carroyage DFCI",
+            "description": "Le « carroyage DFCI » est un système de maillage géographique utilisé en France par les acteurs de la Défense des Forêts Contre les Incendies (DFCI). Le territoire métropolitain est couvert par des carrés de 100 km de côté, identifiables par deux lettres. Chaque carré de 100 km est divisé en 25 carrés de 20 km de côté, numérotés par des chiffres pairs de 0 à 8. Chaque carré de 20 km est divisé en 100 carrés de 2 km de côté, numérotés par un groupe composé d'une lettre et d'un chiffre. L'unité élémentaire est un carreau de 2 kilomètres de côté, défini par 6 caractères (exemple : KD42F7). Pour désigner un point à l'intérieur de l'unité élémentaire, la précision est obtenue en découpant ce carré en cinq zones numérotées de 1 à 5. Il a été créé sur une grille qui s'appuie sur la projection Lambert II étendue. Depuis 2009, il est re-projeté en Lambert 93 avec une légère déformation des angles et des surfaces. Carroyage DFCI (2 km) : Chaque carré de 20 km est divisé en 100 carrés de 2 km de côté, numérotés par un groupe composé d'une lettre et d'un chiffre. Les carrés de 2 km sont dénommés de A à L (sauf I et J) pour les abscisses, et numérotés de 0 à 9 pour les ordonnées. Date des données : 7 juin 2016 Source : couches 100, 50, 20 et 2 km : Entente Valablre - PôNT, couche 1 km : avec l'aimable autorisation de Geonov (www.geonov.fr)",
+            "globalConstraint": {
+                "maxScaleDenominator": 559082264.0287179,
+                "minScaleDenominator": 266.5911979812229,
+                "bbox": {
+                    "left": -5.15047,
+                    "right": 9.57054,
+                    "top": 51.0991,
+                    "bottom": 41.3252
+                }
+            },
+            "serviceParams": {
+                "id": "OGC:WMTS",
+                "version": "1.0.0",
+                "serverUrl": {
+                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                }
+            },
+            "defaultProjection": "EPSG:3857",
+            "wmtsOptions": {
+                "tileMatrixSetLink": "PM",
+                "tileMatrixSetLimits": {
+                    "6": {
+                        "minTileRow": "21",
+                        "maxTileRow": "23",
+                        "minTileCol": "31",
+                        "maxTileCol": "33"
+                    },
+                    "7": {
+                        "minTileRow": "42",
+                        "maxTileRow": "47",
+                        "minTileCol": "62",
+                        "maxTileCol": "67"
+                    },
+                    "8": {
+                        "minTileRow": "85",
+                        "maxTileRow": "95",
+                        "minTileCol": "124",
+                        "maxTileCol": "134"
+                    },
+                    "9": {
+                        "minTileRow": "171",
+                        "maxTileRow": "191",
+                        "minTileCol": "248",
+                        "maxTileCol": "269"
+                    },
+                    "10": {
+                        "minTileRow": "342",
+                        "maxTileRow": "382",
+                        "minTileCol": "497",
+                        "maxTileCol": "539"
+                    },
+                    "11": {
+                        "minTileRow": "684",
+                        "maxTileRow": "765",
+                        "minTileCol": "994",
+                        "maxTileCol": "1078"
+                    },
+                    "12": {
+                        "minTileRow": "1369",
+                        "maxTileRow": "1530",
+                        "minTileCol": "1989",
+                        "maxTileCol": "2156"
+                    },
+                    "13": {
+                        "minTileRow": "2738",
+                        "maxTileRow": "3061",
+                        "minTileCol": "3978",
+                        "maxTileCol": "4313"
+                    },
+                    "14": {
+                        "minTileRow": "5477",
+                        "maxTileRow": "6123",
+                        "minTileCol": "7957",
+                        "maxTileCol": "8627"
+                    },
+                    "15": {
+                        "minTileRow": "10955",
+                        "maxTileRow": "12246",
+                        "minTileCol": "15915",
+                        "maxTileCol": "17255"
+                    },
+                    "16": {
+                        "minTileRow": "21911",
+                        "maxTileRow": "24492",
+                        "minTileCol": "31830",
+                        "maxTileCol": "34510"
+                    }
+                }
+            },
+            "styles": [{
+                "name": "normal",
+                "title": "Légende générique",
+                "current": true,
+                "url": null
+            }],
+            "legends": [{
+                "format": "image/jpeg",
+                "url": "https://wxs.ign.fr/static/legends/LEGEND.jpg",
+                "minScaleDenominator": "200"
+            }],
+            "formats": [{
+                "name": "image/png",
+                "current": true
+            }]
+        },
+        "LANDCOVER.FORESTAREAS$GEOPORTAIL:OGC:WMTS": {
+            "name": "LANDCOVER.FORESTAREAS",
+            "title": "Régions forestières nationales",
+            "description": "Cette cartographie représente des zones homogènes du point de vue des types de forêt ou de paysage sur la base de conditions physiques dominantes (climat, sol, relief).",
+            "globalConstraint": {
+                "maxScaleDenominator": 559082264.0287179,
+                "minScaleDenominator": 266.5911979812229,
+                "bbox": {
+                    "left": -5.15047,
+                    "right": 9.57054,
+                    "top": 51.0991,
+                    "bottom": 41.3252
+                }
+            },
+            "serviceParams": {
+                "id": "OGC:WMTS",
+                "version": "1.0.0",
+                "serverUrl": {
+                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                }
+            },
+            "defaultProjection": "EPSG:3857",
+            "wmtsOptions": {
+                "tileMatrixSetLink": "PM",
+                "tileMatrixSetLimits": {
+                    "6": {
+                        "minTileRow": "15",
+                        "maxTileRow": "23",
+                        "minTileCol": "31",
+                        "maxTileCol": "39"
+                    },
+                    "7": {
+                        "minTileRow": "39",
+                        "maxTileRow": "47",
+                        "minTileCol": "62",
+                        "maxTileCol": "70"
+                    },
+                    "8": {
+                        "minTileRow": "79",
+                        "maxTileRow": "95",
+                        "minTileCol": "124",
+                        "maxTileCol": "140"
+                    },
+                    "9": {
+                        "minTileRow": "167",
+                        "maxTileRow": "191",
+                        "minTileCol": "248",
+                        "maxTileCol": "272"
+                    },
+                    "10": {
+                        "minTileRow": "334",
+                        "maxTileRow": "382",
+                        "minTileCol": "497",
+                        "maxTileCol": "545"
+                    },
+                    "11": {
+                        "minTileRow": "677",
+                        "maxTileRow": "765",
+                        "minTileCol": "994",
+                        "maxTileCol": "1082"
+                    },
+                    "12": {
+                        "minTileRow": "1362",
+                        "maxTileRow": "1530",
+                        "minTileCol": "1989",
+                        "maxTileCol": "2157"
+                    },
+                    "13": {
+                        "minTileRow": "2733",
+                        "maxTileRow": "3061",
+                        "minTileCol": "3978",
+                        "maxTileCol": "4314"
+                    },
+                    "14": {
+                        "minTileRow": "5475",
+                        "maxTileRow": "6123",
+                        "minTileCol": "7957",
+                        "maxTileCol": "8629"
+                    },
+                    "15": {
+                        "minTileRow": "10950",
+                        "maxTileRow": "12246",
+                        "minTileCol": "15915",
+                        "maxTileCol": "17259"
+                    },
+                    "16": {
+                        "minTileRow": "21908",
+                        "maxTileRow": "24484",
+                        "minTileCol": "31830",
+                        "maxTileCol": "34510"
+                    }
+                }
+            },
+            "styles": [{
+                "name": "normal",
+                "title": "Légende générique",
+                "current": true,
+                "url": null
+            }],
+            "legends": [{
+                "format": "image/jpeg",
+                "url": "https://wxs.ign.fr/static/legends/LEGEND.jpg",
+                "minScaleDenominator": "200"
+            }],
+            "formats": [{
+                "name": "image/png",
+                "current": true
+            }]
+        },
+        "LANDCOVER.FORESTINVENTORY.V1$GEOPORTAIL:OGC:WMTS": {
+            "name": "LANDCOVER.FORESTINVENTORY.V1",
+            "title": "Carte forestière v1 (1987-2004)",
+            "description": "La cartographie forestière est une base de données cartographique des formations végétales forestières et naturelles. Elle couvre l'ensemble du territoire de France métropolitaine. Elle est réalisée par interprétation de photographies aériennes infrarouges et affinée par des contrôles sur le terrain (le seuil minimal de surface cartographiée est de 2,25 ha).",
+            "globalConstraint": {
+                "maxScaleDenominator": 559082264.0287179,
+                "minScaleDenominator": 266.5911979812229,
+                "bbox": {
+                    "left": -5.15047,
+                    "right": 9.57054,
+                    "top": 51.0991,
+                    "bottom": 41.3252
+                }
+            },
+            "serviceParams": {
+                "id": "OGC:WMTS",
+                "version": "1.0.0",
+                "serverUrl": {
+                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                }
+            },
+            "defaultProjection": "EPSG:3857",
+            "wmtsOptions": {
+                "tileMatrixSetLink": "PM",
+                "tileMatrixSetLimits": {
+                    "6": {
+                        "minTileRow": "21",
+                        "maxTileRow": "23",
+                        "minTileCol": "31",
+                        "maxTileCol": "33"
+                    },
+                    "7": {
+                        "minTileRow": "42",
+                        "maxTileRow": "47",
+                        "minTileCol": "62",
+                        "maxTileCol": "67"
+                    },
+                    "8": {
+                        "minTileRow": "85",
+                        "maxTileRow": "95",
+                        "minTileCol": "124",
+                        "maxTileCol": "134"
+                    },
+                    "9": {
+                        "minTileRow": "171",
+                        "maxTileRow": "191",
+                        "minTileCol": "248",
+                        "maxTileCol": "269"
+                    },
+                    "10": {
+                        "minTileRow": "342",
+                        "maxTileRow": "382",
+                        "minTileCol": "497",
+                        "maxTileCol": "539"
+                    },
+                    "11": {
+                        "minTileRow": "684",
+                        "maxTileRow": "765",
+                        "minTileCol": "994",
+                        "maxTileCol": "1078"
+                    },
+                    "12": {
+                        "minTileRow": "1369",
+                        "maxTileRow": "1530",
+                        "minTileCol": "1989",
+                        "maxTileCol": "2156"
+                    },
+                    "13": {
+                        "minTileRow": "2738",
+                        "maxTileRow": "3061",
+                        "minTileCol": "3978",
+                        "maxTileCol": "4313"
+                    },
+                    "14": {
+                        "minTileRow": "5477",
+                        "maxTileRow": "6123",
+                        "minTileCol": "7957",
+                        "maxTileCol": "8627"
+                    },
+                    "15": {
+                        "minTileRow": "10955",
+                        "maxTileRow": "12246",
+                        "minTileCol": "15915",
+                        "maxTileCol": "17255"
+                    },
+                    "16": {
+                        "minTileRow": "21911",
+                        "maxTileRow": "24492",
+                        "minTileCol": "31830",
+                        "maxTileCol": "34510"
+                    }
+                }
+            },
+            "styles": [{
+                "name": "normal",
+                "title": "Légende générique",
+                "current": true,
+                "url": null
+            }],
+            "legends": [{
+                "format": "image/jpeg",
+                "url": "https://wxs.ign.fr/static/legends/LEGEND.jpg",
+                "minScaleDenominator": "200"
+            }],
+            "formats": [{
+                "name": "image/png",
+                "current": true
+            }]
+        },
+        "LANDCOVER.FORESTINVENTORY.V2$GEOPORTAIL:OGC:WMTS": {
+            "name": "LANDCOVER.FORESTINVENTORY.V2",
+            "title": "Carte forestière (v2 : 2006-)",
+            "description": "Localisation de 32 types de formations végétales sur le territoire. Carte en cours de réalisation depuis 2006.",
+            "globalConstraint": {
+                "maxScaleDenominator": 559082264.0287179,
+                "minScaleDenominator": 266.5911979812229,
+                "bbox": {
+                    "left": -5.15047,
+                    "right": 9.57054,
+                    "top": 51.0991,
+                    "bottom": 41.3252
+                }
+            },
+            "serviceParams": {
+                "id": "OGC:WMTS",
+                "version": "1.0.0",
+                "serverUrl": {
+                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                }
+            },
+            "defaultProjection": "EPSG:3857",
+            "wmtsOptions": {
+                "tileMatrixSetLink": "PM",
+                "tileMatrixSetLimits": {
+                    "6": {
+                        "minTileRow": "21",
+                        "maxTileRow": "23",
+                        "minTileCol": "31",
+                        "maxTileCol": "33"
+                    },
+                    "7": {
+                        "minTileRow": "42",
+                        "maxTileRow": "47",
+                        "minTileCol": "62",
+                        "maxTileCol": "67"
+                    },
+                    "8": {
+                        "minTileRow": "85",
+                        "maxTileRow": "95",
+                        "minTileCol": "124",
+                        "maxTileCol": "134"
+                    },
+                    "9": {
+                        "minTileRow": "171",
+                        "maxTileRow": "191",
+                        "minTileCol": "248",
+                        "maxTileCol": "269"
+                    },
+                    "10": {
+                        "minTileRow": "342",
+                        "maxTileRow": "382",
+                        "minTileCol": "497",
+                        "maxTileCol": "539"
+                    },
+                    "11": {
+                        "minTileRow": "684",
+                        "maxTileRow": "765",
+                        "minTileCol": "994",
+                        "maxTileCol": "1078"
+                    },
+                    "12": {
+                        "minTileRow": "1369",
+                        "maxTileRow": "1530",
+                        "minTileCol": "1989",
+                        "maxTileCol": "2156"
+                    },
+                    "13": {
+                        "minTileRow": "2738",
+                        "maxTileRow": "3061",
+                        "minTileCol": "3978",
+                        "maxTileCol": "4313"
+                    },
+                    "14": {
+                        "minTileRow": "5477",
+                        "maxTileRow": "6123",
+                        "minTileCol": "7957",
+                        "maxTileCol": "8627"
+                    },
+                    "15": {
+                        "minTileRow": "10955",
+                        "maxTileRow": "12246",
+                        "minTileCol": "15915",
+                        "maxTileCol": "17255"
+                    },
+                    "16": {
+                        "minTileRow": "21911",
+                        "maxTileRow": "24492",
+                        "minTileCol": "31830",
+                        "maxTileCol": "34510"
+                    }
+                }
+            },
+            "styles": [{
+                "name": "LANDCOVER.FORESTINVENTORY.V2",
+                "title": "Données LANDCOVER.FORESTINVENTORY.V2",
+                "current": true,
+                "url": null
+            }],
+            "legends": [{
+                "format": "image/png",
+                "url": "https://wxs.ign.fr/static/legends/LANDCOVER.FORESTINVENTORY.V2-legend.png",
+                "minScaleDenominator": "1000"
+            }],
+            "formats": [{
+                "name": "image/png",
+                "current": true
+            }]
+        },
+        "LANDCOVER.SYLVOECOREGIONS$GEOPORTAIL:OGC:WMTS": {
+            "name": "LANDCOVER.SYLVOECOREGIONS",
+            "title": "Sylvoécorégions",
+            "description": "Découpage de la France métropolitaine prenant en compte les facteurs biogéographiques déterminant la production forestière et la répartition des grands types d’habitat forestier.",
+            "globalConstraint": {
+                "maxScaleDenominator": 559082264.0287179,
+                "minScaleDenominator": 266.5911979812229,
+                "bbox": {
+                    "left": -5.15047,
+                    "right": 9.57054,
+                    "top": 51.0991,
+                    "bottom": 41.3252
+                }
+            },
+            "serviceParams": {
+                "id": "OGC:WMTS",
+                "version": "1.0.0",
+                "serverUrl": {
+                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                }
+            },
+            "defaultProjection": "EPSG:3857",
+            "wmtsOptions": {
+                "tileMatrixSetLink": "PM",
+                "tileMatrixSetLimits": {
+                    "6": {
+                        "minTileRow": "21",
+                        "maxTileRow": "23",
+                        "minTileCol": "31",
+                        "maxTileCol": "33"
+                    },
+                    "7": {
+                        "minTileRow": "42",
+                        "maxTileRow": "47",
+                        "minTileCol": "62",
+                        "maxTileCol": "67"
+                    },
+                    "8": {
+                        "minTileRow": "85",
+                        "maxTileRow": "95",
+                        "minTileCol": "124",
+                        "maxTileCol": "134"
+                    },
+                    "9": {
+                        "minTileRow": "171",
+                        "maxTileRow": "191",
+                        "minTileCol": "248",
+                        "maxTileCol": "269"
+                    },
+                    "10": {
+                        "minTileRow": "342",
+                        "maxTileRow": "382",
+                        "minTileCol": "497",
+                        "maxTileCol": "539"
+                    },
+                    "11": {
+                        "minTileRow": "684",
+                        "maxTileRow": "765",
+                        "minTileCol": "994",
+                        "maxTileCol": "1078"
+                    },
+                    "12": {
+                        "minTileRow": "1369",
+                        "maxTileRow": "1530",
+                        "minTileCol": "1989",
+                        "maxTileCol": "2156"
+                    },
+                    "13": {
+                        "minTileRow": "2738",
+                        "maxTileRow": "3061",
+                        "minTileCol": "3978",
+                        "maxTileCol": "4313"
+                    },
+                    "14": {
+                        "minTileRow": "5477",
+                        "maxTileRow": "6123",
+                        "minTileCol": "7957",
+                        "maxTileCol": "8627"
+                    },
+                    "15": {
+                        "minTileRow": "10955",
+                        "maxTileRow": "12246",
+                        "minTileCol": "15915",
+                        "maxTileCol": "17255"
+                    },
+                    "16": {
+                        "minTileRow": "21911",
+                        "maxTileRow": "24492",
+                        "minTileCol": "31830",
+                        "maxTileCol": "34510"
+                    }
+                }
+            },
+            "styles": [{
+                "name": "normal",
+                "title": "Légende générique",
+                "current": true,
+                "url": null
+            }],
+            "legends": [{
+                "format": "image/jpeg",
+                "url": "https://wxs.ign.fr/static/legends/LEGEND.jpg",
+                "minScaleDenominator": "200"
+            }],
+            "formats": [{
+                "name": "image/png",
+                "current": true
+            }]
+        },
+        "LANDCOVER.SYLVOECOREGIONS.ALLUVIUM$GEOPORTAIL:OGC:WMTS": {
+            "name": "LANDCOVER.SYLVOECOREGIONS.ALLUVIUM",
+            "title": "Sylvoécorégions d'alluvions récentes",
+            "description": "Affichage des cinq sylvoécorégions d’alluvions récentes correspondant aux cinq vallées des bassins des grands fleuves français et de leurs affluents, à enjeux importants.",
+            "globalConstraint": {
+                "maxScaleDenominator": 559082264.0287179,
+                "minScaleDenominator": 266.5911979812229,
+                "bbox": {
+                    "left": -5.15047,
+                    "right": 9.57054,
+                    "top": 51.0991,
+                    "bottom": 41.3252
+                }
+            },
+            "serviceParams": {
+                "id": "OGC:WMTS",
+                "version": "1.0.0",
+                "serverUrl": {
+                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                }
+            },
+            "defaultProjection": "EPSG:3857",
+            "wmtsOptions": {
+                "tileMatrixSetLink": "PM",
+                "tileMatrixSetLimits": {
+                    "6": {
+                        "minTileRow": "15",
+                        "maxTileRow": "23",
+                        "minTileCol": "31",
+                        "maxTileCol": "39"
+                    },
+                    "7": {
+                        "minTileRow": "39",
+                        "maxTileRow": "47",
+                        "minTileCol": "62",
+                        "maxTileCol": "70"
+                    },
+                    "8": {
+                        "minTileRow": "79",
+                        "maxTileRow": "95",
+                        "minTileCol": "124",
+                        "maxTileCol": "140"
+                    },
+                    "9": {
+                        "minTileRow": "167",
+                        "maxTileRow": "191",
+                        "minTileCol": "248",
+                        "maxTileCol": "272"
+                    },
+                    "10": {
+                        "minTileRow": "334",
+                        "maxTileRow": "382",
+                        "minTileCol": "497",
+                        "maxTileCol": "545"
+                    },
+                    "11": {
+                        "minTileRow": "677",
+                        "maxTileRow": "765",
+                        "minTileCol": "994",
+                        "maxTileCol": "1082"
+                    },
+                    "12": {
+                        "minTileRow": "1362",
+                        "maxTileRow": "1530",
+                        "minTileCol": "1989",
+                        "maxTileCol": "2157"
+                    },
+                    "13": {
+                        "minTileRow": "2733",
+                        "maxTileRow": "3061",
+                        "minTileCol": "3986",
+                        "maxTileCol": "4314"
+                    },
+                    "14": {
+                        "minTileRow": "5475",
+                        "maxTileRow": "6123",
+                        "minTileCol": "7973",
+                        "maxTileCol": "8629"
+                    },
+                    "15": {
+                        "minTileRow": "10958",
+                        "maxTileRow": "12238",
+                        "minTileCol": "15955",
+                        "maxTileCol": "17259"
+                    },
+                    "16": {
+                        "minTileRow": "21916",
+                        "maxTileRow": "24468",
+                        "minTileCol": "31918",
+                        "maxTileCol": "34510"
+                    }
+                }
+            },
+            "styles": [{
+                "name": "normal",
+                "title": "Légende générique",
+                "current": true,
+                "url": null
+            }],
+            "legends": [{
+                "format": "image/jpeg",
+                "url": "https://wxs.ign.fr/static/legends/LEGEND.jpg",
+                "minScaleDenominator": "200"
+            }],
+            "formats": [{
+                "name": "image/png",
+                "current": true
+            }]
         }
     },
     "tileMatrixSets": {

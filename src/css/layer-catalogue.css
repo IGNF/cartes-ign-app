@@ -1,3 +1,13 @@
+#layerManagerWindow h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#layerManagerWindow h4 {
+  padding: 0 30px 5px;
+  margin: 0 0 10px 0;
+}
+
 .layer-thematics {
   padding: 15px;
 }
@@ -14,6 +24,13 @@
   width: 75px;
   position: relative;
   margin: auto;
+}
+
+.textCouche {
+  font-family: "Open Sans Semibold";
+  color: #0B6BA7;
+  display: flex;
+  justify-content: center;
 }
 
 #layerManagerWindow .subCatMenu {
@@ -63,4 +80,52 @@
 .layer .layer-legend {
   top: 40px;
   background-image: url("assets/legend.svg");
+}
+
+.subCatMenu .layer-hidden {
+  display: none;
+}
+
+.baseLayer,
+.dataLayer,
+.thematicLayer {}
+
+#thematicButtons {}
+
+.subCatButton {
+  padding: 0 30px 5px;
+  margin: 0 0 10px 0;
+  position: relative;
+  overflow-x: scroll;
+  width: 300px; /* FIXME */
+  height: 55px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.subCatButton::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.subCatButton {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.thematic-button-active {
+  color: #26a581;
+  border-color: #26a581;
+}
+
+.thematicButton {
+  display: block;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  /* width: 70px; */
 }
