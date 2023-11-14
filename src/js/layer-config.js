@@ -100,55 +100,34 @@ const getDataLayers = () => {
 };
 
 /**
- * Liste des couches de thématique
+ * Liste des couches thématiques
+ * (le tri alpha est realisé)
  * @returns 
- * @todo
  */
 const getThematicLayers = () => {
-  return [];
+  var arrays = ThematicLayers.map((o) => { return o.layers });
+  return arrays.flat().sort();
 };
 
 /**
  * Liste des thémes
+ * (l'ordre est defini dans le json)
  * @returns
  */
 const getThematics = () => {
-  return ThematicLayers.map((o) => {o.name});
+  return ThematicLayers.map((o) => { return o.name });
 };
 
 /**
- * Liste des couches pour un théme
+ * Liste des couches pour un théme 
+ * (le tri alpha est realisé)
  * @param {*} name
  * @returns 
  * @todo prévoir les couches vecteurs tuilées
  */
 const getLayersByThematic = (name) => {
-  var layers = {};
-  var thematics = getThematics();
-  for (let i = 0; i < thematics.length; i++) {
-    const element = thematics[i];
-    if (element.name === name) {
-      // on parcours les clefs thématiques pour trouver toutes les couches
-      for (let j = 0; j < element.keys.length; j++) {
-        const key = element.keys[j];
-        var lstLayersByKey = ConfigLayers.generalOptions.apiKeys[key];
-        for (let k = 0; k < lstLayersByKey.length; k++) {
-          const layer = lstLayersByKey[k];
-          if (layer.split("$")[1] === "GEOPORTAIL:OGC:WMTS") {
-            layers[layer] = 1;
-          }
-        }
-      }
-      // on parcours la liste des couches
-      for (let n = 0; n < element.layers.length; n++) {
-        const layer = element.layers[n];
-        if (layer.split("$")[1] === "GEOPORTAIL:OGC:WMTS") {
-          layers[layer] = 1;
-        }
-      }
-    }
-  }
-  return layers.map((id) => [id]);
+  var data = ThematicLayers.find((element) => { return element.name === name });
+  return data.layers.sort();
 };
 
 /**
@@ -216,9 +195,10 @@ const createRasterTileSource = (id) => {
  */
 const createVectorSource = (id) => {
   var props = getLayerProps(id);
+  var url = props.url + props.layer + "/{z}/{x}/{y}.pbf";
   return {
     type: "vector",
-    url: props.style,
+    tiles: [url],
     maxzoom: props.maxNativeZoom,
     minzoom: props.minNativeZoom,
   }
@@ -260,5 +240,8 @@ export default {
   ),
   dataLayerSources: Object.fromEntries(
     getDataLayers().map( (id) => [id, createSource(id)] )
+  ),
+  thematicLayerSources: Object.fromEntries(
+    getThematicLayers().map( (id) => [id, createSource(id)] )
   )
 };
