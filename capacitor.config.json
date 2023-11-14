@@ -1,8 +1,14 @@
 {
-  "appId": "geoportail.app",
+  "appId": "fr.ign.geoportail",
   "appName": "geoportail-app",
   "webDir": "www",
   "server": {
     "androidScheme": "https"
+  },
+  "android": {
+    "overrideUserAgent": "IGN-app-android"
+  },
+  "ios": {
+    "overrideUserAgent": "IGN-app-ios"
   }
 }
