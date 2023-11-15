@@ -78,7 +78,7 @@
   position: absolute;
   display: flex;
   height: 44px;
-  width: 110px;
+  width: 115px;
   background-color: #ffffff;
   z-index: 1;
   border-radius: 100px;
@@ -132,9 +132,21 @@
 /* 
  * locations 
  */
+
+#divDirectionsLocationsList {
+  width: 95%;
+}
+
 .divDirectionsLocations {
   display: flex;
   flex-direction: column;
+}
+
+.divDirectionsLocationsItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .divDirectionsLocationsDefault {
@@ -147,8 +159,8 @@
 }
 
 .lblDirectionsLocations {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   background-repeat: no-repeat;
 }
 
@@ -158,26 +170,38 @@
   height: 45px;
   margin: 4px;
   padding-left: 15px;
+  padding-right: 25px;
   background-color: #ffffff;
   border-radius: 6px;
   border: 1px solid;
   border-color: #788089;
 }
 
+.handle-draggable-layer {
+  position: relative;
+  left: -35px;
+  width: 25px;
+  height: 25px;
+  background-image: url("./assets/drag-and-drop.svg");
+  background-repeat: no-repeat;
+}
+
 #directionsLocationImg_first {
   background-image: url("assets/directions/location-first.svg");
 }
-
 #directionsLocation_start {}
 
 .lblDirectionsLocationsImg_middle {
-  /* background-image: url("assets/directions/location-middle.svg"); */
+  background-image: url("assets/directions/location-step.svg");
+}
+
+.lblDirectionsLocationsRemoveImg{
+  background-image: url("assets/directions/location-step-remove.svg");
 }
 
 #directionsLocationImg_last {
   background-image: url("assets/directions/location-last.svg");
 }
-
 #directionsLocation_end {}
 
 #directionsLocationImg_reverse {
@@ -189,12 +213,13 @@
 .divDirectionsLocationsStep {
   display: flex;
   margin: auto;
+  padding: 10px;
 }
 #directionsLocationImg_step {
   display: flex;
   width: 180px;
   height: 40px;
   justify-content: space-around;
-  background-image: url("assets/directions/location-step.svg");
+  background-image: url("assets/directions/location-step-add.svg");
 }
 
