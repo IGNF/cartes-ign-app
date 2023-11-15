@@ -13,9 +13,9 @@ import ThematicLayers from "./data-layer/thematics-layer-config.json";
 import ConfigLayers from "./data-layer/layers-config.json";
 
 /**
- * Clef API pour toutes les couches
+ * Clef API (epi5gbeldn6mblrnq95ce0mc) pour toutes les couches (Oshimae)
  */
-const key = "epi5gbeldn6mblrnq95ce0mc";
+const key = Object.keys(ConfigLayers.generalOptions.apiKeys)[0]; // une seule clef !
 
 /**
  * Obtenir le zoom à partir de l'échelle
@@ -134,6 +134,16 @@ const getLayersByThematic = (name) => {
 };
 
 /**
+ * Obtenir le thème d'une couche
+ * @param {*} id 
+ * @returns 
+ */
+const getThematicByLayerID = (id) => {
+  var data = ThematicLayers.find((element) => { return element.layers.includes(id) });
+  return data.name;
+};
+
+/**
  * Creer les propriétés d'une couche (source) pour la librairie MapLibre
  * @param {*} id 
  */
@@ -238,6 +248,7 @@ export default {
   getThematicLayers,
   getThematics,
   getLayersByThematic,
+  getThematicByLayerID,
   baseLayerSources: Object.fromEntries(
     getBaseLayers().map( (id) => [id, createSource(id)] )
   ),

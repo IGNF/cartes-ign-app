@@ -26,11 +26,20 @@
   margin: auto;
 }
 
-.textCouche {
-  font-family: "Open Sans Semibold";
-  color: #0B6BA7;
+.layer-title-thematic,
+.layer-title {
+  font-family: "Open Sans";
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  color: #091625;
   display: flex;
   justify-content: center;
+}
+
+.layer-title-thematic {
+  color: #26a581;
 }
 
 #layerManagerWindow .subCatMenu {
@@ -42,13 +51,23 @@
   grid-template-columns: 26% 26% 26%;
 }
 
+.selectedLayer .layer-badge {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  bottom: 14px;
+  right: 10px;
+  background-repeat: no-repeat;
+  background-image: url("assets/selected-layer.svg");
+}
+
 .selectedLayer img {
-  border: solid 5px #0b6ba7;
+  border: solid 5px #26a581;
   box-sizing: border-box;
 }
 
 .comparedLayer img {
-  border: solid 5px #00ae90;
+  border: solid 5px #0b6ba7;
   box-sizing: border-box;
 }
 
@@ -90,7 +109,9 @@
 .dataLayer,
 .thematicLayer {}
 
-#thematicButtons {}
+#thematicButtons {
+  
+}
 
 .subCatButton {
   padding: 0 30px 5px;
@@ -127,5 +148,5 @@
   padding: 10px;
   cursor: pointer;
   text-align: center;
-  /* width: 70px; */
+  white-space: nowrap;
 }
