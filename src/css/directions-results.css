@@ -1,10 +1,9 @@
-
 /*********************************************************
  * surcharge onglet d'affichage du controle d'itiniraire
- *********************************************************/ 
+ *********************************************************/
 
 #directionsResultsWindow {
-   height: 65px;
+  min-height: 65px;
 }
 
 /***********************************
@@ -12,61 +11,58 @@
  ***********************************/
 
 #directionsResults {
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
+  display: grid;
+  grid-template-columns: [one] 10% [two] 60% [three] 30%; /* repeat(3, 1fr) */
+  grid-template-rows: [one] 65px [two] 100%;
+  justify-items: center;
+  /* align-items: center; */
   height: 100%;
   position: relative;
-  top: -10px;
+  /* top: -10px; */
 }
- 
- /* 
-  * bouton retour 
-  */
-#directionsReturnBack {}
- 
- .btnDirectionsReturnBack {
-   display: block;
-   width: 20px;
-   height: 20px;
-   position: relative;
-   z-index: 3001;
-   background-image: url("assets/directions/back.svg");
-   background-position: center;
-   background-repeat: no-repeat;
-}
- 
- /*
-  * résumé
-  */
-#directionsSummary {
 
+/***************
+* bouton retour 
+****************/
+#directionsReturnBack {
+}
+
+.btnDirectionsReturnBack {
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  z-index: 3001;
+  background-image: url("assets/directions/back.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/********
+* résumé
+*********/
+#directionsSummary {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   justify-items: center;
   align-items: center;
-
 }
 
 #directionsSummaryDuration {
-
   color: #26a581;
   font-size: medium;
-
 }
 
-.lblDirectionsSummaryDuration {}
+.lblDirectionsSummaryDuration {
+}
 
 #directionsSummaryDistance {
-
   font-size: medium;
-
 }
 
-.lblDirectionsSummaryDistance {}
+.lblDirectionsSummaryDistance {
+}
 
 #directionsSummaryTransportPieton {
   background-image: url("assets/directions/pieton.svg");
@@ -87,30 +83,105 @@
   font-weight: lighter;
 }
 
-.lblDirectionsSummaryComputation {}
- 
- /*
-  * détails
-  */
-#directionsDetails {}
+.lblDirectionsSummaryComputation {
+  display: inline-flex;
+  align-items : center; 
+  justify-content: center;
+}
+
+/**********
+ * détails
+ **********/
+#directionsDetails {
+}
 
 #directionsShowDetail {
   display: none;
 }
 
 .lblDirectionsShowDetails {
-   display: block;
-   border: 1px solid #ccc;
-   background-color: #ffffff;
-   border-radius: 50px;
-   padding: 10px;
-   cursor: pointer;
-   text-align: center;
-   width: 70px;
+  display: block;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  width: 80px;
+  background-image: url("assets/directions/visible.svg");
+  background-repeat: no-repeat;
+  background-position: left;
 }
 
 #directionsDetails input[id="directionsShowDetail"]:checked + label {
   background-color: #26a581;
   color: white;
   /* content: "\00d7"; */
+}
+
+/* INFO l'affichage est programmatique */
+#directionsListDetails {
+  display: none;
+  position: relative;
+  grid-area: 2 / 1 / auto / 4;
+  flex-direction: column;
+  padding: 15px;
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.divDirectionsDetailsItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.lblDirectionsDetailsItemGuidance {
+  display: block;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: currentcolor;
+}
+.lblDirectionsDetailsItemGuidance-arrow {
+  background-image: url("assets/directions/arrow.svg");
+}
+.lblDirectionsDetailsItemGuidance-arrow-left {
+  background-image: url("assets/directions/arrow-left.svg");
+}
+.lblDirectionsDetailsItemGuidance-arrow-right {
+  background-image: url("assets/directions/arrow-right.svg");
+}
+.lblDirectionsDetailsItemGuidance-arrow-uturn {
+  background-image: url("assets/directions/arrow-uturn.svg");
+}
+.lblDirectionsDetailsItemGuidance-point-start {
+  background-color: unset;
+  background-image: url("assets/directions/point-start.svg");
+}
+.lblDirectionsDetailsItemGuidance-point-step {
+  background-color: #B8BCC1;
+  background-image: url("assets/directions/point-step.svg");
+}
+.lblDirectionsDetailsItemGuidance-point-finish {
+  background-color: unset;
+  background-image: url("assets/directions/point-finish.svg");
+}
+
+.divDirectionsDetailsItemDuration,
+.divDirectionsDetailsItemDistance {
+  color: #26a581;
+  font-size: medium;
+}
+.divDirectionsDetailsItemDesc {
+  font-size: x-small;
+  font-weight: lighter;
+  width: 240px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
