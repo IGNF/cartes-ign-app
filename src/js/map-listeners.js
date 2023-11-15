@@ -3,7 +3,6 @@ import maplibregl from "maplibre-gl";
 import DOM from './dom';
 import Globals from './globals';
 import Location from './services/location';
-import UpdateLegend from './update-legend';
 import Layers from './layer-config';
 
 /**
@@ -29,9 +28,6 @@ const addListeners = () => {
       Location.locationOnOff();
     }
   });
-
-  // Légende en fonction du zoom
-  map.on("zoomend", UpdateLegend.updateLegend);
 
   /**
    * Fonction de transformation coordonnées vers pixels d'une tuile
