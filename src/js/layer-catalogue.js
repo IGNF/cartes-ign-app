@@ -54,10 +54,12 @@ class LayerCatalogue {
       <div class="layer ${opts.type}" id="${opts.layerID}">
         <div class="layerImg">
           <img src="${opts.layerQuickLook}" alt="${opts.layerName}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
+          <div class="layer-badge"></div>
           <div class="layer-info hidden" layername="${opts.layerID}"></div>
           <div class="layer-legend hidden" layername="${opts.layerID}"></div>
         </div>
-        <div id="${opts.layerName}" class="textCouche">${opts.layerTitle}</div>
+        <div class="layer-title-thematic">${opts.layerThematic}</div>
+        <div id="${opts.layerName}" class="layer-title">${opts.layerTitle}</div>
       </div>
       `;
     }
@@ -71,7 +73,8 @@ class LayerCatalogue {
         layerID : baseLayers[i],
         layerName : props.layer,
         layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
-        layerTitle : props.title
+        layerTitle : props.title,
+        layerThematic : ""
       });
     }
 
@@ -84,20 +87,8 @@ class LayerCatalogue {
         layerID : dataLayers[j],
         layerName : props.layer,
         layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
-        layerTitle : props.title
-      });
-    }
-
-    var strThematicLayers = "";
-    var thematicLayers = LayersConfig.getThematicLayers();
-    for(let k = 0; k < thematicLayers.length; k++) {
-      var props = LayersConfig.getLayerProps(thematicLayers[k]);
-      strThematicLayers += tplLayer({
-        type : "thematicLayer layer-hidden", // liste cachée par defaut !
-        layerID : thematicLayers[k],
-        layerName : props.layer,
-        layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
-        layerTitle : props.title
+        layerTitle : props.title,
+        layerThematic : ""
       });
     }
 
@@ -110,6 +101,21 @@ class LayerCatalogue {
         ${name}
       </button>
       `;
+    }
+
+    var strThematicLayers = "";
+    var thematicLayers = LayersConfig.getThematicLayers();
+    for(let k = 0; k < thematicLayers.length; k++) {
+      var props = LayersConfig.getLayerProps(thematicLayers[k]);
+      var thematic = LayersConfig.getThematicByLayerID(thematicLayers[k]);
+      strThematicLayers += tplLayer({
+        type : "thematicLayer layer-hidden", // liste cachée par defaut !
+        layerID : thematicLayers[k],
+        layerName : props.layer,
+        layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
+        layerTitle : props.title,
+        layerThematic : thematic
+      });
     }
     
     var template = `
