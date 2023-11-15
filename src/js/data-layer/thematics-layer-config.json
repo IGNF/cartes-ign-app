@@ -1,6 +1,10 @@
 [
     {
         "name": "Tous",
+        "settings": {
+            "default": true,
+            "generic": true
+        },
         "keys": [
             "administratif",
             "foncier",

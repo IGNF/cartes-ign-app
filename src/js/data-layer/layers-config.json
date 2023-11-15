@@ -6200,7 +6200,7 @@
                 "id": "OGC:WMTS",
                 "version": "1.0.0",
                 "serverUrl": {
-                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                    "epi5gbeldn6mblrnq95ce0mc": "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts"
                 }
             },
             "defaultProjection": "EPSG:3857",
@@ -6321,7 +6321,7 @@
                 "id": "OGC:WMTS",
                 "version": "1.0.0",
                 "serverUrl": {
-                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                    "epi5gbeldn6mblrnq95ce0mc": "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts"
                 }
             },
             "defaultProjection": "EPSG:3857",
@@ -6430,7 +6430,7 @@
                 "id": "OGC:WMTS",
                 "version": "1.0.0",
                 "serverUrl": {
-                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                    "epi5gbeldn6mblrnq95ce0mc": "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts"
                 }
             },
             "defaultProjection": "EPSG:3857",
@@ -6539,7 +6539,7 @@
                 "id": "OGC:WMTS",
                 "version": "1.0.0",
                 "serverUrl": {
-                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                    "epi5gbeldn6mblrnq95ce0mc": "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts"
                 }
             },
             "defaultProjection": "EPSG:3857",
@@ -6648,7 +6648,7 @@
                 "id": "OGC:WMTS",
                 "version": "1.0.0",
                 "serverUrl": {
-                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                    "epi5gbeldn6mblrnq95ce0mc": "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts"
                 }
             },
             "defaultProjection": "EPSG:3857",
@@ -6757,7 +6757,7 @@
                 "id": "OGC:WMTS",
                 "version": "1.0.0",
                 "serverUrl": {
-                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                    "epi5gbeldn6mblrnq95ce0mc": "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts"
                 }
             },
             "defaultProjection": "EPSG:3857",
@@ -6866,7 +6866,7 @@
                 "id": "OGC:WMTS",
                 "version": "1.0.0",
                 "serverUrl": {
-                    "environnement": "https://wxs.ign.fr/environnement/geoportail/wmts"
+                    "epi5gbeldn6mblrnq95ce0mc": "https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts"
                 }
             },
             "defaultProjection": "EPSG:3857",

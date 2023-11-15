@@ -127,6 +127,9 @@ const getThematics = () => {
  */
 const getLayersByThematic = (name) => {
   var data = ThematicLayers.find((element) => { return element.name === name });
+  if (data.settings && data.settings.generic) {
+    return getThematicLayers();
+  }
   return data.layers.sort();
 };
 
