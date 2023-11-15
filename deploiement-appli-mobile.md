@@ -12,6 +12,8 @@
 - `zipalign 4 ./android/app/build/outputs/apk/release/app-release-signed.apk ./android/app/build/outputs/apk/release/app-release-aligned.apk`
 - `apksigner sign --ks /<chemin_vers>/ign.keystore --v1-signing-enabled true --v2-signing-enabled true ./android/app/build/outputs/apk/release/app-release-aligned.apk`
 
+- Génération des assets : https://github.com/ionic-team/capacitor-assets
+
 ## Android
 
 ### Prérequis spécifiques
