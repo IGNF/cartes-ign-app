@@ -8,6 +8,9 @@
 ## Capacitor
 - `npm run build`
 - `npx cap sync`
+- `npx cap build --keystorepath "c:/Users/amaur/Downloads/ign.keystore" --keystorepass "G3oportail" --keystorealias "geoportail_mobile" --keystorealiaspass "G3oportail" --androidreleasetype "APK" android`
+- `zipalign 4 ./android/app/build/outputs/apk/release/app-release-signed.apk ./android/app/build/outputs/apk/release/app-release-aligned.apk`
+- `apksigner sign --ks /<chemin_vers>/ign.keystore --v1-signing-enabled true --v2-signing-enabled true ./android/app/build/outputs/apk/release/app-release-aligned.apk`
 
 ## Android
 

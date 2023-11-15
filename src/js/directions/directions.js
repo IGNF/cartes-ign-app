@@ -2,6 +2,7 @@ import Polyline from "@mapbox/polyline"
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
 import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
+import DirectionsLayers from "./directions-styles";
 
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
@@ -9,6 +10,12 @@ import Location from "../services/location";
 import Reverse from "../services/reverse";
 
 import ElevationLineControl from "../elevation-line-control";
+import Sortable from 'sortablejs';
+
+const merge = (a, b, prop) => {
+    var reduced = a.filter(aitem => !b.find(bitem => aitem[prop] === bitem[prop]))
+    return reduced.concat(b);
+};
 
 /**
  * Interface du contrôle sur le calcul d'itineraire
@@ -37,16 +44,16 @@ class Directions {
             closeSearchControlCbk : null
         };
 
-        // TODO styles personnalisés
-        //   cf. https://maplibre.org/maplibre-gl-directions/#/examples/restyling
-
         // configuration du service
         //   cf. https://project-osrm.org/docs/v5.24.0/api/#
         //   ex. https://map.project-osrm.org/
         this.configuration = this.options.configuration || {
             api: "https://router.project-osrm.org/route/v1",
             profile: "driving",
-            requestOptions: {overview: "full"},
+            requestOptions: {
+                overview: "full",
+                steps: "true"
+            },
             requestTimeout: null,
             makePostRequest: false,
             sourceName: "maplibre-gl-directions",
@@ -68,6 +75,7 @@ class Directions {
                 "maplibre-gl-directions-alt-routeline",
                 "maplibre-gl-directions-alt-routeline-casing"
             ],
+            layers: DirectionsLayers,
             dragThreshold: 10,
             refreshOnMove: false,
             bearings: false
@@ -115,6 +123,16 @@ class Directions {
 
         // ajout du container
         target.appendChild(container);
+
+        // dragn'drop !
+        Sortable.create(document.getElementById("divDirectionsLocationsList"), {
+            handle : ".handle-draggable-layer",
+            draggable : ".draggable-layer",
+            animation : 200,
+            forceFallback : true,
+            // Call event function on drag and drop
+            onEnd : (evt) => {}
+        });
     }
 
     /**
@@ -165,11 +183,19 @@ class Directions {
         if (settings.locations && settings.locations.length) {
             try {
                 // les coordonnées sont en lon / lat en WGS84G
-                var start = JSON.parse(settings.locations[0]);
-                var end = JSON.parse(settings.locations[settings.locations.length - 1]);
+                var start = null;
+                var end = null;
+                var point = null;
+                for (let index = 0; index < settings.locations.length; index++) {
+                    if (settings.locations[index]) {
+                        point = (point === null) ?
+                            start = JSON.parse(settings.locations[index]) : JSON.parse(settings.locations[index]);
+                        this.obj.addWaypoint(point);
+                    }
+                }
+
+                var end = point;
                 if (start && end) {
-                    this.obj.addWaypoint(start);
-                    this.obj.addWaypoint(end);
                     this.map.fitBounds([start, end], {
                         padding : 20
                     });
@@ -211,7 +237,7 @@ class Directions {
                     distance : e.data.routes[0].distance || "",
                     transport : settings.transport,
                     computation : settings.computation.message,
-                    instructions : []
+                    instructions : e.data.routes[0].legs
                 });
                 this.results.show();
                 const routeCoordinates = [];
@@ -254,10 +280,10 @@ class Directions {
         }).finally(() => {
             var target = null;
             var c = (bResponse) ? Reverse.getCoordinates() : {lon : coordinates.lng, lat : coordinates.lat};
-            var a = (bResponse) ? Reverse.getAddress() : "inconnue";
+            var a = (bResponse) ? Reverse.getAddress() : c.lon.toFixed(6) + ", " + c.lat.toFixed(6);
             var address = a;
             if (bResponse) {
-                address = a.city + ", " + a.citycode;
+                address = a.street + ", " + a.city + ", " + a.citycode;
             }
             // start
             if (index === 0) {
@@ -266,6 +292,11 @@ class Directions {
             // end
             if (index === 1) {
                 target = document.getElementById("directionsLocation_end");
+            }
+            // step
+            if (index > 1) {
+                target = document.getElementById("directionsLocation_step_" + (index - 1));
+                target.parentNode.classList.remove("hidden");
             }
             // on ajoute les resultats dans le contrôle
             if (target) {
@@ -291,6 +322,12 @@ class Directions {
     clear () {
         this.obj.clear();
         this.obj.off("addwaypoint", (e) => { this.#onAddWayPoint(e); });
+        var locations = document.querySelectorAll(".inputDirectionsLocations");
+        for (let index = 0; index < locations.length; index++) {
+            const element = locations[index];
+            element.value = "";
+            element.dataset.coordinates = "";
+        }
     }
 
     ////////////////////////////////////////////

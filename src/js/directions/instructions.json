@@ -1,0 +1,108 @@
+{
+  "arrive": {
+    "value": "Arrivée",
+    "icon": "point-finish"
+  },
+  "continue": {
+    "value": "Continuer",
+    "icon": "arrow"
+  },
+  "depart": {
+    "value": "Départ",
+    "icon": "point-start"
+  },
+  "end of road": {
+    "value": "À la fin de la route, prendre",
+    "icon": "arrow"
+  },
+  "fork": {
+    "value": "Sur la bifurcation, prendre",
+    "icon": "arrow"
+  },
+  "left": {
+    "value": " à gauche",
+    "icon": "arrow-left"
+  },
+  "merge": {
+    "value": "Rejoindre",
+    "icon": "arrow"
+  },
+  "new name": {
+    "value": "Continuer tout droit",
+    "icon": "arrow"
+  },
+  "notification": {
+    "value": "",
+    "icon": ""
+  },
+  "off ramp": {
+    "value": "Prendre la sortie",
+    "icon": "arrow"
+  },
+  "on ramp": {
+    "value": "Prendre la bretelle",
+    "icon": "arrow"
+  },
+  "sharp right": {
+    "value": " complètement à droite",
+    "icon": "arrow-right"
+  },
+  "ramp": {
+    "value": "Prendre la bretelle",
+    "icon": "arrow"
+  },
+  "right": {
+    "value": " à droite",
+    "icon": "arrow-right"
+  },
+  "roundabout": {
+    "value": "Au rond-point",
+    "icon": "arrow"
+  },
+  "exit roundabout": {
+    "value": "Au rond-point, prendre",
+    "icon": "arrow"
+  },
+  "roundabout turn": {
+    "value": "Au rond point, tourner",
+    "icon": "arrow"
+  },
+  "rotary": {
+    "value": "Au rond-point",
+    "icon": "arrow"
+  },
+  "exit rotary": {
+    "value": "Au rond-point, prendre",
+    "icon": "arrow"
+  },
+  "sharp left": {
+    "value": " complètement à gauche",
+    "icon": "arrow-left"
+  },
+  "slight left": {
+    "value": " lègèrement à gauche",
+    "icon": "arrow-left"
+  },
+  "slight right": {
+    "value": " légèrement à droite",
+    "icon": "arrow-right"
+  },
+  "straight": {
+    "value": "Continuer tout droit",
+    "icon": "arrow",
+    "unique": 1
+  },
+  "turn": {
+    "value": "Tourner",
+    "icon": "arrow"
+  },
+  "uturn": {
+    "value": "Faire demi-tour",
+    "icon": "arrow-uturn",
+    "unique": 1
+  },
+  "use lane": {
+    "value": "Utiliser la file",
+    "icon": "arrow"
+  }
+}

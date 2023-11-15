@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "geoportail.app"
+    namespace "fr.ign.geoportail"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "geoportail.app"
+        applicationId "fr.ign.geoportail"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {

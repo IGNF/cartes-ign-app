@@ -163,8 +163,14 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 0;
                 break;
             case "directionsResults":
-                isSpecificSize = true;
                 DOM.$tabContainer.style.height = "";
+                Globals.ignoreNextScrollEvent = true;
+                window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'auto'
+                });
+                Globals.currentScrollIndex = 0;
                 break;
             case "searchDirections":
             case "searchIsochrone":
@@ -197,9 +203,8 @@ class MenuNavigation {
         this.hide();
 
         // on procede à l'affichage du panneau
-        if(!isSpecificSize) {
-            DOM.$tabContainer.style.height = "100%";
-        }
+        DOM.$tabContainer.style.height = "100%";
+        
         if (Globals.currentScrollIndex === 2) {
             this.updateScrollAnchors();
         } else if (Globals.currentScrollIndex === 1) {
