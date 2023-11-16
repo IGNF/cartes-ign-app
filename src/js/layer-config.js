@@ -10,7 +10,12 @@
  */
 import BaseLayers from "./data-layer/base-layer-config.json";
 import ThematicLayers from "./data-layer/thematics-layer-config.json";
-import ConfigLayers from "./data-layer/geoportal-configuration.json";
+import ConfigLayers from "./data-layer/layers-config.json";
+
+/**
+ * Clef API (epi5gbeldn6mblrnq95ce0mc) pour toutes les couches (Oshimae)
+ */
+const key = Object.keys(ConfigLayers.generalOptions.apiKeys)[0]; // une seule clef !
 
 /**
  * Obtenir le zoom à partir de l'échelle
@@ -62,16 +67,17 @@ const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
  * Obtenir la liste des propriétés d'une couche
  * @param {*} id 
  * @returns 
- * @todo prévoir les couches vecteurs tuilées
  */
 const getLayerProps = (id) => {
   var props = ConfigLayers.layers[id];
+  var isVector = (props.serviceParams.id === "GPP:TMS") ? true : false;
   return {
     layer: props.name,
     title: props.title,
     desc: props.description,
-    style: (props.styles.lenght > 0) ? props.styles[0].name : "normal",
+    style: (props.styles.length > 0) ? (isVector) ? props.styles[0].url : props.styles[0].name : "normal",
     format: props.formats[0].name,
+    url: props.serviceParams.serverUrl[key],
     minNativeZoom: getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 0,
     maxNativeZoom: getZoomLevelFromScaleDenominator(props.globalConstraint.minScaleDenominator) || 21,
   }
@@ -94,85 +100,102 @@ const getDataLayers = () => {
 };
 
 /**
- * Liste des couches de thématique
+ * Liste des couches thématiques
+ * (le tri alpha est realisé)
  * @returns 
- * @todo
  */
 const getThematicLayers = () => {
-  return [];
+  var arrays = ThematicLayers.map((o) => { return o.layers });
+  return arrays.flat().sort();
 };
 
 /**
  * Liste des thémes
+ * (l'ordre est defini dans le json)
  * @returns
  */
 const getThematics = () => {
-  return ThematicLayers.map((o) => {o.name});
+  return ThematicLayers.map((o) => { return o.name });
 };
 
 /**
- * Liste des couches pour un théme
+ * Liste des couches pour un théme 
+ * (le tri alpha est realisé)
  * @param {*} name
  * @returns 
  * @todo prévoir les couches vecteurs tuilées
  */
 const getLayersByThematic = (name) => {
-  var layers = {};
-  var thematics = getThematics();
-  for (let i = 0; i < thematics.length; i++) {
-    const element = thematics[i];
-    if (element.name === name) {
-      // on parcours les clefs thématiques pour trouver toutes les couches
-      for (let j = 0; j < element.keys.length; j++) {
-        const key = element.keys[j];
-        var lstLayersByKey = ConfigLayers.generalOptions.apiKeys[key];
-        for (let k = 0; k < lstLayersByKey.length; k++) {
-          const layer = lstLayersByKey[k];
-          if (layer.split("$")[1] === "GEOPORTAIL:OGC:WMTS") {
-            layers[layer] = 1;
-          }
-        }
-      }
-      // on parcours la liste des couches
-      for (let n = 0; n < element.layers.length; n++) {
-        const layer = element.layers[n];
-        if (layer.split("$")[1] === "GEOPORTAIL:OGC:WMTS") {
-          layers[layer] = 1;
-        }
-      }
-    }
+  var data = ThematicLayers.find((element) => { return element.name === name });
+  if (data.settings && data.settings.generic) {
+    return getThematicLayers();
   }
-  return layers.map((id) => [id]);
+  return data.layers.sort();
 };
 
 /**
- * Creer le template URL pour une couche
+ * Obtenir le thème d'une couche
  * @param {*} id 
  * @returns 
  */
-const createWmtsUrlFromId = (id) => {
-  var props = getLayerProps(id);
-  return `https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?` +
-  `REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&` +
-  `STYLE=${props.style}&` +
-  `TILEMATRIXSET=PM&` +
-  `FORMAT=${props.format}&`+
-  `LAYER=${props.layer}&`+
-  `TILEMATRIX={z}&` +
-  `TILEROW={y}&` +
-  `TILECOL={x}`
+const getThematicByLayerID = (id) => {
+  var data = ThematicLayers.find((element) => { return element.layers.includes(id) });
+  return data.name;
 };
 
 /**
- * Creer les propriétés d'une couche de type Raster pour la librairie MapLibre
+ * Creer les propriétés d'une couche (source) pour la librairie MapLibre
+ * @param {*} id 
+ */
+const createSource = (id) => {
+  // ex. "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950$GEOPORTAIL:OGC:WMTS"
+  var name = id.split("$")[0];
+  var params = id.split("$")[1].split(":");
+  if (params.length !== 3) {
+    throw new Error("LayerConfig : ID layer name is not conforme");
+  }
+
+  var register = params[0]; // GEOPORTAIL ou INSPIRE
+  var norme = params[1]; // OGC ou GPP
+  var service = params[2]; // WMTS, WMS ou TMS
+
+  var fxt;
+  switch (service) {
+    case "WMTS":
+      fxt = createRasterTileSource;
+      break;
+    case "WMS":
+      fxt = createRasterSource;
+      break;
+    case "TMS":
+      fxt = createVectorSource;
+      break;
+    default:
+      throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${register} - ${norme} - ${service}`);
+  }
+
+  return fxt(id);
+};
+
+/**
+ * Creer les propriétés d'une couche de type Tile Raster pour la librairie MapLibre
  * @param {*} id 
  * @returns 
  */
-const createRasterSource = (id) => {
+const createRasterTileSource = (id) => {
   var props = getLayerProps(id);
+  var url = `${props.url}?` +
+    `REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&` +
+    `STYLE=${props.style}&` +
+    `TILEMATRIXSET=PM&` +
+    `FORMAT=${props.format}&`+
+    `LAYER=${props.layer}&`+
+    `TILEMATRIX={z}&` +
+    `TILEROW={y}&` +
+    `TILECOL={x}`;
   return {
     type: "raster",
-    tiles: [createWmtsUrlFromId(id)],
+    tiles: [url],
     tileSize: 256,
     maxzoom: props.maxNativeZoom,
     minzoom: props.minNativeZoom,
@@ -182,9 +205,41 @@ const createRasterSource = (id) => {
 /**
  * Creer les propriétés d'une couche de type Vector pour la librairie MapLibre
  * @param {*} id 
- * @todo
  */
-const createVectorSource = (id) => {};
+const createVectorSource = (id) => {
+  var props = getLayerProps(id);
+  var url = props.url + props.layer + "/{z}/{x}/{y}.pbf";
+  return {
+    type: "vector",
+    tiles: [url],
+    maxzoom: props.maxNativeZoom,
+    minzoom: props.minNativeZoom,
+  }
+};
+
+/**
+ * Creer les propriétés d'une couche de type Raster pour la librairie MapLibre
+ * @param {*} id 
+ */
+const createRasterSource = (id) => {
+  var props = getLayerProps(id);
+  var url = `${props.url}` +
+    `REQUEST=GetMap&VERSION=1.3.0&` +
+    `BBOX={bbox-epsg-3857}&` +
+    `SRS=EPSG:3857&` +
+    `FORMAT=${props.format}&`+
+    `LAYERS=${props.layer}&`+
+    `TRANSPARENT=true&` +
+    `WIDTH=256&` +
+    `HEIGHT=256`;
+  return {
+    type: "raster",
+    tiles: [url],
+    tileSize: 256,
+    maxzoom: props.maxNativeZoom,
+    minzoom: props.minNativeZoom,
+  }
+};
 
 export default {
   getLayerProps,
@@ -193,10 +248,14 @@ export default {
   getThematicLayers,
   getThematics,
   getLayersByThematic,
+  getThematicByLayerID,
   baseLayerSources: Object.fromEntries(
-    getBaseLayers().map( (id) => [id, createRasterSource(id)] )
+    getBaseLayers().map( (id) => [id, createSource(id)] )
   ),
   dataLayerSources: Object.fromEntries(
-    getDataLayers().map( (id) => [id, createRasterSource(id)] )
+    getDataLayers().map( (id) => [id, createSource(id)] )
+  ),
+  thematicLayerSources: Object.fromEntries(
+    getThematicLayers().map( (id) => [id, createSource(id)] )
   )
 };
