@@ -240,12 +240,42 @@ class Directions {
                     instructions : e.data.routes[0].legs
                 });
                 this.results.show();
-                const routeCoordinates = [];
+                let routeCoordinates = [];
                 Polyline.decode(e.data.routes[0].geometry).forEach( (latlng) => {
                   routeCoordinates.push({lat: latlng[0], lon: latlng[1]});
                 });
-                this.elevation.setCoordinates(routeCoordinates);
-                this.elevation.compute();
+                // TODO REMOVE ME IMPORTANT à supprimer après passage en POST GPF
+                try {
+                    if (routeCoordinates.length > 110) {
+                        var gcd = function(a, b) {
+                            if (b < 0.0000001) return a;
+                            return gcd(b, Math.floor(a % b));
+                        };
+
+                        let proportionToRemove = ((routeCoordinates.length - 110) / routeCoordinates.length).toFixed(3);
+                        var len = proportionToRemove.toString().length - 2;
+                        var denominator = Math.pow(10, len);
+                        var numerator = proportionToRemove * denominator;
+                        var divisor = gcd(numerator, denominator);
+                        numerator /= divisor;
+                        denominator /= divisor;
+                        console.log(numerator)
+                        console.log(denominator)
+                        let newrouteCoords = []
+                        for (let i=0; i<routeCoordinates.length; i++) {
+                            let demPort = i%denominator;
+                            if (demPort >= numerator) {
+                                newrouteCoords.push(routeCoordinates[i])
+                            }
+                        }
+                        routeCoordinates = newrouteCoords;
+                    }
+                    this.elevation.setCoordinates(routeCoordinates);
+                    this.elevation.compute();
+
+                } catch (error) {
+                    console.error(error);
+                }
             }
         });
     }
