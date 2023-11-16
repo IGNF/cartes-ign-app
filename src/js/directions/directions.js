@@ -1,4 +1,4 @@
-import maplibregl from "maplibre-gl";
+import Polyline from "@mapbox/polyline"
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
 import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
@@ -9,6 +9,7 @@ import Geocode from "../services/geocode";
 import Location from "../services/location";
 import Reverse from "../services/reverse";
 
+import ElevationLineControl from "../elevation-line-control";
 import Sortable from 'sortablejs';
 
 const merge = (a, b, prop) => {
@@ -80,6 +81,9 @@ class Directions {
             bearings: false
         };
 
+        // paramètres du calcul
+        this.settings = null;
+
         // résultats du calcul
         this.results = null;
 
@@ -92,6 +96,9 @@ class Directions {
         // INFO sans interaction par défaut !
         // > choix d'activer via la méthode publique...
         this.obj.interactive = false;
+
+        // Profil Altimétrique
+        this.elevation = new ElevationLineControl({target: document.getElementById("directions-elevationline")});
 
         // rendu graphique
         this.render();
@@ -176,6 +183,7 @@ class Directions {
                 message : message
             };
         }
+        this.settings = settings;
         if (settings.locations && settings.locations.length) {
             try {
                 // les coordonnées sont en lon / lat en WGS84G
@@ -184,7 +192,7 @@ class Directions {
                 var point = null;
                 for (let index = 0; index < settings.locations.length; index++) {
                     if (settings.locations[index]) {
-                        point = (point === null) ? 
+                        point = (point === null) ?
                             start = JSON.parse(settings.locations[index]) : JSON.parse(settings.locations[index]);
                         this.obj.addWaypoint(point);
                     }
@@ -202,7 +210,13 @@ class Directions {
                 return;
             }
         }
+    }
 
+    /**
+     * ajout d'ecouteurs pour la saisie interactive
+     */
+    #listeners() {
+        this.obj.on("addwaypoint", (e) => { this.#onAddWayPoint(e); });
         // events
         this.obj.on("fetchroutesstart", (e) => {
             // TODO
@@ -231,27 +245,51 @@ class Directions {
                 this.results = new DirectionsResults(this.map, null, {
                     duration : e.data.routes[0].duration || "",
                     distance : e.data.routes[0].distance || "",
-                    transport : settings.transport,
-                    computation : settings.computation.message,
+                    transport : this.settings.transport,
+                    computation : this.settings.computation.message,
                     instructions : e.data.routes[0].legs
                 });
                 this.results.show();
+                let routeCoordinates = [];
+                Polyline.decode(e.data.routes[0].geometry).forEach( (latlng) => {
+                  routeCoordinates.push({lat: latlng[0], lon: latlng[1]});
+                });
+                // TODO REMOVE ME IMPORTANT à supprimer après passage en POST GPF
+                if (routeCoordinates.length > 110) {
+                    var gcd = function(a, b) {
+                        if (b < 0.0000001) return a;
+                        return gcd(b, Math.floor(a % b));
+                    };
+
+                    let proportionToRemove = ((routeCoordinates.length - 110) / routeCoordinates.length).toFixed(3);
+                    var len = proportionToRemove.toString().length - 2;
+                    var denominator = Math.pow(10, len);
+                    var numerator = proportionToRemove * denominator;
+                    var divisor = gcd(numerator, denominator);
+                    numerator /= divisor;
+                    denominator /= divisor;
+                    console.log(numerator)
+                    console.log(denominator)
+                    let newrouteCoords = []
+                    for (let i=0; i<routeCoordinates.length; i++) {
+                        let demPort = i%denominator;
+                        if (demPort >= numerator) {
+                            newrouteCoords.push(routeCoordinates[i])
+                        }
+                    }
+                    routeCoordinates = newrouteCoords;
+                }
+                this.elevation.setCoordinates(routeCoordinates);
+                this.elevation.compute();
             }
         });
     }
 
     /**
-     * ajout d'ecouteurs pour la saisie interactive
-     */
-    #listeners() {
-        this.obj.on("addwaypoint", (e) => { this.#onAddWayPoint(e); });
-    }
-
-    /**
      * ecouteur lors de l'ajout d'un point avec addWayPoint()
      * @see https://maplibre.org/maplibre-gl-directions/api/interfaces/MapLibreGlDirectionsWaypointEventData.html
-     * @param {*} e 
-     * @returns 
+     * @param {*} e
+     * @returns
      */
     #onAddWayPoint(e) {
         var index = e.data.index;
