@@ -9,7 +9,7 @@ import ImageNotFound from '../html/img/image-not-found.png';
  * Gestion des couches thématiques et fonds de carte
  * @fires addlayer
  * @fires removelayer 
- * @todo ajouter les couches thématiques
+ * @todo impl. les couches "vecteur tuilé"
  */
 class LayerCatalogue {
 
@@ -54,10 +54,12 @@ class LayerCatalogue {
       <div class="layer ${opts.type}" id="${opts.layerID}">
         <div class="layerImg">
           <img src="${opts.layerQuickLook}" alt="${opts.layerName}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
-          <div class="layer-info" layername="${opts.layerID}"></div>
-          <div class="layer-legend" layername="${opts.layerID}"></div>
+          <div class="layer-badge"></div>
+          <div class="layer-info hidden" layername="${opts.layerID}"></div>
+          <div class="layer-legend hidden" layername="${opts.layerID}"></div>
         </div>
-        <div id="${opts.layerName}" class="textCouche">${opts.layerTitle}</div>
+        <div class="layer-title-thematic">${opts.layerThematic}</div>
+        <div id="${opts.layerName}" class="layer-title">${opts.layerTitle}</div>
       </div>
       `;
     }
@@ -71,7 +73,8 @@ class LayerCatalogue {
         layerID : baseLayers[i],
         layerName : props.layer,
         layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
-        layerTitle : props.title
+        layerTitle : props.title,
+        layerThematic : ""
       });
     }
 
@@ -84,7 +87,34 @@ class LayerCatalogue {
         layerID : dataLayers[j],
         layerName : props.layer,
         layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
-        layerTitle : props.title
+        layerTitle : props.title,
+        layerThematic : ""
+      });
+    }
+
+    var strThematicButtons = "";
+    var thematicButtons = LayersConfig.getThematics();
+    for (let l = 0; l < thematicButtons.length; l++) {
+      const name = thematicButtons[l];
+      strThematicButtons += `
+      <button class="thematicButton" data-name="${name}">
+        ${name}
+      </button>
+      `;
+    }
+
+    var strThematicLayers = "";
+    var thematicLayers = LayersConfig.getThematicLayers();
+    for(let k = 0; k < thematicLayers.length; k++) {
+      var props = LayersConfig.getLayerProps(thematicLayers[k]);
+      var thematic = LayersConfig.getThematicByLayerID(thematicLayers[k]);
+      strThematicLayers += tplLayer({
+        type : "thematicLayer layer-hidden", // liste cachée par defaut !
+        layerID : thematicLayers[k],
+        layerName : props.layer,
+        layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
+        layerTitle : props.title,
+        layerThematic : thematic
       });
     }
     
@@ -99,8 +129,11 @@ class LayerCatalogue {
         ${strDataLayers}
       </div>
       <h4 id="thematicLayersLabel">Données thématiques</h4>
+      <div class="subCatButton" id="thematicButtons">
+        ${strThematicButtons}
+      </div>
       <div class="subCatMenu" id="thematicLayers">
-        <!-- TODO -->
+        ${strThematicLayers}
       </div>
     </div>`;
 
@@ -185,6 +218,44 @@ class LayerCatalogue {
         ev.stopPropagation();
         DOM.$legendImg.src = LayersAdditional.getLegend(el.getAttribute("layername").split("$")[0]);
         Globals.menu.open("legend");
+      });
+    });
+    // clic sur une couche thematique
+    document.querySelectorAll(".thematicLayer").forEach((el) => {
+      el.addEventListener('click', (e) => {
+        if (el.classList.contains("selectedLayer") || el.classList.contains("comparedLayer")) {
+          this.removeLayer(el.id);
+        } else {
+          this.addLayer(el.id);
+        }
+      });
+    });
+    // clic sur un bouton thematique
+    document.querySelectorAll(".thematicButton").forEach((el) => {
+      // INFO
+      // Execution de l'ecouteur sur un clic bouton thématique :
+      // - modifie le style des boutons
+      // - recherche toutes les couches afin de les rendre 'hidden'
+      // - recherche des couches du theme demandé
+      // - supprime la classe 'hidden' des ID des couches demandées
+      el.addEventListener('click', (e) => {
+        var buttons = document.querySelectorAll(".thematicButton");
+        for (let h = 0; h < buttons.length; h++) {
+          const element = buttons[h];
+          element.classList.remove("thematic-button-active");
+        }
+        var layers = document.querySelectorAll(".thematicLayer");
+        for (let i = 0; i < layers.length; i++) {
+          const element = layers[i];
+          element.classList.add("layer-hidden");
+        }
+        var layersId = LayersConfig.getLayersByThematic(e.target.dataset.name);
+        for (let j = 0; j < layersId.length; j++) {
+          const id = layersId[j];
+          var element = document.getElementById(id);
+          element.classList.remove("layer-hidden");
+        }
+        e.target.classList.add("thematic-button-active");
       });
     });
   }
@@ -289,6 +360,7 @@ class LayerCatalogue {
    * ...
    * @param {*} source - nom de la source === nom de la couche
    * @param {*} glMap - map | mapRLT
+   * @todo ajouter la gestion du vecteur tuilé
    */
   #setLayerSource (source, glMap="map") {
     var map = (glMap === "map") ? this.map : (glMap === "mapRLT") ? this.mapRLT : null;

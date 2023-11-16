@@ -1,3 +1,13 @@
+#layerManagerWindow h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#layerManagerWindow h4 {
+  padding: 0 30px 5px;
+  margin: 0 0 10px 0;
+}
+
 .layer-thematics {
   padding: 15px;
 }
@@ -16,6 +26,22 @@
   margin: auto;
 }
 
+.layer-title-thematic,
+.layer-title {
+  font-family: "Open Sans";
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  color: #091625;
+  display: flex;
+  justify-content: center;
+}
+
+.layer-title-thematic {
+  color: #26a581;
+}
+
 #layerManagerWindow .subCatMenu {
   text-align: center;
   margin: 0 15px 0 15px;
@@ -25,13 +51,23 @@
   grid-template-columns: 26% 26% 26%;
 }
 
+.selectedLayer .layer-badge {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  bottom: 14px;
+  right: 10px;
+  background-repeat: no-repeat;
+  background-image: url("assets/selected-layer.svg");
+}
+
 .selectedLayer img {
-  border: solid 5px #0b6ba7;
+  border: solid 5px #26a581;
   box-sizing: border-box;
 }
 
 .comparedLayer img {
-  border: solid 5px #00ae90;
+  border: solid 5px #0b6ba7;
   box-sizing: border-box;
 }
 
@@ -63,4 +99,54 @@
 .layer .layer-legend {
   top: 40px;
   background-image: url("assets/legend.svg");
+}
+
+.subCatMenu .layer-hidden {
+  display: none;
+}
+
+.baseLayer,
+.dataLayer,
+.thematicLayer {}
+
+#thematicButtons {
+  
+}
+
+.subCatButton {
+  padding: 0 30px 5px;
+  margin: 0 0 10px 0;
+  position: relative;
+  overflow-x: scroll;
+  width: 300px; /* FIXME */
+  height: 55px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.subCatButton::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.subCatButton {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.thematic-button-active {
+  color: #26a581;
+  border-color: #26a581;
+}
+
+.thematicButton {
+  display: block;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
 }

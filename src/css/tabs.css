@@ -68,32 +68,3 @@
   border: 1px solid #AAA;
   border-radius: 2px;
 }
-
-#menuItemLegend {
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
-
-
-#tools h3, #layerManagerWindow h3 {
-  text-align: center;
-}
-
-.textCouche {
-  font-family: "Open Sans Semibold";
-  color: #0B6BA7;
-  display: flex;
-  justify-content: center;
-}
-
-
-
-#layerManagerWindow h3 {
-  margin-bottom: 10px;
-}
-#layerManagerWindow h4 {
-  padding: 0 30px 5px;
-  margin: 0 0 10px 0;
-}
-
