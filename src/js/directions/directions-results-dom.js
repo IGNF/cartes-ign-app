@@ -96,7 +96,7 @@ let DirectionsResultsDOM = {
         container.appendChild(this.__addResultsDetailsContainerDOMElement());
         // ajout des détails
         container.appendChild(this.__addResultsListDetailsContainerDOMElement(data.instructions));
-        
+
         return container;
     },
 
@@ -131,7 +131,7 @@ let DirectionsResultsDOM = {
         return div;
     },
 
-    /** 
+    /**
      * ajoute le container le résumé du parcours
      * @param {*} distance
      * @param {*} duration
@@ -173,7 +173,7 @@ let DirectionsResultsDOM = {
 
     /**
      * ajoute le bouton d'affichage des détails
-     * @returns 
+     * @returns
      */
     __addResultsDetailsContainerDOMElement () {
         // contexte de la classse
@@ -204,14 +204,14 @@ let DirectionsResultsDOM = {
         return div;
     },
 
-    /** 
+    /**
      * ajoute le container sur les détails du parcours
      * @param {*} instructions - routes[0].legs[]
      * @returns {DOMElement}
      * @private
      */
     __addResultsListDetailsContainerDOMElement (instructions) {
-        
+
         var divList = document.createElement("div");
         divList.id = "directionsListDetails";
         divList.className = "";
@@ -219,7 +219,7 @@ let DirectionsResultsDOM = {
         // FIXME comment fusionner les points intermediaires ?
         var first = instructions[0].steps[0];
         var last = instructions.slice(-1)[0].steps.slice(-1)[0];
-        
+
         var opts = {
             duration : 0,
             distance : 0
@@ -251,7 +251,7 @@ let DirectionsResultsDOM = {
                     type = "last";
                 }
                 else if (index === (instruction.steps.length - 1)) {
-                    // étapes intermediares 
+                    // étapes intermediares
                     // > arrivée d'un troncon et départ d'un autre troncon
                     type = "step";
 
@@ -264,6 +264,11 @@ let DirectionsResultsDOM = {
                 }
             });
         }
+
+        var canvasProfile = document.createElement("canvas");
+        canvasProfile.id = "directions-elevationline";
+        canvasProfile.className = "elevationLineCanvas";
+        divList.appendChild(canvasProfile);
 
         return divList;
     },
@@ -290,7 +295,7 @@ let DirectionsResultsDOM = {
 
         var divContainer = document.createElement("div");
         divContainer.className = "divDirectionsDetailsItem";
-        
+
         var labelIcon = document.createElement("label");
         labelIcon.classList.add("lblDirectionsDetailsItemGuidance");
         // HACK
