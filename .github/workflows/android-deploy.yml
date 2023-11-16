@@ -1,0 +1,58 @@
+name: Android Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          directory: .
+          file_name: .env
+          envkey_GP_TOKEN: ${{ secrets.GP_TOKEN }}
+          fail_on_empty: false
+
+      - name: Get the tagname
+        id: get_tagname
+        run: echo TAGNAME=$(echo ${GITHUB_REF##*/}) >> $GITHUB_OUTPUT
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Build Android Release APK
+        run: cd android && ./gradlew assembleRelease
+
+      - name: Sign Release APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_apk
+        with:
+          releaseDirectory: android/app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+
+      - name: Deploy to PlayStore
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: fr.ign.geoportail
+          releaseFiles: ${{ steps.sign_apk.outputs.signedReleaseFile }}
+          track: qa
+          status: completed
+          releaseName: ${{ steps.get_tagname.outputs.TAGNAME }}
+          inAppUpdatePriority: 5
