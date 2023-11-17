@@ -64,22 +64,23 @@ function app() {
     touchPitch: false,
   });
   mapRLT.scrollZoom.setWheelZoomRate(1);
-  
+
   // Enregistrement de la carte
   Globals.map = map;
   Globals.mapRLT = mapRLT;
-  
+
   // DEBUG
   window.mapGlobal = map;
 
   // Ajout des sources definies dans la configuration à la carte
-  // (les couches de fonds, de données et thématiques sont pre chargées)
+  // (les couches de fonds, rlt et thématiques sont pre chargées)
   for (let layer in LayersConfig.baseLayerSources) {
     map.addSource(layer, LayersConfig.baseLayerSources[layer]);
     mapRLT.addSource(layer, LayersConfig.baseLayerSources[layer]);
   }
-  for (let layer in LayersConfig.dataLayerSources) {
-    map.addSource(layer, LayersConfig.dataLayerSources[layer]);
+  for (let layer in LayersConfig.rltLayerSources) {
+    map.addSource(layer, LayersConfig.rltLayerSources[layer]);
+    mapRLT.addSource(layer, LayersConfig.rltLayerSources[layer]);
   }
   for (let layer in LayersConfig.thematicLayerSources) {
     map.addSource(layer, LayersConfig.thematicLayerSources[layer]);
@@ -95,11 +96,11 @@ function app() {
   Globals.manager = new LayerManager({
     layers : [
       {
-        layers : Globals.baseLayerDisplayed, 
+        layers : Globals.baseLayerDisplayed,
         type : "base"
       },
       {
-        layers : Globals.dataLayerDisplayed, 
+        layers : Globals.dataLayerDisplayed,
         type : "data"
       }
     ]
