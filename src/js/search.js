@@ -121,7 +121,7 @@ class Search {
     Globals.controller = new AbortController();
     Globals.signal = Globals.controller.signal;
     let location = DOM.$rech.value;
-    let url = new URL("https://wxs.ign.fr/calcul/geoportail/geocodage/rest/0.1/completion");
+    let url = new URL("https://data.geopf.fr/geocodage/completion");
     let params =
         {
           type: "StreetAddress,PositionOfInterest",
