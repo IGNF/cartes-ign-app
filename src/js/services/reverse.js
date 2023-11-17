@@ -14,8 +14,8 @@ const target = new EventTarget();
 
 /**
  * service
- * @param {*} coordinates 
- * @returns 
+ * @param {*} coordinates
+ * @returns
  * @fire reverse
  */
 const compute = async (coordinates) => {
@@ -23,7 +23,7 @@ const compute = async (coordinates) => {
 
     controller = new AbortController();
 
-    let url = new URL("https://wxs.ign.fr/calcul/geoportail/geocodage/rest/0.1/reverse");
+    let url = new URL("https://data.geopf.fr/geocodage/reverse");
     let params = {
         index: "address",
         searchgeom: `{"type":"Circle","coordinates":[${coordinates.lon},${coordinates.lat}],"radius":100}`,
@@ -46,7 +46,7 @@ const compute = async (coordinates) => {
         citycode : geojson.features[0].properties.citycode,
         city : geojson.features[0].properties.city
     };
-    
+
     results = {
         coordinates : {
             lon : geojson.features[0].geometry.coordinates[0],
@@ -65,7 +65,7 @@ const compute = async (coordinates) => {
     return results;
 };
 
-/** 
+/**
  * obtenir les coordonnées
  * @example
  * { lon lat }
@@ -74,7 +74,7 @@ const getCoordinates = () => {
     return results.coordinates;
 };
 
-/** 
+/**
  * obtenir l'adresse
  * @example
  * { number  street  citycode  city }
