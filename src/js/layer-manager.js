@@ -155,7 +155,6 @@ class LayerManger {
     #getLayersAvailableCounter() {
         var counter = document.getElementById("layer-thematics-number");
         var value = layerConfig.getBaseLayers().length +
-                    layerConfig.getRLTLayers().length +
                     layerConfig.getThematicLayers().length;
         counter.textContent = value;
     }
