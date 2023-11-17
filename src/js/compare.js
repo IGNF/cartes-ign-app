@@ -5,7 +5,7 @@ import Globals from './globals';
 
 /**
  * Outil de comparaison de carte
- * 
+ *
  * @todo le rendre plus parametrable avec des options dans le constructeur
  */
 class Compare {
@@ -43,9 +43,7 @@ class Compare {
         document.querySelector(".baseLayer:not(.selectedLayer)").click();
 
         this.prevDataLayerDisplayed = Globals.dataLayerDisplayed;
-        
-        document.querySelector("#dataLayers").classList.add("d-none");
-        document.querySelector("#dataLayersLabel").classList.add("d-none");
+
         document.querySelector(".selectedLayer").style.pointerEvents = "none";
         Globals.menu.open("layerManager");
     }
@@ -58,7 +56,7 @@ class Compare {
         this.actived = false;
 
         Globals.menu.close("layerManager");
-        
+
         document.querySelectorAll(".baseLayer").forEach(elem => {
             elem.classList.remove('comparedLayer');
         });
@@ -68,8 +66,6 @@ class Compare {
         }
         Globals.mapState = "default";
         document.querySelector("#mapRLT").classList.add("d-none");
-        document.querySelector("#dataLayers").classList.remove("d-none");
-        document.querySelector("#dataLayersLabel").classList.remove("d-none");
     }
 
     /**
