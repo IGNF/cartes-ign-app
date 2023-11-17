@@ -31,9 +31,9 @@ module.exports = {
         ]
       },
       {
-        test: /\.(ttf|png|svg)$/,
+        test: /\.(ttf|png|svg|jpg)$/,
         type: 'asset/resource',
-      },
+      }
    ]
   },
 };
