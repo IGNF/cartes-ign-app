@@ -19,8 +19,8 @@ const key = Object.keys(ConfigLayers.generalOptions.apiKeys)[0]; // une seule cl
 
 /**
  * Obtenir le zoom à partir de l'échelle
- * @param {*} scaleDenominator 
- * @returns 
+ * @param {*} scaleDenominator
+ * @returns
  */
 const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
   // par defaut, on utilise la projection WebMercator (EPSG:3857 = PM)
@@ -59,14 +59,14 @@ const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
       }
     }
   }
-  
+
   return 0;
 };
 
 /**
  * Obtenir la liste des propriétés d'une couche
- * @param {*} id 
- * @returns 
+ * @param {*} id
+ * @returns
  */
 const getLayerProps = (id) => {
   var props = ConfigLayers.layers[id];
@@ -85,28 +85,28 @@ const getLayerProps = (id) => {
 
 /**
  * Liste des couches de fonds
- * @returns 
+ * @returns
  */
 const getBaseLayers = () => {
   return BaseLayers["base-layer"];
 };
 
 /**
- * Liste des couches de données
- * @returns 
+ * Liste des couches RLT
+ * @returns
  */
-const getDataLayers = () => {
-  return BaseLayers["data-layer"];
+const getRLTLayers = () => {
+  return BaseLayers["rlt-layers"];
 };
 
 /**
  * Liste des couches thématiques
  * (le tri alpha est realisé)
- * @returns 
+ * @returns
  */
 const getThematicLayers = () => {
   var arrays = ThematicLayers.map((o) => { return o.layers });
-  return arrays.flat().sort();
+  return arrays.flat();
 };
 
 /**
@@ -119,10 +119,10 @@ const getThematics = () => {
 };
 
 /**
- * Liste des couches pour un théme 
+ * Liste des couches pour un théme
  * (le tri alpha est realisé)
  * @param {*} name
- * @returns 
+ * @returns
  * @todo prévoir les couches vecteurs tuilées
  */
 const getLayersByThematic = (name) => {
@@ -130,13 +130,13 @@ const getLayersByThematic = (name) => {
   if (data.settings && data.settings.generic) {
     return getThematicLayers();
   }
-  return data.layers.sort();
+  return data.layers;
 };
 
 /**
  * Obtenir le thème d'une couche
- * @param {*} id 
- * @returns 
+ * @param {*} id
+ * @returns
  */
 const getThematicByLayerID = (id) => {
   var data = ThematicLayers.find((element) => { return element.layers.includes(id) });
@@ -145,7 +145,7 @@ const getThematicByLayerID = (id) => {
 
 /**
  * Creer les propriétés d'une couche (source) pour la librairie MapLibre
- * @param {*} id 
+ * @param {*} id
  */
 const createSource = (id) => {
   // ex. "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950$GEOPORTAIL:OGC:WMTS"
@@ -179,8 +179,8 @@ const createSource = (id) => {
 
 /**
  * Creer les propriétés d'une couche de type Tile Raster pour la librairie MapLibre
- * @param {*} id 
- * @returns 
+ * @param {*} id
+ * @returns
  */
 const createRasterTileSource = (id) => {
   var props = getLayerProps(id);
@@ -193,6 +193,10 @@ const createRasterTileSource = (id) => {
     `TILEMATRIX={z}&` +
     `TILEROW={y}&` +
     `TILECOL={x}`;
+  if (props.url.includes("/private/")) {
+    // Ajout de la clef d'API de l'appli si l'URL est privée
+    url += `&apikey=${process.env.GPF_key}`;
+  }
   return {
     type: "raster",
     tiles: [url],
@@ -204,7 +208,7 @@ const createRasterTileSource = (id) => {
 
 /**
  * Creer les propriétés d'une couche de type Vector pour la librairie MapLibre
- * @param {*} id 
+ * @param {*} id
  */
 const createVectorSource = (id) => {
   var props = getLayerProps(id);
@@ -219,7 +223,7 @@ const createVectorSource = (id) => {
 
 /**
  * Creer les propriétés d'une couche de type Raster pour la librairie MapLibre
- * @param {*} id 
+ * @param {*} id
  */
 const createRasterSource = (id) => {
   var props = getLayerProps(id);
@@ -232,6 +236,10 @@ const createRasterSource = (id) => {
     `TRANSPARENT=true&` +
     `WIDTH=256&` +
     `HEIGHT=256`;
+  if (props.url.includes("/private/")) {
+    // Ajout de la clef d'API de l'appli si l'URL est privée
+    url += `&apikey=${process.env.GPF_key}`;
+  }
   return {
     type: "raster",
     tiles: [url],
@@ -244,7 +252,7 @@ const createRasterSource = (id) => {
 export default {
   getLayerProps,
   getBaseLayers,
-  getDataLayers,
+  getRLTLayers,
   getThematicLayers,
   getThematics,
   getLayersByThematic,
@@ -252,8 +260,8 @@ export default {
   baseLayerSources: Object.fromEntries(
     getBaseLayers().map( (id) => [id, createSource(id)] )
   ),
-  dataLayerSources: Object.fromEntries(
-    getDataLayers().map( (id) => [id, createSource(id)] )
+  rltLayerSources: Object.fromEntries(
+    getRLTLayers().map( (id) => [id, createSource(id)] )
   ),
   thematicLayerSources: Object.fromEntries(
     getThematicLayers().map( (id) => [id, createSource(id)] )

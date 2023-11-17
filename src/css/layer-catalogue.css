@@ -78,39 +78,15 @@
   position: relative;
 }
 
-.layer .layer-info,
-.layer .layer-legend {
-  width: 19px;
-  height: 19px;
-  background-color: #fff;
-  position: absolute;
-  left: -10px;
-  border-radius: 13px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.layer .layer-info {
-  top: -10px;
-  background-image: url("assets/info.svg");
-}
-
-.layer .layer-legend {
-  top: 40px;
-  background-image: url("assets/legend.svg");
-}
-
 .subCatMenu .layer-hidden {
   display: none;
 }
 
 .baseLayer,
-.dataLayer,
 .thematicLayer {}
 
 #thematicButtons {
-  
+
 }
 
 .subCatButton {
