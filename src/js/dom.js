@@ -16,7 +16,7 @@ const $compassBtn = document.getElementById("compassBtn");
 const $layerManagerBtn = document.getElementById("layerManagerBtn");
 const $sideBySideBtn = document.getElementById("sideBySideBtn");
 
-const $blueBg = document.getElementById("blueBg");
+const $whiteScreen = document.getElementById("whiteScreen");
 const $parameterScreenWindow = document.getElementById("parameterScreenWindow");
 const $legalScreenWindow = document.getElementById("legalScreenWindow");
 const $privacyScreenWindow = document.getElementById("privacyScreenWindow");
@@ -51,7 +51,7 @@ export default {
   $resultDiv,
   $rech,
   $geolocateBtn,
-  $blueBg,
+  $whiteScreen,
   $closeSearch,
   $searchResults,
   $resultsRechRecent,

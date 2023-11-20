@@ -120,8 +120,8 @@ function addListeners() {
       Globals.backButtonState = 'default';
     }
   }
-  
-  // FIXME à deplacer ? 
+
+  // FIXME à deplacer ?
   // document.getElementById("drawroute").addEventListener("click", Controls.startDrawRoute);
 }
 
