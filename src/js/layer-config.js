@@ -67,16 +67,21 @@ const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
  * Obtenir la liste des propriétés d'une couche
  * @param {*} id 
  * @returns 
+ * @fixme liste de fichiers de style pour les tuiles vectorielles ou de styles pour du raster ?
  */
 const getLayerProps = (id) => {
+  // console.debug(id);
   var props = ConfigLayers.layers[id];
   var isVector = (props.serviceParams.id === "GPP:TMS") ? true : false;
+  var style = (props.styles.length) ? props.styles.find((s) => { return s.current === true}) : "normal";
+  var format = props.formats.length ? props.formats.find((f) => { return f.current === true}) : "";
   return {
     layer: props.name,
     title: props.title,
     desc: props.description,
-    style: (props.styles.length > 0) ? (isVector) ? props.styles[0].url : props.styles[0].name : "normal",
-    format: props.formats[0].name,
+    type: (isVector) ? "vector" : "raster",
+    style: (isVector) ? style.url : style.name || "normal",
+    format: format.name || "",
     url: props.serviceParams.serverUrl[key],
     minNativeZoom: getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 0,
     maxNativeZoom: getZoomLevelFromScaleDenominator(props.globalConstraint.minScaleDenominator) || 21,

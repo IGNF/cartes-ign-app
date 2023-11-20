@@ -10,6 +10,27 @@ import ImageNotFound from '../html/img/image-not-found.png';
  * @fires addlayer
  * @fires removelayer 
  * @todo impl. les couches "vecteur tuilé"
+ * @fixme impl. d'une liste de couches courante (Globals.baseLayerDisplayed)
+ * @description 
+ *      → manager    
+ *      	→ instancie this.catalogue & this.switcher
+ *     	→ ecouteurs sur les events 
+ *	      	* addLayer
+ *	      	   → this.catalogue → call this.switcher.addLayer
+ *	      	   → this.switcher → call this.updateCounter
+ *	      	* removeLayer
+ *	      	   → this.catalogue → call this.switcher.removeLayer
+ *	      	   → this.switcher → call this.updateCounter
+ *      	→ loader de couches par defaut
+ *         		→ call this.catalogue.addLayer
+ *       
+ *      → catalogue 
+ *        	→ this.addLayer → call add interface → fire event addLayer
+ *        	→ this.removeLayer → call remove interface → fire event removeLayer
+ *      → switcher
+ *        	→ this.addLayer → call addContainer & addGroup & map.addLayer → fire event addLayer
+ *       	→ this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
+ *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer (TODO)
  */
 class LayerCatalogue {
 
@@ -275,7 +296,6 @@ class LayerCatalogue {
     } else {
       var element = document.getElementById(layerName);
       element.classList.add("selectedLayer");
-      this.#setLayerSource(layerName);
 
       /**
        * Evenement "addlayer"
@@ -309,7 +329,6 @@ class LayerCatalogue {
     } else {
       var element = document.getElementById(layerName);
       element.classList.remove('selectedLayer');
-      this.#setLayerSource(layerName);
 
       /**
        * Evenement "removelayer"
@@ -342,7 +361,7 @@ class LayerCatalogue {
       }
     });
     document.getElementById(layerName).classList.add("comparedLayer");
-    this.#setLayerSource(layerName, "mapRLT");
+    this.#setCompareLayerStyle(layerName);
   }
 
   /**
@@ -353,19 +372,15 @@ class LayerCatalogue {
     document.querySelectorAll(".baseLayer").forEach(elem => {
       elem.classList.remove('comparedLayer');
     });
-    this.#setLayerSource(layerName, "mapRLT");
+    this.#setCompareLayerStyle(layerName);
   }
 
   /**
-   * ...
+   * Ajout du style pour une source donnée
    * @param {*} source - nom de la source === nom de la couche
-   * @param {*} glMap - map | mapRLT
-   * @todo ajouter la gestion du vecteur tuilé
    */
-  #setLayerSource (source, glMap="map") {
-    var map = (glMap === "map") ? this.map : (glMap === "mapRLT") ? this.mapRLT : null;
-
-    let allLayersStyle = map.getStyle().layers;
+  #setCompareLayerStyle (source) {
+    let allLayersStyle = this.mapRLT.getStyle().layers;
     var layerIndex = allLayersStyle.findIndex((l) => l.id === source);
     var layerStyle = allLayersStyle[layerIndex] || null;
     
@@ -382,10 +397,10 @@ class LayerCatalogue {
         // afin que le calcul soit toujours la couche visible du dessus !
         var layerIndexBefore = allLayersStyle.findIndex((l) => l.source === "maplibre-gl-directions");
         var layerIdBefore = (layerIndexBefore !== -1) ? allLayersStyle[layerIndexBefore].id : null;
-        map.addLayer(layerStyle, layerIdBefore);
+        this.mapRLT.addLayer(layerStyle, layerIdBefore);
       } else {
         // le style existe, on le supprime
-        map.removeLayer(source);
+        this.mapRLT.removeLayer(source);
       }
     }
   }

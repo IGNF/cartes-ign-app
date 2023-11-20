@@ -9,7 +9,28 @@ import layerConfig from './layer-config';
  * - gestion des thèmatiques et fonds de carte
  * @see LayerSwitcher
  * @see LayerCatalogue
- * @todo ...
+ * @fixme les couches tuiles vectorielles sont en chargement async !
+ * @description 
+ *      → manager    
+ *      	→ instancie this.catalogue & this.switcher
+ *     	→ ecouteurs sur les events 
+ *	      	* addLayer
+ *	      	   → this.catalogue → call this.switcher.addLayer
+ *	      	   → this.switcher → call this.updateCounter
+ *	      	* removeLayer
+ *	      	   → this.catalogue → call this.switcher.removeLayer
+ *	      	   → this.switcher → call this.updateCounter
+ *      	→ loader de couches par defaut
+ *         		→ call this.catalogue.addLayer
+ *       
+ *      → catalogue 
+ *        	→ this.addLayer → call add interface → fire event addLayer
+ *        	→ this.removeLayer → call remove interface → fire event removeLayer
+ *      → switcher
+ *        	→ this.addLayer → call addContainer & addGroup & map.addLayer → fire event addLayer
+ *       	→ this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
+ *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer (TODO)
+ * 
  */
 class LayerManger {
     /**
@@ -49,11 +70,9 @@ class LayerManger {
      */
     #listeners() {
         this.layerCatalogue.event.addEventListener("addlayer", (e) => {
-            // cf. this.layerSwitcher.event.addEventListener("addlayer")
             this.layerSwitcher.addLayer(e.detail.id);
         });
         this.layerCatalogue.event.addEventListener("removelayer", (e) => {
-            // cf. this.layerSwitcher.event.addEventListener("removelayer")
             this.layerSwitcher.removeLayer(e.detail.id);
         });
 
