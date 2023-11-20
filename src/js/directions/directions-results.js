@@ -10,8 +10,8 @@ class DirectionsResults {
     /**
      * constructeur
      * @constructs
-     * @param {*} map 
-     * @param {*} options 
+     * @param {*} map
+     * @param {*} options
      */
     constructor (map, target, options) {
         this.options = options || {
@@ -45,13 +45,13 @@ class DirectionsResults {
             console.warn();
             return;
         }
- 
+
         var container = this.getContainer(this.options);
         if (!container) {
             console.warn();
             return;
         }
-        
+
         // ajout du container
         target.appendChild(container);
     }
@@ -74,11 +74,11 @@ class DirectionsResults {
 
     /**
      * listener issu du dom sur la visualisation des détails du parcours
-     * @param {*} e 
+     * @param {*} e
      * @fixme trouver une solution full css !
      */
     toggleDisplayDetails(e) {
-        // INFO 
+        // INFO
         // l'affichage ne peut pas être realisé en CSS only
         // (car ils ne sont pas issus du même parent)
         // input[id="directionsShowDetail"]:checked + label + #directionsListDetails {
@@ -87,6 +87,7 @@ class DirectionsResults {
         var div = document.getElementById("directionsListDetails");
         if (e.target.checked) {
             div.style.display = "flex";
+            Globals.currentScrollIndex = 2;
         } else {
             div.style.display = "none";
         }

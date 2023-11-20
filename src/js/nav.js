@@ -134,14 +134,6 @@ class MenuNavigation {
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 break;
-            case "search":
-                DOM.$sideBySideBtn.classList.add('d-none');
-                DOM.$layerManagerBtn.classList.add('d-none');
-                DOM.$geolocateBtn.classList.add('d-none');
-                DOM.$searchresultsWindow.classList.remove('d-none');
-                DOM.$closeSearch.classList.remove('d-none');
-                Globals.currentScrollIndex = 2;
-                break;
             case "parameterScreen":
             case "legalScreen":
             case "privacyScreen":
@@ -150,7 +142,7 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$layerManagerBtn.classList.add('d-none');
                 DOM.$geolocateBtn.classList.add('d-none');
-                DOM.$blueBg.classList.remove('d-none');
+                DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$altMenuContainer.classList.remove('d-none');
@@ -173,17 +165,25 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 0;
                 break;
             case "searchDirections":
+            case "search":
             case "searchIsochrone":
+                DOM.$searchresultsWindow.classList.remove('d-none');
+                DOM.$closeSearch.classList.remove('d-none');
+                DOM.$search.style.display = "flex";
+                document.body.style.overflowY = "scroll";
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$layerManagerBtn.classList.add('d-none');
                 DOM.$geolocateBtn.classList.add('d-none');
-                // FIXME mettre en place une méthode sur la classe Search
-                // ex. Globals.search.show()
-                DOM.$search.style.display = "flex";
-                DOM.$backTopLeftBtn.classList.add('d-none');
-                DOM.$searchresultsWindow.classList.remove('d-none');
-                DOM.$closeSearch.classList.remove('d-none');
-                Globals.currentScrollIndex = 2;
+                DOM.$whiteScreen.classList.remove('d-none');
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$altMenuContainer.classList.remove('d-none');
+                Globals.ignoreNextScrollEvent = true;
+                window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'auto'
+                });
+                Globals.currentScrollIndex = 0;
                 break;
             case "directions":
                 DOM.$search.style.display = "none";
@@ -204,7 +204,7 @@ class MenuNavigation {
 
         // on procede à l'affichage du panneau
         DOM.$tabContainer.style.height = "100%";
-        
+
         if (Globals.currentScrollIndex === 2) {
             this.updateScrollAnchors();
         } else if (Globals.currentScrollIndex === 1) {
@@ -251,12 +251,40 @@ class MenuNavigation {
                 Globals.isochrone.clear();
                 break;
             case "search":
+                document.body.style.overflowY = "auto";
+                DOM.$sideBySideBtn.classList.remove('d-none');
+                DOM.$layerManagerBtn.classList.remove('d-none');
+                DOM.$geolocateBtn.classList.remove('d-none');
+                DOM.$whiteScreen.classList.add('d-none');
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$altMenuContainer.classList.add('d-none');
+                Globals.ignoreNextScrollEvent = true;
+                window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'auto'
+                });
+                Globals.currentScrollIndex = 0;
                 isSpecific = true;
                 isFinished = false;
                 break;
             case "directionsResults":
             case "searchDirections":
             case "searchIsochrone":
+                document.body.style.overflowY = "auto";
+                DOM.$sideBySideBtn.classList.remove('d-none');
+                DOM.$layerManagerBtn.classList.remove('d-none');
+                DOM.$geolocateBtn.classList.remove('d-none');
+                DOM.$whiteScreen.classList.add('d-none');
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$altMenuContainer.classList.add('d-none');
+                Globals.ignoreNextScrollEvent = true;
+                window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'auto'
+                });
+                Globals.currentScrollIndex = 0;
                 isSpecific = true;
                 isFinished = true;
                 break;
@@ -268,7 +296,7 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 DOM.$layerManagerBtn.classList.remove('d-none');
                 DOM.$geolocateBtn.classList.remove('d-none');
-                DOM.$blueBg.classList.add('d-none');
+                DOM.$whiteScreen.classList.add('d-none');
                 DOM.$search.style.display = "flex";
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$altMenuContainer.classList.add('d-none');

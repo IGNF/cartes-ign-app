@@ -11,7 +11,7 @@
   </head>
   <body>
       <!-- background color -->
-      <div id="blueBg" class="d-none"></div>
+      <div id="whiteScreen" class="d-none"></div>
 
       <div class="app">
 
@@ -23,19 +23,18 @@
           -->
           <%= require('html-loader!./map.html').default %>
           <%= require('html-loader!./mapButtons.html').default %>
-            
+
           <!-- Outil de recheche sur la carte -->
           <%= require('html-loader!./search.html').default %>
 
           <!-- Menu de navigation -->
           <%= require('html-loader!./nav.html').default %>
-          
-          <!-- Toutes les informations sont affichées dans un onglet resizable 
+
+          <!-- Toutes les informations sont affichées dans un onglet resizable
             et ancré en bas de l'écran.
           -->
           <div id="tabContainer">
             <hr id="hrBottom">
-              <%= require('html-loader!./tabs/searchresultsWindow.html').default %>
               <%= require('html-loader!./tabs/layermanagerWindow.html').default %>
               <%= require('html-loader!./tabs/directionsWindow.html').default %>
               <%= require('html-loader!./tabs/directionsResultsWindow.html').default %>
@@ -49,6 +48,7 @@
 
           <!-- Autres menus alternatifs -->
           <div class="d-none" id="altMenuContainer">
+            <%= require('html-loader!./tabs/searchresultsWindow.html').default %>
             <%= require('html-loader!./alt-menu/parameterMenu.html').default %>
             <%= require('html-loader!./alt-menu/legalMenu.html').default %>
             <%= require('html-loader!./alt-menu/privacyMenu.html').default %>

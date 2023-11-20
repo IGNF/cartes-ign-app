@@ -71,6 +71,17 @@ class ElevationLineControl {
       }]
     };
 
+    const allElevations = this.elevationData.map( (elevation) => elevation.y );
+    const maxElevation = Math.max(...allElevations);
+    const minElevation = Math.min(...allElevations);
+
+    let suggestedMin = minElevation;
+    let suggestedMax = maxElevation;
+    if (maxElevation - minElevation < 10) {
+      suggestedMin = ((maxElevation - minElevation) / 2 ) - 5 + minElevation;
+      suggestedMax = ((maxElevation - minElevation) / 2 ) + 5 + minElevation;
+    }
+
     const chartConfig = {
       type: 'scatter',
       data: chartData,
@@ -86,13 +97,16 @@ class ElevationLineControl {
             y: {
               title: {
                 display: true,
-                text: `Altitude (m)`
-              }
+                text: `Altitude (m)`,
+              },
+              suggestedMax: suggestedMax,
+              suggestedMin: suggestedMin,
             }
         }
       }
     };
 
+    console.error(chartConfig);
 
     this.chart = new ChartJS(target, chartConfig);
   }

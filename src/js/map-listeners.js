@@ -31,10 +31,10 @@ const addListeners = () => {
 
   /**
    * Fonction de transformation coordonnées vers pixels d'une tuile
-   * @param {*} lat 
-   * @param {*} lng 
-   * @param {*} zoom 
-   * @returns 
+   * @param {*} lat
+   * @param {*} lng
+   * @param {*} zoom
+   * @returns
    */
   const latlngToTilePixel = (lat, lng, zoom) => {
     const fullXTile = (lng + 180) / 360 * Math.pow(2, zoom);
