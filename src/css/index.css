@@ -45,10 +45,10 @@ h3 {
   color: #0B6BA7;
 }
 
-#blueBg {
+#whiteScreen {
   width: 100vw;
   height: 100vh;
-  background-color: #7fb5d3;
+  background-color: white;
   z-index: 2999;
   position: fixed;
 }

@@ -261,15 +261,13 @@ class Directions {
                         return gcd(b, Math.floor(a % b));
                     };
 
-                    let proportionToRemove = ((routeCoordinates.length - 110) / routeCoordinates.length).toFixed(3);
+                    let proportionToRemove = ((routeCoordinates.length - 110) / routeCoordinates.length).toFixed(2);
                     var len = proportionToRemove.toString().length - 2;
                     var denominator = Math.pow(10, len);
                     var numerator = proportionToRemove * denominator;
                     var divisor = gcd(numerator, denominator);
                     numerator /= divisor;
                     denominator /= divisor;
-                    console.log(numerator)
-                    console.log(denominator)
                     let newrouteCoords = []
                     for (let i=0; i<routeCoordinates.length; i++) {
                         let demPort = i%denominator;

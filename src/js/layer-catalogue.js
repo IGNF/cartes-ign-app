@@ -208,6 +208,7 @@ class LayerCatalogue {
         }
       });
     });
+    // REMOVEME
     // clic sur la puce d'information
     document.querySelectorAll(".layer-info").forEach((el) => {
       el.addEventListener('click', (ev) => {
@@ -217,6 +218,7 @@ class LayerCatalogue {
         Globals.menu.open("info");
       });
     });
+    // REMOVEME
     // clic sur la puce de legende
     document.querySelectorAll(".layer-legend").forEach((el) => {
       el.addEventListener('click', (ev) => {
