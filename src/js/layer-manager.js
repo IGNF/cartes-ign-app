@@ -35,13 +35,13 @@ import layerConfig from './layer-config';
 class LayerManger {
     /**
      * constructeur
-     * @param {*} options - 
+     * @param {*} options -
      * @param {*} options.target - ...
      * @param {*} options.layers - ...
      * @example
      * new LayerManger({
      *   layers : [
-     *     layers : "couche1, couche2, ...", 
+     *     layers : "couche1, couche2, ...",
      *     type : "base" // data ou thematic
      *   ]
      * });
@@ -50,7 +50,7 @@ class LayerManger {
         this.options = options || {
             /**
              * [{
-             *   layers : Globals.baseLayerDisplayed, 
+             *   layers : Globals.baseLayerDisplayed,
              *   type : "base"
              * }]
              */
@@ -110,7 +110,7 @@ class LayerManger {
 
         this.#getLayersAvailableCounter();
     }
-    
+
     /**
      * Afficher le menu
      * @public
@@ -135,7 +135,7 @@ class LayerManger {
                 var layers = o.layers.split(","); // TODO récuperer une liste de couches !
                 for (let j = 0; j < layers.length; j++) {
                     const layerName = layers[j];
-                    
+
                     // ajout d'une couche de fonds
                     if (o.type === "base") {
                         this.layerCatalogue.addLayer(layerName); // TODO transmettre des options de la couches (ex. opacité)
@@ -173,8 +173,7 @@ class LayerManger {
      */
     #getLayersAvailableCounter() {
         var counter = document.getElementById("layer-thematics-number");
-        var value = layerConfig.getBaseLayers().length + 
-                    layerConfig.getDataLayers().length + 
+        var value = layerConfig.getBaseLayers().length +
                     layerConfig.getThematicLayers().length;
         counter.textContent = value;
     }
