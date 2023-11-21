@@ -140,12 +140,121 @@ const addVisibility = (id, value) => {
 };
 
 /**
- * Modify color
+ * Modify color N/B
  * 
  * @param {string} id The id of the group to be modified
- * @param {*} value
+ * @todo not yet implemented !
  */
-const addGray = (id, value) => {};
+const addGray = (id) => {
+    throw new Error("Not yet implemented !");
+
+    // fonction de conversion decimal -> hexa
+    function hex (number) {
+        if (number > 255) {
+            throw new Error("'" + number + "'' is greater than 255(0xff);");
+        }
+        var str = Number(number).toString(16);
+        return ("0" + str).slice(-2);
+    }
+    // fonction de conversion en NB
+    function nb (col) {
+        var r = col >> 16;
+        var g = (col >> 8) & 0xff;
+        var b = col & 0xff;
+        // https://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
+        // https://www.johndcook.com/blog/2009/08/24/algorithms-convert-color-grayscale/
+        // luminosity : 0.21 R + 0.72 G + 0.07 B
+        var bnw = (r * 0.2126 + g * 0.7152 + b * 0.0722) & 0xff;
+        var num = (bnw << 16) | (bnw << 8) | bnw;
+        return num.toString(16);
+    }
+
+    // recherche valeur en rgba pour conversion en hexa
+    function rgba2hexa (value) {
+        if ( ! value ) { value = this; }
+        var regex4rgba = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(0?.?\d+)\s*)?\)/gm;
+        return value.replace(regex4rgba, (corespondance, p1, p2, p3, decalage) => {
+            var p = hex(p1) + hex(p2) + hex(p3);
+            return "#" + p;
+        });
+    }
+    // recherche valeur en hexa3 pour conversion en hexa
+    function hexa32hexa (value) {
+        if ( ! value ) { value = this; }
+        var regex4hexa3 = /"#([a-f\d])([a-f\d])([a-f\d])"/igm;
+        return value.replace(regex4hexa3, (corespondance, p1, p2, p3, decalage) => {
+            var p = p1 + p1 + p2 + p2 + p3 + p3;
+            return "\"#" + p + "\"";
+        });
+    }
+    // recherche valeur en hexa pour conversion en NB
+    function hexa2nb (value) {
+        if ( ! value ) { value = this; }
+        var regex4hexa = /#([a-f\d]{2}[a-f\d]{2}[a-f\d]{2})/igm;
+        return value.replace(regex4hexa, (corespondance, p, decalage) => {
+            var subst4nb = nb(parseInt(p, 16));
+            return "#" + subst4nb;
+        });
+    }
+
+    // FIXME
+    String.prototype.rgba2hexa = rgba2hexa;
+    String.prototype.hexa32hexa = hexa32hexa;
+    String.prototype.hexa2nb = hexa2nb;
+
+    const convert = (value) => {
+        return value
+            .rgba2hexa()
+            .hexa32hexa()
+            .hexa2nb();
+
+    };
+
+    var layers = Globals.map.getStyle().layers;
+    for (var i = 0; i < layers.length; i++) {
+        var layer = layers[i];
+        if (layer.metadata && layer.metadata.group === id) {
+            var value = null;
+            if (layer.type === 'symbol')  {
+                value = Globals.map.getPaintProperty(layer.id, `icon-color`);
+                if (value) {
+                    Globals.map.setPaintProperty(layer.id, `icon-color`, convert(value));
+                }
+                value = Globals.map.getPaintProperty(layer.id, `icon-halo-color`);
+                if (value) {
+                    Globals.map.setPaintProperty(layer.id, `icon-halo-color`, convert(value));
+                }
+                value = Globals.map.getPaintProperty(layer.id, `text-color`);
+                if (value) {
+                    Globals.map.setPaintProperty(layer.id, `text-color`, convert(value));
+                }
+                value = Globals.map.getPaintProperty(layer.id, `text-halo-color`);
+                if (value) {
+                    Globals.map.setPaintProperty(layer.id, `text-halo-color`, convert(value));
+                }
+            } else {
+                value = Globals.map.getPaintProperty(layer.id, `${layer.type}-color`);
+                if (value) {
+                    Globals.map.setPaintProperty(layer.id, `${layer.type}-color`, convert(value));
+                }
+                value = Globals.map.getPaintProperty(layer.id, `${layer.type}-outline-color`);
+                if (value) {
+                    Globals.map.setPaintProperty(layer.id, `${layer.type}-outline-color`, convert(value));
+                }
+            }
+        }
+    }
+
+};
+
+/**
+ * Modify color
+ * @param {*} id  The id of the group to be modified
+ * @todo not yet implemented !
+ */
+const addColor = (id) => {
+    throw new Error("Not yet implemented !");
+};
 
 const getGroupFirstLayerIndex = (id) => {
     var layers = Globals.map.getStyle().layers;
@@ -199,5 +308,6 @@ export default {
     getGroupLayers,
     addOpacity,
     addVisibility,
-    addGray
+    addGray,
+    addColor
 };

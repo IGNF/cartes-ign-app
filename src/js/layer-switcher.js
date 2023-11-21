@@ -64,12 +64,12 @@ class LayerSwitcher {
        *    title : "",
        *    quickLookUrl : "",
        *    opacity : 100,
-       *    gray : 1,
-       *    visibility : 1,
+       *    gray : true,
+       *    visibility : true,
        *    index : 0,
        *    position : 0,
        *    type: "vector",
-       *    style: "http://.../style.json"
+       *    style: "http://.../style.json" ou []
        *   }
        * }
        */
@@ -292,15 +292,18 @@ class LayerSwitcher {
      */
     #setColor(id, value) {
       this.layers[id].gray = value;
-      // INFO
-      // mise à jour de la couche via une property du style, 
-      // mais, il n'existe pas de fonctionnalité pour le N&B
-      // ex. this.map.setPaintProperty(id, "raster-contrast", (value) ? 1 : 0);
+      
       var type = this.layers[id].type;
       if (type === "raster") {
         // TODO
+        // mise à jour de la couche via une property du style, 
+        // mais, il n'existe pas de fonctionnalité pour le N&B
+        // ex. this.map.setPaintProperty(id, "raster-contrast", (value) ? 1 : 0);
       } else if (type === "vector") {
-        LayersGroup.addGray(id, value);
+        // TODO
+        // - appliquer un filtre N&B sur les valeurs des couleurs
+        // - mais, pour revenir aux couleurs d'origine ?
+        (!value) ? LayersGroup.addGray(id) : LayersGroup.addColor(id);
       } else {
         throw new Error(`Type not yet implemented or unknow : ${type}`);
       }
@@ -518,6 +521,7 @@ class LayerSwitcher {
             return layer;
           });
           LayersGroup.addGroup(id, layers, layerIdBefore);
+          this.layers[id].style = layers; // sauvegarde !
         });
       }
 
