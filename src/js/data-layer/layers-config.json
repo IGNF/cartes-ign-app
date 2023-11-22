@@ -4242,9 +4242,9 @@
       ]
     },
 
-    "PLAN.IGN$GEOPORTAIL:GPP:TMS": {
+    "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS": {
       "hidden": true,
-      "queryable": false,
+      "queryable": true,
       "serviceParams": {
         "id": "GPP:TMS",
         "version": "1.0.0",
@@ -4252,9 +4252,9 @@
           "appign": "https://wxs.ign.fr/essentiels/geoportail/tms/1.0.0/"
         }
       },
-      "name": "PLAN.IGN",
-      "title": "Plan IGN",
-      "description": "BDUni tuilée",
+      "name": "PLAN.IGN.INTERACTIF",
+      "title": "Plan IGN interactif",
+      "description": "BDUni tuilée avec la BDtopo",
       "formats": [
         {
           "current": true,
@@ -4266,49 +4266,7 @@
           "name": "standard",
           "title": "Style standard",
           "current": true,
-          "url": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/essentiels/standard.json"
-        },
-        {
-          "name": "classique",
-          "title": "Style classique",
-          "current": false,
-          "url": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/essentiels/classique.json"
-        },
-        {
-          "name": "transparent",
-          "title": "Style transparent",
-          "current": false,
-          "url": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/essentiels/transparent.json"
-        },
-        {
-          "name": "accentue",
-          "title": "Style accentue",
-          "current": false,
-          "url": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/essentiels/accentue.json"
-        },
-        {
-          "name": "attenue",
-          "title": "Style attenue",
-          "current": false,
-          "url": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/essentiels/attenue.json"
-        },
-        {
-          "name": "gris",
-          "title": "Style en noir et blanc",
-          "current": false,
-          "url": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/essentiels/gris.json"
-        },
-        {
-          "name": "epure",
-          "title": "Style epure",
-          "current": false,
-          "url": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/essentiels/epure.json"
-        },
-        {
-          "name": "sans_toponymes",
-          "title": "Style sans toponymes",
-          "current": false,
-          "url": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/essentiels/sans_toponymes.json"
+          "url": "data/plan-ign-interactif-style.json"
         }
       ],
       "globalConstraint": {
@@ -4322,8 +4280,8 @@
         "minScaleDenominator": null,
         "maxScaleDenominator": null
       },
-      "quicklookUrl": "https://wxs.ign.fr/static/pictures/ign_carte2.jpg",
-      "layerId": "PLAN.IGN$GEOPORTAIL:GPP:TMS",
+      "quicklookUrl": "",
+      "layerId": "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS",
       "defaultProjection": "EPSG:3857"
     }
 

@@ -7,6 +7,7 @@
  * Les propriétés des couches sont issues de "l'autoconf",
  * et elles sont transformées en configuration de couches Raster et Vector pour MapLibre.
  * La liste des couches de fonds et thématiques est definie dans un fichier de configuration.
+ * @todo prévoir le multi couche pour les couches vecteurs tuilés
  */
 import BaseLayers from "./data-layer/base-layer-config.json";
 import ThematicLayers from "./data-layer/thematics-layer-config.json";
@@ -98,7 +99,7 @@ const getLayerProps = (id) => {
  * @returns
  */
 const getBaseLayers = () => {
-  return BaseLayers["base-layer"];
+  return BaseLayers["base-layers"];
 };
 
 /**
@@ -178,12 +179,15 @@ const createSource = (id) => {
       fxt = createRasterSource;
       break;
     case "TMS":
+      // INFO
+      // les couches tuiles vectorielles ne devrait pas être pré chargées car 
+      // on ne connait pas encore la liste exhaustive des sources contenues 
+      // dans le fichier de style.
       fxt = createVectorSource;
       break;
     default:
       throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${register} - ${norme} - ${service}`);
   }
-
   return fxt(id);
 };
 

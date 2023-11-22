@@ -510,18 +510,30 @@ class LayerSwitcher {
           return response.json();
         })
         .then((data) => {
+          // INFO
+          // on ajoute les sources !
+          // les sources des couches tuiles vectorielles ne sont pas pré chargées 
+          // car on les connait que maintenant en lisant le fichier de style.
+          for (const key in data.sources) {
+            if (Object.hasOwnProperty.call(data.sources, key)) {
+              const source = data.sources[key];
+              // on ne peut pas ajouter la même source !
+              if (! this.map.getStyle().sources[key]) {
+                this.map.addSource(key, source);
+              }
+            }
+          }
+          return data;
+        })
+        .then((data) => {
+          // FIXME les sprites et les glyphs sont uniques sinon exceptions !
           this.map.setSprite(data.sprites);
           this.map.setGlyphs(data.glyphs);
           return data;
         })
         .then((data) => {
-          // on modifie la source des styles pour être conforme à celle déjà pré-enregistrée 
-          var layers = data.layers.map((layer) => {
-            layer.source = id;
-            return layer;
-          });
-          LayersGroup.addGroup(id, layers, layerIdBefore);
-          this.layers[id].style = layers; // sauvegarde !
+          LayersGroup.addGroup(id, data.layers, layerIdBefore);
+          this.layers[id].style = data.layers; // sauvegarde !
         });
       }
 

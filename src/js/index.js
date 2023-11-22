@@ -74,16 +74,27 @@ function app() {
 
   // Ajout des sources definies dans la configuration à la carte
   // (les couches de fonds, rlt et thématiques sont pre chargées)
+  // Les sources des couches tuiles vectorielles ne sont pré chargées
+  // car on ne connait pas la liste des sources disponible dans le fichier de style.
   for (let layer in LayersConfig.baseLayerSources) {
-    map.addSource(layer, LayersConfig.baseLayerSources[layer]);
-    mapRLT.addSource(layer, LayersConfig.baseLayerSources[layer]);
+    var source = LayersConfig.baseLayerSources[layer];
+    if (source.type !== "vector") {
+      map.addSource(layer, source);
+      mapRLT.addSource(layer, source);
+    }
   }
   for (let layer in LayersConfig.rltLayerSources) {
-    map.addSource(layer, LayersConfig.rltLayerSources[layer]);
-    mapRLT.addSource(layer, LayersConfig.rltLayerSources[layer]);
+    var source = LayersConfig.rltLayerSources[layer];
+    if (source.type !== "vector") {
+      map.addSource(layer, source);
+      mapRLT.addSource(layer, source);
+    }
   }
   for (let layer in LayersConfig.thematicLayerSources) {
-    map.addSource(layer, LayersConfig.thematicLayerSources[layer]);
+    var source = LayersConfig.thematicLayerSources[layer];
+    if (source.type !== "vector") {
+      map.addSource(layer, source);
+    }
   }
 
   // Chargement de la position précédente

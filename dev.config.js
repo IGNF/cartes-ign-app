@@ -11,6 +11,12 @@ module.exports = {
     filename: 'js/index.bundle.js',
     assetModuleFilename: 'css/assets/[hash][ext][query]'
   },
+  devServer: {
+    static: { 
+      directory: path.resolve(__dirname, './data'), 
+      publicPath: '/data'
+    }
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/index.bundle.css",
