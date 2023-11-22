@@ -114,7 +114,7 @@ class MenuNavigation {
             case "myaccount":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
-                Globals.currentScrollIndex = 1;
+                Globals.currentScrollIndex = 2;
                 break;
             case "layerManager":
                 DOM.$search.style.display = "none";
@@ -133,11 +133,11 @@ class MenuNavigation {
                 // ex. Globals.search.hide()
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
+                Globals.currentScrollIndex = 2;
                 break;
             case "parameterScreen":
             case "legalScreen":
             case "privacyScreen":
-            case "plusLoinScreen":
                 document.body.style.overflowY = "scroll";
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$layerManagerBtn.classList.add('d-none');
@@ -165,17 +165,22 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 0;
                 break;
             case "searchDirections":
-            case "search":
             case "searchIsochrone":
+                DOM.$search.style.display = "flex";
+            case "search":
                 DOM.$searchresultsWindow.classList.remove('d-none');
                 DOM.$closeSearch.classList.remove('d-none');
-                DOM.$search.style.display = "flex";
                 document.body.style.overflowY = "scroll";
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$layerManagerBtn.classList.add('d-none');
                 DOM.$geolocateBtn.classList.add('d-none');
                 DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$backTopLeftBtn.style.boxShadow = "unset";
+                DOM.$backTopLeftBtn.style.height = "44px";
+                DOM.$backTopLeftBtn.style.width = "24px";
+                DOM.$backTopLeftBtn.style.top = "12px";
+                DOM.$backTopLeftBtn.style.left = "15px";
                 DOM.$altMenuContainer.classList.remove('d-none');
                 Globals.ignoreNextScrollEvent = true;
                 window.scroll({
@@ -189,6 +194,7 @@ class MenuNavigation {
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 Globals.directions.interactive(true);
+                Globals.currentScrollIndex = 2;
                 break;
             default:
                 break;
@@ -203,7 +209,7 @@ class MenuNavigation {
         this.hide();
 
         // on procede à l'affichage du panneau
-        DOM.$tabContainer.style.height = "100%";
+        // DOM.$tabContainer.style.height = "100%";
 
         if (Globals.currentScrollIndex === 2) {
             this.updateScrollAnchors();
@@ -257,6 +263,11 @@ class MenuNavigation {
                 DOM.$geolocateBtn.classList.remove('d-none');
                 DOM.$whiteScreen.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
+                DOM.$backTopLeftBtn.style.removeProperty("height");
+                DOM.$backTopLeftBtn.style.removeProperty("width");
+                DOM.$backTopLeftBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.style.removeProperty("left");
                 DOM.$altMenuContainer.classList.add('d-none');
                 Globals.ignoreNextScrollEvent = true;
                 window.scroll({
@@ -277,6 +288,11 @@ class MenuNavigation {
                 DOM.$geolocateBtn.classList.remove('d-none');
                 DOM.$whiteScreen.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
+                DOM.$backTopLeftBtn.style.removeProperty("height");
+                DOM.$backTopLeftBtn.style.removeProperty("width");
+                DOM.$backTopLeftBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.style.removeProperty("left");
                 DOM.$altMenuContainer.classList.add('d-none');
                 Globals.ignoreNextScrollEvent = true;
                 window.scroll({
@@ -291,7 +307,6 @@ class MenuNavigation {
             case "parameterScreen":
             case "legalScreen":
             case "privacyScreen":
-            case "plusLoinScreen":
                 document.body.style.overflowY = "auto";
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 DOM.$layerManagerBtn.classList.remove('d-none');

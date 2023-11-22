@@ -106,8 +106,6 @@ class ElevationLineControl {
       }
     };
 
-    console.error(chartConfig);
-
     this.chart = new ChartJS(target, chartConfig);
   }
 

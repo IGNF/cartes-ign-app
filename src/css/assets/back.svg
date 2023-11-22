@@ -1,4 +1,5 @@
-<svg id="baseline-arrow_back-24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <path id="Tracé_85" data-name="Tracé 85" d="M0,0H24V24H0Z" fill="none"/>
-  <path id="Tracé_86" data-name="Tracé 86" d="M20,11H7.83l5.59-5.59L12,4,4,12l8,8,1.41-1.41L7.83,13H20Z" fill="#006ba7"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 96">
+<path id="Vector" d="M10.3133 18.9972L11.0301 18.2769L5.9127 13.0131H20.8636V11.9841H5.9127L11.0301 6.715L10.3133 6L4 12.4984L10.3133 18.9972Z" fill="black"/>
+</g>
 </svg>
