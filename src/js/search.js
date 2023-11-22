@@ -53,12 +53,16 @@ class Search {
         // Cancel the default action, if needed
         event.preventDefault();
         // Trigger the button element with a click
-        DOM.$resultDiv.hidden = true;
         DOM.$rech.value = DOM.$resultDiv.firstChild.getAttribute("fulltext");
-        DOM.$resultDiv.innerHTML = "";
-        Geocode.searchAndMoveTo(DOM.$rech.value);
-        RecentSearch.add(DOM.$rech.value.trim());
-        this.hide();
+        DOM.$resultDiv.firstChild.classList.add("autocompresultselected");
+        setTimeout(() => {
+          DOM.$resultDiv.hidden = true;
+          DOM.$resultDiv.innerHTML = "";
+          Geocode.searchAndMoveTo(DOM.$rech.value);
+          DOM.$rech.blur();
+          this.hide();
+        }, 250);
+        setTimeout(() => RecentSearch.add(DOM.$rech.value.trim()), 260);
       } else if (DOM.$rech.value !== ""){
         let resultStr = "";
         this.suggest().then( () => {
