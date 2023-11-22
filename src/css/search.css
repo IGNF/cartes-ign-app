@@ -112,7 +112,8 @@
 }
 
 .autocompresultselected {
-  background-color: #00ae90;
+  background-color: #E7E7E7;
+  transition: background-color 0.1s;
 }
 
 #myGeoLocation > p {

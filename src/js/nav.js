@@ -257,6 +257,10 @@ class MenuNavigation {
                 Globals.isochrone.clear();
                 break;
             case "search":
+                DOM.$rech.blur();
+                if (document.querySelector(".autocompresultselected")) {
+                    document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
+                }
                 document.body.style.overflowY = "auto";
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 DOM.$layerManagerBtn.classList.remove('d-none');
@@ -282,6 +286,10 @@ class MenuNavigation {
             case "directionsResults":
             case "searchDirections":
             case "searchIsochrone":
+                DOM.$rech.blur();
+                if (document.querySelector(".autocompresultselected")) {
+                    document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
+                }
                 document.body.style.overflowY = "auto";
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 DOM.$layerManagerBtn.classList.remove('d-none');
