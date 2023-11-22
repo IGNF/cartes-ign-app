@@ -21,11 +21,6 @@
   text-align: right;
 }
 
-#menuItemPlusLoin {
-  grid-row: 3;
-  grid-column: 1 / span 2;
-}
-
 #menuItemParamsIcon {
   background-image: url("assets/settings.svg");
   margin-top: 23px;
@@ -39,15 +34,6 @@
 
 .smallMenuItem {
   font-family: 'Open Sans';
-}
-
-#menuItemPlusLoin {
-  background-color: #00ae90;
-  color: white;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  padding: 13px 0 13px 20px;
-  margin-top: 30px;
 }
 
 .menuItemIcon {
@@ -68,7 +54,7 @@
 #altMenuContainer {
   z-index: 3001;
   height: auto;
-  top: 55px;
+  top: 68px;
   display: flex;
   width: 100%;
   position: absolute
@@ -102,38 +88,12 @@
   font-family: 'Open Sans Semibold';
 }
 
-#legalScreenWindow, #privacyScreenWindow, #plusLoinScreenWindow {
+#legalScreenWindow, #privacyScreenWindow {
   font-family: 'Open Sans';
 }
 
 #legalScreenWindow a {
   color: #0B6BA7;
-}
-
-#plusLoinScreenWindow div {
-  padding-left: 18px;
-  padding-right: 18px;
-}
-
-.plusLoinTitle {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-}
-
-.plusLoinTitle img {
-  margin-top: 23px;
-  flex-shrink: 0;
-  width: 100px;
-  height: 100px;
-}
-
-.plusLoinTitleText {
-  font-size: 2.5em;
-  color: #7a7a7a;
-  position: absolute;
-  bottom: 0;
-  left: 115px;
 }
 
 .headerText {

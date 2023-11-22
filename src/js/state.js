@@ -29,9 +29,6 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'privacyScreen') {
         Globals.menu.close('privacyScreen');
     }
-    if (Globals.backButtonState === 'plusLoinScreen') {
-        Globals.menu.close('plusLoinScreen');
-    }
     if (Globals.backButtonState === 'informations') {
         Globals.menu.close('informations');
     }

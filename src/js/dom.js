@@ -20,7 +20,6 @@ const $whiteScreen = document.getElementById("whiteScreen");
 const $parameterScreenWindow = document.getElementById("parameterScreenWindow");
 const $legalScreenWindow = document.getElementById("legalScreenWindow");
 const $privacyScreenWindow = document.getElementById("privacyScreenWindow");
-const $plusLoinScreenWindow = document.getElementById("plusLoinScreenWindow");
 const $altMenuContainer = document.getElementById("altMenuContainer");
 
 const $legendWindow = document.getElementById("legendWindow");
@@ -61,7 +60,6 @@ export default {
   $parameterScreenWindow,
   $legalScreenWindow,
   $privacyScreenWindow,
-  $plusLoinScreenWindow,
   $altMenuContainer,
   $legendWindow,
   $infoWindow,

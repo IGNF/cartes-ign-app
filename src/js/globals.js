@@ -3,20 +3,20 @@ let map = null;
 let mapRLT = null;
 
 /**
- * global: layer display state 
+ * global: layer display state
  * @todo gerer une liste de couches
  */
 let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS';
 let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
 
-/** 
- * global: back button state 
- * is one of: 'default' 'search' 'mainMenu' 'params' 'legal' 'privacy' 'plusLoin' 'infos' 'legend' 'layerManagerWindow' 'route' ...
+/**
+ * global: back button state
+ * is one of: 'default' 'search' 'mainMenu' 'params' 'legal' 'privacy' 'infos' 'legend' 'layerManagerWindow' 'route' ...
  */
 let backButtonState = 'default';
 
-/** 
- * global: map state 
+/**
+ * global: map state
  * is one of: 'default' 'drawRoute' 'compare' ...
  */
 let mapState = 'default';

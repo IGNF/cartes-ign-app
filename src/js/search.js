@@ -3,6 +3,7 @@ import DOM from './dom';
 import Location from './services/location';
 import Geocode from './services/geocode';
 import State from './state';
+import RecentSearch from "./search-recent";
 
 /**
  * Barre de recherche et géocodage
@@ -53,17 +54,17 @@ class Search {
         event.preventDefault();
         // Trigger the button element with a click
         DOM.$resultDiv.hidden = true;
+        DOM.$rech.value = DOM.$resultDiv.firstChild.getAttribute("fulltext");
         DOM.$resultDiv.innerHTML = "";
         Geocode.searchAndMoveTo(DOM.$rech.value);
+        RecentSearch.add(DOM.$rech.value.trim());
         this.hide();
       } else if (DOM.$rech.value !== ""){
         let resultStr = "";
         this.suggest().then( () => {
           if (this.autocompletion_results.length > 0){
             for (let i = 0 ; i < this.autocompletion_results.length; i++) {
-              resultStr += `<p class='autocompresult' fulltext='${this.autocompletion_results[i].fulltext}'>
-              <em class='autocompkind'>${this.autocompletion_results[i].kind}</em><br/>
-              ${this.autocompletion_results[i].fulltext} </p>` ;
+              resultStr += this.computeAutocompResultHTML(this.autocompletion_results[i]);
             }
             DOM.$resultDiv.innerHTML = resultStr;
             DOM.$resultDiv.hidden = false;
@@ -132,17 +133,24 @@ class Search {
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     let signal = Globals.signal;
     let responseprom = await fetch(url, {signal});
-    let response = await responseprom.json()
+    let response = await responseprom.json();
+    if (response.status !== "OK") {
+      return;
+    }
     this.autocompletion_results = [];
     for (let i = 0 ; i < response.results.length; i++) {
       let elem = response.results[i];
-      let kind = elem.kind;
-      if (kind === null) {
-        kind = "adresse";
+      let splitedText = this.computeLocationFullText(elem).split(",");
+      let city = "";
+      if (splitedText.length > 1){
+        city = splitedText[1].trim();
+      } else {
+        city = elem.poiType.slice(-1)[0].charAt(0).toUpperCase() + elem.poiType.slice(-1)[0].slice(1);
       }
       this.autocompletion_results.push({
         fulltext: this.computeLocationFullText(elem),
-        kind: kind
+        firsttext: splitedText[0],
+        city: city
       });
     }
     // Seulement les valeurs uniques
@@ -159,6 +167,17 @@ class Search {
    */
   computeLocationFullText(locationResult) {
     return locationResult.fulltext;
+  }
+
+  /**
+   * calcule l'affichage d'un résultat d'autocompletion
+   * @public
+   */
+  computeAutocompResultHTML(autocompresult) {
+    return `<p class='autocompresult' fulltext='${autocompresult.fulltext}'>
+    ${autocompresult.firsttext}<br/>
+    <em class='autocompcity'>${autocompresult.city}</em></p>
+    ` ;
   }
 
   /**

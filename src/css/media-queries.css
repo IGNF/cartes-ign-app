@@ -7,16 +7,3 @@
     left: 75px;
   }
 }
-
-@media (max-width: 350px) {
-  .plusLoinTitleText {
-    font-size: 2em;
-    bottom: 14px;
-  }
-}
-
-@media (min-width: 510px) {
-  .plusLoinTitleText {
-    bottom: 30px;
-  }
-}
