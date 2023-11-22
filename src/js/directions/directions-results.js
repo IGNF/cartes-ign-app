@@ -1,6 +1,7 @@
 import DirectionsResultsDOM from "./directions-results-dom";
 import Globals from "../globals";
 
+
 /**
  * Interface sur les resultats du calcul d'itineraire
  * @module DirectionsResults
@@ -88,6 +89,7 @@ class DirectionsResults {
         if (e.target.checked) {
             div.style.display = "flex";
             Globals.currentScrollIndex = 2;
+            Globals.menu.updateScrollAnchors();
         } else {
             div.style.display = "none";
         }

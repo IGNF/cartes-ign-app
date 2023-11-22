@@ -30,12 +30,14 @@
   border: 0px;
   background-color: white;
   font-family: "Open Sans Bold";
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
 }
 
 #search input:focus {
+  outline: none;
   box-shadow: 0px 0px 0px 0px;
   border: 2px solid #26a581;
+  padding: 7px 31px 7px 31px;
 }
 
 #search input::placeholder {
@@ -54,19 +56,16 @@
   background-repeat: no-repeat;
 }
 
-#search input:focus {
-  outline: none;
+#searchresultsWindow {
+  width: 100%;
+  color: #393939;
 }
 
 #searchResults {
   display: flex;
   flex-flow: column;
   position: relative;
-  left: 10px;
-}
-
-#resultsRechRecent {
-  color: #393939;
+  margin: 0 2.5%;
 }
 
 #resultsRech {
@@ -74,25 +73,38 @@
   color: #393939;
   background-color: white;
   z-index: 3000;
-  /* top: 50px;
-    left: 10px;
-    width: calc(100% - 20px); */
   border-radius: 5px;
 }
 
+#resultsRechRecent:first-child {
+  margin: 4px 0;
+}
+
+#resultsRechRecent{
+  padding-bottom: 5px;
+  border-bottom: solid 1px #D8DFE4;
+}
+
+#myGeoLocation > p,
 .recentresult,
 .autocompresultselected,
 .autocompresult {
-  border-bottom: solid 1px #D8DFE4;
   padding: 0.6em 0.2em;
   margin: 0;
   padding-left: 10px;
   padding-right: 10px;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  text-align: left;
+  padding-left: 25px;
 }
 
-.autocompresult em {
-  opacity: 0.2;
-  font-size: 0.7em;
+.autocompresult em, .recentresult em {
+  opacity: 0.9;
+  font-size: 0.9em;
+  font-style: normal;
+  font-family: "Open Sans";
 }
 
 .autocompresult:last-child {
@@ -103,18 +115,23 @@
   background-color: #00ae90;
 }
 
+#myGeoLocation > p {
+  background-image: url("assets/ma-geolocation.svg");
+}
+
 .recentresult {
-  background-position: left;
-  background-repeat: no-repeat;
-  background-image: url("assets/search.svg");
-  text-align: center;
+  background-image: url("assets/recentresult.svg");
+}
+
+.autocompresult {
+  background-image: url("assets/autocompresult.svg");
 }
 
 #closeSearch {
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
-  top: 10px;
+  top: 16px;
   right: -10px;
   width: 58px;
   height: 35px;

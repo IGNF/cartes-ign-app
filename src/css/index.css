@@ -20,6 +20,15 @@
   display: none !important;
 }
 
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
     overscroll-behavior: none;
@@ -51,6 +60,7 @@ h3 {
   background-color: white;
   z-index: 2999;
   position: fixed;
+  animation: fadeIn 0.15s;
 }
 
 .centered {

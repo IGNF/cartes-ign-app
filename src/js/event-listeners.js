@@ -41,14 +41,13 @@ function addListeners() {
         Geocode.searchAndMoveTo(DOM.$rech.value);
         setTimeout(Globals.menu.close("search"), 150);
       }
-      RecentSearch.add(DOM.$rech.value);
+      RecentSearch.add(DOM.$rech.value.trim());
     }
   }, true);
 
   // TODO
   // Ecouteurs sur le menu du Compte : à ajouter sur la classe MyAccount
   document.getElementById('menuItemParamsIcon').addEventListener('click', () => { Globals.menu.open('parameterScreen')});
-  document.getElementById('menuItemPlusLoin').addEventListener('click', () => { Globals.menu.open('plusLoinScreen')});
   document.getElementById('menuItemLegal').addEventListener('click', () => { Globals.menu.open('legalScreen')});
   document.getElementById('menuItemPrivacy').addEventListener('click', () => { Globals.menu.open('privacyScreen')});
 
@@ -83,30 +82,6 @@ function addListeners() {
   document.onscroll = scrollEndCallback;
 
   function scrollEndCallback() {
-    /** TODO: scroll end snapping
-    if (Globals.ignoreNextScrollEvent) {
-      // Ignore this event because it was done programmatically
-      Globals.ignoreNextScrollEvent = false;
-      Globals.currentScroll = window.scrollY;
-      return;
-    }
-    let isScrollUp = window.scrollY > Globals.currentScroll;
-    let isScrollDown = window.scrollY < Globals.currentScroll;
-
-    if (isScrollUp && Globals.currentScrollIndex < Globals.anchors.length - 1) {
-      Globals.currentScrollIndex += 1;
-      if (window.scrollY > Globals.maxScroll - 50) {
-        Globals.currentScrollIndex = Globals.anchors.length - 1;
-      }
-    }
-    if (isScrollDown && Globals.currentScrollIndex > 0) {
-      Globals.currentScrollIndex -= 1;
-      if (window.scrollY < 50) {
-        Globals.currentScrollIndex = 0;
-      }
-    }
-    MenuDisplay.scrollTo(Globals.anchors[Globals.currentScrollIndex]);
-    **/
     if (window.scrollY === 0) {
       Globals.currentScrollIndex = 0;
     } else if (window.scrollY === Globals.maxScroll) {
