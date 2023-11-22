@@ -223,7 +223,7 @@ class LayerSwitcher {
           }
           return index;
         };
-        var beforeIdx = getIndexLayer(newPosition) + direction;
+        var beforeIdx = getIndexLayer(newPosition + direction);
         var beforeId = this.map.getStyle().layers[beforeIdx].id;
         LayersGroup.moveGroup(id, beforeId);
       }

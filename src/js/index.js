@@ -74,7 +74,7 @@ function app() {
 
   // Ajout des sources definies dans la configuration à la carte
   // (les couches de fonds, rlt et thématiques sont pre chargées)
-  // Les sources des couches tuiles vectorielles ne sont pré chargées
+  // Les sources des couches tuiles vectorielles ne sont pas pré chargées
   // car on ne connait pas la liste des sources disponible dans le fichier de style.
   for (let layer in LayersConfig.baseLayerSources) {
     var source = LayersConfig.baseLayerSources[layer];
