@@ -487,8 +487,9 @@ class LayerSwitcher {
           type : "raster"
         });
       } else if (type === "vector") {
-        style = this.layers[id].style; // url
+        style = this.layers[id].style; // url !
       } else {
+        // ex. geojson
         throw new Error(`Type not yet implemented or unknown : ${type}`);
       }
       // HACK 
@@ -514,6 +515,7 @@ class LayerSwitcher {
           // on ajoute les sources !
           // les sources des couches tuiles vectorielles ne sont pas pré chargées 
           // car on les connait que maintenant en lisant le fichier de style.
+          // l'id des source est different du nom de la couche pour le vecteur !
           for (const key in data.sources) {
             if (Object.hasOwnProperty.call(data.sources, key)) {
               const source = data.sources[key];
@@ -526,7 +528,9 @@ class LayerSwitcher {
           return data;
         })
         .then((data) => {
-          // FIXME les sprites et les glyphs sont uniques sinon exceptions !
+          // les sprites et les glyphs sont uniques sinon exceptions !
+          // mais, normalement, on ajoute que des couches IGN, on mutualise sur ces informations.
+          // FIXME comment gerer les exceptions ?
           this.map.setSprite(data.sprites);
           this.map.setGlyphs(data.glyphs);
           return data;
@@ -534,6 +538,9 @@ class LayerSwitcher {
         .then((data) => {
           LayersGroup.addGroup(id, data.layers, layerIdBefore);
           this.layers[id].style = data.layers; // sauvegarde !
+        })
+        .catch((e) => {
+          throw new Error(e);
         });
       }
 

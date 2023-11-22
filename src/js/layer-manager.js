@@ -32,7 +32,7 @@ import layerConfig from './layer-config';
  *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer (TODO)
  * 
  */
-class LayerManger {
+class LayerManager {
     /**
      * constructeur
      * @param {*} options -
@@ -179,4 +179,4 @@ class LayerManger {
     }
 }
 
-export default LayerManger;
+export default LayerManager;

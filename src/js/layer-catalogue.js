@@ -230,8 +230,10 @@ class LayerCatalogue {
       el.addEventListener('click', (e) => {
         if (el.classList.contains("selectedLayer") || el.classList.contains("comparedLayer")) {
           this.removeLayer(el.id);
+          Globals.dataLayerDisplayed = ""; // FIXME ajouter une liste !
         } else {
           this.addLayer(el.id);
+          Globals.dataLayerDisplayed = el.id;
         }
       });
     });
