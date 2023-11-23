@@ -387,7 +387,7 @@ class Directions {
         // - le nettoyage des ecouteurs
         function setLocation (e) {
             // on ferme le menu
-            if (self.options.closeSearchControlCbk) {
+            if (e.type !== "geolocation" && self.options.closeSearchControlCbk) {
                 self.options.closeSearchControlCbk();
             }
 

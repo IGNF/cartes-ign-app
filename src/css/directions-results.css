@@ -7,46 +7,23 @@
 }
 
 /***********************************
- * résultats du calcul d'itinéraire 
+ * résultats du calcul d'itinéraire
  ***********************************/
 
 #directionsResults {
-  display: grid;
-  grid-template-columns: [one] 10% [two] 60% [three] 30%; /* repeat(3, 1fr) */
-  grid-template-rows: [one] 65px [two] 100%;
-  justify-items: center;
-  /* align-items: center; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 100%;
   position: relative;
-  /* top: -10px; */
-}
-
-/***************
-* bouton retour 
-****************/
-#directionsReturnBack {
-}
-
-.btnDirectionsReturnBack {
-  display: block;
-  width: 20px;
-  height: 20px;
-  position: relative;
-  z-index: 3001;
-  background-image: url("assets/directions/back.svg");
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 /********
 * résumé
 *********/
 #directionsSummary {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  justify-items: center;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 #directionsSummaryDuration {
@@ -62,14 +39,19 @@
 }
 
 .lblDirectionsSummaryDistance {
+  color: #3F4A55;
 }
 
 #directionsSummaryTransportPieton {
   background-image: url("assets/directions/pieton.svg");
+  width: 25px;
+  height: 25px;
 }
 
 #directionsSummaryTransportVoiture {
   background-image: url("assets/directions/voiture.svg");
+  width: 25px;
+  height: 25px;
 }
 
 .lblDirectionsSummaryTransport {
@@ -85,8 +67,9 @@
 
 .lblDirectionsSummaryComputation {
   display: inline-flex;
-  align-items : center; 
+  align-items : center;
   justify-content: center;
+  font-family: "Open Sans";
 }
 
 /**********
