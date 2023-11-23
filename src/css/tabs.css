@@ -12,7 +12,6 @@
 #layerManagerWindow {
   margin-top: 10px;
   position: relative;
-  background: white;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   color:#4b4b4b;
@@ -48,23 +47,21 @@
   max-height: 100%;
   height: fit-content;
   width: 100%;
-  background-color: #FFFFFE;
+  background-color: #f4f6f8;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  color: #4b4b4b;
+  color: #3f4a55;
   display: flex;
   flex-direction: column;
   z-index: 101;
+  box-sizing: border-box;
+  padding: 0 6% 6% 6%;
 }
 
-#hrBottom {
-  width: 10%;
-  text-align: center;
-  margin: auto;
-  margin-top: auto;
-  margin-top: 8px;
-  margin-bottom: 0px;
-  color: #DDD;
-  border: 1px solid #AAA;
-  border-radius: 2px;
+#tabHeader {
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  align-self: center;
+  background-image: url(../html/img/navheader.svg);
 }

@@ -17,7 +17,7 @@ let DirectionsDOM = {
 
     /**
      * transforme un texte html en dom
-     * @param {String} str 
+     * @param {String} str
      * @returns {DOMElement}
      * @public
      */
@@ -33,19 +33,19 @@ let DirectionsDOM = {
             }
             return true;
         };
-    
+
         // If DOMParser is supported, use it
         if (support()) {
             var parser = new DOMParser();
             var doc = parser.parseFromString(str, 'text/html');
             return doc.body;
         }
-    
+
         // Otherwise, fallback to old-school method
         var dom = document.createElement('div');
         dom.innerHTML = str;
         return dom;
-    
+
     },
 
     /**
@@ -132,7 +132,7 @@ let DirectionsDOM = {
 
             // mise en place d'une patience ?
             // https://uiverse.io/barisdogansutcu/light-rat-32
-            
+
             // passer les valeurs au service
             self.compute({
                 transport : transport,
@@ -161,7 +161,7 @@ let DirectionsDOM = {
         return input;
     },
 
-    /** 
+    /**
      * ajoute le container sur le mode de transport
      * @returns {DOMElement}
      * @private
@@ -186,8 +186,8 @@ let DirectionsDOM = {
         var labelPedestrian = document.createElement("label");
         labelPedestrian.className = "lblDirectionsTransport";
         labelPedestrian.htmlFor = "directionsTransportPieton";
-        labelPedestrian.title = "A pied";
-        labelPedestrian.textContent = "A pied";
+        labelPedestrian.title = "À pied";
+        labelPedestrian.textContent = "À pied";
         div.appendChild(labelPedestrian);
 
         var inputCar = this.dom.inputCar = document.createElement("input");
@@ -215,7 +215,7 @@ let DirectionsDOM = {
         return div;
     },
 
-    /** 
+    /**
      * ajoute le container sur le mode de calcul
      * @returns {DOMElement}
      * @private
@@ -224,7 +224,7 @@ let DirectionsDOM = {
         // https://uiverse.io/Yaya12085/rude-mouse-79
         var div = document.createElement("div");
         div.className = "divDirectionsComputation";
-        
+
         var inputFastest = this.dom.inputFastest = document.createElement("input");
         inputFastest.id = "directionsComputationFastest";
         inputFastest.type = "radio";
@@ -262,10 +262,14 @@ let DirectionsDOM = {
         labelShortest.textContent = "Plus court";
         div.appendChild(labelShortest);
 
+        var slider = document.createElement("span");
+        slider.className = "sliderComputation";
+        div.appendChild(slider);
+
         return div;
     },
 
-    /** 
+    /**
      * ajoute le container sur la saisie de locations
      * @returns {DOMElement}
      * @private
@@ -293,7 +297,7 @@ let DirectionsDOM = {
         inputLocationDeparture.id = "directionsLocation_start";
         inputLocationDeparture.className = "inputDirectionsLocations";
         inputLocationDeparture.type = "text";
-        inputLocationDeparture.placeholder = "Choisir un point de départ...";
+        inputLocationDeparture.placeholder = "D'où partez-vous ?";
         inputLocationDeparture.name = "start";
         // le geocodage enregistre les coordonnées dans la tag data-coordinates :
         //   data-coordinates = "[2.24,48.80]"
@@ -332,12 +336,12 @@ let DirectionsDOM = {
             labelMiddle.id = "directionsLocationsImg_middle_" + i;
             labelMiddle.className = "lblDirectionsLocations lblDirectionsLocationsImg_middle";
             divContainer.appendChild(labelMiddle);
-            
+
             var inputLocationArrival  = document.createElement("input");
             inputLocationArrival.id = "directionsLocation_step_" + i;
             inputLocationArrival.className = "inputDirectionsLocations";
             inputLocationArrival.type = "text";
-            inputLocationArrival.placeholder = "Choisir une destination...";
+            inputLocationArrival.placeholder = "Par où passez-vous ?";
             inputLocationArrival.name = "end";
             // le geocodage enregistre les coordonnées dans la tag data-coordinates :
             //   data-coordinates = "[2.24,48.80]"
@@ -365,7 +369,7 @@ let DirectionsDOM = {
                 }
             });
             divContainer.appendChild(labelRemoveMiddle);
-            
+
             divDefault.appendChild(divContainer);
         }
 
@@ -381,7 +385,7 @@ let DirectionsDOM = {
         inputLocationArrival.id = "directionsLocation_end";
         inputLocationArrival.className = "inputDirectionsLocations";
         inputLocationArrival.type = "text";
-        inputLocationArrival.placeholder = "Choisir une destination...";
+        inputLocationArrival.placeholder = "Où allez-vous ?";
         inputLocationArrival.name = "end";
         // le geocodage enregistre les coordonnées dans la tag data-coordinates :
         //   data-coordinates = "[2.24,48.80]"

@@ -1,85 +1,97 @@
 /***********************************
- * controle de calcul d'itinéraire 
+ * controle de calcul d'itinéraire
  ***********************************/
 
-/* 
- * compute 
+/*
+ * compute
  */
 .btnDirectionsCompute {
   display: block;
-  width: 90%;
   margin: auto;
   border: none;
-  border-radius: 12px;
+  border-radius: 70px;
   background-color: #26a581;
   padding: 14px 28px;
   font-family: "Fira Sans-SemiBold", Helvetica;
   font-weight: 600;
   font-size: 16px;
-  color: var(--white);
+  color: white;
   cursor: pointer;
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+  width: 236px;
+  margin-top: 26px;
 }
 
-/* 
- * transport 
+/*
+ * checkboxes
  */
-.divDirectionsTransport input[type="radio"] {
+.divDirectionsTransport input[type="radio"], .divDirectionsComputation input[type="radio"] {
   display: none;
 }
 
-.divDirectionsTransport * {
+.divDirectionsTransport *, .divDirectionsComputation * {
   z-index: 2;
 }
 
-.divDirectionsTransport {
+.divDirectionsTransport, .divDirectionsComputation {
   display: flex;
   position: relative;
   justify-content: space-around;
   margin: auto;
   height: 34px;
   width: 220px;
-  background-color: #e9ecef;
-  /* box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15); */
-  padding: 10px;
+  background-color: #E9ECEF;
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.08);
+  padding: 8px;
   border-radius: 100px;
   margin-bottom: 10px;
   align-items: center;
 }
 
-.lblDirectionsTransport {
+.lblDirectionsTransport, .lblDirectionsComputation {
+  color: #788089;
+  padding-left: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 30px;
   width: 120px;
-  /* font-size: .8rem;
-  color: black;
-  font-weight: 500; */
   border-radius: 100px;
   cursor: pointer;
   transition: color 0.15s ease-in;
   background-repeat: no-repeat;
+  background-size: 20px 25px;
+  background-position: 12px 3px;
+  font-family: "Open Sans";
 }
-.divDirectionsTransport input[type="radio"]:checked + label {}
 
-.divDirectionsTransport input[id="directionsTransportVoiture"]:checked ~ .sliderDirections {
+.lblDirectionsComputation {
+  padding: 0;
+}
+
+.divDirectionsTransport input[type="radio"]:checked + label, .divDirectionsComputation input[type="radio"]:checked + label {
+  color: white;
+}
+
+.divDirectionsTransport input[id="directionsTransportVoiture"]:checked ~ .sliderDirections,
+.divDirectionsComputation input[id="directionsComputationShortest"]:checked ~ .sliderComputation {
   transform: translateX(58px);
 }
 
-.divDirectionsTransport input[id="directionsTransportPieton"]:checked ~ .sliderDirections {
+.divDirectionsTransport input[id="directionsTransportPieton"]:checked ~ .sliderDirections,
+.divDirectionsComputation input[id="directionsComputationFastest"]:checked ~ .sliderComputation {
   transform: translateX(-58px);
 }
 
-.sliderDirections {
+.sliderDirections, .sliderComputation {
   position: absolute;
   display: flex;
   height: 44px;
   width: 115px;
-  background-color: #ffffff;
+  background-color: #26A581;
   z-index: 1;
   border-radius: 100px;
   transition: 0.25s ease-out;
@@ -89,48 +101,20 @@
   background-image: url("assets/directions/voiture.svg");
 }
 
+#directionsTransportVoiture:checked + label {
+  background-image: url("assets/directions/voiture-s.svg");
+}
+
 #directionsTransportPieton + label {
   background-image: url("assets/directions/pieton.svg");
 }
 
-/* 
- * calcul 
- */
-.divDirectionsComputation {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  margin: auto;
-  width: 60%;
-  margin-bottom: 10px;
+#directionsTransportPieton:checked + label {
+  background-image: url("assets/directions/pieton-s.svg");
 }
 
-.divDirectionsComputation input[type="radio"] {
-  display: none;
-}
-
-.divDirectionsComputation input[type="radio"]:checked + label {
-  color: #26a581;
-}
-
-.lblDirectionsComputation {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background-color: #ffffff;
-  border-radius: 50px;
-  margin-right: 12px;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease-in-out;
-}
-
-#directionsComputationFastest {}
-#directionsComputationShortest {}
-
-/* 
- * locations 
+/*
+ * locations
  */
 
 #divDirectionsLocationsList {
@@ -162,6 +146,7 @@
   width: 25px;
   height: 25px;
   background-repeat: no-repeat;
+  flex-shrink: 0;
 }
 
 .inputDirectionsLocations {
@@ -172,9 +157,10 @@
   padding-left: 15px;
   padding-right: 25px;
   background-color: #ffffff;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid;
-  border-color: #788089;
+  border-color: #DDE1E6;
+  color: #3F4A55;
 }
 
 .handle-draggable-layer {
@@ -184,6 +170,8 @@
   height: 25px;
   background-image: url("./assets/drag-and-drop.svg");
   background-repeat: no-repeat;
+  background-position: center;
+  background-color: white;
 }
 
 #directionsLocationImg_first {
@@ -197,12 +185,28 @@
 
 .lblDirectionsLocationsRemoveImg{
   background-image: url("assets/directions/location-step-remove.svg");
+  border-radius: 25px;
+  border: 1px solid #DDE1E6;
+  flex-shrink: 0;
+  background-position: 1px 1px;
 }
 
 #directionsLocationImg_last {
   background-image: url("assets/directions/location-last.svg");
+
 }
 #directionsLocation_end {}
+
+#directionsLocationImg_last:before, .lblDirectionsLocationsImg_middle:before {
+  content: "";
+  display: block;
+  background-image: url("assets/directions/location-between.svg");
+  width: 25px;
+  height: 25px;
+  transform: translateY(-30px);
+  background-repeat: no-repeat;
+  background-position: 10px;
+}
 
 #directionsLocationImg_reverse {
   width: 40px;
@@ -214,12 +218,17 @@
   display: flex;
   margin: auto;
   padding: 10px;
+  font-family: "Open Sans";
 }
+
 #directionsLocationImg_step {
   display: flex;
   width: 180px;
   height: 40px;
   justify-content: space-around;
   background-image: url("assets/directions/location-step-add.svg");
+  line-height: 40px;
+  background-position-y: 9px;
+  color: #3F4A55;
 }
 

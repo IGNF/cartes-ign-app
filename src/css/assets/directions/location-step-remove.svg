@@ -1,7 +1,5 @@
-<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="IconsNew">
-<rect id="Rectangle 35" width="20" height="20" rx="10" fill="white"/>
-<rect id="Rectangle 36" x="0.5" y="0.5" width="19" height="19" rx="9.5" stroke="#091625"/>
-<path id="Vector" d="M6.55156 5.83325L5.83331 6.5515L6.19218 6.91115L9.28056 9.99953L5.83331 13.4483L6.55156 14.1666L9.99959 10.7186L13.4484 14.1666L14.1666 13.4483L10.7186 9.99953L14.1666 6.5515L13.4484 5.83325L13.0887 6.19212L9.99959 9.28128L6.55156 5.83325Z" fill="black"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icons">
+<path id="Vector" d="M7.8619 7L7 7.8619L7.43064 8.29348L11.1367 11.9995L7 16.1381L7.8619 17L11.9995 12.8624L16.1381 17L17 16.1381L12.8624 11.9995L17 7.8619L16.1381 7L15.7065 7.43064L11.9995 11.1376L7.8619 7Z" fill="#3F4A55"/>
 </g>
 </svg>

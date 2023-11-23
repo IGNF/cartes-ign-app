@@ -1,6 +1,6 @@
-<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="IconsNew">
-<rect id="Rectangle 35" width="25" height="25" rx="12.5" fill="white"/>
-<circle id="Ellipse 66" cx="12.5" cy="12.5001" r="4.20833" stroke="#091625" stroke-width="2"/>
+<rect id="Rectangle 35" y="0.500092" width="24" height="24" rx="12" fill="white"/>
+<circle id="Ellipse 67" cx="12" cy="12.5001" r="4" stroke="#3F4A55" stroke-width="2"/>
 </g>
 </svg>
