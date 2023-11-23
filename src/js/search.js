@@ -53,16 +53,7 @@ class Search {
         // Cancel the default action, if needed
         event.preventDefault();
         // Trigger the button element with a click
-        DOM.$rech.value = DOM.$resultDiv.firstChild.getAttribute("fulltext");
-        DOM.$resultDiv.firstChild.classList.add("autocompresultselected");
-        setTimeout(() => {
-          DOM.$resultDiv.hidden = true;
-          DOM.$resultDiv.innerHTML = "";
-          Geocode.searchAndMoveTo(DOM.$rech.value);
-          DOM.$rech.blur();
-          this.hide();
-        }, 250);
-        setTimeout(() => RecentSearch.add(DOM.$rech.value.trim()), 260);
+        DOM.$resultDiv.firstChild.click();
       } else if (DOM.$rech.value !== ""){
         let resultStr = "";
         this.suggest().then( () => {
@@ -91,13 +82,22 @@ class Search {
       Location.getLocation()
         .then((result) => {
           DOM.$rech.value = "Ma position";
+          e.target.classList.add("autocompresultselected");
           if (Globals.backButtonState === "searchDirections") {
-            setTimeout(Globals.menu.open("directions"), 150);
+            setTimeout(() => {
+              this.hide();
+              Globals.menu.open("directions");
+            }, 250);
           } else if (Globals.backButtonState === "searchIsochrone") {
-            setTimeout(Globals.menu.open("isochrone"), 150);
+            setTimeout(() => {
+              this.hide();
+              Globals.menu.open("isochrone");
+            }, 250);
           } else {
-            Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
-            setTimeout(this.hide(), 150);
+            setTimeout(() =>{
+              this.hide();
+              Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
+            }, 250);
           }
         });
     }, true);

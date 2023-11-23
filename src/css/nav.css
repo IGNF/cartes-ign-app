@@ -124,6 +124,7 @@
   line-height: normal;
   font-weight: 600;
   align-self: stretch;
+  font-family: "Open Sans";
 }
 
 .nav-text {
@@ -143,6 +144,7 @@
   font-size: 12px;
   align-self: stretch;
   font-family: "Open Sans";
+  font-weight: 200;
 }
 
 .nav-arrow, .nav-picto {

@@ -1,7 +1,7 @@
 /* test pour transformer une carte en N&B :
 .maplibregl-canvas {
   filter: grayscale(1);
-} 
+}
 */
 
 .layer-switcher {
@@ -25,6 +25,7 @@ div[id^="container_ID_"] {
 div[id^="cross-picto_ID_"] {
   width: 25px;
   height: 25px;
+  left: 0;
   background-image: url("./assets/drag-and-drop.svg");
   background-repeat: no-repeat;
 }
@@ -44,7 +45,7 @@ div[id^="thumbnail_ID_"] {
   height: 50px;
   border-radius: 10px;
   object-fit: none; /* Do not scale the image */
-  object-position: center; 
+  object-position: center;
 }
 
 .wrap-tools-layers {

@@ -52,7 +52,6 @@ class MenuNavigation {
             this.open("isochrone");
         });
         // "S'y rendre"
-        document.getElementById("directionsWindowClose").addEventListener('click',  () => { this.close("directions"); });
         document.getElementById("directions").addEventListener("click", () => {
             Globals.compare.hide();
             this.open("directions");
@@ -93,7 +92,7 @@ class MenuNavigation {
         var lstElements = DOM.$tabContainer.childNodes;
         for (let i = 0; i < lstElements.length; i++) {
             var element = lstElements[i];
-            if (element.id && element.tagName.toUpperCase() === "DIV") {
+            if (element.id && element.id !== "tabHeader" && element.tagName.toUpperCase() === "DIV") {
                 element.classList.add('d-none');
             }
         }
@@ -162,7 +161,7 @@ class MenuNavigation {
                     left: 0,
                     behavior: 'auto'
                 });
-                Globals.currentScrollIndex = 0;
+                Globals.currentScrollIndex = 2;
                 break;
             case "searchDirections":
             case "searchIsochrone":
@@ -283,7 +282,6 @@ class MenuNavigation {
                 isSpecific = true;
                 isFinished = false;
                 break;
-            case "directionsResults":
             case "searchDirections":
             case "searchIsochrone":
                 DOM.$rech.blur();
@@ -308,7 +306,7 @@ class MenuNavigation {
                     left: 0,
                     behavior: 'auto'
                 });
-                Globals.currentScrollIndex = 0;
+            case "directionsResults":
                 isSpecific = true;
                 isFinished = true;
                 break;
@@ -405,14 +403,16 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$isochroneWindow.classList.remove("d-none");
                 Globals.backButtonState = 'isochrone'; // on revient sur le contrôle !
-                this.#midScroll();
+                Globals.currentScrollIndex = 2;
+                this.updateScrollAnchors();
                 break;
             case "searchDirections":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$directionsWindow.classList.remove("d-none");
                 Globals.backButtonState = 'directions'; // on revient sur le contrôle !
-                this.#midScroll();
+                Globals.currentScrollIndex = 2;
+                this.updateScrollAnchors();
             default:
                 break;
         }

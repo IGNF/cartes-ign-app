@@ -102,7 +102,7 @@ let IsochroneDOM = {
                     <p class="pIsochroneTitle">Comment vous déplacez-vous ?</label>
                     <div class="divIsochroneTransport">
                         <input id="isochroneTransportPieton" type="radio" name="Transport" value="Pieton" checked="true">
-                        <label class="lblIsochroneTransport" for="isochroneTransportPieton" title="A pied">A pied</label>
+                        <label class="lblIsochroneTransport" for="isochroneTransportPieton" title="À pied">À pied</label>
                         <input id="isochroneTransportVoiture" type="radio" name="Transport" value="Voiture">
                         <label class="lblIsochroneTransport" for="isochroneTransportVoiture" title="Véhicule">Véhicule</label>
                         <span class="sliderIsochrone"></span>

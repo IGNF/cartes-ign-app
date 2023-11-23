@@ -83,8 +83,6 @@ let DirectionsResultsDOM = {
         }
         // ajout du container principal
         var container = this.__addResultsContainerDOMElement();
-        // ajout du bouton de retour
-        container.appendChild(this.__addResultsButtonReturnDOMElement());
         // ajout du résumé
         container.appendChild(this.__addResultsSummaryContainerDOMElement(
             data.distance,
@@ -114,24 +112,6 @@ let DirectionsResultsDOM = {
     },
 
     /**
-     * ajout du bouton de retour
-     * @returns {DOMElement}
-     * @private
-     */
-    __addResultsButtonReturnDOMElement () {
-        var div = this.dom.btnReturnBack = document.createElement("div");
-        div.id = "directionsReturnBack";
-        div.className = "btnDirectionsReturnBack";
-
-        var self = this;
-        div.addEventListener("click", function (e) {
-            self.hide();
-        });
-
-        return div;
-    },
-
-    /**
      * ajoute le container le résumé du parcours
      * @param {*} distance
      * @param {*} duration
@@ -145,28 +125,34 @@ let DirectionsResultsDOM = {
         div.id = "directionsSummary";
         div.className = "";
 
+        var line1 = document.createElement("div");
+        var line2 = document.createElement("div");
+
         var labelDuration = document.createElement("label");
         labelDuration.id = "directionsSummaryDuration";
         labelDuration.className = "lblDirectionsSummaryDuration";
         labelDuration.textContent = utils.convertSecondsToTime(duration);
-        div.appendChild(labelDuration);
+        line1.appendChild(labelDuration);
 
         var labelDistance = document.createElement("label");
         labelDistance.id = "directionsSummaryDistance";
         labelDistance.className = "lblDirectionsSummaryDistance";
         labelDistance.textContent = utils.convertDistance(distance);
-        div.appendChild(labelDistance);
+        line1.appendChild(labelDistance);
 
         var labelTransport = document.createElement("label");
         labelTransport.id = "directionsSummaryTransport" + transport;
         labelTransport.className = "lblDirectionsSummaryTransport";
-        div.appendChild(labelTransport);
+        line2.appendChild(labelTransport);
 
         var labelComputation = document.createElement("label");
         labelComputation.id = "directionsSummaryComputation";
         labelComputation.className = "lblDirectionsSummaryComputation";
         labelComputation.textContent = computation;
-        div.appendChild(labelComputation);
+        line2.appendChild(labelComputation);
+
+        div.appendChild(line1);
+        div.appendChild(line2);
 
         return div;
     },

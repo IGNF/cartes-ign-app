@@ -27,11 +27,15 @@ function addListeners() {
     // si recherches recentes ou autocompletion, on realise un geocodage
     if (geocode) {
       if (Globals.backButtonState === "searchDirections") {
-        Geocode.search(DOM.$rech.value);
-        setTimeout(() => Globals.menu.open("directions"), 250);
+        setTimeout(() => {
+          Geocode.search(DOM.$rech.value);
+          Globals.menu.open("directions");
+        }, 250);
       } else if(Globals.backButtonState === "searchIsochrone") {
-        Geocode.search(DOM.$rech.value);
-        setTimeout(() => Globals.menu.open("isochrone"), 250);
+        setTimeout(() => {
+          Geocode.search(DOM.$rech.value);
+          Globals.menu.open("isochrone");
+        }, 250);
       } else {
         Geocode.searchAndMoveTo(DOM.$rech.value);
         setTimeout(() => Globals.menu.close("search"), 250);
