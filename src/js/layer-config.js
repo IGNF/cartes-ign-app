@@ -70,7 +70,6 @@ const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
  * @returns
  */
 const getLayerProps = (id) => {
-  console.debug(id);
   var props = ConfigLayers.layers[id];
   var isVector = (props.serviceParams.id === "GPP:TMS") ? true : false;
   var style = (props.styles.length) ? props.styles.find((s) => { return s.current === true }) : "normal";

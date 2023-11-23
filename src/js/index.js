@@ -72,6 +72,29 @@ function app() {
   // DEBUG
   window.mapGlobal = map;
 
+  Globals.ignoreNextScrollEvent = true;
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  });
+  Globals.currentScrollIndex = 0;
+
+  // Ajout des contrôles
+  Controls.addControls();
+
+  // Ajout des ecouteurs des boutons de la carte
+  MapButtonsListeners.addListeners();
+
+  // Ajout des ecouteurs de la carte
+  MapListeners.addListeners();
+
+  // Ajout d'autres ecouteurs
+  EventListeners.addListeners();
+
+  // Ajout des recherches recentes issues du localStorage
+  RecentSearch.create();
+
   // Ajout des sources definies dans la configuration à la carte
   // (les couches de fonds, rlt et thématiques sont pre chargées)
   // Les sources des couches tuiles vectorielles ne sont pas pré chargées
@@ -103,42 +126,19 @@ function app() {
     map.setZoom(localStorage.getItem("lastMapZoom") || map.getZoom());
   }
 
-  // Chargement des couches
+  // Chargement des couches par defaut dans le localStorage
   Globals.manager = new LayerManager({
     layers : [
       {
-        layers : Globals.baseLayerDisplayed,
+        layers : Globals.baseLayerDisplayed, // TODO passer une liste de couches !
         type : "base"
       },
       {
-        layers : Globals.dataLayerDisplayed,
+        layers : Globals.dataLayerDisplayed, // TODO passer une liste de couches !
         type : "data"
       }
     ]
   });
-
-  Globals.ignoreNextScrollEvent = true;
-  window.scroll({
-    top: 0,
-    left: 0,
-    behavior: 'smooth'
-  });
-  Globals.currentScrollIndex = 0;
-
-  // Ajout des contrôles
-  Controls.addControls();
-
-  // Ajout des ecouteurs des boutons de la carte
-  MapButtonsListeners.addListeners();
-
-  // Ajout des ecouteurs de la carte
-  MapListeners.addListeners();
-
-  // Ajout d'autres ecouteurs
-  EventListeners.addListeners();
-
-  // Ajout des recherches recentes issues du localStorage
-  RecentSearch.create();
 
   // Initialisation du menu de navigation
   Globals.menu = new MenuNavigation();

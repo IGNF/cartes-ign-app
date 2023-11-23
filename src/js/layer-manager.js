@@ -144,7 +144,7 @@ class LayerManager {
                     // ajout d'une couche de données
                     if (o.type === "data") {
                         this.layerCatalogue.addLayer(layerName); // TODO transmettre des options de la couches (ex. opacité)
-                        Globals.dataLayerDisplayed = layerName; // TODO liste de couches !
+                        Globals.dataLayerDisplayed = layerName; // TODO transmettre liste de couches !
                     }
                 }
             }

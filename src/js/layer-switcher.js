@@ -151,7 +151,6 @@ class LayerSwitcher {
      * @param {*} id 
      * @param {*} newIndex 
      * @param {*} oldIndex 
-     * @fixme vecteur tuilé
      */
     #setPosition(id, newIndex, oldIndex) {
       // position : 
@@ -184,12 +183,12 @@ class LayerSwitcher {
       //   id3 → pos1 |  id3 pos++ 2
       //   id4 → pos0 < newPosition : 0 --> id4 pos++ 1
       // ]
-      var maxPosition = Object.keys(this.layers).length - 1;
-      var newPosition = maxPosition - newIndex;
-      var oldPosition = maxPosition - oldIndex;
-      var direction = 1; // sens de deplacement (vers le haut ou bas)
-      this.layers[id].position = newPosition;
       if (typeof oldIndex !== "undefined") {
+        var maxPosition = Object.keys(this.layers).length - 1;
+        var newPosition = maxPosition - newIndex;
+        var oldPosition = maxPosition - oldIndex;
+        var direction = 1; // sens de deplacement (vers le haut ou bas)
+        this.layers[id].position = newPosition;
         for (const e in this.layers) {
           if (Object.hasOwnProperty.call(this.layers, e)) {
             const o = this.layers[e];
@@ -230,28 +229,45 @@ class LayerSwitcher {
     }
 
     /**
-     * Mise à jour des positions dans le gestionnaire
+     * Mise à jour des positions dans le gestionnaire et les styles
      * lors de l'ajout ou suppression d'une couche
+     * @param {*} id 
      */
-    #updatePosition() {
-      // on transforme un obj -> array
-      // puis, on trie ce tableau : [0, 1, 4, 5, 7]
-      // et, on redefinie les positions avec une suite consecutive : [0, 1, 2, 3, 4]
+    #updatePosition(id) {
+      // 1. redefinition des positions dans le gestionnaire
+      // - on transforme un obj -> array
+      // - puis, on trie ce tableau : [0, 1, 4, 5, 7]
+      // - et, on redefinie les positions avec une suite consecutive : [0, 1, 2, 3, 4]
       const entries = Object.entries(this.layers);
       entries.sort((a, b) => {
         return a[1].position - b[1].position;
       });
-      entries.forEach((e, pos) => {
-        this.layers[e[0]].position = pos;
-      });
-      
+      for (let pos = 0; pos < entries.length; pos++) {
+        const entrie = entries[pos];
+        var opts = entrie[1];
+        opts.position = pos;
+        this.layers[entrie[0]] = opts;
+      }
+      // 2. redefinition des positions dans les styles
+      //  pos style 
+      //   0   0 la couche de fonds
+      //   1   1 la couche intermediaire
+      //   2   2 la couche la plus au dessus
+      // on redefinie la position des couches vecteurs tuilés dans les styles
+      if (typeof id !== "undefined") {
+        if (this.layers[id].type === "vector") {
+          if (this.layers[id].position === 0) {
+            var beforeId = this.map.getStyle().layers[0].id;
+            LayersGroup.moveGroup(id, beforeId);
+          }
+        }
+      }
     }
 
     /**
      * Opacité de la couche
      * @param {*} id 
      * @param {*} value 
-     * @todo vecteur tuilé
      */
     #setOpacity(id, value) {
       this.layers[id].opacity = value;
@@ -295,14 +311,15 @@ class LayerSwitcher {
       
       var type = this.layers[id].type;
       if (type === "raster") {
-        // TODO
+        // INFO
         // mise à jour de la couche via une property du style, 
         // mais, il n'existe pas de fonctionnalité pour le N&B
         // ex. this.map.setPaintProperty(id, "raster-contrast", (value) ? 1 : 0);
       } else if (type === "vector") {
-        // TODO
-        // - appliquer un filtre N&B sur les valeurs des couleurs
-        // - mais, pour revenir aux couleurs d'origine ?
+        // INFO
+        // appliquer un filtre N&B sur les valeurs des couleurs,
+        // pour revenir aux couleurs d'origine, on utilise :
+        //   this.layer[id].style
         (!value) ? LayersGroup.addGray(id) : LayersGroup.addColor(id);
       } else {
         throw new Error(`Type not yet implemented or unknow : ${type}`);
@@ -560,26 +577,26 @@ class LayerSwitcher {
      * @param {*} id 
      * @fires addlayer
      * @public
-     * @todo determiner la position dans la liste des styles
      */
     addLayer(id) {
       var props = LayersConfig.getLayerProps(id);
       this.index++;
-      var options = {
-          title : props.title,
-          quickLookUrl : LayersAdditional.getQuickLookUrl(id.split("$")[0]),
-          style: props.style,
-          type: props.type,
-          opacity : 100,
-          gray : false,
-          visibility : true,
-          position : this.index // par défaut, cf. #updatePosition()
+      this.layers[id] = {
+        title : props.title,
+        quickLookUrl : LayersAdditional.getQuickLookUrl(id.split("$")[0]),
+        style: props.style,
+        type: props.type,
+        opacity : 100,
+        gray : false,
+        visibility : true,
+        index : this.index,
+        position : this.index // cf. #updatePosition()
       };
-      this.layers[id] = options;
-      this.layers[id].index = this.index;
-      this.#updatePosition();
       this.#addLayerContainer(id);
       this.#addLayerMap(id)
+      .then(() => {
+        this.#updatePosition(id);
+      })
       .then(() => {
         /**
          * Evenement "addlayer"
