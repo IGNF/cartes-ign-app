@@ -249,13 +249,13 @@ class LayerSwitcher {
         this.layers[entrie[0]] = opts;
       }
       // 2. redefinition des positions dans les styles
-      //  pos style 
-      //   0   0 la couche de fonds
-      //   1   1 la couche intermediaire
-      //   2   2 la couche la plus au dessus
       // on redefinie la position des couches vecteurs tuilés dans les styles
+      // 
       if (typeof id !== "undefined") {
         if (this.layers[id].type === "vector") {
+          // HACK
+          // rendre la redefinition plus generique.
+          // ici, on part du principe que nous avons qu'une seule couche possible sur l'application
           if (this.layers[id].position === 0) {
             var beforeId = this.map.getStyle().layers[0].id;
             LayersGroup.moveGroup(id, beforeId);
@@ -373,7 +373,13 @@ class LayerSwitcher {
       });
 
       // ouverture des options avancées
-      shadow.getElementById(`show-advanced-tools_ID_${index}`).addEventListener("click", (e) => {});
+      shadow.getElementById(`show-advanced-tools_ID_${index}`).addEventListener("click", (e) => {
+        document.querySelectorAll("input[id^=show-advanced-tools_ID_]").forEach((el) => {
+          if (el.checked && el.id !== e.target.id) {
+            el.click();
+          }
+        });
+      });
 
       // drag'n drop des couches
       shadow.getElementById(`cross-picto_ID_${index}`).addEventListener("click", (e) => {});
