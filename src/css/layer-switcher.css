@@ -26,7 +26,8 @@ div[id^="cross-picto_ID_"] {
   position: relative;
   right: unset;
   top: unset;
-  background-color: #f4f6f8;
+  width: 25px;
+  background: url("./assets/drag-and-drop.svg") center center no-repeat, #f4f6f8;
 }
 
 div[id^="basic-tools_ID_"] {

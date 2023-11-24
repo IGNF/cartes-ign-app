@@ -395,7 +395,7 @@ class Directions {
             // - les coordonnées en WGS84G soit lon / lat !
             // - la reponse du geocodage
             target.dataset.coordinates = "[" + e.detail.coordinates.lon + "," + e.detail.coordinates.lat + "]";
-            target.value = e.detail.text;
+            target.value = e.detail.text.split(",")[0];
             // on supprime les écouteurs
             cleanListeners();
         }
