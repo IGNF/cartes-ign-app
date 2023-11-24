@@ -128,7 +128,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  padding-top: 10px;
 }
 
 .lblDirectionsDetailsItemGuidance {
@@ -168,6 +167,11 @@
   background-image: url("assets/directions/point-finish.svg");
 }
 
+.lblDirectionsDetailsItemGuidance-point-finish + div > .divDirectionsDetailsItemDesc,
+.lblDirectionsDetailsItemGuidance-point-start + div > .divDirectionsDetailsItemDesc {
+  padding-top: 10px;
+}
+
 .divDirectionsDetailsItemDistanceAndDesc {
   flex-grow: 1;
   border-bottom: 1px solid #DDE1E6;
@@ -178,6 +182,7 @@
   color: #26a581;
   font-size: 12px;
   font-family: "Open Sans Bold";
+  padding-top: 10px;
 }
 
 .divDirectionsDetailsItemDuration {
@@ -185,10 +190,15 @@
   min-height: 20px;
 }
 
-.divDirectionsDetailsItemDuration,
 .divDirectionsDetailsItemDesc {
   font-size: 12px;
   padding-bottom: 10px;
+}
+
+.divDirectionsDetailsItemDuration {
+  font-size: 12px;
+  padding-bottom: 8px;
+  padding-top: 10px;
 }
 
 .divDirectionsDetailsItemDesc {

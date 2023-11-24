@@ -172,12 +172,9 @@
   position: absolute;
   right: 5px;
   top: 10px;
-  width: 25px;
+  width: 35px;
   height: 25px;
-  background-image: url("./assets/drag-and-drop.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: white;
+  background: url("./assets/drag-and-drop.svg") 15px 5px no-repeat, linear-gradient(90deg,#fff0 0%, #fff 30%) center center;
 }
 
 #directionsLocationImg_first {
@@ -203,7 +200,7 @@
 }
 #directionsLocation_end {}
 
-#directionsLocationImg_last:before, .lblDirectionsLocationsImg_middle:before {
+#directionsLocationImg_last::before, .lblDirectionsLocationsImg_middle::before {
   content: "";
   display: block;
   background-image: url("assets/directions/location-between.svg");
