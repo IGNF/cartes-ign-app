@@ -7,6 +7,7 @@
  * Les propriétés des couches sont issues de "l'autoconf",
  * et elles sont transformées en configuration de couches Raster et Vector pour MapLibre.
  * La liste des couches de fonds et thématiques est definie dans un fichier de configuration.
+ * @todo prévoir le multi couche pour les couches vecteurs tuilés
  */
 import BaseLayers from "./data-layer/base-layer-config.json";
 import ThematicLayers from "./data-layer/thematics-layer-config.json";
@@ -71,12 +72,21 @@ const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
 const getLayerProps = (id) => {
   var props = ConfigLayers.layers[id];
   var isVector = (props.serviceParams.id === "GPP:TMS") ? true : false;
+  var style = (props.styles.length) ? props.styles.find((s) => { return s.current === true }) : "normal";
+  if (!style) {
+    style = props.styles[0];
+  }
+  var format = props.formats.length ? props.formats.find((f) => { return f.current === true }) : "";
+  if (!format) {
+    format = props.formats[0];
+  }
   return {
     layer: props.name,
     title: props.title,
     desc: props.description,
-    style: (props.styles.length > 0) ? (isVector) ? props.styles[0].url : props.styles[0].name : "normal",
-    format: props.formats[0].name,
+    type: (isVector) ? "vector" : "raster",
+    style: (isVector) ? style.url : style.name || "normal",
+    format: format.name || "",
     url: props.serviceParams.serverUrl[key],
     minNativeZoom: getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 0,
     maxNativeZoom: getZoomLevelFromScaleDenominator(props.globalConstraint.minScaleDenominator) || 21,
@@ -88,7 +98,7 @@ const getLayerProps = (id) => {
  * @returns
  */
 const getBaseLayers = () => {
-  return BaseLayers["base-layer"];
+  return BaseLayers["base-layers"];
 };
 
 /**
@@ -168,12 +178,15 @@ const createSource = (id) => {
       fxt = createRasterSource;
       break;
     case "TMS":
+      // INFO
+      // les couches tuiles vectorielles ne devrait pas être pré chargées car 
+      // on ne connait pas encore la liste exhaustive des sources contenues 
+      // dans le fichier de style.
       fxt = createVectorSource;
       break;
     default:
       throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${register} - ${norme} - ${service}`);
   }
-
   return fxt(id);
 };
 

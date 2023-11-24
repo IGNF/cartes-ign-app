@@ -1,5 +1,6 @@
 import Globals from './globals';
 import LayersConfig from './layer-config';
+import LayersGroup from './layer-group';
 import LayersAdditional from './layer-additional';
 
 import Sortable from 'sortablejs';
@@ -10,9 +11,29 @@ import ImageNotFound from '../html/img/image-not-found.png';
  * Gestionnaire de couches
  * @fires addlayer
  * @fires removelayer
- * @todo fonctionnalités : N&B, Info et drag'n drop
- * @todo menu avancé en popup !?
- * @todo gerer les couches vecteurs !
+ * @todo N&B
+ * @todo menu avancé sous forme d'une popup verticale
+ * @todo icone de visibilité à modifier
+ * @description 
+ *      → manager    
+ *      	→ instancie this.catalogue & this.switcher
+ *     	→ ecouteurs sur les events 
+ *	      	* addLayer
+ *	      	   → this.catalogue → call this.switcher.addLayer
+ *	      	   → this.switcher → call this.updateCounter
+ *	      	* removeLayer
+ *	      	   → this.catalogue → call this.switcher.removeLayer
+ *	      	   → this.switcher → call this.updateCounter
+ *      	→ loader de couches par defaut
+ *         		→ call this.catalogue.addLayer
+ *       
+ *      → catalogue 
+ *        	→ this.addLayer → call add interface → fire event addLayer
+ *        	→ this.removeLayer → call remove interface → fire event removeLayer
+ *      → switcher
+ *        	→ this.addLayer → call addContainer & addGroup & map.addLayer → fire event addLayer
+ *       	  → this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
+ *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer (TODO)
  */
 class LayerSwitcher {
 
@@ -33,19 +54,22 @@ class LayerSwitcher {
       this.target = this.options.target || document.getElementById("layer-switcher");
       this.map = Globals.map
 
+      // id unique et incremental pour faire la liaison entre le DOM et this.layers
       this.index = -1;
 
       /**
-       * Options des couches avec position d'ordre
+       * Options des couches avec position
        * {
        *   id : {
        *    title : "",
        *    quickLookUrl : "",
        *    opacity : 100,
-       *    color : 1,
-       *    visibility : 1,
+       *    gray : true,
+       *    visibility : true,
        *    index : 0,
-       *    position : 0
+       *    position : 0,
+       *    type: "vector",
+       *    style: "http://.../style.json" ou []
        *   }
        * }
        */
@@ -127,48 +151,116 @@ class LayerSwitcher {
      * @param {*} id 
      * @param {*} newIndex 
      * @param {*} oldIndex 
-     * @todo prévoir un ordre inversé !
      */
     #setPosition(id, newIndex, oldIndex) {
       // position : 
       // * ordre natif à mapbox 
       // > cad même position dans le fichier de style !
-      // ex. 0,1,2
-      //   0 la couche de fonds
-      //   1 la couche intermediaire
-      //   2 la couche la plus au dessus
+      // idx pos style 
+      //  0   0   0 la couche de fonds
+      //  1   1   1 la couche intermediaire
+      //  2   2   2 la couche la plus au dessus
       
-      // Mais on prévoit un ordre inversé !
-      //   2 la couche la plus au dessus
-      //   1 la couche intermediaire
-      //   0 la couche de fonds
+      // Mais on prévoit un ordre inversé dans le gestionnaire !
+      // idx pos style
+      //  0   2   2 la couche la plus au dessus
+      //  1   1   1 la couche intermediaire
+      //  2   0   0 la couche de fonds
 
-      var maxPosition = Object.keys(this.layers).length - 1;
-      var newPosition = maxPosition - newIndex;
-      var oldPosition = maxPosition - oldIndex;
-      var direction = 1; // sens de deplacement
-      this.layers[id].position = newPosition;
+      // [
+      //   id1 → pos3
+      //   id2 → pos2 < newPosition : 2 --> id2 pos-- 1
+      //   id3 → pos1 |  id3 pos-- 0
+      //   id3 → pos1 |  id3 pos-- 0     oldPosition < newPosition
+      //   id3 → pos1 |  id3 pos-- 0
+      //   id4 → pos0 ^ oldPosition : 0 --> id4 newPosition 2
+      // ]
+      // [
+      //   id1 → pos3
+      //   id2 → pos2 ˇ oldPosition : 2 --> id2 newPosition 0
+      //   id3 → pos1 |  id3 pos++ 2
+      //   id3 → pos1 |  id3 pos++ 2     oldPosition > newPosition
+      //   id3 → pos1 |  id3 pos++ 2
+      //   id4 → pos0 < newPosition : 0 --> id4 pos++ 1
+      // ]
       if (typeof oldIndex !== "undefined") {
+        var maxPosition = Object.keys(this.layers).length - 1;
+        var newPosition = maxPosition - newIndex;
+        var oldPosition = maxPosition - oldIndex;
+        var direction = 1; // sens de deplacement (vers le haut ou bas)
+        this.layers[id].position = newPosition;
         for (const e in this.layers) {
           if (Object.hasOwnProperty.call(this.layers, e)) {
             const o = this.layers[e];
             if (oldPosition < newPosition) {
-              direction = 1;
+              direction = 1; // deplacement vers le haut
               if (o.position > oldPosition && o.position <= newPosition && e !== id) {
-                o.position--;
+                o.position--; // on decremente de +1 la position des couches situées en dessous + celle que l'on replace
               }
             } else if (oldPosition > newPosition) {
-              direction = 0;
+              direction = 0; // deplacement vers le bas
               if (o.position < oldPosition && o.position >= newPosition && e !== id) {
-                o.position++;
+                o.position++; // on incremente de +1 la position des couches situées au dessus + celle que l'on replace
               }
             } else {}
           }
         }
-        var beforePos = newPosition + direction;
-        var beforeId = this.map.getStyle().layers[beforePos].id;
-        this.map.moveLayer(id, beforeId);
-        console.debug(this.layers, this.map.getStyle().layers);
+        // INFO
+        // les couches raster possedent un seul style, 
+        // on associe donc position dans le style et position dans le gestionnaire.
+        // pour le vecteur tuilé, il faut determiner le nombre de styles pour chaque position.
+        const getIndexLayer = (pos) => {
+          var index = 0;
+          if (pos === 0) {
+            index = 0;
+          } else {
+            const entries = Object.entries(this.layers);
+            for (let i = 0; i < pos; i++) {
+              const id = entries.find((e) => { return e[1].position === i })[0];
+              index += LayersGroup.getGroupLayers(id).length;
+            }
+          }
+          return index;
+        };
+        var beforeIdx = getIndexLayer(newPosition + direction);
+        var beforeId = this.map.getStyle().layers[beforeIdx].id;
+        LayersGroup.moveGroup(id, beforeId);
+      }
+    }
+
+    /**
+     * Mise à jour des positions dans le gestionnaire et les styles
+     * lors de l'ajout ou suppression d'une couche
+     * @param {*} id 
+     */
+    #updatePosition(id) {
+      // 1. redefinition des positions dans le gestionnaire
+      // - on transforme un obj -> array
+      // - puis, on trie ce tableau : [0, 1, 4, 5, 7]
+      // - et, on redefinie les positions avec une suite consecutive : [0, 1, 2, 3, 4]
+      const entries = Object.entries(this.layers);
+      entries.sort((a, b) => {
+        return a[1].position - b[1].position;
+      });
+      for (let pos = 0; pos < entries.length; pos++) {
+        const entrie = entries[pos];
+        var opts = entrie[1];
+        opts.position = pos;
+        this.layers[entrie[0]] = opts;
+      }
+      // 2. redefinition des positions dans les styles
+      // on redefinie la position des couches vecteurs tuilés dans les styles
+      // 
+      if (typeof id !== "undefined") {
+        if (this.layers[id].type === "vector") {
+          // HACK
+          // rendre la redefinition plus generique.
+          // ici, on part du principe que nous avons qu'une seule couche possible sur l'application
+          if (this.layers[id].position === 0) {
+            var beforeId = this.map.getStyle().layers[0].id;
+            LayersGroup.moveGroup(id, beforeId);
+          }
+        }
       }
     }
 
@@ -180,7 +272,14 @@ class LayerSwitcher {
     #setOpacity(id, value) {
       this.layers[id].opacity = value;
       // mise à jour de la couche (style)
-      this.map.setPaintProperty(id, "raster-opacity", value / 100);
+      var type = this.layers[id].type;
+      if (type === "raster") {
+        this.map.setPaintProperty(id, "raster-opacity", value / 100);
+      } else if (type === "vector") {
+        LayersGroup.addOpacity(id, value / 100);
+      } else {
+        throw new Error(`Type not yet implemented or unknow : ${type}`);
+      }
     }
 
     /**
@@ -191,21 +290,40 @@ class LayerSwitcher {
     #setVisibility(id, value) {
       this.layers[id].visibility = value;
       // mise à jour de la couche (style)
-      this.map.setLayoutProperty(id, "visibility", (value) ? "visible" : "none");
+      var type = this.layers[id].type;
+      if (type === "raster") {
+        this.map.setLayoutProperty(id, "visibility", (value) ? "visible" : "none");
+      } else if (type === "vector") {
+        LayersGroup.addVisibility(id, value);
+      } else {
+        throw new Error(`Type not yet implemented or unknow : ${type}`);
+      }
     }
 
     /**
      * Affichage du N&B
      * @param {*} id 
      * @param {*} value
-     * @fixme not yet implemented !
+     * @todo not yet implemented !
      */
     #setColor(id, value) {
-      this.layers[id].color = value;
-      // INFO
-      // mise à jour de la couche via une property du style, 
-      // mais, il n'existe pas de fonctionnalité pour le N&B
-      // ex. this.map.setPaintProperty(id, "raster-contrast", (value) ? 1 : 0);
+      this.layers[id].gray = value;
+      
+      var type = this.layers[id].type;
+      if (type === "raster") {
+        // INFO
+        // mise à jour de la couche via une property du style, 
+        // mais, il n'existe pas de fonctionnalité pour le N&B
+        // ex. this.map.setPaintProperty(id, "raster-contrast", (value) ? 1 : 0);
+      } else if (type === "vector") {
+        // INFO
+        // appliquer un filtre N&B sur les valeurs des couleurs,
+        // pour revenir aux couleurs d'origine, on utilise :
+        //   this.layer[id].style
+        (!value) ? LayersGroup.addGray(id) : LayersGroup.addColor(id);
+      } else {
+        throw new Error(`Type not yet implemented or unknow : ${type}`);
+      }
     }
 
     /**
@@ -223,7 +341,6 @@ class LayerSwitcher {
       shadow.getElementById(`remove_ID_${index}`).addEventListener("click", (e) => {
         var id = this.#getId(index);
         this.removeLayer(id);
-        this.map.removeLayer(id);
       });
       shadow.getElementById(`info_ID_${index}`).addEventListener("click", (e) => {
         var id = this.#getId(index);
@@ -256,22 +373,26 @@ class LayerSwitcher {
       });
 
       // ouverture des options avancées
-      shadow.getElementById(`show-advanced-tools_ID_${index}`).addEventListener("click", (e) => {});
+      shadow.getElementById(`show-advanced-tools_ID_${index}`).addEventListener("click", (e) => {
+        document.querySelectorAll("input[id^=show-advanced-tools_ID_]").forEach((el) => {
+          if (el.checked && el.id !== e.target.id) {
+            el.click();
+          }
+        });
+      });
 
       // drag'n drop des couches
-      shadow.getElementById(`cross-picto_ID_${index}`).addEventListener("click", (e) => {
-        console.log("TODO", e);
-      });
+      shadow.getElementById(`cross-picto_ID_${index}`).addEventListener("click", (e) => {});
     }
 
     /**
-     * Ajout d'une entrée pour une couche
+     * Ajout d'une entrée pour une couche (DOM)
      * @param {*} id 
      */
     #addLayerContainer(id) {
       var quickLookUrl = this.layers[id].quickLookUrl || ImageNotFound;
       var opacity = this.layers[id].opacity;
-      var color = this.layers[id].color;
+      var gray = this.layers[id].gray;
       var visibility = this.layers[id].visibility;
       var title =  this.layers[id].title || id.split("$")[0];
       
@@ -298,9 +419,9 @@ class LayerSwitcher {
         </div>
         <input type="checkbox" id="show-advanced-tools_ID_${index}" />
         <label id="show-advanced-tools-picto_ID_${index}" for="show-advanced-tools_ID_${index}" title="Plus d'outils" class="tools-layer-advanced"></label>
-        <div id="advanced-tools_ID_${index}">
+        <div id="advanced-tools_ID_${index}" class="tools-layer-advanced-menu">
           <!-- N&B, visibility, info, remove -->
-          <input type="checkbox" id="color_ID_${index}" checked="${color}" />
+          <input type="checkbox" id="color_ID_${index}" checked="${gray}" />
           <label id="color-picto_ID_${index}" for="color_ID_${index}" title="Couleur/NB" class="tools-layer-color"></label>
           <input type="checkbox" id="visibility_ID_${index}" checked="${visibility}" />
           <label id="visibility-picto_ID_${index}" for="visibility_ID_${index}" title="Afficher/masquer la couche" class="tools-layer-visibility"></label>
@@ -363,7 +484,7 @@ class LayerSwitcher {
     }
 
     /**
-     * Suppression d'une entrée pour une couche
+     * Suppression d'une entrée pour une couche (DOM)
      * @param {*} id 
      */
     #removeLayerContainer(id) {
@@ -373,43 +494,137 @@ class LayerSwitcher {
     }
 
     /**
+     * Ajout de la couche
+     * @param {*} id 
+     * @returns 
+     */
+    #addLayerMap(id) {
+      var promise = null;
+      
+      var type = this.layers[id].type;
+      var style = [];
+      if (type === "raster") {
+        style.push({
+          id : id,
+          source : id,
+          type : "raster"
+        });
+      } else if (type === "vector") {
+        style = this.layers[id].style; // url !
+      } else {
+        // ex. geojson
+        throw new Error(`Type not yet implemented or unknown : ${type}`);
+      }
+      // HACK 
+      // on positionne toujours le style avant ceux du calcul d'itineraires (directions)
+      // afin que le calcul soit toujours la couche visible du dessus !
+      var layerIndexBefore = this.map.getStyle().layers.findIndex((l) => l.source === "maplibre-gl-directions");
+      var layerIdBefore = (layerIndexBefore !== -1) ? this.map.getStyle().layers[layerIndexBefore].id : null;
+      
+      if (Array.isArray(style)) {
+        // Raster
+        promise = new Promise((resolve, reject) => {
+          LayersGroup.addGroup(id, style, layerIdBefore);
+          resolve();
+        });
+      } else {
+        // Vecteur
+        promise = fetch(style)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          // INFO
+          // on ajoute les sources !
+          // les sources des couches tuiles vectorielles ne sont pas pré chargées 
+          // car on les connait que maintenant en lisant le fichier de style.
+          // l'id des source est different du nom de la couche pour le vecteur !
+          for (const key in data.sources) {
+            if (Object.hasOwnProperty.call(data.sources, key)) {
+              const source = data.sources[key];
+              // on ne peut pas ajouter la même source !
+              if (! this.map.getStyle().sources[key]) {
+                this.map.addSource(key, source);
+              }
+            }
+          }
+          return data;
+        })
+        .then((data) => {
+          // les sprites et les glyphs sont uniques sinon exceptions !
+          // mais, normalement, on ajoute que des couches IGN, on mutualise sur ces informations.
+          // FIXME comment gerer les exceptions ?
+          this.map.setSprite(data.sprites);
+          this.map.setGlyphs(data.glyphs);
+          return data;
+        })
+        .then((data) => {
+          LayersGroup.addGroup(id, data.layers, layerIdBefore);
+          this.layers[id].style = data.layers; // sauvegarde !
+        })
+        .catch((e) => {
+          throw new Error(e);
+        });
+      }
+
+      return promise;
+    }
+
+    /**
+     * Suppression de la couche
+     * @param {*} id 
+     */
+    #removeLayerMap(id) {
+      LayersGroup.removeGroup(id);
+    }
+
+    /**
      * Ajout d'une couche dans le gestionnaire
      * @param {*} id 
      * @fires addlayer
      * @public
-     * @todo determiner la position dans la liste des styles
      */
     addLayer(id) {
       var props = LayersConfig.getLayerProps(id);
       this.index++;
-      var options = {
-          title : props.title,
-          quickLookUrl : LayersAdditional.getQuickLookUrl(id.split("$")[0]),
-          opacity : 100,
-          color : true,
-          visibility : true,
-          position : this.index
+      this.layers[id] = {
+        title : props.title,
+        quickLookUrl : LayersAdditional.getQuickLookUrl(id.split("$")[0]),
+        style: props.style,
+        type: props.type,
+        opacity : 100,
+        gray : false,
+        visibility : true,
+        index : this.index,
+        position : this.index // cf. #updatePosition()
       };
-      this.layers[id] = options;
-      this.layers[id].index = this.index;
       this.#addLayerContainer(id);
+      this.#addLayerMap(id)
+      .then(() => {
+        this.#updatePosition(id);
+      })
+      .then(() => {
+        /**
+         * Evenement "addlayer"
+         * @event addlayer
+         * @type {*}
+         * @property {*} id -
+         * @property {*} options -
+         */
+        this.event.dispatchEvent(
+          new CustomEvent("addlayer", {
+            bubbles: true,
+            detail: {
+              id : id,
+              options : this.layers[id]
+            }
+          })
+        );
+      })
+      .catch((e) => {
+        throw e;
+      });
 
-      /**
-       * Evenement "addlayer"
-       * @event addlayer
-       * @type {*}
-       * @property {*} id -
-       * @property {*} options -
-       */
-      this.event.dispatchEvent(
-        new CustomEvent("addlayer", {
-          bubbles: true,
-          detail: {
-            id : id,
-            options : this.layers[id]
-          }
-        })
-      );
     }
 
     /**
@@ -419,8 +634,10 @@ class LayerSwitcher {
      * @public
      */
     removeLayer(id) {
+      this.#removeLayerMap(id);
       this.#removeLayerContainer(id);
       delete this.layers[id];
+      this.#updatePosition();
 
       /**
        * Evenement "removelayer"

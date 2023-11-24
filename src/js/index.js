@@ -72,40 +72,6 @@ function app() {
   // DEBUG
   window.mapGlobal = map;
 
-  // Ajout des sources definies dans la configuration à la carte
-  // (les couches de fonds, rlt et thématiques sont pre chargées)
-  for (let layer in LayersConfig.baseLayerSources) {
-    map.addSource(layer, LayersConfig.baseLayerSources[layer]);
-    mapRLT.addSource(layer, LayersConfig.baseLayerSources[layer]);
-  }
-  for (let layer in LayersConfig.rltLayerSources) {
-    map.addSource(layer, LayersConfig.rltLayerSources[layer]);
-    mapRLT.addSource(layer, LayersConfig.rltLayerSources[layer]);
-  }
-  for (let layer in LayersConfig.thematicLayerSources) {
-    map.addSource(layer, LayersConfig.thematicLayerSources[layer]);
-  }
-
-  // Chargement de la position précédente
-  if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
-    map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
-    map.setZoom(localStorage.getItem("lastMapZoom") || map.getZoom());
-  }
-
-  // Chargement des couches
-  Globals.manager = new LayerManager({
-    layers : [
-      {
-        layers : Globals.baseLayerDisplayed,
-        type : "base"
-      },
-      {
-        layers : Globals.dataLayerDisplayed,
-        type : "data"
-      }
-    ]
-  });
-
   Globals.ignoreNextScrollEvent = true;
   window.scroll({
     top: 0,
@@ -128,6 +94,51 @@ function app() {
 
   // Ajout des recherches recentes issues du localStorage
   RecentSearch.create();
+
+  // Ajout des sources definies dans la configuration à la carte
+  // (les couches de fonds, rlt et thématiques sont pre chargées)
+  // Les sources des couches tuiles vectorielles ne sont pas pré chargées
+  // car on ne connait pas la liste des sources disponible dans le fichier de style.
+  for (let layer in LayersConfig.baseLayerSources) {
+    var source = LayersConfig.baseLayerSources[layer];
+    if (source.type !== "vector") {
+      map.addSource(layer, source);
+      mapRLT.addSource(layer, source);
+    }
+  }
+  for (let layer in LayersConfig.rltLayerSources) {
+    var source = LayersConfig.rltLayerSources[layer];
+    if (source.type !== "vector") {
+      map.addSource(layer, source);
+      mapRLT.addSource(layer, source);
+    }
+  }
+  for (let layer in LayersConfig.thematicLayerSources) {
+    var source = LayersConfig.thematicLayerSources[layer];
+    if (source.type !== "vector") {
+      map.addSource(layer, source);
+    }
+  }
+
+  // Chargement de la position précédente
+  if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
+    map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
+    map.setZoom(localStorage.getItem("lastMapZoom") || map.getZoom());
+  }
+
+  // Chargement des couches par defaut dans le localStorage
+  Globals.manager = new LayerManager({
+    layers : [
+      {
+        layers : Globals.baseLayerDisplayed, // TODO passer une liste de couches !
+        type : "base"
+      },
+      {
+        layers : Globals.dataLayerDisplayed, // TODO passer une liste de couches !
+        type : "data"
+      }
+    ]
+  });
 
   // Initialisation du menu de navigation
   Globals.menu = new MenuNavigation();
