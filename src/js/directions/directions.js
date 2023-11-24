@@ -322,7 +322,7 @@ class Directions {
             // step
             if (index > 1) {
                 target = document.getElementById("directionsLocation_step_" + (index - 1));
-                target.parentNode.classList.remove("hidden");
+                target.parentNode.parentNode.classList.remove("hidden");
             }
             // on ajoute les resultats dans le contrôle
             if (target) {
