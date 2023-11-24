@@ -293,6 +293,9 @@ let DirectionsDOM = {
         labelDeparture.className = "lblDirectionsLocations";
         divContainer.appendChild(labelDeparture);
 
+        var divInput = document.createElement("div");
+        divInput.className = "inputDirectionsLocationsContainer";
+
         var inputLocationDeparture = document.createElement("input");
         inputLocationDeparture.id = "directionsLocation_start";
         inputLocationDeparture.className = "inputDirectionsLocations";
@@ -306,11 +309,13 @@ let DirectionsDOM = {
             // ouverture du menu de recherche
             self.onOpenSearchLocation(e);
         });
-        divContainer.appendChild(inputLocationDeparture);
+        divInput.appendChild(inputLocationDeparture);
 
         var labelCross = document.createElement("label");
         labelCross.className = "handle-draggable-layer";
-        divContainer.appendChild(labelCross);
+        divInput.appendChild(labelCross);
+
+        divContainer.appendChild(divInput);
 
         var labelRemoveDeparture = document.createElement("label");
         labelRemoveDeparture.id = "directionsLocationRemoveImg_first";
@@ -337,6 +342,9 @@ let DirectionsDOM = {
             labelMiddle.className = "lblDirectionsLocations lblDirectionsLocationsImg_middle";
             divContainer.appendChild(labelMiddle);
 
+            var divInput = document.createElement("div");
+            divInput.className = "inputDirectionsLocationsContainer";
+
             var inputLocationArrival  = document.createElement("input");
             inputLocationArrival.id = "directionsLocation_step_" + i;
             inputLocationArrival.className = "inputDirectionsLocations";
@@ -350,11 +358,13 @@ let DirectionsDOM = {
                 // ouverture du menu de recherche
                 self.onOpenSearchLocation(e);
             });
-            divContainer.appendChild(inputLocationArrival);
+            divInput.appendChild(inputLocationArrival);
 
             var labelCross = document.createElement("label");
             labelCross.className = "handle-draggable-layer";
-            divContainer.appendChild(labelCross);
+            divInput.appendChild(labelCross);
+
+            divContainer.appendChild(divInput);
 
             var labelRemoveMiddle = document.createElement("label");
             labelRemoveMiddle.id = "directionsLocationRemoveImg_step_" + i;
@@ -381,6 +391,9 @@ let DirectionsDOM = {
         labelArrival.className = "lblDirectionsLocations";
         divContainer.appendChild(labelArrival);
 
+        var divInput = document.createElement("div");
+        divInput.className = "inputDirectionsLocationsContainer";
+
         var inputLocationArrival  = document.createElement("input");
         inputLocationArrival.id = "directionsLocation_end";
         inputLocationArrival.className = "inputDirectionsLocations";
@@ -394,11 +407,12 @@ let DirectionsDOM = {
             // ouverture du menu de recherche
             self.onOpenSearchLocation(e);
         });
-        divContainer.appendChild(inputLocationArrival);
+        divInput.appendChild(inputLocationArrival);
 
         var labelCross = document.createElement("label");
         labelCross.className = "handle-draggable-layer";
-        divContainer.appendChild(labelCross);
+        divInput.appendChild(labelCross);
+        divContainer.appendChild(divInput);
 
         var labelRemoveArrival = document.createElement("label");
         labelRemoveArrival.id = "directionsLocationRemoveImg_last";
