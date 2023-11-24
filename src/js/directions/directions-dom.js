@@ -313,6 +313,7 @@ let DirectionsDOM = {
 
         var labelCross = document.createElement("label");
         labelCross.className = "handle-draggable-layer";
+        labelCross.addEventListener("click", (e) => {});
         divInput.appendChild(labelCross);
 
         divContainer.appendChild(divInput);
@@ -362,6 +363,7 @@ let DirectionsDOM = {
 
             var labelCross = document.createElement("label");
             labelCross.className = "handle-draggable-layer";
+            labelCross.addEventListener("click", (e) => {});
             divInput.appendChild(labelCross);
 
             divContainer.appendChild(divInput);
@@ -411,6 +413,8 @@ let DirectionsDOM = {
 
         var labelCross = document.createElement("label");
         labelCross.className = "handle-draggable-layer";
+        // Event listener vide pour gestion du touch
+        labelCross.addEventListener("click", (e) => {});
         divInput.appendChild(labelCross);
         divContainer.appendChild(divInput);
 
