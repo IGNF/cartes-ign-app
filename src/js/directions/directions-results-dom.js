@@ -83,15 +83,18 @@ let DirectionsResultsDOM = {
         }
         // ajout du container principal
         var container = this.__addResultsContainerDOMElement();
+        // div du résultat sans détails
+        var noDetailsDiv = document.createElement("div");
         // ajout du résumé
-        container.appendChild(this.__addResultsSummaryContainerDOMElement(
+        noDetailsDiv.appendChild(this.__addResultsSummaryContainerDOMElement(
             data.distance,
             data.duration,
             data.transport,
             data.computation
         ));
         // ajout du bouton détails
-        container.appendChild(this.__addResultsDetailsContainerDOMElement());
+        noDetailsDiv.appendChild(this.__addResultsDetailsContainerDOMElement());
+        container.appendChild(noDetailsDiv);
         // ajout des détails
         container.appendChild(this.__addResultsListDetailsContainerDOMElement(data.instructions));
 
@@ -251,6 +254,11 @@ let DirectionsResultsDOM = {
             });
         }
 
+        var profileHeader = document.createElement("p");
+        profileHeader.className = "elevationLineHeader";
+        profileHeader.textContent = "Profil altimétrique";
+        divList.appendChild(profileHeader);
+
         var canvasProfile = document.createElement("canvas");
         canvasProfile.id = "directions-elevationline";
         canvasProfile.className = "elevationLineCanvas";
@@ -288,10 +296,22 @@ let DirectionsResultsDOM = {
         labelIcon.classList.add((type && type === "step") ? "lblDirectionsDetailsItemGuidance-point-step" : instruction.getGuidance());
         divContainer.appendChild(labelIcon);
 
+        var divDistAndDesc = document.createElement("div");
+        divDistAndDesc.className = "divDirectionsDetailsItemDistanceAndDesc"
+
+        if (instruction.isStep()) {
+            var divDistance = document.createElement("div");
+            divDistance.className = "divDirectionsDetailsItemDistance";
+            divDistance.textContent = utils.convertDistance(step.distance);
+            divDistAndDesc.appendChild(divDistance);
+        }
+
         var divDesc = document.createElement("div");
         divDesc.className = "divDirectionsDetailsItemDesc";
         divDesc.textContent = instruction.getDescription();
-        divContainer.appendChild(divDesc);
+        divDistAndDesc.appendChild(divDesc);
+
+        divContainer.appendChild(divDistAndDesc);
 
         if (type && type === "first") {
             var divDuration = document.createElement("div");
@@ -307,12 +327,6 @@ let DirectionsResultsDOM = {
             divContainer.appendChild(divDuration);
         }
 
-        if (instruction.isStep()) {
-            var divDistance = document.createElement("div");
-            divDistance.className = "divDirectionsDetailsItemDistance";
-            divDistance.textContent = utils.convertDistance(step.distance);
-            divContainer.appendChild(divDistance);
-        }
 
         return divContainer;
     }
