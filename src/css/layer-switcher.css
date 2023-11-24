@@ -23,11 +23,10 @@ div[id^="container_ID_"] {
 }
 
 div[id^="cross-picto_ID_"] {
-  width: 25px;
-  height: 25px;
-  left: 0;
-  background-image: url("./assets/drag-and-drop.svg");
-  background-repeat: no-repeat;
+  position: relative;
+  right: unset;
+  top: unset;
+  background-color: #f4f6f8;
 }
 
 div[id^="basic-tools_ID_"] {
