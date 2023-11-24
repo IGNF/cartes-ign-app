@@ -9,9 +9,30 @@ import layerConfig from './layer-config';
  * - gestion des thèmatiques et fonds de carte
  * @see LayerSwitcher
  * @see LayerCatalogue
- * @todo ...
+ * @fixme les couches tuiles vectorielles sont en chargement async !
+ * @description 
+ *      → manager    
+ *      	→ instancie this.catalogue & this.switcher
+ *     	→ ecouteurs sur les events 
+ *	      	* addLayer
+ *	      	   → this.catalogue → call this.switcher.addLayer
+ *	      	   → this.switcher → call this.updateCounter
+ *	      	* removeLayer
+ *	      	   → this.catalogue → call this.switcher.removeLayer
+ *	      	   → this.switcher → call this.updateCounter
+ *      	→ loader de couches par defaut
+ *         		→ call this.catalogue.addLayer
+ *       
+ *      → catalogue 
+ *        	→ this.addLayer → call add interface → fire event addLayer
+ *        	→ this.removeLayer → call remove interface → fire event removeLayer
+ *      → switcher
+ *        	→ this.addLayer → call addContainer & addGroup & map.addLayer → fire event addLayer
+ *       	→ this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
+ *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer (TODO)
+ * 
  */
-class LayerManger {
+class LayerManager {
     /**
      * constructeur
      * @param {*} options -
@@ -49,11 +70,9 @@ class LayerManger {
      */
     #listeners() {
         this.layerCatalogue.event.addEventListener("addlayer", (e) => {
-            // cf. this.layerSwitcher.event.addEventListener("addlayer")
             this.layerSwitcher.addLayer(e.detail.id);
         });
         this.layerCatalogue.event.addEventListener("removelayer", (e) => {
-            // cf. this.layerSwitcher.event.addEventListener("removelayer")
             this.layerSwitcher.removeLayer(e.detail.id);
         });
 
@@ -125,7 +144,7 @@ class LayerManger {
                     // ajout d'une couche de données
                     if (o.type === "data") {
                         this.layerCatalogue.addLayer(layerName); // TODO transmettre des options de la couches (ex. opacité)
-                        Globals.dataLayerDisplayed = layerName; // TODO liste de couches !
+                        Globals.dataLayerDisplayed = layerName; // TODO transmettre liste de couches !
                     }
                 }
             }
@@ -160,4 +179,4 @@ class LayerManger {
     }
 }
 
-export default LayerManger;
+export default LayerManager;
