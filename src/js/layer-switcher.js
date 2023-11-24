@@ -419,7 +419,7 @@ class LayerSwitcher {
         </div>
         <input type="checkbox" id="show-advanced-tools_ID_${index}" />
         <label id="show-advanced-tools-picto_ID_${index}" for="show-advanced-tools_ID_${index}" title="Plus d'outils" class="tools-layer-advanced"></label>
-        <div id="advanced-tools_ID_${index}">
+        <div id="advanced-tools_ID_${index}" class="tools-layer-advanced-menu">
           <!-- N&B, visibility, info, remove -->
           <input type="checkbox" id="color_ID_${index}" checked="${gray}" />
           <label id="color-picto_ID_${index}" for="color_ID_${index}" title="Couleur/NB" class="tools-layer-color"></label>
