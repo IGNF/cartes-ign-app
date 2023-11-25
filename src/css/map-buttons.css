@@ -21,7 +21,8 @@
 #sideBySideBtn,
 #layerManagerBtn,
 #geolocateBtn,
-#compassBtn  {
+#compassBtn,
+#filterPoiBtn  {
   width: 40px;
   height: 40px;
   border-radius: 60px;
@@ -57,6 +58,12 @@
   background-image: url("assets/compass.svg");
   position: absolute;
   bottom: 225px;
+}
+
+#filterPoiBtn {
+  background-image: url("assets/filtrer.svg");
+  position: absolute;
+  top: 80px;
 }
 
 @media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {

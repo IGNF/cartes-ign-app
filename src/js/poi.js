@@ -14,11 +14,17 @@ class POI {
 
         this.opened = false;
 
+        this.#loadLayer();
         this.#render();
         this.#listeners();
 
         return this;
     }
+
+    /**
+     * chargement de la couche
+     */
+    #loadLayer() {}
 
     /**
      * creation de l'interface
@@ -36,6 +42,7 @@ class POI {
      */
     show() {
         this.opened = true;
+        console.debug("show")
     }
 
     /**
@@ -44,6 +51,7 @@ class POI {
      */
     hide() {
         this.opened = false;
+        console.debug("hide");
     }
 
     /**

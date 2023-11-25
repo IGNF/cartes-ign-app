@@ -6,6 +6,7 @@ import Isochrone from "./isochrone/isochrone";
 import Position from "./my-position";
 import Search from "./search";
 import Compare from './compare';
+import POI from './poi';
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -15,6 +16,7 @@ import Compare from './compare';
  * @see Position
  * @see Compare
  * @see Search
+ * @see POI
  */
 const addControls = () => {
   const map = Globals.map;
@@ -53,6 +55,9 @@ const addControls = () => {
 
     // contrôle de comparaison de carte
     Globals.compare = new Compare();
+
+    // contrôle filtres POI
+    Globals.poi = new POI();
 
     // échelle graphique
     map.addControl(new maplibregl.ScaleControl({

@@ -15,6 +15,7 @@ const $backTopLeftBtn = document.getElementById("backTopLeftBtn");
 const $compassBtn = document.getElementById("compassBtn");
 const $layerManagerBtn = document.getElementById("layerManagerBtn");
 const $sideBySideBtn = document.getElementById("sideBySideBtn");
+const $filterPoiBtn = document.getElementById("filterPoiBtn");
 
 const $whiteScreen = document.getElementById("whiteScreen");
 const $parameterScreenWindow = document.getElementById("parameterScreenWindow");
@@ -80,5 +81,6 @@ export default {
   $myaccountWindow,
   $informationsWindow,
   $informationsText,
-  $informationsImg
+  $informationsImg,
+  $filterPoiBtn
 };
