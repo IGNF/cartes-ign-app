@@ -1,0 +1,55 @@
+{
+    "version": 8,
+    "name": "POI OSM",
+    "glyphs": "https://wxs.ign.fr/static/vectorTiles/fonts/{fontstack}/{range}.pbf",
+    "sprite": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/sprite_test/sprite_osm_test05",
+    "sources": {
+        "poi_osm": {
+            "type": "vector",
+            "tiles": [
+                "https://data.geopf.fr/tms/1.0.0/OSM.POI/{z}/{x}/{y}.pbf"
+            ]
+        }
+    },
+    "transition": {
+        "duration": 300,
+        "delay": 0
+    },
+    "layers": [
+        {
+            "id": "POI OSM 16et17",
+            "type": "symbol",
+            "source": "poi_osm",
+            "source-layer": "point_interet",
+            "minzoom": 15,
+            "maxzoom": 17,
+            "layout": {
+                "visibility": "visible",
+                "icon-image": "{symbo}_17"
+            }
+        },
+        {
+            "id": "POI OSM 18et19",
+            "type": "symbol",
+            "source": "poi_osm",
+            "source-layer": "point_interet",
+            "minzoom": 17,
+            "layout": {
+                "visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{texte}",
+                "text-size": 9,
+                "text-max-width": 9,
+                "text-allow-overlap": false,
+                "text-offset": [0, -0.9],
+                "text-padding": 3,
+                "text-anchor": "bottom",
+                "text-font": ["Source Sans Pro Bold Italic"],
+                "icon-image": "{symbo}_21"
+            },
+            "paint": {
+                "text-color": "#0000CC"
+            }
+        }
+    ]
+}

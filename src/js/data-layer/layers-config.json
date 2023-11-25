@@ -4283,6 +4283,48 @@
       "quicklookUrl": "",
       "layerId": "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS",
       "defaultProjection": "EPSG:3857"
+    },
+    "OSM.POI$GEOPORTAIL:GPP:TMS": {
+      "hidden": true,
+      "queryable": true,
+      "serviceParams": {
+        "id": "GPP:TMS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/tms/1.0.0/"
+        }
+      },
+      "name": "OSM.POI",
+      "title": "POI OSM interactif",
+      "description": "",
+      "formats": [
+        {
+          "current": true,
+          "name": "application/x-protobuf"
+        }
+      ],
+      "styles": [
+        {
+          "name": "standard",
+          "title": "Style standard",
+          "current": true,
+          "url": "data/poi-osm-style.json"
+        }
+      ],
+      "globalConstraint": {
+        "crs": null,
+        "bbox": {
+          "left": -724011.531917197,
+          "right": 1095801.237496279,
+          "top": 6672646.821182753,
+          "bottom": 5009377.0856973175
+        },
+        "minScaleDenominator": null,
+        "maxScaleDenominator": null
+      },
+      "quicklookUrl": "",
+      "layerId": "OSM.POI$GEOPORTAIL:GPP:TMS",
+      "defaultProjection": "EPSG:3857"
     }
 
   },
