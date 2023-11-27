@@ -1,7 +1,3 @@
-div#layerManagerWindowClose {
-  top: -10px;
-}
-
 #layer-thematics-number,
 #layer-switcher-number {
   display: inline-block;
@@ -11,9 +7,11 @@ div#layerManagerWindowClose {
   text-align: center;
   font-size: 0.9em;
   margin: auto;
-  border-radius: 50%;
-  background-color: #00b798;
+  border-radius: 50px;
+  background-color: #26A581;
   color: #fff;
+  font-family: "Open Sans";
+  padding: 3px 5px;
 }
 
 .layer-tabs-wrap {

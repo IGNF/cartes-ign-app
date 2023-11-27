@@ -13,8 +13,7 @@ const addListeners = () => {
     const map = Globals.map;
     if (Location.isTrackingActive()){
       // De tracking a simple suivi de position
-      Location.locationOnOff();
-      Location.locationOnOff();
+      Location.disableTracking();
     }
     map.setBearing(Math.round((map.getBearing() % 360) + 360 ) % 360);
 
@@ -44,7 +43,7 @@ const addListeners = () => {
 
   // Bouton Comparaison de carte
   DOM.$sideBySideBtn.addEventListener("click", () => { Globals.compare.toggle(); });
-  
+
   // Bouton du gestionnaire de couches
   DOM.$layerManagerBtn.addEventListener("click", () => { Globals.menu.open("layerManager"); });
 
