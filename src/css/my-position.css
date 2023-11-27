@@ -72,7 +72,12 @@
     padding-bottom: 10px;
     border-bottom: 1px solid #DDE1E6;
     overflow-x: scroll;
+  scrollbar-width: none;  /* Firefox */
 }
+.divPositionButtons::-webkit-scrollbar {
+    display: none;
+  }
+
 #positionShare {
 }
 .lblPositionImg {
