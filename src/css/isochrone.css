@@ -274,6 +274,6 @@ input#isochroneValueDistanceInput[type=number]
 
 .divIsochroneDisplayOptions > span {
   max-width: 50%;
-  text-wrap: wrap;
+  white-space: wrap;
   text-align: left;
 }

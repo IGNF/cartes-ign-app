@@ -64,6 +64,10 @@ class Search {
             DOM.$resultDiv.innerHTML = resultStr;
             DOM.$resultDiv.hidden = false;
           }
+        }).catch( (err) => {
+          if (err.name === "AbortError") {
+            return;
+          }
         });
       } else if (DOM.$rech.value === "") {
         DOM.$resultDiv.hidden = true;
