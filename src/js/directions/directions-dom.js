@@ -310,6 +310,8 @@ let DirectionsDOM = {
             self.onOpenSearchLocation(e);
         });
         divInput.appendChild(inputLocationDeparture);
+        // Stockage du input de départ pour interaction avec modules externes
+        self.dom.inputDeparture = inputLocationDeparture;
 
         var labelCross = document.createElement("label");
         labelCross.className = "handle-draggable-layer";
@@ -410,6 +412,8 @@ let DirectionsDOM = {
             self.onOpenSearchLocation(e);
         });
         divInput.appendChild(inputLocationArrival);
+        // Stockage du input d'arrivée pour interaction avec modules externes
+        self.dom.inputArrival = inputLocationArrival;
 
         var labelCross = document.createElement("label");
         labelCross.className = "handle-draggable-layer";

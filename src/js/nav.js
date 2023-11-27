@@ -37,7 +37,6 @@ class MenuNavigation {
           });
         });
         // "Où suis-je ?"
-        document.getElementById("mypositionWindowClose").addEventListener('click', () => { this.close("myposition"); });
         document.getElementById("myposition").addEventListener("click", () => {
             Globals.compare.hide();
             Globals.myposition.compute()
@@ -125,6 +124,8 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 1;
                 break;
             case "myposition":
+                DOM.$search.style.display = "none";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
                 break;
             case "isochrone":
                 // FIXME mettre en place une méthode sur la classe Search
@@ -249,6 +250,8 @@ class MenuNavigation {
                 isFinished = true;
                 break;
             case "myposition":
+                DOM.$search.style.display = "flex";
+                DOM.$backTopLeftBtn.classList.add('d-none');
                 break;
             case "isochrone":
                 // FIXME mettre en place une méthode sur la classe Searchs

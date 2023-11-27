@@ -6,7 +6,7 @@
 .fontLight {
  font-family: "Open Sans";
  font-weight: 500;
- color: var(--variable-collection-grey800);
+ color: #3F4A55;
  font-size: 13px;
  letter-spacing: 0;
  line-height: normal;
@@ -25,7 +25,7 @@
  * titre
  */
 .divPositionTitle {
-    text-align: center;
+    text-align: left;
     font-size: large;
     margin: 10px;
     padding-bottom: 10px;
@@ -38,19 +38,28 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 10px;
+    margin: 10px 0;
     padding-bottom: 10px;
+    border-bottom: 1px solid #DDE1E6;
 }
 .lblPositionImgAddress {
-    width: 35px;
-    height: 35px;
+    width: 24px;
+    height: 24px;
     background-repeat: no-repeat;
-    background-image: url("assets/location.svg");
+    background-image: url("assets/directions/point-start.svg");
+    background-size: 24px;
+    background-position: center;
+    margin-right: 5px;
 }
 .divPositionSectionAddress {
 
 }
-.lblPositionAddress {}
+.lblPositionAddress {
+    font-family: "Open Sans Bold";
+}
+.lblPositionCity {
+    font-size: 0.9em;
+}
 
 /*
  * boutons
@@ -58,54 +67,63 @@
 .divPositionButtons {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
-    margin: 10px;
+    margin: 10px 0;
     padding-bottom: 10px;
+    border-bottom: 1px solid #DDE1E6;
+    overflow-x: scroll;
 }
 #positionShare {
 }
-.lblPositionShareImg {
+.lblPositionImg {
     height: 25px;
     width: 25px;
-    background-size: 20px;
+    background-size: 25px;
     background-repeat: no-repeat;
+}
+.lblPositionShareImg {
     background-image: url("assets/share.svg");
 }
 #positionNear {
 }
 .lblPositionNearImg {
-    width: 25px;
-    height: 25px;
-    background-repeat: no-repeat;
-    background-image: url("assets/isochrone-green.svg");
+
+    background-image: url("assets/isochrone-white.svg");
+}
+.lblPositionRouteImg {
+    background-image: url("assets/syrendre-white.svg");
 }
 .btnPositionButtons {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding: 10px;
-    border: 1px solid  #cccccc;
-    background-color: #ffffff;
+    color: white;
+    background-color: #26A581;
     border-radius: 50px;
     margin-right: 12px;
     cursor: pointer;
     position: relative;
     transition: all 0.3s ease-in-out;
+    outline: none;
+    border: none;
+    white-space: nowrap;
 }
 
 .btnPositionButtons:hover {
-    border-color: #26a581;
+    background-color: white;
+    color: #26A581;
 }
 
 /*
  * coordonnées
  */
 .divPositionCoord {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 10px;
+    margin: 10px 0;
     padding-bottom: 10px;
+}
+.divPositionCoord p {
+    margin: 10px 0;
 }
 .lblPositionCoord {}
 
@@ -115,7 +133,16 @@
  */
 
 #positionPopup {
-
+    position: relative;
+}
+.divPositionPopupClose {
+    width: 25px;
+    height: 25px;
+    background-image: url("assets/directions/location-step-remove.svg");
+    background-size: 25px;
+    position: absolute;
+    right: 0;
+    top: -15px;
 }
 .positionPopup > .maplibregl-popup-content {
     color: #4b4b4b;
