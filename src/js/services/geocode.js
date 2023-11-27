@@ -40,8 +40,7 @@ function moveTo(coords, zoom=Globals.map.getZoom(), panTo=true) {
   Globals.searchResultIcon.addEventListener("click", clean);
 
   if (panTo) {
-    Globals.map.setCenter([coords.lon, coords.lat]);
-    Globals.map.setZoom(zoom);
+    Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
   }
 }
 

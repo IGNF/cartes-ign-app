@@ -18,6 +18,7 @@ let location_active = false;
 // Suivi de la carte
 let tracking_active = false;
 let watch_id;
+let currentPosition = null;
 
 let positionBearing = 0
 
@@ -78,8 +79,7 @@ const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
 
   if (panTo) {
     Globals.movedFromCode = true;
-    Globals.map.setCenter([coords.lon, coords.lat]);
-    Globals.map.setZoom(zoom);
+    Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
     Globals.movedFromCode = false;
   }
 }
@@ -155,7 +155,7 @@ const enablePosition = async(tracking) => {
 
 const locationOnOff = async () => {
   if (!location_active) {
-    enablePosition();
+    enablePosition(true);
   } else if (!tracking_active) {
     DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFollowImg + '")';
     tracking_active = true;
@@ -166,7 +166,7 @@ const locationOnOff = async () => {
     });
   } else {
     DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationImg + '")';
-    Geolocation.clearWatch(watch_id);
+    Geolocation.clearWatch({id: watch_id});
     clean();
     location_active = false;
     tracking_active = false;
