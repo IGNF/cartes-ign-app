@@ -58,7 +58,6 @@ class MenuNavigation {
         document.getElementById("myaccountWindowClose").addEventListener('click', () => { this.close("myaccount"); });
         document.getElementById("myaccount").addEventListener('click',  () => { this.open("myaccount"); });
         // Gestionnaire des couches
-        document.getElementById("layerManagerWindowClose").addEventListener('click', () => { this.close("layerManager"); });
         document.getElementById("infoWindowClose").addEventListener('click', () => { this.close('info')});
         document.getElementById("legendWindowClose").addEventListener('click', () => { this.close('legend')});
         document.getElementById("informationsWindowClose").addEventListener('click', () => { this.close('informations')});

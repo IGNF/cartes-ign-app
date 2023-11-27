@@ -4,8 +4,13 @@
 }
 
 #layerManagerWindow h4 {
-  padding: 0 30px 5px;
   margin: 0 0 10px 0;
+  font-family: "Open Sans Semibold";
+  font-size: 1.1em;
+}
+
+#layer-thematics {
+  width: 100%;
 }
 
 .layer-thematics {
@@ -26,29 +31,50 @@
   margin: auto;
 }
 
+
+.baseLayer .layerImg{
+  width: 112.5px;
+}
+
+.subCatMenu .baseLayer .layerImg img{
+  width: 112.5px;
+  height: 75px;
+}
+
 .layer-title-thematic,
 .layer-title {
   font-family: "Open Sans";
   font-size: 11px;
   font-style: normal;
-  font-weight: 600;
   line-height: normal;
   color: #091625;
   display: flex;
-  justify-content: center;
+  text-align: left
 }
 
 .layer-title-thematic {
   color: #26a581;
+  font-weight: 600;
 }
 
-#layerManagerWindow .subCatMenu {
+#layerManagerWindow #thematicLayers {
   text-align: center;
-  margin: 0 15px 0 15px;
+  margin: 0;
   display: grid;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   grid-template-columns: 26% 26% 26%;
+}
+
+#baseLayers {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow-x: scroll;
+  scrollbar-width: none;  /* Firefox */
+}
+
+#baseLayers::-webkit-scrollbar {
+  display: none;
 }
 
 .selectedLayer .layer-badge {
@@ -59,6 +85,8 @@
   right: 10px;
   background-repeat: no-repeat;
   background-image: url("assets/selected-layer.svg");
+  border: 2px solid white;
+  border-radius: 50%;
 }
 
 .selectedLayer img {
@@ -71,7 +99,16 @@
   box-sizing: border-box;
 }
 
-.subCatMenu .layer {
+#baseLayers .layer {
+  display: inline-block;
+  padding-bottom: 1em;
+  position: relative;
+  flex-shrink: 0;
+  width: 112.5px;
+  margin-right: 12px;
+}
+
+#thematicLayers .layer {
   display: inline-block;
   padding-bottom: 1em;
   width: 100%;
@@ -90,7 +127,6 @@
 }
 
 .subCatButton {
-  padding: 0 30px 5px;
   margin: 0 0 10px 0;
   position: relative;
   overflow-x: scroll;
@@ -105,24 +141,27 @@
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
+/* Hide scrollbar and Firefox */
 .subCatButton {
-  -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-}
-
-.thematic-button-active {
-  color: #26a581;
-  border-color: #26a581;
 }
 
 .thematicButton {
   display: block;
-  border: 1px solid #ccc;
-  background-color: #ffffff;
+  border: 1px solid #3F4A55;
+  color: #3F4A55;
+  background-color: #fff0;
   border-radius: 50px;
   padding: 10px;
   cursor: pointer;
   text-align: center;
   white-space: nowrap;
+  margin-right: 10px;
+  font-family: "Open Sans Semibold";
+  font-size: 0.8em
+}
+
+.thematic-button-active {
+  color: #26a581;
+  border-color: #26a581;
 }

@@ -227,6 +227,16 @@ const getLocation = async (tracking) => {
   return results;
 }
 
+const disableTracking = () => {
+  DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFixeImg + '")';
+  tracking_active = false;
+  Toast.show({
+    text: "Suivi de position activé",
+    duration: "short",
+    position: "bottom"
+  });
+}
+
 const isLocationActive = () => {
   return location_active;
 }
@@ -244,4 +254,5 @@ export default {
   locationOnOff,
   getOrientation,
   getLocation,
+  disableTracking,
 }
