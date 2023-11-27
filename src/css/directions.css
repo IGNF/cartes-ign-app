@@ -12,7 +12,7 @@
   border-radius: 70px;
   background-color: #26a581;
   padding: 14px 28px;
-  font-family: "Fira Sans-SemiBold", Helvetica;
+  font-family: "Open Sans";
   font-weight: 600;
   font-size: 16px;
   color: white;
@@ -167,6 +167,12 @@
   border-color: #DDE1E6;
   color: #3F4A55;
 }
+
+.inputDirectionsLocations:focus {
+  outline: none;
+  border-color: #26a581;
+}
+
 
 .handle-draggable-layer {
   position: absolute;

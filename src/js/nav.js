@@ -46,7 +46,6 @@ class MenuNavigation {
             });
         });
         // "A proximité"
-        document.getElementById("isochroneWindowClose").addEventListener('click',  () => { this.close("isochrone"); });
         document.getElementById("isochrone").addEventListener("click", () => {
             Globals.compare.hide();
             this.open("isochrone");
@@ -131,8 +130,9 @@ class MenuNavigation {
                 // FIXME mettre en place une méthode sur la classe Search
                 // ex. Globals.search.hide()
                 DOM.$search.style.display = "none";
+                DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
-                Globals.currentScrollIndex = 2;
+                Globals.currentScrollIndex = 1;
                 break;
             case "parameterScreen":
             case "legalScreen":
@@ -192,6 +192,7 @@ class MenuNavigation {
             case "directions":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$sideBySideBtn.classList.add('d-none');
                 Globals.directions.interactive(true);
                 Globals.currentScrollIndex = 2;
                 break;
@@ -253,6 +254,7 @@ class MenuNavigation {
                 // FIXME mettre en place une méthode sur la classe Searchs
                 DOM.$search.style.display = "flex";
                 DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.isochrone.clear();
                 break;
             case "search":
@@ -289,7 +291,6 @@ class MenuNavigation {
                     document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
                 }
                 document.body.style.overflowY = "auto";
-                DOM.$sideBySideBtn.classList.remove('d-none');
                 DOM.$layerManagerBtn.classList.remove('d-none');
                 DOM.$geolocateBtn.classList.remove('d-none');
                 DOM.$whiteScreen.classList.add('d-none');
@@ -332,6 +333,7 @@ class MenuNavigation {
             case "directions":
                 DOM.$search.style.display = "flex";
                 DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.directions.clear();
                 Globals.directions.interactive(false);
                 break;
@@ -403,7 +405,7 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$isochroneWindow.classList.remove("d-none");
                 Globals.backButtonState = 'isochrone'; // on revient sur le contrôle !
-                Globals.currentScrollIndex = 2;
+                Globals.currentScrollIndex = 1;
                 this.updateScrollAnchors();
                 break;
             case "searchDirections":
