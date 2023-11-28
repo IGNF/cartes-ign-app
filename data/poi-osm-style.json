@@ -2,7 +2,7 @@
     "version": 8,
     "name": "POI OSM",
     "glyphs": "https://wxs.ign.fr/static/vectorTiles/fonts/{fontstack}/{range}.pbf",
-    "sprite": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/sprite_test/sprite_osm_test05",
+    "sprite": "data/poi-osm-sprite",
     "sources": {
         "poi_osm": {
             "type": "vector",

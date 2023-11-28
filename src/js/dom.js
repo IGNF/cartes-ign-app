@@ -45,6 +45,7 @@ const $directionsResultsWindow = document.getElementById("directionsResultsWindo
 const $isochroneWindow = document.getElementById("isochroneWindow");
 const $mypositionWindow = document.getElementById("mypositionWindow");
 const $myaccountWindow = document.getElementById("myaccountWindow");
+const $poiWindow = document.getElementById("poiWindow");
 
 export default {
   $search,
@@ -82,5 +83,6 @@ export default {
   $informationsWindow,
   $informationsText,
   $informationsImg,
-  $filterPoiBtn
+  $filterPoiBtn,
+  $poiWindow
 };

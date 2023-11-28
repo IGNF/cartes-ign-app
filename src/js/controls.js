@@ -57,7 +57,7 @@ const addControls = () => {
     Globals.compare = new Compare();
 
     // contrôle filtres POI
-    Globals.poi = new POI();
+    Globals.poi = new POI(map, {});
 
     // échelle graphique
     map.addControl(new maplibregl.ScaleControl({

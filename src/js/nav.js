@@ -110,6 +110,11 @@ class MenuNavigation {
         var isSpecific = false;
         var isSpecificSize = false;
         switch (id) {
+            case "poi":
+                DOM.$search.style.display = "none";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                Globals.currentScrollIndex = 1;
+                break;
             case "myaccount":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
@@ -235,6 +240,10 @@ class MenuNavigation {
         var isSpecific = false;
         var isFinished = false; // hack pour search !
         switch (id) {
+            case "poi":
+                DOM.$search.style.display = "flex";
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                break;
             case "myaccount":
                 DOM.$search.style.display = "flex";
                 DOM.$backTopLeftBtn.classList.add('d-none');

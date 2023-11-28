@@ -49,7 +49,7 @@ const addListeners = () => {
   DOM.$layerManagerBtn.addEventListener("click", () => { Globals.menu.open("layerManager"); });
 
   // Bouton des filtres POI
-  DOM.$filterPoiBtn.addEventListener("click", () => { Globals.poi.toggle(); });
+  DOM.$filterPoiBtn.addEventListener("click", () => { Globals.menu.open("poi"); });
 
   // Bouton Retour
   DOM.$backTopLeftBtn.addEventListener("click", () => { State.onBackKeyDown(); });
