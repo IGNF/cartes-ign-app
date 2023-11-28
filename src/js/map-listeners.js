@@ -24,8 +24,7 @@ const addListeners = () => {
       return
     } else if (Location.isTrackingActive()){
       // De tracking a simple suivi de position
-      Location.locationOnOff();
-      Location.locationOnOff();
+      Location.disableTracking();
     }
   });
 

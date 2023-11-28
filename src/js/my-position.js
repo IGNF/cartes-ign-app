@@ -28,7 +28,8 @@ class Position {
       // callback
       openMyPositionCbk: null,
       closeMyPositionCbk: null,
-      openIsochroneCbk: null
+      openIsochroneCbk: null,
+      openDirectionsCbk: null,
     };
 
     // carte
@@ -83,18 +84,18 @@ class Position {
     this.contentPopup = `
         <div id="${id.popup}">
             <div class="divPositionTitle">Partager ma position</div>
+            <div class="divPositionPopupClose" onclick="onCloseSharePopup(event)"></div>
             <div class="divPositionAddress">
                 <label class="lblPositionImgAddress"></label>
                 <div class="divPositionSectionAddress fontLight">
-                    <span class="lblPositionAddress">${address.number} ${address.street},</span>
-                    <span class="lblPositionAddress">${address.citycode} ${address.city}</span>
+                    <span class="lblPositionAddress">${address.number} ${address.street}</span><br />
+                    <span class="lblPositionCity">${address.postcode} ${address.city}</span>
                 </div>
             </div>
-            <hr>
             <div class="divPositionCoord fontLight">
-                <span class="lblPositionCoord">Latitude : ${latitude}</span>
-                <span class="lblPositionCoord">Longitude : ${longitude}</span>
-                <span class="lblPositionCoord">Altitude : ${altitude}</span>
+                <span class="lblPositionCoord">Latitude : ${latitude} </span>
+                <span class="lblPositionCoord"> Longitude : ${longitude}</span><br />
+                <span class="lblPositionCoord">Altitude : ${altitude}m</span>
             </div>
             <div class="divPositionShareButtons">
                 <label id="positionWhatsAppImg" onclick="onClickSocialWhatsapp(event)"></label>
@@ -104,9 +105,12 @@ class Position {
         `;
     // ajout des listeners
     var self = this;
+    window.onCloseSharePopup = (e) => {
+      self.popup.remove();
+    }
     window.onClickSocialWhatsapp = (e) => {
       // message
-      var message = `${self.address.number} ${self.address.street}, ${self.address.citycode} ${self.address.city}
+      var message = `${self.address.number} ${self.address.street}, ${self.address.postcode} ${self.address.city}
             (latitiude: ${self.coordinates.lat} / longitude: ${self.coordinates.lon} / altitude: ${self.elevation} m)`;
       // redirection vers...
       if (self.isDesktop()) {
@@ -126,19 +130,19 @@ class Position {
             <div class="divPositionAddress">
                 <label class="lblPositionImgAddress"></label>
                 <div class="divPositionSectionAddress fontLight">
-                    <span class="lblPositionAddress">${address.number} ${address.street},</span>
-                    <span class="lblPositionAddress">${address.citycode} ${address.city}</span>
+                    <span class="lblPositionAddress">${address.number} ${address.street}</span><br />
+                    <span class="lblPositionCity">${address.postcode} ${address.city}</span>
                 </div>
             </div>
             <div class="divPositionButtons">
-                <button id="positionShare" class="btnPositionButtons"><label class="lblPositionShareImg"></label>Partager ma position</button>
-                <button id="positionNear" class="btnPositionButtons"><label class="lblPositionNearImg"></label>A proximité</button>
+                <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+                <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+                <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
             </div>
-            <hr>
             <div class="divPositionCoord fontLight">
-                <span class="lblPositionCoord">Latitude : ${latitude}</span>
-                <span class="lblPositionCoord">Longitude : ${longitude}</span>
-                <span class="lblPositionCoord">Altitude : ${altitude}</span>
+                <p class="lblPositionCoord">Latitude : ${latitude}</p>
+                <p class="lblPositionCoord">Longitude : ${longitude}</p>
+                <p class="lblPositionCoord">Altitude : ${altitude}m</p>
             </div>
         </div>
         `;
@@ -232,6 +236,24 @@ class Position {
       // ouverture du panneau Isochrone
       if (this.options.openIsochroneCbk) {
         this.options.openIsochroneCbk();
+        let target = Globals.isochrone.dom.location;
+        target.dataset.coordinates = "[" + this.coordinates.lon + "," + this.coordinates.lat + "]";
+        target.value = `${this.address.number} ${this.address.street}`;
+      }
+
+    });
+    shadowContainer.getElementById("positionRoute").addEventListener("click", () => {
+      // fermeture du panneau actuel
+      if (this.options.closeMyPositionCbk) {
+        this.options.closeMyPositionCbk();
+        this.opened = false;
+      }
+      // ouverture du panneau Itinéraire
+      if (this.options.openDirectionsCbk) {
+        this.options.openDirectionsCbk();
+        let target = Globals.directions.dom.inputArrival;
+        target.dataset.coordinates = "[" + this.coordinates.lon + "," + this.coordinates.lat + "]";
+        target.value = `${this.address.number} ${this.address.street}`;
       }
 
     });

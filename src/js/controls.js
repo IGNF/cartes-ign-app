@@ -43,7 +43,8 @@ const addControls = () => {
       // callback sur l'ouverture / fermeture du panneau
       openMyPositionCbk : () => { Globals.menu.open("myposition"); },
       closeMyPositionCbk : () => { Globals.menu.close("myposition"); },
-      openIsochroneCbk : () => { Globals.menu.open("isochrone"); }
+      openIsochroneCbk : () => { Globals.menu.open("isochrone"); },
+      openDirectionsCbk : () => { Globals.menu.open("directions"); },
     });
 
     // contrôle Recherche

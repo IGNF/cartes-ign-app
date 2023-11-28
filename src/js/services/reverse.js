@@ -43,7 +43,7 @@ const compute = async (coordinates) => {
     var address = {
         number : geojson.features[0].properties.housenumber,
         street : geojson.features[0].properties.street,
-        citycode : geojson.features[0].properties.citycode,
+        postcode : geojson.features[0].properties.postcode,
         city : geojson.features[0].properties.city
     };
 

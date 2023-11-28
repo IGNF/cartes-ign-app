@@ -1,4 +1,5 @@
 import IsochroneDOM from "./isochrone-dom";
+import Globals from "../globals";
 
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
@@ -51,7 +52,7 @@ class Isochrone {
     // style
     this.style = this.options.style || {
       color: "26a581",
-      opacity: 0.6
+      opacity: 0.85
     };
 
     // target
@@ -202,21 +203,24 @@ class Isochrone {
       throw new Error(response.message);
     }
 
-    this.map.addSource(this.configuration.source, {
-      "type": "geojson",
-      "data": geojson
-    });
+    if (settings.showOutline) {
+      this.map.addSource(this.configuration.source, {
+        "type": "geojson",
+        "data": geojson
+      });
 
-    this.map.addLayer({
-      "id": this.configuration.source,
-      "type": "fill",
-      "source": this.configuration.source,
-      "layout": {},
-      "paint": {
-        "fill-color": "#" + this.style.color,
-        "fill-opacity": this.style.opacity
-      }
-    });
+      this.map.addLayer({
+        "id": this.configuration.source,
+        "type": "line",
+        "source": this.configuration.source,
+        "layout": {},
+        "paint": {
+          "line-color": "#" + this.style.color,
+          "line-opacity": this.style.opacity,
+          "line-width": 5,
+        }
+      });
+    }
 
     function getBoundingBox(data) {
       var bounds = {};
@@ -238,6 +242,8 @@ class Isochrone {
     this.map.fitBounds(bbox, {
       padding: 20
     });
+    Globals.currentScrollIndex = 0;
+    Globals.menu.updateScrollAnchors();
   }
 
   /**
@@ -285,7 +291,7 @@ class Isochrone {
     // - le nettoyage des ecouteurs
     function setLocation(e) {
       // on ferme le menu
-      if (self.options.closeSearchControlCbk) {
+      if (e.type !== "geolocation" && self.options.closeSearchControlCbk) {
         self.options.closeSearchControlCbk();
       }
       // on enregistre dans le DOM :

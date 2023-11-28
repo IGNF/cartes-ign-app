@@ -42,7 +42,7 @@
   "layers": {
     "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
-      "title": "Plan IGN v2",
+      "title": "Plan IGN",
       "description": "Cartographie multi-échelles sur le territoire national, issue des bases de données vecteur de l’IGN, mis à jour régulièrement et réalisée selon un processus entièrement automatisé.",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -386,7 +386,7 @@
     },
     "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV",
-      "title": "Carte topographique (IGN Scan25)",
+      "title": "Carte topographique IGN",
       "description": "La carte topographique représente avec précision le relief, symbolisé par des courbes de niveaux, ainsi que les détails du terrain : routes, sentiers, constructions, bois, arbre isolé, rivière, source... </br>En France, la carte topographique de base est réalisée par l'IGN. Le SCAN 25 Touristique comprend les pictogrammes du thème tourisme de la carte de base et les données du Club Vosgien.",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -665,7 +665,7 @@
 
     "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS": {
       "name": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST",
-      "title": "Limites administratives mises à jour en continu.",
+      "title": "Limites administratives",
       "description": "Limites administratives mises à jour en continu, édition Juillet 2023",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,

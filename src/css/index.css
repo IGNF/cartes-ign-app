@@ -51,7 +51,7 @@ body {
 
 h3 {
   font-family: "Open Sans Semibold";
-  color: #0B6BA7;
+  color: #26A581;
 }
 
 #whiteScreen {
@@ -70,7 +70,7 @@ h3 {
 .btnGpp {
   display: inline-block;
   color: white;
-  background-color: #0B6BA7;
+  background-color: #26A581;
   border-radius: 30px;
   padding: 10px 40px;
   font-family: 'Open Sans Extrabold',Arial,sans-serif;
@@ -79,3 +79,108 @@ h3 {
   text-decoration: none;
 }
 
+ /* Toggle Switch */
+ .toggleSwitch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 21px;
+}
+
+/* Hide default HTML checkbox */
+.toggleSwitch .toggleInput {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.toggleSlider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #B8BCC1;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 21px;
+}
+
+.toggleSlider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.toggleInput:checked + .toggleSlider {
+  background-color: #26A581;
+}
+
+.toggleInput:checked + .toggleSlider:before {
+  -webkit-transform: translateX(15px);
+  -ms-transform: translateX(15px);
+  transform: translateX(15px);
+}
+
+/* Checkbox */
+ /* Customize the label (the container) */
+ .chkContainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+  line-height: 27px;
+}
+
+/* Hide the browser's default checkbox */
+.chkContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: white;
+  border: 1px solid #DDE1E6;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.chkContainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.chkContainer .checkmark:after {
+  left: 9px;
+  top: 2px;
+  width: 5px;
+  height: 15px;
+  border: solid #26A581;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
