@@ -19,7 +19,7 @@ jobs:
         with:
           directory: .
           file_name: .env
-          envkey_GP_TOKEN: ${{ secrets.GP_TOKEN }}
+          envkey_GPF_key: ${{ secrets.GPF_key }}
           fail_on_empty: false
 
       - name: Get the tagname
@@ -33,6 +33,12 @@ jobs:
 
       - name: Install app dependencies
         run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Sync
+        run: npx cap sync
 
       - name: Build Android Release APK
         run: cd android && ./gradlew assembleRelease
