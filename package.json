@@ -8,7 +8,9 @@
     "build": "webpack --config webpack.config.js",
     "build:dev": "webpack --config dev.config.js",
     "serve:dev": "webpack-dev-server --config dev.config.js",
-    "run:android": "npm run build:dev && npx cap sync && npx cap run android"
+    "run:android": "npm run build:dev && npx cap sync && npx cap run android",
+    "build:android": "npm run build && npx cap sync && cd android && ./gradlew assembleRelease",
+    "build:android:dev": "npm run build:dev && npx cap sync && cd android && ./gradlew"
   },
   "keywords": [
     "ecosystem:capacitor"
