@@ -88,31 +88,29 @@ const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
  * Suit la position de l'utilisateur
  */
 const trackLocation = () => {
+  let lastAccuracy = 100000;
   Geolocation.checkPermissions().then((status) => {
     if (status.location != 'denied') {
-      Geolocation.getCurrentPosition({
-        maximumAge: 0,
-        timeout: 10000,
-        enableHighAccuracy: true
-      }).then((position) => {
-        moveTo({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude
-        }, Math.max(Globals.map.getZoom(), 14));
-      }).catch((err) => {
-        console.warn(`${err.message}`);
-      });
-
+      var firstLocation = true;
       Geolocation.watchPosition({
         maximumAge: 0,
         timeout: 10000,
         enableHighAccuracy: true
       },
       (position) => {
-        moveTo({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude
-        }, Globals.map.getZoom(), tracking_active);
+        if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 16) ) {
+          lastAccuracy = position.coords.accuracy;
+          currentPosition = position;
+          var zoom = Globals.map.getZoom();
+          if (firstLocation) {
+            zoom = Math.max(Globals.map.getZoom(), 14);
+            firstLocation = false;
+          }
+          moveTo({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          }, zoom, tracking_active);
+        }
       }).then( (watchId) => {
         watch_id = watchId
       }).catch((err) => {
@@ -168,6 +166,7 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationImg + '")';
     Geolocation.clearWatch({id: watch_id});
     clean();
+    currentPosition = null;
     location_active = false;
     tracking_active = false;
     Toast.show({
@@ -203,12 +202,15 @@ const getOrientation = (event) => {
  */
 const getLocation = async (tracking) => {
   var results = null;
-  enablePosition(tracking);
-  var position = await Geolocation.getCurrentPosition({
-    maximumAge: 0,
-    timeout: 10000,
-    enableHighAccuracy: true
-  })
+  var position = currentPosition;
+  if (currentPosition === null) {
+    enablePosition(tracking);
+    var position = await Geolocation.getCurrentPosition({
+      maximumAge: 0,
+      timeout: 10000,
+      enableHighAccuracy: true
+    });
+  }
 
   results = {
     coordinates : {
