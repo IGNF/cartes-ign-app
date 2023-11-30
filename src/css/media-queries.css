@@ -1,9 +1,9 @@
 /* mode paysage et écrans larges */
-@media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {
+@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #tabContainer {
     width: 50%;
     height: fit-content;
     top: 100%;
-    left: 75px;
+    left: calc(75px + env(safe-area-inset-left));
   }
 }
