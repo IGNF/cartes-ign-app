@@ -36,6 +36,7 @@
  * compute
  */
 .btnIsochroneCompute {
+  appearance: unset; /* for ios */
   display: block;
   margin: auto;
   border: none;

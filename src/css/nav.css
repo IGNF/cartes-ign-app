@@ -1,10 +1,9 @@
 #navContainer {
     display: flex;
     position: absolute;
-    bottom: 0px;
-    top: calc(100% - 78px);
+    top: calc(100% - 78px - env(safe-area-inset-bottom));
     width: 100%;
-    height: 60px;
+    height: calc(60px + env(safe-area-inset-bottom));
     font-size: 12px;
     background-color: white;
     padding: 10px 0px 8px 0px;
@@ -78,7 +77,7 @@
 .subnav {
     position: absolute;
     background-color: #f4f6f8;
-    bottom: 78px;
+    bottom: calc(78px + env(safe-area-inset-bottom));
     left: -100%;
     transition: transform 0.2s;
     transition-timing-function: ease-out;
@@ -178,12 +177,12 @@
   background-image: url(../html/img/tracer.svg);
 }
 
-@media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {
+@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #navContainer {
     flex-direction: column;
     width: 75px;
     height: 100vh;
-    left: 0;
+    left: env(safe-area-inset-left);
     top: 0;
     box-sizing: border-box;
   }

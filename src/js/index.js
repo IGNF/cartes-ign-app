@@ -143,7 +143,8 @@ function app() {
   // Initialisation du menu de navigation
   Globals.menu = new MenuNavigation();
   Globals.menu.show();
-
+  // HACK: Nécessaire pour iOS qui ne met pas à jour la taille de l'écran au lancement...
+  setTimeout(() => Globals.map.resize(), 100);
 }
 
 app();
