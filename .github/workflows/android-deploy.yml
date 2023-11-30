@@ -15,12 +15,8 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          directory: .
-          file_name: .env
-          envkey_GPF_key: ${{ secrets.GPF_key }}
-          fail_on_empty: false
+        run: |
+          echo "GPF_key=${{ secrets.GPF_key }}" > .env
 
       - name: Get the tagname
         id: get_tagname

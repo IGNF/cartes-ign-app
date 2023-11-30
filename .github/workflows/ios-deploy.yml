@@ -85,18 +85,22 @@ jobs:
           echo -n "$EXPORT_PLIST" | base64 --decode --output $EXPORT_PLIST_PATH
           cd ios/App && xcodebuild -exportArchive -archivePath $GITHUB_WORKSPACE/ign.xcarchive -exportOptionsPlist $EXPORT_PLIST_PATH -exportPath $RUNNER_TEMP/export
 
+      - name: Upload application
+        uses: actions/upload-artifact@v3
+        with:
+          name: app
+          path: ${{ runner.temp }}/export/App.ipa
+          retention-days: 3
+
       - name: Decode auth api key file and save it
         env:
           API_KEY_BASE64: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
         run: |
-          ls ~/private_keys
+          mkdir -p ~/private_keys
           echo -n "$API_KEY_BASE64" | base64 --decode --output ~/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
-          echo "After saving: "
-          ls ~/private_keys
 
       - name: "Upload file to test flight using CLI"
         run: |
           echo "Starting upload"
-          ls ~/private_keys
-          cd ios/App && xcrun altool — validate-app -f $RUNNER_TEMP/export/App.ipa -t ios — apiKey ${{ secrets.APPSTORE_API_KEY_ID }} — apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
-          cd ios/App && xcrun altool — upload-app -f $RUNNER_TEMP/export/App.ipa -t ios — apiKey “${{ secrets.APPSTORE_API_KEY_ID }}” — apiIssuer “${{ secrets.APPSTORE_ISSUER_ID }}”
+          cd ios/App && xcrun altool --validate-app -f $RUNNER_TEMP/export/App.ipa -t ios --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
+          xcrun altool --upload-app -f $RUNNER_TEMP/export/App.ipa -t ios --apiKey ${{ secrets.APPSTORE_API_KEY_ID }} --apiIssuer ${{ secrets.APPSTORE_ISSUER_ID }}
