@@ -5,9 +5,9 @@
   "description": "Application Géoportail",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "build:dev": "webpack --config dev.config.js",
-    "serve:dev": "webpack-dev-server --config dev.config.js",
+    "build": "webpack --config webpack.prod.js",
+    "build:dev": "webpack --config webpack.dev.js",
+    "serve:dev": "webpack-dev-server --config webpack.dev.js",
     "run:android": "npm run build:dev && npx cap sync && npx cap run android",
     "build:android": "npm run build && npx cap sync && cd android && ./gradlew assembleRelease",
     "build:android:dev": "npm run build:dev && npx cap sync && cd android && ./gradlew"
