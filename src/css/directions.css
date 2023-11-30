@@ -6,6 +6,7 @@
  * compute
  */
 .btnDirectionsCompute {
+  appearance: unset; /* for ios */
   display: block;
   margin: auto;
   border: none;

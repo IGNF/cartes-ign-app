@@ -10,8 +10,8 @@
   width: 20px;
   height: 20px;
   z-index: 3001;
-  top: 10px;
-  left: 10px;
+  top: calc(10px + env(safe-area-inset-top));
+  left: calc(10px + env(safe-area-inset-left));
   background-image: url("assets/back.svg");
   background-position: center;
   background-repeat: no-repeat;
@@ -37,43 +37,43 @@
 #layerManagerBtn {
   background-image: url("assets/layers.svg");
   position: absolute;
-  bottom: 180px;
+  bottom: calc(180px + env(safe-area-inset-bottom));
 }
 
 #geolocateBtn {
   background-image: url("assets/localisation.svg");
   position: absolute;
-  bottom: 130px;
+  bottom: calc(130px + env(safe-area-inset-bottom));
 }
 
 #sideBySideBtn {
   background-image: url("assets/compare.svg");
   position: absolute;
   left: 15px;
-  bottom: 130px;
+  bottom: calc(130px + env(safe-area-inset-bottom));
 }
 
 #compassBtn {
   background-image: url("assets/compass.svg");
   position: absolute;
-  bottom: 225px;
+  bottom: calc(225px + env(safe-area-inset-bottom));
 }
 
-@media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {
+@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #layerManagerBtn {
-    bottom: 65px;
+    bottom: calc(65px + env(safe-area-inset-bottom));
   }
 
   #geolocateBtn {
-    bottom: 15px;
+    bottom: calc(15px + env(safe-area-inset-bottom));
   }
 
   #sideBySideBtn {
-    left: 90px;
-    bottom: 65px;
+    left: calc(90px + env(safe-area-inset-left));
+    bottom: calc(65px + env(safe-area-inset-bottom));
   }
 
   #compassBtn {
-    top: 15px;
+    top: calc(15px + env(safe-area-inset-top));
   }
 }
