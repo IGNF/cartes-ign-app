@@ -21,7 +21,8 @@
   overflow-y: scroll;
 }
 
-#isochroneWindow {
+#isochroneWindow,
+#layerManagerWindow {
   overflow-y: auto;
 }
 
