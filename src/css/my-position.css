@@ -72,8 +72,24 @@
     padding-bottom: 10px;
     border-bottom: 1px solid #DDE1E6;
     overflow-x: scroll;
-  scrollbar-width: none;  /* Firefox */
+    scrollbar-width: none;  /* Firefox */
 }
+
+.divPositionButtons::after {
+  content: "";
+  pointer-events: none;
+  position: sticky;
+  z-index: 6;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 45px;
+  background: linear-gradient(90deg,transparent,#fff);
+  opacity: 1;
+  visibility: visible;
+  flex-shrink: 0;
+}
+
 .divPositionButtons::-webkit-scrollbar {
     display: none;
   }

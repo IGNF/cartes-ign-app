@@ -27,11 +27,10 @@
 }
 
 .layer-tabs-label {
-  width: auto;
+  width: 50%;
   height: 35px;
   cursor: pointer;
   display: block;
-  flex-grow: 1;
   text-align: center;
 }
 
@@ -42,8 +41,11 @@
 
 .layer-tabs-input:focus + .layer-tabs-label {
 }
+.layer-tabs-label {
+  border-bottom: 2px solid #DDE1E6;
+}
 .layer-tabs-input:checked + .layer-tabs-label {
-  border-bottom: 2px inset #26a581;
+  border-bottom: 2px solid #26a581;
 }
 
 .layer-tabs-input:checked:nth-of-type(1) ~ .layer-tabs-content:nth-of-type(1) {

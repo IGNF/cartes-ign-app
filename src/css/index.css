@@ -184,3 +184,87 @@ h3 {
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 }
+
+/** Range **/
+/*********** Baseline, reset styles ***********/
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 130px;
+  overflow: hidden;
+  height: 16px;
+  color: #2dc398;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  border-radius: 2px;
+  height: 4px;
+  background: linear-gradient(#E9ECEF 0 0) scroll no-repeat center /
+		100% 5px;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  --clip-top: calc((16px - 4px) * 0.5 - 0.5px);
+  --clip-bottom: calc(16px - var(--clip-top));
+  --clip-further: calc(100% + 1px);
+  --clip-edges: 0.0125em;
+  --box-fill: calc(-100vmax - 16px) 0 0 100vmax currentColor;
+
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -6px; /* Centers thumb on the track */
+  background-color: #2dc398;
+  border-radius: 16px;
+  height: 16px;
+  width: 16px;
+  border: #3F4A55 6px solid;
+  box-sizing: border-box;
+
+  box-shadow: var(--box-fill);
+
+  clip-path: polygon(
+		100% -1px,
+		0.125em -1px,
+		0 var(--clip-top),
+		-100vmax var(--clip-top),
+		-100vmax var(--clip-bottom),
+		0 var(--clip-bottom),
+		var(--clip-edges) 100%,
+		var(--clip-further) var(--clip-further)
+	);
+}
+
+/*********** Firefox styles ***********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+  background-color: #E9ECEF;
+  border-radius: 2px;
+  height: 4px;
+}
+
+input[type="range"]::-moz-range-progress {
+  background-color: #2dc398;
+  border-radius: 2px;
+  height: 4px;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+  background-color: #2dc398;
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 16px;
+  height: 16px;
+  width: 16px;
+  border: #3F4A55 6px solid;
+  box-sizing: border-box;
+}
