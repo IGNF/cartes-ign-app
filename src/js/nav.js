@@ -110,6 +110,7 @@ class MenuNavigation {
             case "poi":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$filterPoiBtn.classList.add('d-none');
                 Globals.currentScrollIndex = 1;
                 break;
             case "myaccount":
@@ -244,6 +245,7 @@ class MenuNavigation {
             case "poi":
                 DOM.$search.style.display = "flex";
                 DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$filterPoiBtn.classList.remove('d-none');
                 break;
             case "myaccount":
                 DOM.$search.style.display = "flex";

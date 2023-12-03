@@ -1,9 +1,9 @@
 [{
         "id": "commerce",
         "name": "Commerce",
-        "visible": false,
+        "visible": true,
         "filters": [{
-            "field": "symbol",
+            "field": "symbo",
             "attributs": [
                 "alcohol",
                 "antiques",
@@ -72,9 +72,9 @@
     {
         "id": "culture_sports_loisirs",
         "name": "Culture , Sports et Loisirs",
-        "visible": false,
+        "visible": true,
         "filters": [{
-            "field": "symbol",
+            "field": "symbo",
             "attributs": [
                 "casino",
                 "cinema",
@@ -92,9 +92,9 @@
     {
         "id": "hebergement",
         "name": "Hébergement",
-        "visible": false,
+        "visible": true,
         "filters": [{
-            "field": "symbol",
+            "field": "symbo",
             "attributs": [
                 "camp_site",
                 "hotel",
@@ -105,9 +105,9 @@
     {
         "id": "lieux_remarquables",
         "name": "Lieux remarquables",
-        "visible": false,
+        "visible": true,
         "filters": [{
-            "field": "symbol",
+            "field": "symbo",
             "attributs": [
                 "autrereligion",
                 "castle",
@@ -127,9 +127,9 @@
     {
         "id": "restauration",
         "name": "Restauration",
-        "visible": false,
+        "visible": true,
         "filters": [{
-            "field": "symbol",
+            "field": "symbo",
             "attributs": [
                 "bar",
                 "restaurant"
@@ -139,9 +139,9 @@
     {
         "id": "sante",
         "name": "Santé",
-        "visible": false,
+        "visible": true,
         "filters": [{
-            "field": "symbol",
+            "field": "symbo",
             "attributs": [
                 "hospital",
                 "pharmacy"
@@ -151,9 +151,9 @@
     {
         "id": "services_commodites",
         "name": "Services et commodités",
-        "visible": false,
+        "visible": true,
         "filters": [{
-            "field": "symbol",
+            "field": "symbo",
             "attributs": [
                 "atm",
                 "information",
@@ -166,9 +166,9 @@
     {
         "id": "services_publics",
         "name": "Services publics",
-        "visible": false,
+        "visible": true,
         "filters": [{
-            "field": "symbol",
+            "field": "symbo",
             "attributs": [
                 "college",
                 "courthouse",
@@ -184,9 +184,9 @@
     {
         "id": "transports",
         "name": "Transports",
-        "visible": false,
+        "visible": true,
         "filters": [{
-            "field": "symbol",
+            "field": "symbo",
             "attributs": [
                 "aerodrome",
                 "bicycle_parking",

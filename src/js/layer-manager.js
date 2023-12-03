@@ -84,6 +84,9 @@ class LayerManager {
         this.layerSwitcher.event.addEventListener("removelayer", (e) => {
             var element = document.getElementById(e.detail.id);
             element.classList.remove('selectedLayer');
+            if (e.detail.error) {
+                return;
+            }
             this.#updateLayersCounter(e.type);
         });
     }
