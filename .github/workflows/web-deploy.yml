@@ -27,6 +27,10 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v3
 
+      - name: Make envfile
+        run: |
+          echo "GPF_key=${{ secrets.GPF_key }}" > .env
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
