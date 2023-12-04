@@ -208,18 +208,17 @@ input[type="range"]:focus {
 input[type="range"]::-webkit-slider-runnable-track {
   border-radius: 2px;
   height: 4px;
-  background: linear-gradient(#E9ECEF 0 0) scroll no-repeat center /
-		100% 5px;
+  background: linear-gradient(#2dc398,#2dc398) 0/var(--sx)  100% no-repeat, #efefef;
+}
+
+input[type=range] {
+  --range: calc(var(--max) - var(--min));
+  --ratio: calc((var(--value) - var(--min)) / var(--range));
+  --sx: calc(0.5 * 16px + var(--ratio) * (100% - 16px));
 }
 
 /* slider thumb */
 input[type="range"]::-webkit-slider-thumb {
-  --clip-top: calc((16px - 4px) * 0.5 - 0.5px);
-  --clip-bottom: calc(16px - var(--clip-top));
-  --clip-further: calc(100% + 1px);
-  --clip-edges: 0.0125em;
-  --box-fill: calc(-100vmax - 16px) 0 0 100vmax currentColor;
-
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   margin-top: -6px; /* Centers thumb on the track */
@@ -229,19 +228,6 @@ input[type="range"]::-webkit-slider-thumb {
   width: 16px;
   border: #3F4A55 6px solid;
   box-sizing: border-box;
-
-  box-shadow: var(--box-fill);
-
-  clip-path: polygon(
-		100% -1px,
-		0.125em -1px,
-		0 var(--clip-top),
-		-100vmax var(--clip-top),
-		-100vmax var(--clip-bottom),
-		0 var(--clip-bottom),
-		var(--clip-edges) 100%,
-		var(--clip-further) var(--clip-further)
-	);
 }
 
 /*********** Firefox styles ***********/
