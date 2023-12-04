@@ -251,8 +251,9 @@ class Directions {
                 });
                 this.results.show();
                 let routeCoordinates = [];
+                // This function decodes into lat, lng pairs https://www.npmjs.com/package/@mapbox/polyline
                 Polyline.decode(e.data.routes[0].geometry).forEach( (latlng) => {
-                  routeCoordinates.push({lat: latlng[0], lon: latlng[1]});
+                  routeCoordinates.push([latlng[1], latlng[0]]);
                 });
                 // TODO REMOVE ME IMPORTANT à supprimer après passage en POST GPF
                 if (routeCoordinates.length > 110) {

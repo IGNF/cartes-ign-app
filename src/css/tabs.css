@@ -10,7 +10,8 @@
 #directionsResultsWindow,
 #mypositionWindow,
 #layerManagerWindow,
-#poiWindow {
+#poiWindow,
+#routeDrawWindow {
   margin-top: 10px;
   position: relative;
   border-top-left-radius: 5px;

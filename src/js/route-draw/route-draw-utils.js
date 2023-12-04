@@ -36,3 +36,10 @@ function lineStringToMultiLineString(lineString) {
   lineString.type = "MultiLineString";
   lineString.coordinates = [lineString.coordinates];
 }
+
+export default {
+  requestRoute,
+  appendRouteGeometries,
+  getLastMultiLinestringLastPoint,
+  lineStringToMultiLineString,
+}
