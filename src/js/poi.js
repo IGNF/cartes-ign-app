@@ -17,6 +17,7 @@ import PoiConfig from './data-layer/poi-osm-layer-config.json';
 class POI {
     /**
      * constructeur
+     * @param {*} map 
      * @param {*} options
      * @returns
      */
@@ -40,15 +41,15 @@ class POI {
 
         this.#render();
         this.#listeners();
-        this.#loadLayer();
 
         return this;
     }
 
     /**
      * chargement de la couche
+     * @public
      */
-    async #loadLayer() {
+    async load() {
         var props = LayersConfig.getLayerProps(this.id);
         var style = props.style; // url !
 

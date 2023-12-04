@@ -57,24 +57,23 @@ const addControls = () => {
     // contrôle de comparaison de carte
     Globals.compare = new Compare();
 
-    // contrôle filtres POI
-    Globals.poi = new POI(map, {});
-
-
-    // TODO
-    // classe utilitaire pour l'execution des promises l'ordre
-    // const callTasks = () => {
-    //   for (const task of [task1, task2, task3, ...taskN]) {
-    //     await task();
-    //   }
-    // };
-    // callTasks();
-
     // échelle graphique
     map.addControl(new maplibregl.ScaleControl({
       maxWidth: 150,
       unit: 'metric'
     }), "bottom-left");
+
+    // contrôle filtres POI
+    Globals.poi = new POI(map, {});
+    Globals.poi.load() // promise !
+    .then(() => {
+      // opérations possibles aprés le chargement des POI
+      console.debug("layer POI loaded !");
+    })
+    .catch((e) => {
+      // on ne capture pas les exceptions
+      console.error(e);
+    });
   });
 }
 
