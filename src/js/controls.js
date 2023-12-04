@@ -60,6 +60,16 @@ const addControls = () => {
     // contrôle filtres POI
     Globals.poi = new POI(map, {});
 
+
+    // TODO
+    // classe utilitaire pour l'execution des promises l'ordre
+    // const callTasks = () => {
+    //   for (const task of [task1, task2, task3, ...taskN]) {
+    //     await task();
+    //   }
+    // };
+    // callTasks();
+
     // échelle graphique
     map.addControl(new maplibregl.ScaleControl({
       maxWidth: 150,

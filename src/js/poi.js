@@ -12,6 +12,7 @@ import PoiConfig from './data-layer/poi-osm-layer-config.json';
  * désactivée par defaut.
  * @todo les POI "remonter le temps"
  * @todo interactions avec les autres composants (ex. isochrone)
+ * @todo classe utilitaire pour le vectorTile !
  */
 class POI {
     /**
