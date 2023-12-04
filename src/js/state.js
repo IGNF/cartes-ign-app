@@ -62,6 +62,9 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'poi') {
         Globals.menu.close('poi');
     }
+    if (Globals.backButtonState === 'routeDraw') {
+        Globals.menu.close('routeDraw');
+    }
 }
 
 export default {

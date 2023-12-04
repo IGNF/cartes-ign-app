@@ -7,6 +7,7 @@ import Position from "./my-position";
 import Search from "./search";
 import Compare from './compare';
 import POI from './poi';
+import RouteDraw from './route-draw/route-draw';
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -17,6 +18,7 @@ import POI from './poi';
  * @see Compare
  * @see Search
  * @see POI
+ * @see RouteDraw
  */
 const addControls = () => {
   const map = Globals.map;
@@ -74,6 +76,9 @@ const addControls = () => {
       // on ne capture pas les exceptions
       console.error(e);
     });
+
+    // contrôle tracé d'itinéraire
+    Globals.routeDraw = new RouteDraw(map, {});
   });
 }
 

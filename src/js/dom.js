@@ -47,6 +47,7 @@ const $isochroneWindow = document.getElementById("isochroneWindow");
 const $mypositionWindow = document.getElementById("mypositionWindow");
 const $myaccountWindow = document.getElementById("myaccountWindow");
 const $poiWindow = document.getElementById("poiWindow");
+const $routeDrawWindow = document.getElementById("routeDrawWindow");
 
 export default {
   $search,
@@ -86,5 +87,6 @@ export default {
   $informationsImg,
   $filterPoiBtn,
   $poiWindow,
-  $interactivityBtn
+  $interactivityBtn,
+  $routeDrawWindow,
 };

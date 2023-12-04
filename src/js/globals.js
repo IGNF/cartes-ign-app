@@ -64,6 +64,9 @@ let manager = null;
 // Global POI filters
 let poi = null;
 
+// Global route draw
+let routeDraw = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -97,5 +100,6 @@ export default {
   compare,
   menu,
   manager,
-  poi
+  poi,
+  routeDraw,
 };
