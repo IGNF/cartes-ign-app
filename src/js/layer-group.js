@@ -140,6 +140,23 @@ const addVisibility = (id, value) => {
 };
 
 /**
+ * Modify visibility of a layer
+ * 
+ * @param {*} id 
+ * @param {*} name 
+ * @param {*} value 
+ */
+const addVisibilityByID = (id, name, value) => {
+    var layers = Globals.map.getStyle().layers;
+    for (var i = 0; i < layers.length; i++) {
+        if (layers[i].metadata && layers[i].metadata.group === id && layers[i].id === name) {
+            Globals.map.setLayoutProperty(layers[i].id, "visibility", (value) ? "visible" : "none");
+            break;
+        }
+    }
+};
+
+/**
  * Modify color N/B
  * 
  * @param {string} id The id of the group to be modified
@@ -308,6 +325,7 @@ export default {
     getGroupLayers,
     addOpacity,
     addVisibility,
+    addVisibilityByID,
     addGray,
     addColor
 };

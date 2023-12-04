@@ -107,6 +107,12 @@ class MenuNavigation {
         var isSpecific = false;
         var isSpecificSize = false;
         switch (id) {
+            case "poi":
+                DOM.$search.style.display = "none";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$filterPoiBtn.classList.add('d-none');
+                Globals.currentScrollIndex = 1;
+                break;
             case "myaccount":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
@@ -141,6 +147,7 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$layerManagerBtn.classList.add('d-none');
                 DOM.$geolocateBtn.classList.add('d-none');
+                DOM.$filterPoiBtn.classList.add('d-none');
                 DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
@@ -173,6 +180,7 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$layerManagerBtn.classList.add('d-none');
                 DOM.$geolocateBtn.classList.add('d-none');
+                DOM.$filterPoiBtn.classList.add('d-none');
                 DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$backTopLeftBtn.style.boxShadow = "unset";
@@ -234,6 +242,11 @@ class MenuNavigation {
         var isSpecific = false;
         var isFinished = false; // hack pour search !
         switch (id) {
+            case "poi":
+                DOM.$search.style.display = "flex";
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$filterPoiBtn.classList.remove('d-none');
+                break;
             case "myaccount":
                 DOM.$search.style.display = "flex";
                 DOM.$backTopLeftBtn.classList.add('d-none');
@@ -267,6 +280,7 @@ class MenuNavigation {
                 document.body.style.overflowY = "auto";
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 DOM.$layerManagerBtn.classList.remove('d-none');
+                DOM.$filterPoiBtn.classList.add('d-none');
                 DOM.$geolocateBtn.classList.remove('d-none');
                 DOM.$whiteScreen.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.add('d-none');
@@ -319,6 +333,7 @@ class MenuNavigation {
                 document.body.style.overflowY = "auto";
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 DOM.$layerManagerBtn.classList.remove('d-none');
+                DOM.$filterPoiBtn.classList.add('d-none');
                 DOM.$geolocateBtn.classList.remove('d-none');
                 DOM.$whiteScreen.classList.add('d-none');
                 DOM.$search.style.display = "flex";
@@ -383,6 +398,7 @@ class MenuNavigation {
         DOM.$searchresultsWindow.classList.add('d-none');
         DOM.$sideBySideBtn.classList.remove('d-none');
         DOM.$layerManagerBtn.classList.remove('d-none');
+        DOM.$filterPoiBtn.classList.remove('d-none');
         DOM.$geolocateBtn.classList.remove('d-none');
         switch (id) {
             case "informations":

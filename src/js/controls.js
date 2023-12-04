@@ -6,6 +6,7 @@ import Isochrone from "./isochrone/isochrone";
 import Position from "./my-position";
 import Search from "./search";
 import Compare from './compare';
+import POI from './poi';
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -15,6 +16,7 @@ import Compare from './compare';
  * @see Position
  * @see Compare
  * @see Search
+ * @see POI
  */
 const addControls = () => {
   const map = Globals.map;
@@ -60,6 +62,18 @@ const addControls = () => {
       maxWidth: 150,
       unit: 'metric'
     }), "bottom-left");
+
+    // contrôle filtres POI
+    Globals.poi = new POI(map, {});
+    Globals.poi.load() // promise !
+    .then(() => {
+      // opérations possibles aprés le chargement des POI
+      console.debug("layer POI loaded !");
+    })
+    .catch((e) => {
+      // on ne capture pas les exceptions
+      console.error(e);
+    });
   });
 }
 

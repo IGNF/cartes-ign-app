@@ -15,6 +15,7 @@ const $backTopLeftBtn = document.getElementById("backTopLeftBtn");
 const $compassBtn = document.getElementById("compassBtn");
 const $layerManagerBtn = document.getElementById("layerManagerBtn");
 const $sideBySideBtn = document.getElementById("sideBySideBtn");
+const $filterPoiBtn = document.getElementById("filterPoiBtn");
 
 const $whiteScreen = document.getElementById("whiteScreen");
 const $parameterScreenWindow = document.getElementById("parameterScreenWindow");
@@ -44,6 +45,7 @@ const $directionsResultsWindow = document.getElementById("directionsResultsWindo
 const $isochroneWindow = document.getElementById("isochroneWindow");
 const $mypositionWindow = document.getElementById("mypositionWindow");
 const $myaccountWindow = document.getElementById("myaccountWindow");
+const $poiWindow = document.getElementById("poiWindow");
 
 export default {
   $search,
@@ -80,5 +82,7 @@ export default {
   $myaccountWindow,
   $informationsWindow,
   $informationsText,
-  $informationsImg
+  $informationsImg,
+  $filterPoiBtn,
+  $poiWindow
 };
