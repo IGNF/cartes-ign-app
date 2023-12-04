@@ -5,7 +5,6 @@ import Globals from "../globals";
 /**
  * Interface sur les resultats du calcul d'itineraire
  * @module DirectionsResults
- * @todo revoir CSS
  */
 class DirectionsResults {
     /**
@@ -21,7 +20,6 @@ class DirectionsResults {
             transport : "",
             computation : "",
             instructions : [] // [ routes[0].legs ] : [distance, duration, [steps], summary]
-
         };
 
         // target

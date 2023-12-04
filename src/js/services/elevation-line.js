@@ -18,7 +18,6 @@ const target = new EventTarget();
  * @fire elevation
  */
 const compute = async (coordinateList) => {
-
     // ex. request
     // https://wxs.ign.fr/calcul/alti/rest/elevationLine.json?
     //  lon=1.136383|1.12&
@@ -29,8 +28,8 @@ const compute = async (coordinateList) => {
     clear();
 
     controller = new AbortController();
-    const lonStr = coordinateList.map( (coord) => coord.lon).join("|");
-    const latStr = coordinateList.map( (coord) => coord.lat).join("|");
+    const lonStr = coordinateList.map( (coord) => coord[0]).join("|");
+    const latStr = coordinateList.map( (coord) => coord[1]).join("|");
 
     let url = new URL("https://wxs.ign.fr/calcul/alti/rest/elevationLine.json");
     let params = {

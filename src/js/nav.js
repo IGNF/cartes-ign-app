@@ -54,6 +54,11 @@ class MenuNavigation {
             Globals.compare.hide();
             this.open("directions");
         });
+        // "Tracer un itinéraire"
+        document.getElementById("routeDraw").addEventListener("click", () => {
+            Globals.compare.hide();
+            this.open("routeDraw");
+        });
         // "Compte"
         document.getElementById("myaccountWindowClose").addEventListener('click', () => { this.close("myaccount"); });
         document.getElementById("myaccount").addEventListener('click',  () => { this.open("myaccount"); });
@@ -107,6 +112,13 @@ class MenuNavigation {
         var isSpecific = false;
         var isSpecificSize = false;
         switch (id) {
+            case "routeDraw":
+                DOM.$search.style.display = "none";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$sideBySideBtn.classList.add('d-none');
+                Globals.routeDraw.activate();
+                Globals.currentScrollIndex = 1;
+                break;
             case "poi":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
@@ -244,6 +256,12 @@ class MenuNavigation {
         var isSpecific = false;
         var isFinished = false; // hack pour search !
         switch (id) {
+            case "routeDraw":
+                DOM.$search.style.display = "flex";
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$sideBySideBtn.classList.remove('d-none');
+                Globals.routeDraw.clear();
+                break;
             case "poi":
                 DOM.$search.style.display = "flex";
                 DOM.$backTopLeftBtn.classList.add('d-none');

@@ -39,6 +39,9 @@ class ElevationLineControl {
     this.coordinates = null;    // [{lat: ..., lon: ...}, ...]
     this.elevationData = null;  // [{x: <distance>, y: <elevation}, ...]
 
+    this.dplus = 0; // dénivelé positif
+    this.dminus = 0; // dénivelé négatif
+
     this.unit = "m"; // unité pour la distance
 
     this.chart = null;
@@ -115,15 +118,23 @@ class ElevationLineControl {
    */
   async compute() {
     this.elevationData = [];
+    this.dplus = 0;
+    this.dminus = 0;
 
     const responseElevation = await ElevationLine.compute(this.coordinates);
     let lastLngLat = null;
+    let lastZ = null;
     let currentDistance = 0;
     this.unit = "m";
     responseElevation.elevations.forEach( (elevation) => {
       let currentLngLat = new maplibregl.LngLat(elevation.lon, elevation.lat);
       if (lastLngLat != null) {
         currentDistance += currentLngLat.distanceTo(lastLngLat);
+        if (elevation.z > lastZ) {
+          this.dplus += elevation.z - lastZ;
+        } else {
+          this.dminus += lastZ - elevation.z;
+        }
       }
       let elevationValue = elevation.z;
       if (elevationValue == -99999) {
@@ -132,7 +143,11 @@ class ElevationLineControl {
       let currentDataPoint = {x: currentDistance, y: elevationValue}
       this.elevationData.push(currentDataPoint);
       lastLngLat = currentLngLat;
+      lastZ = elevation.z;
     });
+
+    this.dplus = Math.round(100 * this.dplus) / 100;
+    this.dminus = Math.round(100 * this.dminus) / 100;
 
     if (currentDistance > 2000) {
       this.unit = "km";
