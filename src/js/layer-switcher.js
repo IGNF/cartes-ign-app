@@ -14,10 +14,10 @@ import ImageNotFound from '../html/img/image-not-found.png';
  * @todo N&B
  * @todo menu avancé sous forme d'une popup verticale
  * @todo icone de visibilité à modifier
- * @description 
- *      → manager    
+ * @description
+ *      → manager
  *      	→ instancie this.catalogue & this.switcher
- *     	→ ecouteurs sur les events 
+ *     	→ ecouteurs sur les events
  *	      	* addLayer
  *	      	   → this.catalogue → call this.switcher.addLayer
  *	      	   → this.switcher → call this.updateCounter
@@ -26,8 +26,8 @@ import ImageNotFound from '../html/img/image-not-found.png';
  *	      	   → this.switcher → call this.updateCounter
  *      	→ loader de couches par defaut
  *         		→ call this.catalogue.addLayer
- *       
- *      → catalogue 
+ *
+ *      → catalogue
  *        	→ this.addLayer → call add interface → fire event addLayer
  *        	→ this.removeLayer → call remove interface → fire event removeLayer
  *      → switcher
@@ -39,16 +39,16 @@ class LayerSwitcher {
 
    /**
     * constructeur
-    * @param {*} options 
+    * @param {*} options
     * @param {*} options.target
     */
     constructor(options) {
       this.options = options || {
         target : null
       };
-  
+
       // TODO
-      // options d'ajout de couches 
+      // options d'ajout de couches
       // avec un test si la couche est déjà disponible sur la carte
 
       this.target = this.options.target || document.getElementById("layer-switcher");
@@ -75,7 +75,7 @@ class LayerSwitcher {
        * }
        */
       this.layers = {};
-  
+
       /**
        * Interface pour les evenements
        * @example
@@ -85,9 +85,9 @@ class LayerSwitcher {
       this.event = new EventTarget();
 
       this.#render();
-      
+
     }
-  
+
     /**
      * Rendu
      */
@@ -100,7 +100,7 @@ class LayerSwitcher {
         console.warn();
         return;
       }
-  
+
       // ajout du container
       this.target.appendChild(container);
 
@@ -118,11 +118,11 @@ class LayerSwitcher {
         }
       });
     }
-  
+
     /**
      * Obtenir le nom de la couche à partir de son numero d'indexe
-     * @param {*} index 
-     * @returns 
+     * @param {*} index
+     * @returns
      */
     #getId(index) {
       var id = null;
@@ -140,8 +140,8 @@ class LayerSwitcher {
 
     /**
      * Obtenir le numero d'indexe à partir du nom de la couche
-     * @param {*} id 
-     * @returns 
+     * @param {*} id
+     * @returns
      */
     #getIndex(id) {
       return this.layers[id].index;
@@ -149,19 +149,19 @@ class LayerSwitcher {
 
     /**
      * Position de la couche dans le gestionnaire
-     * @param {*} id 
-     * @param {*} newIndex 
-     * @param {*} oldIndex 
+     * @param {*} id
+     * @param {*} newIndex
+     * @param {*} oldIndex
      */
     #setPosition(id, newIndex, oldIndex) {
-      // position : 
-      // * ordre natif à mapbox 
+      // position :
+      // * ordre natif à mapbox
       // > cad même position dans le fichier de style !
-      // idx pos style 
+      // idx pos style
       //  0   0   0 la couche de fonds
       //  1   1   1 la couche intermediaire
       //  2   2   2 la couche la plus au dessus
-      
+
       // Mais on prévoit un ordre inversé dans le gestionnaire !
       // idx pos style
       //  0   2   2 la couche la plus au dessus
@@ -207,7 +207,7 @@ class LayerSwitcher {
           }
         }
         // INFO
-        // les couches raster possedent un seul style, 
+        // les couches raster possedent un seul style,
         // on associe donc position dans le style et position dans le gestionnaire.
         // pour le vecteur tuilé, il faut determiner le nombre de styles pour chaque position.
         const getIndexLayer = (pos) => {
@@ -232,7 +232,7 @@ class LayerSwitcher {
     /**
      * Mise à jour des positions dans le gestionnaire et les styles
      * lors de l'ajout ou suppression d'une couche
-     * @param {*} id 
+     * @param {*} id
      */
     #updatePosition(id) {
       // 1. redefinition des positions dans le gestionnaire
@@ -251,7 +251,7 @@ class LayerSwitcher {
       }
       // 2. redefinition des positions dans les styles
       // on redefinie la position des couches vecteurs tuilés dans les styles
-      // 
+      //
       if (typeof id !== "undefined") {
         if (this.layers[id].type === "vector") {
           // HACK
@@ -267,8 +267,8 @@ class LayerSwitcher {
 
     /**
      * Opacité de la couche
-     * @param {*} id 
-     * @param {*} value 
+     * @param {*} id
+     * @param {*} value
      */
     #setOpacity(id, value) {
       this.layers[id].opacity = value;
@@ -285,8 +285,8 @@ class LayerSwitcher {
 
     /**
      * Visualisation de la couche
-     * @param {*} id 
-     * @param {*} value 
+     * @param {*} id
+     * @param {*} value
      */
     #setVisibility(id, value) {
       this.layers[id].visibility = value;
@@ -303,17 +303,17 @@ class LayerSwitcher {
 
     /**
      * Affichage du N&B
-     * @param {*} id 
+     * @param {*} id
      * @param {*} value
      * @todo not yet implemented !
      */
     #setColor(id, value) {
       this.layers[id].gray = value;
-      
+
       var type = this.layers[id].type;
       if (type === "raster") {
         // INFO
-        // mise à jour de la couche via une property du style, 
+        // mise à jour de la couche via une property du style,
         // mais, il n'existe pas de fonctionnalité pour le N&B
         // ex. this.map.setPaintProperty(id, "raster-contrast", (value) ? 1 : 0);
       } else if (type === "vector") {
@@ -388,7 +388,7 @@ class LayerSwitcher {
 
     /**
      * Ajout d'une entrée pour une couche (DOM)
-     * @param {*} id 
+     * @param {*} id
      */
     #addLayerContainer(id) {
       var quickLookUrl = this.layers[id].quickLookUrl || ImageNotFound;
@@ -396,7 +396,7 @@ class LayerSwitcher {
       var gray = this.layers[id].gray;
       var visibility = this.layers[id].visibility;
       var title =  this.layers[id].title || id.split("$")[0];
-      
+
       var index = this.#getIndex(id);
 
       // Template d'une couche
@@ -444,29 +444,29 @@ class LayerSwitcher {
           }
           return true;
         };
-  
+
         // If DOMParser is supported, use it
         if (support()) {
           var parser = new DOMParser();
           var doc = parser.parseFromString(str, 'text/html');
           return doc.body.firstChild;
         }
-  
+
         // Otherwise, fallback to old-school method
         var dom = document.createElement('div');
         dom.innerHTML = str;
         return dom;
-  
+
       };
-  
+
       // transformation du container : String -> DOM
       var container = stringToHTML(tplContainer.trim());
-  
+
       if (!container) {
         console.warn();
         return;
       }
-  
+
       // ajout du shadow DOM
       const shadow = container.attachShadow({ mode: "open" });
       shadow.innerHTML = tplContainer.trim();
@@ -479,6 +479,13 @@ class LayerSwitcher {
       // ajout des écouteurs
       this.#addListeners(id, shadow);
 
+      // pour l'affichage en couleur de la barre à gauche du selecteur
+      var sliderProgress = shadow.getElementById(`opacity-value-range_ID_${index}`);
+      sliderProgress.style.setProperty('--value', sliderProgress.value);
+      sliderProgress.style.setProperty('--min', sliderProgress.min == '' ? '0' : sliderProgress.min);
+      sliderProgress.style.setProperty('--max', sliderProgress.max == '' ? '100' : sliderProgress.max);
+      sliderProgress.addEventListener('input', () => sliderProgress.style.setProperty('--value', sliderProgress.value));
+
       var target = document.getElementById("lst-layer-switcher");
       var theFirstChild = target.firstChild;
       target.insertBefore(shadow, theFirstChild);
@@ -486,7 +493,7 @@ class LayerSwitcher {
 
     /**
      * Suppression d'une entrée pour une couche (DOM)
-     * @param {*} id 
+     * @param {*} id
      */
     #removeLayerContainer(id) {
       var index = this.#getIndex(id);
@@ -496,12 +503,12 @@ class LayerSwitcher {
 
     /**
      * Ajout de la couche
-     * @param {*} id 
-     * @returns 
+     * @param {*} id
+     * @returns
      */
     #addLayerMap(id) {
       var promise = null;
-      
+
       var type = this.layers[id].type;
       var style = [];
       if (type === "raster") {
@@ -517,12 +524,12 @@ class LayerSwitcher {
         this.layers[id].error = true;
         throw new Error(`Type not yet implemented or unknown : ${type}`);
       }
-      // HACK 
+      // HACK
       // on positionne toujours le style avant ceux du calcul d'itineraires (directions)
       // afin que le calcul soit toujours la couche visible du dessus !
       var layerIndexBefore = this.map.getStyle().layers.findIndex((l) => l.source === "maplibre-gl-directions");
       var layerIdBefore = (layerIndexBefore !== -1) ? this.map.getStyle().layers[layerIndexBefore].id : null;
-      
+
       if (Array.isArray(style)) {
         // Raster
         promise = new Promise((resolve, reject) => {
@@ -538,7 +545,7 @@ class LayerSwitcher {
         .then((data) => {
           // INFO
           // on ajoute les sources !
-          // les sources des couches tuiles vectorielles ne sont pas pré chargées 
+          // les sources des couches tuiles vectorielles ne sont pas pré chargées
           // car on les connait que maintenant en lisant le fichier de style.
           // l'id des source est different du nom de la couche pour le vecteur !
           for (const key in data.sources) {
@@ -578,7 +585,7 @@ class LayerSwitcher {
 
     /**
      * Suppression de la couche
-     * @param {*} id 
+     * @param {*} id
      */
     #removeLayerMap(id) {
       LayersGroup.removeGroup(id);
@@ -586,7 +593,7 @@ class LayerSwitcher {
 
     /**
      * Ajout d'une couche dans le gestionnaire
-     * @param {*} id 
+     * @param {*} id
      * @fires addlayer
      * @public
      */
@@ -637,7 +644,7 @@ class LayerSwitcher {
 
     /**
      * Supprime une couche du gestionnaire
-     * @param {*} id 
+     * @param {*} id
      * @fires removelayer
      * @public
      */
