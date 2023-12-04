@@ -59,6 +59,9 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'myposition') {
         Globals.menu.close('myposition');
     }
+    if (Globals.backButtonState === 'poi') {
+        Globals.menu.close('poi');
+    }
 }
 
 export default {

@@ -69,7 +69,8 @@ class LayerSwitcher {
        *    index : 0,
        *    position : 0,
        *    type: "vector",
-       *    style: "http://.../style.json" ou []
+       *    style: "http://.../style.json" ou [],
+       *    error : false
        *   }
        * }
        */
@@ -513,6 +514,7 @@ class LayerSwitcher {
         style = this.layers[id].style; // url !
       } else {
         // ex. geojson
+        this.layers[id].error = true;
         throw new Error(`Type not yet implemented or unknown : ${type}`);
       }
       // HACK 
@@ -554,7 +556,10 @@ class LayerSwitcher {
           // les sprites et les glyphs sont uniques sinon exceptions !
           // mais, normalement, on ajoute que des couches IGN, on mutualise sur ces informations.
           // FIXME comment gerer les exceptions ?
-          this.map.setSprite(data.sprites);
+          if (!data.sprite.startsWith("http")) {
+            data.sprite = document.URL + data.sprite;
+          }
+          this.map.setSprite(data.sprite);
           this.map.setGlyphs(data.glyphs);
           return data;
         })
@@ -563,6 +568,7 @@ class LayerSwitcher {
           this.layers[id].style = data.layers; // sauvegarde !
         })
         .catch((e) => {
+          this.layers[id].error = true;
           throw new Error(e);
         });
       }
@@ -596,7 +602,8 @@ class LayerSwitcher {
         gray : false,
         visibility : true,
         index : this.index,
-        position : this.index // cf. #updatePosition()
+        position : this.index, // cf. #updatePosition()
+        error : false
       };
       this.#addLayerContainer(id);
       this.#addLayerMap(id)
@@ -622,6 +629,7 @@ class LayerSwitcher {
         );
       })
       .catch((e) => {
+        this.layers[id].error = true;
         throw e;
       });
 
@@ -634,6 +642,8 @@ class LayerSwitcher {
      * @public
      */
     removeLayer(id) {
+      var berror = this.layers[id].error;
+      
       this.#removeLayerMap(id);
       this.#removeLayerContainer(id);
       delete this.layers[id];
@@ -649,7 +659,8 @@ class LayerSwitcher {
         new CustomEvent("removelayer", {
           bubbles: true,
           detail: {
-            id : id
+            id : id,
+            error : berror
           }
         })
       );

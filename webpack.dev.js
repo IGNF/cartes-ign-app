@@ -13,7 +13,7 @@ module.exports = {
   },
   devServer: {
     static: { 
-      directory: path.resolve(__dirname, './data'), 
+      directory: path.resolve(__dirname, './www/data'), 
       publicPath: '/data'
     }
   },

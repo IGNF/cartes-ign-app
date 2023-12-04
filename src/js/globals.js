@@ -61,6 +61,9 @@ let menu = null;
 // Global Layer Manager
 let manager = null;
 
+// Global POI filters
+let poi = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -93,5 +96,6 @@ export default {
   search,
   compare,
   menu,
-  manager
+  manager,
+  poi
 };
