@@ -16,6 +16,7 @@ const $compassBtn = document.getElementById("compassBtn");
 const $layerManagerBtn = document.getElementById("layerManagerBtn");
 const $sideBySideBtn = document.getElementById("sideBySideBtn");
 const $filterPoiBtn = document.getElementById("filterPoiBtn");
+const $interactivityBtn = document.getElementById("interactivityBtn");
 
 const $whiteScreen = document.getElementById("whiteScreen");
 const $parameterScreenWindow = document.getElementById("parameterScreenWindow");
@@ -84,5 +85,6 @@ export default {
   $informationsText,
   $informationsImg,
   $filterPoiBtn,
-  $poiWindow
+  $poiWindow,
+  $interactivityBtn
 };
