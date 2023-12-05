@@ -78,5 +78,6 @@ const clear = () => {
 export default {
     target,
     compute,
-    getElevationLine
+    getElevationLine,
+    clear,
 };
