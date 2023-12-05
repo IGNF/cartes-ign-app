@@ -1,19 +1,28 @@
 <!-- Bouton de retour : invisible si l'outil de recherche est affiché -->
 <div class="button d-none" id="backTopLeftBtn"></div>
-<!-- Geolocalisation -->
-<div class="button" id="geolocateBtn"></div>
-<!-- Boussole (invisible par defaut) -->
-<div class="button d-none" id="compassBtn"></div>
-<!-- Gestionnaire de couches -->
-<div class="button" id="layerManagerBtn"></div>
-<!-- Comparaison de carte -->
-<div class="button" id="sideBySideBtn"></div>
 <!-- Filtres POI -->
-<div class="button" id="filterPoiBtn"></div>
+<div class="button" id="filterPoiBtn">Filtres</div>
 <!-- Indicateur d'interactivité du Plan IGN -->
 <div class="button" id="interactivityBtn"></div>
+<div id="bottomButtons">
+  <!-- Geolocalisation -->
+  <div class="button" id="geolocateBtn"></div>
+  <!-- Boussole (invisible par defaut) -->
+  <div class="button d-none" id="compassBtn"></div>
+  <!-- Gestionnaire de couches -->
+  <div class="button" id="layerManagerBtn"></div>
+  <!-- Comparaison de carte -->
+  <div class="button" id="sideBySideBtn"></div>
+  <!-- Tracé d'itinéraire -->
+  <div id="routeDrawBtns" class="d-none">
+    <div class="button" id="routeDrawMode"><span id="routeDrawModeTransport"></span><span id="routeDrawModeText">Saisie guidée</span></div>
+    <div class="button" id="routeDrawHelp">?</div>
+  </div>
+</div>
 <!-- Tracé d'itinéraire -->
-<div id="routeDrawBtns" class="d-none">
-  <div class="button" id="routeDrawMode">Saisie guidée</div>
-  <div class="button" id="routeDrawHelp">?</div>
+<div id="routeDrawEdit" class="d-none">
+  <div class="button" id="routeDrawCancel"><span>Annuler</span></div>
+  <div class="button" id="routeDrawRestore"><span>Refaire</span></div>
+  <div class="button" id="routeDrawDelete"><span>Supprimer</span></div>
+  <div class="button" id="routeDrawSave"><span>Enregistrer</span></div>
 </div>

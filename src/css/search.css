@@ -144,6 +144,7 @@
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
+  display: inline-block;
   top: 6px;
   right: -10px;
   width: 58px;

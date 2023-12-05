@@ -114,25 +114,32 @@ class MenuNavigation {
         switch (id) {
             case "routeDraw":
                 DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$routeDrawBtns.classList.remove('d-none');
+                DOM.$routeDrawEdit.classList.remove('d-none');
+                DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+                DOM.$tabContainer.style.backgroundColor = "white";
                 DOM.$sideBySideBtn.classList.add('d-none');
                 Globals.routeDraw.activate();
                 Globals.currentScrollIndex = 1;
                 break;
             case "poi":
                 DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$filterPoiBtn.classList.add('d-none');
                 Globals.currentScrollIndex = 1;
                 break;
             case "myaccount":
                 DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 Globals.currentScrollIndex = 2;
                 break;
             case "layerManager":
                 DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 Globals.currentScrollIndex = 1;
                 break;
@@ -143,12 +150,14 @@ class MenuNavigation {
                 break;
             case "myposition":
                 DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 break;
             case "isochrone":
                 // FIXME mettre en place une méthode sur la classe Search
                 // ex. Globals.search.hide()
                 DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 Globals.isochrone.interactive(true);
@@ -158,10 +167,6 @@ class MenuNavigation {
             case "legalScreen":
             case "privacyScreen":
                 document.body.style.overflowY = "scroll";
-                DOM.$sideBySideBtn.classList.add('d-none');
-                DOM.$layerManagerBtn.classList.add('d-none');
-                DOM.$geolocateBtn.classList.add('d-none');
-                DOM.$filterPoiBtn.classList.add('d-none');
                 DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
@@ -175,7 +180,8 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 0;
                 break;
             case "directionsResults":
-                DOM.$tabContainer.style.height = "";
+                DOM.$tabContainer.style.backgroundColor = "white";
+                DOM.$tabContainer.style.removeProperty("height");
                 Globals.ignoreNextScrollEvent = true;
                 window.scroll({
                     top: 0,
@@ -187,16 +193,12 @@ class MenuNavigation {
             case "searchDirections":
             case "searchIsochrone":
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
             case "search":
                 DOM.$searchresultsWindow.classList.remove('d-none');
+                DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$closeSearch.classList.remove('d-none');
                 document.body.style.overflowY = "scroll";
-                DOM.$sideBySideBtn.classList.add('d-none');
-                DOM.$layerManagerBtn.classList.add('d-none');
-                DOM.$geolocateBtn.classList.add('d-none');
-                DOM.$filterPoiBtn.classList.add('d-none');
-                DOM.$interactivityBtn.classList.add('d-none');
-                DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$backTopLeftBtn.style.boxShadow = "unset";
                 DOM.$backTopLeftBtn.style.height = "44px";
@@ -214,6 +216,7 @@ class MenuNavigation {
                 break;
             case "directions":
                 DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$sideBySideBtn.classList.add('d-none');
                 Globals.directions.interactive(true);
@@ -259,22 +262,29 @@ class MenuNavigation {
         switch (id) {
             case "routeDraw":
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$routeDrawBtns.classList.add('d-none');
+                DOM.$routeDrawEdit.classList.add('d-none');
+                DOM.$bottomButtons.style.removeProperty('bottom');
                 DOM.$sideBySideBtn.classList.remove('d-none');
+                DOM.$tabContainer.style.removeProperty("background-color");
                 Globals.routeDraw.clear();
                 break;
             case "poi":
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$filterPoiBtn.classList.remove('d-none');
                 break;
             case "myaccount":
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 break;
             case "layerManager":
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 break;
             case "informations":
@@ -285,11 +295,13 @@ class MenuNavigation {
                 break;
             case "myposition":
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 break;
             case "isochrone":
                 // FIXME mettre en place une méthode sur la classe Searchs
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.isochrone.clear();
@@ -326,9 +338,6 @@ class MenuNavigation {
                     document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
                 }
                 document.body.style.overflowY = "auto";
-                DOM.$layerManagerBtn.classList.remove('d-none');
-                DOM.$geolocateBtn.classList.remove('d-none');
-                DOM.$whiteScreen.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
                 DOM.$backTopLeftBtn.style.removeProperty("height");
@@ -343,6 +352,7 @@ class MenuNavigation {
                     behavior: 'auto'
                 });
             case "directionsResults":
+                DOM.$tabContainer.style.removeProperty("background-color");
                 isSpecific = true;
                 isFinished = true;
                 break;
@@ -350,12 +360,9 @@ class MenuNavigation {
             case "legalScreen":
             case "privacyScreen":
                 document.body.style.overflowY = "auto";
-                DOM.$sideBySideBtn.classList.remove('d-none');
-                DOM.$layerManagerBtn.classList.remove('d-none');
-                DOM.$filterPoiBtn.classList.add('d-none');
-                DOM.$geolocateBtn.classList.remove('d-none');
                 DOM.$whiteScreen.classList.add('d-none');
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$altMenuContainer.classList.add('d-none');
                 Globals.ignoreNextScrollEvent = true;
@@ -368,6 +375,7 @@ class MenuNavigation {
                 break;
             case "directions":
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.directions.clear();
@@ -394,7 +402,7 @@ class MenuNavigation {
 
         // on retire le panneau
         this.#midScroll();
-        DOM.$tabContainer.style.height = "";
+        DOM.$tabContainer.style.removeProperty("height");
     }
 
     /**

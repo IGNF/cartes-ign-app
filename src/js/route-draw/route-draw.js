@@ -2,6 +2,8 @@ import RouteDrawDOM from "./route-draw-dom";
 import Globals from "../globals";
 import ElevationLineControl from "../elevation-line-control";
 import DOM from '../dom';
+import RouteDrawLayers from "./route-draw-styles";
+
 
 import Reverse from "../services/reverse";
 
@@ -29,7 +31,8 @@ class RouteDraw {
 
         // configuration
         this.configuration = this.options.configuration || {
-            source: "route-draw",
+            linesource: "route-draw-line",
+            pointsource: "route-draw-point",
             api: "https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?resource=bdtopo-osrm&getSteps=false&timeUnit=second&",
             template: (values) => {
                 return `start=${values.start.lng},${values.start.lat}&end=${values.end.lng},${values.end.lat}&profile=${values.profile}`
@@ -100,8 +103,9 @@ class RouteDraw {
             console.warn();
             return;
         }
+        this.target = target;
 
-        var container = this.getContainer(this.options);
+        var container = this.getContainer(this.transport);
         if (!container) {
             console.warn();
             return;
@@ -174,7 +178,17 @@ class RouteDraw {
             this.data.points[length - 1].geometry.coordinates = [coordinates.lng, coordinates.lat];
             this.data.points[length - 1].properties.name = address;
 
-            // Pas d'autre étape s'il n'y a qu'un point
+            var pointsource = this.map.getSource(this.configuration.pointsource);
+            if (pointsource) {
+                pointsource.setData({
+                    type: "FeatureCollection",
+                    features: this.data.points,
+                });
+            } else {
+                this.#addSourcesAndLayers();
+            }
+
+            // Pas d'autre étape s'il n'y a qu'un point (premier point)
             if (this.data.points.length < 2) {
                 if (Globals.backButtonState === "routeDraw") {
                     this.map.on("click", this.boundOnAddWayPoint);
@@ -213,6 +227,7 @@ class RouteDraw {
                     this.loading = false;
                     // TODO "Erreur lors de l'ajout du point"
                     this.map.on("click", this.boundOnAddWayPoint);
+                    return;
                 }
                 this.loading = false;
                 // TODO REMOVE ME IMPORTANT à supprimer après passage en POST GPF
@@ -246,20 +261,18 @@ class RouteDraw {
                     allCoordinates = json.geometry.coordinates;
                 }
                 this.data.points[length - 1].geometry.coordinates = allCoordinates.slice(-1)[0];
+                this.data.points[length - 2].geometry.coordinates = allCoordinates[0];
                 var stepCoords = json.geometry.coordinates;
                 var distance = json.distance;
                 var duration = json.duration;
+
+                var pointsource = this.map.getSource(this.configuration.pointsource);
+                pointsource.setData({
+                    type: "FeatureCollection",
+                    features: this.data.points,
+                });
             }
 
-            this.elevation.setCoordinates(allCoordinates);
-            var lastDPlus = this.elevation.dplus;
-            var lastDMinus = this.elevation.dminus;
-            try {
-                await this.elevation.compute();
-            } catch(err) {
-                // TODO "Erreur lors de l'ajout du point"
-                this.map.on("click", this.boundOnAddWayPoint);
-            }
             var step = {
                 type: "Feature",
                 geometry: {
@@ -271,11 +284,29 @@ class RouteDraw {
                     end_name: address,
                     duration: duration,
                     distance: distance,
-                    dplus: this.elevation.dplus - lastDPlus,
-                    dminus: this.elevation.dminus - lastDMinus,
+                    dplus: 0,
+                    dminus: 0,
                 }
             }
             this.data.steps.push(step);
+            var linesource = this.map.getSource(this.configuration.linesource);
+            linesource.setData({
+                type: "FeatureCollection",
+                features: this.data.steps,
+            });
+
+            this.elevation.setCoordinates(allCoordinates);
+            var lastDPlus = this.elevation.dplus;
+            var lastDMinus = this.elevation.dminus;
+            try {
+                await this.elevation.compute();
+            } catch(err) {
+                // TODO "Erreur lors de l'ajout du point"
+                this.map.on("click", this.boundOnAddWayPoint);
+                return;
+            }
+            this.data.steps.slice(-1)[0].properties.dplus = this.elevation.dplus - lastDPlus;
+            this.data.steps.slice(-1)[0].properties.dminus = this.elevation.dminus - lastDMinus;
             this.data.distance += distance;
             this.data.duration += distance / (4 / 3.6);
             this.data.dplus = this.elevation.dplus;
@@ -284,16 +315,6 @@ class RouteDraw {
 
             // Affichage et réactivation de l'intéractivité si on est toujours dans le tracé d'itinéraire
             if (Globals.backButtonState === "routeDraw") {
-                var source = this.map.getSource(this.configuration.source);
-                if (source) {
-                    source.setData({
-                        type: "FeatureCollection",
-                        features: this.data.steps,
-                    });
-                } else {
-                    this.#addSourceAndLayer();
-                }
-
                 this.map.on("click", this.boundOnAddWayPoint);
             }
         }
@@ -302,8 +323,8 @@ class RouteDraw {
     /**
      * ajoute la source et le layer à la carte pour affichage du tracé
      */
-    #addSourceAndLayer() {
-        this.map.addSource(this.configuration.source, {
+    #addSourcesAndLayers() {
+        this.map.addSource(this.configuration.linesource, {
             "type": "geojson",
             "data": {
                 type: "FeatureCollection",
@@ -311,17 +332,23 @@ class RouteDraw {
             }
         });
 
-        this.map.addLayer({
-            "id": this.configuration.source,
-            "type": "line",
-            "source": this.configuration.source,
-            "layout": {},
-            "paint": {
-              "line-color": "#" + this.style.color,
-              "line-opacity": this.style.opacity,
-              "line-width": 5,
+        RouteDrawLayers["line-casing"].source = this.configuration.linesource;
+        RouteDrawLayers["line"].source = this.configuration.linesource;
+        this.map.addLayer(RouteDrawLayers["line-casing"]);
+        this.map.addLayer(RouteDrawLayers["line"]);
+
+        this.map.addSource(this.configuration.pointsource, {
+            "type": "geojson",
+            "data": {
+                type: "FeatureCollection",
+                features: this.data.points,
             }
         });
+
+        RouteDrawLayers["point-casing"].source = this.configuration.pointsource;
+        RouteDrawLayers["point"].source = this.configuration.pointsource;
+        this.map.addLayer(RouteDrawLayers["point-casing"]);
+        this.map.addLayer(RouteDrawLayers["point"]);
     }
 
     /**
@@ -331,11 +358,11 @@ class RouteDraw {
     toggleMode() {
         if (this.mode == 0) {
             this.mode = 1;
-            DOM.$routeDrawMode.innerText = "Saisie guidée";
+            DOM.$routeDrawMode.querySelector("#routeDrawModeText").innerText = "Saisie guidée";
             return;
         }
         this.mode = 0;
-        DOM.$routeDrawMode.innerText = "Saisie libre";
+        DOM.$routeDrawMode.querySelector("#routeDrawModeText").innerText = "Saisie libre";
     }
 
     /**
@@ -350,12 +377,28 @@ class RouteDraw {
             this.controller = new AbortController();
             this.loading = false;
         }
-        this.options.steps = [];
-        if (this.map.getLayer(this.configuration.source)) {
-            this.map.removeLayer(this.configuration.source);
+        this.data = {
+            duration: 0,
+            distance: 0,
+            dplus: 0,
+            dminus: 0,
+            points: [],
+            steps: [],
         }
-        if (this.map.getSource(this.configuration.source)) {
-            this.map.removeSource(this.configuration.source);
+        this.__updateRouteInfo(this.data);
+        if (this.map.getLayer("route-draw-line")) {
+            this.map.removeLayer("route-draw-line");
+            this.map.removeLayer("route-draw-line-casing");
+        }
+        if (this.map.getSource(this.configuration.linesource)) {
+            this.map.removeSource(this.configuration.linesource);
+        }
+        if (this.map.getLayer("route-draw-point")) {
+            this.map.removeLayer("route-draw-point");
+            this.map.removeLayer("route-draw-point-casing");
+        }
+        if (this.map.getSource(this.configuration.pointsource)) {
+            this.map.removeSource(this.configuration.pointsource);
         }
     }
 
