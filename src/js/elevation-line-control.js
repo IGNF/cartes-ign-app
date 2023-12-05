@@ -155,7 +155,6 @@ class ElevationLineControl {
         elevation.x = elevation.x / 1000;
       });
     }
-
     this.render();
   }
 
@@ -174,7 +173,10 @@ class ElevationLineControl {
    * @public
    */
   clear() {
-    this.chart.destroy();
+    ElevationLine.clear();
+    if (this.chart) {
+      this.chart.destroy();
+    }
   }
 
 }

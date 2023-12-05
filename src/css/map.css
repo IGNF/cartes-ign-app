@@ -10,7 +10,7 @@
 }
 
 .maplibregl-ctrl-bottom-left {
-  bottom: 15px;
+  bottom: calc(15px + 78px + env(safe-area-inset-bottom));
   left: 10px;
   background-color: hsla(0, 0%, 100%, 0.75);
   border-radius: 4px;

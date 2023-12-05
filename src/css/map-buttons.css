@@ -23,7 +23,10 @@
 #geolocateBtn,
 #compassBtn,
 #filterPoiBtn,
-#interactivityBtn  {
+#interactivityBtn,
+#routeDrawMode,
+#routeDrawHelp {
+  color: #3F4A55;
   width: 40px;
   height: 40px;
   border-radius: 60px;
@@ -34,6 +37,16 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
   z-index: 3001;
   border: 1px solid white;
+}
+
+#routeDrawMode {
+  width: 135px;
+}
+
+#routeDrawHelp {
+  background-color: #26A581;
+  color: white;
+  border: 1px solid #26A581;
 }
 
 #layerManagerBtn {
@@ -67,12 +80,31 @@
   top: calc(80px + env(safe-area-inset-top));
 }
 
+<<<<<<< HEAD
 #interactivityBtn {
   background-image: url("assets/interactivity.svg");
   background-color: lightgray;
   position: absolute;
   left: 15px;
   top: calc(80px + env(safe-area-inset-top));
+=======
+#routeDrawBtns {
+  position: absolute;
+  left: 15px;
+  bottom: calc(130px + env(safe-area-inset-bottom));
+  display: flex;
+}
+
+#routeDrawBtns > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-family: "Open Sans";
+  font-weight: 600;
+  margin-right: 6px;
+  right: unset;
+>>>>>>> 673632e (feat(drawroute): affichage du tracé)
 }
 
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {

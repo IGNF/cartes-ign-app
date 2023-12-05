@@ -115,6 +115,7 @@ class MenuNavigation {
             case "routeDraw":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$routeDrawBtns.classList.remove('d-none');
                 DOM.$sideBySideBtn.classList.add('d-none');
                 Globals.routeDraw.activate();
                 Globals.currentScrollIndex = 1;
@@ -259,6 +260,7 @@ class MenuNavigation {
             case "routeDraw":
                 DOM.$search.style.display = "flex";
                 DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$routeDrawBtns.classList.add('d-none');
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.routeDraw.clear();
                 break;
