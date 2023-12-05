@@ -22,7 +22,8 @@
 #layerManagerBtn,
 #geolocateBtn,
 #compassBtn,
-#filterPoiBtn  {
+#filterPoiBtn,
+#interactivityBtn  {
   width: 40px;
   height: 40px;
   border-radius: 60px;
@@ -63,6 +64,14 @@
 #filterPoiBtn {
   background-image: url("assets/filtrer.svg");
   position: absolute;
+  top: calc(80px + env(safe-area-inset-top));
+}
+
+#interactivityBtn {
+  background-image: url("assets/interactivity.svg");
+  background-color: lightgray;
+  position: absolute;
+  left: 15px;
   top: calc(80px + env(safe-area-inset-top));
 }
 
