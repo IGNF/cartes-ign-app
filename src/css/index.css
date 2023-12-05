@@ -63,24 +63,8 @@ h3 {
   animation: fadeIn 0.15s;
 }
 
-.centered {
-  text-align: center;
-}
-
-.btnGpp {
-  display: inline-block;
-  color: white;
-  background-color: #26A581;
-  border-radius: 30px;
-  padding: 10px 40px;
-  font-family: 'Open Sans Extrabold',Arial,sans-serif;
-  cursor: pointer;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-
- /* Toggle Switch */
- .toggleSwitch {
+/* Toggle Switch */
+.toggleSwitch {
   position: relative;
   display: inline-block;
   width: 36px;

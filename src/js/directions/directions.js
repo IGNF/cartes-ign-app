@@ -103,6 +103,9 @@ class Directions {
         // rendu graphique
         this.render();
 
+        // fonction d'event avec bind
+        this.boundOnAddWayPoint = this.#onAddWayPoint.bind(this);
+
         // event interactif
         this.#listeners();
     }
@@ -216,7 +219,7 @@ class Directions {
      * ajout d'ecouteurs pour la saisie interactive
      */
     #listeners() {
-        this.obj.on("addwaypoint", (e) => { this.#onAddWayPoint(e); });
+        this.obj.on("addwaypoint", this.boundOnAddWayPoint);
         // events
         this.obj.on("fetchroutesstart", (e) => {
             // TODO
@@ -278,6 +281,7 @@ class Directions {
                     }
                     routeCoordinates = newrouteCoords;
                 }
+                // END REMOVEME
                 this.elevation.setCoordinates(routeCoordinates);
                 this.elevation.compute();
             }
@@ -351,7 +355,7 @@ class Directions {
      */
     clear () {
         this.obj.clear();
-        this.obj.off("addwaypoint", (e) => { this.#onAddWayPoint(e); });
+        this.obj.off("addwaypoint", this.boundOnAddWayPoint);
         var locations = document.querySelectorAll(".inputDirectionsLocations");
         for (let index = 0; index < locations.length; index++) {
             const element = locations[index];
