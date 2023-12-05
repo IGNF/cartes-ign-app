@@ -75,7 +75,7 @@ let RouteDrawDOM = {
      * @returns {DOMElement}
      * @public
      */
-    getContainer (data) {
+    getContainer (transport) {
         // nettoyage
         if (this.dom.container) {
             this.dom.container.remove();
@@ -83,9 +83,11 @@ let RouteDrawDOM = {
         // ajout du container principal
         var container = this.__addResultsContainerDOMElement();
         // ajout du résumé
-        container.appendChild(this.__addResultsSummaryContainerDOMElement(data.transport));
+        this.summary = this.__addResultsSummaryContainerDOMElement(transport);
+        container.appendChild(this.summary);
         // ajout des détails (profil alti et détails du parcours)
-        container.appendChild(this.__addResultsListDetailsContainerDOMElement(data.steps));
+        this.details = this.__addResultsListDetailsContainerDOMElement();
+        container.appendChild(this.details);
 
         return container;
     },
@@ -105,8 +107,6 @@ let RouteDrawDOM = {
 
     /**
      * ajoute le container le résumé du parcours
-     * @param {*} distance
-     * @param {*} duration
      * @param {*} transport
      * @param {*} computation
      * @returns {DOMElement}
@@ -161,23 +161,25 @@ let RouteDrawDOM = {
      * @returns {DOMElement}
      * @private
      */
-    __addResultsListDetailsContainerDOMElement (data) {
+    __addResultsListDetailsContainerDOMElement () {
 
-        var divList = document.createElement("div");
-        divList.id = "routeDrawListDetails";
-        divList.className = "";
+        var div = document.createElement("div");
+        div.id = "routeDrawDetails";
+        div.className = "";
 
         var profileHeader = document.createElement("p");
         profileHeader.className = "elevationLineHeader";
         profileHeader.textContent = "Profil altimétrique";
-        divList.appendChild(profileHeader);
+        div.appendChild(profileHeader);
 
         var canvasProfile = document.createElement("canvas");
         canvasProfile.id = "routedraw-elevationline";
         canvasProfile.className = "elevationLineCanvas";
-        divList.appendChild(canvasProfile);
+        div.appendChild(canvasProfile);
 
-        return divList;
+        div.style.display = "none";
+
+        return div;
     },
 
     /**
@@ -197,17 +199,23 @@ let RouteDrawDOM = {
      * @private
      */
     __updateRouteInfo (data) {
-        var labelDuration = document.getElementById("routeDrawSummaryDuration");
+        var labelDuration = this.summary.querySelector("#routeDrawSummaryDuration");
         labelDuration.textContent = utils.convertSecondsToTime(data.duration);
 
-        var labelDistance = document.getElementById("routeDrawSummaryDistance");
+        var labelDistance = this.summary.querySelector("#routeDrawSummaryDistance");
         labelDistance.textContent = utils.convertDistance(data.distance);
 
-        var labelDPlus = document.getElementById("routeDrawSummaryDPlus");
+        var labelDPlus = this.summary.querySelector("#routeDrawSummaryDPlus");
         labelDPlus.textContent = `${data.dplus} m`;
 
-        var labelDMinus = document.getElementById("routeDrawSummaryDMinus");
+        var labelDMinus = this.summary.querySelector("#routeDrawSummaryDMinus");
         labelDMinus.textContent = `- ${data.dminus} m`;
+
+        if (data.steps.length > 0) {
+            this.details.style.removeProperty("display");
+        } else {
+            this.details.style.display = "none";
+        }
     },
 
 };

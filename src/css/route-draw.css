@@ -1,0 +1,53 @@
+#routeDrawSummary > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#routeDrawSummary > div > label{
+  margin-right: 10px;
+}
+
+.lblRouteDrawSummaryTransport {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#routeDrawSummaryTransportpedestrian {
+  background-image: url("assets/pieton-darkgrey.svg");
+}
+
+#routeDrawSummaryDuration,
+#routeDrawSummaryDistance,
+#routeDrawSummaryDPlus,
+#routeDrawSummaryDMinus{
+  background-position: 0px center;
+  background-repeat: no-repeat;
+  padding-left: 35px;
+}
+
+#routeDrawSummaryDuration {
+  background-image: url("assets/clock.svg");
+  color: #26A581;
+}
+
+#routeDrawSummaryDistance {
+  background-position: 6px center;
+  background-image: url("assets/arrow-leftright.svg");
+}
+
+#routeDrawSummaryDPlus {
+  background-image: url("assets/arrow-topright.svg");
+}
+
+#routeDrawSummaryDMinus {
+  background-image: url("assets/arrow-bottomright.svg");
+}
+
+#routeDrawSummaryDPlus, #routeDrawSummaryDMinus {
+  font-family: "Open Sans";
+}

@@ -12,11 +12,6 @@ import Reverse from "../services/reverse";
 import ElevationLineControl from "../elevation-line-control";
 import Sortable from 'sortablejs';
 
-const merge = (a, b, prop) => {
-    var reduced = a.filter(aitem => !b.find(bitem => aitem[prop] === bitem[prop]))
-    return reduced.concat(b);
-};
-
 /**
  * Interface du contrôle sur le calcul d'itineraire
  * @module Directions
