@@ -7919,7 +7919,6 @@
 				"visibility": "visible",
 				"symbol-placement": "point",
 				"text-field": "{texte}",
-				"text-anchor": "right",
 				"text-size": {
 					"stops": [
 						[13, 12],

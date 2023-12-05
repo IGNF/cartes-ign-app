@@ -86,7 +86,7 @@ function app() {
 
   // HACK: déplacement de l'échelle hors de la div map pour qu'elle bouge librement
   var mapLibreControls = document.querySelectorAll(".maplibregl-control-container")[1];
-  var parent = document.getElementById("cartoContainer");
+  var parent = document.getElementById("bottomButtons");
   parent.appendChild(mapLibreControls);
 
   // Ajout des ecouteurs des boutons de la carte

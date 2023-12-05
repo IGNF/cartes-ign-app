@@ -1,31 +1,4 @@
-
 .button {
-  width: 34px;
-  height: 34px;
-  display: inline-block;
-}
-
-#backTopLeftBtn {
-  position:fixed;
-  width: 20px;
-  height: 20px;
-  z-index: 3001;
-  top: calc(10px + env(safe-area-inset-top));
-  left: calc(10px + env(safe-area-inset-left));
-  background-image: url("assets/back.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-#backTopLeftBtn,
-#sideBySideBtn,
-#layerManagerBtn,
-#geolocateBtn,
-#compassBtn,
-#filterPoiBtn,
-#interactivityBtn,
-#routeDrawMode,
-#routeDrawHelp {
   color: #3F4A55;
   width: 40px;
   height: 40px;
@@ -35,64 +8,106 @@
   right: 15px;
   background-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-  z-index: 3001;
+  z-index: 200;
   border: 1px solid white;
 }
 
-#routeDrawMode {
-  width: 135px;
+#backTopLeftBtn {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top));
+  left: calc(15px + env(safe-area-inset-left));
+  background-image: url("assets/back.svg");
+  z-index: 3001;
 }
 
-#routeDrawHelp {
-  background-color: #26A581;
-  color: white;
-  border: 1px solid #26A581;
+#bottomButtons {
+  position: absolute;
+  bottom: calc(120px + env(safe-area-inset-bottom));
+  width: 100vw;
 }
 
 #layerManagerBtn {
   background-image: url("assets/layers.svg");
   position: absolute;
-  bottom: calc(180px + env(safe-area-inset-bottom));
+  bottom: 50px;
 }
 
 #geolocateBtn {
   background-image: url("assets/localisation.svg");
   position: absolute;
-  bottom: calc(130px + env(safe-area-inset-bottom));
+  bottom: 0;
 }
 
 #sideBySideBtn {
   background-image: url("assets/compare.svg");
   position: absolute;
   left: 15px;
-  bottom: calc(130px + env(safe-area-inset-bottom));
+  bottom: 0;
 }
 
 #compassBtn {
   background-image: url("assets/compass.svg");
   position: absolute;
-  bottom: calc(225px + env(safe-area-inset-bottom));
+  bottom: 95px;
 }
 
 #filterPoiBtn {
   background-image: url("assets/filtrer.svg");
-  position: absolute;
+  position: fixed;
   top: calc(80px + env(safe-area-inset-top));
+  font-family: "Open Sans";
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 25px;
+  background-position: 13px center;
+  width: 70px;
+  transition: top 0.15s;
 }
 
-<<<<<<< HEAD
 #interactivityBtn {
   background-image: url("assets/interactivity.svg");
-  background-color: lightgray;
-  position: absolute;
+  background-size: 20px;
+  position: fixed;
   left: 15px;
   top: calc(80px + env(safe-area-inset-top));
-=======
+  transition: top 0.15s;
+  height: 25px;
+  width: 25px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
 #routeDrawBtns {
   position: absolute;
   left: 15px;
-  bottom: calc(130px + env(safe-area-inset-bottom));
+  bottom: 0;
   display: flex;
+  align-items: center;
+}
+
+#routeDrawMode {
+  width: 135px;
+  background-image: url("assets/chevron_right.svg");
+  background-position: 105px center;
+}
+
+#routeDrawModeTransport {
+  display: block;
+  width: 30px;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("assets/pieton-green.svg");
+  margin-left: -15px;
+}
+
+#routeDrawHelp {
+  background-color: #26A581;
+  width: 34px;
+  height: 34px;
+  color: white;
+  border: unset;
 }
 
 #routeDrawBtns > div {
@@ -104,24 +119,87 @@
   font-weight: 600;
   margin-right: 6px;
   right: unset;
->>>>>>> 673632e (feat(drawroute): affichage du tracé)
+}
+
+#routeDrawEdit {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  z-index: 3001;
+  position: absolute;
+  bottom: calc(93px + env(safe-area-inset-bottom));
+  width: calc(100vw - 30px);
+  height: 82px;
+  padding: 10px 26px;
+  box-sizing: border-box;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#routeDrawEdit > .button {
+  color: #3F4A55;
+  width: 40px;
+  height: 40px;
+  border-radius: 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #F4F6F8;
+  border: 1px solid #F4F6F8;
+  position: relative;
+}
+
+#routeDrawCancel {
+  background-image: url("assets/arrow-left-grey.svg");
+}
+
+#routeDrawRestore {
+  background-image: url("assets/arrow-right-grey.svg");
+}
+
+#routeDrawDelete {
+  background-image: url("assets/delete.svg");
+}
+
+#routeDrawEdit > .button#routeDrawSave {
+  background-color: #26A581;
+  border: 1px solid #26A581;
+  background-image: url("assets/save.svg");
+}
+
+#routeDrawEdit > .button > span {
+  position: absolute;
+  bottom: -1.5em;
+  width: 42px;
+  display: flex;
+  justify-content: center;
+  font-family: "Open Sans";
 }
 
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #layerManagerBtn {
-    bottom: calc(65px + env(safe-area-inset-bottom));
+    bottom: 50px;
   }
 
   #geolocateBtn {
-    bottom: calc(15px + env(safe-area-inset-bottom));
+    bottom: 0;
   }
 
   #sideBySideBtn {
-    left: calc(90px + env(safe-area-inset-left));
-    bottom: calc(65px + env(safe-area-inset-bottom));
+    left: 0;
+    bottom: 0;
   }
 
   #compassBtn {
     top: calc(15px + env(safe-area-inset-top));
+  }
+
+  #bottomButtons {
+    position: absolute;
+    bottom: calc(42px + env(safe-area-inset-bottom));
+    width: calc(100vw - 75px - env(safe-area-inset-left));
+    right: 0;
   }
 }

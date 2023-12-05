@@ -8,19 +8,19 @@ class Interactivity {
 
     /**
      * constructeur
-     * @param {*} map 
-     * @param {*} options 
+     * @param {*} map
+     * @param {*} options
      */
     constructor(map, options) {
       this.options = options || {
         id: "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"
       };
-      
+
       this.map = map;
       this.id = this.options.id || "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"; // PII
-      
+
       this.#listen();
-      
+
       this.pii = false; // couche PII chargée ?
       this.thematic = false; // couche thematic chargée ?
       this.position = false; // couche en position max ?
@@ -39,9 +39,9 @@ class Interactivity {
       Globals.manager.addEventListener("addlayer", this.onGetLastLayer);
       Globals.manager.addEventListener("removelayer", this.onGetLastLayer);
       Globals.manager.addEventListener("movelayer", this.onGetLastLayer);
-      
+
       this.map.on("zoom", (e) => {
-        if (this.pii && this.position && Math.round(e.target.getZoom())>14) {
+        if (this.pii && this.position && Math.round(e.target.getZoom()) > 10) {
           this.active();
         } else {
           (this.thematic && this.position) ? this.active() : this.disable();
@@ -51,7 +51,7 @@ class Interactivity {
 
     /**
      * callback
-     * @param {*} e 
+     * @param {*} e
      * @private
      */
     onGetLastLayer(e) {
@@ -62,6 +62,8 @@ class Interactivity {
         this.position = true;
         if (Math.round(this.map.getZoom())>14) {
           this.active();
+        } else {
+          this.disable();
         }
       } else {
         if (layer[1].base) {
@@ -79,7 +81,7 @@ class Interactivity {
      */
     active () {
       this.actived = true;
-      DOM.$interactivityBtn.style["background-color"] = "white";
+      DOM.$interactivityBtn.style.removeProperty("display");
     }
 
     /**
@@ -87,7 +89,7 @@ class Interactivity {
      */
     disable () {
         this.actived = false;
-        DOM.$interactivityBtn.style["background-color"] = "lightgray";
+        DOM.$interactivityBtn.style.display = "none";
     }
 
 }

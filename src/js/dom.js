@@ -20,6 +20,9 @@ const $interactivityBtn = document.getElementById("interactivityBtn");
 const $routeDrawBtns = document.getElementById("routeDrawBtns");
 const $routeDrawMode = document.getElementById("routeDrawMode");
 const $routeDrawHelp = document.getElementById("routeDrawHelp");
+const $routeDrawEdit = document.getElementById("routeDrawEdit");
+
+const $bottomButtons = document.getElementById("bottomButtons");
 
 const $whiteScreen = document.getElementById("whiteScreen");
 const $parameterScreenWindow = document.getElementById("parameterScreenWindow");
@@ -95,4 +98,6 @@ export default {
   $routeDrawBtns,
   $routeDrawMode,
   $routeDrawHelp,
+  $routeDrawEdit,
+  $bottomButtons,
 };
