@@ -11,9 +11,8 @@ import ImageNotFound from '../html/img/image-not-found.png';
  * Gestionnaire de couches
  * @fires addlayer
  * @fires removelayer
+ * @fires movelayer
  * @todo N&B
- * @todo menu avancé sous forme d'une popup verticale
- * @todo icone de visibilité à modifier
  * @description
  *      → manager
  *      	→ instancie this.catalogue & this.switcher
@@ -35,7 +34,7 @@ import ImageNotFound from '../html/img/image-not-found.png';
  *       	  → this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
  *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer (TODO)
  */
-class LayerSwitcher {
+class LayerSwitcher extends EventTarget {
 
    /**
     * constructeur
@@ -43,6 +42,7 @@ class LayerSwitcher {
     * @param {*} options.target
     */
     constructor(options) {
+      super();
       this.options = options || {
         target : null
       };
@@ -75,14 +75,6 @@ class LayerSwitcher {
        * }
        */
       this.layers = {};
-
-      /**
-       * Interface pour les evenements
-       * @example
-       * event.dispatchEvent(new CustomEvent("myEvent", { detail : {} }));
-       * event.addEventListener("myEvent", handler);
-       */
-      this.event = new EventTarget();
 
       this.#render();
 
@@ -226,6 +218,26 @@ class LayerSwitcher {
         var beforeIdx = getIndexLayer(newPosition + direction);
         var beforeId = this.map.getStyle().layers[beforeIdx].id;
         LayersGroup.moveGroup(id, beforeId);
+        /**
+         * Evenement "movelayer"
+         * @event movelayer
+         * @type {*}
+         * @property {*} id -
+         * @property {*} positions -
+         */
+        this.dispatchEvent(
+          new CustomEvent("movelayer", {
+            bubbles: true,
+            detail: {
+              id : id,
+              positions : {
+                new : newPosition,
+                old : oldPosition,
+                max : maxPosition
+              }
+            }
+          })
+        );
       }
     }
 
@@ -625,7 +637,7 @@ class LayerSwitcher {
          * @property {*} id -
          * @property {*} options -
          */
-        this.event.dispatchEvent(
+        this.dispatchEvent(
           new CustomEvent("addlayer", {
             bubbles: true,
             detail: {
@@ -661,8 +673,9 @@ class LayerSwitcher {
        * @event removelayer
        * @type {*}
        * @property {*} id -
+       * @property {*} error -
        */
-      this.event.dispatchEvent(
+      this.dispatchEvent(
         new CustomEvent("removelayer", {
           bubbles: true,
           detail: {

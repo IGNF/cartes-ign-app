@@ -9,7 +9,6 @@ import ImageNotFound from '../html/img/image-not-found.png';
  * Gestion des couches thématiques et fonds de carte
  * @fires addlayer
  * @fires removelayer
- * @todo impl. les couches "vecteur tuilé"
  * @fixme impl. d'une liste de couches courante (Globals.baseLayerDisplayed)
  * @description 
  *      → manager    
@@ -30,9 +29,9 @@ import ImageNotFound from '../html/img/image-not-found.png';
  *      → switcher
  *        	→ this.addLayer → call addContainer & addGroup & map.addLayer → fire event addLayer
  *       	→ this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
- *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer (TODO)
+ *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer
  */
-class LayerCatalogue {
+class LayerCatalogue extends EventTarget {
 
   /**
    * constructeur
@@ -40,6 +39,7 @@ class LayerCatalogue {
    * @param {*} options.target
    */
   constructor(options) {
+    super();
     this.options = options || {
       target : null
     };
@@ -47,14 +47,6 @@ class LayerCatalogue {
     // options ?
     this.map = Globals.map
     this.mapRLT = Globals.mapRLT;
-
-    /**
-     * Interface pour les evenements
-     * @example
-     * event.dispatchEvent(new CustomEvent("myEvent", { detail : {} }));
-     * event.addEventListener("myEvent", handler);
-     */
-    this.event = new EventTarget();
 
     this.#render();
     this.#listeners();
@@ -294,7 +286,7 @@ class LayerCatalogue {
        * @type {*}
        * @property {*} id -
        */
-      this.event.dispatchEvent(
+      this.dispatchEvent(
         new CustomEvent("addlayer", {
           bubbles: true,
           detail: {
@@ -327,7 +319,7 @@ class LayerCatalogue {
        * @type {*}
        * @property {*} id -
        */
-      this.event.dispatchEvent(
+      this.dispatchEvent(
         new CustomEvent("removelayer", {
           bubbles: true,
           detail: {

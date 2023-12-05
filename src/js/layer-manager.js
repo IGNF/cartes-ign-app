@@ -9,7 +9,9 @@ import layerConfig from './layer-config';
  * - gestion des thèmatiques et fonds de carte
  * @see LayerSwitcher
  * @see LayerCatalogue
- * @fixme les couches tuiles vectorielles sont en chargement async !
+ * @fires addlayer
+ * @fires removelayer
+ * @fires movelayer
  * @description 
  *      → manager    
  *      	→ instancie this.catalogue & this.switcher
@@ -29,10 +31,10 @@ import layerConfig from './layer-config';
  *      → switcher
  *        	→ this.addLayer → call addContainer & addGroup & map.addLayer → fire event addLayer
  *       	→ this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
- *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer (TODO)
+ *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer
  * 
  */
-class LayerManager {
+class LayerManager extends EventTarget {
     /**
      * constructeur
      * @param {*} options -
@@ -47,6 +49,7 @@ class LayerManager {
      * });
      */
     constructor(options) {
+        super();
         this.options = options || {
             /**
              * [{
@@ -60,6 +63,7 @@ class LayerManager {
 
         this.layerCatalogue = null;
         this.layerSwitcher = null;
+
         this.#render();
         this.#listeners();
         this.#loadLayers();
@@ -69,25 +73,73 @@ class LayerManager {
      * Ecouteurs
      */
     #listeners() {
-        this.layerCatalogue.event.addEventListener("addlayer", (e) => {
+        this.layerCatalogue.addEventListener("addlayer", (e) => {
             this.layerSwitcher.addLayer(e.detail.id);
         });
-        this.layerCatalogue.event.addEventListener("removelayer", (e) => {
+        this.layerCatalogue.addEventListener("removelayer", (e) => {
             this.layerSwitcher.removeLayer(e.detail.id);
         });
 
-        this.layerSwitcher.event.addEventListener("addlayer", (e) => {
+        this.layerSwitcher.addEventListener("addlayer", (e) => {
+            /**
+             * Evenement "addlayer"
+             * @event addlayer
+             * @type {*}
+             * @property {*} id -
+             * @property {*} options -
+             */
+            this.dispatchEvent(
+                new CustomEvent("addlayer", {
+                    bubbles: true,
+                    detail: {
+                        id : e.detail.id,
+                        options : e.detail.options
+                    }
+                })
+            );
             var element = document.getElementById(e.detail.id);
             element.classList.add('selectedLayer');
             this.#updateLayersCounter(e.type);
         });
-        this.layerSwitcher.event.addEventListener("removelayer", (e) => {
+        this.layerSwitcher.addEventListener("removelayer", (e) => {
+            /**
+             * Evenement "removelayer"
+             * @event removelayer
+             * @type {*}
+             * @property {*} id -
+             */
+            this.dispatchEvent(
+                new CustomEvent("removelayer", {
+                    bubbles: true,
+                    detail: {
+                        id : e.detail.id
+                    }
+                })
+            );
             var element = document.getElementById(e.detail.id);
             element.classList.remove('selectedLayer');
             if (e.detail.error) {
                 return;
             }
             this.#updateLayersCounter(e.type);
+        });
+        this.layerSwitcher.addEventListener("movelayer", (e) => {
+            /**
+             * Evenement "movelayer"
+             * @event movelayer
+             * @type {*}
+             * @property {*} id -
+             * @property {*} positions -
+             */
+            this.dispatchEvent(
+                new CustomEvent("movelayer", {
+                    bubbles: true,
+                    detail: {
+                        id : e.detail.id,
+                        positions : e.detail.positions
+                    }
+                })
+            );
         });
     }
 
