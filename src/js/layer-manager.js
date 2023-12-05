@@ -91,10 +91,7 @@ class LayerManager extends EventTarget {
             this.dispatchEvent(
                 new CustomEvent("addlayer", {
                     bubbles: true,
-                    detail: {
-                        id : e.detail.id,
-                        options : e.detail.options
-                    }
+                    detail: e.detail
                 })
             );
             var element = document.getElementById(e.detail.id);
@@ -111,9 +108,7 @@ class LayerManager extends EventTarget {
             this.dispatchEvent(
                 new CustomEvent("removelayer", {
                     bubbles: true,
-                    detail: {
-                        id : e.detail.id
-                    }
+                    detail: e.detail
                 })
             );
             var element = document.getElementById(e.detail.id);
@@ -134,10 +129,7 @@ class LayerManager extends EventTarget {
             this.dispatchEvent(
                 new CustomEvent("movelayer", {
                     bubbles: true,
-                    detail: {
-                        id : e.detail.id,
-                        positions : e.detail.positions
-                    }
+                    detail: e.detail
                 })
             );
         });

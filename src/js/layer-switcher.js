@@ -69,6 +69,7 @@ class LayerSwitcher extends EventTarget {
        *    index : 0,
        *    position : 0,
        *    type: "vector",
+       *    base: true, // base ou thematic
        *    style: "http://.../style.json" ou [],
        *    error : false
        *   }
@@ -230,6 +231,7 @@ class LayerSwitcher extends EventTarget {
             bubbles: true,
             detail: {
               id : id,
+              entries : this.#getLayersOrder(),
               positions : {
                 new : newPosition,
                 old : oldPosition,
@@ -617,6 +619,7 @@ class LayerSwitcher extends EventTarget {
         quickLookUrl : LayersAdditional.getQuickLookUrl(id.split("$")[0]),
         style: props.style,
         type: props.type,
+        base: props.base,
         opacity : 100,
         gray : false,
         visibility : true,
@@ -642,7 +645,8 @@ class LayerSwitcher extends EventTarget {
             bubbles: true,
             detail: {
               id : id,
-              options : this.layers[id]
+              options : this.layers[id],
+              entries : this.#getLayersOrder()
             }
           })
         );
@@ -680,10 +684,19 @@ class LayerSwitcher extends EventTarget {
           bubbles: true,
           detail: {
             id : id,
-            error : berror
+            error : berror,
+            entries : this.#getLayersOrder()
           }
         })
       );
+    }
+
+    #getLayersOrder() {
+      const entries = Object.entries(this.layers);
+      entries.sort((a, b) => {
+        return a[1].position - b[1].position;
+      });
+      return entries;
     }
 
 }

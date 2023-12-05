@@ -2,7 +2,7 @@ import Globals from './globals';
 import DOM from './dom';
 
 /**
- * Indicateur d'activité du Plan IGN interactif sur la carte
+ * Indicateur d'activité du Plan IGN interactif et des couches thématiques sur la carte
  */
 class Interactivity {
 
@@ -17,34 +17,35 @@ class Interactivity {
       };
       
       this.map = map;
-      this.id = this.options.id || "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS";
+      this.id = this.options.id || "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"; // PII
       
       this.#listen();
       
-      this.actived = false; // actif ?
-      this.layer = false; // couche chargée ?
-      this.position = false; // en position max ?
+      this.pii = false; // couche PII chargée ?
+      this.thematic = false; // couche thematic chargée ?
+      this.position = false; // couche en position max ?
 
       return this;
     }
 
     /**
      * Ecouteurs sur :
-     * - ajout / suppression / position de la couche Plan IGN
-     * - zooms > 14
-     * - couche au dessus
+     * - gestion des ajout / suppression / position des couches
+     * - si zooms > 14 actif pour la couche PII
+     * - la couche au dessus est elle un baseLayer ?
      */
     #listen() {
-      this.onAddLayer = this.onAddLayer.bind(this);
-      this.onRemoveLayer = this.onRemoveLayer.bind(this);
-      this.onMoveLayer = this.onMoveLayer.bind(this);
-
-      Globals.manager.addEventListener("addlayer", this.onAddLayer);
-      Globals.manager.addEventListener("removelayer", this.onRemoveLayer);
-      Globals.manager.addEventListener("movelayer", this.onMoveLayer);
+      this.onGetLastLayer = this.onGetLastLayer.bind(this);
+      Globals.manager.addEventListener("addlayer", this.onGetLastLayer);
+      Globals.manager.addEventListener("removelayer", this.onGetLastLayer);
+      Globals.manager.addEventListener("movelayer", this.onGetLastLayer);
       
       this.map.on("zoom", (e) => {
-        (this.layer && this.position && Math.round(e.target.getZoom())>14) ? this.active() : this.disable();
+        if (this.pii && this.position && Math.round(e.target.getZoom())>14) {
+          this.active();
+        } else {
+          (this.thematic && this.position) ? this.active() : this.disable();
+        }
       });
     }
 
@@ -53,65 +54,22 @@ class Interactivity {
      * @param {*} e 
      * @private
      */
-    onAddLayer(e) {
-      console.debug(e);
-      if (e.detail.id === this.id) {
+    onGetLastLayer(e) {
+      var layer = e.detail.entries.pop();
+      this.thematic = this.pii = this.position = false;
+      if (layer[0] === this.id) {
+        this.pii = true;
         this.position = true;
-        this.layer = true;
-        var zoom = Math.round(this.map.getZoom());
-        if (zoom > 14) {
+        if (Math.round(this.map.getZoom())>14) {
           this.active();
         }
       } else {
-        // forcement, ce n'est plus la couche au dessus !
-        if (this.layer) {
-          this.position = false;
+        if (layer[1].base) {
           this.disable();
-        }
-      }
-    }
-    /**
-     * callback
-     * @param {*} e 
-     * @private
-     */
-    onRemoveLayer(e) {
-      console.debug(e);
-      if (e.detail.id === this.id) {
-        this.layer = false;
-        this.position = false;
-        this.disable();
-      } else {
-        // on a supprimé une couche qqc, est on encore sur la couche au dessus ?
-        if (this.layer) {}
-      }
-    }
-    /**
-     * callback
-     * @param {*} e 
-     * @private
-     */
-    onMoveLayer(e) {
-      console.debug(e);
-      if (e.detail.id === this.id) {
-        this.position = false;
-        if (e.detail.positions.new === e.detail.positions.max) {
-          this.position = true;
-          var zoom = Math.round(this.map.getZoom());
-          if (zoom > 14) {
-            this.active();
-          }
         } else {
-          // on n'est plus sur la couche au dessus
-          this.disable();
-        }
-      } else {
-        // on a deplacé une couche qqc, est on encore sur la couche au dessus ?
-        if (this.layer) {
-          if (e.detail.positions.new === e.detail.positions.max) {
-            this.position = false;
-            this.disable();
-          }
+          this.thematic = true;
+          this.position = true;
+          this.active();
         }
       }
     }
