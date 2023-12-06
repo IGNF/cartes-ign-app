@@ -676,6 +676,12 @@ class LayerSwitcher extends EventTarget {
       delete this.layers[id];
       this.#updatePosition();
 
+      let index = Globals.displayedLayers.indexOf(id);
+      Globals.displayedLayers.splice(index, 1);
+      index = Globals.dataLayerDisplayed.indexOf(id)
+      if (index >= 0) { Globals.dataLayerDisplayed.splice(index, 1);}
+      index = Globals.baseLayerDisplayed.indexOf(id)
+      if (index >= 0) { Globals.baseLayerDisplayed.splice(index, 1);}
       /**
        * Evenement "removelayer"
        * @event removelayer

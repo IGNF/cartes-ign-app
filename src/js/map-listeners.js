@@ -68,9 +68,22 @@ const addListeners = () => {
   // FIXME le mecanisme de GFI est à revoir afin de pouvoir requêter toutes les couches
   // ou la plus au dessus de la pile.
   map.on("click", (ev) => {
+    let features = map.queryRenderedFeatures(ev.point)
+    // On clique sur une feature tuile vectorielle
+    if (features.length > 0) {
+      let html = JSON.stringify(features[0].properties)
+      new maplibregl.Popup({className: 'getfeatureinfoPopup'})
+        .setLngLat(ev.lngLat)
+        .setHTML(html)
+        .addTo(map);
+        return;
+    }
 
-  let currentLayers = Globals.manager.layerSwitcher.getLayersOrder();
-  let layerswithzoom = currentLayers.map((layer) => {
+ 
+  // GFI au sens OGC
+  else {
+    let currentLayers = Globals.manager.layerSwitcher.getLayersOrder();
+    let layerswithzoom = currentLayers.map((layer) => {
     let computeZoom = Math.round(map.getZoom());
     if (computeZoom > layer[1].maxNativeZoom) {
       layer[1].computeZoom = layer[1].maxNativeZoom;
@@ -105,6 +118,8 @@ const addListeners = () => {
       .addTo(map);
       return;
     })
+  }
+  
   });
 
   // map.on("data", (e) => {
