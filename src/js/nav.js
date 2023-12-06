@@ -181,6 +181,7 @@ class MenuNavigation {
                 DOM.$layerManagerBtn.classList.add('d-none');
                 DOM.$geolocateBtn.classList.add('d-none');
                 DOM.$filterPoiBtn.classList.add('d-none');
+                DOM.$interactivityBtn.classList.add('d-none');
                 DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$backTopLeftBtn.style.boxShadow = "unset";
@@ -278,10 +279,6 @@ class MenuNavigation {
                     document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
                 }
                 document.body.style.overflowY = "auto";
-                DOM.$sideBySideBtn.classList.remove('d-none');
-                DOM.$layerManagerBtn.classList.remove('d-none');
-                DOM.$filterPoiBtn.classList.add('d-none');
-                DOM.$geolocateBtn.classList.remove('d-none');
                 DOM.$whiteScreen.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
@@ -399,6 +396,7 @@ class MenuNavigation {
         DOM.$sideBySideBtn.classList.remove('d-none');
         DOM.$layerManagerBtn.classList.remove('d-none');
         DOM.$filterPoiBtn.classList.remove('d-none');
+        DOM.$interactivityBtn.classList.remove('d-none');
         DOM.$geolocateBtn.classList.remove('d-none');
         switch (id) {
             case "informations":
