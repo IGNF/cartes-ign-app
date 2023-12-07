@@ -26,7 +26,7 @@
     margin: 0;
     flex-direction: column;
     align-items: center;
-    height: 60px;
+    height: 64px;
     justify-content: center;
 }
 
@@ -82,7 +82,6 @@
     transition: transform 0.2s;
     transition-timing-function: ease-out;
     width: 97%;
-    height: fit-content;
     color: #3f4a55;
     padding: 0px 24px 30px 24px;
     align-items: center;

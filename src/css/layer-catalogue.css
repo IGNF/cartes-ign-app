@@ -146,7 +146,7 @@
   right: 0;
   width: 20px;
   height: 100%;
-  background: linear-gradient(90deg,transparent,#fff);
+  background: linear-gradient(90deg,#fff0,#f4f6f8 );
   opacity: 1;
   visibility: visible;
   flex-shrink: 0;
