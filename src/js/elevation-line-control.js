@@ -125,7 +125,11 @@ class ElevationLineControl {
       if (lastLngLat != null) {
         currentDistance += currentLngLat.distanceTo(lastLngLat);
       }
-      let currentDataPoint = {x: currentDistance, y: elevation.z}
+      let elevationValue = elevation.z;
+      if (elevationValue == -99999) {
+        elevationValue = 0;
+      }
+      let currentDataPoint = {x: currentDistance, y: elevationValue}
       this.elevationData.push(currentDataPoint);
       lastLngLat = currentLngLat;
     });

@@ -13,8 +13,8 @@ const target = new EventTarget();
 
 /**
  * service
- * @param {*} coordinates 
- * @returns 
+ * @param {*} coordinates
+ * @returns
  * @fire elevation
  */
 const compute = async (coordinates) => {
@@ -62,12 +62,15 @@ const compute = async (coordinates) => {
     return results;
 };
 
-/** 
+/**
  * obtenir la valeur Z
  * @example
  * { lon lat }
  */
 const getElevation = () => {
+    if (results.elevations[0] == -99999) {
+      return 0;
+    }
     return results.elevations[0];
 };
 

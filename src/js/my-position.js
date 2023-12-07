@@ -80,6 +80,25 @@ class Position {
     var longitude = this.coordinates.lon;
     var altitude = this.elevation;
 
+    // adresse disponible
+    var templateAddress = `
+      <span class="lblPositionAddress">${address.number} ${address.street}</span><br />
+      <span class="lblPositionCity">${address.postcode} ${address.city}</span>
+      `
+    // pas d'adresse
+    if (!address.street) {
+      templateAddress = `
+      <span class="lblPositionAddress">${address.city} ${address.postcode}</span>
+      `
+    }
+    // Ni adress ni poi
+    if (!address.city) {
+      templateAddress = `
+      <span class="lblPositionAddress">${latitude}, ${longitude}</span>
+      `
+    }
+
+
     // template litteral
     this.contentPopup = `
         <div id="${id.popup}">
@@ -88,8 +107,7 @@ class Position {
             <div class="divPositionAddress">
                 <label class="lblPositionImgAddress"></label>
                 <div class="divPositionSectionAddress fontLight">
-                    <span class="lblPositionAddress">${address.number} ${address.street}</span><br />
-                    <span class="lblPositionCity">${address.postcode} ${address.city}</span>
+                    ${templateAddress}
                 </div>
             </div>
             <div class="divPositionCoord fontLight">
@@ -112,6 +130,13 @@ class Position {
       // message
       var message = `${self.address.number} ${self.address.street}, ${self.address.postcode} ${self.address.city}
             (latitiude: ${self.coordinates.lat} / longitude: ${self.coordinates.lon} / altitude: ${self.elevation} m)`;
+      if (!address.street) {
+        message = `${self.address.city} ${self.address.postcode}
+          (latitiude: ${self.coordinates.lat} / longitude: ${self.coordinates.lon} / altitude: ${self.elevation} m)`;
+      }
+      if (!address.city) {
+        message = `latitiude: ${self.coordinates.lat} / longitude: ${self.coordinates.lon} / altitude: ${self.elevation} m`;
+      }
       // redirection vers...
       if (self.isDesktop()) {
         window.open(`https://api.whatsapp.com:/send?text= ${message}`);
@@ -130,8 +155,7 @@ class Position {
             <div class="divPositionAddress">
                 <label class="lblPositionImgAddress"></label>
                 <div class="divPositionSectionAddress fontLight">
-                    <span class="lblPositionAddress">${address.number} ${address.street}</span><br />
-                    <span class="lblPositionCity">${address.postcode} ${address.city}</span>
+                  ${templateAddress}
                 </div>
             </div>
             <div class="divPositionButtons">
