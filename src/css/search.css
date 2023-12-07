@@ -27,7 +27,7 @@
   right: 33px;
   width: 20px;
   height: 32px;
-  background: linear-gradient(90deg, transparent, #fff);
+  background: linear-gradient(90deg, #fff0, #fff);
   opacity: 1;
   visibility: visible;
 }

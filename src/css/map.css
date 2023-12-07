@@ -17,7 +17,7 @@
   height: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .maplibregl-ctrl-scale {

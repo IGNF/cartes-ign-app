@@ -84,7 +84,7 @@
   right: 0;
   width: 20px;
   height: 45px;
-  background: linear-gradient(90deg,transparent,#fff);
+  background: linear-gradient(90deg,#f4f6f8,#fff);
   opacity: 1;
   visibility: visible;
   flex-shrink: 0;
