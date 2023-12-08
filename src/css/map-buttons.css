@@ -152,15 +152,28 @@
 }
 
 #routeDrawCancel {
-  background-image: url("assets/arrow-left-grey.svg");
+  background-image: url("assets/arrow-left-darkgrey.svg");
 }
 
 #routeDrawRestore {
+  background-image: url("assets/arrow-right-darkgrey.svg");
+}
+
+#routeDrawCancel.inactive {
+  background-image: url("assets/arrow-left-grey.svg");
+}
+
+#routeDrawRestore.inactive {
   background-image: url("assets/arrow-right-grey.svg");
 }
 
-#routeDrawDelete {
+#routeDrawEdit > #routeDrawDelete {
   background-image: url("assets/delete.svg");
+  background-color: #F18345;
+}
+
+#routeDrawEdit > #routeDrawDelete.inactive {
+  background-color: #F4F6F8;
 }
 
 #routeDrawEdit > .button#routeDrawSave {

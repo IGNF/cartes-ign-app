@@ -50,8 +50,11 @@ const addListeners = () => {
   // Bouton des filtres POI
   DOM.$filterPoiBtn.addEventListener("click", () => { Globals.menu.open("poi"); });
 
-  // Bouton de changement de mode du tracé di'itinéraire
+  // Bouton de changement de mode du tracé d'itinéraire
   DOM.$routeDrawMode.addEventListener("click", () => { Globals.routeDraw.toggleMode(); });
+
+  // Bouton de changement de mode du tracé d'itinéraire
+  DOM.$routeDrawDelete.addEventListener("click", () => { Globals.routeDraw.toggleDelete(); });
 
   // Bouton Retour
   DOM.$backTopLeftBtn.addEventListener("click", () => { State.onBackKeyDown(); });
