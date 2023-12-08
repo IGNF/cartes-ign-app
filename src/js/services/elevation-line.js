@@ -19,10 +19,11 @@ const target = new EventTarget();
  */
 const compute = async (coordinateList) => {
     // ex. request
-    // https://wxs.ign.fr/calcul/alti/rest/elevationLine.json?
+    // https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevationLine.json?
     //  lon=1.136383|1.12&
     //  lat=45.95352|49.9&
     //  indent=false&
+    //  resource: ign_rge_alti_wld&
     //  sampling=500
 
     clear();
@@ -31,17 +32,24 @@ const compute = async (coordinateList) => {
     const lonStr = coordinateList.map( (coord) => coord[0]).join("|");
     const latStr = coordinateList.map( (coord) => coord[1]).join("|");
 
-    let url = new URL("https://wxs.ign.fr/calcul/alti/rest/elevationLine.json");
+    let url = new URL("https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevationLine.json");
     let params = {
-        indent: false,
-        sampling: 500,
         lon: lonStr,
-        lat: latStr
+        lat: latStr,
+        indent: "false",
+        sampling: 500,
+        resource: "ign_rge_alti_wld",
     };
 
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
-    const response = await fetch(url, { signal : controller.signal });
+    const response = await fetch(url, {
+        method: "POST",
+        signal: controller.signal,
+        body: JSON.stringify(params),
+        headers: {
+            "accept": "application/json",
+            "Content-Type": "application/json",
+        },
+    });
     results = await response.json();
 
     if (response.status !== 200) {

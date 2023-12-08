@@ -148,7 +148,7 @@
   background-repeat: no-repeat;
   background-color: #F4F6F8;
   border: 1px solid #F4F6F8;
-  position: relative;
+  box-shadow: unset;
 }
 
 #routeDrawCancel {
@@ -171,7 +171,7 @@
 
 #routeDrawEdit > .button > span {
   position: absolute;
-  bottom: -1.5em;
+  bottom: 10px;
   width: 42px;
   display: flex;
   justify-content: center;
@@ -188,7 +188,6 @@
   }
 
   #sideBySideBtn {
-    left: 0;
     bottom: 0;
   }
 
