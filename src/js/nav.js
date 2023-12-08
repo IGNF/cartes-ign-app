@@ -338,6 +338,7 @@ class MenuNavigation {
                     document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
                 }
                 document.body.style.overflowY = "auto";
+                DOM.$whiteScreen.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
                 DOM.$backTopLeftBtn.style.removeProperty("height");

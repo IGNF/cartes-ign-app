@@ -99,7 +99,7 @@ class Directions {
         this.render();
 
         // fonction d'event avec bind
-        this.boundOnAddWayPoint = this.#onAddWayPoint.bind(this);
+        this.handleAddWayPoint = this.#onAddWayPoint.bind(this);
 
         // event interactif
         this.#listeners();
@@ -214,7 +214,7 @@ class Directions {
      * ajout d'ecouteurs pour la saisie interactive
      */
     #listeners() {
-        this.obj.on("addwaypoint", this.boundOnAddWayPoint);
+        this.obj.on("addwaypoint", this.handleAddWayPoint);
         // events
         this.obj.on("fetchroutesstart", (e) => {
             // TODO
@@ -253,30 +253,6 @@ class Directions {
                 Polyline.decode(e.data.routes[0].geometry).forEach( (latlng) => {
                   routeCoordinates.push([latlng[1], latlng[0]]);
                 });
-                // TODO REMOVE ME IMPORTANT à supprimer après passage en POST GPF
-                if (routeCoordinates.length > 110) {
-                    var gcd = function(a, b) {
-                        if (b < 0.0000001) return a;
-                        return gcd(b, Math.floor(a % b));
-                    };
-
-                    let proportionToRemove = ((routeCoordinates.length - 110) / routeCoordinates.length).toFixed(2);
-                    var len = proportionToRemove.toString().length - 2;
-                    var denominator = Math.pow(10, len);
-                    var numerator = proportionToRemove * denominator;
-                    var divisor = gcd(numerator, denominator);
-                    numerator /= divisor;
-                    denominator /= divisor;
-                    let newrouteCoords = []
-                    for (let i=0; i<routeCoordinates.length; i++) {
-                        let demPort = i%denominator;
-                        if (demPort >= numerator) {
-                            newrouteCoords.push(routeCoordinates[i])
-                        }
-                    }
-                    routeCoordinates = newrouteCoords;
-                }
-                // END REMOVEME
                 this.elevation.setCoordinates(routeCoordinates);
                 this.elevation.compute();
             }
@@ -350,7 +326,7 @@ class Directions {
      */
     clear () {
         this.obj.clear();
-        this.obj.off("addwaypoint", this.boundOnAddWayPoint);
+        this.obj.off("addwaypoint", this.handleAddWayPoint);
         var locations = document.querySelectorAll(".inputDirectionsLocations");
         for (let index = 0; index < locations.length; index++) {
             const element = locations[index];
