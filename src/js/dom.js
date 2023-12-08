@@ -21,6 +21,10 @@ const $routeDrawBtns = document.getElementById("routeDrawBtns");
 const $routeDrawMode = document.getElementById("routeDrawMode");
 const $routeDrawHelp = document.getElementById("routeDrawHelp");
 const $routeDrawEdit = document.getElementById("routeDrawEdit");
+const $routeDrawCancel = document.getElementById("routeDrawCancel");
+const $routeDrawRestore = document.getElementById("routeDrawRestore");
+const $routeDrawDelete = document.getElementById("routeDrawDelete");
+const $routeDrawSave = document.getElementById("routeDrawSave");
 
 const $bottomButtons = document.getElementById("bottomButtons");
 
@@ -100,4 +104,8 @@ export default {
   $routeDrawHelp,
   $routeDrawEdit,
   $bottomButtons,
+  $routeDrawCancel,
+  $routeDrawRestore,
+  $routeDrawDelete,
+  $routeDrawSave,
 };
