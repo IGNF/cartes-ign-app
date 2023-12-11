@@ -67,6 +67,9 @@ let poi = null;
 // Global route draw
 let routeDraw = null;
 
+// Global interactivity
+let interactivity = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -102,4 +105,5 @@ export default {
   manager,
   poi,
   routeDraw,
+  interactivity,
 };
