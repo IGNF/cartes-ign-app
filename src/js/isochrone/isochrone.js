@@ -4,6 +4,7 @@ import Globals from "../globals";
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
 import Location from "../services/location";
+import Reverse from "../services/reverse";
 
 /**
  * Interface sur le contrôle isochrone
@@ -69,6 +70,9 @@ class Isochrone {
 
     // requête en cours d'execution ?
     this.loading = false;
+
+    // bind
+    this.onAddWayPoint = this.onAddWayPoint.bind(this);
 
     return this;
   }
@@ -264,6 +268,47 @@ class Isochrone {
     if (this.map.getSource(this.configuration.source)) {
       this.map.removeSource(this.configuration.source);
     }
+  }
+
+  /**
+   * activation du mode interaction
+   * @param {*} status
+   * @public
+   */
+  interactive(status) {
+    if (status) {
+      this.map.on("click", this.onAddWayPoint);
+    } else {
+      this.map.off("click", this.onAddWayPoint);
+    }
+  }
+
+  /**
+   * listener sur la carte pour recuperer les coordonnées du point
+   * @param {*} e 
+   */
+  onAddWayPoint(e) {
+    console.debug(e);
+    var coordinates = e.lngLat;
+    Reverse.compute({
+      lon : coordinates.lng,
+      lat : coordinates.lat
+    })
+    .then(() => {
+      var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
+      var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
+      var strAddress = address;
+      if (typeof address !== "string") {
+        strAddress = "";
+        strAddress += (address.number !== "") ? address.number + " " : "";
+        strAddress += (address.street !== "") ? address.street + ", " : "";
+        strAddress += address.city + ", " + address.postcode;
+      }
+      this.dom.location.dataset.coordinates = "[" + coords.lon + "," + coords.lat + "]";
+      this.dom.location.value = strAddress;
+    })
+    .catch(() => {})
+    .finally(() => {});
   }
 
   /**
