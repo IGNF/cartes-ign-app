@@ -17,7 +17,7 @@ import PoiConfig from './data-layer/poi-osm-layer-config.json';
 class POI {
     /**
      * constructeur
-     * @param {*} map 
+     * @param {*} map
      * @param {*} options
      * @returns
      */
@@ -60,7 +60,7 @@ class POI {
         .then((data) => {
           // INFO
           // on ajoute les sources !
-          // les sources des couches tuiles vectorielles ne sont pas pré chargées 
+          // les sources des couches tuiles vectorielles ne sont pas pré chargées
           // car on les connait que maintenant en lisant le fichier de style.
           // l'id des source est different du nom de la couche pour le vecteur !
           for (const key in data.sources) {
@@ -95,7 +95,7 @@ class POI {
 
     /**
      * creation des filtres de sélections dans les styles
-     * @param {*} layers 
+     * @param {*} layers
      * @returns
      */
     #createFilters(layers) {
@@ -108,8 +108,8 @@ class POI {
                 var layer = Object.assign({}, l); // clone
                 layer.id = poi.id + " - " + layer.id;
                 layer.filter = [
-                    "in", 
-                    poi.filters[0].field, 
+                    "in",
+                    poi.filters[0].field,
                     poi.filters[0].attributs
                 ].flat();
                 layer.layout.visibility = (poi.visible) ? "visible" : "none";
@@ -117,7 +117,7 @@ class POI {
                     thematic: poi.id
                 };
                 layersSelection.push(layer);
-            }   
+            }
         }
         return layersSelection;
     }
@@ -140,10 +140,10 @@ class POI {
             return `
             <label class="lblPOIFilterItem chkContainer" /* for="${values.id}-POIFilterItem" */ title="${values.name}">
                 ${values.name}
-                <input /* id="${values.id}-POIFilterItem" */ 
-                    class="inputPOIFilterItem checkbox" 
-                    type="checkbox" 
-                    name="${values.id}" 
+                <input /* id="${values.id}-POIFilterItem" */
+                    class="inputPOIFilterItem checkbox"
+                    type="checkbox"
+                    name="${values.id}"
                     value="${values.id}"
                     ${checked}
                     >
@@ -172,11 +172,9 @@ class POI {
                     <span class="toggleSlider"></span>
                   </label>
                 </div>
-                <hr/>
                 <div class="divPOIFilterItems">
                     ${strPOIThematics}
                 </div>
-                <hr/>
                 <div class="divPOIDisplayGoBackTime">
                   <span>POI remonter le temps</span>
                   <label class="toggleSwitch">

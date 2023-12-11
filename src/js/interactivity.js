@@ -1,6 +1,8 @@
 import Globals from './globals';
 import DOM from './dom';
 
+import MapLibreGL from "maplibre-gl";
+
 /**
  * Indicateur d'activité du Plan IGN interactif et des couches thématiques sur la carte
  */
@@ -24,6 +26,8 @@ class Interactivity {
       this.pii = false; // couche PII chargée ?
       this.thematic = false; // couche thematic chargée ?
       this.position = false; // couche en position max ?
+
+      this.popup = null;
 
       return this;
     }
@@ -91,6 +95,62 @@ class Interactivity {
         this.actived = false;
         DOM.$interactivityBtn.style.display = "none";
     }
+
+    /**
+     * affiche la popup explicative
+     * @public
+     */
+    showPopup() {
+      // on supprime la popup
+      if (this.popup) {
+          this.popup.remove();
+          this.popup = null;
+      }
+
+      // template litteral
+      const popupContent = `
+      <div id="interactivityPopup">
+          <div class="divPositionTitle">La carte est interactive</div>
+          <div class="divPopupClose" onclick="onCloseinteractivityPopup(event)"></div>
+          <div class="divPopupContent">
+              La carte est actuellement interactive<br/>
+              • Le clic sur le Plan IGN fournit des informations sur la légende et les propriétés des objets.<br/>
+              • Le clic sur une donnée thématique fournit des informations sur la légende.
+          </div>
+      </div>
+      `;
+      var self = this;
+      window.onCloseinteractivityPopup = (e) => {
+          self.popup.remove();
+      }
+
+      // centre de la carte
+      var center = this.map.getCenter();
+      // position de la popup
+      let markerHeight = 0, markerRadius = 10, linearOffset = 25;
+      var popupOffsets = {
+          'top': [0, 0],
+          'top-left': [0, 0],
+          'top-right': [0, 0],
+          'bottom': [0, -markerHeight],
+          'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+          'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+          'left': [markerRadius, (markerHeight - markerRadius) * -1],
+          'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+      };
+      // ouverture d'une popup
+      this.popup = new MapLibreGL.Popup({
+          offset: popupOffsets,
+          className: "interactivityPopup",
+          closeOnClick: true,
+          closeOnMove: true,
+          closeButton: false
+      })
+      .setLngLat(center)
+      .setHTML(popupContent)
+      .setMaxWidth("300px")
+      .addTo(this.map);
+  }
 
 }
 

@@ -84,7 +84,7 @@
   right: 0;
   width: 20px;
   height: 45px;
-  background: linear-gradient(90deg,#f4f6f8,#fff);
+  background: linear-gradient(90deg,#fff0,#f4f6f8);
   opacity: 1;
   visibility: visible;
   flex-shrink: 0;
@@ -153,10 +153,10 @@
  * popup
  */
 
-#positionPopup {
+#interactivityPopup, #positionPopup, #routeDrawHelpPopup {
     position: relative;
 }
-.divPositionPopupClose {
+.divPopupClose {
     width: 25px;
     height: 25px;
     background-image: url("assets/directions/location-step-remove.svg");
@@ -165,10 +165,15 @@
     right: 0;
     top: -15px;
 }
+
+.routeDrawHelpPopup > .maplibregl-popup-content,
+.interactivityPopup > .maplibregl-popup-content,
 .positionPopup > .maplibregl-popup-content {
     color: #4b4b4b;
     border-radius: 15px;
 }
+.routeDrawHelpPopup > .maplibregl-popup-tip,
+.interactivityPopup > .maplibregl-popup-tip,
 .positionPopup > .maplibregl-popup-tip {
     display: none;
 }

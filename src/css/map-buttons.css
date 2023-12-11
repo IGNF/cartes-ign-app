@@ -88,8 +88,8 @@
 
 #routeDrawMode {
   width: 135px;
-  background-image: url("assets/chevron_right.svg");
-  background-position: 105px center;
+  justify-content: space-between;
+  font-size: 11px;
 }
 
 #routeDrawModeTransport {
@@ -99,7 +99,19 @@
   background-position: center;
   background-repeat: no-repeat;
   background-image: url("assets/pieton-green.svg");
-  margin-left: -15px;
+  padding-left: 8px;
+}
+
+#routeDrawModeText {
+  white-space: nowrap;
+}
+
+#routeDrawModeArrow {
+  width: 30px;
+  height: 100%;
+  background-image: url("assets/chevron_right.svg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #routeDrawHelp {
@@ -108,12 +120,12 @@
   height: 34px;
   color: white;
   border: unset;
+  justify-content: center;
 }
 
 #routeDrawBtns > div {
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
   font-family: "Open Sans";
   font-weight: 600;
