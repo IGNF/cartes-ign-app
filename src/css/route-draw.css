@@ -18,7 +18,7 @@
 }
 
 #routeDrawSummaryTransportpedestrian {
-  background-image: url("assets/pieton-darkgrey.svg");
+  background-image: url("assets/route-draw/pieton-darkgrey.svg");
 }
 
 #routeDrawSummaryDuration,
@@ -31,23 +31,99 @@
 }
 
 #routeDrawSummaryDuration {
-  background-image: url("assets/clock.svg");
+  background-image: url("assets/route-draw/clock.svg");
   color: #26A581;
 }
 
 #routeDrawSummaryDistance {
   background-position: 6px center;
-  background-image: url("assets/arrow-leftright.svg");
+  background-image: url("assets/route-draw/arrow-leftright.svg");
 }
 
 #routeDrawSummaryDPlus {
-  background-image: url("assets/arrow-topright.svg");
+  background-image: url("assets/route-draw/arrow-topright.svg");
 }
 
 #routeDrawSummaryDMinus {
-  background-image: url("assets/arrow-bottomright.svg");
+  background-image: url("assets/route-draw/arrow-bottomright.svg");
 }
 
 #routeDrawSummaryDPlus, #routeDrawSummaryDMinus {
   font-family: "Open Sans";
+}
+
+.detailsHeader {
+  font-size: 15px;
+  font-family: "Open Sans Bold";
+}
+
+.routedrawDetails {
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+}
+
+.routeDrawWaypointDiv {
+  color: white;
+  background-color: #26a581;
+  border-radius: 8px;
+  padding: 14px 18px;
+  height: 36px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.routeDrawWaypointTextDiv {
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans";
+  flex-grow: 1;
+  margin-left: 12px;
+}
+
+.routeDrawWaypointLabel {
+  font-weight: 600;
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.routeDrawWaypointImg {
+  width: 30px;
+  height: 100%;
+  background-image: url("assets/route-draw/details-step.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px;
+}
+
+.routeDrawFirstWaypointImg {
+  background-image: url("assets/route-draw/details-departure.svg");
+}
+
+.routeDrawLastWaypointImg {
+  background-image: url("assets/route-draw/details-arrival.svg");
+}
+
+.routeDrawStepDiv {
+  color: #3F4A55;
+  height: 32px;
+  font-family: "Open Sans";
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+}
+
+.routeDrawStepDiv::before {
+  content: "";
+  display: inline-block;
+  background-image: url("assets/directions/location-between.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
 }
