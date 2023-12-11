@@ -53,8 +53,14 @@ const addListeners = () => {
   // Bouton de changement de mode du tracé d'itinéraire
   DOM.$routeDrawMode.addEventListener("click", () => { Globals.routeDraw.toggleMode(); });
 
-  // Bouton de changement de mode du tracé d'itinéraire
+  // Bouton d'aide'du tracé d'itinéraire
+  DOM.$routeDrawHelp.addEventListener("click", () => { Globals.routeDraw.showHelpPopup(); });
+
+  // Bouton de suppression de point du tracé d'itinéraire
   DOM.$routeDrawDelete.addEventListener("click", () => { Globals.routeDraw.toggleDelete(); });
+
+  // Indicateur d'interactivité
+  DOM.$interactivityBtn.addEventListener("click", () => { Globals.interactivity.showPopup(); });
 
   // Bouton Retour
   DOM.$backTopLeftBtn.addEventListener("click", () => { State.onBackKeyDown(); });

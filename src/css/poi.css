@@ -18,6 +18,11 @@
     align-items: center;
 }
 
+.divPOIDisplay {
+    padding-bottom: 15px;
+}
+
+
 .divPOIDisplay > span,
 .divPOIDisplayGoBackTime > span {
     max-width: 50%;
@@ -29,9 +34,13 @@
 .divPOIFilterItems {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: calc(100% - 30px);
     font-family: "Open Sans";
+    border-bottom: 1px solid #DDE1E6;
+    border-top: 1px solid #DDE1E6;
+    padding: 15px;
 }
+
 .lblPOIFilterItem {
     margin-bottom: 8px;
     width: fit-content;

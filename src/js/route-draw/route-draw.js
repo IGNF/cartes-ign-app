@@ -95,6 +95,9 @@ class RouteDraw {
         // mode suppression de points
         this.delete = false;
 
+        // popup d'aide
+        this.popup = null;
+
         // annulation de la reqête fetch
         this.controller = new AbortController();
 
@@ -655,6 +658,64 @@ class RouteDraw {
      */
     hide () {
         Globals.menu.close("routeDraw");
+    }
+
+    /**
+     * affiche la popup d'aide
+     * @public
+     */
+    showHelpPopup() {
+        // on supprime la popup
+        if (this.popup) {
+            this.popup.remove();
+            this.popup = null;
+        }
+
+        // template litteral
+        const popupContent = `
+        <div id="routeDrawHelpPopup">
+            <div class="divPositionTitle">Mode de saisie</div>
+            <div class="divPopupClose" onclick="onCloseRouteDrawHelpPopup(event)"></div>
+            <div class="divPopupContent">
+                La saisie d'itinéraire peut se faire selon deux modes pour les itinéraires pédestres :<br/>
+                • Saisie guidée : Le chemin entre deux points saisis suivra le réseau des routes et chemins.<br/>
+                • Saisie libre : Le chemin sera constitué de lignes droites entre les points saisis.<br/>
+                Il est possible de faire un itinéraire pédestre combinant les deux modes de saisie. <br/><br/>
+                Pour les itinéraires en véhicule, seule la saisie guidée est disponible.
+            </div>
+        </div>
+        `;
+        var self = this;
+        window.onCloseRouteDrawHelpPopup = (e) => {
+            self.popup.remove();
+        }
+
+        // centre de la carte
+        var center = this.map.getCenter();
+        // position de la popup
+        let markerHeight = 0, markerRadius = 10, linearOffset = 25;
+        var popupOffsets = {
+            'top': [0, 0],
+            'top-left': [0, 0],
+            'top-right': [0, 0],
+            'bottom': [0, -markerHeight],
+            'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+            'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+            'left': [markerRadius, (markerHeight - markerRadius) * -1],
+            'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+        };
+        // ouverture d'une popup
+        this.popup = new MapLibreGL.Popup({
+            offset: popupOffsets,
+            className: "routeDrawHelpPopup",
+            closeOnClick: true,
+            closeOnMove: true,
+            closeButton: false
+        })
+        .setLngLat(center)
+        .setHTML(popupContent)
+        .setMaxWidth("300px")
+        .addTo(this.map);
     }
 
 }

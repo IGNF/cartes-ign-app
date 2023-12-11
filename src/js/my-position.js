@@ -103,7 +103,7 @@ class Position {
     this.contentPopup = `
         <div id="${id.popup}">
             <div class="divPositionTitle">Partager ma position</div>
-            <div class="divPositionPopupClose" onclick="onCloseSharePopup(event)"></div>
+            <div class="divPopupClose" onclick="onCloseSharePopup(event)"></div>
             <div class="divPositionAddress">
                 <label class="lblPositionImgAddress"></label>
                 <div class="divPositionSectionAddress fontLight">
@@ -224,8 +224,6 @@ class Position {
       }
       // centre de la carte
       var center = this.map.getCenter();
-      // content
-      var content = "Hello world !";
       // position de la popup
       let markerHeight = 50, markerRadius = 10, linearOffset = 25;
       var popupOffsets = {
