@@ -80,6 +80,13 @@ const getLayerProps = (id) => {
   if (!format) {
     format = props.formats[0];
   }
+  var minNativeZoom = getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 0;
+  var maxNativeZoom = getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 21;
+  if (props.wmtsOptions) {
+    var zoomLevels = Object.keys(props.wmtsOptions.tileMatrixSetLimits);
+    minNativeZoom = Math.min(...zoomLevels);
+    maxNativeZoom = Math.max(...zoomLevels);
+  }
   return {
     layer: props.name,
     base: getBaseLayers().includes(id), // couche de fonds ou autre
@@ -89,8 +96,8 @@ const getLayerProps = (id) => {
     style: (isVector) ? style.url : style.name || "normal",
     format: format.name || "",
     url: props.serviceParams.serverUrl[key],
-    minNativeZoom: getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 0,
-    maxNativeZoom: getZoomLevelFromScaleDenominator(props.globalConstraint.minScaleDenominator) || 21,
+    minNativeZoom: minNativeZoom,
+    maxNativeZoom: maxNativeZoom,
   }
 };
 
@@ -180,8 +187,8 @@ const createSource = (id) => {
       break;
     case "TMS":
       // INFO
-      // les couches tuiles vectorielles ne devrait pas être pré chargées car 
-      // on ne connait pas encore la liste exhaustive des sources contenues 
+      // les couches tuiles vectorielles ne devrait pas être pré chargées car
+      // on ne connait pas encore la liste exhaustive des sources contenues
       // dans le fichier de style.
       fxt = createVectorSource;
       break;

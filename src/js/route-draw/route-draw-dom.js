@@ -64,9 +64,10 @@ let utils = {
 let RouteDrawDOM = {
 
     dom : {
-        container : null,
-        btnReturnBack : null,
-        btnShowDetails : null
+        container: null,
+        summary: null,
+        details: null,
+        detailsList: null,
     },
 
     /**
@@ -83,11 +84,11 @@ let RouteDrawDOM = {
         // ajout du container principal
         var container = this.__addResultsContainerDOMElement();
         // ajout du résumé
-        this.summary = this.__addResultsSummaryContainerDOMElement(transport);
-        container.appendChild(this.summary);
+        this.dom.summary = this.__addResultsSummaryContainerDOMElement(transport);
+        container.appendChild(this.dom.summary);
         // ajout des détails (profil alti et détails du parcours)
-        this.details = this.__addResultsListDetailsContainerDOMElement();
-        container.appendChild(this.details);
+        this.dom.details = this.__addResultsListDetailsContainerDOMElement();
+        container.appendChild(this.dom.details);
 
         return container;
     },
@@ -177,6 +178,16 @@ let RouteDrawDOM = {
         canvasProfile.className = "elevationLineCanvas";
         div.appendChild(canvasProfile);
 
+        var detailsHeader = document.createElement("p");
+        detailsHeader.className = "detailsHeader";
+        detailsHeader.textContent = "Détails du parcours";
+        div.appendChild(detailsHeader);
+
+        this.dom.detailsList = document.createElement("div");
+        this.dom.detailsList.id = "routedraw-details";
+        this.dom.detailsList.className = "routedrawDetails";
+        div.appendChild(this.dom.detailsList);
+
         div.style.display = "none";
 
         return div;
@@ -199,22 +210,77 @@ let RouteDrawDOM = {
      * @private
      */
     __updateRouteInfo (data) {
-        var labelDuration = this.summary.querySelector("#routeDrawSummaryDuration");
+        var labelDuration = this.dom.summary.querySelector("#routeDrawSummaryDuration");
         labelDuration.textContent = utils.convertSecondsToTime(data.duration);
 
-        var labelDistance = this.summary.querySelector("#routeDrawSummaryDistance");
+        var labelDistance = this.dom.summary.querySelector("#routeDrawSummaryDistance");
         labelDistance.textContent = utils.convertDistance(data.distance);
 
-        var labelDPlus = this.summary.querySelector("#routeDrawSummaryDPlus");
+        var labelDPlus = this.dom.summary.querySelector("#routeDrawSummaryDPlus");
         labelDPlus.textContent = `${data.dplus} m`;
 
-        var labelDMinus = this.summary.querySelector("#routeDrawSummaryDMinus");
+        var labelDMinus = this.dom.summary.querySelector("#routeDrawSummaryDMinus");
         labelDMinus.textContent = `- ${data.dminus} m`;
 
+        // Ajout du détail du parcours
+        let totalSeconds = 0;
+        this.dom.detailsList.innerHTML = "";
         if (data.steps.length > 0) {
-            this.details.style.removeProperty("display");
+            for (let i = 0; i < data.points.length; i++) {
+                const waypoint = data.points[i];
+                var waypointDiv = document.createElement("div");
+                waypointDiv.classList.add("routeDrawWaypointDiv");
+                var waypointImage = document.createElement("span");
+                var waypointLabelText = "Étape";
+                var waypointLabelDurationText = "";
+                waypointImage.classList.add("routeDrawWaypointImg");
+                if (i == 0) {
+                    waypointImage.classList.add("routeDrawFirstWaypointImg");
+                    waypointLabelText = "Point de départ";
+                    waypointLabelDurationText = utils.convertSecondsToTime(totalSeconds);
+                } else if (i == data.points.length - 1) {
+                    waypointLabelText = "Point d'arrivée";
+                    waypointImage.classList.add("routeDrawLastWaypointImg");
+                }
+                waypointDiv.appendChild(waypointImage);
+                var waypointTextDiv = document.createElement("div");
+                waypointTextDiv.classList.add("routeDrawWaypointTextDiv");
+                var waypointLabel = document.createElement("div");
+                waypointLabel.classList.add("routeDrawWaypointLabel");
+                var waypointLabelTextSpan = document.createElement("span");
+                waypointLabelTextSpan.innerText = waypointLabelText;
+                waypointLabel.appendChild(waypointLabelTextSpan);
+                var waypointLabelDurationTextSpan = document.createElement("span");
+                waypointLabelDurationTextSpan.innerText = waypointLabelDurationText;
+
+                if (i > 0) {
+                    const step = data.steps[i - 1];
+
+                    // Ajout de la div du step
+                    var stepDiv = document.createElement("div");
+                    stepDiv.classList.add("routeDrawStepDiv");
+                    stepDiv.innerText = utils.convertDistance(step.properties.distance) +
+                        " / " +
+                        utils.convertSecondsToTime(step.properties.duration);
+                    this.dom.detailsList.appendChild(stepDiv);
+
+                    totalSeconds += step.properties.duration;
+
+                    waypointLabelDurationTextSpan.innerText = utils.convertSecondsToTime(totalSeconds);
+                }
+                waypointLabel.appendChild(waypointLabelDurationTextSpan);
+                waypointTextDiv.appendChild(waypointLabel);
+                var waypointName = document.createElement("span");
+                waypointName.classList.add("routeDrawWaypointName");
+                waypointName.innerText = waypoint.properties.name;
+                waypointTextDiv.appendChild(waypointName);
+
+                waypointDiv.appendChild(waypointTextDiv);
+                this.dom.detailsList.appendChild(waypointDiv);
+            }
+            this.dom.details.style.removeProperty("display");
         } else {
-            this.details.style.display = "none";
+            this.dom.details.style.display = "none";
         }
     },
 

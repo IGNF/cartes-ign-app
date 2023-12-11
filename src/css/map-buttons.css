@@ -98,7 +98,7 @@
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("assets/pieton-green.svg");
+  background-image: url("assets/route-draw/pieton-green.svg");
   padding-left: 8px;
 }
 
@@ -109,7 +109,7 @@
 #routeDrawModeArrow {
   width: 30px;
   height: 100%;
-  background-image: url("assets/chevron_right.svg");
+  background-image: url("assets/route-draw/chevron_right.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -164,23 +164,23 @@
 }
 
 #routeDrawCancel {
-  background-image: url("assets/arrow-left-darkgrey.svg");
+  background-image: url("assets/route-draw/arrow-left-darkgrey.svg");
 }
 
 #routeDrawRestore {
-  background-image: url("assets/arrow-right-darkgrey.svg");
+  background-image: url("assets/route-draw/arrow-right-darkgrey.svg");
 }
 
 #routeDrawCancel.inactive {
-  background-image: url("assets/arrow-left-grey.svg");
+  background-image: url("assets/route-draw/arrow-left-grey.svg");
 }
 
 #routeDrawRestore.inactive {
-  background-image: url("assets/arrow-right-grey.svg");
+  background-image: url("assets/route-draw/arrow-right-grey.svg");
 }
 
 #routeDrawEdit > #routeDrawDelete {
-  background-image: url("assets/delete.svg");
+  background-image: url("assets/route-draw/delete.svg");
   background-color: #F18345;
 }
 
@@ -191,7 +191,7 @@
 #routeDrawEdit > .button#routeDrawSave {
   background-color: #26A581;
   border: 1px solid #26A581;
-  background-image: url("assets/save.svg");
+  background-image: url("assets/route-draw/save.svg");
 }
 
 #routeDrawEdit > .button > span {
