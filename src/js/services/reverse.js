@@ -69,7 +69,7 @@ const compute = async (coordinates) => {
         number : number,
         street : street,
         postcode : postcode,
-        city : city,
+        city : city
     };
 
     results = {
@@ -96,15 +96,28 @@ const compute = async (coordinates) => {
  * { lon lat }
  */
 const getCoordinates = () => {
+    if (!results) {
+        return null;
+    }
     return results.coordinates;
 };
 
 /**
  * obtenir l'adresse
  * @example
- * { number  street  citycode  city }
+ * { number  street  postcode  city }
  */
 const getAddress = () => {
+    if (!results) {
+        return null;
+    }
+    if (results &&
+        results.address.number === "" &&
+        results.address.street === "" &&
+        results.address.postcode === "" &&
+        results.address.city === "") {
+        return null;
+    }
     return results.address;
 };
 

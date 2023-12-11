@@ -305,11 +305,14 @@ class Directions {
             bResponse = false;
         }).finally(() => {
             var target = null;
-            var c = (bResponse) ? Reverse.getCoordinates() : {lon : coordinates.lng, lat : coordinates.lat};
-            var a = (bResponse) ? Reverse.getAddress() : c.lon.toFixed(6) + ", " + c.lat.toFixed(6);
-            var address = a;
-            if (bResponse) {
-                address = a.street + ", " + a.city + ", " + a.citycode;
+            var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
+            var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
+            var strAddress = address;
+            if (typeof address !== "string") {
+                strAddress = "";
+                strAddress += (address.number !== "") ? address.number + " " : "";
+                strAddress += (address.street !== "") ? address.street + ", " : "";
+                strAddress += address.city + ", " + address.postcode;
             }
             // start
             if (index === 0) {
@@ -326,8 +329,8 @@ class Directions {
             }
             // on ajoute les resultats dans le contrôle
             if (target) {
-                target.dataset.coordinates = "[" + c.lon + "," + c.lat + "]";
-                target.value = address;
+                target.dataset.coordinates = "[" + coords.lon + "," + coords.lat + "]";
+                target.value = strAddress;
             }
         });
     }
