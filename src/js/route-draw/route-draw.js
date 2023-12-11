@@ -322,10 +322,16 @@ class RouteDraw {
         if (deleteIndex == 0 || this.data.steps.length == 1) {
             this.data.steps.splice(0, 1);
             await this.#updateElevation();
+            if (Globals.backButtonState === "routeDraw") {
+                this.__updateRouteInfo(this.data);
+            }
             this.#updateSources()
         } else if (deleteIndex == this.data.points.length) {
             this.data.steps.splice(deleteIndex - 1, 1);
             await this.#updateElevation();
+            if (Globals.backButtonState === "routeDraw") {
+                this.__updateRouteInfo(this.data);
+            }
             this.#updateSources()
         } else {
             this.data.steps.splice(deleteIndex - 1, 1);
@@ -353,19 +359,17 @@ class RouteDraw {
         } catch(err) {
             bResponse = false;
         } finally {
-            const a = (bResponse) ? Reverse.getAddress() : coordinates.lng.toFixed(6) + ", " + coordinates.lat.toFixed(6);
-            let address = a;
-            if (bResponse) {
-                address = "";
-                if (a.street) {
-                    address = a.street + ", "
-                }
-                address += a.city;
-                if (a.postcode) {
-                    address += ", " + a.postcode;
-                }
+            var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
+            var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
+            var strAddress = address;
+            if (typeof address !== "string") {
+                strAddress = "";
+                strAddress += (address.number !== "") ? address.number + " " : "";
+                strAddress += (address.street !== "") ? address.street + ", " : "";
+                strAddress += address.city + ", " + address.postcode;
             }
-            return address;
+            }
+            return strAddress;
         }
     }
 
