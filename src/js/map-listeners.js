@@ -11,6 +11,19 @@ import Layers from './layer-config';
 const addListeners = () => {
   const map = Globals.map;
 
+  // TODO pour des zooms à niveaux entiers uniquement (utilie si POI toujouts limités à zoom 16)
+  // map.on('zoom', function() {
+  //   var currentZoom = map.getZoom();
+  //   var roundedZoom = Math.round(currentZoom); // Round the zoom level to the nearest whole number
+
+  //   if (currentZoom !== roundedZoom) {
+  //       // Set the map's zoom level to the rounded value
+  //       map.once('moveend', function() {
+  //           map.setZoom(roundedZoom);
+  //       });
+  //   }
+  // });
+
   // Rotation de la carte avec le mutlitouch
   map.on('rotate', () => {
     console.log(map.getBearing());

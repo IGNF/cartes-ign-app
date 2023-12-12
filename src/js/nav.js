@@ -110,7 +110,6 @@ class MenuNavigation {
 
         // y'a t il des particularités sur l'ouverture du panneau demandé ?
         var isSpecific = false;
-        var isSpecificSize = false;
         switch (id) {
             case "routeDraw":
                 DOM.$search.style.display = "none";
@@ -118,9 +117,16 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$routeDrawBtns.classList.remove('d-none');
                 DOM.$routeDrawEdit.classList.remove('d-none');
-                DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+                if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                    DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+                } else {
+                    DOM.$bottomButtons.style.left = "calc(100vh + env(safe-area-inset-left) + 42px)";
+                    DOM.$bottomButtons.style.width = "auto";
+                }
+
                 DOM.$tabContainer.style.backgroundColor = "white";
                 DOM.$sideBySideBtn.classList.add('d-none');
+                Globals.interactivity.disable();
                 Globals.routeDraw.activate();
                 Globals.currentScrollIndex = 1;
                 break;
@@ -152,6 +158,7 @@ class MenuNavigation {
                 DOM.$search.style.display = "none";
                 DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
+                Globals.currentScrollIndex = 1;
                 break;
             case "isochrone":
                 // FIXME mettre en place une méthode sur la classe Search
@@ -161,6 +168,7 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 Globals.isochrone.interactive(true);
+                Globals.interactivity.disable();
                 Globals.currentScrollIndex = 1;
                 break;
             case "parameterScreen":
@@ -171,23 +179,11 @@ class MenuNavigation {
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$altMenuContainer.classList.remove('d-none');
-                Globals.ignoreNextScrollEvent = true;
-                window.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: 'auto'
-                });
                 Globals.currentScrollIndex = 0;
                 break;
             case "directionsResults":
                 DOM.$tabContainer.style.backgroundColor = "white";
                 DOM.$tabContainer.style.removeProperty("height");
-                Globals.ignoreNextScrollEvent = true;
-                window.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: 'auto'
-                });
                 Globals.currentScrollIndex = 2;
                 break;
             case "searchDirections":
@@ -200,18 +196,14 @@ class MenuNavigation {
                 DOM.$closeSearch.classList.remove('d-none');
                 document.body.style.overflowY = "scroll";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
-                DOM.$backTopLeftBtn.style.boxShadow = "unset";
-                DOM.$backTopLeftBtn.style.height = "44px";
-                DOM.$backTopLeftBtn.style.width = "24px";
-                DOM.$backTopLeftBtn.style.top = "12px";
-                DOM.$backTopLeftBtn.style.left = "15px";
+                if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                    DOM.$backTopLeftBtn.style.boxShadow = "unset";
+                    DOM.$backTopLeftBtn.style.height = "44px";
+                    DOM.$backTopLeftBtn.style.width = "24px";
+                    DOM.$backTopLeftBtn.style.top = "12px";
+                    DOM.$backTopLeftBtn.style.left = "15px";
+                }
                 DOM.$altMenuContainer.classList.remove('d-none');
-                Globals.ignoreNextScrollEvent = true;
-                window.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: 'auto'
-                });
                 Globals.currentScrollIndex = 0;
                 break;
             case "directions":
@@ -220,6 +212,7 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$sideBySideBtn.classList.add('d-none');
                 Globals.directions.interactive(true);
+                Globals.interactivity.disable();
                 Globals.currentScrollIndex = 2;
                 break;
             default:
@@ -267,9 +260,12 @@ class MenuNavigation {
                 DOM.$routeDrawBtns.classList.add('d-none');
                 DOM.$routeDrawEdit.classList.add('d-none');
                 DOM.$bottomButtons.style.removeProperty('bottom');
+                DOM.$bottomButtons.style.removeProperty('left');
+                DOM.$bottomButtons.style.removeProperty('width');
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 DOM.$tabContainer.style.removeProperty("background-color");
                 Globals.routeDraw.clear();
+                Globals.interactivity.active();
                 break;
             case "poi":
                 DOM.$search.style.display = "flex";
@@ -306,13 +302,14 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.isochrone.clear();
                 Globals.isochrone.interactive(false);
+                Globals.interactivity.active();
                 break;
             case "search":
                 DOM.$rech.blur();
                 if (document.querySelector(".autocompresultselected")) {
                     document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
                 }
-                document.body.style.overflowY = "auto";
+                document.body.style.removeProperty("overflow-y");
                 DOM.$whiteScreen.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
@@ -321,13 +318,6 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.style.removeProperty("left");
                 DOM.$altMenuContainer.classList.add('d-none');
-                Globals.ignoreNextScrollEvent = true;
-                window.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: 'auto'
-                });
-                Globals.currentScrollIndex = 0;
                 isSpecific = true;
                 isFinished = false;
                 break;
@@ -337,7 +327,7 @@ class MenuNavigation {
                 if (document.querySelector(".autocompresultselected")) {
                     document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
                 }
-                document.body.style.overflowY = "auto";
+                document.body.style.removeProperty("overflow-y");
                 DOM.$whiteScreen.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
@@ -346,12 +336,7 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.style.removeProperty("left");
                 DOM.$altMenuContainer.classList.add('d-none');
-                Globals.ignoreNextScrollEvent = true;
-                window.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: 'auto'
-                });
+                Globals.currentScrollIndex = 1;
             case "directionsResults":
                 DOM.$tabContainer.style.removeProperty("background-color");
                 isSpecific = true;
@@ -360,19 +345,12 @@ class MenuNavigation {
             case "parameterScreen":
             case "legalScreen":
             case "privacyScreen":
-                document.body.style.overflowY = "auto";
+                document.body.style.removeProperty("overflow-y");
                 DOM.$whiteScreen.classList.add('d-none');
                 DOM.$search.style.display = "flex";
                 DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$altMenuContainer.classList.add('d-none');
-                Globals.ignoreNextScrollEvent = true;
-                window.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: 'auto'
-                });
-                Globals.currentScrollIndex = 0;
                 break;
             case "directions":
                 DOM.$search.style.display = "flex";
@@ -381,6 +359,7 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.directions.clear();
                 Globals.directions.interactive(false);
+                Globals.interactivity.active();
                 break;
             default:
                 break;
@@ -391,18 +370,19 @@ class MenuNavigation {
         if (isSpecific) {
             this.#close(id);
             if (isFinished) {
+                this.updateScrollAnchors();
                 return;
             }
         }
+
+        Globals.currentScrollIndex = 0;
+        this.updateScrollAnchors();
 
         // on affiche le menu de navigation
         this.show();
 
         // on met à jour l'état du panneau : vers le menu de navigation
-        Globals.backButtonState = 'mainMenu';
-
-        // on retire le panneau
-        this.#midScroll();
+        Globals.backButtonState = 'default';
         DOM.$tabContainer.style.removeProperty("height");
     }
 
@@ -482,7 +462,14 @@ class MenuNavigation {
 
     /** ... */
     #scrollTo(value) {
-        Globals.ignoreNextScrollEvent = true;
+        DOM.$tabContainer.style.removeProperty("top");
+        if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+          if (Globals.currentScrollIndex == 0) {
+            return
+          }
+          DOM.$tabContainer.style.top = 0;
+          return
+        }
         window.scroll({
           top: value,
           left: 0,

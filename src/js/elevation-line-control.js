@@ -120,8 +120,12 @@ class ElevationLineControl {
     this.elevationData = [];
     this.dplus = 0;
     this.dminus = 0;
-
-    const responseElevation = await ElevationLine.compute(this.coordinates);
+    let responseElevation;
+    try {
+      responseElevation = await ElevationLine.compute(this.coordinates);
+    } catch(err) {
+      responseElevation = {elevations: []}
+    }
     let lastLngLat = null;
     let lastZ = null;
     let currentDistance = 0;

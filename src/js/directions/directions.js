@@ -185,21 +185,26 @@ class Directions {
         if (settings.locations && settings.locations.length) {
             try {
                 // les coordonnées sont en lon / lat en WGS84G
-                var start = null;
-                var end = null;
+                var points = []
                 var point = null;
                 for (let index = 0; index < settings.locations.length; index++) {
                     if (settings.locations[index]) {
-                        point = (point === null) ?
-                            start = JSON.parse(settings.locations[index]) : JSON.parse(settings.locations[index]);
+                        point = JSON.parse(settings.locations[index]);
+                        points.push(point);
                         this.obj.addWaypoint(point);
                     }
                 }
 
-                var end = point;
-                if (start && end) {
-                    this.map.fitBounds([start, end], {
-                        padding : 20
+                var padding = 20;
+                // gestion du mode paysage / écran large
+                if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                    var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sal").slice(0, -2)) +
+                      window.innerHeight + 42;
+                    padding = {top: 20, right: 20, bottom: 20, left: paddingLeft}
+                }
+                if (points.length > 1) {
+                    this.map.fitBounds(points, {
+                        padding: padding,
                     });
                 }
             } catch (e) {
