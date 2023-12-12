@@ -18,14 +18,14 @@
 }
 
 .subCatMenu .layer .layerImg img {
-  width: 75px;
-  height: 50px;
+  width: 100%;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
   border-radius: 2px;
 }
 
 .layerImg {
-  width: 75px;
+  width: 100%;
   position: relative;
   margin: auto;
 }

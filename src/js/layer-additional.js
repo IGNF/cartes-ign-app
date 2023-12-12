@@ -10,7 +10,7 @@
  * @returns
  */
 const getLegend = (name) => {
-    return `https://www.geoportail.gouv.fr/depot/layers/${name}/legendes/${name}-legend.png`;
+    return require(`../html/img/legends/${name}.png`);
 };
 
 /**
