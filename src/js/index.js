@@ -73,7 +73,6 @@ function app() {
   // DEBUG
   window.mapGlobal = map;
 
-  Globals.ignoreNextScrollEvent = true;
   window.scroll({
     top: 0,
     left: 0,

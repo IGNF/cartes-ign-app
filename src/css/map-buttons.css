@@ -226,4 +226,30 @@
     width: calc(100vw - 75px - env(safe-area-inset-left));
     right: 0;
   }
+
+  #interactivityBtn {
+    left: calc(90px + env(safe-area-inset-left));
+  }
+
+  #filterPoiBtn {
+    top: calc(10px + env(safe-area-inset-top));
+  }
+
+  #routeDrawEdit {
+    flex-direction: column;
+    bottom: calc(93px + env(safe-area-inset-bottom));
+    width: unset;
+    height: calc(100vh - 84px - 30px - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+    left: calc(100vh + env(safe-area-inset-left) + 57px);
+    transform: unset;
+  }
+
+  #routeDrawEdit > .button {
+    margin-bottom: 12px;
+  }
+
+  #routeDrawEdit > .button > span {
+    position: relative;
+    bottom: -40px;
+  }
 }

@@ -1,9 +1,7 @@
 import Globals from './globals';
 import DOM from './dom';
 import Location from './services/location';
-import Geocode from './services/geocode';
 import State from './state';
-import RecentSearch from "./search-recent";
 
 /**
  * Barre de recherche et géocodage
@@ -111,7 +109,7 @@ class Search {
     });
 
     document.getElementById(id.searchInput).addEventListener('focus', function () {
-      if (Globals.backButtonState === "default" || Globals.backButtonState === "mainMenu") {
+      if (Globals.backButtonState === "default") {
         Globals.search.show();
       }
     });

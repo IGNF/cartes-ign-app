@@ -11,7 +11,7 @@ let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
 
 /**
  * global: back button state
- * is one of: 'default' 'search' 'mainMenu' 'params' 'legal' 'privacy' 'infos' 'legend' 'layerManagerWindow' 'route' ...
+ * is one of: 'default' 'search' 'params' 'legal' 'privacy' 'infos' 'legend' 'layerManagerWindow' 'route' ...
  */
 let backButtonState = 'default';
 
@@ -26,9 +26,6 @@ let lastTextInSearch = '';
 
 /** global: flag to check if map move fired by code */
 let movedFromCode = false;
-
-/** global: flag to check if scoll fired by code */
-let ignoreNextScrollEvent = false;
 
 let myPositionMarker = null;
 let searchResultMarker;
@@ -91,7 +88,6 @@ export default {
   controller,
   signal,
   movedFromCode,
-  ignoreNextScrollEvent,
   currentScrollIndex,
   maxScroll,
   anchors,

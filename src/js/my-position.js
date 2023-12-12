@@ -79,25 +79,23 @@ class Position {
     var latitude = this.coordinates.lat;
     var longitude = this.coordinates.lon;
     var altitude = this.elevation;
+    var templateAddress;
 
     // adresse disponible
-    var templateAddress = `
-      <span class="lblPositionAddress">${address.number} ${address.street}</span><br />
-      <span class="lblPositionCity">${address.postcode} ${address.city}</span>
-      `
-    // pas d'adresse
-    if (!address.street) {
+    if (address.city && address.street) {
       templateAddress = `
-      <span class="lblPositionAddress">${address.city} ${address.postcode}</span>
-      `
-    }
-    // Ni adress ni poi
-    if (!address.city) {
+        <span class="lblPositionAddress">${address.number} ${address.street}</span><br />
+        <span class="lblPositionCity">${address.postcode} ${address.city}</span>
+        `
+    } else if (address.city && !address.street) {
       templateAddress = `
-      <span class="lblPositionAddress">${latitude}, ${longitude}</span>
-      `
+        <span class="lblPositionAddress">${address.city} ${address.postcode}</span>
+        `
+    } else {
+      templateAddress = `
+        <span class="lblPositionAddress">${latitude}, ${longitude}</span>
+        `
     }
-
 
     // template litteral
     this.contentPopup = `
@@ -311,14 +309,22 @@ class Position {
     this.coordinates = Reverse.getCoordinates();
     this.address = Reverse.getAddress();
 
-    const responseElevation = await Elevation.compute({
-      lat: position.coordinates.lat,
-      lon: position.coordinates.lon
-    });
+    if (!Reverse.getAddress()) {
+      this.address = {
+        number: "",
+        street: "",
+        postcode: "",
+        city: ""
+      };
+    }
 
-    // FIXME le service fournit il toujours une reponse ?
-    if (!responseElevation) {
-      throw new Error("Elevation response is empty !");
+    try {
+      await Elevation.compute({
+        lat: position.coordinates.lat,
+        lon: position.coordinates.lon
+      });
+    } catch(err) {
+      console.warn(`Error when fetching elevation: ${err}`);
     }
 
     this.elevation = Elevation.getElevation();

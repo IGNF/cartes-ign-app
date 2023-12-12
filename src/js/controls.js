@@ -82,15 +82,6 @@ const addControls = () => {
   });
 }
 
-/**
- * ???
- * @fixme ???
- */
-const startDrawRoute = () => {
-  Globals.mapState = "drawRoute";
-}
-
 export default {
   addControls,
-  startDrawRoute,
 }
