@@ -368,7 +368,6 @@ class RouteDraw {
                 strAddress += (address.street !== "") ? address.street + ", " : "";
                 strAddress += address.city + ", " + address.postcode;
             }
-            }
             return strAddress;
         }
     }
