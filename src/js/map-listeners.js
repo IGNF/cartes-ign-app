@@ -4,6 +4,8 @@ import DOM from './dom';
 import Globals from './globals';
 import Location from './services/location';
 import Layers from './layer-config';
+// import GFI from './gfi';
+import multipleGFI from './gfi';
 
 /**
  * Ecouteurs sur la carte
@@ -66,45 +68,41 @@ const addListeners = () => {
   // FIXME le mecanisme de GFI est à revoir afin de pouvoir requêter toutes les couches
   // ou la plus au dessus de la pile.
   map.on("click", (ev) => {
-    let currentLayer = Globals.baseLayerDisplayed;
-    if (Globals.dataLayerDisplayed !== '') {
-      currentLayer = Globals.dataLayerDisplayed;
-    } else if (Globals.mapState === "compare") {
-      return
-    }
-    const layerProps = Layers.getLayerProps(currentLayer);
-    let computeZoom = Math.round(map.getZoom());
-    if (computeZoom > layerProps.maxNativeZoom) {
-      computeZoom = layerProps.maxNativeZoom;
-    } else if (computeZoom < layerProps.minNativeZoom) {
-      computeZoom = layerProps.minNativeZoom;
-    }
 
-    const [ tile, tilePixel ] = latlngToTilePixel(ev.lngLat.lat, ev.lngLat.lng, computeZoom);
-    fetch(
-      `https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?` +
-      `SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetFeatureInfo&` +
-      `LAYER=${layerProps.layer}` +
-      `&TILECOL=${tile.x}&TILEROW=${tile.y}&TILEMATRIX=${computeZoom}&TILEMATRIXSET=PM` +
-      `&FORMAT=${layerProps.format}` +
-      `&STYLE=${layerProps.style}&INFOFORMAT=text/html&I=${tilePixel.x}&J=${tilePixel.y}`
-    ).then((response) => {
-      if (!response.ok) {
-        throw new Error("GetFeatureInfo : HTTP error");
-      }
-      return response.text()
-    }).then((html) => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
-      if (doc.body.innerText === "\n  \n  \n") {
-        throw new Error("Empty GFI");
-      }
+  let currentLayers = Globals.manager.layerSwitcher.getLayersOrder();
+  let layerswithzoom = currentLayers.map((layer) => {
+    let computeZoom = Math.round(map.getZoom());
+    if (computeZoom > layer[1].maxNativeZoom) {
+      layer[1].computeZoom = layer[1].maxNativeZoom;
+      return layer
+    } else if (computeZoom < layer[1].minNativeZoom) {
+      layer[1].computeZoom = layer[1].minNativeZoom;
+      return layer
+    }
+    else {
+      layer[1].computeZoom = computeZoom;
+      return layer;
+    }
+  });
+
+  let layersForGFI = layerswithzoom.map((layer) => {
+    let arr = latlngToTilePixel(ev.lngLat.lat, ev.lngLat.lng, layer[1].computeZoom);
+    layer[1].tiles =  {tile: arr[0], tilePixel: arr[1]}
+    return layer
+  });
+
+  multipleGFI(layersForGFI)
+      .then((html) => {
       new maplibregl.Popup({className: 'getfeatureinfoPopup'})
-        .setLngLat(ev.lngLat)
-        .setHTML(html)
-        .addTo(map);
-    }).catch((e) => {
-      console.error("GetFeatureInfo", e);
+      .setLngLat(ev.lngLat)
+      .setHTML(html)
+      .addTo(map);
+      return;
+    }).catch((htmlError) => {
+      new maplibregl.Popup({className: 'getfeatureinfoPopup'})
+      .setLngLat(ev.lngLat)
+      .setHTML(htmlError)
+      .addTo(map);
       return;
     })
   });
