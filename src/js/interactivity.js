@@ -60,6 +60,9 @@ class Interactivity {
      */
     onGetLastLayer(e) {
       var layer = e.detail.entries.pop();
+      if (!layer) {
+        return;
+      }
       this.thematic = this.pii = this.position = false;
       if (layer[0] === this.id) {
         this.pii = true;
