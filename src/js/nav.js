@@ -138,6 +138,7 @@ class MenuNavigation {
                 DOM.$search.style.display = "none";
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
+                Globals.isochrone.interactive(true);
                 Globals.currentScrollIndex = 1;
                 break;
             case "parameterScreen":
@@ -272,6 +273,7 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.isochrone.clear();
+                Globals.isochrone.interactive(false);
                 break;
             case "search":
                 DOM.$rech.blur();
