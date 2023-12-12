@@ -97,8 +97,8 @@ class LayerSwitcher extends EventTarget {
       // ajout du container
       this.target.appendChild(container);
 
-      // dragn'drop !
-      Sortable.create(container, {
+       // dragn'drop !
+       Sortable.create(container, {
         handle : ".handle-draggable-layer",
         draggable : ".draggable-layer",
         animation : 200,
@@ -231,7 +231,7 @@ class LayerSwitcher extends EventTarget {
             bubbles: true,
             detail: {
               id : id,
-              entries : this.#getLayersOrder(),
+              entries : this.getLayersOrder(),
               positions : {
                 new : newPosition,
                 old : oldPosition,
@@ -612,6 +612,7 @@ class LayerSwitcher extends EventTarget {
      * @public
      */
     addLayer(id) {
+      console.log("addLayer")
       var props = LayersConfig.getLayerProps(id);
       this.index++;
       this.layers[id] = {
@@ -625,7 +626,10 @@ class LayerSwitcher extends EventTarget {
         visibility : true,
         index : this.index,
         position : this.index, // cf. #updatePosition()
-        error : false
+        error : false,
+        maxNativeZoom : props.maxNativeZoom,
+        minNativeZoom : props.minNativeZoom,
+        format : props.format
       };
       this.#addLayerContainer(id);
       this.#addLayerMap(id)
@@ -646,7 +650,7 @@ class LayerSwitcher extends EventTarget {
             detail: {
               id : id,
               options : this.layers[id],
-              entries : this.#getLayersOrder()
+              entries : this.getLayersOrder()
             }
           })
         );
@@ -685,13 +689,17 @@ class LayerSwitcher extends EventTarget {
           detail: {
             id : id,
             error : berror,
-            entries : this.#getLayersOrder()
+            entries : this.getLayersOrder()
           }
         })
       );
     }
 
-    #getLayersOrder() {
+    /**
+     * 
+     * @returns Liste des couches ordonnées
+     */
+    getLayersOrder() {
       const entries = Object.entries(this.layers);
       entries.sort((a, b) => {
         return a[1].position - b[1].position;
