@@ -31,7 +31,7 @@ class RouteDraw {
         this.configuration = this.options.configuration || {
             linesource: "route-draw-line",
             pointsource: "route-draw-point",
-            api: "https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?resource=bdtopo-osrm&getSteps=false&timeUnit=second&",
+            api: "https://data.geopf.fr/navigation/itineraire?resource=bdtopo-osrm&getSteps=false&timeUnit=second&",
             template: (values) => {
                 return `start=${values.start.lng},${values.start.lat}&end=${values.end.lng},${values.end.lat}&profile=${values.profile}`
             }

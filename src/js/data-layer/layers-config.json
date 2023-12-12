@@ -1214,7 +1214,7 @@
       "legends": [
         {
           "format": "image/jpeg",
-          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/INAO-new-legend.png",
           "minScaleDenominator": "200"
         }
       ],
