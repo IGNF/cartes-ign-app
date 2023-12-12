@@ -82,7 +82,8 @@ const addListeners = () => {
  
   // GFI au sens OGC
   else {
-    let currentLayers = Globals.manager.layerSwitcher.getLayersOrder();
+    // on ne fait pas de GFI sur les bases layers
+    let currentLayers = Globals.manager.layerSwitcher.getLayersOrder().filter(layer => layer[1].base != true);
     let layerswithzoom = currentLayers.map((layer) => {
     let computeZoom = Math.round(map.getZoom());
     if (computeZoom > layer[1].maxNativeZoom) {
@@ -111,11 +112,7 @@ const addListeners = () => {
       .setHTML(html)
       .addTo(map);
       return;
-    }).catch((htmlError) => {
-      new maplibregl.Popup({className: 'getfeatureinfoPopup'})
-      .setLngLat(ev.lngLat)
-      .setHTML(htmlError)
-      .addTo(map);
+    }).catch((err) => {
       return;
     })
   }
