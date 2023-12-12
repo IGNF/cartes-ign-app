@@ -75,28 +75,37 @@ function addListeners() {
 
   // Screen dimentions change
   window.addEventListener("resize", () => {
+    if (Globals.backButtonState !== 'default') {
+      Globals.currentScrollIndex = 1;
+    }
+    if (["searchDirections", "searchIsochrone", "search"].includes(Globals.backButtonState)) {
+      DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
+      DOM.$backTopLeftBtn.style.removeProperty("height");
+      DOM.$backTopLeftBtn.style.removeProperty("width");
+      DOM.$backTopLeftBtn.style.removeProperty("top");
+      DOM.$backTopLeftBtn.style.removeProperty("left");
+      if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        DOM.$backTopLeftBtn.style.boxShadow = "unset";
+        DOM.$backTopLeftBtn.style.height = "44px";
+        DOM.$backTopLeftBtn.style.width = "24px";
+        DOM.$backTopLeftBtn.style.top = "12px";
+        DOM.$backTopLeftBtn.style.left = "15px";
+      }
+    }
+    if (Globals.backButtonState === "routeDraw") {
+      DOM.$bottomButtons.style.removeProperty('bottom');
+      DOM.$bottomButtons.style.removeProperty('left');
+      DOM.$bottomButtons.style.removeProperty('width');
+      if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+      } else {
+        DOM.$bottomButtons.style.left = "calc(100vh + env(safe-area-inset-left) + 42px)";
+        DOM.$bottomButtons.style.width = "auto";
+      }
+    }
     Globals.menu.updateScrollAnchors();
   });
 
-  document.onscroll = scrollEndCallback;
-
-  function scrollEndCallback() {
-    if (window.scrollY === 0) {
-      Globals.currentScrollIndex = 0;
-    } else if (window.scrollY === Globals.maxScroll) {
-      Globals.currentScrollIndex = 2;
-    }
-
-    if (Globals.currentScrollIndex > 0 && Globals.backButtonState == 'default') {
-      Globals.backButtonState = 'mainMenu';
-    }
-    if (Globals.currentScrollIndex == 0 && Globals.backButtonState == 'mainMenu') {
-      Globals.backButtonState = 'default';
-    }
-  }
-
-  // FIXME à deplacer ?
-  // document.getElementById("drawroute").addEventListener("click", Controls.startDrawRoute);
 }
 
 export default {

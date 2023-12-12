@@ -14,9 +14,6 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'search') {
         Globals.menu.close('search');
     }
-    if (Globals.backButtonState === 'mainMenu') {
-        // ...
-    }
     if (Globals.backButtonState === 'myaccount') {
         Globals.menu.close('myaccount');
     }

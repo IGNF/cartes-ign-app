@@ -320,19 +320,6 @@ let DirectionsDOM = {
 
         divContainer.appendChild(divInput);
 
-        var labelRemoveDeparture = document.createElement("label");
-        labelRemoveDeparture.id = "directionsLocationRemoveImg_first";
-        labelRemoveDeparture.className = "lblDirectionsLocations lblDirectionsLocationsRemoveImg";
-        labelRemoveDeparture.addEventListener("click", function (e) {
-            e.target.parentNode.classList.add("hidden");
-            var div = document.getElementById( "directionsLocation_start");
-            if (div) {
-                div.value = "";
-                div.dataset.coordinates = "";
-            }
-        });
-        divContainer.appendChild(labelRemoveDeparture);
-
         divDefault.appendChild(divContainer);
 
         // on pre ajoute 5 étapes max
@@ -421,19 +408,6 @@ let DirectionsDOM = {
         labelCross.addEventListener("click", (e) => {});
         divInput.appendChild(labelCross);
         divContainer.appendChild(divInput);
-
-        var labelRemoveArrival = document.createElement("label");
-        labelRemoveArrival.id = "directionsLocationRemoveImg_last";
-        labelRemoveArrival.className = "lblDirectionsLocations lblDirectionsLocationsRemoveImg";
-        labelRemoveArrival.addEventListener("click", function (e) {
-            e.target.parentNode.classList.add("hidden");
-            var div = document.getElementById( "directionsLocation_end");
-            if (div) {
-                div.value = "";
-                div.dataset.coordinates = "";
-            }
-        });
-        divContainer.appendChild(labelRemoveArrival);
 
         divDefault.appendChild(divContainer);
 

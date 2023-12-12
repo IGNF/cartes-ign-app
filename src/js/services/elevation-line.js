@@ -75,6 +75,9 @@ const compute = async (coordinateList) => {
  * { lon lat }
  */
 const getElevationLine = () => {
+    if (!results.elevations) {
+      return [];
+    }
     return results.elevations;
 };
 
