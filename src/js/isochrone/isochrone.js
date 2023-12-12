@@ -135,7 +135,7 @@ class Isochrone {
       switch (settings.mode.type) {
         case "Distance":
           mode = "distance";
-          value = parseInt(settings.mode.value, 10); // km
+          value = Math.round(parseFloat(settings.mode.value, 10) * 1000) / 1000; // km arrondi au mètre
           break;
         case "Temps":
           mode = "time";
