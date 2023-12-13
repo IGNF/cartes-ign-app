@@ -1,8 +1,18 @@
+
 const emptyError = `
  Absence de données
 `;
 async function multipleGFI(layerArray) {
-  let GFIArray = layerArray.filter(layer => layer[1].visibility == true).reverse()
+  let GFIArray = layerArray.filter(layer => layer[1].visibility == true)
+
+  // On récupère la liste des indices des layers non requêtables
+  let indexbase = []
+  for (var index = 0; index < layerArray.length; index++) {
+    if(layerArray[index][1].visibility && layerArray[index][1].base)
+        {
+          indexbase.push(index)
+        }
+  }
 
   let promisesArray = GFIArray.map((layer) => {
       const response = fetch(
@@ -37,7 +47,13 @@ async function multipleGFI(layerArray) {
 
   let responsesArray = Promise.allSettled(promisesArray);
   let response = (await responsesArray).find(r => r.status == "fulfilled");
-  if (response) {return response.value;}
+  if (response) {
+    let i = (await responsesArray).indexOf(response);
+    const isAboveThreshold = (v) => v > i;
+    // on ne retourne une infobulle que si la couche n'est pas recouverte par une couche non requêtable
+    if (indexbase.every(isAboveThreshold)) {return response.value;}
+    else  { throw new Error("Under non requestable layer")}
+  }
   else { throw new Error(emptyError)}
 }
 
