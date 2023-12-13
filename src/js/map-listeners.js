@@ -79,11 +79,10 @@ const addListeners = () => {
         return;
     }
 
- 
   // GFI au sens OGC
   else {
     // on ne fait pas de GFI sur les bases layers
-    let currentLayers = Globals.manager.layerSwitcher.getLayersOrder().filter(layer => layer[1].base != true);
+    let currentLayers = Globals.manager.layerSwitcher.getLayersOrder().reverse();
     let layerswithzoom = currentLayers.map((layer) => {
     let computeZoom = Math.round(map.getZoom());
     if (computeZoom > layer[1].maxNativeZoom) {
