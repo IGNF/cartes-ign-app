@@ -670,7 +670,6 @@ class LayerSwitcher extends EventTarget {
      */
     removeLayer(id) {
       var berror = this.layers[id].error;
-      
       this.#removeLayerMap(id);
       this.#removeLayerContainer(id);
       delete this.layers[id];
@@ -696,7 +695,7 @@ class LayerSwitcher extends EventTarget {
     }
 
     /**
-     * 
+     *
      * @returns Liste des couches ordonnées
      */
     getLayersOrder() {

@@ -12,10 +12,10 @@ import layerConfig from './layer-config';
  * @fires addlayer
  * @fires removelayer
  * @fires movelayer
- * @description 
- *      → manager    
+ * @description
+ *      → manager
  *      	→ instancie this.catalogue & this.switcher
- *     	→ ecouteurs sur les events 
+ *     	→ ecouteurs sur les events
  *	      	* addLayer
  *	      	   → this.catalogue → call this.switcher.addLayer
  *	      	   → this.switcher → call this.updateCounter
@@ -24,15 +24,15 @@ import layerConfig from './layer-config';
  *	      	   → this.switcher → call this.updateCounter
  *      	→ loader de couches par defaut
  *         		→ call this.catalogue.addLayer
- *       
- *      → catalogue 
+ *
+ *      → catalogue
  *        	→ this.addLayer → call add interface → fire event addLayer
  *        	→ this.removeLayer → call remove interface → fire event removeLayer
  *      → switcher
  *        	→ this.addLayer → call addContainer & addGroup & map.addLayer → fire event addLayer
  *       	→ this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
  *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer
- * 
+ *
  */
 class LayerManager extends EventTarget {
     /**
@@ -52,10 +52,7 @@ class LayerManager extends EventTarget {
         super();
         this.options = options || {
             /**
-             * [{
-             *   layers : Globals.baseLayerDisplayed,
-             *   type : "base"
-             * }]
+             * ["layerid", "layer2id"]
              */
             layers : [],
             target : null
@@ -94,6 +91,9 @@ class LayerManager extends EventTarget {
                     detail: e.detail
                 })
             );
+            if (Globals.layersDisplayed.indexOf(e.detail.id) === -1) {
+              Globals.layersDisplayed.push(e.detail.id);
+            }
             var element = document.getElementById(e.detail.id);
             element.classList.add('selectedLayer');
             this.#updateLayersCounter(e.type);
@@ -111,6 +111,7 @@ class LayerManager extends EventTarget {
                     detail: e.detail
                 })
             );
+            Globals.layersDisplayed.splice(Globals.layersDisplayed.indexOf(e.detail.id), 1);
             var element = document.getElementById(e.detail.id);
             element.classList.remove('selectedLayer');
             if (e.detail.error) {
@@ -132,6 +133,7 @@ class LayerManager extends EventTarget {
                     detail: e.detail
                 })
             );
+            Globals.layersDisplayed.splice(e.detail.positions.new, 0, Globals.layersDisplayed.splice(e.detail.positions.old, 1)[0])
         });
     }
 
@@ -178,22 +180,8 @@ class LayerManager extends EventTarget {
     #loadLayers() {
         if (this.options.layers) {
             for (let i = 0; i < this.options.layers.length; i++) {
-                const o = this.options.layers[i];
-                var layers = o.layers.split(","); // TODO récuperer une liste de couches !
-                for (let j = 0; j < layers.length; j++) {
-                    const layerName = layers[j];
-
-                    // ajout d'une couche de fonds
-                    if (o.type === "base") {
-                        this.layerCatalogue.addLayer(layerName); // TODO transmettre des options de la couches (ex. opacité)
-                        Globals.baseLayerDisplayed = layerName; // TODO transmettre une liste de couches !
-                    }
-                    // ajout d'une couche de données
-                    if (o.type === "data") {
-                        this.layerCatalogue.addLayer(layerName); // TODO transmettre des options de la couches (ex. opacité)
-                        Globals.dataLayerDisplayed = layerName; // TODO transmettre liste de couches !
-                    }
-                }
+                const layerName = this.options.layers[i];
+                this.layerCatalogue.addLayer(layerName); // TODO transmettre des options de la couches (ex. opacité)
             }
         }
     }
