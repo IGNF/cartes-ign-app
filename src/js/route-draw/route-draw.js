@@ -7,6 +7,7 @@ import Reverse from "../services/reverse";
 
 import MapLibreGL from "maplibre-gl";
 
+
 /**
  * Interface sur le tracé d'itinéraire
  * @module RouteDraw
@@ -73,7 +74,8 @@ class RouteDraw {
 
         // fonction d'event avec bind
         this.handleAddWayPoint = this.#onAddWayPoint.bind(this);
-        this.handleTouchStart = this.#onTouchStart.bind(this);
+        this.handleTouchStartPoint = this.#onTouchStartPoint.bind(this);
+        this.handleTouchStartLine = this.#onTouchStartLine.bind(this);
         this.handleTouchMove = this.#onTouchMove.bind(this);
         this.handleTouchEnd = this.#onTouchEnd.bind(this);
         this.handleDeletePoint = this.#onDeleteWayPoint.bind(this);
@@ -152,7 +154,8 @@ class RouteDraw {
      */
     #listeners() {
         this.map.on("click", this.handleAddWayPoint);
-        this.map.on("touchstart", "route-draw-point", this.handleTouchStart);
+        this.map.on("touchstart", "route-draw-point", this.handleTouchStartPoint);
+        this.map.on("touchstart", "route-draw-line", this.handleTouchStartLine);
         DOM.$routeDrawCancel.addEventListener("click", this.handleCancelChange);
         DOM.$routeDrawRestore.addEventListener("click", this.handleRestoreChange);
     }
@@ -162,9 +165,60 @@ class RouteDraw {
      */
     #deactivate() {
         this.map.off("click", this.handleAddWayPoint);
-        this.map.off("touchstart", "route-draw-point", this.handleTouchStart);
+        this.map.off("touchstart", "route-draw-point", this.handleTouchStartPoint);
+        this.map.off("touchstart", "route-draw-line", this.handleTouchStartLine);
         DOM.$routeDrawCancel.removeEventListener("click", this.handleCancelChange);
         DOM.$routeDrawRestore.removeEventListener("click", this.handleRestoreChange);
+    }
+
+    /**
+     * ecouteur lors du déplacement d'un nouveau waypoint depuis une ligne sur la carte - début
+     * @param {*} e
+     * @returns
+     */
+    #onTouchStartLine(e) {
+        // TODO gestion d'erreurs
+        // TODO patience
+        e.preventDefault();
+        if (this.map.queryRenderedFeatures(e.point, {
+            layers: ["route-draw-point"],
+        })[0]) {
+            return;
+        }
+        const feature = this.map.queryRenderedFeatures(e.point, {
+            layers: ["route-draw-line"],
+        })[0];
+        console.warn(feature);
+        this.movedPointIndex = this.data.steps.findIndex((step) => {
+            return step.properties?.id === feature?.properties?.id;
+        }) + 1;
+        var coordinates = e.lngLat;
+        const newPoint = {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: [coordinates.lng, coordinates.lat]
+            },
+            properties: {
+                name: "",
+                id: this.nextPointId,
+            }
+        }
+        this.nextPointId++;
+        if (this.movedPointIndex < this.data.steps.length) {
+            const newStep = JSON.parse(JSON.stringify(this.data.steps[this.movedPointIndex]));
+            newStep.properties.id = this.nextStepId;
+            newStep.properties.invisible = true;
+            this.nextStepId++;
+            this.data.steps.splice(this.movedPointIndex, 0, newStep);
+        }
+        this.data.points.splice(this.movedPointIndex, 0, newPoint);
+        this.movedPoint = this.data.points[this.movedPointIndex];
+        this.movedPoint.properties.highlight = true;
+        this.#updateSources();
+
+        this.map.on('touchmove', this.handleTouchMove);
+        this.map.once('touchend', this.handleTouchEnd);
     }
 
     /**
@@ -172,7 +226,7 @@ class RouteDraw {
      * @param {*} e
      * @returns
      */
-    #onTouchStart(e) {
+    #onTouchStartPoint(e) {
         // TODO gestion d'erreurs
         // TODO patience
         e.preventDefault();
@@ -220,7 +274,7 @@ class RouteDraw {
         if (index > 0) {
             promises.push(this.#computeStep(index - 1));
         }
-        if (index < this.data.steps.length) {
+        if (index < this.data.points.length - 1) {
             promises.push(this.#computeStep(index));
         }
         Promise.all(promises).then( () => {
@@ -349,7 +403,6 @@ class RouteDraw {
      * @param {MapLibreGL.LngLat}
      */
     async #computePointName(coordinates){
-        let bResponse = false;
         try {
             await Reverse.compute({
                 lon : coordinates.lng,
@@ -456,9 +509,6 @@ class RouteDraw {
         try {
             await this.#updateElevation();
         } catch(err) {
-            // TODO "Erreur lors de l'ajout du point"
-            this.map.on("click", this.handleAddWayPoint);
-            return;
         }
         this.data.steps[index].properties.dplus = this.elevation.dplus - lastDPlus;
         this.data.steps[index].properties.dminus = this.elevation.dminus - lastDMinus;
@@ -581,12 +631,12 @@ class RouteDraw {
             this.delete = false;
             DOM.$routeDrawDelete.classList.add("inactive");
             this.map.off("click", "route-draw-point", this.handleDeletePoint);
-            this.map.on("touchstart", "route-draw-point", this.handleTouchStart);
+            this.map.on("touchstart", "route-draw-point", this.handleTouchStartPoint);
             this.map.on("click", this.handleAddWayPoint);
             return;
         }
         this.delete = true;
-        this.map.off("touchstart", "route-draw-point", this.handleTouchStart);
+        this.map.off("touchstart", "route-draw-point", this.handleTouchStartPoint);
         this.map.off("click", this.handleAddWayPoint);
         this.map.on("click", "route-draw-point", this.handleDeletePoint);
         DOM.$routeDrawDelete.classList.remove("inactive");

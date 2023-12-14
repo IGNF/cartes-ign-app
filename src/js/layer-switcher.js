@@ -612,7 +612,6 @@ class LayerSwitcher extends EventTarget {
      * @public
      */
     addLayer(id) {
-      console.log("addLayer")
       var props = LayersConfig.getLayerProps(id);
       this.index++;
       this.layers[id] = {

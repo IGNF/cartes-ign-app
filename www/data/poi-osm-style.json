@@ -23,8 +23,8 @@
             "type": "symbol",
             "source": "poi_osm",
             "source-layer": "point_interet",
-            "minzoom": 15,
-            "maxzoom": 17,
+            "minzoom": 16,
+            "maxzoom": 18,
             "layout": {
                 "visibility": "visible",
                 "icon-image": "{symbo}_17"
