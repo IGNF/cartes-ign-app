@@ -126,7 +126,7 @@ class MenuNavigation {
 
                 DOM.$tabContainer.style.backgroundColor = "white";
                 DOM.$sideBySideBtn.classList.add('d-none');
-                Globals.interactivity.disable();
+                Globals.interactivity.hardDisable();
                 Globals.routeDraw.activate();
                 Globals.currentScrollIndex = 1;
                 break;
@@ -168,7 +168,7 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 Globals.isochrone.interactive(true);
-                Globals.interactivity.disable();
+                Globals.interactivity.hardDisable();
                 Globals.currentScrollIndex = 1;
                 break;
             case "parameterScreen":
@@ -183,6 +183,7 @@ class MenuNavigation {
                 break;
             case "directionsResults":
                 DOM.$tabContainer.style.backgroundColor = "white";
+                Globals.interactivity.enable();
                 DOM.$tabContainer.style.removeProperty("height");
                 Globals.currentScrollIndex = 2;
                 break;
@@ -212,7 +213,7 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$sideBySideBtn.classList.add('d-none');
                 Globals.directions.interactive(true);
-                Globals.interactivity.disable();
+                Globals.interactivity.hardDisable();
                 Globals.currentScrollIndex = 2;
                 break;
             default:
@@ -265,7 +266,7 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 DOM.$tabContainer.style.removeProperty("background-color");
                 Globals.routeDraw.clear();
-                Globals.interactivity.active();
+                Globals.interactivity.enable();
                 break;
             case "poi":
                 DOM.$search.style.display = "flex";
@@ -302,7 +303,7 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.isochrone.clear();
                 Globals.isochrone.interactive(false);
-                Globals.interactivity.active();
+                Globals.interactivity.enable();
                 break;
             case "search":
                 DOM.$rech.blur();
@@ -339,6 +340,7 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 1;
             case "directionsResults":
                 DOM.$tabContainer.style.removeProperty("background-color");
+                Globals.interactivity.hardDisable();
                 isSpecific = true;
                 isFinished = true;
                 break;
@@ -359,7 +361,7 @@ class MenuNavigation {
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.directions.clear();
                 Globals.directions.interactive(false);
-                Globals.interactivity.active();
+                Globals.interactivity.enable();
                 break;
             default:
                 break;

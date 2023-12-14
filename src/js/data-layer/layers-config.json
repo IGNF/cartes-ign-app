@@ -2,7 +2,9 @@
   "generalOptions": {
     "apiKeys": {
       "appign": [
-        "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2$GEOPORTAIL:OGC:WMTS",
+        "OSM.POI$GEOPORTAIL:GPP:TMS",
+
+        "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS",
         "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS",
         "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV$GEOPORTAIL:OGC:WMTS",
         "GEOGRAPHICALGRIDSYSTEMS.MAPS$GEOPORTAIL:OGC:WMTS",
@@ -33,6 +35,7 @@
         "ORTHOIMAGERY.ORTHOPHOTOS2006-2010$GEOPORTAIL:OGC:WMTS",
         "ORTHOIMAGERY.ORTHOPHOTOS2000-2005$GEOPORTAIL:OGC:WMTS",
         "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$GEOPORTAIL:OGC:WMTS",
+        "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2$GEOPORTAIL:OGC:WMTS",
         "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950$GEOPORTAIL:OGC:WMTS",
         "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40$GEOPORTAIL:OGC:WMTS",
         "GEOGRAPHICALGRIDSYSTEMS.CASSINI$GEOPORTAIL:OGC:WMTS"
@@ -4253,8 +4256,8 @@
         }
       },
       "name": "PLAN.IGN.INTERACTIF",
-      "title": "Plan IGN interactif",
-      "description": "BDUni tuilée avec la BDtopo",
+      "title": "Plan IGN",
+      "description": "Plan IGN vectoriel, interactif : au clic, affichez les informations de légende et les données issues de la BD Topo.",
       "formats": [
         {
           "current": true,

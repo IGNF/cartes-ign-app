@@ -7,7 +7,7 @@ let mapRLT = null;
  */
 let layersDisplayed;
 if (!localStorage.getItem("lastLayersDisplayed")) {
-  layersDisplayed = ["ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS"];
+  layersDisplayed = ["PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"];
 } else {
   layersDisplayed = JSON.parse(localStorage.getItem("lastLayersDisplayed"));
 }

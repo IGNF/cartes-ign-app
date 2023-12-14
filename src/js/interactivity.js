@@ -18,7 +18,8 @@ class Interactivity {
         id: "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"
       };
 
-      this.activated = null;
+      this.shown = null;
+      this.hardDisabled = false;
 
       this.map = map;
       this.id = this.options.id || "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"; // PII
@@ -29,6 +30,8 @@ class Interactivity {
       this.thematic = false; // couche thematic chargée ?
       this.position = false; // couche en position max ?
 
+      this.piiMinZoom = 14; // zoom mini pour l'interactivité
+
       this.popup = null;
 
       return this;
@@ -37,7 +40,7 @@ class Interactivity {
     /**
      * Ecouteurs sur :
      * - gestion des ajout / suppression / position des couches
-     * - si zooms > 14 actif pour la couche PII
+     * - si zooms > piiMinZoom actif pour la couche PII
      * - la couche au dessus est elle un baseLayer ?
      */
     #listen() {
@@ -47,7 +50,10 @@ class Interactivity {
       Globals.manager.addEventListener("movelayer", this.onGetLastLayer);
 
       this.map.on("zoom", (e) => {
-        if (this.pii && this.position && Math.round(e.target.getZoom()) > 10) {
+        if (this.hardDisabled) {
+          return;
+        }
+        if (this.pii && this.position && Math.round(e.target.getZoom()) > this.piiMinZoom) {
           this.active();
         } else {
           (this.thematic && this.position) ? this.active() : this.disable();
@@ -69,7 +75,7 @@ class Interactivity {
       if (layer[0] === this.id) {
         this.pii = true;
         this.position = true;
-        if (Math.round(this.map.getZoom())>14) {
+        if (Math.round(this.map.getZoom()) > this.piiMinZoom) {
           this.active();
         } else {
           this.disable();
@@ -89,16 +95,34 @@ class Interactivity {
      * Active l'indicateur d'activité
      */
     active () {
-      this.activated = true;
+      this.hardDisabled = false;
+      this.shown = true;
       DOM.$interactivityBtn.style.removeProperty("display");
     }
 
     /**
      * Desactive l'indicateur d'activité
+     * @param {boolean} hard l'interactivité reste désactivée tant qu'active() n'est pas appelée
      */
     disable () {
-        this.activated = false;
+        this.shown = false;
         DOM.$interactivityBtn.style.display = "none";
+    }
+
+    /**
+     * Desactive l'indicateur d'activité jusqu'à nouvel ordre
+     */
+    hardDisable() {
+        this.hardDisabled = true;
+        this.disable();
+    }
+
+    /**
+     * Réactive l'indicateur après désactivation forcée
+     */
+    enable() {
+      this.hardDisabled = false;
+      this.map.fire("zoom");
     }
 
     /**

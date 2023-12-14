@@ -18,6 +18,8 @@ ChartJS.register(
 import maplibregl from 'maplibre-gl';
 import ElevationLine from "./services/elevation-line";
 
+import { Toast } from '@capacitor/toast';
+
 /**
  * Interface sur le contrôle profil altimétrique
  * @module ElevationLineControl
@@ -124,7 +126,12 @@ class ElevationLineControl {
     try {
       responseElevation = await ElevationLine.compute(this.coordinates);
     } catch(err) {
-      responseElevation = {elevations: []}
+      Toast.show({
+        text: "Erreur lors du calcul de profil altimétrique",
+        duration: "short",
+        position: "bottom"
+      });
+      responseElevation = {elevations: [{lon: 0, lat:0, z:0}]}
     }
     let lastLngLat = null;
     let lastZ = null;

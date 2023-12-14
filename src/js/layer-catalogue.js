@@ -191,6 +191,7 @@ class LayerCatalogue extends EventTarget {
     document.querySelectorAll(".baseLayer").forEach((el) => {
       el.addEventListener('click', (e) => {
         if (el.classList.contains("selectedLayer") || el.classList.contains("comparedLayer")) {
+          this.removeLayer(el.id);
         } else {
           this.addLayer(el.id);
         }

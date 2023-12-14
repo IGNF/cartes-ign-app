@@ -226,7 +226,9 @@ let RouteDrawDOM = {
         let totalSeconds = 0;
         this.dom.detailsList.innerHTML = "";
         if (data.steps.length > 0) {
-            for (let i = 0; i < data.points.length; i++) {
+            // Code facilement adaptable si on veut afficher toutes les étapes (ADDSTEPS)
+            // ADDSTEPS:  i += data.points.length - 1 --> i++
+            for (let i = 0; i < data.points.length; i += data.points.length - 1) {
                 const waypoint = data.points[i];
                 var waypointDiv = document.createElement("div");
                 waypointDiv.classList.add("routeDrawWaypointDiv");
@@ -254,18 +256,15 @@ let RouteDrawDOM = {
                 waypointLabelDurationTextSpan.innerText = waypointLabelDurationText;
 
                 if (i > 0) {
-                    const step = data.steps[i - 1];
-
+                    // ADDSTEPS: const step = data.steps[i - 1];
                     // Ajout de la div du step
                     var stepDiv = document.createElement("div");
                     stepDiv.classList.add("routeDrawStepDiv");
-                    stepDiv.innerText = utils.convertDistance(step.properties.distance) +
+                    stepDiv.innerText = utils.convertDistance(data.distance) + // ADDSTEPS: data.distance -> step.porperties.distance
                         " / " +
-                        utils.convertSecondsToTime(step.properties.duration);
+                        utils.convertSecondsToTime(data.duration); // ADDSTEPS: data.duration -> step.porperties.duration
                     this.dom.detailsList.appendChild(stepDiv);
-
-                    totalSeconds += step.properties.duration;
-
+                    totalSeconds += data.duration; // ADDSTEPS: data.duration -> step.porperties.duration
                     waypointLabelDurationTextSpan.innerText = utils.convertSecondsToTime(totalSeconds);
                 }
                 waypointLabel.appendChild(waypointLabelDurationTextSpan);
