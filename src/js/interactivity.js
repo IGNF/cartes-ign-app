@@ -18,6 +18,8 @@ class Interactivity {
         id: "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"
       };
 
+      this.activated = null;
+
       this.map = map;
       this.id = this.options.id || "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"; // PII
 
@@ -87,7 +89,7 @@ class Interactivity {
      * Active l'indicateur d'activité
      */
     active () {
-      this.actived = true;
+      this.activated = true;
       DOM.$interactivityBtn.style.removeProperty("display");
     }
 
@@ -95,7 +97,7 @@ class Interactivity {
      * Desactive l'indicateur d'activité
      */
     disable () {
-        this.actived = false;
+        this.activated = false;
         DOM.$interactivityBtn.style.display = "none";
     }
 
