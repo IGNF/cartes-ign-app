@@ -117,7 +117,7 @@ const addListeners = () => {
         .addTo(map);
         return;
       }).catch((err) => {
-        if (featureHTML) {
+        if (featureHTML && featureHTML != '{}') {
           new maplibregl.Popup({className: 'getfeatureinfoPopup'})
           .setLngLat(ev.lngLat)
           .setHTML(featureHTML)
