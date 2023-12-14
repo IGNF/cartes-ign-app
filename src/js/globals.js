@@ -4,10 +4,13 @@ let mapRLT = null;
 
 /**
  * global: layer display state
- * @todo gerer une liste de couches
  */
-let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS';
-let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
+let layersDisplayed;
+if (!localStorage.getItem("lastLayersDisplayed")) {
+  layersDisplayed = ["ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS"];
+} else {
+  layersDisplayed = JSON.parse(localStorage.getItem("lastLayersDisplayed"));
+}
 
 /**
  * global: back button state
@@ -76,8 +79,7 @@ let currentScroll = window.scrollY;
 export default {
   map,
   mapRLT,
-  baseLayerDisplayed,
-  dataLayerDisplayed,
+  layersDisplayed,
   backButtonState,
   mapState,
   lastTextInSearch,

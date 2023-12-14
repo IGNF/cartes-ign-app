@@ -133,16 +133,7 @@ function app() {
 
   // Chargement des couches par defaut dans le localStorage
   Globals.manager = new LayerManager({
-    layers : [
-      {
-        layers : Globals.baseLayerDisplayed, // TODO passer une liste de couches !
-        type : "base"
-      },
-      {
-        layers : Globals.dataLayerDisplayed, // TODO passer une liste de couches !
-        type : "data"
-      }
-    ]
+    layers : Globals.layersDisplayed,
   });
 
   // INFO
