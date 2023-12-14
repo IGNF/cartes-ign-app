@@ -68,7 +68,7 @@ const addListeners = () => {
   // FIXME le mecanisme de GFI est à revoir afin de pouvoir requêter toutes les couches
   // ou la plus au dessus de la pile.
   map.on("click", (ev) => {
-    if (!Globals.interactivity.activated) {
+    if (!Globals.interactivity.shown) {
       return;
     }
     let features = map.queryRenderedFeatures(ev.point);

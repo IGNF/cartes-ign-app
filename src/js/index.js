@@ -108,20 +108,17 @@ function app() {
     var source = LayersConfig.baseLayerSources[layer];
     if (source.type !== "vector") {
       map.addSource(layer, source);
-      mapRLT.addSource(layer, source);
     }
   }
   for (let layer in LayersConfig.rltLayerSources) {
     var source = LayersConfig.rltLayerSources[layer];
     if (source.type !== "vector") {
-      map.addSource(layer, source);
       mapRLT.addSource(layer, source);
     }
   }
   for (let layer in LayersConfig.thematicLayerSources) {
     var source = LayersConfig.thematicLayerSources[layer];
     if (source.type !== "vector") {
-      map.addSource(layer, source);
     }
   }
 
