@@ -9,11 +9,10 @@ import ImageNotFound from '../html/img/image-not-found.png';
  * Gestion des couches thématiques et fonds de carte
  * @fires addlayer
  * @fires removelayer
- * @fixme impl. d'une liste de couches courante (Globals.baseLayerDisplayed)
- * @description 
- *      → manager    
+ * @description
+ *      → manager
  *      	→ instancie this.catalogue & this.switcher
- *     	→ ecouteurs sur les events 
+ *     	→ ecouteurs sur les events
  *	      	* addLayer
  *	      	   → this.catalogue → call this.switcher.addLayer
  *	      	   → this.switcher → call this.updateCounter
@@ -22,8 +21,8 @@ import ImageNotFound from '../html/img/image-not-found.png';
  *	      	   → this.switcher → call this.updateCounter
  *      	→ loader de couches par defaut
  *         		→ call this.catalogue.addLayer
- *       
- *      → catalogue 
+ *
+ *      → catalogue
  *        	→ this.addLayer → call add interface → fire event addLayer
  *        	→ this.removeLayer → call remove interface → fire event removeLayer
  *      → switcher
@@ -192,11 +191,8 @@ class LayerCatalogue extends EventTarget {
     document.querySelectorAll(".baseLayer").forEach((el) => {
       el.addEventListener('click', (e) => {
         if (el.classList.contains("selectedLayer") || el.classList.contains("comparedLayer")) {
-          this.removeLayer(el.id);
-          Globals.baseLayerDisplayed = ""; // FIXME ajouter une liste !
         } else {
           this.addLayer(el.id);
-          Globals.baseLayerDisplayed = el.id;
         }
       });
     });
@@ -224,10 +220,8 @@ class LayerCatalogue extends EventTarget {
       el.addEventListener('click', (e) => {
         if (el.classList.contains("selectedLayer") || el.classList.contains("comparedLayer")) {
           this.removeLayer(el.id);
-          Globals.dataLayerDisplayed = ""; // FIXME ajouter une liste !
         } else {
           this.addLayer(el.id);
-          Globals.dataLayerDisplayed = el.id;
         }
       });
     });

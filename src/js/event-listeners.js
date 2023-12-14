@@ -61,16 +61,14 @@ function addListeners() {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
-    localStorage.setItem("lastBaseLayerDisplayed", Globals.baseLayerDisplayed);
-    localStorage.setItem("lastDataLayerDisplayed", Globals.dataLayerDisplayed);
+    localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
   });
 
   window.addEventListener('beforeunload', () => {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
-    localStorage.setItem("lastBaseLayerDisplayed", Globals.baseLayerDisplayed);
-    localStorage.setItem("lastDataLayerDisplayed", Globals.dataLayerDisplayed);
+    localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
   });
 
   // Screen dimentions change
