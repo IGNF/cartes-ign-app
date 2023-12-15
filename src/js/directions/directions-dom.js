@@ -356,6 +356,8 @@ let DirectionsDOM = {
             divInput.appendChild(labelCross);
 
             divContainer.appendChild(divInput);
+            var divAddStep = document.createElement("div");
+            divAddStep.classList.add("divDirectionsLocationsAddStep");
 
             var labelRemoveMiddle = document.createElement("label");
             labelRemoveMiddle.id = "directionsLocationRemoveImg_step_" + i;
@@ -368,6 +370,7 @@ let DirectionsDOM = {
                     div.value = "";
                     div.dataset.coordinates = "";
                 }
+                divAddStep.classList.remove("hidden");
             });
             divContainer.appendChild(labelRemoveMiddle);
 
@@ -423,9 +426,6 @@ let DirectionsDOM = {
 
         div.appendChild(divDefault);
 
-        var divStep = document.createElement("div");
-        divStep.className = "divDirectionsLocationsStep";
-
         var labelAddStep = document.createElement("label");
         labelAddStep.id = "directionsLocationImg_step";
         labelAddStep.className = "lblDirectionsLocations";
@@ -440,10 +440,21 @@ let DirectionsDOM = {
                     break;
                 }
             }
+            let allShown = true;
+            for (let index = 0; index < locations.length; index++) {
+                const element = locations[index];
+                if (element.classList.contains("hidden")) {
+                    allShown = false;
+                    break;
+                }
+            }
+            if (allShown) {
+                divAddStep.classList.add("hidden");
+            }
         });
-        divStep.appendChild(labelAddStep);
+        divAddStep.appendChild(labelAddStep);
 
-        div.appendChild(divStep);
+        div.appendChild(divAddStep);
 
         return div;
     }
