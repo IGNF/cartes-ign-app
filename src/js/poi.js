@@ -34,6 +34,9 @@ class POI {
 
         this.map = map;
 
+        this.filters = null;
+        this.config = PoiConfig;
+
         this.target = this.options.target || document.getElementById("poiWindow");
         this.id = this.options.id || "OSM.POI$GEOPORTAIL:GPP:TMS";
 
@@ -58,7 +61,7 @@ class POI {
         .then((data) => {
           // INFO
           // on ajoute les sources !
-          // les sources des couches tuiles vectorielles ne sont pas pré chargées
+          // les sources des couches tuiles vectorielles ne sont pas pré chargées 
           // car on les connait que maintenant en lisant le fichier de style.
           // l'id des source est different du nom de la couche pour le vecteur !
           for (const key in data.sources) {
@@ -83,8 +86,8 @@ class POI {
           return data;
         })
         .then((data) => {
-          var layers = this.#createFilters(data.layers);
-          LayersGroup.addGroup(this.id, layers);
+          this.filters = this.#createFilters(data.layers);
+          LayersGroup.addGroup(this.id, this.filters);
         })
         .catch((e) => {
           throw new Error(e);
@@ -101,12 +104,12 @@ class POI {
         var layersSelection = [];
         for (let i = 0; i < layersDisplay.length; i++) {
             const l = layersDisplay[i];
-            for (let j = 0; j < PoiConfig.length; j++) {
-                const poi = PoiConfig[j];
+            for (let j = 0; j < this.config.length; j++) {
+                const poi = this.config[j];
                 var layer = Object.assign({}, l); // clone
                 layer.id = poi.id + " - " + layer.id;
                 layer.filter = [
-                    "in",
+                    "in", 
                     poi.filters[0].field,
                     poi.filters[0].attributs
                 ].flat();
@@ -151,8 +154,8 @@ class POI {
         };
 
         var strPOIThematics = "";
-        for(let i = 0; i < PoiConfig.length; i++) {
-            var item = PoiConfig[i];
+        for(let i = 0; i < this.config.length; i++) {
+            var item = this.config[i];
             strPOIThematics += tplPOIThematics({
                 id : item.id,
                 name : item.name,
@@ -170,9 +173,11 @@ class POI {
                     <span class="toggleSlider"></span>
                   </label>
                 </div>
+                <hr/>
                 <div class="divPOIFilterItems">
                     ${strPOIThematics}
                 </div>
+                <hr/>
                 <div class="divPOIDisplayGoBackTime">
                   <span>POI remonter le temps</span>
                   <label class="toggleSwitch">

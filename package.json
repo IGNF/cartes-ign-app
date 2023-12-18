@@ -4,6 +4,9 @@
   "version": "2.90.1",
   "description": "Application Géoportail",
   "main": "index.js",
+  "engines": {
+    "node": ">=v14.19.0"
+  },
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "build:dev": "webpack --config webpack.dev.js",
