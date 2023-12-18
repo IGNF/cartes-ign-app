@@ -187,13 +187,18 @@
   background: url("./assets/drag-and-drop.svg") 15px 5px no-repeat, linear-gradient(90deg,#fff0 0%, #fff 30%) center center;
 }
 
-#directionsLocationImg_first {
+
+
+.lblDirectionsLocations {
+  background-image: url("assets/directions/location-step.svg");
+}
+
+#divDirectionsLocationsList > .divDirectionsLocationsItem:first-child > .directionsLocationImg {
   background-image: url("assets/directions/location-first.svg");
 }
-#directionsLocation_start {}
 
-.lblDirectionsLocationsImg_middle {
-  background-image: url("assets/directions/location-step.svg");
+#divDirectionsLocationsList > .divDirectionsLocationsItem:nth-last-child(1 of :not(.sortable-drag)) > .directionsLocationImg {
+  background-image: url("assets/directions/location-last.svg");
 }
 
 .lblDirectionsLocationsRemoveImg{
@@ -204,13 +209,7 @@
   background-position: 1px 1px;
 }
 
-#directionsLocationImg_last {
-  background-image: url("assets/directions/location-last.svg");
-
-}
-#directionsLocation_end {}
-
-#directionsLocationImg_last::before, .lblDirectionsLocationsImg_middle::before {
+#divDirectionsLocationsList > .divDirectionsLocationsItem:not(:first-child) > .directionsLocationImg::before {
   content: "";
   display: block;
   background-image: url("assets/directions/location-between.svg");
@@ -247,6 +246,9 @@
   line-height: 40px;
   background-position-y: 9px;
   color: #3F4A55;
+  background-color: #fff0;
+  transition: background-color 0.1s;
+  border-radius: 8px;
 }
 
 .hidden {
@@ -256,4 +258,5 @@
 
 .hidden .lblDirectionsLocations {
   background-image: none;
+  border: none;
 }

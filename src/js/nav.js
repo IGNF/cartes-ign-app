@@ -190,7 +190,6 @@ class MenuNavigation {
             case "searchDirections":
             case "searchIsochrone":
                 DOM.$search.style.display = "flex";
-                DOM.$filterPoiBtn.style.removeProperty("top");
             case "search":
                 DOM.$searchresultsWindow.classList.remove('d-none');
                 DOM.$whiteScreen.classList.remove('d-none');
