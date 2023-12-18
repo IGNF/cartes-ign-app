@@ -290,7 +290,7 @@ let DirectionsDOM = {
 
         var labelDeparture = document.createElement("label");
         labelDeparture.id = "directionsLocationImg_first";
-        labelDeparture.className = "lblDirectionsLocations";
+        labelDeparture.className = "lblDirectionsLocations directionsLocationImg";
         divContainer.appendChild(labelDeparture);
 
         var divInput = document.createElement("div");
@@ -329,7 +329,7 @@ let DirectionsDOM = {
 
             var labelMiddle = document.createElement("label");
             labelMiddle.id = "directionsLocationsImg_middle_" + i;
-            labelMiddle.className = "lblDirectionsLocations lblDirectionsLocationsImg_middle";
+            labelMiddle.className = "lblDirectionsLocations directionsLocationImg";
             divContainer.appendChild(labelMiddle);
 
             var divInput = document.createElement("div");
@@ -382,7 +382,7 @@ let DirectionsDOM = {
 
         var labelArrival = document.createElement("label");
         labelArrival.id = "directionsLocationImg_last";
-        labelArrival.className = "lblDirectionsLocations";
+        labelArrival.className = "lblDirectionsLocations directionsLocationImg";
         divContainer.appendChild(labelArrival);
 
         var divInput = document.createElement("div");
@@ -432,6 +432,8 @@ let DirectionsDOM = {
         labelAddStep.title = "Ajouter une étape";
         labelAddStep.textContent = "Ajouter une étape";
         labelAddStep.addEventListener("click", function (e) {
+            labelAddStep.style.backgroundColor = "#E7E7E7";
+            setTimeout(() => {labelAddStep.style.removeProperty("background-color")}, 150);
             var locations = document.querySelectorAll(".divDirectionsLocationsItem");
             for (let index = 0; index < locations.length; index++) {
                 const element = locations[index];
