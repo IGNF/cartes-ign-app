@@ -3,6 +3,7 @@ import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
 import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
 import DirectionsLayers from "./directions-styles";
+import directionsSortableCallback from "./directions-sortable-callback";
 
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
@@ -132,7 +133,7 @@ class Directions {
             animation : 200,
             forceFallback : true,
             // Call event function on drag and drop
-            onEnd : (evt) => {}
+            onEnd: directionsSortableCallback,
         });
     }
 
