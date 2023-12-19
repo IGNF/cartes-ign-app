@@ -39,9 +39,17 @@ async function multipleGFI(layerArray) {
         const xmlStr = serializer.serializeToString(doc);
         throw new Error(xmlStr);
       }
-      return res;
-    })
-    return response;
+      const result = {
+        layer: layer[0].split('$')[0],
+        html: res,
+      };
+      return result;
+    });
+    const result = {
+      layer: layer[0].split('$')[0],
+      html: response,
+    };
+    return result;
   })
 
   let responsesArray = Promise.allSettled(promisesArray);

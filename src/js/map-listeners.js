@@ -65,8 +65,6 @@ const addListeners = () => {
   }
 
   // GetFeatureInfo
-  // FIXME le mecanisme de GFI est à revoir afin de pouvoir requêter toutes les couches
-  // ou la plus au dessus de la pile.
   map.on("click", (ev) => {
     if (!Globals.interactivity.shown) {
       return;
@@ -77,10 +75,9 @@ const addListeners = () => {
     if (features.length > 0) {
       featureHTML = JSON.stringify(features[0].properties)
       if (features[0].source === "poi_osm") {
-        new maplibregl.Popup({className: 'getfeatureinfoPopup'})
-          .setLngLat(ev.lngLat)
-          .setHTML(featureHTML)
-          .addTo(map);
+        Globals.position.compute(ev.lngLat, features[0].source, featureHTML).then(() => {
+          Globals.menu.open("position");
+        });
         return;
       }
     }
@@ -110,22 +107,59 @@ const addListeners = () => {
     });
 
     multipleGFI(layersForGFI)
-      .then((html) => {
-        new maplibregl.Popup({className: 'getfeatureinfoPopup'})
-        .setLngLat(ev.lngLat)
-        .setHTML(html)
-        .addTo(map);
+      .then((resp) => {
+        Globals.position.compute(ev.lngLat, resp.layer, resp.html).then(() => {
+          Globals.menu.open("position");
+        });
         return;
       }).catch((err) => {
         if (featureHTML && featureHTML != '{}') {
-          new maplibregl.Popup({className: 'getfeatureinfoPopup'})
-          .setLngLat(ev.lngLat)
-          .setHTML(featureHTML)
-          .addTo(map);
+          Globals.position.compute(ev.lngLat, features[0].source, featureHTML).then(() => {
+            Globals.menu.open("position");
+          });
         }
         return;
       })
+  });
 
+  // l'event contextmenu n'est pas enclenché par clic long sur la carte... https://github.com/maplibre/maplibre-gl-js/issues/373
+  // map.on("contextmenu", ...) serait mieux
+  // utilisation du HACK https://stackoverflow.com/questions/43459539/mapbox-gl-js-long-tap-press
+  let contextMenuTimeout = null;
+  const clearContextMenuTimeout = () => { clearTimeout(contextMenuTimeout); };
+  map.on("touchstart", (evt) => {
+    if (evt.originalEvent.touches.length > 1) {
+      return;
+    }
+    if (
+      Globals.backButtonState !== "default" &&
+      Globals.backButtonState !== "position" &&
+      Globals.backButtonState !== "informations" &&
+      Globals.backButtonState !== "layerManager" &&
+      Globals.backButtonState !== "poi"
+    ) {
+      return;
+    }
+    contextMenuTimeout = setTimeout(() => {
+      if (Globals.backButtonState === "position") {
+        Globals.menu.close("position");
+      }
+      Globals.position.compute(evt.lngLat).then(() => {
+        Globals.menu.open("position");
+      });
+      new maplibregl.Marker({element: Globals.searchResultIcon})
+        .setLngLat(evt.lngLat)
+        .addTo(Globals.map);
+    }, 500);
+    map.on('touchend', clearContextMenuTimeout);
+    map.on('touchcancel', clearContextMenuTimeout);
+    map.on('touchmove', clearContextMenuTimeout);
+    map.on('pointerdrag', clearContextMenuTimeout);
+    map.on('pointermove', clearContextMenuTimeout);
+    map.on('moveend', clearContextMenuTimeout);
+    map.on('gesturestart', clearContextMenuTimeout);
+    map.on('gesturechange', clearContextMenuTimeout);
+    map.on('gestureend', clearContextMenuTimeout);
   });
 
   // map.on("data", (e) => {
