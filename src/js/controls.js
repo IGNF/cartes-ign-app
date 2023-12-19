@@ -3,7 +3,7 @@ import maplibregl from "maplibre-gl";
 import Globals from './globals';
 import Directions from "./directions/directions";
 import Isochrone from "./isochrone/isochrone";
-import Position from "./my-position";
+import Position from "./position";
 import Search from "./search";
 import Compare from './compare';
 import POI from './poi';
@@ -40,11 +40,11 @@ const addControls = () => {
     });
 
     // contrôle "Où suis-je ?"
-    Globals.myposition = new Position(map, {
+    Globals.position = new Position(map, {
       tracking : true, // activation du tracking !
       // callback sur l'ouverture / fermeture du panneau
-      openMyPositionCbk : () => { Globals.menu.open("myposition"); },
-      closeMyPositionCbk : () => { Globals.menu.close("myposition"); },
+      openPositionCbk : () => { Globals.menu.open("position"); },
+      closePositionCbk : () => { Globals.menu.close("position"); },
       openIsochroneCbk : () => { Globals.menu.open("isochrone"); },
       openDirectionsCbk : () => { Globals.menu.open("directions"); },
     });

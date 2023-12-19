@@ -2,13 +2,11 @@
  * fenetres ou onglets
  ***********************************/
 
-#infoWindow,
-#legendWindow,
 #informationsWindow,
 #isochroneWindow,
 #directionsWindow,
 #directionsResultsWindow,
-#mypositionWindow,
+#positionWindow,
 #layerManagerWindow,
 #poiWindow,
 #routeDrawWindow {
@@ -40,9 +38,7 @@
   z-index: 3001;
 }
 
-#informationsWindowContent,
-#infoWindowContent,
-#legendWindowContent {
+#informationsWindowContent {
   margin-right: 20px;
   margin-left: 20px;
   margin-bottom: 30px;

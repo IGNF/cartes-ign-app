@@ -13,13 +13,11 @@
     transition: top 0.3s;
 }
 
-  #infoWindow,
-  #legendWindow,
   #informationsWindow,
   #isochroneWindow,
   #directionsWindow,
   #directionsResultsWindow,
-  #mypositionWindow,
+  #positionWindow,
   #layerManagerWindow,
   #poiWindow,
   #routeDrawWindow {

@@ -29,12 +29,6 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'informations') {
         Globals.menu.close('informations');
     }
-    if (Globals.backButtonState === 'info') {
-        Globals.menu.close('info');
-    }
-    if (Globals.backButtonState === 'legend') {
-        Globals.menu.close('legend');
-    }
     if (Globals.backButtonState === 'layerManager') {
         Globals.menu.close('layerManager');
     }
@@ -53,8 +47,8 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'searchIsochrone') {
         Globals.menu.close('searchIsochrone');
     }
-    if (Globals.backButtonState === 'myposition') {
-        Globals.menu.close('myposition');
+    if (Globals.backButtonState === 'position') {
+        Globals.menu.close('position');
     }
     if (Globals.backButtonState === 'poi') {
         Globals.menu.close('poi');
