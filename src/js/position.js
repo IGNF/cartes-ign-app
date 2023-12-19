@@ -26,8 +26,8 @@ class Position {
       target: null,
       tracking : false, // suivi de la position
       // callback
-      openMyPositionCbk: null,
-      closeMyPositionCbk: null,
+      openPositionCbk: null,
+      closePositionCbk: null,
       openIsochroneCbk: null,
       openDirectionsCbk: null,
     };
@@ -50,6 +50,12 @@ class Position {
     this.address = null;
     this.elevation = null;
 
+    // Titre de l'onglet (ex. "Ma Position", "Repère Placé"...)
+    this.header = "";
+
+    // HTML additionnel (pour le GFI)
+    this.additionalHtml = "";
+
     // dom de l'interface
     this.container = null;
 
@@ -65,7 +71,7 @@ class Position {
    * @private
    */
   #render() {
-    var target = this.target || document.getElementById("mypositionWindow");
+    var target = this.target || document.getElementById("positionWindow");
     if (!target) {
       console.warn();
       return;
@@ -89,7 +95,8 @@ class Position {
         `
     } else if (address.city && !address.street) {
       templateAddress = `
-        <span class="lblPositionAddress">${address.city} ${address.postcode}</span>
+        <span class="lblPositionAddress">${address.city}</span>
+        <span class="lblPositionCity">${address.postcode}</span>
         `
     } else {
       templateAddress = `
@@ -100,7 +107,7 @@ class Position {
     // template litteral
     this.contentPopup = `
         <div id="${id.popup}">
-            <div class="divPositionTitle">Partager ma position</div>
+            <div class="divPositionTitle">Partager la position</div>
             <div class="divPopupClose" onclick="onCloseSharePopup(event)"></div>
             <div class="divPositionAddress">
                 <label class="lblPositionImgAddress"></label>
@@ -149,7 +156,7 @@ class Position {
     // template litteral
     var strContainer = `
         <div id="${id.main}">
-            <div class="divPositionTitle">Ma position</div>
+            <div class="divPositionTitle">${this.header}</div>
             <div class="divPositionAddress">
                 <label class="lblPositionImgAddress"></label>
                 <div class="divPositionSectionAddress fontLight">
@@ -166,6 +173,7 @@ class Position {
                 <p class="lblPositionCoord">Longitude : ${longitude}</p>
                 <p class="lblPositionCoord">Altitude : ${altitude}m</p>
             </div>
+            ${this.additionalHtml}
         </div>
         `;
 
@@ -249,8 +257,8 @@ class Position {
     });
     shadowContainer.getElementById("positionNear").addEventListener("click", () => {
       // fermeture du panneau actuel
-      if (this.options.closeMyPositionCbk) {
-        this.options.closeMyPositionCbk();
+      if (this.options.closePositionCbk) {
+        this.options.closePositionCbk();
         this.opened = false;
       }
       // ouverture du panneau Isochrone
@@ -264,8 +272,8 @@ class Position {
     });
     shadowContainer.getElementById("positionRoute").addEventListener("click", () => {
       // fermeture du panneau actuel
-      if (this.options.closeMyPositionCbk) {
-        this.options.closeMyPositionCbk();
+      if (this.options.closePositionCbk) {
+        this.options.closePositionCbk();
         this.opened = false;
       }
       // ouverture du panneau Itinéraire
@@ -290,12 +298,26 @@ class Position {
 
   /**
    * calcul la position avec les méta informations
+   * @param {maplibregl.LngLat} lngLat position en paramètre, false si "Ma Position"
    * @public
    */
-  async compute() {
+  async compute(lngLat = false, text = "Repère placé", html = "") {
     this.clear();
+    let position;
+    if (lngLat === false) {
+      position = await Location.getLocation(this.tracking);
+    } else {
+      position = {
+        coordinates: {
+          lat: lngLat.lat,
+          lon: lngLat.lng
+        },
+        text: text
+      };
+    }
 
-    const position = await Location.getLocation(this.tracking);
+    this.header = position.text;
+    this.additionalHtml = html;
 
     const responseReverse = await Reverse.compute({
       lat: position.coordinates.lat,
@@ -306,7 +328,7 @@ class Position {
       throw new Error("Reverse response is empty !");
     }
 
-    this.coordinates = Reverse.getCoordinates();
+    this.coordinates = Reverse.getCoordinates() ? Reverse.getCoordinates() : position.coordinates;
     this.address = Reverse.getAddress();
 
     if (!Reverse.getAddress()) {
@@ -331,7 +353,9 @@ class Position {
 
     this.#render();
     this.#addMarkerEvent();
-    this.#moveTo();
+    if (lngLat === false) {
+      this.#moveTo();
+    }
 
   }
 
@@ -354,7 +378,7 @@ class Position {
     // addEvent listerner to my location
     Globals.myPositionIcon.addEventListener("click", (e) => {
       // FIXME ...
-      var container = document.getElementById("mypositionWindow");
+      var container = document.getElementById("positionWindow");
       if (container.className === "d-none") {
         self.opened = false;
       }
@@ -383,8 +407,8 @@ class Position {
    * @public
    */
   show() {
-    if (this.options.openMyPositionCbk) {
-      this.options.openMyPositionCbk();
+    if (this.options.openPositionCbk) {
+      this.options.openPositionCbk();
       this.opened = true;
     }
   }
@@ -394,8 +418,8 @@ class Position {
    * @public
    */
   hide() {
-    if (this.options.closeMyPositionCbk) {
-      this.options.closeMyPositionCbk();
+    if (this.options.closePositionCbk) {
+      this.options.closePositionCbk();
       this.opened = false;
     }
   }

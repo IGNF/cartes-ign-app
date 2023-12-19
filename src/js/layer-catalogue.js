@@ -197,25 +197,6 @@ class LayerCatalogue extends EventTarget {
         }
       });
     });
-    // REMOVEME
-    // clic sur la puce d'information
-    document.querySelectorAll(".layer-info").forEach((el) => {
-      el.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        var p = LayersConfig.getLayerProps(el.getAttribute("layername"));
-        DOM.$infoText.innerHTML = p.desc;
-        Globals.menu.open("info");
-      });
-    });
-    // REMOVEME
-    // clic sur la puce de legende
-    document.querySelectorAll(".layer-legend").forEach((el) => {
-      el.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        DOM.$legendImg.src = LayersAdditional.getLegend(el.getAttribute("layername").split("$")[0]);
-        Globals.menu.open("legend");
-      });
-    });
     // clic sur une couche thematique
     document.querySelectorAll(".thematicLayer").forEach((el) => {
       el.addEventListener('click', (e) => {

@@ -14,7 +14,7 @@ if (!localStorage.getItem("lastLayersDisplayed")) {
 
 /**
  * global: back button state
- * is one of: 'default' 'search' 'params' 'legal' 'privacy' 'infos' 'legend' 'layerManagerWindow' 'route' ...
+ * is one of: 'default' 'search' 'params' 'legal' 'privacy' 'infos' 'layerManagerWindow' 'route' ...
  */
 let backButtonState = 'default';
 
@@ -49,8 +49,8 @@ let directions = null;
 // Global Isochrone plugin
 let isochrone = null;
 
-// Global MyPosition plugin
-let myposition = null;
+// Global Position plugin
+let position = null;
 
 // Global Compare Plugin
 let compare = null;
@@ -96,7 +96,7 @@ export default {
   currentScroll,
   directions,
   isochrone,
-  myposition,
+  position,
   search,
   compare,
   menu,
