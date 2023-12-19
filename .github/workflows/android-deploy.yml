@@ -18,10 +18,6 @@ jobs:
         run: |
           echo "GPF_key=${{ secrets.GPF_key }}" > .env
 
-      - name: Get the tagname
-        id: get_tagname
-        run: echo TAGNAME=$(echo ${GITHUB_REF##*/}) >> $GITHUB_OUTPUT
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -35,6 +31,12 @@ jobs:
 
       - name: Sync
         run: npx cap sync
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
 
       - name: Build Android Release APK
         run: cd android && ./gradlew assembleRelease
@@ -54,7 +56,6 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: fr.ign.geoportail
           releaseFiles: ${{ steps.sign_apk.outputs.signedReleaseFile }}
-          track: qa
+          track: internal
           status: completed
-          releaseName: ${{ steps.get_tagname.outputs.TAGNAME }}
           inAppUpdatePriority: 5
