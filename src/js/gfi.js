@@ -22,7 +22,7 @@ async function multipleGFI(layerArray) {
       `&TILECOL=${layer[1].tiles.tile.x}&TILEROW=${layer[1].tiles.tile.y}&TILEMATRIX=${layer[1].computeZoom}&TILEMATRIXSET=PM` +
       `&FORMAT=${layer[1].format}` +
       `&STYLE=${layer[1].style}&INFOFORMAT=text/html&I=${layer[1].tiles.tilePixel.x}&J=${layer[1].tiles.tilePixel.y}`
-    ).then((response => { return response.text()})
+    ).then((response => {return response.text()})
     ,
     () => {
       throw new Error("GetFeatureInfo : HTTP error");
@@ -39,18 +39,10 @@ async function multipleGFI(layerArray) {
         const xmlStr = serializer.serializeToString(doc);
         throw new Error(xmlStr);
       }
-      const result = {
-        layer: layer[0].split('$')[0],
-        html: res,
-      };
-      return result;
+      return res;
     });
-    const result = {
-      layer: layer[0].split('$')[0],
-      html: response,
-    };
-    return result;
-  })
+    return response;
+  });
 
   let responsesArray = Promise.allSettled(promisesArray);
   let response = (await responsesArray).find(r => r.status == "fulfilled");
@@ -59,7 +51,11 @@ async function multipleGFI(layerArray) {
     const isAboveThreshold = (v) => v > i;
     // on ne retourne une infobulle que si la couche n'est pas recouverte par une couche non requêtable
     if (indexbase.every(isAboveThreshold)) {
-      return response.value;
+      const result = {
+        layer: layerArray[i][1].title,
+        html: response.value,
+      };
+      return result;
     }
     else {
       throw new Error("Under non requestable layer");
@@ -70,5 +66,4 @@ async function multipleGFI(layerArray) {
   }
 }
 
-
-export default multipleGFI
+export default multipleGFI;
