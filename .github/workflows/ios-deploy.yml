@@ -18,10 +18,6 @@ jobs:
         run: |
           echo "GPF_key=${{ secrets.GPF_key }}" > .env
 
-      - name: Get the tagname
-        id: get_tagname
-        run: echo TAGNAME=$(echo ${GITHUB_REF##*/}) >> $GITHUB_OUTPUT
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
