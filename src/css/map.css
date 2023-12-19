@@ -5,10 +5,6 @@
   color: black;
 }
 
-/* Popup getFeatureInfo */
-.getfeatureinfoPopup {
-}
-
 .maplibregl-ctrl-bottom-left {
   bottom: -35px;
   left: 15px;

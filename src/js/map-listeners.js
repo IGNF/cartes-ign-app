@@ -69,13 +69,18 @@ const addListeners = () => {
     if (!Globals.interactivity.shown) {
       return;
     }
+    if (Globals.backButtonState === "position") {
+      Globals.menu.close("position");
+    }
     let features = map.queryRenderedFeatures(ev.point);
     // On clique sur une feature tuile vectorielle
     let featureHTML;
     if (features.length > 0) {
-      featureHTML = JSON.stringify(features[0].properties)
+      console.log(features)
+      featureHTML = JSON.stringify(features[0].properties);
       if (features[0].source === "poi_osm") {
-        Globals.position.compute(ev.lngLat, features[0].source, featureHTML).then(() => {
+        let featureName = features[0].properties.texte;
+        Globals.position.compute(ev.lngLat, featureName, featureHTML).then(() => {
           Globals.menu.open("position");
         });
         return;
@@ -114,7 +119,7 @@ const addListeners = () => {
         return;
       }).catch((err) => {
         if (featureHTML && featureHTML != '{}') {
-          Globals.position.compute(ev.lngLat, features[0].source, featureHTML).then(() => {
+          Globals.position.compute(ev.lngLat, features[0].sourceLayer, featureHTML).then(() => {
             Globals.menu.open("position");
           });
         }
