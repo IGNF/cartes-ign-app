@@ -119,6 +119,7 @@ function app() {
   for (let layer in LayersConfig.thematicLayerSources) {
     var source = LayersConfig.thematicLayerSources[layer];
     if (source.type !== "vector") {
+      map.addSource(layer, source);
     }
   }
 
