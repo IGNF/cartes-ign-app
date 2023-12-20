@@ -8,7 +8,7 @@ import Search from "./search";
 import Compare from './compare';
 import POI from './poi';
 import RouteDraw from './route-draw/route-draw';
-import MapInteractivity from './map-interactivity';
+import MapInteractivity from './map-interactivity/map-interactivity';
 
 
 /**

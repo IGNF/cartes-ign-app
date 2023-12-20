@@ -10,7 +10,7 @@ import LayersConfig from './layer-config';
 import Controls from './controls';
 import RecentSearch from "./search-recent";
 import MenuNavigation from './nav';
-import InteractivityIndicator from './interactivity-indicator';
+import InteractivityIndicator from './map-interactivity/interactivity-indicator';
 
 // import CSS
 import '@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css';

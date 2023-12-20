@@ -1,5 +1,5 @@
-import Globals from './globals';
-import DOM from './dom';
+import Globals from '../globals';
+import DOM from '../dom';
 
 import MapLibreGL from "maplibre-gl";
 
@@ -25,6 +25,9 @@ class InteractivityIndicator {
       this.id = this.options.id || "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"; // PII
 
       this.#listen();
+
+      // Do not clear highlighted feature this time
+      this.dontClear = false;
 
       this.pii = false; // couche PII chargée ?
       this.thematic = false; // couche thematic chargée ?
@@ -56,6 +59,7 @@ class InteractivityIndicator {
         if (this.pii && this.position && Math.round(e.target.getZoom()) > this.piiMinZoom) {
           this.active();
         } else {
+          this.dontClear = true;
           (this.thematic && this.position) ? this.active() : this.disable();
         }
       });
@@ -105,6 +109,10 @@ class InteractivityIndicator {
      * @param {boolean} hard l'interactivité reste désactivée tant qu'active() n'est pas appelée
      */
     disable () {
+        if (!this.dontClear) {
+          Globals.mapInteractivity.clear();
+        }
+        this.dontClear = false;
         this.shown = false;
         DOM.$interactivityBtn.style.display = "none";
     }
