@@ -6,7 +6,7 @@ import MapLibreGL from "maplibre-gl";
 /**
  * Indicateur d'activité du Plan IGN interactif et des couches thématiques sur la carte
  */
-class Interactivity {
+class InteractivityIndicator {
 
     /**
      * constructeur
@@ -183,4 +183,4 @@ class Interactivity {
 
 }
 
-export default Interactivity;
+export default InteractivityIndicator;

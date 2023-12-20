@@ -68,7 +68,10 @@ let poi = null;
 let routeDraw = null;
 
 // Global interactivity
-let interactivity = null;
+let interactivityIndicator = null;
+
+// Global control mapInteractivity
+let mapInteractivity = null;
 
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
@@ -103,5 +106,6 @@ export default {
   manager,
   poi,
   routeDraw,
-  interactivity,
+  interactivityIndicator,
+  mapInteractivity,
 };

@@ -10,7 +10,7 @@ import LayersConfig from './layer-config';
 import Controls from './controls';
 import RecentSearch from "./search-recent";
 import MenuNavigation from './nav';
-import Interactivity from './interactivity';
+import InteractivityIndicator from './interactivity-indicator';
 
 // import CSS
 import '@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css';
@@ -137,7 +137,7 @@ function app() {
   // INFO
   // Indicateur d'activité du Plan IGN interactif sur la carte
   // (il doit être placé après le LayerManager afin de connaitre les couches ajoputées par défaut !)
-  Globals.interactivity = new Interactivity(map, {});
+  Globals.interactivityIndicator = new InteractivityIndicator(map, {});
 
   // Initialisation du menu de navigation
   Globals.menu = new MenuNavigation();
