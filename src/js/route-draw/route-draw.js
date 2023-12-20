@@ -154,8 +154,8 @@ class RouteDraw {
      */
     #listeners() {
         this.map.on("click", this.handleAddWayPoint);
-        this.map.on("touchstart", "route-draw-point", this.handleTouchStartPoint);
-        this.map.on("touchstart", "route-draw-line", this.handleTouchStartLine);
+        this.map.on("touchstart",RouteDrawLayers["point"].id, this.handleTouchStartPoint);
+        this.map.on("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);
         DOM.$routeDrawCancel.addEventListener("click", this.handleCancelChange);
         DOM.$routeDrawRestore.addEventListener("click", this.handleRestoreChange);
     }
@@ -165,8 +165,8 @@ class RouteDraw {
      */
     #deactivate() {
         this.map.off("click", this.handleAddWayPoint);
-        this.map.off("touchstart", "route-draw-point", this.handleTouchStartPoint);
-        this.map.off("touchstart", "route-draw-line", this.handleTouchStartLine);
+        this.map.off("touchstart",RouteDrawLayers["point"].id, this.handleTouchStartPoint);
+        this.map.off("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);
         DOM.$routeDrawCancel.removeEventListener("click", this.handleCancelChange);
         DOM.$routeDrawRestore.removeEventListener("click", this.handleRestoreChange);
     }
@@ -181,12 +181,12 @@ class RouteDraw {
         // TODO patience
         e.preventDefault();
         if (this.map.queryRenderedFeatures(e.point, {
-            layers: ["route-draw-point"],
+            layers: [RouteDrawLayers["point"].id],
         })[0]) {
             return;
         }
         const feature = this.map.queryRenderedFeatures(e.point, {
-            layers: ["route-draw-line"],
+            layers: [RouteDrawLayers["line"].id],
         })[0];
         console.warn(feature);
         this.movedPointIndex = this.data.steps.findIndex((step) => {
@@ -231,7 +231,7 @@ class RouteDraw {
         // TODO patience
         e.preventDefault();
         const feature = this.map.queryRenderedFeatures(e.point, {
-            layers: ["route-draw-point"],
+            layers: [RouteDrawLayers["point"].id],
         })[0];
         this.movedPointIndex = this.data.points.findIndex((point) => {
             return point.properties?.id === feature?.properties?.id;
@@ -294,7 +294,7 @@ class RouteDraw {
         this.map.off("click", this.handleAddWayPoint);
         // Si on a cliqué sur un waypoint, on ne fait rien)
         if(this.map.getSource(this.configuration.pointsource) && this.map.queryRenderedFeatures(e.point, {
-            layers: ["route-draw-point"],
+            layers: [RouteDrawLayers["point"].id],
         })[0]) {
             this.map.on("click", this.handleAddWayPoint);
             return;
@@ -358,17 +358,17 @@ class RouteDraw {
         // TODO gestion d'erreur
         // TODO patience
         // On empêche l'intéraction tant que les opérations ne sont pas terminées
-        this.map.off("click", "route-draw-point", this.handleDeletePoint);
+        this.map.off("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
         this.#deactivate();
         const feature = this.map.queryRenderedFeatures(e.point, {
-            layers: ["route-draw-point"],
+            layers: [RouteDrawLayers["point"].id],
         })[0];
         const deleteIndex = this.data.points.findIndex((point) => {
             return point.properties?.id === feature?.properties?.id;
         });
         this.data.points.splice(deleteIndex, 1);
         if (this.data.steps.length < 1) {
-            this.map.on("click", "route-draw-point", this.handleDeletePoint);
+            this.map.on("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
             DOM.$routeDrawCancel.addEventListener("click", this.handleCancelChange);
             DOM.$routeDrawRestore.addEventListener("click", this.handleRestoreChange);
             return;
@@ -391,7 +391,7 @@ class RouteDraw {
             this.data.steps.splice(deleteIndex - 1, 1);
             await this.#computeStep(deleteIndex - 1);
         }
-        this.map.on("click", "route-draw-point", this.handleDeletePoint);
+        this.map.on("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
         // Enregistrement de l'état dans l'historique
         this.#saveState();
         DOM.$routeDrawCancel.addEventListener("click", this.handleCancelChange);
@@ -574,7 +574,6 @@ class RouteDraw {
             type: "FeatureCollection",
             features: this.data.points,
         });
-
     }
 
     /**
@@ -630,15 +629,15 @@ class RouteDraw {
         if (this.delete == true) {
             this.delete = false;
             DOM.$routeDrawDelete.classList.add("inactive");
-            this.map.off("click", "route-draw-point", this.handleDeletePoint);
-            this.map.on("touchstart", "route-draw-point", this.handleTouchStartPoint);
+            this.map.off("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
+            this.map.on("touchstart", RouteDrawLayers["point"].id, this.handleTouchStartPoint);
             this.map.on("click", this.handleAddWayPoint);
             return;
         }
         this.delete = true;
-        this.map.off("touchstart", "route-draw-point", this.handleTouchStartPoint);
+        this.map.off("touchstart", RouteDrawLayers["point"].id, this.handleTouchStartPoint);
         this.map.off("click", this.handleAddWayPoint);
-        this.map.on("click", "route-draw-point", this.handleDeletePoint);
+        this.map.on("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
         DOM.$routeDrawDelete.classList.remove("inactive");
     }
 
@@ -681,16 +680,16 @@ class RouteDraw {
             this.toggleDelete();
         }
         this.__updateRouteInfo(this.data);
-        if (this.map.getLayer("route-draw-line")) {
-            this.map.removeLayer("route-draw-line");
-            this.map.removeLayer("route-draw-line-casing");
+        if (this.map.getLayer(RouteDrawLayers["line"].id)) {
+            this.map.removeLayer(RouteDrawLayers["line"].id);
+            this.map.removeLayer(RouteDrawLayers["line-casing"].id);
         }
         if (this.map.getSource(this.configuration.linesource)) {
             this.map.removeSource(this.configuration.linesource);
         }
-        if (this.map.getLayer("route-draw-point")) {
-            this.map.removeLayer("route-draw-point");
-            this.map.removeLayer("route-draw-point-casing");
+        if (this.map.getLayer(RouteDrawLayers["point"].id)) {
+            this.map.removeLayer(RouteDrawLayers["point"].id);
+            this.map.removeLayer(RouteDrawLayers["point-casing"].id);
         }
         if (this.map.getSource(this.configuration.pointsource)) {
             this.map.removeSource(this.configuration.pointsource);

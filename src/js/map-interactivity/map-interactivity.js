@@ -1,4 +1,9 @@
-import Globals from "./globals";
+import Globals from "../globals";
+import MapInteractivityLayers from "./map-interactivity-styles";
+import featurePropertyFilter from "./feature-property-filter"
+
+import Union from "@turf/union";
+
 
 /**
  * Interface sur l'interaction avec la carte
@@ -19,9 +24,9 @@ class MapInteractivity {
 
     // configuration
     this.configuration = this.options.configuration || {
-        linesource: "map-interactivity-line",
         pointsource: "map-interactivity-point",
-        polygonsource: "map-interactivity-point",
+        linesource: "map-interactivity-line",
+        polygonsource: "map-interactivity-polygon",
     }
 
     // style
@@ -37,13 +42,24 @@ class MapInteractivity {
     // carte
     this.map = map;
 
+    this.#addSourcesAndLayers();
+
+    // fonction d'event avec bind
+    this.handleInfoOnMap = this.#getInfoOnMap.bind(this);
+
+    // annulation de la reqête fetch
+    this.controller = new AbortController();
+
+    // requête en cours d'execution ?
+    this.loading = false;
+
     this.#listeners();
 
     return this;
   }
 
   #listeners() {
-    this.map.on("click", (ev) => {this.#getInfoOnMap(ev); });
+    this.map.on("click", this.handleInfoOnMap);
   }
 
   #getInfoOnMap(ev) {
@@ -54,16 +70,18 @@ class MapInteractivity {
       Globals.menu.close("position");
     }
     let features = this.map.queryRenderedFeatures(ev.point);
+    // TODO: Patience
+    this.map.off("click", this.handleInfoOnMap);
     // On clique sur une feature tuile vectorielle
     let featureHTML;
-    if (features.length > 0) {
-      console.log(features)
-      featureHTML = JSON.stringify(features[0].properties);
+    if (features.length > 0 && features[0].source == "bdtopo") {
+      featureHTML = featurePropertyFilter(features[0]);
       if (features[0].source === "poi_osm") {
         let featureName = features[0].properties.texte;
         Globals.position.compute(ev.lngLat, featureName, featureHTML).then(() => {
           Globals.menu.open("position");
         });
+        this.map.on("click", this.handleInfoOnMap);
         return;
       }
     }
@@ -94,16 +112,46 @@ class MapInteractivity {
 
     this.#multipleGFI(layersForGFI)
       .then((resp) => {
+        this.loading = false;
         Globals.position.compute(ev.lngLat, resp.layer, resp.html).then(() => {
           Globals.menu.open("position");
         });
+        this.map.on("click", this.handleInfoOnMap);
         return;
       }).catch((err) => {
+        this.loading = false;
         if (featureHTML && featureHTML != '{}') {
+          this.#clearSources();
           Globals.position.compute(ev.lngLat, features[0].sourceLayer, featureHTML).then(() => {
             Globals.menu.open("position");
+            let source;
+            const mapFeatures = this.map.queryRenderedFeatures();
+            let toFuse = [];
+            mapFeatures.forEach(feat => {
+              if (feat.source == "bdtopo" && feat.properties.cleabs == features[0].properties.cleabs) {
+                toFuse.push(feat);
+              }
+            });
+            let union = toFuse[0];
+            if (toFuse.length > 1) {
+              for (let i = 1; i < toFuse.length - 1; i++) {
+                union = Union(union, toFuse[i], {properties: union.properties})
+              }
+            }
+            if (features[0].geometry.type == "Point") {
+              source = this.map.getSource(this.configuration.pointsource);
+            } else if (features[0].geometry.type == "LineString") {
+              source = this.map.getSource(this.configuration.linesource);
+            } else {
+              source = this.map.getSource(this.configuration.polygonsource);
+            }
+            source.setData({
+              'type': 'FeatureCollection',
+              'features': [union],
+            });
           });
         }
+        this.map.on("click", this.handleInfoOnMap);
         return;
     });
 
@@ -131,16 +179,20 @@ class MapInteractivity {
   }
 
   async #multipleGFI(layerArray) {
-    let GFIArray = layerArray.filter(layer => layer[1].visibility == true)
+    this.loading = true;
+
+    let GFIArray = layerArray.filter(layer => layer[1].visibility == true);
+    GFIArray = GFIArray.filter(layer => layer[1].base == false);
 
     // On récupère la liste des indices des layers non requêtables
     let indexbase = []
     for (var index = 0; index < layerArray.length; index++) {
       if(layerArray[index][1].visibility && layerArray[index][1].base)
         {
-          indexbase.push(index)
+          indexbase.push(index);
         }
     }
+    GFIArray = GFIArray.filter(layer => GFIArray.indexOf(layer) < Math.min(...indexbase));
 
     let promisesArray = GFIArray.map((layer) => {
       const response = fetch(
@@ -149,7 +201,8 @@ class MapInteractivity {
         `LAYER=${layer[0].split('$')[0]}` +
         `&TILECOL=${layer[1].tiles.tile.x}&TILEROW=${layer[1].tiles.tile.y}&TILEMATRIX=${layer[1].computeZoom}&TILEMATRIXSET=PM` +
         `&FORMAT=${layer[1].format}` +
-        `&STYLE=${layer[1].style}&INFOFORMAT=text/html&I=${layer[1].tiles.tilePixel.x}&J=${layer[1].tiles.tilePixel.y}`
+        `&STYLE=${layer[1].style}&INFOFORMAT=text/html&I=${layer[1].tiles.tilePixel.x}&J=${layer[1].tiles.tilePixel.y}`,
+        { signal: this.controller.signal }
       ).then((response => {return response.text()})
       ,
       () => {
@@ -176,24 +229,83 @@ class MapInteractivity {
     let response = (await responsesArray).find(r => r.status == "fulfilled");
     if (response) {
       let i = (await responsesArray).indexOf(response);
-      const isAboveThreshold = (v) => v > i;
-      // on ne retourne une infobulle que si la couche n'est pas recouverte par une couche non requêtable
-      if (indexbase.every(isAboveThreshold)) {
-        const result = {
-          layer: layerArray[i][1].title,
-          html: response.value,
-        };
-        return result;
-      }
-      else {
-        throw new Error("Under non requestable layer");
-      }
+      const result = {
+        layer: layerArray[i][1].title,
+        html: response.value,
+      };
+      return result;
     }
     else {
       throw new Error(emptyError);
     }
   }
-}
 
+
+  /**
+  * ajoute la source et le layer à la carte pour affichage du tracé
+  */
+  #addSourcesAndLayers() {
+    this.map.addSource(this.configuration.pointsource, {
+      "type": "geojson",
+      "data": {
+        'type': 'FeatureCollection',
+        'features': []
+      },
+    });
+    this.map.addSource(this.configuration.linesource, {
+      "type": "geojson",
+      "data": {
+        'type': 'FeatureCollection',
+        'features': []
+      },
+    });
+    this.map.addSource(this.configuration.polygonsource, {
+      "type": "geojson",
+      "data": {
+        'type': 'FeatureCollection',
+        'features': []
+      },
+    });
+    MapInteractivityLayers["line"].source = this.configuration.linesource;
+    this.map.addLayer(MapInteractivityLayers["line"]);
+    MapInteractivityLayers["point"].source = this.configuration.pointsource;
+    this.map.addLayer(MapInteractivityLayers["point"]);
+    MapInteractivityLayers["polygon"].source = this.configuration.polygonsource;
+    this.map.addLayer(MapInteractivityLayers["polygon"]);
+    MapInteractivityLayers["polygon-outline"].source = this.configuration.polygonsource;
+    this.map.addLayer(MapInteractivityLayers["polygon-outline"]);
+  }
+
+  /**
+   * Supprime les donnés dans les sources
+   */
+  #clearSources() {
+    this.map.getSource(this.configuration.pointsource).setData({
+      'type': 'FeatureCollection',
+      'features': []
+    });
+    this.map.getSource(this.configuration.linesource).setData({
+      'type': 'FeatureCollection',
+      'features': []
+    });
+    this.map.getSource(this.configuration.polygonsource).setData({
+      'type': 'FeatureCollection',
+      'features': []
+    });
+  }
+
+  /**
+     * nettoyage de la mise en surbrillance
+     * @public
+     */
+  clear () {
+    if (this.loading) {
+      this.controller.abort();
+      this.controller = new AbortController();
+      this.loading = false;
+    }
+    this.#clearSources();
+  }
+}
 
 export default MapInteractivity;

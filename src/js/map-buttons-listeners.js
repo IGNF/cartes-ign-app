@@ -60,7 +60,7 @@ const addListeners = () => {
   DOM.$routeDrawDelete.addEventListener("click", () => { Globals.routeDraw.toggleDelete(); });
 
   // Indicateur d'interactivité
-  DOM.$interactivityBtn.addEventListener("click", () => { Globals.interactivity.showPopup(); });
+  DOM.$interactivityBtn.addEventListener("click", () => { Globals.interactivityIndicator.showPopup(); });
 
   // Bouton Retour
   DOM.$backTopLeftBtn.addEventListener("click", () => { State.onBackKeyDown(); });
