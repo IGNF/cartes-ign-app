@@ -8,6 +8,8 @@ import Search from "./search";
 import Compare from './compare';
 import POI from './poi';
 import RouteDraw from './route-draw/route-draw';
+import MapInteractivity from './map-interactivity';
+
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -79,6 +81,9 @@ const addControls = () => {
 
     // contrôle tracé d'itinéraire
     Globals.routeDraw = new RouteDraw(map, {});
+
+    // contrôle d'intéractivité de la carte
+    Globals.mapInteractivity = new MapInteractivity(map, {});
   });
 }
 
