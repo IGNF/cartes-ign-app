@@ -328,13 +328,10 @@ class LayerSwitcher extends EventTarget {
       if (type === "raster") {
         // INFO
         // mise à jour de la couche via une property du style,
-        // mais, il n'existe pas de fonctionnalité pour le N&B
-        // ex. this.map.setPaintProperty(id, "raster-contrast", (value) ? 1 : 0);
+        (!value) ? this.map.setPaintProperty(id, 'raster-saturation', -1) : this.map.setPaintProperty(id, 'raster-saturation', 0);
       } else if (type === "vector") {
         // INFO
-        // appliquer un filtre N&B sur les valeurs des couleurs,
-        // pour revenir aux couleurs d'origine, on utilise :
-        //   this.layer[id].style
+        // appliquer un filtre N&B sur les valeurs des couleurs
         (!value) ? LayersGroup.addGray(id) : LayersGroup.addColor(id);
       } else {
         throw new Error(`Type not yet implemented or unknow : ${type}`);

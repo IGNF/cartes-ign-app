@@ -5,6 +5,9 @@
  */
 import Globals from './globals';
 
+// Pour le passage en couleur après passage en noir et blanc
+const originalLayerColors = {};
+
 /**
  * Add a layer group to the map.
  *
@@ -105,8 +108,8 @@ const getGroupLayers = (id) => {
 
 /**
  * Modify opacity
- * 
- * @param {string} id  The id of the group to be modified 
+ *
+ * @param {string} id  The id of the group to be modified
  * @param {*} value
  */
 const addOpacity = (id, value) => {
@@ -126,8 +129,8 @@ const addOpacity = (id, value) => {
 
 /**
  * Modify visibility
- * 
- * @param {string} id  The id of the group to be modified 
+ *
+ * @param {string} id  The id of the group to be modified
  * @param {*} value
  */
 const addVisibility = (id, value) => {
@@ -141,10 +144,10 @@ const addVisibility = (id, value) => {
 
 /**
  * Modify visibility of a layer
- * 
- * @param {*} id 
- * @param {*} name 
- * @param {*} value 
+ *
+ * @param {*} id
+ * @param {*} name
+ * @param {*} value
  */
 const addVisibilityByID = (id, name, value) => {
     var layers = Globals.map.getStyle().layers;
@@ -158,13 +161,9 @@ const addVisibilityByID = (id, name, value) => {
 
 /**
  * Modify color N/B
- * 
  * @param {string} id The id of the group to be modified
- * @todo not yet implemented !
  */
 const addGray = (id) => {
-    throw new Error("Not yet implemented !");
-
     // fonction de conversion decimal -> hexa
     function hex (number) {
         if (number > 255) {
@@ -210,58 +209,67 @@ const addGray = (id) => {
         var regex4hexa = /#([a-f\d]{2}[a-f\d]{2}[a-f\d]{2})/igm;
         return value.replace(regex4hexa, (corespondance, p, decalage) => {
             var subst4nb = nb(parseInt(p, 16));
-            return "#" + subst4nb;
+            return "#" + subst4nb.padStart(6, "0");
         });
     }
 
-    // FIXME
-    String.prototype.rgba2hexa = rgba2hexa;
-    String.prototype.hexa32hexa = hexa32hexa;
-    String.prototype.hexa2nb = hexa2nb;
-
     const convert = (value) => {
-        return value
-            .rgba2hexa()
-            .hexa32hexa()
-            .hexa2nb();
-
+        return hexa2nb(hexa32hexa(rgba2hexa(value)))
     };
 
     var layers = Globals.map.getStyle().layers;
     for (var i = 0; i < layers.length; i++) {
         var layer = layers[i];
+        originalLayerColors[layer.id] = {};
         if (layer.metadata && layer.metadata.group === id) {
             var value = null;
             if (layer.type === 'symbol')  {
                 value = Globals.map.getPaintProperty(layer.id, `icon-color`);
                 if (value) {
+                    originalLayerColors[layer.id][`icon-color`] = value;
                     Globals.map.setPaintProperty(layer.id, `icon-color`, convert(value));
                 }
                 value = Globals.map.getPaintProperty(layer.id, `icon-halo-color`);
                 if (value) {
+                    originalLayerColors[layer.id][`icon-halo-color`] = value;
                     Globals.map.setPaintProperty(layer.id, `icon-halo-color`, convert(value));
                 }
                 value = Globals.map.getPaintProperty(layer.id, `text-color`);
                 if (value) {
+                    originalLayerColors[layer.id][`text-color`] = value;
                     Globals.map.setPaintProperty(layer.id, `text-color`, convert(value));
                 }
                 value = Globals.map.getPaintProperty(layer.id, `text-halo-color`);
                 if (value) {
+                    originalLayerColors[layer.id][`text-halo-color`] = value;
                     Globals.map.setPaintProperty(layer.id, `text-halo-color`, convert(value));
                 }
             } else {
                 value = Globals.map.getPaintProperty(layer.id, `${layer.type}-color`);
                 if (value) {
-                    Globals.map.setPaintProperty(layer.id, `${layer.type}-color`, convert(value));
+                    originalLayerColors[layer.id][`${layer.type}-color`] = value;
+                    if (value.stops) {
+                        var greyStops = [];
+                        value.stops.forEach((val) => {
+                            greyStops.push([val[0], convert(val[1])]);
+                        });
+                        Globals.map.setPaintProperty(layer.id, `${layer.type}-color`, {stops: greyStops})
+                    } else {
+                        Globals.map.setPaintProperty(layer.id, `${layer.type}-color`, convert(value));
+                    }
                 }
-                value = Globals.map.getPaintProperty(layer.id, `${layer.type}-outline-color`);
-                if (value) {
-                    Globals.map.setPaintProperty(layer.id, `${layer.type}-outline-color`, convert(value));
+                try {
+                    value = Globals.map.getPaintProperty(layer.id, `${layer.type}-outline-color`);
+                    if (value) {
+                        originalLayerColors[layer.id][`${layer.type}-outline-color`] = value;
+                        Globals.map.setPaintProperty(layer.id, `${layer.type}-outline-color`, convert(value));
+                    }
+                } catch (err) {
+
                 }
             }
         }
     }
-
 };
 
 /**
@@ -270,7 +278,15 @@ const addGray = (id) => {
  * @todo not yet implemented !
  */
 const addColor = (id) => {
-    throw new Error("Not yet implemented !");
+    var layers = Globals.map.getStyle().layers;
+    for (var i = 0; i < layers.length; i++) {
+        var layer = layers[i];
+        if (layer.metadata && layer.metadata.group === id) {
+            Object.entries(originalLayerColors[layer.id]).forEach((entry) => {
+                Globals.map.setPaintProperty(layer.id, entry[0], entry[1])
+            });
+        }
+    }
 };
 
 const getGroupFirstLayerIndex = (id) => {
