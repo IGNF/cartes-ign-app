@@ -16,7 +16,7 @@
   position: fixed;
   top: calc(10px + env(safe-area-inset-top));
   left: calc(15px + env(safe-area-inset-left));
-  background-image: url("assets/back.svg");
+  background-image: url("assets/map-buttons/back.svg");
   z-index: 3001;
 }
 
@@ -27,32 +27,32 @@
 }
 
 #layerManagerBtn {
-  background-image: url("assets/layers.svg");
+  background-image: url("assets/map-buttons/layers.svg");
   position: absolute;
   bottom: 50px;
 }
 
 #geolocateBtn {
-  background-image: url("assets/localisation.svg");
+  background-image: url("assets/map-buttons/localisation.svg");
   position: absolute;
   bottom: 0;
 }
 
 #sideBySideBtn {
-  background-image: url("assets/compare.svg");
+  background-image: url("assets/map-buttons/compare.svg");
   position: absolute;
   left: 15px;
   bottom: 0;
 }
 
 #compassBtn {
-  background-image: url("assets/compass.svg");
+  background-image: url("assets/map-buttons/compass.svg");
   position: absolute;
   bottom: 95px;
 }
 
 #filterPoiBtn {
-  background-image: url("assets/filtrer.svg");
+  background-image: url("assets/map-buttons/filtrer.svg");
   position: fixed;
   top: calc(80px + env(safe-area-inset-top));
   font-family: "Open Sans";
@@ -67,7 +67,7 @@
 }
 
 #interactivityBtn {
-  background-image: url("assets/interactivity.svg");
+  background-image: url("assets/map-buttons/interactivity.svg");
   background-size: 20px;
   position: fixed;
   left: 15px;

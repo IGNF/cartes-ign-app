@@ -25,6 +25,33 @@
   overflow-y: auto;
 }
 
+#informationsWindow::after,
+#isochroneWindow::after,
+#directionsWindow::after,
+#directionsResultsWindow::after,
+#positionWindow::after,
+#layerManagerWindow::after,
+#poiWindow::after,
+#routeDrawWindow::after,
+#directionsWindow::after {
+  content: "";
+  pointer-events: none;
+  position: sticky;
+  z-index: 6;
+  bottom: 0;
+  width: 100%;
+  height: 25px;
+  background: linear-gradient(#fff0, #f4f6f8);
+  opacity: 1;
+  visibility: visible;
+  display: block;
+}
+
+#routeDrawWindow::after,
+#directionsResultsWindow::after {
+  background: linear-gradient(#fff0, white);
+}
+
 
 .windowClose {
   width: 34px;

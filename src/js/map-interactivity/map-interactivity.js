@@ -196,7 +196,7 @@ class MapInteractivity {
 
     let promisesArray = GFIArray.map((layer) => {
       const response = fetch(
-        `https://wxs.ign.fr/epi5gbeldn6mblrnq95ce0mc/geoportail/wmts?` +
+        `https://data.geopf.fr/wmts?` +
         `SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetFeatureInfo&` +
         `LAYER=${layer[0].split('$')[0]}` +
         `&TILECOL=${layer[1].tiles.tile.x}&TILEROW=${layer[1].tiles.tile.y}&TILEMATRIX=${layer[1].computeZoom}&TILEMATRIXSET=PM` +

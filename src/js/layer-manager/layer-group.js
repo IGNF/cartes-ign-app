@@ -3,7 +3,7 @@
  * ISC License - Copyright (c) 2017, Mapbox
  * https://github.com/mapbox/mapbox-gl-layer-groups.git
  */
-import Globals from './globals';
+import Globals from '../globals';
 
 // Pour le passage en couleur après passage en noir et blanc
 const originalLayerColors = {};

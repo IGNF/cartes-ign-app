@@ -1,11 +1,11 @@
-import Globals from './globals';
+import Globals from '../globals';
 import LayersConfig from './layer-config';
 import LayersGroup from './layer-group';
 import LayersAdditional from './layer-additional';
 
 import Sortable from 'sortablejs';
 
-import ImageNotFound from '../html/img/image-not-found.png';
+import ImageNotFound from '../../html/img/image-not-found.png';
 
 /**
  * Gestionnaire de couches
@@ -434,11 +434,11 @@ class LayerSwitcher extends EventTarget {
         <div id="advanced-tools_ID_${index}" class="tools-layer-advanced-menu">
           <!-- N&B, visibility, info, remove -->
           <input type="checkbox" id="color_ID_${index}" checked="${gray}" />
-          <label id="color-picto_ID_${index}" for="color_ID_${index}" title="Couleur/NB" class="tools-layer-color"></label>
+          <label id="color-picto_ID_${index}" for="color_ID_${index}" title="Couleur/NB" class="tools-layer-color">Noir et blanc</label>
           <input type="checkbox" id="visibility_ID_${index}" checked="${visibility}" />
-          <label id="visibility-picto_ID_${index}" for="visibility_ID_${index}" title="Afficher/masquer la couche" class="tools-layer-visibility"></label>
-          <div id="info_ID_${index}" class="tools-layer-info" title="Informations de la couche"></div>
-          <div id="remove_ID_${index}" class="tools-layer-remove" title="Supprimer la couche"></div>
+          <label id="visibility-picto_ID_${index}" for="visibility_ID_${index}" title="Afficher/masquer la couche" class="tools-layer-visibility">Masquer/afficher</label>
+          <div id="info_ID_${index}" class="tools-layer-info" title="Informations de la couche">Informations</div>
+          <div id="remove_ID_${index}" class="tools-layer-remove" title="Supprimer la couche">Supprimer</div>
         </div>
       </div>
       `;

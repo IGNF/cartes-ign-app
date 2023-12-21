@@ -210,3 +210,9 @@
   font-size: 15px;
   font-family: "Open Sans Bold";
 }
+
+@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+  #directionsListDetails {
+    max-height: calc(100vh - 150px);
+  }
+}

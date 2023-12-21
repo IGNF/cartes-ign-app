@@ -1,4 +1,4 @@
-import Globals from './globals';
+import Globals from '../globals';
 import LayerSwitcher from './layer-switcher';
 import LayerCatalogue from './layer-catalogue';
 import layerConfig from './layer-config';

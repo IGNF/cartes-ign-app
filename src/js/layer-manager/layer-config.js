@@ -9,9 +9,9 @@
  * La liste des couches de fonds et thématiques est definie dans un fichier de configuration.
  * @todo prévoir le multi couche pour les couches vecteurs tuilés
  */
-import BaseLayers from "./data-layer/base-layer-config.json";
-import ThematicLayers from "./data-layer/thematics-layer-config.json";
-import ConfigLayers from "./data-layer/layers-config.json";
+import BaseLayers from "../data-layer/base-layer-config.json";
+import ThematicLayers from "../data-layer/thematics-layer-config.json";
+import ConfigLayers from "../data-layer/layers-config.json";
 
 /**
  * Clef API (epi5gbeldn6mblrnq95ce0mc) pour toutes les couches (Oshimae)
