@@ -425,7 +425,7 @@
 			"source": "plan_ign",
 			"source-layer": "bati_zone_surf",
 			"minzoom": 7,
-			"maxzoom": 15,
+			"maxzoom": 16,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -459,7 +459,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -484,7 +484,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -509,7 +509,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -531,7 +531,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -556,7 +556,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -581,7 +581,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -607,7 +607,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -627,7 +627,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -647,7 +647,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -673,7 +673,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -694,7 +694,7 @@
 			"source": "plan_ign",
 			"source-layer": "oro_lin",
 			"minzoom": 14,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -712,7 +712,7 @@
 			"source": "plan_ign",
 			"source-layer": "oro_lin",
 			"minzoom": 14,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -737,7 +737,7 @@
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"symbol-placement": "line",
 				"text-field": "{texte}",
@@ -775,7 +775,7 @@
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"symbol-placement": "line",
 				"text-field": "{texte}",
@@ -813,7 +813,7 @@
 			"source": "plan_ign",
 			"source-layer": "oro_courbe",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"layout": {
 				"symbol-placement": "line",
 				"text-field": "{texte}",
@@ -881,7 +881,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "hydro_reseau_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -908,7 +908,7 @@
 			"source": "plan_ign",
 			"source-layer": "hydro_reseau_sou",
 			"minzoom": 12,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -957,7 +957,7 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -990,7 +990,7 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1024,7 +1024,7 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1051,7 +1051,7 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1079,7 +1079,7 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"minzoom": 14,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1105,7 +1105,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1130,7 +1130,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1157,7 +1157,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1183,7 +1183,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 14,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1208,7 +1208,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 14,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1234,7 +1234,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 14,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1260,7 +1260,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1286,7 +1286,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 12,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1310,7 +1310,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1336,7 +1336,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 12,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1368,7 +1368,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1392,7 +1392,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1419,7 +1419,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1451,7 +1451,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 11,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1476,7 +1476,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1509,7 +1509,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1536,7 +1536,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 7,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1569,7 +1569,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1596,7 +1596,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 7,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1626,7 +1626,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1652,7 +1652,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1677,7 +1677,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 12,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1709,7 +1709,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1733,7 +1733,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1760,7 +1760,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1792,7 +1792,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 11,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1825,7 +1825,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1858,7 +1858,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1892,7 +1892,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1926,7 +1926,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1959,7 +1959,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1990,7 +1990,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -2019,7 +2019,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -2053,7 +2053,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -2284,7 +2284,7 @@
 			"type": "fill",
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
-			"maxzoom": 14,
+			"maxzoom": 15,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -2324,7 +2324,7 @@
 			"type": "fill",
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
-			"maxzoom": 15,
+			"maxzoom": 16,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -2370,7 +2370,7 @@
 			"type": "fill",
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
-			"maxzoom": 15,
+			"maxzoom": 16,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -2446,7 +2446,7 @@
 			"type": "fill",
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
-			"maxzoom": 15,
+			"maxzoom": 16,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -2481,7 +2481,7 @@
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
 			"minzoom": 14,
-			"maxzoom": 15,
+			"maxzoom": 16,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -2653,7 +2653,7 @@
 			"type": "fill",
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
-			"maxzoom": 14,
+			"maxzoom": 15,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -2793,7 +2793,7 @@
 			"source": "plan_ign",
 			"source-layer": "bati_zai",
 			"minzoom": 15,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -3144,7 +3144,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3334,7 +3334,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"minzoom": 11,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3399,7 +3399,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3463,7 +3463,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3525,7 +3525,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"minzoom": 8,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3552,7 +3552,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"minzoom": 12,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3589,7 +3589,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3613,7 +3613,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3640,7 +3640,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3712,7 +3712,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3788,7 +3788,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3862,7 +3862,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3898,7 +3898,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3961,7 +3961,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -4129,7 +4129,7 @@
 			"source": "plan_ign",
 			"source-layer": "ferre",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -4153,7 +4153,7 @@
 			"source": "plan_ign",
 			"source-layer": "ferre",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -4226,7 +4226,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_liaison",
 			"minzoom": 8,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -4281,7 +4281,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_liaison",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -4342,7 +4342,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_liaison",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -4389,7 +4389,7 @@
 			"type": "fill",
 			"source": "plan_ign",
 			"source-layer": "routier_surf",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -4405,7 +4405,7 @@
 			"type": "fill",
 			"source": "plan_ign",
 			"source-layer": "routier_surf",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -4421,7 +4421,7 @@
 			"type": "fill",
 			"source": "plan_ign",
 			"source-layer": "routier_surf",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -4719,7 +4719,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -4884,7 +4884,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 11,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -4949,7 +4949,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5013,7 +5013,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5075,7 +5075,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5126,7 +5126,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 12,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5163,7 +5163,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5187,7 +5187,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5214,7 +5214,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5252,7 +5252,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 11,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5284,7 +5284,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5323,7 +5323,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5356,7 +5356,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5395,7 +5395,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5427,7 +5427,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5463,7 +5463,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5492,7 +5492,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5526,7 +5526,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5694,7 +5694,7 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sup",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -5718,7 +5718,7 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sup",
 			"minzoom": 10,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5813,7 +5813,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 14,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -5865,7 +5865,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5892,7 +5892,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
-			"maxzoom": 10,
+			"maxzoom": 11,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5919,7 +5919,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 10,
-			"maxzoom": 11,
+			"maxzoom": 12,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5946,7 +5946,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 11,
-			"maxzoom": 12,
+			"maxzoom": 13,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -5973,7 +5973,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 12,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6000,7 +6000,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6026,7 +6026,7 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6147,7 +6147,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6175,7 +6175,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 8,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6198,7 +6198,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6222,7 +6222,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 7,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6245,7 +6245,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6328,7 +6328,7 @@
 			"source": "plan_ign",
 			"source-layer": "limite_lin",
 			"minzoom": 7,
-			"maxzoom": 10,
+			"maxzoom": 11,
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -6546,7 +6546,7 @@
 			"source": "plan_ign",
 			"source-layer": "oro_ponc",
 			"minzoom": 11,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["in", "symbo",
 				"POINT_COTE",
 				"POINT_COTE_TOPO",
@@ -6722,7 +6722,7 @@
 			"source": "plan_ign",
 			"source-layer": "bati_ponc",
 			"minzoom": 12,
-			"maxzoom": 15,
+			"maxzoom": 16,
 			"layout": {
 				"visibility": "visible",
 				"icon-image": "Ecluse",
@@ -6739,7 +6739,7 @@
 			"source": "plan_ign",
 			"source-layer": "bati_ponc",
 			"minzoom": 12,
-			"maxzoom": 14,
+			"maxzoom": 15,
 			"layout": {
 				"visibility": "visible",
 				"icon-image": "Barrage",
@@ -6774,7 +6774,7 @@
 			"type": "circle",
 			"source": "plan_ign",
 			"source-layer": "bati_ponc",
-			"maxzoom": 15,
+			"maxzoom": 16,
 			"layout": {
 				"visibility": "visible"
 			},
@@ -6834,7 +6834,7 @@
 			"type": "symbol",
 			"source": "plan_ign",
 			"source-layer": "bati_ponc",
-			"maxzoom": 15,
+			"maxzoom": 16,
 			"layout": {
 				"visibility": "visible",
 				"icon-image": "Silo",
@@ -6876,7 +6876,7 @@
 			"type": "symbol",
 			"source": "plan_ign",
 			"source-layer": "bati_ponc",
-			"maxzoom": 15,
+			"maxzoom": 16,
 			"layout": {
 				"visibility": "visible",
 				"icon-image": "Reservoir",
@@ -7072,7 +7072,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_borne",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "symbo",
 				"CHEMIN",
 				"CHEMIN_SOU",
@@ -7113,7 +7113,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_borne",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "symbo",
 				"NON_CLASSEE",
 				"NON_CLASSEE_4",
@@ -7149,7 +7149,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_borne",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "symbo",
 				"LOCALE_1",
 				"LOCALE_1_SOU",
@@ -7190,7 +7190,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_borne",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "symbo",
 				"REGIONALE_1",
 				"REGIONALE_1_SOU",
@@ -7229,7 +7229,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_borne",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "symbo",
 				"PRINCIPALE_1",
 				"PRINCIPALE_1_SOU",
@@ -7269,7 +7269,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_borne",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "symbo",
 				"CHEMIN",
 				"CHEMIN_SOU",
@@ -7310,7 +7310,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_borne",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "symbo",
 				"NON_CLASSEE",
 				"NON_CLASSEE_4",
@@ -7346,7 +7346,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_borne",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "symbo",
 				"LOCALE_1",
 				"LOCALE_1_SOU",
@@ -7387,7 +7387,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_borne",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "symbo",
 				"REGIONALE_1",
 				"REGIONALE_1_SOU",
@@ -7426,7 +7426,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_borne",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "symbo",
 				"PRINCIPALE_1",
 				"PRINCIPALE_1_SOU",
@@ -7541,7 +7541,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_liaison_lin",
 			"minzoom": 8,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["in", "txt_typo",
 				"LIAISON_MARITIME",
 				"LIAISON_MAR"
@@ -7625,7 +7625,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 14,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["==", "txt_typo", "religieux"],
 			"layout": {
 				"visibility": "visible",
@@ -7666,7 +7666,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 13,
-			"maxzoom": 14,
+			"maxzoom": 15,
 			"filter": ["all",
 				["==", "txt_typo", "divers_bati"],
 				["==", "symbo", "PARC_ATTRACTIONS"]
@@ -7713,7 +7713,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 14,
-			"maxzoom": 15,
+			"maxzoom": 16,
 			"filter": ["all",
 				["==", "txt_typo", "divers_bati"],
 				["in", "symbo",
@@ -7768,7 +7768,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 15,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["all",
 				["==", "txt_typo", "divers_bati"],
 				["in", "symbo",
@@ -7884,7 +7884,7 @@
 			"type": "symbol",
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"filter": ["==", "txt_typo", "PHARE"],
 			"layout": {
 				"visibility": "visible",
@@ -7966,7 +7966,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 14,
-			"maxzoom": 17,
+			"maxzoom": 18,
 			"filter": ["all",
 				["==", "txt_typo", "TYPO_E_GE"],
 				["==", "symbo", "AEROGARE"]
@@ -7998,7 +7998,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 11,
-			"maxzoom": 12,
+			"maxzoom": 13,
 			"filter": ["==", "txt_typo", "AEROPORT_PONC"],
 			"layout": {
 				"visibility": "visible",
@@ -8023,7 +8023,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 12,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"filter": ["==", "txt_typo", "AEROPORT_PONC"],
 			"layout": {
 				"visibility": "visible",
@@ -8048,7 +8048,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 13,
-			"maxzoom": 17,
+			"maxzoom": 18,
 			"filter": ["all",
 				["==", "txt_typo", "TYPO_A_5"],
 				["==", "symbo", "AEROPORT"]
@@ -8080,7 +8080,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 11,
-			"maxzoom": 12,
+			"maxzoom": 13,
 			"filter": ["==", "txt_typo", "AERODROME_PONC"],
 			"layout": {
 				"visibility": "visible",
@@ -8105,7 +8105,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 12,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"filter": ["in", "txt_typo",
 				"AERODROME_PONC",
 				"AERODROME_IMPORT_PONC"
@@ -8133,7 +8133,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 13,
-			"maxzoom": 17,
+			"maxzoom": 18,
 			"filter": ["all",
 				["==", "txt_typo", "TYPO_A_7"],
 				["==", "symbo", "AERODROME"]
@@ -8265,7 +8265,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_numero_lin",
 			"minzoom": 11,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["==", "txt_typo", "Départementale"],
 			"layout": {
 				"visibility": "visible",
@@ -8276,7 +8276,7 @@
 				"text-padding": 2,
 				"text-anchor": "center",
 				"text-font": ["Source Sans Pro Semibold"],
-				"text-rotation-alignment": "viewport"
+				"text-rotation-alignment": "auto"
 			},
 			"paint": {
 				"text-color": "#4D4D4D",
@@ -8290,7 +8290,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_numero_lin",
 			"minzoom": 7,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["==", "txt_typo", "Nationale"],
 			"layout": {
 				"visibility": "visible",
@@ -8320,7 +8320,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_numero_lin",
 			"minzoom": 7,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["==", "txt_typo", "Autoroute"],
 			"layout": {
 				"visibility": "visible",
@@ -8350,7 +8350,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_routier_odonyme_lin",
 			"minzoom": 15,
-			"maxzoom": 17,
+			"maxzoom": 18,
 			"layout": {
 				"symbol-placement": "line",
 				"text-field": "{nom_gauche}",
@@ -8560,7 +8560,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 17,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["all",
 				["==", "symbo", "QUARTIER"],
 				["==", "txt_typo", "TYPO_E_GE"]
@@ -8592,7 +8592,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 16,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["all",
 				["==", "symbo", "LIEU-DIT-HABITE"],
 				["==", "txt_typo", "TYPO_E_GE"]
@@ -8623,7 +8623,7 @@
 			"type": "symbol",
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["==", "txt_typo", "TYPO_A_10"],
 			"layout": {
 				"visibility": "visible",
@@ -8707,8 +8707,8 @@
 			"type": "symbol",
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
-			"minzoom": 11,
-			"maxzoom": 13,
+			"minzoom": 12,
+			"maxzoom": 14,
 			"filter": ["in", "txt_typo",
 				"BAT_HAMEAU",
 				"BAT_HAMEAU_T"
@@ -8738,7 +8738,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 7,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"filter": ["in", "txt_typo",
 				"TYPO_A_6",
 				"TYPO_A_7"
@@ -8768,7 +8768,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 9,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"filter": ["in", "txt_typo",
 				"TYPO_A_5",
 				"BAT_COMMUNE_5",
@@ -9124,7 +9124,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_bati_ponc",
 			"minzoom": 15,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["==", "txt_typo", "zai"],
 			"layout": {
 				"visibility": "visible",
@@ -9165,7 +9165,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 7,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"filter": ["in", "txt_typo",
 				"TYPO_A_4",
 				"BAT_COMMUNE_4",
@@ -9195,7 +9195,7 @@
 			"type": "symbol",
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["==", "txt_typo", "TYPO_A_9"],
 			"layout": {
 				"visibility": "visible",
@@ -9224,7 +9224,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["all",
 				["!=", "symbo", "COMMUNE_FUSIONNEE"],
 				["!=", "symbo", "COMMUNE_CHEF_LIEU"],
@@ -9577,7 +9577,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 5,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"filter": ["in", "txt_typo",
 				"commune 3",
 				"TYPO_A_3",
@@ -9614,7 +9614,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["all",
 				["!=", "symbo", "COMMUNE_FUSIONNEE"],
 				["!=", "symbo", "COMMUNE_CHEF_LIEU"],
@@ -9647,7 +9647,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["all",
 				["!=", "symbo", "COMMUNE_FUSIONNEE"],
 				["!=", "symbo", "COMMUNE_CHEF_LIEU"],
@@ -9745,7 +9745,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["all",
 				["!=", "symbo", "COMMUNE_FUSIONNEE"],
 				["!=", "symbo", "COMMUNE_CHEF_LIEU"],
@@ -9994,7 +9994,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 4,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"filter": ["in", "txt_typo",
 				"commune 2",
 				"TYPO_A_2",
@@ -10039,7 +10039,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["all",
 				["!=", "symbo", "COMMUNE_FUSIONNEE"],
 				["!=", "symbo", "COMMUNE_CHEF_LIEU"],
@@ -10067,7 +10067,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["all",
 				["!=", "symbo", "COMMUNE_FUSIONNEE"],
 				["!=", "symbo", "COMMUNE_CHEF_LIEU"],
@@ -10095,7 +10095,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["all",
 				["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
 				["==", "txt_typo", "TYPO_A_8"]
@@ -10128,7 +10128,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["all",
 				["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
 				["==", "txt_typo", "TYPO_A_7"]
@@ -10161,7 +10161,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 18,
+			"maxzoom": 19,
 			"filter": ["all",
 				["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
 				["in", "txt_typo", "TYPO_A_5", "TYPO_A_6"]
@@ -10194,7 +10194,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["all",
 				["!=", "symbo", "COMMUNE_FUSIONNEE"],
 				["!=", "symbo", "COMMUNE_CHEF_LIEU"],
@@ -10222,7 +10222,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["all",
 				["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
 				["==", "txt_typo", "TYPO_A_4"]
@@ -10250,7 +10250,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["all",
 				["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
 				["==", "txt_typo", "TYPO_A_3"]
@@ -10278,7 +10278,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["all",
 				["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
 				["==", "txt_typo", "TYPO_A_2"]
@@ -10306,7 +10306,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 3,
-			"maxzoom": 13,
+			"maxzoom": 14,
 			"filter": ["in", "txt_typo",
 				"commune 1",
 				"TYPO_A_1",
@@ -10350,7 +10350,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 13,
-			"maxzoom": 16,
+			"maxzoom": 17,
 			"filter": ["all",
 				["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
 				["==", "txt_typo", "TYPO_A_1"]
@@ -10406,7 +10406,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 4,
-			"maxzoom": 5,
+			"maxzoom": 6,
 			"filter": ["==", "txt_typo", "pays 3"],
 			"layout": {
 				"visibility": "visible",
@@ -10430,7 +10430,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 2,
-			"maxzoom": 5,
+			"maxzoom": 6,
 			"filter": ["==", "txt_typo", "pays 2"],
 			"layout": {
 				"visibility": "visible",
@@ -10454,7 +10454,7 @@
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
 			"minzoom": 2,
-			"maxzoom": 5,
+			"maxzoom": 6,
 			"filter": ["==", "txt_typo", "pays 1"],
 			"layout": {
 				"visibility": "visible",
@@ -10477,7 +10477,7 @@
 			"type": "symbol",
 			"source": "plan_ign",
 			"source-layer": "toponyme_localite_ponc",
-			"maxzoom": 3,
+			"maxzoom": 4,
 			"filter": ["==", "txt_typo", "continent"],
 			"layout": {
 				"visibility": "visible",
@@ -10502,7 +10502,7 @@
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"minzoom": 14,
 			"paint": {
-				"fill-pattern": "administratif_ou_militaire"
+				"fill-color": "transparent"
 			},
 			"filter": [
 				"all",
@@ -10520,7 +10520,7 @@
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"minzoom": 14,
 			"paint": {
-				"fill-pattern": "culture_et_loisirs"
+				"fill-color": "transparent"
 			},
 			"filter": [
 				"all",
@@ -10538,7 +10538,7 @@
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"minzoom": 14,
 			"paint": {
-				"fill-pattern": "gestion_des_eaux"
+				"fill-color": "transparent"
 			},
 			"filter": [
 				"all",
@@ -10556,7 +10556,7 @@
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"minzoom": 14,
 			"paint": {
-				"fill-pattern": "industriel_et_commercial"
+				"fill-color": "transparent"
 			},
 			"filter": [
 				"all",
@@ -10574,7 +10574,7 @@
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"minzoom": 14,
 			"paint": {
-				"fill-pattern": "religieux"
+				"fill-color": "transparent"
 			},
 			"filter": [
 				"all",
@@ -10592,7 +10592,7 @@
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"minzoom": 14,
 			"paint": {
-				"fill-pattern": "sante"
+				"fill-color": "transparent"
 			},
 			"filter": [
 				"all",
@@ -10610,7 +10610,7 @@
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"minzoom": 14,
 			"paint": {
-				"fill-pattern": "science_et_enseignement"
+				"fill-color": "transparent"
 			},
 			"filter": [
 				"all",
@@ -10628,7 +10628,7 @@
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"minzoom": 14,
 			"paint": {
-				"fill-pattern": "sport"
+				"fill-color": "transparent"
 			},
 			"filter": [
 				"all",
@@ -10645,6 +10645,7 @@
 			"source": "bdtopo",
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"paint": {
+				"line-color": "transparent",
 				"line-width": 0.75
 			}
 		},
@@ -10747,7 +10748,7 @@
 				"visibility": "visible"
 			},
 			"minzoom": 15,
-			"maxzoom": 19
+			"maxzoom": 20
 		},
 		{
 			"id": "parc_ou_reserve_limites",
@@ -10758,7 +10759,7 @@
 				"line-color": "transparent"
 			},
 			"minzoom": 15,
-			"maxzoom": 19
+			"maxzoom": 20
 		},
 
 		{
@@ -11964,7 +11965,7 @@
 			"source": "bdtopo",
 			"source-layer": "departement",
 			"minzoom": 2,
-			"maxzoom": 12,
+			"maxzoom": 13,
 			"paint": {
 				"line-width": 0.75,
 				"line-color": "transparent"
@@ -11980,7 +11981,7 @@
 				"line-color": "transparent"
 			},
 			"minzoom": 10,
-			"maxzoom": 13
+			"maxzoom": 14
 		},
 		{
 			"id": "arrondissement_limites",

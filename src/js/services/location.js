@@ -7,9 +7,9 @@ import { Geolocation } from '@capacitor/geolocation';
 import { Toast } from '@capacitor/toast';
 
 // fichiers SVG
-import LocationImg from "../../css/assets/localisation.svg";
-import LocationFollowImg from "../../css/assets/location-follow.svg";
-import LocationFixeImg from "../../css/assets/location-fixed.svg";
+import LocationImg from "../../css/assets/map-buttons/localisation.svg";
+import LocationFollowImg from "../../css/assets/map-buttons/location-follow.svg";
+import LocationFixeImg from "../../css/assets/map-buttons/location-fixed.svg";
 
 /* Géolocalisation */
 // Positionnement du mobile

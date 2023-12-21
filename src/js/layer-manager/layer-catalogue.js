@@ -1,9 +1,8 @@
-import Globals from './globals';
-import DOM from './dom';
+import Globals from '../globals';
 import LayersConfig from './layer-config';
 import LayersAdditional from './layer-additional';
 
-import ImageNotFound from '../html/img/image-not-found.png';
+import ImageNotFound from '../../html/img/image-not-found.png';
 
 /**
  * Gestion des couches thématiques et fonds de carte

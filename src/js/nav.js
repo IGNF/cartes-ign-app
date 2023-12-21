@@ -190,9 +190,9 @@ class MenuNavigation {
                 DOM.$searchresultsWindow.classList.remove('d-none');
                 DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$closeSearch.classList.remove('d-none');
-                document.body.style.overflowY = "scroll";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                    document.body.style.overflowY = "scroll";
                     DOM.$backTopLeftBtn.style.boxShadow = "unset";
                     DOM.$backTopLeftBtn.style.height = "44px";
                     DOM.$backTopLeftBtn.style.width = "24px";

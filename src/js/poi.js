@@ -1,7 +1,5 @@
-import maplibregl from "maplibre-gl";
-
-import LayersConfig from './layer-config';
-import LayersGroup from './layer-group';
+import LayersConfig from './layer-manager/layer-config';
+import LayersGroup from './layer-manager/layer-group';
 
 import PoiConfig from './data-layer/poi-osm-layer-config.json';
 

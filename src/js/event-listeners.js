@@ -77,12 +77,14 @@ function addListeners() {
       Globals.currentScrollIndex = 1;
     }
     if (["searchDirections", "searchIsochrone", "search"].includes(Globals.backButtonState)) {
+      document.body.style.removeProperty("overflow-y");
       DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
       DOM.$backTopLeftBtn.style.removeProperty("height");
       DOM.$backTopLeftBtn.style.removeProperty("width");
       DOM.$backTopLeftBtn.style.removeProperty("top");
       DOM.$backTopLeftBtn.style.removeProperty("left");
       if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        document.body.style.overflowY = "scroll";
         DOM.$backTopLeftBtn.style.boxShadow = "unset";
         DOM.$backTopLeftBtn.style.height = "44px";
         DOM.$backTopLeftBtn.style.width = "24px";
