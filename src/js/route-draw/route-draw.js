@@ -660,6 +660,9 @@ class RouteDraw {
      * @public
      */
     clear () {
+        if (this.delete) {
+            this.toggleDelete();
+        }
         this.elevation.clear();
         this.#deactivate();
         if (this.loading) {
@@ -676,9 +679,6 @@ class RouteDraw {
             steps: [],
         }
         this.dataHistory = [];
-        if (this.delete) {
-            this.toggleDelete();
-        }
         this.__updateRouteInfo(this.data);
         if (this.map.getLayer(RouteDrawLayers["line"].id)) {
             this.map.removeLayer(RouteDrawLayers["line"].id);
