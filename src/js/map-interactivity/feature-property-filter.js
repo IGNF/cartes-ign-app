@@ -41,6 +41,7 @@ const featurePropertyFilter = (feature) => {
     || feature.layer["source-layer"] == "ligne_orographique"
     || feature.layer["source-layer"] == "cours_d_eau"
     || feature.layer["source-layer"] == "surface_hydrographique"
+    || feature.layer["source-layer"] == "parc_ou_reserve"
     || feature.layer["source-layer"] == "zone_d_activite_ou_d_interet"
       || feature.layer["source-layer"] == "terrain_de_sport") {
       if(prop[0] == "nature") {
