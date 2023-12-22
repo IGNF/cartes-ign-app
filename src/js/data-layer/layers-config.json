@@ -45,7 +45,7 @@
   "layers": {
     "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
-      "title": "Plan IGN",
+      "title": "Aujourd'hui",
       "description": "Cartographie multi-échelles sur le territoire national, issue des bases de données vecteur de l’IGN, mis à jour régulièrement et réalisée selon un processus entièrement automatisé.",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -3489,7 +3489,7 @@
 
     "ORTHOIMAGERY.ORTHOPHOTOS2006-2010$GEOPORTAIL:OGC:WMTS": {
       "name": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
-      "title": "Photographies aériennes 2006-2010",
+      "title": "2006-2010",
       "description": "Prises de vues aériennes des territoires disponibles à la fin des années 2006 à 2010",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -3616,7 +3616,7 @@
     },
     "ORTHOIMAGERY.ORTHOPHOTOS2000-2005$GEOPORTAIL:OGC:WMTS": {
       "name": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
-      "title": "Photographies aériennes 2000-2005",
+      "title": "2000-2005",
       "description": "Prises de vues aériennes des territoires pour les années 2000 à 2005",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -3743,7 +3743,7 @@
     },
     "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$GEOPORTAIL:OGC:WMTS": {
       "name": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
-      "title": "Photographies aériennes historiques 1950-1965",
+      "title": "1950-1965",
       "description": "Couverture en photographies aériennes de la France des années 50, telle qu'elle se présentait avant les grands aménagements des années 60. Cette couverture a été réalisée à partir des photographies aériennes historiques numérisées par l'IGN. Elle est disponible sur la France métropolitaine, les départements et régions d'Outre-Mer (la Guyane n'est que partiellement couverte) et les collectivités d'Outre-Mer sauf la Polynésie française. Les photographies sont orthorectifiées, c'est-à-dire corrigées des déformations dues à la prise de vue et au relief du terrain, et assemblées pour fournir une visualisation continue superposable avec le Référentiel à Grande Echelle (RGE®) ou les cartes.",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -3901,7 +3901,7 @@
 
     "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950",
-      "title": "SCAN50 Historique de 1950",
+      "title": "1950 (Scan historique)",
       "description": "SCAN50 produit par l'IGN en 1950",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -4028,7 +4028,7 @@
     },
     "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40",
-      "title": "Carte de l'état-major (1820-1866)",
+      "title": "1820-1866 (Carte de l'état-major)",
       "description": "Carte française en couleurs du XIXè siècle en couleurs superposable aux cartes et données modernes.",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -4137,7 +4137,7 @@
     },
     "GEOGRAPHICALGRIDSYSTEMS.CASSINI$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.CASSINI",
-      "title": "Carte de Cassini (XVIIIe siècle)",
+      "title": "XVIIIe siècle (Carte de Cassini)",
       "description": "Carte de Cassini en couleur (feuilles gravées et aquarellées), issue de l’exemplaire dit de « Marie-Antoinette » du XVIIIe siècle.",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,

@@ -1,6 +1,7 @@
 /** global: map */
 let map = null;
-let mapRLT = null;
+let mapRLT1 = null;
+let mapRLT2 = null;
 
 /**
  * global: layer display state
@@ -54,6 +55,7 @@ let position = null;
 
 // Global Compare Plugin
 let compare = null;
+let comparedLayers = ["ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS", "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$GEOPORTAIL:OGC:WMTS"];
 
 // Global Menu navigation
 let menu = null;
@@ -81,7 +83,8 @@ let currentScroll = window.scrollY;
 
 export default {
   map,
-  mapRLT,
+  mapRLT1,
+  mapRLT2,
   layersDisplayed,
   backButtonState,
   mapState,
@@ -102,6 +105,7 @@ export default {
   position,
   search,
   compare,
+  comparedLayers,
   menu,
   manager,
   poi,

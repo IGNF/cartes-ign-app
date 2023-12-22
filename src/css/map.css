@@ -36,6 +36,14 @@
   position: fixed;
 }
 
+.mapRLT {
+  height: 100vh;
+}
+
+#mapRLT1 {
+  z-index: 1;
+}
+
 #cartoContainer {
   min-height: 100vh;
   display: flex;

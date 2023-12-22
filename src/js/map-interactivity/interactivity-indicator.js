@@ -56,7 +56,7 @@ class InteractivityIndicator {
         if (this.hardDisabled) {
           return;
         }
-        if (this.pii && this.position && Math.round(e.target.getZoom()) > this.piiMinZoom) {
+        if (this.pii && this.position && Math.floor(e.target.getZoom()) >= this.piiMinZoom) {
           this.active();
         } else {
           this.dontClear = true;
@@ -79,7 +79,7 @@ class InteractivityIndicator {
       if (layer[0] === this.id) {
         this.pii = true;
         this.position = true;
-        if (Math.round(this.map.getZoom()) > this.piiMinZoom) {
+        if (Math.floor(this.map.getZoom()) >= this.piiMinZoom) {
           this.active();
         } else {
           this.disable();

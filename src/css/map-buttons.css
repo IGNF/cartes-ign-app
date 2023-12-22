@@ -39,10 +39,85 @@
 }
 
 #sideBySideBtn {
-  background-image: url("assets/map-buttons/compare.svg");
+  background-image: url("assets/map-buttons/compare/compare.svg");
   position: absolute;
   left: 15px;
   bottom: 0;
+}
+
+#sideBySideLeftLayer {
+  background-image: url("assets/map-buttons/compare/compare-layer-left.svg");
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+}
+
+#sideBySideRightLayer {
+  background-image: url("assets/map-buttons/compare/compare-layer-right.svg");
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+}
+
+#compareMode {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top));
+  right: calc(15px + env(safe-area-inset-left));
+  width: 120px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  z-index: 2;
+}
+
+#compareMode > div {
+  width: 40px;
+  height: 40px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 40px;
+  filter: grayscale(1);
+}
+
+#compareMode > div.selected {
+  filter: grayscale(0);
+}
+
+#compareLeftRight {
+  background-image: url("assets/map-buttons/compare/compare-leftright.svg");
+}
+
+#compareUpDown {
+  background-image: url("assets/map-buttons/compare/compare-updown.svg");
+}
+
+#compareFade {
+  background-image: url("assets/map-buttons/compare/compare-fade.svg");
+}
+
+#sideBySideFadeSlider {
+  width: calc(100vw - 144px - env(safe-area-inset-left) - env(safe-area-inset-right));
+  position: absolute;
+  z-index: 2;
+  height: 42px;
+  background-color: white;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sideBySideFadeSlider-range {
+  width: 100%;
+  margin: 0 26px;
+}
+
+#sideBySideFadeSlider-range-input {
+  width: 100%;
+  background: white;
 }
 
 #compassBtn {

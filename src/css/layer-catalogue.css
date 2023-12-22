@@ -94,11 +94,6 @@
   box-sizing: border-box;
 }
 
-.comparedLayer img {
-  border: solid 5px #0b6ba7;
-  box-sizing: border-box;
-}
-
 #baseLayers .layer {
   display: inline-block;
   padding-bottom: 1em;

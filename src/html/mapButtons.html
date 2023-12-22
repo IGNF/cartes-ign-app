@@ -2,6 +2,13 @@
 <div class="button d-none" id="backTopLeftBtn"></div>
 <!-- Filtres POI -->
 <div class="button" id="filterPoiBtn">Filtres</div>
+<!-- Mode de comparaison de carte -->
+<div id="compareMode" class="d-none">
+  <div id="compareLeftRight" class="selected"></div>
+  <div id="compareUpDown"></div>
+  <div id="compareFade"></div>
+</div>
+
 <!-- Indicateur d'interactivité du Plan IGN -->
 <div class="button" id="interactivityBtn"></div>
 <div id="bottomButtons">
@@ -13,6 +20,13 @@
   <div class="button" id="layerManagerBtn"></div>
   <!-- Comparaison de carte -->
   <div class="button" id="sideBySideBtn"></div>
+  <div class="button d-none" id="sideBySideLeftLayer"></div>
+  <div class="button d-none" id="sideBySideRightLayer"></div>
+  <div class="d-none" id="sideBySideFadeSlider">
+    <div id="sideBySideFadeSlider-range">
+      <input id="sideBySideFadeSlider-range-input" type="range" value="100" style="--value: 100; --min: 0; --max: 100;">
+    </div>
+  </div>
   <!-- Tracé d'itinéraire -->
   <div id="routeDrawBtns" class="d-none">
     <div class="button" id="routeDrawMode">

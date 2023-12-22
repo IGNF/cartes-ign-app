@@ -87,22 +87,6 @@ class LayerCatalogue extends EventTarget {
       });
     }
 
-    // TODO : only display them in RLT menu
-
-    // var strRLTLayers = "";
-    // var rltLayers = LayersConfig.getRLTLayers();
-    // for(let j = 0; j < rltLayers.length; j++) {
-    //   var props = LayersConfig.getLayerProps(rltLayers[j]);
-    //   strRLTLayers += tplLayer({
-    //     type : "rltLayer",
-    //     layerID : rltLayers[j],
-    //     layerName : props.layer,
-    //     layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
-    //     layerTitle : props.title,
-    //     layerThematic : ""
-    //   });
-    // }
-
     var strThematicButtons = "";
     var thematicButtons = LayersConfig.getThematics();
     for (let l = 0; l < thematicButtons.length; l++) {
@@ -189,7 +173,7 @@ class LayerCatalogue extends EventTarget {
     // clic sur une couche de fonds
     document.querySelectorAll(".baseLayer").forEach((el) => {
       el.addEventListener('click', (e) => {
-        if (el.classList.contains("selectedLayer") || el.classList.contains("comparedLayer")) {
+        if (el.classList.contains("selectedLayer")) {
           this.removeLayer(el.id);
         } else {
           this.addLayer(el.id);
@@ -199,7 +183,7 @@ class LayerCatalogue extends EventTarget {
     // clic sur une couche thematique
     document.querySelectorAll(".thematicLayer").forEach((el) => {
       el.addEventListener('click', (e) => {
-        if (el.classList.contains("selectedLayer") || el.classList.contains("comparedLayer")) {
+        if (el.classList.contains("selectedLayer")) {
           this.removeLayer(el.id);
         } else {
           this.addLayer(el.id);
@@ -249,27 +233,24 @@ class LayerCatalogue extends EventTarget {
     if (!layerName) {
       return;
     }
-    if (Globals.mapState === "compare") {
-      this.#addCompareLayer(layerName);
-    } else {
-      var element = document.getElementById(layerName);
-      element.classList.add("selectedLayer");
 
-      /**
-       * Evenement "addlayer"
-       * @event addlayer
-       * @type {*}
-       * @property {*} id -
-       */
-      this.dispatchEvent(
-        new CustomEvent("addlayer", {
-          bubbles: true,
-          detail: {
-            id : layerName
-          }
-        })
-      );
-    }
+    var element = document.getElementById(layerName);
+    element.classList.add("selectedLayer");
+
+    /**
+     * Evenement "addlayer"
+     * @event addlayer
+     * @type {*}
+     * @property {*} id -
+     */
+    this.dispatchEvent(
+      new CustomEvent("addlayer", {
+        bubbles: true,
+        detail: {
+          id : layerName
+        }
+      })
+    );
   }
 
   /**
@@ -282,86 +263,25 @@ class LayerCatalogue extends EventTarget {
     if (!layerName) {
       return;
     }
-    if (Globals.mapState === "compare") {
-      this.#removeCompareLayer(layerName);
-    } else {
-      var element = document.getElementById(layerName);
-      element.classList.remove('selectedLayer');
+    var element = document.getElementById(layerName);
+    element.classList.remove('selectedLayer');
 
-      /**
-       * Evenement "removelayer"
-       * @event removelayer
-       * @type {*}
-       * @property {*} id -
-       */
-      this.dispatchEvent(
-        new CustomEvent("removelayer", {
-          bubbles: true,
-          detail: {
-            id : layerName
-          }
-        })
-      );
-    }
+    /**
+     * Evenement "removelayer"
+     * @event removelayer
+     * @type {*}
+     * @property {*} id -
+     */
+    this.dispatchEvent(
+      new CustomEvent("removelayer", {
+        bubbles: true,
+        detail: {
+          id : layerName
+        }
+      })
+    );
   }
 
-  /**
-   * Ajout d'une couche pour comparaison
-   * @param {*} layerName
-   */
-  #addCompareLayer(layerName) {
-    // on supprime la couche précédemment ajoutée car sur l'outil de comparaison
-    // on est l'affichage d'une seule couche à la fois !
-    document.querySelectorAll(".baseLayer").forEach(elem => {
-      if (elem.classList.contains('comparedLayer')) {
-        elem.classList.remove('comparedLayer');
-        this.#removeCompareLayer(elem.id);
-      }
-    });
-    document.getElementById(layerName).classList.add("comparedLayer");
-    this.#setCompareLayerStyle(layerName);
-  }
-
-  /**
-   * Supprime la couche de comparaison
-   * @param {*} layerName
-   */
-  #removeCompareLayer(layerName) {
-    document.querySelectorAll(".baseLayer").forEach(elem => {
-      elem.classList.remove('comparedLayer');
-    });
-    this.#setCompareLayerStyle(layerName);
-  }
-
-  /**
-   * Ajout du style pour une source donnée
-   * @param {*} source - nom de la source === nom de la couche
-   */
-  #setCompareLayerStyle (source) {
-    let allLayersStyle = this.mapRLT.getStyle().layers;
-    var layerIndex = allLayersStyle.findIndex((l) => l.id === source);
-    var layerStyle = allLayersStyle[layerIndex] || null;
-
-    if (source) {
-      if (layerIndex === -1) {
-        // le style n'existe pas, on ajoute donc le nouveau style de type raster
-        layerStyle = {
-          id : source,
-          source : source,
-          type : "raster"
-        };
-        // HACK
-        // on positionne toujours le style avant ceux du calcul d'itineraires (directions)
-        // afin que le calcul soit toujours la couche visible du dessus !
-        var layerIndexBefore = allLayersStyle.findIndex((l) => l.source === "maplibre-gl-directions");
-        var layerIdBefore = (layerIndexBefore !== -1) ? allLayersStyle[layerIndexBefore].id : null;
-        this.mapRLT.addLayer(layerStyle, layerIdBefore);
-      } else {
-        // le style existe, on le supprime
-        this.mapRLT.removeLayer(source);
-      }
-    }
-  }
 }
 
 export default LayerCatalogue;
