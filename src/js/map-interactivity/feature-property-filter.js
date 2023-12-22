@@ -34,6 +34,11 @@ const featurePropertyFilter = (feature) => {
     }
     if(feature.layer["source-layer"] == "construction_lineaire" 
     || feature.layer["source-layer"] == "construction_surfacique"
+    || feature.layer["source-layer"] == "construction_ponctuelle"
+    || feature.layer["source-layer"] == "equipement_de_transport"
+    || feature.layer["source-layer"] == "pylone"
+    || feature.layer["source-layer"] == "reservoir"
+    || feature.layer["source-layer"] == "plan_d_eau"
     || feature.layer["source-layer"] == "cimetiere"
     || feature.layer["source-layer"] == "zone_de_vegetation"
     || feature.layer["source-layer"] == "zone_d_estran"
