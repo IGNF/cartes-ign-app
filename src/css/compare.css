@@ -1,0 +1,65 @@
+.layerSelectorDiv {
+  height: 32px;
+  margin-top: 25px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #DDE1E6;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+.layerSelectorDiv > .toggleSwitch {
+  margin: 0 12px;
+}
+
+.layerSelectorDiv > .toggleSwitch > .toggleSlider {
+  background-color: #26A581;
+}
+
+.subCategoryRLTLayer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.subCategoryRLTLayer .layer .layerImg img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.rltLayer {
+  display: inline-block;
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+.rltLayer > .layer-title {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.maplibregl-compare {
+  position: fixed;
+}
+
+.maplibregl-compare .compare-swiper-vertical {
+  background-color: white;
+  background-image: url(assets/map-buttons/compare/compare-slider.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  touch-action: none;
+}
+
+.maplibregl-compare .compare-swiper-horizontal {
+  transform:rotate(90deg) translate(0, 50%);
+  background-color: white;
+  background-image: url(assets/map-buttons/compare/compare-slider.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  touch-action: none;
+}

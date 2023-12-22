@@ -248,12 +248,13 @@ const addGray = (id) => {
                 value = Globals.map.getPaintProperty(layer.id, `${layer.type}-color`);
                 if (value) {
                     originalLayerColors[layer.id][`${layer.type}-color`] = value;
-                    if (value.stops) {
-                        var greyStops = [];
-                        value.stops.forEach((val) => {
-                            greyStops.push([val[0], convert(val[1])]);
-                        });
-                        Globals.map.setPaintProperty(layer.id, `${layer.type}-color`, {stops: greyStops})
+                    if (value[0] == "step") {
+                        var greyStep = ["step"];
+                        for (let i = 2; i < greyStep.length; i+= 2) {
+                            greyStep.push(value[i - 1]);
+                            greyStep.push(convert(value[i]));
+                        }
+                        Globals.map.setPaintProperty(layer.id, `${layer.type}-color`, greyStep)
                     } else {
                         Globals.map.setPaintProperty(layer.id, `${layer.type}-color`, convert(value));
                     }

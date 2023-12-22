@@ -15,6 +15,11 @@ const $backTopLeftBtn = document.getElementById("backTopLeftBtn");
 const $compassBtn = document.getElementById("compassBtn");
 const $layerManagerBtn = document.getElementById("layerManagerBtn");
 const $sideBySideBtn = document.getElementById("sideBySideBtn");
+const $compareMode = document.getElementById("compareMode");
+const $sideBySideLeftLayer = document.getElementById("sideBySideLeftLayer");
+const $sideBySideRightLayer = document.getElementById("sideBySideRightLayer");
+const $compareLayers1Window = document.getElementById("compareLayers1Window");
+const $compareLayers2Window = document.getElementById("compareLayers2Window");
 const $filterPoiBtn = document.getElementById("filterPoiBtn");
 const $interactivityBtn = document.getElementById("interactivityBtn");
 const $routeDrawBtns = document.getElementById("routeDrawBtns");
@@ -81,6 +86,11 @@ export default {
   $isochroneWindow,
   $positionWindow,
   $sideBySideBtn,
+  $compareMode,
+  $sideBySideLeftLayer,
+  $sideBySideRightLayer,
+  $compareLayers1Window,
+  $compareLayers2Window,
   $myaccountWindow,
   $informationsWindow,
   $informationsText,

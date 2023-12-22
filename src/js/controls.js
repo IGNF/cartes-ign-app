@@ -67,6 +67,16 @@ const addControls = () => {
       unit: 'metric'
     }), "bottom-left");
 
+    Globals.mapRLT1.addControl(new maplibregl.ScaleControl({
+      maxWidth: 150,
+      unit: 'metric'
+    }), "bottom-left");
+
+    Globals.mapRLT2.addControl(new maplibregl.ScaleControl({
+      maxWidth: 150,
+      unit: 'metric'
+    }), "bottom-left");
+
     // contrôle filtres POI
     Globals.poi = new POI(map, {});
     Globals.poi.load() // promise !

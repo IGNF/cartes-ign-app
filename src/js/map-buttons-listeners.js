@@ -42,7 +42,7 @@ const addListeners = () => {
   });
 
   // Bouton Comparaison de carte
-  DOM.$sideBySideBtn.addEventListener("click", () => { Globals.compare.toggle(); });
+  DOM.$sideBySideBtn.addEventListener("click", () => { Globals.menu.open("compare"); });
 
   // Bouton du gestionnaire de couches
   DOM.$layerManagerBtn.addEventListener("click", () => { Globals.menu.open("layerManager"); });

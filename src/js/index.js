@@ -52,11 +52,10 @@ function app() {
     maxPitch: 0,
     touchPitch: false,
   });
-  map.scrollZoom.setWheelZoomRate(1);
 
-  // Secondary map for RLT
-  const mapRLT = new maplibregl.Map({
-    container: "mapRLT",
+  // Secondary maps for RLT
+  const mapRLT1 = new maplibregl.Map({
+    container: "mapRLT1",
     zoom: 5,
     center: [2.0, 47.33],
     attributionControl: false,
@@ -64,11 +63,28 @@ function app() {
     maxPitch: 0,
     touchPitch: false,
   });
-  mapRLT.scrollZoom.setWheelZoomRate(1);
+  // disable map rotation using right click + drag
+  mapRLT1.dragRotate.disable();
+  // disable map rotation using touch rotation gesture
+  mapRLT1.touchZoomRotate.disableRotation();
+  const mapRLT2 = new maplibregl.Map({
+    container: "mapRLT2",
+    zoom: 5,
+    center: [2.0, 47.33],
+    attributionControl: false,
+    locale: "fr",
+    maxPitch: 0,
+    touchPitch: false,
+  });
+  // disable map rotation using right click + drag
+  mapRLT2.dragRotate.disable();
+  // disable map rotation using touch rotation gesture
+  mapRLT2.touchZoomRotate.disableRotation();
 
   // Enregistrement de la carte
   Globals.map = map;
-  Globals.mapRLT = mapRLT;
+  Globals.mapRLT1 = mapRLT1;
+  Globals.mapRLT2 = mapRLT2;
 
   // DEBUG
   window.mapGlobal = map;
@@ -113,7 +129,8 @@ function app() {
   for (let layer in LayersConfig.rltLayerSources) {
     var source = LayersConfig.rltLayerSources[layer];
     if (source.type !== "vector") {
-      mapRLT.addSource(layer, source);
+      mapRLT1.addSource(layer, source);
+      mapRLT2.addSource(layer, source);
     }
   }
   for (let layer in LayersConfig.thematicLayerSources) {

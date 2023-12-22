@@ -53,6 +53,15 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'poi') {
         Globals.menu.close('poi');
     }
+    if (Globals.backButtonState === 'compare') {
+        Globals.menu.close('compare');
+    }
+    if (Globals.backButtonState === 'compareLayers1') {
+        Globals.menu.close('compareLayers1');
+    }
+    if (Globals.backButtonState === 'compareLayers2') {
+        Globals.menu.close('compareLayers2');
+    }
     if (Globals.backButtonState === 'routeDraw') {
         Globals.menu.close('routeDraw');
     }
