@@ -48,6 +48,7 @@ function app() {
     zoom: 5,
     center: [2.0, 47.33],
     attributionControl: false,
+    maxZoom: 21,
     locale: "fr",
     maxPitch: 0,
     touchPitch: false,
@@ -59,6 +60,7 @@ function app() {
     zoom: 5,
     center: [2.0, 47.33],
     attributionControl: false,
+    maxZoom: 21,
     locale: "fr",
     maxPitch: 0,
     touchPitch: false,
@@ -72,6 +74,7 @@ function app() {
     zoom: 5,
     center: [2.0, 47.33],
     attributionControl: false,
+    maxZoom: 21,
     locale: "fr",
     maxPitch: 0,
     touchPitch: false,
@@ -100,7 +103,7 @@ function app() {
   Controls.addControls();
 
   // HACK: déplacement de l'échelle hors de la div map pour qu'elle bouge librement
-  var mapLibreControls = document.querySelectorAll(".maplibregl-control-container")[1];
+  var mapLibreControls = document.querySelectorAll(".maplibregl-control-container")[2];
   var parent = document.getElementById("bottomButtons");
   parent.appendChild(mapLibreControls);
 

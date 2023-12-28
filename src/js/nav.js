@@ -133,6 +133,7 @@ class MenuNavigation {
                 DOM.$sideBySideRightLayer.classList.remove('d-none');
                 DOM.$tabContainer.style.top = "100vh";
                 DOM.$bottomButtons.style.bottom = "calc(42px + env(safe-area-inset-bottom))";
+                DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.add("d-none");
                 Globals.compare.show();
                 Globals.interactivityIndicator.hardDisable();
                 Globals.currentScrollIndex = 0;
@@ -306,6 +307,7 @@ class MenuNavigation {
                 DOM.$sideBySideRightLayer.classList.add('d-none');
                 DOM.$tabContainer.style.removeProperty("top");
                 DOM.$bottomButtons.style.removeProperty("bottom");
+                DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.remove("d-none");
                 Globals.compare.hide();
                 Globals.interactivityIndicator.enable();
                 break;

@@ -166,7 +166,7 @@ class Compare {
 
         this.fadeSliderInput.addEventListener('input', () => this.fadeSliderInput.style.setProperty('--value', this.fadeSliderInput.value));
         this.fadeSliderInput.addEventListener('input', () => {
-            document.getElementById("mapRLT1").style.opacity = this.fadeSliderInput.value / 100;
+            document.getElementById("mapRLT1").style.opacity = 1 - (this.fadeSliderInput.value / 100);
         });
 
         document.getElementById("rltMapToggle1").addEventListener("change", (e) => {
@@ -254,8 +254,8 @@ class Compare {
         if (this.mode == "leftright") {
             document.querySelector("#compareLeftRight").classList.add("selected");
             document.querySelector("#sideBySideFadeSlider").classList.add("d-none");
-            this.fadeSliderInput.value = 100;
-            this.fadeSliderInput.style.setProperty('--value', 100)
+            this.fadeSliderInput.value = 0;
+            this.fadeSliderInput.style.setProperty('--value', 0)
             document.getElementById("mapRLT1").style.removeProperty("opacity");
             if (this.sideBySide) {
                 this.sideBySide.remove();
@@ -264,8 +264,8 @@ class Compare {
         } else if (this.mode == "upDown") {
             document.querySelector("#compareUpDown").classList.add("selected");
             document.querySelector("#sideBySideFadeSlider").classList.add("d-none");
-            this.fadeSliderInput.value = 100;
-            this.fadeSliderInput.style.setProperty('--value', 100)
+            this.fadeSliderInput.value = 0;
+            this.fadeSliderInput.style.setProperty('--value', 0)
             document.getElementById("mapRLT1").style.removeProperty("opacity");
             if (this.sideBySide) {
                 this.sideBySide.remove();

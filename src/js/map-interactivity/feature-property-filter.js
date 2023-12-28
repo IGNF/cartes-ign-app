@@ -4,11 +4,19 @@
  * @returns chaine de caractère HTML qui décrit la feature
  */
 
-const natureRouteToDisplay = ["Autoroute", "Bretelle", "Chemin", 
+const natureRouteToDisplay = ["Autoroute", "Bretelle", "Chemin",
 "Piste cyclable", "Sentier", "Rue piétonne", "Escalier"]
 
 const featurePropertyFilter = (feature) => {
   let result = ``;
+  if (feature.source === "poi_osm") {
+    Object.entries(feature.properties).forEach((prop) => {
+      if (prop[0] !== "symbo" && prop[0] !== "texte") {
+        result = result + `${prop[0]} : ${prop[1]} <br />`
+      }
+    });
+    return result;
+  }
   let nature = ""
   if (feature.properties.hasOwnProperty("nature")) {
     nature = feature.properties.nature
@@ -32,7 +40,7 @@ const featurePropertyFilter = (feature) => {
         result = result + `${prop[1]} <br />`;
       }
     }
-    if(feature.layer["source-layer"] == "construction_lineaire" 
+    if(feature.layer["source-layer"] == "construction_lineaire"
     || feature.layer["source-layer"] == "construction_surfacique"
     || feature.layer["source-layer"] == "construction_ponctuelle"
     || feature.layer["source-layer"] == "equipement_de_transport"
@@ -55,7 +63,7 @@ const featurePropertyFilter = (feature) => {
       if(prop[0] == "nature_detaillee") {
         result = result + `${prop[1]} <br />`;
       }
-      
+
     }
 
     // Batiment
@@ -75,7 +83,7 @@ const featurePropertyFilter = (feature) => {
       if(prop[0] == "hauteur" && prop[0] != '') {
         result = result + `Hauteur : ${prop[1]}m <br />`;
       }
-      
+
     }
 
   })

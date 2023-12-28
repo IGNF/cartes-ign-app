@@ -6,7 +6,7 @@
 }
 
 .maplibregl-ctrl-bottom-left {
-  bottom: -35px;
+  bottom: 10px;
   left: 15px;
   background-color: hsla(0, 0%, 100%, 0.75);
   border-radius: 4px;
@@ -14,6 +14,10 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+
+#bottomButtons > .maplibregl-control-container > .maplibregl-ctrl-bottom-left {
+  bottom: -35px;
 }
 
 .maplibregl-ctrl-scale {

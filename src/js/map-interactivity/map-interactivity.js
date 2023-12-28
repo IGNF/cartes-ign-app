@@ -44,8 +44,13 @@ class MapInteractivity {
 
     this.#addSourcesAndLayers();
 
+    // cleabs et type de géométrie de la donnée séléctionnée dans plan ign interactif
+    this.selectedCleabs = null;
+    this.selectedFeatureType = null;
+
     // fonction d'event avec bind
     this.handleInfoOnMap = this.#getInfoOnMap.bind(this);
+    this.handleUpdateHighlightedGeom = this.#updateHighlightedGeom.bind(this);
 
     // annulation de la reqête fetch
     this.controller = new AbortController();
@@ -74,7 +79,7 @@ class MapInteractivity {
     this.map.off("click", this.handleInfoOnMap);
     // On clique sur une feature tuile vectorielle
     let featureHTML;
-    if (features.length > 0 && features[0].source == "bdtopo") {
+    if (features.length > 0 && (features[0].source === "bdtopo" || features[0].source === "poi_osm")) {
       featureHTML = featurePropertyFilter(features[0]);
       if (features[0].source === "poi_osm") {
         let featureName = features[0].properties.texte;
@@ -124,36 +129,46 @@ class MapInteractivity {
           this.#clearSources();
           Globals.position.compute(ev.lngLat, features[0].sourceLayer, featureHTML).then(() => {
             Globals.menu.open("position");
-            let source;
-            const mapFeatures = this.map.queryRenderedFeatures();
-            let toFuse = [];
-            mapFeatures.forEach(feat => {
-              if (feat.source == "bdtopo" && feat.properties.cleabs == features[0].properties.cleabs) {
-                toFuse.push(feat);
-              }
-            });
-            let union = [toFuse[0]];
-            if (features[0].geometry.type == "Point") {
-              source = this.map.getSource(this.configuration.pointsource);
-            } else if (features[0].geometry.type == "LineString") {
-              union = toFuse;
-              source = this.map.getSource(this.configuration.linesource);
-            } else {
-              for (let i = 1; i < toFuse.length - 1; i++) {
-                union[0] = Union(union[0], toFuse[i], {properties: union.properties})
-              }
-              source = this.map.getSource(this.configuration.polygonsource);
-            }
-            source.setData({
-              'type': 'FeatureCollection',
-              'features': union,
-            });
+            this.selectedCleabs = features[0].properties.cleabs;
+            this.selectedFeatureType = features[0].geometry.type;
+            this.#updateHighlightedGeom();
+            this.map.on("move", this.handleUpdateHighlightedGeom);
           });
         }
         this.map.on("click", this.handleInfoOnMap);
         return;
     });
+  }
 
+  // Met à jour la gémétrie highlightée au moment de la séléction et du dpélacement de la carte.
+  #updateHighlightedGeom() {
+    let source;
+    const mapFeatures = this.map.queryRenderedFeatures();
+    let toFuse = [];
+    mapFeatures.forEach(feat => {
+      if (feat.source == "bdtopo" && feat.properties.cleabs == this.selectedCleabs) {
+        toFuse.push(feat);
+      }
+    });
+    if (toFuse.length == 0) {
+      return
+    }
+    let union = [toFuse[0]];
+    if (this.selectedFeatureType == "Point") {
+      source = this.map.getSource(this.configuration.pointsource);
+    } else if (this.selectedFeatureType == "LineString") {
+      union = toFuse;
+      source = this.map.getSource(this.configuration.linesource);
+    } else {
+      for (let i = 1; i < toFuse.length - 1; i++) {
+        union[0] = Union(union[0], toFuse[i], {properties: union.properties})
+      }
+      source = this.map.getSource(this.configuration.polygonsource);
+    }
+    source.setData({
+      'type': 'FeatureCollection',
+      'features': union,
+    });
   }
 
   /**
@@ -279,6 +294,7 @@ class MapInteractivity {
    * Supprime les donnés dans les sources
    */
   #clearSources() {
+    this.map.off("move", this.handleUpdateHighlightedGeom);
     this.map.getSource(this.configuration.pointsource).setData({
       'type': 'FeatureCollection',
       'features': []
