@@ -90,7 +90,6 @@ class Isochrone {
    * Auto detection des POI
    * @returns 
    * @todo creation des filtres
-   * @todo obtenir l'id de la source
    */
   #hasLayerPoi() {
     // recherche le contrôle pour la couche POI
@@ -105,7 +104,8 @@ class Isochrone {
       return null;
     }
 
-    // TODO source id
+    // source id
+    var source = instance.sources[0]; // normalement, une seule source
 
     // gestion des filtres
     var ids = instance.filters.map((o) => { return o.id; });
@@ -129,7 +129,7 @@ class Isochrone {
     this.onDisplayPoiInsideIsochrone = this.onDisplayPoiInsideIsochrone.bind(this);
 
     return {
-      id : "", // todo
+      id : source,
       config : config,
       filters : filters,
       ids : ids
@@ -271,7 +271,7 @@ class Isochrone {
     }
 
     if (this.poi) {
-      // comment obtenir la liste des POI ?
+      // comment obtenir la liste des POI contenue dan l'emprise de l'isochrone ?
       // > les POI sont disponibles dans les tuiles chargées sur le zoom > 14
       // > pour pouvoir être requêté !
       this.map.on('render', this.onDisplayPoiInsideIsochrone);
@@ -331,10 +331,10 @@ class Isochrone {
   /**
    * nettoyage du tracé
    * @public
-   * @todo reactiver les POI dans son état initial
+   * @todo supprimer la couche POI isochrone
    */
   clear() {
-    // on stoppe le fetch en cours sur le service
+    // stopper le fetch en cours sur le service
     if (this.loading) {
       this.controller.abort();
       this.controller = new AbortController();
@@ -342,32 +342,38 @@ class Isochrone {
     }
     // listener sur l'obtention des POI
     this.map.off('render', this.onDisplayPoiInsideIsochrone);
-    // suppression de la couche
+    // supprimer la couche isochrone
     if (this.map.getLayer(this.configuration.source)) {
       this.map.removeLayer(this.configuration.source);
     }
     if (this.map.getSource(this.configuration.source)) {
       this.map.removeSource(this.configuration.source);
     }
+    // TODO supprimer la couche POI isochrone
     // resultats
     this.polygon = null;
     this.center = null;
-    // on reinitialise la couche POI
-    if (this.poi) {
-      // TODO ne pas oublier de reactiver les filtres de la couche POI en quittant le contrôle
-    }
   }
 
   /**
    * activation du mode interaction
    * @param {*} status
    * @public
+   * @todo gerer le statut des POI osm sur l'affichage
    */
   interactive(status) {
     if (status) {
       this.map.on("click", this.onAddWayPoint);
+      // desactiver les filtres de la couche POI osm en ouvrant le contrôle
+      if (this.poi) {
+        // TODO...
+      }
     } else {
       this.map.off("click", this.onAddWayPoint);
+      // reactiver les filtres de la couche POI osm en quittant le contrôle
+      if (this.poi) {
+        // TODO...
+      }
     }
   }
 
@@ -469,27 +475,32 @@ class Isochrone {
    * @todo ...
    */
   onDisplayPoiInsideIsochrone() {
-    // ajouter les POI dans le geojson de l'isochrone.
-    // ajouter ou appliquer les filtres de visualisation.
-    // desactiver l'affichage de la couche POI.
-
     if (!this.map.isSourceLoaded('poi_osm')) return;
     if (!this.map.areTilesLoaded()) return;
-        
+    
+    // recuperer les POI sur la carte
     var bounds = this.map.getBounds();
     var features = this.map.queryRenderedFeatures(bounds, { layers: this.poi.ids });
     console.debug(features);
         
     // TODO "check if a point is inside a polygon"
-    function intersect(feature, polygon) {}
+    function intersect(feature, polygon) {
+      // utilisation de turf ?
+      // https://github.com/Turfjs/turf/blob/master/packages/turf-boolean-point-in-polygon/test.ts
+    }
     
-    // filtrer la liste des POI qui intersectent le polygone de l'isochrone.
+    // filtrer la liste des POI qui intersectent le polygone de l'isochrone
     for (let i = 0; i < features.length; i++) {
       const feature = features[i];
       if (intersect(feature, this.polygon)) {
         // TODO ...
       }
     }
+
+    // TODO ...
+    // creer et ajouter une source pour les POI isochrone au format geojson
+    // ajouter ou appliquer les filtres de visualisation
+
   }
 }
 

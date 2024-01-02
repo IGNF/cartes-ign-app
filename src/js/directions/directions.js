@@ -204,6 +204,8 @@ class Directions {
                     padding = {top: 20, right: 20, bottom: 20, left: paddingLeft}
                 }
                 if (points.length > 1) {
+                    // TODO
+                    // https://maplibre.org/maplibre-gl-js/docs/examples/zoomto-linestring/
                     this.map.fitBounds(points, {
                         padding: padding,
                     });

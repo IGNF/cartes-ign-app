@@ -36,6 +36,7 @@ class POI {
 
         this.filters = null;
         this.config = PoiConfig;
+        this.sources = null;
 
         this.target = this.options.target || document.getElementById("poiWindow");
         this.id = this.options.id || "OSM.POI$GEOPORTAIL:GPP:TMS";
@@ -70,6 +71,7 @@ class POI {
               // on ne peut pas ajouter la même source !
               if (! this.map.getStyle().sources[key]) {
                 this.map.addSource(key, source);
+                this.sources.push(source);
               }
             }
           }
