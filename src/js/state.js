@@ -65,6 +65,12 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'routeDraw') {
         Globals.menu.close('routeDraw');
     }
+    if (Globals.backButtonState === 'selectOnMapDirections') {
+        Globals.menu.close('selectOnMapDirections');
+    }
+    if (Globals.backButtonState === 'selectOnMapIsochrone') {
+        Globals.menu.close('selectOnMapIsochrone');
+    }
 }
 
 export default {

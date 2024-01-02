@@ -9,6 +9,7 @@ const $resultsRechRecent = document.getElementById("resultsRechRecent");
 const $searchImage = document.getElementById("searchImage");
 
 const $myGeoLocation = document.getElementById("myGeoLocation");
+const $selectOnMap = document.getElementById("selectOnMap");
 
 const $geolocateBtn = document.getElementById("geolocateBtn");
 const $backTopLeftBtn = document.getElementById("backTopLeftBtn");
@@ -32,6 +33,10 @@ const $routeDrawCancel = document.getElementById("routeDrawCancel");
 const $routeDrawRestore = document.getElementById("routeDrawRestore");
 const $routeDrawDelete = document.getElementById("routeDrawDelete");
 const $routeDrawSave = document.getElementById("routeDrawSave");
+
+const $mapCenter = document.getElementById("mapCenter");
+const $mapCenterMenu = document.getElementById("mapCenterMenu");
+const $mapCenterSubmit = document.getElementById("mapCenterSubmit");
 
 const $bottomButtons = document.getElementById("bottomButtons");
 
@@ -71,6 +76,7 @@ export default {
   $resultsRechRecent,
   $searchImage,
   $myGeoLocation,
+  $selectOnMap,
   $backTopLeftBtn,
   $parameterScreenWindow,
   $legalScreenWindow,
@@ -112,4 +118,7 @@ export default {
   $routeDrawRestore,
   $routeDrawDelete,
   $routeDrawSave,
+  $mapCenter,
+  $mapCenterMenu,
+  $mapCenterSubmit,
 };

@@ -103,6 +103,15 @@ function addListeners() {
         DOM.$bottomButtons.style.width = "auto";
       }
     }
+    if (["selectOnMapDirections", "selectOnMapIsochrone"].includes(Globals.backButtonState)) {
+      Globals.currentScrollIndex = 0;
+    }
+    if (Globals.backButtonState === "compareLayers2") {
+      DOM.$sideBySideLeftLayer.style.removeProperty("left");
+      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        DOM.$sideBySideLeftLayer.style.left = "calc(100vh + env(safe-area-inset-left) - 20px)";
+    }
+    }
     Globals.menu.updateScrollAnchors();
   });
 

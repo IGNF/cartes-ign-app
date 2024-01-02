@@ -105,6 +105,29 @@ class MenuNavigation {
         // y'a t il des particularités sur l'ouverture du panneau demandé ?
         var isSpecific = false;
         switch (id) {
+            case "selectOnMapDirections":
+            case "selectOnMapIsochrone":
+                DOM.$filterPoiBtn.classList.add("d-none");
+                DOM.$layerManagerBtn.classList.add("d-none");
+                DOM.$mapCenter.classList.remove("d-none");
+                DOM.$mapCenterMenu.classList.remove("d-none");
+                DOM.$rech.blur();
+                if (document.querySelector(".autocompresultselected")) {
+                    document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
+                }
+                DOM.$search.style.display = "none";
+                document.body.style.removeProperty("overflow-y");
+                DOM.$whiteScreen.classList.add('d-none');
+                DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
+                DOM.$backTopLeftBtn.style.removeProperty("height");
+                DOM.$backTopLeftBtn.style.removeProperty("width");
+                DOM.$backTopLeftBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.style.removeProperty("left");
+                DOM.$altMenuContainer.classList.add('d-none');
+                DOM.$selectOnMap.classList.add("d-none");
+                Globals.currentScrollIndex = 0;
+                this.updateScrollAnchors();
+                break;
             case "compareLayers1":
                 DOM.$tabContainer.style.removeProperty("top");
                 DOM.$bottomButtons.style.removeProperty("bottom");
@@ -119,6 +142,9 @@ class MenuNavigation {
                 DOM.$compareLayers1Window.classList.add("d-none");
                 DOM.$compareLayers2Window.classList.remove("d-none");
                 DOM.$sideBySideRightLayer.classList.add("d-none");
+                if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                    DOM.$sideBySideLeftLayer.style.left = "calc(100vh + env(safe-area-inset-left) - 20px)";
+                }
                 Globals.currentScrollIndex = 2;
                 break;
             case "compare":
@@ -214,6 +240,7 @@ class MenuNavigation {
             case "searchDirections":
             case "searchIsochrone":
                 DOM.$search.style.display = "flex";
+                DOM.$selectOnMap.classList.remove("d-none");
             case "search":
                 DOM.$searchresultsWindow.classList.remove('d-none');
                 DOM.$whiteScreen.classList.remove('d-none');
@@ -235,7 +262,7 @@ class MenuNavigation {
                 DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$sideBySideBtn.classList.add('d-none');
-                Globals.directions.interactive(true);
+                // Globals.directions.interactive(true);
                 Globals.interactivityIndicator.hardDisable();
                 Globals.currentScrollIndex = 2;
                 break;
@@ -277,6 +304,16 @@ class MenuNavigation {
         var isSpecific = false;
         var isFinished = false; // hack pour search !
         switch (id) {
+            case "selectOnMapDirections":
+            case "selectOnMapIsochrone":
+                DOM.$filterPoiBtn.classList.remove("d-none");
+                DOM.$layerManagerBtn.classList.remove("d-none");
+                DOM.$mapCenter.classList.add("d-none");
+                DOM.$mapCenterMenu.classList.add("d-none");
+                Globals.currentScrollIndex = 0;
+                isSpecific = true;
+                isFinished = true;
+                break;
             case "compareLayers1":
                 DOM.$tabContainer.style.top = "100vh";
                 DOM.$bottomButtons.style.bottom = "calc(42px + env(safe-area-inset-bottom))";
@@ -289,6 +326,7 @@ class MenuNavigation {
             case "compareLayers2":
                 DOM.$tabContainer.style.top = "100vh";
                 DOM.$bottomButtons.style.bottom = "calc(42px + env(safe-area-inset-bottom))";
+                DOM.$sideBySideLeftLayer.style.removeProperty("left");
                 DOM.$compareLayers2Window.classList.add("d-none");
                 DOM.$sideBySideRightLayer.classList.remove("d-none");
                 Globals.currentScrollIndex = 0;
@@ -393,6 +431,7 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.style.removeProperty("left");
                 DOM.$altMenuContainer.classList.add('d-none');
+                DOM.$selectOnMap.classList.add("d-none");
                 Globals.currentScrollIndex = 1;
             case "directionsResults":
                 DOM.$tabContainer.style.removeProperty("background-color");
@@ -484,10 +523,11 @@ class MenuNavigation {
             case "directionsResults":
                 DOM.$directionsWindow.classList.remove("d-none");
                 Globals.backButtonState = 'directions'; // on revient sur le contrôle !
-                Globals.directions.interactive(true);
+                // Globals.directions.interactive(true);
                 this.#midScroll();
                 break;
             case "searchIsochrone":
+            case "selectOnMapIsochrone":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$isochroneWindow.classList.remove("d-none");
@@ -496,6 +536,7 @@ class MenuNavigation {
                 this.updateScrollAnchors();
                 break;
             case "searchDirections":
+            case "selectOnMapDirections":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$directionsWindow.classList.remove("d-none");
