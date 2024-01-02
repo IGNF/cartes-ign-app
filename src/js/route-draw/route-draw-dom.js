@@ -122,8 +122,8 @@ let RouteDrawDOM = {
         var line2 = document.createElement("div");
 
         var labelTransport = document.createElement("label");
-        labelTransport.id = "routeDrawSummaryTransport" + transport;
-        labelTransport.className = "lblRouteDrawSummaryTransport";
+        labelTransport.id = "routeDrawSummaryTransport";
+        labelTransport.className = "lblRouteDrawSummaryTransport" + transport;
         line1.appendChild(labelTransport);
 
         var labelDuration = document.createElement("label");

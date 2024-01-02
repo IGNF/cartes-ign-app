@@ -32,7 +32,7 @@ class RouteDraw {
         this.configuration = this.options.configuration || {
             linesource: "route-draw-line",
             pointsource: "route-draw-point",
-            api: "https://data.geopf.fr/navigation/itineraire?resource=bdtopo-osrm&getSteps=false&timeUnit=second&optimization=shortest",
+            api: "https://data.geopf.fr/navigation/itineraire?resource=bdtopo-osrm&getSteps=false&timeUnit=second&optimization=shortest&",
             template: (values) => {
                 return `start=${values.start.lng},${values.start.lat}&end=${values.end.lng},${values.end.lat}&profile=${values.profile}`
             }
@@ -158,6 +158,27 @@ class RouteDraw {
         this.map.on("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);
         DOM.$routeDrawCancel.addEventListener("click", this.handleCancelChange);
         DOM.$routeDrawRestore.addEventListener("click", this.handleRestoreChange);
+        DOM.$routeDrawModeSelectTransportPedestrian.addEventListener("click", () => {
+            this.transport = "pedestrian";
+            document.getElementById("routeDrawModeTransportCar").classList.add("d-none");
+            document.getElementById("routeDrawModeTransportPedestrian").classList.remove("d-none");
+            document.getElementById("routeDrawSummaryTransport").className = "lblRouteDrawSummaryTransport" + this.transport;
+            this.changeMode(1);
+        });
+        DOM.$routeDrawModeSelectTransportCar.addEventListener("click", () => {
+            this.transport = "car";
+            document.getElementById("routeDrawModeTransportCar").classList.remove("d-none");
+            document.getElementById("routeDrawModeTransportPedestrian").classList.add("d-none");
+            document.getElementById("routeDrawSummaryTransport").className = "lblRouteDrawSummaryTransport" + this.transport;
+            this.changeMode(1);
+        });
+        document.getElementById("routeDrawModeSelectModeFree").addEventListener("click", () => {
+            this.changeMode(0);
+            this.transport = "pedestrian";
+            document.getElementById("routeDrawModeTransportCar").classList.add("d-none");
+            document.getElementById("routeDrawModeTransportPedestrian").classList.remove("d-none");
+            document.getElementById("routeDrawSummaryTransport").className = "lblRouteDrawSummaryTransport" + this.transport;
+        })
     }
 
     /**
@@ -645,8 +666,8 @@ class RouteDraw {
      * toggle entre saisie libre et guidée
      * @public
      */
-    toggleMode() {
-        if (this.mode == 0) {
+    changeMode(mode) {
+        if (mode == 1) {
             this.mode = 1;
             DOM.$routeDrawMode.querySelector("#routeDrawModeText").innerText = "Saisie guidée";
             return;
