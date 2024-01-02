@@ -1,6 +1,7 @@
 import DOM from './dom';
 import Globals from './globals';
 import Location from './services/location';
+import Reverse from './services/reverse';
 import State from './state';
 
 const addListeners = () => {
@@ -61,6 +62,20 @@ const addListeners = () => {
 
   // Bouton Retour
   DOM.$backTopLeftBtn.addEventListener("click", () => { State.onBackKeyDown(); });
+
+  // Sélection de point via le réticule pour isochrone et directions
+  DOM.$mapCenterSubmit.addEventListener("click", () => {
+    if (Globals.backButtonState === "selectOnMapIsochrone") {
+      Globals.isochrone.onAddWayPoint({lngLat: Globals.map.getCenter()});
+      Globals.menu.close('selectOnMapIsochrone');
+    } else if (Globals.backButtonState === "selectOnMapDirections") {
+      Reverse.compute({
+        lon: Globals.map.getCenter().lng,
+        lat: Globals.map.getCenter().lat,
+      });
+      Globals.menu.close('selectOnMapDirections');
+    }
+  });
 }
 
 export default {

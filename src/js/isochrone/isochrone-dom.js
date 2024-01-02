@@ -211,17 +211,14 @@ let IsochroneDOM = {
       return false;
     });
     this.dom.location.addEventListener("click", (e) => {
-      console.log(e);
       // ouverture du menu de recherche
       self.onOpenSearchLocation(e);
     });
     this.dom.modeDistance.addEventListener("click", (e) => {
-      console.log(e);
       document.getElementById("isochroneModeValueDistance").className = "";
       document.getElementById("isochroneModeValueDuration").className = "isochroneValueHidden";
     });
     this.dom.modeDuration.addEventListener("click", (e) => {
-      console.log(e);
       document.getElementById("isochroneModeValueDuration").className = "";
       document.getElementById("isochroneModeValueDistance").className = "isochroneValueHidden";
     });

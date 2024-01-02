@@ -41,6 +41,7 @@ class Search {
     var id = {
       searchInput: "lieuRech",
       myLoc: "myGeoLocation",
+      selectOnMap: "selectOnMap",
       recentSearches: "resultsRechRecent",
       searchResults: "resultsRech",
       closeSearch: "closeSearch"
@@ -78,6 +79,20 @@ class Search {
       DOM.$resultDiv.hidden = true;
       DOM.$resultDiv.innerHTML = "";
     });
+
+    document.getElementById(id.selectOnMap).addEventListener("click", (e) => {
+      if (Globals.backButtonState === "searchDirections") {
+        e.target.classList.add("autocompresultselected");
+        setTimeout(() => {
+          Globals.menu.open("selectOnMapDirections");
+        }, 250);
+      } else if (Globals.backButtonState === "searchIsochrone") {
+        e.target.classList.add("autocompresultselected");
+        setTimeout(() => {
+          Globals.menu.open("selectOnMapIsochrone");
+        }, 250);
+      }
+    }, true);
 
     document.getElementById(id.myLoc).addEventListener("click", (e) => {
       // on realise une geolocalisation

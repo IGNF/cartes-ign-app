@@ -98,6 +98,7 @@
 }
 
 #myGeoLocation > p,
+#selectOnMap > p,
 .recentresult,
 .autocompresultselected,
 .autocompresult {
@@ -130,6 +131,10 @@
 
 #myGeoLocation > p {
   background-image: url("assets/ma-geolocation.svg");
+}
+
+#selectOnMap > p {
+  background-image: url("assets/location.svg");
 }
 
 .recentresult {

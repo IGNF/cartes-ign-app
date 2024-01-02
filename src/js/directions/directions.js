@@ -375,12 +375,23 @@ class Directions {
             if (e.type !== "geolocation" && self.options.closeSearchControlCbk) {
                 self.options.closeSearchControlCbk();
             }
-
             // on enregistre dans le DOM :
             // - les coordonnées en WGS84G soit lon / lat !
             // - la reponse du geocodage
             target.dataset.coordinates = "[" + e.detail.coordinates.lon + "," + e.detail.coordinates.lat + "]";
-            target.value = e.detail.text.split(",")[0];
+            if (e.type === "reverse") {
+                var strAddress = e.detail.address;
+                if (typeof e.detail.address !== "string") {
+                    strAddress = "";
+                    strAddress += (e.detail.address.number !== "") ? e.detail.address.number + " " : "";
+                    strAddress += (e.detail.address.street !== "") ? e.detail.address.street + ", " : "";
+                    strAddress += e.detail.address.city + ", " + e.detail.address.postcode;
+                }
+                target.value = strAddress;
+            } else {
+                target.value = e.detail.text.split(",")[0];
+            }
+
             // on supprime les écouteurs
             cleanListeners();
         }
@@ -396,6 +407,7 @@ class Directions {
             }
             Geocode.target.removeEventListener("search", setLocation)
             Location.target.removeEventListener("geolocation", setLocation);
+            Reverse.target.removeEventListener("reverse", setLocation);
         }
 
         // abonnement au geocodage
@@ -403,6 +415,9 @@ class Directions {
 
         // abonnement à la geolocalisation
         Location.target.addEventListener("geolocation", setLocation);
+
+        // abonnement au reverse
+        Reverse.target.addEventListener("reverse", setLocation);
 
         // abonnement au bouton de fermeture du menu
         var close = document.getElementById("closeSearch");
