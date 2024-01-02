@@ -165,9 +165,10 @@
   width: 135px;
   justify-content: space-between;
   font-size: 11px;
+  position: relative;
 }
 
-#routeDrawModeTransport {
+#routeDrawModeTransportPedestrian, #routeDrawModeTransportCar {
   display: block;
   width: 30px;
   height: 100%;
@@ -175,6 +176,10 @@
   background-repeat: no-repeat;
   background-image: url("assets/route-draw/pieton-green.svg");
   padding-left: 8px;
+}
+
+#routeDrawModeTransportCar {
+  background-image: url("assets/route-draw/voiture-green.svg");
 }
 
 #routeDrawModeText {
@@ -187,6 +192,11 @@
   background-image: url("assets/route-draw/chevron_right.svg");
   background-repeat: no-repeat;
   background-position: center;
+  transition: transform 0.2s ease-out;
+}
+
+#routeDrawMode:hover > #routeDrawModeArrow {
+  transform: rotate(-90deg);
 }
 
 #routeDrawHelp {

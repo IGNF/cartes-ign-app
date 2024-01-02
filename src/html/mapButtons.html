@@ -30,9 +30,21 @@
   <!-- Tracé d'itinéraire -->
   <div id="routeDrawBtns" class="d-none">
     <div class="button" id="routeDrawMode">
-      <span id="routeDrawModeTransport"></span>
+      <span id="routeDrawModeTransportPedestrian"></span>
+      <span id="routeDrawModeTransportCar" class="d-none"></span>
       <span id="routeDrawModeText">Saisie guidée</span>
       <span id="routeDrawModeArrow"></span>
+      <div id="routeDrawModeSelect">
+        <div id="routeDrawModeSelectMode">
+          <div class="routeDrawSelectChoice" id="routeDrawSelectGuided">Saisie guidée <span class="routeDrawChevronRight routeDrawIcon"></span>
+            <div id="routeDrawModeSelectTransport">
+              <p class="routeDrawSelectChoice" id="routeDrawModeSelectTransportPedestrian"><span class="routeDrawIcon routeDrawPedestrian"></span>À pied</p>
+              <p class="routeDrawSelectChoice" id="routeDrawModeSelectTransportCar"><span class="routeDrawIcon routeDrawCar"></span>Véhicule</p>
+            </div>
+          </div>
+          <p class="routeDrawSelectChoice" id="routeDrawModeSelectModeFree">Saisie libre</p>
+        </div>
+      </div>
     </div>
     <div class="button" id="routeDrawHelp">?</div>
   </div>
