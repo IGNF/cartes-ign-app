@@ -74,6 +74,15 @@ class MyAccount {
     // TODO: patience
     // TODO: connection GPF
   }
+
+  /**
+   * Ajout d'un itinéraire tracé à l'espace utilisateur
+   * @param {*} drawRouteSaveOptions
+   */
+  addRoute(drawRouteSaveOptions) {
+    this.routes.shift(drawRouteSaveOptions);
+
+  }
 }
 
 // mixins

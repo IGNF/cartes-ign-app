@@ -165,7 +165,7 @@
 .routeDrawHelpPopup > .maplibregl-popup-content,
 .interactivityPopup > .maplibregl-popup-content,
 .positionPopup > .maplibregl-popup-content {
-    color: #4b4b4b;
+    color: #3F4A55;
     border-radius: 15px;
 }
 .routeDrawHelpPopup > .maplibregl-popup-tip,

@@ -51,6 +51,37 @@ class ElevationLineControl {
   }
 
   /**
+   * Insère une donnée pré-calculée dans le contrôle
+   * @param {*} data
+   * @public
+   */
+  setData(data) {
+    this.coordinates = data.coordinates;
+    this.elevationData = data.elevationData;
+
+    this.dplus = data.dplus;
+    this.dminus = data.dplus;
+
+    this.unit = data.unit;
+    this.render();
+  }
+
+  /**
+   * Récupère la donnée du contrôle
+   * @param {*} data
+   * @public
+   */
+  getData() {
+    return {
+      coordinates: this.coordinates,
+      elevationData: this.elevationthis,
+      dplus: this.dplus,
+      dminus: this.dplus,
+      unit: this.unit,
+    };
+  }
+
+  /**
    * creation de l'interface
    * @public
    */

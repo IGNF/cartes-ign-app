@@ -55,8 +55,15 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'position') {
         Globals.menu.close('position');
     }
-    if (Globals.backButtonState === 'poi') {
+    if (Globals.backButtonState.split("-")[0] === 'poi') {
+        var previousState = Globals.backButtonState.split("-")[1];
         Globals.menu.close('poi');
+        // réouverture de menu précédent
+        console.log(previousState);
+        if (previousState !== "default") {
+          Globals.menu.open(previousState);
+          return;
+        }
     }
     if (Globals.backButtonState === 'compare') {
         Globals.menu.close('compare');
@@ -69,6 +76,9 @@ const onBackKeyDown = () => {
     }
     if (Globals.backButtonState === 'routeDraw') {
         Globals.menu.close('routeDraw');
+    }
+    if (Globals.backButtonState === 'routeDrawSave') {
+      Globals.menu.close('routeDrawSave');
     }
     if (Globals.backButtonState === 'selectOnMapDirections') {
         Globals.menu.close('selectOnMapDirections');

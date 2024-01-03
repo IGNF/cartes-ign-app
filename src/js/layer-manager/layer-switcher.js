@@ -386,11 +386,12 @@ class LayerSwitcher extends EventTarget {
 
       // ouverture des options avancées
       shadow.getElementById(`show-advanced-tools_ID_${index}`).addEventListener("click", (e) => {
-        document.querySelectorAll("input[id^=show-advanced-tools_ID_]").forEach((el) => {
-          if (el.checked && el.id !== e.target.id) {
-            el.click();
-          }
-        });
+        const containerRect = e.currentTarget.parentNode.getBoundingClientRect()
+        const menuRect = document.getElementById(`advanced-tools_ID_${index}`).getBoundingClientRect();
+        const left = containerRect.width - menuRect.width - 20;
+        const top = containerRect.height - menuRect.height + 84;
+        document.getElementById(`advanced-tools_ID_${index}`).style.top = top + "px";
+        document.getElementById(`advanced-tools_ID_${index}`).style.left = left + "px";
       });
 
       // drag'n drop des couches
@@ -429,8 +430,7 @@ class LayerSwitcher extends EventTarget {
             </div>
           </div>
         </div>
-        <input type="checkbox" id="show-advanced-tools_ID_${index}" />
-        <label id="show-advanced-tools-picto_ID_${index}" for="show-advanced-tools_ID_${index}" title="Plus d'outils" class="tools-layer-advanced"></label>
+        <label id="show-advanced-tools_ID_${index}" title="Plus d'outils" class="tools-layer-advanced"></label>
         <div id="advanced-tools_ID_${index}" class="tools-layer-advanced-menu">
           <!-- N&B, visibility, info, remove -->
           <input type="checkbox" id="color_ID_${index}" checked="${gray}" />

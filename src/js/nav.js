@@ -81,7 +81,7 @@ class MenuNavigation {
      */
     open(id) {
         // HACK : on supprime l'interaction du calcul d'itineraire
-        Globals.directions.interactive(false);
+        // Globals.directions.interactive(false);
 
         // on vide tous les panneaux
         var lstElements = DOM.$tabContainer.childNodes;
@@ -93,6 +93,7 @@ class MenuNavigation {
         }
 
         // on met à jour l'état du panneau demandé
+        var previousBackState = Globals.backButtonState;
         Globals.backButtonState = id;
 
         // on ajoute le panneau demandé
@@ -163,6 +164,16 @@ class MenuNavigation {
                 Globals.interactivityIndicator.hardDisable();
                 Globals.currentScrollIndex = 0;
                 break;
+            case "routeDrawSave":
+                DOM["$routeDrawWindow"].classList.add('d-none');
+                DOM.$filterPoiBtn.classList.add('d-none');
+                DOM.$routeDrawBtns.classList.add('d-none');
+                DOM.$routeDrawEdit.classList.add('d-none');
+                DOM.$bottomButtons.style.removeProperty('bottom');
+                DOM.$bottomButtons.style.removeProperty('left');
+                DOM.$bottomButtons.style.removeProperty('width');
+                Globals.currentScrollIndex = 1;
+                break;
             case "routeDraw":
                 DOM.$search.style.display = "none";
                 DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
@@ -182,6 +193,8 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 1;
                 break;
             case "poi":
+                Globals.backButtonState = "poi-" + previousBackState;
+                Globals.routeDraw.deactivate();
                 DOM.$search.style.display = "none";
                 DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
@@ -344,6 +357,21 @@ class MenuNavigation {
                 Globals.compare.hide();
                 Globals.interactivityIndicator.enable();
                 break;
+            case "routeDrawSave":
+                // Réouverture de routeDraw sans utilisr this.open("routeDraw")
+                DOM.$filterPoiBtn.classList.remove('d-none');
+                DOM["$routeDrawWindow"].classList.remove('d-none');
+                DOM.$routeDrawBtns.classList.remove('d-none');
+                DOM.$routeDrawEdit.classList.remove('d-none');
+                if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                  DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+                } else {
+                    DOM.$bottomButtons.style.left = "calc(100vh + env(safe-area-inset-left) + 42px)";
+                    DOM.$bottomButtons.style.width = "auto";
+                }
+                isSpecific = true;
+                isFinished = true;
+                break;
             case "routeDraw":
                 DOM.$search.style.display = "flex";
                 DOM.$filterPoiBtn.style.removeProperty("top");
@@ -447,7 +475,7 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.directions.clear();
-                Globals.directions.interactive(false);
+                // Globals.directions.interactive(false);
                 Globals.interactivityIndicator.enable();
                 break;
             default:
@@ -489,6 +517,10 @@ class MenuNavigation {
         if (["compareLayers1", "compareLayers2"].includes(id)) {
             Globals.backButtonState = 'compare'; // on revient sur le contrôle !
             return;
+        }
+        if (id === "routeDrawSave") {
+          Globals.backButtonState = 'routeDraw'; // on revient sur le contrôle !
+          return;
         }
         Globals.controller.abort();
         Globals.controller = new AbortController();
