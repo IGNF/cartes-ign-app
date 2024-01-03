@@ -1,61 +1,4 @@
-/**
- * Fonctions utilitaires
- */
-let utils = {
-    /**
-     * convert distance in meters or kilometers
-     * @param {Number} distance - distance in meters
-     * @returns {String} distance in km
-     * @private
-     */
-    convertDistance (distance) {
-        var d = "";
-
-        var distanceKm = Math.round(10 * distance / 1000) / 10;
-        if (distanceKm < 1) {
-            d = parseInt(distance, 10) + " m"; // arrondi !
-        } else {
-            if (distanceKm > 100) {
-                distanceKm = Math.round(distanceKm);
-            }
-            d = distanceKm + " km";
-        }
-
-        return d;
-    },
-
-    /**
-     * convert seconds to time : HH:MM:SS
-     * @param {Number} duration - duration in seconds
-     * @returns {String} time in hours/minutes/seconds
-     * @private
-     */
-    convertSecondsToTime (duration) {
-        var time = "";
-
-        duration = Math.round(duration);
-        var hours = Math.floor(duration / (60 * 60));
-
-        var divisor4minutes = duration % (60 * 60);
-        var minutes = Math.floor(divisor4minutes / 60);
-        // if (!minutes) {
-        //     minutes = "00";
-        // }
-
-        // var divisor4seconds = divisor4minutes % 60;
-        // var seconds = Math.ceil(divisor4seconds);
-        // if (!seconds) {
-        //     seconds = "00";
-        // }
-
-        if (hours) {
-            time = hours + "h ";
-        }
-        time += minutes + " min";
-        return time;
-    }
-
-};
+import utils from "../unitUtils";
 
 /**
  * DOM du contrôle du dessin d'itineraire
@@ -121,31 +64,26 @@ let RouteDrawDOM = {
         var line2 = document.createElement("div");
 
         var labelTransport = document.createElement("label");
-        labelTransport.id = "routeDrawSummaryTransport";
-        labelTransport.className = "lblRouteDrawSummaryTransport" + transport;
+        labelTransport.className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + transport;
         line1.appendChild(labelTransport);
 
         var labelDuration = document.createElement("label");
-        labelDuration.id = "routeDrawSummaryDuration";
-        labelDuration.className = "lblRouteDrawSummaryDuration";
+        labelDuration.className = "routeDrawSummaryDuration";
         labelDuration.textContent = utils.convertSecondsToTime(0);
         line1.appendChild(labelDuration);
 
         var labelDistance = document.createElement("label");
-        labelDistance.id = "routeDrawSummaryDistance";
-        labelDistance.className = "lblRouteDrawSummaryDistance";
+        labelDistance.className = "routeDrawSummaryDistance";
         labelDistance.textContent = utils.convertDistance(0);
         line1.appendChild(labelDistance);
 
         var labelDPlus = document.createElement("label");
-        labelDPlus.id = "routeDrawSummaryDPlus";
-        labelDPlus.className = "lblRouteDrawSummaryDPlus";
+        labelDPlus.className = "routeDrawSummaryDPlus";
         labelDPlus.textContent = `0 m`;
         line2.appendChild(labelDPlus);
 
         var labelDMinus = document.createElement("label");
-        labelDMinus.id = "routeDrawSummaryDMinus";
-        labelDMinus.className = "lblRouteDrawSummaryDMinus";
+        labelDMinus.className = "routeDrawSummaryDMinus";
         labelDMinus.textContent = `- 0 m`;
         line2.appendChild(labelDMinus);
 
@@ -198,17 +136,17 @@ let RouteDrawDOM = {
      * @private
      */
     __updateRouteInfo (data) {
-        var labelDuration = this.dom.summary.querySelector("#routeDrawSummaryDuration");
+        var labelDuration = this.dom.summary.querySelector(".routeDrawSummaryDuration");
         labelDuration.textContent = utils.convertSecondsToTime(data.duration);
 
-        var labelDistance = this.dom.summary.querySelector("#routeDrawSummaryDistance");
+        var labelDistance = this.dom.summary.querySelector(".routeDrawSummaryDistance");
         labelDistance.textContent = utils.convertDistance(data.distance);
 
-        var labelDPlus = this.dom.summary.querySelector("#routeDrawSummaryDPlus");
-        labelDPlus.textContent = `${data.dplus} m`;
+        var labelDPlus = this.dom.summary.querySelector(".routeDrawSummaryDPlus");
+        labelDPlus.textContent = `${data.elevationData.dplus} m`;
 
-        var labelDMinus = this.dom.summary.querySelector("#routeDrawSummaryDMinus");
-        labelDMinus.textContent = `- ${data.dminus} m`;
+        var labelDMinus = this.dom.summary.querySelector(".routeDrawSummaryDMinus");
+        labelDMinus.textContent = `- ${data.elevationData.dminus} m`;
 
         // Ajout du détail du parcours
         let totalSeconds = 0;

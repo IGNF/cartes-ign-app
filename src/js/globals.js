@@ -75,6 +75,9 @@ let interactivityIndicator = null;
 // Global control mapInteractivity
 let mapInteractivity = null;
 
+// Global control my account
+let myaccount = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -112,4 +115,5 @@ export default {
   routeDraw,
   interactivityIndicator,
   mapInteractivity,
+  myaccount,
 };

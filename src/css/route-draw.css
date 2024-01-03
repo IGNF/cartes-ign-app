@@ -75,6 +75,7 @@
   height: 18px;
 }
 
+#routeDrawSaveSummary > div,
 #routeDrawSummary > div {
   display: flex;
   flex-direction: row;
@@ -82,11 +83,14 @@
   align-items: center;
 }
 
-#routeDrawSummary > div > label{
+#routeDrawSaveSummary > div > label,
+#routeDrawSummary > div > label {
   margin-right: 10px;
 }
 
-#routeDrawSummaryTransport {
+
+
+.routeDrawSummaryTransport {
   display: block;
   width: 30px;
   height: 30px;
@@ -102,34 +106,34 @@
   background-image: url("assets/route-draw/voiture-darkgrey.svg");
 }
 
-#routeDrawSummaryDuration,
-#routeDrawSummaryDistance,
-#routeDrawSummaryDPlus,
-#routeDrawSummaryDMinus{
+.routeDrawSummaryDuration,
+.routeDrawSummaryDistance,
+.routeDrawSummaryDPlus,
+.routeDrawSummaryDMinus{
   background-position: 0px center;
   background-repeat: no-repeat;
   padding-left: 35px;
 }
 
-#routeDrawSummaryDuration {
+.routeDrawSummaryDuration {
   background-image: url("assets/route-draw/clock.svg");
   color: #26A581;
 }
 
-#routeDrawSummaryDistance {
+.routeDrawSummaryDistance {
   background-position: 6px center;
   background-image: url("assets/route-draw/arrow-leftright.svg");
 }
 
-#routeDrawSummaryDPlus {
+.routeDrawSummaryDPlus {
   background-image: url("assets/route-draw/arrow-topright.svg");
 }
 
-#routeDrawSummaryDMinus {
+.routeDrawSummaryDMinus {
   background-image: url("assets/route-draw/arrow-bottomright.svg");
 }
 
-#routeDrawSummaryDPlus, #routeDrawSummaryDMinus {
+.routeDrawSummaryDPlus, .routeDrawSummaryDMinus {
   font-family: "Open Sans";
 }
 
@@ -207,4 +211,38 @@
   width: 30px;
   height: 30px;
   margin-right: 10px;
+}
+
+#routeDrawSaveNameInputDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#routeDrawSaveNameInput {
+  font-family: "Open Sans";
+  border-radius: 8px;
+  outline: none;
+  box-shadow: 0px 0px 0px 0px;
+  border: 1px solid #DDE1E6;
+  padding: 9px 3px;
+  flex-grow: 1;
+}
+
+#routeDrawSaveNameInput::placeholder {
+  color: #788089;
+}
+
+#routeDrawSaveNameInput:focus {
+  border: 2px solid #26a581;
+}
+
+#routeDrawSaveNameInputSubmit {
+  color: white;
+  background-color: #26a581;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 100px;
+  margin-left: 15px;
 }

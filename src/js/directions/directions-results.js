@@ -1,7 +1,6 @@
 import DirectionsResultsDOM from "./directions-results-dom";
 import Globals from "../globals";
 
-
 /**
  * Interface sur les resultats du calcul d'itineraire
  * @module DirectionsResults

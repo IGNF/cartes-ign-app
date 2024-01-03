@@ -82,8 +82,24 @@ let MyAccountDOM = {
      */
     __addAccountRoutesContainerDOMElement (routes) {
         var divList = this.dom.container = document.createElement("div");
+        divList.id = "myaccountRouteList";
+        routes.forEach(route => {
+          // do something
+        });
         return divList;
     },
+
+    /**
+     * met à jour le container sur les itinéraires
+     * @param {*} routes
+     * @private
+     */
+    __updateAccountRoutesContainerDOMElement (routes) {
+      this.dom.routeList.innerHTML = "";
+      routes.forEach(route => {
+        // do something
+      });
+  },
 };
 
 export default MyAccountDOM;
