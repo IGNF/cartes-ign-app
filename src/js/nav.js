@@ -56,7 +56,6 @@ class MenuNavigation {
             this.open("routeDraw");
         });
         // "Compte"
-        document.getElementById("myaccountWindowClose").addEventListener('click', () => { this.close("myaccount"); });
         document.getElementById("myaccount").addEventListener('click',  () => { this.open("myaccount"); });
         // Gestionnaire des couches
         document.getElementById("informationsWindowClose").addEventListener('click', () => { this.close('informations')});
@@ -189,12 +188,6 @@ class MenuNavigation {
                 DOM.$filterPoiBtn.classList.add('d-none');
                 Globals.currentScrollIndex = 1;
                 break;
-            case "myaccount":
-                DOM.$search.style.display = "none";
-                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
-                DOM.$backTopLeftBtn.classList.remove('d-none');
-                Globals.currentScrollIndex = 2;
-                break;
             case "layerManager":
                 DOM.$search.style.display = "none";
                 DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
@@ -221,6 +214,8 @@ class MenuNavigation {
                 Globals.interactivityIndicator.hardDisable();
                 Globals.currentScrollIndex = 1;
                 break;
+            case "myaccount":
+                DOM.$whiteScreen.style.backgroundColor = "#f4f6f8";
             case "parameterScreen":
             case "legalScreen":
             case "privacyScreen":
@@ -369,11 +364,6 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$filterPoiBtn.classList.remove('d-none');
                 break;
-            case "myaccount":
-                DOM.$search.style.display = "flex";
-                DOM.$filterPoiBtn.style.removeProperty("top");
-                DOM.$backTopLeftBtn.classList.add('d-none');
-                break;
             case "layerManager":
                 DOM.$search.style.display = "flex";
                 DOM.$filterPoiBtn.style.removeProperty("top");
@@ -439,6 +429,8 @@ class MenuNavigation {
                 isSpecific = true;
                 isFinished = true;
                 break;
+            case "myaccount":
+                DOM.$whiteScreen.style.removeProperty('background-color');
             case "parameterScreen":
             case "legalScreen":
             case "privacyScreen":

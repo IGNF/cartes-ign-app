@@ -72,7 +72,7 @@ let RouteDrawDOM = {
 
     /**
      * obtenir le container principal
-     * @param {*} data
+     * @param {*} transport
      * @returns {DOMElement}
      * @public
      */
@@ -109,7 +109,6 @@ let RouteDrawDOM = {
     /**
      * ajoute le container le résumé du parcours
      * @param {*} transport
-     * @param {*} computation
      * @returns {DOMElement}
      * @private
      */
@@ -158,7 +157,6 @@ let RouteDrawDOM = {
 
     /**
      * ajoute le container sur les détails du parcours
-     * @param {*} instructions - routes[0].legs[]
      * @returns {DOMElement}
      * @private
      */
@@ -194,18 +192,8 @@ let RouteDrawDOM = {
     },
 
     /**
-     * ajoute une étape de parcours
-     * @param {*} step - routes[0].legs[].steps[]
-     * @returns {DOMElement}
-     * @private
-     */
-    __addResultsDetailsInstructionDOMElement (step, type, opts) {
-
-    },
-
-    /**
      * Met à jour les infos dans le DOM
-     * @param {*} step - routes[0].legs[].steps[]
+     * @param {*} data - RouteDraw.data
      * @returns {DOMElement}
      * @private
      */

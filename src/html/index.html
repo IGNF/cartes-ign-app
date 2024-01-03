@@ -41,7 +41,6 @@
               <%= require('html-loader!./tabs/isochroneWindow.html').default %>
               <%= require('html-loader!./tabs/routeDrawWindow.html').default %>
               <%= require('html-loader!./tabs/positionWindow.html').default %>
-              <%= require('html-loader!./tabs/myaccountWindow.html').default %>
               <%= require('html-loader!./tabs/informationsWindow.html').default %>
               <%= require('html-loader!./tabs/poiWindow.html').default %>
               <%= require('html-loader!./tabs/compareLayers1Window.html').default %>
@@ -50,8 +49,9 @@
 
           <!-- Autres menus alternatifs -->
           <div class="d-none" id="altMenuContainer">
-            <%= require('html-loader!./tabs/searchresultsWindow.html').default %>
+            <%= require('html-loader!./alt-menu/searchresultsWindow.html').default %>
             <%= require('html-loader!./alt-menu/parameterMenu.html').default %>
+            <%= require('html-loader!./alt-menu/myaccountWindow.html').default %>
             <%= require('html-loader!./alt-menu/legalMenu.html').default %>
             <%= require('html-loader!./alt-menu/privacyMenu.html').default %>
           </div>
