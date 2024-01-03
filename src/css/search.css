@@ -55,6 +55,7 @@
 #search input::placeholder {
   color: #bac3ca;
   opacity: 0.6;
+  font-family: "Open Sans Semibold";
 }
 
 #searchImage {

@@ -1,0 +1,67 @@
+#myaccountWindow {
+  position: relative;
+  width: 100%;
+  color: #3F4A55;
+  margin-top: -68px;
+}
+
+#otherMenus {
+  display: flex;
+  justify-content: right;
+  margin-top: 25px;
+  align-items: center;
+}
+
+#menuItemParams {
+  text-align: right;
+  height: 20px;
+}
+
+.menuItemIcon {
+  height: 20px;
+  width: 15px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 0 5px -3px 5px;
+}
+
+#menuItemParamsIcon {
+  background-image: url("assets/settings.svg");
+  padding-right: 15px;
+}
+
+.smallMenuItem {
+  font-family: 'Open Sans';
+}
+
+#menuItemLegal, #menuItemPrivacy {
+  padding-left: 5px;
+  color: #788089;
+}
+
+#myAccountHeaderName {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+#myAccountNotLoggedInWarn {
+  margin-top: 0;
+  text-align: center;
+  font-family: "Open Sans";
+  font-style: italic;
+  font-size: 10px;
+}
+
+#myAccountLogInBtn {
+  background-color: #26A581;
+  color: white;
+  font-family: "Open Sans Semibold";
+  width: fit-content;
+  padding: 10px 28px;
+  border-radius: 100px;
+  margin: auto;
+}

@@ -117,7 +117,7 @@ class Position {
             </div>
             <div class="divPositionCoord fontLight">
                 <span class="lblPositionCoord">Latitude : ${latitude} </span>
-                <span class="lblPositionCoord"> Longitude : ${longitude}</span><br />
+                <span class="lblPositionCoord">Longitude : ${longitude}</span><br />
                 <span class="lblPositionCoord">Altitude : ${altitude}m</span>
             </div>
             <div class="divPositionShareButtons">

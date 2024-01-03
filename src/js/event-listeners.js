@@ -1,5 +1,3 @@
-import maplibregl from "maplibre-gl";
-
 import Geocode from './services/geocode';
 import Location from './services/location';
 import DOM from './dom';
@@ -46,9 +44,21 @@ function addListeners() {
 
   // TODO
   // Ecouteurs sur le menu du Compte : à ajouter sur la classe MyAccount
-  document.getElementById('menuItemParamsIcon').addEventListener('click', () => { Globals.menu.open('parameterScreen')});
-  document.getElementById('menuItemLegal').addEventListener('click', () => { Globals.menu.open('legalScreen')});
-  document.getElementById('menuItemPrivacy').addEventListener('click', () => { Globals.menu.open('privacyScreen')});
+  document.getElementById('menuItemParamsIcon').addEventListener('click', () => {
+    DOM.$whiteScreen.style.animation = "unset";
+    Globals.menu.close('myaccount');
+    Globals.menu.open('parameterScreen');
+  });
+  document.getElementById('menuItemLegal').addEventListener('click', () => {
+    DOM.$whiteScreen.style.animation = "unset";
+    Globals.menu.close('myaccount');
+    Globals.menu.open('legalScreen');
+  });
+  document.getElementById('menuItemPrivacy').addEventListener('click', () => {
+    DOM.$whiteScreen.style.animation = "unset";
+    Globals.menu.close('myaccount');
+    Globals.menu.open('privacyScreen');
+  });
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);

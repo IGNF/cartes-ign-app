@@ -17,7 +17,7 @@
   top: calc(10px + env(safe-area-inset-top));
   left: calc(15px + env(safe-area-inset-left));
   background-image: url("assets/map-buttons/back.svg");
-  z-index: 3001;
+  z-index: 3003;
 }
 
 #bottomButtons {

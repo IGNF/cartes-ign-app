@@ -9,7 +9,7 @@ import Compare from './compare';
 import POI from './poi';
 import RouteDraw from './route-draw/route-draw';
 import MapInteractivity from './map-interactivity/map-interactivity';
-
+import MyAccount from "./my-account/my-account";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -94,6 +94,9 @@ const addControls = () => {
 
     // contrôle d'intéractivité de la carte
     Globals.mapInteractivity = new MapInteractivity(map, {});
+
+    // compte utilisateur
+    Globals.myaccount = new MyAccount(map, {});
   });
 }
 

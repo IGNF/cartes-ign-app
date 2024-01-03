@@ -1,4 +1,5 @@
 import Globals from './globals';
+import DOM from './dom';
 import { App } from '@capacitor/app';
 
 /**
@@ -15,16 +16,20 @@ const onBackKeyDown = () => {
         Globals.menu.close('search');
     }
     if (Globals.backButtonState === 'myaccount') {
+        DOM.$whiteScreen.style.removeProperty("animation");
         Globals.menu.close('myaccount');
     }
     if (Globals.backButtonState === 'parameterScreen') {
         Globals.menu.close('parameterScreen');
+        Globals.menu.open('myaccount');
     }
     if (Globals.backButtonState === 'legalScreen') {
         Globals.menu.close('legalScreen');
+        Globals.menu.open('myaccount');
     }
     if (Globals.backButtonState === 'privacyScreen') {
         Globals.menu.close('privacyScreen');
+        Globals.menu.open('myaccount');
     }
     if (Globals.backButtonState === 'informations') {
         Globals.menu.close('informations');
