@@ -143,7 +143,6 @@ class Directions {
      * @public
      */
     compute (settings) {
-        console.log(settings);
         // nettoyage de l'ancien parcours !
         this.obj.clear();
         // Les valeurs sont à retranscrire en options du service utilisé
@@ -228,7 +227,6 @@ class Directions {
             // start !
         });
         this.obj.on("fetchroutesend", (e) => {
-            console.log(e);
             // TODO
             // mise en place d'une patience...
             // finish !

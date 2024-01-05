@@ -104,7 +104,6 @@ class Isochrone {
    * @public
    */
   async compute(settings) {
-    console.log(settings);
     // nettoyage de l'ancien parcours !
     this.clear();
     // Les valeurs sont à retranscrire en options du service utilisé
@@ -285,7 +284,7 @@ class Isochrone {
 
   /**
    * listener sur la carte pour recuperer les coordonnées du point
-   * @param {*} e 
+   * @param {*} e
    */
   onAddWayPoint(e) {
     console.debug(e);

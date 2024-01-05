@@ -59,7 +59,6 @@ const onBackKeyDown = () => {
         var previousState = Globals.backButtonState.split("-")[1];
         Globals.menu.close('poi');
         // réouverture de menu précédent
-        console.log(previousState);
         if (previousState !== "default") {
           Globals.menu.open(previousState);
           return;

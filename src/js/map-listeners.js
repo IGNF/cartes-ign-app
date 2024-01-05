@@ -25,7 +25,6 @@ const addListeners = () => {
 
   // Rotation de la carte avec le mutlitouch
   map.on('rotate', () => {
-    console.log(map.getBearing());
     DOM.$compassBtn.style.transform = "rotate(" + (map.getBearing() * -1) + "deg)";
     DOM.$compassBtn.classList.remove("d-none");
   });

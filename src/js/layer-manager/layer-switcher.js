@@ -6,13 +6,13 @@ import LayersAdditional from './layer-additional';
 import Sortable from 'sortablejs';
 
 import ImageNotFound from '../../html/img/image-not-found.png';
+import DomUtils from '../dom-utils';
 
 /**
  * Gestionnaire de couches
  * @fires addlayer
  * @fires removelayer
  * @fires movelayer
- * @todo N&B
  * @description
  *      → manager
  *      	→ instancie this.catalogue & this.switcher
@@ -97,8 +97,8 @@ class LayerSwitcher extends EventTarget {
       // ajout du container
       this.target.appendChild(container);
 
-       // dragn'drop !
-       Sortable.create(container, {
+      // dragn'drop !
+      Sortable.create(container, {
         handle : ".handle-draggable-layer",
         draggable : ".draggable-layer",
         animation : 200,
@@ -319,7 +319,6 @@ class LayerSwitcher extends EventTarget {
      * Affichage du N&B
      * @param {*} id
      * @param {*} value
-     * @todo not yet implemented !
      */
     #setColor(id, value) {
       this.layers[id].gray = value;
@@ -372,26 +371,10 @@ class LayerSwitcher extends EventTarget {
       shadow.getElementById(`opacity-value-range_ID_${index}`).addEventListener("change", (e) => {
         var id = this.#getId(index);
         this.#setOpacity(id, e.target.value);
-        // mise à jour du DOM
-        var container = document.getElementById("opacity-value-middle_ID_" + index);
-        container.innerHTML = e.target.value + "%";
       });
       shadow.getElementById(`opacity-value-range_ID_${index}`).addEventListener("input", (e) => {
         var id = this.#getId(index);
         this.#setOpacity(id, e.target.value);
-        // mise à jour du DOM
-        var container = document.getElementById("opacity-value-middle_ID_" + index);
-        container.innerHTML = e.target.value + "%";
-      });
-
-      // ouverture des options avancées
-      shadow.getElementById(`show-advanced-tools_ID_${index}`).addEventListener("click", (e) => {
-        const containerRect = e.currentTarget.parentNode.getBoundingClientRect()
-        const menuRect = document.getElementById(`advanced-tools_ID_${index}`).getBoundingClientRect();
-        const left = containerRect.width - menuRect.width - 20;
-        const top = containerRect.height - menuRect.height + 84;
-        document.getElementById(`advanced-tools_ID_${index}`).style.top = top + "px";
-        document.getElementById(`advanced-tools_ID_${index}`).style.left = left + "px";
       });
 
       // drag'n drop des couches
@@ -425,9 +408,6 @@ class LayerSwitcher extends EventTarget {
               <!-- before:: & after:: 0% / 100% -->
               <input id="opacity-value-range_ID_${index}" type="range" value=${opacity}>
             </div>
-            <div id="opacity-middle-div_ID_${index}" class="tools-layer-opacity">
-              <span id="opacity-value-middle_ID_${index}">${opacity}%</span>
-            </div>
           </div>
         </div>
         <label id="show-advanced-tools_ID_${index}" title="Plus d'outils" class="tools-layer-advanced"></label>
@@ -443,35 +423,8 @@ class LayerSwitcher extends EventTarget {
       </div>
       `;
 
-      const stringToHTML = (str) => {
-
-        var support = function () {
-          if (!window.DOMParser) return false;
-          var parser = new DOMParser();
-          try {
-            parser.parseFromString('x', 'text/html');
-          } catch (err) {
-            return false;
-          }
-          return true;
-        };
-
-        // If DOMParser is supported, use it
-        if (support()) {
-          var parser = new DOMParser();
-          var doc = parser.parseFromString(str, 'text/html');
-          return doc.body.firstChild;
-        }
-
-        // Otherwise, fallback to old-school method
-        var dom = document.createElement('div');
-        dom.innerHTML = str;
-        return dom;
-
-      };
-
       // transformation du container : String -> DOM
-      var container = stringToHTML(tplContainer.trim());
+      var container = DomUtils.stringToHTML(tplContainer.trim());
 
       if (!container) {
         console.warn();

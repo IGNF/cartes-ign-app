@@ -39,6 +39,14 @@ class MyAccount {
     // points de repère
     this.landmarks = [];
 
+    // récupération des itinéraires enregistrés en local
+    if (!localStorage.getItem("savedRoutes")) {
+      localStorage.setItem("savedRoutes", "[]");
+    } else {
+      var localRoutes = JSON.parse(localStorage.getItem("savedRoutes"));
+      this.routes = this.routes.concat(localRoutes);
+    }
+
     // récupération des infos et rendu graphique
     this.compute().then(() => this.render());
 
@@ -80,8 +88,9 @@ class MyAccount {
    * @param {*} drawRouteSaveOptions
    */
   addRoute(drawRouteSaveOptions) {
-    this.routes.shift(drawRouteSaveOptions);
-
+    this.routes.unshift(drawRouteSaveOptions);
+    this.__updateAccountRoutesContainerDOMElement(this.routes);
+    localStorage.setItem("savedRoutes", JSON.stringify(this.routes));
   }
 }
 
