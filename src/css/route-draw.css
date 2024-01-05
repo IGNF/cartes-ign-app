@@ -226,8 +226,9 @@
   outline: none;
   box-shadow: 0px 0px 0px 0px;
   border: 1px solid #DDE1E6;
-  padding: 9px 3px;
+  padding: 9px 8px;
   flex-grow: 1;
+
 }
 
 #routeDrawSaveNameInput::placeholder {

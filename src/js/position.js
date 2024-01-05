@@ -5,6 +5,7 @@ import Reverse from "./services/reverse";
 import Elevation from "./services/elevation";
 import Location from './services/location';
 import Globals from './globals';
+import DomUtils from "./dom-utils"
 
 /**
  * Permet d'afficher ma position sur la carte
@@ -177,35 +178,8 @@ class Position {
         </div>
         `;
 
-    const stringToHTML = (str) => {
-
-      var support = function () {
-        if (!window.DOMParser) return false;
-        var parser = new DOMParser();
-        try {
-          parser.parseFromString('x', 'text/html');
-        } catch (err) {
-          return false;
-        }
-        return true;
-      };
-
-      // If DOMParser is supported, use it
-      if (support()) {
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(str, 'text/html');
-        return doc.body.firstChild;
-      }
-
-      // Otherwise, fallback to old-school method
-      var dom = document.createElement('div');
-      dom.innerHTML = str;
-      return dom;
-
-    };
-
     // transformation du container : String -> DOM
-    var container = stringToHTML(strContainer.trim());
+    var container = DomUtils.stringToHTML(strContainer.trim());
 
     if (!container) {
       console.warn();

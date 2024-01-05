@@ -1,5 +1,5 @@
 import Instruction from './directions-instructions';
-import utils from "../unitUtils";
+import utils from "../unit-utils";
 
 /**
  * DOM du contrôle du calcul d'itineraire - resultats du calcul
