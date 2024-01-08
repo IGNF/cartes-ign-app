@@ -18,10 +18,13 @@ class RouteDrawSave {
         data: {},
         transport: null,
         name: null,
+        id: null,
       };
 
       // target
       this.target = target;
+
+      this.id = this.options.id || -1;
 
       // rendu graphique
       this.render();
@@ -36,9 +39,13 @@ class RouteDrawSave {
      */
     #listeners() {
       document.getElementById("routeDrawSaveNameInputSubmit").addEventListener("click", () => {
-        this.options.name = document.getElementById("routeDrawSaveNameInput").value;
+        let name = document.getElementById("routeDrawSaveNameInput").value;
+        if (name === "") {
+          name = `De ${this.options.data.points[0].properties.name} à ${this.options.data.points.slice(-1)[0].properties.name}`;
+        }
+        this.options.name = name;
         this.options.visible = true;
-        Globals.myaccount.addRoute(this.options);
+        Globals.myaccount.addRoute(JSON.parse(JSON.stringify(this.options)));
         this.hide();
         Globals.routeDraw.hide();
         Toast.show({
@@ -59,8 +66,7 @@ class RouteDrawSave {
         console.warn();
         return;
       }
-
-      var container = this.getContainer(this.options.data, this.options.transport);
+      var container = this.getContainer(this.options.data, this.options.transport, this.options.name);
       if (!container) {
         console.warn();
         return;

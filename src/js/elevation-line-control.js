@@ -60,7 +60,7 @@ class ElevationLineControl {
     this.elevationData = data.elevationData;
 
     this.dplus = data.dplus;
-    this.dminus = data.dplus;
+    this.dminus = data.dminus;
 
     this.unit = data.unit;
     this.render();
@@ -76,7 +76,7 @@ class ElevationLineControl {
       coordinates: this.coordinates,
       elevationData: this.elevationData,
       dplus: this.dplus,
-      dminus: this.dplus,
+      dminus: this.dminus,
       unit: this.unit,
     };
   }
@@ -150,6 +150,17 @@ class ElevationLineControl {
    * @public
    */
   async compute() {
+    // Gestion du cas où pas assez de coordonnées sont présentes
+    if (this.coordinates.length < 2) {
+      this.setData({
+        coordinates: this.coordinates,
+        elevationData: [{x: 0, y: 0}],
+        dplus: 0,
+        dminus: 0,
+        unit: "m",
+      });
+      return;
+    }
     this.elevationData = [];
     this.dplus = 0;
     this.dminus = 0;

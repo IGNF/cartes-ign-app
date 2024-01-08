@@ -123,7 +123,7 @@ let MyAccountDOM = {
    * @private
    */
   __addRouteContainer(route) {
-    var title = route.name || `Itinéraire de ${utils.convertDistance(route.data.distance)}`;
+    var title = route.name;
     var routeId = route.id;
     var checked = route.visible ? "checked" : "";
 

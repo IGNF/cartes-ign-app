@@ -19,13 +19,13 @@ let RouteDrawSaveDOM = {
    * @returns {DOMElement}
    * @public
    */
-  getContainer (data, transport) {
+  getContainer (data, transport, name) {
     // nettoyage
     if (this.dom.container) {
       this.dom.container.remove();
     }
     // ajout du container principal
-    var container = this.__addRouteSaveContainerDOMElement(data);
+    var container = this.__addRouteSaveContainerDOMElement(name);
     // ajout du résumé
     container.appendChild(this.__addResultsSummaryContainerDOMElement(data, transport));
 
@@ -38,7 +38,7 @@ let RouteDrawSaveDOM = {
    * @returns {DOMElement}
    * @private
    */
-  __addRouteSaveContainerDOMElement () {
+  __addRouteSaveContainerDOMElement (name) {
     var div = this.dom.container = document.createElement("div");
     div.id = "routeDrawSave";
     div.className = "";
@@ -54,6 +54,9 @@ let RouteDrawSaveDOM = {
     nameInput.id = "routeDrawSaveNameInput";
     nameInput.type = "text";
     nameInput.placeholder = "Entrez le nom de l'itinéraire";
+    if (name) {
+      nameInput.value = name;
+    }
     var nameInputSubmit = document.createElement("div");
     nameInputSubmit.innerText = "Confirmer";
     nameInputSubmit.id = "routeDrawSaveNameInputSubmit";
