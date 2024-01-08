@@ -1,7 +1,8 @@
-import MyAccountDOM from "./my-account-dom";
 import Globals from "../globals";
-
+import MyAccountDOM from "./my-account-dom";
 import MyAccountLayers from "./my-account-styles";
+
+import maplibregl from "maplibre-gl";
 
 /**
  * Interface sur la fenêtre du compte
@@ -43,6 +44,8 @@ class MyAccount {
     // points de repère
     this.landmarks = [];
 
+    this.#addSourcesAndLayers();
+
     // récupération des itinéraires enregistrés en local
     if (!localStorage.getItem("savedRoutes")) {
       localStorage.setItem("savedRoutes", "[]");
@@ -51,10 +54,17 @@ class MyAccount {
       this.routes = this.routes.concat(localRoutes);
     }
 
-    this.#addSourcesAndLayers();
-
     // récupération des infos et rendu graphique
-    this.compute().then(() => this.render());
+    this.compute().then(() => {
+      // Ajout d'identifiant unique aux routes
+      let routeId = 0;
+      this.routes.forEach((route) => {
+        route.id = routeId;
+        routeId++;
+      });
+      this.render();
+      this.#updateSources();
+    });
 
     return this;
   }
@@ -97,6 +107,170 @@ class MyAccount {
     this.routes.unshift(drawRouteSaveOptions);
     this.__updateAccountRoutesContainerDOMElement(this.routes);
     localStorage.setItem("savedRoutes", JSON.stringify(this.routes));
+    this.#updateSources();
+  }
+
+  /**
+   * Supprime un itinéraire de l'epace utilisateur
+   */
+  deleteRoute(routeId) {
+    for (let i = 0; i < this.routes.length; i++) {
+      let route = this.routes[i];
+      if (route.id !== routeId) {
+        continue;
+      }
+      this.routes.splice(i, 1);
+      this.__updateAccountRoutesContainerDOMElement(this.routes);
+      this.#updateSources();
+      break;
+    }
+  }
+
+  /**
+   * Change l'ordre des routes dans l'objet
+   * @param {*} oldIndex
+   * @param {*} newIndex
+   */
+  setRoutePosition(oldIndex, newIndex) {
+    const route = this.routes[oldIndex];
+    this.routes.splice(oldIndex, 1);
+    this.routes.splice(newIndex, 0, route);
+  }
+
+  /**
+   * Ouvre l'outil de tracé d'itinéraire pour modifier un itinéraire
+   * @param {*} routeId
+   */
+  editRoute(routeId) {
+    this.routes.forEach((route) => {
+      if (route.id !== routeId) {
+        return;
+      }
+      if (route.visible) {
+        route.visible = false;
+        this.#updateSources();
+        document.getElementById(`route-visibility_ID_${routeId}`).checked = false;
+      }
+      let coordinates = [];
+      route.data.steps.forEach((step) => {
+        coordinates = coordinates.concat(step.geometry.coordinates);
+      });
+      const bounds = coordinates.reduce((bounds, coord) => {
+          return bounds.extend(coord);
+      }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+      this.map.fitBounds(bounds, {
+        padding: 100,
+      });
+      this.hide();
+      Globals.routeDraw.show();
+      Globals.routeDraw.setData(route.data);
+    });
+  }
+
+  /**
+   * Affiche l'itinéraire à l'ID correspondant s'il est caché, ou le cache s'il est affiché
+   * @param {*} routeId
+   */
+  toggleShowRoute(routeId) {
+    this.routes.forEach((route) => {
+      if (route.id !== routeId) {
+        return;
+      }
+      if (route.visible) {
+        route.visible = false;
+      } else {
+        route.visible = true;
+        this.hide();
+        let coordinates = [];
+        route.data.steps.forEach((step) => {
+          coordinates = coordinates.concat(step.geometry.coordinates);
+        });
+        const bounds = coordinates.reduce((bounds, coord) => {
+            return bounds.extend(coord);
+        }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+        this.map.fitBounds(bounds, {
+          padding: 100,
+        });
+      }
+    });
+    this.#updateSources();
+  }
+
+  /**
+   * Récupère toutes les lignes des itinéraires sous forme de liste de features à géométrie multilinestring
+   * @returns list of multilinestring features, each feature representing one route
+   */
+  #getRouteLines() {
+    const allMultiLineFeatures = []
+    this.routes.forEach((route) => {
+      let visible = false;
+      if (route.visible) {
+        visible = true;
+      }
+      const multilineRouteFeature = {
+        type: "Feature",
+        geometry: {
+          type: "MultiLineString",
+          coordinates: []
+        },
+        properties: {
+          name: route.name,
+          visible: visible,
+        }
+      };
+      route.data.steps.forEach((step) => {
+        multilineRouteFeature.geometry.coordinates.push(step.geometry.coordinates);
+      });
+      allMultiLineFeatures.push(multilineRouteFeature);
+    });
+    return allMultiLineFeatures;
+  }
+
+  /**
+   * Récupère tous les points des itinéraires sous forme de liste de features à géométrie multipoint
+   * @returns list of mutlipoint features, each feature representing one route
+   */
+  #getRoutePoints() {
+    const allMultiPointFeatures = []
+    this.routes.forEach((route) => {
+      let visible = false;
+      if (route.visible) {
+        visible = true;
+      }
+      const multipointRouteFeature = {
+        type: "Feature",
+        geometry: {
+          type: "MultiPoint",
+          coordinates: []
+        },
+        properties: {
+          name: route.name,
+          visible: visible,
+        }
+      };
+      route.data.points.forEach((point) => {
+        multipointRouteFeature.geometry.coordinates.push(point.geometry.coordinates);
+      });
+      allMultiPointFeatures.push(multipointRouteFeature);
+    });
+    return allMultiPointFeatures;
+  }
+
+  /**
+   * met à jour les sources de données pour l'affichage
+   */
+  #updateSources() {
+    var linesource = this.map.getSource(this.configuration.linesource);
+    linesource.setData({
+        type: "FeatureCollection",
+        features: this.#getRouteLines(),
+    });
+
+    var pointsource = this.map.getSource(this.configuration.pointsource);
+    pointsource.setData({
+        type: "FeatureCollection",
+        features: this.#getRoutePoints(),
+    });
   }
 
   /**
@@ -128,7 +302,23 @@ class MyAccount {
     MyAccountLayers["point"].source = this.configuration.pointsource;
     this.map.addLayer(MyAccountLayers["point-casing"]);
     this.map.addLayer(MyAccountLayers["point"]);
-}
+  }
+
+  /**
+     * affiche le menu des résultats du calcul
+     * @public
+     */
+  show () {
+    Globals.menu.open("myaccount");
+  }
+
+  /**
+   * ferme le menu des résultats du calcul
+   * @public
+   */
+  hide () {
+    Globals.menu.close("myaccount");
+  }
 }
 
 // mixins

@@ -10,7 +10,7 @@ const layers = {
     },
     paint: {
       "line-color": "#26a581",
-      "line-opacity": ["case", ["boolean", ["get", "invisible"], false], 0, 0.55],
+      "line-opacity": ["case", ["boolean", ["get", "visible"], false], 0.55, 0],
       "line-width": [
         "interpolate",
         ["exponential", 1.5],
@@ -34,7 +34,7 @@ const layers = {
     },
     paint: {
       "line-color": "#26a581",
-      "line-opacity": ["case", ["boolean", ["get", "invisible"], false], 0, 0.85],
+      "line-opacity": ["case", ["boolean", ["get", "visible"], false], 0.85, 0],
       "line-width": [
         "interpolate",
         ["exponential", 1.5],
@@ -65,7 +65,7 @@ const layers = {
         28,
       ],
       "circle-color": "#26a581",
-      "circle-opacity": ["case", ["boolean", ["get", "invisible"], false], 0, 0.65],
+      "circle-opacity": ["case", ["boolean", ["get", "visible"], false], 0.65, 0],
     }
   },
   "point": {
@@ -85,7 +85,7 @@ const layers = {
         16,
       ],
       "circle-color": "#26a581",
-      "circle-opacity": ["case", ["boolean", ["get", "invisible"], false], 0, 1],
+      "circle-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0],
     }
   },
 };

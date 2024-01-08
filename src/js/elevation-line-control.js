@@ -74,7 +74,7 @@ class ElevationLineControl {
   getData() {
     return {
       coordinates: this.coordinates,
-      elevationData: this.elevationthis,
+      elevationData: this.elevationData,
       dplus: this.dplus,
       dminus: this.dplus,
       unit: this.unit,
@@ -123,21 +123,21 @@ class ElevationLineControl {
       data: chartData,
       options: {
         scales: {
-            x: {
-              max: this.elevationData.slice(-1)[0].x,
-              title: {
-                display: true,
-                text: `Distance (${this.unit})`,
-              }
-            },
-            y: {
-              title: {
-                display: true,
-                text: `Altitude (m)`,
-              },
-              suggestedMax: suggestedMax,
-              suggestedMin: suggestedMin,
+          x: {
+            max: this.elevationData.slice(-1)[0].x,
+            title: {
+              display: true,
+              text: `Distance (${this.unit})`,
             }
+          },
+          y: {
+            title: {
+              display: true,
+              text: `Altitude (m)`,
+            },
+            suggestedMax: suggestedMax,
+            suggestedMin: suggestedMin,
+          }
         }
       }
     };

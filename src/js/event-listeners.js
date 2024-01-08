@@ -42,8 +42,7 @@ function addListeners() {
     }
   }, true);
 
-  // TODO
-  // Ecouteurs sur le menu du Compte : à ajouter sur la classe MyAccount
+  // Ecouteurs sur les sous menus Compte
   document.getElementById('menuItemParamsIcon').addEventListener('click', () => {
     DOM.$whiteScreen.style.animation = "unset";
     Globals.menu.close('myaccount');
@@ -72,6 +71,7 @@ function addListeners() {
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
+    localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
   });
 
   window.addEventListener('beforeunload', () => {
@@ -79,6 +79,7 @@ function addListeners() {
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
+    localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
   });
 
   // Screen dimentions change
