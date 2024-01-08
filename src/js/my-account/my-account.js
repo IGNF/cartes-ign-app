@@ -46,6 +46,9 @@ class MyAccount {
 
     this.#addSourcesAndLayers();
 
+    // Identifiant unique pour les itinéraires
+    this.lastRouteId = 0;
+
     // récupération des itinéraires enregistrés en local
     if (!localStorage.getItem("savedRoutes")) {
       localStorage.setItem("savedRoutes", "[]");
@@ -57,10 +60,9 @@ class MyAccount {
     // récupération des infos et rendu graphique
     this.compute().then(() => {
       // Ajout d'identifiant unique aux routes
-      let routeId = 0;
       this.routes.forEach((route) => {
-        route.id = routeId;
-        routeId++;
+        route.id = this.lastRouteId;
+        this.lastRouteId++;
       });
       this.render();
       this.#updateSources();
@@ -104,7 +106,18 @@ class MyAccount {
    * @param {*} drawRouteSaveOptions
    */
   addRoute(drawRouteSaveOptions) {
-    this.routes.unshift(drawRouteSaveOptions);
+    if (typeof drawRouteSaveOptions.id !== 'undefined' && drawRouteSaveOptions.id >= 0) {
+      for (let i = 0; i < this.routes.length; i++) {
+        if (this.routes[i].id === drawRouteSaveOptions.id){
+          this.routes[i] = drawRouteSaveOptions;
+          break;
+        }
+      }
+    } else {
+      drawRouteSaveOptions.id = this.lastRouteId;
+      this.lastRouteId++;
+      this.routes.unshift(drawRouteSaveOptions);
+    }
     this.__updateAccountRoutesContainerDOMElement(this.routes);
     localStorage.setItem("savedRoutes", JSON.stringify(this.routes));
     this.#updateSources();
@@ -163,7 +176,9 @@ class MyAccount {
       });
       this.hide();
       Globals.routeDraw.show();
-      Globals.routeDraw.setData(route.data);
+      Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
+      Globals.routeDraw.setName(route.name);
+      Globals.routeDraw.setId(route.id);
     });
   }
 
