@@ -37,6 +37,7 @@ class RouteDrawSave {
     #listeners() {
       document.getElementById("routeDrawSaveNameInputSubmit").addEventListener("click", () => {
         this.options.name = document.getElementById("routeDrawSaveNameInput").value;
+        this.options.visible = true;
         Globals.myaccount.addRoute(this.options);
         this.hide();
         Globals.routeDraw.hide();

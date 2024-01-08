@@ -179,6 +179,10 @@ div[id^="remove_ID_"] {
   background-image: url("./assets/layer-switcher/delete-layer.svg");
 }
 
+div[id^="route-remove_ID_"]:hover {
+  background-image: url("./assets/layer-switcher/delete-layer-confirm.svg");
+}
+
 div[id^="route-edit_ID_"] {
   background-image: url("./assets/layer-switcher/edit-layer.svg");
 }

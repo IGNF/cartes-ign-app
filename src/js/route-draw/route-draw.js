@@ -72,6 +72,7 @@ class RouteDraw {
         // carte
         this.map = map;
 
+        this.#addSourcesAndLayers();
         // rendu graphique
         this.render();
 
@@ -158,7 +159,9 @@ class RouteDraw {
      */
     setData(data) {
       this.data = data;
+      this.elevation.setData(data.elevationData);
       this.__updateRouteInfo(this.data);
+      this.#updateSources();
     }
 
     /**
@@ -385,12 +388,7 @@ class RouteDraw {
         this.data.points[length - 1].geometry.coordinates = [coordinates.lng, coordinates.lat];
         this.data.points[length - 1].properties.name = address;
 
-        // Si pas encore de source, on ajoute les sources et layers à la carte
-        if (this.map.getSource(this.configuration.pointsource)) {
-            this.#updateSources();
-        } else {
-            this.#addSourcesAndLayers();
-        }
+        this.#updateSources();
 
         // Pas d'autre étape s'il n'y a qu'un point (premier point)
         if (this.data.points.length < 2) {
@@ -718,6 +716,21 @@ class RouteDraw {
     }
 
     /**
+     * Supprime les donnés dans les sources
+     */
+    #clearSources() {
+        this.map.getSource(this.configuration.pointsource).setData({
+            'type': 'FeatureCollection',
+            'features': []
+        });
+        this.map.getSource(this.configuration.linesource).setData({
+            'type': 'FeatureCollection',
+            'features': []
+        });
+        this.#updateSources();
+    }
+
+    /**
      * nettoyage du tracé
      * @public
      */
@@ -744,20 +757,7 @@ class RouteDraw {
         }
         this.dataHistory = [];
         this.__updateRouteInfo(this.data);
-        if (this.map.getLayer(RouteDrawLayers["line"].id)) {
-            this.map.removeLayer(RouteDrawLayers["line"].id);
-            this.map.removeLayer(RouteDrawLayers["line-casing"].id);
-        }
-        if (this.map.getSource(this.configuration.linesource)) {
-            this.map.removeSource(this.configuration.linesource);
-        }
-        if (this.map.getLayer(RouteDrawLayers["point"].id)) {
-            this.map.removeLayer(RouteDrawLayers["point"].id);
-            this.map.removeLayer(RouteDrawLayers["point-casing"].id);
-        }
-        if (this.map.getSource(this.configuration.pointsource)) {
-            this.map.removeSource(this.configuration.pointsource);
-        }
+        this.#clearSources();
     }
 
     /**
