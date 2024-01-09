@@ -96,6 +96,7 @@
   height: 30px;
   background-position: center;
   background-repeat: no-repeat;
+  flex-shrink: 0;
 }
 
 .lblRouteDrawSummaryTransportpedestrian {
