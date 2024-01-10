@@ -3,7 +3,7 @@ import MapInteractivityLayers from "./map-interactivity-styles";
 import featurePropertyFilter from "./feature-property-filter"
 
 import Union from "@turf/union";
-
+import proj4 from "proj4";
 
 /**
  * Interface sur l'interaction avec la carte
@@ -95,7 +95,7 @@ class MapInteractivity {
     // on ne fait pas de GFI sur les bases layers
     let currentLayers = Globals.manager.layerSwitcher.getLayersOrder().reverse();
     let layerswithzoom = currentLayers.map((layer) => {
-      let computeZoom = Math.round(this.map.getZoom());
+      let computeZoom = Math.round(this.map.getZoom()) + 1;
       if (computeZoom > layer[1].maxNativeZoom) {
         layer[1].computeZoom = layer[1].maxNativeZoom;
         return layer
@@ -112,6 +112,7 @@ class MapInteractivity {
     let layersForGFI = layerswithzoom.map((layer) => {
       let arr = this.#latlngToTilePixel(ev.lngLat.lat, ev.lngLat.lng, layer[1].computeZoom);
       layer[1].tiles =  {tile: arr[0], tilePixel: arr[1]}
+      layer[1].clickCoords = ev.lngLat;
       return layer
     });
 
@@ -179,6 +180,7 @@ class MapInteractivity {
    * @returns
   */
   #latlngToTilePixel(lat, lng, zoom) {
+    // https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
     const fullXTile = (lng + 180) / 360 * Math.pow(2, zoom);
     const fullYTile = (1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom);
     const tile = {
@@ -209,13 +211,30 @@ class MapInteractivity {
     GFIArray = GFIArray.filter(layer => GFIArray.indexOf(layer) < Math.min(...indexbase));
 
     let promisesArray = GFIArray.map((layer) => {
-      const response = fetch(
-        `https://data.geopf.fr/wmts?` +
+      let gfiURL = `https://data.geopf.fr/wmts?` +
         `SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetFeatureInfo&` +
         `LAYER=${layer[0].split('$')[0]}` +
         `&TILECOL=${layer[1].tiles.tile.x}&TILEROW=${layer[1].tiles.tile.y}&TILEMATRIX=${layer[1].computeZoom}&TILEMATRIXSET=PM` +
         `&FORMAT=${layer[1].format}` +
-        `&STYLE=${layer[1].style}&INFOFORMAT=text/html&I=${layer[1].tiles.tilePixel.x}&J=${layer[1].tiles.tilePixel.y}`,
+        `&STYLE=${layer[1].style}&INFOFORMAT=text/html&I=${layer[1].tiles.tilePixel.x}&J=${layer[1].tiles.tilePixel.y}`;
+      if (layer[0].split(":").slice(-1)[0] === "WMS") {
+        // https://wiki.openstreetmap.org/wiki/Zoom_levels
+        const resolution = 40075016.686 * Math.cos(layer[1].clickCoords.lat) / Math.pow(2, layer[1].computeZoom + 6);
+        const clickMercatorCoords = proj4(proj4.defs('EPSG:4326'), proj4.defs('EPSG:3857'), [layer[1].clickCoords.lng, layer[1].clickCoords.lat])
+        // https://gis.stackexchange.com/questions/79201/lat-long-values-in-a-wms-getfeatureinfo-request
+        const bottomLeft = [clickMercatorCoords[0] - 50 * resolution, clickMercatorCoords[1] - 50 * resolution];
+        const topRight = [clickMercatorCoords[0] + 50 * resolution, clickMercatorCoords[1] + 50 * resolution];
+        gfiURL = `https://data.geopf.fr/wms-v/ows?` +
+        `SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&` +
+        `LAYERS=${layer[0].split('$')[0]}` +
+        `&QUERY_LAYERS=${layer[0].split('$')[0]}` +
+        "&CRS=EPSG:3857" +
+        `&BBOX=${bottomLeft[0]},${bottomLeft[1]},${topRight[0]},${topRight[1]}` +
+        "&WIDTH=101&HEIGHT=101" +
+        `&INFO_FORMAT=text/html&I=50&J=50`;
+      }
+      const response = fetch(
+        gfiURL,
         { signal: this.controller.signal }
       ).then((response => {return response.text()})
       ,
