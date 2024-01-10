@@ -1275,6 +1275,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1316,6 +1319,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1361,6 +1367,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain_etroit"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1396,6 +1405,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain_etroit"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1474,6 +1486,9 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain_funic"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1507,6 +1522,9 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain_funic"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1592,6 +1610,9 @@
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 14,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "chemin_souterrain_escalier"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1633,6 +1654,9 @@
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 14,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "chemin_souterrain_escalier"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1808,6 +1832,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "route_souterrain_non_revetu_carrossable"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -2378,6 +2405,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "route_souterrain_non_revetu_carrossable"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -5992,6 +6022,9 @@
 				"line-cap": "round",
 				"line-join": "round"
 			},
+			"metadata" : {
+				"legend-group": "ferre_a_niveau_voie_normale"
+			},
 			"filter": [
 				"in",
 				"symbo",
@@ -6026,6 +6059,9 @@
 			"source": "plan_ign",
 			"source-layer": "ferre",
 			"minzoom": 10,
+			"metadata" : {
+				"legend-group": "ferre_a_niveau_voie_normale"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6839,6 +6875,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_chemin_sup",
 			"minzoom": 14,
+			"metadata": {
+				"legend-group": "chemin_sup_escalier"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6887,6 +6926,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_chemin_sup",
 			"minzoom": 14,
+			"metadata": {
+				"legend-group": "chemin_sup_escalier"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
