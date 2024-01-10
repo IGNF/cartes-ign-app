@@ -1,4 +1,4 @@
-import Polyline from "@mapbox/polyline"
+import { decode } from "@placemarkio/polyline"
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
 import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
@@ -253,9 +253,8 @@ class Directions {
                 });
                 this.results.show();
                 let routeCoordinates = [];
-                // This function decodes into lat, lng pairs https://www.npmjs.com/package/@mapbox/polyline
-                Polyline.decode(e.data.routes[0].geometry).forEach( (latlng) => {
-                  routeCoordinates.push([latlng[1], latlng[0]]);
+                decode(e.data.routes[0].geometry).forEach( (latlng) => {
+                  routeCoordinates.push([latlng[0], latlng[1]]);
                 });
                 this.elevation.setCoordinates(routeCoordinates);
                 this.elevation.compute();
