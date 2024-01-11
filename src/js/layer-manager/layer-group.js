@@ -250,7 +250,7 @@ const addGray = (id) => {
                     originalLayerColors[layer.id][`${layer.type}-color`] = value;
                     if (value[0] == "step") {
                         var greyStep = ["step"];
-                        for (let i = 2; i < greyStep.length; i+= 2) {
+                        for (let i = 2; i < value.length; i+= 2) {
                             greyStep.push(value[i - 1]);
                             greyStep.push(convert(value[i]));
                         }
