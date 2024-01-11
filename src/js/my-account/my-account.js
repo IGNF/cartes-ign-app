@@ -1,7 +1,10 @@
 import Globals from "../globals";
 import MyAccountDOM from "./my-account-dom";
 import MyAccountLayers from "./my-account-styles";
+import utils from '../unit-utils';
 
+import { Share } from '@capacitor/share';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import maplibregl from "maplibre-gl";
 
 /**
@@ -152,18 +155,81 @@ class MyAccount {
 
   /**
    * Ouvre l'outil de tracé d'itinéraire pour modifier un itinéraire
-   * @param {*} routeId
+   * @param {*} route
    */
-  editRoute(routeId) {
-    this.routes.forEach((route) => {
-      if (route.id !== routeId) {
-        return;
-      }
-      if (route.visible) {
-        route.visible = false;
-        this.#updateSources();
-        document.getElementById(`route-visibility_ID_${routeId}`).checked = false;
-      }
+  editRoute(route) {
+    if (route.visible) {
+      route.visible = false;
+      this.#updateSources();
+      document.getElementById(`route-visibility_ID_${route.id}`).checked = false;
+    }
+    let coordinates = [];
+    route.data.steps.forEach((step) => {
+      coordinates = coordinates.concat(step.geometry.coordinates);
+    });
+    const bounds = coordinates.reduce((bounds, coord) => {
+        return bounds.extend(coord);
+    }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+    this.map.fitBounds(bounds, {
+      padding: 100,
+    });
+    this.hide();
+    Globals.routeDraw.show();
+    Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
+    Globals.routeDraw.setName(route.name);
+    Globals.routeDraw.setId(route.id);
+  }
+
+  /**
+   * Partage le résumé d'un itinéraire
+   * @param {*} route
+   */
+  shareRoute(route) {
+    Share.share({
+      title: `${route.name}`,
+      text: `${route.name}
+Temps : ${utils.convertSecondsToTime(route.data.duration)}, Distance : ${utils.convertDistance(route.data.distance)}
+Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : ${route.data.elevationData.dminus} m`,
+      dialogTitle: 'Partager mon itinéraire',
+    });
+  }
+
+  /**
+   * Exporte l'itinéraire sous forme d'un ficheir geojson
+   * @param {*} route
+   */
+  exportRoute(route) {
+    Filesystem.writeFile({
+      path: `${route.name}.geojson`,
+      data: JSON.stringify(this.#routeToGeojson(route)),
+      directory: Directory.Cache,
+      encoding: Encoding.UTF8,
+    }).then((result) => {
+      Share.share({
+        title: `${route.name}`,
+        dialogTitle: 'Partager mon itinéraire',
+        url: result.uri,
+      });
+    }).catch( (err) => {
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être savegardé. Partage du résumé...",
+        duration: "long",
+        position: "bottom"
+      });
+      this.shareRoute(route);
+    });
+  }
+
+  /**
+   * Affiche l'itinéraire s'il est caché, ou le cache s'il est affiché
+   * @param {*} routes
+   */
+  toggleShowRoute(route) {
+    if (route.visible) {
+      route.visible = false;
+    } else {
+      route.visible = true;
+      this.hide();
       let coordinates = [];
       route.data.steps.forEach((step) => {
         coordinates = coordinates.concat(step.geometry.coordinates);
@@ -174,41 +240,27 @@ class MyAccount {
       this.map.fitBounds(bounds, {
         padding: 100,
       });
-      this.hide();
-      Globals.routeDraw.show();
-      Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
-      Globals.routeDraw.setName(route.name);
-      Globals.routeDraw.setId(route.id);
-    });
+    }
+    this.#updateSources();
   }
 
   /**
-   * Affiche l'itinéraire à l'ID correspondant s'il est caché, ou le cache s'il est affiché
-   * @param {*} routeId
+   * Convertit une route telle qu'enregistrée dans le compte en geojson valide
+   * @param {*} route
+   * @returns
    */
-  toggleShowRoute(routeId) {
-    this.routes.forEach((route) => {
-      if (route.id !== routeId) {
-        return;
-      }
-      if (route.visible) {
-        route.visible = false;
-      } else {
-        route.visible = true;
-        this.hide();
-        let coordinates = [];
-        route.data.steps.forEach((step) => {
-          coordinates = coordinates.concat(step.geometry.coordinates);
-        });
-        const bounds = coordinates.reduce((bounds, coord) => {
-            return bounds.extend(coord);
-        }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
-        this.map.fitBounds(bounds, {
-          padding: 100,
-        });
-      }
-    });
-    this.#updateSources();
+  #routeToGeojson(route) {
+    return {
+      type: "FeatureCollection",
+      features: route.data.points.concat(route.data.steps),
+      data: {
+        name: route.name,
+        transport: route.transport,
+        distance: route.data.distance,
+        duration: route.data.duration,
+        elevationData: route.data.elevationData,
+      },
+    };
   }
 
   /**

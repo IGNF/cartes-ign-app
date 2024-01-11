@@ -1,5 +1,4 @@
 import { Toast } from '@capacitor/toast';
-import { Share } from '@capacitor/share';
 
 import utils from '../unit-utils';
 import DomUtils from '../dom-utils';
@@ -13,6 +12,10 @@ import Sortable from 'sortablejs';
 let MyAccountDOM = {
   dom: {
     container: null,
+    routeTab: null,
+    routeNumber: null,
+    landmarkNumber: null,
+    landmarkTab: null,
     routeList: null,
   },
 
@@ -30,6 +33,7 @@ let MyAccountDOM = {
     }
     // ajout du container principal
     var container = this.__addAccountContainerDOMElement(accountName);
+    container.appendChild(this.__addTabsContainerDOMElement());
     // ajout des itinéraires
     this.dom.routeList = this.__addAccountRoutesContainerDOMElement(routes);
     // dragn'drop !
@@ -42,7 +46,7 @@ let MyAccountDOM = {
         this.setRoutePosition(evt.oldDraggableIndex, evt.newDraggableIndex);
       }
     });
-    container.appendChild(this.dom.routeList);
+    this.dom.routeTab.appendChild(this.dom.routeList);
 
     return container;
   },
@@ -91,6 +95,30 @@ let MyAccountDOM = {
   },
 
   /**
+   * ajout du container des onglets
+   * @returns {DOMElement}
+   * @private
+   */
+  __addTabsContainerDOMElement() {
+    var tplContainer = `
+    <div class="layer-tabs-wrap">
+      <input class="layer-tabs-input" name="myaccount-tabs" type="radio" id="myaccount-routes-tab" checked="checked"/>
+      <label class="layer-tabs-label" for="myaccount-routes-tab">Mes itinéraires <span id="myaccount-routes-number">0</span></label>
+      <input class="layer-tabs-input" name="myaccount-tabs" type="radio" id="myaccount-landmarks-tab"/>
+      <label class="layer-tabs-label" for="myaccount-landmarks-tab">Mes points de repère <span id="myaccount-landmarks-number">0</span></label>
+      <div class="layer-tabs-content" id="myaccount-routes"></div>
+      <div class="layer-tabs-content" id="myaccount-landmarks"></div>
+    </div>`
+    // transformation du container : String -> DOM
+    var container = DomUtils.stringToHTML(tplContainer.trim());
+    this.dom.routeTab = container.querySelector("#myaccount-routes");
+    this.dom.routeNumber = container.querySelector("#myaccount-routes-number");
+    this.dom.landmarkTab = container.querySelector("#myaccount-landmarks");
+    this.dom.landmarkNumber = container.querySelector("#myaccount-landmarks-number");
+    return container;
+  },
+
+  /**
    * ajoute le container sur les itinéraires
    * @param {*} routes
    * @returns {DOMElement}
@@ -102,6 +130,7 @@ let MyAccountDOM = {
     for (let i = 0; i < routes.length; i++) {
       divList.appendChild(this.__addRouteContainer(routes[i], i));
     }
+    this.dom.routeNumber.innerText = routes.length;
     return divList;
   },
 
@@ -115,6 +144,7 @@ let MyAccountDOM = {
     for (let i = 0; i < routes.length; i++) {
       this.dom.routeList.appendChild(this.__addRouteContainer(routes[i], i));
     }
+    this.dom.routeNumber.innerText = routes.length;
   },
 
   /**
@@ -148,6 +178,7 @@ let MyAccountDOM = {
           <input type="checkbox" id="route-visibility_ID_${routeId}" ${checked}/>
           <label id="route-visibility-picto_ID_${routeId}" for="route-visibility_ID_${routeId}" title="Afficher/masquer l'itinéraire'" class="tools-layer-visibility">Afficher/masquer</label>
           <div id="route-edit_ID_${routeId}" class="tools-layer-edit" title="Modifier l'itinéraire">Modifier</div>
+          <div id="route-export_ID_${routeId}" class="tools-layer-export" title="Exporter l'itinéraire">Exporter</div>
           <div id="route-remove_ID_${routeId}" class="tools-layer-remove" title="Supprimer l'itinéraire'">Supprimer</div>
         </div>
       </div>
@@ -157,22 +188,19 @@ let MyAccountDOM = {
     var container = DomUtils.stringToHTML(tplContainer.trim());
 
     container.querySelector(`#route-share_ID_${routeId}`).addEventListener("click", () => {
-      // TODO: partage de la géométrie de l'tinéraire
-      Share.share({
-        title: `${title}`,
-        text: `${title}
-Temps : ${utils.convertSecondsToTime(route.data.duration)}, Distance : ${utils.convertDistance(route.data.distance)}
-Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : ${route.data.elevationData.dminus} m`,
-        dialogTitle: 'Partager mon itinéraire',
-      });
+      this.shareRoute(route);
+    });
+
+    container.querySelector(`#route-export_ID_${routeId}`).addEventListener("click", () => {
+      this.exportRoute(route);
     });
 
     container.querySelector(`#route-visibility_ID_${routeId}`).addEventListener("click", () => {
-      this.toggleShowRoute(routeId);
+      this.toggleShowRoute(route);
     });
 
     container.querySelector(`#route-edit_ID_${routeId}`).addEventListener("click", () => {
-      this.editRoute(routeId);
+      this.editRoute(route);
     });
 
     let deleteRoute = () => {
