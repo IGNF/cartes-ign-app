@@ -120,20 +120,17 @@ div[id^="advanced-tools_ID_"] {
   z-index: 1;
   width: fit-content;
   flex-direction: column;
+  position: absolute;
   left: 110px;
   top: -30px;
 }
 
 div[id^="route-advanced-tools_ID_"] {
-  top: 35px;
-  left: 145px;
+  top: 25px;
+  right: 35px;
+  left: unset;
 }
 
-.tools-layer-advanced {
-}
-.tools-layer-advanced-menu {
-  position: absolute;
-}
 label[id^="route-show-advanced-tools_ID_"]:hover
   + div[id^="route-advanced-tools_ID_"],
 label[id^="show-advanced-tools_ID_"]:hover
@@ -187,6 +184,10 @@ div[id^="route-edit_ID_"] {
   background-image: url("./assets/layer-switcher/edit-layer.svg");
 }
 
+div[id^="route-export_ID_"] {
+  background-image: url("./assets/layer-switcher/export-layer.svg");
+}
+
 div[id^="route-share_ID_"] {
   background-image: url("./assets/layer-switcher/share-layer.svg");
 }
@@ -196,6 +197,7 @@ div[id^="route-share_ID_"] {
 .tools-layer-info,
 .tools-layer-share,
 .tools-layer-edit,
+.tools-layer-export,
 .tools-layer-remove {
   height: 40px;
   background-repeat: no-repeat;

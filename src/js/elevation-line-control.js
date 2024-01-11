@@ -213,7 +213,7 @@ class ElevationLineControl {
 
   /**
    * remplissage des coordonnées pour le calcul de profil atlimétrique
-   * @param coordinates [{lat: ..., lon: ...}, ...]
+   * @param coordinates [[lon, lat], [lon, lat]]
    * @public
    */
   setCoordinates(coordinates) {

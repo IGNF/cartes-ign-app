@@ -1,5 +1,6 @@
 import { decode } from "@placemarkio/polyline"
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
+import maplibregl from "maplibre-gl";
 import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
 import DirectionsLayers from "./directions-styles";
@@ -156,7 +157,6 @@ class Directions {
                 case "Voiture":
                     this.configuration.profile = "driving";
                     break;
-
                 default:
                     break;
             }
@@ -172,7 +172,6 @@ class Directions {
                 case "Fastest":
                     message = "Itinéraire le plus rapide";
                     break;
-
                 default:
                     break;
             }
@@ -193,19 +192,6 @@ class Directions {
                         points.push(point);
                         this.obj.addWaypoint(point);
                     }
-                }
-
-                var padding = 20;
-                // gestion du mode paysage / écran large
-                if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-                    var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sal").slice(0, -2)) +
-                      window.innerHeight + 42;
-                    padding = {top: 20, right: 20, bottom: 20, left: paddingLeft}
-                }
-                if (points.length > 1) {
-                    this.map.fitBounds(points, {
-                        padding: padding,
-                    });
                 }
             } catch (e) {
                 // catching des exceptions JSON
@@ -253,9 +239,25 @@ class Directions {
                 });
                 this.results.show();
                 let routeCoordinates = [];
-                decode(e.data.routes[0].geometry).forEach( (latlng) => {
-                  routeCoordinates.push([latlng[0], latlng[1]]);
+                decode(e.data.routes[0].geometry).forEach( (lnglat) => {
+                  routeCoordinates.push([lnglat[0], lnglat[1]]);
                 });
+                var padding = 20;
+                // gestion du mode paysage / écran large
+                if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                    var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sal").slice(0, -2)) +
+                      window.innerHeight + 42;
+                    padding = {top: 20, right: 20, bottom: 20, left: paddingLeft}
+                }
+                if (routeCoordinates.length > 1) {
+                    const bounds = routeCoordinates.reduce((bounds, coord) => {
+                        return bounds.extend(coord);
+                    }, new maplibregl.LngLatBounds(routeCoordinates[0], routeCoordinates[0]));
+
+                    this.map.fitBounds(bounds, {
+                        padding: padding,
+                    });
+                }
                 this.elevation.setCoordinates(routeCoordinates);
                 this.elevation.compute();
             }
