@@ -37,8 +37,10 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+
+      - name: check android build tools
+        run: |
+          ls /usr/local/lib/android/sdk/build-tools/
 
       - name: Build Android Release APK
         run: cd android && ./gradlew assembleRelease
@@ -51,6 +53,9 @@ jobs:
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
 
       - name: Deploy to PlayStore
         uses: r0adkll/upload-google-play@v1
