@@ -1,70 +1,89 @@
 [
     {
         "name": "Tous",
+        "settings": {
+            "default": true,
+            "generic": true
+        },
         "keys": [
-            "administratif",
-            "agriculture",
-            "altimetrie",
-            "cartes",
-            "cartovecto",
-            "clc",
-            "decouverte",
-            "economie",
-            "environnement",
-            "essentiels",
-            "geodesie",
-            "ortho",
-            "orthohisto",
-            "parcellaire",
-            "satellite",
-            "topographie",
-            "transports"
+            "appign"
         ],
         "layers": []
     },
     {
         "name": "Administratif",
-        "keys": ["administratif"],
-        "layers": []
+        "keys": ["appign"],
+        "layers": [
+            "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Foncier",
-        "keys": ["parcellaire"],
-        "layers": []
+        "keys": ["appign"],
+        "layers": [
+            "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Agriculture",
-        "keys": ["agriculture"],
-        "layers": []
+        "keys": ["appign"],
+        "layers": [
+          "LANDUSE.AGRICULTURE2021$GEOPORTAIL:OGC:WMTS",
+          "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Forêt",
-        "keys": [],
-        "layers": []
+        "keys": ["appign"],
+        "layers": [
+            "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Hydrographie, mer et littoral",
-        "keys": [],
-        "layers": []
+        "keys": ["appign"],
+        "layers": [
+            "ELEVATION.LEVEL0$GEOPORTAIL:OGC:WMTS",
+            "HYDROGRAPHY.HYDROGRAPHY$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Espaces protégés",
-        "keys": [],
-        "layers": []
+        "keys": ["appign"],
+        "layers": [
+          "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS",
+          "PROTECTEDAREAS.PNR$GEOPORTAIL:OGC:WMTS",
+          "PROTECTEDAREAS.RN$GEOPORTAIL:OGC:WMTS",
+          "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$GEOPORTAIL:OGC:WMTS",
+          "PROTECTEDAREAS.RNC$GEOPORTAIL:OGC:WMTS",
+          "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS",
+          "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Risques naturels",
-        "keys": [],
-        "layers": []
+        "keys": ["appign"],
+        "layers": [
+          "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Tourisme et loisirs",
-        "keys": [],
-        "layers": []
+        "keys": ["appign"],
+        "layers": [
+          "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS",
+          "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS",
+          "POI.MUSEUM$GEOPORTAIL:OGC:WMS",
+          "VILLAGESETAPE$GEOPORTAIL:OGC:WMS",
+          "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS"
+        ]
     },
     {
         "name": "Transports",
-        "keys": ["transports"],
-        "layers": []
+        "keys": ["appign"],
+        "layers": [
+            "TRANSPORTNETWORKS.RAILWAYS$GEOPORTAIL:OGC:WMTS",
+            "TRANSPORTNETWORKS.ROADS$GEOPORTAIL:OGC:WMTS"
+        ]
     }
 ]

@@ -1,0 +1,250 @@
+#routeDrawModeSelect {
+  max-height: 0px;
+  transition: max-height 0.2s ease-out;
+  font-size: 10px;
+  font-weight: normal;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+}
+
+#routeDrawMode:hover > #routeDrawModeSelect {
+  max-height: 68px;
+}
+
+.routeDrawIcon {
+  display: inline-block;
+  width: 20px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.routeDrawChevronRight {
+  background-image: url("assets/route-draw/chevron_right.svg");
+  position: absolute;
+  right: -6px;
+}
+
+.routeDrawPedestrian {
+  background-image: url("assets/directions/pieton.svg");
+  margin-right: 8px;
+  background-size: 13px;
+}
+
+.routeDrawCar {
+  background-image: url("assets/directions/voiture.svg");
+  margin-right: 8px;
+  background-size: 16px;
+}
+
+#routeDrawModeSelect {
+  position: absolute;
+  width: 100%;
+  bottom: calc(100% + 8px);
+  background-color: white;
+  border-radius: 6px;
+}
+
+#routeDrawModeSelectMode, #routeDrawModeSelectTransport {
+  display: flex;
+  flex-direction: column;
+}
+
+#routeDrawSelectGuided {
+  position: relative;
+}
+
+#routeDrawModeSelectTransport {
+  position: absolute;
+  background-color: white;
+  width: calc(100% + 30px);
+  left: 100%;
+  transition: left 0.2s ease-out;
+}
+
+#routeDrawSelectGuided:hover > #routeDrawModeSelectTransport {
+  z-index: 1;
+  top: -8px;
+  left: -15px;
+}
+
+.routeDrawSelectChoice {
+  margin: 8px 15px;
+  display: flex;
+  align-items: center;
+  height: 18px;
+}
+
+#routeDrawSaveSummary > div,
+#routeDrawSummary > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#routeDrawSaveSummary > div > label,
+#routeDrawSummary > div > label {
+  margin-right: 10px;
+}
+
+
+
+.routeDrawSummaryTransport {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+.lblRouteDrawSummaryTransportpedestrian {
+  background-image: url("assets/route-draw/pieton-darkgrey.svg");
+}
+
+.lblRouteDrawSummaryTransportcar {
+  background-image: url("assets/route-draw/voiture-darkgrey.svg");
+}
+
+.routeDrawSummaryDuration,
+.routeDrawSummaryDistance,
+.routeDrawSummaryDPlus,
+.routeDrawSummaryDMinus{
+  background-position: 0px center;
+  background-repeat: no-repeat;
+  padding-left: 35px;
+}
+
+.routeDrawSummaryDuration {
+  background-image: url("assets/route-draw/clock.svg");
+  color: #26A581;
+}
+
+.routeDrawSummaryDistance {
+  background-position: 6px center;
+  background-image: url("assets/route-draw/arrow-leftright.svg");
+}
+
+.routeDrawSummaryDPlus {
+  background-image: url("assets/route-draw/arrow-topright.svg");
+}
+
+.routeDrawSummaryDMinus {
+  background-image: url("assets/route-draw/arrow-bottomright.svg");
+}
+
+.routeDrawSummaryDPlus, .routeDrawSummaryDMinus {
+  font-family: "Open Sans";
+}
+
+.detailsHeader {
+  font-size: 15px;
+  font-family: "Open Sans Bold";
+}
+
+.routedrawDetails {
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+}
+
+.routeDrawWaypointDiv {
+  color: white;
+  background-color: #26a581;
+  border-radius: 8px;
+  padding: 14px 18px;
+  height: 36px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.routeDrawWaypointTextDiv {
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans";
+  flex-grow: 1;
+  margin-left: 12px;
+}
+
+.routeDrawWaypointLabel {
+  font-weight: 600;
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.routeDrawWaypointImg {
+  width: 30px;
+  height: 100%;
+  background-image: url("assets/route-draw/details-step.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px;
+}
+
+.routeDrawFirstWaypointImg {
+  background-image: url("assets/route-draw/details-departure.svg");
+}
+
+.routeDrawLastWaypointImg {
+  background-image: url("assets/route-draw/details-arrival.svg");
+}
+
+.routeDrawStepDiv {
+  color: #3F4A55;
+  height: 32px;
+  font-family: "Open Sans";
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+}
+
+.routeDrawStepDiv::before {
+  content: "";
+  display: inline-block;
+  background-image: url("assets/directions/location-between.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+#routeDrawSaveNameInputDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#routeDrawSaveNameInput {
+  font-family: "Open Sans";
+  border-radius: 8px;
+  outline: none;
+  box-shadow: 0px 0px 0px 0px;
+  border: 1px solid #DDE1E6;
+  padding: 9px 8px;
+  flex-grow: 1;
+
+}
+
+#routeDrawSaveNameInput::placeholder {
+  color: #788089;
+}
+
+#routeDrawSaveNameInput:focus {
+  border: 2px solid #26a581;
+}
+
+#routeDrawSaveNameInputSubmit {
+  color: white;
+  background-color: #26a581;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 100px;
+  margin-left: 15px;
+}

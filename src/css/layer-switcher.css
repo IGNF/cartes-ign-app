@@ -1,15 +1,17 @@
 /* test pour transformer une carte en N&B :
 .maplibregl-canvas {
   filter: grayscale(1);
-} 
+}
 */
 
-.layer-switcher {
+#layer-switcher {
   position: relative;
-  padding: 15px;
+  padding-top: 15px;
   min-height: 160px;
 }
 
+
+div[id^="route-container_ID_"],
 div[id^="container_ID_"] {
   display: flex;
   flex-wrap: wrap;
@@ -18,115 +20,194 @@ div[id^="container_ID_"] {
 }
 
 .tools-layer-panel {
+  position: relative;
   padding-bottom: 20px;
 }
 
+div[id^="route-cross-picto_ID_"],
 div[id^="cross-picto_ID_"] {
+  position: relative;
+  right: unset;
+  top: unset;
   width: 25px;
-  height: 25px;
-  background-image: url("./assets/drag-and-drop.svg");
-  background-repeat: no-repeat;
+  background: url("./assets/drag-and-drop-light.svg") center center no-repeat, #f4f6f8;
 }
 
+div[id^="route-basic-tools_ID_"],
 div[id^="basic-tools_ID_"] {
   display: flex;
   flex-direction: row;
   padding: 10px;
   max-width: 250px;
 }
+div[id^="route-basic-tools_ID_"] {
+  align-items: center
+}
+
 
 div[id^="thumbnail_ID_"] {
+  height: 50px;
 }
 
 .tools-layer-quickLookUrl {
   width: 50px;
   height: 50px;
-  border-radius: 10px;
-  object-fit: none; /* Do not scale the image */
-  object-position: center; 
+  border-radius: 6px;
+  object-fit: cover; /* Do not scale the image */
+  object-position: center;
 }
 
 .wrap-tools-layers {
   padding-left: 10px;
 }
 
+span[id^="route-title_ID_"],
 span[id^="title_ID_"] {
   word-break: break-word;
+  font-family: "Open Sans Semibold";
+  color: #3f4a55;
 }
 
 div[id^="opacity-range-div_ID_"] {
 }
 
 input[id^="opacity-value-range_ID_"] {
-  accent-color: #26a581;
+  accent-color: #2dc398;
+  width: 130px;
 }
 
 div[id^="opacity-middle-div_ID_"] {
   display: none;
 }
-span[id^="opacity-value-middle_ID_"] {
-}
+
 .tools-layer-opacity {
   display: flex;
+  align-items: center;
 }
 
 .tools-layer-opacity::before {
   content: "0";
+  color: #798189;
+  font-family: "Open Sans Semibold";
+  padding-right: 8px;
 }
 .tools-layer-opacity::after {
-  content: "100 %";
+  content: "100%";
+  color: #798189;
+  font-family: "Open Sans Semibold";
+  padding-left: 6px;
 }
 
-input[id^="show-advanced-tools_ID_"] {
-  display: none;
-}
-label[id^="show-advanced-tools-picto_ID_"] {
+label[id^="route-show-advanced-tools_ID_"],
+label[id^="show-advanced-tools_ID_"] {
   width: 25px;
   height: 25px;
   background-image: url("./assets/options-layer.svg");
   background-repeat: no-repeat;
+  background-position: center;
 }
+div[id^="route-advanced-tools_ID_"],
 div[id^="advanced-tools_ID_"] {
   margin: auto;
-  display: none;
-  bottom: 50px;
-  background-color: #f1f1f1;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-.tools-layer-advanced {
-}
-input[id^="show-advanced-tools_ID_"]:checked
-  + label[id^="show-advanced-tools-picto_ID_"]
-  + div[id^="advanced-tools_ID_"] {
   display: flex;
+  overflow: hidden;
+  padding: 0;
+  transition: max-height 0s;
+  max-height: 0px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  width: fit-content;
+  flex-direction: column;
+  position: absolute;
+  left: 110px;
+  top: -30px;
 }
 
+div[id^="route-advanced-tools_ID_"] {
+  top: 25px;
+  right: 35px;
+  left: unset;
+}
+
+label[id^="route-show-advanced-tools_ID_"]:hover
+  + div[id^="route-advanced-tools_ID_"],
+label[id^="show-advanced-tools_ID_"]:hover
+  + div[id^="advanced-tools_ID_"] {
+  display: flex;
+  max-height: 250px;
+  padding: 12px;
+  transition: max-height 0.3s ease-out;
+}
+
+div[id^="route-advanced-tools_ID_"]:hover,
+div[id^="advanced-tools_ID_"]:hover {
+  display: flex;
+  max-height: 250px;
+  padding: 12px;
+  transition: max-height 0.3s ease-out;
+}
+
+input[id^="route-visibility_ID_"],
 input[id^="visibility_ID_"],
 input[id^="color_ID_"] {
   display: none;
 }
 label[id^="color-picto_ID_"] {
-  background-image: url("./assets/nb-layer.svg");
+  background-image: url("./assets/layer-switcher/nb-layer.svg");
 }
 
+label[id^="route-visibility-picto_ID_"],
 label[id^="visibility-picto_ID_"] {
-  background-image: url("./assets/voir-layer.svg");
+  background-image: url("./assets/layer-switcher/hide-layer.svg");
+}
+
+input[type=checkbox]:checked + .tools-layer-visibility {
+  background-image: url("./assets/layer-switcher/show-layer.svg");
 }
 
 div[id^="info_ID_"] {
-  background-image: url("./assets/info-layer.svg");
+  background-image: url("./assets/layer-switcher/info-layer.svg");
 }
 
+div[id^="route-remove_ID_"],
 div[id^="remove_ID_"] {
-  background-image: url("./assets/supprimer-layer.svg");
+  background-image: url("./assets/layer-switcher/delete-layer.svg");
+}
+
+div[id^="route-remove_ID_"]:hover {
+  background-image: url("./assets/layer-switcher/delete-layer-confirm.svg");
+}
+
+div[id^="route-edit_ID_"] {
+  background-image: url("./assets/layer-switcher/edit-layer.svg");
+}
+
+div[id^="route-export_ID_"] {
+  background-image: url("./assets/layer-switcher/export-layer.svg");
+}
+
+div[id^="route-share_ID_"] {
+  background-image: url("./assets/layer-switcher/share-layer.svg");
 }
 
 .tools-layer-color,
 .tools-layer-visibility,
 .tools-layer-info,
+.tools-layer-share,
+.tools-layer-edit,
+.tools-layer-export,
 .tools-layer-remove {
-  width: 30px;
-  height: 30px;
+  height: 40px;
   background-repeat: no-repeat;
+  background-size: 40px;
+  padding-left: 50px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tools-layer-remove {
+  margin-bottom: 0px;
 }

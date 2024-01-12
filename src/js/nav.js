@@ -37,33 +37,27 @@ class MenuNavigation {
           });
         });
         // "Où suis-je ?"
-        document.getElementById("mypositionWindowClose").addEventListener('click', () => { this.close("myposition"); });
-        document.getElementById("myposition").addEventListener("click", () => {
-            Globals.compare.hide();
-            Globals.myposition.compute()
+        document.getElementById("position").addEventListener("click", () => {
+            Globals.position.compute()
             .then(() => {
-              this.open("myposition");
+              this.open("position");
             });
         });
         // "A proximité"
-        document.getElementById("isochroneWindowClose").addEventListener('click',  () => { this.close("isochrone"); });
         document.getElementById("isochrone").addEventListener("click", () => {
-            Globals.compare.hide();
             this.open("isochrone");
         });
         // "S'y rendre"
-        document.getElementById("directionsWindowClose").addEventListener('click',  () => { this.close("directions"); });
         document.getElementById("directions").addEventListener("click", () => {
-            Globals.compare.hide();
             this.open("directions");
         });
+        // "Tracer un itinéraire"
+        document.getElementById("routeDraw").addEventListener("click", () => {
+            this.open("routeDraw");
+        });
         // "Compte"
-        document.getElementById("myaccountWindowClose").addEventListener('click', () => { this.close("myaccount"); });
         document.getElementById("myaccount").addEventListener('click',  () => { this.open("myaccount"); });
         // Gestionnaire des couches
-        document.getElementById("layerManagerWindowClose").addEventListener('click', () => { this.close("layerManager"); });
-        document.getElementById("infoWindowClose").addEventListener('click', () => { this.close('info')});
-        document.getElementById("legendWindowClose").addEventListener('click', () => { this.close('legend')});
         document.getElementById("informationsWindowClose").addEventListener('click', () => { this.close('informations')});
     }
 
@@ -87,18 +81,19 @@ class MenuNavigation {
      */
     open(id) {
         // HACK : on supprime l'interaction du calcul d'itineraire
-        Globals.directions.interactive(false);
+        // Globals.directions.interactive(false);
 
         // on vide tous les panneaux
         var lstElements = DOM.$tabContainer.childNodes;
         for (let i = 0; i < lstElements.length; i++) {
             var element = lstElements[i];
-            if (element.id && element.tagName.toUpperCase() === "DIV") {
+            if (element.id && element.id !== "tabHeader" && element.tagName.toUpperCase() === "DIV") {
                 element.classList.add('d-none');
             }
         }
 
         // on met à jour l'état du panneau demandé
+        var previousBackState = Globals.backButtonState;
         Globals.backButtonState = id;
 
         // on ajoute le panneau demandé
@@ -109,80 +104,175 @@ class MenuNavigation {
 
         // y'a t il des particularités sur l'ouverture du panneau demandé ?
         var isSpecific = false;
-        var isSpecificSize = false;
         switch (id) {
-            case "myaccount":
+            case "selectOnMapDirections":
+            case "selectOnMapIsochrone":
+                DOM.$filterPoiBtn.classList.add("d-none");
+                DOM.$layerManagerBtn.classList.add("d-none");
+                DOM.$mapCenter.classList.remove("d-none");
+                DOM.$mapCenterMenu.classList.remove("d-none");
+                DOM.$rech.blur();
+                if (document.querySelector(".autocompresultselected")) {
+                    document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
+                }
                 DOM.$search.style.display = "none";
+                document.body.style.removeProperty("overflow-y");
+                DOM.$whiteScreen.classList.add('d-none');
+                DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
+                DOM.$backTopLeftBtn.style.removeProperty("height");
+                DOM.$backTopLeftBtn.style.removeProperty("width");
+                DOM.$backTopLeftBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.style.removeProperty("left");
+                DOM.$altMenuContainer.classList.add('d-none');
+                DOM.$selectOnMap.classList.add("d-none");
+                Globals.currentScrollIndex = 0;
+                this.updateScrollAnchors();
+                break;
+            case "compareLayers1":
+                DOM.$tabContainer.style.removeProperty("top");
+                DOM.$bottomButtons.style.removeProperty("bottom");
+                DOM.$compareLayers2Window.classList.add("d-none");
+                DOM.$compareLayers1Window.classList.remove("d-none");
+                DOM.$sideBySideLeftLayer.classList.add("d-none");
+                Globals.currentScrollIndex = 2;
+                break;
+            case "compareLayers2":
+                DOM.$tabContainer.style.removeProperty("top");
+                DOM.$bottomButtons.style.removeProperty("bottom");
+                DOM.$compareLayers1Window.classList.add("d-none");
+                DOM.$compareLayers2Window.classList.remove("d-none");
+                DOM.$sideBySideRightLayer.classList.add("d-none");
+                if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                    DOM.$sideBySideLeftLayer.style.left = "calc(100vh + env(safe-area-inset-left) - 20px)";
+                }
+                Globals.currentScrollIndex = 2;
+                break;
+            case "compare":
+                DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.classList.add('d-none');
+                DOM.$sideBySideBtn.classList.add('d-none');
+                DOM.$geolocateBtn.classList.add('d-none');
+                DOM.$layerManagerBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$compareMode.classList.remove('d-none');
+                DOM.$sideBySideLeftLayer.classList.remove('d-none');
+                DOM.$sideBySideRightLayer.classList.remove('d-none');
+                DOM.$tabContainer.style.top = "100vh";
+                DOM.$bottomButtons.style.bottom = "calc(42px + env(safe-area-inset-bottom))";
+                DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.add("d-none");
+                Globals.compare.show();
+                Globals.interactivityIndicator.hardDisable();
+                Globals.currentScrollIndex = 0;
+                break;
+            case "routeDrawSave":
+                DOM["$routeDrawWindow"].classList.add('d-none');
+                DOM.$filterPoiBtn.classList.add('d-none');
+                DOM.$routeDrawBtns.classList.add('d-none');
+                DOM.$routeDrawEdit.classList.add('d-none');
+                DOM.$bottomButtons.style.removeProperty('bottom');
+                DOM.$bottomButtons.style.removeProperty('left');
+                DOM.$bottomButtons.style.removeProperty('width');
+                Globals.currentScrollIndex = 1;
+                break;
+            case "routeDraw":
+                DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$routeDrawBtns.classList.remove('d-none');
+                DOM.$routeDrawEdit.classList.remove('d-none');
+                if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                    DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+                } else {
+                    DOM.$bottomButtons.style.left = "calc(100vh + env(safe-area-inset-left) + 42px)";
+                    DOM.$bottomButtons.style.width = "auto";
+                }
+                DOM.$tabContainer.style.backgroundColor = "white";
+                DOM.$sideBySideBtn.classList.add('d-none');
+                Globals.interactivityIndicator.hardDisable();
+                Globals.routeDraw.activate();
+                Globals.currentScrollIndex = 1;
+                break;
+            case "poi":
+                Globals.backButtonState = "poi-" + previousBackState;
+                Globals.routeDraw.deactivate();
+                DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$filterPoiBtn.classList.add('d-none');
                 Globals.currentScrollIndex = 1;
                 break;
             case "layerManager":
                 DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 Globals.currentScrollIndex = 1;
                 break;
             case "informations":
-            case "info":
-            case "legend":
                 Globals.currentScrollIndex = 1;
                 break;
-            case "myposition":
+            case "position":
+                DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                Globals.currentScrollIndex = 1;
                 break;
             case "isochrone":
                 // FIXME mettre en place une méthode sur la classe Search
                 // ex. Globals.search.hide()
                 DOM.$search.style.display = "none";
-                DOM.$backTopLeftBtn.classList.remove('d-none');
-                break;
-            case "search":
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$sideBySideBtn.classList.add('d-none');
-                DOM.$layerManagerBtn.classList.add('d-none');
-                DOM.$geolocateBtn.classList.add('d-none');
-                DOM.$searchresultsWindow.classList.remove('d-none');
-                DOM.$closeSearch.classList.remove('d-none');
-                Globals.currentScrollIndex = 2;
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                Globals.isochrone.interactive(true);
+                Globals.interactivityIndicator.hardDisable();
+                Globals.currentScrollIndex = 1;
                 break;
+            case "myaccount":
+                DOM.$whiteScreen.style.backgroundColor = "#f4f6f8";
             case "parameterScreen":
             case "legalScreen":
             case "privacyScreen":
-            case "plusLoinScreen":
                 document.body.style.overflowY = "scroll";
-                DOM.$sideBySideBtn.classList.add('d-none');
-                DOM.$layerManagerBtn.classList.add('d-none');
-                DOM.$geolocateBtn.classList.add('d-none');
-                DOM.$blueBg.classList.remove('d-none');
+                DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$altMenuContainer.classList.remove('d-none');
-                Globals.ignoreNextScrollEvent = true;
-                window.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: 'auto'
-                });
                 Globals.currentScrollIndex = 0;
                 break;
             case "directionsResults":
-                isSpecificSize = true;
-                DOM.$tabContainer.style.height = "";
+                DOM.$tabContainer.style.backgroundColor = "white";
+                Globals.interactivityIndicator.enable();
+                DOM.$tabContainer.style.removeProperty("height");
+                Globals.currentScrollIndex = 2;
                 break;
             case "searchDirections":
             case "searchIsochrone":
-                DOM.$sideBySideBtn.classList.add('d-none');
-                DOM.$layerManagerBtn.classList.add('d-none');
-                DOM.$geolocateBtn.classList.add('d-none');
-                // FIXME mettre en place une méthode sur la classe Search
-                // ex. Globals.search.show()
                 DOM.$search.style.display = "flex";
-                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$selectOnMap.classList.remove("d-none");
+            case "search":
                 DOM.$searchresultsWindow.classList.remove('d-none');
+                DOM.$whiteScreen.classList.remove('d-none');
                 DOM.$closeSearch.classList.remove('d-none');
-                Globals.currentScrollIndex = 2;
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                    document.body.style.overflowY = "scroll";
+                    DOM.$backTopLeftBtn.style.boxShadow = "unset";
+                    DOM.$backTopLeftBtn.style.height = "44px";
+                    DOM.$backTopLeftBtn.style.width = "24px";
+                    DOM.$backTopLeftBtn.style.top = "12px";
+                    DOM.$backTopLeftBtn.style.left = "15px";
+                }
+                DOM.$altMenuContainer.classList.remove('d-none');
+                Globals.currentScrollIndex = 0;
                 break;
             case "directions":
                 DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
-                Globals.directions.interactive(true);
+                DOM.$sideBySideBtn.classList.add('d-none');
+                // Globals.directions.interactive(true);
+                Globals.interactivityIndicator.hardDisable();
+                Globals.currentScrollIndex = 2;
                 break;
             default:
                 break;
@@ -197,9 +287,8 @@ class MenuNavigation {
         this.hide();
 
         // on procede à l'affichage du panneau
-        if(!isSpecificSize) {
-            DOM.$tabContainer.style.height = "100%";
-        }
+        // DOM.$tabContainer.style.height = "100%";
+
         if (Globals.currentScrollIndex === 2) {
             this.updateScrollAnchors();
         } else if (Globals.currentScrollIndex === 1) {
@@ -223,63 +312,171 @@ class MenuNavigation {
         var isSpecific = false;
         var isFinished = false; // hack pour search !
         switch (id) {
-            case "myaccount":
-                DOM.$search.style.display = "flex";
-                DOM.$backTopLeftBtn.classList.add('d-none');
-                break;
-            case "layerManager":
-                DOM.$search.style.display = "flex";
-                DOM.$backTopLeftBtn.classList.add('d-none');
-                break;
-            case "informations":
-            case "info":
-            case "legend":
+            case "selectOnMapDirections":
+            case "selectOnMapIsochrone":
+                DOM.$filterPoiBtn.classList.remove("d-none");
+                DOM.$layerManagerBtn.classList.remove("d-none");
+                DOM.$mapCenter.classList.add("d-none");
+                DOM.$mapCenterMenu.classList.add("d-none");
+                Globals.currentScrollIndex = 0;
                 isSpecific = true;
                 isFinished = true;
                 break;
-            case "myposition":
+            case "compareLayers1":
+                DOM.$tabContainer.style.top = "100vh";
+                DOM.$bottomButtons.style.bottom = "calc(42px + env(safe-area-inset-bottom))";
+                DOM.$compareLayers1Window.classList.add("d-none");
+                DOM.$sideBySideLeftLayer.classList.remove("d-none");
+                Globals.currentScrollIndex = 0;
+                isSpecific = true;
+                isFinished = true;
+                break;
+            case "compareLayers2":
+                DOM.$tabContainer.style.top = "100vh";
+                DOM.$bottomButtons.style.bottom = "calc(42px + env(safe-area-inset-bottom))";
+                DOM.$sideBySideLeftLayer.style.removeProperty("left");
+                DOM.$compareLayers2Window.classList.add("d-none");
+                DOM.$sideBySideRightLayer.classList.remove("d-none");
+                Globals.currentScrollIndex = 0;
+                isSpecific = true;
+                isFinished = true;
+                break;
+            case "compare":
+                DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.classList.remove('d-none');
+                DOM.$sideBySideBtn.classList.remove('d-none');
+                DOM.$geolocateBtn.classList.remove('d-none');
+                DOM.$layerManagerBtn.classList.remove('d-none');
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$compareMode.classList.add('d-none');
+                DOM.$sideBySideLeftLayer.classList.add('d-none');
+                DOM.$sideBySideRightLayer.classList.add('d-none');
+                DOM.$tabContainer.style.removeProperty("top");
+                DOM.$bottomButtons.style.removeProperty("bottom");
+                DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.remove("d-none");
+                Globals.compare.hide();
+                Globals.interactivityIndicator.enable();
+                break;
+            case "routeDrawSave":
+                // Réouverture de routeDraw sans utilisr this.open("routeDraw")
+                DOM.$filterPoiBtn.classList.remove('d-none');
+                DOM["$routeDrawWindow"].classList.remove('d-none');
+                DOM.$routeDrawBtns.classList.remove('d-none');
+                DOM.$routeDrawEdit.classList.remove('d-none');
+                if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                  DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+                } else {
+                    DOM.$bottomButtons.style.left = "calc(100vh + env(safe-area-inset-left) + 42px)";
+                    DOM.$bottomButtons.style.width = "auto";
+                }
+                isSpecific = true;
+                isFinished = true;
+                break;
+            case "routeDraw":
+                DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$routeDrawBtns.classList.add('d-none');
+                DOM.$routeDrawEdit.classList.add('d-none');
+                DOM.$bottomButtons.style.removeProperty('bottom');
+                DOM.$bottomButtons.style.removeProperty('left');
+                DOM.$bottomButtons.style.removeProperty('width');
+                DOM.$sideBySideBtn.classList.remove('d-none');
+                DOM.$tabContainer.style.removeProperty("background-color");
+                Globals.routeDraw.clear();
+                Globals.interactivityIndicator.enable();
+                break;
+            case "poi":
+                DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$filterPoiBtn.classList.remove('d-none');
+                break;
+            case "layerManager":
+                DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                break;
+            case "informations":
+                isSpecific = true;
+                isFinished = true;
+                break;
+            case "position":
+                DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                Globals.mapInteractivity.clear();
                 break;
             case "isochrone":
                 // FIXME mettre en place une méthode sur la classe Searchs
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.isochrone.clear();
+                Globals.isochrone.interactive(false);
+                Globals.interactivityIndicator.enable();
                 break;
             case "search":
+                DOM.$rech.blur();
+                if (document.querySelector(".autocompresultselected")) {
+                    document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
+                }
+                document.body.style.removeProperty("overflow-y");
+                DOM.$whiteScreen.classList.add('d-none');
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
+                DOM.$backTopLeftBtn.style.removeProperty("height");
+                DOM.$backTopLeftBtn.style.removeProperty("width");
+                DOM.$backTopLeftBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.style.removeProperty("left");
+                DOM.$altMenuContainer.classList.add('d-none');
                 isSpecific = true;
                 isFinished = false;
                 break;
-            case "directionsResults":
             case "searchDirections":
             case "searchIsochrone":
+                DOM.$rech.blur();
+                if (document.querySelector(".autocompresultselected")) {
+                    document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
+                }
+                document.body.style.removeProperty("overflow-y");
+                DOM.$whiteScreen.classList.add('d-none');
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
+                DOM.$backTopLeftBtn.style.removeProperty("height");
+                DOM.$backTopLeftBtn.style.removeProperty("width");
+                DOM.$backTopLeftBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.style.removeProperty("left");
+                DOM.$altMenuContainer.classList.add('d-none');
+                DOM.$selectOnMap.classList.add("d-none");
+                Globals.currentScrollIndex = 1;
+            case "directionsResults":
+                DOM.$tabContainer.style.removeProperty("background-color");
+                Globals.interactivityIndicator.hardDisable();
                 isSpecific = true;
                 isFinished = true;
                 break;
+            case "myaccount":
+                DOM.$whiteScreen.style.removeProperty('background-color');
             case "parameterScreen":
             case "legalScreen":
             case "privacyScreen":
-            case "plusLoinScreen":
-                document.body.style.overflowY = "auto";
-                DOM.$sideBySideBtn.classList.remove('d-none');
-                DOM.$layerManagerBtn.classList.remove('d-none');
-                DOM.$geolocateBtn.classList.remove('d-none');
-                DOM.$blueBg.classList.add('d-none');
+                document.body.style.removeProperty("overflow-y");
+                DOM.$whiteScreen.classList.add('d-none');
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$altMenuContainer.classList.add('d-none');
-                Globals.ignoreNextScrollEvent = true;
-                window.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: 'auto'
-                });
-                Globals.currentScrollIndex = 0;
                 break;
             case "directions":
                 DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.directions.clear();
-                Globals.directions.interactive(false);
+                // Globals.directions.interactive(false);
+                Globals.interactivityIndicator.enable();
                 break;
             default:
                 break;
@@ -290,19 +487,20 @@ class MenuNavigation {
         if (isSpecific) {
             this.#close(id);
             if (isFinished) {
+                this.updateScrollAnchors();
                 return;
             }
         }
+
+        Globals.currentScrollIndex = 0;
+        this.updateScrollAnchors();
 
         // on affiche le menu de navigation
         this.show();
 
         // on met à jour l'état du panneau : vers le menu de navigation
-        Globals.backButtonState = 'mainMenu';
-
-        // on retire le panneau
-        this.#midScroll();
-        DOM.$tabContainer.style.height = "";
+        Globals.backButtonState = 'default';
+        DOM.$tabContainer.style.removeProperty("height");
     }
 
     /**
@@ -316,6 +514,14 @@ class MenuNavigation {
      * @param {*} id
      */
     #close(id) {
+        if (["compareLayers1", "compareLayers2"].includes(id)) {
+            Globals.backButtonState = 'compare'; // on revient sur le contrôle !
+            return;
+        }
+        if (id === "routeDrawSave") {
+          Globals.backButtonState = 'routeDraw'; // on revient sur le contrôle !
+          return;
+        }
         Globals.controller.abort();
         Globals.controller = new AbortController();
         Globals.signal = Globals.controller.signal;
@@ -325,11 +531,11 @@ class MenuNavigation {
         DOM.$searchresultsWindow.classList.add('d-none');
         DOM.$sideBySideBtn.classList.remove('d-none');
         DOM.$layerManagerBtn.classList.remove('d-none');
+        DOM.$filterPoiBtn.classList.remove('d-none');
+        DOM.$interactivityBtn.classList.remove('d-none');
         DOM.$geolocateBtn.classList.remove('d-none');
         switch (id) {
             case "informations":
-            case "info":
-            case "legend":
                 DOM.$layerManagerWindow.classList.remove("d-none");
                 Globals.backButtonState = 'layerManager'; // on revient sur le contrôle !
                 this.#midScroll();
@@ -341,22 +547,26 @@ class MenuNavigation {
             case "directionsResults":
                 DOM.$directionsWindow.classList.remove("d-none");
                 Globals.backButtonState = 'directions'; // on revient sur le contrôle !
-                Globals.directions.interactive(true);
+                // Globals.directions.interactive(true);
                 this.#midScroll();
                 break;
             case "searchIsochrone":
+            case "selectOnMapIsochrone":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$isochroneWindow.classList.remove("d-none");
                 Globals.backButtonState = 'isochrone'; // on revient sur le contrôle !
-                this.#midScroll();
+                Globals.currentScrollIndex = 1;
+                this.updateScrollAnchors();
                 break;
             case "searchDirections":
+            case "selectOnMapDirections":
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$directionsWindow.classList.remove("d-none");
                 Globals.backButtonState = 'directions'; // on revient sur le contrôle !
-                this.#midScroll();
+                Globals.currentScrollIndex = 2;
+                this.updateScrollAnchors();
             default:
                 break;
         }
@@ -377,7 +587,16 @@ class MenuNavigation {
 
     /** ... */
     #scrollTo(value) {
-        Globals.ignoreNextScrollEvent = true;
+        if (Globals.backButtonState !== "compare") {
+            DOM.$tabContainer.style.removeProperty("top");
+        }
+        if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+          if (Globals.currentScrollIndex == 0) {
+            return
+          }
+          DOM.$tabContainer.style.top = 0;
+          return
+        }
         window.scroll({
           top: value,
           left: 0,

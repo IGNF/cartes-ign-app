@@ -1,8 +1,10 @@
 import IsochroneDOM from "./isochrone-dom";
+import Globals from "../globals";
 
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
 import Location from "../services/location";
+import Reverse from "../services/reverse";
 
 /**
  * Interface sur le contrôle isochrone
@@ -51,7 +53,7 @@ class Isochrone {
     // style
     this.style = this.options.style || {
       color: "26a581",
-      opacity: 0.6
+      opacity: 0.85
     };
 
     // target
@@ -68,6 +70,9 @@ class Isochrone {
 
     // requête en cours d'execution ?
     this.loading = false;
+
+    // bind
+    this.onAddWayPoint = this.onAddWayPoint.bind(this);
 
     return this;
   }
@@ -99,7 +104,6 @@ class Isochrone {
    * @public
    */
   async compute(settings) {
-    console.log(settings);
     // nettoyage de l'ancien parcours !
     this.clear();
     // Les valeurs sont à retranscrire en options du service utilisé
@@ -130,7 +134,7 @@ class Isochrone {
       switch (settings.mode.type) {
         case "Distance":
           mode = "distance";
-          value = parseInt(settings.mode.value, 10); // km
+          value = Math.round(parseFloat(settings.mode.value, 10) * 1000) / 1000; // km arrondi au mètre
           break;
         case "Temps":
           mode = "time";
@@ -202,21 +206,24 @@ class Isochrone {
       throw new Error(response.message);
     }
 
-    this.map.addSource(this.configuration.source, {
-      "type": "geojson",
-      "data": geojson
-    });
+    if (settings.showOutline) {
+      this.map.addSource(this.configuration.source, {
+        "type": "geojson",
+        "data": geojson
+      });
 
-    this.map.addLayer({
-      "id": this.configuration.source,
-      "type": "fill",
-      "source": this.configuration.source,
-      "layout": {},
-      "paint": {
-        "fill-color": "#" + this.style.color,
-        "fill-opacity": this.style.opacity
-      }
-    });
+      this.map.addLayer({
+        "id": this.configuration.source,
+        "type": "line",
+        "source": this.configuration.source,
+        "layout": {},
+        "paint": {
+          "line-color": "#" + this.style.color,
+          "line-opacity": this.style.opacity,
+          "line-width": 5,
+        }
+      });
+    }
 
     function getBoundingBox(data) {
       var bounds = {};
@@ -238,6 +245,8 @@ class Isochrone {
     this.map.fitBounds(bbox, {
       padding: 20
     });
+    Globals.currentScrollIndex = 0;
+    Globals.menu.updateScrollAnchors();
   }
 
   /**
@@ -258,6 +267,47 @@ class Isochrone {
     if (this.map.getSource(this.configuration.source)) {
       this.map.removeSource(this.configuration.source);
     }
+  }
+
+  /**
+   * activation du mode interaction
+   * @param {*} status
+   * @public
+   */
+  interactive(status) {
+    if (status) {
+      this.map.on("click", this.onAddWayPoint);
+    } else {
+      this.map.off("click", this.onAddWayPoint);
+    }
+  }
+
+  /**
+   * listener sur la carte pour recuperer les coordonnées du point
+   * @param {*} e
+   */
+  onAddWayPoint(e) {
+    console.debug(e);
+    var coordinates = e.lngLat;
+    Reverse.compute({
+      lon : coordinates.lng,
+      lat : coordinates.lat
+    })
+    .then(() => {
+      var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
+      var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
+      var strAddress = address;
+      if (typeof address !== "string") {
+        strAddress = "";
+        strAddress += (address.number !== "") ? address.number + " " : "";
+        strAddress += (address.street !== "") ? address.street + ", " : "";
+        strAddress += address.city + ", " + address.postcode;
+      }
+      this.dom.location.dataset.coordinates = "[" + coords.lon + "," + coords.lat + "]";
+      this.dom.location.value = strAddress;
+    })
+    .catch(() => {})
+    .finally(() => {});
   }
 
   /**
@@ -285,7 +335,7 @@ class Isochrone {
     // - le nettoyage des ecouteurs
     function setLocation(e) {
       // on ferme le menu
-      if (self.options.closeSearchControlCbk) {
+      if (e.type !== "geolocation" && self.options.closeSearchControlCbk) {
         self.options.closeSearchControlCbk();
       }
       // on enregistre dans le DOM :

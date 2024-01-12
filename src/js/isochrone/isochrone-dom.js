@@ -1,3 +1,5 @@
+import DomUtils from "../dom-utils";
+
 /**
  * DOM du contrôle du calcul d'isochrone
  * @mixin IsochroneDOM
@@ -22,39 +24,6 @@ let IsochroneDOM = {
   },
 
   /**
-   * transforme un texte html en dom
-   * @param {String} str
-   * @returns {DOMElement}
-   * @public
-   */
-  stringToHTML(str) {
-
-    var support = function () {
-      if (!window.DOMParser) return false;
-      var parser = new DOMParser();
-      try {
-        parser.parseFromString('x', 'text/html');
-      } catch (err) {
-        return false;
-      }
-      return true;
-    };
-
-    // If DOMParser is supported, use it
-    if (support()) {
-      var parser = new DOMParser();
-      var doc = parser.parseFromString(str, 'text/html');
-      return doc.body.firstChild;
-    }
-
-    // Otherwise, fallback to old-school method
-    var dom = document.createElement('div');
-    dom.innerHTML = str;
-    return dom;
-
-  },
-
-  /**
    * obtenir le container principal
    * @returns {DOMElement}
    * @public
@@ -68,7 +37,7 @@ let IsochroneDOM = {
         <div id="isochroneContainer">
             <form id="isochroneForm" onkeypress="return event.keyCode != 13;">
                 <!-- titre -->
-                <p class="pIsochroneTitle">Lancer une recherche à proximité</p>
+                <p class="pIsochroneTitleTitle pIsochroneTitle">Lancer une recherche à proximité</p>
                 <!-- location -->
                 <input id="isochroneLocation" class="inputIsochroneLocation" type="text" placeholder="Saisir une adresse..." name="location" data-coordinates="">
                 <!-- type de calcul : distance / temps -->
@@ -81,7 +50,7 @@ let IsochroneDOM = {
                         <span class="sliderIsochrone"></span>
                     </div>
                     <div id="isochroneModeValueDuration">
-                        <p class="pIsochroneTitle">Definissez votre temps de trajet</p>
+                        <p class="pIsochroneTitle">Définir un temps de trajet</p>
                         <div id="isochroneValueDuration" class="divIsochroneValue">
                             <input id="isochroneValueDurationInputHours" min="0" step="1" type="number">
                             <label class="unit">h</label>
@@ -90,7 +59,7 @@ let IsochroneDOM = {
                         </div>
                     </div>
                     <div id="isochroneModeValueDistance" class="isochroneValueHidden">
-                        <p class="pIsochroneTitle">Definissez la distance</p>
+                        <p class="pIsochroneTitle">Définir une distance</p>
                         <div id="isochroneValueDistance" class="divIsochroneValue">
                             <input id="isochroneValueDistanceInput" min="0" step="any" type="number">
                             <label class="unit">km</label>
@@ -102,14 +71,28 @@ let IsochroneDOM = {
                     <p class="pIsochroneTitle">Comment vous déplacez-vous ?</label>
                     <div class="divIsochroneTransport">
                         <input id="isochroneTransportPieton" type="radio" name="Transport" value="Pieton" checked="true">
-                        <label class="lblIsochroneTransport" for="isochroneTransportPieton" title="A pied">A pied</label>
+                        <label class="lblIsochroneTransport" for="isochroneTransportPieton" title="À pied">À pied</label>
                         <input id="isochroneTransportVoiture" type="radio" name="Transport" value="Voiture">
                         <label class="lblIsochroneTransport" for="isochroneTransportVoiture" title="Véhicule">Véhicule</label>
                         <span class="sliderIsochrone"></span>
                     </div>
                 </div>
                 <!-- TODO filtres POI -->
+                <div class="section">
+                    <p class="filterTitle">Lieux à afficher</label>
+                    <div class="divIsochronePOIFilter">
+                      <label class="lblIsochroneFilter chkContainer" for="isochroneFilterTest" title="Test">Test<input class="checkbox" type="checkbox" id="isochroneFilterTest" value="Test"><span class="checkmark"></span></label>
+                      <label class="lblIsochroneFilter chkContainer" for="isochroneFilterTest" title="Test">Test<input class="checkbox" type="checkbox"><span class="checkmark"></span></label>
+                      <label class="lblIsochroneFilter chkContainer" for="isochroneFilterTest" title="Test">Test<input class="checkbox" type="checkbox"><span class="checkmark"></span></label>
+                      <label class="lblIsochroneFilter chkContainer" for="isochroneFilterTest" title="Test">Test<input class="checkbox" type="checkbox"><span class="checkmark"></span></label>
+                      <label class="lblIsochroneFilter chkContainer" for="isochroneFilterTest" title="Test">Test<input class="checkbox" type="checkbox"><span class="checkmark"></span></label>
+                      <label class="lblIsochroneFilter chkContainer" for="isochroneFilterTest" title="Test">Test<input class="checkbox" type="checkbox"><span class="checkmark"></span></label>
+                    </div>
+                </div>
                 <!-- TODO option d'affichage -->
+                <div class="divIsochroneDisplayOptions">
+                  <span>Afficher le contour de ma zone de recherche</span><label class="toggleSwitch"><input id="showLimitsChk" class="toggleInput" type="checkbox" checked><span class="toggleSlider"></span></label>
+                </div>
                 <!-- bouton de calcul -->
                 <input id="isochroneCompute" class="btnIsochroneCompute" type="submit" value="Calculer">
             </form>
@@ -117,7 +100,7 @@ let IsochroneDOM = {
         `;
 
     // transformation du container : String -> DOM
-    var container = this.stringToHTML(strContainer.trim());
+    var container = DomUtils.stringToHTML(strContainer.trim());
 
     // ajout du shadow DOM
     const shadow = container.attachShadow({ mode: "open" });
@@ -133,6 +116,7 @@ let IsochroneDOM = {
     this.dom.durationValueMinutes = shadow.getElementById("isochroneValueDurationInputMinutes");
     this.dom.transportCar = shadow.getElementById("isochroneTransportVoiture");
     this.dom.transportPedestrian = shadow.getElementById("isochroneTransportPieton");
+    this.dom.showLimitsChk = shadow.getElementById("showLimitsChk");
 
     // ajout des listeners principaux :
     // - le calcul
@@ -182,27 +166,28 @@ let IsochroneDOM = {
       // location
       var value = self.dom.location.dataset.coordinates;
 
+      // affichage du contour
+      var showOutline = self.dom.showLimitsChk.checked;
+
       // passer les valeurs au service
       self.compute({
         transport: transport,
         mode: mode,
-        location: value
+        location: value,
+        showOutline: showOutline,
       });
 
       return false;
     });
     this.dom.location.addEventListener("click", (e) => {
-      console.log(e);
       // ouverture du menu de recherche
       self.onOpenSearchLocation(e);
     });
     this.dom.modeDistance.addEventListener("click", (e) => {
-      console.log(e);
       document.getElementById("isochroneModeValueDistance").className = "";
       document.getElementById("isochroneModeValueDuration").className = "isochroneValueHidden";
     });
     this.dom.modeDuration.addEventListener("click", (e) => {
-      console.log(e);
       document.getElementById("isochroneModeValueDuration").className = "";
       document.getElementById("isochroneModeValueDistance").className = "isochroneValueHidden";
     });

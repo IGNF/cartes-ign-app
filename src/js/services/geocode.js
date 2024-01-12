@@ -40,8 +40,7 @@ function moveTo(coords, zoom=Globals.map.getZoom(), panTo=true) {
   Globals.searchResultIcon.addEventListener("click", clean);
 
   if (panTo) {
-    Globals.map.setCenter([coords.lon, coords.lat]);
-    Globals.map.setZoom(zoom);
+    Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
   }
 }
 
@@ -56,7 +55,7 @@ async function search (text) {
    * Recherche un texte et le géocode à l'aide de look4,
    * puis va à sa position en ajoutant un marqueur
    */
-  let url = new URL("https://wxs.ign.fr/calcul/geoportail/geocodage/rest/0.1/completion");
+  let url = new URL("https://data.geopf.fr/geocodage/completion");
   let params =
       {
         type: "StreetAddress,PositionOfInterest",

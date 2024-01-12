@@ -1,85 +1,98 @@
 /***********************************
- * controle de calcul d'itinéraire 
+ * controle de calcul d'itinéraire
  ***********************************/
 
-/* 
- * compute 
+/*
+ * compute
  */
 .btnDirectionsCompute {
+  appearance: unset; /* for ios */
   display: block;
-  width: 90%;
   margin: auto;
   border: none;
-  border-radius: 12px;
+  border-radius: 70px;
   background-color: #26a581;
   padding: 14px 28px;
-  font-family: "Fira Sans-SemiBold", Helvetica;
+  font-family: "Open Sans";
   font-weight: 600;
   font-size: 16px;
-  color: var(--white);
+  color: white;
   cursor: pointer;
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+  width: 236px;
+  margin-top: 26px;
 }
 
-/* 
- * transport 
+/*
+ * checkboxes
  */
-.divDirectionsTransport input[type="radio"] {
+.divDirectionsTransport input[type="radio"], .divDirectionsComputation input[type="radio"] {
   display: none;
 }
 
-.divDirectionsTransport * {
+.divDirectionsTransport *, .divDirectionsComputation * {
   z-index: 2;
 }
 
-.divDirectionsTransport {
+.divDirectionsTransport, .divDirectionsComputation {
   display: flex;
   position: relative;
   justify-content: space-around;
   margin: auto;
   height: 34px;
   width: 220px;
-  background-color: #e9ecef;
-  /* box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15); */
-  padding: 10px;
+  background-color: #E9ECEF;
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.08);
+  padding: 8px;
   border-radius: 100px;
   margin-bottom: 10px;
   align-items: center;
 }
 
-.lblDirectionsTransport {
+.lblDirectionsTransport, .lblDirectionsComputation {
+  color: #788089;
+  padding-left: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 30px;
   width: 120px;
-  /* font-size: .8rem;
-  color: black;
-  font-weight: 500; */
   border-radius: 100px;
   cursor: pointer;
   transition: color 0.15s ease-in;
   background-repeat: no-repeat;
+  background-size: 20px 25px;
+  background-position: 12px 3px;
+  font-family: "Open Sans";
 }
-.divDirectionsTransport input[type="radio"]:checked + label {}
 
-.divDirectionsTransport input[id="directionsTransportVoiture"]:checked ~ .sliderDirections {
+.lblDirectionsComputation {
+  padding: 0;
+}
+
+.divDirectionsTransport input[type="radio"]:checked + label, .divDirectionsComputation input[type="radio"]:checked + label {
+  color: white;
+}
+
+.divDirectionsTransport input[id="directionsTransportVoiture"]:checked ~ .sliderDirections,
+.divDirectionsComputation input[id="directionsComputationShortest"]:checked ~ .sliderComputation {
   transform: translateX(58px);
 }
 
-.divDirectionsTransport input[id="directionsTransportPieton"]:checked ~ .sliderDirections {
+.divDirectionsTransport input[id="directionsTransportPieton"]:checked ~ .sliderDirections,
+.divDirectionsComputation input[id="directionsComputationFastest"]:checked ~ .sliderComputation {
   transform: translateX(-58px);
 }
 
-.sliderDirections {
+.sliderDirections, .sliderComputation {
   position: absolute;
   display: flex;
   height: 44px;
-  width: 110px;
-  background-color: #ffffff;
+  width: 115px;
+  background-color: #26A581;
   z-index: 1;
   border-radius: 100px;
   transition: 0.25s ease-out;
@@ -89,52 +102,38 @@
   background-image: url("assets/directions/voiture.svg");
 }
 
+#directionsTransportVoiture:checked + label {
+  background-image: url("assets/directions/voiture-s.svg");
+}
+
 #directionsTransportPieton + label {
   background-image: url("assets/directions/pieton.svg");
 }
 
-/* 
- * calcul 
+#directionsTransportPieton:checked + label {
+  background-image: url("assets/directions/pieton-s.svg");
+}
+
+/*
+ * locations
  */
-.divDirectionsComputation {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  margin: auto;
-  width: 60%;
-  margin-bottom: 10px;
+
+#divDirectionsLocationsList {
+  width: 95%;
 }
 
-.divDirectionsComputation input[type="radio"] {
-  display: none;
-}
-
-.divDirectionsComputation input[type="radio"]:checked + label {
-  color: #26a581;
-}
-
-.lblDirectionsComputation {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background-color: #ffffff;
-  border-radius: 50px;
-  margin-right: 12px;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease-in-out;
-}
-
-#directionsComputationFastest {}
-#directionsComputationShortest {}
-
-/* 
- * locations 
- */
 .divDirectionsLocations {
   display: flex;
   flex-direction: column;
+}
+
+.divDirectionsLocationsItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  max-height: 53px;
+  transition: max-height .3s ease-out;
 }
 
 .divDirectionsLocationsDefault {
@@ -147,38 +146,85 @@
 }
 
 .lblDirectionsLocations {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+.inputDirectionsLocationsContainer {
+  position: relative;
+  width: 265px;
+  margin: 4px;
+  flex-grow: 1;
 }
 
 .inputDirectionsLocations {
-  position: relative;
-  width: 265px;
+  box-sizing: border-box;
+  width: 100%;
   height: 45px;
-  margin: 4px;
   padding-left: 15px;
+  padding-right: 25px;
   background-color: #ffffff;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid;
-  border-color: #788089;
+  border-color: #DDE1E6;
+  color: #3F4A55;
 }
 
-#directionsLocationImg_first {
+.inputDirectionsLocations::placeholder {
+  color: #788089;
+}
+
+.inputDirectionsLocations:focus {
+  outline: none;
+  border-color: #26a581;
+}
+
+
+.handle-draggable-layer {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  width: 35px;
+  height: 25px;
+  background: url("./assets/drag-and-drop.svg") 15px 5px no-repeat, linear-gradient(90deg,#fff0 0%, #fff 30%) center center;
+}
+
+
+
+.lblDirectionsLocations {
+  background-image: url("assets/directions/location-step.svg");
+}
+
+#divDirectionsLocationsList > .divDirectionsLocationsItem:first-child > .directionsLocationImg {
   background-image: url("assets/directions/location-first.svg");
 }
 
-#directionsLocation_start {}
-
-.lblDirectionsLocationsImg_middle {
-  /* background-image: url("assets/directions/location-middle.svg"); */
-}
-
-#directionsLocationImg_last {
+#divDirectionsLocationsList > .divDirectionsLocationsItem:nth-last-child(1 of :not(.sortable-drag)) > .directionsLocationImg {
   background-image: url("assets/directions/location-last.svg");
 }
 
-#directionsLocation_end {}
+.lblDirectionsLocationsRemoveImg{
+  background-image: url("assets/directions/location-step-remove.svg");
+  border-radius: 25px;
+  border: 1px solid #DDE1E6;
+  flex-shrink: 0;
+  background-position: 1px 1px;
+}
+
+#divDirectionsLocationsList > .divDirectionsLocationsItem:not(:first-child) > .directionsLocationImg::before {
+  content: "";
+  display: block;
+  background-image: url("assets/directions/location-between.svg");
+  width: 25px;
+  height: 25px;
+  transform: translateY(-30px);
+  background-repeat: no-repeat;
+  background-position: 10px;
+  z-index: -1;
+  position: absolute;
+}
 
 #directionsLocationImg_reverse {
   width: 40px;
@@ -186,15 +232,35 @@
   background-image: url("assets/directions/location-reverse.svg");
 }
 
-.divDirectionsLocationsStep {
+.divDirectionsLocationsAddStep {
   display: flex;
   margin: auto;
+  padding: 10px;
+  font-family: "Open Sans";
+  max-height: 60px;
+  transition: max-height .2s ease-out;
 }
+
 #directionsLocationImg_step {
   display: flex;
   width: 180px;
   height: 40px;
   justify-content: space-around;
-  background-image: url("assets/directions/location-step.svg");
+  background-image: url("assets/directions/location-step-add.svg");
+  line-height: 40px;
+  background-position-y: 9px;
+  color: #3F4A55;
+  background-color: #fff0;
+  transition: background-color 0.1s;
+  border-radius: 8px;
 }
 
+.hidden {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.hidden .lblDirectionsLocations {
+  background-image: none;
+  border: none;
+}

@@ -9,29 +9,46 @@ const $resultsRechRecent = document.getElementById("resultsRechRecent");
 const $searchImage = document.getElementById("searchImage");
 
 const $myGeoLocation = document.getElementById("myGeoLocation");
+const $selectOnMap = document.getElementById("selectOnMap");
 
 const $geolocateBtn = document.getElementById("geolocateBtn");
 const $backTopLeftBtn = document.getElementById("backTopLeftBtn");
 const $compassBtn = document.getElementById("compassBtn");
 const $layerManagerBtn = document.getElementById("layerManagerBtn");
 const $sideBySideBtn = document.getElementById("sideBySideBtn");
+const $compareMode = document.getElementById("compareMode");
+const $sideBySideLeftLayer = document.getElementById("sideBySideLeftLayer");
+const $sideBySideRightLayer = document.getElementById("sideBySideRightLayer");
+const $compareLayers1Window = document.getElementById("compareLayers1Window");
+const $compareLayers2Window = document.getElementById("compareLayers2Window");
+const $filterPoiBtn = document.getElementById("filterPoiBtn");
+const $interactivityBtn = document.getElementById("interactivityBtn");
+const $routeDrawBtns = document.getElementById("routeDrawBtns");
+const $routeDrawMode = document.getElementById("routeDrawMode");
+const $routeDrawModeSelectTransportPedestrian = document.getElementById("routeDrawModeSelectTransportPedestrian");
+const $routeDrawModeSelectTransportCar = document.getElementById("routeDrawModeSelectTransportCar");
+const $routeDrawHelp = document.getElementById("routeDrawHelp");
+const $routeDrawEdit = document.getElementById("routeDrawEdit");
+const $routeDrawCancel = document.getElementById("routeDrawCancel");
+const $routeDrawRestore = document.getElementById("routeDrawRestore");
+const $routeDrawDelete = document.getElementById("routeDrawDelete");
+const $routeDrawSave = document.getElementById("routeDrawSave");
 
-const $blueBg = document.getElementById("blueBg");
+const $mapCenter = document.getElementById("mapCenter");
+const $mapCenterMenu = document.getElementById("mapCenterMenu");
+const $mapCenterSubmit = document.getElementById("mapCenterSubmit");
+
+const $bottomButtons = document.getElementById("bottomButtons");
+
+const $whiteScreen = document.getElementById("whiteScreen");
 const $parameterScreenWindow = document.getElementById("parameterScreenWindow");
 const $legalScreenWindow = document.getElementById("legalScreenWindow");
 const $privacyScreenWindow = document.getElementById("privacyScreenWindow");
-const $plusLoinScreenWindow = document.getElementById("plusLoinScreenWindow");
 const $altMenuContainer = document.getElementById("altMenuContainer");
-
-const $legendWindow = document.getElementById("legendWindow");
-const $infoWindow = document.getElementById("infoWindow");
-const $infoText = document.getElementById("infoText");
-const $legendImg = document.getElementById("legendImg");
 
 const $informationsWindow = document.getElementById("informationsWindow");
 const $informationsText = document.getElementById("informationsText");
 const $informationsImg = document.getElementById("informationsImg");
-
 
 const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
 const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule");
@@ -43,30 +60,29 @@ const $layerManagerWindow = document.getElementById("layerManagerWindow");
 const $directionsWindow = document.getElementById("directionsWindow");
 const $directionsResultsWindow = document.getElementById("directionsResultsWindow");
 const $isochroneWindow = document.getElementById("isochroneWindow");
-const $mypositionWindow = document.getElementById("mypositionWindow");
+const $positionWindow = document.getElementById("positionWindow");
 const $myaccountWindow = document.getElementById("myaccountWindow");
+const $poiWindow = document.getElementById("poiWindow");
+const $routeDrawWindow = document.getElementById("routeDrawWindow");
+const $routeDrawSaveWindow = document.getElementById("routeDrawSaveWindow");
 
 export default {
   $search,
   $resultDiv,
   $rech,
   $geolocateBtn,
-  $blueBg,
+  $whiteScreen,
   $closeSearch,
   $searchResults,
   $resultsRechRecent,
   $searchImage,
   $myGeoLocation,
+  $selectOnMap,
   $backTopLeftBtn,
   $parameterScreenWindow,
   $legalScreenWindow,
   $privacyScreenWindow,
-  $plusLoinScreenWindow,
   $altMenuContainer,
-  $legendWindow,
-  $infoWindow,
-  $infoText,
-  $legendImg,
   $chkPrintCoordsOnContext,
   $chkPrintCoordsReticule,
   $compassBtn,
@@ -77,10 +93,34 @@ export default {
   $directionsWindow,
   $directionsResultsWindow,
   $isochroneWindow,
-  $mypositionWindow,
+  $positionWindow,
   $sideBySideBtn,
+  $compareMode,
+  $sideBySideLeftLayer,
+  $sideBySideRightLayer,
+  $compareLayers1Window,
+  $compareLayers2Window,
   $myaccountWindow,
   $informationsWindow,
   $informationsText,
-  $informationsImg
+  $informationsImg,
+  $filterPoiBtn,
+  $poiWindow,
+  $interactivityBtn,
+  $routeDrawWindow,
+  $routeDrawBtns,
+  $routeDrawMode,
+  $routeDrawModeSelectTransportPedestrian,
+  $routeDrawModeSelectTransportCar,
+  $routeDrawHelp,
+  $routeDrawEdit,
+  $bottomButtons,
+  $routeDrawCancel,
+  $routeDrawRestore,
+  $routeDrawDelete,
+  $routeDrawSave,
+  $routeDrawSaveWindow,
+  $mapCenter,
+  $mapCenterMenu,
+  $mapCenterSubmit,
 };

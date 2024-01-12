@@ -1,5 +1,3 @@
-import maplibregl from "maplibre-gl";
-
 import Geocode from './services/geocode';
 import Location from './services/location';
 import DOM from './dom';
@@ -18,39 +16,48 @@ function addListeners() {
   /* event listeners pour élément non existants au démarrage */
   document.querySelector('body').addEventListener('click', (evt) => {
     var geocode = false;
-    /* Résultats autocompletion */
-    if ( evt.target.classList.contains('autocompresult') ) {
+    /* Résultats autocompletion  et recherche récente */
+    if ( evt.target.classList.contains('autocompresult') || evt.target.classList.contains('recentresult')) {
       geocode = true;
-      evt.target.className = "autocompresultselected";
+      evt.target.classList.add("autocompresultselected");
       DOM.$rech.value = evt.target.getAttribute("fulltext");
-    }
-    /* Résultats recherches recentes */
-    if ( evt.target.classList.contains('recentresult') ) {
-      geocode = true;
-      DOM.$rech.value = evt.target.textContent;
     }
     // si recherches recentes ou autocompletion, on realise un geocodage
     if (geocode) {
       if (Globals.backButtonState === "searchDirections") {
-        Geocode.search(DOM.$rech.value);
-        setTimeout(Globals.menu.open("directions"), 150);
+        setTimeout(() => {
+          Geocode.search(DOM.$rech.value);
+          Globals.menu.open("directions");
+        }, 250);
       } else if(Globals.backButtonState === "searchIsochrone") {
-        Geocode.search(DOM.$rech.value);
-        setTimeout(Globals.menu.open("isochrone"), 150);
+        setTimeout(() => {
+          Geocode.search(DOM.$rech.value);
+          Globals.menu.open("isochrone");
+        }, 250);
       } else {
         Geocode.searchAndMoveTo(DOM.$rech.value);
-        setTimeout(Globals.menu.close("search"), 150);
+        setTimeout(() => Globals.menu.close("search"), 250);
       }
-      RecentSearch.add(DOM.$rech.value);
+      setTimeout(() =>  RecentSearch.add(DOM.$rech.value.trim()), 260);
     }
   }, true);
 
-  // TODO
-  // Ecouteurs sur le menu du Compte : à ajouter sur la classe MyAccount
-  document.getElementById('menuItemParamsIcon').addEventListener('click', () => { Globals.menu.open('parameterScreen')});
-  document.getElementById('menuItemPlusLoin').addEventListener('click', () => { Globals.menu.open('plusLoinScreen')});
-  document.getElementById('menuItemLegal').addEventListener('click', () => { Globals.menu.open('legalScreen')});
-  document.getElementById('menuItemPrivacy').addEventListener('click', () => { Globals.menu.open('privacyScreen')});
+  // Ecouteurs sur les sous menus Compte
+  document.getElementById('menuItemParamsIcon').addEventListener('click', () => {
+    DOM.$whiteScreen.style.animation = "unset";
+    Globals.menu.close('myaccount');
+    Globals.menu.open('parameterScreen');
+  });
+  document.getElementById('menuItemLegal').addEventListener('click', () => {
+    DOM.$whiteScreen.style.animation = "unset";
+    Globals.menu.close('myaccount');
+    Globals.menu.open('legalScreen');
+  });
+  document.getElementById('menuItemPrivacy').addEventListener('click', () => {
+    DOM.$whiteScreen.style.animation = "unset";
+    Globals.menu.close('myaccount');
+    Globals.menu.open('privacyScreen');
+  });
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -63,66 +70,62 @@ function addListeners() {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
-    localStorage.setItem("lastBaseLayerDisplayed", Globals.baseLayerDisplayed);
-    localStorage.setItem("lastDataLayerDisplayed", Globals.dataLayerDisplayed);
+    localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
+    localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
   });
 
   window.addEventListener('beforeunload', () => {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
-    localStorage.setItem("lastBaseLayerDisplayed", Globals.baseLayerDisplayed);
-    localStorage.setItem("lastDataLayerDisplayed", Globals.dataLayerDisplayed);
+    localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
+    localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
   });
 
   // Screen dimentions change
   window.addEventListener("resize", () => {
+    if (Globals.backButtonState !== 'default') {
+      Globals.currentScrollIndex = 1;
+    }
+    if (["searchDirections", "searchIsochrone", "search"].includes(Globals.backButtonState)) {
+      document.body.style.removeProperty("overflow-y");
+      DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
+      DOM.$backTopLeftBtn.style.removeProperty("height");
+      DOM.$backTopLeftBtn.style.removeProperty("width");
+      DOM.$backTopLeftBtn.style.removeProperty("top");
+      DOM.$backTopLeftBtn.style.removeProperty("left");
+      if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        document.body.style.overflowY = "scroll";
+        DOM.$backTopLeftBtn.style.boxShadow = "unset";
+        DOM.$backTopLeftBtn.style.height = "44px";
+        DOM.$backTopLeftBtn.style.width = "24px";
+        DOM.$backTopLeftBtn.style.top = "12px";
+        DOM.$backTopLeftBtn.style.left = "15px";
+      }
+    }
+    if (Globals.backButtonState === "routeDraw") {
+      DOM.$bottomButtons.style.removeProperty('bottom');
+      DOM.$bottomButtons.style.removeProperty('left');
+      DOM.$bottomButtons.style.removeProperty('width');
+      if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+      } else {
+        DOM.$bottomButtons.style.left = "calc(100vh + env(safe-area-inset-left) + 42px)";
+        DOM.$bottomButtons.style.width = "auto";
+      }
+    }
+    if (["selectOnMapDirections", "selectOnMapIsochrone"].includes(Globals.backButtonState)) {
+      Globals.currentScrollIndex = 0;
+    }
+    if (Globals.backButtonState === "compareLayers2") {
+      DOM.$sideBySideLeftLayer.style.removeProperty("left");
+      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        DOM.$sideBySideLeftLayer.style.left = "calc(100vh + env(safe-area-inset-left) - 20px)";
+    }
+    }
     Globals.menu.updateScrollAnchors();
   });
 
-  document.onscroll = scrollEndCallback;
-
-  function scrollEndCallback() {
-    /** TODO: scroll end snapping
-    if (Globals.ignoreNextScrollEvent) {
-      // Ignore this event because it was done programmatically
-      Globals.ignoreNextScrollEvent = false;
-      Globals.currentScroll = window.scrollY;
-      return;
-    }
-    let isScrollUp = window.scrollY > Globals.currentScroll;
-    let isScrollDown = window.scrollY < Globals.currentScroll;
-
-    if (isScrollUp && Globals.currentScrollIndex < Globals.anchors.length - 1) {
-      Globals.currentScrollIndex += 1;
-      if (window.scrollY > Globals.maxScroll - 50) {
-        Globals.currentScrollIndex = Globals.anchors.length - 1;
-      }
-    }
-    if (isScrollDown && Globals.currentScrollIndex > 0) {
-      Globals.currentScrollIndex -= 1;
-      if (window.scrollY < 50) {
-        Globals.currentScrollIndex = 0;
-      }
-    }
-    MenuDisplay.scrollTo(Globals.anchors[Globals.currentScrollIndex]);
-    **/
-    if (window.scrollY === 0) {
-      Globals.currentScrollIndex = 0;
-    } else if (window.scrollY === Globals.maxScroll) {
-      Globals.currentScrollIndex = 2;
-    }
-
-    if (Globals.currentScrollIndex > 0 && Globals.backButtonState == 'default') {
-      Globals.backButtonState = 'mainMenu';
-    }
-    if (Globals.currentScrollIndex == 0 && Globals.backButtonState == 'mainMenu') {
-      Globals.backButtonState = 'default';
-    }
-  }
-  
-  // FIXME à deplacer ? 
-  // document.getElementById("drawroute").addEventListener("click", Controls.startDrawRoute);
 }
 
 export default {

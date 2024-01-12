@@ -1,74 +1,7 @@
-#otherMenus {
-  margin-top: 25px;
-  display: grid;
-}
-
-#menuItemLegal {
-  grid-row: 1;
-  grid-column: 1;
-  margin-bottom: 5px;
-}
-
-
-#menuItemPrivacy {
-  grid-row: 2;
-  grid-column: 1;
-}
-
-#menuItemParams {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  text-align: right;
-}
-
-#menuItemPlusLoin {
-  grid-row: 3;
-  grid-column: 1 / span 2;
-}
-
-#menuItemParamsIcon {
-  background-image: url("assets/settings.svg");
-  margin-top: 23px;
-  padding-right: 15px;
-}
-
-#menuItemParams {
-  margin-bottom: 0 !important;
-  margin-top: -7px;
-}
-
-.smallMenuItem {
-  font-family: 'Open Sans';
-}
-
-#menuItemPlusLoin {
-  background-color: #00ae90;
-  color: white;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  padding: 13px 0 13px 20px;
-  margin-top: 30px;
-}
-
-.menuItemIcon {
-  height: 15px;
-  width: 15px;
-  display: inline-block;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin: 0 5px -3px 5px;
-}
-
-#menuItemLegal, #menuItemPrivacy {
-  text-decoration: underline;
-  padding-left: 15px;
-}
-
 #altMenuContainer {
   z-index: 3001;
   height: auto;
-  top: 55px;
+  top: calc(68px + env(safe-area-inset-top));
   display: flex;
   width: 100%;
   position: absolute
@@ -82,7 +15,7 @@
   width: 100%;
   margin-left: 10px;
   margin-right: 10px;
-  color: #4b4b4b;
+  color: #3F4A55;
   width: 100%;
   font-size: 1.1em;
   flex-direction: column;
@@ -92,7 +25,6 @@
   border: 0px solid #D6D6D6;
   border-radius: 5px;
   background-color: white;
-  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
   padding-left: 10px;
   padding-right: 10px;
   margin-bottom: 10px;
@@ -102,38 +34,12 @@
   font-family: 'Open Sans Semibold';
 }
 
-#legalScreenWindow, #privacyScreenWindow, #plusLoinScreenWindow {
+#legalScreenWindow, #privacyScreenWindow {
   font-family: 'Open Sans';
 }
 
 #legalScreenWindow a {
   color: #0B6BA7;
-}
-
-#plusLoinScreenWindow div {
-  padding-left: 18px;
-  padding-right: 18px;
-}
-
-.plusLoinTitle {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-}
-
-.plusLoinTitle img {
-  margin-top: 23px;
-  flex-shrink: 0;
-  width: 100px;
-  height: 100px;
-}
-
-.plusLoinTitleText {
-  font-size: 2.5em;
-  color: #7a7a7a;
-  position: absolute;
-  bottom: 0;
-  left: 115px;
 }
 
 .headerText {
@@ -147,18 +53,10 @@
   border-radius: 5px;
 }
 
-#ignRandoLogo {
-  border-radius: 25px;
-}
-
-#imgIgnRandoPlayStore {
-  width: 155px;
-}
-
-#imgIgnRandoAppStore {
-  padding: 10px;
-}
-
-#gppLogo {
-  margin-top: 23px;
+/* mode paysage et écrans larges */
+@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+  #altMenuContainer {
+    width: calc(100vw - 75px - env(safe-area-inset-left));
+    left: calc(75px + env(safe-area-inset-left))
+  }
 }

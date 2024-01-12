@@ -1,7 +1,6 @@
 import Globals from './globals';
 import DOM from './dom';
 import Location from './services/location';
-import Geocode from './services/geocode';
 import State from './state';
 
 /**
@@ -42,6 +41,7 @@ class Search {
     var id = {
       searchInput: "lieuRech",
       myLoc: "myGeoLocation",
+      selectOnMap: "selectOnMap",
       recentSearches: "resultsRechRecent",
       searchResults: "resultsRech",
       closeSearch: "closeSearch"
@@ -52,21 +52,20 @@ class Search {
         // Cancel the default action, if needed
         event.preventDefault();
         // Trigger the button element with a click
-        DOM.$resultDiv.hidden = true;
-        DOM.$resultDiv.innerHTML = "";
-        Geocode.searchAndMoveTo(DOM.$rech.value);
-        this.hide();
+        DOM.$resultDiv.firstChild.click();
       } else if (DOM.$rech.value !== ""){
         let resultStr = "";
         this.suggest().then( () => {
           if (this.autocompletion_results.length > 0){
             for (let i = 0 ; i < this.autocompletion_results.length; i++) {
-              resultStr += `<p class='autocompresult' fulltext='${this.autocompletion_results[i].fulltext}'>
-              <em class='autocompkind'>${this.autocompletion_results[i].kind}</em><br/>
-              ${this.autocompletion_results[i].fulltext} </p>` ;
+              resultStr += this.computeAutocompResultHTML(this.autocompletion_results[i]);
             }
             DOM.$resultDiv.innerHTML = resultStr;
             DOM.$resultDiv.hidden = false;
+          }
+        }).catch( (err) => {
+          if (err.name === "AbortError") {
+            return;
           }
         });
       } else if (DOM.$rech.value === "") {
@@ -81,18 +80,41 @@ class Search {
       DOM.$resultDiv.innerHTML = "";
     });
 
+    document.getElementById(id.selectOnMap).addEventListener("click", (e) => {
+      if (Globals.backButtonState === "searchDirections") {
+        e.target.classList.add("autocompresultselected");
+        setTimeout(() => {
+          Globals.menu.open("selectOnMapDirections");
+        }, 250);
+      } else if (Globals.backButtonState === "searchIsochrone") {
+        e.target.classList.add("autocompresultselected");
+        setTimeout(() => {
+          Globals.menu.open("selectOnMapIsochrone");
+        }, 250);
+      }
+    }, true);
+
     document.getElementById(id.myLoc).addEventListener("click", (e) => {
       // on realise une geolocalisation
       Location.getLocation()
         .then((result) => {
           DOM.$rech.value = "Ma position";
+          e.target.classList.add("autocompresultselected");
           if (Globals.backButtonState === "searchDirections") {
-            setTimeout(Globals.menu.open("directions"), 150);
+            setTimeout(() => {
+              this.hide();
+              Globals.menu.open("directions");
+            }, 250);
           } else if (Globals.backButtonState === "searchIsochrone") {
-            setTimeout(Globals.menu.open("isochrone"), 150);
+            setTimeout(() => {
+              this.hide();
+              Globals.menu.open("isochrone");
+            }, 250);
           } else {
-            Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
-            setTimeout(this.hide(), 150);
+            setTimeout(() =>{
+              this.hide();
+              Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
+            }, 250);
           }
         });
     }, true);
@@ -102,7 +124,7 @@ class Search {
     });
 
     document.getElementById(id.searchInput).addEventListener('focus', function () {
-      if (Globals.backButtonState === "default" || Globals.backButtonState === "mainMenu") {
+      if (Globals.backButtonState === "default") {
         Globals.search.show();
       }
     });
@@ -121,7 +143,7 @@ class Search {
     Globals.controller = new AbortController();
     Globals.signal = Globals.controller.signal;
     let location = DOM.$rech.value;
-    let url = new URL("https://wxs.ign.fr/calcul/geoportail/geocodage/rest/0.1/completion");
+    let url = new URL("https://data.geopf.fr/geocodage/completion");
     let params =
         {
           type: "StreetAddress,PositionOfInterest",
@@ -132,17 +154,24 @@ class Search {
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     let signal = Globals.signal;
     let responseprom = await fetch(url, {signal});
-    let response = await responseprom.json()
+    let response = await responseprom.json();
+    if (response.status !== "OK") {
+      return;
+    }
     this.autocompletion_results = [];
     for (let i = 0 ; i < response.results.length; i++) {
       let elem = response.results[i];
-      let kind = elem.kind;
-      if (kind === null) {
-        kind = "adresse";
+      let splitedText = this.computeLocationFullText(elem).split(",");
+      let city = "";
+      if (splitedText.length > 1){
+        city = splitedText[1].trim();
+      } else {
+        city = elem.poiType.slice(-1)[0].charAt(0).toUpperCase() + elem.poiType.slice(-1)[0].slice(1);
       }
       this.autocompletion_results.push({
         fulltext: this.computeLocationFullText(elem),
-        kind: kind
+        firsttext: splitedText[0],
+        city: city
       });
     }
     // Seulement les valeurs uniques
@@ -159,6 +188,17 @@ class Search {
    */
   computeLocationFullText(locationResult) {
     return locationResult.fulltext;
+  }
+
+  /**
+   * calcule l'affichage d'un résultat d'autocompletion
+   * @public
+   */
+  computeAutocompResultHTML(autocompresult) {
+    return `<p class='autocompresult' fulltext='${autocompresult.fulltext}'>
+    ${autocompresult.firsttext}<br/>
+    <em class='autocompcity'>${autocompresult.city}</em></p>
+    ` ;
   }
 
   /**

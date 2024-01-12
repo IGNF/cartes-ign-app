@@ -1,66 +1,181 @@
+#layerManagerWindow h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#layerManagerWindow h4 {
+  margin: 0 0 10px 0;
+  font-family: "Open Sans Semibold";
+  font-size: 1.1em;
+}
+
+#layer-thematics {
+  width: 100%;
+}
+
 .layer-thematics {
-  padding: 15px;
+  padding-top: 15px;
 }
 
 .subCatMenu .layer .layerImg img {
-  width: 75px;
-  height: 50px;
+  width: 100%;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
   border-radius: 2px;
-  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
 }
 
 .layerImg {
-  width: 75px;
+  width: 100%;
   position: relative;
   margin: auto;
 }
 
-#layerManagerWindow .subCatMenu {
+
+.baseLayer .layerImg{
+  width: 112.5px;
+}
+
+.subCatMenu .baseLayer .layerImg img{
+  width: 112.5px;
+  height: 75px;
+}
+
+.layer-title-thematic,
+.layer-title {
+  font-family: "Open Sans";
+  font-size: 11px;
+  font-style: normal;
+  line-height: normal;
+  color: #091625;
+  display: flex;
+  text-align: left
+}
+
+.layer-title-thematic {
+  color: #26a581;
+  font-weight: 600;
+}
+
+#layerManagerWindow #thematicLayers {
   text-align: center;
-  margin: 0 15px 0 15px;
+  margin: 0;
   display: grid;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   grid-template-columns: 26% 26% 26%;
 }
 
+#baseLayers {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow-x: scroll;
+  scrollbar-width: none;  /* Firefox */
+}
+
+#baseLayers::-webkit-scrollbar {
+  display: none;
+}
+
+.selectedLayer .layer-badge {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  bottom: 14px;
+  right: 10px;
+  background-repeat: no-repeat;
+  background-image: url("assets/selected-layer.svg");
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
 .selectedLayer img {
-  border: solid 5px #0b6ba7;
+  border: solid 2px white;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
 }
 
-.comparedLayer img {
-  border: solid 5px #00ae90;
-  box-sizing: border-box;
+#baseLayers .layer {
+  display: inline-block;
+  padding-bottom: 1em;
+  position: relative;
+  flex-shrink: 0;
+  width: 112.5px;
+  margin-right: 12px;
 }
 
-.subCatMenu .layer {
+#thematicLayers .layer {
   display: inline-block;
   padding-bottom: 1em;
   width: 100%;
   position: relative;
 }
 
-.layer .layer-info,
-.layer .layer-legend {
-  width: 19px;
-  height: 19px;
-  background-color: #fff;
-  position: absolute;
-  left: -10px;
-  border-radius: 13px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+#thematicLayers .layer-hidden {
+  display: none;
 }
 
-.layer .layer-info {
-  top: -10px;
-  background-image: url("assets/info.svg");
+.baseLayer,
+.thematicLayer {}
+
+#thematicButtons {
+
 }
 
-.layer .layer-legend {
-  top: 40px;
-  background-image: url("assets/legend.svg");
+.subCatButton {
+  margin: 0 0 10px 0;
+  position: relative;
+  overflow-x: scroll;
+  height: 55px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#baseLayers::after,
+.subCatButton::after {
+  content: "";
+  pointer-events: none;
+  position: sticky;
+  z-index: 6;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(90deg,#fff0,#f4f6f8);
+  opacity: 1;
+  visibility: visible;
+  flex-shrink: 0;
+}
+
+#baseLayers::after {
+  height: unset;
+}
+
+.subCatButton::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar and Firefox */
+.subCatButton {
+  scrollbar-width: none;  /* Firefox */
+}
+
+.thematicButton {
+  display: block;
+  border: 1px solid #3F4A55;
+  color: #3F4A55;
+  background-color: #fff0;
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  margin-right: 10px;
+  font-family: "Open Sans Semibold";
+  font-size: 0.8em
+}
+
+.thematic-button-active {
+  color: #26a581;
+  border-color: #26a581;
 }

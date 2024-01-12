@@ -1,9 +1,8 @@
 #searchContainer {
   position: fixed;
-  top: 0;
+  top: env(safe-area-inset-top);
   width: 100%;
   z-index: 3000;
-  height: 40px;
   display: flex;
   justify-content: center;
 }
@@ -12,17 +11,30 @@
   display: flex;
   padding: 0;
   margin: auto;
-  margin-top: 0;
+  margin-top: 10px;
   margin-bottom: 15px;
   position: relative;
   width: 95%;
   flex-grow: 0;
 }
 
+#search::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 6;
+  top: 9px;
+  right: 33px;
+  width: 20px;
+  height: 32px;
+  background: linear-gradient(90deg, #fff0, #fff);
+  opacity: 1;
+  visibility: visible;
+}
+
 #search input {
-  color: #4b4b4b;
+  color: #3F4A55;
   margin: 0;
-  margin-top: 10px;
   width: 100%;
   height: 32px;
   border-radius: 8px;
@@ -30,42 +42,42 @@
   border: 0px;
   background-color: white;
   font-family: "Open Sans Bold";
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
 }
 
 #search input:focus {
+  outline: none;
   box-shadow: 0px 0px 0px 0px;
   border: 2px solid #26a581;
+  padding: 7px 31px 7px 31px;
 }
 
 #search input::placeholder {
-  color: #bac3ca;
-  opacity: 0.6;
+  color: #788089;
+  font-family: "Open Sans Semibold";
 }
 
 #searchImage {
   width: 20px;
   height: 20px;
   position: absolute;
-  top: 26px;
+  top: 16px;
   margin-left: 8px;
   background-image: url("assets/search.svg");
   background-position: center;
   background-repeat: no-repeat;
 }
 
-#search input:focus {
-  outline: none;
+#searchresultsWindow {
+  width: 100%;
+  color: #393939;
 }
 
 #searchResults {
   display: flex;
   flex-flow: column;
   position: relative;
-  left: 10px;
-}
-
-#resultsRechRecent {
+  margin: 0 2.5%;
 }
 
 #resultsRech {
@@ -73,25 +85,39 @@
   color: #393939;
   background-color: white;
   z-index: 3000;
-  /* top: 50px;
-    left: 10px;
-    width: calc(100% - 20px); */
   border-radius: 5px;
 }
 
+#resultsRechRecent:first-child {
+  margin: 4px 0;
+}
+
+#resultsRechRecent{
+  padding-bottom: 5px;
+  border-bottom: solid 1px #D8DFE4;
+}
+
+#myGeoLocation > p,
+#selectOnMap > p,
 .recentresult,
 .autocompresultselected,
 .autocompresult {
-  border-bottom: solid 1px #D8DFE4;
   padding: 0.6em 0.2em;
   margin: 0;
   padding-left: 10px;
   padding-right: 10px;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  text-align: left;
+  padding-left: 25px;
 }
 
-.autocompresult em {
-  opacity: 0.2;
-  font-size: 0.7em;
+.autocompresult em, .recentresult em {
+  opacity: 0.9;
+  font-size: 0.9em;
+  font-style: normal;
+  font-family: "Open Sans";
 }
 
 .autocompresult:last-child {
@@ -99,30 +125,59 @@
 }
 
 .autocompresultselected {
-  background-color: #00ae90;
+  background-color: #E7E7E7;
+  transition: background-color 0.1s;
+}
+
+#myGeoLocation > p {
+  background-image: url("assets/ma-geolocation.svg");
+}
+
+#selectOnMap > p {
+  background-image: url("assets/location.svg");
 }
 
 .recentresult {
-  background-position: left;
-  background-repeat: no-repeat;
-  background-image: url("assets/search.svg");
-  text-align: center;
+  background-image: url("assets/recentresult.svg");
+}
+
+.autocompresult {
+  background-image: url("assets/autocompresult.svg");
 }
 
 #closeSearch {
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
-  top: 10px;
+  display: inline-block;
+  top: 6px;
   right: -10px;
   width: 58px;
   height: 35px;
   background-image: url("assets/close.svg");
 }
 
-@media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {
+@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #searchContainer {
     width: 40%;
-    left: 85px;
+    left: calc(85px + env(safe-area-inset-left));
+  }
+  #searchResults {
+    height: calc(100vh - 68px - env(safe-area-inset-top));
+    flex-wrap: wrap;
+  }
+  #searchResults > div {
+    width: 45%;
+    margin-right: 9%;
+  }
+  #resultsRech {
+    margin-top: -50px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex-wrap: wrap;
+  }
+  .autocompresult {
+    width: 100%;
   }
 }

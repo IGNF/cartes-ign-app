@@ -7,9 +7,9 @@ import { Geolocation } from '@capacitor/geolocation';
 import { Toast } from '@capacitor/toast';
 
 // fichiers SVG
-import LocationImg from "../../css/assets/localisation.svg";
-import LocationFollowImg from "../../css/assets/location-follow.svg";
-import LocationFixeImg from "../../css/assets/location-fixed.svg";
+import LocationImg from "../../css/assets/map-buttons/localisation.svg";
+import LocationFollowImg from "../../css/assets/map-buttons/location-follow.svg";
+import LocationFixeImg from "../../css/assets/map-buttons/location-fixed.svg";
 
 /* Géolocalisation */
 // Positionnement du mobile
@@ -18,6 +18,7 @@ let location_active = false;
 // Suivi de la carte
 let tracking_active = false;
 let watch_id;
+let currentPosition = null;
 
 let positionBearing = 0
 
@@ -78,8 +79,7 @@ const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
 
   if (panTo) {
     Globals.movedFromCode = true;
-    Globals.map.setCenter([coords.lon, coords.lat]);
-    Globals.map.setZoom(zoom);
+    Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
     Globals.movedFromCode = false;
   }
 }
@@ -88,31 +88,29 @@ const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
  * Suit la position de l'utilisateur
  */
 const trackLocation = () => {
+  let lastAccuracy = 100000;
   Geolocation.checkPermissions().then((status) => {
     if (status.location != 'denied') {
-      Geolocation.getCurrentPosition({
-        maximumAge: 0,
-        timeout: 10000,
-        enableHighAccuracy: true
-      }).then((position) => {
-        moveTo({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude
-        }, Math.max(Globals.map.getZoom(), 14));
-      }).catch((err) => {
-        console.warn(`${err.message}`);
-      });
-
+      var firstLocation = true;
       Geolocation.watchPosition({
         maximumAge: 0,
         timeout: 10000,
         enableHighAccuracy: true
       },
       (position) => {
-        moveTo({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude
-        }, Globals.map.getZoom(), tracking_active);
+        if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 16) ) {
+          lastAccuracy = position.coords.accuracy;
+          currentPosition = position;
+          var zoom = Globals.map.getZoom();
+          if (firstLocation) {
+            zoom = Math.max(Globals.map.getZoom(), 14);
+            firstLocation = false;
+          }
+          moveTo({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          }, zoom, tracking_active);
+        }
       }).then( (watchId) => {
         watch_id = watchId
       }).catch((err) => {
@@ -155,7 +153,7 @@ const enablePosition = async(tracking) => {
 
 const locationOnOff = async () => {
   if (!location_active) {
-    enablePosition();
+    enablePosition(true);
   } else if (!tracking_active) {
     DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFollowImg + '")';
     tracking_active = true;
@@ -166,8 +164,9 @@ const locationOnOff = async () => {
     });
   } else {
     DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationImg + '")';
-    Geolocation.clearWatch(watch_id);
+    Geolocation.clearWatch({id: watch_id});
     clean();
+    currentPosition = null;
     location_active = false;
     tracking_active = false;
     Toast.show({
@@ -203,12 +202,15 @@ const getOrientation = (event) => {
  */
 const getLocation = async (tracking) => {
   var results = null;
-  enablePosition(tracking);
-  var position = await Geolocation.getCurrentPosition({
-    maximumAge: 0,
-    timeout: 10000,
-    enableHighAccuracy: true
-  })
+  var position = currentPosition;
+  if (currentPosition === null) {
+    enablePosition(tracking);
+    var position = await Geolocation.getCurrentPosition({
+      maximumAge: 0,
+      timeout: 10000,
+      enableHighAccuracy: true
+    });
+  }
 
   results = {
     coordinates : {
@@ -225,6 +227,16 @@ const getLocation = async (tracking) => {
     })
   );
   return results;
+}
+
+const disableTracking = () => {
+  DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFixeImg + '")';
+  tracking_active = false;
+  Toast.show({
+    text: "Suivi de position activé",
+    duration: "short",
+    position: "bottom"
+  });
 }
 
 const isLocationActive = () => {
@@ -244,4 +256,5 @@ export default {
   locationOnOff,
   getOrientation,
   getLocation,
+  disableTracking,
 }

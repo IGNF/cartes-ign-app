@@ -1,0 +1,61 @@
+name: Android Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Make envfile
+        run: |
+          echo "GPF_key=${{ secrets.GPF_key }}" > .env
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Sync
+        run: npx cap sync
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Build Android Release APK
+        run: cd android && ./gradlew assembleRelease
+
+      - name: Sign Release APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_apk
+        with:
+          releaseDirectory: android/app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+
+      - name: Deploy to PlayStore
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: fr.ign.geoportail
+          releaseFiles: ${{ steps.sign_apk.outputs.signedReleaseFile }}
+          track: internal
+          status: completed
+          inAppUpdatePriority: 5

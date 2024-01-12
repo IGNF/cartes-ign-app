@@ -1,0 +1,5202 @@
+{
+  "generalOptions": {
+    "apiKeys": {
+      "appign": [
+        "OSM.POI$GEOPORTAIL:GPP:TMS",
+
+        "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS",
+        "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS",
+        "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV$GEOPORTAIL:OGC:WMTS",
+        "GEOGRAPHICALGRIDSYSTEMS.MAPS$GEOPORTAIL:OGC:WMTS",
+
+        "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS",
+        "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$GEOPORTAIL:OGC:WMTS",
+        "LANDUSE.AGRICULTURE2021$GEOPORTAIL:OGC:WMTS",
+        "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS",
+        "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS",
+        "ELEVATION.LEVEL0$GEOPORTAIL:OGC:WMTS",
+        "HYDROGRAPHY.HYDROGRAPHY$GEOPORTAIL:OGC:WMTS",
+        "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS",
+        "PROTECTEDAREAS.PNR$GEOPORTAIL:OGC:WMTS",
+        "PROTECTEDAREAS.RN$GEOPORTAIL:OGC:WMTS",
+        "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$GEOPORTAIL:OGC:WMTS",
+        "PROTECTEDAREAS.RNC$GEOPORTAIL:OGC:WMTS",
+        "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS",
+        "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS",
+        "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$GEOPORTAIL:OGC:WMTS",
+        "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS",
+        "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS",
+        "POI.MUSEUM$GEOPORTAIL:OGC:WMS",
+        "VILLAGESETAPE$GEOPORTAIL:OGC:WMS",
+        "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS",
+        "TRANSPORTNETWORKS.RAILWAYS$GEOPORTAIL:OGC:WMTS",
+        "TRANSPORTNETWORKS.ROADS$GEOPORTAIL:OGC:WMTS",
+
+        "ORTHOIMAGERY.ORTHOPHOTOS2006-2010$GEOPORTAIL:OGC:WMTS",
+        "ORTHOIMAGERY.ORTHOPHOTOS2000-2005$GEOPORTAIL:OGC:WMTS",
+        "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$GEOPORTAIL:OGC:WMTS",
+        "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2$GEOPORTAIL:OGC:WMTS",
+        "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950$GEOPORTAIL:OGC:WMTS",
+        "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40$GEOPORTAIL:OGC:WMTS",
+        "GEOGRAPHICALGRIDSYSTEMS.CASSINI$GEOPORTAIL:OGC:WMTS"
+      ]
+    }
+  },
+  "layers": {
+    "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2$GEOPORTAIL:OGC:WMTS": {
+      "name": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+      "title": "Aujourd'hui",
+      "description": "Cartographie multi-échelles sur le territoire national, issue des bases de données vecteur de l’IGN, mis à jour régulièrement et réalisée selon un processus entièrement automatisé.",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -175.0,
+          "right": 175.0,
+          "top": 85.0,
+          "bottom": -85.0
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "0": {
+            "minTileRow": "0",
+            "maxTileRow": "0",
+            "minTileCol": "0",
+            "maxTileCol": "0"
+          },
+          "1": {
+            "minTileRow": "0",
+            "maxTileRow": "1",
+            "minTileCol": "0",
+            "maxTileCol": "1"
+          },
+          "2": {
+            "minTileRow": "0",
+            "maxTileRow": "3",
+            "minTileCol": "0",
+            "maxTileCol": "3"
+          },
+          "3": {
+            "minTileRow": "0",
+            "maxTileRow": "7",
+            "minTileCol": "0",
+            "maxTileCol": "7"
+          },
+          "4": {
+            "minTileRow": "0",
+            "maxTileRow": "15",
+            "minTileCol": "0",
+            "maxTileCol": "15"
+          },
+          "5": {
+            "minTileRow": "0",
+            "maxTileRow": "31",
+            "minTileCol": "0",
+            "maxTileCol": "31"
+          },
+          "6": {
+            "minTileRow": "0",
+            "maxTileRow": "63",
+            "minTileCol": "0",
+            "maxTileCol": "63"
+          },
+          "7": {
+            "minTileRow": "0",
+            "maxTileRow": "127",
+            "minTileCol": "1",
+            "maxTileCol": "126"
+          },
+          "8": {
+            "minTileRow": "0",
+            "maxTileRow": "255",
+            "minTileCol": "3",
+            "maxTileCol": "252"
+          },
+          "9": {
+            "minTileRow": "0",
+            "maxTileRow": "511",
+            "minTileCol": "7",
+            "maxTileCol": "504"
+          },
+          "10": {
+            "minTileRow": "1",
+            "maxTileRow": "1022",
+            "minTileCol": "14",
+            "maxTileCol": "1009"
+          },
+          "11": {
+            "minTileRow": "3",
+            "maxTileRow": "2044",
+            "minTileCol": "28",
+            "maxTileCol": "2019"
+          },
+          "12": {
+            "minTileRow": "6",
+            "maxTileRow": "4089",
+            "minTileCol": "56",
+            "maxTileCol": "4039"
+          },
+          "13": {
+            "minTileRow": "13",
+            "maxTileRow": "8178",
+            "minTileCol": "113",
+            "maxTileCol": "8078"
+          },
+          "14": {
+            "minTileRow": "26",
+            "maxTileRow": "16357",
+            "minTileCol": "227",
+            "maxTileCol": "16156"
+          },
+          "15": {
+            "minTileRow": "53",
+            "maxTileRow": "32714",
+            "minTileCol": "455",
+            "maxTileCol": "32312"
+          },
+          "16": {
+            "minTileRow": "107",
+            "maxTileRow": "65428",
+            "minTileCol": "910",
+            "maxTileCol": "64625"
+          },
+          "17": {
+            "minTileRow": "214",
+            "maxTileRow": "130857",
+            "minTileCol": "1820",
+            "maxTileCol": "129251"
+          },
+          "18": {
+            "minTileRow": "429",
+            "maxTileRow": "261714",
+            "minTileCol": "3640",
+            "maxTileCol": "258503"
+          },
+          "19": {
+            "minTileRow": "858",
+            "maxTileRow": "523429",
+            "minTileCol": "7281",
+            "maxTileCol": "517006"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS": {
+      "name": "ORTHOIMAGERY.ORTHOPHOTOS",
+      "title": "Photographies aériennes",
+      "description": "Photographies aériennes",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -180.0,
+          "right": 180.0,
+          "top": 89.0,
+          "bottom": -89.0
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "0": {
+            "minTileRow": "0",
+            "maxTileRow": "1",
+            "minTileCol": "0",
+            "maxTileCol": "0"
+          },
+          "1": {
+            "minTileRow": "0",
+            "maxTileRow": "2",
+            "minTileCol": "0",
+            "maxTileCol": "1"
+          },
+          "2": {
+            "minTileRow": "0",
+            "maxTileRow": "4",
+            "minTileCol": "0",
+            "maxTileCol": "4"
+          },
+          "3": {
+            "minTileRow": "0",
+            "maxTileRow": "8",
+            "minTileCol": "0",
+            "maxTileCol": "8"
+          },
+          "4": {
+            "minTileRow": "0",
+            "maxTileRow": "16",
+            "minTileCol": "0",
+            "maxTileCol": "15"
+          },
+          "5": {
+            "minTileRow": "0",
+            "maxTileRow": "32",
+            "minTileCol": "0",
+            "maxTileCol": "31"
+          },
+          "6": {
+            "minTileRow": "0",
+            "maxTileRow": "64",
+            "minTileCol": "0",
+            "maxTileCol": "63"
+          },
+          "7": {
+            "minTileRow": "0",
+            "maxTileRow": "128",
+            "minTileCol": "0",
+            "maxTileCol": "127"
+          },
+          "8": {
+            "minTileRow": "0",
+            "maxTileRow": "256",
+            "minTileCol": "0",
+            "maxTileCol": "255"
+          },
+          "9": {
+            "minTileRow": "0",
+            "maxTileRow": "512",
+            "minTileCol": "0",
+            "maxTileCol": "511"
+          },
+          "10": {
+            "minTileRow": "0",
+            "maxTileRow": "1024",
+            "minTileCol": "0",
+            "maxTileCol": "1023"
+          },
+          "11": {
+            "minTileRow": "0",
+            "maxTileRow": "2048",
+            "minTileCol": "0",
+            "maxTileCol": "2047"
+          },
+          "12": {
+            "minTileRow": "0",
+            "maxTileRow": "4096",
+            "minTileCol": "0",
+            "maxTileCol": "4095"
+          },
+          "13": {
+            "minTileRow": "0",
+            "maxTileRow": "8192",
+            "minTileCol": "0",
+            "maxTileCol": "8191"
+          },
+          "14": {
+            "minTileRow": "0",
+            "maxTileRow": "16384",
+            "minTileCol": "0",
+            "maxTileCol": "16383"
+          },
+          "15": {
+            "minTileRow": "0",
+            "maxTileRow": "32768",
+            "minTileCol": "0",
+            "maxTileCol": "32767"
+          },
+          "16": {
+            "minTileRow": "0",
+            "maxTileRow": "65536",
+            "minTileCol": "0",
+            "maxTileCol": "65535"
+          },
+          "17": {
+            "minTileRow": "0",
+            "maxTileRow": "131072",
+            "minTileCol": "0",
+            "maxTileCol": "131071"
+          },
+          "18": {
+            "minTileRow": "0",
+            "maxTileRow": "262144",
+            "minTileCol": "0",
+            "maxTileCol": "262143"
+          },
+          "19": {
+            "minTileRow": "0",
+            "maxTileRow": "524288",
+            "minTileCol": "0",
+            "maxTileCol": "524287"
+          },
+          "20": {
+            "minTileRow": "0",
+            "maxTileRow": "1048576",
+            "minTileCol": "0",
+            "maxTileCol": "1048575"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/jpeg",
+          "current": true
+        }
+      ]
+    },
+    "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV$GEOPORTAIL:OGC:WMTS": {
+      "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV",
+      "title": "Carte topographique IGN",
+      "description": "La carte topographique représente avec précision le relief, symbolisé par des courbes de niveaux, ainsi que les détails du terrain : routes, sentiers, constructions, bois, arbre isolé, rivière, source... </br>En France, la carte topographique de base est réalisée par l'IGN. Le SCAN 25 Touristique comprend les pictogrammes du thème tourisme de la carte de base et les données du Club Vosgien.",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -175.0,
+          "right": 175.0,
+          "top": 85.0,
+          "bottom": -85.0
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/private/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "0",
+            "maxTileRow": "63",
+            "minTileCol": "0",
+            "maxTileCol": "63"
+          },
+          "7": {
+            "minTileRow": "0",
+            "maxTileRow": "127",
+            "minTileCol": "1",
+            "maxTileCol": "126"
+          },
+          "8": {
+            "minTileRow": "0",
+            "maxTileRow": "255",
+            "minTileCol": "3",
+            "maxTileCol": "252"
+          },
+          "9": {
+            "minTileRow": "0",
+            "maxTileRow": "511",
+            "minTileCol": "7",
+            "maxTileCol": "504"
+          },
+          "10": {
+            "minTileRow": "1",
+            "maxTileRow": "1022",
+            "minTileCol": "14",
+            "maxTileCol": "1009"
+          },
+          "11": {
+            "minTileRow": "3",
+            "maxTileRow": "2044",
+            "minTileCol": "28",
+            "maxTileCol": "2019"
+          },
+          "12": {
+            "minTileRow": "6",
+            "maxTileRow": "4089",
+            "minTileCol": "56",
+            "maxTileCol": "4039"
+          },
+          "13": {
+            "minTileRow": "13",
+            "maxTileRow": "8178",
+            "minTileCol": "113",
+            "maxTileCol": "8078"
+          },
+          "14": {
+            "minTileRow": "26",
+            "maxTileRow": "16357",
+            "minTileCol": "227",
+            "maxTileCol": "16156"
+          },
+          "15": {
+            "minTileRow": "53",
+            "maxTileRow": "32714",
+            "minTileCol": "455",
+            "maxTileCol": "32312"
+          },
+          "16": {
+            "minTileRow": "107",
+            "maxTileRow": "65428",
+            "minTileCol": "910",
+            "maxTileCol": "64625"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/jpeg",
+          "current": true
+        }
+      ]
+    },
+    "GEOGRAPHICALGRIDSYSTEMS.MAPS$GEOPORTAIL:OGC:WMTS": {
+      "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS",
+      "title": "Cartes IGN",
+      "description": "Cartes IGN",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -175.0,
+          "right": 175.0,
+          "top": 85.0,
+          "bottom": -85.0
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/private/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "0": {
+            "minTileRow": "0",
+            "maxTileRow": "0",
+            "minTileCol": "0",
+            "maxTileCol": "0"
+          },
+          "1": {
+            "minTileRow": "0",
+            "maxTileRow": "1",
+            "minTileCol": "0",
+            "maxTileCol": "1"
+          },
+          "2": {
+            "minTileRow": "0",
+            "maxTileRow": "3",
+            "minTileCol": "0",
+            "maxTileCol": "3"
+          },
+          "3": {
+            "minTileRow": "0",
+            "maxTileRow": "7",
+            "minTileCol": "0",
+            "maxTileCol": "7"
+          },
+          "4": {
+            "minTileRow": "0",
+            "maxTileRow": "15",
+            "minTileCol": "0",
+            "maxTileCol": "15"
+          },
+          "5": {
+            "minTileRow": "0",
+            "maxTileRow": "31",
+            "minTileCol": "0",
+            "maxTileCol": "31"
+          },
+          "6": {
+            "minTileRow": "0",
+            "maxTileRow": "63",
+            "minTileCol": "0",
+            "maxTileCol": "63"
+          },
+          "7": {
+            "minTileRow": "0",
+            "maxTileRow": "127",
+            "minTileCol": "1",
+            "maxTileCol": "126"
+          },
+          "8": {
+            "minTileRow": "0",
+            "maxTileRow": "255",
+            "minTileCol": "3",
+            "maxTileCol": "252"
+          },
+          "9": {
+            "minTileRow": "0",
+            "maxTileRow": "511",
+            "minTileCol": "7",
+            "maxTileCol": "504"
+          },
+          "10": {
+            "minTileRow": "1",
+            "maxTileRow": "1022",
+            "minTileCol": "14",
+            "maxTileCol": "1009"
+          },
+          "11": {
+            "minTileRow": "3",
+            "maxTileRow": "2044",
+            "minTileCol": "28",
+            "maxTileCol": "2019"
+          },
+          "12": {
+            "minTileRow": "6",
+            "maxTileRow": "4089",
+            "minTileCol": "56",
+            "maxTileCol": "4039"
+          },
+          "13": {
+            "minTileRow": "13",
+            "maxTileRow": "8178",
+            "minTileCol": "113",
+            "maxTileCol": "8078"
+          },
+          "14": {
+            "minTileRow": "26",
+            "maxTileRow": "16357",
+            "minTileCol": "227",
+            "maxTileCol": "16156"
+          },
+          "15": {
+            "minTileRow": "53",
+            "maxTileRow": "32714",
+            "minTileCol": "455",
+            "maxTileCol": "32312"
+          },
+          "16": {
+            "minTileRow": "107",
+            "maxTileRow": "65428",
+            "minTileCol": "910",
+            "maxTileCol": "64625"
+          },
+          "17": {
+            "minTileRow": "214",
+            "maxTileRow": "130857",
+            "minTileCol": "1820",
+            "maxTileCol": "129251"
+          },
+          "18": {
+            "minTileRow": "429",
+            "maxTileRow": "261714",
+            "minTileCol": "3640",
+            "maxTileCol": "258503"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/jpeg",
+          "current": true
+        }
+      ]
+    },
+
+    "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS": {
+      "name": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST",
+      "title": "Limites administratives",
+      "description": "Limites administratives mises à jour en continu, édition Juillet 2023",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 55.9259,
+          "top": 51.3121,
+          "bottom": -21.4756
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "574",
+            "minTileCol": "331",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1149",
+            "minTileCol": "663",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2298",
+            "minTileCol": "1326",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "4596",
+            "minTileCol": "2653",
+            "maxTileCol": "5368"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "9193",
+            "minTileCol": "5307",
+            "maxTileCol": "10737"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "18386",
+            "minTileCol": "10615",
+            "maxTileCol": "21474"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "36772",
+            "minTileCol": "21231",
+            "maxTileCol": "42948"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$GEOPORTAIL:OGC:WMTS": {
+      "name": "CADASTRALPARCELS.PARCELLAIRE_EXPRESS",
+      "title": "PCI vecteur",
+      "description": "Plan cadastral informatisé vecteur de la DGFIP.",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 55.9259,
+          "top": 51.3121,
+          "bottom": -21.4756
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "0": {
+            "minTileRow": "0",
+            "maxTileRow": "0",
+            "minTileCol": "0",
+            "maxTileCol": "0"
+          },
+          "1": {
+            "minTileRow": "0",
+            "maxTileRow": "1",
+            "minTileCol": "0",
+            "maxTileCol": "1"
+          },
+          "2": {
+            "minTileRow": "1",
+            "maxTileRow": "2",
+            "minTileCol": "1",
+            "maxTileCol": "2"
+          },
+          "3": {
+            "minTileRow": "2",
+            "maxTileRow": "4",
+            "minTileCol": "2",
+            "maxTileCol": "5"
+          },
+          "4": {
+            "minTileRow": "5",
+            "maxTileRow": "8",
+            "minTileCol": "5",
+            "maxTileCol": "10"
+          },
+          "5": {
+            "minTileRow": "10",
+            "maxTileRow": "17",
+            "minTileCol": "10",
+            "maxTileCol": "20"
+          },
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "574",
+            "minTileCol": "331",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1149",
+            "minTileCol": "663",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2298",
+            "minTileCol": "1326",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "4596",
+            "minTileCol": "2653",
+            "maxTileCol": "5368"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "9193",
+            "minTileCol": "5307",
+            "maxTileCol": "10737"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "18386",
+            "minTileCol": "10615",
+            "maxTileCol": "21474"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "36772",
+            "minTileCol": "21231",
+            "maxTileCol": "42948"
+          },
+          "17": {
+            "minTileRow": "43698",
+            "maxTileRow": "73544",
+            "minTileCol": "42462",
+            "maxTileCol": "85897"
+          },
+          "18": {
+            "minTileRow": "87397",
+            "maxTileRow": "147089",
+            "minTileCol": "84925",
+            "maxTileCol": "171795"
+          },
+          "19": {
+            "minTileRow": "174795",
+            "maxTileRow": "294179",
+            "minTileCol": "169851",
+            "maxTileCol": "343591"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "LANDUSE.AGRICULTURE2021$GEOPORTAIL:OGC:WMTS": {
+      "name": "LANDUSE.AGRICULTURE2021",
+      "title": "Registre parcellaire graphique 2021",
+      "description": "Registre parcellaire graphique : zones de cultures déclarées par les exploitants en 2021",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 55.9259,
+          "top": 51.3121,
+          "bottom": -21.4756
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "574",
+            "minTileCol": "331",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1149",
+            "minTileCol": "663",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2298",
+            "minTileCol": "1326",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "4596",
+            "minTileCol": "2653",
+            "maxTileCol": "5368"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "9193",
+            "minTileCol": "5307",
+            "maxTileCol": "10737"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "18386",
+            "minTileCol": "10615",
+            "maxTileCol": "21474"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "36772",
+            "minTileCol": "21231",
+            "maxTileCol": "42948"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS": {
+      "name": "Aire-Parcellaire",
+      "title": "Délimitation parcellaire AOC viticole",
+      "description": "Selon les règlements européens n°110/2008 du 15 janvier 2008, n°1151/2012 du 21 novembre 2012 et n°1308/2013 de l’OCM , le cahier des charges des appellations définit l’aire géographique. Le terme de « délimitation parcellaire » désigne une aire qui repose sur les limites administratives du cadastre (les parcelles) et dont le maillage suffisamment fin permet de tenir compte de variations très localisées des éléments du milieu physique. Elle correspond à l'aire de production de la matière première. Elle est incluse dans l'aire géographique. Données produites par l'Institut National des Origines et la Qualité (INAO)",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -5.15047,
+          "right": 9.57054,
+          "top": 51.0991,
+          "bottom": 41.3252
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "0": {
+            "minTileRow": "0",
+            "maxTileRow": "0",
+            "minTileCol": "0",
+            "maxTileCol": "0"
+          },
+          "1": {
+            "minTileRow": "0",
+            "maxTileRow": "0",
+            "minTileCol": "0",
+            "maxTileCol": "1"
+          },
+          "2": {
+            "minTileRow": "1",
+            "maxTileRow": "1",
+            "minTileCol": "1",
+            "maxTileCol": "2"
+          },
+          "3": {
+            "minTileRow": "2",
+            "maxTileRow": "2",
+            "minTileCol": "3",
+            "maxTileCol": "4"
+          },
+          "4": {
+            "minTileRow": "5",
+            "maxTileRow": "5",
+            "minTileCol": "7",
+            "maxTileCol": "8"
+          },
+          "5": {
+            "minTileRow": "10",
+            "maxTileRow": "11",
+            "minTileCol": "15",
+            "maxTileCol": "16"
+          },
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "23",
+            "minTileCol": "31",
+            "maxTileCol": "33"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "47",
+            "minTileCol": "62",
+            "maxTileCol": "67"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "95",
+            "minTileCol": "124",
+            "maxTileCol": "134"
+          },
+          "9": {
+            "minTileRow": "171",
+            "maxTileRow": "191",
+            "minTileCol": "248",
+            "maxTileCol": "269"
+          },
+          "10": {
+            "minTileRow": "342",
+            "maxTileRow": "382",
+            "minTileCol": "497",
+            "maxTileCol": "539"
+          },
+          "11": {
+            "minTileRow": "684",
+            "maxTileRow": "765",
+            "minTileCol": "994",
+            "maxTileCol": "1078"
+          },
+          "12": {
+            "minTileRow": "1369",
+            "maxTileRow": "1530",
+            "minTileCol": "1989",
+            "maxTileCol": "2156"
+          },
+          "13": {
+            "minTileRow": "2738",
+            "maxTileRow": "3061",
+            "minTileCol": "3978",
+            "maxTileCol": "4313"
+          },
+          "14": {
+            "minTileRow": "5477",
+            "maxTileRow": "6123",
+            "minTileCol": "7957",
+            "maxTileCol": "8627"
+          },
+          "15": {
+            "minTileRow": "10955",
+            "maxTileRow": "12246",
+            "minTileCol": "15915",
+            "maxTileCol": "17255"
+          },
+          "16": {
+            "minTileRow": "21911",
+            "maxTileRow": "24492",
+            "minTileCol": "31830",
+            "maxTileCol": "34510"
+          },
+          "17": {
+            "minTileRow": "43822",
+            "maxTileRow": "48985",
+            "minTileCol": "63660",
+            "maxTileCol": "69020"
+          },
+          "18": {
+            "minTileRow": "87645",
+            "maxTileRow": "97970",
+            "minTileCol": "127321",
+            "maxTileCol": "138041"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/INAO-new-legend.png",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS": {
+      "name": "FORETS.PUBLIQUES",
+      "title": "Forêts publiques",
+      "description": "Localisation des forêts publiques domaniales et non domaniales (communales, sectionales, départementales et d'établissements publics) gérées par l'Office national des forêts (ONF).",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 55.9259,
+          "top": 51.3121,
+          "bottom": -21.4756
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "3": {
+            "minTileRow": "2",
+            "maxTileRow": "4",
+            "minTileCol": "2",
+            "maxTileCol": "5"
+          },
+          "4": {
+            "minTileRow": "5",
+            "maxTileRow": "8",
+            "minTileCol": "5",
+            "maxTileCol": "10"
+          },
+          "5": {
+            "minTileRow": "10",
+            "maxTileRow": "17",
+            "minTileCol": "10",
+            "maxTileCol": "20"
+          },
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "574",
+            "minTileCol": "331",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1149",
+            "minTileCol": "663",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2298",
+            "minTileCol": "1326",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "4596",
+            "minTileCol": "2653",
+            "maxTileCol": "5368"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "9193",
+            "minTileCol": "5307",
+            "maxTileCol": "10737"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "18386",
+            "minTileCol": "10615",
+            "maxTileCol": "21474"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "36772",
+            "minTileCol": "21231",
+            "maxTileCol": "42948"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "FORETS PUBLIQUES ONF",
+          "title": "FORETS PUBLIQUES ONF",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/png",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/onf_forets_publiques.png",
+          "minScaleDenominator": "8000"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "ELEVATION.LEVEL0$GEOPORTAIL:OGC:WMTS": {
+      "name": "ELEVATION.LEVEL0",
+      "title": "Trait de côte Histolitt",
+      "description": "Formalisation de la limite entre le domaine terrestre et le domaine marin.",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.2529,
+          "right": 55.9472,
+          "top": 51.1388,
+          "bottom": -21.51
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "83",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "171",
+            "maxTileRow": "287",
+            "minTileCol": "166",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "342",
+            "maxTileRow": "574",
+            "minTileCol": "332",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "684",
+            "maxTileRow": "1149",
+            "minTileCol": "664",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1368",
+            "maxTileRow": "2298",
+            "minTileCol": "1328",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2737",
+            "maxTileRow": "4597",
+            "minTileCol": "2656",
+            "maxTileCol": "5369"
+          },
+          "14": {
+            "minTileRow": "5474",
+            "maxTileRow": "9194",
+            "minTileCol": "5313",
+            "maxTileCol": "10738"
+          },
+          "15": {
+            "minTileRow": "10949",
+            "maxTileRow": "18389",
+            "minTileCol": "10626",
+            "maxTileCol": "21476"
+          },
+          "16": {
+            "minTileRow": "21899",
+            "maxTileRow": "36779",
+            "minTileCol": "21253",
+            "maxTileCol": "42952"
+          },
+          "17": {
+            "minTileRow": "43799",
+            "maxTileRow": "73558",
+            "minTileCol": "42506",
+            "maxTileCol": "85905"
+          },
+          "18": {
+            "minTileRow": "87599",
+            "maxTileRow": "147116",
+            "minTileCol": "85012",
+            "maxTileCol": "171811"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "HYDROGRAPHY.HYDROGRAPHY$GEOPORTAIL:OGC:WMTS": {
+      "name": "HYDROGRAPHY.HYDROGRAPHY",
+      "title": "Hydrographie",
+      "description": "Affichage des lacs, réservoirs, rivières et cours d'eau en France.",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.9692,
+          "right": 55.9644,
+          "top": 71.5841,
+          "bottom": -21.4969
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "13",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "26",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "53",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "107",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "215",
+            "maxTileRow": "574",
+            "minTileCol": "330",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "430",
+            "maxTileRow": "1149",
+            "minTileCol": "660",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "861",
+            "maxTileRow": "2298",
+            "minTileCol": "1320",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "1723",
+            "maxTileRow": "4597",
+            "minTileCol": "2640",
+            "maxTileCol": "5369"
+          },
+          "14": {
+            "minTileRow": "3447",
+            "maxTileRow": "9194",
+            "minTileCol": "5280",
+            "maxTileCol": "10739"
+          },
+          "15": {
+            "minTileRow": "6894",
+            "maxTileRow": "18388",
+            "minTileCol": "10561",
+            "maxTileCol": "21478"
+          },
+          "16": {
+            "minTileRow": "13789",
+            "maxTileRow": "36776",
+            "minTileCol": "21122",
+            "maxTileCol": "42956"
+          },
+          "17": {
+            "minTileRow": "27579",
+            "maxTileRow": "73553",
+            "minTileCol": "42245",
+            "maxTileCol": "85912"
+          },
+          "18": {
+            "minTileRow": "55159",
+            "maxTileRow": "147106",
+            "minTileCol": "84491",
+            "maxTileCol": "171824"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS": {
+      "name": "PROTECTEDAREAS.PN",
+      "title": "Parcs nationaux",
+      "description": "Les parcs nationaux sont de vastes espaces protégés terrestres ou marins dont le patrimoine naturel est exceptionnel, et dont le but est à la fois de protéger des processus écologiques à large échelle et de fournir des possibilités de découverte de la nature. Mise à jour 04-2023",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 55.9259,
+          "top": 51.3121,
+          "bottom": -21.4756
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "574",
+            "minTileCol": "331",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1149",
+            "minTileCol": "663",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2298",
+            "minTileCol": "1326",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "4596",
+            "minTileCol": "2653",
+            "maxTileCol": "5368"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "9193",
+            "minTileCol": "5307",
+            "maxTileCol": "10737"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "18386",
+            "minTileCol": "10615",
+            "maxTileCol": "21474"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "36772",
+            "minTileCol": "21231",
+            "maxTileCol": "42948"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "PROTECTEDAREAS.PNR$GEOPORTAIL:OGC:WMTS": {
+      "name": "PROTECTEDAREAS.PNR",
+      "title": "Parcs naturels régionaux",
+      "description": "Les parcs naturels régionaux ont pour but de valoriser de vastes espaces de fort intérêt culturel et naturel, et de veiller au développement durable de ces territoires dont le caractère rural est souvent très affirmé. 04-2023",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 55.9259,
+          "top": 51.3121,
+          "bottom": -21.4756
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "574",
+            "minTileCol": "331",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1149",
+            "minTileCol": "663",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2298",
+            "minTileCol": "1326",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "4596",
+            "minTileCol": "2653",
+            "maxTileCol": "5368"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "9193",
+            "minTileCol": "5307",
+            "maxTileCol": "10737"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "18386",
+            "minTileCol": "10615",
+            "maxTileCol": "21474"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "36772",
+            "minTileCol": "21231",
+            "maxTileCol": "42948"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "PROTECTEDAREAS.RN$GEOPORTAIL:OGC:WMTS": {
+      "name": "PROTECTEDAREAS.RN",
+      "title": "Réserves naturelles nationales",
+      "description": "Les réserves naturelles sont des espaces protégés terrestres ou marins dont le patrimoine naturel est exceptionnel, tant sur le plan de la biodiversité que parfois sur celui de la géodiversité. 04-2023",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 82.645,
+          "top": 51.3121,
+          "bottom": -53.6279
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "0": {
+            "minTileRow": "0",
+            "maxTileRow": "0",
+            "minTileCol": "0",
+            "maxTileCol": "0"
+          },
+          "1": {
+            "minTileRow": "0",
+            "maxTileRow": "1",
+            "minTileCol": "0",
+            "maxTileCol": "1"
+          },
+          "2": {
+            "minTileRow": "1",
+            "maxTileRow": "2",
+            "minTileCol": "1",
+            "maxTileCol": "2"
+          },
+          "3": {
+            "minTileRow": "2",
+            "maxTileRow": "5",
+            "minTileCol": "2",
+            "maxTileCol": "5"
+          },
+          "4": {
+            "minTileRow": "5",
+            "maxTileRow": "10",
+            "minTileCol": "5",
+            "maxTileCol": "11"
+          },
+          "5": {
+            "minTileRow": "10",
+            "maxTileRow": "21",
+            "minTileCol": "10",
+            "maxTileCol": "23"
+          },
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "43",
+            "minTileCol": "20",
+            "maxTileCol": "46"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "86",
+            "minTileCol": "41",
+            "maxTileCol": "93"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "173",
+            "minTileCol": "82",
+            "maxTileCol": "186"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "346",
+            "minTileCol": "165",
+            "maxTileCol": "373"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "693",
+            "minTileCol": "331",
+            "maxTileCol": "747"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1386",
+            "minTileCol": "663",
+            "maxTileCol": "1494"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2773",
+            "minTileCol": "1326",
+            "maxTileCol": "2988"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "5547",
+            "minTileCol": "2653",
+            "maxTileCol": "5976"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "11094",
+            "minTileCol": "5307",
+            "maxTileCol": "11953"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "22189",
+            "minTileCol": "10615",
+            "maxTileCol": "23906"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "44378",
+            "minTileCol": "21231",
+            "maxTileCol": "47813"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$GEOPORTAIL:OGC:WMTS": {
+      "name": "PROTECTEDSITES.MNHN.RESERVES-REGIONALES",
+      "title": "Réserves naturelles régionales",
+      "description": "Les réserves naturelles régionales sont gérées prioritairement à des fins de conservation de la nature. Elles sont placées sous la responsabilité exclusive des conseils régionaux.04-2023",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 55.9259,
+          "top": 51.3121,
+          "bottom": -21.4756
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "574",
+            "minTileCol": "331",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1149",
+            "minTileCol": "663",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2298",
+            "minTileCol": "1326",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "4596",
+            "minTileCol": "2653",
+            "maxTileCol": "5368"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "9193",
+            "minTileCol": "5307",
+            "maxTileCol": "10737"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "18386",
+            "minTileCol": "10615",
+            "maxTileCol": "21474"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "36772",
+            "minTileCol": "21231",
+            "maxTileCol": "42948"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "PROTECTEDAREAS.RNC$GEOPORTAIL:OGC:WMTS": {
+      "name": "PROTECTEDAREAS.RNC",
+      "title": "Réserves Naturelles de Corse",
+      "description": "Les réserves naturelles sont des espaces protégés terrestres ou marins dont le patrimoine naturel est exceptionnel, tant sur le plan de la biodiversité que parfois sur celui de la géodiversité. </br><a href=\"http://www.geoportail.gouv.fr/depot/fiches/mnhn/actualite_donnees_mnhn.pdf\" alt=\"Date des données\" target=\"_blank\">Date des données</a>",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 55.9259,
+          "top": 51.3121,
+          "bottom": -21.4756
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "574",
+            "minTileCol": "331",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1149",
+            "minTileCol": "663",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2298",
+            "minTileCol": "1326",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "4596",
+            "minTileCol": "2653",
+            "maxTileCol": "5368"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "9193",
+            "minTileCol": "5307",
+            "maxTileCol": "10737"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "18386",
+            "minTileCol": "10615",
+            "maxTileCol": "21474"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "36772",
+            "minTileCol": "21231",
+            "maxTileCol": "42948"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS": {
+      "name": "PROTECTEDAREAS.SIC",
+      "title": "Sites Natura 2000 au titre de la Directive Habitats",
+      "description": "Le réseau Natura 2000 s'inscrit au coeur de la politique de conservation de la nature de l'Union européenne et est un élément clé de l'objectif visant à enrayer l'érosion de la biodiversité.04-2023",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 55.9259,
+          "top": 51.3121,
+          "bottom": -21.4756
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "574",
+            "minTileCol": "331",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1149",
+            "minTileCol": "663",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2298",
+            "minTileCol": "1326",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "4596",
+            "minTileCol": "2653",
+            "maxTileCol": "5368"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "9193",
+            "minTileCol": "5307",
+            "maxTileCol": "10737"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "18386",
+            "minTileCol": "10615",
+            "maxTileCol": "21474"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "36772",
+            "minTileCol": "21231",
+            "maxTileCol": "42948"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS": {
+      "name": "PROTECTEDAREAS.ZPS",
+      "title": "Sites NATURA 2000 au titre de la Directive Oiseaux",
+      "description": "Le réseau Natura 2000 s'inscrit au coeur de la politique de conservation de la nature de l'Union européenne et est un élément clé de l'objectif visant à enrayer l'érosion de la biodiversité.04-2023",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.3725,
+          "right": 55.9259,
+          "top": 51.3121,
+          "bottom": -21.4756
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "574",
+            "minTileCol": "331",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "682",
+            "maxTileRow": "1149",
+            "minTileCol": "663",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1365",
+            "maxTileRow": "2298",
+            "minTileCol": "1326",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "2731",
+            "maxTileRow": "4596",
+            "minTileCol": "2653",
+            "maxTileCol": "5368"
+          },
+          "14": {
+            "minTileRow": "5462",
+            "maxTileRow": "9193",
+            "minTileCol": "5307",
+            "maxTileCol": "10737"
+          },
+          "15": {
+            "minTileRow": "10924",
+            "maxTileRow": "18386",
+            "minTileCol": "10615",
+            "maxTileCol": "21474"
+          },
+          "16": {
+            "minTileRow": "21849",
+            "maxTileRow": "36772",
+            "minTileCol": "21231",
+            "maxTileCol": "42948"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$GEOPORTAIL:OGC:WMTS": {
+      "name": "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN",
+      "title": "Carte des pentes",
+      "description": "Carte des zones ayant une valeur de pente supérieure à 30°-35°-40°-45° d'après la BD ALTI au pas de 5m",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.1614,
+          "right": 56.0018,
+          "top": 51.0991,
+          "bottom": -21.5446
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "0": {
+            "minTileRow": "0",
+            "maxTileRow": "0",
+            "minTileCol": "0",
+            "maxTileCol": "0"
+          },
+          "1": {
+            "minTileRow": "0",
+            "maxTileRow": "1",
+            "minTileCol": "0",
+            "maxTileCol": "1"
+          },
+          "2": {
+            "minTileRow": "1",
+            "maxTileRow": "2",
+            "minTileCol": "1",
+            "maxTileCol": "2"
+          },
+          "3": {
+            "minTileRow": "2",
+            "maxTileRow": "4",
+            "minTileCol": "2",
+            "maxTileCol": "5"
+          },
+          "4": {
+            "minTileRow": "5",
+            "maxTileRow": "8",
+            "minTileCol": "5",
+            "maxTileCol": "10"
+          },
+          "5": {
+            "minTileRow": "10",
+            "maxTileRow": "17",
+            "minTileCol": "10",
+            "maxTileCol": "20"
+          },
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "83",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "171",
+            "maxTileRow": "287",
+            "minTileCol": "166",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "342",
+            "maxTileRow": "574",
+            "minTileCol": "332",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "684",
+            "maxTileRow": "1149",
+            "minTileCol": "664",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "1369",
+            "maxTileRow": "2299",
+            "minTileCol": "1329",
+            "maxTileCol": "2685"
+          },
+          "13": {
+            "minTileRow": "2738",
+            "maxTileRow": "4598",
+            "minTileCol": "2658",
+            "maxTileCol": "5370"
+          },
+          "14": {
+            "minTileRow": "5477",
+            "maxTileRow": "9196",
+            "minTileCol": "5317",
+            "maxTileCol": "10740"
+          },
+          "15": {
+            "minTileRow": "10955",
+            "maxTileRow": "18392",
+            "minTileCol": "10634",
+            "maxTileCol": "21481"
+          },
+          "16": {
+            "minTileRow": "21911",
+            "maxTileRow": "36785",
+            "minTileCol": "21269",
+            "maxTileCol": "42962"
+          },
+          "17": {
+            "minTileRow": "43822",
+            "maxTileRow": "73571",
+            "minTileCol": "42539",
+            "maxTileCol": "85925"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS": {
+      "name": "POI.MONUMENTS_BDD_WLD_WM",
+      "title": "Monuments nationaux",
+      "description": "Le Centre des monuments nationaux est un établissement public administratif placé sous la tutelle du ministre de la Culture et de la Communication. Il conserve, restaure, gère, anime, ouvre à la visite près de 100 monuments nationaux propriété de l'Etat, au nombre desquels : l'abbaye du Mont-Saint-Michel, les châteaux d'Angers et d'Azay-le-Rideau, le château et les remparts de la cité de Carcassonne, l'Arc de triomphe et la Sainte-Chapelle, pour n'en citer que quelques-uns. Tous illustrent par leur diversité, la richesse du patrimoine français de toutes les époques : abbayes, châteaux, grottes préhistoriques, sites archéologiques...",
+      "globalConstraint": {
+        "minScaleDenominator": 0.0,
+        "maxScaleDenominator": 62236752975597,
+        "bbox": {
+          "left": -3.85805559,
+          "right": 7.55527782,
+          "top": 50.74139023,
+          "bottom": 42.83972168
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMS",
+        "version": "1.3.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&"
+        }
+      },
+      "defaultProjection": "EPSG:4326",
+      "queryable": true,
+      "metadata": [],
+      "styles": [
+        {
+          "name": "default-style-POI.MONUMENTS_BDD_WLD_WM",
+          "title": "POI.MONUMENTS_BDD_WLD_WM style"
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/png",
+          "url": "https://data.geopf.fr/wms-v/ows?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=POI.MONUMENTS_BDD_WLD_WM"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        },
+        {
+          "name": "application/atom+xml",
+          "current": false
+        },
+        {
+          "name": "application/json;type=utfgrid",
+          "current": false
+        },
+        {
+          "name": "application/pdf",
+          "current": false
+        },
+        {
+          "name": "application/rss+xml",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kml+xml",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kml+xml;mode=networklink",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kmz",
+          "current": false
+        },
+        {
+          "name": "image/geotiff",
+          "current": false
+        },
+        {
+          "name": "image/geotiff8",
+          "current": false
+        },
+        {
+          "name": "image/gif",
+          "current": false
+        },
+        {
+          "name": "image/jpeg",
+          "current": false
+        },
+        {
+          "name": "image/png; mode=8bit",
+          "current": false
+        },
+        {
+          "name": "image/svg+xml",
+          "current": false
+        },
+        {
+          "name": "image/tiff",
+          "current": false
+        },
+        {
+          "name": "image/tiff8",
+          "current": false
+        },
+        {
+          "name": "image/vnd.jpeg-png",
+          "current": false
+        },
+        {
+          "name": "image/vnd.jpeg-png8",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers2",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers3",
+          "current": false
+        }
+      ]
+    },
+    "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS": {
+      "name": "CJP-PARCS-JARDINS_BDD-POI_WLD_WM",
+      "title": "Parcs et Jardins",
+      "description": "Il n'y a pas de description de définie pour cette couche.",
+      "globalConstraint": {
+        "minScaleDenominator": 0.0,
+        "maxScaleDenominator": 62236752975597,
+        "bbox": {
+          "left": 55.29567719,
+          "right": 55.45098877,
+          "top": -20.88466072,
+          "bottom": -21.13950539
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMS",
+        "version": "1.3.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&"
+        }
+      },
+      "defaultProjection": "EPSG:4326",
+      "queryable": true,
+      "metadata": [],
+      "styles": [
+        {
+          "name": "default-style-CJP-PARCS-JARDINS_BDD-POI_WLD_WM",
+          "title": "CJP-PARCS-JARDINS_BDD-POI_WLD_WM style"
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/png",
+          "url": "https://data.geopf.fr/wms-v/ows?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=CJP-PARCS-JARDINS_BDD-POI_WLD_WM"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        },
+        {
+          "name": "application/atom+xml",
+          "current": false
+        },
+        {
+          "name": "application/json;type=utfgrid",
+          "current": false
+        },
+        {
+          "name": "application/pdf",
+          "current": false
+        },
+        {
+          "name": "application/rss+xml",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kml+xml",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kml+xml;mode=networklink",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kmz",
+          "current": false
+        },
+        {
+          "name": "image/geotiff",
+          "current": false
+        },
+        {
+          "name": "image/geotiff8",
+          "current": false
+        },
+        {
+          "name": "image/gif",
+          "current": false
+        },
+        {
+          "name": "image/jpeg",
+          "current": false
+        },
+        {
+          "name": "image/png; mode=8bit",
+          "current": false
+        },
+        {
+          "name": "image/svg+xml",
+          "current": false
+        },
+        {
+          "name": "image/tiff",
+          "current": false
+        },
+        {
+          "name": "image/tiff8",
+          "current": false
+        },
+        {
+          "name": "image/vnd.jpeg-png",
+          "current": false
+        },
+        {
+          "name": "image/vnd.jpeg-png8",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers2",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers3",
+          "current": false
+        }
+      ]
+    },
+    "POI.MUSEUM$GEOPORTAIL:OGC:WMS": {
+      "name": "POI.MUSEUM",
+      "title": "Musées",
+      "description": "Établissement ouvert au public exposant une grande collection d'objets, de documents, etc., relatifs aux arts et aux sciences et pouvant servir à leur histoire. Source : IGN BD Topo 2017",
+      "globalConstraint": {
+        "minScaleDenominator": 0.0,
+        "maxScaleDenominator": 62236752975597,
+        "bbox": {
+          "left": -63.08922424,
+          "right": 55.76651194,
+          "top": 51.07956231,
+          "bottom": -21.37577137
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMS",
+        "version": "1.3.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&"
+        }
+      },
+      "defaultProjection": "EPSG:4326",
+      "queryable": true,
+      "metadata": [],
+      "styles": [
+        {
+          "name": "default-style-POI.MUSEUM",
+          "title": "POI.MUSEUM style"
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/png",
+          "url": "https://data.geopf.fr/wms-v/ows?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=POI.MUSEUM"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        },
+        {
+          "name": "application/atom+xml",
+          "current": false
+        },
+        {
+          "name": "application/json;type=utfgrid",
+          "current": false
+        },
+        {
+          "name": "application/pdf",
+          "current": false
+        },
+        {
+          "name": "application/rss+xml",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kml+xml",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kml+xml;mode=networklink",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kmz",
+          "current": false
+        },
+        {
+          "name": "image/geotiff",
+          "current": false
+        },
+        {
+          "name": "image/geotiff8",
+          "current": false
+        },
+        {
+          "name": "image/gif",
+          "current": false
+        },
+        {
+          "name": "image/jpeg",
+          "current": false
+        },
+        {
+          "name": "image/png; mode=8bit",
+          "current": false
+        },
+        {
+          "name": "image/svg+xml",
+          "current": false
+        },
+        {
+          "name": "image/tiff",
+          "current": false
+        },
+        {
+          "name": "image/tiff8",
+          "current": false
+        },
+        {
+          "name": "image/vnd.jpeg-png",
+          "current": false
+        },
+        {
+          "name": "image/vnd.jpeg-png8",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers2",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers3",
+          "current": false
+        }
+      ]
+    },
+    "VILLAGESETAPE$GEOPORTAIL:OGC:WMS": {
+      "name": "VILLAGESETAPE",
+      "title": "Villages étapes",
+      "description": "Communes de moins de 5 000 habitants, situées à moins de 5km d'un grand axe routier national 03-2023",
+      "globalConstraint": {
+        "minScaleDenominator": 0.0,
+        "maxScaleDenominator": 62236752975597,
+        "bbox": {
+          "left": -54.04547932,
+          "right": 166.02236972,
+          "top": 50.57954435,
+          "bottom": -21.89954632
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMS",
+        "version": "1.3.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&"
+        }
+      },
+      "defaultProjection": "EPSG:4326",
+      "queryable": true,
+      "metadata": [],
+      "styles": [
+        {
+          "name": "default-style-VILLAGESETAPE",
+          "title": "VILLAGESETAPE style"
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/png",
+          "url": "https://data.geopf.fr/wms-v/ows?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image%2Fpng&width=20&height=20&layer=VILLAGESETAPE"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        },
+        {
+          "name": "application/atom+xml",
+          "current": false
+        },
+        {
+          "name": "application/json;type=utfgrid",
+          "current": false
+        },
+        {
+          "name": "application/pdf",
+          "current": false
+        },
+        {
+          "name": "application/rss+xml",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kml+xml",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kml+xml;mode=networklink",
+          "current": false
+        },
+        {
+          "name": "application/vnd.google-earth.kmz",
+          "current": false
+        },
+        {
+          "name": "image/geotiff",
+          "current": false
+        },
+        {
+          "name": "image/geotiff8",
+          "current": false
+        },
+        {
+          "name": "image/gif",
+          "current": false
+        },
+        {
+          "name": "image/jpeg",
+          "current": false
+        },
+        {
+          "name": "image/png; mode=8bit",
+          "current": false
+        },
+        {
+          "name": "image/svg+xml",
+          "current": false
+        },
+        {
+          "name": "image/tiff",
+          "current": false
+        },
+        {
+          "name": "image/tiff8",
+          "current": false
+        },
+        {
+          "name": "image/vnd.jpeg-png",
+          "current": false
+        },
+        {
+          "name": "image/vnd.jpeg-png8",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers2",
+          "current": false
+        },
+        {
+          "name": "text/html; subtype=openlayers3",
+          "current": false
+        }
+      ]
+    },
+    "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS": {
+      "name": "TRANSPORTS.DRONES.RESTRICTIONS",
+      "title": "Restrictions UAS catégorie Ouverte et Aéromodélisme",
+      "description": "Représentation des zones soumises à interdictions ou à restrictions pour l’usage, à titre de loisir, d’aéronefs télépilotés (ou drones), sur le territoire métropolitain, à jour au 07-2020 Elle intègre partiellement les interdictions s'appuyant sur des données non publiées à l'AIP et ne couvre pas les interdictions temporaires. Cette carte est basée sur l’arrêté « espace » du 09/11/2017. La représentation des zones soumises à interdictions ou à restrictions n’engage pas la responsabilité des producteurs de la donnée. Le contour des agglomérations est fourni à titre purement indicatif. Consultez les interdictions temporaires sur https://www.sia.aviation-civile.gouv.fr/.",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -9.88147,
+          "right": 11.6781,
+          "top": 51.4428,
+          "bottom": 40.576
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "3": {
+            "minTileRow": "2",
+            "maxTileRow": "3",
+            "minTileCol": "3",
+            "maxTileCol": "4"
+          },
+          "4": {
+            "minTileRow": "5",
+            "maxTileRow": "6",
+            "minTileCol": "7",
+            "maxTileCol": "8"
+          },
+          "5": {
+            "minTileRow": "10",
+            "maxTileRow": "12",
+            "minTileCol": "15",
+            "maxTileCol": "17"
+          },
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "24",
+            "minTileCol": "30",
+            "maxTileCol": "34"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "48",
+            "minTileCol": "60",
+            "maxTileCol": "68"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "96",
+            "minTileCol": "120",
+            "maxTileCol": "136"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "192",
+            "minTileCol": "241",
+            "maxTileCol": "272"
+          },
+          "10": {
+            "minTileRow": "340",
+            "maxTileRow": "385",
+            "minTileCol": "483",
+            "maxTileCol": "545"
+          },
+          "11": {
+            "minTileRow": "681",
+            "maxTileRow": "771",
+            "minTileCol": "967",
+            "maxTileCol": "1090"
+          },
+          "12": {
+            "minTileRow": "1363",
+            "maxTileRow": "1542",
+            "minTileCol": "1935",
+            "maxTileCol": "2180"
+          },
+          "13": {
+            "minTileRow": "2726",
+            "maxTileRow": "3084",
+            "minTileCol": "3871",
+            "maxTileCol": "4361"
+          },
+          "14": {
+            "minTileRow": "5452",
+            "maxTileRow": "6168",
+            "minTileCol": "7742",
+            "maxTileCol": "8723"
+          },
+          "15": {
+            "minTileRow": "10905",
+            "maxTileRow": "12336",
+            "minTileCol": "15484",
+            "maxTileCol": "17446"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "TRANSPORTNETWORKS.ROADS$GEOPORTAIL:OGC:WMTS": {
+      "name": "TRANSPORTNETWORKS.ROADS",
+      "title": "Routes",
+      "description": "Affichage du réseau routier français et européen.",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.9692,
+          "right": 55.9644,
+          "top": 71.5841,
+          "bottom": -21.4969
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "13",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "26",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "53",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "107",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "215",
+            "maxTileRow": "574",
+            "minTileCol": "330",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "430",
+            "maxTileRow": "1149",
+            "minTileCol": "660",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "861",
+            "maxTileRow": "2298",
+            "minTileCol": "1320",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "1723",
+            "maxTileRow": "4597",
+            "minTileCol": "2640",
+            "maxTileCol": "5369"
+          },
+          "14": {
+            "minTileRow": "3447",
+            "maxTileRow": "9194",
+            "minTileCol": "5280",
+            "maxTileCol": "10739"
+          },
+          "15": {
+            "minTileRow": "6894",
+            "maxTileRow": "18388",
+            "minTileCol": "10561",
+            "maxTileCol": "21478"
+          },
+          "16": {
+            "minTileRow": "13789",
+            "maxTileRow": "36776",
+            "minTileCol": "21122",
+            "maxTileCol": "42956"
+          },
+          "17": {
+            "minTileRow": "27579",
+            "maxTileRow": "73553",
+            "minTileCol": "42245",
+            "maxTileCol": "85912"
+          },
+          "18": {
+            "minTileRow": "55159",
+            "maxTileRow": "147106",
+            "minTileCol": "84491",
+            "maxTileCol": "171824"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "TRANSPORTNETWORKS.RAILWAYS$GEOPORTAIL:OGC:WMTS": {
+      "name": "TRANSPORTNETWORKS.RAILWAYS",
+      "title": "Réseau ferroviaire",
+      "description": "Carte du réseau ferroviaire",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -63.9692,
+          "right": 55.9644,
+          "top": 71.5841,
+          "bottom": -21.4969
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "13",
+            "maxTileRow": "35",
+            "minTileCol": "20",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "26",
+            "maxTileRow": "71",
+            "minTileCol": "41",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "53",
+            "maxTileRow": "143",
+            "minTileCol": "82",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "107",
+            "maxTileRow": "287",
+            "minTileCol": "165",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "215",
+            "maxTileRow": "574",
+            "minTileCol": "330",
+            "maxTileCol": "671"
+          },
+          "11": {
+            "minTileRow": "430",
+            "maxTileRow": "1149",
+            "minTileCol": "660",
+            "maxTileCol": "1342"
+          },
+          "12": {
+            "minTileRow": "861",
+            "maxTileRow": "2298",
+            "minTileCol": "1320",
+            "maxTileCol": "2684"
+          },
+          "13": {
+            "minTileRow": "1723",
+            "maxTileRow": "4597",
+            "minTileCol": "2640",
+            "maxTileCol": "5369"
+          },
+          "14": {
+            "minTileRow": "3447",
+            "maxTileRow": "9194",
+            "minTileCol": "5280",
+            "maxTileCol": "10739"
+          },
+          "15": {
+            "minTileRow": "6894",
+            "maxTileRow": "18388",
+            "minTileCol": "10561",
+            "maxTileCol": "21478"
+          },
+          "16": {
+            "minTileRow": "13789",
+            "maxTileRow": "36776",
+            "minTileCol": "21122",
+            "maxTileCol": "42956"
+          },
+          "17": {
+            "minTileRow": "27579",
+            "maxTileRow": "73553",
+            "minTileCol": "42245",
+            "maxTileCol": "85912"
+          },
+          "18": {
+            "minTileRow": "55159",
+            "maxTileRow": "147106",
+            "minTileCol": "84491",
+            "maxTileCol": "171824"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+
+    "ORTHOIMAGERY.ORTHOPHOTOS2006-2010$GEOPORTAIL:OGC:WMTS": {
+      "name": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+      "title": "2006-2010",
+      "description": "Prises de vues aériennes des territoires disponibles à la fin des années 2006 à 2010",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -178.187,
+          "right": 55.8561,
+          "top": 51.091,
+          "bottom": -21.4013
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "0",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "0",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "1",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "171",
+            "maxTileRow": "287",
+            "minTileCol": "2",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "342",
+            "maxTileRow": "574",
+            "minTileCol": "5",
+            "maxTileCol": "670"
+          },
+          "11": {
+            "minTileRow": "684",
+            "maxTileRow": "1148",
+            "minTileCol": "10",
+            "maxTileCol": "1341"
+          },
+          "12": {
+            "minTileRow": "1369",
+            "maxTileRow": "2297",
+            "minTileCol": "20",
+            "maxTileCol": "2683"
+          },
+          "13": {
+            "minTileRow": "2739",
+            "maxTileRow": "4594",
+            "minTileCol": "41",
+            "maxTileCol": "5367"
+          },
+          "14": {
+            "minTileRow": "5478",
+            "maxTileRow": "9189",
+            "minTileCol": "82",
+            "maxTileCol": "10734"
+          },
+          "15": {
+            "minTileRow": "10956",
+            "maxTileRow": "18378",
+            "minTileCol": "165",
+            "maxTileCol": "21468"
+          },
+          "16": {
+            "minTileRow": "21913",
+            "maxTileRow": "36757",
+            "minTileCol": "330",
+            "maxTileCol": "42936"
+          },
+          "17": {
+            "minTileRow": "43827",
+            "maxTileRow": "73515",
+            "minTileCol": "660",
+            "maxTileCol": "85872"
+          },
+          "18": {
+            "minTileRow": "87654",
+            "maxTileRow": "147031",
+            "minTileCol": "1320",
+            "maxTileCol": "171745"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/jpeg",
+          "current": true
+        }
+      ]
+    },
+    "ORTHOIMAGERY.ORTHOPHOTOS2000-2005$GEOPORTAIL:OGC:WMTS": {
+      "name": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+      "title": "2000-2005",
+      "description": "Prises de vues aériennes des territoires pour les années 2000 à 2005",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -178.187,
+          "right": 55.8561,
+          "top": 51.091,
+          "bottom": -21.4013
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "0",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "0",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "1",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "171",
+            "maxTileRow": "287",
+            "minTileCol": "2",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "342",
+            "maxTileRow": "574",
+            "minTileCol": "5",
+            "maxTileCol": "670"
+          },
+          "11": {
+            "minTileRow": "684",
+            "maxTileRow": "1148",
+            "minTileCol": "10",
+            "maxTileCol": "1341"
+          },
+          "12": {
+            "minTileRow": "1369",
+            "maxTileRow": "2297",
+            "minTileCol": "20",
+            "maxTileCol": "2683"
+          },
+          "13": {
+            "minTileRow": "2739",
+            "maxTileRow": "4594",
+            "minTileCol": "41",
+            "maxTileCol": "5367"
+          },
+          "14": {
+            "minTileRow": "5478",
+            "maxTileRow": "9189",
+            "minTileCol": "82",
+            "maxTileCol": "10734"
+          },
+          "15": {
+            "minTileRow": "10956",
+            "maxTileRow": "18378",
+            "minTileCol": "165",
+            "maxTileCol": "21468"
+          },
+          "16": {
+            "minTileRow": "21913",
+            "maxTileRow": "36757",
+            "minTileCol": "330",
+            "maxTileCol": "42936"
+          },
+          "17": {
+            "minTileRow": "43827",
+            "maxTileRow": "73515",
+            "minTileCol": "660",
+            "maxTileCol": "85872"
+          },
+          "18": {
+            "minTileRow": "87654",
+            "maxTileRow": "147031",
+            "minTileCol": "1320",
+            "maxTileCol": "171745"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/jpeg",
+          "current": true
+        }
+      ]
+    },
+    "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$GEOPORTAIL:OGC:WMTS": {
+      "name": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+      "title": "1950-1965",
+      "description": "Couverture en photographies aériennes de la France des années 50, telle qu'elle se présentait avant les grands aménagements des années 60. Cette couverture a été réalisée à partir des photographies aériennes historiques numérisées par l'IGN. Elle est disponible sur la France métropolitaine, les départements et régions d'Outre-Mer (la Guyane n'est que partiellement couverte) et les collectivités d'Outre-Mer sauf la Polynésie française. Les photographies sont orthorectifiées, c'est-à-dire corrigées des déformations dues à la prise de vue et au relief du terrain, et assemblées pour fournir une visualisation continue superposable avec le Référentiel à Grande Echelle (RGE®) ou les cartes.",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -67.7214,
+          "right": 55.8464,
+          "top": 51.0945,
+          "bottom": -21.4013
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "0": {
+            "minTileRow": "0",
+            "maxTileRow": "0",
+            "minTileCol": "0",
+            "maxTileCol": "0"
+          },
+          "1": {
+            "minTileRow": "0",
+            "maxTileRow": "1",
+            "minTileCol": "0",
+            "maxTileCol": "1"
+          },
+          "2": {
+            "minTileRow": "1",
+            "maxTileRow": "2",
+            "minTileCol": "1",
+            "maxTileCol": "2"
+          },
+          "3": {
+            "minTileRow": "2",
+            "maxTileRow": "4",
+            "minTileCol": "2",
+            "maxTileCol": "5"
+          },
+          "4": {
+            "minTileRow": "5",
+            "maxTileRow": "8",
+            "minTileCol": "4",
+            "maxTileCol": "10"
+          },
+          "5": {
+            "minTileRow": "10",
+            "maxTileRow": "17",
+            "minTileCol": "9",
+            "maxTileCol": "20"
+          },
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "35",
+            "minTileCol": "19",
+            "maxTileCol": "41"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "71",
+            "minTileCol": "39",
+            "maxTileCol": "83"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "143",
+            "minTileCol": "79",
+            "maxTileCol": "167"
+          },
+          "9": {
+            "minTileRow": "171",
+            "maxTileRow": "287",
+            "minTileCol": "159",
+            "maxTileCol": "335"
+          },
+          "10": {
+            "minTileRow": "342",
+            "maxTileRow": "574",
+            "minTileCol": "319",
+            "maxTileCol": "670"
+          },
+          "11": {
+            "minTileRow": "684",
+            "maxTileRow": "1148",
+            "minTileCol": "638",
+            "maxTileCol": "1341"
+          },
+          "12": {
+            "minTileRow": "1369",
+            "maxTileRow": "2297",
+            "minTileCol": "1277",
+            "maxTileCol": "2683"
+          },
+          "13": {
+            "minTileRow": "2739",
+            "maxTileRow": "4594",
+            "minTileCol": "2554",
+            "maxTileCol": "5366"
+          },
+          "14": {
+            "minTileRow": "5478",
+            "maxTileRow": "9189",
+            "minTileCol": "5109",
+            "maxTileCol": "10733"
+          },
+          "15": {
+            "minTileRow": "10956",
+            "maxTileRow": "18378",
+            "minTileCol": "10219",
+            "maxTileCol": "21467"
+          },
+          "16": {
+            "minTileRow": "21912",
+            "maxTileRow": "36757",
+            "minTileCol": "20439",
+            "maxTileCol": "42934"
+          },
+          "17": {
+            "minTileRow": "43825",
+            "maxTileRow": "73515",
+            "minTileCol": "40879",
+            "maxTileCol": "85869"
+          },
+          "18": {
+            "minTileRow": "87650",
+            "maxTileRow": "147031",
+            "minTileCol": "81758",
+            "maxTileCol": "171738"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "BDORTHOHISTORIQUE",
+          "title": "BDOrthoHistorique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+
+    "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950$GEOPORTAIL:OGC:WMTS": {
+      "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950",
+      "title": "1950 (Scan historique)",
+      "description": "SCAN50 produit par l'IGN en 1950",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -179.5,
+          "right": 179.5,
+          "top": 75.0,
+          "bottom": -75.0
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "3": {
+            "minTileRow": "1",
+            "maxTileRow": "6",
+            "minTileCol": "0",
+            "maxTileCol": "7"
+          },
+          "4": {
+            "minTileRow": "2",
+            "maxTileRow": "13",
+            "minTileCol": "0",
+            "maxTileCol": "15"
+          },
+          "5": {
+            "minTileRow": "5",
+            "maxTileRow": "26",
+            "minTileCol": "0",
+            "maxTileCol": "31"
+          },
+          "6": {
+            "minTileRow": "11",
+            "maxTileRow": "52",
+            "minTileCol": "0",
+            "maxTileCol": "63"
+          },
+          "7": {
+            "minTileRow": "22",
+            "maxTileRow": "105",
+            "minTileCol": "0",
+            "maxTileCol": "127"
+          },
+          "8": {
+            "minTileRow": "45",
+            "maxTileRow": "210",
+            "minTileCol": "0",
+            "maxTileCol": "255"
+          },
+          "9": {
+            "minTileRow": "90",
+            "maxTileRow": "421",
+            "minTileCol": "0",
+            "maxTileCol": "511"
+          },
+          "10": {
+            "minTileRow": "181",
+            "maxTileRow": "842",
+            "minTileCol": "1",
+            "maxTileCol": "1022"
+          },
+          "11": {
+            "minTileRow": "363",
+            "maxTileRow": "1684",
+            "minTileCol": "2",
+            "maxTileCol": "2045"
+          },
+          "12": {
+            "minTileRow": "726",
+            "maxTileRow": "3369",
+            "minTileCol": "5",
+            "maxTileCol": "4090"
+          },
+          "13": {
+            "minTileRow": "1452",
+            "maxTileRow": "6739",
+            "minTileCol": "11",
+            "maxTileCol": "8180"
+          },
+          "14": {
+            "minTileRow": "2904",
+            "maxTileRow": "13479",
+            "minTileCol": "22",
+            "maxTileCol": "16361"
+          },
+          "15": {
+            "minTileRow": "5809",
+            "maxTileRow": "26958",
+            "minTileCol": "45",
+            "maxTileCol": "32722"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "SCAN50_1950",
+          "title": "SCAN 50 historique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/png",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950-legend.png",
+          "minScaleDenominator": "17000"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/jpeg",
+          "current": true
+        }
+      ]
+    },
+    "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40$GEOPORTAIL:OGC:WMTS": {
+      "name": "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40",
+      "title": "1820-1866 (Carte de l'état-major)",
+      "description": "Carte française en couleurs du XIXè siècle en couleurs superposable aux cartes et données modernes.",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -6.08889,
+          "right": 10.961,
+          "top": 51.2745,
+          "bottom": 41.1844
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "23",
+            "minTileCol": "30",
+            "maxTileCol": "33"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "47",
+            "minTileCol": "61",
+            "maxTileCol": "67"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "95",
+            "minTileCol": "123",
+            "maxTileCol": "135"
+          },
+          "9": {
+            "minTileRow": "170",
+            "maxTileRow": "191",
+            "minTileCol": "247",
+            "maxTileCol": "271"
+          },
+          "10": {
+            "minTileRow": "341",
+            "maxTileRow": "383",
+            "minTileCol": "494",
+            "maxTileCol": "543"
+          },
+          "11": {
+            "minTileRow": "683",
+            "maxTileRow": "766",
+            "minTileCol": "989",
+            "maxTileCol": "1086"
+          },
+          "12": {
+            "minTileRow": "1366",
+            "maxTileRow": "1532",
+            "minTileCol": "1978",
+            "maxTileCol": "2172"
+          },
+          "13": {
+            "minTileRow": "2732",
+            "maxTileRow": "3065",
+            "minTileCol": "3957",
+            "maxTileCol": "4345"
+          },
+          "14": {
+            "minTileRow": "5465",
+            "maxTileRow": "6131",
+            "minTileCol": "7914",
+            "maxTileCol": "8690"
+          },
+          "15": {
+            "minTileRow": "10930",
+            "maxTileRow": "12263",
+            "minTileCol": "15829",
+            "maxTileCol": "17381"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/jpeg",
+          "current": true
+        }
+      ]
+    },
+    "GEOGRAPHICALGRIDSYSTEMS.CASSINI$GEOPORTAIL:OGC:WMTS": {
+      "name": "GEOGRAPHICALGRIDSYSTEMS.CASSINI",
+      "title": "XVIIIe siècle (Carte de Cassini)",
+      "description": "Carte de Cassini en couleur (feuilles gravées et aquarellées), issue de l’exemplaire dit de « Marie-Antoinette » du XVIIIe siècle.",
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -179.5,
+          "right": 179.5,
+          "top": 75.0,
+          "bottom": -75.0
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/private/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "11",
+            "maxTileRow": "52",
+            "minTileCol": "0",
+            "maxTileCol": "63"
+          },
+          "7": {
+            "minTileRow": "22",
+            "maxTileRow": "105",
+            "minTileCol": "0",
+            "maxTileCol": "127"
+          },
+          "8": {
+            "minTileRow": "45",
+            "maxTileRow": "210",
+            "minTileCol": "0",
+            "maxTileCol": "255"
+          },
+          "9": {
+            "minTileRow": "90",
+            "maxTileRow": "421",
+            "minTileCol": "0",
+            "maxTileCol": "511"
+          },
+          "10": {
+            "minTileRow": "181",
+            "maxTileRow": "842",
+            "minTileCol": "1",
+            "maxTileCol": "1022"
+          },
+          "11": {
+            "minTileRow": "363",
+            "maxTileRow": "1684",
+            "minTileCol": "2",
+            "maxTileCol": "2045"
+          },
+          "12": {
+            "minTileRow": "726",
+            "maxTileRow": "3369",
+            "minTileCol": "5",
+            "maxTileCol": "4090"
+          },
+          "13": {
+            "minTileRow": "1452",
+            "maxTileRow": "6739",
+            "minTileCol": "11",
+            "maxTileCol": "8180"
+          },
+          "14": {
+            "minTileRow": "2904",
+            "maxTileRow": "13479",
+            "minTileCol": "22",
+            "maxTileCol": "16361"
+          },
+          "15": {
+            "minTileRow": "5809",
+            "maxTileRow": "26958",
+            "minTileCol": "45",
+            "maxTileCol": "32722"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "normal",
+          "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/jpeg",
+          "current": true
+        }
+      ]
+    },
+
+    "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS": {
+      "hidden": true,
+      "queryable": true,
+      "serviceParams": {
+        "id": "GPP:TMS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://wxs.ign.fr/essentiels/geoportail/tms/1.0.0/"
+        }
+      },
+      "name": "PLAN.IGN.INTERACTIF",
+      "title": "Plan IGN",
+      "description": "Plan IGN vectoriel, interactif : au clic, affichez les informations de légende et les données issues de la BD Topo.",
+      "formats": [
+        {
+          "current": true,
+          "name": "application/x-protobuf"
+        }
+      ],
+      "styles": [
+        {
+          "name": "standard",
+          "title": "Style standard",
+          "current": true,
+          "url": "data/plan-ign-interactif-style.json"
+        }
+      ],
+      "globalConstraint": {
+        "crs": null,
+        "bbox": {
+          "left": -724011.531917197,
+          "right": 1095801.237496279,
+          "top": 6672646.821182753,
+          "bottom": 5009377.0856973175
+        },
+        "minScaleDenominator": null,
+        "maxScaleDenominator": null
+      },
+      "quicklookUrl": "",
+      "layerId": "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS",
+      "defaultProjection": "EPSG:3857"
+    },
+    "OSM.POI$GEOPORTAIL:GPP:TMS": {
+      "hidden": true,
+      "queryable": true,
+      "serviceParams": {
+        "id": "GPP:TMS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/tms/1.0.0/"
+        }
+      },
+      "name": "OSM.POI",
+      "title": "POI OSM interactif",
+      "description": "",
+      "formats": [
+        {
+          "current": true,
+          "name": "application/x-protobuf"
+        }
+      ],
+      "styles": [
+        {
+          "name": "standard",
+          "title": "Style standard",
+          "current": true,
+          "url": "data/poi-osm-style.json"
+        }
+      ],
+      "globalConstraint": {
+        "crs": null,
+        "bbox": {
+          "left": -724011.531917197,
+          "right": 1095801.237496279,
+          "top": 6672646.821182753,
+          "bottom": 5009377.0856973175
+        },
+        "minScaleDenominator": null,
+        "maxScaleDenominator": null
+      },
+      "quicklookUrl": "",
+      "layerId": "OSM.POI$GEOPORTAIL:GPP:TMS",
+      "defaultProjection": "EPSG:3857"
+    }
+
+  },
+  "tileMatrixSets": {
+    "LAMB93_5cm": {
+      "projection": "IGNF:LAMB93",
+      "nativeResolutions": [
+        "209715.2",
+        "104857.6",
+        "52428.8",
+        "26214.4",
+        "13107.2",
+        "6553.6",
+        "3276.8",
+        "1638.4",
+        "819.2",
+        "409.6",
+        "204.8",
+        "102.4",
+        "51.2",
+        "25.6",
+        "12.8",
+        "6.4",
+        "3.2",
+        "1.6",
+        "0.8",
+        "0.4",
+        "0.2",
+        "0.1",
+        "0.05"
+      ],
+      "tileMatrices": {
+        "0": {
+          "matrixId": "0",
+          "matrixHeight": 1,
+          "matrixWidth": 1,
+          "scaleDenominator": 748982857.1428572,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "1": {
+          "matrixId": "1",
+          "matrixHeight": 1,
+          "matrixWidth": 1,
+          "scaleDenominator": 374491428.5714286,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "2": {
+          "matrixId": "2",
+          "matrixHeight": 1,
+          "matrixWidth": 1,
+          "scaleDenominator": 187245714.2857143,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "3": {
+          "matrixId": "3",
+          "matrixHeight": 2,
+          "matrixWidth": 1,
+          "scaleDenominator": 93622857.14285715,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "4": {
+          "matrixId": "4",
+          "matrixHeight": 4,
+          "matrixWidth": 1,
+          "scaleDenominator": 46811428.571428575,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "5": {
+          "matrixId": "5",
+          "matrixHeight": 7,
+          "matrixWidth": 1,
+          "scaleDenominator": 23405714.285714287,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "6": {
+          "matrixId": "6",
+          "matrixHeight": 13,
+          "matrixWidth": 2,
+          "scaleDenominator": 11702857.142857144,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "7": {
+          "matrixId": "7",
+          "matrixHeight": 26,
+          "matrixWidth": 4,
+          "scaleDenominator": 5851428.571428572,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "8": {
+          "matrixId": "8",
+          "matrixHeight": 52,
+          "matrixWidth": 7,
+          "scaleDenominator": 2925714.285714286,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "9": {
+          "matrixId": "9",
+          "matrixHeight": 103,
+          "matrixWidth": 13,
+          "scaleDenominator": 1462857.142857143,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "10": {
+          "matrixId": "10",
+          "matrixHeight": 206,
+          "matrixWidth": 25,
+          "scaleDenominator": 731428.5714285715,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "11": {
+          "matrixId": "11",
+          "matrixHeight": 411,
+          "matrixWidth": 50,
+          "scaleDenominator": 365714.28571428574,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "12": {
+          "matrixId": "12",
+          "matrixHeight": 822,
+          "matrixWidth": 99,
+          "scaleDenominator": 182857.14285714287,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "13": {
+          "matrixId": "13",
+          "matrixHeight": 1643,
+          "matrixWidth": 197,
+          "scaleDenominator": 91428.57142857143,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "14": {
+          "matrixId": "14",
+          "matrixHeight": 3285,
+          "matrixWidth": 394,
+          "scaleDenominator": 45714.28571428572,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "15": {
+          "matrixId": "15",
+          "matrixHeight": 6569,
+          "matrixWidth": 788,
+          "scaleDenominator": 22857.14285714286,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "16": {
+          "matrixId": "16",
+          "matrixHeight": 13138,
+          "matrixWidth": 1575,
+          "scaleDenominator": 11428.57142857143,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "17": {
+          "matrixId": "17",
+          "matrixHeight": 26276,
+          "matrixWidth": 3150,
+          "scaleDenominator": 5714.285714285715,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "18": {
+          "matrixId": "18",
+          "matrixHeight": 52552,
+          "matrixWidth": 6300,
+          "scaleDenominator": 2857.1428571428573,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "19": {
+          "matrixId": "19",
+          "matrixHeight": 105102,
+          "matrixWidth": 12600,
+          "scaleDenominator": 1428.5714285714287,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "20": {
+          "matrixId": "20",
+          "matrixHeight": 210205,
+          "matrixWidth": 25200,
+          "scaleDenominator": 714.2857142857143,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "21": {
+          "matrixId": "21",
+          "matrixHeight": 420409,
+          "matrixWidth": 50400,
+          "scaleDenominator": 357.14285714285717,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        },
+        "22": {
+          "matrixId": "22",
+          "matrixHeight": 840818,
+          "matrixWidth": 100800,
+          "scaleDenominator": 178.57142857142858,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": 0.0,
+            "y": 12000000.0
+          }
+        }
+      }
+    },
+    "PM": {
+      "projection": "EPSG:3857",
+      "nativeResolutions": [
+        "156543.0339280410",
+        "78271.51696402048",
+        "39135.75848201023",
+        "19567.87924100512",
+        "9783.939620502561",
+        "4891.969810251280",
+        "2445.984905125640",
+        "1222.992452562820",
+        "611.4962262814100",
+        "305.7481131407048",
+        "152.8740565703525",
+        "76.43702828517624",
+        "38.21851414258813",
+        "19.10925707129406",
+        "9.554628535647032",
+        "4.777314267823516",
+        "2.388657133911758",
+        "1.194328566955879",
+        "0.5971642834779395",
+        "0.2985821417389697",
+        "0.1492910708694849",
+        "0.0746455354347424"
+      ],
+      "tileMatrices": {
+        "0": {
+          "matrixId": "0",
+          "matrixHeight": 1,
+          "matrixWidth": 1,
+          "scaleDenominator": 559082264.0287179,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "1": {
+          "matrixId": "1",
+          "matrixHeight": 2,
+          "matrixWidth": 2,
+          "scaleDenominator": 279541132.01435894,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "2": {
+          "matrixId": "2",
+          "matrixHeight": 4,
+          "matrixWidth": 4,
+          "scaleDenominator": 139770566.0071793,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "3": {
+          "matrixId": "3",
+          "matrixHeight": 8,
+          "matrixWidth": 8,
+          "scaleDenominator": 69885283.00358965,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "4": {
+          "matrixId": "4",
+          "matrixHeight": 16,
+          "matrixWidth": 16,
+          "scaleDenominator": 34942641.50179486,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "5": {
+          "matrixId": "5",
+          "matrixHeight": 32,
+          "matrixWidth": 32,
+          "scaleDenominator": 17471320.75089743,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "6": {
+          "matrixId": "6",
+          "matrixHeight": 64,
+          "matrixWidth": 64,
+          "scaleDenominator": 8735660.375448715,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "7": {
+          "matrixId": "7",
+          "matrixHeight": 128,
+          "matrixWidth": 128,
+          "scaleDenominator": 4367830.1877243575,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "8": {
+          "matrixId": "8",
+          "matrixHeight": 256,
+          "matrixWidth": 256,
+          "scaleDenominator": 2183915.0938621787,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "9": {
+          "matrixId": "9",
+          "matrixHeight": 512,
+          "matrixWidth": 512,
+          "scaleDenominator": 1091957.5469310894,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "10": {
+          "matrixId": "10",
+          "matrixHeight": 1024,
+          "matrixWidth": 1024,
+          "scaleDenominator": 545978.7734655464,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "11": {
+          "matrixId": "11",
+          "matrixHeight": 2048,
+          "matrixWidth": 2048,
+          "scaleDenominator": 272989.38673277217,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "12": {
+          "matrixId": "12",
+          "matrixHeight": 4096,
+          "matrixWidth": 4096,
+          "scaleDenominator": 136494.69336638608,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "13": {
+          "matrixId": "13",
+          "matrixHeight": 8192,
+          "matrixWidth": 8192,
+          "scaleDenominator": 68247.34668319322,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "14": {
+          "matrixId": "14",
+          "matrixHeight": 16384,
+          "matrixWidth": 16384,
+          "scaleDenominator": 34123.673341596535,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "15": {
+          "matrixId": "15",
+          "matrixHeight": 32768,
+          "matrixWidth": 32768,
+          "scaleDenominator": 17061.83667079829,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "16": {
+          "matrixId": "16",
+          "matrixHeight": 65536,
+          "matrixWidth": 65536,
+          "scaleDenominator": 8530.918335399145,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "17": {
+          "matrixId": "17",
+          "matrixHeight": 131072,
+          "matrixWidth": 131072,
+          "scaleDenominator": 4265.459167699572,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "18": {
+          "matrixId": "18",
+          "matrixHeight": 262144,
+          "matrixWidth": 262144,
+          "scaleDenominator": 2132.7295838497826,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "19": {
+          "matrixId": "19",
+          "matrixHeight": 524288,
+          "matrixWidth": 524288,
+          "scaleDenominator": 1066.364791924893,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "20": {
+          "matrixId": "20",
+          "matrixHeight": 1048576,
+          "matrixWidth": 1048576,
+          "scaleDenominator": 533.1823959624465,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        },
+        "21": {
+          "matrixId": "21",
+          "matrixHeight": 2097152,
+          "matrixWidth": 2097152,
+          "scaleDenominator": 266.5911979812229,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -20037508.3427892,
+            "y": 20037508.3427892
+          }
+        }
+      }
+    },
+    "WGS84G": {
+      "projection": "IGNF:WGS84G",
+      "nativeResolutions": [
+        "0.703125",
+        "0.3515625",
+        "0.17578125",
+        "0.087890625",
+        "0.0439453125",
+        "0.02197265625",
+        "0.010986328125",
+        "0.0054931640625",
+        "0.00274658203125",
+        "0.001373291015625",
+        "0.0006866455078125",
+        "0.00034332275390625",
+        "0.000171661376953125",
+        "0.0000858306884765625",
+        "0.00004291534423828125",
+        "0.000021457672119140625",
+        "0.0000107288360595703125",
+        "0.00000536441802978515625",
+        "0.000002682209014892578125",
+        "0.0000013411045074462890625"
+      ],
+      "tileMatrices": {
+        "0": {
+          "matrixId": "0",
+          "matrixHeight": 1,
+          "matrixWidth": 2,
+          "scaleDenominator": 279541132.0143589,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "1": {
+          "matrixId": "1",
+          "matrixHeight": 2,
+          "matrixWidth": 4,
+          "scaleDenominator": 139770566.00717944,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "2": {
+          "matrixId": "2",
+          "matrixHeight": 4,
+          "matrixWidth": 8,
+          "scaleDenominator": 69885283.00358972,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "3": {
+          "matrixId": "3",
+          "matrixHeight": 8,
+          "matrixWidth": 16,
+          "scaleDenominator": 34942641.50179486,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "4": {
+          "matrixId": "4",
+          "matrixHeight": 16,
+          "matrixWidth": 32,
+          "scaleDenominator": 17471320.75089743,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "5": {
+          "matrixId": "5",
+          "matrixHeight": 32,
+          "matrixWidth": 64,
+          "scaleDenominator": 8735660.375448715,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "6": {
+          "matrixId": "6",
+          "matrixHeight": 64,
+          "matrixWidth": 128,
+          "scaleDenominator": 4367830.1877243575,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "7": {
+          "matrixId": "7",
+          "matrixHeight": 128,
+          "matrixWidth": 256,
+          "scaleDenominator": 2183915.0938621787,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "8": {
+          "matrixId": "8",
+          "matrixHeight": 256,
+          "matrixWidth": 512,
+          "scaleDenominator": 1091957.5469310894,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "9": {
+          "matrixId": "9",
+          "matrixHeight": 512,
+          "matrixWidth": 1024,
+          "scaleDenominator": 545978.7734655447,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "10": {
+          "matrixId": "10",
+          "matrixHeight": 1024,
+          "matrixWidth": 2048,
+          "scaleDenominator": 272989.38673277234,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "11": {
+          "matrixId": "11",
+          "matrixHeight": 2048,
+          "matrixWidth": 4096,
+          "scaleDenominator": 136494.69336638617,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "12": {
+          "matrixId": "12",
+          "matrixHeight": 4096,
+          "matrixWidth": 8192,
+          "scaleDenominator": 68247.34668319309,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "13": {
+          "matrixId": "13",
+          "matrixHeight": 8192,
+          "matrixWidth": 16384,
+          "scaleDenominator": 34123.67334159654,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "14": {
+          "matrixId": "14",
+          "matrixHeight": 16384,
+          "matrixWidth": 32768,
+          "scaleDenominator": 17061.836670798253,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "15": {
+          "matrixId": "15",
+          "matrixHeight": 32768,
+          "matrixWidth": 65536,
+          "scaleDenominator": 8530.918335399127,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "16": {
+          "matrixId": "16",
+          "matrixHeight": 65536,
+          "matrixWidth": 131072,
+          "scaleDenominator": 4265.459167699563,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "17": {
+          "matrixId": "17",
+          "matrixHeight": 131072,
+          "matrixWidth": 262144,
+          "scaleDenominator": 2132.7295838497853,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "18": {
+          "matrixId": "18",
+          "matrixHeight": 262144,
+          "matrixWidth": 524288,
+          "scaleDenominator": 1066.3647919248926,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        },
+        "19": {
+          "matrixId": "19",
+          "matrixHeight": 524288,
+          "matrixWidth": 1048576,
+          "scaleDenominator": 533.1823959624463,
+          "tileHeight": 256,
+          "tileWidth": 256,
+          "topLeftCorner": {
+            "x": -180.0,
+            "y": 90.0
+          }
+        }
+      }
+    }
+  }
+}

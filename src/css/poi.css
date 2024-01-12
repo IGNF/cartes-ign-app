@@ -1,0 +1,51 @@
+.divPOIContainer {}
+
+.spanPOITitle {
+    text-align: left;
+    width: 100%;
+    font-family: "Open Sans";
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.divPOIDisplayGoBackTime,
+.divPOIDisplay {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: "Open Sans";
+    padding-top: 15px;
+    align-items: center;
+}
+
+.divPOIDisplay {
+    padding-bottom: 15px;
+}
+
+
+.divPOIDisplay > span,
+.divPOIDisplayGoBackTime > span {
+    max-width: 50%;
+    white-space: wrap;
+    text-align: left;
+  }
+
+
+.divPOIFilterItems {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 30px);
+    font-family: "Open Sans";
+    border-bottom: 1px solid #DDE1E6;
+    border-top: 1px solid #DDE1E6;
+    padding: 15px;
+}
+
+.lblPOIFilterItem {
+    margin-bottom: 8px;
+    width: fit-content;
+}
+.inputPOIFilterItem {}
+
+#displayPOI {}
+#displayPOIGoBackTime {}

@@ -13,29 +13,30 @@ const target = new EventTarget();
 
 /**
  * service
- * @param {*} coordinates 
- * @returns 
+ * @param {*} coordinates
+ * @returns
  * @fire elevation
  */
 const compute = async (coordinates) => {
 
     // ex. request
-    // https://wxs.ign.fr/calcul/alti/rest/elevation.json?
+    // https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?
     //  lon=2.336889922615051&
     //  lat=48.867264998294104&
     //  indent=false&
     //  crs=%27CRS:84%27&
-    //  zonly=true
+    //  zonly=true&
+    //  resource=ign_rge_alti_wld
 
     clear();
 
     controller = new AbortController();
 
-    let url = new URL("https://wxs.ign.fr/calcul/alti/rest/elevation.json");
+    let url = new URL("https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json");
     let params = {
         indent: false,
-        crs: "CRS:84",
         zonly: true,
+        resource: "ign_rge_alti_wld",
         lon: coordinates.lon,
         lat: coordinates.lat
     };
@@ -62,12 +63,18 @@ const compute = async (coordinates) => {
     return results;
 };
 
-/** 
+/**
  * obtenir la valeur Z
  * @example
  * { lon lat }
  */
 const getElevation = () => {
+    if (!results.elevations) {
+      return 0;
+    }
+    if (results.elevations[0] == -99999) {
+      return 0;
+    }
     return results.elevations[0];
 };
 

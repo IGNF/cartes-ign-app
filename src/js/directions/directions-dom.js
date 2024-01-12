@@ -16,39 +16,6 @@ let DirectionsDOM = {
     },
 
     /**
-     * transforme un texte html en dom
-     * @param {String} str 
-     * @returns {DOMElement}
-     * @public
-     */
-    stringToHTML (str) {
-
-        var support = function () {
-            if (!window.DOMParser) return false;
-            var parser = new DOMParser();
-            try {
-                parser.parseFromString('x', 'text/html');
-            } catch(err) {
-                return false;
-            }
-            return true;
-        };
-    
-        // If DOMParser is supported, use it
-        if (support()) {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(str, 'text/html');
-            return doc.body;
-        }
-    
-        // Otherwise, fallback to old-school method
-        var dom = document.createElement('div');
-        dom.innerHTML = str;
-        return dom;
-    
-    },
-
-    /**
      * obtenir le container principal
      * @returns {DOMElement}
      * @public
@@ -123,14 +90,16 @@ let DirectionsDOM = {
             var start = points[0].dataset.coordinates;
             var end = points[points.length - 1].dataset.coordinates;
             locations.push(start);
-            locations.push(end);
             for (let i = 1; i < points.length - 1; i++) {
-                locations.push(points[i].dataset.coordinates);
+                if (points[i].dataset.coordinates) {
+                    locations.push(points[i].dataset.coordinates);
+                }
             }
+            locations.push(end);
 
             // mise en place d'une patience ?
             // https://uiverse.io/barisdogansutcu/light-rat-32
-            
+
             // passer les valeurs au service
             self.compute({
                 transport : transport,
@@ -159,7 +128,7 @@ let DirectionsDOM = {
         return input;
     },
 
-    /** 
+    /**
      * ajoute le container sur le mode de transport
      * @returns {DOMElement}
      * @private
@@ -184,8 +153,8 @@ let DirectionsDOM = {
         var labelPedestrian = document.createElement("label");
         labelPedestrian.className = "lblDirectionsTransport";
         labelPedestrian.htmlFor = "directionsTransportPieton";
-        labelPedestrian.title = "A pied";
-        labelPedestrian.textContent = "A pied";
+        labelPedestrian.title = "À pied";
+        labelPedestrian.textContent = "À pied";
         div.appendChild(labelPedestrian);
 
         var inputCar = this.dom.inputCar = document.createElement("input");
@@ -213,7 +182,7 @@ let DirectionsDOM = {
         return div;
     },
 
-    /** 
+    /**
      * ajoute le container sur le mode de calcul
      * @returns {DOMElement}
      * @private
@@ -222,7 +191,7 @@ let DirectionsDOM = {
         // https://uiverse.io/Yaya12085/rude-mouse-79
         var div = document.createElement("div");
         div.className = "divDirectionsComputation";
-        
+
         var inputFastest = this.dom.inputFastest = document.createElement("input");
         inputFastest.id = "directionsComputationFastest";
         inputFastest.type = "radio";
@@ -260,10 +229,14 @@ let DirectionsDOM = {
         labelShortest.textContent = "Plus court";
         div.appendChild(labelShortest);
 
+        var slider = document.createElement("span");
+        slider.className = "sliderComputation";
+        div.appendChild(slider);
+
         return div;
     },
 
-    /** 
+    /**
      * ajoute le container sur la saisie de locations
      * @returns {DOMElement}
      * @private
@@ -277,18 +250,24 @@ let DirectionsDOM = {
         div.className = "divDirectionsLocations";
 
         var divDefault = document.createElement("div");
-        divDefault.className = "divDirectionsLocationsDefault";
+        divDefault.id = "divDirectionsLocationsList";
+
+        var divContainer = document.createElement("div");
+        divContainer.className = "divDirectionsLocationsItem draggable-layer";
 
         var labelDeparture = document.createElement("label");
         labelDeparture.id = "directionsLocationImg_first";
-        labelDeparture.className = "lblDirectionsLocations";
-        divDefault.appendChild(labelDeparture);
+        labelDeparture.className = "lblDirectionsLocations directionsLocationImg";
+        divContainer.appendChild(labelDeparture);
+
+        var divInput = document.createElement("div");
+        divInput.className = "inputDirectionsLocationsContainer";
 
         var inputLocationDeparture = document.createElement("input");
         inputLocationDeparture.id = "directionsLocation_start";
         inputLocationDeparture.className = "inputDirectionsLocations";
         inputLocationDeparture.type = "text";
-        inputLocationDeparture.placeholder = "Choisir un point de départ...";
+        inputLocationDeparture.placeholder = "D'où partez-vous ?";
         inputLocationDeparture.name = "start";
         // le geocodage enregistre les coordonnées dans la tag data-coordinates :
         //   data-coordinates = "[2.24,48.80]"
@@ -297,23 +276,90 @@ let DirectionsDOM = {
             // ouverture du menu de recherche
             self.onOpenSearchLocation(e);
         });
-        divDefault.appendChild(inputLocationDeparture);
+        divInput.appendChild(inputLocationDeparture);
+        // Stockage du input de départ pour interaction avec modules externes
+        self.dom.inputDeparture = inputLocationDeparture;
 
-        var labelMiddle = document.createElement("label");
-        labelMiddle.id = "directionsLocationsImg_middle";
-        labelMiddle.className = "lblDirectionsLocations";
-        divDefault.appendChild(labelMiddle);
+        var labelCross = document.createElement("label");
+        labelCross.className = "handle-draggable-layer";
+        labelCross.addEventListener("click", (e) => {});
+        divInput.appendChild(labelCross);
+
+        divContainer.appendChild(divInput);
+
+        divDefault.appendChild(divContainer);
+
+        // on pre ajoute 5 étapes max
+        for (let i = 1; i <= 5; i++) {
+            var divContainer = document.createElement("div");
+            divContainer.className = "divDirectionsLocationsItem draggable-layer hidden";
+
+            var labelMiddle = document.createElement("label");
+            labelMiddle.id = "directionsLocationsImg_middle_" + i;
+            labelMiddle.className = "lblDirectionsLocations directionsLocationImg";
+            divContainer.appendChild(labelMiddle);
+
+            var divInput = document.createElement("div");
+            divInput.className = "inputDirectionsLocationsContainer";
+
+            var inputLocationArrival  = document.createElement("input");
+            inputLocationArrival.id = "directionsLocation_step_" + i;
+            inputLocationArrival.className = "inputDirectionsLocations";
+            inputLocationArrival.type = "text";
+            inputLocationArrival.placeholder = "Par où passez-vous ?";
+            inputLocationArrival.name = "end";
+            // le geocodage enregistre les coordonnées dans la tag data-coordinates :
+            //   data-coordinates = "[2.24,48.80]"
+            inputLocationArrival.dataset.coordinates = "";
+            inputLocationArrival.addEventListener("click", function (e) {
+                // ouverture du menu de recherche
+                self.onOpenSearchLocation(e);
+            });
+            divInput.appendChild(inputLocationArrival);
+
+            var labelCross = document.createElement("label");
+            labelCross.className = "handle-draggable-layer";
+            labelCross.addEventListener("click", (e) => {});
+            divInput.appendChild(labelCross);
+
+            divContainer.appendChild(divInput);
+            var divAddStep = document.createElement("div");
+            divAddStep.classList.add("divDirectionsLocationsAddStep");
+
+            var labelRemoveMiddle = document.createElement("label");
+            labelRemoveMiddle.id = "directionsLocationRemoveImg_step_" + i;
+            labelRemoveMiddle.className = "lblDirectionsLocations lblDirectionsLocationsRemoveImg";
+            labelRemoveMiddle.addEventListener("click", function (e) {
+                e.target.parentNode.classList.add("hidden");
+                var index = e.target.id.substring(e.target.id.lastIndexOf("_") + 1);
+                var div = document.getElementById( "directionsLocation_step_" + index);
+                if (div) {
+                    div.value = "";
+                    div.dataset.coordinates = "";
+                }
+                divAddStep.classList.remove("hidden");
+            });
+            divContainer.appendChild(labelRemoveMiddle);
+
+            divDefault.appendChild(divContainer);
+        }
+
+        var divContainer = document.createElement("div");
+        divContainer.className = "divDirectionsLocationsItem draggable-layer";
 
         var labelArrival = document.createElement("label");
         labelArrival.id = "directionsLocationImg_last";
-        labelArrival.className = "lblDirectionsLocations";
-        divDefault.appendChild(labelArrival);
+        labelArrival.className = "lblDirectionsLocations directionsLocationImg";
+        divContainer.appendChild(labelArrival);
+
+        var divInput = document.createElement("div");
+        divInput.className = "inputDirectionsLocationsContainer";
 
         var inputLocationArrival  = document.createElement("input");
         inputLocationArrival.id = "directionsLocation_end";
         inputLocationArrival.className = "inputDirectionsLocations";
         inputLocationArrival.type = "text";
-        inputLocationArrival.placeholder = "Choisir une destination...";
+        inputLocationArrival.placeholder = "Où allez-vous ?";
         inputLocationArrival.name = "end";
         // le geocodage enregistre les coordonnées dans la tag data-coordinates :
         //   data-coordinates = "[2.24,48.80]"
@@ -322,21 +368,30 @@ let DirectionsDOM = {
             // ouverture du menu de recherche
             self.onOpenSearchLocation(e);
         });
-        divDefault.appendChild(inputLocationArrival);
+        divInput.appendChild(inputLocationArrival);
+        // Stockage du input d'arrivée pour interaction avec modules externes
+        self.dom.inputArrival = inputLocationArrival;
 
-        var labelReverse = document.createElement("label");
-        labelReverse.id = "directionsLocationImg_reverse";
-        labelReverse.className = "lblDirectionsLocations";
-        labelReverse.addEventListener("click", function (e) {
-            // TODO
-            console.log(e);
-        });
-        divDefault.appendChild(labelReverse);
+        var labelCross = document.createElement("label");
+        labelCross.className = "handle-draggable-layer";
+        // Event listener vide pour gestion du touch
+        labelCross.addEventListener("click", (e) => {});
+        divInput.appendChild(labelCross);
+        divContainer.appendChild(divInput);
+
+        divDefault.appendChild(divContainer);
+
+        // INFO : fonctionnalité desactivée sur la nouvelle maquette ?
+        // var labelReverse = document.createElement("label");
+        // labelReverse.id = "directionsLocationImg_reverse";
+        // labelReverse.className = "lblDirectionsLocations";
+        // labelReverse.addEventListener("click", function (e) {
+        //     // TODO
+        //     console.log(e);
+        // });
+        // divDefault.appendChild(labelReverse);
 
         div.appendChild(divDefault);
-
-        var divStep = document.createElement("div");
-        divStep.className = "divDirectionsLocationsStep";
 
         var labelAddStep = document.createElement("label");
         labelAddStep.id = "directionsLocationImg_step";
@@ -344,12 +399,31 @@ let DirectionsDOM = {
         labelAddStep.title = "Ajouter une étape";
         labelAddStep.textContent = "Ajouter une étape";
         labelAddStep.addEventListener("click", function (e) {
-            // TODO
-            console.log(e);
+            labelAddStep.style.backgroundColor = "#E7E7E7";
+            setTimeout(() => {labelAddStep.style.removeProperty("background-color")}, 150);
+            var locations = document.querySelectorAll(".divDirectionsLocationsItem");
+            for (let index = 0; index < locations.length; index++) {
+                const element = locations[index];
+                if (element.classList.contains("hidden")) {
+                    element.classList.remove("hidden");
+                    break;
+                }
+            }
+            let allShown = true;
+            for (let index = 0; index < locations.length; index++) {
+                const element = locations[index];
+                if (element.classList.contains("hidden")) {
+                    allShown = false;
+                    break;
+                }
+            }
+            if (allShown) {
+                divAddStep.classList.add("hidden");
+            }
         });
-        divStep.appendChild(labelAddStep);
+        divAddStep.appendChild(labelAddStep);
 
-        div.appendChild(divStep);
+        div.appendChild(divAddStep);
 
         return div;
     }

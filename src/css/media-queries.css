@@ -1,22 +1,30 @@
 /* mode paysage et écrans larges */
-@media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {
+@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #tabContainer {
-    width: 50%;
-    height: fit-content;
+    width: calc(100vh + env(safe-area-inset-left) + 42px);
+    height: 100vh;
     top: 100%;
-    left: 75px;
-  }
+    left: 0;
+    overflow-y: scroll;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    z-index: 300;
+    padding: 0 15px 15px calc(env(safe-area-inset-left) + 42px);
+    transition: top 0.3s;
 }
 
-@media (max-width: 350px) {
-  .plusLoinTitleText {
-    font-size: 2em;
-    bottom: 14px;
+  #informationsWindow,
+  #isochroneWindow,
+  #directionsWindow,
+  #directionsResultsWindow,
+  #positionWindow,
+  #layerManagerWindow,
+  #poiWindow,
+  #routeDrawWindow {
+    margin-top: 20px;
   }
-}
 
-@media (min-width: 510px) {
-  .plusLoinTitleText {
-    bottom: 30px;
+  body {
+    overflow-y: hidden;
   }
 }

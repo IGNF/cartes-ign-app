@@ -1,27 +1,5 @@
-
 .button {
-  width: 34px;
-  height: 34px;
-  display: inline-block;
-}
-
-#backTopLeftBtn {
-  position:fixed;
-  width: 20px;
-  height: 20px;
-  z-index: 3001;
-  top: 10px;
-  left: 10px;
-  background-image: url("assets/back.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-#backTopLeftBtn,
-#sideBySideBtn,
-#layerManagerBtn,
-#geolocateBtn,
-#compassBtn  {
+  color: #3F4A55;
   width: 40px;
   height: 40px;
   border-radius: 60px;
@@ -29,51 +7,397 @@
   background-repeat: no-repeat;
   right: 15px;
   background-color: white;
-  box-shadow: black 0px 0px 5px;
-  z-index: 3001;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+  z-index: 200;
   border: 1px solid white;
 }
 
-#layerManagerBtn {
-  background-image: url("assets/layers.svg");
+#backTopLeftBtn {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top));
+  left: calc(15px + env(safe-area-inset-left));
+  background-image: url("assets/map-buttons/back.svg");
+  z-index: 3003;
+}
+
+#bottomButtons {
   position: absolute;
-  bottom: 180px;
+  bottom: calc(120px + env(safe-area-inset-bottom));
+  width: 100vw;
+}
+
+#layerManagerBtn {
+  background-image: url("assets/map-buttons/layers.svg");
+  position: absolute;
+  bottom: 50px;
 }
 
 #geolocateBtn {
-  background-image: url("assets/localisation.svg");
+  background-image: url("assets/map-buttons/localisation.svg");
   position: absolute;
-  bottom: 130px;
+  bottom: 0;
 }
 
 #sideBySideBtn {
-  background-image: url("assets/compare.svg");
+  background-image: url("assets/map-buttons/compare/compare.svg");
   position: absolute;
   left: 15px;
-  bottom: 130px;
+  bottom: 0;
+}
+
+#sideBySideLeftLayer {
+  background-image: url("assets/map-buttons/compare/compare-layer-left.svg");
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+}
+
+#sideBySideRightLayer {
+  background-image: url("assets/map-buttons/compare/compare-layer-right.svg");
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+}
+
+#compareMode {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top));
+  right: calc(15px + env(safe-area-inset-left));
+  width: 120px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  z-index: 2;
+}
+
+#compareMode > div {
+  width: 40px;
+  height: 40px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 40px;
+  filter: grayscale(1);
+}
+
+#compareMode > div.selected {
+  filter: grayscale(0);
+}
+
+#compareLeftRight {
+  background-image: url("assets/map-buttons/compare/compare-leftright.svg");
+}
+
+#compareUpDown {
+  background-image: url("assets/map-buttons/compare/compare-updown.svg");
+}
+
+#compareFade {
+  background-image: url("assets/map-buttons/compare/compare-fade.svg");
+}
+
+#sideBySideFadeSlider {
+  width: calc(100vw - 144px - env(safe-area-inset-left) - env(safe-area-inset-right));
+  position: absolute;
+  z-index: 2;
+  height: 42px;
+  background-color: white;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sideBySideFadeSlider-range {
+  width: 100%;
+  margin: 0 26px;
+}
+
+#sideBySideFadeSlider-range-input {
+  width: 100%;
+  background: white;
 }
 
 #compassBtn {
-  background-image: url("assets/compass.svg");
+  background-image: url("assets/map-buttons/compass.svg");
   position: absolute;
-  bottom: 225px;
+  bottom: 95px;
 }
 
-@media (min-width: 615px), screen and ((min-aspect-ratio: 1/1) and (min-width:400px)) {
+#filterPoiBtn {
+  background-image: url("assets/map-buttons/filtrer.svg");
+  position: fixed;
+  top: calc(80px + env(safe-area-inset-top));
+  font-family: "Open Sans";
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 25px;
+  background-position: 13px center;
+  width: 70px;
+  transition: top 0.15s;
+}
+
+#interactivityBtn {
+  background-image: url("assets/map-buttons/interactivity.svg");
+  background-size: 20px;
+  position: fixed;
+  left: 15px;
+  top: calc(80px + env(safe-area-inset-top));
+  transition: top 0.15s;
+  height: 25px;
+  width: 25px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+#routeDrawBtns {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+#routeDrawMode {
+  width: 135px;
+  justify-content: space-between;
+  font-size: 11px;
+  position: relative;
+}
+
+#routeDrawModeTransportPedestrian, #routeDrawModeTransportCar {
+  display: block;
+  width: 30px;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("assets/route-draw/pieton-green.svg");
+  padding-left: 8px;
+}
+
+#routeDrawModeTransportCar {
+  background-image: url("assets/route-draw/voiture-green.svg");
+}
+
+#routeDrawModeText {
+  white-space: nowrap;
+}
+
+#routeDrawModeArrow {
+  width: 30px;
+  height: 100%;
+  background-image: url("assets/route-draw/chevron_right.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.2s ease-out;
+}
+
+#routeDrawMode:hover > #routeDrawModeArrow {
+  transform: rotate(-90deg);
+}
+
+#routeDrawHelp {
+  background-color: #26A581;
+  width: 34px;
+  height: 34px;
+  color: white;
+  border: unset;
+  justify-content: center;
+}
+
+#routeDrawBtns > div {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-family: "Open Sans";
+  font-weight: 600;
+  margin-right: 6px;
+  right: unset;
+}
+
+#routeDrawEdit {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  z-index: 3001;
+  position: absolute;
+  bottom: calc(93px + env(safe-area-inset-bottom));
+  width: calc(100vw - 30px);
+  height: 82px;
+  padding: 10px 26px;
+  box-sizing: border-box;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#routeDrawEdit > .button {
+  color: #3F4A55;
+  width: 40px;
+  height: 40px;
+  border-radius: 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #F4F6F8;
+  border: 1px solid #F4F6F8;
+  box-shadow: unset;
+}
+
+#routeDrawCancel {
+  background-image: url("assets/route-draw/arrow-left-darkgrey.svg");
+}
+
+#routeDrawRestore {
+  background-image: url("assets/route-draw/arrow-right-darkgrey.svg");
+}
+
+#routeDrawCancel.inactive {
+  background-image: url("assets/route-draw/arrow-left-grey.svg");
+}
+
+#routeDrawRestore.inactive {
+  background-image: url("assets/route-draw/arrow-right-grey.svg");
+}
+
+#routeDrawEdit > #routeDrawDelete {
+  background-image: url("assets/route-draw/delete.svg");
+  background-color: #F18345;
+}
+
+#routeDrawEdit > #routeDrawDelete.inactive {
+  background-color: #F4F6F8;
+}
+
+#routeDrawEdit > .button#routeDrawSave {
+  background-color: #26A581;
+  border: 1px solid #26A581;
+  background-image: url("assets/route-draw/save.svg");
+}
+
+#routeDrawEdit > .button > span {
+  position: absolute;
+  bottom: 10px;
+  width: 42px;
+  display: flex;
+  justify-content: center;
+  font-family: "Open Sans";
+}
+
+#mapCenter {
+  background-image: url("assets/map-center.svg");
+  width: 50px;
+  height: 50px;
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: fixed;
+  left: calc(50vw - 25px);
+  top: calc((100vh - 78px - env(safe-area-inset-bottom))/2 - 25px);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+#mapCenterMenu {
+  color: #3F4A55;
+  display: flex;
+  position: absolute;
+  box-sizing: border-box;
+  top: calc(100% - 78px - env(safe-area-inset-bottom));
+  width: 100%;
+  height: calc(78px + env(safe-area-inset-bottom));
+  font-size: 12px;
+  background-color: white;
+  padding: 10px 30px 8px 15px;
+  z-index: 3003;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  font-family: "Open Sans";
+}
+
+#mapCenterSubmit {
+  width: 100px;
+  text-align: right;
+  font-weight: 600;
+}
+
+@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #layerManagerBtn {
-    bottom: 65px;
+    bottom: 50px;
   }
 
   #geolocateBtn {
-    bottom: 15px;
+    bottom: 0;
   }
 
   #sideBySideBtn {
-    left: 90px;
-    bottom: 65px;
+    bottom: 0;
   }
 
   #compassBtn {
-    top: 15px;
+    top: calc(15px + env(safe-area-inset-top));
+  }
+
+  #bottomButtons {
+    position: absolute;
+    bottom: calc(42px + env(safe-area-inset-bottom));
+    width: calc(100vw - 75px - env(safe-area-inset-left));
+    right: 0;
+  }
+
+  #interactivityBtn {
+    left: calc(90px + env(safe-area-inset-left));
+  }
+
+  #filterPoiBtn {
+    top: calc(10px + env(safe-area-inset-top));
+  }
+
+  #routeDrawEdit {
+    flex-direction: column;
+    bottom: calc(93px + env(safe-area-inset-bottom));
+    width: unset;
+    height: calc(100vh - 84px - 30px - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+    left: calc(100vh + env(safe-area-inset-left) + 57px);
+    transform: unset;
+  }
+
+  #routeDrawEdit > .button {
+    margin-bottom: 12px;
+  }
+
+  #routeDrawEdit > .button > span {
+    position: relative;
+    bottom: -40px;
+  }
+
+  #sideBySideLeftLayer {
+    left: -60px;
+  }
+
+  #mapCenter {
+    top: calc(50vh - 25px);
+    right: calc((100vw - 75px - env(safe-area-inset-left))/2 - 25px);
+  }
+
+  #mapCenterMenu {
+    flex-direction: column;
+    width: 75px;
+    height: 100vh;
+    left: env(safe-area-inset-left);
+    top: 0;
+    box-sizing: border-box;
+    padding: 10px 0px 8px 0px;
+  }
+
+  #mapCenterSubmit {
+    width: 100%;
+    text-align: center;
   }
 }

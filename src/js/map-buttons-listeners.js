@@ -1,6 +1,7 @@
 import DOM from './dom';
 import Globals from './globals';
 import Location from './services/location';
+import Reverse from './services/reverse';
 import State from './state';
 
 const addListeners = () => {
@@ -13,8 +14,7 @@ const addListeners = () => {
     const map = Globals.map;
     if (Location.isTrackingActive()){
       // De tracking a simple suivi de position
-      Location.locationOnOff();
-      Location.locationOnOff();
+      Location.disableTracking();
     }
     map.setBearing(Math.round((map.getBearing() % 360) + 360 ) % 360);
 
@@ -43,13 +43,36 @@ const addListeners = () => {
   });
 
   // Bouton Comparaison de carte
-  DOM.$sideBySideBtn.addEventListener("click", () => { Globals.compare.toggle(); });
-  
+  DOM.$sideBySideBtn.addEventListener("click", () => { Globals.menu.open("compare"); });
+
   // Bouton du gestionnaire de couches
   DOM.$layerManagerBtn.addEventListener("click", () => { Globals.menu.open("layerManager"); });
 
+  // Bouton des filtres POI
+  DOM.$filterPoiBtn.addEventListener("click", () => { Globals.menu.open("poi"); });
+
+  // Bouton d'aide'du tracé d'itinéraire
+  DOM.$routeDrawHelp.addEventListener("click", () => { Globals.routeDraw.showHelpPopup(); });
+
+  // Indicateur d'interactivité
+  DOM.$interactivityBtn.addEventListener("click", () => { Globals.interactivityIndicator.showPopup(); });
+
   // Bouton Retour
   DOM.$backTopLeftBtn.addEventListener("click", () => { State.onBackKeyDown(); });
+
+  // Sélection de point via le réticule pour isochrone et directions
+  DOM.$mapCenterSubmit.addEventListener("click", () => {
+    if (Globals.backButtonState === "selectOnMapIsochrone") {
+      Globals.isochrone.onAddWayPoint({lngLat: Globals.map.getCenter()});
+      Globals.menu.close('selectOnMapIsochrone');
+    } else if (Globals.backButtonState === "selectOnMapDirections") {
+      Reverse.compute({
+        lon: Globals.map.getCenter().lng,
+        lat: Globals.map.getCenter().lat,
+      });
+      Globals.menu.close('selectOnMapDirections');
+    }
+  });
 }
 
 export default {

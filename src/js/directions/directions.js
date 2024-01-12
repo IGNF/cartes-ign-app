@@ -1,12 +1,18 @@
-import maplibregl from "maplibre-gl";
+import { decode } from "@placemarkio/polyline"
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
+import maplibregl from "maplibre-gl";
 import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
+import DirectionsLayers from "./directions-styles";
+import directionsSortableCallback from "./directions-sortable-callback";
 
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
 import Location from "../services/location";
 import Reverse from "../services/reverse";
+
+import ElevationLineControl from "../elevation-line-control";
+import Sortable from 'sortablejs';
 
 /**
  * Interface du contrôle sur le calcul d'itineraire
@@ -35,16 +41,16 @@ class Directions {
             closeSearchControlCbk : null
         };
 
-        // TODO styles personnalisés
-        //   cf. https://maplibre.org/maplibre-gl-directions/#/examples/restyling
-
         // configuration du service
         //   cf. https://project-osrm.org/docs/v5.24.0/api/#
         //   ex. https://map.project-osrm.org/
         this.configuration = this.options.configuration || {
             api: "https://router.project-osrm.org/route/v1",
             profile: "driving",
-            requestOptions: {overview: "full"},
+            requestOptions: {
+                overview: "full",
+                steps: "true"
+            },
             requestTimeout: null,
             makePostRequest: false,
             sourceName: "maplibre-gl-directions",
@@ -66,10 +72,14 @@ class Directions {
                 "maplibre-gl-directions-alt-routeline",
                 "maplibre-gl-directions-alt-routeline-casing"
             ],
+            layers: DirectionsLayers,
             dragThreshold: 10,
             refreshOnMove: false,
             bearings: false
         };
+
+        // paramètres du calcul
+        this.settings = null;
 
         // résultats du calcul
         this.results = null;
@@ -84,8 +94,14 @@ class Directions {
         // > choix d'activer via la méthode publique...
         this.obj.interactive = false;
 
+        // Profil Altimétrique
+        this.elevation = new ElevationLineControl({target: document.getElementById("directions-elevationline")});
+
         // rendu graphique
         this.render();
+
+        // fonction d'event avec bind
+        this.handleAddWayPoint = this.#onAddWayPoint.bind(this);
 
         // event interactif
         this.#listeners();
@@ -110,6 +126,16 @@ class Directions {
 
         // ajout du container
         target.appendChild(container);
+
+        // dragn'drop !
+        Sortable.create(document.getElementById("divDirectionsLocationsList"), {
+            handle : ".handle-draggable-layer",
+            draggable : ".draggable-layer",
+            animation : 200,
+            forceFallback : true,
+            // Call event function on drag and drop
+            onEnd: directionsSortableCallback,
+        });
     }
 
     /**
@@ -118,7 +144,6 @@ class Directions {
      * @public
      */
     compute (settings) {
-        console.log(settings);
         // nettoyage de l'ancien parcours !
         this.obj.clear();
         // Les valeurs sont à retranscrire en options du service utilisé
@@ -132,7 +157,6 @@ class Directions {
                 case "Voiture":
                     this.configuration.profile = "driving";
                     break;
-
                 default:
                     break;
             }
@@ -148,7 +172,6 @@ class Directions {
                 case "Fastest":
                     message = "Itinéraire le plus rapide";
                     break;
-
                 default:
                     break;
             }
@@ -157,17 +180,18 @@ class Directions {
                 message : message
             };
         }
+        this.settings = settings;
         if (settings.locations && settings.locations.length) {
             try {
                 // les coordonnées sont en lon / lat en WGS84G
-                var start = JSON.parse(settings.locations[0]);
-                var end = JSON.parse(settings.locations[settings.locations.length - 1]);
-                if (start && end) {
-                    this.obj.addWaypoint(start);
-                    this.obj.addWaypoint(end);
-                    this.map.fitBounds([start, end], {
-                        padding : 20
-                    });
+                var points = []
+                var point = null;
+                for (let index = 0; index < settings.locations.length; index++) {
+                    if (settings.locations[index]) {
+                        point = JSON.parse(settings.locations[index]);
+                        points.push(point);
+                        this.obj.addWaypoint(point);
+                    }
                 }
             } catch (e) {
                 // catching des exceptions JSON
@@ -175,7 +199,13 @@ class Directions {
                 return;
             }
         }
+    }
 
+    /**
+     * ajout d'ecouteurs pour la saisie interactive
+     */
+    #listeners() {
+        this.obj.on("addwaypoint", this.handleAddWayPoint);
         // events
         this.obj.on("fetchroutesstart", (e) => {
             // TODO
@@ -183,7 +213,6 @@ class Directions {
             // start !
         });
         this.obj.on("fetchroutesend", (e) => {
-            console.log(e);
             // TODO
             // mise en place d'une patience...
             // finish !
@@ -204,27 +233,42 @@ class Directions {
                 this.results = new DirectionsResults(this.map, null, {
                     duration : e.data.routes[0].duration || "",
                     distance : e.data.routes[0].distance || "",
-                    transport : settings.transport,
-                    computation : settings.computation.message,
-                    instructions : []
+                    transport : this.settings.transport,
+                    computation : this.settings.computation.message,
+                    instructions : e.data.routes[0].legs
                 });
                 this.results.show();
+                let routeCoordinates = [];
+                decode(e.data.routes[0].geometry).forEach( (lnglat) => {
+                  routeCoordinates.push([lnglat[0], lnglat[1]]);
+                });
+                var padding = 20;
+                // gestion du mode paysage / écran large
+                if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                    var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sal").slice(0, -2)) +
+                      window.innerHeight + 42;
+                    padding = {top: 20, right: 20, bottom: 20, left: paddingLeft}
+                }
+                if (routeCoordinates.length > 1) {
+                    const bounds = routeCoordinates.reduce((bounds, coord) => {
+                        return bounds.extend(coord);
+                    }, new maplibregl.LngLatBounds(routeCoordinates[0], routeCoordinates[0]));
+
+                    this.map.fitBounds(bounds, {
+                        padding: padding,
+                    });
+                }
+                this.elevation.setCoordinates(routeCoordinates);
+                this.elevation.compute();
             }
         });
     }
 
     /**
-     * ajout d'ecouteurs pour la saisie interactive
-     */
-    #listeners() {
-        this.obj.on("addwaypoint", (e) => { this.#onAddWayPoint(e); });
-    }
-
-    /**
      * ecouteur lors de l'ajout d'un point avec addWayPoint()
      * @see https://maplibre.org/maplibre-gl-directions/api/interfaces/MapLibreGlDirectionsWaypointEventData.html
-     * @param {*} e 
-     * @returns 
+     * @param {*} e
+     * @returns
      */
     #onAddWayPoint(e) {
         var index = e.data.index;
@@ -242,11 +286,14 @@ class Directions {
             bResponse = false;
         }).finally(() => {
             var target = null;
-            var c = (bResponse) ? Reverse.getCoordinates() : {lon : coordinates.lng, lat : coordinates.lat};
-            var a = (bResponse) ? Reverse.getAddress() : "inconnue";
-            var address = a;
-            if (bResponse) {
-                address = a.city + ", " + a.citycode;
+            var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
+            var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
+            var strAddress = address;
+            if (typeof address !== "string") {
+                strAddress = "";
+                strAddress += (address.number !== "") ? address.number + " " : "";
+                strAddress += (address.street !== "") ? address.street + ", " : "";
+                strAddress += address.city + ", " + address.postcode;
             }
             // start
             if (index === 0) {
@@ -256,10 +303,15 @@ class Directions {
             if (index === 1) {
                 target = document.getElementById("directionsLocation_end");
             }
+            // step
+            if (index > 1) {
+                target = document.getElementById("directionsLocation_step_" + (index - 1));
+                target.parentNode.parentNode.classList.remove("hidden");
+            }
             // on ajoute les resultats dans le contrôle
             if (target) {
-                target.dataset.coordinates = "[" + c.lon + "," + c.lat + "]";
-                target.value = address;
+                target.dataset.coordinates = "[" + coords.lon + "," + coords.lat + "]";
+                target.value = strAddress;
             }
         });
     }
@@ -279,7 +331,13 @@ class Directions {
      */
     clear () {
         this.obj.clear();
-        this.obj.off("addwaypoint", (e) => { this.#onAddWayPoint(e); });
+        this.obj.off("addwaypoint", this.handleAddWayPoint);
+        var locations = document.querySelectorAll(".inputDirectionsLocations");
+        for (let index = 0; index < locations.length; index++) {
+            const element = locations[index];
+            element.value = "";
+            element.dataset.coordinates = "";
+        }
     }
 
     ////////////////////////////////////////////
@@ -313,15 +371,26 @@ class Directions {
         // - le nettoyage des ecouteurs
         function setLocation (e) {
             // on ferme le menu
-            if (self.options.closeSearchControlCbk) {
+            if (e.type !== "geolocation" && self.options.closeSearchControlCbk) {
                 self.options.closeSearchControlCbk();
             }
-
             // on enregistre dans le DOM :
             // - les coordonnées en WGS84G soit lon / lat !
             // - la reponse du geocodage
             target.dataset.coordinates = "[" + e.detail.coordinates.lon + "," + e.detail.coordinates.lat + "]";
-            target.value = e.detail.text;
+            if (e.type === "reverse") {
+                var strAddress = e.detail.address;
+                if (typeof e.detail.address !== "string") {
+                    strAddress = "";
+                    strAddress += (e.detail.address.number !== "") ? e.detail.address.number + " " : "";
+                    strAddress += (e.detail.address.street !== "") ? e.detail.address.street + ", " : "";
+                    strAddress += e.detail.address.city + ", " + e.detail.address.postcode;
+                }
+                target.value = strAddress;
+            } else {
+                target.value = e.detail.text.split(",")[0];
+            }
+
             // on supprime les écouteurs
             cleanListeners();
         }
@@ -337,6 +406,7 @@ class Directions {
             }
             Geocode.target.removeEventListener("search", setLocation)
             Location.target.removeEventListener("geolocation", setLocation);
+            Reverse.target.removeEventListener("reverse", setLocation);
         }
 
         // abonnement au geocodage
@@ -344,6 +414,9 @@ class Directions {
 
         // abonnement à la geolocalisation
         Location.target.addEventListener("geolocation", setLocation);
+
+        // abonnement au reverse
+        Reverse.target.addEventListener("reverse", setLocation);
 
         // abonnement au bouton de fermeture du menu
         var close = document.getElementById("closeSearch");

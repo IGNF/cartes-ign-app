@@ -6,10 +6,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #DDE1E6;
   padding: 15px;
-  margin: 10px;
 }
 
 .unit {
@@ -25,28 +23,37 @@
  */
 .pIsochroneTitle {
   text-align: center;
+  font-family: "Open Sans";
 }
+
+.pIsochroneTitleTitle {
+  font-family: "Open Sans Bold";
+  margin-top: 0;
+}
+
 
 /*
  * compute
  */
 .btnIsochroneCompute {
+  appearance: unset; /* for ios */
   display: block;
-  width: 90%;
   margin: auto;
   border: none;
-  border-radius: 12px;
+  border-radius: 70px;
   background-color: #26a581;
   padding: 14px 28px;
-  font-family: "Fira Sans-SemiBold", Helvetica;
+  font-family: "Open Sans";
   font-weight: 600;
   font-size: 16px;
-  color: var(--white);
+  color: white;
   cursor: pointer;
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+  width: 236px;
+  margin-top: 26px;
 }
 
 /*
@@ -71,7 +78,7 @@
   height: 34px;
   width: 220px;
   background-color: #e9ecef;
-  /* box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15); */
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.08);
   padding: 10px;
   border-radius: 100px;
   margin-bottom: 10px;
@@ -80,21 +87,30 @@
 
 .lblIsochroneMode,
 .lblIsochroneTransport {
+  color: #788089;
+  padding-left: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 30px;
   width: 120px;
-  /* font-size: .8rem;
-  color: black;
-  font-weight: 500; */
   border-radius: 100px;
   cursor: pointer;
   transition: color 0.15s ease-in;
   background-repeat: no-repeat;
+  background-size: 20px 25px;
+  background-position: 12px 3px;
+  font-family: "Open Sans";
 }
 
-.divIsochroneTransport input[type="radio"]:checked + label {}
+.lblIsochroneMode {
+  padding: 0;
+}
+
+.divIsochroneTransport input[type="radio"]:checked + label,
+.divIsochroneMode input[type="radio"]:checked + label {
+  color: white;
+}
 
 .divIsochroneMode input[id="isochroneModeDistance"]:checked ~ .sliderIsochrone,
 .divIsochroneTransport input[id="isochroneTransportVoiture"]:checked ~ .sliderIsochrone {
@@ -115,14 +131,23 @@
   z-index: 1;
   border-radius: 100px;
   transition: 0.25s ease-out;
+  background-color: #26A581;
 }
 
 #isochroneTransportVoiture + label {
   background-image: url("assets/directions/voiture.svg");
 }
 
+#isochroneTransportVoiture:checked + label {
+  background-image: url("assets/directions/voiture-s.svg");
+}
+
 #isochroneTransportPieton + label {
   background-image: url("assets/directions/pieton.svg");
+}
+
+#isochroneTransportPieton:checked + label {
+  background-image: url("assets/directions/pieton-s.svg");
 }
 
 /*
@@ -130,7 +155,9 @@
  */
 
 #isochroneModeValueDuration,
-#isochroneModeValueDistance {}
+#isochroneModeValueDistance {
+  margin-bottom: 10px;
+}
 
 .divIsochroneValue {
   display: flex;
@@ -146,29 +173,32 @@
   align-items: center;
 }
 
-/* fixme comment afficher les fleches */
-/* input#isochroneValueDurationInputHours[type=number]::-webkit-inner-spin-button,
-input#isochroneValueDurationInputMinutes[type=number]::-webkit-inner-spin-button {
-  opacity: 1
-} */
-
-#isochroneValueDurationInputHours {
-  flex: 1;
-  height: 35px;
-  width: 50%;
-  padding-left: 10px;
+input#isochroneValueDurationInputHours[type=number],
+input#isochroneValueDurationInputMinutes[type=number],
+input#isochroneValueDistanceInput[type=number]
+ {
+  appearance: textfield;
 }
-#isochroneValueDurationInputMinutes {
+
+#isochroneValueDurationInputHours,
+#isochroneValueDurationInputMinutes,
+#isochroneValueDistanceInput
+{
   flex: 1;
   height: 35px;
   width: 50%;
   padding-left: 10px;
+  border-radius: 8px;
+  border: 1px solid;
+  border-color: #DDE1E6;
+  color: #3F4A55;
+  text-align: right;
 }
 
 #isochroneValueDurationInputHours:focus,
 #isochroneValueDurationInputMinutes:focus {
   outline: none;
-  border:1px solid #26a581;
+  border-color: #26a581;
 }
 
 #isochroneValueDistance {
@@ -176,12 +206,7 @@ input#isochroneValueDurationInputMinutes[type=number]::-webkit-inner-spin-button
   flex-direction: row;
   align-items: center;
 }
-#isochroneValueDistanceInput {
-  flex: 1;
-  height: 35px;
-  width: 50%;
-  padding-left: 10px;
-}
+
 #isochroneValueDistanceInput:focus {
   outline: none;
   border:1px solid #26a581;
@@ -199,9 +224,57 @@ input#isochroneValueDurationInputMinutes[type=number]::-webkit-inner-spin-button
   height: 45px;
   margin: auto;
   padding-left: 15px;
-  background-color: #ffffff;
-  border-radius: 6px;
-  border: 1px solid;
-  border-color: #788089;
   margin-bottom: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid;
+  border-color: #DDE1E6;
+  color: #3F4A55;
+}
+
+.inputIsochroneLocation:focus {
+  outline: none;
+  border-color: #26a581;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+}
+
+/*
+ * POI filters
+ */
+.filterTitle {
+  text-align: left;
+  width: 100%;
+  font-family: "Open Sans";
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.divIsochronePOIFilter {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: "Open Sans";
+}
+
+.lblIsochroneFilter {
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+/*
+ * Display options
+ */
+.divIsochroneDisplayOptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: "Open Sans";
+  padding-top: 15px;
+  align-items: center;
+}
+
+.divIsochroneDisplayOptions > span {
+  max-width: 50%;
+  white-space: wrap;
+  text-align: left;
 }

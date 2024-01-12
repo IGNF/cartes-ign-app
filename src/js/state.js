@@ -1,4 +1,5 @@
 import Globals from './globals';
+import DOM from './dom';
 import { App } from '@capacitor/app';
 
 /**
@@ -14,32 +15,24 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'search') {
         Globals.menu.close('search');
     }
-    if (Globals.backButtonState === 'mainMenu') {
-        // ...
-    }
     if (Globals.backButtonState === 'myaccount') {
+        DOM.$whiteScreen.style.removeProperty("animation");
         Globals.menu.close('myaccount');
     }
     if (Globals.backButtonState === 'parameterScreen') {
         Globals.menu.close('parameterScreen');
+        Globals.menu.open('myaccount');
     }
     if (Globals.backButtonState === 'legalScreen') {
         Globals.menu.close('legalScreen');
+        Globals.menu.open('myaccount');
     }
     if (Globals.backButtonState === 'privacyScreen') {
         Globals.menu.close('privacyScreen');
-    }
-    if (Globals.backButtonState === 'plusLoinScreen') {
-        Globals.menu.close('plusLoinScreen');
+        Globals.menu.open('myaccount');
     }
     if (Globals.backButtonState === 'informations') {
         Globals.menu.close('informations');
-    }
-    if (Globals.backButtonState === 'info') {
-        Globals.menu.close('info');
-    }
-    if (Globals.backButtonState === 'legend') {
-        Globals.menu.close('legend');
     }
     if (Globals.backButtonState === 'layerManager') {
         Globals.menu.close('layerManager');
@@ -59,8 +52,38 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'searchIsochrone') {
         Globals.menu.close('searchIsochrone');
     }
-    if (Globals.backButtonState === 'myposition') {
-        Globals.menu.close('myposition');
+    if (Globals.backButtonState === 'position') {
+        Globals.menu.close('position');
+    }
+    if (Globals.backButtonState.split("-")[0] === 'poi') {
+        var previousState = Globals.backButtonState.split("-")[1];
+        Globals.menu.close('poi');
+        // réouverture de menu précédent
+        if (previousState !== "default") {
+          Globals.menu.open(previousState);
+          return;
+        }
+    }
+    if (Globals.backButtonState === 'compare') {
+        Globals.menu.close('compare');
+    }
+    if (Globals.backButtonState === 'compareLayers1') {
+        Globals.menu.close('compareLayers1');
+    }
+    if (Globals.backButtonState === 'compareLayers2') {
+        Globals.menu.close('compareLayers2');
+    }
+    if (Globals.backButtonState === 'routeDraw') {
+        Globals.menu.close('routeDraw');
+    }
+    if (Globals.backButtonState === 'routeDrawSave') {
+      Globals.menu.close('routeDrawSave');
+    }
+    if (Globals.backButtonState === 'selectOnMapDirections') {
+        Globals.menu.close('selectOnMapDirections');
+    }
+    if (Globals.backButtonState === 'selectOnMapIsochrone') {
+        Globals.menu.close('selectOnMapIsochrone');
     }
 }
 

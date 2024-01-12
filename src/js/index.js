@@ -5,11 +5,12 @@ import Globals from './globals';
 import MapButtonsListeners from './map-buttons-listeners';
 import MapListeners from './map-listeners';
 import EventListeners from './event-listeners';
-import LayerManager from './layer-manager';
-import LayersConfig from './layer-config';
+import LayerManager from './layer-manager/layer-manager';
+import LayersConfig from './layer-manager/layer-config';
 import Controls from './controls';
 import RecentSearch from "./search-recent";
 import MenuNavigation from './nav';
+import InteractivityIndicator from './map-interactivity/interactivity-indicator';
 
 // import CSS
 import '@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css';
@@ -47,62 +48,50 @@ function app() {
     zoom: 5,
     center: [2.0, 47.33],
     attributionControl: false,
+    maxZoom: 21,
     locale: "fr",
     maxPitch: 0,
     touchPitch: false,
   });
-  map.scrollZoom.setWheelZoomRate(1);
 
-  // Secondary map for RLT
-  const mapRLT = new maplibregl.Map({
-    container: "mapRLT",
+  // Secondary maps for RLT
+  const mapRLT1 = new maplibregl.Map({
+    container: "mapRLT1",
     zoom: 5,
     center: [2.0, 47.33],
     attributionControl: false,
+    maxZoom: 21,
     locale: "fr",
     maxPitch: 0,
     touchPitch: false,
   });
-  mapRLT.scrollZoom.setWheelZoomRate(1);
-  
+  // disable map rotation using right click + drag
+  mapRLT1.dragRotate.disable();
+  // disable map rotation using touch rotation gesture
+  mapRLT1.touchZoomRotate.disableRotation();
+  const mapRLT2 = new maplibregl.Map({
+    container: "mapRLT2",
+    zoom: 5,
+    center: [2.0, 47.33],
+    attributionControl: false,
+    maxZoom: 21,
+    locale: "fr",
+    maxPitch: 0,
+    touchPitch: false,
+  });
+  // disable map rotation using right click + drag
+  mapRLT2.dragRotate.disable();
+  // disable map rotation using touch rotation gesture
+  mapRLT2.touchZoomRotate.disableRotation();
+
   // Enregistrement de la carte
   Globals.map = map;
-  Globals.mapRLT = mapRLT;
-  
+  Globals.mapRLT1 = mapRLT1;
+  Globals.mapRLT2 = mapRLT2;
+
   // DEBUG
   window.mapGlobal = map;
 
-  // Ajout des sources definies dans la configuration à la carte
-  // (les couches de fonds et de données sont uniquement pre chargées)
-  for (let layer in LayersConfig.baseLayerSources) {
-    map.addSource(layer, LayersConfig.baseLayerSources[layer]);
-    mapRLT.addSource(layer, LayersConfig.baseLayerSources[layer]);
-  }
-  for (let layer in LayersConfig.dataLayerSources) {
-    map.addSource(layer, LayersConfig.dataLayerSources[layer]);
-  }
-
-  // Chargement de la position précédente
-  if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
-    map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
-    map.setZoom(localStorage.getItem("lastMapZoom") || map.getZoom());
-  }
-
-  // Chargement des couches
-  Globals.manager = new LayerManager({
-    layers : [
-      {
-        layers : Globals.baseLayerDisplayed, 
-        type : "base"
-      },
-      {
-        layers : Globals.dataLayerDisplayed, 
-        type : "data"
-      }
-    ]
-  });
-
-  Globals.ignoreNextScrollEvent = true;
   window.scroll({
     top: 0,
     left: 0,
@@ -112,6 +101,11 @@ function app() {
 
   // Ajout des contrôles
   Controls.addControls();
+
+  // HACK: déplacement de l'échelle hors de la div map pour qu'elle bouge librement
+  var mapLibreControls = document.querySelectorAll(".maplibregl-control-container")[2];
+  var parent = document.getElementById("bottomButtons");
+  parent.appendChild(mapLibreControls);
 
   // Ajout des ecouteurs des boutons de la carte
   MapButtonsListeners.addListeners();
@@ -125,10 +119,51 @@ function app() {
   // Ajout des recherches recentes issues du localStorage
   RecentSearch.create();
 
+  // Ajout des sources definies dans la configuration à la carte
+  // (les couches de fonds, rlt et thématiques sont pre chargées)
+  // Les sources des couches tuiles vectorielles ne sont pas pré chargées
+  // car on ne connait pas la liste des sources disponible dans le fichier de style.
+  for (let layer in LayersConfig.baseLayerSources) {
+    var source = LayersConfig.baseLayerSources[layer];
+    if (source.type !== "vector") {
+      map.addSource(layer, source);
+    }
+  }
+  for (let layer in LayersConfig.rltLayerSources) {
+    var source = LayersConfig.rltLayerSources[layer];
+    if (source.type !== "vector") {
+      mapRLT1.addSource(layer, source);
+      mapRLT2.addSource(layer, source);
+    }
+  }
+  for (let layer in LayersConfig.thematicLayerSources) {
+    var source = LayersConfig.thematicLayerSources[layer];
+    if (source.type !== "vector") {
+      map.addSource(layer, source);
+    }
+  }
+
+  // Chargement de la position précédente
+  if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
+    map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
+    map.setZoom(localStorage.getItem("lastMapZoom") || map.getZoom());
+  }
+
+  // Chargement des couches par defaut dans le localStorage
+  Globals.manager = new LayerManager({
+    layers : Globals.layersDisplayed,
+  });
+
+  // INFO
+  // Indicateur d'activité du Plan IGN interactif sur la carte
+  // (il doit être placé après le LayerManager afin de connaitre les couches ajoputées par défaut !)
+  Globals.interactivityIndicator = new InteractivityIndicator(map, {});
+
   // Initialisation du menu de navigation
   Globals.menu = new MenuNavigation();
   Globals.menu.show();
-
+  // HACK: Nécessaire pour iOS qui ne met pas à jour la taille de l'écran au lancement...
+  setTimeout(() => Globals.map.resize(), 100);
 }
 
 app();

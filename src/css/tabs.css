@@ -2,24 +2,56 @@
  * fenetres ou onglets
  ***********************************/
 
-#infoWindow,
-#legendWindow,
 #informationsWindow,
 #isochroneWindow,
 #directionsWindow,
 #directionsResultsWindow,
-#mypositionWindow,
-#layerManagerWindow {
+#positionWindow,
+#layerManagerWindow,
+#poiWindow,
+#routeDrawWindow {
   margin-top: 10px;
   position: relative;
-  background: white;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  color:#4b4b4b;
+  color:#3F4A55;
   font-size: 1.1em;
   text-align: justify;
   overflow-y: scroll;
 }
+
+#isochroneWindow,
+#layerManagerWindow {
+  overflow-y: auto;
+}
+
+#informationsWindow::after,
+#isochroneWindow::after,
+#directionsWindow::after,
+#directionsResultsWindow::after,
+#positionWindow::after,
+#layerManagerWindow::after,
+#poiWindow::after,
+#routeDrawWindow::after,
+#directionsWindow::after {
+  content: "";
+  pointer-events: none;
+  position: sticky;
+  z-index: 6;
+  bottom: 0;
+  width: 100%;
+  height: 25px;
+  background: linear-gradient(#fff0, #f4f6f8);
+  opacity: 1;
+  visibility: visible;
+  display: block;
+}
+
+#routeDrawWindow::after,
+#directionsResultsWindow::after {
+  background: linear-gradient(#fff0, white);
+}
+
 
 .windowClose {
   width: 34px;
@@ -33,9 +65,7 @@
   z-index: 3001;
 }
 
-#informationsWindowContent,
-#infoWindowContent,
-#legendWindowContent {
+#informationsWindowContent {
   margin-right: 20px;
   margin-left: 20px;
   margin-bottom: 30px;
@@ -44,56 +74,25 @@
 /* Bottom menu */
 #tabContainer {
   position: absolute;
-  top: calc(100% - 78px);
-  max-height: 100%;
+  top: calc(100% - 78px - env(safe-area-inset-bottom));
   height: fit-content;
   width: 100%;
-  background-color: #FFFFFE;
+  background-color: #f4f6f8;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  color: #4b4b4b;
+  color: #3f4a55;
   display: flex;
   flex-direction: column;
   z-index: 101;
+  box-sizing: border-box;
+  padding: 0 6% 6% 6%;
 }
 
-#hrBottom {
-  width: 10%;
-  text-align: center;
-  margin: auto;
-  margin-top: auto;
-  margin-top: 8px;
-  margin-bottom: 0px;
-  color: #DDD;
-  border: 1px solid #AAA;
-  border-radius: 2px;
+#tabHeader {
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  align-self: center;
+  background-image: url(../html/img/navheader.svg);
+  flex-shrink: 0;
 }
-
-#menuItemLegend {
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
-
-
-#tools h3, #layerManagerWindow h3 {
-  text-align: center;
-}
-
-.textCouche {
-  font-family: "Open Sans Semibold";
-  color: #0B6BA7;
-  display: flex;
-  justify-content: center;
-}
-
-
-
-#layerManagerWindow h3 {
-  margin-bottom: 10px;
-}
-#layerManagerWindow h4 {
-  padding: 0 30px 5px;
-  margin: 0 0 10px 0;
-}
-

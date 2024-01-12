@@ -1,7 +1,5 @@
-div#layerManagerWindowClose {
-  top: -10px;
-}
-
+#myaccount-routes-number,
+#myaccount-landmarks-number,
 #layer-thematics-number,
 #layer-switcher-number {
   display: inline-block;
@@ -11,9 +9,11 @@ div#layerManagerWindowClose {
   text-align: center;
   font-size: 0.9em;
   margin: auto;
-  border-radius: 50%;
-  background-color: #00b798;
+  border-radius: 50px;
+  background-color: #26A581;
   color: #fff;
+  font-family: "Open Sans";
+  padding: 3px 5px;
 }
 
 .layer-tabs-wrap {
@@ -29,23 +29,18 @@ div#layerManagerWindowClose {
 }
 
 .layer-tabs-label {
-  width: auto;
+  width: 50%;
   height: 35px;
   cursor: pointer;
   display: block;
-  flex-grow: 1;
   text-align: center;
 }
 
-.layer-tabs-label:hover {
-}
-.layer-tabs-label:active {
-}
-
-.layer-tabs-input:focus + .layer-tabs-label {
+.layer-tabs-label {
+  border-bottom: 2px solid #DDE1E6;
 }
 .layer-tabs-input:checked + .layer-tabs-label {
-  border-bottom: 2px inset #26a581;
+  border-bottom: 2px solid #26a581;
 }
 
 .layer-tabs-input:checked:nth-of-type(1) ~ .layer-tabs-content:nth-of-type(1) {
@@ -70,12 +65,4 @@ div#layerManagerWindowClose {
   /* opacity: 0; */
   display: none;
   left: 0;
-}
-
-#layer-thematics-tab,
-#layer-switcher-tab {
-}
-
-#layer-thematics,
-#layer-switcher {
 }

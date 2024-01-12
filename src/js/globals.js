@@ -1,22 +1,26 @@
 /** global: map */
 let map = null;
-let mapRLT = null;
+let mapRLT1 = null;
+let mapRLT2 = null;
 
 /**
- * global: layer display state 
- * @todo gerer une liste de couches
+ * global: layer display state
  */
-let baseLayerDisplayed = localStorage.getItem("lastBaseLayerDisplayed") || 'ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS';
-let dataLayerDisplayed = localStorage.getItem("lastDataLayerDisplayed") || '';
+let layersDisplayed;
+if (!localStorage.getItem("lastLayersDisplayed")) {
+  layersDisplayed = ["PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"];
+} else {
+  layersDisplayed = JSON.parse(localStorage.getItem("lastLayersDisplayed"));
+}
 
-/** 
- * global: back button state 
- * is one of: 'default' 'search' 'mainMenu' 'params' 'legal' 'privacy' 'plusLoin' 'infos' 'legend' 'layerManagerWindow' 'route' ...
+/**
+ * global: back button state
+ * is one of: 'default' 'search' 'params' 'legal' 'privacy' 'infos' 'layerManagerWindow' 'route' ...
  */
 let backButtonState = 'default';
 
-/** 
- * global: map state 
+/**
+ * global: map state
  * is one of: 'default' 'drawRoute' 'compare' ...
  */
 let mapState = 'default';
@@ -26,9 +30,6 @@ let lastTextInSearch = '';
 
 /** global: flag to check if map move fired by code */
 let movedFromCode = false;
-
-/** global: flag to check if scoll fired by code */
-let ignoreNextScrollEvent = false;
 
 let myPositionMarker = null;
 let searchResultMarker;
@@ -49,17 +50,33 @@ let directions = null;
 // Global Isochrone plugin
 let isochrone = null;
 
-// Global MyPosition plugin
-let myposition = null;
+// Global Position plugin
+let position = null;
 
 // Global Compare Plugin
 let compare = null;
+let comparedLayers = ["ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS", "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$GEOPORTAIL:OGC:WMTS"];
 
 // Global Menu navigation
 let menu = null;
 
 // Global Layer Manager
 let manager = null;
+
+// Global POI filters
+let poi = null;
+
+// Global route draw
+let routeDraw = null;
+
+// Global interactivity
+let interactivityIndicator = null;
+
+// Global control mapInteractivity
+let mapInteractivity = null;
+
+// Global control my account
+let myaccount = null;
 
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
@@ -69,9 +86,9 @@ let currentScroll = window.scrollY;
 
 export default {
   map,
-  mapRLT,
-  baseLayerDisplayed,
-  dataLayerDisplayed,
+  mapRLT1,
+  mapRLT2,
+  layersDisplayed,
   backButtonState,
   mapState,
   lastTextInSearch,
@@ -82,16 +99,21 @@ export default {
   controller,
   signal,
   movedFromCode,
-  ignoreNextScrollEvent,
   currentScrollIndex,
   maxScroll,
   anchors,
   currentScroll,
   directions,
   isochrone,
-  myposition,
+  position,
   search,
   compare,
+  comparedLayers,
   menu,
-  manager
+  manager,
+  poi,
+  routeDraw,
+  interactivityIndicator,
+  mapInteractivity,
+  myaccount,
 };

@@ -1,5 +1,6 @@
-<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="20" height="20" rx="10" fill="white"/>
-<rect x="0.5" y="0.5" width="19" height="19" rx="9.5" stroke="#091625"/>
-<path d="M10.5079 4.6153H9.49212L9.49157 5.12337V9.49099L4.61532 9.4921L4.61532 10.5079L9.49157 10.5079L9.49212 15.3847H10.5079L10.5084 10.5079L15.3847 10.5079L15.3847 9.4921L14.8766 9.49155L10.5079 9.49155L10.5079 4.6153Z" fill="black"/>
+<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="IconsNew">
+<rect id="Rectangle 35" y="0.500092" width="24" height="24" rx="12" fill="white"/>
+<circle id="Ellipse 67" cx="12" cy="12.5001" r="4" stroke="#3F4A55" stroke-width="2"/>
+</g>
 </svg>

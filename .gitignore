@@ -5,3 +5,5 @@ www/css/*index.bundle.css*
 www/css/assets
 
 .vscode
+
+.env

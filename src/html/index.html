@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 
     <title>Géoportail</title>
   </head>
   <body>
       <!-- background color -->
-      <div id="blueBg" class="d-none"></div>
+      <div id="whiteScreen" class="d-none"></div>
 
       <div class="app">
 
@@ -23,36 +23,38 @@
           -->
           <%= require('html-loader!./map.html').default %>
           <%= require('html-loader!./mapButtons.html').default %>
-            
+
           <!-- Outil de recheche sur la carte -->
           <%= require('html-loader!./search.html').default %>
 
           <!-- Menu de navigation -->
           <%= require('html-loader!./nav.html').default %>
-          
-          <!-- Toutes les informations sont affichées dans un onglet resizable 
+
+          <!-- Toutes les informations sont affichées dans un onglet resizable
             et ancré en bas de l'écran.
           -->
           <div id="tabContainer">
-            <hr id="hrBottom">
-              <%= require('html-loader!./tabs/searchresultsWindow.html').default %>
+            <div id="tabHeader"></div>
               <%= require('html-loader!./tabs/layermanagerWindow.html').default %>
               <%= require('html-loader!./tabs/directionsWindow.html').default %>
               <%= require('html-loader!./tabs/directionsResultsWindow.html').default %>
-              <%= require('html-loader!./tabs/infoWindow.html').default %>
-              <%= require('html-loader!./tabs/legendWindow.html').default %>
               <%= require('html-loader!./tabs/isochroneWindow.html').default %>
-              <%= require('html-loader!./tabs/mypositionWindow.html').default %>
-              <%= require('html-loader!./tabs/myaccountWindow.html').default %>
+              <%= require('html-loader!./tabs/routeDrawWindow.html').default %>
+              <%= require('html-loader!./tabs/routeDrawSaveWindow.html').default %>
+              <%= require('html-loader!./tabs/positionWindow.html').default %>
               <%= require('html-loader!./tabs/informationsWindow.html').default %>
+              <%= require('html-loader!./tabs/poiWindow.html').default %>
+              <%= require('html-loader!./tabs/compareLayers1Window.html').default %>
+              <%= require('html-loader!./tabs/compareLayers2Window.html').default %>
           </div>
 
           <!-- Autres menus alternatifs -->
           <div class="d-none" id="altMenuContainer">
+            <%= require('html-loader!./alt-menu/searchresultsWindow.html').default %>
             <%= require('html-loader!./alt-menu/parameterMenu.html').default %>
+            <%= require('html-loader!./alt-menu/myaccountWindow.html').default %>
             <%= require('html-loader!./alt-menu/legalMenu.html').default %>
             <%= require('html-loader!./alt-menu/privacyMenu.html').default %>
-            <%= require('html-loader!./alt-menu/plusLoinMenu.html').default %>
           </div>
       </div>
   </body>
