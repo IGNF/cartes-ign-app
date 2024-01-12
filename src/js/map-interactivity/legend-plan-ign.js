@@ -51,7 +51,7 @@ class Legend {
     };
 
     #getLegend(svg, layername) {
-        const html = `<div>${svg}<div>${layername}</div></div>`
+        const html = `<div class="divLegendContainer"><div>${svg}</div><div class="divLegendDescription">${layername}</div></div>`
         return html;
     }
 
@@ -107,14 +107,26 @@ class Legend {
     }
 
     #MapBoxStyleToSVG(features, zoom) {
-        const height = 40;
+        var height = 40;
         const width = 60;
-        const x = 0;
-        const y = height/2;
         const multiplicator = 2;
 
-        var shape = "";
+        features.forEach(f => {
+            if (f.type == 'line') {
+                const lineWidth = this.#getMapboxPropAtZoom(f, "line-width", zoom, 1) * multiplicator;
+                height = lineWidth > height ? lineWidth : height;
+            }
+            if (f.type == 'circle') {
+                const circleStrokeWidth = this.#getMapboxPropAtZoom(f, "circle-stroke-width", zoom, 1);
+                const radius = this.#getMapboxPropAtZoom(f, "circle-radius", zoom, 0);
+                height = circleStrokeWidth + radius > height ? circleStrokeWidth + radius : height;
+            }
+        })
 
+        const x = 0;
+        const y = height/2;
+
+        var shape = "";
         features.forEach(f => {
             if (f.type == 'text') {
                 shape += `<text x="180" y="60">Un texte</text>`
