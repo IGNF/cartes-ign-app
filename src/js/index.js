@@ -11,6 +11,10 @@ import Controls from './controls';
 import RecentSearch from "./search-recent";
 import MenuNavigation from './nav';
 import InteractivityIndicator from './map-interactivity/interactivity-indicator';
+import { StatusBar, Style } from '@capacitor/status-bar';
+// https://github.com/ionic-team/capacitor/issues/2840
+import { SafeAreaController } from '@aashu-dubey/capacitor-statusbar-safe-area';
+import { NavigationBar } from "@capgo/capacitor-navigation-bar";
 
 // import CSS
 import '@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css';
@@ -25,6 +29,14 @@ import MapCenterImg from "../css/assets/map-center.svg";
  * Fonction définissant l'application
  */
 function app() {
+  try {
+    SafeAreaController.injectCSSVariables();
+    StatusBar.setOverlaysWebView({ overlay: true });
+    StatusBar.setStyle({ style: Style.Light });
+    NavigationBar.setNavigationBarColor({color: "#ffffff"});
+  } catch(err) {
+    console.warn("Status bar not supported");
+  }
 
   // Définition des icones
   Globals.myPositionIcon = document.createElement('div');

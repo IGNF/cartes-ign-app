@@ -4,6 +4,7 @@ import DOM from './dom';
 import Globals from './globals';
 import RecentSearch from "./search-recent";
 import State from "./state";
+import { SafeAreaController } from '@aashu-dubey/capacitor-statusbar-safe-area';
 
 /**
  * Ecouteurs generiques
@@ -84,6 +85,8 @@ function addListeners() {
 
   // Screen dimentions change
   window.addEventListener("resize", () => {
+    SafeAreaController.injectCSSVariables();
+
     if (Globals.backButtonState !== 'default') {
       Globals.currentScrollIndex = 1;
     }
@@ -108,9 +111,9 @@ function addListeners() {
       DOM.$bottomButtons.style.removeProperty('left');
       DOM.$bottomButtons.style.removeProperty('width');
       if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+        DOM.$bottomButtons.style.bottom = "calc(220px + var(--safe-area-inset-bottom))";
       } else {
-        DOM.$bottomButtons.style.left = "calc(100vh + env(safe-area-inset-left) + 42px)";
+        DOM.$bottomButtons.style.left = "calc(100vh + var(--safe-area-inset-left) + 42px)";
         DOM.$bottomButtons.style.width = "auto";
       }
     }
@@ -120,7 +123,7 @@ function addListeners() {
     if (Globals.backButtonState === "compareLayers2") {
       DOM.$sideBySideLeftLayer.style.removeProperty("left");
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(100vh + env(safe-area-inset-left) - 20px)";
+        DOM.$sideBySideLeftLayer.style.left = "calc(100vh + var(--safe-area-inset-left) - 20px)";
     }
     }
     Globals.menu.updateScrollAnchors();

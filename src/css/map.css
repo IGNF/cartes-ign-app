@@ -34,7 +34,7 @@
 
 /* Map */
 .map {
-  height: calc(100vh - 78px - env(safe-area-inset-bottom));
+  height: calc(100vh - 78px - var(--safe-area-inset-bottom));
   width: 100vw;
   flex-grow: 1;
   position: fixed;
@@ -57,7 +57,7 @@
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #map {
     height: 100vh;
-    width: calc(100vw - 75px - env(safe-area-inset-left));
+    width: calc(100vw - 75px - var(--safe-area-inset-left));
     right: 0;
   }
 }
