@@ -1,7 +1,7 @@
 #altMenuContainer {
   z-index: 3001;
   height: auto;
-  top: calc(68px + env(safe-area-inset-top));
+  top: calc(68px + var(--safe-area-inset-top));
   display: flex;
   width: 100%;
   position: absolute
@@ -56,7 +56,7 @@
 /* mode paysage et écrans larges */
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #altMenuContainer {
-    width: calc(100vw - 75px - env(safe-area-inset-left));
-    left: calc(75px + env(safe-area-inset-left))
+    width: calc(100vw - 75px - var(--safe-area-inset-left));
+    left: calc(75px + var(--safe-area-inset-left))
   }
 }

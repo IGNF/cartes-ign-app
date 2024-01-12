@@ -1,7 +1,7 @@
 /* mode paysage et écrans larges */
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #tabContainer {
-    width: calc(100vh + env(safe-area-inset-left) + 42px);
+    width: calc(100vh + var(--safe-area-inset-left) + 42px);
     height: 100vh;
     top: 100%;
     left: 0;
@@ -9,7 +9,7 @@
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
     z-index: 300;
-    padding: 0 15px 15px calc(env(safe-area-inset-left) + 42px);
+    padding: 0 15px 15px calc(var(--safe-area-inset-left) + 42px);
     transition: top 0.3s;
 }
 
