@@ -8,11 +8,13 @@
 let DirectionsDOM = {
 
     dom : {
-        container : null,
-        inputCar : null,
-        inputPedestrian : null,
-        inputFastest : null,
-        inputShortest : null
+        container: null,
+        inputCar: null,
+        inputPedestrian: null,
+        inputFastest: null,
+        inputShortest: null,
+        inputDeparture: null,
+        inputArrival: null,
     },
 
     /**

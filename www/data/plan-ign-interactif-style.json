@@ -2,7 +2,7 @@
 	"version": 8,
 	"name": "PLAN IGN interactif",
 	"glyphs": "https://wxs.ign.fr/static/vectorTiles/fonts/{fontstack}/{range}.pbf",
-	"sprite": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/sprite/PlanIgn",
+	"sprite": "data/poi-osm-sprite",
 	"metadata": {
 		"geoportail:tooltip": "BDTOPO/multicouche_bdtopo"
 	},
@@ -15455,7 +15455,7 @@
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 0.75
+				"line-width": 15
 			}
 		},
 		{
@@ -15498,7 +15498,7 @@
 					6,
 					2
 				],
-				"line-width": 1.5
+				"line-width": 15
 			},
 			"minzoom": 13,
 			"layout": {
@@ -15515,7 +15515,7 @@
 				"circle-stroke-color": "transparent",
 				"circle-opacity": 1,
 				"circle-stroke-width": 1,
-				"circle-radius": 3
+				"circle-radius": 15
 			},
 			"minzoom": 15
 		},
@@ -15529,7 +15529,7 @@
 				"circle-stroke-color": "transparent",
 				"circle-opacity": 1,
 				"circle-stroke-width": 1,
-				"circle-radius": 5
+				"circle-radius": 15
 			},
 			"minzoom": 15
 		},
@@ -15674,7 +15674,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 3
+				"line-width": 15
 			}
 		},
 		{
@@ -15693,7 +15693,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			}
 		},
 		{
@@ -15712,7 +15712,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			}
 		},
 		{
@@ -15731,7 +15731,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1.5
+				"line-width": 15
 			}
 		},
 		{
@@ -15750,7 +15750,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1.7
+				"line-width": 15
 			}
 		},
 		{
@@ -15769,7 +15769,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			}
 		},
 		{
@@ -15788,7 +15788,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1.5
+				"line-width": 15
 			}
 		},
 		{
@@ -15807,7 +15807,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			}
 		},
 		{
@@ -15826,7 +15826,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1.8,
+				"line-width": 15,
 				"line-dasharray": [
 					3,
 					0.2
@@ -15853,7 +15853,7 @@
 					6,
 					2
 				],
-				"line-width": 1.5
+				"line-width": 15
 			}
 		},
 		{
@@ -15872,7 +15872,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2,
+				"line-width": 15,
 				"line-dasharray": [
 					3,
 					2
@@ -15895,7 +15895,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2,
+				"line-width": 15,
 				"line-dasharray": [
 					3,
 					2
@@ -15918,7 +15918,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1
+				"line-width": 15
 			}
 		},
 		{
@@ -15944,7 +15944,7 @@
 			"minzoom": 13,
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2.5
+				"line-width": 15
 			}
 		},
 		{
@@ -15965,7 +15965,7 @@
 			"minzoom": 14,
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1
+				"line-width": 15
 			}
 		},
 		{
@@ -15976,7 +15976,7 @@
 			"minzoom": 15,
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1
+				"line-width": 15
 			}
 		},
 		{
@@ -16328,7 +16328,7 @@
 			"minzoom": 1,
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2.5
+				"line-width": 15
 			}
 		},
 		{
@@ -16354,7 +16354,7 @@
 				"circle-stroke-color": "transparent",
 				"circle-opacity": 1,
 				"circle-stroke-width": 1,
-				"circle-radius": 3
+				"circle-radius": 15
 			}
 		},
 		{
@@ -16367,7 +16367,7 @@
 				"circle-stroke-color": "transparent",
 				"circle-opacity": 1,
 				"circle-stroke-width": 1,
-				"circle-radius": 5
+				"circle-radius": 15
 			}
 		},
 		{
@@ -16376,7 +16376,8 @@
 			"source": "bdtopo",
 			"minzoom": 12,
 			"paint": {
-				"line-color": "transparent"
+				"line-color": "transparent",
+				"line-width": 15
 			},
 			"layout": {
 				"visibility": "visible"
@@ -16391,7 +16392,7 @@
 			"minzoom": 19,
 			"layout": {
 				"icon-image": "erp",
-				"icon-size": 1.5
+				"icon-size": 15
 			}
 		},
 		{
@@ -16402,7 +16403,7 @@
 			"minzoom": 14,
 			"layout": {
 				"icon-image": "pylone",
-				"icon-size": 1
+				"icon-size": 15
 			}
 		},
 		{
@@ -16433,7 +16434,7 @@
 			"source-layer": "ligne_orographique",
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			},
 			"minzoom": 14
 		},
@@ -16456,6 +16457,26 @@
 				"line-color": "transparent"
 			},
 			"minzoom": 14
+		},
+		{
+			"id": "cimetiere_limites",
+			"type": "line",
+			"source": "bdtopo",
+			"source-layer": "cimetiere",
+			"minzoom": 14,
+			"paint": {
+				"line-color": "transparent"
+			}
+		},
+		{
+			"id": "cimetiere_surf",
+			"type": "fill",
+			"source": "bdtopo",
+			"source-layer": "cimetiere",
+			"minzoom": 14,
+			"paint": {
+				"fill-pattern": "cimetiere"
+			}
 		},
 		{
 			"id": "construction_surfacique_surf",
@@ -16484,7 +16505,7 @@
 			"source-layer": "construction_lineaire",
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			},
 			"layout": {
 				"line-join": "bevel"
@@ -16732,26 +16753,6 @@
 			}
 		},
 		{
-			"id": "cimetiere_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "cimetiere",
-			"minzoom": 14,
-			"paint": {
-				"line-color": "transparent"
-			}
-		},
-		{
-			"id": "cimetiere_surf",
-			"type": "fill",
-			"source": "bdtopo",
-			"source-layer": "cimetiere",
-			"minzoom": 14,
-			"paint": {
-				"fill-pattern": "cimetiere"
-			}
-		},
-		{
 			"id": "construction_ponctuelle",
 			"type": "symbol",
 			"source": "bdtopo",
@@ -16759,7 +16760,7 @@
 			"minzoom": 14,
 			"layout": {
 				"icon-image": "construction_ponctuelle",
-				"icon-size": 1
+				"icon-size": 15
 			}
 		},
 		{

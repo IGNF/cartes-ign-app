@@ -50,6 +50,7 @@ class Position {
     this.coordinates = null;
     this.address = null;
     this.elevation = null;
+    this.name = null; // nom résumé
 
     // Titre de l'onglet (ex. "Ma Position", "Repère Placé"...)
     this.header = "";
@@ -91,25 +92,42 @@ class Position {
       templateAddress = `
         <span class="lblPositionAddress">${address.number} ${address.street}</span><br />
         <span class="lblPositionCity">${address.postcode} ${address.city}</span>
-        `
+        `;
+      this.name = `${address.number} ${address.street}, ${address.postcode} ${address.city}`;
     } else if (address.city && !address.street) {
       templateAddress = `
         <span class="lblPositionAddress">${address.city}</span>
         <span class="lblPositionCity">${address.postcode}</span>
-        `
+        `;
+        this.name = `${address.city} ${address.postcode}`;
     } else {
       templateAddress = `
         <span class="lblPositionAddress">${latitude}, ${longitude}</span>
-        `
+        `;
+        this.name = `${latitude}, ${longitude}`;
     }
 
     // template litteral
     this.shareContent = `${this.header}
-${templateAddress}
+${this.name}
 Latitude : ${latitude} </span>
 Longitude : ${longitude}</span><br />
 Altitude : ${altitude}m</span>
         `;
+
+    var htmlButtons = `
+      <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+      <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+      <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+      `;
+
+    if (this.header === "Ma position") {
+      htmlButtons = `
+        <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+        <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+        <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+        `;
+    }
 
     // template litteral
     var strContainer = `
@@ -122,9 +140,7 @@ Altitude : ${altitude}m</span>
                 </div>
             </div>
             <div class="divPositionButtons">
-                <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
-                <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
-                <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+                ${htmlButtons}
             </div>
             <div class="divPositionCoord fontLight">
                 <p class="lblPositionCoord">Latitude : ${latitude}</p>
@@ -171,7 +187,7 @@ Altitude : ${altitude}m</span>
         this.options.openIsochroneCbk();
         let target = Globals.isochrone.dom.location;
         target.dataset.coordinates = "[" + this.coordinates.lon + "," + this.coordinates.lat + "]";
-        target.value = `${this.address.number} ${this.address.street}`;
+        target.value = this.name;
       }
 
     });
@@ -185,8 +201,11 @@ Altitude : ${altitude}m</span>
       if (this.options.openDirectionsCbk) {
         this.options.openDirectionsCbk();
         let target = Globals.directions.dom.inputArrival;
+        if (this.header === "Ma position") {
+          target = Globals.directions.dom.inputDeparture;
+        }
         target.dataset.coordinates = "[" + this.coordinates.lon + "," + this.coordinates.lat + "]";
-        target.value = `${this.address.number} ${this.address.street}`;
+        target.value = this.name;
       }
 
     });
