@@ -129,8 +129,8 @@ class MapInteractivity {
         this.loading = false;
         if (featureHTML && featureHTML != '{}') {
           this.#clearSources();
-        const legend = new Legend(features)
-        Globals.position.compute(ev.lngLat, legend.getLegend(Math.round(this.map.getZoom())), featureHTML).then(() => {
+          const legend = new Legend(features)
+          Globals.position.compute(ev.lngLat, legend.getLegend(Math.round(this.map.getZoom())), featureHTML).then(() => {
             Globals.menu.open("position");
             this.selectedCleabs = features[0].properties.cleabs;
             this.selectedFeatureType = features[0].geometry.type;
@@ -155,7 +155,8 @@ class MapInteractivity {
     });
     if (toFuse.length == 0) {
       return
-    }    let union = [toFuse[0]];
+    }
+    let union = [toFuse[0]];
 
     if (this.selectedFeatureType == "Point") {
       source = this.map.getSource(this.configuration.pointsource);
