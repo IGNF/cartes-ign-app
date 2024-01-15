@@ -4,6 +4,7 @@ import featurePropertyFilter from "./feature-property-filter"
 
 import Union from "@turf/union";
 import proj4 from "proj4";
+import Legend from "./legend-plan-ign";
 
 /**
  * Interface sur l'interaction avec la carte
@@ -128,7 +129,8 @@ class MapInteractivity {
         this.loading = false;
         if (featureHTML && featureHTML != '{}') {
           this.#clearSources();
-          Globals.position.compute(ev.lngLat, features[0].sourceLayer, featureHTML).then(() => {
+          const legend = new Legend(features)
+          Globals.position.compute(ev.lngLat, legend.getLegend(Math.round(this.map.getZoom())), featureHTML).then(() => {
             Globals.menu.open("position");
             this.selectedCleabs = features[0].properties.cleabs;
             this.selectedFeatureType = features[0].geometry.type;
@@ -155,6 +157,7 @@ class MapInteractivity {
       return
     }
     let union = [toFuse[0]];
+
     if (this.selectedFeatureType == "Point") {
       source = this.map.getSource(this.configuration.pointsource);
     } else if (this.selectedFeatureType == "LineString") {

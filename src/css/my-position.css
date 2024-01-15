@@ -199,3 +199,13 @@
     background-repeat: no-repeat;
     background-image: url("assets/sms.svg");
 }
+
+.divLegendContainer {
+    display: flex;
+}
+ 
+.divLegendDescription {
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: 10px;
+}
