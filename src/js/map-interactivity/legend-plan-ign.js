@@ -6,25 +6,25 @@ class Legend {
         this.layername = this.#beautifyLayerName(features[0].sourceLayer);
         /**
          * PROBLEME
-         * La premiere feature bdtopo n'est pas systématiquement 
+         * La premiere feature bdtopo n'est pas systématiquement
          * La premiere feature de planIGN.
          * gestion des line dasharray
          * group de légendes : 2 line / 1 line et 1 fill
-         * 
+         *
          * Pour le titre des batiments public aller chercher dans 2e feature de la bdtopo
          * type "zone_d_activite_ou_d_interet"
          * afficher le toponyme
-         * 
-         * CAS à gérer : 
+         *
+         * CAS à gérer :
          *  -on clique sur la chapelle de l EHPAD de la louvière.
          *  -on clique sur la mairie d'aurillac
          *  -préfecture du Cantal
          *  -forme sous un toponyme
-         * 
-         *  */ 
-        var f = features.filter(f => 
-            f.source == "plan_ign" && 
-            f.layer.id != "bckgrd" && 
+         *
+         *  */
+        var f = features.filter(f =>
+            f.source == "plan_ign" &&
+            f.layer.id != "bckgrd" &&
             !f.layer.layout.hasOwnProperty("text-field")
             );
         this.featuresForLegend = [];
@@ -107,8 +107,8 @@ class Legend {
     }
 
     #MapBoxStyleToSVG(features, zoom) {
-        var height = 40;
-        const width = 60;
+        var height = 24;
+        const width = 36;
         const multiplicator = 2;
 
         features.forEach(f => {
@@ -138,12 +138,12 @@ class Legend {
                 const strokeopacity = this.#getMapboxPropAtZoom(f, "line-opacity", zoom, 1);
                 const fillopacity = this.#getMapboxPropAtZoom(f, "ffill-opacity", zoom, 1);
                 shape += `<rect \
-                width="100%" \
-                height="100%" \
-                fill="${fillcolor}" \
-                stroke="${strokecolor}" \
-                stroke-opacity="${strokeopacity}" \
-                opacity="${fillopacity}"/>`
+                    width="100%" \
+                    height="100%" \
+                    fill="${fillcolor}" \
+                    stroke="${strokecolor}" \
+                    stroke-opacity="${strokeopacity}" \
+                    opacity="${fillopacity}"/>`
             }
             if (f.type == 'line') {
                 const strokecolor = this.#getMapboxPropAtZoom(f, "line-color", zoom, "#FFFFFF");
@@ -155,17 +155,17 @@ class Legend {
                     dA = dA.map((x) => x * lineWidth).join(" ");
                     if (dA) {
                         dashArr = `stroke-dasharray="${dA}"`;
-                    } 
+                    }
                 }
                 shape += `<line\
-                x1=${x}"\
-                y1="${y}"\
-                x2="${x + width}"\
-                y2="${y}"\
-                stroke="${strokecolor}"\
-                stroke-width="${lineWidth * multiplicator}"\
-                stroke-opacity="${opacity}"\
-                ${dashArr}"/>`
+                    x1=${x}"\
+                    y1="${y}"\
+                    x2="${x + width}"\
+                    y2="${y}"\
+                    stroke="${strokecolor}"\
+                    stroke-width="${lineWidth * multiplicator}"\
+                    stroke-opacity="${opacity}"\
+                    ${dashArr}"/>`
             }
             if (f.type == 'circle') {
                 const circleStrokeWidth = this.#getMapboxPropAtZoom(f, "circle-stroke-width", zoom, 1);
@@ -174,26 +174,26 @@ class Legend {
                 const circleFill = this.#getMapboxPropAtZoom(f, "circle-color", zoom, "#FFFFFF");
                 const radius = this.#getMapboxPropAtZoom(f, "circle-radius", zoom, 0);
                 shape += `<circle\
-                cx="${width / 2}"\
-                cy="${height / 2}"\
-                r="${radius}"\
-                y2="${y}"\
-                stroke="${circleStroke}"\
-                fill="${circleFill}"\
-                stroke-width="${circleStrokeWidth}"\
-                stroke-opacity="${strokeOpacity}"/>`
+                    cx="${width / 2}"\
+                    cy="${height / 2}"\
+                    r="${radius}"\
+                    y2="${y}"\
+                    stroke="${circleStroke}"\
+                    fill="${circleFill}"\
+                    stroke-width="${circleStrokeWidth}"\
+                    stroke-opacity="${strokeOpacity}"/>`
             }
         });
 
-        let svg = `<svg style='display:inline'\
-        xmlns='http://www.w3.org/2000/svg' \
-        version='1.1' \
-        preserveAspectRatio='none' \
-        width="${width}" \
-        height="${height}" \
-        > \
-        ${shape}\
-        </svg>`;
+        let svg = `<svg style='display:inline; transform:translate(0px, 3px)' \
+            xmlns='http://www.w3.org/2000/svg' \
+            version='1.1' \
+            preserveAspectRatio='none' \
+            width="${width}" \
+            height="${height}" \
+            > \
+            ${shape}\
+            </svg>`;
 
         return svg;
     }

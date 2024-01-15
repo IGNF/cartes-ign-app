@@ -1,4 +1,5 @@
 import MapLibreGlCompare from "@maplibre/maplibre-gl-compare";
+import syncMaps from "@mapbox/mapbox-gl-sync-move";
 
 import Globals from './globals';
 import DOM from './dom';
@@ -31,6 +32,8 @@ class Compare {
         // one of "leftright", "updown", "fade"
         this.mode = "leftright";
         this.actived = false;
+
+        this.clearSync = null;
 
         this.#render();
         this.#listeners();
@@ -224,6 +227,10 @@ class Compare {
         document.querySelector("#compareLeftRight").classList.remove("selected");
         document.querySelector("#compareUpDown").classList.remove("selected");
         document.querySelector("#compareFade").classList.remove("selected");
+        if (this.clearSync !== null) {
+            this.clearSync();
+            this.clearSync == null;
+        }
 
         if (this.mode == "leftright") {
             document.querySelector("#compareLeftRight").classList.add("selected");
@@ -250,6 +257,7 @@ class Compare {
             if (this.sideBySide) {
                 this.sideBySide.remove();
             }
+            this.clearSync = syncMaps(this.mapRLT1, this.mapRLT2);
             document.querySelector("#sideBySideFadeSlider").classList.remove("d-none");
         }
     }
@@ -289,6 +297,10 @@ class Compare {
         document.querySelector(".selectedLayer").style.pointerEvents = "";
         if (this.sideBySide) {
             this.sideBySide.remove();
+        }
+        if (this.clearSync !== null) {
+            this.clearSync();
+            this.clearSync == null;
         }
         this.map.setCenter(this.mapRLT1.getCenter());
         this.map.setZoom(this.mapRLT1.getZoom());

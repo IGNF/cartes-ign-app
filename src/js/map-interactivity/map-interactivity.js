@@ -79,11 +79,11 @@ class MapInteractivity {
     // TODO: Patience
     this.map.off("click", this.handleInfoOnMap);
     // On clique sur une feature tuile vectorielle
-    let featureHTML;
+    let featureHTML = null;
     if (features.length > 0 && (features[0].source === "bdtopo" || features[0].source === "poi_osm")) {
       featureHTML = featurePropertyFilter(features[0]);
       if (features[0].source === "poi_osm") {
-        let featureName = features[0].properties.texte;
+        let featureName = features[0].properties.texte ? features[0].properties.texte : features[0].properties.symbo;
         Globals.position.compute(ev.lngLat, featureName, featureHTML).then(() => {
           Globals.menu.open("position");
         });
@@ -127,7 +127,7 @@ class MapInteractivity {
         return;
       }).catch((err) => {
         this.loading = false;
-        if (featureHTML && featureHTML != '{}') {
+        if (featureHTML !== null) {
           this.#clearSources();
           const legend = new Legend(features)
           Globals.position.compute(ev.lngLat, legend.getLegend(Math.round(this.map.getZoom())), featureHTML).then(() => {

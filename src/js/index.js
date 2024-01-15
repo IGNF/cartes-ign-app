@@ -16,6 +16,8 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 import { SafeAreaController } from '@aashu-dubey/capacitor-statusbar-safe-area';
 import { NavigationBar } from "@capgo/capacitor-navigation-bar";
 
+import { Capacitor } from '@capacitor/core';
+
 // import CSS
 import '@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -29,13 +31,13 @@ import MapCenterImg from "../css/assets/map-center.svg";
  * Fonction définissant l'application
  */
 function app() {
-  try {
-    SafeAreaController.injectCSSVariables();
+  SafeAreaController.injectCSSVariables();
+  if (Capacitor.isPluginAvailable("StatusBar")) {
     StatusBar.setOverlaysWebView({ overlay: true });
     StatusBar.setStyle({ style: Style.Light });
+  }
+  if (Capacitor.getPlatform() === "android") {
     NavigationBar.setNavigationBarColor({color: "#ffffff"});
-  } catch(err) {
-    console.warn("Status bar not supported");
   }
 
   // Définition des icones

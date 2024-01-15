@@ -6,7 +6,7 @@
     "sources": {
         "poi_osm": {
             "type": "vector",
-            "minzoom": 16,
+            "minzoom": 14,
             "maxzoom": 19,
             "tiles": [
                 "https://data.geopf.fr/tms/1.0.0/OSM.POI/{z}/{x}/{y}.pbf"
@@ -23,7 +23,7 @@
             "type": "symbol",
             "source": "poi_osm",
             "source-layer": "point_interet",
-            "minzoom": 16,
+            "minzoom": 14.5,
             "maxzoom": 18,
             "layout": {
                 "visibility": "visible",
