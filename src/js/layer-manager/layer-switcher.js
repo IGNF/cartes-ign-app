@@ -8,6 +8,9 @@ import Sortable from 'sortablejs';
 import ImageNotFound from '../../html/img/image-not-found.png';
 import DomUtils from '../dom-utils';
 
+import { Toast } from '@capacitor/toast';
+
+
 /**
  * Gestionnaire de couches
  * @fires addlayer
@@ -618,6 +621,22 @@ class LayerSwitcher extends EventTarget {
      * @public
      */
     removeLayer(id) {
+      // Comptage du nombre de fonds de plan affichés
+      let nbBaseLayers = 0;
+      for (const [_, layer] of Object.entries(this.layers)) {
+        if (layer.base) {
+          nbBaseLayers++;
+        }
+      }
+      // Si le layer a enlever est le dernier fond de plan, on ne fait rien
+      if (LayersConfig.getLayerProps(id).base && nbBaseLayers === 1) {
+        Toast.show({
+          text: "Impossible d'enlever le seul fond de carte",
+          duration: "short",
+          position: "bottom"
+        });
+        return;
+      }
       var berror = this.layers[id].error;
       this.#removeLayerMap(id);
       this.#removeLayerContainer(id);

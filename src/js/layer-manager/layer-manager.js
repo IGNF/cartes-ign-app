@@ -1,7 +1,7 @@
 import Globals from '../globals';
 import LayerSwitcher from './layer-switcher';
 import LayerCatalogue from './layer-catalogue';
-import layerConfig from './layer-config';
+import LayersConfig from './layer-config';
 
 /**
  * Manager des couches avec l'initialisation des 2 modules suivants :
@@ -208,8 +208,8 @@ class LayerManager extends EventTarget {
      */
     #getLayersAvailableCounter() {
         var counter = document.getElementById("layer-thematics-number");
-        var value = layerConfig.getBaseLayers().length +
-                    layerConfig.getThematicLayers().length;
+        var value = LayersConfig.getBaseLayers().length +
+                    LayersConfig.getThematicLayers().length;
         counter.textContent = value;
     }
 }
