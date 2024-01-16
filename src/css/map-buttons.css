@@ -298,7 +298,6 @@
   position: fixed;
   left: calc(50vw - 25px);
   top: calc((100vh - 78px - var(--safe-area-inset-bottom))/2 - 25px);
-  opacity: 0.8;
   pointer-events: none;
 }
 

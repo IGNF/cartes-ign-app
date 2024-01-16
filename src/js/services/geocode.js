@@ -33,7 +33,7 @@ function moveTo(coords, zoom=Globals.map.getZoom(), panTo=true) {
    * si panTo est True
    */
   clean();
-  Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon})
+  Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
     .setLngLat([coords.lon, coords.lat])
     .addTo(Globals.map);
 

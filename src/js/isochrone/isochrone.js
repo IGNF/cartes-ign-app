@@ -52,8 +52,8 @@ class Isochrone {
 
     // style
     this.style = this.options.style || {
-      color: "26a581",
-      opacity: 0.85
+      color: "307CCD",
+      opacity: 0.15,
     };
 
     // target
@@ -214,13 +214,23 @@ class Isochrone {
 
       this.map.addLayer({
         "id": this.configuration.source,
+        "type": "fill",
+        "source": this.configuration.source,
+        "layout": {},
+        "paint": {
+          "fill-color": "#" + this.style.color,
+          "fill-opacity": this.style.opacity
+        }
+      });
+
+      this.map.addLayer({
+        "id": this.configuration.source + "line",
         "type": "line",
         "source": this.configuration.source,
         "layout": {},
         "paint": {
           "line-color": "#" + this.style.color,
-          "line-opacity": this.style.opacity,
-          "line-width": 5,
+          "line-width": 1,
         }
       });
     }
@@ -264,6 +274,9 @@ class Isochrone {
     if (this.map.getLayer(this.configuration.source)) {
       this.map.removeLayer(this.configuration.source);
     }
+    if (this.map.getLayer(this.configuration.source + "line")) {
+      this.map.removeLayer(this.configuration.source + "line");
+    }
     if (this.map.getSource(this.configuration.source)) {
       this.map.removeSource(this.configuration.source);
     }
@@ -293,7 +306,9 @@ class Isochrone {
       lon : coordinates.lng,
       lat : coordinates.lat
     })
-    .then(() => {
+    .then(() => {})
+    .catch(() => {})
+    .finally(() => {
       var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
       var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
       var strAddress = address;
@@ -305,9 +320,7 @@ class Isochrone {
       }
       this.dom.location.dataset.coordinates = "[" + coords.lon + "," + coords.lat + "]";
       this.dom.location.value = strAddress;
-    })
-    .catch(() => {})
-    .finally(() => {});
+    });
   }
 
   /**

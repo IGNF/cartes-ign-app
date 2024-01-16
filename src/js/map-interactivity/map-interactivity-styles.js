@@ -9,8 +9,8 @@ const layers = {
       "line-join": "round",
     },
     paint: {
-      "line-color": "#26a581",
-      "line-opacity": 0.85,
+      "line-color": "#307CCD",
+      "line-opacity": 1,
       "line-width": 12,
     }
   },
@@ -20,7 +20,7 @@ const layers = {
     source: "",
     paint: {
       "circle-radius": 12,
-      "circle-color": "#26a581",
+      "circle-color": "#307CCD",
       "circle-opacity": 0.85,
     }
   },
@@ -30,8 +30,8 @@ const layers = {
     source: "",
     layout: {},
     paint: {
-      "fill-color": "#26a581",
-      "fill-opacity": 0.65,
+      "fill-color": "#307CCD",
+      "fill-opacity": 0.4,
     }
   },
   "polygon-outline": {
@@ -40,7 +40,7 @@ const layers = {
     source: "",
     layout: {},
     paint: {
-      "line-color": "#26a581",
+      "line-color": "#307CCD",
       "line-opacity": 1,
       "line-width": 3,
     }
