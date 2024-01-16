@@ -50,9 +50,8 @@ function app() {
 
   Globals.searchResultIcon = document.createElement('div');
   Globals.searchResultIcon.class = 'searchResultIcon';
-  Globals.searchResultIcon.style.width = '23px';
-  Globals.searchResultIcon.style.height = '23px';
-  Globals.searchResultIcon.style.opacity = '0.8';
+  Globals.searchResultIcon.style.width = '36px';
+  Globals.searchResultIcon.style.height = '36px';
   Globals.searchResultIcon.style.backgroundSize = "contain";
   Globals.searchResultIcon.style.backgroundImage = "url(" + MapCenterImg + ")";
 
