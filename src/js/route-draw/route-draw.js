@@ -5,6 +5,7 @@ import ElevationLineControl from "../elevation-line-control";
 import DOM from '../dom';
 import RouteDrawLayers from "./route-draw-styles";
 import Reverse from "../services/reverse";
+import ElevationLine from "../services/elevation-line";
 
 import MapLibreGL from "maplibre-gl";
 import { Toast } from "@capacitor/toast";
@@ -126,6 +127,7 @@ class RouteDraw {
 
         // requête en cours d'execution ?
         this.loading = false;
+        this.elevationLoading = false;
 
         return this;
     }
@@ -396,7 +398,7 @@ class RouteDraw {
      * @returns
      */
     async #onAddWayPoint(e) {
-        // On empêche l'intéraction tant que les opérations ne sont pas terminées
+        // On empêche l'intéraction tant que les opérations (hors alti) ne sont pas terminées
         this.map.off("click", this.handleAddWayPoint);
         // Si on a cliqué sur un waypoint, on ne fait rien)
         if(this.map.getSource(this.configuration.pointsource) && this.map.queryRenderedFeatures(e.point, {
@@ -455,7 +457,7 @@ class RouteDraw {
      */
     async #onDeleteWayPoint(e) {
         // TODO patience
-        // On empêche l'intéraction tant que les opérations ne sont pas terminées
+        // On empêche l'intéraction tant que les opérations (hors alti) ne sont pas terminées
         this.map.off("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
         this.deactivate();
         const feature = this.map.queryRenderedFeatures(e.point, {
@@ -475,17 +477,19 @@ class RouteDraw {
             return;
         };
         if (deleteIndex == 0 || this.data.steps.length == 1) {
-            this.data.steps.splice(0, 1);
-            await this.#updateElevation();
-            this.data.duration = 0;
-            this.data.distance = 0;
+            const removedStep = this.data.steps.splice(0, 1);
+            this.#updateElevation();
+            this.data.duration -= removedStep[0].properties.duration;
+            this.data.distance -= removedStep[0].properties.distance;
             if (Globals.backButtonState === "routeDraw") {
                 this.__updateRouteInfo(this.data);
             }
             this.#updateSources()
         } else if (deleteIndex == this.data.points.length) {
-            this.data.steps.splice(deleteIndex - 1, 1);
-            await this.#updateElevation();
+            const removedStep = this.data.steps.splice(deleteIndex - 1, 1);
+            this.#updateElevation();
+            this.data.duration -= removedStep[0].properties.duration;
+            this.data.distance -= removedStep[0].properties.distance;
             if (Globals.backButtonState === "routeDraw") {
                 this.__updateRouteInfo(this.data);
             }
@@ -585,35 +589,21 @@ class RouteDraw {
                 end_name: lastPoint.properties.name,
                 duration: duration,
                 distance: distance,
-                dplus: 0,
-                dminus: 0,
                 id: this.nextStepId,
             }
         }
         this.nextStepId++;
 
-        // Correction du dplus total si on modifie un step déjà enregistré
-        let dpluscorrection = 0;
-        let dminuscorrection = 0;
         if (index >= this.data.steps.length) {
             this.data.steps.push(step);
         } else {
-            dpluscorrection = this.data.steps[index].properties.dplus;
-            dminuscorrection = this.data.steps[index].properties.dminus;
             this.data.steps[index] = step;
         }
         this.#updateSources();
         this.data.distance = this.data.steps.reduce( (totalDistance, step) => totalDistance + step.properties.distance, 0);
         this.data.duration = this.data.steps.reduce( (totalDistance, step) => totalDistance + step.properties.duration, 0);
 
-        var lastDPlus = this.elevation.dplus - dpluscorrection;
-        var lastDMinus = this.elevation.dminus - dminuscorrection;
-        try {
-            await this.#updateElevation();
-        } catch(err) {
-        }
-        this.data.steps[index].properties.dplus = this.elevation.dplus - lastDPlus;
-        this.data.steps[index].properties.dminus = this.elevation.dminus - lastDMinus;
+        this.#updateElevation();
         if (Globals.backButtonState === "routeDraw") {
             this.__updateRouteInfo(this.data);
         }
@@ -623,10 +613,21 @@ class RouteDraw {
      * met à jour les données d'altitude (profil alti)
      */
     async #updateElevation() {
+        if (this.elevationLoading) {
+            ElevationLine.clear();
+        }
+        this.elevationLoading = true;
         const allCoordinates = this.data.steps.map((step) => step.geometry.coordinates).flat();
         this.elevation.setCoordinates(allCoordinates);
-        await this.elevation.compute();
+        try {
+            await this.elevation.compute();
+        } finally {
+            this.elevationLoading = false;
+        }
         this.data.elevationData = this.elevation.getData();
+        if (Globals.backButtonState === "routeDraw") {
+            this.__updateRouteInfo(this.data);
+        }
     }
 
     /**
