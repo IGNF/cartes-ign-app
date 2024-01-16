@@ -5,6 +5,8 @@ import LayersAdditional from './layer-additional';
 import ImageNotFound from '../../html/img/image-not-found.png';
 import DomUtils from '../dom-utils';
 
+import { Toast } from '@capacitor/toast';
+
 /**
  * Gestion des couches thématiques et fonds de carte
  * @fires addlayer
@@ -45,7 +47,6 @@ class LayerCatalogue extends EventTarget {
 
     // options ?
     this.map = Globals.map
-    this.mapRLT = Globals.mapRLT;
 
     this.#render();
     this.#listeners();
@@ -235,6 +236,22 @@ class LayerCatalogue extends EventTarget {
    */
   removeLayer(layerName) {
     if (!layerName) {
+      return;
+    }
+    // Comptage du nombre de fonds de plan affichés
+    let nbBaseLayers = 0;
+    document.querySelectorAll(".baseLayer").forEach((el) => {
+      if (el.classList.contains("selectedLayer")) {
+        nbBaseLayers++;
+      }
+    });
+    // Si le layer a enlever est le dernier fond de plan, on ne fait rien
+    if (LayersConfig.getLayerProps(layerName).base && nbBaseLayers === 1) {
+      Toast.show({
+        text: "Impossible d'enlever le seul fond de carte",
+        duration: "short",
+        position: "bottom"
+      });
       return;
     }
     var element = document.getElementById(layerName);
