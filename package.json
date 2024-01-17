@@ -1,7 +1,7 @@
 {
   "name": "geoportail-app",
   "displayName": "Géoportail",
-  "version": "2.91.0",
+  "version": "2.91.1",
   "description": "Application Géoportail",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "run:android": "npm run build:dev && npx cap sync && npx cap run android",
     "build:android": "npm run build && npx cap sync && cd android && ./gradlew assembleRelease",
     "build:android:dev": "npm run build:dev && npx cap sync && cd android && ./gradlew",
-    "bump:version": "echo 'npm run bump:app:versions -- $1' > temp.sh && echo 'npm version $1 --git-tag-version false' >> temp.sh && echo 'git add -u && git commit -m \"$1\" && git tag v$1' >> temp.sh && sh temp.sh && rm temp.sh",
+    "bump:version": "echo 'npm run bump:app:versions -- $1' > temp.sh && echo 'npm version $1 --git-tag-version false' >> temp.sh && echo 'git add -u && git commit -m \"$1\" && git tag v$1' >> temp.sh && sh temp.sh",
     "postbump:version": "rm temp.sh",
     "bump:app:versions": "python bump_version.py"
   },
