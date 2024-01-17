@@ -83,7 +83,7 @@ let RecentSearch = {
                 storeSearches.splice(index, 1);
             }
 
-            if (storeSearches.length > 4) {
+            if (storeSearches.length > 3) {
                 removeEntry(storeSearches[0]);
                 storeSearches.shift();
             }
