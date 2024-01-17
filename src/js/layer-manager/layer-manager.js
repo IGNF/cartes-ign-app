@@ -174,7 +174,6 @@ class LayerManager extends EventTarget {
 
     /**
      * Chargement de plusieurs couches
-     * @todo prendre en compte une liste de couches
      * @todo transmettre des options de la couches (ex. opacité)
      */
     #loadLayers() {
