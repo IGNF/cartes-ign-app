@@ -78,6 +78,9 @@ let mapInteractivity = null;
 // Global control my account
 let myaccount = null;
 
+// Global control compare Poi
+let comparePoi = null;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -116,4 +119,5 @@ export default {
   interactivityIndicator,
   mapInteractivity,
   myaccount,
+  comparePoi,
 };

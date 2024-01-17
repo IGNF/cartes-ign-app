@@ -1,0 +1,40 @@
+#comparePoiWindow {
+  display: flex;
+  flex-direction: column;
+}
+
+.comparePoiTitle {
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.comparePoiLocation {
+  font-family: "Open Sans";
+  padding-left: 25px;
+  background-image: url("assets/autocompresult.svg");
+  background-repeat: no-repeat;
+  background-size: 20px;
+  height: 23px;
+  display: flex;
+  align-items: center;
+}
+
+.comparePoiButton {
+  color: white;
+  background-color: #26a581;
+  border-radius: 100px;
+  padding: 7px 13px 7px 28px;
+  background-image: url("assets/map-buttons/compare/compare.svg");
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: 2px 3px;
+  width: fit-content;
+  align-self: end;
+}
+
+.comparePoiText {
+  border-top: 1px solid #DDE1E6;
+  font-family: "Open Sans";
+  margin-top: 10px;
+  padding-top: 10px;
+}

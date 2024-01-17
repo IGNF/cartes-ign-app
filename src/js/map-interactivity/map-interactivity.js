@@ -69,9 +69,6 @@ class MapInteractivity {
   }
 
   #getInfoOnMap(ev) {
-    if (!Globals.interactivityIndicator.shown) {
-      return;
-    }
     if (Globals.backButtonState === "position") {
       Globals.menu.close("position");
     }
@@ -90,6 +87,9 @@ class MapInteractivity {
         this.map.on("click", this.handleInfoOnMap);
         return;
       }
+    }
+    if (!Globals.interactivityIndicator.shown) {
+      return;
     }
 
     // GFI au sens OGC
