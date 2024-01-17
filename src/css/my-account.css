@@ -1,0 +1,123 @@
+#myaccountWindow {
+  position: relative;
+  width: 100%;
+  color: #3F4A55;
+  margin-top: -68px;
+}
+
+#otherMenus {
+  display: flex;
+  justify-content: right;
+  margin-top: 25px;
+  margin-right: 15px;
+  align-items: center;
+}
+
+#menuItemParams {
+  text-align: right;
+  height: 20px;
+}
+
+.menuItemIcon {
+  height: 20px;
+  width: 15px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 5px -3px 5px;
+}
+
+#menuItemParamsIcon {
+  background-image: url("assets/settings.svg");
+  padding-right: 15px;
+}
+
+.smallMenuItem {
+  font-family: 'Open Sans';
+}
+
+#menuItemLegal, #menuItemPrivacy {
+  padding-left: 5px;
+  color: #788089;
+}
+
+#myAccountHeaderName {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+#myAccountNotLoggedInWarn {
+  margin-top: 0;
+  text-align: center;
+  font-family: "Open Sans";
+  font-style: italic;
+  font-size: 10px;
+}
+
+#myAccountLogInBtn {
+  background-color: #26A581;
+  color: white;
+  font-family: "Open Sans Semibold";
+  width: fit-content;
+  padding: 10px 28px;
+  border-radius: 100px;
+  margin: auto;
+}
+
+#myAccountBody > .layer-tabs-wrap {
+ margin: 24px;
+}
+
+#myaccount-landmarks,
+#myaccount-routes {
+  flex-grow: 1;
+}
+
+#myaccountRouteList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+div[id^="route-container_ID_"] {
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid #DDE1E6;
+  padding: 10px 0;
+}
+
+div[id^=route-cross-picto_ID_] {
+  margin-left: 15px;
+}
+
+div[id^=route-basic-tools_ID_] {
+  width: 100%;
+}
+
+div[id^=route-title_ID_] {
+  font-size: 13px;
+  font-family: "Open Sans Bold";
+}
+
+.wrap-tools-layers .routeDrawSummaryDuration,
+.wrap-tools-layers .routeDrawSummaryDistance,
+.wrap-tools-layers .routeDrawSummaryDPlus {
+  padding-left: 24px;
+  background-size: 12px;
+  color: #3F4A55;
+  font-family: "Open Sans";
+  font-weight: normal;
+}
+
+.wrap-tools-layers .routeDrawSummaryDPlus {
+  background-size: 26px;
+  background-position: -2px;
+}
+
+.wrap-tools-layers .routeDrawSummaryDuration {
+  background-size: 20px;
+  background-position: 2px;
+}

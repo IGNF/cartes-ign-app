@@ -1,11 +1,10 @@
-import maplibregl from "maplibre-gl";
-
 import Geocode from './services/geocode';
 import Location from './services/location';
 import DOM from './dom';
 import Globals from './globals';
 import RecentSearch from "./search-recent";
 import State from "./state";
+import { SafeAreaController } from '@aashu-dubey/capacitor-statusbar-safe-area';
 
 /**
  * Ecouteurs generiques
@@ -44,11 +43,22 @@ function addListeners() {
     }
   }, true);
 
-  // TODO
-  // Ecouteurs sur le menu du Compte : à ajouter sur la classe MyAccount
-  document.getElementById('menuItemParamsIcon').addEventListener('click', () => { Globals.menu.open('parameterScreen')});
-  document.getElementById('menuItemLegal').addEventListener('click', () => { Globals.menu.open('legalScreen')});
-  document.getElementById('menuItemPrivacy').addEventListener('click', () => { Globals.menu.open('privacyScreen')});
+  // Ecouteurs sur les sous menus Compte
+  document.getElementById('menuItemParamsIcon').addEventListener('click', () => {
+    DOM.$whiteScreen.style.animation = "unset";
+    Globals.menu.close('myaccount');
+    Globals.menu.open('parameterScreen');
+  });
+  document.getElementById('menuItemLegal').addEventListener('click', () => {
+    DOM.$whiteScreen.style.animation = "unset";
+    Globals.menu.close('myaccount');
+    Globals.menu.open('legalScreen');
+  });
+  document.getElementById('menuItemPrivacy').addEventListener('click', () => {
+    DOM.$whiteScreen.style.animation = "unset";
+    Globals.menu.close('myaccount');
+    Globals.menu.open('privacyScreen');
+  });
 
   // Rotation du marqueur de position
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
@@ -62,6 +72,7 @@ function addListeners() {
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
+    localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
   });
 
   window.addEventListener('beforeunload', () => {
@@ -69,10 +80,13 @@ function addListeners() {
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
+    localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
   });
 
   // Screen dimentions change
   window.addEventListener("resize", () => {
+    SafeAreaController.injectCSSVariables();
+
     if (Globals.backButtonState !== 'default') {
       Globals.currentScrollIndex = 1;
     }
@@ -97,9 +111,9 @@ function addListeners() {
       DOM.$bottomButtons.style.removeProperty('left');
       DOM.$bottomButtons.style.removeProperty('width');
       if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+        DOM.$bottomButtons.style.bottom = "calc(220px + var(--safe-area-inset-bottom))";
       } else {
-        DOM.$bottomButtons.style.left = "calc(100vh + env(safe-area-inset-left) + 42px)";
+        DOM.$bottomButtons.style.left = "calc(100vh + var(--safe-area-inset-left) + 42px)";
         DOM.$bottomButtons.style.width = "auto";
       }
     }
@@ -109,7 +123,7 @@ function addListeners() {
     if (Globals.backButtonState === "compareLayers2") {
       DOM.$sideBySideLeftLayer.style.removeProperty("left");
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(100vh + env(safe-area-inset-left) - 20px)";
+        DOM.$sideBySideLeftLayer.style.left = "calc(100vh + var(--safe-area-inset-left) - 20px)";
     }
     }
     Globals.menu.updateScrollAnchors();

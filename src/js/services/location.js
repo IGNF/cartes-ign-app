@@ -69,7 +69,10 @@ const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
       Globals.myPositionMarker.remove();
       Globals.myPositionMarker = null;
     }
-    Globals.myPositionMarker = new maplibregl.Marker({element: (gps) ? Globals.myPositionIcon : Globals.searchResultIcon})
+    Globals.myPositionMarker = new maplibregl.Marker({
+      element: (gps) ? Globals.myPositionIcon : Globals.searchResultIcon,
+      anchor: (gps) ? "center" : "bottom",
+    })
       .setLngLat([coords.lon, coords.lat])
       .addTo(Globals.map);
     Globals.myPositionMarker.setRotationAlignment("map");

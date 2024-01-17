@@ -73,7 +73,7 @@ let RecentSearch = {
     add (value) {
         try {
             if (!localStorage.getItem(this.key)) {
-                localStorage.setItem(key, "[]");
+                localStorage.setItem(this.key, "[]");
             }
             var storeSearches = JSON.parse(localStorage.getItem(this.key));
             // Change l'odre pour avoir le plus récent en haut

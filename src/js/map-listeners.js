@@ -25,7 +25,6 @@ const addListeners = () => {
 
   // Rotation de la carte avec le mutlitouch
   map.on('rotate', () => {
-    console.log(map.getBearing());
     DOM.$compassBtn.style.transform = "rotate(" + (map.getBearing() * -1) + "deg)";
     DOM.$compassBtn.classList.remove("d-none");
   });
@@ -65,7 +64,7 @@ const addListeners = () => {
       Globals.position.compute(evt.lngLat).then(() => {
         Globals.menu.open("position");
       });
-      new maplibregl.Marker({element: Globals.searchResultIcon})
+      new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
         .setLngLat(evt.lngLat)
         .addTo(Globals.map);
     }, 500);

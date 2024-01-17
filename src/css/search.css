@@ -1,6 +1,6 @@
 #searchContainer {
   position: fixed;
-  top: env(safe-area-inset-top);
+  top: var(--safe-area-inset-top);
   width: 100%;
   z-index: 3000;
   display: flex;
@@ -33,7 +33,7 @@
 }
 
 #search input {
-  color: #4b4b4b;
+  color: #3F4A55;
   margin: 0;
   width: 100%;
   height: 32px;
@@ -53,8 +53,8 @@
 }
 
 #search input::placeholder {
-  color: #bac3ca;
-  opacity: 0.6;
+  color: #788089;
+  font-family: "Open Sans Semibold";
 }
 
 #searchImage {
@@ -160,10 +160,10 @@
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #searchContainer {
     width: 40%;
-    left: calc(85px + env(safe-area-inset-left));
+    left: calc(85px + var(--safe-area-inset-left));
   }
   #searchResults {
-    height: calc(100vh - 68px - env(safe-area-inset-top));
+    height: calc(100vh - 68px - var(--safe-area-inset-top));
     flex-wrap: wrap;
   }
   #searchResults > div {

@@ -51,6 +51,37 @@ class ElevationLineControl {
   }
 
   /**
+   * Insère une donnée pré-calculée dans le contrôle
+   * @param {*} data
+   * @public
+   */
+  setData(data) {
+    this.coordinates = data.coordinates;
+    this.elevationData = data.elevationData;
+
+    this.dplus = data.dplus;
+    this.dminus = data.dminus;
+
+    this.unit = data.unit;
+    this.render();
+  }
+
+  /**
+   * Récupère la donnée du contrôle
+   * @param {*} data
+   * @public
+   */
+  getData() {
+    return {
+      coordinates: this.coordinates,
+      elevationData: this.elevationData,
+      dplus: this.dplus,
+      dminus: this.dminus,
+      unit: this.unit,
+    };
+  }
+
+  /**
    * creation de l'interface
    * @public
    */
@@ -92,21 +123,21 @@ class ElevationLineControl {
       data: chartData,
       options: {
         scales: {
-            x: {
-              max: this.elevationData.slice(-1)[0].x,
-              title: {
-                display: true,
-                text: `Distance (${this.unit})`,
-              }
-            },
-            y: {
-              title: {
-                display: true,
-                text: `Altitude (m)`,
-              },
-              suggestedMax: suggestedMax,
-              suggestedMin: suggestedMin,
+          x: {
+            max: this.elevationData.slice(-1)[0].x,
+            title: {
+              display: true,
+              text: `Distance (${this.unit})`,
             }
+          },
+          y: {
+            title: {
+              display: true,
+              text: `Altitude (m)`,
+            },
+            suggestedMax: suggestedMax,
+            suggestedMin: suggestedMin,
+          }
         }
       }
     };
@@ -119,6 +150,17 @@ class ElevationLineControl {
    * @public
    */
   async compute() {
+    // Gestion du cas où pas assez de coordonnées sont présentes
+    if (this.coordinates.length < 2) {
+      this.setData({
+        coordinates: this.coordinates,
+        elevationData: [{x: 0, y: 0}],
+        dplus: 0,
+        dminus: 0,
+        unit: "m",
+      });
+      return;
+    }
     this.elevationData = [];
     this.dplus = 0;
     this.dminus = 0;
@@ -171,7 +213,7 @@ class ElevationLineControl {
 
   /**
    * remplissage des coordonnées pour le calcul de profil atlimétrique
-   * @param coordinates [{lat: ..., lon: ...}, ...]
+   * @param coordinates [[lon, lat], [lon, lat]]
    * @public
    */
   setCoordinates(coordinates) {

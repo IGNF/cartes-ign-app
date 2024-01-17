@@ -14,15 +14,15 @@
 
 #backTopLeftBtn {
   position: fixed;
-  top: calc(10px + env(safe-area-inset-top));
-  left: calc(15px + env(safe-area-inset-left));
+  top: calc(10px + var(--safe-area-inset-top));
+  left: calc(15px + var(--safe-area-inset-left));
   background-image: url("assets/map-buttons/back.svg");
-  z-index: 3001;
+  z-index: 3003;
 }
 
 #bottomButtons {
   position: absolute;
-  bottom: calc(120px + env(safe-area-inset-bottom));
+  bottom: calc(120px + var(--safe-area-inset-bottom));
   width: 100vw;
 }
 
@@ -61,8 +61,8 @@
 
 #compareMode {
   position: fixed;
-  top: calc(10px + env(safe-area-inset-top));
-  right: calc(15px + env(safe-area-inset-left));
+  top: calc(10px + var(--safe-area-inset-top));
+  right: calc(15px + var(--safe-area-inset-left));
   width: 120px;
   height: 40px;
   display: flex;
@@ -96,7 +96,7 @@
 }
 
 #sideBySideFadeSlider {
-  width: calc(100vw - 144px - env(safe-area-inset-left) - env(safe-area-inset-right));
+  width: calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
   position: absolute;
   z-index: 2;
   height: 42px;
@@ -129,7 +129,7 @@
 #filterPoiBtn {
   background-image: url("assets/map-buttons/filtrer.svg");
   position: fixed;
-  top: calc(80px + env(safe-area-inset-top));
+  top: calc(80px + var(--safe-area-inset-top));
   font-family: "Open Sans";
   font-weight: 600;
   display: flex;
@@ -146,7 +146,7 @@
   background-size: 20px;
   position: fixed;
   left: 15px;
-  top: calc(80px + env(safe-area-inset-top));
+  top: calc(80px + var(--safe-area-inset-top));
   transition: top 0.15s;
   height: 25px;
   width: 25px;
@@ -227,7 +227,7 @@
   justify-content: space-between;
   z-index: 3001;
   position: absolute;
-  bottom: calc(93px + env(safe-area-inset-bottom));
+  bottom: calc(93px + var(--safe-area-inset-bottom));
   width: calc(100vw - 30px);
   height: 82px;
   padding: 10px 26px;
@@ -297,8 +297,7 @@
   background-position: center;
   position: fixed;
   left: calc(50vw - 25px);
-  top: calc((100vh - 78px - env(safe-area-inset-bottom))/2 - 25px);
-  opacity: 0.8;
+  top: calc((100vh - 78px - var(--safe-area-inset-bottom))/2 - 25px);
   pointer-events: none;
 }
 
@@ -307,9 +306,9 @@
   display: flex;
   position: absolute;
   box-sizing: border-box;
-  top: calc(100% - 78px - env(safe-area-inset-bottom));
+  top: calc(100% - 78px - var(--safe-area-inset-bottom));
   width: 100%;
-  height: calc(78px + env(safe-area-inset-bottom));
+  height: calc(78px + var(--safe-area-inset-bottom));
   font-size: 12px;
   background-color: white;
   padding: 10px 30px 8px 15px;
@@ -341,30 +340,30 @@
   }
 
   #compassBtn {
-    top: calc(15px + env(safe-area-inset-top));
+    top: calc(15px + var(--safe-area-inset-top));
   }
 
   #bottomButtons {
     position: absolute;
-    bottom: calc(42px + env(safe-area-inset-bottom));
-    width: calc(100vw - 75px - env(safe-area-inset-left));
+    bottom: calc(42px + var(--safe-area-inset-bottom));
+    width: calc(100vw - 75px - var(--safe-area-inset-left));
     right: 0;
   }
 
   #interactivityBtn {
-    left: calc(90px + env(safe-area-inset-left));
+    left: calc(90px + var(--safe-area-inset-left));
   }
 
   #filterPoiBtn {
-    top: calc(10px + env(safe-area-inset-top));
+    top: calc(10px + var(--safe-area-inset-top));
   }
 
   #routeDrawEdit {
     flex-direction: column;
-    bottom: calc(93px + env(safe-area-inset-bottom));
+    bottom: calc(93px + var(--safe-area-inset-bottom));
     width: unset;
-    height: calc(100vh - 84px - 30px - env(safe-area-inset-bottom) - env(safe-area-inset-top));
-    left: calc(100vh + env(safe-area-inset-left) + 57px);
+    height: calc(100vh - 84px - 30px - var(--safe-area-inset-bottom) - var(--safe-area-inset-top));
+    left: calc(100vh + var(--safe-area-inset-left) + 57px);
     transform: unset;
   }
 
@@ -383,14 +382,14 @@
 
   #mapCenter {
     top: calc(50vh - 25px);
-    right: calc((100vw - 75px - env(safe-area-inset-left))/2 - 25px);
+    right: calc((100vw - 75px - var(--safe-area-inset-left))/2 - 25px);
   }
 
   #mapCenterMenu {
     flex-direction: column;
     width: 75px;
     height: 100vh;
-    left: env(safe-area-inset-left);
+    left: var(--safe-area-inset-left);
     top: 0;
     box-sizing: border-box;
     padding: 10px 0px 8px 0px;

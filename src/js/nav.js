@@ -56,7 +56,6 @@ class MenuNavigation {
             this.open("routeDraw");
         });
         // "Compte"
-        document.getElementById("myaccountWindowClose").addEventListener('click', () => { this.close("myaccount"); });
         document.getElementById("myaccount").addEventListener('click',  () => { this.open("myaccount"); });
         // Gestionnaire des couches
         document.getElementById("informationsWindowClose").addEventListener('click', () => { this.close('informations')});
@@ -82,7 +81,7 @@ class MenuNavigation {
      */
     open(id) {
         // HACK : on supprime l'interaction du calcul d'itineraire
-        Globals.directions.interactive(false);
+        // Globals.directions.interactive(false);
 
         // on vide tous les panneaux
         var lstElements = DOM.$tabContainer.childNodes;
@@ -94,6 +93,7 @@ class MenuNavigation {
         }
 
         // on met à jour l'état du panneau demandé
+        var previousBackState = Globals.backButtonState;
         Globals.backButtonState = id;
 
         // on ajoute le panneau demandé
@@ -143,7 +143,7 @@ class MenuNavigation {
                 DOM.$compareLayers2Window.classList.remove("d-none");
                 DOM.$sideBySideRightLayer.classList.add("d-none");
                 if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-                    DOM.$sideBySideLeftLayer.style.left = "calc(100vh + env(safe-area-inset-left) - 20px)";
+                    DOM.$sideBySideLeftLayer.style.left = "calc(100vh + var(--safe-area-inset-left) - 20px)";
                 }
                 Globals.currentScrollIndex = 2;
                 break;
@@ -158,22 +158,32 @@ class MenuNavigation {
                 DOM.$sideBySideLeftLayer.classList.remove('d-none');
                 DOM.$sideBySideRightLayer.classList.remove('d-none');
                 DOM.$tabContainer.style.top = "100vh";
-                DOM.$bottomButtons.style.bottom = "calc(42px + env(safe-area-inset-bottom))";
+                DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
                 DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.add("d-none");
                 Globals.compare.show();
                 Globals.interactivityIndicator.hardDisable();
                 Globals.currentScrollIndex = 0;
                 break;
+            case "routeDrawSave":
+                DOM["$routeDrawWindow"].classList.add('d-none');
+                DOM.$filterPoiBtn.classList.add('d-none');
+                DOM.$routeDrawBtns.classList.add('d-none');
+                DOM.$routeDrawEdit.classList.add('d-none');
+                DOM.$bottomButtons.style.removeProperty('bottom');
+                DOM.$bottomButtons.style.removeProperty('left');
+                DOM.$bottomButtons.style.removeProperty('width');
+                Globals.currentScrollIndex = 1;
+                break;
             case "routeDraw":
                 DOM.$search.style.display = "none";
-                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
+                DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$routeDrawBtns.classList.remove('d-none');
                 DOM.$routeDrawEdit.classList.remove('d-none');
                 if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-                    DOM.$bottomButtons.style.bottom = "calc(220px + env(safe-area-inset-bottom))";
+                    DOM.$bottomButtons.style.bottom = "calc(220px + var(--safe-area-inset-bottom))";
                 } else {
-                    DOM.$bottomButtons.style.left = "calc(100vh + env(safe-area-inset-left) + 42px)";
+                    DOM.$bottomButtons.style.left = "calc(100vh + var(--safe-area-inset-left) + 42px)";
                     DOM.$bottomButtons.style.width = "auto";
                 }
                 DOM.$tabContainer.style.backgroundColor = "white";
@@ -183,21 +193,17 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 1;
                 break;
             case "poi":
+                Globals.backButtonState = "poi-" + previousBackState;
+                Globals.routeDraw.deactivate();
                 DOM.$search.style.display = "none";
-                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
+                DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$filterPoiBtn.classList.add('d-none');
                 Globals.currentScrollIndex = 1;
                 break;
-            case "myaccount":
-                DOM.$search.style.display = "none";
-                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
-                DOM.$backTopLeftBtn.classList.remove('d-none');
-                Globals.currentScrollIndex = 2;
-                break;
             case "layerManager":
                 DOM.$search.style.display = "none";
-                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
+                DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 Globals.currentScrollIndex = 1;
                 break;
@@ -206,7 +212,7 @@ class MenuNavigation {
                 break;
             case "position":
                 DOM.$search.style.display = "none";
-                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
+                DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 Globals.currentScrollIndex = 1;
                 break;
@@ -214,13 +220,15 @@ class MenuNavigation {
                 // FIXME mettre en place une méthode sur la classe Search
                 // ex. Globals.search.hide()
                 DOM.$search.style.display = "none";
-                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
+                DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 Globals.isochrone.interactive(true);
                 Globals.interactivityIndicator.hardDisable();
                 Globals.currentScrollIndex = 1;
                 break;
+            case "myaccount":
+                DOM.$whiteScreen.style.backgroundColor = "#f4f6f8";
             case "parameterScreen":
             case "legalScreen":
             case "privacyScreen":
@@ -259,7 +267,7 @@ class MenuNavigation {
                 break;
             case "directions":
                 DOM.$search.style.display = "none";
-                DOM.$filterPoiBtn.style.top = "calc(10px + env(safe-area-inset-top))";
+                DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$sideBySideBtn.classList.add('d-none');
                 // Globals.directions.interactive(true);
@@ -316,7 +324,7 @@ class MenuNavigation {
                 break;
             case "compareLayers1":
                 DOM.$tabContainer.style.top = "100vh";
-                DOM.$bottomButtons.style.bottom = "calc(42px + env(safe-area-inset-bottom))";
+                DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
                 DOM.$compareLayers1Window.classList.add("d-none");
                 DOM.$sideBySideLeftLayer.classList.remove("d-none");
                 Globals.currentScrollIndex = 0;
@@ -325,7 +333,7 @@ class MenuNavigation {
                 break;
             case "compareLayers2":
                 DOM.$tabContainer.style.top = "100vh";
-                DOM.$bottomButtons.style.bottom = "calc(42px + env(safe-area-inset-bottom))";
+                DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
                 DOM.$sideBySideLeftLayer.style.removeProperty("left");
                 DOM.$compareLayers2Window.classList.add("d-none");
                 DOM.$sideBySideRightLayer.classList.remove("d-none");
@@ -349,6 +357,21 @@ class MenuNavigation {
                 Globals.compare.hide();
                 Globals.interactivityIndicator.enable();
                 break;
+            case "routeDrawSave":
+                // Réouverture de routeDraw sans utilisr this.open("routeDraw")
+                DOM.$filterPoiBtn.classList.remove('d-none');
+                DOM["$routeDrawWindow"].classList.remove('d-none');
+                DOM.$routeDrawBtns.classList.remove('d-none');
+                DOM.$routeDrawEdit.classList.remove('d-none');
+                if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+                  DOM.$bottomButtons.style.bottom = "calc(220px + var(--safe-area-inset-bottom))";
+                } else {
+                    DOM.$bottomButtons.style.left = "calc(100vh + var(--safe-area-inset-left) + 42px)";
+                    DOM.$bottomButtons.style.width = "auto";
+                }
+                isSpecific = true;
+                isFinished = true;
+                break;
             case "routeDraw":
                 DOM.$search.style.display = "flex";
                 DOM.$filterPoiBtn.style.removeProperty("top");
@@ -368,11 +391,6 @@ class MenuNavigation {
                 DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$filterPoiBtn.classList.remove('d-none');
-                break;
-            case "myaccount":
-                DOM.$search.style.display = "flex";
-                DOM.$filterPoiBtn.style.removeProperty("top");
-                DOM.$backTopLeftBtn.classList.add('d-none');
                 break;
             case "layerManager":
                 DOM.$search.style.display = "flex";
@@ -439,6 +457,8 @@ class MenuNavigation {
                 isSpecific = true;
                 isFinished = true;
                 break;
+            case "myaccount":
+                DOM.$whiteScreen.style.removeProperty('background-color');
             case "parameterScreen":
             case "legalScreen":
             case "privacyScreen":
@@ -455,7 +475,7 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.directions.clear();
-                Globals.directions.interactive(false);
+                // Globals.directions.interactive(false);
                 Globals.interactivityIndicator.enable();
                 break;
             default:
@@ -497,6 +517,10 @@ class MenuNavigation {
         if (["compareLayers1", "compareLayers2"].includes(id)) {
             Globals.backButtonState = 'compare'; // on revient sur le contrôle !
             return;
+        }
+        if (id === "routeDrawSave") {
+          Globals.backButtonState = 'routeDraw'; // on revient sur le contrôle !
+          return;
         }
         Globals.controller.abort();
         Globals.controller = new AbortController();

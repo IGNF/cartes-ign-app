@@ -2,7 +2,7 @@
 	"version": 8,
 	"name": "PLAN IGN interactif",
 	"glyphs": "https://wxs.ign.fr/static/vectorTiles/fonts/{fontstack}/{range}.pbf",
-	"sprite": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/sprite/PlanIgn",
+	"sprite": "data/poi-osm-sprite",
 	"metadata": {
 		"geoportail:tooltip": "BDTOPO/multicouche_bdtopo"
 	},
@@ -1275,6 +1275,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1316,6 +1319,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1361,6 +1367,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain_etroit"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1396,6 +1405,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain_etroit"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1474,6 +1486,9 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain_funic"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -1507,6 +1522,9 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "ferre_souterrain_funic"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1592,6 +1610,9 @@
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 14,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "chemin_souterrain_escalier"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1633,6 +1654,9 @@
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 14,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "chemin_souterrain_escalier"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -1808,6 +1832,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "route_souterrain_non_revetu_carrossable"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -2378,6 +2405,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "route_souterrain_non_revetu_carrossable"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -3554,6 +3584,9 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
+			"metadata" : {
+				"legend-group": "bati_surf_fonctionnel_sportif"
+			},
 			"minzoom": 15,
 			"layout": {
 				"visibility": "visible",
@@ -3576,6 +3609,9 @@
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
 			"minzoom": 13,
+			"metadata" : {
+				"legend-group": "bati_surf_fonctionnel_sportif"
+			},
 			"layout": {
 				"visibility": "visible"
 			},
@@ -3959,6 +3995,7 @@
 			"type": "fill",
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
+			"metadata" :{ "legend-group": "bati_sportif_surfacique"},
 			"layout": {
 				"visibility": "visible"
 			},
@@ -3974,13 +4011,14 @@
 			],
 			"paint": {
 				"fill-color": "#FFFFFF",
-				"fill-outline-color": "#FFFFFF"
+				"fill-outline-color": "#BCD9AB"
 			}
 		},
 		{
 			"id": "bati sportif surfacique",
 			"type": "line",
 			"source": "plan_ign",
+			"metadata" :{ "legend-group": "bati_sportif_surfacique"},
 			"source-layer": "bati_surf",
 			"layout": {
 				"visibility": "visible",
@@ -5128,6 +5166,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"minzoom": 8,
+			"metadata" : {
+				"legend-group": "routier_a_niveau_autoroute"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -5769,6 +5810,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "routier_a_niveau_autoroute"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -5831,6 +5875,9 @@
 			"source-layer": "routier_route",
 			"minzoom": 13,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "routier_a_niveau_autoroute"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "round",
@@ -5992,6 +6039,9 @@
 				"line-cap": "round",
 				"line-join": "round"
 			},
+			"metadata" : {
+				"legend-group": "ferre_a_niveau_voie_normale"
+			},
 			"filter": [
 				"in",
 				"symbo",
@@ -6026,6 +6076,9 @@
 			"source": "plan_ign",
 			"source-layer": "ferre",
 			"minzoom": 10,
+			"metadata" : {
+				"legend-group": "ferre_a_niveau_voie_normale"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6839,6 +6892,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_chemin_sup",
 			"minzoom": 14,
+			"metadata": {
+				"legend-group": "chemin_sup_escalier"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -6887,6 +6943,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_chemin_sup",
 			"minzoom": 14,
+			"metadata": {
+				"legend-group": "chemin_sup_escalier"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -7627,6 +7686,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 8,
+			"metadata" : {
+				"legend-group": "routier_superieur_autoroute"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -8284,6 +8346,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "routier_superieur_autoroute"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -8346,6 +8411,9 @@
 			"source-layer": "routier_route_sup",
 			"minzoom": 13,
 			"maxzoom": 21,
+			"metadata" : {
+				"legend-group": "routier_superieur_autoroute"
+			},
 			"layout": {
 				"visibility": "visible",
 				"line-cap": "butt",
@@ -15387,7 +15455,7 @@
 			"source-layer": "zone_d_activite_ou_d_interet",
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 0.75
+				"line-width": 15
 			}
 		},
 		{
@@ -15430,7 +15498,7 @@
 					6,
 					2
 				],
-				"line-width": 1.5
+				"line-width": 15
 			},
 			"minzoom": 13,
 			"layout": {
@@ -15447,7 +15515,7 @@
 				"circle-stroke-color": "transparent",
 				"circle-opacity": 1,
 				"circle-stroke-width": 1,
-				"circle-radius": 3
+				"circle-radius": 15
 			},
 			"minzoom": 15
 		},
@@ -15461,7 +15529,7 @@
 				"circle-stroke-color": "transparent",
 				"circle-opacity": 1,
 				"circle-stroke-width": 1,
-				"circle-radius": 5
+				"circle-radius": 15
 			},
 			"minzoom": 15
 		},
@@ -15606,7 +15674,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 3
+				"line-width": 15
 			}
 		},
 		{
@@ -15625,7 +15693,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			}
 		},
 		{
@@ -15644,7 +15712,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			}
 		},
 		{
@@ -15663,7 +15731,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1.5
+				"line-width": 15
 			}
 		},
 		{
@@ -15682,7 +15750,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1.7
+				"line-width": 15
 			}
 		},
 		{
@@ -15701,7 +15769,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			}
 		},
 		{
@@ -15720,7 +15788,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1.5
+				"line-width": 15
 			}
 		},
 		{
@@ -15739,7 +15807,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			}
 		},
 		{
@@ -15758,7 +15826,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1.8,
+				"line-width": 15,
 				"line-dasharray": [
 					3,
 					0.2
@@ -15785,7 +15853,7 @@
 					6,
 					2
 				],
-				"line-width": 1.5
+				"line-width": 15
 			}
 		},
 		{
@@ -15804,7 +15872,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2,
+				"line-width": 15,
 				"line-dasharray": [
 					3,
 					2
@@ -15827,7 +15895,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2,
+				"line-width": 15,
 				"line-dasharray": [
 					3,
 					2
@@ -15850,7 +15918,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1
+				"line-width": 15
 			}
 		},
 		{
@@ -15876,7 +15944,7 @@
 			"minzoom": 13,
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2.5
+				"line-width": 15
 			}
 		},
 		{
@@ -15897,7 +15965,7 @@
 			"minzoom": 14,
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1
+				"line-width": 15
 			}
 		},
 		{
@@ -15908,7 +15976,7 @@
 			"minzoom": 15,
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 1
+				"line-width": 15
 			}
 		},
 		{
@@ -16260,7 +16328,7 @@
 			"minzoom": 1,
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2.5
+				"line-width": 15
 			}
 		},
 		{
@@ -16286,7 +16354,7 @@
 				"circle-stroke-color": "transparent",
 				"circle-opacity": 1,
 				"circle-stroke-width": 1,
-				"circle-radius": 3
+				"circle-radius": 15
 			}
 		},
 		{
@@ -16299,7 +16367,7 @@
 				"circle-stroke-color": "transparent",
 				"circle-opacity": 1,
 				"circle-stroke-width": 1,
-				"circle-radius": 5
+				"circle-radius": 15
 			}
 		},
 		{
@@ -16308,7 +16376,8 @@
 			"source": "bdtopo",
 			"minzoom": 12,
 			"paint": {
-				"line-color": "transparent"
+				"line-color": "transparent",
+				"line-width": 15
 			},
 			"layout": {
 				"visibility": "visible"
@@ -16323,7 +16392,7 @@
 			"minzoom": 19,
 			"layout": {
 				"icon-image": "erp",
-				"icon-size": 1.5
+				"icon-size": 15
 			}
 		},
 		{
@@ -16334,7 +16403,7 @@
 			"minzoom": 14,
 			"layout": {
 				"icon-image": "pylone",
-				"icon-size": 1
+				"icon-size": 15
 			}
 		},
 		{
@@ -16365,7 +16434,7 @@
 			"source-layer": "ligne_orographique",
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			},
 			"minzoom": 14
 		},
@@ -16388,6 +16457,26 @@
 				"line-color": "transparent"
 			},
 			"minzoom": 14
+		},
+		{
+			"id": "cimetiere_limites",
+			"type": "line",
+			"source": "bdtopo",
+			"source-layer": "cimetiere",
+			"minzoom": 14,
+			"paint": {
+				"line-color": "transparent"
+			}
+		},
+		{
+			"id": "cimetiere_surf",
+			"type": "fill",
+			"source": "bdtopo",
+			"source-layer": "cimetiere",
+			"minzoom": 14,
+			"paint": {
+				"fill-pattern": "cimetiere"
+			}
 		},
 		{
 			"id": "construction_surfacique_surf",
@@ -16416,7 +16505,7 @@
 			"source-layer": "construction_lineaire",
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 2
+				"line-width": 15
 			},
 			"layout": {
 				"line-join": "bevel"
@@ -16664,26 +16753,6 @@
 			}
 		},
 		{
-			"id": "cimetiere_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "cimetiere",
-			"minzoom": 14,
-			"paint": {
-				"line-color": "transparent"
-			}
-		},
-		{
-			"id": "cimetiere_surf",
-			"type": "fill",
-			"source": "bdtopo",
-			"source-layer": "cimetiere",
-			"minzoom": 14,
-			"paint": {
-				"fill-pattern": "cimetiere"
-			}
-		},
-		{
 			"id": "construction_ponctuelle",
 			"type": "symbol",
 			"source": "bdtopo",
@@ -16691,7 +16760,7 @@
 			"minzoom": 14,
 			"layout": {
 				"icon-image": "construction_ponctuelle",
-				"icon-size": 1
+				"icon-size": 15
 			}
 		},
 		{

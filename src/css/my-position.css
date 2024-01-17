@@ -128,8 +128,8 @@
 }
 
 .btnPositionButtons:hover {
-    background-color: white;
-    color: #26A581;
+    /* background-color: white;
+    color: #26A581; */
 }
 
 /*
@@ -165,7 +165,7 @@
 .routeDrawHelpPopup > .maplibregl-popup-content,
 .interactivityPopup > .maplibregl-popup-content,
 .positionPopup > .maplibregl-popup-content {
-    color: #4b4b4b;
+    color: #3F4A55;
     border-radius: 15px;
 }
 .routeDrawHelpPopup > .maplibregl-popup-tip,
@@ -198,4 +198,14 @@
     background-size: 25px;
     background-repeat: no-repeat;
     background-image: url("assets/sms.svg");
+}
+
+.divLegendContainer {
+    display: flex;
+}
+ 
+.divLegendDescription {
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: 10px;
 }

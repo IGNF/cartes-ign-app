@@ -1,3 +1,5 @@
+import DomUtils from "../dom-utils";
+
 /**
  * DOM du contrôle du calcul d'isochrone
  * @mixin IsochroneDOM
@@ -19,39 +21,6 @@ let IsochroneDOM = {
     durationValueMinutes: null,
     transportCar: null,
     transportPedestrian: null
-  },
-
-  /**
-   * transforme un texte html en dom
-   * @param {String} str
-   * @returns {DOMElement}
-   * @public
-   */
-  stringToHTML(str) {
-
-    var support = function () {
-      if (!window.DOMParser) return false;
-      var parser = new DOMParser();
-      try {
-        parser.parseFromString('x', 'text/html');
-      } catch (err) {
-        return false;
-      }
-      return true;
-    };
-
-    // If DOMParser is supported, use it
-    if (support()) {
-      var parser = new DOMParser();
-      var doc = parser.parseFromString(str, 'text/html');
-      return doc.body.firstChild;
-    }
-
-    // Otherwise, fallback to old-school method
-    var dom = document.createElement('div');
-    dom.innerHTML = str;
-    return dom;
-
   },
 
   /**
@@ -162,7 +131,7 @@ let IsochroneDOM = {
     `;
 
     // transformation du container : String -> DOM
-    var container = this.stringToHTML(strContainer.trim());
+    var container = DomUtils.stringToHTML(strContainer.trim());
 
     // ajout du shadow DOM
     const shadow = container.attachShadow({ mode: "open" });

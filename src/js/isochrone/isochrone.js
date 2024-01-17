@@ -51,9 +51,8 @@ class Isochrone {
 
     // style
     this.style = this.options.style || {
-      "line-color": "#26a581",
-      "line-opacity": 0.85,
-      "line-width": 5
+      color: "307CCD",
+      opacity: 0.15,
     };
 
     // target
@@ -287,14 +286,28 @@ class Isochrone {
     if (settings.showOutline) {
       var id = this.configuration.source;
       this.map.addLayer({
-        "id": id,
+        "id": this.configuration.source,
+        "type": "fill",
+        "source": this.configuration.source,
+        "layout": {},
+        "paint": {
+          "fill-color": "#" + this.style.color,
+          "fill-opacity": this.style.opacity
+        }
+      });
+
+      this.map.addLayer({
+        "id": this.configuration.source + "line",
         "type": "line",
         "source": id,
         "metadata": {
           "group": id
         },
         "layout": {},
-        "paint": this.style
+        "paint": {
+          "line-color": "#" + this.style.color,
+          "line-width": 1,
+        }
       });
     }
 
@@ -346,6 +359,9 @@ class Isochrone {
     if (this.map.getLayer(this.configuration.source)) {
       this.map.removeLayer(this.configuration.source);
     }
+    if (this.map.getLayer(this.configuration.source + "line")) {
+      this.map.removeLayer(this.configuration.source + "line");
+    }
     if (this.map.getSource(this.configuration.source)) {
       this.map.removeSource(this.configuration.source);
     }
@@ -379,7 +395,7 @@ class Isochrone {
 
   /**
    * listener sur la carte pour recuperer les coordonnées du point
-   * @param {*} e 
+   * @param {*} e
    */
   onAddWayPoint(e) {
     console.debug(e);
@@ -388,7 +404,9 @@ class Isochrone {
       lon : coordinates.lng,
       lat : coordinates.lat
     })
-    .then(() => {
+    .then(() => {})
+    .catch(() => {})
+    .finally(() => {
       var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
       var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
       var strAddress = address;
@@ -400,9 +418,7 @@ class Isochrone {
       }
       this.dom.location.dataset.coordinates = "[" + coords.lon + "," + coords.lat + "]";
       this.dom.location.value = strAddress;
-    })
-    .catch(() => {})
-    .finally(() => {});
+    });
   }
 
   /**

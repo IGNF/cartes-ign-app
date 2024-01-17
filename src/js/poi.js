@@ -2,6 +2,7 @@ import LayersConfig from './layer-manager/layer-config';
 import LayersGroup from './layer-manager/layer-group';
 
 import PoiConfig from './data-layer/poi-osm-layer-config.json';
+import DomUtils from "./dom-utils"
 
 /**
  * Contrôle sur le filtrage attributaire des POI osm
@@ -190,35 +191,8 @@ class POI {
             </div>
         `;
 
-        const stringToHTML = (str) => {
-
-            var support = function () {
-                if (!window.DOMParser) return false;
-                var parser = new DOMParser();
-                try {
-                    parser.parseFromString('x', 'text/html');
-                } catch (err) {
-                    return false;
-                }
-                return true;
-            };
-
-            // If DOMParser is supported, use it
-            if (support()) {
-                var parser = new DOMParser();
-                var doc = parser.parseFromString(str, 'text/html');
-                return doc.body.firstChild;
-            }
-
-            // Otherwise, fallback to old-school method
-            var dom = document.createElement('div');
-            dom.innerHTML = str;
-            return dom;
-
-        };
-
         // transformation du container : String -> DOM
-        var container = stringToHTML(tpltContainer.trim());
+        var container = DomUtils.stringToHTML(tpltContainer.trim());
 
         if (! container) {
             console.warn();

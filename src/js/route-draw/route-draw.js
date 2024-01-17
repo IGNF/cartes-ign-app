@@ -1,11 +1,14 @@
 import RouteDrawDOM from "./route-draw-dom";
+import RouteDrawSave from "./route-draw-save";
 import Globals from "../globals";
 import ElevationLineControl from "../elevation-line-control";
 import DOM from '../dom';
 import RouteDrawLayers from "./route-draw-styles";
 import Reverse from "../services/reverse";
+import ElevationLine from "../services/elevation-line";
 
 import MapLibreGL from "maplibre-gl";
+import { Toast } from "@capacitor/toast";
 
 
 /**
@@ -26,6 +29,7 @@ class RouteDraw {
             style: {},
             transport: null,
             mode: null,
+            data: null,
         };
 
         // configuration
@@ -46,15 +50,23 @@ class RouteDraw {
 
         this.transport = this.options.transport || "pedestrian"; // one of "pedestrian", "car"
 
-        this.data = {
+        this.data = this.options.data || {
             duration: 0,
             distance: 0,
-            dplus: 0,
-            dminus: 0,
             // point: GeoJSON feature point with properties: "name"
             points: [],
             // step: GeoJSON feature linestring with properties: "start_name", "end_name", "duration", "distance", "dplus", "dminus"
             steps: [],
+            // data for the elevation control
+            elevationData: {
+                dplus: 0,
+                dminus: 0,
+                elevationData: [{x: 0, y: 0}],
+                coordinates: [],
+                dplus: 0,
+                dminus: 0,
+                unit: "m",
+            },
         }
 
         // mode: libre 0 ou guidé 1
@@ -66,6 +78,7 @@ class RouteDraw {
         // carte
         this.map = map;
 
+        this.#addSourcesAndLayers();
         // rendu graphique
         this.render();
 
@@ -81,6 +94,8 @@ class RouteDraw {
         this.handleDeletePoint = this.#onDeleteWayPoint.bind(this);
         this.handleCancelChange = this.#cancelChange.bind(this);
         this.handleRestoreChange = this.#restoreChange.bind(this);
+        this.handleToggleDelete = this.toggleDelete.bind(this);
+        this.handleRouteSave = this.#onRouteSave.bind(this);
 
         // historique pour l'annulation et la restauration
         this.dataHistory = [];
@@ -100,11 +115,19 @@ class RouteDraw {
         // popup d'aide
         this.popup = null;
 
+        // interface de sauvegarde
+        this.routeDrawSave = null;
+
+        // Nom et ID de l'itinéraire s'il s'agit d'une modification d'un itinéraire existant
+        this.name = null;
+        this.routeId = null;
+
         // annulation de la reqête fetch
         this.controller = new AbortController();
 
         // requête en cours d'execution ?
         this.loading = false;
+        this.elevationLoading = false;
 
         return this;
     }
@@ -115,7 +138,7 @@ class RouteDraw {
      */
     activate() {
         this.dataHistory.unshift(JSON.parse(JSON.stringify(this.data)));
-        this.#listeners()
+        this.#listeners();
     }
 
     /**
@@ -141,12 +164,36 @@ class RouteDraw {
     }
 
     /**
-     * enregistrement de l'itinéraire
-     * @param {*} settings
+     * ajout de données déjà calculées
+     * @param {*} data
      * @public
      */
-    compute (settings) {
+    setData(data) {
+        this.dataHistory = [];
+        this.data = data;
+        this.elevation.setData(data.elevationData);
+        this.#saveState();
+        DOM.$routeDrawCancel.classList.add("inactive");
+        this.__updateRouteInfo(this.data);
+        this.#updateSources();
+    }
 
+    /**
+     * Paramétrage du nom
+     * @param {string} name
+     * @public
+     */
+    setName(name) {
+        this.name = name;
+    }
+
+    /**
+     * Paramétrage de l'id
+     * @param {number} id
+     * @public
+     */
+    setId(id) {
+        this.routeId = id;
     }
 
     /**
@@ -156,20 +203,20 @@ class RouteDraw {
         this.map.on("click", this.handleAddWayPoint);
         this.map.on("touchstart",RouteDrawLayers["point"].id, this.handleTouchStartPoint);
         this.map.on("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);
-        DOM.$routeDrawCancel.addEventListener("click", this.handleCancelChange);
-        DOM.$routeDrawRestore.addEventListener("click", this.handleRestoreChange);
+        this.#editionButtonsListeners();
+
         DOM.$routeDrawModeSelectTransportPedestrian.addEventListener("click", () => {
             this.transport = "pedestrian";
             document.getElementById("routeDrawModeTransportCar").classList.add("d-none");
             document.getElementById("routeDrawModeTransportPedestrian").classList.remove("d-none");
-            document.getElementById("routeDrawSummaryTransport").className = "lblRouteDrawSummaryTransport" + this.transport;
+            document.querySelector(".routeDrawSummaryTransport").className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + this.transport;
             this.changeMode(1);
         });
         DOM.$routeDrawModeSelectTransportCar.addEventListener("click", () => {
             this.transport = "car";
             document.getElementById("routeDrawModeTransportCar").classList.remove("d-none");
             document.getElementById("routeDrawModeTransportPedestrian").classList.add("d-none");
-            document.getElementById("routeDrawSummaryTransport").className = "lblRouteDrawSummaryTransport" + this.transport;
+            document.querySelector(".routeDrawSummaryTransport").className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + this.transport;
             this.changeMode(1);
         });
         document.getElementById("routeDrawModeSelectModeFree").addEventListener("click", () => {
@@ -177,19 +224,61 @@ class RouteDraw {
             this.transport = "pedestrian";
             document.getElementById("routeDrawModeTransportCar").classList.add("d-none");
             document.getElementById("routeDrawModeTransportPedestrian").classList.remove("d-none");
-            document.getElementById("routeDrawSummaryTransport").className = "lblRouteDrawSummaryTransport" + this.transport;
+            document.querySelector(".routeDrawSummaryTransport").className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + this.transport;
         })
     }
 
     /**
-     * retrait d'ecouteurs pour attendre les traitements
+     * Ajout d'écouteurs sur les boutons de la barre d'édition
      */
-    #deactivate() {
+    #editionButtonsListeners() {
+      DOM.$routeDrawCancel.addEventListener("click", this.handleCancelChange);
+      DOM.$routeDrawRestore.addEventListener("click", this.handleRestoreChange);
+      DOM.$routeDrawDelete.addEventListener("click", this.handleToggleDelete);
+      DOM.$routeDrawSave.addEventListener("click", this.handleRouteSave);
+    }
+
+    /**
+     * retrait d'ecouteurs pour attendre les traitements
+     * @public
+     */
+    deactivate() {
         this.map.off("click", this.handleAddWayPoint);
         this.map.off("touchstart",RouteDrawLayers["point"].id, this.handleTouchStartPoint);
         this.map.off("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);
         DOM.$routeDrawCancel.removeEventListener("click", this.handleCancelChange);
         DOM.$routeDrawRestore.removeEventListener("click", this.handleRestoreChange);
+        DOM.$routeDrawDelete.removeEventListener("click", this.handleToggleDelete);
+        DOM.$routeDrawSave.removeEventListener("click", this.handleRouteSave);
+    }
+
+    /**
+     * écouteur du bouton Enregistrer
+     */
+    #onRouteSave() {
+      if (this.data.steps.length < 1) {
+        Toast.show({
+          text: "Au moins une étape nécessaire pour l'enregistrement",
+          duration: "short",
+          position: "bottom"
+        })
+        return;
+      }
+      let name = "";
+      if (this.name) {
+        name = this.name;
+      }
+      let id = -1;
+      if (this.routeId !== null && this.routeId >= 0) {
+        id = this.routeId;
+      }
+      this.routeDrawSave = new RouteDrawSave(null, {
+        data: JSON.parse(JSON.stringify(this.data)),
+        transport: this.transport,
+        name: name,
+        id: id,
+      });
+      this.routeDrawSave.show();
     }
 
     /**
@@ -198,7 +287,6 @@ class RouteDraw {
      * @returns
      */
     #onTouchStartLine(e) {
-        // TODO gestion d'erreurs
         // TODO patience
         e.preventDefault();
         if (this.map.queryRenderedFeatures(e.point, {
@@ -209,7 +297,6 @@ class RouteDraw {
         const feature = this.map.queryRenderedFeatures(e.point, {
             layers: [RouteDrawLayers["line"].id],
         })[0];
-        console.warn(feature);
         this.movedPointIndex = this.data.steps.findIndex((step) => {
             return step.properties?.id === feature?.properties?.id;
         }) + 1;
@@ -282,7 +369,7 @@ class RouteDraw {
      * @returns
      */
     async #onTouchEnd(e) {
-        this.#deactivate();
+        this.deactivate();
         this.map.off("touchmove", this.handleTouchMove);
         const index = this.movedPointIndex;
         const address = await this.#computePointName(e.lngLat);
@@ -311,7 +398,7 @@ class RouteDraw {
      * @returns
      */
     async #onAddWayPoint(e) {
-        // On empêche l'intéraction tant que les opérations ne sont pas terminées
+        // On empêche l'intéraction tant que les opérations (hors alti) ne sont pas terminées
         this.map.off("click", this.handleAddWayPoint);
         // Si on a cliqué sur un waypoint, on ne fait rien)
         if(this.map.getSource(this.configuration.pointsource) && this.map.queryRenderedFeatures(e.point, {
@@ -321,7 +408,7 @@ class RouteDraw {
             return;
         }
         // TODO: Patience
-        this.#deactivate();
+        this.deactivate();
         var coordinates = e.lngLat;
         var length = this.data.points.push({
             type: "Feature",
@@ -342,19 +429,13 @@ class RouteDraw {
         this.data.points[length - 1].geometry.coordinates = [coordinates.lng, coordinates.lat];
         this.data.points[length - 1].properties.name = address;
 
-        // Si pas encore de source, on ajoute les sources et layers à la carte
-        if (this.map.getSource(this.configuration.pointsource)) {
-            this.#updateSources();
-        } else {
-            this.#addSourcesAndLayers();
-        }
+        this.#updateSources();
 
         // Pas d'autre étape s'il n'y a qu'un point (premier point)
         if (this.data.points.length < 2) {
             if (Globals.backButtonState === "routeDraw") {
                 this.#listeners();
             }
-            DOM.$routeDrawCancel.classList.remove("inactive");
             // Enregistrement de l'état dans l'historique
             this.#saveState();
             return;
@@ -365,7 +446,6 @@ class RouteDraw {
         this.#saveState();
         // Affichage et réactivation de l'intéractivité si on est toujours dans le tracé d'itinéraire
         if (Globals.backButtonState === "routeDraw") {
-            DOM.$routeDrawCancel.classList.remove("inactive");
             this.#listeners();
         }
     }
@@ -376,34 +456,40 @@ class RouteDraw {
      * @returns
      */
     async #onDeleteWayPoint(e) {
-        // TODO gestion d'erreur
         // TODO patience
-        // On empêche l'intéraction tant que les opérations ne sont pas terminées
+        // On empêche l'intéraction tant que les opérations (hors alti) ne sont pas terminées
         this.map.off("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
-        this.#deactivate();
+        this.deactivate();
         const feature = this.map.queryRenderedFeatures(e.point, {
             layers: [RouteDrawLayers["point"].id],
         })[0];
         const deleteIndex = this.data.points.findIndex((point) => {
             return point.properties?.id === feature?.properties?.id;
         });
+        if (this.data.points.length === 1) {
+            this.#saveState();
+        }
         this.data.points.splice(deleteIndex, 1);
         if (this.data.steps.length < 1) {
+            this.#updateSources();
             this.map.on("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
-            DOM.$routeDrawCancel.addEventListener("click", this.handleCancelChange);
-            DOM.$routeDrawRestore.addEventListener("click", this.handleRestoreChange);
+            this.#editionButtonsListeners();
             return;
         };
         if (deleteIndex == 0 || this.data.steps.length == 1) {
-            this.data.steps.splice(0, 1);
-            await this.#updateElevation();
+            const removedStep = this.data.steps.splice(0, 1);
+            this.#updateElevation();
+            this.data.duration -= removedStep[0].properties.duration;
+            this.data.distance -= removedStep[0].properties.distance;
             if (Globals.backButtonState === "routeDraw") {
                 this.__updateRouteInfo(this.data);
             }
             this.#updateSources()
         } else if (deleteIndex == this.data.points.length) {
-            this.data.steps.splice(deleteIndex - 1, 1);
-            await this.#updateElevation();
+            const removedStep = this.data.steps.splice(deleteIndex - 1, 1);
+            this.#updateElevation();
+            this.data.duration -= removedStep[0].properties.duration;
+            this.data.distance -= removedStep[0].properties.distance;
             if (Globals.backButtonState === "routeDraw") {
                 this.__updateRouteInfo(this.data);
             }
@@ -415,8 +501,7 @@ class RouteDraw {
         this.map.on("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
         // Enregistrement de l'état dans l'historique
         this.#saveState();
-        DOM.$routeDrawCancel.addEventListener("click", this.handleCancelChange);
-        DOM.$routeDrawRestore.addEventListener("click", this.handleRestoreChange);
+        this.#editionButtonsListeners();
     }
 
     /**
@@ -504,35 +589,21 @@ class RouteDraw {
                 end_name: lastPoint.properties.name,
                 duration: duration,
                 distance: distance,
-                dplus: 0,
-                dminus: 0,
                 id: this.nextStepId,
             }
         }
         this.nextStepId++;
 
-        // Correction du dplus total si on modifie un step déjà enregistré
-        let dpluscorrection = 0;
-        let dminuscorrection = 0;
         if (index >= this.data.steps.length) {
             this.data.steps.push(step);
         } else {
-            dpluscorrection = this.data.steps[index].properties.dplus;
-            dminuscorrection = this.data.steps[index].properties.dminus;
             this.data.steps[index] = step;
         }
         this.#updateSources();
         this.data.distance = this.data.steps.reduce( (totalDistance, step) => totalDistance + step.properties.distance, 0);
         this.data.duration = this.data.steps.reduce( (totalDistance, step) => totalDistance + step.properties.duration, 0);
 
-        var lastDPlus = this.elevation.dplus - dpluscorrection;
-        var lastDMinus = this.elevation.dminus - dminuscorrection;
-        try {
-            await this.#updateElevation();
-        } catch(err) {
-        }
-        this.data.steps[index].properties.dplus = this.elevation.dplus - lastDPlus;
-        this.data.steps[index].properties.dminus = this.elevation.dminus - lastDMinus;
+        this.#updateElevation();
         if (Globals.backButtonState === "routeDraw") {
             this.__updateRouteInfo(this.data);
         }
@@ -542,11 +613,21 @@ class RouteDraw {
      * met à jour les données d'altitude (profil alti)
      */
     async #updateElevation() {
+        if (this.elevationLoading) {
+            ElevationLine.clear();
+        }
+        this.elevationLoading = true;
         const allCoordinates = this.data.steps.map((step) => step.geometry.coordinates).flat();
         this.elevation.setCoordinates(allCoordinates);
-        await this.elevation.compute();
-        this.data.dplus = this.elevation.dplus;
-        this.data.dminus = this.elevation.dminus;
+        try {
+            await this.elevation.compute();
+        } finally {
+            this.elevationLoading = false;
+        }
+        this.data.elevationData = this.elevation.getData();
+        if (Globals.backButtonState === "routeDraw") {
+            this.__updateRouteInfo(this.data);
+        }
     }
 
     /**
@@ -601,6 +682,9 @@ class RouteDraw {
      * enregistre l'état précédent dans l'historique et réinitialise les annulations
      */
     #saveState() {
+        if (Globals.backButtonState === "routeDraw") {
+            DOM.$routeDrawCancel.classList.remove("inactive");
+        }
         DOM.$routeDrawRestore.classList.add("inactive");
         this.dataHistory = this.dataHistory.splice(this.currentHistoryPosition, this.dataHistory.length);
         this.dataHistory.unshift(JSON.parse(JSON.stringify(this.data)));
@@ -617,6 +701,7 @@ class RouteDraw {
         this.currentHistoryPosition++;
         DOM.$routeDrawRestore.classList.remove("inactive");
         this.data = JSON.parse(JSON.stringify(this.dataHistory[this.currentHistoryPosition]));
+        this.elevation.setData(this.data.elevationData);
         this.#updateSources();
         this.__updateRouteInfo(this.data);
         if (this.currentHistoryPosition == this.dataHistory.length - 1) {
@@ -634,6 +719,7 @@ class RouteDraw {
         this.currentHistoryPosition--;
         DOM.$routeDrawCancel.classList.remove("inactive");
         this.data = JSON.parse(JSON.stringify(this.dataHistory[this.currentHistoryPosition]));
+        this.elevation.setData(this.data.elevationData);
         this.#updateSources();
         this.__updateRouteInfo(this.data);
         if (this.currentHistoryPosition == 0) {
@@ -652,11 +738,13 @@ class RouteDraw {
             DOM.$routeDrawDelete.classList.add("inactive");
             this.map.off("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
             this.map.on("touchstart", RouteDrawLayers["point"].id, this.handleTouchStartPoint);
+            this.map.on("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);
             this.map.on("click", this.handleAddWayPoint);
             return;
         }
         this.delete = true;
         this.map.off("touchstart", RouteDrawLayers["point"].id, this.handleTouchStartPoint);
+        this.map.off("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);
         this.map.off("click", this.handleAddWayPoint);
         this.map.on("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
         DOM.$routeDrawDelete.classList.remove("inactive");
@@ -677,15 +765,30 @@ class RouteDraw {
     }
 
     /**
+     * Supprime les donnés dans les sources
+     */
+    #clearSources() {
+        this.map.getSource(this.configuration.pointsource).setData({
+            'type': 'FeatureCollection',
+            'features': []
+        });
+        this.map.getSource(this.configuration.linesource).setData({
+            'type': 'FeatureCollection',
+            'features': []
+        });
+        this.#updateSources();
+    }
+
+    /**
      * nettoyage du tracé
      * @public
      */
-    clear () {
+    clear() {
         if (this.delete) {
             this.toggleDelete();
         }
         this.elevation.clear();
-        this.#deactivate();
+        this.deactivate();
         if (this.loading) {
             this.controller.abort();
             this.controller = new AbortController();
@@ -694,27 +797,17 @@ class RouteDraw {
         this.data = {
             duration: 0,
             distance: 0,
-            dplus: 0,
-            dminus: 0,
             points: [],
             steps: [],
+            elevationData: {
+              dplus: 0,
+              dminus: 0,
+            },
         }
         this.dataHistory = [];
         this.__updateRouteInfo(this.data);
-        if (this.map.getLayer(RouteDrawLayers["line"].id)) {
-            this.map.removeLayer(RouteDrawLayers["line"].id);
-            this.map.removeLayer(RouteDrawLayers["line-casing"].id);
-        }
-        if (this.map.getSource(this.configuration.linesource)) {
-            this.map.removeSource(this.configuration.linesource);
-        }
-        if (this.map.getLayer(RouteDrawLayers["point"].id)) {
-            this.map.removeLayer(RouteDrawLayers["point"].id);
-            this.map.removeLayer(RouteDrawLayers["point-casing"].id);
-        }
-        if (this.map.getSource(this.configuration.pointsource)) {
-            this.map.removeSource(this.configuration.pointsource);
-        }
+        DOM.$routeDrawCancel.classList.add("inactive");
+        this.#clearSources();
     }
 
     /**

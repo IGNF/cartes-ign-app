@@ -5,6 +5,8 @@ import Reverse from "./services/reverse";
 import Elevation from "./services/elevation";
 import Location from './services/location';
 import Globals from './globals';
+import DomUtils from "./dom-utils"
+import { Share } from "@capacitor/share";
 
 /**
  * Permet d'afficher ma position sur la carte
@@ -41,14 +43,14 @@ class Position {
     // target
     this.target = this.options.target;
 
-    // popup
-    this.popup = null;
-    this.contentPopup = null;
+    // share
+    this.shareContent = null;
 
     // les données utiles du service
     this.coordinates = null;
     this.address = null;
     this.elevation = null;
+    this.name = null; // nom résumé
 
     // Titre de l'onglet (ex. "Ma Position", "Repère Placé"...)
     this.header = "";
@@ -67,7 +69,6 @@ class Position {
 
   /**
    * rendu du menu
-   * (ainsi que la popup "partager ma position")
    * @private
    */
   #render() {
@@ -79,7 +80,6 @@ class Position {
 
     var id = {
       main: "positionContainer",
-      popup: "positionPopup"
     };
     var address = this.address;
     var latitude = this.coordinates.lat;
@@ -92,66 +92,42 @@ class Position {
       templateAddress = `
         <span class="lblPositionAddress">${address.number} ${address.street}</span><br />
         <span class="lblPositionCity">${address.postcode} ${address.city}</span>
-        `
+        `;
+      this.name = `${address.number} ${address.street}, ${address.postcode} ${address.city}`;
     } else if (address.city && !address.street) {
       templateAddress = `
         <span class="lblPositionAddress">${address.city}</span>
         <span class="lblPositionCity">${address.postcode}</span>
-        `
+        `;
+        this.name = `${address.city} ${address.postcode}`;
     } else {
       templateAddress = `
         <span class="lblPositionAddress">${latitude}, ${longitude}</span>
-        `
+        `;
+        this.name = `${latitude}, ${longitude}`;
     }
 
     // template litteral
-    this.contentPopup = `
-        <div id="${id.popup}">
-            <div class="divPositionTitle">Partager la position</div>
-            <div class="divPopupClose" onclick="onCloseSharePopup(event)"></div>
-            <div class="divPositionAddress">
-                <label class="lblPositionImgAddress"></label>
-                <div class="divPositionSectionAddress fontLight">
-                    ${templateAddress}
-                </div>
-            </div>
-            <div class="divPositionCoord fontLight">
-                <span class="lblPositionCoord">Latitude : ${latitude} </span>
-                <span class="lblPositionCoord"> Longitude : ${longitude}</span><br />
-                <span class="lblPositionCoord">Altitude : ${altitude}m</span>
-            </div>
-            <div class="divPositionShareButtons">
-                <label id="positionWhatsAppImg" onclick="onClickSocialWhatsapp(event)"></label>
-                <label id="positionSmsImg" onclick="onClickSocialSms(event)"></label>
-            </div>
-        </div>
+    this.shareContent = `${this.header}
+${this.name}
+Latitude : ${latitude} </span>
+Longitude : ${longitude}</span><br />
+Altitude : ${altitude}m</span>
         `;
-    // ajout des listeners
-    var self = this;
-    window.onCloseSharePopup = (e) => {
-      self.popup.remove();
+
+    var htmlButtons = `
+      <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+      <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+      <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+      `;
+
+    if (this.header === "Ma position") {
+      htmlButtons = `
+        <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+        <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+        <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+        `;
     }
-    window.onClickSocialWhatsapp = (e) => {
-      // message
-      var message = `${self.address.number} ${self.address.street}, ${self.address.postcode} ${self.address.city}
-            (latitiude: ${self.coordinates.lat} / longitude: ${self.coordinates.lon} / altitude: ${self.elevation} m)`;
-      if (!address.street) {
-        message = `${self.address.city} ${self.address.postcode}
-          (latitiude: ${self.coordinates.lat} / longitude: ${self.coordinates.lon} / altitude: ${self.elevation} m)`;
-      }
-      if (!address.city) {
-        message = `latitiude: ${self.coordinates.lat} / longitude: ${self.coordinates.lon} / altitude: ${self.elevation} m`;
-      }
-      // redirection vers...
-      if (self.isDesktop()) {
-        window.open(`https://api.whatsapp.com:/send?text= ${message}`);
-      } else {
-        window.open(`whatsapp://send?text= ${message}`);
-      }
-    };
-    window.onClickSocialSms = (e) => {
-      console.log(self);
-    };
 
     // template litteral
     var strContainer = `
@@ -164,9 +140,7 @@ class Position {
                 </div>
             </div>
             <div class="divPositionButtons">
-                <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
-                <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
-                <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+                ${htmlButtons}
             </div>
             <div class="divPositionCoord fontLight">
                 <p class="lblPositionCoord">Latitude : ${latitude}</p>
@@ -177,35 +151,8 @@ class Position {
         </div>
         `;
 
-    const stringToHTML = (str) => {
-
-      var support = function () {
-        if (!window.DOMParser) return false;
-        var parser = new DOMParser();
-        try {
-          parser.parseFromString('x', 'text/html');
-        } catch (err) {
-          return false;
-        }
-        return true;
-      };
-
-      // If DOMParser is supported, use it
-      if (support()) {
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(str, 'text/html');
-        return doc.body.firstChild;
-      }
-
-      // Otherwise, fallback to old-school method
-      var dom = document.createElement('div');
-      dom.innerHTML = str;
-      return dom;
-
-    };
-
     // transformation du container : String -> DOM
-    var container = stringToHTML(strContainer.trim());
+    var container = DomUtils.stringToHTML(strContainer.trim());
 
     if (!container) {
       console.warn();
@@ -223,37 +170,11 @@ class Position {
 
     // ajout des listeners principaux :
     shadowContainer.getElementById("positionShare").addEventListener("click", () => {
-      // on supprime la popup
-      if (this.popup) {
-        this.popup.remove();
-        this.popup = null;
-      }
-      // centre de la carte
-      var center = this.map.getCenter();
-      // position de la popup
-      let markerHeight = 50, markerRadius = 10, linearOffset = 25;
-      var popupOffsets = {
-        'top': [0, 0],
-        'top-left': [0, 0],
-        'top-right': [0, 0],
-        'bottom': [0, -markerHeight],
-        'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-        'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-        'left': [markerRadius, (markerHeight - markerRadius) * -1],
-        'right': [-markerRadius, (markerHeight - markerRadius) * -1]
-      };
-      // ouverture d'une popup
-      this.popup = new maplibregl.Popup({
-        offset: popupOffsets,
-        className: "positionPopup",
-        closeOnClick: true,
-        closeOnMove: true,
-        closeButton: false
-      })
-        .setLngLat(center)
-        .setHTML(this.contentPopup)
-        .setMaxWidth("300px")
-        .addTo(this.map);
+      Share.share({
+        title: `Partager ${this.header}`,
+        text: this.shareContent,
+        dialogTitle: 'Partager la position',
+      });
     });
     shadowContainer.getElementById("positionNear").addEventListener("click", () => {
       // fermeture du panneau actuel
@@ -266,7 +187,7 @@ class Position {
         this.options.openIsochroneCbk();
         let target = Globals.isochrone.dom.location;
         target.dataset.coordinates = "[" + this.coordinates.lon + "," + this.coordinates.lat + "]";
-        target.value = `${this.address.number} ${this.address.street}`;
+        target.value = this.name;
       }
 
     });
@@ -280,8 +201,11 @@ class Position {
       if (this.options.openDirectionsCbk) {
         this.options.openDirectionsCbk();
         let target = Globals.directions.dom.inputArrival;
+        if (this.header === "Ma position") {
+          target = Globals.directions.dom.inputDeparture;
+        }
         target.dataset.coordinates = "[" + this.coordinates.lon + "," + this.coordinates.lat + "]";
-        target.value = `${this.address.number} ${this.address.street}`;
+        target.value = this.name;
       }
 
     });
@@ -433,15 +357,10 @@ class Position {
     this.address = null;
     this.elevation = null;
     this.opened = false;
-    this.contentPopup = null;
+    this.shareContent = null;
     // nettoyage du DOM
     if (this.container) {
       this.container.remove();
-    }
-    // on supprime la popup
-    if (this.popup) {
-      this.popup.remove();
-      this.popup = null;
     }
   }
 

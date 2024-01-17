@@ -1,3 +1,5 @@
+#myaccount-routes-number,
+#myaccount-landmarks-number,
 #layer-thematics-number,
 #layer-switcher-number {
   display: inline-block;
@@ -34,13 +36,6 @@
   text-align: center;
 }
 
-.layer-tabs-label:hover {
-}
-.layer-tabs-label:active {
-}
-
-.layer-tabs-input:focus + .layer-tabs-label {
-}
 .layer-tabs-label {
   border-bottom: 2px solid #DDE1E6;
 }
@@ -70,12 +65,4 @@
   /* opacity: 0; */
   display: none;
   left: 0;
-}
-
-#layer-thematics-tab,
-#layer-switcher-tab {
-}
-
-#layer-thematics,
-#layer-switcher {
 }

@@ -172,6 +172,10 @@
   color: #3F4A55;
 }
 
+.inputDirectionsLocations::placeholder {
+  color: #788089;
+}
+
 .inputDirectionsLocations:focus {
   outline: none;
   border-color: #26a581;
