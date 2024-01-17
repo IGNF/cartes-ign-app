@@ -58,6 +58,8 @@ class LayerManager extends EventTarget {
             target : null
         };
 
+        this.done = false;
+
         this.layerCatalogue = null;
         this.layerSwitcher = null;
 
@@ -70,8 +72,10 @@ class LayerManager extends EventTarget {
      * Ecouteurs
      */
     #listeners() {
+        var self = this;
         this.layerCatalogue.addEventListener("addlayer", (e) => {
-            this.layerSwitcher.addLayer(e.detail.id);
+            self.done = false;
+            self.layerSwitcher.addLayer(e.detail.id).then(function() { self.done = true});
         });
         this.layerCatalogue.addEventListener("removelayer", (e) => {
             this.layerSwitcher.removeLayer(e.detail.id);
@@ -171,6 +175,17 @@ class LayerManager extends EventTarget {
      * @public
      */
     hide() {}
+    
+    #waitFor() {
+        var self = this;
+        if(this.done === false) {
+            window.setTimeout(() => {
+                self.#waitFor();
+            }, 1000); /* this checks the flag every 100 milliseconds */
+        } else {
+          /* do something*/
+        }
+    }
 
     /**
      * Chargement de plusieurs couches
@@ -182,6 +197,7 @@ class LayerManager extends EventTarget {
             for (let i = 0; i < this.options.layers.length; i++) {
                 const layerName = this.options.layers[i];
                 this.layerCatalogue.addLayer(layerName); // TODO transmettre des options de la couches (ex. opacité)
+                this.#waitFor();
             }
         }
     }

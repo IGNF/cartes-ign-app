@@ -564,7 +564,7 @@ class LayerSwitcher extends EventTarget {
      * @fires addlayer
      * @public
      */
-    addLayer(id) {
+    async addLayer(id) {
       var props = LayersConfig.getLayerProps(id);
       this.index++;
       this.layers[id] = {
@@ -584,11 +584,9 @@ class LayerSwitcher extends EventTarget {
         format : props.format
       };
       this.#addLayerContainer(id);
-      this.#addLayerMap(id)
-      .then(() => {
+      try {
+        await this.#addLayerMap(id);
         this.#updatePosition(id);
-      })
-      .then(() => {
         /**
          * Evenement "addlayer"
          * @event addlayer
@@ -600,17 +598,16 @@ class LayerSwitcher extends EventTarget {
           new CustomEvent("addlayer", {
             bubbles: true,
             detail: {
-              id : id,
-              options : this.layers[id],
-              entries : this.getLayersOrder()
+              id: id,
+              options: this.layers[id],
+              entries: this.getLayersOrder()
             }
           })
         );
-      })
-      .catch((e) => {
+      } catch (e) {
         this.layers[id].error = true;
         throw e;
-      });
+      }
 
     }
 
