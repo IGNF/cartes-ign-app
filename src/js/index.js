@@ -65,6 +65,7 @@ function app() {
     locale: "fr",
     maxPitch: 0,
     touchPitch: false,
+    crossSourceCollisions: false,
   });
 
   // Secondary maps for RLT

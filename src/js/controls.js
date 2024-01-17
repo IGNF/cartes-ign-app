@@ -10,6 +10,7 @@ import POI from './poi';
 import RouteDraw from './route-draw/route-draw';
 import MapInteractivity from './map-interactivity/map-interactivity';
 import MyAccount from "./my-account/my-account";
+import ComparePoi from "./compare-poi";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -83,6 +84,8 @@ const addControls = () => {
     .then(() => {
       // opérations possibles aprés le chargement des POI
       console.debug("layer POI loaded !");
+      // Poi RLT
+      Globals.comparePoi = new ComparePoi(map, {});
     })
     .catch((e) => {
       // on ne capture pas les exceptions

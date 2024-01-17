@@ -201,7 +201,7 @@ class RouteDraw {
      */
     #listeners() {
         this.map.on("click", this.handleAddWayPoint);
-        this.map.on("touchstart",RouteDrawLayers["point"].id, this.handleTouchStartPoint);
+        this.map.on("touchstart", RouteDrawLayers["point"].id, this.handleTouchStartPoint);
         this.map.on("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);
         this.#editionButtonsListeners();
 
