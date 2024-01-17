@@ -327,6 +327,10 @@
 }
 
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+  .button {
+    right: calc(var(--safe-area-inset-right) + 15px);
+  }
+
   #layerManagerBtn {
     bottom: 50px;
   }
@@ -346,8 +350,8 @@
   #bottomButtons {
     position: absolute;
     bottom: calc(42px + var(--safe-area-inset-bottom));
-    width: calc(100vw - 75px - var(--safe-area-inset-left));
-    right: 0;
+    width: calc(100vw - 75px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
+    right: var(--safe-area-inset-right);
   }
 
   #interactivityBtn {
