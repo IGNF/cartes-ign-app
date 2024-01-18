@@ -274,7 +274,8 @@ class LayerSwitcher extends EventTarget {
           // possible sur l'application car la couche POI OSM ou les couches des  
           // contrôles sont toujours au dessus des autres couches.
           var pos = this.layers[id].position;
-          var beforeId = this.map.getStyle().layers[pos].id;
+          var max = (pos === Object.keys(this.layers).length - 1);
+          var beforeId = (max) ? null : this.map.getStyle().layers[pos].id;
           LayersGroup.moveGroup(id, beforeId);
         }
       }
