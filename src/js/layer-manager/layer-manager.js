@@ -70,8 +70,8 @@ class LayerManager extends EventTarget {
      * Ecouteurs
      */
     #listeners() {
-        this.layerCatalogue.addEventListener("addlayer", (e) => {
-            this.layerSwitcher.addLayer(e.detail.id);
+        this.layerCatalogue.addEventListener("addlayer", async (e) => {
+            await this.layerSwitcher.addLayer(e.detail.id).then(() => {});
         });
         this.layerCatalogue.addEventListener("removelayer", (e) => {
             this.layerSwitcher.removeLayer(e.detail.id);
@@ -174,10 +174,17 @@ class LayerManager extends EventTarget {
 
     /**
      * Chargement de plusieurs couches
-     * @todo prendre en compte une liste de couches
      * @todo transmettre des options de la couches (ex. opacité)
      */
     #loadLayers() {
+        // 1. le layer manager demande l'ajout de couches (liste) via le layer catalogue (méthode catalogue.addLayer)
+        // 2. le layer catalogue modifie le dom du catalogue (statut selectionné) puis, envoie un event addlayer que le layer manager intercepte
+        // 3. le layer manager demande un ajout au layer switcher (méthode switcher.addLayer)
+        // 4. le layer switcher traite la demande (creation du dom), puis envoie un event addlayer de fin d'ajout
+        // 5. le layer manager traite la demande du layer switcher avec une mise à jour des informations (incremente le nombre de couche)
+
+        // le layer manager n'attend pas la fin de l'ajout de la couche courrante pour enchainer une autre couche
+        // le layer manager devrait attendre la fin du 1er ajout de couche avant de passer à la suivante !
         if (this.options.layers) {
             for (let i = 0; i < this.options.layers.length; i++) {
                 const layerName = this.options.layers[i];

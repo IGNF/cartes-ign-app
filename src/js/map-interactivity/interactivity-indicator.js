@@ -109,6 +109,9 @@ class InteractivityIndicator {
      * @param {boolean} hard l'interactivité reste désactivée tant qu'active() n'est pas appelée
      */
     disable () {
+        if (!Globals.mapInteractivity) {
+          return;
+        }
         if (!this.dontClear) {
           Globals.mapInteractivity.clear();
         }
