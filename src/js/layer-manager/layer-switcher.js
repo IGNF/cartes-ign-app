@@ -270,13 +270,18 @@ class LayerSwitcher extends EventTarget {
       // on redefinie la position des couches vecteurs tuilés dans les styles
       if (typeof id !== "undefined") {
         if (this.layers[id].type === "vector") {
-          // ici, on part du principe que nous avons qu'une seule couche vecteur  
-          // possible sur l'application car la couche POI OSM ou les couches des  
+          // ici, on part du principe que nous avons qu'une seule couche vecteur
+          // possible sur l'application car la couche POI OSM ou les couches des
           // contrôles sont toujours au dessus des autres couches.
           var pos = this.layers[id].position;
+          var beforeId = this.map.getStyle().layers[pos].id;
           var max = (pos === Object.keys(this.layers).length - 1);
-          var beforeId = (max) ? null : this.map.getStyle().layers[pos].id;
-          LayersGroup.moveGroup(id, beforeId);
+          if (Object.keys(this.layers).length === 1) {
+            max = false;
+          }
+          if (!max) {
+            LayersGroup.moveGroup(id, beforeId);
+          }
         }
       }
     }
