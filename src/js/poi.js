@@ -10,7 +10,6 @@ import Globals from './globals';
  * @description
  * La couche est active par defaut, les filtres de selections sont ajoutés et la visibilité est
  * désactivée par defaut.
- * @todo les POI "remonter le temps"
  * @todo interactions avec les autres composants (ex. isochrone)
  * @todo classe utilitaire pour le vectorTile !
  */
@@ -28,11 +27,6 @@ class POI {
     };
 
     this.opened = false;
-
-    /**
-     * Couche POI active
-     */
-    this.actived = true;
 
     this.map = map;
 
@@ -178,7 +172,7 @@ class POI {
             <div class="divPOIDisplayGoBackTime">
               <span>POI remonter le temps</span>
               <label class="toggleSwitch">
-                <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox" checked>
+                <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox">
                 <span class="toggleSlider"></span>
               </label>
             </div>
@@ -212,18 +206,23 @@ class POI {
   #listeners() {
     // rendre la couche POI active en affichant ou non tous les filtres sélectionnés
     document.getElementById("displayPOI").addEventListener("change", (e) => {
-      this.actived = e.target.checked;
+      const toggleChecked = e.target.checked;
       document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
+        if (toggleChecked) {
+          el.checked = true;
+        } else {
+          el.checked = false;
+        }
+        el.dispatchEvent(new Event("change"));
         if (el.checked) {
           var layers = LayersGroup.getGroupLayers(this.id).filter((layer) => { return layer.metadata.thematic === el.name });
           for (let i = 0; i < layers.length; i++) {
             const element = layers[i];
-            LayersGroup.addVisibilityByID(this.id, element.id, this.actived);
+            LayersGroup.addVisibilityByID(this.id, element.id, true);
           }
         }
       });
     });
-    // TODO rendre visible ou non tous les filtres
     document.getElementById("displayPOIGoBackTime").addEventListener("change", (e) => {
       if (e.target.checked) {
         Globals.comparePoi.showPoints();
@@ -234,13 +233,25 @@ class POI {
     // rendre visible ou non le filtre si la couche POI est active sinon rien à faire
     document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
       el.addEventListener("change", (e) => {
-        if (!this.actived) {
-          return;
-        }
         var layers = LayersGroup.getGroupLayers(this.id).filter((layer) => { return layer.metadata.thematic === e.target.name });
         for (let i = 0; i < layers.length; i++) {
           const element = layers[i];
           LayersGroup.addVisibilityByID(this.id, element.id, e.target.checked);
+        }
+        let allUnchecked = true;
+        let allChecked = true;
+        document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
+          if (el.checked) {
+            allUnchecked = false;
+          } else {
+            allChecked = false;
+          }
+        });
+        if (allChecked) {
+          document.getElementById("displayPOI").checked = true;
+        }
+        if (allUnchecked) {
+          document.getElementById("displayPOI").checked = false;
         }
       });
     });

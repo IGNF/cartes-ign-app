@@ -32,7 +32,7 @@ let lastTextInSearch = '';
 let movedFromCode = false;
 
 let myPositionMarker = null;
-let searchResultMarker;
+let searchResultMarker = null;
 
 let myPositionIcon;
 let searchResultIcon;

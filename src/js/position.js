@@ -110,9 +110,9 @@ class Position {
     // template litteral
     this.shareContent = `${this.header}
 ${this.name}
-Latitude : ${latitude} </span>
-Longitude : ${longitude}</span><br />
-Altitude : ${altitude}m</span>
+Latitude : ${latitude}
+Longitude : ${longitude}
+Altitude : ${altitude} m
         `;
 
     var htmlButtons = `
@@ -345,6 +345,10 @@ Altitude : ${altitude}m</span>
     if (this.options.closePositionCbk) {
       this.options.closePositionCbk();
       this.opened = false;
+      if (Globals.searchResultMarker != null) {
+        Globals.searchResultMarker.remove()
+        Globals.searchResultMarker = null;
+      }
     }
   }
 
@@ -361,6 +365,10 @@ Altitude : ${altitude}m</span>
     // nettoyage du DOM
     if (this.container) {
       this.container.remove();
+    }
+    if (Globals.searchResultMarker != null) {
+      Globals.searchResultMarker.remove()
+      Globals.searchResultMarker = null;
     }
   }
 

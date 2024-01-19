@@ -195,6 +195,14 @@ let MyAccountDOM = {
       this.exportRoute(route);
     });
 
+    container.querySelector(`#route-basic-tools_ID_${routeId}`).addEventListener("click", () => {
+      const buttonToClick = container.querySelector(`#route-visibility_ID_${routeId}`);
+      if (buttonToClick.checked) {
+        buttonToClick.click();
+      }
+      buttonToClick.click();
+    });
+
     container.querySelector(`#route-visibility_ID_${routeId}`).addEventListener("click", () => {
       this.toggleShowRoute(route);
     });

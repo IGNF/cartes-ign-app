@@ -238,6 +238,7 @@ class Directions {
                     instructions : e.data.routes[0].legs
                 });
                 this.results.show();
+                console.log(this.map.getSource("maplibre-gl-directions"));
                 let routeCoordinates = [];
                 decode(e.data.routes[0].geometry).forEach( (lnglat) => {
                   routeCoordinates.push([lnglat[0], lnglat[1]]);
