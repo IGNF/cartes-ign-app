@@ -410,6 +410,7 @@ class MenuNavigation {
                 DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 Globals.mapInteractivity.clear();
+                Globals.position.clear();
                 break;
             case "isochrone":
                 // FIXME mettre en place une méthode sur la classe Searchs

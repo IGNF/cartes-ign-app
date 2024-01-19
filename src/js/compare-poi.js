@@ -42,6 +42,8 @@ class ComparePoi {
 
     this.target = this.options.target || document.getElementById("poiWindow");
 
+    this.sousTheme = null;
+
     this.handleCompareButton = this.#onClickCompareButton.bind(this)
     this.dom = {
       title: null,
@@ -70,7 +72,6 @@ class ComparePoi {
     this.map.loadImage(ComparePoiIcon, (_, image) => {
       this.map.addImage("comparePoiIcon", image);
     });
-    this.showPoints();
   }
 
   /**
@@ -88,7 +89,6 @@ class ComparePoi {
       button: document.getElementById("comparePoiWindow").querySelector(".comparePoiButton"),
       text: document.getElementById("comparePoiWindow").querySelector(".comparePoiText"),
     }
-
   }
 
   /**
@@ -108,7 +108,8 @@ class ComparePoi {
         layer2: comparePoi.properties.layer2,
         center: comparePoi.geometry.coordinates,
       };
-      this.dom.title.innerText = comparePoi.properties.sousTheme;
+      this.sousTheme = comparePoi.properties.sousTheme
+      this.dom.title.innerText = comparePoi.properties.theme;
       this.dom.commune.innerText = comparePoi.properties.commune;
       this.dom.departement.innerText = comparePoi.properties.departement;
       this.dom.text.innerText = comparePoi.properties.text;
@@ -122,7 +123,7 @@ class ComparePoi {
     Globals.backButtonState = "comparePoiActivated";
     this.dom.button.classList.add("d-none");
     this.dom.text.classList.remove("d-none");
-    Globals.compare.setParams(this.compareConfig);
+    this.dom.title.innerText = this.sousTheme;
     DOM.$comparePoiWindow.classList.remove("d-none");
     DOM.$tabContainer.style.removeProperty("top");
     DOM.$bottomButtons.style.removeProperty("bottom");
@@ -130,6 +131,7 @@ class ComparePoi {
     DOM.$sideBySideRightLayer.classList.add('d-none');
     Globals.currentScrollIndex = 2;
     Globals.menu.updateScrollAnchors();
+    Globals.compare.setParams(this.compareConfig);
   }
 
   /**
@@ -157,6 +159,7 @@ class ComparePoi {
       layout: {
         "icon-anchor": "bottom",
         "icon-image": "comparePoiIcon",
+        "icon-size": 0.75,
       }
     })
   }

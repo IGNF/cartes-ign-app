@@ -1872,8 +1872,8 @@
       },
       "styles": [
         {
-          "name": "BDORTHOHISTORIQUE",
-          "title": "BDOrthoHistorique",
+          "name": "normal",
+          "title": "Légende générique",
           "current": true,
           "url": null
         }

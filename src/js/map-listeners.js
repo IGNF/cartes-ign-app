@@ -64,7 +64,7 @@ const addListeners = () => {
       Globals.position.compute(evt.lngLat).then(() => {
         Globals.menu.open("position");
       });
-      new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
+      Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
         .setLngLat(evt.lngLat)
         .addTo(Globals.map);
     }, 500);

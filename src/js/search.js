@@ -78,6 +78,10 @@ class Search {
       DOM.$rech.value = "";
       DOM.$resultDiv.hidden = true;
       DOM.$resultDiv.innerHTML = "";
+      if (Globals.searchResultMarker != null) {
+        Globals.searchResultMarker.remove()
+        Globals.searchResultMarker = null;
+      }
     });
 
     document.getElementById(id.selectOnMap).addEventListener("click", (e) => {

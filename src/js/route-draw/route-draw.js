@@ -10,6 +10,8 @@ import ElevationLine from "../services/elevation-line";
 import MapLibreGL from "maplibre-gl";
 import { Toast } from "@capacitor/toast";
 
+import RouteDepartureIcon from "../../css/assets/route-draw/departure-marker.png";
+import RouteDestinationIcon from "../../css/assets/route-draw/destination-marker.png";
 
 /**
  * Interface sur le tracé d'itinéraire
@@ -84,6 +86,13 @@ class RouteDraw {
 
         // Profil Altimétrique
         this.elevation = new ElevationLineControl({target: document.getElementById("routedraw-elevationline")});
+
+        this.map.loadImage(RouteDepartureIcon, (_, image) => {
+            this.map.addImage("routeDepartureIcon", image);
+        });
+        this.map.loadImage(RouteDestinationIcon, (_, image) => {
+            this.map.addImage("routeDestinationIcon", image);
+        });
 
         // fonction d'event avec bind
         this.handleAddWayPoint = this.#onAddWayPoint.bind(this);
@@ -410,6 +419,10 @@ class RouteDraw {
         // TODO: Patience
         this.deactivate();
         var coordinates = e.lngLat;
+        var order = "destination";
+        if (this.data.points.length === 0) {
+            order = "departure";
+        }
         var length = this.data.points.push({
             type: "Feature",
             geometry: {
@@ -419,8 +432,12 @@ class RouteDraw {
             properties: {
                 name: "",
                 id: this.nextPointId,
+                order: order,
             }
         });
+        for (let i = 1; i < this.data.points.length - 1; i++) {
+            this.data.points[i].properties.order = "";
+        }
         this.nextPointId++;
 
         const address = await this.#computePointName(coordinates);
@@ -657,8 +674,12 @@ class RouteDraw {
 
         RouteDrawLayers["point-casing"].source = this.configuration.pointsource;
         RouteDrawLayers["point"].source = this.configuration.pointsource;
+        RouteDrawLayers["point-departure"].source = this.configuration.pointsource;
+        RouteDrawLayers["point-destination"].source = this.configuration.pointsource;
         this.map.addLayer(RouteDrawLayers["point-casing"]);
         this.map.addLayer(RouteDrawLayers["point"]);
+        this.map.addLayer(RouteDrawLayers["point-departure"]);
+        this.map.addLayer(RouteDrawLayers["point-destination"]);
     }
 
     /**

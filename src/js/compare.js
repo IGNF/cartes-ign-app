@@ -271,8 +271,8 @@ class Compare {
     this.mapRLT2.setCenter(params.center);
     this.mapRLT1.setZoom(params.zoom);
     this.mapRLT2.setZoom(params.zoom);
-    this.#addLayer(params.layer1 + "$GEOPORTAIL:OGC:WMTS", "1");
-    this.#addLayer(params.layer2 + "$GEOPORTAIL:OGC:WMTS", "2");
+    document.getElementById(`mapRLT1-${params.layer1 + "$GEOPORTAIL:OGC:WMTS"}`).click();
+    document.getElementById(`mapRLT2-${params.layer2 + "$GEOPORTAIL:OGC:WMTS"}`).click();
     switch (params.mode) {
       case "vSlider":
         document.querySelector("#compareLeftRight").click();
@@ -310,7 +310,6 @@ class Compare {
     this.mapRLT1.setZoom(this.map.getZoom());
     this.mapRLT2.setZoom(this.map.getZoom());
     this.#changeMode();
-
   }
 
   /**
