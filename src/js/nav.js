@@ -105,6 +105,12 @@ class MenuNavigation {
         // y'a t il des particularités sur l'ouverture du panneau demandé ?
         var isSpecific = false;
         switch (id) {
+            case "comparePoi":
+                DOM.$search.style.display = "none";
+                DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                Globals.currentScrollIndex = 2;
+                break;
             case "selectOnMapDirections":
             case "selectOnMapIsochrone":
                 DOM.$filterPoiBtn.classList.add("d-none");
@@ -165,7 +171,7 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 0;
                 break;
             case "routeDrawSave":
-                DOM["$routeDrawWindow"].classList.add('d-none');
+                DOM.$routeDrawWindow.classList.add('d-none');
                 DOM.$filterPoiBtn.classList.add('d-none');
                 DOM.$routeDrawBtns.classList.add('d-none');
                 DOM.$routeDrawEdit.classList.add('d-none');
@@ -288,14 +294,7 @@ class MenuNavigation {
 
         // on procede à l'affichage du panneau
         // DOM.$tabContainer.style.height = "100%";
-
-        if (Globals.currentScrollIndex === 2) {
-            this.updateScrollAnchors();
-        } else if (Globals.currentScrollIndex === 1) {
-            this.#midScroll();
-        } else {
-            // ...
-        }
+        this.updateScrollAnchors();
     }
 
     /**
@@ -312,6 +311,11 @@ class MenuNavigation {
         var isSpecific = false;
         var isFinished = false; // hack pour search !
         switch (id) {
+            case "comparePoi":
+                DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                break;
             case "selectOnMapDirections":
             case "selectOnMapIsochrone":
                 DOM.$filterPoiBtn.classList.remove("d-none");
@@ -406,6 +410,7 @@ class MenuNavigation {
                 DOM.$filterPoiBtn.style.removeProperty("top");
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 Globals.mapInteractivity.clear();
+                Globals.position.clear();
                 break;
             case "isochrone":
                 // FIXME mettre en place une méthode sur la classe Searchs

@@ -85,6 +85,15 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'selectOnMapIsochrone') {
         Globals.menu.close('selectOnMapIsochrone');
     }
+    if (Globals.backButtonState === 'comparePoi') {
+      Globals.menu.close('comparePoi');
+    }
+    if (Globals.backButtonState === 'comparePoiActivated') {
+      document.getElementById("comparePoiWindow").querySelector(".comparePoiText").classList.add("d-none");
+      document.getElementById("comparePoiWindow").querySelector(".comparePoiButton").classList.remove("d-none");
+      Globals.currentScrollIndex = 0;
+      Globals.menu.open('compare');
+    }
 }
 
 export default {

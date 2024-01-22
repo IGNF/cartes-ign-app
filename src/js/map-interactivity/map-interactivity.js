@@ -69,9 +69,6 @@ class MapInteractivity {
   }
 
   #getInfoOnMap(ev) {
-    if (!Globals.interactivityIndicator.shown) {
-      return;
-    }
     if (Globals.backButtonState === "position") {
       Globals.menu.close("position");
     }
@@ -90,6 +87,9 @@ class MapInteractivity {
         this.map.on("click", this.handleInfoOnMap);
         return;
       }
+    }
+    if (!Globals.interactivityIndicator.shown) {
+      return;
     }
 
     // GFI au sens OGC
@@ -222,7 +222,7 @@ class MapInteractivity {
         `&STYLE=${layer[1].style}&INFOFORMAT=text/html&I=${layer[1].tiles.tilePixel.x}&J=${layer[1].tiles.tilePixel.y}`;
       if (layer[0].split(":").slice(-1)[0] === "WMS") {
         // https://wiki.openstreetmap.org/wiki/Zoom_levels
-        const resolution = 40075016.686 * Math.cos(layer[1].clickCoords.lat) / Math.pow(2, layer[1].computeZoom + 6);
+        const resolution = 40075016.686 * Math.cos(layer[1].clickCoords.lat * Math.PI/180) / Math.pow(2, layer[1].computeZoom + 6);
         const clickMercatorCoords = proj4(proj4.defs('EPSG:4326'), proj4.defs('EPSG:3857'), [layer[1].clickCoords.lng, layer[1].clickCoords.lat])
         // https://gis.stackexchange.com/questions/79201/lat-long-values-in-a-wms-getfeatureinfo-request
         const bottomLeft = [clickMercatorCoords[0] - 50 * resolution, clickMercatorCoords[1] - 50 * resolution];

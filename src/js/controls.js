@@ -10,6 +10,7 @@ import POI from './poi';
 import RouteDraw from './route-draw/route-draw';
 import MapInteractivity from './map-interactivity/map-interactivity';
 import MyAccount from "./my-account/my-account";
+import ComparePoi from "./compare-poi";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -54,6 +55,8 @@ const addControls = () => {
         openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
         closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); }
       });
+      // Poi RLT
+      Globals.comparePoi = new ComparePoi(map, {});
     })
     .catch((e) => {
       // on ne capture pas les exceptions
@@ -95,18 +98,6 @@ const addControls = () => {
       maxWidth: 150,
       unit: 'metric'
     }), "bottom-left");
-
-    // contrôle filtres POI
-    Globals.poi = new POI(map, {});
-    Globals.poi.load() // promise !
-    .then(() => {
-      // opérations possibles aprés le chargement des POI
-      console.debug("layer POI loaded !");
-    })
-    .catch((e) => {
-      // on ne capture pas les exceptions
-      console.error(e);
-    });
 
     // contrôle tracé d'itinéraire
     Globals.routeDraw = new RouteDraw(map, {});

@@ -84,7 +84,47 @@ const layers = {
         ["case", ["boolean", ["get", "highlight"], false], 11, 9],
       ],
       "circle-color": "#ffffff",
-    }
+    },
+  },
+  "point-departure": {
+    id: "route-draw-point-departure",
+    type: "symbol",
+    source: "",
+    layout: {
+      "icon-image": "routeDepartureIcon",
+      "icon-size": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        5,
+        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        18,
+        ["case", ["boolean", ["get", "highlight"], false], 22/50, 18/50],
+      ],
+    },
+    filter: ["==", ["get", "order"], "departure"],
+  },
+  "point-destination": {
+    id: "route-draw-point-destination",
+    type: "symbol",
+    source: "",
+    layout: {
+      "icon-image": "routeDestinationIcon",
+      "icon-size": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        5,
+        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        18,
+        ["case", ["boolean", ["get", "highlight"], false], 22/50, 18/50],
+      ],
+    },
+    filter: ["==", ["get", "order"], "destination"],
   },
 };
 

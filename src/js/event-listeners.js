@@ -42,6 +42,11 @@ function addListeners() {
       setTimeout(() =>  RecentSearch.add(DOM.$rech.value.trim()), 260);
     }
   }, true);
+  document.querySelector('body').addEventListener('wheel', (evt) => {
+    if ( evt.target.classList.contains('compare-swiper-horizontal') || evt.target.classList.contains('compare-swiper-vertical')) {
+      evt.preventDefault();
+    }
+  }, { passive: false });
 
   // Ecouteurs sur les sous menus Compte
   document.getElementById('menuItemParamsIcon').addEventListener('click', () => {
@@ -117,14 +122,14 @@ function addListeners() {
         DOM.$bottomButtons.style.width = "auto";
       }
     }
-    if (["selectOnMapDirections", "selectOnMapIsochrone"].includes(Globals.backButtonState)) {
+    if (["selectOnMapDirections", "selectOnMapIsochrone", "compare"].includes(Globals.backButtonState)) {
       Globals.currentScrollIndex = 0;
     }
     if (Globals.backButtonState === "compareLayers2") {
       DOM.$sideBySideLeftLayer.style.removeProperty("left");
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$sideBySideLeftLayer.style.left = "calc(100vh + var(--safe-area-inset-left) - 20px)";
-    }
+      }
     }
     Globals.menu.updateScrollAnchors();
   });

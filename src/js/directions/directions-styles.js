@@ -2,22 +2,6 @@
 //   cf. https://maplibre.org/maplibre-gl-directions/#/examples/restyling
 const layers = [
   {
-    id: "maplibre-gl-directions-snapline",
-    type: "line",
-    source: "maplibre-gl-directions",
-    layout: {
-      "line-cap": "round",
-      "line-join": "round",
-    },
-    paint: {
-      "line-dasharray": [3, 3],
-      "line-color": "#307CCD",
-      "line-opacity": 1,
-      "line-width": 3,
-    },
-    filter: ["==", ["get", "type"], "SNAPLINE"],
-  },
-  {
     id: "maplibre-gl-directions-routeline-casing",
     type: "line",
     source: "maplibre-gl-directions",
@@ -44,7 +28,30 @@ const layers = [
         20,
       ],
     },
+    filter: ["!=", ["get", "type"], "SNAPLINE"],
   },
+  // {
+  //   id: "maplibre-gl-directions-snapline",
+  //   type: "line",
+  //   source: "maplibre-gl-directions",
+  //   paint: {
+  //     "line-dasharray": [0.5, 0.25],
+  //     "line-color": "#307CCD",
+  //     "line-opacity": 1,
+  //     "line-width": [
+  //       "interpolate",
+  //       ["exponential", 1.5],
+  //       ["zoom"],
+  //       0,
+  //       2,
+  //       5,
+  //       2,
+  //       18,
+  //       17,
+  //     ],
+  //   },
+  //   filter: ["==", ["get", "type"], "SNAPLINE"],
+  // },
   {
     id: "maplibre-gl-directions-routeline",
     type: "line",
@@ -69,6 +76,7 @@ const layers = [
         17,
       ],
     },
+    filter: ["!=", ["get", "type"], "SNAPLINE"],
   },
   {
     id: "maplibre-gl-directions-point-casing",
@@ -95,7 +103,7 @@ const layers = [
       ],
       "circle-color": "#307CCD",
     },
-    filter: ["any", ["==", ["get", "type"], "HOVERPOINT"], ["==", ["get", "type"], "SNAPPOINT"], ["==", ["get", "type"], "WAYPOINT"]],
+    filter: ["==", ["get", "type"], "SNAPPOINT"],
   },
   {
     id: "maplibre-gl-directions-point",
@@ -121,7 +129,47 @@ const layers = [
       ],
       "circle-color": "#ffffff"
     },
-    filter: ["any", ["==", ["get", "type"], "HOVERPOINT"], ["==", ["get", "type"], "SNAPPOINT"], ["==", ["get", "type"], "WAYPOINT"]],
+    filter: ["==", ["get", "type"], "SNAPPOINT"],
+  },
+  {
+    id: "maplibre-gl-directions-point-ORIGIN",
+    type: "symbol",
+    source: "maplibre-gl-directions",
+    layout: {
+      "icon-image": "routeDepartureIcon",
+      "icon-size": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        5,
+        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        18,
+        ["case", ["boolean", ["get", "highlight"], false], 22/50, 18/50],
+      ],
+    },
+    filter: ["all", ["==", ["get", "type"], "SNAPPOINT"], ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "ORIGIN"]],
+  },
+  {
+    id: "maplibre-gl-directions-point-DESTINATION",
+    type: "symbol",
+    source: "maplibre-gl-directions",
+    layout: {
+      "icon-image": "routeDestinationIcon",
+      "icon-size": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        5,
+        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        18,
+        ["case", ["boolean", ["get", "highlight"], false], 22/50, 18/50],
+      ],
+    },
+    filter: ["all", ["==", ["get", "type"], "SNAPPOINT"], ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "DESTINATION"]],
   },
 ];
 

@@ -367,8 +367,12 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
 
     MyAccountLayers["point-casing"].source = this.configuration.pointsource;
     MyAccountLayers["point"].source = this.configuration.pointsource;
+    MyAccountLayers["point-departure"].source = this.configuration.pointsource;
+    MyAccountLayers["point-destination"].source = this.configuration.pointsource;
     this.map.addLayer(MyAccountLayers["point-casing"]);
     this.map.addLayer(MyAccountLayers["point"]);
+    this.map.addLayer(MyAccountLayers["point-departure"]);
+    this.map.addLayer(MyAccountLayers["point-destination"]);
   }
 
   /**
