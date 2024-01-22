@@ -6,6 +6,8 @@ import Geocode from "../services/geocode";
 import Location from "../services/location";
 import Reverse from "../services/reverse";
 
+import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+
 /**
  * Interface sur le contrôle isochrone
  * @module Isochrone
@@ -51,7 +53,7 @@ class Isochrone {
 
     // style
     this.style = this.options.style || {
-      color: "307CCD",
+      color: "#307CCD",
       opacity: 0.15,
     };
 
@@ -66,9 +68,11 @@ class Isochrone {
     this.center = null;
 
     // poi
-    // on detecte la presence des POI 
+    // on detecte la presence des POI
     // avant la creation du rendu du contrôle
     this.poi = this.#hasLayerPoi();
+
+    this.#addSourcesAndLayers();
 
     // rendu graphique
     this.#render();
@@ -87,7 +91,7 @@ class Isochrone {
 
   /**
    * Auto detection des POI
-   * @returns 
+   * @returns
    * @todo creation des filtres
    */
   #hasLayerPoi() {
@@ -123,10 +127,6 @@ class Isochrone {
       filter.id += " (" + id + ")";
       delete filter["source-layer"];
     }
-
-    // binding
-    this.onDisplayPoiInsideIsochrone = this.onDisplayPoiInsideIsochrone.bind(this);
-
     return {
       id : source,
       config : config,
@@ -268,47 +268,10 @@ class Isochrone {
     if (response.status !== 200) {
       throw new Error(response.message);
     }
-
-    if (this.poi) {
-      // comment obtenir la liste des POI contenue dan l'emprise de l'isochrone ?
-      // > les POI sont disponibles dans les tuiles chargées sur le zoom > 14
-      // > pour pouvoir être requêté !
-      this.map.on('render', this.onDisplayPoiInsideIsochrone);
-    }
-
-    // ajouter la source
-    this.map.addSource(this.configuration.source, {
-      "type": "geojson",
-      "data": geojson
-    });
-
-    // affichage du polygone de l'isochrone
+    // affichage
     if (settings.showOutline) {
-      var id = this.configuration.source;
-      this.map.addLayer({
-        "id": this.configuration.source,
-        "type": "fill",
-        "source": this.configuration.source,
-        "layout": {},
-        "paint": {
-          "fill-color": "#" + this.style.color,
-          "fill-opacity": this.style.opacity
-        }
-      });
-
-      this.map.addLayer({
-        "id": this.configuration.source + "line",
-        "type": "line",
-        "source": id,
-        "metadata": {
-          "group": id
-        },
-        "layout": {},
-        "paint": {
-          "line-color": "#" + this.style.color,
-          "line-width": 1,
-        }
-      });
+      var source = this.map.getSource(this.configuration.source);
+      source.setData(geojson);
     }
 
     // "get bounds from a polygon"
@@ -327,18 +290,72 @@ class Isochrone {
     }
 
     // par defaut, le 1er feature est le résultat de l'isochrone
-    this.polygon = geojson.features[0].geometry.coordinates[0];
+    this.polygon = geojson.features[0];
     this.center = geojson.features[1].geometry.coordinates[0];
 
     // bbox
-    var bbox = getBoundingBox(this.polygon);
+    var bbox = getBoundingBox(this.polygon.geometry.coordinates[0]);
     // deplacement de la carte sur l'emprise des résultats
     this.map.fitBounds(bbox, {
       padding: 20
     });
 
+    console.log(settings.poisToDisplay);
+    if (this.poi) {
+      this.poi.ids.forEach( (id) => {
+        if (settings.poisToDisplay[id.split(" ")[0]]) {
+          this.map.setFilter(id, ["all", ["within", this.polygon], this.map.getFilter(id)]);
+        } else {
+          this.map.setFilter(id, ["all", ["==", "true", "false"], this.map.getFilter(id)]);
+        }
+      });
+    }
+
     Globals.currentScrollIndex = 0;
     Globals.menu.updateScrollAnchors();
+  }
+
+  /**
+   * ajoute la source et le layer à la carte pour affichage du tracé
+   */
+  #addSourcesAndLayers() {
+    // ajouter la source
+    this.map.addSource(this.configuration.source, {
+      "type": "geojson",
+      "data": {
+        'type': 'FeatureCollection',
+        'features': []
+      },
+    });
+
+    var id = this.configuration.source;
+    this.map.addLayer({
+      "id": this.configuration.source,
+      "type": "fill",
+      "source": this.configuration.source,
+      "layout": {},
+      "paint": {
+        "fill-color": this.style.color,
+        "fill-opacity": this.style.opacity
+      }
+    });
+
+    this.map.addLayer({
+      "id": this.configuration.source + "line",
+      "type": "line",
+      "source": id,
+      "metadata": {
+        "group": id
+      },
+      "layout": {},
+      "paint": {
+        "line-color": this.style.color,
+        "line-width": 1,
+      }
+    });
+
+    this.map.moveLayer(this.configuration.source + "line", "maplibre-gl-directions-routeline-casing");
+    this.map.moveLayer(this.configuration.source, this.configuration.source + "line");
   }
 
   /**
@@ -353,22 +370,20 @@ class Isochrone {
       this.controller = new AbortController();
       this.loading = false;
     }
-    // listener sur l'obtention des POI
-    this.map.off('render', this.onDisplayPoiInsideIsochrone);
     // supprimer la couche isochrone
-    if (this.map.getLayer(this.configuration.source)) {
-      this.map.removeLayer(this.configuration.source);
-    }
-    if (this.map.getLayer(this.configuration.source + "line")) {
-      this.map.removeLayer(this.configuration.source + "line");
-    }
-    if (this.map.getSource(this.configuration.source)) {
-      this.map.removeSource(this.configuration.source);
-    }
-    // TODO supprimer la couche POI isochrone
+    var source = this.map.getSource(this.configuration.source);
+    source.setData({
+      'type': 'FeatureCollection',
+      'features': []
+    });
     // resultats
     this.polygon = null;
     this.center = null;
+    this.poi.ids.forEach( (id) => {
+      if (this.map.getFilter(id)[0] === "all") {
+        this.map.setFilter(id, this.map.getFilter(id).splice(-1)[0]);
+      }
+    });
   }
 
   /**
@@ -482,41 +497,6 @@ class Isochrone {
     if (close) {
       close.removeEventListener("click", cleanLocation);
     }
-  }
-
-  /**
-   * listener pour afficher les POI dans l'emprise de l'isochrone
-   * @param {*} e 
-   * @returns 
-   * @todo ...
-   */
-  onDisplayPoiInsideIsochrone() {
-    if (!this.map.isSourceLoaded('poi_osm')) return;
-    if (!this.map.areTilesLoaded()) return;
-    
-    // recuperer les POI sur la carte
-    var bounds = this.map.getBounds();
-    var features = this.map.queryRenderedFeatures(bounds, { layers: this.poi.ids });
-    console.debug(features);
-        
-    // TODO "check if a point is inside a polygon"
-    function intersect(feature, polygon) {
-      // utilisation de turf ?
-      // https://github.com/Turfjs/turf/blob/master/packages/turf-boolean-point-in-polygon/test.ts
-    }
-    
-    // filtrer la liste des POI qui intersectent le polygone de l'isochrone
-    for (let i = 0; i < features.length; i++) {
-      const feature = features[i];
-      if (intersect(feature, this.polygon)) {
-        // TODO ...
-      }
-    }
-
-    // TODO ...
-    // creer et ajouter une source pour les POI isochrone au format geojson
-    // ajouter ou appliquer les filtres de visualisation
-
   }
 }
 

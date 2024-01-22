@@ -44,10 +44,10 @@ let IsochroneDOM = {
         return `
         <label class="lblIsochroneFilter chkContainer" title="${values.id}">
           ${values.name}
-          <input 
-            class="inputIsochroneFilterItem checkbox" 
-            type="checkbox" 
-            name="${values.id}" 
+          <input
+            class="inputIsochroneFilterItem checkbox"
+            type="checkbox"
+            name="${values.id}"
             value="${values.id}"
             ${checked}>
           <span class="checkmark"></span>
@@ -200,12 +200,19 @@ let IsochroneDOM = {
       // affichage du contour
       var showOutline = self.dom.showLimitsChk.checked;
 
+      // type de POI à afficher
+      var poisToDisplay = {}
+      document.querySelectorAll(".inputIsochroneFilterItem").forEach( (el) => {
+        poisToDisplay[el.value] = el.checked;
+      });
+
       // passer les valeurs au service
       self.compute({
         transport: transport,
         mode: mode,
         location: value,
         showOutline: showOutline,
+        poisToDisplay: poisToDisplay,
       });
 
       return false;

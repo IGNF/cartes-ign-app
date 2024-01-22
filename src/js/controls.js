@@ -42,27 +42,6 @@ const addControls = () => {
       closeSearchControlCbk : () => { Globals.menu.close("searchDirections"); }
     });
 
-    // contrôle filtres POI
-    Globals.poi = new POI(map, {});
-    Globals.poi.load() // promise !
-    .then(() => {
-      // opérations possibles aprés le chargement des POI
-      console.debug("POI loaded !");
-      // INFO
-      // le contrôle de calcul d'isochrone est en attente de l'initialisation des POI
-      Globals.isochrone = new Isochrone(map, {
-        // callback sur l'ouverture / fermeture du panneau de recherche
-        openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
-        closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); }
-      });
-      // Poi RLT
-      Globals.comparePoi = new ComparePoi(map, {});
-    })
-    .catch((e) => {
-      // on ne capture pas les exceptions
-      console.error(e);
-    });
-
     // contrôle "Où suis-je ?"
     Globals.position = new Position(map, {
       tracking : true, // activation du tracking !
@@ -107,6 +86,27 @@ const addControls = () => {
 
     // compte utilisateur
     Globals.myaccount = new MyAccount(map, {});
+
+    // contrôle filtres POI
+    Globals.poi = new POI(map, {});
+    Globals.poi.load() // promise !
+    .then(() => {
+      // opérations possibles aprés le chargement des POI
+      console.debug("POI loaded !");
+      // INFO
+      // le contrôle de calcul d'isochrone est en attente de l'initialisation des POI
+      Globals.isochrone = new Isochrone(map, {
+        // callback sur l'ouverture / fermeture du panneau de recherche
+        openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
+        closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); }
+      });
+      // Poi RLT
+      Globals.comparePoi = new ComparePoi(map, {});
+    })
+    .catch((e) => {
+      // on ne capture pas les exceptions
+      console.error(e);
+    });
   });
 }
 

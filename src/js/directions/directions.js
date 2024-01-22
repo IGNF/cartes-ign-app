@@ -193,21 +193,6 @@ class Directions {
                         this.obj.addWaypoint(point);
                     }
                 }
-
-                var padding = 20;
-                // gestion du mode paysage / écran large
-                if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-                    var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sal").slice(0, -2)) +
-                      window.innerHeight + 42;
-                    padding = {top: 20, right: 20, bottom: 20, left: paddingLeft}
-                }
-                if (points.length > 1) {
-                    // TODO
-                    // https://maplibre.org/maplibre-gl-js/docs/examples/zoomto-linestring/
-                    this.map.fitBounds(points, {
-                        padding: padding,
-                    });
-                }
             } catch (e) {
                 // catching des exceptions JSON
                 console.error(e);
