@@ -9,7 +9,6 @@ import Reverse from "../services/reverse";
 /**
  * Interface sur le contrôle isochrone
  * @module Isochrone
- * @todo mise en place d'une patience
  * @todo ajouter les fonctionnalités : cf. DOM
  */
 class Isochrone {
@@ -106,6 +105,7 @@ class Isochrone {
   async compute(settings) {
     // nettoyage de l'ancien parcours !
     this.clear();
+    this.__setComputeButtonLoading();
     // Les valeurs sont à retranscrire en options du service utilisé
     // - transport
     // - mode : distance ou temps avec les valeurs
@@ -257,6 +257,7 @@ class Isochrone {
     });
     Globals.currentScrollIndex = 0;
     Globals.menu.updateScrollAnchors();
+    this.__unsetComputeButtonLoading();
   }
 
   /**
@@ -280,6 +281,7 @@ class Isochrone {
     if (this.map.getSource(this.configuration.source)) {
       this.map.removeSource(this.configuration.source);
     }
+    this.__unsetComputeButtonLoading();
   }
 
   /**

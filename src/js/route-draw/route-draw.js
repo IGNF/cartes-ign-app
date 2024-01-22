@@ -5,7 +5,6 @@ import ElevationLineControl from "../elevation-line-control";
 import DOM from '../dom';
 import RouteDrawLayers from "./route-draw-styles";
 import Reverse from "../services/reverse";
-import ElevationLine from "../services/elevation-line";
 
 import MapLibreGL from "maplibre-gl";
 import { Toast } from "@capacitor/toast";
@@ -136,7 +135,6 @@ class RouteDraw {
 
         // requête en cours d'execution ?
         this.loading = false;
-        this.elevationLoading = false;
 
         return this;
     }
@@ -180,7 +178,11 @@ class RouteDraw {
     setData(data) {
         this.dataHistory = [];
         this.data = data;
-        this.elevation.setData(data.elevationData);
+        if (this.data.elevationData.elevationData.length > 1) {
+            this.elevation.setData(this.data.elevationData);
+        } else {
+            this.#updateElevation();
+        }
         this.#saveState();
         DOM.$routeDrawCancel.classList.add("inactive");
         this.__updateRouteInfo(this.data);
@@ -630,19 +632,17 @@ class RouteDraw {
      * met à jour les données d'altitude (profil alti)
      */
     async #updateElevation() {
-        if (this.elevationLoading) {
-            ElevationLine.clear();
-        }
-        this.elevationLoading = true;
+        this.__setElevationLoading();
         const allCoordinates = this.data.steps.map((step) => step.geometry.coordinates).flat();
         this.elevation.setCoordinates(allCoordinates);
         try {
             await this.elevation.compute();
         } finally {
-            this.elevationLoading = false;
+            this.__unsetElevationLoading();
         }
         this.data.elevationData = this.elevation.getData();
         if (Globals.backButtonState === "routeDraw") {
+            this.dataHistory[this.currentHistoryPosition].elevationData = JSON.parse(JSON.stringify(this.data.elevationData));
             this.__updateRouteInfo(this.data);
         }
     }
@@ -722,7 +722,11 @@ class RouteDraw {
         this.currentHistoryPosition++;
         DOM.$routeDrawRestore.classList.remove("inactive");
         this.data = JSON.parse(JSON.stringify(this.dataHistory[this.currentHistoryPosition]));
-        this.elevation.setData(this.data.elevationData);
+        if (this.data.elevationData.elevationData.length > 1) {
+            this.elevation.setData(this.data.elevationData);
+        } else {
+            this.#updateElevation();
+        }
         this.#updateSources();
         this.__updateRouteInfo(this.data);
         if (this.currentHistoryPosition == this.dataHistory.length - 1) {
@@ -740,7 +744,11 @@ class RouteDraw {
         this.currentHistoryPosition--;
         DOM.$routeDrawCancel.classList.remove("inactive");
         this.data = JSON.parse(JSON.stringify(this.dataHistory[this.currentHistoryPosition]));
-        this.elevation.setData(this.data.elevationData);
+        if (this.data.elevationData.elevationData.length > 1) {
+            this.elevation.setData(this.data.elevationData);
+        } else {
+            this.#updateElevation();
+        }
         this.#updateSources();
         this.__updateRouteInfo(this.data);
         if (this.currentHistoryPosition == 0) {

@@ -20,6 +20,9 @@ import ElevationLine from "./services/elevation-line";
 
 import { Toast } from '@capacitor/toast';
 
+import LoadingDark from "../css/assets/loading-darkgrey.svg";
+
+
 /**
  * Interface sur le contrôle profil altimétrique
  * @module ElevationLineControl
@@ -37,7 +40,7 @@ class ElevationLineControl {
     this.options = options || {
       target: null,
     }
-    this.target = this.options.target;
+    this.target = this.options.target || document.getElementById("directions-elevationline");
     this.coordinates = null;    // [{lat: ..., lon: ...}, ...]
     this.elevationData = null;  // [{x: <distance>, y: <elevation}, ...]
 
@@ -47,6 +50,20 @@ class ElevationLineControl {
     this.unit = "m"; // unité pour la distance
 
     this.chart = null;
+
+    this.loadingDom = document.createElement("div"); // div de la patience
+    this.loadingDom.style.width = "100%";
+    this.loadingDom.style.aspectRatio = "2 / 1";
+    this.loadingDom.style.position = "absolute";
+    this.loadingDom.style.transform = "translate(0, -100%)";
+    this.loadingDom.style.backgroundColor = "#3F4A5555";
+    this.loadingDom.style.backgroundImage = "url(" + LoadingDark + ")";
+    this.loadingDom.style.backgroundPosition = "center";
+    this.loadingDom.style.backgroundRepeat = "no-repeat";
+    this.loadingDom.style.backgroundSize = "50px";
+    this.loadingDom.style.display = "none";
+    this.loadingDomInDocument = false;
+
     return this;
   }
 
@@ -86,10 +103,11 @@ class ElevationLineControl {
    * @public
    */
   render() {
+    this.#unsetLoading();
     if (this.chart != null) {
       this.clear();
     }
-    var target = this.target || document.getElementById("directions-elevationline");
+    var target = this.target;
     if (!target) {
       console.warn();
       return;
@@ -150,6 +168,7 @@ class ElevationLineControl {
    * @public
    */
   async compute() {
+    this.#setLoading();
     // Gestion du cas où pas assez de coordonnées sont présentes
     if (this.coordinates.length < 2) {
       this.setData({
@@ -168,11 +187,15 @@ class ElevationLineControl {
     try {
       responseElevation = await ElevationLine.compute(this.coordinates);
     } catch(err) {
-      Toast.show({
-        text: "Erreur lors du calcul de profil altimétrique",
-        duration: "short",
-        position: "bottom"
-      });
+      if (!err.message.includes("The user aborted a request.")) {
+        Toast.show({
+          text: "Erreur lors du calcul de profil altimétrique",
+          duration: "short",
+          position: "bottom"
+        });
+      } else {
+        return;
+      }
       responseElevation = {elevations: [{lon: 0, lat:0, z:0}]}
     }
     let lastLngLat = null;
@@ -209,6 +232,26 @@ class ElevationLineControl {
       });
     }
     this.render();
+  }
+
+  /**
+   * Active la patience le temps que la requête se termine
+   * @private
+   */
+  #setLoading() {
+    if (!this.loadingDomInDocument) {
+      this.target.after(this.loadingDom);
+      this.loadingDomInDocument = true;
+    }
+    this.loadingDom.style.removeProperty("display");
+  }
+
+  /**
+   * Désactive la patience
+   * @private
+   */
+  #unsetLoading() {
+    this.loadingDom.style.display = "none";
   }
 
   /**
