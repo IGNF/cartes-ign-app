@@ -31,6 +31,10 @@ const onBackKeyDown = () => {
         Globals.menu.close('privacyScreen');
         Globals.menu.open('myaccount');
     }
+    if (Globals.backButtonState === 'gpfAuth') {
+        Globals.menu.close('gpfAuth');
+        Globals.menu.open('myaccount');
+    }
     if (Globals.backButtonState === 'informations') {
         Globals.menu.close('informations');
     }

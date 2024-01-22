@@ -6,7 +6,7 @@ import utils from '../unit-utils';
 import { Share } from '@capacitor/share';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import maplibregl from "maplibre-gl";
-
+import Auth from "./authentification"
 /**
  * Interface sur la fenêtre du compte
  * @module MyAccount
@@ -27,6 +27,7 @@ class MyAccount {
 
     // configuration
     // TODO client keycloak GPF
+    this.auth = new Auth();
     this.configuration = this.options.configuration || {
       linesource: "my-account-line",
       pointsource: "my-account-point",

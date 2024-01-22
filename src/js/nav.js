@@ -239,6 +239,14 @@ class MenuNavigation {
                 DOM.$altMenuContainer.classList.remove('d-none');
                 Globals.currentScrollIndex = 0;
                 break;
+            case "gpfAuth":
+                document.body.style.overflowY = "scroll";
+                DOM.$whiteScreen.classList.remove('d-none');
+                DOM.$search.style.display = "none";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
+                DOM.$altMenuContainer.classList.remove('d-none');
+                Globals.currentScrollIndex = 0;
+                break;
             case "directionsResults":
                 DOM.$tabContainer.style.backgroundColor = "white";
                 Globals.interactivityIndicator.enable();
@@ -460,6 +468,14 @@ class MenuNavigation {
             case "myaccount":
                 DOM.$whiteScreen.style.removeProperty('background-color');
             case "parameterScreen":
+            case "gpfAuth":
+                document.body.style.removeProperty("overflow-y");
+                DOM.$whiteScreen.classList.add('d-none');
+                DOM.$search.style.display = "flex";
+                DOM.$filterPoiBtn.style.removeProperty("top");
+                DOM.$backTopLeftBtn.classList.add('d-none');
+                DOM.$altMenuContainer.classList.add('d-none');
+                break;
             case "legalScreen":
             case "privacyScreen":
                 document.body.style.removeProperty("overflow-y");

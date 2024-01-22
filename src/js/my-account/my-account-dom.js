@@ -1,7 +1,9 @@
 import { Toast } from '@capacitor/toast';
 
+import Globals from '../globals';
 import utils from '../unit-utils';
 import DomUtils from '../dom-utils';
+import DOM from '../dom';
 
 import Sortable from 'sortablejs';
 
@@ -82,7 +84,9 @@ let MyAccountDOM = {
       div.appendChild(logInBtn);
 
       logInBtn.addEventListener("click", () => {
-        console.warn("GPF auth not implemented");
+        DOM.$whiteScreen.style.animation = "unset";
+        Globals.menu.close('myaccount');
+        Globals.menu.open('gpfAuth');   
       })
     } else {
       var logOutBtn = document.createElement("div");

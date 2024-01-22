@@ -1,0 +1,26 @@
+#logInForm {
+    text-align: center;
+    width: 100%;
+    margin-top: 40px;
+    input {
+       margin-top: 10px;
+       width: 90%;
+       height: 3em;;
+       border-width: 0 0 0;
+       border-bottom: 0.2rem solid #dde1e6;
+       &:focus {
+        border-bottom: 0.2rem solid #26A581;
+        outline: none;
+       }
+    }
+}
+
+#logInButton {
+    background-color: #26A581;
+    color: white;
+    font-family: "Open Sans Semibold";
+    width: fit-content;
+    padding: 10px 28px;
+    border-radius: 100px;
+    margin-top: 10px;
+}
