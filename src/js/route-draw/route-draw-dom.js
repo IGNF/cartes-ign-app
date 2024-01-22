@@ -1,5 +1,7 @@
 import utils from "../unit-utils";
 
+import LoadingDark from "../../css/assets/loading-darkgrey.svg";
+
 /**
  * DOM du contrôle du dessin d'itineraire
  * @mixin RouteDrawDOM
@@ -112,6 +114,7 @@ let RouteDrawDOM = {
         var canvasProfile = document.createElement("canvas");
         canvasProfile.id = "routedraw-elevationline";
         canvasProfile.className = "elevationLineCanvas";
+        canvasProfile.style.width = "100%";
         div.appendChild(canvasProfile);
 
         var detailsHeader = document.createElement("p");
@@ -142,11 +145,13 @@ let RouteDrawDOM = {
         var labelDistance = this.dom.summary.querySelector(".routeDrawSummaryDistance");
         labelDistance.textContent = utils.convertDistance(data.distance);
 
-        var labelDPlus = this.dom.summary.querySelector(".routeDrawSummaryDPlus");
-        labelDPlus.textContent = `${data.elevationData.dplus} m`;
+        if (!this.elevationLoading) {
+            var labelDPlus = this.dom.summary.querySelector(".routeDrawSummaryDPlus");
+            labelDPlus.textContent = `${data.elevationData.dplus} m`;
 
-        var labelDMinus = this.dom.summary.querySelector(".routeDrawSummaryDMinus");
-        labelDMinus.textContent = `- ${data.elevationData.dminus} m`;
+            var labelDMinus = this.dom.summary.querySelector(".routeDrawSummaryDMinus");
+            labelDMinus.textContent = `- ${data.elevationData.dminus} m`;
+        }
 
         // Ajout du détail du parcours
         let totalSeconds = 0;
@@ -207,6 +212,31 @@ let RouteDrawDOM = {
         } else {
             this.dom.details.style.display = "none";
         }
+    },
+
+    /**
+     * bouton de calcul en mode chargement
+     * @private
+     */
+    __setElevationLoading () {
+        var loadingImgHtml = `<img src="${LoadingDark}" height="12px">`
+        var labelDPlus = this.dom.summary.querySelector(".routeDrawSummaryDPlus");
+        labelDPlus.innerHTML = `${loadingImgHtml} m`;
+
+        var labelDMinus = this.dom.summary.querySelector(".routeDrawSummaryDMinus");
+        labelDMinus.innerHTML = `- ${loadingImgHtml} m`;
+    },
+
+    /**
+     * bouton de calcul: fin du chargement
+     * @private
+     */
+    __unsetElevationLoading () {
+        // var labelDPlus = this.dom.summary.querySelector(".routeDrawSummaryDPlus");
+        // labelDPlus.textContent = `${data.elevationData.dplus} m`;
+
+        // var labelDMinus = this.dom.summary.querySelector(".routeDrawSummaryDMinus");
+        // labelDMinus.textContent = `- ${data.elevationData.dminus} m`;
     },
 
 };

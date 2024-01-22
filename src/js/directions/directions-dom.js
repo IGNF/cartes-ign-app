@@ -1,9 +1,8 @@
+import LoadingWhite from "../../css/assets/loading-white.svg";
+
 /**
  * DOM du contrôle du calcul d'itineraire
  * @mixin DirectionsDOM
- * @todo ajout des étapes
- * @todo suppression des étapes
- * @todo inversion des locations
  */
 let DirectionsDOM = {
 
@@ -15,6 +14,7 @@ let DirectionsDOM = {
         inputShortest: null,
         inputDeparture: null,
         inputArrival: null,
+        buttonCompute: null,
     },
 
     /**
@@ -99,9 +99,6 @@ let DirectionsDOM = {
             }
             locations.push(end);
 
-            // mise en place d'une patience ?
-            // https://uiverse.io/barisdogansutcu/light-rat-32
-
             // passer les valeurs au service
             self.compute({
                 transport : transport,
@@ -121,13 +118,39 @@ let DirectionsDOM = {
      * @private
      */
     __addComputeButtonDOMElement () {
-        var input = document.createElement("input");
+        var input = this.dom.buttonCompute = document.createElement("input");
         input.id = "directionsCompute";
         input.className = "btnDirectionsCompute";
         input.type = "submit";
         input.value = "Calculer";
 
         return input;
+    },
+
+    /**
+     * bouton de calcul en mode chargement
+     * @private
+     */
+    __setComputeButtonLoading () {
+        this.dom.buttonCompute.value = "";
+        this.dom.buttonCompute.disabled = true;
+        this.dom.buttonCompute.style.backgroundImage = "url(" + LoadingWhite + ")";
+        document.querySelectorAll(".inputDirectionsLocationsContainer").forEach((el) => {
+            el.classList.add("disabled");
+        });
+    },
+
+    /**
+     * bouton de calcul: fin du chargement
+     * @private
+     */
+    __unsetComputeButtonLoading () {
+        this.dom.buttonCompute.value = "Calculer";
+        this.dom.buttonCompute.disabled = false;
+        this.dom.buttonCompute.style.removeProperty("background-image");
+        document.querySelectorAll(".inputDirectionsLocationsContainer").forEach((el) => {
+            el.classList.remove("disabled");
+        });
     },
 
     /**
