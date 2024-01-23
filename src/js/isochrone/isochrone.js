@@ -11,7 +11,6 @@ import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 /**
  * Interface sur le contrôle isochrone
  * @module Isochrone
- * @todo POI
  */
 class Isochrone {
   /**
@@ -169,7 +168,7 @@ class Isochrone {
   async compute(settings) {
     // nettoyage de l'ancien parcours !
     this.clear();
-
+    this.__setComputeButtonLoading();
     // Les valeurs sont à retranscrire en options du service utilisé
     // - transport
     // - mode : distance ou temps avec les valeurs
@@ -300,7 +299,6 @@ class Isochrone {
       padding: 20
     });
 
-    console.log(settings.poisToDisplay);
     if (this.poi) {
       this.poi.ids.forEach( (id) => {
         if (settings.poisToDisplay[id.split(" ")[0]]) {
@@ -313,6 +311,7 @@ class Isochrone {
 
     Globals.currentScrollIndex = 0;
     Globals.menu.updateScrollAnchors();
+    this.__unsetComputeButtonLoading();
   }
 
   /**
@@ -384,6 +383,7 @@ class Isochrone {
         this.map.setFilter(id, this.map.getFilter(id).splice(-1)[0]);
       }
     });
+    this.__unsetComputeButtonLoading();
   }
 
   /**

@@ -54,6 +54,9 @@
   white-space: nowrap;
   width: 236px;
   margin-top: 26px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px;
 }
 
 /*
@@ -230,6 +233,37 @@ input#isochroneValueDistanceInput[type=number]
   border: 1px solid;
   border-color: #DDE1E6;
   color: #3F4A55;
+}
+
+#isochroneLocationContainer {
+  position: relative;
+}
+
+#isochroneLocationContainer::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  right: 2.5%;
+  width: 30px;
+  height: 37px;
+  background: linear-gradient(90deg, #fff0, #fff);
+  opacity: 1;
+  visibility: visible;
+}
+
+#isochroneLocationContainer.disabled::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 95%;
+  height: 100%;
+  top: 0;
+  left: 2.5%;
+  background-color: #3F4A5555;
+  z-index: 2;
+  border-radius: 8px;
 }
 
 .inputIsochroneLocation:focus {

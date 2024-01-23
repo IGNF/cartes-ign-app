@@ -206,6 +206,7 @@ let DirectionsResultsDOM = {
         var canvasProfile = document.createElement("canvas");
         canvasProfile.id = "directions-elevationline";
         canvasProfile.className = "elevationLineCanvas";
+        canvasProfile.style.width = "100%";
         divList.appendChild(canvasProfile);
 
         return divList;

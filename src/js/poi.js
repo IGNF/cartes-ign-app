@@ -10,8 +10,6 @@ import Globals from './globals';
  * @description
  * La couche est active par defaut, les filtres de selections sont ajoutés et la visibilité est
  * désactivée par defaut.
- * @todo les POI "remonter le temps"
- * @todo interactions avec les autres composants (ex. isochrone)
  * @todo classe utilitaire pour le vectorTile !
  */
 class POI {
@@ -28,11 +26,6 @@ class POI {
     };
 
     this.opened = false;
-
-    /**
-     * Couche POI active
-     */
-    this.actived = true;
 
     this.map = map;
 

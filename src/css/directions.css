@@ -24,6 +24,9 @@
   white-space: nowrap;
   width: 236px;
   margin-top: 26px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px;
 }
 
 /*
@@ -157,6 +160,19 @@
   width: 265px;
   margin: 4px;
   flex-grow: 1;
+}
+
+.inputDirectionsLocationsContainer.disabled::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #3F4A5555;
+  z-index: 2;
+  border-radius: 8px;
 }
 
 .inputDirectionsLocations {

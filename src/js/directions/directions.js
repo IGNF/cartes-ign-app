@@ -17,12 +17,8 @@ import Sortable from 'sortablejs';
 /**
  * Interface du contrôle sur le calcul d'itineraire
  * @module Directions
- * @todo mise en place d'une patience
- * @todo gestion des styles
  * @todo gestion de l'état du contrôle (local storage)
  * @todo monter le service IGN
- * @todo ajouter "Ma Position" par defaut
- * @todo ajouter les fonctionnalités : cf. DOM
  */
 class Directions {
     /**
@@ -208,15 +204,10 @@ class Directions {
         this.obj.on("addwaypoint", this.handleAddWayPoint);
         // events
         this.obj.on("fetchroutesstart", (e) => {
-            // TODO
-            // mise en place d'une patience...
-            // start !
+            this.__setComputeButtonLoading();
         });
         this.obj.on("fetchroutesend", (e) => {
-            // TODO
-            // mise en place d'une patience...
-            // finish !
-
+            this.__unsetComputeButtonLoading();
             // affichage du menu du parcours :
             // - résumé
             // - détails
@@ -238,7 +229,6 @@ class Directions {
                     instructions : e.data.routes[0].legs
                 });
                 this.results.show();
-                console.log(this.map.getSource("maplibre-gl-directions"));
                 let routeCoordinates = [];
                 decode(e.data.routes[0].geometry).forEach( (lnglat) => {
                   routeCoordinates.push([lnglat[0], lnglat[1]]);
@@ -339,6 +329,7 @@ class Directions {
             element.value = "";
             element.dataset.coordinates = "";
         }
+        this.__unsetComputeButtonLoading();
     }
 
     ////////////////////////////////////////////

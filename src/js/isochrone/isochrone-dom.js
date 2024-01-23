@@ -1,10 +1,10 @@
 import DomUtils from "../dom-utils";
+import LoadingWhite from "../../css/assets/loading-white.svg";
 
 /**
  * DOM du contrôle du calcul d'isochrone
  * @mixin IsochroneDOM
  * @todo filtrage des POI
- * @todo gestion de l'option d'affichages
  */
 let IsochroneDOM = {
 
@@ -95,16 +95,16 @@ let IsochroneDOM = {
                 <div id="isochroneModeValueDuration">
                   <p class="pIsochroneTitle">Définir un temps de trajet</p>
                   <div id="isochroneValueDuration" class="divIsochroneValue">
-                    <input id="isochroneValueDurationInputHours" min="0" step="1" type="number">
+                    <input id="isochroneValueDurationInputHours" min="0" step="1" type="number" placeholder="0">
                     <label class="unit">h</label>
-                    <input id="isochroneValueDurationInputMinutes" min="0" max="59" step="1" type="number">
+                    <input id="isochroneValueDurationInputMinutes" min="0" max="59" step="1" type="number" placeholder="0">
                     <label class="unit">min</label>
                   </div>
                 </div>
                 <div id="isochroneModeValueDistance" class="isochroneValueHidden">
                   <p class="pIsochroneTitle">Définir une distance</p>
                   <div id="isochroneValueDistance" class="divIsochroneValue">
-                    <input id="isochroneValueDistanceInput" min="0" step="any" type="number">
+                    <input id="isochroneValueDistanceInput" min="0" step="any" type="number" placeholder="0">
                     <label class="unit">km</label>
                   </div>
                 </div>
@@ -148,6 +148,7 @@ let IsochroneDOM = {
     this.dom.transportCar = shadow.getElementById("isochroneTransportVoiture");
     this.dom.transportPedestrian = shadow.getElementById("isochroneTransportPieton");
     this.dom.showLimitsChk = shadow.getElementById("showLimitsChk");
+    this.dom.isochroneCompute = shadow.getElementById("isochroneCompute");
 
     // ajout des listeners principaux :
     // - le calcul
@@ -231,7 +232,33 @@ let IsochroneDOM = {
     });
 
     return shadow;
-  }
+  },
+
+  /**
+   * bouton de calcul en mode chargement
+   * @private
+   */
+  __setComputeButtonLoading () {
+    this.dom.isochroneCompute.value = "";
+    this.dom.isochroneCompute.disabled = true;
+    this.dom.isochroneCompute.style.backgroundImage = "url(" + LoadingWhite + ")";
+    document.querySelectorAll("#isochroneLocationContainer").forEach((el) => {
+      el.classList.add("disabled");
+    });
+  },
+
+  /**
+   * bouton de calcul: fin du chargement
+   * @private
+   */
+  __unsetComputeButtonLoading () {
+    this.dom.isochroneCompute.value = "Calculer";
+    this.dom.isochroneCompute.disabled = false;
+    this.dom.isochroneCompute.style.removeProperty("background-image");
+    document.querySelectorAll("#isochroneLocationContainer").forEach((el) => {
+      el.classList.remove("disabled");
+    });
+  },
 };
 
 export default IsochroneDOM;
