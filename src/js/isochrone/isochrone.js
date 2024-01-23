@@ -6,10 +6,11 @@ import Geocode from "../services/geocode";
 import Location from "../services/location";
 import Reverse from "../services/reverse";
 
+import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+
 /**
  * Interface sur le contrôle isochrone
  * @module Isochrone
- * @todo ajouter les fonctionnalités : cf. DOM
  */
 class Isochrone {
   /**
@@ -47,11 +48,11 @@ class Isochrone {
                   "show_locations" : true
               }`
       }
-    }
+    };
 
     // style
     this.style = this.options.style || {
-      color: "307CCD",
+      color: "#307CCD",
       opacity: 0.15,
     };
 
@@ -61,8 +62,19 @@ class Isochrone {
     // carte
     this.map = map;
 
+    // resultats
+    this.polygon = null;
+    this.center = null;
+
+    // poi
+    // on detecte la presence des POI
+    // avant la creation du rendu du contrôle
+    this.poi = this.#hasLayerPoi();
+
+    this.#addSourcesAndLayers();
+
     // rendu graphique
-    this.render();
+    this.#render();
 
     // annulation de la reqête fetch
     this.controller = new AbortController();
@@ -77,17 +89,68 @@ class Isochrone {
   }
 
   /**
-   * creation de l'interface
-   * @public
+   * Auto detection des POI
+   * @returns
+   * @todo creation des filtres
    */
-  render() {
+  #hasLayerPoi() {
+    // recherche le contrôle pour la couche POI
+    var instance = Globals.poi;
+    if (!instance) {
+      return null;
+    }
+
+    // chargement de la config des POI
+    var config = instance.config;
+    if (!config) {
+      return null;
+    }
+
+    // source id
+    var source = instance.sources[0]; // normalement, une seule source
+
+    // gestion des filtres
+    var ids = instance.filters.map((o) => { return o.id; });
+
+    // creation des filtres
+    var filters = instance.filters.slice(); // clone
+    if (!filters) {
+      return null;
+    }
+    for (let i = 0; i < filters.length; i++) {
+      const filter = filters[i];
+      var id = this.configuration.source;
+      // modification de la source
+      filter.source = id;
+      filter.metadata.group = id;
+      filter.id += " (" + id + ")";
+      delete filter["source-layer"];
+    }
+    return {
+      id : source,
+      config : config,
+      filters : filters,
+      ids : ids
+    };
+  }
+
+  /**
+   * creation de l'interface
+   */
+  #render() {
     var target = this.target || document.getElementById("isochroneWindow");
     if (!target) {
       console.warn();
       return;
     }
 
-    var container = this.getContainer(this.options);
+    var options = null;
+    if (this.poi) {
+      options = {};
+      options.thematics = this.poi.config;
+    }
+
+    var container = this.getContainer(options);
     if (!container) {
       console.warn();
       return;
@@ -120,7 +183,6 @@ class Isochrone {
         case "Voiture":
           transport = "auto";
           break;
-
         default:
           transport = "auto";
           break;
@@ -140,11 +202,11 @@ class Isochrone {
           mode = "time";
           value = parseFloat(settings.mode.value) / 60; // secondes -> minutes
           break;
-
         default:
           break;
       }
     }
+
     if (!mode || !value) {
       throw new Error("Exception : the method of calculation is not specified !");
     }
@@ -205,36 +267,13 @@ class Isochrone {
     if (response.status !== 200) {
       throw new Error(response.message);
     }
-
+    // affichage
     if (settings.showOutline) {
-      this.map.addSource(this.configuration.source, {
-        "type": "geojson",
-        "data": geojson
-      });
-
-      this.map.addLayer({
-        "id": this.configuration.source,
-        "type": "fill",
-        "source": this.configuration.source,
-        "layout": {},
-        "paint": {
-          "fill-color": "#" + this.style.color,
-          "fill-opacity": this.style.opacity
-        }
-      });
-
-      this.map.addLayer({
-        "id": this.configuration.source + "line",
-        "type": "line",
-        "source": this.configuration.source,
-        "layout": {},
-        "paint": {
-          "line-color": "#" + this.style.color,
-          "line-width": 1,
-        }
-      });
+      var source = this.map.getSource(this.configuration.source);
+      source.setData(geojson);
     }
 
+    // "get bounds from a polygon"
     function getBoundingBox(data) {
       var bounds = {};
       for (var i = 0; i < data.length; i++) {
@@ -249,38 +288,101 @@ class Isochrone {
       return [[bounds.xMin, bounds.yMin], [bounds.xMax, bounds.yMax]];
     }
 
-    // par defaut, le 1er feature devrait être le résultat...
-    var points = geojson.features[0].geometry.coordinates[0];
-    var bbox = getBoundingBox(points);
+    // par defaut, le 1er feature est le résultat de l'isochrone
+    this.polygon = geojson.features[0];
+    this.center = geojson.features[1].geometry.coordinates[0];
+
+    // bbox
+    var bbox = getBoundingBox(this.polygon.geometry.coordinates[0]);
+    // deplacement de la carte sur l'emprise des résultats
     this.map.fitBounds(bbox, {
       padding: 20
     });
+
+    if (this.poi) {
+      this.poi.ids.forEach( (id) => {
+        if (settings.poisToDisplay[id.split(" ")[0]]) {
+          this.map.setFilter(id, ["all", ["within", this.polygon], this.map.getFilter(id)]);
+        } else {
+          this.map.setFilter(id, ["all", ["==", "true", "false"], this.map.getFilter(id)]);
+        }
+      });
+    }
+
     Globals.currentScrollIndex = 0;
     Globals.menu.updateScrollAnchors();
     this.__unsetComputeButtonLoading();
   }
 
   /**
+   * ajoute la source et le layer à la carte pour affichage du tracé
+   */
+  #addSourcesAndLayers() {
+    // ajouter la source
+    this.map.addSource(this.configuration.source, {
+      "type": "geojson",
+      "data": {
+        'type': 'FeatureCollection',
+        'features': []
+      },
+    });
+
+    var id = this.configuration.source;
+    this.map.addLayer({
+      "id": this.configuration.source,
+      "type": "fill",
+      "source": this.configuration.source,
+      "layout": {},
+      "paint": {
+        "fill-color": this.style.color,
+        "fill-opacity": this.style.opacity
+      }
+    });
+
+    this.map.addLayer({
+      "id": this.configuration.source + "line",
+      "type": "line",
+      "source": id,
+      "metadata": {
+        "group": id
+      },
+      "layout": {},
+      "paint": {
+        "line-color": this.style.color,
+        "line-width": 1,
+      }
+    });
+
+    this.map.moveLayer(this.configuration.source + "line", "maplibre-gl-directions-routeline-casing");
+    this.map.moveLayer(this.configuration.source, this.configuration.source + "line");
+  }
+
+  /**
    * nettoyage du tracé
    * @public
+   * @todo supprimer la couche POI isochrone
    */
   clear() {
-    // on stoppe le fetch en cours sur le service
+    // stopper le fetch en cours sur le service
     if (this.loading) {
       this.controller.abort();
       this.controller = new AbortController();
       this.loading = false;
     }
-
-    if (this.map.getLayer(this.configuration.source)) {
-      this.map.removeLayer(this.configuration.source);
-    }
-    if (this.map.getLayer(this.configuration.source + "line")) {
-      this.map.removeLayer(this.configuration.source + "line");
-    }
-    if (this.map.getSource(this.configuration.source)) {
-      this.map.removeSource(this.configuration.source);
-    }
+    // supprimer la couche isochrone
+    var source = this.map.getSource(this.configuration.source);
+    source.setData({
+      'type': 'FeatureCollection',
+      'features': []
+    });
+    // resultats
+    this.polygon = null;
+    this.center = null;
+    this.poi.ids.forEach( (id) => {
+      if (this.map.getFilter(id)[0] === "all") {
+        this.map.setFilter(id, this.map.getFilter(id).splice(-1)[0]);
+      }
+    });
     this.__unsetComputeButtonLoading();
   }
 
@@ -288,12 +390,21 @@ class Isochrone {
    * activation du mode interaction
    * @param {*} status
    * @public
+   * @todo gerer le statut des POI osm sur l'affichage
    */
   interactive(status) {
     if (status) {
       this.map.on("click", this.onAddWayPoint);
+      // desactiver les filtres de la couche POI osm en ouvrant le contrôle
+      if (this.poi) {
+        // TODO...
+      }
     } else {
       this.map.off("click", this.onAddWayPoint);
+      // reactiver les filtres de la couche POI osm en quittant le contrôle
+      if (this.poi) {
+        // TODO...
+      }
     }
   }
 
@@ -387,7 +498,6 @@ class Isochrone {
       close.removeEventListener("click", cleanLocation);
     }
   }
-
 }
 
 // mixins

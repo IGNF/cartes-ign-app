@@ -28,18 +28,18 @@ const addControls = () => {
   // on ajoute les contrôles à la fin du chargement de la carte
   map.on("load", () => {
 
+    // INFO
+    // Le contrôle Directions doit être chargé au debut afin d'y ajouter les filtres
+    // qui doivent servir de pivots :
+    // > entre ce qui est toujours au dessus et toujours ce qui est en dessous.
+    // Ensuite, les POI doivent être chargé avant le contrôle Isochrone car ce composant
+    // dépend des POI.
+
     // contrôle de calcul d'itineraire
     Globals.directions = new Directions(map, {
       // callback sur l'ouverture / fermeture du panneau de recherche
       openSearchControlCbk : () => { Globals.menu.open("searchDirections"); },
       closeSearchControlCbk : () => { Globals.menu.close("searchDirections"); }
-    });
-
-    // contrôle de calcul d'isochrone
-    Globals.isochrone = new Isochrone(map, {
-      // callback sur l'ouverture / fermeture du panneau de recherche
-      openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
-      closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); }
     });
 
     // contrôle "Où suis-je ?"
@@ -78,20 +78,6 @@ const addControls = () => {
       unit: 'metric'
     }), "bottom-left");
 
-    // contrôle filtres POI
-    Globals.poi = new POI(map, {});
-    Globals.poi.load() // promise !
-    .then(() => {
-      // opérations possibles aprés le chargement des POI
-      console.debug("layer POI loaded !");
-      // Poi RLT
-      Globals.comparePoi = new ComparePoi(map, {});
-    })
-    .catch((e) => {
-      // on ne capture pas les exceptions
-      console.error(e);
-    });
-
     // contrôle tracé d'itinéraire
     Globals.routeDraw = new RouteDraw(map, {});
 
@@ -100,6 +86,27 @@ const addControls = () => {
 
     // compte utilisateur
     Globals.myaccount = new MyAccount(map, {});
+
+    // contrôle filtres POI
+    Globals.poi = new POI(map, {});
+    Globals.poi.load() // promise !
+    .then(() => {
+      // opérations possibles aprés le chargement des POI
+      console.debug("POI loaded !");
+      // INFO
+      // le contrôle de calcul d'isochrone est en attente de l'initialisation des POI
+      Globals.isochrone = new Isochrone(map, {
+        // callback sur l'ouverture / fermeture du panneau de recherche
+        openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
+        closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); }
+      });
+      // Poi RLT
+      Globals.comparePoi = new ComparePoi(map, {});
+    })
+    .catch((e) => {
+      // on ne capture pas les exceptions
+      console.error(e);
+    });
   });
 }
 

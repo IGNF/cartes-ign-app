@@ -281,6 +281,7 @@ input#isochroneValueDistanceInput[type=number]
   font-family: "Open Sans";
   font-weight: bold;
   font-size: 1.1em;
+  margin-bottom: 12px;
 }
 
 .divIsochronePOIFilter {

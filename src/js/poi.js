@@ -10,7 +10,6 @@ import Globals from './globals';
  * @description
  * La couche est active par defaut, les filtres de selections sont ajoutés et la visibilité est
  * désactivée par defaut.
- * @todo interactions avec les autres composants (ex. isochrone)
  * @todo classe utilitaire pour le vectorTile !
  */
 class POI {
@@ -30,9 +29,12 @@ class POI {
 
     this.map = map;
 
+    this.filters = null;
+    this.config = PoiConfig;
+    this.sources = [];
+
     this.target = this.options.target || document.getElementById("poiWindow");
     this.id = this.options.id || "OSM.POI$GEOPORTAIL:GPP:TMS";
-
     this.#render();
     this.#listeners();
 
@@ -63,6 +65,7 @@ class POI {
             // on ne peut pas ajouter la même source !
             if (!this.map.getStyle().sources[key]) {
               this.map.addSource(key, source);
+              this.sources.push(source);
             }
           }
         }
@@ -79,8 +82,8 @@ class POI {
         return data;
       })
       .then((data) => {
-        var layers = this.#createFilters(data.layers);
-        LayersGroup.addGroup(this.id, layers);
+        this.filters = this.#createFilters(data.layers);
+        LayersGroup.addGroup(this.id, this.filters);
       })
       .catch((e) => {
         throw new Error(e);
@@ -97,8 +100,8 @@ class POI {
     var layersSelection = [];
     for (let i = 0; i < layersDisplay.length; i++) {
       const l = layersDisplay[i];
-      for (let j = 0; j < PoiConfig.length; j++) {
-        const poi = PoiConfig[j];
+      for (let j = 0; j < this.config.length; j++) {
+        const poi = this.config[j];
         var layer = Object.assign({}, l); // clone
         layer.id = poi.id + " - " + layer.id;
         layer.filter = [
@@ -132,23 +135,23 @@ class POI {
         checked = "checked";
       }
       return `
-          <label class="lblPOIFilterItem chkContainer" /* for="${values.id}-POIFilterItem" */ title="${values.name}">
-            ${values.name}
-            <input /* id="${values.id}-POIFilterItem" */
-              class="inputPOIFilterItem checkbox"
-              type="checkbox"
-              name="${values.id}"
-              value="${values.id}"
-              ${checked}
-              >
-            <span class="checkmark"></span>
-          </label>
-          `;
+            <label class="lblPOIFilterItem chkContainer" /* for="${values.id}-POIFilterItem" */ title="${values.name}">
+                ${values.name}
+                <input /* id="${values.id}-POIFilterItem" */
+                    class="inputPOIFilterItem checkbox"
+                    type="checkbox"
+                    name="${values.id}"
+                    value="${values.id}"
+                    ${checked}
+                    >
+                <span class="checkmark"></span>
+            </label>
+            `;
     };
 
     var strPOIThematics = "";
-    for (let i = 0; i < PoiConfig.length; i++) {
-      var item = PoiConfig[i];
+    for (let i = 0; i < this.config.length; i++) {
+      var item = this.config[i];
       strPOIThematics += tplPOIThematics({
         id: item.id,
         name: item.name,
@@ -157,27 +160,27 @@ class POI {
     }
 
     var tpltContainer = `
-          <div class="divPOIContainer">
-            <span class="spanPOITitle">Point d'interêt</span>
-            <div class="divPOIDisplay">
-              <span>Afficher les POI</span>
-              <label class="toggleSwitch">
-                <input id="displayPOI" class="toggleInput" type="checkbox" checked>
-                <span class="toggleSlider"></span>
-              </label>
+            <div class="divPOIContainer">
+                <span class="spanPOITitle">Points d'interêts</span>
+                <div class="divPOIDisplay">
+                  <span>Afficher les POI</span>
+                  <label class="toggleSwitch">
+                    <input id="displayPOI" class="toggleInput" type="checkbox" checked>
+                    <span class="toggleSlider"></span>
+                  </label>
+                </div>
+                <div class="divPOIFilterItems">
+                    ${strPOIThematics}
+                </div>
+                <div class="divPOIDisplayGoBackTime">
+                  <span>POI remonter le temps</span>
+                  <label class="toggleSwitch">
+                    <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox">
+                    <span class="toggleSlider"></span>
+                  </label>
+                </div>
             </div>
-            <div class="divPOIFilterItems">
-                ${strPOIThematics}
-            </div>
-            <div class="divPOIDisplayGoBackTime">
-              <span>POI remonter le temps</span>
-              <label class="toggleSwitch">
-                <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox">
-                <span class="toggleSlider"></span>
-              </label>
-            </div>
-          </div>
-      `;
+        `;
 
     // transformation du container : String -> DOM
     var container = DomUtils.stringToHTML(tpltContainer.trim());
