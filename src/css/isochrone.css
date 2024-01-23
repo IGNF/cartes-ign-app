@@ -301,6 +301,11 @@ input#isochroneValueDistanceInput[type=number]
  */
 .divIsochroneDisplayOptions {
   display: flex;
+  flex-direction: column;
+}
+
+.divIsochroneDisplayOption {
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-family: "Open Sans";
@@ -308,7 +313,7 @@ input#isochroneValueDistanceInput[type=number]
   align-items: center;
 }
 
-.divIsochroneDisplayOptions > span {
+.divIsochroneDisplayOption > span {
   max-width: 50%;
   white-space: wrap;
   text-align: left;

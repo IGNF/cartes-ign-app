@@ -38,7 +38,6 @@
     "@mapbox/mapbox-gl-sync-move": "^0.3.1",
     "@maplibre/maplibre-gl-compare": "^0.5.0",
     "@maplibre/maplibre-gl-directions": "^0.5.0",
-    "@turf/boolean-point-in-polygon": "^6.5.0",
     "@turf/union": "^6.5.0",
     "chart.js": "^4.4.1",
     "maplibre-gl": "^3.6.2",

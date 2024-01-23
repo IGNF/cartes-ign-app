@@ -87,19 +87,25 @@ const layers = [
         "interpolate",
         ["exponential", 1.5],
         ["zoom"],
-        // don't forget it's the radius! The visible value is diameter (which is 2x)
-        // on zoom levels 0-5 should be 5px more than the routeline casing. 7 + 5 = 12.
-        // When highlighted should be +2px more. 12 + 2 = 14
         0,
-        // highlighted to default ratio (epsilon) = 14 / 12 ~= 1.16
-        3,
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "DESTINATION"], false]], 6,
+          3
+        ],
         5,
-        3,
-        // exponentially grows on zoom levels 5-18 finally becoming the same 5px wider than the routeline's casing on
-        // the same zoom level: 23 + 5 = 28px
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "DESTINATION"], false]], 6,
+          3],
         18,
-        // highlighted = default ~= 33
-        12,
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "DESTINATION"], false]], 17,
+          12],
       ],
       "circle-color": "#307CCD",
     },
@@ -114,18 +120,26 @@ const layers = [
         "interpolate",
         ["exponential", 1.5],
         ["zoom"],
-        // on zoom levels 0-5 - 5px smaller than the casing. 12 - 5 = 7.
         0,
-        // feature to casing ratio (psi) = 7 / 12 ~= 0.58
-        // highlighted to default ratio (epsilon) = 9 / 7 ~= 1.28
-        1.5,
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "DESTINATION"], false]], 5,
+          ["boolean", ["get", "highlight"], false], 3,
+          1.5
+        ],
         5,
-        1.5,
-        // exponentially grows on zoom levels 5-18 finally becoming psi times the casing
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "DESTINATION"], false]], 5,
+          1.5],
         18,
-        // psi * 28 ~= 16
-        // when highlighted multiply by epsilon ~= 21
-        9,
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "DESTINATION"], false]], 15,
+          9],
       ],
       "circle-color": "#ffffff"
     },
@@ -142,11 +156,11 @@ const layers = [
         ["exponential", 1.5],
         ["zoom"],
         0,
-        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        10/50,
         5,
-        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        10/50,
         18,
-        ["case", ["boolean", ["get", "highlight"], false], 22/50, 18/50],
+        30/50
       ],
     },
     filter: ["all", ["==", ["get", "type"], "SNAPPOINT"], ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "ORIGIN"]],
@@ -162,11 +176,11 @@ const layers = [
         ["exponential", 1.5],
         ["zoom"],
         0,
-        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        10/50,
         5,
-        ["case", ["boolean", ["get", "highlight"], false], 6/50, 3/50],
+        10/50,
         18,
-        ["case", ["boolean", ["get", "highlight"], false], 22/50, 18/50],
+        30/50
       ],
     },
     filter: ["all", ["==", ["get", "type"], "SNAPPOINT"], ["==", ["get", "category", ["get", "waypointProperties", ['properties']]], "DESTINATION"]],

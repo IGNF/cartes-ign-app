@@ -6,7 +6,7 @@ import Geocode from "../services/geocode";
 import Location from "../services/location";
 import Reverse from "../services/reverse";
 
-import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+import maplibregl from "maplibre-gl";
 
 /**
  * Interface sur le contrôle isochrone
@@ -301,13 +301,17 @@ class Isochrone {
 
     if (this.poi) {
       this.poi.ids.forEach( (id) => {
-        if (settings.poisToDisplay[id.split(" ")[0]]) {
+        if (settings.poisToDisplay[id.split(" ")[0]] && !settings.showPoisOutside) {
           this.map.setFilter(id, ["all", ["within", this.polygon], this.map.getFilter(id)]);
-        } else {
+        } else if (!settings.poisToDisplay[id.split(" ")[0]]) {
           this.map.setFilter(id, ["all", ["==", "true", "false"], this.map.getFilter(id)]);
         }
       });
     }
+
+    Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
+      .setLngLat(this.center)
+      .addTo(this.map);
 
     Globals.currentScrollIndex = 0;
     Globals.menu.updateScrollAnchors();
@@ -353,7 +357,7 @@ class Isochrone {
       }
     });
 
-    this.map.moveLayer(this.configuration.source + "line", "maplibre-gl-directions-routeline-casing");
+    this.map.moveLayer(this.configuration.source + "line", "maplibre-gl-directions-point-ORIGIN");
     this.map.moveLayer(this.configuration.source, this.configuration.source + "line");
   }
 
@@ -383,6 +387,10 @@ class Isochrone {
         this.map.setFilter(id, this.map.getFilter(id).splice(-1)[0]);
       }
     });
+    if (Globals.searchResultMarker != null) {
+      Globals.searchResultMarker.remove()
+      Globals.searchResultMarker = null;
+    }
     this.__unsetComputeButtonLoading();
   }
 

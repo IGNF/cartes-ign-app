@@ -258,6 +258,9 @@ class Compare {
         this.sideBySide.remove();
       }
       this.clearSync = syncMaps(this.mapRLT1, this.mapRLT2);
+      this.fadeSliderInput.value = 50;
+      this.fadeSliderInput.style.setProperty('--value', 50)
+      document.getElementById("mapRLT1").style.opacity = 0.5;
       document.querySelector("#sideBySideFadeSlider").classList.remove("d-none");
     }
   }

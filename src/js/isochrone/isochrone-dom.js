@@ -122,7 +122,13 @@ let IsochroneDOM = {
               </div>
               ${strPoi}
               <div class="divIsochroneDisplayOptions">
-                <span>Afficher le contour de ma zone de recherche</span><label class="toggleSwitch"><input id="showLimitsChk" class="toggleInput" type="checkbox" checked><span class="toggleSlider"></span></label>
+                <div class="divIsochroneDisplayOption">
+                  <span>Afficher le contour de ma zone de recherche</span><label class="toggleSwitch"><input id="showLimitsChk" class="toggleInput" type="checkbox" checked><span class="toggleSlider"></span></label>
+                </div>
+                <div class="divIsochroneDisplayOption">
+                  <span>Afficher les lieux en dehors de la zone de recherche</span><label class="toggleSwitch"><input id="showOutPoisChk" class="toggleInput" type="checkbox" ><span class="toggleSlider"></span></label>
+                </div>
+
               </div>
               <!-- bouton de calcul -->
               <input id="isochroneCompute" class="btnIsochroneCompute" type="submit" value="Calculer">
@@ -148,6 +154,7 @@ let IsochroneDOM = {
     this.dom.transportCar = shadow.getElementById("isochroneTransportVoiture");
     this.dom.transportPedestrian = shadow.getElementById("isochroneTransportPieton");
     this.dom.showLimitsChk = shadow.getElementById("showLimitsChk");
+    this.dom.showOutPoisChk = shadow.getElementById("showOutPoisChk");
     this.dom.isochroneCompute = shadow.getElementById("isochroneCompute");
 
     // ajout des listeners principaux :
@@ -200,6 +207,8 @@ let IsochroneDOM = {
 
       // affichage du contour
       var showOutline = self.dom.showLimitsChk.checked;
+      // affichage des POI en dehors de la zone
+      var showPoisOutside = self.dom.showOutPoisChk.checked;
 
       // type de POI à afficher
       var poisToDisplay = {}
@@ -213,6 +222,7 @@ let IsochroneDOM = {
         mode: mode,
         location: value,
         showOutline: showOutline,
+        showPoisOutside: showPoisOutside,
         poisToDisplay: poisToDisplay,
       });
 

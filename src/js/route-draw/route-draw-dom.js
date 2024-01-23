@@ -232,11 +232,7 @@ let RouteDrawDOM = {
      * @private
      */
     __unsetElevationLoading () {
-        // var labelDPlus = this.dom.summary.querySelector(".routeDrawSummaryDPlus");
-        // labelDPlus.textContent = `${data.elevationData.dplus} m`;
-
-        // var labelDMinus = this.dom.summary.querySelector(".routeDrawSummaryDMinus");
-        // labelDMinus.textContent = `- ${data.elevationData.dminus} m`;
+        console.debug("Profil alti loaded");
     },
 
 };
