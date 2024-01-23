@@ -42,6 +42,7 @@ class ComparePoi {
 
     this.target = this.options.target || document.getElementById("poiWindow");
 
+    this.theme = null;
     this.sousTheme = null;
 
     this.handleCompareButton = this.#onClickCompareButton.bind(this)
@@ -108,7 +109,8 @@ class ComparePoi {
         layer2: comparePoi.properties.layer2,
         center: comparePoi.geometry.coordinates,
       };
-      this.sousTheme = comparePoi.properties.sousTheme
+      this.theme = comparePoi.properties.theme;
+      this.sousTheme = comparePoi.properties.sousTheme;
       this.dom.title.innerText = comparePoi.properties.theme;
       this.dom.commune.innerText = comparePoi.properties.commune;
       this.dom.departement.innerText = comparePoi.properties.departement;
@@ -123,7 +125,7 @@ class ComparePoi {
     Globals.backButtonState = "comparePoiActivated";
     this.dom.button.classList.add("d-none");
     this.dom.text.classList.remove("d-none");
-    this.dom.title.innerText = this.sousTheme;
+    this.dom.title.innerText = `${this.theme} - ${this.sousTheme}`;
     DOM.$comparePoiWindow.classList.remove("d-none");
     DOM.$tabContainer.style.removeProperty("top");
     DOM.$bottomButtons.style.removeProperty("bottom");

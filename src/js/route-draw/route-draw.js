@@ -370,8 +370,9 @@ class RouteDraw {
      */
     #onTouchMove(e) {
         const coords = e.lngLat;
+        console.log(this.movedPoint.properties);
         this.movedPoint.geometry.coordinates = [coords.lng, coords.lat];
-        this.#updateSources();
+        this.#updatePointSource();
     }
 
     /**
@@ -633,11 +634,13 @@ class RouteDraw {
      */
     async #updateElevation() {
         this.__setElevationLoading();
+        this.elevationLoading = true;
         const allCoordinates = this.data.steps.map((step) => step.geometry.coordinates).flat();
         this.elevation.setCoordinates(allCoordinates);
         try {
             await this.elevation.compute();
         } finally {
+            this.elevationLoading = false;
             this.__unsetElevationLoading();
         }
         this.data.elevationData = this.elevation.getData();
@@ -692,6 +695,13 @@ class RouteDraw {
             features: this.data.steps,
         });
 
+        this.#updatePointSource();
+    }
+
+    /**
+     * met à jour les sources de données de points pour l'affichage
+     */
+    #updatePointSource() {
         var pointsource = this.map.getSource(this.configuration.pointsource);
         pointsource.setData({
             type: "FeatureCollection",

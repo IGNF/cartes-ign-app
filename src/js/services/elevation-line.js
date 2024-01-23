@@ -83,7 +83,6 @@ const getElevationLine = () => {
 
 const clear = () => {
     controller.abort();
-    console.log("cleared");
     results = null;
 };
 
