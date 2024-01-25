@@ -52,8 +52,14 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'searchIsochrone') {
         Globals.menu.close('searchIsochrone');
     }
-    if (Globals.backButtonState === 'position') {
+    if (Globals.backButtonState.split("-")[0] === 'position') {
+        var previousState = Globals.backButtonState.split("-")[1];
         Globals.menu.close('position');
+        // réouverture de menu précédent
+        if (previousState !== "default") {
+            Globals.menu.open(previousState);
+            return;
+        }
     }
     if (Globals.backButtonState.split("-")[0] === 'poi') {
         var previousState = Globals.backButtonState.split("-")[1];

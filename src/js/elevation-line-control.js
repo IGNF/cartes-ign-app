@@ -159,7 +159,6 @@ class ElevationLineControl {
         }
       }
     };
-
     this.chart = new ChartJS(target, chartConfig);
   }
 

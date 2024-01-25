@@ -1,4 +1,5 @@
 import LoadingWhite from "../../css/assets/loading-white.svg";
+import { Toast } from '@capacitor/toast';
 
 /**
  * DOM du contrôle du calcul d'itineraire
@@ -91,19 +92,30 @@ let DirectionsDOM = {
             var points = document.getElementsByClassName("inputDirectionsLocations");
             var start = points[0].dataset.coordinates;
             var end = points[points.length - 1].dataset.coordinates;
-            locations.push(start);
+            if (start) {
+              locations.push(start);
+            }
             for (let i = 1; i < points.length - 1; i++) {
                 if (points[i].dataset.coordinates) {
                     locations.push(points[i].dataset.coordinates);
                 }
             }
-            locations.push(end);
-
+            if (end) {
+              locations.push(end);
+            }
+            if (locations.length < 2) {
+              Toast.show({
+                text: "Au moins 2 lieux sont nécessaires pour le calcul d'itinéraire",
+                duration: "long",
+                position: "bottom"
+              });
+              return;
+            }
             // passer les valeurs au service
             self.compute({
-                transport : transport,
-                computation : computation,
-                locations : locations
+                transport: transport,
+                computation: computation,
+                locations: locations
             });
 
             return false;

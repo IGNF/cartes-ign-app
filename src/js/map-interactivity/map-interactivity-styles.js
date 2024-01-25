@@ -31,7 +31,7 @@ const layers = {
     layout: {},
     paint: {
       "fill-color": "#307CCD",
-      "fill-opacity": 0.4,
+      "fill-opacity": 0.15,
     }
   },
   "polygon-outline": {
@@ -42,7 +42,7 @@ const layers = {
     paint: {
       "line-color": "#307CCD",
       "line-opacity": 1,
-      "line-width": 3,
+      "line-width": 1,
     }
   }
 };

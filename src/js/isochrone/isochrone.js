@@ -1,5 +1,6 @@
 import IsochroneDOM from "./isochrone-dom";
 import Globals from "../globals";
+import LayersGroup from '../layer-manager/layer-group';
 
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
@@ -85,6 +86,9 @@ class Isochrone {
     // bind
     this.onAddWayPoint = this.onAddWayPoint.bind(this);
 
+    // Isochrone déjà calculée ?
+    this.computed = false;
+
     return this;
   }
 
@@ -127,10 +131,10 @@ class Isochrone {
       delete filter["source-layer"];
     }
     return {
-      id : source,
-      config : config,
-      filters : filters,
-      ids : ids
+      id: source,
+      config: config,
+      filters: filters,
+      ids: ids
     };
   }
 
@@ -301,6 +305,7 @@ class Isochrone {
 
     if (this.poi) {
       this.poi.ids.forEach( (id) => {
+        LayersGroup.addVisibilityByID(Globals.poi.id, id, true);
         if (settings.poisToDisplay[id.split(" ")[0]] && !settings.showPoisOutside) {
           this.map.setFilter(id, ["all", ["within", this.polygon], this.map.getFilter(id)]);
         } else if (!settings.poisToDisplay[id.split(" ")[0]]) {
@@ -316,6 +321,8 @@ class Isochrone {
     Globals.currentScrollIndex = 0;
     Globals.menu.updateScrollAnchors();
     this.__unsetComputeButtonLoading();
+    this.interactive(false);
+    this.computed = true;
   }
 
   /**
@@ -392,13 +399,21 @@ class Isochrone {
       Globals.searchResultMarker = null;
     }
     this.__unsetComputeButtonLoading();
+    this.computed = false;
+
+    document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
+      var layers = LayersGroup.getGroupLayers(Globals.poi.id).filter((layer) => { return layer.metadata.thematic === el.name });
+      for (let i = 0; i < layers.length; i++) {
+        const element = layers[i];
+        LayersGroup.addVisibilityByID(Globals.poi.id, element.id, el.checked);
+      }
+    });
   }
 
   /**
    * activation du mode interaction
    * @param {*} status
    * @public
-   * @todo gerer le statut des POI osm sur l'affichage
    */
   interactive(status) {
     if (status) {

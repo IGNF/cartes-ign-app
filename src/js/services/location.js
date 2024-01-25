@@ -76,6 +76,9 @@ const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
       .setLngLat([coords.lon, coords.lat])
       .addTo(Globals.map);
     Globals.myPositionMarker.setRotationAlignment("map");
+    Globals.myPositionIcon.addEventListener("click", (e) => {
+      Globals.position.compute(Globals.myPositionMarker.getLngLat(), "Ma position").then(() => Globals.menu.open("position"));
+    });
   }
 
   setMarkerRotation(positionBearing);

@@ -1,6 +1,8 @@
 import DomUtils from "../dom-utils";
 import LoadingWhite from "../../css/assets/loading-white.svg";
 
+import { Toast } from '@capacitor/toast';
+
 /**
  * DOM du contrôle du calcul d'isochrone
  * @mixin IsochroneDOM
@@ -68,6 +70,14 @@ let IsochroneDOM = {
       strPoi = `
       <div class="section">
         <label class="filterTitle">Lieux à afficher</label>
+        <div class="divPOIDisplay">
+          <span>Tout sélectionner</span>
+          <label class="toggleSwitch">
+            <input id="displayPOI-isochrone" class="toggleInput" type="checkbox" checked>
+            <span class="toggleSlider"></span>
+          </label>
+        </div>
+
         <div class="divIsochronePOIFilter">
           ${strPoiItems}
         </div>
@@ -156,6 +166,7 @@ let IsochroneDOM = {
     this.dom.showLimitsChk = shadow.getElementById("showLimitsChk");
     this.dom.showOutPoisChk = shadow.getElementById("showOutPoisChk");
     this.dom.isochroneCompute = shadow.getElementById("isochroneCompute");
+    this.dom.poiToggle = shadow.getElementById("displayPOI-isochrone");
 
     // ajout des listeners principaux :
     // - le calcul
@@ -216,6 +227,23 @@ let IsochroneDOM = {
         poisToDisplay[el.value] = el.checked;
       });
 
+      if (!mode.value) {
+        Toast.show({
+          text: "Ajoutez un temps ou une durée pour le calcul de la zone",
+          duration: "long",
+          position: "bottom"
+        });
+        return;
+      }
+      if (!value) {
+        Toast.show({
+          text: "Ajoutez un point de départ pour le calcul de la zone",
+          duration: "long",
+          position: "bottom"
+        });
+        return;
+      }
+
       // passer les valeurs au service
       self.compute({
         transport: transport,
@@ -239,6 +267,36 @@ let IsochroneDOM = {
     this.dom.modeDuration.addEventListener("click", (e) => {
       document.getElementById("isochroneModeValueDuration").className = "";
       document.getElementById("isochroneModeValueDistance").className = "isochroneValueHidden";
+    });
+
+    this.dom.poiToggle.addEventListener("change", (e) => {
+      const toggleChecked = e.target.checked;
+      document.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
+        if (toggleChecked) {
+          el.checked = true;
+        } else {
+          el.checked = false;
+        }
+      });
+    });
+    document.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
+      el.addEventListener("change", (e) => {
+        let allUnchecked = true;
+        let allChecked = true;
+        document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
+          if (el.checked) {
+            allUnchecked = false;
+          } else {
+            allChecked = false;
+          }
+        });
+        if (allChecked) {
+          this.dom.poiToggle.checked = true;
+        }
+        if (allUnchecked) {
+          this.dom.poiToggle.checked = false;
+        }
+      });
     });
 
     return shadow;

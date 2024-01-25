@@ -177,6 +177,7 @@ Altitude : ${altitude} m
       });
     });
     shadowContainer.getElementById("positionNear").addEventListener("click", () => {
+      const coordinates = this.coordinates;
       // fermeture du panneau actuel
       if (this.options.closePositionCbk) {
         this.options.closePositionCbk();
@@ -186,12 +187,13 @@ Altitude : ${altitude} m
       if (this.options.openIsochroneCbk) {
         this.options.openIsochroneCbk();
         let target = Globals.isochrone.dom.location;
-        target.dataset.coordinates = "[" + this.coordinates.lon + "," + this.coordinates.lat + "]";
+        target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
         target.value = this.name;
       }
 
     });
     shadowContainer.getElementById("positionRoute").addEventListener("click", () => {
+      const coordinates = this.coordinates;
       // fermeture du panneau actuel
       if (this.options.closePositionCbk) {
         this.options.closePositionCbk();
@@ -204,7 +206,7 @@ Altitude : ${altitude} m
         if (this.header === "Ma position") {
           target = Globals.directions.dom.inputDeparture;
         }
-        target.dataset.coordinates = "[" + this.coordinates.lon + "," + this.coordinates.lat + "]";
+        target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
         target.value = this.name;
       }
 
@@ -233,8 +235,8 @@ Altitude : ${altitude} m
     } else {
       position = {
         coordinates: {
-          lat: lngLat.lat,
-          lon: lngLat.lng
+          lat: Math.round(lngLat.lat * 1e6) / 1e6,
+          lon: Math.round(lngLat.lng * 1e6) / 1e6,
         },
         text: text
       };
@@ -252,7 +254,7 @@ Altitude : ${altitude} m
       throw new Error("Reverse response is empty !");
     }
 
-    this.coordinates = Reverse.getCoordinates() ? Reverse.getCoordinates() : position.coordinates;
+    this.coordinates = position.coordinates;
     this.address = Reverse.getAddress();
 
     if (!Reverse.getAddress()) {
@@ -265,10 +267,7 @@ Altitude : ${altitude} m
     }
 
     try {
-      await Elevation.compute({
-        lat: position.coordinates.lat,
-        lon: position.coordinates.lon
-      });
+      await Elevation.compute(this.coordinates);
     } catch(err) {
       console.warn(`Error when fetching elevation: ${err}`);
     }
@@ -276,7 +275,6 @@ Altitude : ${altitude} m
     this.elevation = Elevation.getElevation();
 
     this.#render();
-    this.#addMarkerEvent();
     if (lngLat === false) {
       this.#moveTo();
     }
@@ -289,41 +287,6 @@ Altitude : ${altitude} m
    */
   #moveTo() {
     this.map.setCenter([this.coordinates.lon, this.coordinates.lat]);
-  }
-
-  /**
-   * ajout de l'évènement d'ouverture sur le marker de positionnement sur la carte
-   * @private
-   */
-  #addMarkerEvent() {
-    // contexte
-    var self = this;
-
-    // addEvent listerner to my location
-    Globals.myPositionIcon.addEventListener("click", (e) => {
-      // FIXME ...
-      var container = document.getElementById("positionWindow");
-      if (container.className === "d-none") {
-        self.opened = false;
-      }
-      (self.opened) ? self.hide() : self.show();
-    });
-  }
-
-  /**
-   * detecte l'environnement : mobile ou desktop
-   * @returns {Boolean}
-   */
-  isDesktop() {
-    var isDesktop = true;
-    var userAgent = window.navigator.userAgent.toLowerCase();
-    if (userAgent.indexOf('iphone') !== -1 || userAgent.indexOf('ipod') !== -1 || userAgent.indexOf('ipad') !== -1 || userAgent.indexOf('android') !== -1 || userAgent.indexOf('mobile') !== -1 || userAgent.indexOf('blackberry') !== -1 || userAgent.indexOf('tablet') !== -1 || userAgent.indexOf('phone') !== -1 || userAgent.indexOf('touch') !== -1) {
-      isDesktop = false;
-    }
-    if (userAgent.indexOf('msie') !== -1 || userAgent.indexOf('trident') !== -1) {
-      isDesktop = true;
-    }
-    return isDesktop;
   }
 
   /**
@@ -366,7 +329,7 @@ Altitude : ${altitude} m
     if (this.container) {
       this.container.remove();
     }
-    if (Globals.searchResultMarker != null) {
+    if (!Globals.backButtonState.includes("isochrone") && Globals.searchResultMarker != null) {
       Globals.searchResultMarker.remove()
       Globals.searchResultMarker = null;
     }

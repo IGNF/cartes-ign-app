@@ -89,6 +89,7 @@ class MapInteractivity {
       }
     }
     if (!Globals.interactivityIndicator.shown) {
+      this.map.on("click", this.handleInfoOnMap);
       return;
     }
 

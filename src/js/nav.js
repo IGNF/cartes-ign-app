@@ -80,9 +80,6 @@ class MenuNavigation {
      * @param {*} id
      */
     open(id) {
-        // HACK : on supprime l'interaction du calcul d'itineraire
-        // Globals.directions.interactive(false);
-
         // on vide tous les panneaux
         var lstElements = DOM.$tabContainer.childNodes;
         for (let i = 0; i < lstElements.length; i++) {
@@ -217,6 +214,7 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 1;
                 break;
             case "position":
+                Globals.backButtonState = "position-" + previousBackState;
                 DOM.$search.style.display = "none";
                 DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
@@ -226,10 +224,12 @@ class MenuNavigation {
                 // FIXME mettre en place une méthode sur la classe Search
                 // ex. Globals.search.hide()
                 DOM.$search.style.display = "none";
-                DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+                DOM.$filterPoiBtn.classList.add('d-none');
                 DOM.$sideBySideBtn.classList.add('d-none');
                 DOM.$backTopLeftBtn.classList.remove('d-none');
-                Globals.isochrone.interactive(true);
+                if (!Globals.isochrone.computed) {
+                    Globals.isochrone.interactive(true);
+                }
                 Globals.interactivityIndicator.hardDisable();
                 Globals.currentScrollIndex = 1;
                 break;
@@ -246,6 +246,8 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 0;
                 break;
             case "directionsResults":
+                DOM.$search.style.display = "none";
+                DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$tabContainer.style.backgroundColor = "white";
                 Globals.interactivityIndicator.enable();
                 DOM.$tabContainer.style.removeProperty("height");
@@ -276,7 +278,6 @@ class MenuNavigation {
                 DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$sideBySideBtn.classList.add('d-none');
-                // Globals.directions.interactive(true);
                 Globals.interactivityIndicator.hardDisable();
                 Globals.currentScrollIndex = 2;
                 break;
@@ -317,8 +318,8 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 break;
             case "selectOnMapDirections":
-            case "selectOnMapIsochrone":
                 DOM.$filterPoiBtn.classList.remove("d-none");
+            case "selectOnMapIsochrone":
                 DOM.$layerManagerBtn.classList.remove("d-none");
                 DOM.$mapCenter.classList.add("d-none");
                 DOM.$mapCenterMenu.classList.add("d-none");
@@ -415,7 +416,7 @@ class MenuNavigation {
             case "isochrone":
                 // FIXME mettre en place une méthode sur la classe Searchs
                 DOM.$search.style.display = "flex";
-                DOM.$filterPoiBtn.style.removeProperty("top");
+                DOM.$filterPoiBtn.classList.remove('d-none');
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.isochrone.clear();
@@ -480,7 +481,6 @@ class MenuNavigation {
                 DOM.$backTopLeftBtn.classList.add('d-none');
                 DOM.$sideBySideBtn.classList.remove('d-none');
                 Globals.directions.clear();
-                // Globals.directions.interactive(false);
                 Globals.interactivityIndicator.enable();
                 break;
             default:
@@ -552,11 +552,11 @@ class MenuNavigation {
             case "directionsResults":
                 DOM.$directionsWindow.classList.remove("d-none");
                 Globals.backButtonState = 'directions'; // on revient sur le contrôle !
-                // Globals.directions.interactive(true);
                 this.#midScroll();
                 break;
             case "searchIsochrone":
             case "selectOnMapIsochrone":
+                DOM.$filterPoiBtn.classList.add('d-none');
                 DOM.$search.style.display = "none";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
                 DOM.$isochroneWindow.classList.remove("d-none");

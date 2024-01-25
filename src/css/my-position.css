@@ -48,7 +48,7 @@
     margin-right: 5px;
 }
 .divPositionSectionAddress {
-
+    text-align: left;
 }
 .lblPositionAddress {
     font-family: "Open Sans Bold";
@@ -203,7 +203,7 @@
 .divLegendContainer {
     display: flex;
 }
- 
+
 .divLegendDescription {
     margin-bottom: auto;
     margin-top: auto;
