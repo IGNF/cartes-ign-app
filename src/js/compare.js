@@ -305,6 +305,11 @@ class Compare {
     document.querySelector("#map").classList.add("d-none");
     document.querySelector("#mapRLT1").classList.remove("d-none");
     document.querySelector("#mapRLT2").classList.remove("d-none");
+    // HACK: Nécessaire pour iOS qui ne met pas à jour la taille de l'écran au lancement...
+    if (Capacitor.getPlatform() === "ios") {
+      setTimeout(() => this.mapRLT1.resize(), 50);
+      setTimeout(() => this.mapRLT2.resize(), 50);
+    }
     document.getElementById(`mapRLT1-${Globals.comparedLayers[0]}`).click();
     document.getElementById(`mapRLT2-${Globals.comparedLayers[1]}`).click();
 

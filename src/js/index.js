@@ -177,7 +177,9 @@ function app() {
   Globals.menu = new MenuNavigation();
   Globals.menu.show();
   // HACK: Nécessaire pour iOS qui ne met pas à jour la taille de l'écran au lancement...
-  setTimeout(() => Globals.map.resize(), 100);
+  if (Capacitor.getPlatform() === "ios") {
+    setTimeout(() => Globals.map.resize(), 50);
+  }
 }
 
 app();
