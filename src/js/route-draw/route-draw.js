@@ -370,7 +370,6 @@ class RouteDraw {
      */
     #onTouchMove(e) {
         const coords = e.lngLat;
-        console.log(this.movedPoint.properties);
         this.movedPoint.geometry.coordinates = [coords.lng, coords.lat];
         this.#updatePointSource();
     }

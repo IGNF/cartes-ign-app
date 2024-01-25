@@ -3,10 +3,10 @@
     position: absolute;
     top: calc(100% - 78px - var(--safe-area-inset-bottom));
     width: 100%;
-    height: calc(60px + var(--safe-area-inset-bottom));
+    height: 60px ;
     font-size: 12px;
     background-color: white;
-    padding: 10px 0px 8px 0px;
+    padding: 10px 0px calc(8px + var(--safe-area-inset-bottom)) 0px;
     z-index: 3002;
     flex-direction: row;
     align-items: center;

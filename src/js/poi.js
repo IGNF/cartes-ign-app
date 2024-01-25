@@ -135,9 +135,9 @@ class POI {
         checked = "checked";
       }
       return `
-            <label class="lblPOIFilterItem chkContainer" /* for="${values.id}-POIFilterItem" */ title="${values.name}">
+            <label class="lblPOIFilterItem chkContainer" for="${values.id}-POIFilterItem" title="${values.name}">
                 ${values.name}
-                <input /* id="${values.id}-POIFilterItem" */
+                <input id="${values.id}-POIFilterItem"
                     class="inputPOIFilterItem checkbox"
                     type="checkbox"
                     name="${values.id}"
