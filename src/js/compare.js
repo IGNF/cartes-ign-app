@@ -6,6 +6,8 @@ import DOM from './dom';
 import LayersConfig from './layer-manager/layer-config';
 import LayersAdditional from './layer-manager/layer-additional';
 
+import { Capacitor } from '@capacitor/core';
+
 import ImageNotFound from '../html/img/image-not-found.png';
 import DomUtils from "./dom-utils"
 
