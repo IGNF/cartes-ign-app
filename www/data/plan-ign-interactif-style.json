@@ -213,6 +213,9 @@
 			"paint": {
 				"fill-color": "#DFE8D5",
 				"fill-outline-color": "#DFE8D5"
+			},
+			"metadata": {
+				"legend-title": "Bois, forêt fermée, peupleraie"
 			}
 		},
 		{
@@ -231,6 +234,9 @@
 			"paint": {
 				"fill-color": "#EDF2D9",
 				"fill-outline-color": "#EDF2D9"
+			},
+			"metadata": {
+				"legend-title": "Forêt ouverte"
 			}
 		},
 		{
@@ -248,6 +254,9 @@
 			],
 			"paint": {
 				"fill-color": "#F2EECD"
+			},
+			"metadata": {
+				"legend-title": "Lande ligneuse"
 			}
 		},
 		{
@@ -265,6 +274,9 @@
 			],
 			"paint": {
 				"fill-color": "#FFEDD9"
+			},
+			"metadata": {
+				"legend-title": "Vigne"
 			}
 		},
 		{
@@ -282,6 +294,9 @@
 			],
 			"paint": {
 				"fill-color": "#FAE2C5"
+			},
+			"metadata": {
+				"legend-title": "Verger"
 			}
 		},
 		{
@@ -299,6 +314,9 @@
 			],
 			"paint": {
 				"fill-color": "#FAEDFA"
+			},
+			"metadata": {
+				"legend-title": "Canne à sucre, bananeraie"
 			}
 		},
 		{
@@ -317,6 +335,9 @@
 			"paint": {
 				"fill-color": "#C3DDE9",
 				"fill-outline-color": "#C3DDE9"
+			},
+			"metadata": {
+				"legend-title": "Estran"
 			}
 		},
 		{
@@ -342,6 +363,9 @@
 					10,
 					"#90CCCB"
 				]
+			},
+			"metadata": {
+				"legend-title": "Mangrove"
 			}
 		},
 		{
@@ -359,6 +383,9 @@
 			],
 			"paint": {
 				"fill-pattern": "Marais"
+			},
+			"metadata": {
+				"legend-title": "Marais"
 			}
 		},
 		{
@@ -376,6 +403,9 @@
 			],
 			"paint": {
 				"fill-pattern": "Marais"
+			},
+			"metadata": {
+				"legend-title": "Marais"
 			}
 		},
 		{
@@ -393,6 +423,9 @@
 			],
 			"paint": {
 				"fill-pattern": "MaraisSalant"
+			},
+			"metadata": {
+				"legend-title": "Marais salant"
 			}
 		},
 		{
@@ -428,6 +461,9 @@
 			],
 			"paint": {
 				"fill-pattern": "Sable"
+			},
+			"metadata": {
+				"legend-title": "Sable sec"
 			}
 		},
 		{
@@ -446,6 +482,9 @@
 			],
 			"paint": {
 				"fill-pattern": "SableHumide"
+			},
+			"metadata": {
+				"legend-title": "Sable humide"
 			}
 		},
 		{
@@ -463,6 +502,9 @@
 			],
 			"paint": {
 				"fill-pattern": "GravierSec"
+			},
+			"metadata": {
+				"legend-title": "Graviers, galets secs"
 			}
 		},
 		{
@@ -480,6 +522,9 @@
 			],
 			"paint": {
 				"fill-pattern": "Gravier"
+			},
+			"metadata": {
+				"legend-title": "Graviers, galets humides"
 			}
 		},
 		{
@@ -497,6 +542,9 @@
 			],
 			"paint": {
 				"fill-pattern": "RocherHydro"
+			},
+			"metadata": {
+				"legend-title": "Rocher"
 			}
 		},
 		{
@@ -526,6 +574,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Glacier"
 			}
 		},
 		{
@@ -561,6 +612,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Zone bâti"
 			}
 		},
 		{
@@ -578,6 +632,9 @@
 			],
 			"paint": {
 				"fill-color": "#D9D9D9"
+			},
+			"metadata": {
+				"legend-title": "Zone industrielle et commerciale"
 			}
 		},
 		{
@@ -899,6 +956,9 @@
 			"paint": {
 				"line-color": "#D9C8A9",
 				"line-width": 1
+			},
+			"metadata": {
+				"legend-title": "Talus"
 			}
 		},
 		{
@@ -940,6 +1000,9 @@
 					0,
 					4
 				]
+			},
+			"metadata": {
+				"legend-title": "Talus"
 			}
 		},
 		{
@@ -1131,6 +1194,9 @@
 			"paint": {
 				"fill-color": "#AAD5E9",
 				"fill-outline-color": "#AAD5E9"
+			},
+			"metadata": {
+				"legend-title": "Zone d'eau"
 			}
 		},
 		{
@@ -1148,6 +1214,9 @@
 			],
 			"paint": {
 				"fill-color": "rgba(168, 203, 220, 0.5)"
+			},
+			"metadata": {
+				"legend-title": "Zone d'eau temporaire"
 			}
 		},
 		{
@@ -1185,6 +1254,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Cours d'eau souterrain"
 			}
 		},
 		{
@@ -1226,6 +1298,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Aqueduc souterrain"
 			}
 		},
 		{
@@ -1266,6 +1341,9 @@
 					1,
 					5
 				]
+			},
+			"metadata": {
+				"legend-title": "Aqueduc souterrain"
 			}
 		},
 		{
@@ -1275,8 +1353,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "ferre_souterrain"
+			"metadata": {
+				"legend-group": "ferre_souterrain",
+				"legend-title": "Voie ferrée souterraine"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -1319,8 +1398,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "ferre_souterrain"
+			"metadata": {
+				"legend-group": "ferre_souterrain",
+				"legend-title": "Voie ferrée souterraine"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -1367,8 +1447,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "ferre_souterrain_etroit"
+			"metadata": {
+				"legend-group": "ferre_souterrain_etroit",
+				"legend-title": "Voie ferrée étroite souterraine"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -1405,8 +1486,9 @@
 			"source-layer": "ferre_sou",
 			"minzoom": 10,
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "ferre_souterrain_etroit"
+			"metadata": {
+				"legend-group": "ferre_souterrain_etroit",
+				"legend-title": "Voie ferrée souterraine"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -1478,6 +1560,9 @@
 					1,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Voie de service souterraine"
 			}
 		},
 		{
@@ -1486,8 +1571,9 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "ferre_souterrain_funic"
+			"metadata": {
+				"legend-group": "ferre_souterrain_funic",
+				"legend-title": "Funiculaire - Transport urbain souterrain"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -1522,8 +1608,9 @@
 			"source": "plan_ign",
 			"source-layer": "ferre_sou",
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "ferre_souterrain_funic"
+			"metadata": {
+				"legend-group": "ferre_souterrain_funic",
+				"legend-title": "Funiculaire - Transport urbain souterrain"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -1601,6 +1688,9 @@
 					6,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Piste cyclable souterraine"
 			}
 		},
 		{
@@ -1610,8 +1700,9 @@
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 14,
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "chemin_souterrain_escalier"
+			"metadata": {
+				"legend-group": "chemin_souterrain_escalier",
+				"legend-title": "Escalier souterrain"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -1654,8 +1745,9 @@
 			"source-layer": "routier_chemin_sou",
 			"minzoom": 14,
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "chemin_souterrain_escalier"
+			"metadata": {
+				"legend-group": "chemin_souterrain_escalier",
+				"legend-title": "Escalier souterrain"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -1738,6 +1830,9 @@
 					1,
 					3
 				]
+			},
+			"metadata": {
+				"legend-title": "Rue piétonne souterraine"
 			}
 		},
 		{
@@ -1783,6 +1878,9 @@
 					4,
 					3
 				]
+			},
+			"metadata": {
+				"legend-title": "Sentier souterrain"
 			}
 		},
 		{
@@ -1824,6 +1922,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Chemin souterrain"
 			}
 		},
 		{
@@ -1832,8 +1933,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "route_souterrain_non_revetu_carrossable"
+			"metadata": {
+				"legend-group": "route_souterrain_non_revetu_carrossable",
+				"legend-title": "Route non revêtue carrossable souterraine"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -1921,6 +2023,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Bretelle d'autoroute souterraine"
 			}
 		},
 		{
@@ -1961,6 +2066,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route à accès restreint souterraine"
 			}
 		},
 		{
@@ -2002,6 +2110,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route non classée souterraine"
 			}
 		},
 		{
@@ -2050,6 +2161,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route locale souterraine"
 			}
 		},
 		{
@@ -2095,6 +2209,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route locale souterraine en construction"
 			}
 		},
 		{
@@ -2147,6 +2264,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route régionale souterraine"
 			}
 		},
 		{
@@ -2196,6 +2316,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route régionale souterraine en construction"
 			}
 		},
 		{
@@ -2249,6 +2372,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route principale souterraine"
 			}
 		},
 		{
@@ -2298,6 +2424,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route principale souterraine en construction"
 			}
 		},
 		{
@@ -2348,6 +2477,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Autoroute souterraine"
 			}
 		},
 		{
@@ -2397,6 +2529,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Autoroute souterraine en contruction"
 			}
 		},
 		{
@@ -2405,8 +2540,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sou",
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "route_souterrain_non_revetu_carrossable"
+			"metadata": {
+				"legend-group": "route_souterrain_non_revetu_carrossable",
+				"legend-title": "Route non revêtue carrossable souterraine"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -2490,6 +2626,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Bretelle d'autoroute souterraine"
 			}
 		},
 		{
@@ -2530,6 +2669,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route à accès restreint souterraine"
 			}
 		},
 		{
@@ -2571,6 +2713,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route non classée souterraine"
 			}
 		},
 		{
@@ -2619,6 +2764,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route locale souterraine"
 			}
 		},
 		{
@@ -2678,6 +2826,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route locale souterraine en construction"
 			}
 		},
 		{
@@ -2730,6 +2881,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route régionale souterraine"
 			}
 		},
 		{
@@ -2797,6 +2951,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route régionale souterraine en construction"
 			}
 		},
 		{
@@ -2853,6 +3010,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route principale souterraine"
 			}
 		},
 		{
@@ -2918,6 +3078,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route principale souterraine en construction"
 			}
 		},
 		{
@@ -2971,6 +3134,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Autoroute souterraine"
 			}
 		},
 		{
@@ -3017,6 +3183,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Autoroute souterraine"
 			}
 		},
 		{
@@ -3082,6 +3251,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Autoroute souterraine en contruction"
 			}
 		},
 		{
@@ -3127,6 +3299,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Autoroute souterraine en contruction"
 			}
 		},
 		{
@@ -3163,6 +3338,9 @@
 					6,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Cours d'eau temporaire"
 			}
 		},
 		{
@@ -3203,6 +3381,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Cours d'eau"
 			}
 		},
 		{
@@ -3234,6 +3415,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Canal"
 			}
 		},
 		{
@@ -3270,6 +3454,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Aqueduc"
 			}
 		},
 		{
@@ -3310,6 +3497,9 @@
 					1,
 					5
 				]
+			},
+			"metadata": {
+				"legend-title": "Aqueduc"
 			}
 		},
 		{
@@ -3411,6 +3601,9 @@
 				"fill-color": "#F0F0F0",
 				"fill-opacity": 0.5,
 				"fill-outline-color": "#818181"
+			},
+			"metadata": {
+				"legend-title": "Cimetière"
 			}
 		},
 		{
@@ -3430,6 +3623,9 @@
 			],
 			"paint": {
 				"fill-pattern": "Cimetiere"
+			},
+			"metadata": {
+				"legend-title": "Cimetière"
 			}
 		},
 		{
@@ -3449,6 +3645,9 @@
 			],
 			"paint": {
 				"fill-color": "#FFA6A6"
+			},
+			"metadata": {
+				"legend-title": "Mairie"
 			}
 		},
 		{
@@ -3477,6 +3676,9 @@
 					"#FFAEAE"
 				],
 				"fill-outline-color": "#FF7C7C"
+			},
+			"metadata": {
+				"legend-title": "Mairie"
 			}
 		},
 		{
@@ -3499,6 +3701,9 @@
 			],
 			"paint": {
 				"fill-color": "#C8C8C8"
+			},
+			"metadata": {
+				"legend-title": "Bâtiment indusrtiel ou commercial"
 			}
 		},
 		{
@@ -3530,6 +3735,9 @@
 					"#E6E6E6"
 				],
 				"fill-outline-color": "#B8B8B8"
+			},
+			"metadata": {
+				"legend-title": "Bâtiment indusrtiel ou commercial"
 			}
 		},
 		{
@@ -3549,6 +3757,9 @@
 			],
 			"paint": {
 				"fill-color": "#B9B6D6"
+			},
+			"metadata": {
+				"legend-title": "Bâtiment public"
 			}
 		},
 		{
@@ -3577,6 +3788,9 @@
 					"#E4DAF3"
 				],
 				"fill-outline-color": "#A6A1D6"
+			},
+			"metadata": {
+				"legend-title": "Bâtiment public"
 			}
 		},
 		{
@@ -3584,8 +3798,9 @@
 			"type": "line",
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
-			"metadata" : {
-				"legend-group": "bati_surf_fonctionnel_sportif"
+			"metadata": {
+				"legend-group": "bati_surf_fonctionnel_sportif",
+				"legend-title": "Terrain de sport"
 			},
 			"minzoom": 15,
 			"layout": {
@@ -3609,8 +3824,9 @@
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
 			"minzoom": 13,
-			"metadata" : {
-				"legend-group": "bati_surf_fonctionnel_sportif"
+			"metadata": {
+				"legend-group": "bati_surf_fonctionnel_sportif",
+				"legend-title": "Bâtiment sportif"
 			},
 			"layout": {
 				"visibility": "visible"
@@ -3648,6 +3864,9 @@
 			],
 			"paint": {
 				"fill-color": "#B3B5F5"
+			},
+			"metadata": {
+				"legend-title": "Gare ferroviaire"
 			}
 		},
 		{
@@ -3675,6 +3894,9 @@
 					"#CBCDF5"
 				],
 				"fill-outline-color": "#9B9EF6"
+			},
+			"metadata": {
+				"legend-title": "Gare ferroviaire"
 			}
 		},
 		{
@@ -3694,6 +3916,9 @@
 			],
 			"paint": {
 				"fill-color": "#D6C6B8"
+			},
+			"metadata": {
+				"legend-title": "Bâtiment résidentiel ou quelconque"
 			}
 		},
 		{
@@ -3721,6 +3946,9 @@
 					"#F1EBD9"
 				],
 				"fill-outline-color": "#C3AA8E"
+			},
+			"metadata": {
+				"legend-title": "Bâtiment résidentiel ou quelconque"
 			}
 		},
 		{
@@ -3758,6 +3986,9 @@
 			"paint": {
 				"fill-color": "#BFE2F0",
 				"fill-outline-color": "#509FEF"
+			},
+			"metadata": {
+				"legend-title": "Pêcherie"
 			}
 		},
 		{
@@ -3776,6 +4007,9 @@
 			"paint": {
 				"fill-color": "#FFFFFF",
 				"fill-outline-color": "#464646"
+			},
+			"metadata": {
+				"legend-title": "Barrage"
 			}
 		},
 		{
@@ -3793,6 +4027,9 @@
 			],
 			"paint": {
 				"fill-color": "#1466B2"
+			},
+			"metadata": {
+				"legend-title": "Château d'eau"
 			}
 		},
 		{
@@ -3812,6 +4049,9 @@
 			"paint": {
 				"fill-color": "#C7A9AA",
 				"fill-outline-color": "#696969"
+			},
+			"metadata": {
+				"legend-title": "Silo"
 			}
 		},
 		{
@@ -3831,6 +4071,9 @@
 			"paint": {
 				"fill-color": "#8D9DAA",
 				"fill-outline-color": "#464646"
+			},
+			"metadata": {
+				"legend-title": "Réservoir industriel"
 			}
 		},
 		{
@@ -3850,6 +4093,9 @@
 			"paint": {
 				"fill-color": "#CAD6D9",
 				"fill-outline-color": "#8C8C8C"
+			},
+			"metadata": {
+				"legend-title": "Serre"
 			}
 		},
 		{
@@ -3868,6 +4114,9 @@
 			"paint": {
 				"fill-color": "#7993B6",
 				"fill-opacity": 0.3
+			},
+			"metadata": {
+				"legend-title": "Poste électrique"
 			}
 		},
 		{
@@ -3899,6 +4148,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Poste électrique"
 			}
 		},
 		{
@@ -3923,6 +4175,9 @@
 			],
 			"paint": {
 				"fill-color": "#F7CBCB"
+			},
+			"metadata": {
+				"legend-title": "Bâtiment religieux"
 			}
 		},
 		{
@@ -3964,6 +4219,9 @@
 					15,
 					"#F7B7B7"
 				]
+			},
+			"metadata": {
+				"legend-title": "Bâtiment religieux"
 			}
 		},
 		{
@@ -3988,6 +4246,9 @@
 			"paint": {
 				"fill-color": "#9B9B9B",
 				"fill-outline-color": "#6E6E6E"
+			},
+			"metadata": {
+				"legend-title": "Monument"
 			}
 		},
 		{
@@ -3995,7 +4256,10 @@
 			"type": "fill",
 			"source": "plan_ign",
 			"source-layer": "bati_surf",
-			"metadata" :{ "legend-group": "bati_sportif_surfacique"},
+			"metadata": {
+				"legend-group": "bati_sportif_surfacique",
+				"legend-title": "Bâtiment sportif"
+			},
 			"layout": {
 				"visibility": "visible"
 			},
@@ -4018,7 +4282,10 @@
 			"id": "bati sportif surfacique",
 			"type": "line",
 			"source": "plan_ign",
-			"metadata" :{ "legend-group": "bati_sportif_surfacique"},
+			"metadata": {
+				"legend-group": "bati_sportif_surfacique",
+				"legend-title": "Bâtiment sportif"
+			},
 			"source-layer": "bati_surf",
 			"layout": {
 				"visibility": "visible",
@@ -4057,6 +4324,9 @@
 			"paint": {
 				"fill-color": "#DBDBDB",
 				"fill-outline-color": "#808080"
+			},
+			"metadata": {
+				"legend-title": "Piste d'aérodrome"
 			}
 		},
 		{
@@ -4106,6 +4376,9 @@
 				"fill-color": "#E3BFE2",
 				"fill-opacity": 0.5,
 				"fill-outline-color": "#E39FE1"
+			},
+			"metadata": {
+				"legend-title": "Zone d'activité"
 			}
 		},
 		{
@@ -4131,6 +4404,9 @@
 				"fill-color": "#FF0000",
 				"fill-opacity": 0.3,
 				"fill-outline-color": "#B40000"
+			},
+			"metadata": {
+				"legend-title": "Siège d'entité administrative"
 			}
 		},
 		{
@@ -4151,6 +4427,9 @@
 			"paint": {
 				"line-color": "#8C8C8C",
 				"line-width": 0.3
+			},
+			"metadata": {
+				"legend-title": "Mur"
 			}
 		},
 		{
@@ -4205,6 +4484,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Barrage"
 			}
 		},
 		{
@@ -4238,6 +4520,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Quai"
 			}
 		},
 		{
@@ -4270,6 +4555,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Pêcherie"
 			}
 		},
 		{
@@ -4326,6 +4614,9 @@
 					6,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Piste cyclable"
 			}
 		},
 		{
@@ -4374,6 +4665,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Escalier"
 			}
 		},
 		{
@@ -4418,6 +4712,9 @@
 					1,
 					0.2
 				]
+			},
+			"metadata": {
+				"legend-title": "Escalier"
 			}
 		},
 		{
@@ -4474,6 +4771,9 @@
 					1,
 					3
 				]
+			},
+			"metadata": {
+				"legend-title": "Rue piétonne"
 			}
 		},
 		{
@@ -4530,6 +4830,9 @@
 					4,
 					3
 				]
+			},
+			"metadata": {
+				"legend-title": "Sentier"
 			}
 		},
 		{
@@ -4582,6 +4885,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Chemin"
 			}
 		},
 		{
@@ -4634,6 +4940,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route non revêtue carrossable"
 			}
 		},
 		{
@@ -4677,6 +4986,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route non revêtue carrossable"
 			}
 		},
 		{
@@ -4736,6 +5048,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Bretelle d'autoroute"
 			}
 		},
 		{
@@ -4783,6 +5098,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route à accès restreint"
 			}
 		},
 		{
@@ -4831,6 +5149,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route non classée"
 			}
 		},
 		{
@@ -4891,6 +5212,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route locale"
 			}
 		},
 		{
@@ -4936,6 +5260,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route locale en construction"
 			}
 		},
 		{
@@ -5000,6 +5327,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route régionale"
 			}
 		},
 		{
@@ -5049,6 +5379,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route régionale en construction"
 			}
 		},
 		{
@@ -5109,6 +5442,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route principale"
 			}
 		},
 		{
@@ -5158,6 +5494,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route principale en construction"
 			}
 		},
 		{
@@ -5166,8 +5505,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"minzoom": 8,
-			"metadata" : {
-				"legend-group": "routier_a_niveau_autoroute"
+			"metadata": {
+				"legend-group": "routier_a_niveau_autoroute",
+				"legend-title": "Autoroute"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -5269,6 +5609,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Autoroute en construction"
 			}
 		},
 		{
@@ -5327,6 +5670,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Bretelle d'autoroute"
 			}
 		},
 		{
@@ -5367,6 +5713,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route à accès restreint"
 			}
 		},
 		{
@@ -5408,6 +5757,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route non classée"
 			}
 		},
 		{
@@ -5470,6 +5822,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route locale"
 			}
 		},
 		{
@@ -5530,6 +5885,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route locale en construction"
 			}
 		},
 		{
@@ -5600,6 +5958,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route régionale"
 			}
 		},
 		{
@@ -5668,6 +6029,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route régionale en construction"
 			}
 		},
 		{
@@ -5736,6 +6100,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route principale"
 			}
 		},
 		{
@@ -5802,6 +6169,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route principale en construction"
 			}
 		},
 		{
@@ -5810,8 +6180,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route",
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "routier_a_niveau_autoroute"
+			"metadata": {
+				"legend-group": "routier_a_niveau_autoroute",
+				"legend-title": "Autoroute"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -5875,8 +6246,9 @@
 			"source-layer": "routier_route",
 			"minzoom": 13,
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "routier_a_niveau_autoroute"
+			"metadata": {
+				"legend-group": "routier_a_niveau_autoroute",
+				"legend-title": "Autoroute"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -5981,6 +6353,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Autoroute en construction"
 			}
 		},
 		{
@@ -6026,6 +6401,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Autoroute en construction"
 			}
 		},
 		{
@@ -6039,8 +6417,9 @@
 				"line-cap": "round",
 				"line-join": "round"
 			},
-			"metadata" : {
-				"legend-group": "ferre_a_niveau_voie_normale"
+			"metadata": {
+				"legend-group": "ferre_a_niveau_voie_normale",
+				"legend-title": "Voie ferrée"
 			},
 			"filter": [
 				"in",
@@ -6076,8 +6455,9 @@
 			"source": "plan_ign",
 			"source-layer": "ferre",
 			"minzoom": 10,
-			"metadata" : {
-				"legend-group": "ferre_a_niveau_voie_normale"
+			"metadata": {
+				"legend-group": "ferre_a_niveau_voie_normale",
+				"legend-title": "Voie ferrée"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -6148,6 +6528,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Voie ferrée étroite"
 			}
 		},
 		{
@@ -6186,6 +6569,9 @@
 					0.1,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Voie ferrée étroite"
 			}
 		},
 		{
@@ -6225,6 +6611,9 @@
 					1,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Voie de service"
 			}
 		},
 		{
@@ -6262,6 +6651,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Voie ferrée en construction"
 			}
 		},
 		{
@@ -6299,6 +6691,9 @@
 					0.1,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Voie ferrée en construction"
 			}
 		},
 		{
@@ -6331,6 +6726,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Funiculaire - Transport urbain"
 			}
 		},
 		{
@@ -6369,6 +6767,9 @@
 					0.1,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Funiculaire - Transport urbain"
 			}
 		},
 		{
@@ -6404,6 +6805,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Bac - Liaison maritime"
 			}
 		},
 		{
@@ -6453,6 +6857,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Passage à gué, route"
 			}
 		},
 		{
@@ -6501,6 +6908,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Passage à gué, chemin"
 			}
 		},
 		{
@@ -6550,6 +6960,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Pont - Passerelle"
 			}
 		},
 		{
@@ -6592,6 +7005,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Pont - Passerelle"
 			}
 		},
 		{
@@ -6633,6 +7049,9 @@
 				"fill-opacity": 0.5,
 				"fill-color": "#FFFFFF",
 				"fill-outline-color": "#000000"
+			},
+			"metadata": {
+				"legend-title": "Dalle de protection"
 			}
 		},
 		{
@@ -6653,6 +7072,9 @@
 				"fill-opacity": 0.8,
 				"fill-color": "#FFFFFF",
 				"fill-outline-color": "#918091"
+			},
+			"metadata": {
+				"legend-title": "Escalier surfacique"
 			}
 		},
 		{
@@ -6672,6 +7094,9 @@
 			"paint": {
 				"fill-color": "#F2DAAA",
 				"fill-outline-color": "#E2A52A"
+			},
+			"metadata": {
+				"legend-title": "Péage"
 			}
 		},
 		{
@@ -6691,6 +7116,9 @@
 			"paint": {
 				"fill-color": "#DCDCDC",
 				"fill-outline-color": "#808080"
+			},
+			"metadata": {
+				"legend-title": "Péage"
 			}
 		},
 		{
@@ -6723,6 +7151,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Cours d'eau"
 			}
 		},
 		{
@@ -6754,6 +7185,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Canal"
 			}
 		},
 		{
@@ -6789,6 +7223,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Aqueduc"
 			}
 		},
 		{
@@ -6828,6 +7265,9 @@
 					1,
 					5
 				]
+			},
+			"metadata": {
+				"legend-title": "Aqueduc"
 			}
 		},
 		{
@@ -6884,6 +7324,9 @@
 					6,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Piste cyclable"
 			}
 		},
 		{
@@ -6893,7 +7336,8 @@
 			"source-layer": "routier_chemin_sup",
 			"minzoom": 14,
 			"metadata": {
-				"legend-group": "chemin_sup_escalier"
+				"legend-group": "chemin_sup_escalier",
+				"legend-title": "Escalier"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -6944,7 +7388,8 @@
 			"source-layer": "routier_chemin_sup",
 			"minzoom": 14,
 			"metadata": {
-				"legend-group": "chemin_sup_escalier"
+				"legend-group": "chemin_sup_escalier",
+				"legend-title": "Escalier"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -7038,6 +7483,9 @@
 					1,
 					3
 				]
+			},
+			"metadata": {
+				"legend-title": "Rue piétonne"
 			}
 		},
 		{
@@ -7094,6 +7542,9 @@
 					4,
 					3
 				]
+			},
+			"metadata": {
+				"legend-title": "Sentier"
 			}
 		},
 		{
@@ -7146,6 +7597,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Chemin"
 			}
 		},
 		{
@@ -7198,6 +7652,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route non revêtue carrosable"
 			}
 		},
 		{
@@ -7257,6 +7714,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Bretelle d'autoroute"
 			}
 		},
 		{
@@ -7304,6 +7764,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route à accès restreint"
 			}
 		},
 		{
@@ -7352,6 +7815,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route non classée"
 			}
 		},
 		{
@@ -7411,6 +7877,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route locale"
 			}
 		},
 		{
@@ -7456,6 +7925,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route locale en construction"
 			}
 		},
 		{
@@ -7520,6 +7992,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route régionale"
 			}
 		},
 		{
@@ -7569,6 +8044,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route régionale en construction"
 			}
 		},
 		{
@@ -7629,6 +8107,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route principale"
 			}
 		},
 		{
@@ -7678,6 +8159,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route principale en construction"
 			}
 		},
 		{
@@ -7686,8 +8170,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"minzoom": 8,
-			"metadata" : {
-				"legend-group": "routier_superieur_autoroute"
+			"metadata": {
+				"legend-group": "routier_superieur_autoroute",
+				"legend-title": "Autoroute"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -7789,6 +8274,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Autoroute en construction"
 			}
 		},
 		{
@@ -7832,6 +8320,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route non revêtue carrosable"
 			}
 		},
 		{
@@ -7890,6 +8381,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Bretelle d'autoroute"
 			}
 		},
 		{
@@ -7930,6 +8424,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route à accès restreint"
 			}
 		},
 		{
@@ -7971,6 +8468,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route non classée"
 			}
 		},
 		{
@@ -8029,6 +8529,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route locale"
 			}
 		},
 		{
@@ -8088,6 +8591,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route locale en construction"
 			}
 		},
 		{
@@ -8150,6 +8656,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route régionale"
 			}
 		},
 		{
@@ -8213,6 +8722,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route régionale en construction"
 			}
 		},
 		{
@@ -8277,6 +8789,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Route principale"
 			}
 		},
 		{
@@ -8338,6 +8853,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Route principale en construction"
 			}
 		},
 		{
@@ -8346,8 +8864,9 @@
 			"source": "plan_ign",
 			"source-layer": "routier_route_sup",
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "routier_superieur_autoroute"
+			"metadata": {
+				"legend-group": "routier_superieur_autoroute",
+				"legend-title": "Autoroute"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -8411,8 +8930,9 @@
 			"source-layer": "routier_route_sup",
 			"minzoom": 13,
 			"maxzoom": 21,
-			"metadata" : {
-				"legend-group": "routier_superieur_autoroute"
+			"metadata": {
+				"legend-group": "routier_superieur_autoroute",
+				"legend-title": "Autoroute"
 			},
 			"layout": {
 				"visibility": "visible",
@@ -8516,6 +9036,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Autoroute en construction"
 			}
 		},
 		{
@@ -8561,6 +9084,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Autoroute en construction"
 			}
 		},
 		{
@@ -8600,6 +9126,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Voie ferrée"
 			}
 		},
 		{
@@ -8643,6 +9172,9 @@
 					0.1,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Voie ferrée"
 			}
 		},
 		{
@@ -8677,6 +9209,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Voie ferrée étroite"
 			}
 		},
 		{
@@ -8715,6 +9250,9 @@
 					0.1,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Voie ferrée étroite"
 			}
 		},
 		{
@@ -8754,6 +9292,9 @@
 					1,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Voie de service"
 			}
 		},
 		{
@@ -8791,6 +9332,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Voie ferrée en construction"
 			}
 		},
 		{
@@ -8828,6 +9372,9 @@
 					0.1,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Voie ferrée en construction"
 			}
 		},
 		{
@@ -8860,6 +9407,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Funiculaire - Transport urbain"
 			}
 		},
 		{
@@ -8898,6 +9448,9 @@
 					0.1,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Funiculaire - Transport urbain"
 			}
 		},
 		{
@@ -8933,6 +9486,9 @@
 					1.5,
 					4
 				]
+			},
+			"metadata": {
+				"legend-title": "Clôture"
 			}
 		},
 		{
@@ -8978,6 +9534,9 @@
 					4,
 					7
 				]
+			},
+			"metadata": {
+				"legend-title": "Layon"
 			}
 		},
 		{
@@ -9018,6 +9577,9 @@
 					2,
 					5
 				]
+			},
+			"metadata": {
+				"legend-title": "Zone réglementée - Enceinte militaire"
 			}
 		},
 		{
@@ -9056,6 +9618,9 @@
 					2,
 					1
 				]
+			},
+			"metadata": {
+				"legend-title": "Zone naturelle"
 			}
 		},
 		{
@@ -9093,6 +9658,9 @@
 					2,
 					1
 				]
+			},
+			"metadata": {
+				"legend-title": "Parc naturel"
 			}
 		},
 		{
@@ -9131,6 +9699,9 @@
 					2,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Parc naturel"
 			}
 		},
 		{
@@ -9169,6 +9740,9 @@
 					2,
 					3
 				]
+			},
+			"metadata": {
+				"legend-title": "Parc naturel"
 			}
 		},
 		{
@@ -9207,6 +9781,9 @@
 					2,
 					4
 				]
+			},
+			"metadata": {
+				"legend-title": "Parc naturel"
 			}
 		},
 		{
@@ -9245,6 +9822,9 @@
 					2,
 					5
 				]
+			},
+			"metadata": {
+				"legend-title": "Parc naturel"
 			}
 		},
 		{
@@ -9281,6 +9861,9 @@
 					2,
 					1
 				]
+			},
+			"metadata": {
+				"legend-title": "Parc naturel marin"
 			}
 		},
 		{
@@ -9464,6 +10047,9 @@
 					1,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Limite de commune"
 			}
 		},
 		{
@@ -9497,6 +10083,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Limite de département"
 			}
 		},
 		{
@@ -9538,6 +10127,9 @@
 					1,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Limite de département"
 			}
 		},
 		{
@@ -9571,6 +10163,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Limite de région"
 			}
 		},
 		{
@@ -9610,6 +10205,9 @@
 					1,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Limite de région"
 			}
 		},
 		{
@@ -9663,6 +10261,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Limite d'état"
 			}
 		},
 		{
@@ -9712,6 +10313,9 @@
 					4,
 					2
 				]
+			},
+			"metadata": {
+				"legend-title": "Limite d'état"
 			}
 		},
 		{
@@ -9734,6 +10338,9 @@
 			"paint": {
 				"line-color": "#82A3B2",
 				"line-width": 1
+			},
+			"metadata": {
+				"legend-title": "Trait de cote"
 			}
 		},
 		{
@@ -9765,6 +10372,9 @@
 						]
 					]
 				}
+			},
+			"metadata": {
+				"legend-title": "Ligne électrique"
 			}
 		},
 		{
@@ -9816,6 +10426,9 @@
 					0.5,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Câble"
 			}
 		},
 		{
@@ -9840,6 +10453,9 @@
 					1,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Remontée mécanique"
 			}
 		},
 		{
@@ -9866,6 +10482,9 @@
 					0.3,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Remontée mécanique"
 			}
 		},
 		{
@@ -9891,6 +10510,9 @@
 					1,
 					10
 				]
+			},
+			"metadata": {
+				"legend-title": "Conduite"
 			}
 		},
 		{
@@ -9923,6 +10545,9 @@
 				"circle-color": "#E2A52A",
 				"circle-stroke-width": 1,
 				"circle-stroke-color": "#808080"
+			},
+			"metadata": {
+				"legend-title": "Péage"
 			}
 		},
 		{
@@ -9963,6 +10588,9 @@
 			],
 			"paint": {
 				"icon-color": "#969696"
+			},
+			"metadata": {
+				"legend-title": "Barrière"
 			}
 		},
 		{
@@ -10014,6 +10642,9 @@
 					]
 				},
 				"circle-stroke-color": "#1466B2"
+			},
+			"metadata": {
+				"legend-title": "Détail hydrographique"
 			}
 		},
 		{
@@ -10070,6 +10701,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Hôpital"
 			}
 		},
 		{
@@ -10152,6 +10786,9 @@
 					]
 				},
 				"circle-stroke-color": "#1466B2"
+			},
+			"metadata": {
+				"legend-title": "Puits - Abreuvoir"
 			}
 		},
 		{
@@ -10183,6 +10820,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Phare"
 			}
 		},
 		{
@@ -10217,6 +10857,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Feu - Amer"
 			}
 		},
 		{
@@ -10249,6 +10892,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Balise"
 			}
 		},
 		{
@@ -10270,6 +10916,9 @@
 			],
 			"paint": {
 				"icon-color": "#1C62A6"
+			},
+			"metadata": {
+				"legend-title": "Ecluse"
 			}
 		},
 		{
@@ -10291,6 +10940,9 @@
 			],
 			"paint": {
 				"icon-color": "#1C62A6"
+			},
+			"metadata": {
+				"legend-title": "Barrage"
 			}
 		},
 		{
@@ -10320,6 +10972,9 @@
 					]
 				},
 				"circle-color": "#1466B2"
+			},
+			"metadata": {
+				"legend-title": "Château d'eau"
 			}
 		},
 		{
@@ -10364,6 +11019,9 @@
 					]
 				},
 				"circle-stroke-color": "#1466B2"
+			},
+			"metadata": {
+				"legend-title": "Réservoir d'eau"
 			}
 		},
 		{
@@ -10435,6 +11093,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Silo"
 			}
 		},
 		{
@@ -10469,6 +11130,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Eolienne"
 			}
 		},
 		{
@@ -10500,6 +11164,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Réservoir"
 			}
 		},
 		{
@@ -10529,6 +11196,9 @@
 					]
 				},
 				"circle-color": "#000000"
+			},
+			"metadata": {
+				"legend-title": "Pylône"
 			}
 		},
 		{
@@ -10563,6 +11233,9 @@
 			],
 			"paint": {
 				"icon-color": "#246138"
+			},
+			"metadata": {
+				"legend-title": "Abri"
 			}
 		},
 		{
@@ -10597,6 +11270,9 @@
 			],
 			"paint": {
 				"icon-color": "#246138"
+			},
+			"metadata": {
+				"legend-title": "Refuge gardé"
 			}
 		},
 		{
@@ -10631,6 +11307,9 @@
 			],
 			"paint": {
 				"icon-color": "#246138"
+			},
+			"metadata": {
+				"legend-title": "Refuge non gardé"
 			}
 		},
 		{
@@ -10658,6 +11337,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Aéroport"
 			}
 		},
 		{
@@ -10686,6 +11368,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Aérodrome"
 			}
 		},
 		{
@@ -10714,6 +11399,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Aéroport"
 			}
 		},
 		{
@@ -10742,6 +11430,9 @@
 			],
 			"paint": {
 				"icon-color": "#646464"
+			},
+			"metadata": {
+				"legend-title": "Aérodrome"
 			}
 		},
 		{
@@ -10761,6 +11452,9 @@
 			],
 			"paint": {
 				"icon-color": "#787878"
+			},
+			"metadata": {
+				"legend-title": "Gare ferroviaire"
 			}
 		},
 		{
@@ -11826,7 +12520,7 @@
 				},
 				"text-allow-overlap": false,
 				"text-offset": [
-					-2.0,
+					-2,
 					0
 				],
 				"text-padding": 3,

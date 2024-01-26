@@ -4,6 +4,7 @@ import LayersGroup from './layer-manager/layer-group';
 import PoiConfig from './data-layer/poi-osm-layer-config.json';
 import DomUtils from "./dom-utils"
 import Globals from './globals';
+import globals from './globals';
 
 /**
  * Contrôle sur le filtrage attributaire des POI osm
@@ -35,6 +36,16 @@ class POI {
 
     this.target = this.options.target || document.getElementById("poiWindow");
     this.id = this.options.id || "OSM.POI$GEOPORTAIL:GPP:TMS";
+    this.style = {}
+    this.sprite = {
+      url: null,
+      size: {
+          w: null,
+          h: null
+      },
+      json: {}
+  }
+
     this.#render();
     this.#listeners();
 
@@ -74,11 +85,13 @@ class POI {
       .then((data) => {
         // les sprites et les glyphs sont uniques sinon exceptions !
         // mais, normalement, on ajoute que des couches IGN, on mutualise sur ces informations.
+        this.style = data;
         if (!data.sprite.startsWith("http")) {
           data.sprite = document.URL + data.sprite;
         }
         this.map.setSprite(data.sprite);
         this.map.setGlyphs(data.glyphs);
+        this.#loadSprite(data.sprite)
         return data;
       })
       .then((data) => {
@@ -259,6 +272,58 @@ class POI {
       });
     });
   }
+
+      /**
+     * Sauvegarde les informations du sprite pour la génération de légende
+     */
+      #loadSprite(url) {
+        this.sprite.url = url;
+        fetch(this.sprite.url + ".json",)
+        .then(res => {return res.json();})
+        .then(json => {
+            this.sprite.json = json
+        })
+        .catch((e) => {
+            throw new Error(e);
+          });
+
+        let theImage = new Image();
+        theImage.src = this.sprite.url + ".png";
+        theImage.decode()
+        .then(() => {
+            this.sprite.size.h = theImage.height;
+            this.sprite.size.w = theImage.width;
+        })
+        .catch((e) => {
+            throw new Error(e);
+        });
+    }
+
+    /**
+     * Get POI sprite info
+     */
+    getSprite() {
+        return this.sprite;
+    }
+
+    /**
+     * Get POI style
+     */
+    getStyle() {
+      return this.style;
+    }
+
+    /**
+     * Get POI feature fill pattern
+     */
+    getFeatureFillPattern(f) {
+      var symbol = f.layout["icon-image"];
+      let toReplace = symbol.match(/{.*}/g)
+      if (toReplace.length > 0) {
+          symbol = symbol.replace(/{.*}/g, f.properties.symbo);
+      }
+      return symbol;
+    }
 
   /**
    * ouvre l'interface
