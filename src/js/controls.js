@@ -11,6 +11,7 @@ import RouteDraw from './route-draw/route-draw';
 import MapInteractivity from './map-interactivity/map-interactivity';
 import MyAccount from "./my-account/my-account";
 import ComparePoi from "./compare-poi";
+import Signalement from "./signalement";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -50,6 +51,7 @@ const addControls = () => {
       closePositionCbk : () => { Globals.menu.close("position"); },
       openIsochroneCbk : () => { Globals.menu.open("isochrone"); },
       openDirectionsCbk : () => { Globals.menu.open("directions"); },
+      openSignalCbk : () => { Globals.menu.open("signalement"); },
     });
 
     // contrôle Recherche
@@ -86,6 +88,9 @@ const addControls = () => {
 
     // compte utilisateur
     Globals.myaccount = new MyAccount(map, {});
+
+    // signalement
+    Globals.signalement = new Signalement(map, {});
 
     // contrôle filtres POI
     Globals.poi = new POI(map, {});

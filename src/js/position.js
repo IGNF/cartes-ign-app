@@ -14,7 +14,6 @@ import { Share } from "@capacitor/share";
  *
  * Fonctionnalité utilisée par "Où suis-je ?"
  *
- * @todo impl. la redirection vers sms
  */
 class Position {
   /**
@@ -32,6 +31,7 @@ class Position {
       closePositionCbk: null,
       openIsochroneCbk: null,
       openDirectionsCbk: null,
+      openSignalCbk: null,
     };
 
     // carte
@@ -119,6 +119,7 @@ Altitude : ${altitude} m
       <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
       <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
       <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+      <button id="positionSignal" class="btnPositionButtons"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
       `;
 
     if (this.header === "Ma position") {
@@ -190,7 +191,6 @@ Altitude : ${altitude} m
         target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
         target.value = this.name;
       }
-
     });
     shadowContainer.getElementById("positionRoute").addEventListener("click", () => {
       const coordinates = this.coordinates;
@@ -209,7 +209,15 @@ Altitude : ${altitude} m
         target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
         target.value = this.name;
       }
-
+    });
+    // ajout des listeners principaux :
+    shadowContainer.getElementById("positionSignal").addEventListener("click", () => {
+      const coordinates = this.coordinates;
+      // ouverture du panneau Signalement
+      if (this.options.openSignalCbk) {
+        this.options.openSignalCbk();
+        Globals.signalement.data.location = coordinates;
+      }
     });
 
     // ajout du container shadow

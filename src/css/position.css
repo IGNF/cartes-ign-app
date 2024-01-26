@@ -88,10 +88,8 @@
 
 .divPositionButtons::-webkit-scrollbar {
     display: none;
-  }
-
-#positionShare {
 }
+
 .lblPositionImg {
     height: 25px;
     width: 25px;
@@ -101,14 +99,15 @@
 .lblPositionShareImg {
     background-image: url("assets/share.svg");
 }
-#positionNear {
-}
-.lblPositionNearImg {
 
+.lblPositionNearImg {
     background-image: url("assets/isochrone-white.svg");
 }
 .lblPositionRouteImg {
     background-image: url("assets/syrendre-white.svg");
+}
+.lblPositionSignalImg {
+    background-image: url("assets/signal.svg");
 }
 .btnPositionButtons {
     display: flex;
