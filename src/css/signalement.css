@@ -1,0 +1,78 @@
+#signalementWindow {
+  font-family: "Open Sans";
+}
+
+#signalementWindow a {
+  color: #26a581;
+  text-decoration: underline;
+}
+
+.signalementTitle {
+  font-family: "Open Sans Bold";
+}
+
+.signalementSubTitle {
+  font-family: "Open Sans Semibold";
+}
+
+.signalementText {
+  text-align: justify;
+  margin: 0;
+}
+
+.signalementSubSection {
+  background-color: #DDE1E6;
+  padding: 1px 8px 15px 8px;
+  margin: 15px 5px;
+  border-radius: 5px;
+}
+
+.signalementForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.signalement-select,
+.signalement-textarea,
+.signalement-input-text {
+  font-family: "Open Sans";
+  margin: 5px auto;
+  box-sizing: border-box;
+  width: 236px;
+  height: 45px;
+  padding: 0 8px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid;
+  border-color: #DDE1E6;
+  color: #3F4A55;
+}
+
+.signalement-textarea {
+  resize: none;
+  height: 6em;
+  padding: 8px;
+}
+
+.signalement-submit {
+  appearance: unset; /* for ios */
+  display: block;
+  margin: auto;
+  border: none;
+  border-radius: 70px;
+  background-color: #26a581;
+  padding: 14px 28px;
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  width: 236px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px;
+}

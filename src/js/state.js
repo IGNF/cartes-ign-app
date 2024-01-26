@@ -100,6 +100,9 @@ const onBackKeyDown = () => {
       Globals.currentScrollIndex = 0;
       Globals.menu.open('compare');
     }
+    if (Globals.backButtonState === 'signalement') {
+        Globals.menu.close('signalement');
+    }
 }
 
 export default {

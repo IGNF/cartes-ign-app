@@ -40,7 +40,7 @@ class ComparePoi {
 
     this.map = map;
 
-    this.target = this.options.target || document.getElementById("poiWindow");
+    this.target = this.options.target || document.getElementById("comparePoiWindow");
 
     this.theme = null;
     this.sousTheme = null;
@@ -84,11 +84,11 @@ class ComparePoi {
       return;
     }
     this.dom = {
-      title: document.getElementById("comparePoiWindow").querySelector(".comparePoiTitle"),
-      commune: document.getElementById("comparePoiWindow").querySelector(".comparePoiCommune"),
-      departement: document.getElementById("comparePoiWindow").querySelector(".comparePoiDepartement"),
-      button: document.getElementById("comparePoiWindow").querySelector(".comparePoiButton"),
-      text: document.getElementById("comparePoiWindow").querySelector(".comparePoiText"),
+      title: this.target.querySelector(".comparePoiTitle"),
+      commune: this.target.querySelector(".comparePoiCommune"),
+      departement: this.target.querySelector(".comparePoiDepartement"),
+      button: this.target.querySelector(".comparePoiButton"),
+      text: this.target.querySelector(".comparePoiText"),
     }
   }
 

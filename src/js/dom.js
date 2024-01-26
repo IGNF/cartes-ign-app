@@ -66,6 +66,7 @@ const $poiWindow = document.getElementById("poiWindow");
 const $routeDrawWindow = document.getElementById("routeDrawWindow");
 const $routeDrawSaveWindow = document.getElementById("routeDrawSaveWindow");
 const $comparePoiWindow = document.getElementById("comparePoiWindow");
+const $signalementWindow = document.getElementById("signalementWindow");
 
 export default {
   $search,
@@ -125,4 +126,5 @@ export default {
   $mapCenterMenu,
   $mapCenterSubmit,
   $comparePoiWindow,
+  $signalementWindow,
 };

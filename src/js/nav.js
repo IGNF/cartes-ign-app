@@ -102,6 +102,12 @@ class MenuNavigation {
         // y'a t il des particularités sur l'ouverture du panneau demandé ?
         var isSpecific = false;
         switch (id) {
+            case "signalement":
+                DOM.$positionWindow.classList.add("d-none");
+                DOM.$filterPoiBtn.classList.add("d-none");
+                Globals.interactivityIndicator.hardDisable();
+                DOM.$sideBySideBtn.classList.add('d-none');
+                break;
             case "comparePoi":
                 DOM.$search.style.display = "none";
                 DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
@@ -314,6 +320,15 @@ class MenuNavigation {
         var isSpecific = false;
         var isFinished = false; // hack pour search !
         switch (id) {
+            case "signalement":
+                DOM.$positionWindow.classList.remove("d-none");
+                DOM.$filterPoiBtn.classList.remove("d-none");
+                Globals.interactivityIndicator.enable();
+                Globals.signalement.clear();
+                DOM.$sideBySideBtn.classList.remove('d-none');
+                isSpecific = true;
+                isFinished = true;
+                break;
             case "comparePoi":
                 DOM.$search.style.display = "flex";
                 DOM.$filterPoiBtn.style.removeProperty("top");
@@ -528,6 +543,10 @@ class MenuNavigation {
         if (id === "routeDrawSave") {
           Globals.backButtonState = 'routeDraw'; // on revient sur le contrôle !
           return;
+        }
+        if (id === "signalement") {
+            Globals.backButtonState = 'position'; // on revient sur le contrôle !
+            return;
         }
         Globals.controller.abort();
         Globals.controller = new AbortController();

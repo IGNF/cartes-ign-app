@@ -1,0 +1,35 @@
+<div class="d-none" id="signalementWindow">
+  <p class="signalementTitle">Avant d'effectuer un signalement</p>
+  <p class="signalementText">
+    Avant de nous faire part d'une observation sur nos données, nous vous recommandons de prendre connaissance de notre <a href="https://www.geoportail.gouv.fr/faq#jai-constate-une-anomalie-dans-les-donnees" class="link-fullPage-faq" target="_blank" title="FAQ dédiée">FAQ dédiée</a> et/ou des outils ci-dessous. Vous y trouverez peut-être déjà une réponse.
+  </p>
+  <div class="signalementSubSection">
+    <p class="signalementSubTitle">Usage professionnel</p>
+    <p class="signalementText">
+      <a href="https://espacecollaboratif.ign.fr/" target="_blank" title="Accéder à l'Espace Collaboratif">L'Espace collaboratif</a> vous propose des outils spécifiques.
+    </p>
+  </div>
+  <form class="signalementForm">
+    <p class="signalementTitle">Décrivez</p>
+    <p class="signalementText">Donnez un titre à votre signalement :</p>
+    <input type="text" id="signalement-title" name="signalement-title" class="signalement-input-text" title="Titre de l'anomalie" required="">
+    <p class="signalementText">Choisissez un thème pour votre signalement :</p>
+    <select id="signalement-theme" name="signalement-theme" class="signalement-select" title="Thème">
+      <option value="" selected disabled>Choisir :</option>
+      <option value="Réseau routier">Réseau routier</option>
+      <option value="Bâtiment">Bâtiment</option>
+      <option value="Toponyme">Toponyme</option>
+      <option value="Touristique/randonnée<">Touristique/randonnée</option>
+      <option value="Borne cadastrale">Borne cadastrale</option>
+      <option value="Hydrographie">Hydrographie</option>
+      <option value="Végétation">Végétation</option>
+      <option value="Autre">Autre</option>
+    </select>
+    <p class="signalementText">Explicitez votre signalement de façon la plus détaillée possible (sinon nous ne serons pas en mesure de le traiter) :</p>
+    <textarea id="signalement-description" name="signalement-description" class="signalement-textarea" title="Description" required=""></textarea>
+    <p class="signalementTitle">Envoyez</p>
+    <p class="signalementText">Renseignez votre adresse courriel pour valider l'envoi du signalement. Nous vous tiendrons informés de sa prise en compte.</p>
+    <input type="email" id="signalement-email" class="signalement-input-text" title="Email" autocomplete="email" required=""> <br/>
+    <input type="submit" class="signalement-submit" value="Envoi">
+  </form>
+</div>
