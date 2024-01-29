@@ -86,16 +86,16 @@ class POI {
         // les sprites et les glyphs sont uniques sinon exceptions !
         // mais, normalement, on ajoute que des couches IGN, on mutualise sur ces informations.
         this.style = data;
-        let sprite_url = data.sprite
         if (!data.sprite.startsWith("http")) {
-          if (data.sprite.startsWith("/")) {
-            sprite_url = document.URL + data.sprite.slice(1)
+          let slash = "";
+          if (!document.URL.endsWith("/")) {
+            slash = "/";
           };
-          data.sprite = document.URL + data.sprite;
+          data.sprite = document.URL + slash + data.sprite;
         }
-        this.map.setSprite(sata.sprite);
+        this.map.setSprite(data.sprite);
         this.map.setGlyphs(data.glyphs);
-        this.#loadSprite(sprite_url);
+        this.#loadSprite(data.sprite);
         return data;
       })
       .then((data) => {
