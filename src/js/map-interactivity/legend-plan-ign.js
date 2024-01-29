@@ -21,7 +21,6 @@ function beautifyLayerName(feature, source) {
                         if (!feature.properties.texte) noTexte = true;
                         else return feature.properties.texte;
                     }
-                    console.log(noTexte)
                     if (rule == "symbo" || noTexte) {
                         if (!featureRule[0].libelle) return feature.properties.symbo;
                         else return featureRule[0].libelle;
@@ -55,12 +54,9 @@ function getMapboxPropAtZoom(feature, prop, zoom, defaultValue) {
             && p[1][0] == 'zoom') {
             let steps = p.slice(2);
             let response = steps[0];
-            for (let i = 0; i > steps.length; i++){
-                if (i % 2 == 0)
-                    response = steps[i];
-                if (i % 2 == 1
-                    && steps[i] > zoom)
-                        break;
+            for (let i = 0; i < steps.length; i++){
+                if (i % 2 == 0) response = steps[i];
+                if (i % 2 == 1 && steps[i] > zoom) break;
             }
             return response;
         }
@@ -78,7 +74,6 @@ function MapBoxStyleToSVG(features, zoom) {
     var height = 24;
     var width = 36;
     const multiplicator = 2;
-
     features.forEach(f => {
         if (f.type == 'line') {
             const lineWidth = getMapboxPropAtZoom(f, "line-width", zoom, 1) * multiplicator;
@@ -89,8 +84,8 @@ function MapBoxStyleToSVG(features, zoom) {
             const radius = getMapboxPropAtZoom(f, "circle-radius", zoom, 0);
             height = circleStrokeWidth + radius > height ? circleStrokeWidth + radius : height;
         }
-        if (f.type == 'symbol') {
-            let symbol = globals.poi.getFeatureFillPattern(f);
+        if (f.type == 'symbol' && f.layout.hasOwnProperty("icon-image")) {
+            let symbol = f.source == 'poi_osm' ? globals.poi.getFeatureFillPattern(f) : f.layout["icon-image"];;
             height = sprite.json[symbol].height;
             width = sprite.json[symbol].width;
         }
@@ -101,8 +96,8 @@ function MapBoxStyleToSVG(features, zoom) {
 
     var shape = "";
     features.forEach(f => {
-        if (f.type == 'symbol') {
-            let symbol = globals.poi.getFeatureFillPattern(f);
+        if (f.type == 'symbol' && f.layout.hasOwnProperty("icon-image")) {
+            let symbol = f.source == 'poi_osm' ? globals.poi.getFeatureFillPattern(f) : f.layout["icon-image"];;
             shape += `<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none'\
             width='${width}'\
             height='${height}'\
@@ -203,15 +198,23 @@ function Legend(features, zoom) {
 
     const stylePLANIGN = globals.manager.layerSwitcher.layers["PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"].style;
     const source = features.length > 0 ? features[0].source : "";
+    let legend = '';
+    let svg = '';
 
     var f = features.filter(feat => {
         if (source == "plan_ign" || source == "bdtopo") {
-            if (feat.source == "plan_ign" && feat.layer.id != "bckgrd" ) return feat;
+            if (feat.source == "plan_ign" && feat.layer.id != "bckgrd") {
+                // Dans le cas où c'est un symbole textuel et pas une icone on n'affichera pas de légende.
+                if(feat.layer.type == "symbol" && !feat.layer.layout.hasOwnProperty("icon-image")) return;
+            return feat;
+        }
         }
         if (source == "poi_osm") {
             if (feat.source == "poi_osm") return feat;
         }
     });
+
+    if (f.length == 0) return legend;
 
     /**
      *  Cas où 1er élément dans bdtopo est entité dans une ZA 
@@ -254,8 +257,6 @@ function Legend(features, zoom) {
     });
 
     var layername = f.length > 0 ? beautifyLayerName(f[0], source) : "";
-    let legend = '';
-    let svg = '';
     if (featuresForLegend) {
         svg = MapBoxStyleToSVG(featuresForLegend, zoom);
         legend = getLegend(svg, layername);
