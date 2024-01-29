@@ -290,7 +290,8 @@ let DirectionsDOM = {
         divDefault.id = "divDirectionsLocationsList";
 
         var divContainer = document.createElement("div");
-        divContainer.className = "divDirectionsLocationsItem draggable-layer";
+        divContainer.className = "divDirectionsLocationsItem draggable-layer start";
+        divContainer.id = "divDirectionsLocationsItem_start";
 
         var labelDeparture = document.createElement("label");
         labelDeparture.id = "directionsLocationImg_first";
@@ -329,7 +330,8 @@ let DirectionsDOM = {
         // on pre ajoute 5 étapes max
         for (let i = 1; i <= 5; i++) {
             var divContainer = document.createElement("div");
-            divContainer.className = "divDirectionsLocationsItem draggable-layer hidden";
+            divContainer.className = "divDirectionsLocationsItem draggable-layer hidden step";
+            divContainer.id = "divDirectionsLocationsItem_" + i;
 
             var labelMiddle = document.createElement("label");
             labelMiddle.id = "directionsLocationsImg_middle_" + i;
@@ -339,20 +341,20 @@ let DirectionsDOM = {
             var divInput = document.createElement("div");
             divInput.className = "inputDirectionsLocationsContainer";
 
-            var inputLocationArrival  = document.createElement("input");
-            inputLocationArrival.id = "directionsLocation_step_" + i;
-            inputLocationArrival.className = "inputDirectionsLocations";
-            inputLocationArrival.type = "text";
-            inputLocationArrival.placeholder = "Par où passez-vous ?";
-            inputLocationArrival.name = "end";
+            var inputLocationStep  = document.createElement("input");
+            inputLocationStep.id = "directionsLocation_step_" + i;
+            inputLocationStep.className = "inputDirectionsLocations";
+            inputLocationStep.type = "text";
+            inputLocationStep.placeholder = "Par où passez-vous ?";
+            inputLocationStep.name = "step" + i;
             // le geocodage enregistre les coordonnées dans la tag data-coordinates :
             //   data-coordinates = "[2.24,48.80]"
-            inputLocationArrival.dataset.coordinates = "";
-            inputLocationArrival.addEventListener("click", function (e) {
+            inputLocationStep.dataset.coordinates = "";
+            inputLocationStep.addEventListener("click", function (e) {
                 // ouverture du menu de recherche
                 self.onOpenSearchLocation(e);
             });
-            divInput.appendChild(inputLocationArrival);
+            divInput.appendChild(inputLocationStep);
 
             var labelCross = document.createElement("label");
             labelCross.className = "handle-draggable-layer";
@@ -382,7 +384,8 @@ let DirectionsDOM = {
         }
 
         var divContainer = document.createElement("div");
-        divContainer.className = "divDirectionsLocationsItem draggable-layer";
+        divContainer.className = "divDirectionsLocationsItem draggable-layer end";
+        divContainer.id = "divDirectionsLocationsItem_end";
 
         var labelArrival = document.createElement("label");
         labelArrival.id = "directionsLocationImg_last";

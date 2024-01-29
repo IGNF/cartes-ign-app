@@ -214,7 +214,9 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 1;
                 break;
             case "position":
-                Globals.backButtonState = "position-" + previousBackState;
+                if (previousBackState.split("-")[0] !== "position") {
+                  Globals.backButtonState = "position-" + previousBackState;
+                }
                 DOM.$search.style.display = "none";
                 DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');
@@ -572,6 +574,7 @@ class MenuNavigation {
                 Globals.backButtonState = 'directions'; // on revient sur le contrôle !
                 Globals.currentScrollIndex = 2;
                 this.updateScrollAnchors();
+                DOM.$rech.value = "";
             default:
                 break;
         }

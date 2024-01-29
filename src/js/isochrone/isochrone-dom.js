@@ -168,6 +168,15 @@ let IsochroneDOM = {
     this.dom.isochroneCompute = shadow.getElementById("isochroneCompute");
     this.dom.poiToggle = shadow.getElementById("displayPOI-isochrone");
 
+    this.dom.showOutPoisChk.addEventListener("change", (e) => {
+      if (e.target.checked) {
+        this.dom.showLimitsChk.checked = true;
+        this.dom.showLimitsChk.disabled = true;
+      } else {
+        this.dom.showLimitsChk.disabled = false;
+      }
+    });
+
     // ajout des listeners principaux :
     // - le calcul
     // - l'ouverture du menu de recherche
