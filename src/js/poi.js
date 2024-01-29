@@ -87,11 +87,10 @@ class POI {
         // mais, normalement, on ajoute que des couches IGN, on mutualise sur ces informations.
         this.style = data;
         if (!data.sprite.startsWith("http")) {
-          let slash = "";
-          if (!document.URL.endsWith("/")) {
-            slash = "/";
+          if (!document.URL.endsWith("/") && data.sprite.startsWith("/")) {
+            data.sprite = data.sprite.substring(1);
           };
-          data.sprite = document.URL + slash + data.sprite;
+          data.sprite = document.URL + data.sprite;
         }
         this.map.setSprite(data.sprite);
         this.map.setGlyphs(data.glyphs);
