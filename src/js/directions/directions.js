@@ -125,10 +125,11 @@ class Directions {
 
         // dragn'drop !
         Sortable.create(document.getElementById("divDirectionsLocationsList"), {
-            handle : ".handle-draggable-layer",
-            draggable : ".draggable-layer",
-            animation : 200,
-            forceFallback : true,
+            handle: ".handle-draggable-layer",
+            draggable: ".draggable-layer",
+            animation: 200,
+            forceFallback: true,
+            filter: ".hidden",
             // Call event function on drag and drop
             onEnd: directionsSortableCallback,
         });
@@ -397,6 +398,7 @@ class Directions {
             if (close) {
                 close.removeEventListener("click", cleanLocation);
             }
+            backTopLeftBtn.removeEventListener("click", cleanLocation);
             Geocode.target.removeEventListener("search", setLocation)
             Location.target.removeEventListener("geolocation", setLocation);
             Reverse.target.removeEventListener("reverse", setLocation);
@@ -414,8 +416,11 @@ class Directions {
         // abonnement au bouton de fermeture du menu
         var close = document.getElementById("closeSearch");
         if (close) {
-            close.removeEventListener("click", cleanLocation);
+            close.addEventListener("click", cleanLocation);
         }
+        var backTopLeftBtn = document.getElementById("backTopLeftBtn");
+        backTopLeftBtn.addEventListener("click", cleanLocation);
+
     }
 }
 
