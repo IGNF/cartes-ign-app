@@ -34,7 +34,7 @@ class Signalement {
       location: null,
     }
 
-    this.url = this.options.url || "https://www.geoportail.gouv.fr/wp-json/wp/v2/anomaly";
+    this.url = this.options.url || "https://geoportail.qua.ign-mut.ovh/wp-json/wp/v2/";
     this.#render();
     this.#listeners();
     return this;
@@ -56,6 +56,9 @@ class Signalement {
   }
 
   #listeners() {
+    document.getElementById("signalement-ok").addEventListener("click", () => {
+      Globals.menu.close("signalement");
+    });
     this.dom.submitButton.addEventListener("click", (e) => {
       e.preventDefault();
       this.data = {
@@ -82,6 +85,8 @@ class Signalement {
         console.warn("Signalement sans lieu !")
         return;
       }
+      document.getElementById("signalementWindowDefault").classList.add("d-none");
+      document.getElementById("signalementFinished").classList.remove("d-none");
       this.#send();
     });
   }
@@ -91,19 +96,41 @@ class Signalement {
    * @private
    */
   async #send() {
-    console.log(this.data);
     const permalink = `https://www.geoportail.gouv.fr/carte?c=${this.data.location.lon},${this.data.location.lat}&z=${Math.floor(this.map.getZoom()) - 1}&l0=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2::GEOPORTAIL:OGC:WMTS(1)&permalink=yes`
     const anomaly = {
       name: this.data.title + " (Anomalie)",
       description: this.data.description,
       theme: this.data.theme,
       permalink: permalink,
-      id_drawing: "1", //FIXME
+      id_drawing: "",
       mail: this.data.email,
     }
 
+    const kml = `<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/kml/2.2 https://developers.google.com/kml/schema/kml22gx.xsd"><Placemark><name>location of an anomaly (${anomaly.name})</name><Point><coordinates>${this.data.location.lon},${this.data.location.lat}</coordinates></Point></Placemark></kml>`;
+    const drawing = {
+      is_anomaly: 1,
+      kml: kml,
+      layername: anomaly.name,
+      name: anomaly.name,
+    }
+
+    const drawingRequestBody = {drawing: drawing};
+    const drawingResponse = await fetch(this.url + "drawing", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer undefined",
+      },
+      mode: 'cors',
+      credentials: "same-origin",
+      body: JSON.stringify(drawingRequestBody),
+    });
+    const drawingResults = await drawingResponse.json();
+
+    anomaly.id_drawing = drawingResults.drawing[0].id;
+
     const requestBody = {anomaly: anomaly};
-    const response = await fetch(this.url, {
+    await fetch(this.url + "anomaly", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -113,8 +140,6 @@ class Signalement {
       credentials: "same-origin",
       body: JSON.stringify(requestBody),
     });
-    const results = await response.json();
-    console.log(results);
   }
 
   /**

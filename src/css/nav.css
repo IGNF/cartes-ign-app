@@ -6,7 +6,7 @@
     height: 60px ;
     font-size: 12px;
     background-color: white;
-    padding: 10px 0px calc(8px + var(--safe-area-inset-bottom)) 0px;
+    padding: 10px 0px var(--safe-area-inset-bottom) 0px;
     z-index: 3002;
     flex-direction: row;
     align-items: center;
