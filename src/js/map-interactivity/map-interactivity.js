@@ -69,7 +69,7 @@ class MapInteractivity {
   }
 
   #getInfoOnMap(ev) {
-    if (Globals.backButtonState === "position") {
+    if (Globals.backButtonState.split("-")[0] === "position") {
       Globals.menu.close("position");
     }
     let features = this.map.queryRenderedFeatures(ev.point);
