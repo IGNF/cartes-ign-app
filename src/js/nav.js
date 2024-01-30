@@ -324,6 +324,8 @@ class MenuNavigation {
                 Globals.interactivityIndicator.enable();
                 Globals.signalement.clear();
                 DOM.$sideBySideBtn.classList.remove('d-none');
+                document.getElementById("signalementWindowDefault").classList.remove("d-none");
+                document.getElementById("signalementFinished").classList.add("d-none");
                 isSpecific = true;
                 isFinished = true;
                 break;
@@ -535,16 +537,16 @@ class MenuNavigation {
      */
     #close(id) {
         if (["compareLayers1", "compareLayers2"].includes(id)) {
-            Globals.backButtonState = 'compare'; // on revient sur le contrôle !
-            return;
+          Globals.backButtonState = 'compare'; // on revient sur le contrôle !
+          return;
         }
         if (id === "routeDrawSave") {
           Globals.backButtonState = 'routeDraw'; // on revient sur le contrôle !
           return;
         }
         if (id === "signalement") {
-            Globals.backButtonState = 'position'; // on revient sur le contrôle !
-            return;
+          Globals.backButtonState = 'position'; // on revient sur le contrôle !
+          return;
         }
         Globals.controller.abort();
         Globals.controller = new AbortController();

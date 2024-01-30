@@ -53,7 +53,7 @@ const onBackKeyDown = () => {
         Globals.menu.close('searchIsochrone');
     }
     if (Globals.backButtonState.split("-")[0] === 'position') {
-        var previousState = Globals.backButtonState.split("-")[1];
+        var previousState = Globals.backButtonState.split("-")[1] || "default";
         Globals.menu.close('position');
         // réouverture de menu précédent
         if (previousState !== "default") {
@@ -101,7 +101,7 @@ const onBackKeyDown = () => {
       Globals.menu.open('compare');
     }
     if (Globals.backButtonState === 'signalement') {
-        Globals.menu.close('signalement');
+      Globals.menu.close('signalement');
     }
 }
 
