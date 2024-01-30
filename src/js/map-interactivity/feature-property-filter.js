@@ -7,6 +7,11 @@
 const natureRouteToDisplay = ["Autoroute", "Bretelle", "Chemin",
 "Piste cyclable", "Sentier", "Rue piétonne", "Escalier"]
 
+const isIndifferencie = (prop) => {
+    if (prop == "Indifférenciée" || prop == "Indifférencié") return true;
+    return false;
+}
+
 const featurePropertyFilter = (feature) => {
   let result = ``;
   if (feature.source === "poi_osm") {
@@ -22,8 +27,8 @@ const featurePropertyFilter = (feature) => {
     nature = feature.properties.nature
   }
 
-  // Troncon de route
   Object.entries(feature.properties).forEach((prop) => {
+    // Troncon de route
     if(feature.layer["source-layer"] == "troncon_de_route") {
       // Autoroute
       if(prop[0] == "cpx_classement_administratif" && nature == "Type autoroutier") {
@@ -40,6 +45,7 @@ const featurePropertyFilter = (feature) => {
         result = result + `${prop[1]} <br />`;
       }
     }
+    // Le reste
     if(feature.layer["source-layer"] == "construction_lineaire"
     || feature.layer["source-layer"] == "construction_surfacique"
     || feature.layer["source-layer"] == "construction_ponctuelle"
@@ -68,20 +74,20 @@ const featurePropertyFilter = (feature) => {
 
     // Batiment
     if(feature.layer["source-layer"] == "batiment") {
-      if(prop[0] == "nature") {
+      if(prop[0] == "nature" && isIndifferencie(prop[0])) {
         result = result + `Nature : ${prop[1]} <br />`;
       }
-      if(prop[0] == "usage_1") {
+      if(prop[0] == "usage_1" && isIndifferencie(prop[0])) {
         result = result + `Usage : ${prop[1]} <br />`;
       }
       if(prop[0] == "nombre_de_logements" && prop[0] != '') {
         result = result + `Nombre de logements : ${prop[1]} <br />`;
       }
-      if(prop[0] == "nombre_d_etages" && prop[0] != '') {
+      if(prop[0] == "nombre_d_etages" && prop[0] != '' && prop[0] != "0") {
         result = result + `Nombre d'étages : ${prop[1]} <br />`;
       }
       if(prop[0] == "hauteur" && prop[0] != '') {
-        result = result + `Hauteur : ${prop[1]}m <br />`;
+        result = result + `Hauteur : ${prop[1].toLocaleString('fr-FR')} mètres <br />`;
       }
 
     }
