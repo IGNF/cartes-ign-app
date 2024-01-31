@@ -1,7 +1,7 @@
 /* mode paysage et écrans larges */
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #tabContainer {
-    width: calc(100vh + var(--safe-area-inset-left) + 42px);
+    width: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
     height: 100vh;
     top: 100%;
     left: 0;
