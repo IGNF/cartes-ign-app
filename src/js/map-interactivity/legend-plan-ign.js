@@ -9,13 +9,12 @@ function beautifyLayerName(feature, source) {
 
     // Pas de règles spécifiées
     if (featureRule.length == 0) {
-      if (Object.prototype.hasOwnProperty.call(feature.properties, "texte") && feature.properties.texte) legend.push(feature.properties.texte);
+      if (Object.hasOwnProperty.call(feature.properties, "texte") && feature.properties.texte) legend.push(feature.properties.texte);
       else legend.push(feature.properties.symbo);
     }
     // En cas de règle
     else {
-      legend = featureRule[0].affichage.map(rule =>
-      {
+      legend = featureRule[0].affichage.map(rule => {
         let noTexte = false;
         if (rule == "texte") {
           if (!feature.properties.texte) noTexte = true;
@@ -30,31 +29,31 @@ function beautifyLayerName(feature, source) {
     return legend.join("<br/>");
   }
   // PLAN IGN
-  else{
-    if (Object.prototype.hasOwnProperty.call(feature.layer.hasOwnProperty, "metadata")
-        && Object.prototype.hasOwnProperty.call(feature.layer.metadata, "legend-title"))
+  else {
+    if (Object.hasOwnProperty.call(feature.layer, "metadata")
+      && Object.hasOwnProperty.call(feature.layer.metadata, "legend-title"))
       return feature.layer.metadata["legend-title"];
   }
   return "";
 }
 
 function getMapboxPropAtZoom(feature, prop, zoom, defaultValue) {
-  if (Object.prototype.hasOwnProperty.call( feature.paint.hasOwnProperty, prop)) {
+  if (Object.hasOwnProperty.call(feature.paint, prop)) {
     let p = feature.paint[prop];
     // cas des stops récupère la propriété au bon niveau de zoom
-    if (Object.prototype.hasOwnProperty.call(p, "stops")) {
-      for (let i = p.stops.length - 1; i >= 0; i--){
+    if (Object.hasOwnProperty.call(p, "stops")) {
+      for (let i = p.stops.length - 1; i >= 0; i--) {
         if (zoom >= i)
           return p.stops[i][1];
       }
     }
     // cas des steps récupère la propriété au bon niveau de zoom
     if (Array.isArray(p)
-            && p[0] == "step"
-            && p[1][0] == "zoom") {
+      && p[0] == "step"
+      && p[1][0] == "zoom") {
       let steps = p.slice(2);
       let response = steps[0];
-      for (let i = 0; i < steps.length; i++){
+      for (let i = 0; i < steps.length; i++) {
         if (i % 2 == 0) response = steps[i];
         if (i % 2 == 1 && steps[i] > zoom) break;
       }
@@ -84,7 +83,7 @@ function MapBoxStyleToSVG(features, zoom) {
       const radius = getMapboxPropAtZoom(f, "circle-radius", zoom, 0);
       height = circleStrokeWidth + radius > height ? circleStrokeWidth + radius : height;
     }
-    if (f.type == "symbol" && Object.prototype.hasOwnProperty.call(f.layout, "icon-image")) {
+    if (f.type == "symbol" && Object.hasOwnProperty.call(f.layout, "icon-image")) {
       let symbol = f.source == "poi_osm" ? globals.poi.getFeatureFillPattern(f) : f.layout["icon-image"];
       height = sprite.json[symbol].height;
       width = sprite.json[symbol].width;
@@ -92,11 +91,11 @@ function MapBoxStyleToSVG(features, zoom) {
   });
 
   const x = 0;
-  const y = height/2;
+  const y = height / 2;
 
   var shape = "";
   features.forEach(f => {
-    if (f.type == "symbol" && Object.prototype.hasOwnProperty.call(f.layout, "icon-image")) {
+    if (f.type == "symbol" && Object.hasOwnProperty.call(f.layout, "icon-image")) {
       let symbol = f.source == "poi_osm" ? globals.poi.getFeatureFillPattern(f) : f.layout["icon-image"];
       shape += `<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none'\
             width='${width}'\
@@ -205,7 +204,7 @@ function Legend(features, zoom) {
     if (source == "plan_ign" || source == "bdtopo") {
       if (feat.source == "plan_ign" && feat.layer.id != "bckgrd") {
         // Dans le cas où c'est un symbole textuel et pas une icone on n'affichera pas de légende.
-        if(feat.layer.type == "symbol" && !Object.prototype.hasOwnProperty.call(feat.layer.layout, "icon-image")) return;
+        if (feat.layer.type == "symbol" && !Object.hasOwnProperty.call(feat.layer.layout, "icon-image")) return;
         return feat;
       }
     }
@@ -217,35 +216,35 @@ function Legend(features, zoom) {
   if (f.length == 0) return legend;
 
   /**
-     *  Cas où 1er élément dans bdtopo est entité dans une ZA
-     *  mais 1er élément dans planIGN est ZA
-     *
-     *  */
+   *  Cas où 1er élément dans bdtopo est entité dans une ZA
+   *  mais 1er élément dans planIGN est ZA
+   *
+   *  */
   if (f[0].source == "plan_ign" && f[0].sourceLayer == "bati_zai") {
-    if (features[0].sourceLayer != "zone_d_activite_ou_d_interet") f= f.filter(feat => feat.sourceLayer != "bati_zai");
+    if (features[0].sourceLayer != "zone_d_activite_ou_d_interet") f = f.filter(feat => feat.sourceLayer != "bati_zai");
   }
 
   var featuresForLegend = [];
   /**
-     * Gestion des groupes de légende pour PALN IGN:
-     *
-     * Dans le style, les éléments qui ont le même nom de groupe,
-     * contenu dans cette balise,
-     *
-     * { "metadata" : { "legend-group" : "group-name"}}
-     *
-     * sont utilisés pour générer le svg de légende.
-     *
-     */
+   * Gestion des groupes de légende pour PALN IGN:
+   *
+   * Dans le style, les éléments qui ont le même nom de groupe,
+   * contenu dans cette balise,
+   *
+   * { "metadata" : { "legend-group" : "group-name"}}
+   *
+   * sont utilisés pour générer le svg de légende.
+   *
+   */
   if ((source == "plan_ign" || "bdtopo") && f.length > 0) {
     featuresForLegend = stylePLANIGN.filter((elem) => {
       if (elem.id == f[0].layer.id) {
         return elem;
       }
-      if (Object.prototype.hasOwnProperty.call(f[0].layer.metadata, "legend-group")
-                && Object.prototype.hasOwnProperty.call(elem, "metadata")
-                && Object.prototype.hasOwnProperty.call(elem.metadata, "legend-group")
-                && f[0].layer.metadata["legend-group"] == elem.metadata["legend-group"]) {
+      if (Object.hasOwnProperty.call(f[0].layer.metadata, "legend-group")
+        && Object.hasOwnProperty.call(elem, "metadata")
+        && Object.hasOwnProperty.call(elem.metadata, "legend-group")
+        && f[0].layer.metadata["legend-group"] == elem.metadata["legend-group"]) {
         return elem;
       }
     });
@@ -265,22 +264,22 @@ function Legend(features, zoom) {
 }
 
 /**
-         * PROBLEME
-         * La premiere feature bdtopo n'est pas systématiquement
-         * La premiere feature de planIGN.
-         * gestion des line dasharray
-         * group de légendes : 2 line / 1 line et 1 fill
-         *
-         * Pour le titre des batiments public aller chercher dans 2e feature de la bdtopo
-         * type "zone_d_activite_ou_d_interet"
-         * afficher le toponyme
-         *
-         * CAS à gérer :
-         *  -on clique sur la chapelle de l EHPAD de la louvière.
-         *  -on clique sur la mairie d'aurillac
-         *  -préfecture du Cantal
-         *  -forme sous un toponyme
-         *
-         *  */
+ * PROBLEME
+ * La premiere feature bdtopo n'est pas systématiquement
+ * La premiere feature de planIGN.
+ * gestion des line dasharray
+ * group de légendes : 2 line / 1 line et 1 fill
+ *
+ * Pour le titre des batiments public aller chercher dans 2e feature de la bdtopo
+ * type "zone_d_activite_ou_d_interet"
+ * afficher le toponyme
+ *
+ * CAS à gérer :
+ *  -on clique sur la chapelle de l EHPAD de la louvière.
+ *  -on clique sur la mairie d'aurillac
+ *  -préfecture du Cantal
+ *  -forme sous un toponyme
+ *
+ *  */
 
 export default Legend;

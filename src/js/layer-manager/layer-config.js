@@ -53,7 +53,7 @@ const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
   var resolution = scaleDenominator * 0.00028;
 
   for (var index in resolutionsNatives) {
-    if (Object.prototype.hasOwnProperty.call(resolutionsNatives, index)) {
+    if (Object.hasOwnProperty.call(resolutionsNatives, index)) {
       if (resolutionsNatives[index] <= resolution) {
         index = parseInt(index, 10);
         return index;
