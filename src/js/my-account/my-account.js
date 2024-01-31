@@ -1,10 +1,11 @@
 import Globals from "../globals";
 import MyAccountDOM from "./my-account-dom";
 import MyAccountLayers from "./my-account-styles";
-import utils from '../unit-utils';
+import utils from "../unit-utils";
 
-import { Share } from '@capacitor/share';
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Share } from "@capacitor/share";
+import { Toast } from "@capacitor/toast";
+import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import maplibregl from "maplibre-gl";
 
 /**
@@ -30,7 +31,7 @@ class MyAccount {
     this.configuration = this.options.configuration || {
       linesource: "my-account-line",
       pointsource: "my-account-point",
-    }
+    };
 
     // target
     this.target = this.options.target;
@@ -109,7 +110,7 @@ class MyAccount {
    * @param {*} drawRouteSaveOptions
    */
   addRoute(drawRouteSaveOptions) {
-    if (typeof drawRouteSaveOptions.id !== 'undefined' && drawRouteSaveOptions.id >= 0) {
+    if (typeof drawRouteSaveOptions.id !== "undefined" && drawRouteSaveOptions.id >= 0) {
       for (let i = 0; i < this.routes.length; i++) {
         if (this.routes[i].id === drawRouteSaveOptions.id){
           this.routes[i] = drawRouteSaveOptions;
@@ -168,7 +169,7 @@ class MyAccount {
       coordinates = coordinates.concat(step.geometry.coordinates);
     });
     const bounds = coordinates.reduce((bounds, coord) => {
-        return bounds.extend(coord);
+      return bounds.extend(coord);
     }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
     this.map.fitBounds(bounds, {
       padding: 100,
@@ -190,7 +191,7 @@ class MyAccount {
       text: `${route.name}
 Temps : ${utils.convertSecondsToTime(route.data.duration)}, Distance : ${utils.convertDistance(route.data.distance)}
 Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : ${route.data.elevationData.dminus} m`,
-      dialogTitle: 'Partager mon itinéraire',
+      dialogTitle: "Partager mon itinéraire",
     });
   }
 
@@ -207,10 +208,10 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
     }).then((result) => {
       Share.share({
         title: `${route.name}`,
-        dialogTitle: 'Partager mon itinéraire',
+        dialogTitle: "Partager mon itinéraire",
         url: result.uri,
       });
-    }).catch( (err) => {
+    }).catch( () => {
       Toast.show({
         text: "L'itinéraire n'a pas pu être savegardé. Partage du résumé...",
         duration: "long",
@@ -235,7 +236,7 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
         coordinates = coordinates.concat(step.geometry.coordinates);
       });
       const bounds = coordinates.reduce((bounds, coord) => {
-          return bounds.extend(coord);
+        return bounds.extend(coord);
       }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
       this.map.fitBounds(bounds, {
         padding: 100,
@@ -268,7 +269,7 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
    * @returns list of multilinestring features, each feature representing one route
    */
   #getRouteLines() {
-    const allMultiLineFeatures = []
+    const allMultiLineFeatures = [];
     this.routes.forEach((route) => {
       let visible = false;
       if (route.visible) {
@@ -298,7 +299,7 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
    * @returns list of mutlipoint features, each feature representing one route
    */
   #getRoutePoints() {
-    const allMultiPointFeatures = []
+    const allMultiPointFeatures = [];
     this.routes.forEach((route) => {
       let visible = false;
       if (route.visible) {
@@ -329,14 +330,14 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
   #updateSources() {
     var linesource = this.map.getSource(this.configuration.linesource);
     linesource.setData({
-        type: "FeatureCollection",
-        features: this.#getRouteLines(),
+      type: "FeatureCollection",
+      features: this.#getRouteLines(),
     });
 
     var pointsource = this.map.getSource(this.configuration.pointsource);
     pointsource.setData({
-        type: "FeatureCollection",
-        features: this.#getRoutePoints(),
+      type: "FeatureCollection",
+      features: this.#getRoutePoints(),
     });
   }
 
@@ -345,11 +346,11 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
    */
   #addSourcesAndLayers() {
     this.map.addSource(this.configuration.linesource, {
-        "type": "geojson",
-        "data": {
-            type: "FeatureCollection",
-            features: [],
-        }
+      "type": "geojson",
+      "data": {
+        type: "FeatureCollection",
+        features: [],
+      }
     });
 
     MyAccountLayers["line-casing"].source = this.configuration.linesource;
@@ -358,11 +359,11 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
     this.map.addLayer(MyAccountLayers["line"]);
 
     this.map.addSource(this.configuration.pointsource, {
-        "type": "geojson",
-        "data": {
-            type: "FeatureCollection",
-            features: [],
-        }
+      "type": "geojson",
+      "data": {
+        type: "FeatureCollection",
+        features: [],
+      }
     });
 
     MyAccountLayers["point-casing"].source = this.configuration.pointsource;

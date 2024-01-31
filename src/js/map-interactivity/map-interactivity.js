@@ -1,6 +1,6 @@
 import Globals from "../globals";
 import MapInteractivityLayers from "./map-interactivity-styles";
-import featurePropertyFilter from "./feature-property-filter"
+import featurePropertyFilter from "./feature-property-filter";
 
 import Union from "@turf/union";
 import proj4 from "proj4";
@@ -19,21 +19,21 @@ class MapInteractivity {
   */
   constructor (map, options) {
     this.options = options || {
-        configuration: {},
-        style: {},
+      configuration: {},
+      style: {},
     };
 
     // configuration
     this.configuration = this.options.configuration || {
-        pointsource: "map-interactivity-point",
-        linesource: "map-interactivity-line",
-        polygonsource: "map-interactivity-polygon",
-    }
+      pointsource: "map-interactivity-point",
+      linesource: "map-interactivity-line",
+      polygonsource: "map-interactivity-polygon",
+    };
 
     // style
     this.style = this.options.style || {
-        color: "26a581",
-        opacity: 0.85
+      color: "26a581",
+      opacity: 0.85
     };
 
     this.emptyError = `
@@ -83,7 +83,7 @@ class MapInteractivity {
     if (features.length > 0 && (features[0].source === "bdtopo" || features[0].source === "poi_osm")) {
       featureHTML = featurePropertyFilter(features[0]);
       if (features[0].source === "poi_osm") {
-          Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML).then(() => {
+        Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML).then(() => {
           Globals.menu.open("position");
         });
         this.map.on("click", this.handleInfoOnMap);
@@ -102,10 +102,10 @@ class MapInteractivity {
       let computeZoom = Math.round(this.map.getZoom()) + 1;
       if (computeZoom > layer[1].maxNativeZoom) {
         layer[1].computeZoom = layer[1].maxNativeZoom;
-        return layer
+        return layer;
       } else if (computeZoom < layer[1].minNativeZoom) {
         layer[1].computeZoom = layer[1].minNativeZoom;
-        return layer
+        return layer;
       }
       else {
         layer[1].computeZoom = computeZoom;
@@ -115,9 +115,9 @@ class MapInteractivity {
 
     let layersForGFI = layerswithzoom.map((layer) => {
       let arr = this.#latlngToTilePixel(ev.lngLat.lat, ev.lngLat.lng, layer[1].computeZoom);
-      layer[1].tiles =  {tile: arr[0], tilePixel: arr[1]}
+      layer[1].tiles =  {tile: arr[0], tilePixel: arr[1]};
       layer[1].clickCoords = ev.lngLat;
-      return layer
+      return layer;
     });
 
     this.#multipleGFI(layersForGFI)
@@ -128,7 +128,7 @@ class MapInteractivity {
         });
         this.map.on("click", this.handleInfoOnMap);
         return;
-      }).catch((err) => {
+      }).catch(() => {
         this.loading = false;
         if (featureHTML !== null) {
           this.#clearSources();
@@ -142,7 +142,7 @@ class MapInteractivity {
         }
         this.map.on("click", this.handleInfoOnMap);
         return;
-    });
+      });
   }
 
   // Met à jour la gémétrie highlightée au moment de la séléction et du dpélacement de la carte.
@@ -156,7 +156,7 @@ class MapInteractivity {
       }
     });
     if (toFuse.length == 0) {
-      return
+      return;
     }
     let union = [toFuse[0]];
 
@@ -167,13 +167,13 @@ class MapInteractivity {
       source = this.map.getSource(this.configuration.linesource);
     } else {
       for (let i = 1; i < toFuse.length - 1; i++) {
-        union[0] = Union(union[0], toFuse[i], {properties: union.properties})
+        union[0] = Union(union[0], toFuse[i], {properties: union.properties});
       }
       source = this.map.getSource(this.configuration.polygonsource);
     }
     source.setData({
-      'type': 'FeatureCollection',
-      'features': union,
+      "type": "FeatureCollection",
+      "features": union,
     });
   }
 
@@ -196,7 +196,7 @@ class MapInteractivity {
       x: Math.floor((fullXTile - tile.x) * 256),
       y: Math.floor((fullYTile - tile.y) * 256),
     };
-    return [tile, tilePixel]
+    return [tile, tilePixel];
   }
 
   async #multipleGFI(layerArray) {
@@ -206,60 +206,60 @@ class MapInteractivity {
     GFIArray = GFIArray.filter(layer => layer[1].base == false);
 
     // On récupère la liste des indices des layers non requêtables
-    let indexbase = []
+    let indexbase = [];
     for (var index = 0; index < layerArray.length; index++) {
       if(layerArray[index][1].visibility && layerArray[index][1].base)
-        {
-          indexbase.push(index);
-        }
+      {
+        indexbase.push(index);
+      }
     }
     GFIArray = GFIArray.filter(layer => GFIArray.indexOf(layer) < Math.min(...indexbase));
 
     let promisesArray = GFIArray.map((layer) => {
-      let gfiURL = `https://data.geopf.fr/wmts?` +
-        `SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetFeatureInfo&` +
-        `LAYER=${layer[0].split('$')[0]}` +
+      let gfiURL = "https://data.geopf.fr/wmts?" +
+        "SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetFeatureInfo&" +
+        `LAYER=${layer[0].split("$")[0]}` +
         `&TILECOL=${layer[1].tiles.tile.x}&TILEROW=${layer[1].tiles.tile.y}&TILEMATRIX=${layer[1].computeZoom}&TILEMATRIXSET=PM` +
         `&FORMAT=${layer[1].format}` +
         `&STYLE=${layer[1].style}&INFOFORMAT=text/html&I=${layer[1].tiles.tilePixel.x}&J=${layer[1].tiles.tilePixel.y}`;
       if (layer[0].split(":").slice(-1)[0] === "WMS") {
         // https://wiki.openstreetmap.org/wiki/Zoom_levels
         const resolution = 40075016.686 * Math.cos(layer[1].clickCoords.lat * Math.PI/180) / Math.pow(2, layer[1].computeZoom + 6);
-        const clickMercatorCoords = proj4(proj4.defs('EPSG:4326'), proj4.defs('EPSG:3857'), [layer[1].clickCoords.lng, layer[1].clickCoords.lat])
+        const clickMercatorCoords = proj4(proj4.defs("EPSG:4326"), proj4.defs("EPSG:3857"), [layer[1].clickCoords.lng, layer[1].clickCoords.lat]);
         // https://gis.stackexchange.com/questions/79201/lat-long-values-in-a-wms-getfeatureinfo-request
         const bottomLeft = [clickMercatorCoords[0] - 50 * resolution, clickMercatorCoords[1] - 50 * resolution];
         const topRight = [clickMercatorCoords[0] + 50 * resolution, clickMercatorCoords[1] + 50 * resolution];
-        gfiURL = `https://data.geopf.fr/wms-v/ows?` +
-        `SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&` +
-        `LAYERS=${layer[0].split('$')[0]}` +
-        `&QUERY_LAYERS=${layer[0].split('$')[0]}` +
+        gfiURL = "https://data.geopf.fr/wms-v/ows?" +
+        "SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&" +
+        `LAYERS=${layer[0].split("$")[0]}` +
+        `&QUERY_LAYERS=${layer[0].split("$")[0]}` +
         "&CRS=EPSG:3857" +
         `&BBOX=${bottomLeft[0]},${bottomLeft[1]},${topRight[0]},${topRight[1]}` +
         "&WIDTH=101&HEIGHT=101" +
-        `&INFO_FORMAT=text/html&I=50&J=50`;
+        "&INFO_FORMAT=text/html&I=50&J=50";
       }
       const response = fetch(
         gfiURL,
         { signal: this.controller.signal }
-      ).then((response => {return response.text()})
-      ,
-      () => {
-        throw new Error("GetFeatureInfo : HTTP error");
-      })
-      .then((res) => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(res, "text/html");
-        if (doc.body.innerText === "\n  \n  \n") {
-          throw new Error(emptyError);
-        }
-        const xml = parser.parseFromString(res, "text/xml");
-        if (xml.getElementsByTagName('ExceptionReport').length > 0) {
-          const serializer = new XMLSerializer();
-          const xmlStr = serializer.serializeToString(doc);
-          throw new Error(xmlStr);
-        }
-        return res;
-      });
+      ).then((response => {return response.text();})
+        ,
+        () => {
+          throw new Error("GetFeatureInfo : HTTP error");
+        })
+        .then((res) => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(res, "text/html");
+          if (doc.body.innerText === "\n  \n  \n") {
+            throw new Error(this.emptyError);
+          }
+          const xml = parser.parseFromString(res, "text/xml");
+          if (xml.getElementsByTagName("ExceptionReport").length > 0) {
+            const serializer = new XMLSerializer();
+            const xmlStr = serializer.serializeToString(doc);
+            throw new Error(xmlStr);
+          }
+          return res;
+        });
       return response;
     });
 
@@ -274,7 +274,7 @@ class MapInteractivity {
       return result;
     }
     else {
-      throw new Error(emptyError);
+      throw new Error(this.emptyError);
     }
   }
 
@@ -286,22 +286,22 @@ class MapInteractivity {
     this.map.addSource(this.configuration.pointsource, {
       "type": "geojson",
       "data": {
-        'type': 'FeatureCollection',
-        'features': []
+        "type": "FeatureCollection",
+        "features": []
       },
     });
     this.map.addSource(this.configuration.linesource, {
       "type": "geojson",
       "data": {
-        'type': 'FeatureCollection',
-        'features': []
+        "type": "FeatureCollection",
+        "features": []
       },
     });
     this.map.addSource(this.configuration.polygonsource, {
       "type": "geojson",
       "data": {
-        'type': 'FeatureCollection',
-        'features': []
+        "type": "FeatureCollection",
+        "features": []
       },
     });
     MapInteractivityLayers["line"].source = this.configuration.linesource;
@@ -320,16 +320,16 @@ class MapInteractivity {
   #clearSources() {
     this.map.off("move", this.handleUpdateHighlightedGeom);
     this.map.getSource(this.configuration.pointsource).setData({
-      'type': 'FeatureCollection',
-      'features': []
+      "type": "FeatureCollection",
+      "features": []
     });
     this.map.getSource(this.configuration.linesource).setData({
-      'type': 'FeatureCollection',
-      'features': []
+      "type": "FeatureCollection",
+      "features": []
     });
     this.map.getSource(this.configuration.polygonsource).setData({
-      'type': 'FeatureCollection',
-      'features': []
+      "type": "FeatureCollection",
+      "features": []
     });
   }
 

@@ -5,26 +5,26 @@
  */
 
 const natureRouteToDisplay = ["Autoroute", "Bretelle", "Chemin",
-"Piste cyclable", "Sentier", "Rue piétonne", "Escalier"]
+  "Piste cyclable", "Sentier", "Rue piétonne", "Escalier"];
 
 const isIndifferencie = (prop) => {
-    if (prop == "Indifférenciée" || prop == "Indifférencié") return true;
-    return false;
-}
+  if (prop == "Indifférenciée" || prop == "Indifférencié") return true;
+  return false;
+};
 
 const featurePropertyFilter = (feature) => {
-  let result = ``;
+  let result = "";
   if (feature.source === "poi_osm") {
     Object.entries(feature.properties).forEach((prop) => {
       if (prop[0] !== "symbo" && prop[0] !== "texte") {
-        result = result + `${prop[0]} : ${prop[1]} <br />`
+        result = result + `${prop[0]} : ${prop[1]} <br />`;
       }
     });
     return result;
   }
-  let nature = ""
-  if (feature.properties.hasOwnProperty("nature")) {
-    nature = feature.properties.nature
+  let nature = "";
+  if (Object.prototype.hasOwnProperty.call(feature.properties, "nature")) {
+    nature = feature.properties.nature;
   }
 
   Object.entries(feature.properties).forEach((prop) => {
@@ -80,21 +80,21 @@ const featurePropertyFilter = (feature) => {
       if(prop[0] == "usage_1" && isIndifferencie(prop[0])) {
         result = result + `Usage : ${prop[1]} <br />`;
       }
-      if(prop[0] == "nombre_de_logements" && prop[0] != '') {
+      if(prop[0] == "nombre_de_logements" && prop[0] != "") {
         result = result + `Nombre de logements : ${prop[1]} <br />`;
       }
-      if(prop[0] == "nombre_d_etages" && prop[0] != '' && prop[0] != "0") {
+      if(prop[0] == "nombre_d_etages" && prop[0] != "" && prop[0] != "0") {
         result = result + `Nombre d'étages : ${prop[1]} <br />`;
       }
-      if(prop[0] == "hauteur" && prop[0] != '') {
-        result = result + `Hauteur : ${prop[1].toLocaleString('fr-FR')} mètres <br />`;
+      if(prop[0] == "hauteur" && prop[0] != "") {
+        result = result + `Hauteur : ${prop[1].toLocaleString("fr-FR")} mètres <br />`;
       }
 
     }
 
-  })
+  });
 
   return result;
-}
+};
 
 export default featurePropertyFilter;

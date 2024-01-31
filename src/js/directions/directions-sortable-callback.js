@@ -50,12 +50,13 @@ var sortableCallback = (evt) => {
   labelRemoveMiddle.addEventListener("click", function (e) {
     e.target.parentNode.classList.add("hidden");
     var index = e.target.id.substring(e.target.id.lastIndexOf("_") + 1);
+    var div;
     if (index === "start") {
-      var div = document.getElementById("directionsLocation_start");
+      div = document.getElementById("directionsLocation_start");
     } else if (index === "end") {
-      var div = document.getElementById("directionsLocation_end");
+      div = document.getElementById("directionsLocation_end");
     } else {
-      var div = document.getElementById("directionsLocation_step_" + index);
+      div = document.getElementById("directionsLocation_step_" + index);
     }
     if (div) {
       div.value = "";
@@ -72,17 +73,17 @@ var sortableCallback = (evt) => {
   let hiddenCountBefore = 0;
   for (let i = lastIndex; i >= 0; i--) {
     if (locationItems[i].classList.contains("hidden")) {
-      hiddenCountBefore++
+      hiddenCountBefore++;
     }
     locationItems[i].style.transition = "unset";
-    setTimeout(() => { locationItems[i].style.removeProperty("transition") }, 100)
+    setTimeout(() => { locationItems[i].style.removeProperty("transition"); }, 100);
   }
   locationItems[lastIndex].classList.remove("hidden");
   locationItems[0].classList.remove("hidden");
   let hiddenCountNow = 0;
   for (let i = lastIndex; i >= 0; i--) {
     if (locationItems[i].classList.contains("hidden")) {
-      hiddenCountNow++
+      hiddenCountNow++;
     }
   }
   if (hiddenCountBefore > hiddenCountNow) {
@@ -104,6 +105,6 @@ var sortableCallback = (evt) => {
       }
     }
   }
-}
+};
 
 export default sortableCallback;

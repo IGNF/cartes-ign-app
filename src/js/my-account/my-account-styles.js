@@ -1,6 +1,6 @@
 // styles personnalisés
 const layers = {
-   "line-casing": {
+  "line-casing": {
     id: "my-account-line-casing",
     type: "line",
     source: "",

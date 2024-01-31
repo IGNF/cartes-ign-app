@@ -1,7 +1,7 @@
-import Globals from './globals';
-import DOM from './dom';
-import Location from './services/location';
-import State from './state';
+import Globals from "./globals";
+import DOM from "./dom";
+import Location from "./services/location";
+import State from "./state";
 
 /**
  * Barre de recherche et géocodage
@@ -48,7 +48,7 @@ class Search {
     };
 
     document.getElementById(id.searchInput).addEventListener("keyup", (event) => {
-      if (event.key === 'Enter' || event.keyCode === 13) {
+      if (event.key === "Enter" || event.keyCode === 13) {
         // Cancel the default action, if needed
         event.preventDefault();
         // Trigger the button element with a click
@@ -79,7 +79,7 @@ class Search {
       DOM.$resultDiv.hidden = true;
       DOM.$resultDiv.innerHTML = "";
       if (Globals.searchResultMarker != null) {
-        Globals.searchResultMarker.remove()
+        Globals.searchResultMarker.remove();
         Globals.searchResultMarker = null;
       }
     });
@@ -127,7 +127,7 @@ class Search {
       State.onBackKeyDown();
     });
 
-    document.getElementById(id.searchInput).addEventListener('focus', function () {
+    document.getElementById(id.searchInput).addEventListener("focus", function () {
       if (Globals.backButtonState === "default") {
         Globals.search.show();
       }
@@ -230,7 +230,7 @@ class Search {
    * @public
    */
   clear() {
-    this.autocompletion_results = []
+    this.autocompletion_results = [];
   }
 
 }

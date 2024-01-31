@@ -1,10 +1,10 @@
-import Geocode from './services/geocode';
-import Location from './services/location';
-import DOM from './dom';
-import Globals from './globals';
+import Geocode from "./services/geocode";
+import Location from "./services/location";
+import DOM from "./dom";
+import Globals from "./globals";
 import RecentSearch from "./search-recent";
 import State from "./state";
-import { SafeAreaController } from '@aashu-dubey/capacitor-statusbar-safe-area';
+import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 
 /**
  * Ecouteurs generiques
@@ -15,10 +15,10 @@ function addListeners() {
   const map = Globals.map;
 
   /* event listeners pour élément non existants au démarrage */
-  document.querySelector('body').addEventListener('click', (evt) => {
+  document.querySelector("body").addEventListener("click", (evt) => {
     var geocode = false;
     /* Résultats autocompletion  et recherche récente */
-    if ( evt.target.classList.contains('autocompresult') || evt.target.classList.contains('recentresult')) {
+    if ( evt.target.classList.contains("autocompresult") || evt.target.classList.contains("recentresult")) {
       geocode = true;
       evt.target.classList.add("autocompresultselected");
       DOM.$rech.value = evt.target.getAttribute("fulltext");
@@ -42,27 +42,27 @@ function addListeners() {
       setTimeout(() =>  RecentSearch.add(DOM.$rech.value.trim()), 260);
     }
   }, true);
-  document.querySelector('body').addEventListener('wheel', (evt) => {
-    if ( evt.target.classList.contains('compare-swiper-horizontal') || evt.target.classList.contains('compare-swiper-vertical')) {
+  document.querySelector("body").addEventListener("wheel", (evt) => {
+    if ( evt.target.classList.contains("compare-swiper-horizontal") || evt.target.classList.contains("compare-swiper-vertical")) {
       evt.preventDefault();
     }
   }, { passive: false });
 
   // Ecouteurs sur les sous menus Compte
-  document.getElementById('menuItemParamsIcon').addEventListener('click', () => {
+  document.getElementById("menuItemParamsIcon").addEventListener("click", () => {
     DOM.$whiteScreen.style.animation = "unset";
-    Globals.menu.close('myaccount');
-    Globals.menu.open('parameterScreen');
+    Globals.menu.close("myaccount");
+    Globals.menu.open("parameterScreen");
   });
-  document.getElementById('menuItemLegal').addEventListener('click', () => {
+  document.getElementById("menuItemLegal").addEventListener("click", () => {
     DOM.$whiteScreen.style.animation = "unset";
-    Globals.menu.close('myaccount');
-    Globals.menu.open('legalScreen');
+    Globals.menu.close("myaccount");
+    Globals.menu.open("legalScreen");
   });
-  document.getElementById('menuItemPrivacy').addEventListener('click', () => {
+  document.getElementById("menuItemPrivacy").addEventListener("click", () => {
     DOM.$whiteScreen.style.animation = "unset";
-    Globals.menu.close('myaccount');
-    Globals.menu.open('privacyScreen');
+    Globals.menu.close("myaccount");
+    Globals.menu.open("privacyScreen");
   });
 
   // Rotation du marqueur de position
@@ -72,7 +72,7 @@ function addListeners() {
   document.addEventListener("backbutton", State.onBackKeyDown, false);
 
   // Sauvegarde de l'état de l'application
-  document.addEventListener('pause', () => {
+  document.addEventListener("pause", () => {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
@@ -80,7 +80,7 @@ function addListeners() {
     localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
   });
 
-  window.addEventListener('beforeunload', () => {
+  window.addEventListener("beforeunload", () => {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
@@ -92,7 +92,7 @@ function addListeners() {
   window.addEventListener("resize", () => {
     SafeAreaController.injectCSSVariables();
 
-    if (Globals.backButtonState !== 'default') {
+    if (Globals.backButtonState !== "default") {
       Globals.currentScrollIndex = 1;
     }
     if (["searchDirections", "searchIsochrone", "search"].includes(Globals.backButtonState)) {
@@ -112,9 +112,9 @@ function addListeners() {
       }
     }
     if (Globals.backButtonState === "routeDraw") {
-      DOM.$bottomButtons.style.removeProperty('bottom');
-      DOM.$bottomButtons.style.removeProperty('left');
-      DOM.$bottomButtons.style.removeProperty('width');
+      DOM.$bottomButtons.style.removeProperty("bottom");
+      DOM.$bottomButtons.style.removeProperty("left");
+      DOM.$bottomButtons.style.removeProperty("width");
       if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$bottomButtons.style.bottom = "calc(220px + var(--safe-area-inset-bottom))";
       } else {

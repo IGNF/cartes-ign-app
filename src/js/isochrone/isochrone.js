@@ -1,6 +1,6 @@
 import IsochroneDOM from "./isochrone-dom";
 import Globals from "../globals";
-import LayersGroup from '../layer-manager/layer-group';
+import LayersGroup from "../layer-manager/layer-group";
 
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
@@ -47,7 +47,7 @@ class Isochrone {
                   ],
                   "polygons" : true,
                   "show_locations" : true
-              }`
+              }`;
       }
     };
 
@@ -181,15 +181,15 @@ class Isochrone {
     if (settings.transport) {
       // mettre en place les differents types de profile !
       switch (settings.transport) {
-        case "Pieton":
-          transport = "pedestrian";
-          break;
-        case "Voiture":
-          transport = "auto";
-          break;
-        default:
-          transport = "auto";
-          break;
+      case "Pieton":
+        transport = "pedestrian";
+        break;
+      case "Voiture":
+        transport = "auto";
+        break;
+      default:
+        transport = "auto";
+        break;
       }
     }
 
@@ -198,16 +198,16 @@ class Isochrone {
     if (settings.mode) {
       // mettre en place le mode calcul !
       switch (settings.mode.type) {
-        case "Distance":
-          mode = "distance";
-          value = Math.round(parseFloat(settings.mode.value, 10) * 1000) / 1000; // km arrondi au mètre
-          break;
-        case "Temps":
-          mode = "time";
-          value = parseFloat(settings.mode.value) / 60; // secondes -> minutes
-          break;
-        default:
-          break;
+      case "Distance":
+        mode = "distance";
+        value = Math.round(parseFloat(settings.mode.value, 10) * 1000) / 1000; // km arrondi au mètre
+        break;
+      case "Temps":
+        mode = "time";
+        value = parseFloat(settings.mode.value) / 60; // secondes -> minutes
+        break;
+      default:
+        break;
       }
     }
 
@@ -333,8 +333,8 @@ class Isochrone {
     this.map.addSource(this.configuration.source, {
       "type": "geojson",
       "data": {
-        'type': 'FeatureCollection',
-        'features': []
+        "type": "FeatureCollection",
+        "features": []
       },
     });
 
@@ -383,8 +383,8 @@ class Isochrone {
     // supprimer la couche isochrone
     var source = this.map.getSource(this.configuration.source);
     source.setData({
-      'type': 'FeatureCollection',
-      'features': []
+      "type": "FeatureCollection",
+      "features": []
     });
     // resultats
     this.polygon = null;
@@ -395,14 +395,14 @@ class Isochrone {
       }
     });
     if (Globals.searchResultMarker != null) {
-      Globals.searchResultMarker.remove()
+      Globals.searchResultMarker.remove();
       Globals.searchResultMarker = null;
     }
     this.__unsetComputeButtonLoading();
     this.computed = false;
 
     document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
-      var layers = LayersGroup.getGroupLayers(Globals.poi.id).filter((layer) => { return layer.metadata.thematic === el.name });
+      var layers = LayersGroup.getGroupLayers(Globals.poi.id).filter((layer) => { return layer.metadata.thematic === el.name; });
       for (let i = 0; i < layers.length; i++) {
         const element = layers[i];
         LayersGroup.addVisibilityByID(Globals.poi.id, element.id, el.checked);
@@ -442,21 +442,21 @@ class Isochrone {
       lon : coordinates.lng,
       lat : coordinates.lat
     })
-    .then(() => {})
-    .catch(() => {})
-    .finally(() => {
-      var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
-      var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
-      var strAddress = address;
-      if (typeof address !== "string") {
-        strAddress = "";
-        strAddress += (address.number !== "") ? address.number + " " : "";
-        strAddress += (address.street !== "") ? address.street + ", " : "";
-        strAddress += address.city + ", " + address.postcode;
-      }
-      this.dom.location.dataset.coordinates = "[" + coords.lon + "," + coords.lat + "]";
-      this.dom.location.value = strAddress;
-    });
+      .then(() => {})
+      .catch(() => {})
+      .finally(() => {
+        var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
+        var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
+        var strAddress = address;
+        if (typeof address !== "string") {
+          strAddress = "";
+          strAddress += (address.number !== "") ? address.number + " " : "";
+          strAddress += (address.street !== "") ? address.street + ", " : "";
+          strAddress += address.city + ", " + address.postcode;
+        }
+        this.dom.location.dataset.coordinates = "[" + coords.lon + "," + coords.lat + "]";
+        this.dom.location.value = strAddress;
+      });
   }
 
   /**
@@ -495,7 +495,7 @@ class Isochrone {
       // on supprime les écouteurs
       cleanListeners();
     }
-    function cleanLocation(e) {
+    function cleanLocation() {
       target.dataset.coordinates = "";
       target.value = "";
       cleanListeners();

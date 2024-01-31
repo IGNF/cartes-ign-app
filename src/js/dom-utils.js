@@ -8,7 +8,7 @@ let domUtils = {
       if (!window.DOMParser) return false;
       var parser = new DOMParser();
       try {
-        parser.parseFromString('x', 'text/html');
+        parser.parseFromString("x", "text/html");
       } catch (err) {
         return false;
       }
@@ -18,12 +18,12 @@ let domUtils = {
     // If DOMParser is supported, use it
     if (support()) {
       var parser = new DOMParser();
-      var doc = parser.parseFromString(str, 'text/html');
+      var doc = parser.parseFromString(str, "text/html");
       return doc.body.firstChild;
     }
 
     // Otherwise, fallback to old-school method
-    var dom = document.createElement('div');
+    var dom = document.createElement("div");
     dom.innerHTML = str;
     return dom;
 

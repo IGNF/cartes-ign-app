@@ -2,7 +2,7 @@
 
 const $search  = document.getElementById("search");
 const $resultDiv = document.getElementById("resultsRech");
-const $rech = document.getElementById('lieuRech');
+const $rech = document.getElementById("lieuRech");
 const $closeSearch = document.getElementById("closeSearch");
 const $searchResults = document.getElementById("searchResults");
 const $resultsRechRecent = document.getElementById("resultsRechRecent");

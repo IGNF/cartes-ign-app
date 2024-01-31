@@ -53,7 +53,7 @@ const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
   var resolution = scaleDenominator * 0.00028;
 
   for (var index in resolutionsNatives) {
-    if (resolutionsNatives.hasOwnProperty(index)) {
+    if (Object.prototype.hasOwnProperty.call(resolutionsNatives, index)) {
       if (resolutionsNatives[index] <= resolution) {
         index = parseInt(index, 10);
         return index;
@@ -72,11 +72,11 @@ const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
 const getLayerProps = (id) => {
   var props = ConfigLayers.layers[id];
   var isVector = (props.serviceParams.id === "GPP:TMS") ? true : false;
-  var style = (props.styles.length) ? props.styles.find((s) => { return s.current === true }) : "normal";
+  var style = (props.styles.length) ? props.styles.find((s) => { return s.current === true; }) : "normal";
   if (!style) {
     style = props.styles[0];
   }
-  var format = props.formats.length ? props.formats.find((f) => { return f.current === true }) : "";
+  var format = props.formats.length ? props.formats.find((f) => { return f.current === true; }) : "";
   if (!format) {
     format = props.formats[0];
   }
@@ -98,7 +98,7 @@ const getLayerProps = (id) => {
     url: props.serviceParams.serverUrl[key],
     minNativeZoom: minNativeZoom,
     maxNativeZoom: maxNativeZoom,
-  }
+  };
 };
 
 /**
@@ -123,7 +123,7 @@ const getRLTLayers = () => {
  * @returns
  */
 const getThematicLayers = () => {
-  var arrays = ThematicLayers.map((o) => { return o.layers });
+  var arrays = ThematicLayers.map((o) => { return o.layers; });
   return arrays.flat();
 };
 
@@ -133,7 +133,7 @@ const getThematicLayers = () => {
  * @returns
  */
 const getThematics = () => {
-  return ThematicLayers.map((o) => { return o.name });
+  return ThematicLayers.map((o) => { return o.name; });
 };
 
 /**
@@ -144,7 +144,7 @@ const getThematics = () => {
  * @todo prévoir les couches vecteurs tuilées
  */
 const getLayersByThematic = (name) => {
-  var data = ThematicLayers.find((element) => { return element.name === name });
+  var data = ThematicLayers.find((element) => { return element.name === name; });
   if (data.settings && data.settings.generic) {
     return getThematicLayers();
   }
@@ -157,7 +157,7 @@ const getLayersByThematic = (name) => {
  * @returns
  */
 const getThematicByLayerID = (id) => {
-  var data = ThematicLayers.find((element) => { return element.layers.includes(id) });
+  var data = ThematicLayers.find((element) => { return element.layers.includes(id); });
   return data.name;
 };
 
@@ -179,21 +179,21 @@ const createSource = (id) => {
 
   var fxt;
   switch (service) {
-    case "WMTS":
-      fxt = createRasterTileSource;
-      break;
-    case "WMS":
-      fxt = createRasterSource;
-      break;
-    case "TMS":
-      // INFO
-      // les couches tuiles vectorielles ne devrait pas être pré chargées car
-      // on ne connait pas encore la liste exhaustive des sources contenues
-      // dans le fichier de style.
-      fxt = createVectorSource;
-      break;
-    default:
-      throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${register} - ${norme} - ${service}`);
+  case "WMTS":
+    fxt = createRasterTileSource;
+    break;
+  case "WMS":
+    fxt = createRasterSource;
+    break;
+  case "TMS":
+    // INFO
+    // les couches tuiles vectorielles ne devrait pas être pré chargées car
+    // on ne connait pas encore la liste exhaustive des sources contenues
+    // dans le fichier de style.
+    fxt = createVectorSource;
+    break;
+  default:
+    throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${register} - ${norme} - ${service}`);
   }
   return fxt(id);
 };
@@ -206,14 +206,14 @@ const createSource = (id) => {
 const createRasterTileSource = (id) => {
   var props = getLayerProps(id);
   var url = `${props.url}?` +
-    `REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&` +
+    "REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&" +
     `STYLE=${props.style}&` +
-    `TILEMATRIXSET=PM&` +
+    "TILEMATRIXSET=PM&" +
     `FORMAT=${props.format}&`+
     `LAYER=${props.layer}&`+
-    `TILEMATRIX={z}&` +
-    `TILEROW={y}&` +
-    `TILECOL={x}`;
+    "TILEMATRIX={z}&" +
+    "TILEROW={y}&" +
+    "TILECOL={x}";
   if (props.url.includes("/private/")) {
     // Ajout de la clef d'API de l'appli si l'URL est privée
     url += `&apikey=${process.env.GPF_key}`;
@@ -224,7 +224,7 @@ const createRasterTileSource = (id) => {
     tileSize: 256,
     maxzoom: props.maxNativeZoom,
     minzoom: props.minNativeZoom,
-  }
+  };
 };
 
 /**
@@ -239,7 +239,7 @@ const createVectorSource = (id) => {
     tiles: [url],
     maxzoom: props.maxNativeZoom,
     minzoom: props.minNativeZoom,
-  }
+  };
 };
 
 /**
@@ -249,14 +249,14 @@ const createVectorSource = (id) => {
 const createRasterSource = (id) => {
   var props = getLayerProps(id);
   var url = `${props.url}` +
-    `REQUEST=GetMap&VERSION=1.3.0&` +
-    `BBOX={bbox-epsg-3857}&` +
-    `SRS=EPSG:3857&` +
+    "REQUEST=GetMap&VERSION=1.3.0&" +
+    "BBOX={bbox-epsg-3857}&" +
+    "SRS=EPSG:3857&" +
     `FORMAT=${props.format}&`+
     `LAYERS=${props.layer}&`+
-    `TRANSPARENT=true&` +
-    `WIDTH=256&` +
-    `HEIGHT=256`;
+    "TRANSPARENT=true&" +
+    "WIDTH=256&" +
+    "HEIGHT=256";
   if (props.url.includes("/private/")) {
     // Ajout de la clef d'API de l'appli si l'URL est privée
     url += `&apikey=${process.env.GPF_key}`;
@@ -267,7 +267,7 @@ const createRasterSource = (id) => {
     tileSize: 256,
     maxzoom: props.maxNativeZoom,
     minzoom: props.minNativeZoom,
-  }
+  };
 };
 
 export default {

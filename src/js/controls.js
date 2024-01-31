@@ -1,14 +1,14 @@
 import maplibregl from "maplibre-gl";
 
-import Globals from './globals';
+import Globals from "./globals";
 import Directions from "./directions/directions";
 import Isochrone from "./isochrone/isochrone";
 import Position from "./position";
 import Search from "./search";
-import Compare from './compare';
-import POI from './poi';
-import RouteDraw from './route-draw/route-draw';
-import MapInteractivity from './map-interactivity/map-interactivity';
+import Compare from "./compare";
+import POI from "./poi";
+import RouteDraw from "./route-draw/route-draw";
+import MapInteractivity from "./map-interactivity/map-interactivity";
 import MyAccount from "./my-account/my-account";
 import ComparePoi from "./compare-poi";
 import Signalement from "./signalement";
@@ -67,17 +67,17 @@ const addControls = () => {
     // échelle graphique
     map.addControl(new maplibregl.ScaleControl({
       maxWidth: 150,
-      unit: 'metric'
+      unit: "metric"
     }), "bottom-left");
 
     Globals.mapRLT1.addControl(new maplibregl.ScaleControl({
       maxWidth: 150,
-      unit: 'metric'
+      unit: "metric"
     }), "bottom-left");
 
     Globals.mapRLT2.addControl(new maplibregl.ScaleControl({
       maxWidth: 150,
-      unit: 'metric'
+      unit: "metric"
     }), "bottom-left");
 
     // contrôle tracé d'itinéraire
@@ -95,26 +95,26 @@ const addControls = () => {
     // contrôle filtres POI
     Globals.poi = new POI(map, {});
     Globals.poi.load() // promise !
-    .then(() => {
+      .then(() => {
       // opérations possibles aprés le chargement des POI
-      console.debug("POI loaded !");
-      // INFO
-      // le contrôle de calcul d'isochrone est en attente de l'initialisation des POI
-      Globals.isochrone = new Isochrone(map, {
+        console.debug("POI loaded !");
+        // INFO
+        // le contrôle de calcul d'isochrone est en attente de l'initialisation des POI
+        Globals.isochrone = new Isochrone(map, {
         // callback sur l'ouverture / fermeture du panneau de recherche
-        openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
-        closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); }
-      });
-      // Poi RLT
-      Globals.comparePoi = new ComparePoi(map, {});
-    })
-    .catch((e) => {
+          openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
+          closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); }
+        });
+        // Poi RLT
+        Globals.comparePoi = new ComparePoi(map, {});
+      })
+      .catch((e) => {
       // on ne capture pas les exceptions
-      console.error(e);
-    });
+        console.error(e);
+      });
   });
-}
+};
 
 export default {
   addControls,
-}
+};

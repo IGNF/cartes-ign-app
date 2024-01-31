@@ -1,8 +1,8 @@
 import maplibregl from "maplibre-gl";
 
-import DOM from './dom';
-import Globals from './globals';
-import Location from './services/location';
+import DOM from "./dom";
+import Globals from "./globals";
+import Location from "./services/location";
 
 /**
  * Ecouteurs sur la carte
@@ -24,15 +24,15 @@ const addListeners = () => {
   // });
 
   // Rotation de la carte avec le mutlitouch
-  map.on('rotate', () => {
+  map.on("rotate", () => {
     DOM.$compassBtn.style.transform = "rotate(" + (map.getBearing() * -1) + "deg)";
     DOM.$compassBtn.classList.remove("d-none");
   });
 
   // Désactivation du tracking au déplacement non programmatique de la carte
-  map.on('movestart', function () {
+  map.on("movestart", function () {
     if (Globals.movedFromCode) {
-      return
+      return;
     } else if (Location.isTrackingActive()){
       // De tracking a simple suivi de position
       Location.disableTracking();
@@ -68,15 +68,15 @@ const addListeners = () => {
         .setLngLat(evt.lngLat)
         .addTo(Globals.map);
     }, 500);
-    map.on('touchend', clearContextMenuTimeout);
-    map.on('touchcancel', clearContextMenuTimeout);
-    map.on('touchmove', clearContextMenuTimeout);
-    map.on('pointerdrag', clearContextMenuTimeout);
-    map.on('pointermove', clearContextMenuTimeout);
-    map.on('moveend', clearContextMenuTimeout);
-    map.on('gesturestart', clearContextMenuTimeout);
-    map.on('gesturechange', clearContextMenuTimeout);
-    map.on('gestureend', clearContextMenuTimeout);
+    map.on("touchend", clearContextMenuTimeout);
+    map.on("touchcancel", clearContextMenuTimeout);
+    map.on("touchmove", clearContextMenuTimeout);
+    map.on("pointerdrag", clearContextMenuTimeout);
+    map.on("pointermove", clearContextMenuTimeout);
+    map.on("moveend", clearContextMenuTimeout);
+    map.on("gesturestart", clearContextMenuTimeout);
+    map.on("gesturechange", clearContextMenuTimeout);
+    map.on("gestureend", clearContextMenuTimeout);
   });
 
   // map.on("data", (e) => {
@@ -88,8 +88,8 @@ const addListeners = () => {
   //   }
   //   console.debug("data", e);
   // });
-}
+};
 
 export default {
   addListeners
-}
+};

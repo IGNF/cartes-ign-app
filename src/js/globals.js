@@ -17,16 +17,16 @@ if (!localStorage.getItem("lastLayersDisplayed")) {
  * global: back button state
  * is one of: 'default' 'search' 'params' 'legal' 'privacy' 'infos' 'layerManagerWindow' 'route' ...
  */
-let backButtonState = 'default';
+let backButtonState = "default";
 
 /**
  * global: map state
  * is one of: 'default' 'drawRoute' 'compare' ...
  */
-let mapState = 'default';
+let mapState = "default";
 
 /** global: last text in search bar */
-let lastTextInSearch = '';
+let lastTextInSearch = "";
 
 /** global: flag to check if map move fired by code */
 let movedFromCode = false;

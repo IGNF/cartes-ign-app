@@ -1,10 +1,9 @@
-import LayersConfig from './layer-manager/layer-config';
-import LayersGroup from './layer-manager/layer-group';
+import LayersConfig from "./layer-manager/layer-config";
+import LayersGroup from "./layer-manager/layer-group";
 
-import PoiConfig from './data-layer/poi-osm-layer-config.json';
-import DomUtils from "./dom-utils"
-import Globals from './globals';
-import globals from './globals';
+import PoiConfig from "./data-layer/poi-osm-layer-config.json";
+import DomUtils from "./dom-utils";
+import Globals from "./globals";
 
 /**
  * Contrôle sur le filtrage attributaire des POI osm
@@ -36,15 +35,15 @@ class POI {
 
     this.target = this.options.target || document.getElementById("poiWindow");
     this.id = this.options.id || "OSM.POI$GEOPORTAIL:GPP:TMS";
-    this.style = {}
+    this.style = {};
     this.sprite = {
       url: null,
       size: {
-          w: null,
-          h: null
+        w: null,
+        h: null
       },
       json: {}
-  }
+    };
 
     this.#render();
     this.#listeners();
@@ -89,7 +88,7 @@ class POI {
         if (!data.sprite.startsWith("http")) {
           if (!document.URL.endsWith("/") && !data.sprite.startsWith("/")) {
             data.sprite = "/" + data.sprite;
-          };
+          }
           data.sprite = document.URL + data.sprite;
         }
         this.map.setSprite(data.sprite);
@@ -234,7 +233,7 @@ class POI {
         }
         el.dispatchEvent(new Event("change"));
         if (el.checked) {
-          var layers = LayersGroup.getGroupLayers(this.id).filter((layer) => { return layer.metadata.thematic === el.name });
+          var layers = LayersGroup.getGroupLayers(this.id).filter((layer) => { return layer.metadata.thematic === el.name; });
           for (let i = 0; i < layers.length; i++) {
             const element = layers[i];
             LayersGroup.addVisibilityByID(this.id, element.id, true);
@@ -252,7 +251,7 @@ class POI {
     // rendre visible ou non le filtre si la couche POI est active sinon rien à faire
     document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
       el.addEventListener("change", (e) => {
-        var layers = LayersGroup.getGroupLayers(this.id).filter((layer) => { return layer.metadata.thematic === e.target.name });
+        var layers = LayersGroup.getGroupLayers(this.id).filter((layer) => { return layer.metadata.thematic === e.target.name; });
         for (let i = 0; i < layers.length; i++) {
           const element = layers[i];
           LayersGroup.addVisibilityByID(this.id, element.id, e.target.checked);
@@ -276,57 +275,57 @@ class POI {
     });
   }
 
-      /**
+  /**
      * Sauvegarde les informations du sprite pour la génération de légende
      */
-      #loadSprite(url) {
-        this.sprite.url = url;
-        fetch(this.sprite.url + ".json",)
-        .then(res => {return res.json();})
-        .then(json => {
-            this.sprite.json = json
-        })
-        .catch((e) => {
-            throw new Error(e);
-          });
+  #loadSprite(url) {
+    this.sprite.url = url;
+    fetch(this.sprite.url + ".json",)
+      .then(res => {return res.json();})
+      .then(json => {
+        this.sprite.json = json;
+      })
+      .catch((e) => {
+        throw new Error(e);
+      });
 
-        let theImage = new Image();
-        theImage.src = this.sprite.url + ".png";
-        theImage.decode()
-        .then(() => {
-            this.sprite.size.h = theImage.height;
-            this.sprite.size.w = theImage.width;
-        })
-        .catch((e) => {
-            throw new Error(e);
-        });
-    }
+    let theImage = new Image();
+    theImage.src = this.sprite.url + ".png";
+    theImage.decode()
+      .then(() => {
+        this.sprite.size.h = theImage.height;
+        this.sprite.size.w = theImage.width;
+      })
+      .catch((e) => {
+        throw new Error(e);
+      });
+  }
 
-    /**
+  /**
      * Get POI sprite info
      */
-    getSprite() {
-        return this.sprite;
-    }
+  getSprite() {
+    return this.sprite;
+  }
 
-    /**
+  /**
      * Get POI style
      */
-    getStyle() {
-      return this.style;
-    }
+  getStyle() {
+    return this.style;
+  }
 
-    /**
+  /**
      * Get POI feature fill pattern
      */
-    getFeatureFillPattern(f) {
-      var symbol = f.layout["icon-image"];
-      let toReplace = symbol.match(/{.*}/g)
-      if (toReplace.length > 0) {
-          symbol = symbol.replace(/{.*}/g, f.properties.symbo);
-      }
-      return symbol;
+  getFeatureFillPattern(f) {
+    var symbol = f.layout["icon-image"];
+    let toReplace = symbol.match(/{.*}/g);
+    if (toReplace.length > 0) {
+      symbol = symbol.replace(/{.*}/g, f.properties.symbo);
     }
+    return symbol;
+  }
 
   /**
    * ouvre l'interface

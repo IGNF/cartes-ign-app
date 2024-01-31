@@ -1,11 +1,11 @@
-import Globals from '../globals';
-import LayersConfig from './layer-config';
-import LayersAdditional from './layer-additional';
+import Globals from "../globals";
+import LayersConfig from "./layer-config";
+import LayersAdditional from "./layer-additional";
 
-import ImageNotFound from '../../html/img/image-not-found.png';
-import DomUtils from '../dom-utils';
+import ImageNotFound from "../../html/img/image-not-found.png";
+import DomUtils from "../dom-utils";
 
-import { Toast } from '@capacitor/toast';
+import { Toast } from "@capacitor/toast";
 
 /**
  * Gestion des couches thématiques et fonds de carte
@@ -46,7 +46,7 @@ class LayerCatalogue extends EventTarget {
     };
 
     // options ?
-    this.map = Globals.map
+    this.map = Globals.map;
 
     this.#render();
     this.#listeners();
@@ -73,12 +73,13 @@ class LayerCatalogue extends EventTarget {
         <div id="${opts.layerName}" class="layer-title">${opts.layerTitle}</div>
       </div>
       `;
-    }
+    };
 
     var strBaseLayers = "";
     var baseLayers = LayersConfig.getBaseLayers();
+    var props;
     for(let i = 0; i < baseLayers.length; i++) {
-      var props = LayersConfig.getLayerProps(baseLayers[i]);
+      props = LayersConfig.getLayerProps(baseLayers[i]);
       strBaseLayers += tplLayer({
         type : "baseLayer",
         layerID : baseLayers[i],
@@ -103,7 +104,7 @@ class LayerCatalogue extends EventTarget {
     var strThematicLayers = "";
     var thematicLayers = LayersConfig.getThematicLayers();
     for(let k = 0; k < thematicLayers.length; k++) {
-      var props = LayersConfig.getLayerProps(thematicLayers[k]);
+      props = LayersConfig.getLayerProps(thematicLayers[k]);
       var thematic = LayersConfig.getThematicByLayerID(thematicLayers[k]);
       strThematicLayers += tplLayer({
         type : "thematicLayer layer-hidden", // liste cachée par defaut !
@@ -147,7 +148,7 @@ class LayerCatalogue extends EventTarget {
   #listeners() {
     // clic sur une couche de fonds
     document.querySelectorAll(".baseLayer").forEach((el) => {
-      el.addEventListener('click', (e) => {
+      el.addEventListener("click", () => {
         if (el.classList.contains("selectedLayer")) {
           this.removeLayer(el.id);
         } else {
@@ -157,7 +158,7 @@ class LayerCatalogue extends EventTarget {
     });
     // clic sur une couche thematique
     document.querySelectorAll(".thematicLayer").forEach((el) => {
-      el.addEventListener('click', (e) => {
+      el.addEventListener("click", () => {
         if (el.classList.contains("selectedLayer")) {
           this.removeLayer(el.id);
         } else {
@@ -173,7 +174,7 @@ class LayerCatalogue extends EventTarget {
       // - recherche toutes les couches afin de les rendre 'hidden'
       // - recherche des couches du theme demandé
       // - supprime la classe 'hidden' des ID des couches demandées
-      el.addEventListener('click', (e) => {
+      el.addEventListener("click", (e) => {
         var buttons = document.querySelectorAll(".thematicButton");
         for (let h = 0; h < buttons.length; h++) {
           const element = buttons[h];
@@ -255,7 +256,7 @@ class LayerCatalogue extends EventTarget {
       return;
     }
     var element = document.getElementById(layerName);
-    element.classList.remove('selectedLayer');
+    element.classList.remove("selectedLayer");
 
     /**
      * Evenement "removelayer"

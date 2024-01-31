@@ -1,6 +1,6 @@
 // styles personnalisés
 const layers = {
-   "line-casing": {
+  "line-casing": {
     id: "route-draw-line-casing",
     type: "line",
     source: "",

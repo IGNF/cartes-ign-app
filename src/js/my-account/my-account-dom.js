@@ -1,9 +1,9 @@
-import { Toast } from '@capacitor/toast';
+import { Toast } from "@capacitor/toast";
 
-import utils from '../unit-utils';
-import DomUtils from '../dom-utils';
+import utils from "../unit-utils";
+import DomUtils from "../dom-utils";
 
-import Sortable from 'sortablejs';
+import Sortable from "sortablejs";
 
 /**
  * DOM de la fenêtre de compte
@@ -83,7 +83,7 @@ let MyAccountDOM = {
 
       logInBtn.addEventListener("click", () => {
         console.warn("GPF auth not implemented");
-      })
+      });
     } else {
       var logOutBtn = document.createElement("div");
       logOutBtn.id = "myAccountLogOutBtn";
@@ -108,7 +108,7 @@ let MyAccountDOM = {
       <label class="layer-tabs-label" for="myaccount-landmarks-tab">Mes points de repère <span id="myaccount-landmarks-number">0</span></label>
       <div class="layer-tabs-content" id="myaccount-routes"></div>
       <div class="layer-tabs-content" id="myaccount-landmarks"></div>
-    </div>`
+    </div>`;
     // transformation du container : String -> DOM
     var container = DomUtils.stringToHTML(tplContainer.trim());
     this.dom.routeTab = container.querySelector("#myaccount-routes");
@@ -213,9 +213,9 @@ let MyAccountDOM = {
 
     let deleteRoute = () => {
       this.deleteRoute(routeId);
-    }
+    };
 
-    let handleDeleteRoute = deleteRoute.bind(this)
+    let handleDeleteRoute = deleteRoute.bind(this);
 
     container.querySelector(`#route-remove_ID_${routeId}`).addEventListener("click", () => {
       Toast.show({
@@ -226,10 +226,10 @@ let MyAccountDOM = {
       container.querySelector(`#route-remove_ID_${routeId}`).addEventListener("click", handleDeleteRoute);
     });
 
-    document.addEventListener('click', (event) => {
+    document.addEventListener("click", (event) => {
       if (!event.target.closest(`#route-remove_ID_${routeId}`)) {
         container.querySelector(`#route-remove_ID_${routeId}`).removeEventListener("click", handleDeleteRoute);
-    }
+      }
     });
 
     if (!container) {

@@ -10,7 +10,7 @@
  * @returns
  */
 const getLegend = (name) => {
-    return require(`../../html/img/legends/${name}.png`);
+  return require(`../../html/img/legends/${name}.png`);
 };
 
 /**
@@ -19,10 +19,10 @@ const getLegend = (name) => {
  * @returns
  */
 const getQuickLookUrl = (name) => {
-    return require(`../../html/img/layers/${name}.jpg`);
+  return require(`../../html/img/layers/${name}.jpg`);
 };
 
 export default {
-    getQuickLookUrl,
-    getLegend
+  getQuickLookUrl,
+  getLegend
 };

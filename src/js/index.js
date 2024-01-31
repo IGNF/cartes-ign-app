@@ -1,27 +1,27 @@
 import maplibregl from "maplibre-gl";
 
-import Globals from './globals';
+import Globals from "./globals";
 
-import MapButtonsListeners from './map-buttons-listeners';
-import MapListeners from './map-listeners';
-import EventListeners from './event-listeners';
-import LayerManager from './layer-manager/layer-manager';
-import LayersConfig from './layer-manager/layer-config';
-import Controls from './controls';
+import MapButtonsListeners from "./map-buttons-listeners";
+import MapListeners from "./map-listeners";
+import EventListeners from "./event-listeners";
+import LayerManager from "./layer-manager/layer-manager";
+import LayersConfig from "./layer-manager/layer-config";
+import Controls from "./controls";
 import RecentSearch from "./search-recent";
-import MenuNavigation from './nav';
-import InteractivityIndicator from './map-interactivity/interactivity-indicator';
-import { StatusBar, Style } from '@capacitor/status-bar';
+import MenuNavigation from "./nav";
+import InteractivityIndicator from "./map-interactivity/interactivity-indicator";
+import { StatusBar, Style } from "@capacitor/status-bar";
 // https://github.com/ionic-team/capacitor/issues/2840
-import { SafeAreaController } from '@aashu-dubey/capacitor-statusbar-safe-area';
+import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { NavigationBar } from "@capgo/capacitor-navigation-bar";
 
-import { Capacitor } from '@capacitor/core';
+import { Capacitor } from "@capacitor/core";
 
 // import CSS
-import '@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css';
-import 'maplibre-gl/dist/maplibre-gl.css';
-import '../css/app.scss';
+import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
+import "maplibre-gl/dist/maplibre-gl.css";
+import "../css/app.scss";
 
 // fichiers SVG
 import PositionImg from "../css/assets/position.svg";
@@ -41,17 +41,17 @@ function app() {
   }
 
   // Définition des icones
-  Globals.myPositionIcon = document.createElement('div');
-  Globals.myPositionIcon.class = 'myPositionIcon';
-  Globals.myPositionIcon.style.width = '51px';
-  Globals.myPositionIcon.style.height = '51px';
+  Globals.myPositionIcon = document.createElement("div");
+  Globals.myPositionIcon.class = "myPositionIcon";
+  Globals.myPositionIcon.style.width = "51px";
+  Globals.myPositionIcon.style.height = "51px";
   Globals.myPositionIcon.style.backgroundSize = "contain";
   Globals.myPositionIcon.style.backgroundImage = "url(" + PositionImg + ")";
 
-  Globals.searchResultIcon = document.createElement('div');
-  Globals.searchResultIcon.class = 'searchResultIcon';
-  Globals.searchResultIcon.style.width = '36px';
-  Globals.searchResultIcon.style.height = '36px';
+  Globals.searchResultIcon = document.createElement("div");
+  Globals.searchResultIcon.class = "searchResultIcon";
+  Globals.searchResultIcon.style.width = "36px";
+  Globals.searchResultIcon.style.height = "36px";
   Globals.searchResultIcon.style.backgroundSize = "contain";
   Globals.searchResultIcon.style.backgroundImage = "url(" + MapCenterImg + ")";
 
@@ -109,7 +109,7 @@ function app() {
   window.scroll({
     top: 0,
     left: 0,
-    behavior: 'smooth'
+    behavior: "smooth"
   });
   Globals.currentScrollIndex = 0;
 
@@ -144,14 +144,14 @@ function app() {
     }
   }
   for (let layer in LayersConfig.rltLayerSources) {
-    var source = LayersConfig.rltLayerSources[layer];
+    source = LayersConfig.rltLayerSources[layer];
     if (source.type !== "vector") {
       mapRLT1.addSource(layer, source);
       mapRLT2.addSource(layer, source);
     }
   }
   for (let layer in LayersConfig.thematicLayerSources) {
-    var source = LayersConfig.thematicLayerSources[layer];
+    source = LayersConfig.thematicLayerSources[layer];
     if (source.type !== "vector") {
       map.addSource(layer, source);
     }

@@ -26,7 +26,7 @@ class ComparePoi {
     // configuration
     this.configuration = this.options.configuration || {
       source: "comparepoi",
-    }
+    };
 
     this.compareConfig = {
       zoom: null,
@@ -34,7 +34,7 @@ class ComparePoi {
       layer1: null,
       layer2: null,
       center: null,
-    }
+    };
 
     this.opened = false;
 
@@ -45,16 +45,16 @@ class ComparePoi {
     this.theme = null;
     this.sousTheme = null;
 
-    this.handleCompareButton = this.#onClickCompareButton.bind(this)
+    this.handleCompareButton = this.#onClickCompareButton.bind(this);
     this.dom = {
       title: null,
       commune: null,
       departement: null,
       button: null,
       text: null,
-    }
+    };
 
-    this.#load()
+    this.#load();
     this.#render();
     this.#listeners();
 
@@ -89,7 +89,7 @@ class ComparePoi {
       departement: this.target.querySelector(".comparePoiDepartement"),
       button: this.target.querySelector(".comparePoiButton"),
       text: this.target.querySelector(".comparePoiText"),
-    }
+    };
   }
 
   /**
@@ -129,8 +129,8 @@ class ComparePoi {
     DOM.$comparePoiWindow.classList.remove("d-none");
     DOM.$tabContainer.style.removeProperty("top");
     DOM.$bottomButtons.style.removeProperty("bottom");
-    DOM.$sideBySideLeftLayer.classList.add('d-none');
-    DOM.$sideBySideRightLayer.classList.add('d-none');
+    DOM.$sideBySideLeftLayer.classList.add("d-none");
+    DOM.$sideBySideRightLayer.classList.add("d-none");
     Globals.currentScrollIndex = 2;
     Globals.menu.updateScrollAnchors();
     Globals.compare.setParams(this.compareConfig);
@@ -163,7 +163,7 @@ class ComparePoi {
         "icon-image": "comparePoiIcon",
         "icon-size": 0.75,
       }
-    })
+    });
   }
 
   /**

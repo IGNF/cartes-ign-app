@@ -1,6 +1,6 @@
-import Globals from './globals';
+import Globals from "./globals";
 
-import { Toast } from '@capacitor/toast';
+import { Toast } from "@capacitor/toast";
 /**
  * Permet d'effectuer un signalement d'anomalie sur les données
  */
@@ -25,14 +25,14 @@ class Signalement {
       theme: null,
       email: null,
       submitButton: null,
-    }
+    };
     this.data = {
       title: null,
       description: null,
       theme: null,
       email: null,
       location: null,
-    }
+    };
 
     this.url = this.options.url || "https://geoportail.qua.ign-mut.ovh/wp-json/wp/v2/";
     this.#render();
@@ -51,7 +51,7 @@ class Signalement {
       theme: this.target.querySelector("#signalement-theme"),
       email: this.target.querySelector("#signalement-email"),
       submitButton: this.target.querySelector(".signalement-submit"),
-    }
+    };
     // TODO: remplir automatiquement email si connecté via Globals.myaccount
   }
 
@@ -67,7 +67,7 @@ class Signalement {
         theme: this.dom.theme.value,
         email: this.dom.email.value,
         location: this.data.location,
-      }
+      };
       if (!this.data.title || !this.data.description || !this.data.theme || !this.data.email) {
         Toast.show({
           text: "Merci de remplir tous les champs du formulaire",
@@ -82,7 +82,7 @@ class Signalement {
           duration: "long",
           position: "bottom"
         });
-        console.warn("Signalement sans lieu !")
+        console.warn("Signalement sans lieu !");
         return;
       }
       document.getElementById("signalementWindowDefault").classList.add("d-none");
@@ -96,7 +96,7 @@ class Signalement {
    * @private
    */
   async #send() {
-    const permalink = `https://www.geoportail.gouv.fr/carte?c=${this.data.location.lon},${this.data.location.lat}&z=${Math.floor(this.map.getZoom()) - 1}&l0=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2::GEOPORTAIL:OGC:WMTS(1)&permalink=yes`
+    const permalink = `https://www.geoportail.gouv.fr/carte?c=${this.data.location.lon},${this.data.location.lat}&z=${Math.floor(this.map.getZoom()) - 1}&l0=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2::GEOPORTAIL:OGC:WMTS(1)&permalink=yes`;
     const anomaly = {
       name: this.data.title + " (Anomalie)",
       description: this.data.description,
@@ -104,7 +104,7 @@ class Signalement {
       permalink: permalink,
       id_drawing: "",
       mail: this.data.email,
-    }
+    };
 
     const kml = `<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/kml/2.2 https://developers.google.com/kml/schema/kml22gx.xsd"><Placemark><name>location of an anomaly (${anomaly.name})</name><Point><coordinates>${this.data.location.lon},${this.data.location.lat}</coordinates></Point></Placemark></kml>`;
     const drawing = {
@@ -112,7 +112,7 @@ class Signalement {
       kml: kml,
       layername: anomaly.name,
       name: anomaly.name,
-    }
+    };
 
     const drawingRequestBody = {drawing: drawing};
     const drawingResponse = await fetch(this.url + "drawing", {
@@ -121,7 +121,7 @@ class Signalement {
         "Content-Type": "application/json",
         "Authorization": "Bearer undefined",
       },
-      mode: 'cors',
+      mode: "cors",
       credentials: "same-origin",
       body: JSON.stringify(drawingRequestBody),
     });
@@ -136,7 +136,7 @@ class Signalement {
         "Content-Type": "application/json",
         "Authorization": "Bearer undefined",
       },
-      mode: 'cors',
+      mode: "cors",
       credentials: "same-origin",
       body: JSON.stringify(requestBody),
     });
@@ -174,7 +174,7 @@ class Signalement {
       theme: null,
       email: null,
       location: null,
-    }
+    };
   }
 
 }

@@ -1,8 +1,8 @@
-import DOM from './dom';
-import Globals from './globals';
-import Location from './services/location';
-import Reverse from './services/reverse';
-import State from './state';
+import DOM from "./dom";
+import Globals from "./globals";
+import Location from "./services/location";
+import Reverse from "./services/reverse";
+import State from "./state";
 
 const addListeners = () => {
 
@@ -19,7 +19,7 @@ const addListeners = () => {
     map.setBearing(Math.round((map.getBearing() % 360) + 360 ) % 360);
 
     let interval;
-    let currentRotation
+    let currentRotation;
 
     function animateRotate() {
       if (map.getBearing() < 0) {
@@ -64,16 +64,16 @@ const addListeners = () => {
   DOM.$mapCenterSubmit.addEventListener("click", () => {
     if (Globals.backButtonState === "selectOnMapIsochrone") {
       Globals.isochrone.onAddWayPoint({lngLat: Globals.map.getCenter()});
-      Globals.menu.close('selectOnMapIsochrone');
+      Globals.menu.close("selectOnMapIsochrone");
     } else if (Globals.backButtonState === "selectOnMapDirections") {
       Reverse.compute({
         lon: Globals.map.getCenter().lng,
         lat: Globals.map.getCenter().lat,
       });
-      Globals.menu.close('selectOnMapDirections');
+      Globals.menu.close("selectOnMapDirections");
     }
   });
-}
+};
 
 export default {
   addListeners

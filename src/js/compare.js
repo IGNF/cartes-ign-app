@@ -1,15 +1,15 @@
 import MapLibreGlCompare from "@maplibre/maplibre-gl-compare";
 import syncMaps from "@mapbox/mapbox-gl-sync-move";
 
-import Globals from './globals';
-import DOM from './dom';
-import LayersConfig from './layer-manager/layer-config';
-import LayersAdditional from './layer-manager/layer-additional';
+import Globals from "./globals";
+import DOM from "./dom";
+import LayersConfig from "./layer-manager/layer-config";
+import LayersAdditional from "./layer-manager/layer-additional";
 
-import { Capacitor } from '@capacitor/core';
+import { Capacitor } from "@capacitor/core";
 
-import ImageNotFound from '../html/img/image-not-found.png';
-import DomUtils from "./dom-utils"
+import ImageNotFound from "../html/img/image-not-found.png";
+import DomUtils from "./dom-utils";
 
 /**
  * Outil de comparaison de carte
@@ -23,7 +23,7 @@ class Compare {
    */
   constructor() {
     this.sideBySide = null;
-    this.prevDataLayerDisplayed = '';
+    this.prevDataLayerDisplayed = "";
     this.container = "#cartoContainer";
     this.map = Globals.map;
     this.mapRLT1 = Globals.mapRLT1;
@@ -62,7 +62,7 @@ class Compare {
                 <div id="${opts.layerName}" class="layer-title">${opts.layerTitle}</div>
               </div>
               `;
-      }
+      };
 
       var strRLTLayersPhotos = "";
       var strRLTLayersMaps = "";
@@ -71,7 +71,7 @@ class Compare {
         var props = LayersConfig.getLayerProps(rltLayers[j]);
         if (rltLayers[j].split(".")[0] == "ORTHOIMAGERY") {
           if (rltLayers[j] == "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS") {
-            props.title = "Aujourd'hui"
+            props.title = "Aujourd'hui";
           }
           strRLTLayersPhotos += tplLayer({
             type: "rltLayer",
@@ -133,7 +133,7 @@ class Compare {
     document.querySelector("#compareLeftRight").addEventListener("click", () => {
       this.mode = "leftright";
       this.#changeMode();
-    });;
+    });
     document.querySelector("#compareUpDown").addEventListener("click", () => {
       this.mode = "upDown";
       this.#changeMode();
@@ -143,8 +143,8 @@ class Compare {
       this.#changeMode();
     });
 
-    this.fadeSliderInput.addEventListener('input', () => this.fadeSliderInput.style.setProperty('--value', this.fadeSliderInput.value));
-    this.fadeSliderInput.addEventListener('input', () => {
+    this.fadeSliderInput.addEventListener("input", () => this.fadeSliderInput.style.setProperty("--value", this.fadeSliderInput.value));
+    this.fadeSliderInput.addEventListener("input", () => {
       document.getElementById("mapRLT1").style.opacity = 1 - (this.fadeSliderInput.value / 100);
     });
 
@@ -183,7 +183,7 @@ class Compare {
 
     // clic sur une rlt de fonds
     document.querySelectorAll(".rltLayer").forEach((el) => {
-      el.addEventListener('click', (e) => {
+      el.addEventListener("click", () => {
         if (el.classList.contains("selectedLayer")) {
           return;
         } else {
@@ -238,7 +238,7 @@ class Compare {
       document.querySelector("#compareLeftRight").classList.add("selected");
       document.querySelector("#sideBySideFadeSlider").classList.add("d-none");
       this.fadeSliderInput.value = 0;
-      this.fadeSliderInput.style.setProperty('--value', 0)
+      this.fadeSliderInput.style.setProperty("--value", 0);
       document.getElementById("mapRLT1").style.removeProperty("opacity");
       if (this.sideBySide) {
         this.sideBySide.remove();
@@ -248,7 +248,7 @@ class Compare {
       document.querySelector("#compareUpDown").classList.add("selected");
       document.querySelector("#sideBySideFadeSlider").classList.add("d-none");
       this.fadeSliderInput.value = 0;
-      this.fadeSliderInput.style.setProperty('--value', 0)
+      this.fadeSliderInput.style.setProperty("--value", 0);
       document.getElementById("mapRLT1").style.removeProperty("opacity");
       if (this.sideBySide) {
         this.sideBySide.remove();
@@ -261,7 +261,7 @@ class Compare {
       }
       this.clearSync = syncMaps(this.mapRLT1, this.mapRLT2);
       this.fadeSliderInput.value = 50;
-      this.fadeSliderInput.style.setProperty('--value', 50)
+      this.fadeSliderInput.style.setProperty("--value", 50);
       document.getElementById("mapRLT1").style.opacity = 0.5;
       document.querySelector("#sideBySideFadeSlider").classList.remove("d-none");
     }
@@ -279,15 +279,15 @@ class Compare {
     document.getElementById(`mapRLT1-${params.layer1 + "$GEOPORTAIL:OGC:WMTS"}`).click();
     document.getElementById(`mapRLT2-${params.layer2 + "$GEOPORTAIL:OGC:WMTS"}`).click();
     switch (params.mode) {
-      case "vSlider":
-        document.querySelector("#compareLeftRight").click();
-        break;
-      case "hSlider":
-        document.querySelector("#compareUpDown").click();
-        break;
-      default:
-        document.querySelector("#compareFade").click();
-        break;
+    case "vSlider":
+      document.querySelector("#compareLeftRight").click();
+      break;
+    case "hSlider":
+      document.querySelector("#compareUpDown").click();
+      break;
+    default:
+      document.querySelector("#compareFade").click();
+      break;
     }
     this.map.setCenter(this.mapRLT1.getCenter());
     this.map.setZoom(this.mapRLT1.getZoom());

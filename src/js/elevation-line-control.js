@@ -5,7 +5,7 @@ import {
   PointElement,
   LinearScale,
   Filler
-} from 'chart.js';
+} from "chart.js";
 
 ChartJS.register(
   ScatterController,
@@ -15,10 +15,10 @@ ChartJS.register(
   Filler,
 );
 
-import maplibregl from 'maplibre-gl';
+import maplibregl from "maplibre-gl";
 import ElevationLine from "./services/elevation-line";
 
-import { Toast } from '@capacitor/toast';
+import { Toast } from "@capacitor/toast";
 
 import LoadingDark from "../css/assets/loading-darkgrey.svg";
 
@@ -39,7 +39,7 @@ class ElevationLineControl {
   constructor(options) {
     this.options = options || {
       target: null,
-    }
+    };
     this.target = this.options.target || document.getElementById("directions-elevationline");
     this.coordinates = null;    // [{lat: ..., lon: ...}, ...]
     this.elevationData = null;  // [{x: <distance>, y: <elevation}, ...]
@@ -118,7 +118,7 @@ class ElevationLineControl {
         data: this.elevationData,
         fill: false,
         borderWidth: 3,
-        borderColor: '#26a581',
+        borderColor: "#26a581",
         tension: 0.1,
         pointRadius: 0,
         showLine: true,
@@ -137,7 +137,7 @@ class ElevationLineControl {
     }
 
     const chartConfig = {
-      type: 'scatter',
+      type: "scatter",
       data: chartData,
       options: {
         scales: {
@@ -151,7 +151,7 @@ class ElevationLineControl {
           y: {
             title: {
               display: true,
-              text: `Altitude (m)`,
+              text: "Altitude (m)",
             },
             suggestedMax: suggestedMax,
             suggestedMin: suggestedMin,
@@ -195,7 +195,7 @@ class ElevationLineControl {
       } else {
         return;
       }
-      responseElevation = {elevations: [{lon: 0, lat:0, z:0}]}
+      responseElevation = {elevations: [{lon: 0, lat:0, z:0}]};
     }
     let lastLngLat = null;
     let lastZ = null;
@@ -215,7 +215,7 @@ class ElevationLineControl {
       if (elevationValue == -99999) {
         elevationValue = 0;
       }
-      let currentDataPoint = {x: currentDistance, y: elevationValue}
+      let currentDataPoint = {x: currentDistance, y: elevationValue};
       this.elevationData.push(currentDataPoint);
       lastLngLat = currentLngLat;
       lastZ = elevation.z;

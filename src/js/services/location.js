@@ -1,10 +1,10 @@
 import maplibregl from "maplibre-gl";
 
-import DOM from '../dom';
-import Globals from '../globals';
+import DOM from "../dom";
+import Globals from "../globals";
 
-import { Geolocation } from '@capacitor/geolocation';
-import { Toast } from '@capacitor/toast';
+import { Geolocation } from "@capacitor/geolocation";
+import { Toast } from "@capacitor/toast";
 
 // fichiers SVG
 import LocationImg from "../../css/assets/map-buttons/localisation.svg";
@@ -20,7 +20,7 @@ let tracking_active = false;
 let watch_id;
 let currentPosition = null;
 
-let positionBearing = 0
+let positionBearing = 0;
 
 /**
  * Interface pour les evenements
@@ -38,7 +38,7 @@ const clean = () => {
     Globals.myPositionMarker.remove();
     Globals.myPositionMarker = null;
   }
-}
+};
 
 /**
  * Modifie la rotation du marqueur GPS
@@ -48,7 +48,7 @@ const setMarkerRotation = (positionBearing) => {
   if (Globals.myPositionMarker) {
     Globals.myPositionMarker.setRotation(positionBearing);
   }
-}
+};
 
 /**
  * Ajoute un marqueur de type GPS à la position définie par le coods,
@@ -76,7 +76,7 @@ const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
       .setLngLat([coords.lon, coords.lat])
       .addTo(Globals.map);
     Globals.myPositionMarker.setRotationAlignment("map");
-    Globals.myPositionIcon.addEventListener("click", (e) => {
+    Globals.myPositionIcon.addEventListener("click", () => {
       Globals.position.compute(Globals.myPositionMarker.getLngLat(), "Ma position").then(() => Globals.menu.open("position"));
     });
   }
@@ -88,7 +88,7 @@ const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
     Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
     Globals.movedFromCode = false;
   }
-}
+};
 
 /**
  * Suit la position de l'utilisateur
@@ -96,7 +96,7 @@ const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
 const trackLocation = () => {
   let lastAccuracy = 100000;
   Geolocation.checkPermissions().then((status) => {
-    if (status.location != 'denied') {
+    if (status.location != "denied") {
       var firstLocation = true;
       Geolocation.watchPosition({
         maximumAge: 0,
@@ -118,33 +118,33 @@ const trackLocation = () => {
           }, zoom, tracking_active);
         }
       }).then( (watchId) => {
-        watch_id = watchId
+        watch_id = watchId;
       }).catch((err) => {
         console.warn(`${err.message}`);
       });
     }
   }).catch(() => {
-    console.warn("Location services disabled")
+    console.warn("Location services disabled");
   });
-}
+};
 
 /**
  * Modification du statut de localisation
  */
 const enablePosition = async(tracking) => {
-  DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFixeImg + '")';
+  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
   let permissionStatus;
   try {
     permissionStatus = await Geolocation.checkPermissions();
   } catch {
     console.warn("Location services disabled");
-    return
+    return;
   }
   if (permissionStatus.location == "denied") {
     permissionStatus = await Geolocation.requestPermissions(["location"]);
   }
   if (permissionStatus == "denied") {
-    return
+    return;
   }
   if (tracking) {
     trackLocation();
@@ -155,13 +155,13 @@ const enablePosition = async(tracking) => {
     });
   }
   location_active = true;
-}
+};
 
 const locationOnOff = async () => {
   if (!location_active) {
     enablePosition(true);
   } else if (!tracking_active) {
-    DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFollowImg + '")';
+    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
     tracking_active = true;
     Toast.show({
       text: "Mode navigation activé",
@@ -169,7 +169,7 @@ const locationOnOff = async () => {
       position: "bottom"
     });
   } else {
-    DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationImg + '")';
+    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
     Geolocation.clearWatch({id: watch_id});
     clean();
     currentPosition = null;
@@ -181,7 +181,7 @@ const locationOnOff = async () => {
       position: "bottom"
     });
   }
-}
+};
 
 /**
  * ...
@@ -199,7 +199,7 @@ const getOrientation = (event) => {
     setMarkerRotation(positionBearing);
   }
   Globals.movedFromCode = false;
-}
+};
 
 /**
  * ...
@@ -211,7 +211,7 @@ const getLocation = async (tracking) => {
   var position = currentPosition;
   if (currentPosition === null) {
     enablePosition(tracking);
-    var position = await Geolocation.getCurrentPosition({
+    position = await Geolocation.getCurrentPosition({
       maximumAge: 0,
       timeout: 10000,
       enableHighAccuracy: true
@@ -233,25 +233,25 @@ const getLocation = async (tracking) => {
     })
   );
   return results;
-}
+};
 
 const disableTracking = () => {
-  DOM.$geolocateBtn.style.backgroundImage = 'url("' + LocationFixeImg + '")';
+  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
   tracking_active = false;
   Toast.show({
     text: "Suivi de position activé",
     duration: "short",
     position: "bottom"
   });
-}
+};
 
 const isLocationActive = () => {
   return location_active;
-}
+};
 
 const isTrackingActive = () => {
   return tracking_active;
-}
+};
 
 export default {
   target,
@@ -263,4 +263,4 @@ export default {
   getOrientation,
   getLocation,
   disableTracking,
-}
+};

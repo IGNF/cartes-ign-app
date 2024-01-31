@@ -9,19 +9,19 @@ let utils = {
    * @private
    */
   convertDistance (distance) {
-      var d = "";
+    var d = "";
 
-      var distanceKm = Math.round(10 * distance / 1000) / 10;
-      if (distanceKm < 1) {
-          d = parseInt(distance, 10) + " m"; // arrondi !
-      } else {
-          if (distanceKm > 100) {
-              distanceKm = Math.round(distanceKm);
-          }
-          d = distanceKm + " km";
+    var distanceKm = Math.round(10 * distance / 1000) / 10;
+    if (distanceKm < 1) {
+      d = parseInt(distance, 10) + " m"; // arrondi !
+    } else {
+      if (distanceKm > 100) {
+        distanceKm = Math.round(distanceKm);
       }
+      d = distanceKm + " km";
+    }
 
-      return d;
+    return d;
   },
 
   /**
@@ -31,28 +31,28 @@ let utils = {
    * @private
    */
   convertSecondsToTime (duration) {
-      var time = "";
+    var time = "";
 
-      duration = Math.round(duration);
-      var hours = Math.floor(duration / (60 * 60));
+    duration = Math.round(duration);
+    var hours = Math.floor(duration / (60 * 60));
 
-      var divisor4minutes = duration % (60 * 60);
-      var minutes = Math.floor(divisor4minutes / 60);
-      // if (!minutes) {
-      //     minutes = "00";
-      // }
+    var divisor4minutes = duration % (60 * 60);
+    var minutes = Math.floor(divisor4minutes / 60);
+    // if (!minutes) {
+    //     minutes = "00";
+    // }
 
-      // var divisor4seconds = divisor4minutes % 60;
-      // var seconds = Math.ceil(divisor4seconds);
-      // if (!seconds) {
-      //     seconds = "00";
-      // }
+    // var divisor4seconds = divisor4minutes % 60;
+    // var seconds = Math.ceil(divisor4seconds);
+    // if (!seconds) {
+    //     seconds = "00";
+    // }
 
-      if (hours) {
-          time = hours + "h ";
-      }
-      time += minutes + " min";
-      return time;
+    if (hours) {
+      time = hours + "h ";
+    }
+    time += minutes + " min";
+    return time;
   }
 
 };

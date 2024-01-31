@@ -1,11 +1,9 @@
-import maplibregl from "maplibre-gl";
-
 // TODO utiliser l'ecouteur sur l'event "target"
 import Reverse from "./services/reverse";
 import Elevation from "./services/elevation";
-import Location from './services/location';
-import Globals from './globals';
-import DomUtils from "./dom-utils"
+import Location from "./services/location";
+import Globals from "./globals";
+import DomUtils from "./dom-utils";
 import { Share } from "@capacitor/share";
 
 /**
@@ -99,12 +97,12 @@ class Position {
         <span class="lblPositionAddress">${address.city}</span>
         <span class="lblPositionCity">${address.postcode}</span>
         `;
-        this.name = `${address.city} ${address.postcode}`;
+      this.name = `${address.city} ${address.postcode}`;
     } else {
       templateAddress = `
         <span class="lblPositionAddress">${latitude}, ${longitude}</span>
         `;
-        this.name = `${latitude}, ${longitude}`;
+      this.name = `${latitude}, ${longitude}`;
     }
 
     // template litteral
@@ -174,7 +172,7 @@ Altitude : ${altitude} m
       Share.share({
         title: `Partager ${this.header}`,
         text: this.shareContent,
-        dialogTitle: 'Partager la position',
+        dialogTitle: "Partager la position",
       });
     });
     shadowContainer.getElementById("positionNear").addEventListener("click", () => {
@@ -317,7 +315,7 @@ Altitude : ${altitude} m
       this.options.closePositionCbk();
       this.opened = false;
       if (Globals.searchResultMarker != null) {
-        Globals.searchResultMarker.remove()
+        Globals.searchResultMarker.remove();
         Globals.searchResultMarker = null;
       }
     }
@@ -338,7 +336,7 @@ Altitude : ${altitude} m
       this.container.remove();
     }
     if (!Globals.backButtonState.includes("isochrone") && Globals.searchResultMarker != null) {
-      Globals.searchResultMarker.remove()
+      Globals.searchResultMarker.remove();
       Globals.searchResultMarker = null;
     }
   }

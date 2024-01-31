@@ -1,7 +1,7 @@
 import DomUtils from "../dom-utils";
 import LoadingWhite from "../../css/assets/loading-white.svg";
 
-import { Toast } from '@capacitor/toast';
+import { Toast } from "@capacitor/toast";
 
 /**
  * DOM du contrôle du calcul d'isochrone
@@ -55,7 +55,7 @@ let IsochroneDOM = {
           <span class="checkmark"></span>
         </label>
         `;
-      }
+      };
       var strPoiItems = "";
       var cfg = opts.thematics;
       for(let i = 0; i < cfg.length; i++) {
@@ -231,7 +231,7 @@ let IsochroneDOM = {
       var showPoisOutside = self.dom.showOutPoisChk.checked;
 
       // type de POI à afficher
-      var poisToDisplay = {}
+      var poisToDisplay = {};
       document.querySelectorAll(".inputIsochroneFilterItem").forEach( (el) => {
         poisToDisplay[el.value] = el.checked;
       });
@@ -269,11 +269,11 @@ let IsochroneDOM = {
       // ouverture du menu de recherche
       self.onOpenSearchLocation(e);
     });
-    this.dom.modeDistance.addEventListener("click", (e) => {
+    this.dom.modeDistance.addEventListener("click", () => {
       document.getElementById("isochroneModeValueDistance").className = "";
       document.getElementById("isochroneModeValueDuration").className = "isochroneValueHidden";
     });
-    this.dom.modeDuration.addEventListener("click", (e) => {
+    this.dom.modeDuration.addEventListener("click", () => {
       document.getElementById("isochroneModeValueDuration").className = "";
       document.getElementById("isochroneModeValueDistance").className = "isochroneValueHidden";
     });
@@ -289,7 +289,7 @@ let IsochroneDOM = {
       });
     });
     this.dom.form.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
-      el.addEventListener("change", (e) => {
+      el.addEventListener("change", () => {
         let allUnchecked = true;
         let allChecked = true;
         document.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {

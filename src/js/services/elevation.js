@@ -19,48 +19,48 @@ const target = new EventTarget();
  */
 const compute = async (coordinates) => {
 
-    // ex. request
-    // https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?
-    //  lon=2.336889922615051&
-    //  lat=48.867264998294104&
-    //  indent=false&
-    //  crs=%27CRS:84%27&
-    //  zonly=true&
-    //  resource=ign_rge_alti_wld
+  // ex. request
+  // https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json?
+  //  lon=2.336889922615051&
+  //  lat=48.867264998294104&
+  //  indent=false&
+  //  crs=%27CRS:84%27&
+  //  zonly=true&
+  //  resource=ign_rge_alti_wld
 
-    clear();
+  clear();
 
-    controller = new AbortController();
+  controller = new AbortController();
 
-    let url = new URL("https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json");
-    let params = {
-        indent: false,
-        zonly: true,
-        resource: "ign_rge_alti_wld",
-        lon: coordinates.lon,
-        lat: coordinates.lat
-    };
+  let url = new URL("https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json");
+  let params = {
+    indent: false,
+    zonly: true,
+    resource: "ign_rge_alti_wld",
+    lon: coordinates.lon,
+    lat: coordinates.lat
+  };
 
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
-    var response = await fetch(url, { signal : controller.signal });
-    results = await response.json();
+  var response = await fetch(url, { signal : controller.signal });
+  results = await response.json();
 
-    if (response.status !== 200) {
-        throw new Error(response.message);
-    }
+  if (response.status !== 200) {
+    throw new Error(response.message);
+  }
 
-    // ex. response
-    // {"elevations": [35.81]}
+  // ex. response
+  // {"elevations": [35.81]}
 
-    target.dispatchEvent(
-        new CustomEvent("elevation", {
-            bubbles: true,
-            detail: results
-        })
-    );
+  target.dispatchEvent(
+    new CustomEvent("elevation", {
+      bubbles: true,
+      detail: results
+    })
+  );
 
-    return results;
+  return results;
 };
 
 /**
@@ -69,22 +69,22 @@ const compute = async (coordinates) => {
  * { lon lat }
  */
 const getElevation = () => {
-    if (!results.elevations) {
-      return 0;
-    }
-    if (results.elevations[0] == -99999) {
-      return 0;
-    }
-    return results.elevations[0];
+  if (!results.elevations) {
+    return 0;
+  }
+  if (results.elevations[0] == -99999) {
+    return 0;
+  }
+  return results.elevations[0];
 };
 
 const clear = () => {
-    controller.abort();
-    results = null;
+  controller.abort();
+  results = null;
 };
 
 export default {
-    target,
-    compute,
-    getElevation
+  target,
+  compute,
+  getElevation
 };

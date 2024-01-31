@@ -1,7 +1,7 @@
 import maplibregl from "maplibre-gl";
 
-import DOM from '../dom';
-import Globals from '../globals';
+import DOM from "../dom";
+import Globals from "../globals";
 
 /**
  * Interface pour les evenements
@@ -16,7 +16,7 @@ const target = new EventTarget();
  */
 function clean() {
   if (Globals.searchResultMarker != null) {
-    Globals.searchResultMarker.remove()
+    Globals.searchResultMarker.remove();
     Globals.searchResultMarker = null;
   }
 }
@@ -65,7 +65,7 @@ async function search (text) {
 
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
   let responseprom = await fetch(url);
-  let response = await responseprom.json()
+  let response = await responseprom.json();
 
   let geocode_result = response.results[0];
 
@@ -104,4 +104,4 @@ export default {
   moveTo,
   search,
   searchAndMoveTo,
-}
+};
