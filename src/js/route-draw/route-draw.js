@@ -489,6 +489,10 @@ class RouteDraw {
             this.#saveState();
         }
         this.data.points.splice(deleteIndex, 1);
+        if (this.data.points.length > 0) {
+          this.data.points[this.data.points.length - 1].properties.order = "destination";
+          this.data.points[0].properties.order = "departure";
+        }
         if (this.data.steps.length < 1) {
             this.#updateSources();
             this.map.on("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
