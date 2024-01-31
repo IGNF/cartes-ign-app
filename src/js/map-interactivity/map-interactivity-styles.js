@@ -1,19 +1,5 @@
 // styles personnalisés
 const layers = {
-  "line": {
-    id: "map-interactivity-line",
-    type: "line",
-    source: "",
-    layout: {
-      "line-cap": "butt",
-      "line-join": "round",
-    },
-    paint: {
-      "line-color": "#307CCD",
-      "line-opacity": 1,
-      "line-width": 12,
-    }
-  },
   "point": {
     id: "map-interactivity-point",
     type: "circle",

@@ -3,6 +3,7 @@ import MapInteractivityLayers from "./map-interactivity-styles";
 import featurePropertyFilter from "./feature-property-filter";
 
 import Union from "@turf/union";
+import Buffer from "@turf/buffer";
 import proj4 from "proj4";
 import Legend from "./legend-plan-ign";
 
@@ -26,7 +27,6 @@ class MapInteractivity {
     // configuration
     this.configuration = this.options.configuration || {
       pointsource: "map-interactivity-point",
-      linesource: "map-interactivity-line",
       polygonsource: "map-interactivity-polygon",
     };
 
@@ -163,8 +163,11 @@ class MapInteractivity {
     if (this.selectedFeatureType == "Point") {
       source = this.map.getSource(this.configuration.pointsource);
     } else if (this.selectedFeatureType == "LineString") {
-      union = toFuse;
-      source = this.map.getSource(this.configuration.linesource);
+      union[0] = Buffer(toFuse[0], 5, {units: "meters"});
+      for (let i = 1; i < toFuse.length - 1; i++) {
+        union[0] = Union(union[0], Buffer(toFuse[i], 5, {units: "meters"}), {properties: union.properties});
+      }
+      source = this.map.getSource(this.configuration.polygonsource);
     } else {
       for (let i = 1; i < toFuse.length - 1; i++) {
         union[0] = Union(union[0], toFuse[i], {properties: union.properties});
@@ -290,13 +293,6 @@ class MapInteractivity {
         "features": []
       },
     });
-    this.map.addSource(this.configuration.linesource, {
-      "type": "geojson",
-      "data": {
-        "type": "FeatureCollection",
-        "features": []
-      },
-    });
     this.map.addSource(this.configuration.polygonsource, {
       "type": "geojson",
       "data": {
@@ -304,8 +300,6 @@ class MapInteractivity {
         "features": []
       },
     });
-    MapInteractivityLayers["line"].source = this.configuration.linesource;
-    this.map.addLayer(MapInteractivityLayers["line"]);
     MapInteractivityLayers["point"].source = this.configuration.pointsource;
     this.map.addLayer(MapInteractivityLayers["point"]);
     MapInteractivityLayers["polygon"].source = this.configuration.polygonsource;
@@ -320,10 +314,6 @@ class MapInteractivity {
   #clearSources() {
     this.map.off("move", this.handleUpdateHighlightedGeom);
     this.map.getSource(this.configuration.pointsource).setData({
-      "type": "FeatureCollection",
-      "features": []
-    });
-    this.map.getSource(this.configuration.linesource).setData({
       "type": "FeatureCollection",
       "features": []
     });
