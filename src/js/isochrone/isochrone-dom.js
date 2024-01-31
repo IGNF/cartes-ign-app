@@ -288,11 +288,11 @@ let IsochroneDOM = {
         }
       });
     });
-    document.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
+    this.dom.form.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
       el.addEventListener("change", (e) => {
         let allUnchecked = true;
         let allChecked = true;
-        document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
+        document.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
           if (el.checked) {
             allUnchecked = false;
           } else {
