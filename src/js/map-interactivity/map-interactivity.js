@@ -69,6 +69,9 @@ class MapInteractivity {
   }
 
   #getInfoOnMap(ev) {
+    if (Globals.backButtonState === "routeDraw") {
+      return;
+    }
     if (Globals.backButtonState.split("-")[0] === "position") {
       Globals.menu.close("position");
     }

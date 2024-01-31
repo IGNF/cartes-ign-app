@@ -211,6 +211,7 @@ class MenuNavigation {
                 Globals.currentScrollIndex = 1;
                 break;
             case "layerManager":
+                Globals.backButtonState = "layerManager-" + previousBackState;
                 DOM.$search.style.display = "none";
                 DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
                 DOM.$backTopLeftBtn.classList.remove('d-none');

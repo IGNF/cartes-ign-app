@@ -34,8 +34,13 @@ const onBackKeyDown = () => {
     if (Globals.backButtonState === 'informations') {
         Globals.menu.close('informations');
     }
-    if (Globals.backButtonState === 'layerManager') {
-        Globals.menu.close('layerManager');
+    if (Globals.backButtonState.split("-")[0] === 'layerManager') {
+      var previousState = Globals.backButtonState.split("-")[1] || "default";
+      Globals.menu.close('layerManager');
+      if (previousState !== "default") {
+        Globals.menu.open(previousState);
+        return;
+    }
     }
     if (Globals.backButtonState === 'directions') {
         Globals.menu.close('directions');

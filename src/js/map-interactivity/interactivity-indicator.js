@@ -71,6 +71,9 @@ class InteractivityIndicator {
      * @private
      */
     onGetLastLayer(e) {
+      if (this.hardDisabled) {
+        return;
+      }
       var layer = e.detail.entries.pop();
       if (!layer) {
         return;
@@ -109,23 +112,23 @@ class InteractivityIndicator {
      * @param {boolean} hard l'interactivité reste désactivée tant qu'active() n'est pas appelée
      */
     disable () {
-        if (!Globals.mapInteractivity) {
-          return;
-        }
-        if (!this.dontClear) {
-          Globals.mapInteractivity.clear();
-        }
-        this.dontClear = false;
-        this.shown = false;
-        DOM.$interactivityBtn.style.display = "none";
+      if (!Globals.mapInteractivity) {
+        return;
+      }
+      if (!this.dontClear) {
+        Globals.mapInteractivity.clear();
+      }
+      this.dontClear = false;
+      this.shown = false;
+      DOM.$interactivityBtn.style.display = "none";
     }
 
     /**
      * Desactive l'indicateur d'activité jusqu'à nouvel ordre
      */
     hardDisable() {
-        this.hardDisabled = true;
-        this.disable();
+      this.hardDisabled = true;
+      this.disable();
     }
 
     /**
@@ -143,8 +146,8 @@ class InteractivityIndicator {
     showPopup() {
       // on supprime la popup
       if (this.popup) {
-          this.popup.remove();
-          this.popup = null;
+        this.popup.remove();
+        this.popup = null;
       }
 
       // template litteral
