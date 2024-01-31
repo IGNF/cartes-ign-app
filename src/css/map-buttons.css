@@ -123,7 +123,7 @@
 #compassBtn {
   background-image: url("assets/map-buttons/compass.svg");
   position: absolute;
-  bottom: 95px;
+  bottom: 100px;
 }
 
 #filterPoiBtn {
@@ -332,19 +332,15 @@
   }
 
   #layerManagerBtn {
-    bottom: 50px;
+    right: 15px;
   }
 
   #geolocateBtn {
-    bottom: 0;
-  }
-
-  #sideBySideBtn {
-    bottom: 0;
+    right: 15px;
   }
 
   #compassBtn {
-    top: calc(15px + var(--safe-area-inset-top));
+    right: 15px;
   }
 
   #bottomButtons {
