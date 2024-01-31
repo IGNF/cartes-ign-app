@@ -140,7 +140,7 @@ function app() {
   for (let layer in LayersConfig.baseLayerSources) {
     var source = LayersConfig.baseLayerSources[layer];
     if (source.type !== "vector") {
-      map.addSource(layer, source)
+      map.addSource(layer, source);
     }
   }
   for (let layer in LayersConfig.rltLayerSources) {
