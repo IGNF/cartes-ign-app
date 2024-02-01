@@ -30,10 +30,8 @@ const addListeners = () => {
   });
 
   // Désactivation du tracking au déplacement non programmatique de la carte
-  map.on("movestart", function () {
-    if (Globals.movedFromCode) {
-      return;
-    } else if (Location.isTrackingActive()){
+  map.on("dragstart", () => {
+    if (Location.isTrackingActive()){
       // De tracking a simple suivi de position
       Location.disableTracking();
     }

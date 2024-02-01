@@ -283,18 +283,6 @@ Altitude : ${altitude} m
     this.elevation = Elevation.getElevation();
 
     this.#render();
-    if (lngLat === false) {
-      this.#moveTo();
-    }
-
-  }
-
-  /**
-   * deplacement sur la carte
-   * @private
-   */
-  #moveTo() {
-    this.map.setCenter([this.coordinates.lon, this.coordinates.lat]);
   }
 
   /**

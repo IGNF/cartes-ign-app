@@ -28,9 +28,6 @@ let mapState = "default";
 /** global: last text in search bar */
 let lastTextInSearch = "";
 
-/** global: flag to check if map move fired by code */
-let movedFromCode = false;
-
 let myPositionMarker = null;
 let searchResultMarker = null;
 
@@ -104,7 +101,6 @@ export default {
   searchResultIcon,
   controller,
   signal,
-  movedFromCode,
   currentScrollIndex,
   maxScroll,
   anchors,

@@ -117,7 +117,7 @@ class Search {
           } else {
             setTimeout(() =>{
               this.hide();
-              Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
+              Location.moveTo(result.coordinates, Globals.map.getZoom(), true, false);
             }, 250);
           }
         });

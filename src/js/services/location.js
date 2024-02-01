@@ -5,11 +5,13 @@ import Globals from "../globals";
 
 import { Geolocation } from "@capacitor/geolocation";
 import { Toast } from "@capacitor/toast";
+import { ScreenOrientation } from "@capacitor/screen-orientation";
 
 // fichiers SVG
 import LocationImg from "../../css/assets/map-buttons/localisation.svg";
 import LocationFollowImg from "../../css/assets/map-buttons/location-follow.svg";
 import LocationFixeImg from "../../css/assets/map-buttons/location-fixed.svg";
+import LocationLoading from "../../css/assets/loading-green.svg";
 
 /* Géolocalisation */
 // Positionnement du mobile
@@ -20,6 +22,7 @@ let tracking_active = false;
 let watch_id;
 let currentPosition = null;
 
+let mapBearing = 0;
 let positionBearing = 0;
 
 /**
@@ -58,7 +61,7 @@ const setMarkerRotation = (positionBearing) => {
  * @param {*} panTo
  * @param {*} gps - choix du type d'icone, GPS par defaut
  */
-const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
+const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) => {
   // si l'icone est en mode gps, on ne reconstruit pas le marker
   // mais, on met à jour la position !
   if (Globals.myPositionMarker !== null && gps) {
@@ -84,9 +87,7 @@ const moveTo = (coords, zoom=Globals.map.getZoom(), panTo=true, gps=true) => {
   setMarkerRotation(positionBearing);
 
   if (panTo) {
-    Globals.movedFromCode = true;
     Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
-    Globals.movedFromCode = false;
   }
 };
 
@@ -99,23 +100,36 @@ const trackLocation = () => {
     if (status.location != "denied") {
       var firstLocation = true;
       Geolocation.watchPosition({
-        maximumAge: 0,
+        maximumAge: 1000,
         timeout: 10000,
         enableHighAccuracy: true
       },
       (position) => {
+        if (firstLocation) {
+          DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
+          Toast.show({
+            text: "Suivi de position activé",
+            duration: "short",
+            position: "bottom"
+          });
+        }
         if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 16) ) {
           lastAccuracy = position.coords.accuracy;
           currentPosition = position;
           var zoom = Globals.map.getZoom();
           if (firstLocation) {
-            zoom = Math.max(Globals.map.getZoom(), 14);
-            firstLocation = false;
+            zoom = Math.max(Globals.map.getZoom(), 16);
+          }
+          if (tracking_active) {
+            zoom = 16;
           }
           moveTo({
             lat: position.coords.latitude,
             lon: position.coords.longitude
-          }, zoom, tracking_active);
+          }, zoom, tracking_active || firstLocation);
+          if (firstLocation) {
+            firstLocation = false;
+          }
         }
       }).then( (watchId) => {
         watch_id = watchId;
@@ -132,7 +146,7 @@ const trackLocation = () => {
  * Modification du statut de localisation
  */
 const enablePosition = async(tracking) => {
-  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
+  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationLoading + "\")";
   let permissionStatus;
   try {
     permissionStatus = await Geolocation.checkPermissions();
@@ -146,23 +160,31 @@ const enablePosition = async(tracking) => {
   if (permissionStatus == "denied") {
     return;
   }
+  location_active = true;
   if (tracking) {
     trackLocation();
     Toast.show({
-      text: "Suivi de position activé",
+      text: "Récupération de la géolocalisation...",
       duration: "short",
       position: "bottom"
     });
   }
-  location_active = true;
 };
 
 const locationOnOff = async () => {
   if (!location_active) {
     enablePosition(true);
   } else if (!tracking_active) {
+    if (currentPosition === null) {
+      return;
+    }
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
     tracking_active = true;
+    Globals.map.setCenter([currentPosition.coords.longitude, currentPosition.coords.latitude]);
+    Globals.map.setZoom(16);
+    Globals.map.setBearing(-mapBearing);
+    DOM.$compassBtn.classList.remove("d-none");
+    DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
     Toast.show({
       text: "Mode navigation activé",
       duration: "short",
@@ -187,18 +209,27 @@ const locationOnOff = async () => {
  * ...
  * @param {*} event
  */
-const getOrientation = (event) => {
-  Globals.movedFromCode = true;
-  if (tracking_active) {
-    Globals.map.setBearing(-event.alpha);
-    DOM.$compassBtn.classList.remove("d-none");
-    DOM.$compassBtn.style.transform = "rotate(" + event.alpha + "deg)";
+const getOrientation = async (event) => {
+  if (Math.abs(mapBearing - event.alpha) < 0.5) {
+    return;
   }
-  positionBearing = Number(Number(360 - event.alpha).toFixed(1));
+  mapBearing = event.alpha;
+  let orientation = await ScreenOrientation.orientation();
+  if (orientation.type === "landscape-secondary") {
+    mapBearing += 90;
+  }
+  if (orientation.type === "landscape-primary") {
+    mapBearing -= 90;
+  }
+  if (tracking_active) {
+    Globals.map.setBearing(-mapBearing);
+    DOM.$compassBtn.classList.remove("d-none");
+    DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
+  }
+  positionBearing = Number(Number(360 - mapBearing).toFixed(1));
   if (Globals.myPositionMarker) {
     setMarkerRotation(positionBearing);
   }
-  Globals.movedFromCode = false;
 };
 
 /**

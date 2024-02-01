@@ -22,6 +22,11 @@ const addListeners = () => {
     let currentRotation;
 
     function animateRotate() {
+      if (Location.isTrackingActive()) {
+        clearInterval(interval);
+        DOM.$compassBtn.style.pointerEvents = "";
+      }
+
       if (map.getBearing() < 0) {
         currentRotation = map.getBearing() + 1;
 
@@ -29,7 +34,7 @@ const addListeners = () => {
         currentRotation = map.getBearing() - 1;
       }
 
-      map.setBearing(currentRotation);
+      map.setBearing(Math.round(currentRotation));
 
       if (currentRotation % 360 == 0) {
         clearInterval(interval);
@@ -39,7 +44,7 @@ const addListeners = () => {
     }
 
     DOM.$compassBtn.style.pointerEvents = "none";
-    interval = setInterval(animateRotate, 2);
+    interval = setInterval(animateRotate, 1);
   });
 
   // Bouton Comparaison de carte
