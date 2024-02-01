@@ -209,14 +209,16 @@ Altitude : ${altitude} m
       }
     });
     // ajout des listeners principaux :
-    shadowContainer.getElementById("positionSignal").addEventListener("click", () => {
-      const coordinates = this.coordinates;
-      // ouverture du panneau Signalement
-      if (this.options.openSignalCbk) {
-        this.options.openSignalCbk();
-        Globals.signalement.data.location = coordinates;
-      }
-    });
+    if (this.header !== "Ma position") {
+      shadowContainer.getElementById("positionSignal").addEventListener("click", () => {
+        const coordinates = this.coordinates;
+        // ouverture du panneau Signalement
+        if (this.options.openSignalCbk) {
+          this.options.openSignalCbk();
+          Globals.signalement.data.location = coordinates;
+        }
+      });
+    }
 
     // ajout du container shadow
     target.appendChild(shadowContainer);
