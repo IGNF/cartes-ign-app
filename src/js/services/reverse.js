@@ -88,7 +88,6 @@ const compute = async (coordinates) => {
       detail: results
     })
   );
-
   return results;
 };
 

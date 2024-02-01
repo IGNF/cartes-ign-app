@@ -50,6 +50,7 @@ const addListeners = () => {
     }
     if (
       Globals.backButtonState !== "default" &&
+      Globals.backButtonState.split("-")[0] !== "position" &&
       Globals.backButtonState !== "informations" &&
       Globals.backButtonState !== "layerManager" &&
       Globals.backButtonState !== "poi"
@@ -57,7 +58,7 @@ const addListeners = () => {
       return;
     }
     contextMenuTimeout = setTimeout(() => {
-      if (Globals.backButtonState === "position") {
+      if (Globals.backButtonState.split("-")[0] === "position") {
         Globals.menu.close("position");
       }
       Globals.position.compute(evt.lngLat).then(() => {

@@ -193,7 +193,7 @@ class ElevationLineControl {
           position: "bottom"
         });
       } else {
-        return;
+        return true;
       }
       responseElevation = {elevations: [{lon: 0, lat:0, z:0}]};
     }

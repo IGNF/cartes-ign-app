@@ -545,7 +545,7 @@ class RouteDraw {
         strAddress = "";
         strAddress += (address.number !== "") ? address.number + " " : "";
         strAddress += (address.street !== "") ? address.street + ", " : "";
-        strAddress += address.city + ", " + address.postcode;
+        strAddress += (address.street !== "") ? address.city + ", " + address.postcode : address.postcode;
       }
     }
     return strAddress;
@@ -637,11 +637,14 @@ class RouteDraw {
     this.elevationLoading = true;
     const allCoordinates = this.data.steps.map((step) => step.geometry.coordinates).flat();
     this.elevation.setCoordinates(allCoordinates);
+    let aborted;
     try {
-      await this.elevation.compute();
+      aborted = await this.elevation.compute();
     } finally {
-      this.elevationLoading = false;
-      this.__unsetElevationLoading();
+      if (!aborted) {
+        this.elevationLoading = false;
+        this.__unsetElevationLoading();
+      }
     }
     this.data.elevationData = this.elevation.getData();
     if (Globals.backButtonState === "routeDraw") {
@@ -827,6 +830,8 @@ class RouteDraw {
       this.toggleDelete();
     }
     this.elevation.clear();
+    this.elevationLoading = false;
+    this.__unsetElevationLoading();
     this.deactivate();
     if (this.loading) {
       this.controller.abort();
