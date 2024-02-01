@@ -33,7 +33,7 @@ class InteractivityIndicator {
     this.thematic = false; // couche thematic chargée ?
     this.position = false; // couche en position max ?
 
-    this.piiMinZoom = 14; // zoom mini pour l'interactivité
+    this.piiMinZoom = 15; // zoom mini pour l'interactivité
 
     this.popup = null;
 
