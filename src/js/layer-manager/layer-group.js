@@ -126,6 +126,7 @@ const addOpacity = (id, value) => {
         if (!originalLayerOpacity[layer.id]) {
           originalLayerOpacity[layer.id] = Globals.map.getPaintProperty(layer.id, `${layer.type}-opacity`);
         }
+        // TODO: gérer quand l'opacity est sous forme de stops
         if (typeof originalLayerOpacity[layer.id] === "number") {
           Globals.map.setPaintProperty(layer.id, `${layer.type}-opacity`, value * originalLayerOpacity[layer.id]);
         } else {
