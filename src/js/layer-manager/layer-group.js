@@ -7,6 +7,8 @@ import Globals from "../globals";
 
 // Pour le passage en couleur après passage en noir et blanc
 const originalLayerColors = {};
+// Pour les layers transparents par défaut
+const originalLayerOpacity = {};
 
 /**
  * Add a layer group to the map.
@@ -121,7 +123,17 @@ const addOpacity = (id, value) => {
         Globals.map.setPaintProperty(layer.id, "icon-opacity", value);
         Globals.map.setPaintProperty(layer.id, "text-opacity", value);
       } else {
-        Globals.map.setPaintProperty(layer.id, `${layer.type}-opacity`, value);
+        if (!originalLayerOpacity[layer.id]) {
+          originalLayerOpacity[layer.id] = Globals.map.getPaintProperty(layer.id, `${layer.type}-opacity`);
+        }
+        if (typeof originalLayerOpacity[layer.id] === "number") {
+          Globals.map.setPaintProperty(layer.id, `${layer.type}-opacity`, value * originalLayerOpacity[layer.id]);
+        } else {
+          Globals.map.setPaintProperty(layer.id, `${layer.type}-opacity`, value);
+        }
+        if (value === 1) {
+          Globals.map.setPaintProperty(layer.id, `${layer.type}-opacity`, originalLayerOpacity[layer.id]);
+        }
       }
     }
   }
