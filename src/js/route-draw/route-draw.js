@@ -215,25 +215,62 @@ class RouteDraw {
     this.#editionButtonsListeners();
 
     DOM.$routeDrawModeSelectTransportPedestrian.addEventListener("click", () => {
-      this.transport = "pedestrian";
-      document.getElementById("routeDrawModeTransportCar").classList.add("d-none");
-      document.getElementById("routeDrawModeTransportPedestrian").classList.remove("d-none");
-      document.querySelector(".routeDrawSummaryTransport").className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + this.transport;
+      this.#changeTransport("pedestrian");
       this.changeMode(1);
     });
     DOM.$routeDrawModeSelectTransportCar.addEventListener("click", () => {
-      this.transport = "car";
-      document.getElementById("routeDrawModeTransportCar").classList.remove("d-none");
-      document.getElementById("routeDrawModeTransportPedestrian").classList.add("d-none");
-      document.querySelector(".routeDrawSummaryTransport").className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + this.transport;
+      this.#changeTransport("car");
       this.changeMode(1);
     });
     document.getElementById("routeDrawModeSelectModeFree").addEventListener("click", () => {
+      this.#changeTransport("pedestrian");
       this.changeMode(0);
-      this.transport = "pedestrian";
-      document.getElementById("routeDrawModeTransportCar").classList.add("d-none");
-      document.getElementById("routeDrawModeTransportPedestrian").classList.remove("d-none");
-      document.querySelector(".routeDrawSummaryTransport").className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + this.transport;
+    });
+  }
+
+  #changeTransport(transport) {
+    if (this.transport !== transport) {
+      if (this.data.steps.length > 0) {
+        this.#informChangeTransportImpossible();
+        return;
+      }
+      let savedPoints;
+      if (this.data.points.length === 1) {
+        savedPoints = JSON.parse(JSON.stringify(this.data.points));
+      }
+      this.clear();
+      if (savedPoints) {
+        this.data.points = savedPoints;
+        this.#updateSources();
+      }
+      this.activate();
+      function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+      document.getElementById(`routeDrawModeTransport${capitalizeFirstLetter(transport)}`).classList.remove("d-none");
+      document.getElementById(`routeDrawModeTransport${capitalizeFirstLetter(this.transport)}`).classList.add("d-none");
+    }
+    document.querySelector(".routeDrawSummaryTransport").className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + transport;
+    this.transport = transport;
+    this.#closeRouteDrawMode();
+  }
+
+  #informChangeTransportImpossible() {
+    Toast.show({
+      text: "Impossible de changer de mode en cours de saisie",
+      duration: "short",
+      position: "bottom"
+    });
+  }
+
+  #closeRouteDrawMode() {
+    document.getElementById("routeDrawMode").classList.add("routeDrawModeClose");
+    document.getElementById("routeDrawMode").addEventListener("click", (e) => {
+      if ([
+          "routeDrawMode","routeDrawModeArrow", "routeDrawModeText", "routeDrawModeTransportPedestrian", "routeDrawModeTransportCar"
+          ].includes(e.target.id)) {
+        document.getElementById("routeDrawMode").classList.remove("routeDrawModeClose");
+      }
     });
   }
 
@@ -523,6 +560,11 @@ class RouteDraw {
     // Enregistrement de l'état dans l'historique
     this.#saveState();
     this.#editionButtonsListeners();
+    if (this.transport === "car") {
+      document.getElementById("routeDrawModeSelect").style.removeProperty("max-height");
+      document.getElementById("routeDrawModeArrow").style.removeProperty("transform");
+      document.getElementById("routeDrawMode").removeEventListener("click", this.#informChangeTransportImpossible);
+    }
   }
 
   /**
@@ -594,7 +636,6 @@ class RouteDraw {
       stepCoords = json.geometry.coordinates;
       distance = json.distance;
       duration = json.duration;
-
       this.#updateSources();
     }
 
@@ -626,6 +667,13 @@ class RouteDraw {
     this.#updateElevation();
     if (Globals.backButtonState === "routeDraw") {
       this.__updateRouteInfo(this.data);
+    }
+    if (this.data.steps.length > 0) {
+      if (this.transport === "car") {
+        document.getElementById("routeDrawModeSelect").style.maxHeight = "0";
+        document.getElementById("routeDrawModeArrow").style.transform = "translate(0)";
+        document.getElementById("routeDrawMode").addEventListener("click", this.#informChangeTransportImpossible);
+      }
     }
   }
 
@@ -735,7 +783,7 @@ class RouteDraw {
     this.currentHistoryPosition++;
     DOM.$routeDrawRestore.classList.remove("inactive");
     this.data = JSON.parse(JSON.stringify(this.dataHistory[this.currentHistoryPosition]));
-    if (this.data.elevationData.elevationData.length > 1) {
+    if (this.data.elevationData.elevationData && this.data.elevationData.elevationData.length > 1) {
       this.elevation.setData(this.data.elevationData);
     } else {
       this.#updateElevation();
@@ -744,6 +792,13 @@ class RouteDraw {
     this.__updateRouteInfo(this.data);
     if (this.currentHistoryPosition == this.dataHistory.length - 1) {
       DOM.$routeDrawCancel.classList.add("inactive");
+    }
+    if (this.data.steps.length === 0) {
+      if (this.transport === "car") {
+        document.getElementById("routeDrawModeSelect").style.removeProperty("max-height");
+        document.getElementById("routeDrawModeArrow").style.removeProperty("transform");
+        document.getElementById("routeDrawMode").removeEventListener("click", this.#informChangeTransportImpossible);
+      }
     }
   }
 
@@ -852,6 +907,13 @@ class RouteDraw {
     this.__updateRouteInfo(this.data);
     DOM.$routeDrawCancel.classList.add("inactive");
     this.#clearSources();
+    DOM.$routeDrawRestore.classList.add("inactive");
+    DOM.$routeDrawCancel.classList.add("inactive");
+    if (this.transport === "car") {
+      document.getElementById("routeDrawModeSelect").style.removeProperty("max-height");
+      document.getElementById("routeDrawModeArrow").style.removeProperty("transform");
+      document.getElementById("routeDrawMode").removeEventListener("click", this.#informChangeTransportImpossible);
+    }
   }
 
   /**

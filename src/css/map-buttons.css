@@ -195,7 +195,7 @@
   transition: transform 0.2s ease-out;
 }
 
-#routeDrawMode:hover > #routeDrawModeArrow {
+#routeDrawMode:not(.routeDrawModeClose):hover > #routeDrawModeArrow {
   transform: rotate(-90deg);
 }
 
