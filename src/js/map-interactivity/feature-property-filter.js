@@ -17,7 +17,14 @@ const featurePropertyFilter = (feature) => {
   if (feature.source === "poi_osm") {
     Object.entries(feature.properties).forEach((prop) => {
       if (prop[0] !== "symbo" && prop[0] !== "texte") {
-        result = result + `${prop[0]} : ${prop[1]} <br />`;
+        if (prop[0] === "web") {
+         result = result + `site web : <a href="${prop[1]}" target="_blank">${prop[1]}</a> <br />`;
+        } else if (prop[0] === "telephone") {
+          result = result + `téléphone : <a href="tel:${prop[1].replace(/\s/g, '')}">${prop[1]}</a> <br />`;
+
+        } else {
+          result = result + `${prop[0]} : ${prop[1]} <br />`;
+        }
       }
     });
     return result;
