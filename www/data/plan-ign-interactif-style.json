@@ -3737,7 +3737,7 @@
 				"fill-outline-color": "#B8B8B8"
 			},
 			"metadata": {
-				"legend-title": "Bâtiment indusrtiel ou commercial"
+				"legend-title": "Bâtiment industriel ou commercial"
 			}
 		},
 		{
@@ -16017,24 +16017,6 @@
 			]
 		},
 		{
-			"id": "culture_et_loisirs",
-			"type": "fill",
-			"source": "bdtopo",
-			"source-layer": "zone_d_activite_ou_d_interet",
-			"minzoom": 14,
-			"paint": {
-				"fill-color": "transparent"
-			},
-			"filter": [
-				"all",
-				[
-					"==",
-					"categorie",
-					"Culture et loisirs"
-				]
-			]
-		},
-		{
 			"id": "gestion_des_eaux",
 			"type": "fill",
 			"source": "bdtopo",
@@ -16240,32 +16222,6 @@
 				"visibility": "none"
 			},
 			"minzoom": 14
-		},
-		{
-			"id": "parc_ou_reserve",
-			"type": "fill",
-			"source": "bdtopo",
-			"source-layer": "parc_ou_reserve",
-			"paint": {
-				"fill-color": "transparent",
-				"fill-opacity": 0.5
-			},
-			"layout": {
-				"visibility": "visible"
-			},
-			"minzoom": 15,
-			"maxzoom": 22
-		},
-		{
-			"id": "parc_ou_reserve_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "parc_ou_reserve",
-			"paint": {
-				"line-color": "transparent"
-			},
-			"minzoom": 15,
-			"maxzoom": 22
 		},
 		{
 			"id": "foret_publique",
@@ -17171,26 +17127,6 @@
 			"paint": {
 				"fill-pattern": "cimetiere"
 			}
-		},
-		{
-			"id": "construction_surfacique_surf",
-			"type": "fill",
-			"source": "bdtopo",
-			"source-layer": "construction_surfacique",
-			"paint": {
-				"fill-color": "transparent"
-			},
-			"minzoom": 14
-		},
-		{
-			"id": "construction_surfacique_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "construction_surfacique",
-			"paint": {
-				"line-color": "transparent"
-			},
-			"minzoom": 14
 		},
 		{
 			"id": "construction_lineaire",

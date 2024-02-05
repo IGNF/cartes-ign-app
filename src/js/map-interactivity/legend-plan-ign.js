@@ -73,10 +73,12 @@ function MapBoxStyleToSVG(features, zoom) {
   var height = 24;
   var width = 36;
   const multiplicator = 2;
+  let lineHeight = 0;
+
   features.forEach(f => {
     if (f.type == "line") {
       const lineWidth = getMapboxPropAtZoom(f, "line-width", zoom, 1) * multiplicator;
-      height = lineWidth > height ? lineWidth : height;
+      lineHeight += lineWidth;
     }
     if (f.type == "circle") {
       const circleStrokeWidth = getMapboxPropAtZoom(f, "circle-stroke-width", zoom, 1);
@@ -89,6 +91,7 @@ function MapBoxStyleToSVG(features, zoom) {
       width = sprite.json[symbol].width;
     }
   });
+  if (lineHeight > 0) height = lineHeight;
 
   const x = 0;
   const y = height / 2;
@@ -205,6 +208,7 @@ function Legend(features, zoom) {
       if (feat.source == "plan_ign" && feat.layer.id != "bckgrd") {
         // Dans le cas où c'est un symbole textuel et pas une icone on n'affichera pas de légende.
         if (feat.layer.type == "symbol" && !Object.hasOwnProperty.call(feat.layer.layout, "icon-image")) return;
+        if (feat.layer.id == 'zone batie') return;
         return feat;
       }
     }
