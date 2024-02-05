@@ -118,8 +118,11 @@ function addListeners() {
       if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$bottomButtons.style.bottom = "calc(220px + var(--safe-area-inset-bottom))";
       } else {
-        DOM.$bottomButtons.style.left = "calc(100vh + var(--safe-area-inset-left) + 42px)";
+        DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
         DOM.$bottomButtons.style.width = "auto";
+        if (window.matchMedia("(min-height: 615px)").matches) {
+          DOM.$bottomButtons.style.bottom = "calc(142px + var(--safe-area-inset-bottom))";
+        }
       }
     }
     if (["selectOnMapDirections", "selectOnMapIsochrone", "compare"].includes(Globals.backButtonState)) {
@@ -128,7 +131,7 @@ function addListeners() {
     if (Globals.backButtonState === "compareLayers2") {
       DOM.$sideBySideLeftLayer.style.removeProperty("left");
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(100vh + var(--safe-area-inset-left) - 20px)";
+        DOM.$sideBySideLeftLayer.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) - 20px))";
       }
     }
     Globals.menu.updateScrollAnchors();
