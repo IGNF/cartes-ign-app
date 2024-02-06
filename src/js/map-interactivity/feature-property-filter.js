@@ -18,9 +18,9 @@ const featurePropertyFilter = (feature) => {
     Object.entries(feature.properties).forEach((prop) => {
       if (prop[0] !== "symbo" && prop[0] !== "texte") {
         if (prop[0] === "web") {
-         result = result + `site web : <a href="${prop[1]}" target="_blank">${prop[1]}</a> <br />`;
+          result = result + `site web : <a href="${prop[1]}" target="_blank">${prop[1]}</a> <br />`;
         } else if (prop[0] === "telephone") {
-          result = result + `téléphone : <a href="tel:${prop[1].replace(/\s/g, '')}">${prop[1]}</a> <br />`;
+          result = result + `téléphone : <a href="tel:${prop[1].replace(/\s/g, "")}">${prop[1]}</a> <br />`;
 
         } else {
           result = result + `${prop[0]} : ${prop[1]} <br />`;

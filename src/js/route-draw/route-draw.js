@@ -12,6 +12,11 @@ import { Toast } from "@capacitor/toast";
 import RouteDepartureIcon from "../../css/assets/route-draw/departure-marker.png";
 import RouteDestinationIcon from "../../css/assets/route-draw/destination-marker.png";
 
+/** util */
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 /**
  * Interface sur le tracé d'itinéraire
  * @module RouteDraw
@@ -244,9 +249,6 @@ class RouteDraw {
         this.#updateSources();
       }
       this.activate();
-      function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      }
       document.getElementById(`routeDrawModeTransport${capitalizeFirstLetter(transport)}`).classList.remove("d-none");
       document.getElementById(`routeDrawModeTransport${capitalizeFirstLetter(this.transport)}`).classList.add("d-none");
     }
@@ -267,8 +269,8 @@ class RouteDraw {
     document.getElementById("routeDrawMode").classList.add("routeDrawModeClose");
     document.getElementById("routeDrawMode").addEventListener("click", (e) => {
       if ([
-          "routeDrawMode","routeDrawModeArrow", "routeDrawModeText", "routeDrawModeTransportPedestrian", "routeDrawModeTransportCar"
-          ].includes(e.target.id)) {
+        "routeDrawMode", "routeDrawModeArrow", "routeDrawModeText", "routeDrawModeTransportPedestrian", "routeDrawModeTransportCar"
+      ].includes(e.target.id)) {
         document.getElementById("routeDrawMode").classList.remove("routeDrawModeClose");
       }
     });

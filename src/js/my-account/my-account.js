@@ -238,7 +238,7 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
         duration: "long",
         position: "bottom"
       });
-      shareRoute(route);
+      this.shareRoute(route);
     });
   }
 
