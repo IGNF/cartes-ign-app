@@ -297,7 +297,7 @@
   background-position: center;
   position: fixed;
   left: calc(50vw - 25px);
-  top: calc((100vh - 72px - var(--safe-area-inset-bottom))/2 - 25px);
+  top: calc((100vh - 52px - var(--safe-area-inset-bottom))/2 - 25px);
   pointer-events: none;
 }
 

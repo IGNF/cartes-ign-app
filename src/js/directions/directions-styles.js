@@ -150,6 +150,7 @@ const layers = [
     type: "symbol",
     source: "maplibre-gl-directions",
     layout: {
+      "icon-allow-overlap": true,
       "icon-image": "routeDepartureIcon",
       "icon-size": [
         "interpolate",
@@ -170,6 +171,7 @@ const layers = [
     type: "symbol",
     source: "maplibre-gl-directions",
     layout: {
+      "icon-allow-overlap": true,
       "icon-image": "routeDestinationIcon",
       "icon-size": [
         "interpolate",
