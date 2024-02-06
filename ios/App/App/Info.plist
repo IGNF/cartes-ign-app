@@ -46,7 +46,11 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key><false/>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Votre position est nécessaire pour vous positionner sur la carte et calculer des itinéraires et isochrones à partir de votre position</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Votre position est nécessaire pour vous positionner sur la carte et calculer des itinéraires et isochrones à partir de votre position</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+ 	<true/>
 </dict>
 </plist>

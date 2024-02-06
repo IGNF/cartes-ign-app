@@ -186,12 +186,33 @@ class MyAccount {
    * @param {*} route
    */
   shareRoute(route) {
-    Share.share({
-      title: `${route.name}`,
-      text: `${route.name}
+    Filesystem.writeFile({
+      path: `${route.name}.json`,
+      data: JSON.stringify(this.#routeToGeojson(route)),
+      directory: Directory.Cache,
+      encoding: Encoding.UTF8,
+    }).then((result) => {
+      Share.share({
+        title: `${route.name}`,
+        text: `${route.name}
 Temps : ${utils.convertSecondsToTime(route.data.duration)}, Distance : ${utils.convertDistance(route.data.distance)}
 Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : ${route.data.elevationData.dminus} m`,
-      dialogTitle: "Partager mon itinéraire",
+        dialogTitle: "Partager mon itinéraire",
+        url: result.uri,
+      }).catch( () => {
+        Toast.show({
+          text: "L'itinéraire n'a pas pu être partagé. Partage du résumé...",
+          duration: "long",
+          position: "bottom"
+        });
+        Share.share({
+          title: `${route.name}`,
+          text: `${route.name}
+Temps : ${utils.convertSecondsToTime(route.data.duration)}, Distance : ${utils.convertDistance(route.data.distance)}
+Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : ${route.data.elevationData.dminus} m`,
+          dialogTitle: "Partager mon itinéraire (résumé)",
+        });
+      });
     });
   }
 
@@ -203,21 +224,21 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
     Filesystem.writeFile({
       path: `${route.name}.geojson`,
       data: JSON.stringify(this.#routeToGeojson(route)),
-      directory: Directory.Cache,
+      directory: Directory.Documents,
       encoding: Encoding.UTF8,
-    }).then((result) => {
-      Share.share({
-        title: `${route.name}`,
-        dialogTitle: "Partager mon itinéraire",
-        url: result.uri,
-      });
-    }).catch( () => {
+    }).then(() => {
       Toast.show({
-        text: "L'itinéraire n'a pas pu être savegardé. Partage du résumé...",
+        text: "Fichier enregistré dans Documents.",
         duration: "long",
         position: "bottom"
       });
-      this.shareRoute(route);
+    }).catch( () => {
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être savegardé. Partage...",
+        duration: "long",
+        position: "bottom"
+      });
+      shareRoute(route);
     });
   }
 

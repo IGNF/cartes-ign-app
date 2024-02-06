@@ -2,7 +2,9 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+
 
 module.exports = {
   mode: 'production',
@@ -19,6 +21,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/html/index.html'
     }),
+    new PreloadWebpackPlugin({
+      rel: 'preload',
+      include: 'all' // or 'initial'
+    }),
     new Dotenv(),
   ],
   module: {
@@ -29,7 +35,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', { targets: { 
+              ['@babel/preset-env', { targets: {
                 "ios": "13"
               }}]
             ]
