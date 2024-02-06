@@ -22,7 +22,7 @@
 
 #bottomButtons {
   position: absolute;
-  bottom: calc(120px + var(--safe-area-inset-bottom));
+  bottom: calc(72px + 42px + var(--safe-area-inset-bottom));
   width: 100vw;
 }
 
@@ -227,7 +227,7 @@
   justify-content: space-between;
   z-index: 3001;
   position: absolute;
-  bottom: calc(93px + var(--safe-area-inset-bottom));
+  bottom: calc(72px + 15px + var(--safe-area-inset-bottom));
   width: calc(100vw - 30px);
   height: 82px;
   padding: 10px 26px;
@@ -297,7 +297,7 @@
   background-position: center;
   position: fixed;
   left: calc(50vw - 25px);
-  top: calc((100vh - 68px - var(--safe-area-inset-bottom))/2 - 25px);
+  top: calc((100vh - 72px - var(--safe-area-inset-bottom))/2 - 25px);
   pointer-events: none;
 }
 
@@ -306,9 +306,9 @@
   display: flex;
   position: absolute;
   box-sizing: border-box;
-  top: calc(100% - 68px - var(--safe-area-inset-bottom));
+  top: calc(100% - 72px - var(--safe-area-inset-bottom));
   width: 100%;
-  height: calc(68px + var(--safe-area-inset-bottom));
+  height: calc(72px + var(--safe-area-inset-bottom));
   font-size: 12px;
   background-color: white;
   padding: 10px 30px 8px 15px;

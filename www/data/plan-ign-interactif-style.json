@@ -3565,24 +3565,6 @@
 			}
 		},
 		{
-			"id": "parcellaire - parcelle surface",
-			"type": "fill",
-			"source": "plan_ign",
-			"source-layer": "parcellaire_parcelle",
-			"layout": {
-				"visibility": "visible"
-			},
-			"filter": [
-				"==",
-				"symbo",
-				"PARCELLE"
-			],
-			"paint": {
-				"fill-color": "#FFFFD1",
-				"fill-opacity": 0.7
-			}
-		},
-		{
 			"id": "cimetiere surfacique 1",
 			"type": "fill",
 			"source": "plan_ign",
@@ -9864,107 +9846,6 @@
 			},
 			"metadata": {
 				"legend-title": "Parc naturel marin"
-			}
-		},
-		{
-			"id": "parcellaire - parcelle bordure",
-			"type": "line",
-			"source": "plan_ign",
-			"source-layer": "parcellaire_parcelle",
-			"layout": {
-				"visibility": "visible",
-				"line-cap": "round",
-				"line-join": "round"
-			},
-			"filter": [
-				"==",
-				"symbo",
-				"PARCELLE"
-			],
-			"paint": {
-				"line-color": "#9933FF",
-				"line-width": 1
-			}
-		},
-		{
-			"id": "parcellaire - section",
-			"type": "line",
-			"source": "plan_ign",
-			"source-layer": "parcellaire_section",
-			"layout": {
-				"visibility": "visible",
-				"line-cap": "butt",
-				"line-join": "round"
-			},
-			"filter": [
-				"==",
-				"symbo",
-				"SECTION"
-			],
-			"paint": {
-				"line-color": "#287B00",
-				"line-width": 1.9,
-				"line-dasharray": [
-					2,
-					4,
-					2
-				]
-			}
-		},
-		{
-			"id": "toponyme - parcellaire - section",
-			"type": "symbol",
-			"source": "plan_ign",
-			"source-layer": "toponyme_parcellaire_section",
-			"filter": [
-				"==",
-				"txt_typo",
-				"SECTION"
-			],
-			"layout": {
-				"symbol-placement": "line",
-				"text-offset": [
-					0,
-					0
-				],
-				"text-field": "{texte}",
-				"text-size": 15,
-				"text-anchor": "center",
-				"text-keep-upright": true,
-				"text-max-angle": 45,
-				"text-font": [
-					"Source Sans Pro Regular"
-				]
-			},
-			"paint": {
-				"text-color": "#287B00"
-			}
-		},
-		{
-			"id": "toponyme - parcellaire - parcelle",
-			"type": "symbol",
-			"source": "plan_ign",
-			"source-layer": "toponyme_parcellaire_parcelle",
-			"filter": [
-				"==",
-				"txt_typo",
-				"PARCELLE"
-			],
-			"layout": {
-				"symbol-placement": "point",
-				"text-field": "{texte}",
-				"text-size": 11,
-				"text-anchor": "center",
-				"text-keep-upright": true,
-				"text-max-angle": 45,
-				"text-font": [
-					"Source Sans Pro Bold"
-				]
-			},
-			"paint": {
-				"text-color": "#9933FF",
-				"text-halo-width": 1,
-				"text-halo-color": "#FFFFFF"
 			}
 		},
 		{
@@ -17169,7 +17050,7 @@
 			"source-layer": "cimetiere",
 			"minzoom": 14,
 			"paint": {
-				"fill-pattern": "cimetiere"
+				"fill-color": "transparent"
 			}
 		},
 		{
@@ -17448,13 +17329,13 @@
 		},
 		{
 			"id": "construction_ponctuelle",
-			"type": "symbol",
+			"type": "circle",
 			"source": "bdtopo",
 			"source-layer": "construction_ponctuelle",
 			"minzoom": 14,
-			"layout": {
-				"icon-image": "construction_ponctuelle",
-				"icon-size": 15
+			"paint": {
+				"circle-radius": 7,
+				"circle-color": "transparent"
 			}
 		},
 		{

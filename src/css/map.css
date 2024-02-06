@@ -34,7 +34,7 @@
 
 /* Map */
 .map {
-  height: calc(100vh - 48px - var(--safe-area-inset-bottom));
+  height: calc(100vh - 52px - var(--safe-area-inset-bottom));
   width: 100vw;
   flex-grow: 1;
   position: fixed;

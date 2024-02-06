@@ -163,7 +163,7 @@
     left: calc(85px + var(--safe-area-inset-left));
   }
   #searchResults {
-    height: calc(100vh - 68px - var(--safe-area-inset-top));
+    height: calc(100vh - 72px - var(--safe-area-inset-top));
     flex-wrap: wrap;
   }
   #searchResults > div {
