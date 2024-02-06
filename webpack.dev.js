@@ -27,7 +27,10 @@ module.exports = {
     }),
     new PreloadWebpackPlugin({
       rel: 'preload',
-      include: 'all' // or 'initial'
+      as: 'image',
+      include: 'allAssets',
+      fileWhitelist: [/\.(png|jpe?g|gif|svg)$/],
+      includeHtmlNames: ['index.html'],
     }),
     new Dotenv(),
   ],
