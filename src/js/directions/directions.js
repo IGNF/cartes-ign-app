@@ -41,12 +41,9 @@ class Directions {
     //   cf. https://project-osrm.org/docs/v5.24.0/api/#
     //   ex. https://map.project-osrm.org/
     this.configuration = this.options.configuration || {
-      api: "https://router.project-osrm.org/route/v1",
-      profile: "driving",
-      requestOptions: {
-        overview: "full",
-        steps: "true"
-      },
+      api: "https://data.geopf.fr/navigation/itineraire",
+      profile: "pedestrian",
+      optimization: "fastest",
       requestTimeout: null,
       makePostRequest: false,
       sourceName: "maplibre-gl-directions",
@@ -85,6 +82,96 @@ class Directions {
 
     // objet
     this.obj = new MapLibreGlDirections(this.map, this.configuration);
+
+    // REMOVEME: override buildRequest method
+    this.obj.buildRequest = function(configuration, waypointsCoordinates, waypointsBearings = undefined) {
+      let url;
+      let method = "get";
+      let payload = "";
+      if (configuration.profile == "pedestrian") {
+        configuration.optimization = "shortest";
+      }
+      url = `${configuration.api}?resource=bdtopo-osrm&profile=${configuration.profile}&optimization=${configuration.optimization}&start=${waypointsCoordinates.shift()}&end=${waypointsCoordinates.pop()}&intermediates=${waypointsCoordinates.join("|")}&geometryFormat=polyline`;
+
+      if (waypointsBearings) {
+        console.log("coucou");
+      }
+
+      return {
+        method,
+        url,
+        payload
+      };
+    };
+    // REMOVEME: override buildRequest method
+    this.obj.fetch = async function({ method, url, payload }) {
+      const response = (await (method === "get"
+        ? await fetch(`${url}`, { signal: this.abortController?.signal })
+        : console.log(payload)
+      ).json());
+
+      const formatedResponse = {
+        code: "Ok",
+        routes: [],
+        waypoints: [],
+      };
+
+      const route = {
+        geometry: response.geometry,
+        legs: [],
+        weight_name: "routability",
+        weight: this.configuration.optimization === "fastest" ? response.duration : response.distance,
+        duration: response.duration,
+        distance: response.distance,
+      };
+
+      for (let i = 0; i < response.portions.length; i++) {
+        const portion = response.portions[i];
+        if (formatedResponse.waypoints.length === 0) {
+          formatedResponse.waypoints.push({
+            hint: "-1",
+            name: "-1",
+            location: [parseFloat(portion.start.split(",")[0]), parseFloat(portion.start.split(",")[1])],
+          });
+        }
+        formatedResponse.waypoints.push({
+          hint: "" + i,
+          name: "" + i,
+          location: [parseFloat(portion.end.split(",")[0]), parseFloat(portion.end.split(",")[1])],
+        });
+        route.legs.push({
+          steps: [],
+          summary: "" + i,
+          weight: this.configuration.optimization === "fastest" ? portion.duration : portion.distance,
+          duration: portion.duration,
+          distance: portion.distance,
+        });
+        for (let j = 0; j < portion.steps.length; j++) {
+          const step = portion.steps[j];
+          route.legs[i].steps.push({
+            geometry: step.geometry,
+            maneuver: {
+              bearing_after: 0,
+              bearing_before: 0,
+              location: [0, 0],
+              modifier: step.instruction.modifier,
+              type: step.instruction.type,
+            },
+            mode: this.configuration.profile,
+            driving_side: "right",
+            name: step,
+            intersections: [],
+            weight: this.configuration.optimization === "fastest" ? step.duration : step.distance,
+            duration: step.duration,
+            distance: step.distance,
+          });
+        }
+      }
+      formatedResponse.routes.push(route);
+
+      return formatedResponse;
+    };
+    // END REMOVEME
 
     // INFO sans interaction par défaut !
     // > choix d'activer via la méthode publique...
@@ -151,8 +238,10 @@ class Directions {
       // mettre en place les differents types de profile si le service le permet !
       switch (settings.transport) {
       case "Pieton":
+        this.configuration.profile = "pedestrian";
+        break;
       case "Voiture":
-        this.configuration.profile = "driving";
+        this.configuration.profile = "car";
         break;
       default:
         break;
@@ -164,9 +253,11 @@ class Directions {
       var message = "";
       switch (code) {
       case "Shortest":
+        this.configuration.optimization = "shortest";
         message = "Itinéraire le plus court";
         break;
       case "Fastest":
+        this.configuration.optimization = "fastest";
         message = "Itinéraire le plus rapide";
         break;
       default:
@@ -234,12 +325,14 @@ class Directions {
         decode(e.data.routes[0].geometry).forEach( (lnglat) => {
           routeCoordinates.push([lnglat[0], lnglat[1]]);
         });
-        var padding = 20;
+        var padding;
         // gestion du mode paysage / écran large
         if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
           var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
-                      window.innerHeight + 42;
+                      Math.min(window.innerHeight, window.innerWidth/2) + 42;
           padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
+        } else {
+          padding = {top: 80, right: 20, bottom: 120, left: 20};
         }
         if (routeCoordinates.length > 1) {
           const bounds = routeCoordinates.reduce((bounds, coord) => {

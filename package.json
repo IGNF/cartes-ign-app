@@ -39,7 +39,7 @@
     "@capgo/capacitor-navigation-bar": "^6.0.12",
     "@mapbox/mapbox-gl-sync-move": "^0.3.1",
     "@maplibre/maplibre-gl-compare": "^0.5.0",
-    "@maplibre/maplibre-gl-directions": "^0.5.0",
+    "@maplibre/maplibre-gl-directions": "^0.6.1",
     "@turf/buffer": "^6.5.0",
     "@turf/union": "^6.5.0",
     "chart.js": "^4.4.1",

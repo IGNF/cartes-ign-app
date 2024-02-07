@@ -181,9 +181,11 @@ let DirectionsDOM = {
     inputPedestrian.name = "Transport";
     inputPedestrian.value = "Pieton";
     inputPedestrian.checked = true;
+    var self = this;
     inputPedestrian.addEventListener("change", function (e) {
-      // TODO
-      console.log(e);
+      if (e.target.checked) {
+        self.obj.configuration.profile = "pedestrian";
+      }
     });
     div.appendChild(inputPedestrian);
 
@@ -200,8 +202,9 @@ let DirectionsDOM = {
     inputCar.name = "Transport";
     inputCar.value = "Voiture";
     inputCar.addEventListener("change", function (e) {
-      // TODO
-      console.log(e);
+      if (e.target.checked) {
+        self.obj.configuration.profile = "car";
+      }
     });
     div.appendChild(inputCar);
 
@@ -235,9 +238,11 @@ let DirectionsDOM = {
     inputFastest.name = "Computation";
     inputFastest.value = "Fastest";
     inputFastest.checked = true;
+    var self = this;
     inputFastest.addEventListener("change", function (e) {
-      // TODO
-      console.log(e);
+      if (e.target.checked) {
+        self.obj.configuration.optimization = "fastest";
+      }
     });
     div.appendChild(inputFastest);
 
@@ -254,8 +259,9 @@ let DirectionsDOM = {
     inputShortest.name = "Computation";
     inputShortest.value = "Shortest";
     inputShortest.addEventListener("change", function (e) {
-      // TODO
-      console.log(e);
+      if (e.target.checked) {
+        self.obj.configuration.optimization = "shortest";
+      }
     });
     div.appendChild(inputShortest);
 
