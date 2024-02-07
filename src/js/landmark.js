@@ -1,0 +1,214 @@
+import Globals from "./globals";
+
+import { Toast } from "@capacitor/toast";
+
+// dependance : abonnement au event du module
+import Geocode from "./services/geocode";
+import Location from "./services/location";
+
+/**
+ * Interface sur le contrôle point de repère
+ * @module Landmark
+ */
+class Landmark {
+  /**
+   * constructeur
+   * @constructs
+   * @param {*} map
+   * @param {*} options
+   */
+  constructor(map, options) {
+    this.options = options || {
+      target: null,
+      // callback
+      openSearchControlCbk: null,
+      closeSearchControlCbk: null
+    };
+    this.target = this.options.target || document.getElementById("landmarkWindow");
+
+    this.map = map;
+
+    this.data = {
+      title: null,
+      description: null,
+      location: null,
+      locationName: null,
+      color: null,
+      icon: null,
+    };
+
+    this.#render();
+    this.#listeners();
+    return this;
+  }
+
+  /**
+   * Récupération du dom
+   */
+  #render() {
+    if (!this.target) {
+      console.warn();
+      return;
+    }
+    this.dom = {
+      location: this.target.querySelector("#landmarkLocation"),
+      title: this.target.querySelector("#landmark-title"),
+      description: this.target.querySelector("#landmark-description"),
+      radioColors: this.target.querySelectorAll("[name='landmark-color']"),
+      radioIcons: this.target.querySelectorAll("[name='landmark-icon']"),
+      submitButton: this.target.querySelector(".landmark-submit"),
+    };
+  }
+
+  /**
+   * Ajout des listeners
+   */
+  #listeners() {
+    this.dom.location.addEventListener("click", (e) => {
+      // ouverture du menu de recherche
+      this.onOpenSearchLocation(e);
+    });
+    this.dom.submitButton.addEventListener("click", () => {
+      const color = Array.from(this.dom.radioColors).filter((el) => el.checked)[0].value;
+      const icon = Array.from(this.dom.radioIcons).filter((el) => el.checked)[0].value;
+      this.data = {
+        title: this.dom.title.value,
+        description: this.dom.description.value,
+        location: this.dom.location.dataset.coordinates,
+        locationName: this.dom.location.value,
+        color: color,
+        icon: icon,
+      };
+      if (!this.data.location || !this.data.title) {
+        Toast.show({
+          text: "Donnez un titre et un lieu à votre point de repère",
+          duration: "long",
+          position: "bottom"
+        });
+        return;
+      }
+      const landmarkJson = this.#generateGeoJson();
+      Globals.myaccount.addLandmark(JSON.parse(JSON.stringify(landmarkJson)));
+      Toast.show({
+        text: "Point de repère enregistré dans 'Compte'",
+        duration: "long",
+        position: "top"
+      });
+      this.hide();
+    });
+  }
+
+  /**
+   * génère le geojson correspondant aux données
+   * @returns geojson
+   */
+  #generateGeoJson() {
+    return {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: JSON.parse(this.data.location),
+      },
+      properties: {
+        title: this.data.title,
+        color: this.data.color,
+        icon: this.data.icon,
+        locationName: this.data.locationName,
+        description: this.description,
+        visible: true,
+      }
+    };
+  }
+
+  /**
+   * Ferme la fenêtre
+   * @public
+   */
+  hide() {
+    Globals.menu.close("landmark");
+  }
+
+  /**
+   * clean du formulaire
+   * @public
+   */
+  clear() {
+    this.dom.title.value = "";
+    this.dom.description.value = "";
+    this.dom.location.value = "";
+    this.dom.location.dataset.coordinates = "";
+    this.data = {
+      title: null,
+      description: null,
+      location: null,
+      locationName: null,
+      color: null,
+      icon: null,
+    };
+  }
+
+  /**
+   * listener issu du dom sur l'interface du menu 'search'
+   * @param {*} e
+   * @see MenuDisplay.openSearchLandmark()
+   * @see MenuDisplay.closeSearchLandmark()
+   * @see Geocode
+   */
+  onOpenSearchLocation(e) {
+    // contexte
+    var self = this;
+
+    // on ouvre le menu
+    if (this.options.openSearchControlCbk) {
+      this.options.openSearchControlCbk();
+    }
+
+    // on transmet d'où vient la demande de location
+    var target = e.target;
+
+    // les handler sur
+    // - le geocodage
+    // - la fermeture du menu
+    // - le nettoyage des ecouteurs
+    function setLocation(e) {
+      // on ferme le menu
+      if (e.type !== "geolocation" && self.options.closeSearchControlCbk) {
+        self.options.closeSearchControlCbk();
+      }
+      // on enregistre dans le DOM :
+      // - les coordonnées en WGS84G soit lon / lat !
+      // - la reponse du geocodage
+      target.dataset.coordinates = "[" + e.detail.coordinates.lon + "," + e.detail.coordinates.lat + "]";
+      target.value = e.detail.text;
+      // on supprime les écouteurs
+      cleanListeners();
+    }
+    function cleanLocation() {
+      target.dataset.coordinates = "";
+      target.value = "";
+      cleanListeners();
+    }
+    function cleanListeners() {
+      var close = document.getElementById("closeSearch");
+      if (close) {
+        close.removeEventListener("click", cleanLocation);
+      }
+      Geocode.target.removeEventListener("search", setLocation);
+      Location.target.removeEventListener("geolocation", setLocation);
+    }
+
+    // abonnement au geocodage
+    Geocode.target.addEventListener("search", setLocation);
+
+    // abonnement à la geolocalisation
+    Location.target.addEventListener("geolocation", setLocation);
+
+    // abonnement au bouton de fermeture du menu
+    var close = document.getElementById("closeSearch");
+    if (close) {
+      close.removeEventListener("click", cleanLocation);
+    }
+  }
+}
+
+export default Landmark;

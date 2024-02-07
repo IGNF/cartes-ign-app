@@ -51,7 +51,7 @@ class RouteDrawSave {
       Toast.show({
         text: "Itinéraire enregistré dans 'Compte'",
         duration: "long",
-        position: "bottom"
+        position: "top"
       });
     });
   }

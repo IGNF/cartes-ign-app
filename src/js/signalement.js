@@ -34,12 +34,15 @@ class Signalement {
       location: null,
     };
 
-    this.url = this.options.url || "https://geoportail.qua.ign-mut.ovh/wp-json/wp/v2/";
+    this.url = this.options.url || `${process.env.signalement_url}`;
     this.#render();
     this.#listeners();
     return this;
   }
 
+  /**
+   * Récupération du dom
+   */
   #render() {
     if (!this.target) {
       console.warn();
@@ -55,12 +58,11 @@ class Signalement {
     // TODO: remplir automatiquement email si connecté via Globals.myaccount
   }
 
+  /**
+   * Ajout des listeners
+   */
   #listeners() {
-    document.getElementById("signalement-ok").addEventListener("click", () => {
-      Globals.menu.close("signalement");
-    });
-    this.dom.submitButton.addEventListener("click", (e) => {
-      e.preventDefault();
+    this.dom.submitButton.addEventListener("click", () => {
       this.data = {
         title: this.dom.title.value,
         description: this.dom.description.value,
@@ -85,9 +87,12 @@ class Signalement {
         console.warn("Signalement sans lieu !");
         return;
       }
-      document.getElementById("signalementWindowDefault").classList.add("d-none");
-      document.getElementById("signalementFinished").classList.remove("d-none");
       this.#send();
+      Toast.show({
+        text: "Votre signalement a été transmis aux équipes concernées.",
+        duration: "long",
+        position: "top"
+      });
     });
   }
 

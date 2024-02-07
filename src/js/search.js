@@ -95,6 +95,11 @@ class Search {
         setTimeout(() => {
           Globals.menu.open("selectOnMapIsochrone");
         }, 250);
+      } else if (Globals.backButtonState === "searchLandmark") {
+        e.target.classList.add("autocompresultselected");
+        setTimeout(() => {
+          Globals.menu.open("selectOnMapIsochrone");
+        }, 250);
       }
     }, true);
 
@@ -113,6 +118,11 @@ class Search {
             setTimeout(() => {
               this.hide();
               Globals.menu.open("isochrone");
+            }, 250);
+          } else if (Globals.backButtonState === "searchLandmark") {
+            setTimeout(() => {
+              this.hide();
+              Globals.menu.open("landmark");
             }, 250);
           } else {
             setTimeout(() =>{

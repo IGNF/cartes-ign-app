@@ -35,6 +35,11 @@ function addListeners() {
           Geocode.search(DOM.$rech.value);
           Globals.menu.open("isochrone");
         }, 250);
+      } else if(Globals.backButtonState === "searchLandmark") {
+        setTimeout(() => {
+          Geocode.search(DOM.$rech.value);
+          Globals.menu.open("landmark");
+        }, 250);
       } else {
         Geocode.searchAndMoveTo(DOM.$rech.value);
         setTimeout(() => Globals.menu.close("search"), 250);
@@ -95,7 +100,7 @@ function addListeners() {
     if (Globals.backButtonState !== "default") {
       Globals.currentScrollIndex = 1;
     }
-    if (["searchDirections", "searchIsochrone", "search"].includes(Globals.backButtonState)) {
+    if (["searchDirections", "searchIsochrone", "searchLandmark", "search"].includes(Globals.backButtonState)) {
       document.body.style.removeProperty("overflow-y");
       DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
       DOM.$backTopLeftBtn.style.removeProperty("height");
