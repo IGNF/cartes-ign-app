@@ -128,6 +128,14 @@ class MyAccount {
   }
 
   /**
+   * Ajout d'un point de repère à l'espace utilisateur
+   * @param {*} landmarkGeojson
+   */
+  addLandmark(landmarkGeojson) {
+    console.log(landmarkGeojson);
+  }
+
+  /**
    * Supprime un itinéraire de l'epace utilisateur
    */
   deleteRoute(routeId) {

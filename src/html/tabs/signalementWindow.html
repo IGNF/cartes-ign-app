@@ -1,5 +1,5 @@
 <div class="d-none" id="signalementWindow">
-  <div id="signalementWindowDefault">
+  <div>
     <p class="signalementTitle">Avant d'effectuer un signalement</p>
     <p class="signalementText">
       Avant de nous faire part d'une observation sur nos données, nous vous recommandons de prendre connaissance de notre <a href="https://www.geoportail.gouv.fr/faq#jai-constate-une-anomalie-dans-les-donnees" class="link-fullPage-faq" target="_blank" title="FAQ dédiée">FAQ dédiée</a> et/ou des outils ci-dessous. Vous y trouverez peut-être déjà une réponse.
@@ -26,12 +26,7 @@
       </select>
       <textarea id="signalement-description" name="signalement-description" class="signalement-textarea" title="Description" required="" placeholder="Explicitez votre signalement de façon la plus détaillée possible (sinon nous ne serons pas en mesure de le traiter)"></textarea>
       <input type="email" id="signalement-email" class="signalement-input-text" title="Email" autocomplete="email" placeholder="Renseignez votre adresse courriel" required=""> <br/>
-      <input type="submit" class="signalement-submit" value="Valider">
+      <div class="signalement-submit">Valider</div>
     </form>
-  </div>
-  <div id="signalementFinished" class="d-none">
-    <p>Votre signalement a été transmis aux équipes concernées.</p>
-    <p>Nous vous remercions de participer à l'amélioration des données de l'IGN.</p>
-    <button id="signalement-ok" class="signalement-submit" type="button">Fermer</button>
   </div>
 </div>

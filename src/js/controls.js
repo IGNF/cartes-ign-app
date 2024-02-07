@@ -12,6 +12,7 @@ import MapInteractivity from "./map-interactivity/map-interactivity";
 import MyAccount from "./my-account/my-account";
 import ComparePoi from "./compare-poi";
 import Signalement from "./signalement";
+import Landmark from "./landmark";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -52,6 +53,7 @@ const addControls = () => {
       openIsochroneCbk : () => { Globals.menu.open("isochrone"); },
       openDirectionsCbk : () => { Globals.menu.open("directions"); },
       openSignalCbk : () => { Globals.menu.open("signalement"); },
+      openLandmarkCbk : () => { Globals.menu.open("landmark"); },
     });
 
     // contrôle Recherche
@@ -92,12 +94,24 @@ const addControls = () => {
     // signalement
     Globals.signalement = new Signalement(map, {});
 
+    // points de repère
+    Globals.landmark = new Landmark(map, {
+      // callback sur l'ouverture / fermeture du panneau
+      openSearchControlCbk : () => { Globals.menu.open("searchLandmark"); },
+      closeSearchControlCbk : () => { Globals.menu.close("searchLandmark"); },
+    });
+
     // contrôle filtres POI
     Globals.poi = new POI(map, {});
     Globals.poi.load() // promise !
       .then(() => {
-      // opérations possibles aprés le chargement des POI
+        // opérations possibles aprés le chargement des POI
         console.debug("POI loaded !");
+      })
+      .catch((e) => {
+      // on ne capture pas les exceptions
+        console.error(e);
+      }).finally(() => {
         // INFO
         // le contrôle de calcul d'isochrone est en attente de l'initialisation des POI
         Globals.isochrone = new Isochrone(map, {
@@ -107,10 +121,6 @@ const addControls = () => {
         });
         // Poi RLT
         Globals.comparePoi = new ComparePoi(map, {});
-      })
-      .catch((e) => {
-      // on ne capture pas les exceptions
-        console.error(e);
       });
   });
 };

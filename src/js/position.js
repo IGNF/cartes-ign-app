@@ -30,6 +30,7 @@ class Position {
       openIsochroneCbk: null,
       openDirectionsCbk: null,
       openSignalCbk: null,
+      openLandmarkCbk: null,
     };
 
     // carte
@@ -117,6 +118,7 @@ Altitude : ${altitude} m
       <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
       <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
       <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+      <button id="positionLandmark" class="btnPositionButtons"><label class="lblPositionImg lblPositionLandmarkImg"></label>Enregistrer</button>
       <button id="positionSignal" class="btnPositionButtons"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
       `;
 
@@ -125,6 +127,7 @@ Altitude : ${altitude} m
         <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
         <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
         <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+        <button id="positionLandmark" class="btnPositionButtons"><label class="lblPositionImg lblPositionLandmarkImg"></label>Point de repère</button>
         `;
     }
 
@@ -208,7 +211,21 @@ Altitude : ${altitude} m
         target.value = this.name;
       }
     });
-    // ajout des listeners principaux :
+    shadowContainer.getElementById("positionLandmark").addEventListener("click", () => {
+      const coordinates = this.coordinates;
+      // fermeture du panneau actuel
+      if (this.options.closePositionCbk) {
+        this.options.closePositionCbk();
+        this.opened = false;
+      }
+      // ouverture du panneau Itinéraire
+      if (this.options.openLandmarkCbk) {
+        this.options.openLandmarkCbk();
+        let target = document.getElementById("landmarkLocation");
+        target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
+        target.value = this.name;
+      }
+    });
     if (this.header !== "Ma position") {
       shadowContainer.getElementById("positionSignal").addEventListener("click", () => {
         const coordinates = this.coordinates;

@@ -58,6 +58,9 @@ const onBackKeyDown = () => {
   if (Globals.backButtonState === "searchIsochrone") {
     Globals.menu.close("searchIsochrone");
   }
+  if (Globals.backButtonState === "searchLandmark") {
+    Globals.menu.close("searchLandmark");
+  }
   if (Globals.backButtonState.split("-")[0] === "position") {
     previousState = Globals.backButtonState.split("-")[1] || "default";
     Globals.menu.close("position");
@@ -108,6 +111,9 @@ const onBackKeyDown = () => {
   }
   if (Globals.backButtonState === "signalement") {
     Globals.menu.close("signalement");
+  }
+  if (Globals.backButtonState === "landmark") {
+    Globals.menu.close("landmark");
   }
 };
 

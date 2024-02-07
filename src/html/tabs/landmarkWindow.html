@@ -1,0 +1,31 @@
+<div class="d-none" id="landmarkWindow">
+  <p class="landmarkTitle">Créer un point de repère</p>
+  <form class="landmarkForm">
+    <input id="landmarkLocation" class="inputLandmarkLocation" required type="text" placeholder="Saisir une adresse *" name="location" data-coordinates="">
+    <input type="text" id="landmark-title" name="landmark-title" class="landmark-input-text" placeholder="Donnez un titre *" title="Nom du point de repère" required="">
+    <textarea id="landmark-description" name="landmark-description" class="landmark-textarea" title="Ajoutez une description" placeholder="Ajouter une description"></textarea>
+    <p class="landmarkSubtitle">Choisissez la couleur du point de repère</p>
+    <div class="landmarkRadio">
+      <input class="landmarkColorInput" type="radio" id="landmark-color-blue" name="landmark-color" value="#3993F3" checked />
+      <label class="landmarkColorInputLabel" for="landmark-color-blue"></label>
+      <input class="landmarkColorInput" type="radio" id="landmark-color-orange" name="landmark-color" value="#C17346" />
+      <label class="landmarkColorInputLabel" for="landmark-color-orange"></label>
+      <input class="landmarkColorInput" type="radio" id="landmark-color-darkgreen" name="landmark-color" value="#26A581" />
+      <label class="landmarkColorInputLabel" for="landmark-color-darkgreen"></label>
+      <input class="landmarkColorInput" type="radio" id="landmark-color-green" name="landmark-color" value="#90C149" />
+      <label class="landmarkColorInputLabel" for="landmark-color-green"></label>
+      <input class="landmarkColorInput" type="radio" id="landmark-color-yellow" name="landmark-color" value="#EFC931" />
+      <label class="landmarkColorInputLabel" for="landmark-color-yellow"></label>
+    </div>
+    <p class="landmarkSubtitle">Choisissez une catégorie de lieu</p>
+    <div class="landmarkRadio">
+      <input class="landmarkIconInput" type="radio" id="landmark-icon-saved" name="landmark-icon" value="landmark-icon-saved" checked />
+      <label class="landmarkIconInputLabel" for="landmark-icon-saved">Enregistré</label>
+      <input class="landmarkIconInput" type="radio" id="landmark-icon-favourite" name="landmark-icon" value="landmark-icon-favourite" />
+      <label class="landmarkIconInputLabel" for="landmark-icon-favourite">Favori</label>
+      <input class="landmarkIconInput" type="radio" id="landmark-icon-tovisit" name="landmark-icon" value="landmark-icon-tovisit" />
+      <label class="landmarkIconInputLabel" for="landmark-icon-tovisit">À visiter</label>
+    </div>
+    <div class="landmark-submit">Enregistrer</div>
+  </form>
+</div>

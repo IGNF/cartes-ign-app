@@ -47,6 +47,10 @@ class MenuNavigation {
     document.getElementById("isochrone").addEventListener("click", () => {
       this.open("isochrone");
     });
+    // "Créer un point de repère"
+    document.getElementById("landmark").addEventListener("click", () => {
+      this.open("landmark");
+    });
     // "S'y rendre"
     document.getElementById("directions").addEventListener("click", () => {
       this.open("directions");
@@ -102,6 +106,14 @@ class MenuNavigation {
     // y'a t il des particularités sur l'ouverture du panneau demandé ?
     var isSpecific = false;
     switch (id) {
+    case "landmark":
+      DOM.$search.style.display = "none";
+      DOM.$filterPoiBtn.classList.add("d-none");
+      DOM.$sideBySideBtn.classList.add("d-none");
+      DOM.$backTopLeftBtn.classList.remove("d-none");
+      Globals.interactivityIndicator.hardDisable();
+      Globals.currentScrollIndex = 1;
+      break;
     case "signalement":
       DOM.$positionWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
@@ -268,6 +280,7 @@ class MenuNavigation {
       break;
     case "searchDirections":
     case "searchIsochrone":
+    case "searchLandmark":
       DOM.$search.style.display = "flex";
       DOM.$selectOnMap.classList.remove("d-none");
       // falls through
@@ -326,14 +339,20 @@ class MenuNavigation {
     var isSpecific = false;
     var isFinished = false; // hack pour search !
     switch (id) {
+    case "landmark":
+      DOM.$search.style.display = "flex";
+      DOM.$filterPoiBtn.classList.remove("d-none");
+      DOM.$backTopLeftBtn.classList.add("d-none");
+      DOM.$sideBySideBtn.classList.remove("d-none");
+      Globals.landmark.clear();
+      Globals.interactivityIndicator.enable();
+      break;
     case "signalement":
       DOM.$positionWindow.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
       Globals.interactivityIndicator.enable();
       Globals.signalement.clear();
       DOM.$sideBySideBtn.classList.remove("d-none");
-      document.getElementById("signalementWindowDefault").classList.remove("d-none");
-      document.getElementById("signalementFinished").classList.add("d-none");
       isSpecific = true;
       isFinished = true;
       break;
@@ -471,6 +490,7 @@ class MenuNavigation {
       break;
     case "searchDirections":
     case "searchIsochrone":
+    case "searchLandmark":
       DOM.$rech.blur();
       if (document.querySelector(".autocompresultselected")) {
         document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
@@ -588,6 +608,16 @@ class MenuNavigation {
       DOM.$directionsWindow.classList.remove("d-none");
       Globals.backButtonState = "directions"; // on revient sur le contrôle !
       this.#midScroll();
+      break;
+    case "searchLandmark":
+    case "selectOnMapLandmark":
+      DOM.$filterPoiBtn.classList.add("d-none");
+      DOM.$search.style.display = "none";
+      DOM.$backTopLeftBtn.classList.remove("d-none");
+      DOM.$landmarkWindow.classList.remove("d-none");
+      Globals.backButtonState = "landmark"; // on revient sur le contrôle !
+      Globals.currentScrollIndex = 1;
+      this.updateScrollAnchors();
       break;
     case "searchIsochrone":
     case "selectOnMapIsochrone":

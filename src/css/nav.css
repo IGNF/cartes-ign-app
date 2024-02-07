@@ -164,8 +164,8 @@
   background-image: url(../html/img/position.svg);
 }
 
-#repere > .nav-picto {
-  background-image: url(../html/img/repere.svg);
+#landmark > .nav-picto {
+  background-image: url(../html/img/landmark.svg);
 }
 
 #directions > .nav-picto {

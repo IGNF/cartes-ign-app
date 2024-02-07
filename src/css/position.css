@@ -117,6 +117,10 @@
   background-image: url("assets/signal.svg");
 }
 
+.lblPositionLandmarkImg {
+  background-image: url("assets/landmark-white.svg");
+}
+
 .btnPositionButtons {
   display: flex;
   align-items: center;
