@@ -11338,6 +11338,54 @@
 				"legend-title": "Gare ferroviaire"
 			}
 		},
+    {
+      "id": "Fleche sens direct",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "routier_route",
+      "minzoom": 16,
+      "filter": ["==","sens_circu","Sens direct"],
+      "layout": {
+        "visibility": "visible",
+        "text-field": "→",
+        "symbol-placement": "line",
+        "text-ignore-placement": true,
+        "text-size": 16,
+        "text-font":["Source Sans Pro Bold"],
+        "text-keep-upright": false,
+        "text-rotation-alignment":"map",
+        "text-pitch-alignment": "map"
+      },
+      "paint": {
+        "text-color": "#C2C2C2",
+        "text-halo-color": "#C2C2C2",
+        "text-halo-width": 0.4
+      }
+    },
+    {
+      "id": "Fleche sens inverse",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "routier_route",
+      "minzoom": 16,
+      "filter": ["==","sens_circu","Sens inverse"],
+      "layout": {
+        "visibility": "visible",
+        "text-field": "←",
+        "symbol-placement": "line",
+        "text-ignore-placement": true,
+        "text-size": 16,
+        "text-font":["Source Sans Pro Bold"],
+        "text-keep-upright": false,
+        "text-rotation-alignment":"map",
+        "text-pitch-alignment": "map"
+      },
+      "paint": {
+        "text-color": "#C2C2C2",
+        "text-halo-color": "#C2C2C2",
+        "text-halo-width": 0.4
+      }
+    },
 		{
 			"id": "toponyme - bornes postales haute - chemins",
 			"type": "symbol",
