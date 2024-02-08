@@ -69,6 +69,9 @@ const compute = async (coordinates) => {
  * { lon lat }
  */
 const getElevation = () => {
+  if (!results) {
+    return 0;
+  }
   if (!results.elevations) {
     return 0;
   }
