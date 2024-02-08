@@ -7,6 +7,11 @@ import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import maplibregl from "maplibre-gl";
+import Sortable from "sortablejs";
+
+import LandmarkIconSaved from "../../css/assets/landmark-saved-map.png";
+import LandmarkIconFavourite from "../../css/assets/landmark-favourite-map.png";
+import LandmarkIconTovisit from "../../css/assets/landmark-tovisit-map.png";
 
 /**
  * Interface sur la fenêtre du compte
@@ -31,6 +36,7 @@ class MyAccount {
     this.configuration = this.options.configuration || {
       linesource: "my-account-line",
       pointsource: "my-account-point",
+      landmarksource: "my-account-landmark",
     };
 
     // target
@@ -52,6 +58,7 @@ class MyAccount {
 
     // Identifiant unique pour les itinéraires
     this.lastRouteId = 0;
+    this.lastLandmarkId = 0;
 
     // récupération des itinéraires enregistrés en local
     if (!localStorage.getItem("savedRoutes")) {
@@ -61,12 +68,35 @@ class MyAccount {
       this.routes = this.routes.concat(localRoutes);
     }
 
+    // récupération des points de repère enregistrés en local
+    if (!localStorage.getItem("savedLandmarks")) {
+      localStorage.setItem("savedLandmarks", "[]");
+    } else {
+      var localLandmarks = JSON.parse(localStorage.getItem("savedLandmarks"));
+      this.landmarks = this.landmarks.concat(localLandmarks);
+    }
+
+    this.map.loadImage(LandmarkIconSaved, (_, image) => {
+      this.map.addImage("landmark-icon-saved", image);
+    });
+    this.map.loadImage(LandmarkIconFavourite, (_, image) => {
+      this.map.addImage("landmark-icon-favourite", image);
+    });
+    this.map.loadImage(LandmarkIconTovisit, (_, image) => {
+      this.map.addImage("landmark-icon-tovisit", image);
+    });
+
     // récupération des infos et rendu graphique
     this.compute().then(() => {
       // Ajout d'identifiant unique aux routes
       this.routes.forEach((route) => {
         route.id = this.lastRouteId;
         this.lastRouteId++;
+      });
+      // Ajout d'identifiant unique aux landmarks
+      this.landmarks.forEach((landmark) => {
+        landmark.id = this.lastLandmarkId;
+        this.lastLandmarkId++;
       });
       this.render();
       this.#updateSources();
@@ -86,7 +116,7 @@ class MyAccount {
       return;
     }
 
-    var container = this.getContainer(this.accountName, this.routes);
+    var container = this.getContainer(this.accountName, this.routes, this.landmarks);
     if (!container) {
       console.warn();
       return;
@@ -94,6 +124,25 @@ class MyAccount {
 
     // ajout du container
     target.appendChild(container);
+    // dragn'drop !
+    Sortable.create(this.dom.routeList, {
+      handle: ".handle-draggable-layer",
+      draggable: ".draggable-layer",
+      animation: 200,
+      forceFallback: true,
+      onEnd : (evt) => {
+        this.setRoutePosition(evt.oldDraggableIndex, evt.newDraggableIndex);
+      }
+    });
+    Sortable.create(this.dom.landmarkList, {
+      handle: ".handle-draggable-layer",
+      draggable: ".draggable-layer",
+      animation: 200,
+      forceFallback: true,
+      onEnd : (evt) => {
+        this.setLandmarkPosition(evt.oldDraggableIndex, evt.newDraggableIndex);
+      }
+    });
   }
 
   /**
@@ -132,7 +181,13 @@ class MyAccount {
    * @param {*} landmarkGeojson
    */
   addLandmark(landmarkGeojson) {
-    console.log(landmarkGeojson);
+    const newlandmark = JSON.parse(JSON.stringify(landmarkGeojson));
+    newlandmark.id = this.lastLandmarkId;
+    this.lastLandmarkId++;
+    this.landmarks.unshift(newlandmark);
+    this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
+    localStorage.setItem("savedLandmarks", JSON.stringify(this.landmarks));
+    this.#updateSources();
   }
 
   /**
@@ -152,6 +207,22 @@ class MyAccount {
   }
 
   /**
+   * Supprime un point de repère de l'epace utilisateur
+   */
+  deleteLandmark(landmarkId) {
+    for (let i = 0; i < this.landmarks.length; i++) {
+      let landmark = this.landmarks[i];
+      if (landmark.id !== landmarkId) {
+        continue;
+      }
+      this.landmarks.splice(i, 1);
+      this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
+      this.#updateSources();
+      break;
+    }
+  }
+
+  /**
    * Change l'ordre des routes dans l'objet
    * @param {*} oldIndex
    * @param {*} newIndex
@@ -160,6 +231,17 @@ class MyAccount {
     const route = this.routes[oldIndex];
     this.routes.splice(oldIndex, 1);
     this.routes.splice(newIndex, 0, route);
+  }
+
+  /**
+   * Change l'ordre des points de repère dans l'objet
+   * @param {*} oldIndex
+   * @param {*} newIndex
+   */
+  setLandmarkPosition(oldIndex, newIndex) {
+    const landmark = this.landmarks[oldIndex];
+    this.landmarks.splice(oldIndex, 1);
+    this.landmarks.splice(newIndex, 0, landmark);
   }
 
   /**
@@ -190,7 +272,7 @@ class MyAccount {
   }
 
   /**
-   * Partage le résumé d'un itinéraire
+   * Partage l'itinéraire sous forme de fichier
    * @param {*} route
    */
   shareRoute(route) {
@@ -225,6 +307,23 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
   }
 
   /**
+   * Partage le point de repère
+   * @param {*} landmark
+   */
+  shareLandmark(landmark) {
+    Share.share({
+      title: `${landmark.properties.title}`,
+      text: `${landmark.properties.title}
+${landmark.properties.locationName}
+Latitude : ${landmark.geometry.coordinates[1]}
+Longitude : ${landmark.geometry.coordinates[0]}
+${landmark.properties.description}
+`,
+      dialogTitle: "Partager mon point de repère",
+    });
+  }
+
+  /**
    * Exporte l'itinéraire sous forme d'un ficheir geojson
    * @param {*} route
    */
@@ -251,8 +350,33 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
   }
 
   /**
+   * Exporte le point de repère sous forme d'un ficheir geojson
+   * @param {*} route
+   */
+  exportLandmark(landmark) {
+    Filesystem.writeFile({
+      path: `${landmark.properties.title}.geojson`,
+      data: JSON.stringify(landmark),
+      directory: Directory.Documents,
+      encoding: Encoding.UTF8,
+    }).then(() => {
+      Toast.show({
+        text: "Fichier enregistré dans Documents.",
+        duration: "long",
+        position: "bottom"
+      });
+    }).catch( () => {
+      Toast.show({
+        text: "Le point de repère n'a pas pu être savegardé.",
+        duration: "long",
+        position: "bottom"
+      });
+    });
+  }
+
+  /**
    * Affiche l'itinéraire s'il est caché, ou le cache s'il est affiché
-   * @param {*} routes
+   * @param {*} route
    */
   toggleShowRoute(route) {
     if (route.visible) {
@@ -270,6 +394,21 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
       this.map.fitBounds(bounds, {
         padding: 100,
       });
+    }
+    this.#updateSources();
+  }
+
+  /**
+   * Affiche le point de repère s'il est caché, ou le cache s'il est affiché
+   * @param {*} landmark
+   */
+  toggleShowLandmark(landmark) {
+    if (landmark.properties.visible) {
+      landmark.properties.visible = false;
+    } else {
+      landmark.properties.visible = true;
+      this.hide();
+      this.map.flyTo({center: landmark.geometry.coordinates});
     }
     this.#updateSources();
   }
@@ -357,6 +496,12 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
       type: "FeatureCollection",
       features: this.#getRoutePoints(),
     });
+
+    var landmarksource = this.map.getSource(this.configuration.landmarksource);
+    landmarksource.setData({
+      type: "FeatureCollection",
+      features: this.landmarks,
+    });
   }
 
   /**
@@ -392,6 +537,26 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
     this.map.addLayer(MyAccountLayers["point"]);
     this.map.addLayer(MyAccountLayers["point-departure"]);
     this.map.addLayer(MyAccountLayers["point-destination"]);
+
+    this.map.addSource(this.configuration.landmarksource, {
+      "type": "geojson",
+      "data": {
+        type: "FeatureCollection",
+        features: [],
+      }
+    });
+    MyAccountLayers["landmark-casing"].source = this.configuration.landmarksource;
+    MyAccountLayers["landmark"].source = this.configuration.landmarksource;
+    MyAccountLayers["landmark-icon"].source = this.configuration.landmarksource;
+  }
+
+  /**
+   * ajoute le layer landmarks à la carte. Séparé pour pouvoir les ajouter en dernier, au-dessus des POI OSM
+   */
+  addLandmarksLayers() {
+    this.map.addLayer(MyAccountLayers["landmark-casing"]);
+    this.map.addLayer(MyAccountLayers["landmark"]);
+    this.map.addLayer(MyAccountLayers["landmark-icon"]);
   }
 
   /**

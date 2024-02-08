@@ -100,6 +100,9 @@ const onBackKeyDown = () => {
   if (Globals.backButtonState === "selectOnMapIsochrone") {
     Globals.menu.close("selectOnMapIsochrone");
   }
+  if (Globals.backButtonState === "selectOnMapLandmark") {
+    Globals.menu.close("selectOnMapLandmark");
+  }
   if (Globals.backButtonState === "comparePoi") {
     Globals.menu.close("comparePoi");
   }

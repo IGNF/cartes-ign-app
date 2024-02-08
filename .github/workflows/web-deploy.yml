@@ -30,6 +30,7 @@ jobs:
       - name: Make envfile
         run: |
           echo "GPF_key=${{ secrets.GPF_key }}" > .env
+          echo "signalement_url=${{ secrets.SIGNALEMENT_URL }}" >> .env
 
       - name: Setup Node.js
         uses: actions/setup-node@v3

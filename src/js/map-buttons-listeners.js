@@ -76,6 +76,9 @@ const addListeners = () => {
         lat: Globals.map.getCenter().lat,
       });
       Globals.menu.close("selectOnMapDirections");
+    } else if (Globals.backButtonState === "selectOnMapLandmark") {
+      Globals.landmark.onAddWayPoint({lngLat: Globals.map.getCenter()});
+      Globals.menu.close("selectOnMapLandmark");
     }
   });
 };

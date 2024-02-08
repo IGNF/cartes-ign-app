@@ -1,6 +1,6 @@
 import json
 
-with open("plan-ign-interactif-style.json") as file:
+with open("www/data/plan-ign-interactif-style.json") as file:
   style1 = json.load(file)
 
 with open("PlanIGNetPOI-Test11-Geoplateforme.json") as file:

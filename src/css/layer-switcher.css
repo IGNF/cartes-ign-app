@@ -11,6 +11,7 @@
 }
 
 
+div[id^="landmark-container_ID_"],
 div[id^="route-container_ID_"],
 div[id^="container_ID_"] {
   display: flex;
@@ -23,6 +24,7 @@ div[id^="container_ID_"] {
   padding-bottom: 20px;
 }
 
+div[id^="landmark-cross-picto_ID_"],
 div[id^="route-cross-picto_ID_"],
 div[id^="cross-picto_ID_"] {
   position: relative;
@@ -32,6 +34,7 @@ div[id^="cross-picto_ID_"] {
   background: url("./assets/drag-and-drop-light.svg") center center no-repeat, #f4f6f8;
 }
 
+div[id^="landmark-basic-tools_ID_"],
 div[id^="route-basic-tools_ID_"],
 div[id^="basic-tools_ID_"] {
   display: flex;
@@ -39,6 +42,7 @@ div[id^="basic-tools_ID_"] {
   padding: 10px;
   max-width: 250px;
 }
+div[id^="landmark-basic-tools_ID_"],
 div[id^="route-basic-tools_ID_"] {
   align-items: center
 }
@@ -60,6 +64,7 @@ div[id^="thumbnail_ID_"] {
   padding-left: 10px;
 }
 
+span[id^="landmark-title_ID_"],
 span[id^="route-title_ID_"],
 span[id^="title_ID_"] {
   word-break: break-word;
@@ -97,6 +102,7 @@ div[id^="opacity-middle-div_ID_"] {
   padding-left: 6px;
 }
 
+label[id^="landmark-show-advanced-tools_ID_"],
 label[id^="route-show-advanced-tools_ID_"],
 label[id^="show-advanced-tools_ID_"] {
   width: 25px;
@@ -105,6 +111,7 @@ label[id^="show-advanced-tools_ID_"] {
   background-repeat: no-repeat;
   background-position: center;
 }
+div[id^="landmark-advanced-tools_ID_"],
 div[id^="route-advanced-tools_ID_"],
 div[id^="advanced-tools_ID_"] {
   margin: auto;
@@ -124,12 +131,15 @@ div[id^="advanced-tools_ID_"] {
   top: -30px;
 }
 
+div[id^="landmark-advanced-tools_ID_"],
 div[id^="route-advanced-tools_ID_"] {
   top: 25px;
   right: 35px;
   left: unset;
 }
 
+label[id^="landmark-show-advanced-tools_ID_"]:hover
+  + div[id^="landmark-advanced-tools_ID_"],
 label[id^="route-show-advanced-tools_ID_"]:hover
   + div[id^="route-advanced-tools_ID_"],
 label[id^="show-advanced-tools_ID_"]:hover
@@ -140,6 +150,7 @@ label[id^="show-advanced-tools_ID_"]:hover
   transition: max-height 0.3s ease-out;
 }
 
+div[id^="landmark-advanced-tools_ID_"]:hover,
 div[id^="route-advanced-tools_ID_"]:hover,
 div[id^="advanced-tools_ID_"]:hover {
   display: flex;
@@ -148,6 +159,7 @@ div[id^="advanced-tools_ID_"]:hover {
   transition: max-height 0.3s ease-out;
 }
 
+input[id^="landmark-visibility_ID_"],
 input[id^="route-visibility_ID_"],
 input[id^="visibility_ID_"],
 input[id^="color_ID_"] {
@@ -157,6 +169,7 @@ label[id^="color-picto_ID_"] {
   background-image: url("./assets/layer-switcher/nb-layer.svg");
 }
 
+label[id^="landmark-visibility-picto_ID_"],
 label[id^="route-visibility-picto_ID_"],
 label[id^="visibility-picto_ID_"] {
   background-image: url("./assets/layer-switcher/hide-layer.svg");
@@ -170,23 +183,28 @@ div[id^="info_ID_"] {
   background-image: url("./assets/layer-switcher/info-layer.svg");
 }
 
+div[id^="landmark-remove_ID_"],
 div[id^="route-remove_ID_"],
 div[id^="remove_ID_"] {
   background-image: url("./assets/layer-switcher/delete-layer.svg");
 }
 
+div[id^="landmark-remove_ID_"]:hover,
 div[id^="route-remove_ID_"]:hover {
   background-image: url("./assets/layer-switcher/delete-layer-confirm.svg");
 }
 
+div[id^="landmark-edit_ID_"],
 div[id^="route-edit_ID_"] {
   background-image: url("./assets/layer-switcher/edit-layer.svg");
 }
 
+div[id^="landmark-export_ID_"],
 div[id^="route-export_ID_"] {
   background-image: url("./assets/layer-switcher/export-layer.svg");
 }
 
+div[id^="landmark-share_ID_"],
 div[id^="route-share_ID_"] {
   background-image: url("./assets/layer-switcher/share-layer.svg");
 }

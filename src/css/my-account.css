@@ -82,6 +82,7 @@
   padding: 0;
 }
 
+div[id^="landmark-container_ID_"],
 div[id^="route-container_ID_"] {
   width: 100%;
   justify-content: space-between;
@@ -89,14 +90,17 @@ div[id^="route-container_ID_"] {
   padding: 10px 0;
 }
 
+div[id^=landmark-cross-picto_ID_],
 div[id^=route-cross-picto_ID_] {
   margin-left: 15px;
 }
 
+div[id^=landmark-basic-tools_ID_],
 div[id^=route-basic-tools_ID_] {
   width: 100%;
 }
 
+div[id^=landmark-title_ID_]
 div[id^=route-title_ID_] {
   font-size: 13px;
   font-family: "Open Sans Bold";
@@ -120,4 +124,25 @@ div[id^=route-title_ID_] {
 .wrap-tools-layers .routeDrawSummaryDuration {
   background-size: 20px;
   background-position: 2px;
+}
+
+.landmarkSummaryIcon {
+  width: 25px;
+  height: 25px;
+  border: 2px solid white;
+  border-radius: 100%;
+  background-size: 25px;
+  background-position: center;
+}
+
+.landmarkSummaryIconlandmark-icon-favourite {
+  background-image: url("assets/landmark-favourite-map.png");
+}
+
+.landmarkSummaryIconlandmark-icon-saved {
+  background-image: url("assets/landmark-saved-map.png");
+}
+
+.landmarkSummaryIconlandmark-icon-tovisit {
+  background-image: url("assets/landmark-tovisit-map.png");
 }

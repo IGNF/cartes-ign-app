@@ -83,6 +83,7 @@ function addListeners() {
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
     localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
+    localStorage.setItem("savedLandmarks", JSON.stringify(Globals.myaccount.landmarks));
   });
 
   window.addEventListener("beforeunload", () => {
@@ -91,6 +92,7 @@ function addListeners() {
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
     localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
+    localStorage.setItem("savedLandmarks", JSON.stringify(Globals.myaccount.landmarks));
   });
 
   // Screen dimentions change
@@ -130,7 +132,7 @@ function addListeners() {
         }
       }
     }
-    if (["selectOnMapDirections", "selectOnMapIsochrone", "compare"].includes(Globals.backButtonState)) {
+    if (["selectOnMapDirections", "selectOnMapIsochrone", "selectOnMapLandmark", "compare"].includes(Globals.backButtonState)) {
       Globals.currentScrollIndex = 0;
     }
     if (Globals.backButtonState === "compareLayers2") {

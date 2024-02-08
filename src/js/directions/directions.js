@@ -94,7 +94,7 @@ class Directions {
       url = `${configuration.api}?resource=bdtopo-osrm&profile=${configuration.profile}&optimization=${configuration.optimization}&start=${waypointsCoordinates.shift()}&end=${waypointsCoordinates.pop()}&intermediates=${waypointsCoordinates.join("|")}&geometryFormat=polyline`;
 
       if (waypointsBearings) {
-        console.log("coucou");
+        console.debug(waypointsBearings);
       }
 
       return {
@@ -107,7 +107,7 @@ class Directions {
     this.obj.fetch = async function({ method, url, payload }) {
       const response = (await (method === "get"
         ? await fetch(`${url}`, { signal: this.abortController?.signal })
-        : console.log(payload)
+        : console.debug(payload)
       ).json());
 
       const formatedResponse = {

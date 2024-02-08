@@ -161,6 +161,66 @@ const layers = {
     },
     filter: ["==", ["get", "order"], "destination"],
   },
+  "landmark-casing": {
+    id: "my-account-landmarks-casing",
+    type: "circle",
+    source: "",
+    paint: {
+      "circle-radius": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        6,
+        5,
+        6,
+        18,
+        17
+      ],
+      "circle-color": "white",
+      "circle-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0],
+    }
+  },
+  "landmark": {
+    id: "my-account-landmarks",
+    type: "circle",
+    source: "",
+    paint: {
+      "circle-radius": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        5,
+        5,
+        5,
+        18,
+        15
+      ],
+      "circle-color": ["get", "color"],
+      "circle-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0],
+    }
+  },
+  "landmark-icon": {
+    id: "my-account-landmark-icon",
+    type: "symbol",
+    source: "",
+    layout: {
+      "icon-image": ["get", "icon"],
+      "icon-allow-overlap": true,
+      "icon-size": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        10/50,
+        5,
+        10/50,
+        18,
+        30/50
+      ],
+    },
+  },
 };
 
 export default layers;

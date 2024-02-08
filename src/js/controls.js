@@ -121,6 +121,7 @@ const addControls = () => {
         });
         // Poi RLT
         Globals.comparePoi = new ComparePoi(map, {});
+        Globals.myaccount.addLandmarksLayers();
       });
   });
 };

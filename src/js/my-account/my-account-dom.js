@@ -3,8 +3,6 @@ import { Toast } from "@capacitor/toast";
 import utils from "../unit-utils";
 import DomUtils from "../dom-utils";
 
-import Sortable from "sortablejs";
-
 /**
  * DOM de la fenêtre de compte
  * @mixin MyAccountDOM
@@ -12,11 +10,12 @@ import Sortable from "sortablejs";
 let MyAccountDOM = {
   dom: {
     container: null,
-    routeTab: null,
     routeNumber: null,
+    routeTab: null,
+    routeList: null,
     landmarkNumber: null,
     landmarkTab: null,
-    routeList: null,
+    landmarkList: null,
   },
 
   /**
@@ -26,7 +25,7 @@ let MyAccountDOM = {
    * @returns {DOMElement}
    * @public
    */
-  getContainer(accountName, routes) {
+  getContainer(accountName, routes, landmarks) {
     // nettoyage
     if (this.dom.container) {
       this.dom.container.remove();
@@ -36,17 +35,10 @@ let MyAccountDOM = {
     container.appendChild(this.__addTabsContainerDOMElement());
     // ajout des itinéraires
     this.dom.routeList = this.__addAccountRoutesContainerDOMElement(routes);
-    // dragn'drop !
-    Sortable.create(this.dom.routeList, {
-      handle: ".handle-draggable-layer",
-      draggable: ".draggable-layer",
-      animation: 200,
-      forceFallback: true,
-      onEnd : (evt) => {
-        this.setRoutePosition(evt.oldDraggableIndex, evt.newDraggableIndex);
-      }
-    });
+    // ajout des points de repères
+    this.dom.landmarkList = this.__addAccountLandmarksContainerDOMElement(landmarks);
     this.dom.routeTab.appendChild(this.dom.routeList);
+    this.dom.landmarkTab.appendChild(this.dom.landmarkList);
 
     return container;
   },
@@ -125,10 +117,10 @@ let MyAccountDOM = {
    * @private
    */
   __addAccountRoutesContainerDOMElement(routes) {
-    var divList = this.dom.container = document.createElement("div");
+    var divList = document.createElement("div");
     divList.id = "myaccountRouteList";
     for (let i = 0; i < routes.length; i++) {
-      divList.appendChild(this.__addRouteContainer(routes[i], i));
+      divList.appendChild(this.__addRouteContainer(routes[i]));
     }
     this.dom.routeNumber.innerText = routes.length;
     return divList;
@@ -142,9 +134,38 @@ let MyAccountDOM = {
   __updateAccountRoutesContainerDOMElement(routes) {
     this.dom.routeList.innerHTML = "";
     for (let i = 0; i < routes.length; i++) {
-      this.dom.routeList.appendChild(this.__addRouteContainer(routes[i], i));
+      this.dom.routeList.appendChild(this.__addRouteContainer(routes[i]));
     }
     this.dom.routeNumber.innerText = routes.length;
+  },
+
+  /**
+   * ajoute le container sur les points de repère
+   * @param {*} landmarks
+   * @returns {DOMElement}
+   * @private
+   */
+  __addAccountLandmarksContainerDOMElement(landmarks) {
+    var divList = this.dom.container = document.createElement("div");
+    divList.id = "myaccountLandmarksList";
+    for (let i = 0; i < landmarks.length; i++) {
+      divList.appendChild(this.__addLandmarkContainer(landmarks[i]));
+    }
+    this.dom.landmarkNumber.innerText = landmarks.length;
+    return divList;
+  },
+
+  /**
+   * met à jour le container sur les points de repère
+   * @param {*} landmarks
+   * @private
+   */
+  __updateAccountLandmarksContainerDOMElement(landmarks) {
+    this.dom.landmarkList.innerHTML = "";
+    for (let i = 0; i < landmarks.length; i++) {
+      this.dom.landmarkList.appendChild(this.__addLandmarkContainer(landmarks[i]));
+    }
+    this.dom.landmarkNumber.innerText = landmarks.length;
   },
 
   /**
@@ -186,6 +207,9 @@ let MyAccountDOM = {
 
     // transformation du container : String -> DOM
     var container = DomUtils.stringToHTML(tplContainer.trim());
+
+    // Event listener vide pour gestion du touch
+    container.querySelector(".handle-draggable-layer").addEventListener("click", () => { });
 
     container.querySelector(`#route-share_ID_${routeId}`).addEventListener("click", () => {
       this.shareRoute(route);
@@ -229,6 +253,91 @@ let MyAccountDOM = {
     document.addEventListener("click", (event) => {
       if (!event.target.closest(`#route-remove_ID_${routeId}`)) {
         container.querySelector(`#route-remove_ID_${routeId}`).removeEventListener("click", handleDeleteRoute);
+      }
+    });
+
+    if (!container) {
+      console.warn();
+      return;
+    }
+    return container;
+  },
+
+  /**
+   * Ajout d'une entrée pour un point de repère (DOM)
+   * @param {*} landmark
+   * @private
+   */
+  __addLandmarkContainer(landmark) {
+    var title = landmark.properties.title;
+    var landmarkId = landmark.id;
+    var checked = landmark.properties.visible ? "checked" : "";
+
+    // Template d'une route
+    var tplContainer = `
+      <div class="tools-layer-panel draggable-layer" id="landmark-container_ID_${landmarkId}">
+        <div class="handle-draggable-layer" id="landmark-cross-picto_ID_${landmarkId}"></div>
+        <div id="landmark-basic-tools_ID_${landmarkId}">
+          <label class="landmarkSummaryIcon landmarkSummaryIcon${landmark.properties.icon}" style="background-color:${landmark.properties.color}"></label>
+          <div class="wrap-tools-layers">
+            <span id="landmark-title_ID_${landmarkId}">${title}</span>
+          </div>
+        </div>
+        <label id="landmark-show-advanced-tools_ID_${landmarkId}" title="Plus d'outils" class="tools-layer-advanced"></label>
+        <div id="landmark-advanced-tools_ID_${landmarkId}" class="tools-layer-advanced-menu">
+          <div id="landmark-share_ID_${landmarkId}" class="tools-layer-share" title="Partager le point de repère">Partager</div>
+          <input type="checkbox" id="landmark-visibility_ID_${landmarkId}" ${checked}/>
+          <label id="landmark-visibility-picto_ID_${landmarkId}" for="landmark-visibility_ID_${landmarkId}" title="Afficher/masquer le point de repère" class="tools-layer-visibility">Afficher/masquer</label>
+          <div id="landmark-export_ID_${landmarkId}" class="tools-layer-export" title="Exporter le point de repère">Exporter</div>
+          <div id="landmark-remove_ID_${landmarkId}" class="tools-layer-remove" title="Supprimer le point de repère'">Supprimer</div>
+        </div>
+      </div>
+      `;
+
+    // transformation du container : String -> DOM
+    var container = DomUtils.stringToHTML(tplContainer.trim());
+
+    // Event listener vide pour gestion du touch
+    container.querySelector(".handle-draggable-layer").addEventListener("click", () => { });
+
+    container.querySelector(`#landmark-share_ID_${landmarkId}`).addEventListener("click", () => {
+      this.shareLandmark(landmark);
+    });
+
+    container.querySelector(`#landmark-export_ID_${landmarkId}`).addEventListener("click", () => {
+      this.exportLandmark(landmark);
+    });
+
+    container.querySelector(`#landmark-basic-tools_ID_${landmarkId}`).addEventListener("click", () => {
+      const buttonToClick = container.querySelector(`#landmark-visibility_ID_${landmarkId}`);
+      if (buttonToClick.checked) {
+        buttonToClick.click();
+      }
+      buttonToClick.click();
+    });
+
+    container.querySelector(`#landmark-visibility_ID_${landmarkId}`).addEventListener("click", () => {
+      this.toggleShowLandmark(landmark);
+    });
+
+    let deleteLandmark = () => {
+      this.deleteLandmark(landmarkId);
+    };
+
+    let handleDeleteLandmark = deleteLandmark.bind(this);
+
+    container.querySelector(`#landmark-remove_ID_${landmarkId}`).addEventListener("click", () => {
+      Toast.show({
+        text: "Confirmez la suppression du point de repère",
+        duration: "short",
+        position: "bottom"
+      });
+      container.querySelector(`#landmark-remove_ID_${landmarkId}`).addEventListener("click", handleDeleteLandmark);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(`#landmark-remove_ID_${landmarkId}`)) {
+        container.querySelector(`#landmark-remove_ID_${landmarkId}`).removeEventListener("click", handleDeleteLandmark);
       }
     });
 

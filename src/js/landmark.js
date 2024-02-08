@@ -5,6 +5,7 @@ import { Toast } from "@capacitor/toast";
 // dependance : abonnement au event du module
 import Geocode from "./services/geocode";
 import Location from "./services/location";
+import Reverse from "./services/reverse";
 
 /**
  * Interface sur le contrôle point de repère
@@ -145,6 +146,34 @@ class Landmark {
       color: null,
       icon: null,
     };
+  }
+
+  /**
+   * listener sur la carte pour recuperer les coordonnées du point
+   * @param {*} e
+   */
+  onAddWayPoint(e) {
+    console.debug(e);
+    var coordinates = e.lngLat;
+    Reverse.compute({
+      lon : coordinates.lng,
+      lat : coordinates.lat
+    })
+      .then(() => {})
+      .catch(() => {})
+      .finally(() => {
+        var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
+        var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
+        var strAddress = address;
+        if (typeof address !== "string") {
+          strAddress = "";
+          strAddress += (address.number !== "") ? address.number + " " : "";
+          strAddress += (address.street !== "") ? address.street + ", " : "";
+          strAddress += address.city + ", " + address.postcode;
+        }
+        this.dom.location.dataset.coordinates = "[" + coords.lon + "," + coords.lat + "]";
+        this.dom.location.value = strAddress;
+      });
   }
 
   /**
