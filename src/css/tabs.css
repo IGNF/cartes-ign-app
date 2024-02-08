@@ -23,6 +23,7 @@
 #isochroneWindow,
 #layerManagerWindow {
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #informationsWindow::after,

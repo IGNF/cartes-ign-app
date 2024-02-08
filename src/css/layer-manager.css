@@ -34,11 +34,10 @@
   cursor: pointer;
   display: block;
   text-align: center;
-}
-
-.layer-tabs-label {
+  white-space: nowrap;
   border-bottom: 2px solid #DDE1E6;
 }
+
 .layer-tabs-input:checked + .layer-tabs-label {
   border-bottom: 2px solid #26a581;
 }
