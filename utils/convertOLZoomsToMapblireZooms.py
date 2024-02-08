@@ -23,7 +23,7 @@ def convertFileZooms(path):
     style = json.load(file)
   converZoomsLayers(style)
   with open(path, "w", encoding="utf-8", newline="") as file:
-    json.dump(style, file, indent='2', ensure_ascii=False)
+    json.dump(style, file, indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":
-  convertFileZooms("plan-ign-interactif-style.json")
+  convertFileZooms("www/data/plan-ign-interactif-style.json")

@@ -128,6 +128,7 @@ class MenuNavigation {
       break;
     case "selectOnMapDirections":
     case "selectOnMapIsochrone":
+    case "selectOnMapLandmark":
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$layerManagerBtn.classList.add("d-none");
       DOM.$mapCenter.classList.remove("d-none");
@@ -365,6 +366,7 @@ class MenuNavigation {
       DOM.$filterPoiBtn.classList.remove("d-none");
       // falls through
     case "selectOnMapIsochrone":
+    case "selectOnMapLandmark":
       DOM.$layerManagerBtn.classList.remove("d-none");
       DOM.$mapCenter.classList.add("d-none");
       DOM.$mapCenterMenu.classList.add("d-none");

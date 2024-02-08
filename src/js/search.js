@@ -98,7 +98,7 @@ class Search {
       } else if (Globals.backButtonState === "searchLandmark") {
         e.target.classList.add("autocompresultselected");
         setTimeout(() => {
-          Globals.menu.open("selectOnMapIsochrone");
+          Globals.menu.open("selectOnMapLandmark");
         }, 250);
       }
     }, true);
