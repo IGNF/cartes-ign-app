@@ -159,7 +159,7 @@ class Directions {
             },
             mode: this.configuration.profile,
             driving_side: "right",
-            name: step,
+            name: step.attributes.name.nom_1_droite,
             intersections: [],
             weight: this.configuration.optimization === "fastest" ? step.duration : step.distance,
             duration: step.duration,

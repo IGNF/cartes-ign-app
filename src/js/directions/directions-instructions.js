@@ -52,7 +52,7 @@ const guidance = (instruction) => {
   }
 
   var IconClass = "lblDirectionsDetailsItemGuidance-" + iconName;
-    
+
   return IconClass;
 };
 
