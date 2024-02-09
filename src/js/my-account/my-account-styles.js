@@ -119,6 +119,7 @@ const layers = {
     source: "",
     layout: {
       "icon-image": "routeDepartureIcon",
+      "icon-allow-overlap": true,
       "icon-size": [
         "interpolate",
         ["exponential", 1.5],
@@ -131,6 +132,9 @@ const layers = {
         30/50
       ],
     },
+    paint: {
+      "icon-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0],
+    },
     filter: ["==", ["get", "order"], "departure"],
   },
   "point-destination": {
@@ -139,6 +143,7 @@ const layers = {
     source: "",
     layout: {
       "icon-image": "routeDestinationIcon",
+      "icon-allow-overlap": true,
       "icon-size": [
         "interpolate",
         ["exponential", 1.5],
@@ -150,6 +155,9 @@ const layers = {
         18,
         30/50
       ],
+    },
+    paint: {
+      "icon-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0],
     },
     filter: ["==", ["get", "order"], "destination"],
   },

@@ -316,33 +316,23 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
   }
 
   /**
-   * Récupère tous les points des itinéraires sous forme de liste de features à géométrie multipoint
-   * @returns list of mutlipoint features, each feature representing one route
+   * Récupère tous les points des itinéraires sous forme de liste de features à géométrie point
+   * @returns list of point features
    */
   #getRoutePoints() {
-    const allMultiPointFeatures = [];
+    const allPointFeatures = [];
     this.routes.forEach((route) => {
       let visible = false;
       if (route.visible) {
         visible = true;
       }
-      const multipointRouteFeature = {
-        type: "Feature",
-        geometry: {
-          type: "MultiPoint",
-          coordinates: []
-        },
-        properties: {
-          name: route.name,
-          visible: visible,
-        }
-      };
       route.data.points.forEach((point) => {
-        multipointRouteFeature.geometry.coordinates.push(point.geometry.coordinates);
+        const newPoint = JSON.parse(JSON.stringify(point));
+        newPoint.properties.visible = visible;
+        allPointFeatures.push(newPoint);
       });
-      allMultiPointFeatures.push(multipointRouteFeature);
     });
-    return allMultiPointFeatures;
+    return allPointFeatures;
   }
 
   /**
@@ -354,7 +344,6 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
       type: "FeatureCollection",
       features: this.#getRouteLines(),
     });
-
     var pointsource = this.map.getSource(this.configuration.pointsource);
     pointsource.setData({
       type: "FeatureCollection",
