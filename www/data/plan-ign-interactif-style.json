@@ -11,14 +11,14 @@
 			"type": "vector",
 			"maxzoom": 19,
 			"tiles": [
-				"https://wxs.ign.fr/essentiels/geoportail/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf"
+				"https://data.geopf.fr/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf"
 			]
 		},
 		"bdtopo": {
 			"type": "vector",
 			"maxzoom": 19,
 			"tiles": [
-				"https://wxs.ign.fr/topographie/geoportail/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf"
+				"https://data.geopf.fr/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf"
 			]
 		}
 	},

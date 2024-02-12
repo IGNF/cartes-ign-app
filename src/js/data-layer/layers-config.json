@@ -4389,7 +4389,7 @@
         "id": "GPP:TMS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://wxs.ign.fr/essentiels/geoportail/tms/1.0.0/"
+          "appign": "https://data.geopf.fr/tms/1.0.0/"
         }
       },
       "name": "PLAN.IGN.INTERACTIF",
