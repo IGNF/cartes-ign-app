@@ -344,10 +344,11 @@
   }
 
   #bottomButtons {
-    position: absolute;
+    position: fixed;
     bottom: calc(42px + var(--safe-area-inset-bottom));
     width: calc(100vw - 75px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
     right: var(--safe-area-inset-right);
+    z-index: 2500;
   }
 
   #interactivityBtn {
@@ -356,23 +357,17 @@
 
   #filterPoiBtn {
     top: calc(10px + var(--safe-area-inset-top));
+    position: fixed;
   }
 
   #routeDrawEdit {
-    flex-direction: column;
-    bottom: calc(93px + var(--safe-area-inset-bottom));
-    width: unset;
-    height: calc(100vh - 84px - 30px - var(--safe-area-inset-bottom) - var(--safe-area-inset-top));
+    position: fixed;
+    flex-direction: row;
+    bottom: calc(15px + var(--safe-area-inset-bottom));
+    width: calc(100vw - calc(min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))) - 30px);
+    height: 82px;
     left: calc(min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px)) + 15px);
     transform: unset;
-  }
-  @media (min-height: 615px) {
-    #routeDrawEdit {
-      flex-direction: row;
-      bottom: calc(15px + var(--safe-area-inset-bottom));
-      width: calc(100vw - calc(min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))) - 30px);
-      height: 82px;
-    }
   }
 
   #routeDrawEdit > .button {
@@ -390,7 +385,7 @@
 
   #mapCenter {
     top: calc(50vh - 25px);
-    right: calc((100vw - 75px - var(--safe-area-inset-left))/2 - 25px);
+    right: calc((100vw - 25px));
   }
 
   #mapCenterMenu {

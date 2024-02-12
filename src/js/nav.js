@@ -165,7 +165,7 @@ class MenuNavigation {
       DOM.$compareLayers2Window.classList.remove("d-none");
       DOM.$sideBySideRightLayer.classList.add("d-none");
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) - 20px))";
+        DOM.$sideBySideLeftLayer.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) - 50px))";
       }
       Globals.currentScrollIndex = 2;
       break;
@@ -207,9 +207,7 @@ class MenuNavigation {
       } else {
         DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
         DOM.$bottomButtons.style.width = "auto";
-        if (window.matchMedia("(min-height: 615px)").matches) {
-          DOM.$bottomButtons.style.bottom = "calc(142px + var(--safe-area-inset-bottom))";
-        }
+        DOM.$bottomButtons.style.bottom = "calc(142px + var(--safe-area-inset-bottom))";
       }
       DOM.$tabContainer.style.backgroundColor = "white";
       DOM.$sideBySideBtn.classList.add("d-none");
@@ -420,9 +418,7 @@ class MenuNavigation {
       } else {
         DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
         DOM.$bottomButtons.style.width = "auto";
-        if (window.matchMedia("(min-height: 615px)").matches) {
-          DOM.$bottomButtons.style.bottom = "calc(142px + var(--safe-area-inset-bottom))";
-        }
+        DOM.$bottomButtons.style.bottom = "calc(142px + var(--safe-area-inset-bottom))";
       }
       isSpecific = true;
       isFinished = true;
@@ -654,6 +650,9 @@ class MenuNavigation {
   updateScrollAnchors() {
     Globals.maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
     Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
+    if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      Globals.anchors = [0, document.scrollingElement.clientHeight - 72, Globals.maxScroll];
+    }
     this.#scrollTo(Globals.anchors[Globals.currentScrollIndex]);
   }
 
@@ -666,14 +665,13 @@ class MenuNavigation {
   /** ... */
   #scrollTo(value) {
     if (Globals.backButtonState !== "compare") {
-      DOM.$tabContainer.style.removeProperty("top");
+      DOM.$tabContainer.style.removeProperty("display");
     }
     if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
       if (Globals.currentScrollIndex == 0) {
         return;
       }
-      DOM.$tabContainer.style.top = 0;
-      return;
+      DOM.$tabContainer.style.display = "flex";
     }
     window.scroll({
       top: value,

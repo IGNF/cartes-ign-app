@@ -2,15 +2,12 @@
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #tabContainer {
     width: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
-    height: 100vh;
-    top: 100%;
     left: 0;
-    overflow-y: scroll;
-    border-top-right-radius: 0px;
     border-top-left-radius: 0px;
-    z-index: 300;
+    z-index: 2550;
     padding: 0 15px 15px calc(var(--safe-area-inset-left) + 42px);
     transition: top 0.3s;
+    display: none;
 }
 
   #informationsWindow,
@@ -22,9 +19,5 @@
   #poiWindow,
   #routeDrawWindow {
     margin-top: 20px;
-  }
-
-  body {
-    overflow-y: hidden;
   }
 }

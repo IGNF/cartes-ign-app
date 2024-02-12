@@ -57,7 +57,7 @@
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #map {
     height: 100vh;
-    width: calc(100vw - 75px - var(--safe-area-inset-left));
+    width: 100vw;
     right: 0;
   }
 }

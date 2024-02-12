@@ -192,9 +192,11 @@
     border-radius: 0;
     top: 100%;
     left: 75px;
+    display: none;
   }
 
   .navbar.hoverable:hover .subnav {
     transform: translate(0, -100%);
+    display: flex;
   }
 }

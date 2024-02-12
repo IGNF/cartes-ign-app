@@ -85,7 +85,6 @@ let signalement = null;
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
 let currentScrollIndex = 0;
-let currentScroll = window.scrollY;
 
 export default {
   map,
@@ -104,7 +103,6 @@ export default {
   currentScrollIndex,
   maxScroll,
   anchors,
-  currentScroll,
   directions,
   isochrone,
   position,

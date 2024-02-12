@@ -127,9 +127,7 @@ function addListeners() {
       } else {
         DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
         DOM.$bottomButtons.style.width = "auto";
-        if (window.matchMedia("(min-height: 615px)").matches) {
-          DOM.$bottomButtons.style.bottom = "calc(142px + var(--safe-area-inset-bottom))";
-        }
+        DOM.$bottomButtons.style.bottom = "calc(142px + var(--safe-area-inset-bottom))";
       }
     }
     if (["selectOnMapDirections", "selectOnMapIsochrone", "selectOnMapLandmark", "compare"].includes(Globals.backButtonState)) {
