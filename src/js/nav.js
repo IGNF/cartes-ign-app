@@ -616,16 +616,19 @@ class MenuNavigation {
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$search.style.display = "none";
       DOM.$backTopLeftBtn.classList.remove("d-none");
+      DOM.$sideBySideBtn.classList.add("d-none");
       DOM.$landmarkWindow.classList.remove("d-none");
       Globals.backButtonState = "landmark"; // on revient sur le contrôle !
       Globals.currentScrollIndex = 1;
       this.updateScrollAnchors();
+      DOM.$rech.value = "";
       break;
     case "searchIsochrone":
     case "selectOnMapIsochrone":
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$search.style.display = "none";
       DOM.$backTopLeftBtn.classList.remove("d-none");
+      DOM.$sideBySideBtn.classList.add("d-none");
       DOM.$isochroneWindow.classList.remove("d-none");
       Globals.backButtonState = "isochrone"; // on revient sur le contrôle !
       Globals.currentScrollIndex = 1;
@@ -635,6 +638,7 @@ class MenuNavigation {
     case "selectOnMapDirections":
       DOM.$search.style.display = "none";
       DOM.$backTopLeftBtn.classList.remove("d-none");
+      DOM.$sideBySideBtn.classList.add("d-none");
       DOM.$directionsWindow.classList.remove("d-none");
       Globals.backButtonState = "directions"; // on revient sur le contrôle !
       Globals.currentScrollIndex = 2;

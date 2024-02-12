@@ -99,10 +99,35 @@ class MyAccount {
         this.lastLandmarkId++;
       });
       this.render();
+      this.#listeners();
       this.#updateSources();
     });
 
     return this;
+  }
+
+  /**
+   * Ajoute les écouteurs d'évènements
+   * @private
+   */
+  #listeners() {
+    this.map.on("click", MyAccountLayers["landmark-casing"].id, (e) => {
+      if (["routeDraw", "routeDrawSave"].includes(Globals.backButtonState)) {
+        return;
+      }
+      const landmark = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]})[0];
+      const title = `<div class=divLegendContainer>
+        <label class="landmarkSummaryIcon landmarkSummaryIcon${landmark.properties.icon}"
+        style="background-color:${landmark.properties.color};
+          display: inline-block;
+          margin-right: 5px;
+          transform: translate(0, -2px);"></label>
+        ${landmark.properties.title}
+      </div>`;
+      Globals.position.compute(e.lngLat, title, landmark.properties.description).then(() => {
+        Globals.menu.open("position");
+      });
+    });
   }
 
   /**

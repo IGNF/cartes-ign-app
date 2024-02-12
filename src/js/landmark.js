@@ -115,7 +115,7 @@ class Landmark {
         color: this.data.color,
         icon: this.data.icon,
         locationName: this.data.locationName,
-        description: this.description,
+        description: this.data.description,
         visible: true,
       }
     };

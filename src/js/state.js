@@ -12,28 +12,35 @@ const onBackKeyDown = () => {
   var previousState;
   if (Globals.backButtonState == "default") {
     App.exitApp();
+    return;
   }
   if (Globals.backButtonState === "search") {
     Globals.menu.close("search");
+    return;
   }
   if (Globals.backButtonState === "myaccount") {
     DOM.$whiteScreen.style.removeProperty("animation");
     Globals.menu.close("myaccount");
+    return;
   }
   if (Globals.backButtonState === "parameterScreen") {
     Globals.menu.close("parameterScreen");
     Globals.menu.open("myaccount");
+    return;
   }
   if (Globals.backButtonState === "legalScreen") {
     Globals.menu.close("legalScreen");
     Globals.menu.open("myaccount");
+    return;
   }
   if (Globals.backButtonState === "privacyScreen") {
     Globals.menu.close("privacyScreen");
     Globals.menu.open("myaccount");
+    return;
   }
   if (Globals.backButtonState === "informations") {
     Globals.menu.close("informations");
+    return;
   }
   if (Globals.backButtonState.split("-")[0] === "layerManager") {
     previousState = Globals.backButtonState.split("-")[1] || "default";
@@ -42,24 +49,35 @@ const onBackKeyDown = () => {
       Globals.menu.open(previousState);
       return;
     }
+    return;
   }
   if (Globals.backButtonState === "directions") {
     Globals.menu.close("directions");
+    return;
   }
   if (Globals.backButtonState === "searchDirections") {
     Globals.menu.close("searchDirections");
+    return;
   }
   if (Globals.backButtonState === "directionsResults") {
     Globals.menu.close("directionsResults");
+    return;
   }
   if (Globals.backButtonState === "isochrone") {
     Globals.menu.close("isochrone");
+    return;
+  }
+  if (Globals.backButtonState === "landmark") {
+    Globals.menu.close("landmark");
+    return;
   }
   if (Globals.backButtonState === "searchIsochrone") {
     Globals.menu.close("searchIsochrone");
+    return;
   }
   if (Globals.backButtonState === "searchLandmark") {
     Globals.menu.close("searchLandmark");
+    return;
   }
   if (Globals.backButtonState.split("-")[0] === "position") {
     previousState = Globals.backButtonState.split("-")[1] || "default";
@@ -69,6 +87,7 @@ const onBackKeyDown = () => {
       Globals.menu.open(previousState);
       return;
     }
+    return;
   }
   if (Globals.backButtonState.split("-")[0] === "poi") {
     previousState = Globals.backButtonState.split("-")[1];
@@ -78,45 +97,54 @@ const onBackKeyDown = () => {
       Globals.menu.open(previousState);
       return;
     }
+    return;
   }
   if (Globals.backButtonState === "compare") {
     Globals.menu.close("compare");
+    return;
   }
   if (Globals.backButtonState === "compareLayers1") {
     Globals.menu.close("compareLayers1");
+    return;
   }
   if (Globals.backButtonState === "compareLayers2") {
     Globals.menu.close("compareLayers2");
+    return;
   }
   if (Globals.backButtonState === "routeDraw") {
     Globals.menu.close("routeDraw");
+    return;
   }
   if (Globals.backButtonState === "routeDrawSave") {
     Globals.menu.close("routeDrawSave");
+    return;
   }
   if (Globals.backButtonState === "selectOnMapDirections") {
     Globals.menu.close("selectOnMapDirections");
+    return;
   }
   if (Globals.backButtonState === "selectOnMapIsochrone") {
     Globals.menu.close("selectOnMapIsochrone");
+    return;
   }
   if (Globals.backButtonState === "selectOnMapLandmark") {
     Globals.menu.close("selectOnMapLandmark");
+    return;
   }
   if (Globals.backButtonState === "comparePoi") {
     Globals.menu.close("comparePoi");
+    return;
   }
   if (Globals.backButtonState === "comparePoiActivated") {
     document.getElementById("comparePoiWindow").querySelector(".comparePoiText").classList.add("d-none");
     document.getElementById("comparePoiWindow").querySelector(".comparePoiButton").classList.remove("d-none");
     Globals.currentScrollIndex = 0;
     Globals.menu.open("compare");
+    return;
   }
   if (Globals.backButtonState === "signalement") {
     Globals.menu.close("signalement");
-  }
-  if (Globals.backButtonState === "landmark") {
-    Globals.menu.close("landmark");
+    return;
   }
 };
 
