@@ -38,6 +38,9 @@ class Landmark {
       icon: null,
     };
 
+    // ID du point de repère s'il s'agit d'une modification d'un point de repère existant
+    this.landmarkId = null;
+
     this.#render();
     this.#listeners();
     return this;
@@ -104,8 +107,13 @@ class Landmark {
    * @returns geojson
    */
   #generateGeoJson() {
+    let id = -1;
+    if (this.landmarkId !== null && this.landmarkId >= 0) {
+      id = this.landmarkId;
+    }
     return {
       type: "Feature",
+      id: id,
       geometry: {
         type: "Point",
         coordinates: JSON.parse(this.data.location),
@@ -121,12 +129,40 @@ class Landmark {
     };
   }
 
+  setData(data) {
+    this.data = data;
+    this.dom.title.value = this.data.title
+    this.dom.description.value = this.data.description
+    this.dom.location.dataset.coordinates = JSON.stringify(this.data.location);
+    this.dom.location.value = this.data.locationName;
+    Array.from(this.dom.radioColors).filter((el) => el.value == data.color)[0].checked = true;
+    Array.from(this.dom.radioIcons).filter((el) => el.value == data.icon)[0].checked = true;
+  }
+
+  /**
+   * Paramétrage de l'id
+   * @param {number} id
+   * @public
+   */
+  setId(id) {
+    this.landmarkId = id;
+    document.getElementById("landmarkWindowTitle").innerText = "Modifier un point de repère";
+  }
+
   /**
    * Ferme la fenêtre
    * @public
    */
   hide() {
     Globals.menu.close("landmark");
+  }
+
+  /**
+   * Ferme la fenêtre
+   * @public
+   */
+  show() {
+    Globals.menu.open("landmark");
   }
 
   /**
@@ -146,6 +182,8 @@ class Landmark {
       color: null,
       icon: null,
     };
+    this.landmarkId = null;
+    document.getElementById("landmarkWindowTitle").innerText = "Créer un point de repère";
   }
 
   /**

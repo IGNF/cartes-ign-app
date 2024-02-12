@@ -116,7 +116,7 @@ class MyAccount {
         return;
       }
       const landmark = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]})[0];
-      const title = `<div class=divLegendContainer>
+      const title = `<div id="landmarkPositionTitle" class="divLegendContainer landmarkPosition-${landmark.id}">
         <label class="landmarkSummaryIcon landmarkSummaryIcon${landmark.properties.icon}"
         style="background-color:${landmark.properties.color};
           display: inline-block;
@@ -206,10 +206,19 @@ class MyAccount {
    * @param {*} landmarkGeojson
    */
   addLandmark(landmarkGeojson) {
-    const newlandmark = JSON.parse(JSON.stringify(landmarkGeojson));
-    newlandmark.id = this.lastLandmarkId;
-    this.lastLandmarkId++;
-    this.landmarks.unshift(newlandmark);
+    if (typeof landmarkGeojson.id !== "undefined" && landmarkGeojson.id >= 0) {
+      for (let i = 0; i < this.landmarks.length; i++) {
+        if (this.landmarks[i].id === landmarkGeojson.id){
+          this.landmarks[i] = JSON.parse(JSON.stringify(landmarkGeojson));
+          break;
+        }
+      }
+    } else {
+      const newlandmark = JSON.parse(JSON.stringify(landmarkGeojson));
+      newlandmark.id = this.lastLandmarkId;
+      this.lastLandmarkId++;
+      this.landmarks.unshift(newlandmark);
+    }
     this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
     localStorage.setItem("savedLandmarks", JSON.stringify(this.landmarks));
     this.#updateSources();
@@ -294,6 +303,25 @@ class MyAccount {
     Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
     Globals.routeDraw.setName(route.name);
     Globals.routeDraw.setId(route.id);
+  }
+
+  /**
+   * Ouvre l'outil de création de point de repère pour le modifer
+   * @param {*} landmark
+   */
+  editLandmark(landmark) {
+    this.map.flyTo({center: landmark.geometry.coordinates});
+    this.hide();
+    Globals.landmark.show();
+    Globals.landmark.setData({
+      title: landmark.properties.title,
+      description: landmark.properties.description,
+      location: landmark.geometry.coordinates,
+      locationName: landmark.properties.locationName,
+      color: landmark.properties.color,
+      icon: landmark.properties.icon,
+    });
+    Globals.landmark.setId(landmark.id);
   }
 
   /**

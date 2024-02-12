@@ -121,6 +121,10 @@
   background-image: url("assets/landmark-white.svg");
 }
 
+.lblPositionLandmarkEditImg {
+  background-image: url("assets/edit-white.svg");
+}
+
 .btnPositionButtons {
   display: flex;
   align-items: center;

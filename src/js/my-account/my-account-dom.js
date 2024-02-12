@@ -288,6 +288,7 @@ let MyAccountDOM = {
           <div id="landmark-share_ID_${landmarkId}" class="tools-layer-share" title="Partager le point de repère">Partager</div>
           <input type="checkbox" id="landmark-visibility_ID_${landmarkId}" ${checked}/>
           <label id="landmark-visibility-picto_ID_${landmarkId}" for="landmark-visibility_ID_${landmarkId}" title="Afficher/masquer le point de repère" class="tools-layer-visibility">Afficher/masquer</label>
+          <div id="landmark-edit_ID_${landmarkId}" class="tools-layer-edit" title="Modifier le point de repère">Modifier</div>
           <div id="landmark-export_ID_${landmarkId}" class="tools-layer-export" title="Exporter le point de repère">Exporter</div>
           <div id="landmark-remove_ID_${landmarkId}" class="tools-layer-remove" title="Supprimer le point de repère'">Supprimer</div>
         </div>
@@ -318,6 +319,10 @@ let MyAccountDOM = {
 
     container.querySelector(`#landmark-visibility_ID_${landmarkId}`).addEventListener("click", () => {
       this.toggleShowLandmark(landmark);
+    });
+
+    container.querySelector(`#landmark-edit_ID_${landmarkId}`).addEventListener("click", () => {
+      this.editLandmark(landmark);
     });
 
     let deleteLandmark = () => {

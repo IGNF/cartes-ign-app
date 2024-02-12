@@ -905,6 +905,7 @@ class RouteDraw {
         dminus: 0,
       },
     };
+    this.routeId = null;
     this.dataHistory = [];
     this.__updateRouteInfo(this.data);
     DOM.$routeDrawCancel.classList.add("inactive");

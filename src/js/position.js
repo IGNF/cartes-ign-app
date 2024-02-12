@@ -131,6 +131,17 @@ Altitude : ${altitude} m
         `;
     }
 
+    // Si c'est un landmark
+    if (this.header.includes("landmarkSummaryIcon")) {
+      htmlButtons = `
+      <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+      <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+      <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+      <button id="positionLandmark" class="btnPositionButtons positionLandmarkEdit"><label class="lblPositionImg lblPositionLandmarkEditImg"></label>Modifier</button>
+      <button id="positionSignal" class="btnPositionButtons"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
+      `;
+    }
+
     // template litteral
     var strContainer = `
         <div id="${id.main}">
@@ -211,19 +222,32 @@ Altitude : ${altitude} m
         target.value = this.name;
       }
     });
-    shadowContainer.getElementById("positionLandmark").addEventListener("click", () => {
+    shadowContainer.getElementById("positionLandmark").addEventListener("click", (e) => {
       const coordinates = this.coordinates;
+      // Récupération de l'id du landmark
+      let landmarkId = -1;
+      if ([...e.target.classList].includes("positionLandmarkEdit")) {
+        [...document.getElementById("landmarkPositionTitle").classList].forEach((cl) => {
+          if (cl.split("-")[0] === "landmarkPosition") {
+            landmarkId = parseInt(cl.split("-")[1]);
+          }
+        });
+      }
       // fermeture du panneau actuel
       if (this.options.closePositionCbk) {
         this.options.closePositionCbk();
         this.opened = false;
       }
-      // ouverture du panneau Itinéraire
+      // ouverture du panneau Point de repère
       if (this.options.openLandmarkCbk) {
-        this.options.openLandmarkCbk();
-        let target = document.getElementById("landmarkLocation");
-        target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
-        target.value = this.name;
+        if (landmarkId >= 0) {
+          document.getElementById(`landmark-edit_ID_${landmarkId}`).click();
+        } else {
+          this.options.openLandmarkCbk();
+          let target = document.getElementById("landmarkLocation");
+          target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
+          target.value = this.name;
+        }
       }
     });
     if (this.header !== "Ma position") {
