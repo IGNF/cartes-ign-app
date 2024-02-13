@@ -157,6 +157,15 @@ function app() {
     }
   }
 
+  // Ajout de la source pour le cercle de précision
+  map.addSource("location-precision", {
+    "type": "geojson",
+    "data": {
+      "type": "FeatureCollection",
+      "features": []
+    },
+  });
+
   // Chargement de la position précédente
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
     map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);

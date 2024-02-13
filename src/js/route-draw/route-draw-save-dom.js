@@ -1,4 +1,4 @@
-import utils from "../unit-utils";
+import utils from "../utils/unit-utils";
 
 /**
  * DOM du contrôle du trécé d'itineraire - enregistrement de l'itinéraire

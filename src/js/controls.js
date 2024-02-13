@@ -14,6 +14,8 @@ import ComparePoi from "./compare-poi";
 import Signalement from "./signalement";
 import Landmark from "./landmark";
 
+import LocationLayers from "./services/location-styles"
+
 /**
  * Ajout des contrôle à la fin du chargement de la carte
  * @see maplibregl.ScaleControl
@@ -122,6 +124,9 @@ const addControls = () => {
         // Poi RLT
         Globals.comparePoi = new ComparePoi(map, {});
         Globals.myaccount.addLandmarksLayers();
+        // Cercle de précision sur la position
+        Globals.map.addLayer(LocationLayers["precision"]);
+        Globals.map.addLayer(LocationLayers["precision-outline"]);
       });
   });
 };

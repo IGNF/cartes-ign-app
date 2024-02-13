@@ -1,4 +1,4 @@
-import DomUtils from "../dom-utils";
+import DomUtils from "../utils/dom-utils";
 import LoadingWhite from "../../css/assets/loading-white.svg";
 
 import { Toast } from "@capacitor/toast";

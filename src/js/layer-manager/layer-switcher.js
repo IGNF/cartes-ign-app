@@ -6,7 +6,7 @@ import LayersAdditional from "./layer-additional";
 import Sortable from "sortablejs";
 
 import ImageNotFound from "../../html/img/image-not-found.png";
-import DomUtils from "../dom-utils";
+import DomUtils from "../utils/dom-utils";
 
 import { Toast } from "@capacitor/toast";
 import { Capacitor } from "@capacitor/core";

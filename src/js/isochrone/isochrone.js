@@ -2,6 +2,8 @@ import IsochroneDOM from "./isochrone-dom";
 import Globals from "../globals";
 import LayersGroup from "../layer-manager/layer-group";
 
+import GisUtils from "../utils/gis-utils";
+
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
 import Location from "../services/location";
@@ -277,27 +279,12 @@ class Isochrone {
       source.setData(geojson);
     }
 
-    // "get bounds from a polygon"
-    function getBoundingBox(data) {
-      var bounds = {};
-      for (var i = 0; i < data.length; i++) {
-        var lon = data[i][0];
-        var lat = data[i][1];
-        bounds.xMin = bounds.xMin < lon ? bounds.xMin : lon;
-        bounds.xMax = bounds.xMax > lon ? bounds.xMax : lon;
-        bounds.yMin = bounds.yMin < lat ? bounds.yMin : lat;
-        bounds.yMax = bounds.yMax > lat ? bounds.yMax : lat;
-      }
-
-      return [[bounds.xMin, bounds.yMin], [bounds.xMax, bounds.yMax]];
-    }
-
     // par defaut, le 1er feature est le résultat de l'isochrone
     this.polygon = geojson.features[0];
     this.center = geojson.features[1].geometry.coordinates[0];
 
     // bbox
-    var bbox = getBoundingBox(this.polygon.geometry.coordinates[0]);
+    var bbox = GisUtils.getBoundingBox(this.polygon.geometry.coordinates[0]);
     // deplacement de la carte sur l'emprise des résultats
     var padding;
     // gestion du mode paysage / écran large

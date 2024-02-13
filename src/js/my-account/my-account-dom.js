@@ -1,7 +1,7 @@
 import { Toast } from "@capacitor/toast";
 
-import utils from "../unit-utils";
-import DomUtils from "../dom-utils";
+import utils from "../utils/unit-utils";
+import DomUtils from "../utils/dom-utils";
 
 /**
  * DOM de la fenêtre de compte

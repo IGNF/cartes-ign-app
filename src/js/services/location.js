@@ -2,10 +2,13 @@ import maplibregl from "maplibre-gl";
 
 import DOM from "../dom";
 import Globals from "../globals";
+import GisUtils from "../utils/gis-utils";
 
 import { Geolocation } from "@capacitor/geolocation";
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
+
+import Buffer from "@turf/buffer";
 
 // fichiers SVG
 import LocationImg from "../../css/assets/map-buttons/localisation.svg";
@@ -41,6 +44,11 @@ const clean = () => {
     Globals.myPositionMarker.remove();
     Globals.myPositionMarker = null;
   }
+  Globals.map.getSource("location-precision").setData({
+    "type": "FeatureCollection",
+    "features": []
+  });
+
 };
 
 /**
@@ -115,6 +123,12 @@ const trackLocation = () => {
         }
         if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 16) ) {
           lastAccuracy = position.coords.accuracy;
+          const point = {
+            type: "Point",
+            coordinates: [position.coords.longitude, position.coords.latitude],
+          }
+          const circle = Buffer(point, position.coords.accuracy, {units: "meters"})
+          Globals.map.getSource("location-precision").setData(circle);
           currentPosition = position;
           var zoom = Globals.map.getZoom();
           if (firstLocation) {
@@ -127,6 +141,22 @@ const trackLocation = () => {
             lat: position.coords.latitude,
             lon: position.coords.longitude
           }, zoom, tracking_active || firstLocation);
+          // Si la précision est insuffisante, ne pas zoomer à 16
+          if (lastAccuracy > 150) {
+            const bbox = GisUtils.getBoundingBox(circle.geometry.coordinates[0]);
+            var padding;
+            // gestion du mode paysage / écran large
+            if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+              var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
+                          Math.min(window.innerHeight, window.innerWidth/2) + 42;
+              padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
+            } else {
+              padding = {top: 80, right: 20, bottom: 120, left: 20};
+            }
+            Globals.map.fitBounds(bbox, {
+              padding: padding
+            });
+          }
           if (firstLocation) {
             firstLocation = false;
           }

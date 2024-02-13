@@ -1,7 +1,7 @@
 import Globals from "../globals";
 import MyAccountDOM from "./my-account-dom";
 import MyAccountLayers from "./my-account-styles";
-import utils from "../unit-utils";
+import utils from "../utils/unit-utils";
 
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";

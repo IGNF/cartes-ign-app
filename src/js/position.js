@@ -3,7 +3,7 @@ import Reverse from "./services/reverse";
 import Elevation from "./services/elevation";
 import Location from "./services/location";
 import Globals from "./globals";
-import DomUtils from "./dom-utils";
+import DomUtils from "./utils/dom-utils";
 import { Share } from "@capacitor/share";
 
 /**
