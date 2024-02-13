@@ -32,6 +32,7 @@ let myPositionMarker = null;
 let searchResultMarker = null;
 
 let myPositionIcon;
+let myPositionIconGrey;
 let searchResultIcon;
 
 // Pour l'annulation de fetch
@@ -97,6 +98,7 @@ export default {
   myPositionMarker,
   searchResultMarker,
   myPositionIcon,
+  myPositionIconGrey,
   searchResultIcon,
   controller,
   signal,

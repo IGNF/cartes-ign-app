@@ -25,6 +25,7 @@ import "../css/app.scss";
 
 // fichiers SVG
 import PositionImg from "../css/assets/position.svg";
+import PositionImgGrey from "../css/assets/position-grey.svg";
 import MapCenterImg from "../css/assets/map-center.svg";
 
 /**
@@ -47,6 +48,13 @@ function app() {
   Globals.myPositionIcon.style.height = "51px";
   Globals.myPositionIcon.style.backgroundSize = "contain";
   Globals.myPositionIcon.style.backgroundImage = "url(" + PositionImg + ")";
+
+  Globals.myPositionIconGrey = document.createElement("div");
+  Globals.myPositionIconGrey.class = "myPositionIconGrey";
+  Globals.myPositionIconGrey.style.width = "51px";
+  Globals.myPositionIconGrey.style.height = "51px";
+  Globals.myPositionIconGrey.style.backgroundSize = "contain";
+  Globals.myPositionIconGrey.style.backgroundImage = "url(" + PositionImgGrey + ")";
 
   Globals.searchResultIcon = document.createElement("div");
   Globals.searchResultIcon.class = "searchResultIcon";

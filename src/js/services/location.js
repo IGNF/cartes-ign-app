@@ -28,6 +28,8 @@ let currentPosition = null;
 let mapBearing = 0;
 let positionBearing = 0;
 
+let positionIsGrey = false;
+
 /**
  * Interface pour les evenements
  * @example
@@ -72,7 +74,7 @@ const setMarkerRotation = (positionBearing) => {
 const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) => {
   // si l'icone est en mode gps, on ne reconstruit pas le marker
   // mais, on met à jour la position !
-  if (Globals.myPositionMarker !== null && gps) {
+  if (!positionIsGrey && Globals.myPositionMarker !== null && gps) {
     Globals.myPositionMarker.setLngLat([coords.lon, coords.lat]);
   } else {
     // on reconstruit le marker
@@ -80,8 +82,13 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
       Globals.myPositionMarker.remove();
       Globals.myPositionMarker = null;
     }
+    let positionIcon = Globals.myPositionIcon;
+    if (!currentPosition) {
+      positionIcon = Globals.myPositionIconGrey;
+      positionIsGrey = true;
+    }
     Globals.myPositionMarker = new maplibregl.Marker({
-      element: (gps) ? Globals.myPositionIcon : Globals.searchResultIcon,
+      element: (gps) ? positionIcon : Globals.searchResultIcon,
       anchor: (gps) ? "center" : "bottom",
     })
       .setLngLat([coords.lon, coords.lat])
@@ -130,6 +137,7 @@ const trackLocation = () => {
           const circle = Buffer(point, position.coords.accuracy, {units: "meters"})
           Globals.map.getSource("location-precision").setData(circle);
           currentPosition = position;
+          localStorage.setItem("lastKnownPosition", JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}));
           var zoom = Globals.map.getZoom();
           if (firstLocation) {
             zoom = Math.max(Globals.map.getZoom(), 16);
@@ -191,6 +199,13 @@ const enablePosition = async(tracking) => {
     return;
   }
   location_active = true;
+  if (!currentPosition && localStorage.getItem("lastKnownPosition")) {
+    const lastPosition = JSON.parse(localStorage.getItem("lastKnownPosition"));
+    moveTo({
+      lat: lastPosition.lat,
+      lon: lastPosition.lng
+    }, Globals.map.getZoom(), false);
+  }
   if (tracking) {
     trackLocation();
     Toast.show({
