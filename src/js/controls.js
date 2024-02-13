@@ -14,7 +14,7 @@ import ComparePoi from "./compare-poi";
 import Signalement from "./signalement";
 import Landmark from "./landmark";
 
-import LocationLayers from "./services/location-styles"
+import LocationLayers from "./services/location-styles";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte

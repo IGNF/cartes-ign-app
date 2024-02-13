@@ -133,8 +133,8 @@ const trackLocation = () => {
           const point = {
             type: "Point",
             coordinates: [position.coords.longitude, position.coords.latitude],
-          }
-          const circle = Buffer(point, position.coords.accuracy, {units: "meters"})
+          };
+          const circle = Buffer(point, position.coords.accuracy, {units: "meters"});
           Globals.map.getSource("location-precision").setData(circle);
           currentPosition = position;
           localStorage.setItem("lastKnownPosition", JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}));

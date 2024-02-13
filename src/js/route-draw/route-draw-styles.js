@@ -10,7 +10,11 @@ const layers = {
     },
     paint: {
       "line-color": "#ffffff",
-      "line-opacity": ["case", ["boolean", ["get", "invisible"], false], 0, 1],
+      "line-opacity": [
+        "case",
+        ["boolean", ["get", "invisible"], false], 0,
+        ["boolean", ["get", "fictif"], false], 0.7,
+        1],
       "line-width": [
         "interpolate",
         ["exponential", 1.5],
@@ -34,7 +38,11 @@ const layers = {
     },
     paint: {
       "line-color": "#307CCD",
-      "line-opacity": ["case", ["boolean", ["get", "invisible"], false], 0, 1],
+      "line-opacity": [
+        "case",
+        ["boolean", ["get", "invisible"], false], 0,
+        ["boolean", ["get", "fictif"], false], 0.7,
+        1],
       "line-width": [
         "interpolate",
         ["exponential", 1.5],

@@ -115,6 +115,10 @@ class RouteDraw {
     // point actuellement déplacé par l'interactivité
     this.movedPoint = null;
     this.movedPointIndex = null;
+    this.fictiveSteps = {
+      before: null,
+      after: null,
+    };
 
     // compteurs pour identifiants uniques de points et steps
     this.nextPointId = 0;
@@ -408,7 +412,52 @@ class RouteDraw {
   #onTouchMove(e) {
     const coords = e.lngLat;
     this.movedPoint.geometry.coordinates = [coords.lng, coords.lat];
-    this.#updatePointSource();
+    // Définition de traits fictifs pours aider à situer le point
+    let pointBefore;
+    let pointAfter;
+    if (this.movedPointIndex > 0) {
+      pointBefore = this.data.points[this.movedPointIndex - 1];
+    }
+    if (this.movedPointIndex + 1 < this.data.points.length) {
+      pointAfter = this.data.points[this.movedPointIndex + 1];
+    }
+    if (pointBefore) {
+      if (!this.fictiveSteps.before) {
+        this.fictiveSteps.before = {
+          type: "Feature",
+          geometry: {
+            type: "LineString",
+            coordinates: [pointBefore.geometry.coordinates, this.movedPoint.geometry.coordinates]
+          },
+          properties: {
+            fictif: true,
+            id: -100,
+          }
+        };
+        this.data.steps.push(this.fictiveSteps.before);
+      } else {
+        this.fictiveSteps.before.geometry.coordinates = [pointBefore.geometry.coordinates, this.movedPoint.geometry.coordinates];
+      }
+    }
+    if (pointAfter) {
+      if (!this.fictiveSteps.after) {
+        this.fictiveSteps.after = {
+          type: "Feature",
+          geometry: {
+            type: "LineString",
+            coordinates: [this.movedPoint.geometry.coordinates, pointAfter.geometry.coordinates]
+          },
+          properties: {
+            fictif: true,
+            id: -200,
+          }
+        };
+        this.data.steps.push(this.fictiveSteps.after);
+      } else {
+        this.fictiveSteps.after.geometry.coordinates = [this.movedPoint.geometry.coordinates, pointAfter.geometry.coordinates];
+      }
+    }
+    this.#updateSources();
   }
 
   /**
@@ -425,13 +474,38 @@ class RouteDraw {
     this.movedPoint.properties.name = address;
     this.movedPoint = null;
     this.movedPointIndex = null;
+    const toremove = [];
+    for (let i = 0; i < this.data.steps.length; i++ ) {
+      const step = this.data.steps[i];
+      if (step.properties.fictif) {
+        toremove.push(i);
+      }
+    }
+    if (toremove.length >= 1) {
+      this.data.steps.splice(toremove[0], 1);
+    }
+    if (toremove.length === 2) {
+      this.data.steps.splice(toremove[1] - 1, 1);
+    }
+    this.fictiveSteps = {
+      before: null,
+      after: null,
+    };
     this.#updateSources();
     var promises = [];
     if (index > 0) {
-      promises.push(this.#computeStep(index - 1));
+      const computeBefore = this.#computeStep(index - 1);
+      promises.push(computeBefore);
+      if (this.mode === 1 && this.data.steps[index - 1].properties.mode === 0 && index > 1) {
+        computeBefore.then(() => promises.push(this.#computeStep(index - 2, 0)));
+      }
     }
     if (index < this.data.points.length - 1) {
-      promises.push(this.#computeStep(index));
+      const computeAfter = this.#computeStep(index);
+      promises.push(computeAfter);
+      if (this.mode === 1 && this.data.steps[index].properties.mode === 0 && index < this.data.points.length - 2) {
+        computeAfter.then(() => promises.push(this.#computeStep(index + 1, 0)));
+      }
     }
     Promise.all(promises).then(() => {
       // Enregistrement de l'état dans l'historique
@@ -599,11 +673,11 @@ class RouteDraw {
    *  (re)calcule une étape du tracé a un index donné
    * @param {int} index
    */
-  async #computeStep(index) {
+  async #computeStep(index, mode = this.mode) {
     const firstPoint = this.data.points[index];
     const lastPoint = this.data.points[index + 1];
     // saisie libre
-    if (this.mode === 0) {
+    if (mode === 0) {
       var distance = new MapLibreGL.LngLat(
         lastPoint.geometry.coordinates[0], lastPoint.geometry.coordinates[1]
       ).distanceTo(
@@ -615,7 +689,7 @@ class RouteDraw {
         lastPoint.geometry.coordinates
       ];
       // saisie guidée
-    } else if (this.mode === 1) {
+    } else if (mode === 1) {
       var url = this.configuration.api +
         this.configuration.template({
           start: { lng: firstPoint.geometry.coordinates[0], lat: firstPoint.geometry.coordinates[1] },
@@ -653,6 +727,7 @@ class RouteDraw {
         duration: duration,
         distance: distance,
         id: this.nextStepId,
+        mode: mode,
       }
     };
     this.nextStepId++;

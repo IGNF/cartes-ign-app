@@ -131,8 +131,8 @@ class Landmark {
 
   setData(data) {
     this.data = data;
-    this.dom.title.value = this.data.title
-    this.dom.description.value = this.data.description
+    this.dom.title.value = this.data.title;
+    this.dom.description.value = this.data.description;
     this.dom.location.dataset.coordinates = JSON.stringify(this.data.location);
     this.dom.location.value = this.data.locationName;
     Array.from(this.dom.radioColors).filter((el) => el.value == data.color)[0].checked = true;
