@@ -6,7 +6,7 @@ const layers = [
     type: "line",
     source: "maplibre-gl-directions",
     layout: {
-      "line-cap": "butt",
+      "line-cap": "round",
       "line-join": "round",
     },
     paint: {
@@ -57,7 +57,7 @@ const layers = [
     type: "line",
     source: "maplibre-gl-directions",
     layout: {
-      "line-cap": "butt",
+      "line-cap": "round",
       "line-join": "round",
     },
     paint: {

@@ -5,7 +5,7 @@ const layers = {
     type: "line",
     source: "",
     layout: {
-      "line-cap": "butt",
+      "line-cap": "round",
       "line-join": "round",
     },
     paint: {
@@ -33,7 +33,7 @@ const layers = {
     type: "line",
     source: "",
     layout: {
-      "line-cap": "butt",
+      "line-cap": "round",
       "line-join": "round",
     },
     paint: {
