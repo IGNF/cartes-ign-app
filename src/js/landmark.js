@@ -98,6 +98,7 @@ class Landmark {
         duration: "long",
         position: "top"
       });
+      this.map.flyTo({center: landmarkJson.geometry.coordinates});
       this.hide();
     });
   }

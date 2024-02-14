@@ -13,7 +13,7 @@ const layers = {
       "line-opacity": [
         "case",
         ["boolean", ["get", "invisible"], false], 0,
-        ["boolean", ["get", "fictif"], false], 0.7,
+        ["boolean", ["get", "fictif"], false], 0,
         1],
       "line-width": [
         "interpolate",
@@ -27,6 +27,7 @@ const layers = {
         20,
       ],
     },
+    filter: ["!", ["boolean", ["get", "fictif"], false]],
   },
   "line": {
     id: "route-draw-line",
@@ -41,7 +42,6 @@ const layers = {
       "line-opacity": [
         "case",
         ["boolean", ["get", "invisible"], false], 0,
-        ["boolean", ["get", "fictif"], false], 0.7,
         1],
       "line-width": [
         "interpolate",
@@ -55,6 +55,32 @@ const layers = {
         17,
       ],
     },
+    filter: ["!", ["boolean", ["get", "fictif"], false]],
+  },
+  "line-dashed": {
+    id: "route-draw-line-dashed",
+    type: "line",
+    source: "",
+    layout: {
+      "line-cap": "round",
+      "line-join": "round",
+    },
+    paint: {
+      "line-color": "#307CCD",
+      "line-dasharray": [1, 2],
+      "line-width": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        2,
+        5,
+        2,
+        18,
+        17,
+      ],
+    },
+    filter: ["boolean", ["get", "fictif"], false],
   },
   "point-casing": {
     id: "route-draw-point-casing",
