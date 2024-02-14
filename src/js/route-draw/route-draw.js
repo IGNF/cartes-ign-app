@@ -1,7 +1,7 @@
 import RouteDrawDOM from "./route-draw-dom";
 import RouteDrawSave from "./route-draw-save";
 import Globals from "../globals";
-import ElevationLineControl from "../elevation-line-control";
+import ElevationLineControl from "../elevation-line-control/elevation-line-control";
 import DOM from "../dom";
 import RouteDrawLayers from "./route-draw-styles";
 import Reverse from "../services/reverse";
@@ -88,6 +88,7 @@ class RouteDraw {
 
     // Profil Altimétrique
     this.elevation = new ElevationLineControl({ target: document.getElementById("routedraw-elevationline") });
+    this.elevation.addSourcesAndLayers();
 
     this.map.loadImage(RouteDepartureIcon, (_, image) => {
       this.map.addImage("routeDepartureIcon", image);

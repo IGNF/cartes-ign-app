@@ -11,7 +11,7 @@ import Geocode from "../services/geocode";
 import Location from "../services/location";
 import Reverse from "../services/reverse";
 
-import ElevationLineControl from "../elevation-line-control";
+import ElevationLineControl from "../elevation-line-control/elevation-line-control";
 import Sortable from "sortablejs";
 
 /**

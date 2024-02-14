@@ -16,11 +16,13 @@ ChartJS.register(
 );
 
 import maplibregl from "maplibre-gl";
-import ElevationLine from "./services/elevation-line";
+import ElevationLine from "../services/elevation-line";
+import ElevationLineLayers from "./elevation-line-styles";
+import Globals from "../globals";
 
 import { Toast } from "@capacitor/toast";
 
-import LoadingDark from "../css/assets/loading-darkgrey.svg";
+import LoadingDark from "../../css/assets/loading-darkgrey.svg";
 
 
 /**
@@ -42,7 +44,9 @@ class ElevationLineControl {
     };
     this.target = this.options.target || document.getElementById("directions-elevationline");
     this.coordinates = null;    // [{lat: ..., lon: ...}, ...]
-    this.elevationData = null;  // [{x: <distance>, y: <elevation}, ...]
+    this.elevationData = null;  // [{x: <distance>, y: <elevation>}, ...]
+    this.profileLngLats = [];
+    this.removeCrosshair = false;
 
     this.dplus = 0; // dénivelé positif
     this.dminus = 0; // dénivelé négatif
@@ -75,6 +79,7 @@ class ElevationLineControl {
   setData(data) {
     this.coordinates = data.coordinates;
     this.elevationData = data.elevationData;
+    this.profileLngLats = data.profileLngLats;
 
     this.dplus = data.dplus;
     this.dminus = data.dminus;
@@ -95,6 +100,7 @@ class ElevationLineControl {
       dplus: this.dplus,
       dminus: this.dminus,
       unit: this.unit,
+      profileLngLats: this.profileLngLats,
     };
   }
 
@@ -122,6 +128,7 @@ class ElevationLineControl {
         tension: 0.1,
         pointRadius: 0,
         showLine: true,
+        hoverRadius: 0,
       }]
     };
 
@@ -135,6 +142,66 @@ class ElevationLineControl {
       suggestedMin = ((maxElevation - minElevation) / 2 ) - 5 + minElevation;
       suggestedMax = ((maxElevation - minElevation) / 2 ) + 5 + minElevation;
     }
+
+    // Merci https://stackoverflow.com/a/74443361
+    const plugin = {
+      id: "crosshair",
+      defaults: {
+        width: 1,
+        color: "#3F4A55",
+        dash: [3, 3],
+      },
+      afterInit: (chart) => {
+        chart.crosshair = {
+          x: 0,
+          y: 0,
+        };
+      },
+      afterEvent: (chart, args) => {
+        const {inChartArea} = args;
+        const point = this.chart.getElementsAtEventForMode(args.event, "index", { intersect: false }, true)[0];
+        if (!this.removeCrosshair && args.event.type !== "click" && point) {
+          const x = point.element.x;
+          const y = point.element.y;
+          Globals.map.getSource("elevation-line-location").setData({
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": this.profileLngLats[point.element.$context.index]
+            }
+          });
+          chart.crosshair = {x, y, draw: inChartArea};
+          chart.draw();
+        } else {
+          chart.crosshair = {x: 0, y: 0, draw: null};
+          Globals.map.getSource("elevation-line-location").setData({
+            type: "FeatureCollection",
+            features: [],
+          });
+          chart.draw();
+        }
+      },
+      beforeDatasetsDraw: (chart, _, opts) => {
+        const {ctx} = chart;
+        const {top, bottom, left, right} = chart.chartArea;
+        const {x, y, draw} = chart.crosshair;
+        if (!draw) return;
+
+        ctx.save();
+
+        ctx.beginPath();
+        ctx.lineWidth = opts.width;
+        ctx.strokeStyle = opts.color;
+        ctx.setLineDash(opts.dash);
+        ctx.moveTo(x, bottom);
+        ctx.lineTo(x, top);
+        ctx.moveTo(left, y);
+        ctx.lineTo(right, y);
+        ctx.stroke();
+
+        ctx.restore();
+      }
+    };
 
     const chartConfig = {
       type: "scatter",
@@ -156,10 +223,34 @@ class ElevationLineControl {
             suggestedMax: suggestedMax,
             suggestedMin: suggestedMin,
           }
-        }
-      }
+        },
+        plugins: {
+          crosshair: {
+            color: "#3F4A55",
+          }
+        },
+        hover: {
+          mode: "index",
+          intersect: false,
+        },
+      },
+      plugins: [plugin],
     };
     this.chart = new ChartJS(target, chartConfig);
+    // Add touchend event listener for mobile devices
+    target.addEventListener("touchend", () => {
+      // Remove the vertical line and update the chart
+      this.removeCrosshair = true;
+      this.chart.crosshair = {x: 0, y: 0, draw: null};
+      Globals.map.getSource("elevation-line-location").setData({
+        type: "FeatureCollection",
+        features: [],
+      });
+      this.chart.draw();
+      const self = this;
+      // HACK: disable hover effect for 0.1 seconds
+      setTimeout(() => {self.removeCrosshair = false;}, 100);
+    });
   }
 
   /**
@@ -180,6 +271,7 @@ class ElevationLineControl {
       return;
     }
     this.elevationData = [];
+    this.profileLngLats = [];
     this.dplus = 0;
     this.dminus = 0;
     let responseElevation;
@@ -217,6 +309,7 @@ class ElevationLineControl {
       }
       let currentDataPoint = {x: currentDistance, y: elevationValue};
       this.elevationData.push(currentDataPoint);
+      this.profileLngLats.push([currentLngLat.lng, currentLngLat.lat]);
       lastLngLat = currentLngLat;
       lastZ = elevation.z;
     });
@@ -271,6 +364,26 @@ class ElevationLineControl {
     ElevationLine.clear();
     if (this.chart) {
       this.chart.destroy();
+    }
+  }
+
+  /**
+   * Ajout des sources et des couches associées au contrôle
+   * @public
+   */
+  addSourcesAndLayers() {
+    // Comme le contrôle est appelé 2 fois (Tracé ET calcul d'iti), on s'assure de n'ajouter qu'une
+    // seule fois la source et les layers
+    if (!Globals.map.getSource("elevation-line-location")) {
+      Globals.map.addSource("elevation-line-location", {
+        "type": "geojson",
+        "data": {
+          type: "FeatureCollection",
+          features: [],
+        }
+      });
+      Globals.map.addLayer(ElevationLineLayers["point-casing"]);
+      Globals.map.addLayer(ElevationLineLayers["point"]);
     }
   }
 

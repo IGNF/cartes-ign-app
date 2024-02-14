@@ -363,6 +363,8 @@ class Isochrone {
       }
     });
 
+    // HACK
+    // Déplacement de l'isochrone pour qu'elle apparaisse sous les POI OSM
     this.map.moveLayer(this.configuration.source + "line", "maplibre-gl-directions-point-ORIGIN");
     this.map.moveLayer(this.configuration.source, this.configuration.source + "line");
   }
