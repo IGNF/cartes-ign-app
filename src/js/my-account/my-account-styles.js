@@ -5,7 +5,7 @@ const layers = {
     type: "line",
     source: "",
     layout: {
-      "line-cap": "rount",
+      "line-cap": "round",
       "line-join": "round",
     },
     paint: {
