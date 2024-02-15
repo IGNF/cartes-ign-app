@@ -1,12 +1,12 @@
 #navContainer {
     display: flex;
     position: absolute;
-    top: calc(100% - 72px - var(--safe-area-inset-bottom));
+    top: calc(100% - 72px - max(calc(var(--safe-area-inset-bottom) - 10px), 0px));
     width: 100%;
     height: 60px ;
     font-size: 12px;
     background-color: white;
-    padding: 10px 0px var(--safe-area-inset-bottom) 0px;
+    padding: 10px 0px max(calc(var(--safe-area-inset-bottom) - 10px), 0px) 0px;
     z-index: 3002;
     flex-direction: row;
     align-items: center;
@@ -179,9 +179,10 @@
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #navContainer {
     flex-direction: column;
-    width: 75px;
+    width: calc(75px + var(--safe-area-inset-left));
     height: 100vh;
-    left: var(--safe-area-inset-left);
+    padding-left: var(--safe-area-inset-left);
+    left: 0;
     top: 0;
     box-sizing: border-box;
   }
