@@ -165,7 +165,7 @@ class MenuNavigation {
       DOM.$compareLayers2Window.classList.remove("d-none");
       DOM.$sideBySideRightLayer.classList.add("d-none");
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) - 50px))";
+        DOM.$sideBySideLeftLayer.style.left = "calc(50% + 15px)";
       }
       Globals.currentScrollIndex = 2;
       break;
@@ -181,6 +181,9 @@ class MenuNavigation {
       DOM.$sideBySideRightLayer.classList.remove("d-none");
       DOM.$tabContainer.style.top = "100vh";
       DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
+      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        DOM.$bottomButtons.style.width = "calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right))";
+      }
       DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.add("d-none");
       Globals.compare.show();
       Globals.interactivityIndicator.hardDisable();
@@ -403,6 +406,7 @@ class MenuNavigation {
       DOM.$sideBySideRightLayer.classList.add("d-none");
       DOM.$tabContainer.style.removeProperty("top");
       DOM.$bottomButtons.style.removeProperty("bottom");
+      DOM.$bottomButtons.style.removeProperty("width");
       DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.remove("d-none");
       Globals.compare.hide();
       Globals.interactivityIndicator.enable();

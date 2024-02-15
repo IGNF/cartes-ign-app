@@ -379,10 +379,6 @@
     bottom: -40px;
   }
 
-  #sideBySideLeftLayer {
-    left: -60px;
-  }
-
   #mapCenter {
     top: calc(50vh - 25px);
     right: calc((100vw - 25px));

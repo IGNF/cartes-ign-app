@@ -136,7 +136,13 @@ function addListeners() {
     if (Globals.backButtonState === "compareLayers2") {
       DOM.$sideBySideLeftLayer.style.removeProperty("left");
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) - 20px))";
+        DOM.$sideBySideLeftLayer.style.left = "calc(50% + 15px)";
+      }
+    }
+    if (["compare", "compareLayers1", "compareLayers2"].includes(Globals.backButtonState)) {
+      DOM.$bottomButtons.style.removeProperty("width");
+      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        DOM.$bottomButtons.style.width = "calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right))";
       }
     }
     Globals.menu.updateScrollAnchors();
