@@ -174,6 +174,12 @@ class POI {
       });
     }
 
+    let rltChecked = "";
+    // Chargement de la position précédente
+    if (localStorage.getItem("poirltChecked")) {
+      rltChecked = localStorage.getItem("poirltChecked");
+    }
+
     var tpltContainer = `
             <div class="divPOIContainer">
                 <span class="spanPOITitle">Points d'interêts</span>
@@ -190,7 +196,7 @@ class POI {
                 <div class="divPOIDisplayGoBackTime">
                   <span>POI remonter le temps</span>
                   <label class="toggleSwitch">
-                    <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox">
+                    <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox" ${rltChecked}>
                     <span class="toggleSlider"></span>
                   </label>
                 </div>
@@ -244,8 +250,10 @@ class POI {
     document.getElementById("displayPOIGoBackTime").addEventListener("change", (e) => {
       if (e.target.checked) {
         Globals.comparePoi.showPoints();
+        localStorage.setItem("poirltChecked", "checked");
       } else {
         Globals.comparePoi.hidePoints();
+        localStorage.setItem("poirltChecked", "");
       }
     });
     // rendre visible ou non le filtre si la couche POI est active sinon rien à faire

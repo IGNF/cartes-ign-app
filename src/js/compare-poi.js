@@ -58,6 +58,8 @@ class ComparePoi {
     this.#render();
     this.#listeners();
 
+    if (document.getElementById("displayPOIGoBackTime").checked) this.showPoints();
+
     return this;
   }
 

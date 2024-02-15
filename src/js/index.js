@@ -38,7 +38,7 @@ function app() {
     StatusBar.setStyle({ style: Style.Light });
   }
   if (Capacitor.getPlatform() === "android") {
-    NavigationBar.setNavigationBarColor({color: "#ffffff"});
+    NavigationBar.setNavigationBarColor({color: "#788089"});
   }
 
   // Définition des icones
