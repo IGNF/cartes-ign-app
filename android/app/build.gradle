@@ -7,8 +7,8 @@ android {
         applicationId "fr.ign.geoportail"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 29504
-        versionName "2.95.4"
+        versionCode 29505
+        versionName "2.95.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
