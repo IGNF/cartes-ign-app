@@ -12,6 +12,7 @@ import RecentSearch from "./search-recent";
 import MenuNavigation from "./nav";
 import InteractivityIndicator from "./map-interactivity/interactivity-indicator";
 import { StatusBar, Style } from "@capacitor/status-bar";
+import { ScreenOrientation } from "@capacitor/screen-orientation";
 // https://github.com/ionic-team/capacitor/issues/2840
 import { SafeArea, SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 
@@ -37,11 +38,19 @@ function app() {
     StatusBar.setStyle({ style: Style.Light });
   }
   SafeArea.getStatusBarHeight().then(({ height }) => {
-    let difference = screen.height - window.innerHeight - height;
-    if (difference < 0) {
-      difference += 50;
-    }
-    document.documentElement.style.setProperty("--nav-bar-height", difference + "px");
+    let difference;
+    ScreenOrientation.orientation().then((orientation) => {
+      if (orientation.type.split("-")[0] === "landscape") {
+        difference = screen.width - window.innerWidth;
+      } else {
+        difference = screen.height - window.innerHeight - height;
+        if (difference < 0) {
+          difference += 50;
+        }
+      }
+      difference = Math.max(difference, 0);
+      document.documentElement.style.setProperty("--nav-bar-height", difference + "px");
+    });
   });
 
 

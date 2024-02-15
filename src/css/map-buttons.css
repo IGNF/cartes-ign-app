@@ -345,7 +345,7 @@
 
   #bottomButtons {
     position: fixed;
-    bottom: calc(42px + var(--safe-area-inset-bottom));
+    bottom: calc(42px);
     width: calc(100vw - 75px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
     right: var(--safe-area-inset-right);
     z-index: 2500;

@@ -96,15 +96,16 @@ function addListeners() {
     localStorage.setItem("savedLandmarks", JSON.stringify(Globals.myaccount.landmarks));
   });
 
-  // Screen dimentions change
-  window.addEventListener("resize", () => {
+  const handleresize = () => {
     SafeAreaController.injectCSSVariables();
     ScreenOrientation.orientation().then((orientation) => {
       if (orientation.type === "landscape-secondary") {
         document.documentElement.style.setProperty("--safe-area-inset-left", "0px");
       }
+      if (orientation.type === "landscape-primary") {
+        document.documentElement.style.setProperty("--safe-area-inset-right", "0px");
+      }
     });
-
 
     if (Globals.backButtonState !== "default") {
       Globals.currentScrollIndex = 1;
@@ -153,7 +154,11 @@ function addListeners() {
       }
     }
     Globals.menu.updateScrollAnchors();
-  });
+  };
+
+  // Screen dimentions change
+  window.addEventListener("resize", handleresize);
+  window.addEventListener("orientationchange", handleresize);
 
 }
 

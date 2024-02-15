@@ -192,7 +192,7 @@
     height: 100%;
     border-radius: 0;
     top: 100%;
-    left: 75px;
+    left: calc(75px + var(--safe-area-inset-left));
     display: none;
   }
 
