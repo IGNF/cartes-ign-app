@@ -198,8 +198,11 @@ function getLegend(svg, layername) {
 
 function Legend(features, zoom) {
 
-  const stylePLANIGN = globals.manager.layerSwitcher.layers["PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"].style;
   const source = features.length > 0 ? features[0].source : "";
+  let stylePLANIGN = [];
+  if (source == "plan_ign" || source == "bdtopo") {
+    stylePLANIGN = globals.manager.layerSwitcher.layers["PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"].style;
+  }
   let legend = "";
   let svg = "";
 
@@ -240,7 +243,7 @@ function Legend(features, zoom) {
    * sont utilisés pour générer le svg de légende.
    *
    */
-  if ((source == "plan_ign" || "bdtopo") && f.length > 0) {
+  if ((source == "plan_ign" || source == "bdtopo") && f.length > 0) {
     featuresForLegend = stylePLANIGN.filter((elem) => {
       if (elem.id == f[0].layer.id) {
         return elem;
