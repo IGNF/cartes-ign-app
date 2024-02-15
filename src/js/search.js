@@ -105,7 +105,7 @@ class Search {
 
     document.getElementById(id.myLoc).addEventListener("click", (e) => {
       // on realise une geolocalisation
-      Location.getLocation()
+      Location.getLocation(false)
         .then((result) => {
           DOM.$rech.value = "Ma position";
           e.target.classList.add("autocompresultselected");
@@ -127,7 +127,7 @@ class Search {
           } else {
             setTimeout(() =>{
               this.hide();
-              Location.moveTo(result.coordinates, Globals.map.getZoom(), true, false);
+              Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
             }, 250);
           }
         });

@@ -296,7 +296,7 @@ class MenuNavigation {
         DOM.$backTopLeftBtn.style.boxShadow = "unset";
         DOM.$backTopLeftBtn.style.height = "44px";
         DOM.$backTopLeftBtn.style.width = "24px";
-        DOM.$backTopLeftBtn.style.top = "12px";
+        DOM.$backTopLeftBtn.style.top = "calc(12px + var(--safe-area-inset-top))";
         DOM.$backTopLeftBtn.style.left = "15px";
       }
       DOM.$altMenuContainer.classList.remove("d-none");

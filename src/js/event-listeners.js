@@ -5,6 +5,7 @@ import Globals from "./globals";
 import RecentSearch from "./search-recent";
 import State from "./state";
 import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
+import { ScreenOrientation } from "@capacitor/screen-orientation";
 
 /**
  * Ecouteurs generiques
@@ -98,6 +99,12 @@ function addListeners() {
   // Screen dimentions change
   window.addEventListener("resize", () => {
     SafeAreaController.injectCSSVariables();
+    ScreenOrientation.orientation().then((orientation) => {
+      if (orientation.type === "landscape-secondary") {
+        document.documentElement.style.setProperty("--safe-area-inset-left", "0px");
+      }
+    });
+
 
     if (Globals.backButtonState !== "default") {
       Globals.currentScrollIndex = 1;
@@ -114,7 +121,7 @@ function addListeners() {
         DOM.$backTopLeftBtn.style.boxShadow = "unset";
         DOM.$backTopLeftBtn.style.height = "44px";
         DOM.$backTopLeftBtn.style.width = "24px";
-        DOM.$backTopLeftBtn.style.top = "12px";
+        DOM.$backTopLeftBtn.style.top = "calc(12px + var(--safe-area-inset-top))";
         DOM.$backTopLeftBtn.style.left = "15px";
       }
     }

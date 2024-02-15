@@ -13,8 +13,7 @@ import MenuNavigation from "./nav";
 import InteractivityIndicator from "./map-interactivity/interactivity-indicator";
 import { StatusBar, Style } from "@capacitor/status-bar";
 // https://github.com/ionic-team/capacitor/issues/2840
-import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
-import { NavigationBar } from "@capgo/capacitor-navigation-bar";
+import { SafeArea, SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 
 import { Capacitor } from "@capacitor/core";
 
@@ -37,9 +36,11 @@ function app() {
     StatusBar.setOverlaysWebView({ overlay: true });
     StatusBar.setStyle({ style: Style.Light });
   }
-  if (Capacitor.getPlatform() === "android") {
-    NavigationBar.setNavigationBarColor({color: "#788089"});
-  }
+  SafeArea.getStatusBarHeight().then(({ height }) => {
+    const difference = screen.height - window.innerHeight - height;
+    document.documentElement.style.setProperty("--nav-bar-height", difference + "px");
+  });
+
 
   // Définition des icones
   Globals.myPositionIcon = document.createElement("div");

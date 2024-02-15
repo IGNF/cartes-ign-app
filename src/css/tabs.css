@@ -47,7 +47,7 @@
 /* Bottom menu */
 #tabContainer {
   position: absolute;
-  top: calc(100% - 72px - max(calc(var(--safe-area-inset-bottom) - 10px), 0px));
+  top: calc(100% - 72px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
   height: fit-content;
   width: 100%;
   background-color: #f4f6f8;

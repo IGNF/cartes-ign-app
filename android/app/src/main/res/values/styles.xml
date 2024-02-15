@@ -13,10 +13,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:background">@null</item>
-    </style>
-
+        <item name="android:navigationBarColor">@color/background_material_light</item>
+        <item name="android:windowLightNavigationBar">true</item>
+      </style>
 
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
         <item name="android:background">@drawable/splash</item>
-    </style>
+      </style>
 </resources>
