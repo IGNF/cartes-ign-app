@@ -104,35 +104,34 @@ class Search {
     }, true);
 
     document.getElementById(id.myLoc).addEventListener("click", (e) => {
+      DOM.$rech.value = "Ma position";
+      e.target.classList.add("autocompresultselected");
+      if (Globals.backButtonState === "searchDirections") {
+        setTimeout(() => {
+          this.hide();
+          Globals.menu.open("directions");
+        }, 250);
+      } else if (Globals.backButtonState === "searchIsochrone") {
+        setTimeout(() => {
+          this.hide();
+          Globals.menu.open("isochrone");
+        }, 250);
+      } else if (Globals.backButtonState === "searchLandmark") {
+        setTimeout(() => {
+          this.hide();
+          Globals.menu.open("landmark");
+        }, 250);
+      } else {
+        setTimeout(() =>{
+          this.hide();
+        }, 250);
+      }
       // on realise une geolocalisation
-      Location.getLocation(false)
+      Location.getLocation(true)
         .then((result) => {
-          DOM.$rech.value = "Ma position";
-          e.target.classList.add("autocompresultselected");
-          if (Globals.backButtonState === "searchDirections") {
-            setTimeout(() => {
-              this.hide();
-              Globals.menu.open("directions");
-            }, 250);
-          } else if (Globals.backButtonState === "searchIsochrone") {
-            setTimeout(() => {
-              this.hide();
-              Globals.menu.open("isochrone");
-            }, 250);
-          } else if (Globals.backButtonState === "searchLandmark") {
-            setTimeout(() => {
-              this.hide();
-              Globals.menu.open("landmark");
-            }, 250);
-          } else {
-            setTimeout(() =>{
-              this.hide();
-              Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
-            }, 250);
-          }
-        });
-    }, true);
-
+          Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
+        }, true);
+    });
     document.getElementById(id.closeSearch).addEventListener("click", () => {
       State.onBackKeyDown();
     });
