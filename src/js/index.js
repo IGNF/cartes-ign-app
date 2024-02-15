@@ -37,7 +37,10 @@ function app() {
     StatusBar.setStyle({ style: Style.Light });
   }
   SafeArea.getStatusBarHeight().then(({ height }) => {
-    const difference = screen.height - window.innerHeight - height;
+    let difference = screen.height - window.innerHeight - height;
+    if (difference < 0) {
+      difference += 50;
+    }
     document.documentElement.style.setProperty("--nav-bar-height", difference + "px");
   });
 
