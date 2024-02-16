@@ -302,6 +302,7 @@ class MenuNavigation {
     case "directions":
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+      DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$sideBySideBtn.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
@@ -530,6 +531,7 @@ class MenuNavigation {
     case "directions":
       DOM.$search.style.display = "flex";
       DOM.$filterPoiBtn.style.removeProperty("top");
+      DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$sideBySideBtn.classList.remove("d-none");
       Globals.directions.clear();
