@@ -1,4 +1,5 @@
 import Globals from "../globals";
+import DOM from "../dom";
 import MapInteractivityLayers from "./map-interactivity-styles";
 import featurePropertyFilter from "./feature-property-filter";
 
@@ -73,7 +74,7 @@ class MapInteractivity {
       return;
     }
     if (Globals.backButtonState.split("-")[0] === "position") {
-      Globals.menu.close("position");
+      DOM.$backTopLeftBtn.click();
     }
     let features = this.map.queryRenderedFeatures(ev.point);
     // TODO: Patience

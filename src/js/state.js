@@ -84,7 +84,7 @@ const onBackKeyDown = () => {
     Globals.menu.close("position");
     // réouverture de menu précédent
     if (previousState !== "default") {
-      Globals.menu.open(previousState);
+      Globals.menu.open(previousState, 0);
       return;
     }
     return;

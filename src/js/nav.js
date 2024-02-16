@@ -83,7 +83,7 @@ class MenuNavigation {
      * Ouvre le panneau avec le contenu du composant (tab)
      * @param {*} id
      */
-  open(id) {
+  open(id, scrollIndex = -1) {
     // on vide tous les panneaux
     var lstElements = DOM.$tabContainer.childNodes;
     for (let i = 0; i < lstElements.length; i++) {
@@ -323,7 +323,9 @@ class MenuNavigation {
     this.hide();
 
     // on procede à l'affichage du panneau
-    // DOM.$tabContainer.style.height = "100%";
+    if (scrollIndex !== -1) {
+      Globals.currentScrollIndex = scrollIndex;
+    }
     this.updateScrollAnchors();
   }
 

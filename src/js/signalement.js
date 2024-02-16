@@ -103,7 +103,7 @@ class Signalement {
   async #send() {
     const permalink = `https://www.geoportail.gouv.fr/carte?c=${this.data.location.lon},${this.data.location.lat}&z=${Math.floor(this.map.getZoom()) - 1}&l0=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2::GEOPORTAIL:OGC:WMTS(1)&permalink=yes`;
     const anomaly = {
-      name: this.data.title + " (Anomalie)",
+      name: this.data.title + " (Anomalie) (Appli mobile IGN)",
       description: this.data.description,
       theme: this.data.theme,
       permalink: permalink,
