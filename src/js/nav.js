@@ -253,9 +253,6 @@ class MenuNavigation {
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$sideBySideBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
-      if (!Globals.isochrone.computed) {
-        Globals.isochrone.interactive(true);
-      }
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 1;
       break;
@@ -432,6 +429,7 @@ class MenuNavigation {
     case "routeDraw":
       DOM.$search.style.display = "flex";
       DOM.$filterPoiBtn.style.removeProperty("top");
+      DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$routeDrawBtns.classList.add("d-none");
       DOM.$routeDrawEdit.classList.add("d-none");
@@ -472,7 +470,6 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$sideBySideBtn.classList.remove("d-none");
       Globals.isochrone.clear();
-      Globals.isochrone.interactive(false);
       Globals.interactivityIndicator.enable();
       break;
     case "search":

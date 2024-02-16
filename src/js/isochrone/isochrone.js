@@ -320,7 +320,6 @@ class Isochrone {
     }
     Globals.menu.updateScrollAnchors();
     this.__unsetComputeButtonLoading();
-    this.interactive(false);
     this.computed = true;
   }
 
@@ -409,27 +408,6 @@ class Isochrone {
         LayersGroup.addVisibilityByID(Globals.poi.id, element.id, el.checked);
       }
     });
-  }
-
-  /**
-   * activation du mode interaction
-   * @param {*} status
-   * @public
-   */
-  interactive(status) {
-    if (status) {
-      this.map.on("click", this.onAddWayPoint);
-      // desactiver les filtres de la couche POI osm en ouvrant le contrôle
-      if (this.poi) {
-        // TODO...
-      }
-    } else {
-      this.map.off("click", this.onAddWayPoint);
-      // reactiver les filtres de la couche POI osm en quittant le contrôle
-      if (this.poi) {
-        // TODO...
-      }
-    }
   }
 
   /**
