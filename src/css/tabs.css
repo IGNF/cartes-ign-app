@@ -69,3 +69,7 @@
   background-image: url(../html/img/navheader.svg);
   flex-shrink: 0;
 }
+
+.elevationLineCanvas {
+  touch-action: none;
+}
