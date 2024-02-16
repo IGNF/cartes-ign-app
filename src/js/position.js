@@ -265,6 +265,9 @@ Altitude : ${altitude} m
     target.appendChild(shadowContainer);
 
     // enregistrement du dom
+    if (this.container) {
+      this.container.remove();
+    }
     this.container = document.getElementById(id.main);
 
     // mise à jour du statut de la fenêtre
@@ -293,36 +296,36 @@ Altitude : ${altitude} m
 
     this.header = position.text;
     this.additionalHtml = html;
-
-    const responseReverse = await Reverse.compute({
-      lat: position.coordinates.lat,
-      lon: position.coordinates.lon
-    });
-
-    if (!responseReverse) {
-      throw new Error("Reverse response is empty !");
-    }
-
-    this.coordinates = position.coordinates;
-    this.address = Reverse.getAddress();
-
-    if (!Reverse.getAddress()) {
-      this.address = {
-        number: "",
-        street: "",
-        postcode: "",
-        city: ""
-      };
+    let responseReverse;
+    try {
+      responseReverse = await Reverse.compute({
+        lat: position.coordinates.lat,
+        lon: position.coordinates.lon
+      });
+    } catch (err) {
+      if (err.name === "AbortError") {
+        return;
+      }
+      console.warn(`Error when fetching reverse: ${err}`);
     }
 
     try {
-      await Elevation.compute(this.coordinates);
+      await Elevation.compute(position.coordinates);
     } catch(err) {
+      if (err.name === "AbortError") {
+        return;
+      }
       console.warn(`Error when fetching elevation: ${err}`);
     }
 
+    this.coordinates = position.coordinates;
+    this.address = Reverse.getAddress() || {
+      number: "",
+      street: "",
+      postcode: "",
+      city: ""
+    };
     this.elevation = Elevation.getElevation();
-
     this.#render();
   }
 
