@@ -513,7 +513,7 @@ class RouteDraw {
     if (index < this.data.points.length - 1) {
       const computeAfter = this.#computeStep(index);
       promises.push(computeAfter);
-      if (this.mode === 1 && this.data.steps[index].properties.mode === 0 && index < this.data.points.length - 2) {
+      if (this.mode === 1 && index < this.data.points.length - 2 && this.data.steps[index].properties.mode === 0) {
         computeAfter.then(() => promises.push(this.#computeStep(index + 1, 0)));
       }
     }
