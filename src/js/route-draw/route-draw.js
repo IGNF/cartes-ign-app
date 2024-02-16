@@ -120,6 +120,7 @@ class RouteDraw {
       before: null,
       after: null,
     };
+    this.pointWasMoved = false;
 
     // compteurs pour identifiants uniques de points et steps
     this.nextPointId = 0;
@@ -411,6 +412,7 @@ class RouteDraw {
    * @returns
    */
   #onTouchMove(e) {
+    this.pointWasMoved = true;
     const coords = e.lngLat;
     this.movedPoint.geometry.coordinates = [coords.lng, coords.lat];
     // Définition de traits fictifs pours aider à situer le point
@@ -467,11 +469,18 @@ class RouteDraw {
    * @returns
    */
   async #onTouchEnd(e) {
-    this.deactivate();
     this.map.off("touchmove", this.handleTouchMove);
+    this.deactivate();
+    this.movedPoint.properties.highlight = false;
+    if (!this.pointWasMoved) {
+      this.#updateSources();
+      this.movedPoint = null;
+      this.movedPointIndex = null;
+      this.#listeners();
+      return;
+    }
     const index = this.movedPointIndex;
     const address = await this.#computePointName(e.lngLat);
-    this.movedPoint.properties.highlight = false;
     this.movedPoint.properties.name = address;
     this.movedPoint = null;
     this.movedPointIndex = null;
@@ -512,6 +521,7 @@ class RouteDraw {
       // Enregistrement de l'état dans l'historique
       this.#saveState();
       this.#listeners();
+      this.pointWasMoved = false;
     });
   }
 
@@ -525,7 +535,7 @@ class RouteDraw {
     this.map.off("click", this.handleAddWayPoint);
     // Si on a cliqué sur un waypoint, on ne fait rien)
     if (this.map.getSource(this.configuration.pointsource) && this.map.queryRenderedFeatures(e.point, {
-      layers: [RouteDrawLayers["point"].id],
+      layers: [RouteDrawLayers["point"].id, RouteDrawLayers["line"].id],
     })[0]) {
       this.map.on("click", this.handleAddWayPoint);
       return;
