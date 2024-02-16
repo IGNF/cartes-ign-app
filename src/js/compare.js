@@ -302,6 +302,7 @@ class Compare {
     if (this.actived) {
       return;
     }
+    DOM.$compassBtn.click();
     this.actived = true;
     this.mode = "leftright";
     document.querySelector("#map").classList.add("d-none");
