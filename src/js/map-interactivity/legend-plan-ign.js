@@ -30,6 +30,10 @@ function beautifyLayerName(feature, source) {
   }
   // PLAN IGN
   else {
+    if (Object.hasOwnProperty.call(feature.properties, "texte")
+      && feature.properties.texte)
+      return feature.properties.texte;
+
     if (Object.hasOwnProperty.call(feature.layer, "metadata")
       && Object.hasOwnProperty.call(feature.layer.metadata, "legend-title"))
       return feature.layer.metadata["legend-title"];
@@ -199,39 +203,60 @@ function getLegend(svg, layername) {
 function Legend(features, zoom) {
 
   const source = features.length > 0 ? features[0].source : "";
+  let legend = "";
+  let svg = "";
+  var featuresForLegend = [];
+  
+  // Légende pour POI
+  if (source == "poi_osm") {
+    let featurePOI = features.filter(feat => { 
+      if (source == "poi_osm" && feat.source == "poi_osm") return feat;
+    })
+    .map(feat => {
+      feat.layer["properties"] = feat.properties;
+      return feat.layer;
+    });
+    var layername = featurePOI.length > 0 ? beautifyLayerName(featurePOI[0], source) : "";
+    if (featurePOI) {
+      svg = MapBoxStyleToSVG(featurePOI, zoom);
+      legend = getLegend(svg, layername);
+    }
+    return legend;
+  }
+
+
+  // PLAN IGN et BDTOPO
   let stylePLANIGN = [];
   if (source == "plan_ign" || source == "bdtopo") {
     stylePLANIGN = globals.manager.layerSwitcher.layers["PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"].style;
   }
-  let legend = "";
-  let svg = "";
 
-  var f = features.filter(feat => {
+  var FeaturesBDTOPO = features.filter(feat => feat.source == "bdtopo");
+  if (FeaturesBDTOPO.length == 0) return legend;
+
+  var FeaturesPLANIGN = features.filter(feat => {
     if (source == "plan_ign" || source == "bdtopo") {
       if (feat.source == "plan_ign" && feat.layer.id != "bckgrd") {
         // Dans le cas où c'est un symbole textuel et pas une icone on n'affichera pas de légende.
         if (feat.layer.type == "symbol" && !Object.hasOwnProperty.call(feat.layer.layout, "icon-image")) return;
         if (feat.layer.id == "zone batie") return;
+        // pour éviter les désynchronisation Bdtopo PLANIGN  on prend feature de plan ign si correspond au type de feature bdtopo sélectionnée.
+        if (feat.layer.type != FeaturesBDTOPO[0].layer.type) return;
         return feat;
       }
     }
-    if (source == "poi_osm") {
-      if (feat.source == "poi_osm") return feat;
-    }
   });
-
-  if (f.length == 0) return legend;
+  if (FeaturesPLANIGN.length == 0) return legend;
 
   /**
    *  Cas où 1er élément dans bdtopo est entité dans une ZA
    *  mais 1er élément dans planIGN est ZA
    *
    *  */
-  if (f[0].source == "plan_ign" && f[0].sourceLayer == "bati_zai") {
-    if (features[0].sourceLayer != "zone_d_activite_ou_d_interet") f = f.filter(feat => feat.sourceLayer != "bati_zai");
+  if (FeaturesPLANIGN[0].sourceLayer == "bati_zai") {
+    if (FeaturesBDTOPO[0].sourceLayer != "zone_d_activite_ou_d_interet") FeaturesPLANIGN.shift();
   }
 
-  var featuresForLegend = [];
   /**
    * Gestion des groupes de légende pour PALN IGN:
    *
@@ -243,26 +268,20 @@ function Legend(features, zoom) {
    * sont utilisés pour générer le svg de légende.
    *
    */
-  if ((source == "plan_ign" || source == "bdtopo") && f.length > 0) {
-    featuresForLegend = stylePLANIGN.filter((elem) => {
-      if (elem.id == f[0].layer.id) {
+  var featuresForLegend = [];
+  featuresForLegend = stylePLANIGN.filter((elem) => {
+      if (elem.id == FeaturesPLANIGN[0].layer.id) {
         return elem;
       }
-      if (Object.hasOwnProperty.call(f[0].layer.metadata, "legend-group")
+      if (Object.hasOwnProperty.call(FeaturesPLANIGN[0].layer.metadata, "legend-group")
         && Object.hasOwnProperty.call(elem, "metadata")
         && Object.hasOwnProperty.call(elem.metadata, "legend-group")
-        && f[0].layer.metadata["legend-group"] == elem.metadata["legend-group"]) {
+        && FeaturesPLANIGN[0].layer.metadata["legend-group"] == elem.metadata["legend-group"]) {
         return elem;
       }
-    });
-  }
-
-  if (source == "poi_osm") featuresForLegend = f.map(feat => {
-    feat.layer["properties"] = feat.properties;
-    return feat.layer;
   });
 
-  var layername = f.length > 0 ? beautifyLayerName(f[0], source) : "";
+  var layername = FeaturesPLANIGN.length > 0 ? beautifyLayerName(FeaturesPLANIGN[0], source) : "";
   if (featuresForLegend) {
     svg = MapBoxStyleToSVG(featuresForLegend, zoom);
     legend = getLegend(svg, layername);

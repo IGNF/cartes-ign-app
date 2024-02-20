@@ -15928,24 +15928,6 @@
 			}
 		},
 		{
-			"id": "administratif_ou_militaire",
-			"type": "fill",
-			"source": "bdtopo",
-			"source-layer": "zone_d_activite_ou_d_interet",
-			"minzoom": 14,
-			"paint": {
-				"fill-color": "transparent"
-			},
-			"filter": [
-				"all",
-				[
-					"==",
-					"categorie",
-					"Administratif ou militaire"
-				]
-			]
-		},
-		{
 			"id": "gestion_des_eaux",
 			"type": "fill",
 			"source": "bdtopo",
@@ -16052,16 +16034,6 @@
 					"Sport"
 				]
 			]
-		},
-		{
-			"id": "zone_d_activite_ou_d_interet",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "zone_d_activite_ou_d_interet",
-			"paint": {
-				"line-color": "transparent",
-				"line-width": 15
-			}
 		},
 		{
 			"id": "surface_hydrographique_surf",
@@ -16310,7 +16282,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 15
+				"line-width": 5
 			}
 		},
 		{
@@ -16451,7 +16423,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 15,
+				"line-width": 5,
 				"line-dasharray": [
 					3,
 					2
@@ -16474,7 +16446,7 @@
 			],
 			"paint": {
 				"line-color": "transparent",
-				"line-width": 15,
+				"line-width": 5,
 				"line-dasharray": [
 					3,
 					2
@@ -16553,6 +16525,14 @@
 			"source": "bdtopo",
 			"source-layer": "equipement_de_transport",
 			"minzoom": 15,
+			"filter": [
+				"all",
+				[
+					"!=",
+					"nature",
+					"Port"
+				]
+			],
 			"paint": {
 				"line-color": "transparent",
 				"line-width": 15
@@ -16748,21 +16728,6 @@
 				"==",
 				"nature",
 				"Gare maritime"
-			],
-			"paint": {
-				"fill-color": "transparent"
-			}
-		},
-		{
-			"id": "port",
-			"type": "fill",
-			"source": "bdtopo",
-			"source-layer": "equipement_de_transport",
-			"minzoom": 15,
-			"filter": [
-				"==",
-				"nature",
-				"Port"
 			],
 			"paint": {
 				"fill-color": "transparent"
