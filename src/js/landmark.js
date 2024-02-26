@@ -195,13 +195,13 @@ class Landmark {
     console.debug(e);
     var coordinates = e.lngLat;
     Reverse.compute({
-      lon : coordinates.lng,
-      lat : coordinates.lat
+      lon: coordinates.lng,
+      lat: coordinates.lat
     })
       .then(() => {})
       .catch(() => {})
       .finally(() => {
-        var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
+        var coords = {lon : coordinates.lng, lat : coordinates.lat};
         var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
         var strAddress = address;
         if (typeof address !== "string") {
