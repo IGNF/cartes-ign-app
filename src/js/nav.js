@@ -1,6 +1,8 @@
 import Globals from "./globals";
 import DOM from "./dom";
 
+import Location from "./services/location";
+
 /**
  * Menu de navigation principal
  */
@@ -306,6 +308,14 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$sideBySideBtn.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
+      // FIXME
+      // "Ma position" par défaut dans le départ quand disponible
+      console.warn(Location.getCurrentPosition());
+      if (Location.getCurrentPosition()) {
+        let target = Globals.directions.dom.inputDeparture;
+        target.dataset.coordinates = "[" + Location.getCurrentPosition().coords.longitude + "," + Location.getCurrentPosition().coords.latitude + "]";
+        target.value = "Ma position";
+      }
       Globals.currentScrollIndex = 2;
       break;
     default:

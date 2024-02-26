@@ -356,8 +356,13 @@ const isTrackingActive = () => {
   return tracking_active;
 };
 
+const getCurrentPosition = () => {
+  return currentPosition;
+}
+
 export default {
   target,
+  getCurrentPosition,
   isLocationActive,
   isTrackingActive,
   moveTo,
