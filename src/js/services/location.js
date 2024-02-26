@@ -25,6 +25,8 @@ let tracking_active = false;
 let watch_id;
 let currentPosition = null;
 
+let animationId = null;
+
 let mapBearing = 0;
 let positionBearing = 0;
 
@@ -75,7 +77,29 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
   // si l'icone est en mode gps, on ne reconstruit pas le marker
   // mais, on met à jour la position !
   if (!positionIsGrey && Globals.myPositionMarker !== null && gps) {
-    Globals.myPositionMarker.setLngLat([coords.lon, coords.lat]);
+    if (animationId !== null) {
+      window.cancelAnimationFrame(animationId);
+    }
+    coords.lat = Math.round(coords.lat * 1e6) / 1e6;
+    coords.lon = Math.round(coords.lon * 1e6) / 1e6;
+    function animateMarker() {
+      const currentLng = Globals.myPositionMarker.getLngLat().lng;
+      const currentLat = Globals.myPositionMarker.getLngLat().lat;
+      let nextLng = currentLng + (coords.lon - currentLng) / 2;
+      let nextLat = currentLat + (coords.lat - currentLat) / 2;
+      nextLat = Math.round(nextLat * 1e6) / 1e6;
+      nextLng = Math.round(nextLng * 1e6) / 1e6;
+      Globals.myPositionMarker.setLngLat([
+        nextLng,
+        nextLat
+      ]);
+      if (nextLng !== coords.lon && nextLat !== coords.lat) {
+        // Request the next frame of the animation.
+        animationId = requestAnimationFrame(animateMarker);
+      }
+    }
+    animationId = requestAnimationFrame(animateMarker)
+    // Globals.myPositionMarker.setLngLat([coords.lon, coords.lat]);
   } else {
     // on reconstruit le marker
     if (Globals.myPositionMarker !== null) {
@@ -86,6 +110,8 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
     if (!currentPosition) {
       positionIcon = Globals.myPositionIconGrey;
       positionIsGrey = true;
+    } else {
+      positionIsGrey = false;
     }
     Globals.myPositionMarker = new maplibregl.Marker({
       element: (gps) ? positionIcon : Globals.searchResultIcon,
@@ -102,7 +128,11 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
   setMarkerRotation(positionBearing);
 
   if (panTo) {
-    Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
+    if (tracking_active) {
+      Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom, duration: 1000});
+    } else {
+      Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
+    }
   }
 };
 
@@ -128,7 +158,7 @@ const trackLocation = () => {
             position: "bottom"
           });
         }
-        if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 16) ) {
+        if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 150) ) {
           lastAccuracy = position.coords.accuracy;
           const point = {
             type: "Point",
@@ -139,11 +169,8 @@ const trackLocation = () => {
           currentPosition = position;
           localStorage.setItem("lastKnownPosition", JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}));
           var zoom = Globals.map.getZoom();
-          if (firstLocation) {
+          if (firstLocation || tracking_active) {
             zoom = Math.max(Globals.map.getZoom(), 16);
-          }
-          if (tracking_active) {
-            zoom = 16;
           }
           moveTo({
             lat: position.coords.latitude,
