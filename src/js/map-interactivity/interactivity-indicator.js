@@ -3,6 +3,14 @@ import DOM from "../dom";
 
 import MapLibreGL from "maplibre-gl";
 
+const thematicLayerNotInteractive = [
+  "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN",
+  "TRANSPORTNETWORKS.RAILWAYS",
+  "TRANSPORTNETWORKS.ROADS",
+  "ELEVATION.LEVEL0",
+  "Aire-Parcellaire",
+];
+
 /**
  * Indicateur d'activité du Plan IGN interactif et des couches thématiques sur la carte
  */
@@ -52,17 +60,24 @@ class InteractivityIndicator {
     Globals.manager.addEventListener("removelayer", this.onGetLastLayer);
     Globals.manager.addEventListener("movelayer", this.onGetLastLayer);
 
-    this.map.on("zoom", (e) => {
-      if (this.hardDisabled) {
-        return;
-      }
-      if (this.pii && this.position && Math.floor(e.target.getZoom()) >= this.piiMinZoom) {
-        this.active();
-      } else {
-        this.dontClear = true;
-        (this.thematic && this.position) ? this.active() : this.disable();
-      }
-    });
+    this.onZoom = this.onZoom.bind(this);
+    this.map.on("zoom", this.onZoom);
+  }
+
+  /**
+   * callback on map zoom
+   * @param {Object} e event
+   */
+  onZoom(e) {
+    if (this.hardDisabled) {
+      return;
+    }
+    if (this.pii && this.position && Math.floor(e.target.getZoom()) >= this.piiMinZoom) {
+      this.active();
+    } else {
+      this.dontClear = true;
+      (this.thematic && this.position) ? this.active() : this.disable();
+    }
   }
 
   /**
@@ -91,9 +106,22 @@ class InteractivityIndicator {
       if (layer[1].base) {
         this.disable();
       } else {
-        this.thematic = true;
+        e.detail.entries.push(layer);
+        e.detail.entries.forEach((layer) => {
+          if (layer[1].base) {
+            this.thematic = false;
+            return;
+          }
+          if (!thematicLayerNotInteractive.includes(layer[0].split("$")[0])) {
+            this.thematic = true;
+          }
+        });
         this.position = true;
-        this.active();
+        if (this.thematic) {
+          this.active();
+        } else {
+          this.disable();
+        }
       }
     }
   }
@@ -104,7 +132,7 @@ class InteractivityIndicator {
   active () {
     this.hardDisabled = false;
     this.shown = true;
-    DOM.$interactivityBtn.style.removeProperty("display");
+    DOM.$interactivityBtn.classList.remove("d-none");
   }
 
   /**
@@ -120,7 +148,7 @@ class InteractivityIndicator {
     }
     this.dontClear = false;
     this.shown = false;
-    DOM.$interactivityBtn.style.display = "none";
+    DOM.$interactivityBtn.classList.add("d-none");
   }
 
   /**

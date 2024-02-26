@@ -296,9 +296,8 @@ Altitude : ${altitude} m
 
     this.header = position.text;
     this.additionalHtml = html;
-    let responseReverse;
     try {
-      responseReverse = await Reverse.compute({
+      await Reverse.compute({
         lat: position.coordinates.lat,
         lon: position.coordinates.lon
       });
