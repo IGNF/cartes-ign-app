@@ -109,15 +109,19 @@ class InteractivityIndicator {
         e.detail.entries.push(layer);
         e.detail.entries.forEach((layer) => {
           if (layer[1].base) {
+            if (layer[0] === this.id) {
+              this.pii = true;
+            }
             this.thematic = false;
             return;
           }
           if (!thematicLayerNotInteractive.includes(layer[0].split("$")[0])) {
             this.thematic = true;
+            this.pii = false;
           }
         });
         this.position = true;
-        if (this.thematic) {
+        if (this.thematic || this.pii && Math.floor(this.map.getZoom()) >= this.piiMinZoom) {
           this.active();
         } else {
           this.disable();
