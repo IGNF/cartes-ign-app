@@ -31,34 +31,34 @@ const featurePropertyFilter = (feature) => {
   }
 
   //Attribut toponyme en priorité
-  if (feature.properties.hasOwnProperty('toponyme')) {
+  if (Object.prototype.hasOwnProperty.call(feature.properties, "toponyme")) {
     result = result + feature.properties.toponyme + "<br/>";
   }
 
   // Attributs des routes
   if(feature.layer["source-layer"] == "troncon_de_route") {
-    let cpx_classement_administratif = feature.properties.hasOwnProperty('cpx_classement_administratif') ? feature.properties.cpx_classement_administratif : "";
-    let cpx_numero = feature.properties.hasOwnProperty('cpx_numero') ? feature.properties.cpx_numero : "";
-    let cpx_toponyme_route_nommee = feature.properties.hasOwnProperty('cpx_toponyme_route_nommee') ? feature.properties.cpx_toponyme_route_nommee : "";
-    var routeName = `${cpx_classement_administratif} ${cpx_numero} ${cpx_toponyme_route_nommee} <br/>`
+    let cpx_classement_administratif = Object.prototype.hasOwnProperty.call(feature.properties, "cpx_classement_administratif") ? feature.properties.cpx_classement_administratif : "";
+    let cpx_numero = Object.prototype.hasOwnProperty.call(feature.properties, "cpx_numero") ? feature.properties.cpx_numero : "";
+    let cpx_toponyme_route_nommee = Object.prototype.hasOwnProperty.call(feature.properties, "cpx_toponyme_route_nommee") ? feature.properties.cpx_toponyme_route_nommee : "";
+    var routeName = `${cpx_classement_administratif} ${cpx_numero} ${cpx_toponyme_route_nommee} <br/>`;
     routeName = routeName.trim();
     if (routeName != "") {
       result = result + routeName;
     }
     else {
-      if (feature.properties.hasOwnProperty('nature') 
+      if (Object.prototype.hasOwnProperty.call(feature.properties, "nature") 
       && natureRouteToDisplay.includes(feature.properties.nature))
         result = result + `${feature.properties.nature} <br />`;
     }
 
   }
-  var nature = ""
-    if (feature.layer["source-layer"] != "batiment") {
-    var nature = ""
-    if (feature.properties.hasOwnProperty("nature")) {
+
+  var nature = "";
+  if (feature.layer["source-layer"] != "batiment") {
+    if (Object.prototype.hasOwnProperty.call(feature.properties, "nature")) {
       nature += feature.properties.nature;
     }
-    if (feature.properties.hasOwnProperty("nature_detaillee")) {
+    if (Object.prototype.hasOwnProperty.call(feature.properties, "nature_detaillee")) {
       nature = nature != "" ? nature + ", " + feature.properties.nature_detaillee : feature.properties.nature_detaillee;
     }
   }

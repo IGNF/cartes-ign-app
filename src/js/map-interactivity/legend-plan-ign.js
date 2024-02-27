@@ -205,18 +205,18 @@ function Legend(features, zoom) {
   const source = features.length > 0 ? features[0].source : "";
   let legend = "";
   let svg = "";
-  var featuresForLegend = [];
-  
+  var layername = "";
+
   // Légende pour POI
   if (source == "poi_osm") {
     let featurePOI = features.filter(feat => { 
       if (source == "poi_osm" && feat.source == "poi_osm") return feat;
     })
-    .map(feat => {
-      feat.layer["properties"] = feat.properties;
-      return feat.layer;
-    });
-    var layername = featurePOI.length > 0 ? beautifyLayerName(featurePOI[0], source) : "";
+      .map(feat => {
+        feat.layer["properties"] = feat.properties;
+        return feat.layer;
+      });
+    layername = featurePOI.length > 0 ? beautifyLayerName(featurePOI[0], source) : "";
     if (featurePOI) {
       svg = MapBoxStyleToSVG(featurePOI, zoom);
       legend = getLegend(svg, layername);
@@ -270,18 +270,18 @@ function Legend(features, zoom) {
    */
   var featuresForLegend = [];
   featuresForLegend = stylePLANIGN.filter((elem) => {
-      if (elem.id == FeaturesPLANIGN[0].layer.id) {
-        return elem;
-      }
-      if (Object.hasOwnProperty.call(FeaturesPLANIGN[0].layer.metadata, "legend-group")
-        && Object.hasOwnProperty.call(elem, "metadata")
-        && Object.hasOwnProperty.call(elem.metadata, "legend-group")
-        && FeaturesPLANIGN[0].layer.metadata["legend-group"] == elem.metadata["legend-group"]) {
-        return elem;
-      }
+    if (elem.id == FeaturesPLANIGN[0].layer.id) {
+      return elem;
+    }
+    if (Object.hasOwnProperty.call(FeaturesPLANIGN[0].layer.metadata, "legend-group")
+      && Object.hasOwnProperty.call(elem, "metadata")
+      && Object.hasOwnProperty.call(elem.metadata, "legend-group")
+      && FeaturesPLANIGN[0].layer.metadata["legend-group"] == elem.metadata["legend-group"]) {
+      return elem;
+    }
   });
 
-  var layername = FeaturesPLANIGN.length > 0 ? beautifyLayerName(FeaturesPLANIGN[0], source) : "";
+  layername = FeaturesPLANIGN.length > 0 ? beautifyLayerName(FeaturesPLANIGN[0], source) : "";
   if (featuresForLegend) {
     svg = MapBoxStyleToSVG(featuresForLegend, zoom);
     legend = getLegend(svg, layername);
