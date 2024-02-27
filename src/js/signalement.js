@@ -93,6 +93,7 @@ class Signalement {
         duration: "long",
         position: "top"
       });
+      this.hide();
     });
   }
 
