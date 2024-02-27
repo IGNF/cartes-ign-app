@@ -9,7 +9,7 @@ const natureRouteToDisplay = ["Autoroute", "Bretelle", "Chemin",
 
 const isIndifferencie = (prop) => {
   if (prop == "Indifférenciée" || prop == "Indifférencié") return true;
-  return false;
+  else return false;
 };
 
 const featurePropertyFilter = (feature) => {
@@ -29,62 +29,51 @@ const featurePropertyFilter = (feature) => {
     });
     return result;
   }
-  let nature = "";
-  if (Object.prototype.hasOwnProperty.call(feature.properties, "nature")) {
-    nature = feature.properties.nature;
+
+  //Attribut toponyme en priorité
+  if (Object.prototype.hasOwnProperty.call(feature.properties, "toponyme")) {
+    result = result + feature.properties.toponyme + "<br/>";
   }
 
+  // Attributs des routes
+  if(feature.layer["source-layer"] == "troncon_de_route") {
+    let cpx_classement_administratif = Object.prototype.hasOwnProperty.call(feature.properties, "cpx_classement_administratif") ? feature.properties.cpx_classement_administratif : "";
+    let cpx_numero = Object.prototype.hasOwnProperty.call(feature.properties, "cpx_numero") ? feature.properties.cpx_numero : "";
+    let cpx_toponyme_route_nommee = Object.prototype.hasOwnProperty.call(feature.properties, "cpx_toponyme_route_nommee") ? feature.properties.cpx_toponyme_route_nommee : "";
+    var routeName = `${cpx_classement_administratif} ${cpx_numero} ${cpx_toponyme_route_nommee} <br/>`;
+    routeName = routeName.trim();
+    if (routeName != "") {
+      result = result + routeName;
+    }
+    else {
+      if (Object.prototype.hasOwnProperty.call(feature.properties, "nature") 
+      && natureRouteToDisplay.includes(feature.properties.nature))
+        result = result + `${feature.properties.nature} <br />`;
+    }
+
+  }
+
+  var nature = "";
+  if (feature.layer["source-layer"] != "batiment") {
+    if (Object.prototype.hasOwnProperty.call(feature.properties, "nature")) {
+      nature += feature.properties.nature;
+    }
+    if (Object.prototype.hasOwnProperty.call(feature.properties, "nature_detaillee")) {
+      nature = nature != "" ? nature + ", " + feature.properties.nature_detaillee : feature.properties.nature_detaillee;
+    }
+  }
+  if (nature != "") {
+    result = result + nature + "<br/>";
+  }
+
+
   Object.entries(feature.properties).forEach((prop) => {
-    // Troncon de route
-    if(feature.layer["source-layer"] == "troncon_de_route") {
-      // Autoroute
-      if(prop[0] == "cpx_classement_administratif" && nature == "Type autoroutier") {
-        result = result + `${prop[1]} <br />`;
-      }
-      // Contenu dans natureRouteToDisplay
-      if(prop[0] == "nature" && natureRouteToDisplay.includes(nature)) {
-        result = result + `${prop[1]} <br />`;
-      }
-    }
-    // Voies Ferrées
-    if (feature.layer["source-layer"] == "troncon_de_voie_ferree"){
-      if(prop[0] == "nature") {
-        result = result + `${prop[1]} <br />`;
-      }
-    }
-    // Le reste
-    if(feature.layer["source-layer"] == "construction_lineaire"
-    || feature.layer["source-layer"] == "construction_surfacique"
-    || feature.layer["source-layer"] == "construction_ponctuelle"
-    || feature.layer["source-layer"] == "equipement_de_transport"
-    || feature.layer["source-layer"] == "pylone"
-    || feature.layer["source-layer"] == "reservoir"
-    || feature.layer["source-layer"] == "plan_d_eau"
-    || feature.layer["source-layer"] == "cimetiere"
-    || feature.layer["source-layer"] == "zone_de_vegetation"
-    || feature.layer["source-layer"] == "zone_d_estran"
-    || feature.layer["source-layer"] == "cimetiere"
-    || feature.layer["source-layer"] == "ligne_orographique"
-    || feature.layer["source-layer"] == "cours_d_eau"
-    || feature.layer["source-layer"] == "surface_hydrographique"
-    || feature.layer["source-layer"] == "parc_ou_reserve"
-    || feature.layer["source-layer"] == "zone_d_activite_ou_d_interet"
-      || feature.layer["source-layer"] == "terrain_de_sport") {
-      if(prop[0] == "nature") {
-        result = result + `${prop[1]} <br />`;
-      }
-      if(prop[0] == "nature_detaillee") {
-        result = result + `${prop[1]} <br />`;
-      }
-
-    }
-
     // Batiment
     if(feature.layer["source-layer"] == "batiment") {
-      if(prop[0] == "nature" && isIndifferencie(prop[0])) {
+      if(prop[0] == "nature" && !isIndifferencie(prop[1])) {
         result = result + `Nature : ${prop[1]} <br />`;
       }
-      if(prop[0] == "usage_1" && isIndifferencie(prop[0])) {
+      if(prop[0] == "usage_1" && !isIndifferencie(prop[1])) {
         result = result + `Usage : ${prop[1]} <br />`;
       }
       if(prop[0] == "nombre_de_logements" && prop[0] != "") {

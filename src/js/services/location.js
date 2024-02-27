@@ -74,6 +74,22 @@ const setMarkerRotation = (positionBearing) => {
  * @param {*} gps - choix du type d'icone, GPS par defaut
  */
 const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) => {
+  function animateMarker() {
+    const currentLng = Globals.myPositionMarker.getLngLat().lng;
+    const currentLat = Globals.myPositionMarker.getLngLat().lat;
+    let nextLng = currentLng + (coords.lon - currentLng) / 2;
+    let nextLat = currentLat + (coords.lat - currentLat) / 2;
+    nextLat = Math.round(nextLat * 1e6) / 1e6;
+    nextLng = Math.round(nextLng * 1e6) / 1e6;
+    Globals.myPositionMarker.setLngLat([
+      nextLng,
+      nextLat
+    ]);
+    if (nextLng !== coords.lon && nextLat !== coords.lat) {
+      // Request the next frame of the animation.
+      animationId = requestAnimationFrame(animateMarker);
+    }
+  }
   // si l'icone est en mode gps, on ne reconstruit pas le marker
   // mais, on met à jour la position !
   if (!positionIsGrey && Globals.myPositionMarker !== null && gps) {
@@ -82,23 +98,8 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
     }
     coords.lat = Math.round(coords.lat * 1e6) / 1e6;
     coords.lon = Math.round(coords.lon * 1e6) / 1e6;
-    function animateMarker() {
-      const currentLng = Globals.myPositionMarker.getLngLat().lng;
-      const currentLat = Globals.myPositionMarker.getLngLat().lat;
-      let nextLng = currentLng + (coords.lon - currentLng) / 2;
-      let nextLat = currentLat + (coords.lat - currentLat) / 2;
-      nextLat = Math.round(nextLat * 1e6) / 1e6;
-      nextLng = Math.round(nextLng * 1e6) / 1e6;
-      Globals.myPositionMarker.setLngLat([
-        nextLng,
-        nextLat
-      ]);
-      if (nextLng !== coords.lon && nextLat !== coords.lat) {
-        // Request the next frame of the animation.
-        animationId = requestAnimationFrame(animateMarker);
-      }
-    }
-    animationId = requestAnimationFrame(animateMarker)
+
+    animationId = requestAnimationFrame(animateMarker);
     // Globals.myPositionMarker.setLngLat([coords.lon, coords.lat]);
   } else {
     // on reconstruit le marker
@@ -358,7 +359,7 @@ const isTrackingActive = () => {
 
 const getCurrentPosition = () => {
   return currentPosition;
-}
+};
 
 export default {
   target,
