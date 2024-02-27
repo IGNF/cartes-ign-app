@@ -8,6 +8,18 @@ const addListeners = () => {
 
   // Bouton Geolocalisation
   DOM.$geolocateBtn.addEventListener("click", () => { Location.locationOnOff(); });
+  // HACK: ios
+  DOM.$geolocateBtn.addEventListener("click", () => {
+    if (typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function") {
+      DeviceOrientationEvent.requestPermission()
+        .then(permissionState => {
+          if (permissionState === "granted") {
+            window.addEventListener("deviceorientation", Location.getOrientation);
+          }
+        })
+        .catch(console.error);
+    }
+  });
 
   // Rotation de la boussole
   DOM.$compassBtn.addEventListener("click", () => {

@@ -1,6 +1,8 @@
 PODS:
   - AashuDubeyCapacitorStatusbarSafeArea (2.1.1):
     - Capacitor
+  - AgorapulseCapacitorMediastore (0.2.0):
+    - Capacitor
   - Capacitor (5.6.0):
     - CapacitorCordova
   - CapacitorApp (5.0.6):
@@ -10,30 +12,33 @@ PODS:
     - Capacitor
   - CapacitorGeolocation (5.0.6):
     - Capacitor
+  - CapacitorScreenOrientation (5.0.7):
+    - Capacitor
   - CapacitorShare (5.0.6):
     - Capacitor
   - CapacitorStatusBar (5.0.6):
     - Capacitor
   - CapacitorToast (5.0.6):
     - Capacitor
-  - CapgoCapacitorNavigationBar (6.0.12):
-    - Capacitor
 
 DEPENDENCIES:
   - "AashuDubeyCapacitorStatusbarSafeArea (from `../../node_modules/@aashu-dubey/capacitor-statusbar-safe-area`)"
+  - "AgorapulseCapacitorMediastore (from `../../node_modules/@agorapulse/capacitor-mediastore`)"
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
   - "CapacitorGeolocation (from `../../node_modules/@capacitor/geolocation`)"
+  - "CapacitorScreenOrientation (from `../../node_modules/@capacitor/screen-orientation`)"
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - "CapacitorToast (from `../../node_modules/@capacitor/toast`)"
-  - "CapgoCapacitorNavigationBar (from `../../node_modules/@capgo/capacitor-navigation-bar`)"
 
 EXTERNAL SOURCES:
   AashuDubeyCapacitorStatusbarSafeArea:
     :path: "../../node_modules/@aashu-dubey/capacitor-statusbar-safe-area"
+  AgorapulseCapacitorMediastore:
+    :path: "../../node_modules/@agorapulse/capacitor-mediastore"
   Capacitor:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorApp:
@@ -44,27 +49,28 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/filesystem"
   CapacitorGeolocation:
     :path: "../../node_modules/@capacitor/geolocation"
+  CapacitorScreenOrientation:
+    :path: "../../node_modules/@capacitor/screen-orientation"
   CapacitorShare:
     :path: "../../node_modules/@capacitor/share"
   CapacitorStatusBar:
     :path: "../../node_modules/@capacitor/status-bar"
   CapacitorToast:
     :path: "../../node_modules/@capacitor/toast"
-  CapgoCapacitorNavigationBar:
-    :path: "../../node_modules/@capgo/capacitor-navigation-bar"
 
 SPEC CHECKSUMS:
   AashuDubeyCapacitorStatusbarSafeArea: 4833bf7ac284b54c6650f0d80634552094fd3229
+  AgorapulseCapacitorMediastore: 8e715b430fa585618957e0c6fc73e544d6f95ee9
   Capacitor: ebfc16cdb8116d04c101686b080342872da42d43
   CapacitorApp: 963d90cb449803d58efc33bb515c81151e69159d
   CapacitorCordova: 931b48fcdbc9bc985fc2f16cec9f77c794a27729
   CapacitorFilesystem: 02f9a9053b96e1881ba1fc98d846869413c195c2
   CapacitorGeolocation: c8f9b46f96e0b6cc80a6c7ff48a37cfc44ad2198
+  CapacitorScreenOrientation: cc638c369cb2b1dfc55f8265485a8b4e0b3cafd9
   CapacitorShare: cd41743331cb71d217c029de54b681cbd91e0fcc
   CapacitorStatusBar: a73a9ae0dd2ca30ee429782d5d3ae82dcfa80207
   CapacitorToast: 61a9bec819ad3aeccc1ebe3fcbff565c22969c71
-  CapgoCapacitorNavigationBar: c5675bf5f155844d450ce66b491595c6ae64238f
 
-PODFILE CHECKSUM: 7cf1361b4bbeea108e3183f230d1176ad220220d
+PODFILE CHECKSUM: cf085abeb28b2d1d7e3132929cd82275bc467f40
 
 COCOAPODS: 1.14.3
