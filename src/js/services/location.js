@@ -66,6 +66,27 @@ const setMarkerRotation = (positionBearing) => {
 };
 
 /**
+ * Animation du marqueur
+ * @param {*} coords
+ */
+const animateMarker = (coords) => {
+  const currentLng = Globals.myPositionMarker.getLngLat().lng;
+  const currentLat = Globals.myPositionMarker.getLngLat().lat;
+  let nextLng = currentLng + (coords.lon - currentLng) / 2;
+  let nextLat = currentLat + (coords.lat - currentLat) / 2;
+  nextLat = Math.round(nextLat * 1e6) / 1e6;
+  nextLng = Math.round(nextLng * 1e6) / 1e6;
+  Globals.myPositionMarker.setLngLat([
+    nextLng,
+    nextLat
+  ]);
+  if (nextLng !== coords.lon && nextLat !== coords.lat) {
+    // Request the next frame of the animation.
+    animationId = requestAnimationFrame(() => animateMarker(coords));
+  }
+};
+
+/**
  * Ajoute un marqueur de type GPS à la position définie par le coods,
  * et déplace la carte au zoom demandé si panTo est True
  * @param {*} coords
@@ -74,22 +95,6 @@ const setMarkerRotation = (positionBearing) => {
  * @param {*} gps - choix du type d'icone, GPS par defaut
  */
 const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) => {
-  function animateMarker() {
-    const currentLng = Globals.myPositionMarker.getLngLat().lng;
-    const currentLat = Globals.myPositionMarker.getLngLat().lat;
-    let nextLng = currentLng + (coords.lon - currentLng) / 2;
-    let nextLat = currentLat + (coords.lat - currentLat) / 2;
-    nextLat = Math.round(nextLat * 1e6) / 1e6;
-    nextLng = Math.round(nextLng * 1e6) / 1e6;
-    Globals.myPositionMarker.setLngLat([
-      nextLng,
-      nextLat
-    ]);
-    if (nextLng !== coords.lon && nextLat !== coords.lat) {
-      // Request the next frame of the animation.
-      animationId = requestAnimationFrame(animateMarker);
-    }
-  }
   // si l'icone est en mode gps, on ne reconstruit pas le marker
   // mais, on met à jour la position !
   if (!positionIsGrey && Globals.myPositionMarker !== null && gps) {
@@ -98,8 +103,7 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
     }
     coords.lat = Math.round(coords.lat * 1e6) / 1e6;
     coords.lon = Math.round(coords.lon * 1e6) / 1e6;
-
-    animationId = requestAnimationFrame(animateMarker);
+    animationId = requestAnimationFrame(() => animateMarker(coords));
     // Globals.myPositionMarker.setLngLat([coords.lon, coords.lat]);
   } else {
     // on reconstruit le marker
@@ -283,10 +287,18 @@ const locationOnOff = async () => {
  * @param {*} event
  */
 const getOrientation = async (event) => {
-  if (Math.abs(mapBearing - event.alpha) < 0.5) {
+  let bearing;
+  // if iOS
+  if (event.webkitCompassHeading) {
+    bearing = -event.webkitCompassHeading;
+  } else {
+    // not iOS
+    bearing = event.alpha;
+  }
+  if (Math.abs(mapBearing - bearing) < 0.5) {
     return;
   }
-  mapBearing = event.alpha;
+  mapBearing = bearing;
   let orientation = await ScreenOrientation.orientation();
   if (orientation.type === "landscape-secondary") {
     mapBearing += 90;
@@ -295,7 +307,7 @@ const getOrientation = async (event) => {
     mapBearing -= 90;
   }
   if (tracking_active) {
-    Globals.map.setBearing(-mapBearing);
+    Globals.map.easeTo({bearing: -mapBearing, duration: 100});
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
   }
