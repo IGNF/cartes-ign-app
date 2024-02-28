@@ -7,14 +7,19 @@ import GisUtils from "../utils/gis-utils";
 import { Geolocation } from "@capacitor/geolocation";
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
+import { App } from "@capacitor/app";
+import { NativeSettings, AndroidSettings, IOSSettings } from "capacitor-native-settings";
 
 import Buffer from "@turf/buffer";
+
+import MapLibreGL from "maplibre-gl";
 
 // fichiers SVG
 import LocationImg from "../../css/assets/map-buttons/localisation.svg";
 import LocationFollowImg from "../../css/assets/map-buttons/location-follow.svg";
 import LocationFixeImg from "../../css/assets/map-buttons/location-fixed.svg";
 import LocationLoading from "../../css/assets/loading-green.svg";
+import LocationDisabled from "../../css/assets/map-buttons/location-disabled.svg";
 
 /* Géolocalisation */
 // Positionnement du mobile
@@ -31,6 +36,8 @@ let mapBearing = 0;
 let positionBearing = 0;
 
 let positionIsGrey = false;
+
+let popup = null;
 
 /**
  * Interface pour les evenements
@@ -147,7 +154,7 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
 const trackLocation = () => {
   let lastAccuracy = 100000;
   Geolocation.checkPermissions().then((status) => {
-    if (status.location != "denied") {
+    if (status.location !== "denied") {
       var firstLocation = true;
       Geolocation.watchPosition({
         maximumAge: 1000,
@@ -206,28 +213,50 @@ const trackLocation = () => {
       }).catch((err) => {
         console.warn(`${err.message}`);
       });
+    } else {
+      // Location services denied
+      DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
+      showLocationDeniedPopup();
     }
   }).catch(() => {
-    console.warn("Location services disabled");
+    // Location services disabled
+    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
+    showLocationDisabledPopup();
   });
 };
 
 /**
  * Modification du statut de localisation
  */
-const enablePosition = async(tracking) => {
+const enablePosition = async() => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationLoading + "\")";
   let permissionStatus;
+  if (popup) {
+    popup.remove();
+  }
   try {
     permissionStatus = await Geolocation.checkPermissions();
   } catch {
-    console.warn("Location services disabled");
-    return;
+    // Location services disabled
+    await NativeSettings.open({
+      optionAndroid: AndroidSettings.Location,
+      optionIOS: IOSSettings.LocationServices
+    });
+    try {
+      permissionStatus = await Geolocation.checkPermissions();
+    } catch {
+      DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
+      showLocationDisabledPopup();
+      return;
+    }
   }
-  if (permissionStatus.location == "denied") {
+  if (permissionStatus.location === "denied") {
     permissionStatus = await Geolocation.requestPermissions(["location"]);
   }
-  if (permissionStatus == "denied") {
+  if (permissionStatus.location === "denied") {
+    // Location services denied
+    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
+    showLocationDeniedPopup();
     return;
   }
   location_active = true;
@@ -238,19 +267,17 @@ const enablePosition = async(tracking) => {
       lon: lastPosition.lng
     }, Globals.map.getZoom(), false);
   }
-  if (tracking) {
-    trackLocation();
-    Toast.show({
-      text: "Récupération de la géolocalisation...",
-      duration: "short",
-      position: "bottom"
-    });
-  }
+  trackLocation();
+  Toast.show({
+    text: "Récupération de la géolocalisation...",
+    duration: "short",
+    position: "bottom"
+  });
 };
 
 const locationOnOff = async () => {
   if (!location_active) {
-    enablePosition(true);
+    enablePosition();
   } else if (!tracking_active) {
     if (currentPosition === null) {
       return;
@@ -322,11 +349,11 @@ const getOrientation = async (event) => {
  * @returns
  * @fire geolocation
  */
-const getLocation = async (tracking) => {
+const getLocation = async () => {
   var results = null;
   var position = currentPosition;
   if (currentPosition === null) {
-    enablePosition(tracking);
+    enablePosition();
     position = await Geolocation.getCurrentPosition({
       maximumAge: 0,
       timeout: 10000,
@@ -359,6 +386,114 @@ const disableTracking = () => {
     duration: "short",
     position: "bottom"
   });
+};
+
+let listenResumeAfterLocation = false;
+/**
+ * affiche la popup si localisation désactivée sur téléphone
+ */
+const showLocationDisabledPopup = () => {
+  showPopup(`
+  <div id="interactivityPopup">
+      <div class="divPositionTitle">La localisation de l'appareil est désactivée</div>
+      <div class="divPopupClose" onclick="onCloselocationPopup(event)"></div>
+      <div class="divPopupContent">
+      La localisation de l'appareil est désactivée.<br/>
+      Pour pouvoir utiliser le positionnement sur la carte, veuillez activer la localisation sur votre appareil.
+      </div>
+      <div class="btnOpenParameters" onclick="openLocationParameters(event)">Accèder aux paramètres de localisation</div>
+  </div>
+  `);
+  window.openLocationParameters = async () => {
+    if (!listenResumeAfterLocation) {
+      App.addListener("resume", async () => {
+        try {
+          await Geolocation.checkPermissions();
+          enablePosition();
+          console.log("zzz");
+        } catch (e) {
+          console.log(e);
+          return;
+        }
+      });
+      listenResumeAfterLocation = true;
+    }
+    NativeSettings.open({
+      optionAndroid: AndroidSettings.Location,
+      optionIOS: IOSSettings.LocationServices
+    });
+  };
+};
+
+let listenResumeAfterAuthorisation = false;
+/**
+ * affiche la popup si localisation no autorisée sur l'appli
+ */
+const showLocationDeniedPopup = () => {
+  showPopup(`
+  <div id="locationPopup">
+      <div class="divPositionTitle">L'accès à la localisation de l'appraeil est refusé</div>
+      <div class="divPopupClose" onclick="onCloselocationPopup(event)"></div>
+      <div class="divPopupContent">
+      Vous avez refusé à l'application l'accès à la localisation de l'appareil.<br/>
+      Pour pouvoir utiliser le positionnement sur la carte, veuillez modifier les autorisations dans les paramètres de l'application.
+      </div>
+      <div class="btnOpenParameters" onclick="openAppParameters(event)">Accèder aux paramètres de l'application</div>
+  </div>
+  `);
+  window.openAppParameters = async () => {
+    if (!listenResumeAfterAuthorisation) {
+      App.addListener("resume", enablePosition);
+      listenResumeAfterAuthorisation = true;
+    }
+    NativeSettings.open({
+      optionAndroid: AndroidSettings.ApplicationDetails,
+      optionIOS: IOSSettings.App
+    });
+  };
+};
+
+/**
+ * Affiche une popup en finction de son contenu
+ */
+const showPopup = (content) => {
+  // on supprime la popup
+  if (popup) {
+    popup.remove();
+  }
+
+  // template litteral
+  const popupContent = content;
+  window.onCloselocationPopup = () => {
+    popup.remove();
+  };
+
+  // centre de la carte
+  var center = Globals.map.getCenter();
+  // position de la popup
+  let markerHeight = 0, markerRadius = 10, linearOffset = 25;
+  var popupOffsets = {
+    "top": [0, 0],
+    "top-left": [0, 0],
+    "top-right": [0, 0],
+    "bottom": [0, -markerHeight],
+    "bottom-left": [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+    "bottom-right": [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+    "left": [markerRadius, (markerHeight - markerRadius) * -1],
+    "right": [-markerRadius, (markerHeight - markerRadius) * -1]
+  };
+    // ouverture d'une popup
+  popup = new MapLibreGL.Popup({
+    offset: popupOffsets,
+    className: "interactivityPopup",
+    closeOnClick: true,
+    closeOnMove: true,
+    closeButton: false
+  })
+    .setLngLat(center)
+    .setHTML(popupContent)
+    .setMaxWidth("300px")
+    .addTo(Globals.map);
 };
 
 const isLocationActive = () => {

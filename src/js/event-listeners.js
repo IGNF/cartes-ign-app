@@ -6,6 +6,7 @@ import RecentSearch from "./search-recent";
 import State from "./state";
 import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
+import { App } from "@capacitor/app";
 
 /**
  * Ecouteurs generiques
@@ -77,24 +78,19 @@ function addListeners() {
   // Action du backbutton
   document.addEventListener("backbutton", State.onBackKeyDown, false);
 
-  // Sauvegarde de l'état de l'application
-  document.addEventListener("pause", () => {
+  const saveState = () => {
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
     localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
     localStorage.setItem("savedLandmarks", JSON.stringify(Globals.myaccount.landmarks));
-  });
+  };
 
-  window.addEventListener("beforeunload", () => {
-    localStorage.setItem("lastMapLat", map.getCenter().lat);
-    localStorage.setItem("lastMapLng", map.getCenter().lng);
-    localStorage.setItem("lastMapZoom", map.getZoom());
-    localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
-    localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
-    localStorage.setItem("savedLandmarks", JSON.stringify(Globals.myaccount.landmarks));
-  });
+  // Sauvegarde de l'état de l'application
+  App.addListener("pause", saveState);
+  document.addEventListener("pause", saveState);
+  window.addEventListener("beforeunload", saveState);
 
   const handleresize = () => {
     SafeAreaController.addSafeAreaVariables().then( () => {

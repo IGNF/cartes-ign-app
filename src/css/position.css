@@ -167,7 +167,7 @@
  */
 
 #interactivityPopup,
-#positionPopup,
+#locationPopup,
 #routeDrawHelpPopup {
   position: relative;
 }
@@ -184,14 +184,14 @@
 
 .routeDrawHelpPopup>.maplibregl-popup-content,
 .interactivityPopup>.maplibregl-popup-content,
-.positionPopup>.maplibregl-popup-content {
+.locationPopup>.maplibregl-popup-content {
   color: #3F4A55;
   border-radius: 15px;
 }
 
 .routeDrawHelpPopup>.maplibregl-popup-tip,
 .interactivityPopup>.maplibregl-popup-tip,
-.positionPopup>.maplibregl-popup-tip {
+.locationPopup>.maplibregl-popup-tip {
   display: none;
 }
 

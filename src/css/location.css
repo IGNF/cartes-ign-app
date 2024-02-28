@@ -1,0 +1,21 @@
+.btnOpenParameters {
+  appearance: unset; /* for ios */
+  display: block;
+  margin: auto;
+  border: none;
+  border-radius: 70px;
+  background-color: #26a581;
+  padding: 14px 28px;
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 9px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  width: 100%;
+  margin-top: 26px;
+  box-sizing: border-box;
+}
