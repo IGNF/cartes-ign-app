@@ -81,6 +81,9 @@ class MapInteractivity {
     this.map.off("click", this.handleInfoOnMap);
     // On clique sur une feature tuile vectorielle
     let featureHTML = null;
+    if (features.length > 0 && features[0].source === "location-precision"){
+      features.shift();
+    }
     if (features.length > 0 && (features[0].source === "bdtopo" || features[0].source === "poi_osm")) {
       featureHTML = featurePropertyFilter(features[0]);
       if (features[0].source === "poi_osm") {
