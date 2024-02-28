@@ -55,16 +55,18 @@ const compute = async (coordinates) => {
       street = geojson.features[0].properties.street;
       postcode = geojson.features[0].properties.postcode;
       city = geojson.features[0].properties.city;
-    } else if (geojson.features[0] && geojson.features[0].properties._type === "poi") {
+      lon = geojson.features[0].geometry.coordinates[0];
+      lat = geojson.features[0].geometry.coordinates[1];
+    } else if (geojson.features[0].properties._type === "poi") {
       if (geojson.features[0].properties.city) {
         city = geojson.features[0].properties.city[0];
+      } else {
+        city = geojson.features[0].properties.toponym;
       }
       if (geojson.features[0].properties.postcode) {
         postcode = geojson.features[0].properties.postcode[0];
       }
     }
-    lon = geojson.features[0].geometry.coordinates[0];
-    lat = geojson.features[0].geometry.coordinates[1];
   }
 
   var address = {
