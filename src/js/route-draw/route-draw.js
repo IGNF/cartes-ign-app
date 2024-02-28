@@ -504,21 +504,22 @@ class RouteDraw {
     this.#updateSources();
     var promises = [];
     if (index > 0) {
-      const computeBefore = this.#computeStep(index - 1);
+      const computeBefore = this.#computeStep(index - 1, this.mode, false);
       promises.push(computeBefore);
       if (this.mode === 1 && this.data.steps[index - 1].properties.mode === 0 && index > 1) {
-        computeBefore.then(() => promises.push(this.#computeStep(index - 2, 0)));
+        computeBefore.then(() => promises.push(this.#computeStep(index - 2, 0, false)));
       }
     }
     if (index < this.data.points.length - 1) {
-      const computeAfter = this.#computeStep(index);
+      const computeAfter = this.#computeStep(index, this.mode, false);
       promises.push(computeAfter);
       if (this.mode === 1 && index < this.data.points.length - 2 && this.data.steps[index].properties.mode === 0) {
-        computeAfter.then(() => promises.push(this.#computeStep(index + 1, 0)));
+        computeAfter.then(() => promises.push(this.#computeStep(index + 1, 0, false)));
       }
     }
     Promise.all(promises).then(() => {
       // Enregistrement de l'état dans l'historique
+      this.#updateElevation();
       this.#saveState();
       this.#listeners();
       this.pointWasMoved = false;
@@ -684,7 +685,7 @@ class RouteDraw {
    *  (re)calcule une étape du tracé a un index donné
    * @param {int} index
    */
-  async #computeStep(index, mode = this.mode) {
+  async #computeStep(index, mode = this.mode, computeElevation = true) {
     const firstPoint = this.data.points[index];
     const lastPoint = this.data.points[index + 1];
     // saisie libre
@@ -751,8 +752,9 @@ class RouteDraw {
     this.#updateSources();
     this.data.distance = this.data.steps.reduce((totalDistance, step) => totalDistance + step.properties.distance, 0);
     this.data.duration = this.data.steps.reduce((totalDistance, step) => totalDistance + step.properties.duration, 0);
-
-    this.#updateElevation();
+    if (computeElevation) {
+      this.#updateElevation();
+    }
     if (Globals.backButtonState === "routeDraw") {
       this.__updateRouteInfo(this.data);
     }
