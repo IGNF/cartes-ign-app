@@ -172,9 +172,9 @@ class InteractivityIndicator {
   }
 
   /**
-     * affiche la popup explicative
-     * @public
-     */
+   * affiche la popup explicative
+   * @public
+   */
   showPopup() {
     // on supprime la popup
     if (this.popup) {

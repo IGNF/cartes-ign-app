@@ -127,7 +127,7 @@ class Search {
         }, 250);
       }
       // on realise une geolocalisation
-      Location.getLocation(true)
+      Location.getLocation()
         .then((result) => {
           Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
         }, true);

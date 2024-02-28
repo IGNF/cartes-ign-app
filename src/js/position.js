@@ -23,7 +23,6 @@ class Position {
   constructor(map, options) {
     this.options = options || {
       target: null,
-      tracking : false, // suivi de la position
       // callback
       openPositionCbk: null,
       closePositionCbk: null,
@@ -35,9 +34,6 @@ class Position {
 
     // carte
     this.map = map;
-
-    // tracking
-    this.tracking = this.options.tracking;
 
     // target
     this.target = this.options.target;
@@ -283,7 +279,7 @@ Altitude : ${altitude} m
     this.clear();
     let position;
     if (lngLat === false) {
-      position = await Location.getLocation(this.tracking);
+      position = await Location.getLocation();
     } else {
       position = {
         coordinates: {
