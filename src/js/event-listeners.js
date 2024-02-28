@@ -71,7 +71,7 @@ function addListeners() {
     Globals.menu.open("privacyScreen");
   });
 
-  // Rotation du marqueur de position
+  // Rotation du marqueur de position (android)
   window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
 
   // Action du backbutton
@@ -97,14 +97,15 @@ function addListeners() {
   });
 
   const handleresize = () => {
-    SafeAreaController.injectCSSVariables();
-    ScreenOrientation.orientation().then((orientation) => {
-      if (orientation.type === "landscape-secondary") {
-        document.documentElement.style.setProperty("--safe-area-inset-left", "0px");
-      }
-      if (orientation.type === "landscape-primary") {
-        document.documentElement.style.setProperty("--safe-area-inset-right", "0px");
-      }
+    SafeAreaController.addSafeAreaVariables().then( () => {
+      ScreenOrientation.orientation().then((orientation) => {
+        if (orientation.type === "landscape-secondary") {
+          document.documentElement.style.setProperty("--safe-area-inset-left", "0px");
+        }
+        if (orientation.type === "landscape-primary") {
+          document.documentElement.style.setProperty("--safe-area-inset-right", "0px");
+        }
+      });
     });
 
     if (Globals.backButtonState !== "default") {
