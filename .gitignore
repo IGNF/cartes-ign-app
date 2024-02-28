@@ -7,3 +7,5 @@ www/css/assets
 .vscode
 
 .env
+
+.DS_Store
