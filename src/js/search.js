@@ -44,7 +44,7 @@ class Search {
       selectOnMap: "selectOnMap",
       recentSearches: "resultsRechRecent",
       searchResults: "resultsRech",
-      closeSearch: "closeSearch"
+      clearSearch: "clearSearch"
     };
 
     document.getElementById(id.searchInput).addEventListener("keyup", (event) => {
@@ -77,7 +77,6 @@ class Search {
     });
 
     document.getElementById(id.searchInput).addEventListener("click", () => {
-      DOM.$rech.value = "";
       DOM.$resultDiv.hidden = true;
       DOM.$resultDiv.innerHTML = "";
       if (Globals.searchResultMarker != null) {
@@ -134,8 +133,8 @@ class Search {
           Location.moveTo(result.coordinates, Globals.map.getZoom(), true, true);
         }, true);
     });
-    document.getElementById(id.closeSearch).addEventListener("click", () => {
-      State.onBackKeyDown();
+    document.getElementById(id.clearSearch).addEventListener("click", () => {
+      DOM.$rech.value = "";
     });
 
     document.getElementById(id.searchInput).addEventListener("focus", function () {

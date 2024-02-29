@@ -478,17 +478,7 @@ class Directions {
       // on supprime les écouteurs
       cleanListeners();
     }
-    function cleanLocation () {
-      target.dataset.coordinates = "";
-      target.value = "";
-      cleanListeners();
-    }
     function cleanListeners () {
-      var close = document.getElementById("closeSearch");
-      if (close) {
-        close.removeEventListener("click", cleanLocation);
-      }
-      backTopLeftBtn.removeEventListener("click", cleanLocation);
       Geocode.target.removeEventListener("search", setLocation);
       Location.target.removeEventListener("geolocation", setLocation);
       Reverse.target.removeEventListener("reverse", setLocation);
@@ -502,15 +492,6 @@ class Directions {
 
     // abonnement au reverse
     Reverse.target.addEventListener("reverse", setLocation);
-
-    // abonnement au bouton de fermeture du menu
-    var close = document.getElementById("closeSearch");
-    if (close) {
-      close.addEventListener("click", cleanLocation);
-    }
-    var backTopLeftBtn = document.getElementById("backTopLeftBtn");
-    backTopLeftBtn.addEventListener("click", cleanLocation);
-
   }
 }
 

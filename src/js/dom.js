@@ -3,7 +3,7 @@
 const $search  = document.getElementById("search");
 const $resultDiv = document.getElementById("resultsRech");
 const $rech = document.getElementById("lieuRech");
-const $closeSearch = document.getElementById("closeSearch");
+const $clearSearch = document.getElementById("clearSearch");
 const $searchResults = document.getElementById("searchResults");
 const $resultsRechRecent = document.getElementById("resultsRechRecent");
 const $searchImage = document.getElementById("searchImage");
@@ -75,7 +75,7 @@ export default {
   $rech,
   $geolocateBtn,
   $whiteScreen,
-  $closeSearch,
+  $clearSearch,
   $searchResults,
   $resultsRechRecent,
   $searchImage,

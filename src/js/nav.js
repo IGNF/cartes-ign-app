@@ -288,7 +288,7 @@ class MenuNavigation {
     case "search":
       DOM.$searchresultsWindow.classList.remove("d-none");
       DOM.$whiteScreen.classList.remove("d-none");
-      DOM.$closeSearch.classList.remove("d-none");
+      DOM.$clearSearch.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         document.body.style.overflowY = "scroll";
@@ -310,7 +310,6 @@ class MenuNavigation {
       Globals.interactivityIndicator.hardDisable();
       // FIXME
       // "Ma position" par défaut dans le départ quand disponible
-      console.warn(Location.getCurrentPosition());
       if (Location.getCurrentPosition()) {
         let target = Globals.directions.dom.inputDeparture;
         target.dataset.coordinates = "[" + Location.getCurrentPosition().coords.longitude + "," + Location.getCurrentPosition().coords.latitude + "]";
@@ -600,7 +599,7 @@ class MenuNavigation {
     Globals.signal = Globals.controller.signal;
     DOM.$resultDiv.hidden = true;
     DOM.$resultDiv.innerHTML = "";
-    DOM.$closeSearch.classList.add("d-none");
+    DOM.$clearSearch.classList.add("d-none");
     DOM.$searchresultsWindow.classList.add("d-none");
     DOM.$sideBySideBtn.classList.remove("d-none");
     DOM.$layerManagerBtn.classList.remove("d-none");

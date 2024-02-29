@@ -474,16 +474,7 @@ class Isochrone {
       // on supprime les écouteurs
       cleanListeners();
     }
-    function cleanLocation() {
-      target.dataset.coordinates = "";
-      target.value = "";
-      cleanListeners();
-    }
     function cleanListeners() {
-      var close = document.getElementById("closeSearch");
-      if (close) {
-        close.removeEventListener("click", cleanLocation);
-      }
       Geocode.target.removeEventListener("search", setLocation);
       Location.target.removeEventListener("geolocation", setLocation);
     }
@@ -493,12 +484,6 @@ class Isochrone {
 
     // abonnement à la geolocalisation
     Location.target.addEventListener("geolocation", setLocation);
-
-    // abonnement au bouton de fermeture du menu
-    var close = document.getElementById("closeSearch");
-    if (close) {
-      close.removeEventListener("click", cleanLocation);
-    }
   }
 }
 
