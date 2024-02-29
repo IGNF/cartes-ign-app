@@ -36,7 +36,7 @@ const layers = {
         18,
         12,
       ],
-      "circle-color": "#307CCD",
+      "circle-color": "#F18345",
       "circle-opacity": 1,
     }
   }
