@@ -93,23 +93,25 @@
 }
 
 .lblDirectionsShowDetails {
+  font-family: "Open Sans Semibold";
   display: block;
-  border: 1px solid #ccc;
+  border: 1px solid #26a581;
   background-color: #ffffff;
   border-radius: 50px;
-  padding: 10px 5px 10px 15px;
+  padding: 10px 13px 10px 10px;
   cursor: pointer;
-  text-align: center;
-  width: 80px;
+  text-align: right;
+  width: 75px;
   background-image: url("assets/directions/invisible.svg");
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: 8px;
+  color: #26a581;
 }
 
 #directionsDetails input[id="directionsShowDetail"]:checked + label {
+  background-image: url("assets/directions/visible.svg");
   background-color: #26a581;
   color: white;
-  background-image: url("assets/directions/visible.svg");
 }
 
 /* INFO l'affichage est programmatique */
