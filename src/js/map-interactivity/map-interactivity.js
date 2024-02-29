@@ -256,7 +256,7 @@ class MapInteractivity {
         .then((res) => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(res, "text/html");
-          if (doc.body.innerText === "\n  \n  \n") {
+          if (!doc.body.innerText.trim()) {
             throw new Error(this.emptyError);
           }
           const xml = parser.parseFromString(res, "text/xml");
