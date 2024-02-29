@@ -62,6 +62,7 @@ class Search {
             }
             DOM.$resultDiv.innerHTML = resultStr;
             DOM.$resultDiv.hidden = false;
+            DOM.$resultsRechRecent.hidden = true;
           }
         }).catch( (err) => {
           if (err.name === "AbortError") {
@@ -69,6 +70,7 @@ class Search {
           }
         });
       } else if (DOM.$rech.value === "") {
+        DOM.$resultsRechRecent.hidden = false;
         DOM.$resultDiv.hidden = true;
         DOM.$resultDiv.innerHTML = "";
       }
@@ -222,6 +224,7 @@ class Search {
     if (this.options.openSearchCbk) {
       this.options.openSearchCbk();
     }
+    DOM.$resultsRechRecent.hidden = false;
   }
 
   /**

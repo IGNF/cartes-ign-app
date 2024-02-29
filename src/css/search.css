@@ -164,14 +164,12 @@
   }
   #searchResults {
     height: calc(100vh - 72px - var(--safe-area-inset-top));
-    flex-wrap: wrap;
   }
   #searchResults > div {
     width: 45%;
     margin-right: 9%;
   }
   #resultsRech {
-    margin-top: -50px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
