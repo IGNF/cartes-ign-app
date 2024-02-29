@@ -363,8 +363,8 @@ const getLocation = async () => {
 
   results = {
     coordinates : {
-      lat: position.coords.latitude,
-      lon: position.coords.longitude
+      lat: Math.round(position.coords.latitude * 1e6) / 1e6,
+      lon: Math.round(position.coords.longitude * 1e6) / 1e6
     },
     text : "Ma position"
   };

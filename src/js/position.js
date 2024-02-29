@@ -79,7 +79,7 @@ class Position {
     var address = this.address;
     var latitude = this.coordinates.lat;
     var longitude = this.coordinates.lon;
-    var altitude = this.elevation;
+    var altitude = this.elevation.toLocaleString();
     var templateAddress;
 
     // adresse disponible
