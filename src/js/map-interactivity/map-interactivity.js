@@ -155,7 +155,7 @@ class MapInteractivity {
     const mapFeatures = this.map.queryRenderedFeatures();
     let toFuse = [];
     mapFeatures.forEach(feat => {
-      if (feat.source == "bdtopo" && feat.properties.cleabs == this.selectedCleabs) {
+      if (feat.source === "bdtopo" && feat.properties.cleabs === this.selectedCleabs) {
         toFuse.push(feat);
       }
     });
@@ -168,12 +168,14 @@ class MapInteractivity {
       source = this.map.getSource(this.configuration.pointsource);
     } else if (this.selectedFeatureType == "LineString") {
       union[0] = Buffer(toFuse[0], 5, {units: "meters"});
-      for (let i = 1; i < toFuse.length - 1; i++) {
+      console.log(toFuse);
+      for (let i = 1; i <= toFuse.length - 1; i++) {
+        console.log(i);
         union[0] = Union(union[0], Buffer(toFuse[i], 5, {units: "meters"}), {properties: union.properties});
       }
       source = this.map.getSource(this.configuration.polygonsource);
     } else {
-      for (let i = 1; i < toFuse.length - 1; i++) {
+      for (let i = 1; i <= toFuse.length - 1; i++) {
         union[0] = Union(union[0], toFuse[i], {properties: union.properties});
       }
       source = this.map.getSource(this.configuration.polygonsource);
