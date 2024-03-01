@@ -164,17 +164,16 @@ class MapInteractivity {
     }
     let union = [toFuse[0]];
 
-    if (this.selectedFeatureType == "Point") {
+    if (["Point", "MultiPoint"].includes(this.selectedFeatureType)) {
       source = this.map.getSource(this.configuration.pointsource);
-    } else if (this.selectedFeatureType == "LineString") {
+    } else if (["LineString", "MultiLineString"].includes(this.selectedFeatureType)) {
       union[0] = Buffer(toFuse[0], 5, {units: "meters"});
-      console.log(toFuse);
       for (let i = 1; i <= toFuse.length - 1; i++) {
-        console.log(i);
         union[0] = Union(union[0], Buffer(toFuse[i], 5, {units: "meters"}), {properties: union.properties});
       }
       source = this.map.getSource(this.configuration.polygonsource);
     } else {
+      console.log(union[0]);
       for (let i = 1; i <= toFuse.length - 1; i++) {
         union[0] = Union(union[0], toFuse[i], {properties: union.properties});
       }

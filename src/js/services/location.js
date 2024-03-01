@@ -418,9 +418,7 @@ const showLocationDisabledPopup = () => {
         try {
           await Geolocation.checkPermissions();
           enablePosition();
-          console.log("zzz");
         } catch (e) {
-          console.log(e);
           return;
         }
       });
