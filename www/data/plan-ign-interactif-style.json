@@ -16045,16 +16045,6 @@
 			}
 		},
 		{
-			"id": "surface_hydrographique_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "surface_hydrographique",
-			"paint": {
-				"line-color": "transparent"
-			},
-			"minzoom": 13
-		},
-		{
 			"id": "troncon_hydrographique",
 			"type": "line",
 			"source": "bdtopo",
@@ -16097,34 +16087,6 @@
 			"minzoom": 15
 		},
 		{
-			"id": "detail_hydrographique",
-			"type": "circle",
-			"source": "bdtopo",
-			"source-layer": "detail_hydrographique",
-			"paint": {
-				"circle-color": "transparent",
-				"circle-stroke-color": "transparent",
-				"circle-opacity": 1,
-				"circle-stroke-width": 1,
-				"circle-radius": 15
-			},
-			"minzoom": 15
-		},
-		{
-			"id": "plan_d_eau_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "plan_d_eau",
-			"paint": {
-				"line-color": "transparent",
-				"line-width": 3
-			},
-			"layout": {
-				"visibility": "none"
-			},
-			"minzoom": 14
-		},
-		{
 			"id": "foret_publique",
 			"type": "fill",
 			"source": "bdtopo",
@@ -16133,16 +16095,6 @@
 				"fill-color": "transparent"
 			},
 			"minzoom": 14
-		},
-		{
-			"id": "foret_publique_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "foret_publique",
-			"minzoom": 14,
-			"paint": {
-				"line-color": "transparent"
-			}
 		},
 		{
 			"id": "zone_de_vegetation_surf",
@@ -16158,38 +16110,12 @@
 			}
 		},
 		{
-			"id": "zone_de_vegetation_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "zone_de_vegetation",
-			"paint": {
-				"line-color": "transparent"
-			},
-			"minzoom": 14,
-			"layout": {
-				"visibility": "visible"
-			}
-		},
-		{
 			"id": "zone_d_estran_surf",
 			"type": "fill",
 			"source": "bdtopo",
 			"source-layer": "zone_d_estran",
 			"paint": {
 				"fill-color": "transparent"
-			},
-			"minzoom": 7,
-			"layout": {
-				"visibility": "visible"
-			}
-		},
-		{
-			"id": "zone_d_estran_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "zone_d_estran",
-			"paint": {
-				"line-color": "transparent"
 			},
 			"minzoom": 7,
 			"layout": {
@@ -16509,17 +16435,6 @@
 			}
 		},
 		{
-			"id": "piste_d_aerodrome_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "piste_d_aerodrome",
-			"minzoom": 14,
-			"paint": {
-				"line-color": "transparent",
-				"line-width": 15
-			}
-		},
-		{
 			"id": "equipement_de_transport",
 			"type": "line",
 			"source": "bdtopo",
@@ -16794,17 +16709,6 @@
 			}
 		},
 		{
-			"id": "aerodrome_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "aerodrome",
-			"minzoom": 13,
-			"paint": {
-				"line-color": "transparent",
-				"line-width": 1
-			}
-		},
-		{
 			"id": "altiport",
 			"type": "fill",
 			"source": "bdtopo",
@@ -16961,17 +16865,6 @@
 			"minzoom": 14
 		},
 		{
-			"id": "terrain_de_sport_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "terrain_de_sport",
-			"minzoom": 14,
-			"paint": {
-				"line-color": "transparent",
-				"line-width": 1
-			}
-		},
-		{
 			"id": "ligne_orographique",
 			"type": "line",
 			"source": "bdtopo",
@@ -16991,26 +16884,6 @@
 				"fill-color": "transparent"
 			},
 			"minzoom": 14
-		},
-		{
-			"id": "reservoir_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "reservoir",
-			"paint": {
-				"line-color": "transparent"
-			},
-			"minzoom": 14
-		},
-		{
-			"id": "cimetiere_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "cimetiere",
-			"minzoom": 14,
-			"paint": {
-				"line-color": "transparent"
-			}
 		},
 		{
 			"id": "cimetiere_surf",
@@ -17052,21 +16925,6 @@
 			}
 		},
 		{
-			"id": "batiment_residentiel_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "batiment",
-			"minzoom": 14,
-			"filter": [
-				"==",
-				"usage_1",
-				"Résidentiel"
-			],
-			"paint": {
-				"line-color": "transparent"
-			}
-		},
-		{
 			"id": "batiment_annexe_surf",
 			"type": "fill",
 			"source": "bdtopo",
@@ -17079,21 +16937,6 @@
 			],
 			"paint": {
 				"fill-color": "transparent"
-			}
-		},
-		{
-			"id": "batiment_annexe_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "batiment",
-			"minzoom": 14,
-			"filter": [
-				"==",
-				"usage_1",
-				"Annexe"
-			],
-			"paint": {
-				"line-color": "transparent"
 			}
 		},
 		{
@@ -17112,21 +16955,6 @@
 			}
 		},
 		{
-			"id": "batiment_agricole_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "batiment",
-			"minzoom": 14,
-			"filter": [
-				"==",
-				"usage_1",
-				"Agricole"
-			],
-			"paint": {
-				"line-color": "transparent"
-			}
-		},
-		{
 			"id": "batiment_commercial_et_services_surf",
 			"type": "fill",
 			"source": "bdtopo",
@@ -17139,21 +16967,6 @@
 			],
 			"paint": {
 				"fill-color": "transparent"
-			}
-		},
-		{
-			"id": "batiment_commercial_et_services_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "batiment",
-			"minzoom": 14,
-			"filter": [
-				"==",
-				"usage_1",
-				"Commercial et services"
-			],
-			"paint": {
-				"line-color": "transparent"
 			}
 		},
 		{
@@ -17172,21 +16985,6 @@
 			}
 		},
 		{
-			"id": "batiment_industriel_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "batiment",
-			"minzoom": 14,
-			"filter": [
-				"==",
-				"usage_1",
-				"Industriel"
-			],
-			"paint": {
-				"line-color": "transparent"
-			}
-		},
-		{
 			"id": "batiment_sportif_surf",
 			"type": "fill",
 			"source": "bdtopo",
@@ -17199,21 +16997,6 @@
 			],
 			"paint": {
 				"fill-color": "transparent"
-			}
-		},
-		{
-			"id": "batiment_sportif_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "batiment",
-			"minzoom": 14,
-			"filter": [
-				"==",
-				"usage_1",
-				"Sportif"
-			],
-			"paint": {
-				"line-color": "transparent"
 			}
 		},
 		{
@@ -17232,21 +17015,6 @@
 			}
 		},
 		{
-			"id": "batiment_religieux_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "batiment",
-			"minzoom": 14,
-			"filter": [
-				"==",
-				"usage_1",
-				"Religieux"
-			],
-			"paint": {
-				"line-color": "transparent"
-			}
-		},
-		{
 			"id": "batiment_indifferencie_surf",
 			"type": "fill",
 			"source": "bdtopo",
@@ -17262,21 +17030,6 @@
 			}
 		},
 		{
-			"id": "batiment_indifferencie_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "batiment",
-			"minzoom": 14,
-			"filter": [
-				"==",
-				"usage_1",
-				"Indifférencié"
-			],
-			"paint": {
-				"line-color": "transparent"
-			}
-		},
-		{
 			"id": "construction_ponctuelle",
 			"type": "circle",
 			"source": "bdtopo",
@@ -17285,16 +17038,6 @@
 			"paint": {
 				"circle-radius": 7,
 				"circle-color": "transparent"
-			}
-		},
-		{
-			"id": "bassin_versant_topographique_limites",
-			"type": "line",
-			"source": "bdtopo",
-			"source-layer": "bassin_versant_topographique",
-			"paint": {
-				"line-color": "transparent",
-				"line-opacity": 0.35
 			}
 		},
 		{
@@ -17371,6 +17114,20 @@
 			"layout": {
 				"line-join": "bevel"
 			}
+		},
+		{
+			"id": "detail_hydrographique",
+			"type": "circle",
+			"source": "bdtopo",
+			"source-layer": "detail_hydrographique",
+			"paint": {
+				"circle-color": "transparent",
+				"circle-stroke-color": "transparent",
+				"circle-opacity": 1,
+				"circle-stroke-width": 1,
+				"circle-radius": 15
+			},
+			"minzoom": 15
 		}
 	]
 }

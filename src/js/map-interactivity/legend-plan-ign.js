@@ -244,7 +244,8 @@ function Legend(features, zoom) {
         
         // Exceptions à la règle suivante qui évite les désynchronisations
         if (feat.sourceLayer == "toponyme_bati_ponc" && FeaturesBDTOPO[0].sourceLayer == "equipement_de_transport") return feat;
-        if (feat.sourceLayer == "bati_ponc" && FeaturesBDTOPO[0].sourceLayer == "construction_ponctuelle") return feat;
+        if (feat.sourceLayer == "bati_ponc" 
+            && ["construction_ponctuelle", "detail_hydrographique"].some(name => FeaturesBDTOPO[0].sourceLayer == name)) return feat;
 
         // pour éviter les désynchronisation Bdtopo PLANIGN  on prend feature de plan ign si correspond au type de feature bdtopo sélectionnée.
         if (feat.layer.type != FeaturesBDTOPO[0].layer.type) return;
