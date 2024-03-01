@@ -44,6 +44,10 @@
   margin-bottom: 30px;
 }
 
+#informationsImg {
+  width: 100%;
+}
+
 /* Bottom menu */
 #tabContainer {
   position: absolute;
