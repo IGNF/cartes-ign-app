@@ -41,6 +41,9 @@ let positionIsGrey = false;
 
 let popup = null;
 
+let lastAccuracy;
+let firstLocation;
+
 /**
  * Interface pour les evenements
  * @example
@@ -153,61 +156,71 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
 };
 
 /**
+ * Callback du suivi de position
+ */
+const watchPositionCallback = (position) => {
+  if (firstLocation) {
+    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
+    Toast.show({
+      text: "Suivi de position activé",
+      duration: "short",
+      position: "bottom"
+    });
+  }
+  if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 150) ) {
+    lastAccuracy = position.coords.accuracy;
+    const point = {
+      type: "Point",
+      coordinates: [position.coords.longitude, position.coords.latitude],
+    };
+    const circle = Buffer(point, position.coords.accuracy, {units: "meters"});
+    Globals.map.getSource("location-precision").setData(circle);
+    currentPosition = position;
+    localStorage.setItem("lastKnownPosition", JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}));
+    var zoom = Globals.map.getZoom();
+    if (firstLocation || tracking_active) {
+      zoom = Math.max(Globals.map.getZoom(), 16);
+    }
+    moveTo({
+      lat: position.coords.latitude,
+      lon: position.coords.longitude
+    }, zoom, tracking_active || firstLocation);
+    // Si la précision est insuffisante, ne pas zoomer à 16
+    if (lastAccuracy > 150) {
+      const bbox = GisUtils.getBoundingBox(circle.geometry.coordinates[0]);
+      var padding;
+      // gestion du mode paysage / écran large
+      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
+                    Math.min(window.innerHeight, window.innerWidth/2) + 42;
+        padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
+      } else {
+        padding = {top: 80, right: 20, bottom: 120, left: 20};
+      }
+      Globals.map.fitBounds(bbox, {
+        padding: padding
+      });
+    }
+    firstLocation = false;
+  }
+};
+
+/**
  * Suit la position de l'utilisateur
  */
 const trackLocation = () => {
-  let lastAccuracy = 100000;
+  lastAccuracy = 100000;
   Geolocation.checkPermissions().then((status) => {
     if (status.location !== "denied") {
-      var firstLocation = true;
-      const watchPositionCallback = (position) => {
-        if (firstLocation) {
-          DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
-          Toast.show({
-            text: "Suivi de position activé",
-            duration: "short",
-            position: "bottom"
-          });
-        }
-        if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 150) ) {
-          lastAccuracy = position.coords.accuracy;
-          const point = {
-            type: "Point",
-            coordinates: [position.coords.longitude, position.coords.latitude],
-          };
-          const circle = Buffer(point, position.coords.accuracy, {units: "meters"});
-          Globals.map.getSource("location-precision").setData(circle);
-          currentPosition = position;
-          localStorage.setItem("lastKnownPosition", JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}));
-          var zoom = Globals.map.getZoom();
-          if (firstLocation || tracking_active) {
-            zoom = Math.max(Globals.map.getZoom(), 16);
-          }
-          moveTo({
-            lat: position.coords.latitude,
-            lon: position.coords.longitude
-          }, zoom, tracking_active || firstLocation);
-          // Si la précision est insuffisante, ne pas zoomer à 16
-          if (lastAccuracy > 150) {
-            const bbox = GisUtils.getBoundingBox(circle.geometry.coordinates[0]);
-            var padding;
-            // gestion du mode paysage / écran large
-            if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-              var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
-                          Math.min(window.innerHeight, window.innerWidth/2) + 42;
-              padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
-            } else {
-              padding = {top: 80, right: 20, bottom: 120, left: 20};
-            }
-            Globals.map.fitBounds(bbox, {
-              padding: padding
-            });
-          }
-          if (firstLocation) {
-            firstLocation = false;
-          }
-        }
-      };
+      firstLocation = true;
+      // Récupération rapide d'une position
+      Geolocation.watchPosition({
+        maximumAge: 0,
+        timeout: 3000,
+        enableHighAccuracy: false
+      }, watchPositionCallback).then( (watchId) => {
+        Geolocation.clearWatch(watchId);
+      });
 
       Geolocation.watchPosition({
         maximumAge: 1000,
@@ -215,8 +228,6 @@ const trackLocation = () => {
         enableHighAccuracy: true
       }, watchPositionCallback).then( (watchId) => {
         watch_id = watchId;
-      }).catch((err) => {
-        console.warn(`${err.message}`);
       });
     } else {
       // Location services denied
@@ -362,10 +373,10 @@ const getLocation = async () => {
   var position = currentPosition;
   if (currentPosition === null) {
     enablePosition();
+    // Récupération rapide de la position si elle n'est pas connue
     position = await Geolocation.getCurrentPosition({
       maximumAge: 0,
-      timeout: 10000,
-      enableHighAccuracy: true
+      timeout: 3000,
     });
   }
 
