@@ -32,6 +32,8 @@ let currentPosition = null;
 
 let animationId = null;
 
+let isMapPanning = false;
+
 let mapBearing = 0;
 let positionBearing = 0;
 
@@ -141,7 +143,9 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
 
   if (panTo) {
     if (tracking_active) {
-      Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom, duration: 1000});
+      isMapPanning = true;
+      Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom, bearing: -mapBearing, duration: 500});
+      Globals.map.once("moveend", () => {isMapPanning = false;});
     } else {
       Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
     }
@@ -156,12 +160,7 @@ const trackLocation = () => {
   Geolocation.checkPermissions().then((status) => {
     if (status.location !== "denied") {
       var firstLocation = true;
-      Geolocation.watchPosition({
-        maximumAge: 1000,
-        timeout: 10000,
-        enableHighAccuracy: true
-      },
-      (position) => {
+      const watchPositionCallback = (position) => {
         if (firstLocation) {
           DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
           Toast.show({
@@ -208,7 +207,13 @@ const trackLocation = () => {
             firstLocation = false;
           }
         }
-      }).then( (watchId) => {
+      };
+
+      Geolocation.watchPosition({
+        maximumAge: 1000,
+        timeout: 10000,
+        enableHighAccuracy: true
+      }, watchPositionCallback).then( (watchId) => {
         watch_id = watchId;
       }).catch((err) => {
         console.warn(`${err.message}`);
@@ -325,16 +330,19 @@ const getOrientation = async (event) => {
   if (Math.abs(mapBearing - bearing) < 0.5) {
     return;
   }
-  mapBearing = bearing;
+  let tempMapBearing = bearing;
   let orientation = await ScreenOrientation.orientation();
   if (orientation.type === "landscape-secondary") {
-    mapBearing += 90;
+    tempMapBearing += 90;
   }
   if (orientation.type === "landscape-primary") {
-    mapBearing -= 90;
+    tempMapBearing -= 90;
   }
+  mapBearing = tempMapBearing;
   if (tracking_active) {
-    Globals.map.easeTo({bearing: -mapBearing, duration: 100});
+    if (!isMapPanning) {
+      Globals.map.easeTo({bearing: -mapBearing, duration: 100});
+    }
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
   }

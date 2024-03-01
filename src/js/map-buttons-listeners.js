@@ -3,14 +3,14 @@ import Globals from "./globals";
 import Location from "./services/location";
 import Reverse from "./services/reverse";
 import State from "./state";
-import { Capacitor } from '@capacitor/core';
+import { Capacitor } from "@capacitor/core";
 
 const addListeners = () => {
 
   // Bouton Geolocalisation
   DOM.$geolocateBtn.addEventListener("click", () => { Location.locationOnOff(); });
   // HACK: ios
-  if (Capacitor.getPlatform() === 'ios') {
+  if (Capacitor.getPlatform() === "ios") {
     DOM.$geolocateBtn.addEventListener("click", () => {
       if (typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function") {
         DeviceOrientationEvent.requestPermission()

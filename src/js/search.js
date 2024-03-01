@@ -1,7 +1,6 @@
 import Globals from "./globals";
 import DOM from "./dom";
 import Location from "./services/location";
-import State from "./state";
 
 /**
  * Barre de recherche et géocodage

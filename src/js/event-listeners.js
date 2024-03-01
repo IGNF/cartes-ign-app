@@ -4,7 +4,7 @@ import DOM from "./dom";
 import Globals from "./globals";
 import RecentSearch from "./search-recent";
 import State from "./state";
-import { Capacitor } from '@capacitor/core';
+import { Capacitor } from "@capacitor/core";
 import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { App } from "@capacitor/app";
@@ -74,7 +74,7 @@ function addListeners() {
   });
 
   // Rotation du marqueur de position (android)
-  if (Capacitor.getPlatform() !== 'ios') {
+  if (Capacitor.getPlatform() !== "ios") {
     window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
   }
 
