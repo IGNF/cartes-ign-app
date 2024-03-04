@@ -185,8 +185,12 @@ Altitude : ${altitude} m
         dialogTitle: "Partager la position",
       });
     });
-    shadowContainer.getElementById("positionNear").addEventListener("click", () => {
-      const coordinates = this.coordinates;
+    shadowContainer.getElementById("positionNear").addEventListener("click", async () => {
+      let coordinates = this.coordinates;
+      if (this.header === "Ma position") {
+        let position = await Location.getLocation();
+        coordinates = position.coordinates;
+      }
       // fermeture du panneau actuel
       if (this.options.closePositionCbk) {
         this.options.closePositionCbk();
@@ -200,8 +204,12 @@ Altitude : ${altitude} m
         target.value = this.name;
       }
     });
-    shadowContainer.getElementById("positionRoute").addEventListener("click", () => {
-      const coordinates = this.coordinates;
+    shadowContainer.getElementById("positionRoute").addEventListener("click", async () => {
+      let coordinates = this.coordinates;
+      if (this.header === "Ma position") {
+        let position = await Location.getLocation();
+        coordinates = position.coordinates;
+      }
       // fermeture du panneau actuel
       if (this.options.closePositionCbk) {
         this.options.closePositionCbk();
@@ -218,8 +226,12 @@ Altitude : ${altitude} m
         target.value = this.name;
       }
     });
-    shadowContainer.getElementById("positionLandmark").addEventListener("click", (e) => {
-      const coordinates = this.coordinates;
+    shadowContainer.getElementById("positionLandmark").addEventListener("click", async (e) => {
+      let coordinates = this.coordinates;
+      if (this.header === "Ma position") {
+        let position = await Location.getLocation();
+        coordinates = position.coordinates;
+      }
       // Récupération de l'id du landmark
       let landmarkId = -1;
       if ([...e.target.classList].includes("positionLandmarkEdit")) {
