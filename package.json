@@ -32,6 +32,7 @@
     "@capacitor/filesystem": "^5.2.0",
     "@capacitor/geolocation": "5.0.6",
     "@capacitor/ios": "5.6.0",
+    "@capacitor/keyboard": "^5.0.8",
     "@capacitor/screen-orientation": "^5.0.7",
     "@capacitor/share": "^5.0.6",
     "@capacitor/status-bar": "^5.0.6",
@@ -43,7 +44,9 @@
     "@turf/union": "^6.5.0",
     "capacitor-native-settings": "^5.0.1",
     "chart.js": "^4.4.1",
+    "install": "^0.13.0",
     "maplibre-gl": "^3.6.2",
+    "npm": "^10.5.0",
     "proj4": "^2.10.0"
   },
   "devDependencies": {

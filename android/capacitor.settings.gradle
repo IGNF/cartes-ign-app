@@ -17,6 +17,9 @@ project(':capacitor-filesystem').projectDir = new File('../node_modules/@capacit
 include ':capacitor-geolocation'
 project(':capacitor-geolocation').projectDir = new File('../node_modules/@capacitor/geolocation/android')
 
+include ':capacitor-keyboard'
+project(':capacitor-keyboard').projectDir = new File('../node_modules/@capacitor/keyboard/android')
+
 include ':capacitor-screen-orientation'
 project(':capacitor-screen-orientation').projectDir = new File('../node_modules/@capacitor/screen-orientation/android')
 

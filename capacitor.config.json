@@ -10,5 +10,10 @@
   },
   "ios": {
     "overrideUserAgent": "IGN-app-ios"
+  },
+  "plugins": {
+    "Keyboard": {
+      "resizeOnFullScreen": true
+    }
   }
 }
