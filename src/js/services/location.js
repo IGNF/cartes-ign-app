@@ -214,13 +214,13 @@ const trackLocation = () => {
     if (status.location !== "denied") {
       firstLocation = true;
       // Récupération rapide d'une position
-      Geolocation.watchPosition({
-        maximumAge: 0,
-        timeout: 3000,
-        enableHighAccuracy: false
-      }, watchPositionCallback).then( (watchId) => {
-        Geolocation.clearWatch(watchId);
-      });
+      // Geolocation.watchPosition({
+      //   maximumAge: 0,
+      //   timeout: 3000,
+      //   enableHighAccuracy: false
+      // }, watchPositionCallback).then( (watchId) => {
+      //   Geolocation.clearWatch(watchId);
+      // });
 
       Geolocation.watchPosition({
         maximumAge: 1000,
@@ -252,6 +252,7 @@ const enablePosition = async() => {
   }
   try {
     permissionStatus = await Geolocation.checkPermissions();
+    console.log(permissionStatus.location);
   } catch {
     // Location services disabled
     await NativeSettings.open({
@@ -266,10 +267,12 @@ const enablePosition = async() => {
       return;
     }
   }
-  if (permissionStatus.location === "denied") {
+  if (["denied", "prompt", "prompt-with-rationale"].includes(permissionStatus.location)) {
     permissionStatus = await Geolocation.requestPermissions(["location"]);
+    console.log(permissionStatus.location);
   }
-  if (permissionStatus.location === "denied") {
+  if (["denied", "prompt-with-rationale"].includes(permissionStatus.location)) {
+    console.log(permissionStatus.location);
     // Location services denied
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
     showLocationDeniedPopup();
@@ -372,7 +375,7 @@ const getLocation = async () => {
   var results = null;
   var position = currentPosition;
   if (currentPosition === null) {
-    enablePosition();
+    await enablePosition();
     // Récupération rapide de la position si elle n'est pas connue
     position = await Geolocation.getCurrentPosition({
       maximumAge: 0,
