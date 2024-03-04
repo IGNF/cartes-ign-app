@@ -239,9 +239,17 @@ function Legend(features, zoom) {
       if (feat.source == "plan_ign" && feat.layer.id != "bckgrd") {
         // Dans le cas où c'est un symbole textuel et pas une icone on n'affichera pas de légende.
         if (feat.layer.type == "symbol" && !Object.hasOwnProperty.call(feat.layer.layout, "icon-image")) return;
+        // les aplats zone bati ne sont jamais représentés dans la bdtopo
         if (feat.layer.id == "zone batie") return;
+        
+        // Exceptions à la règle suivante qui évite les désynchronisations
+        if (feat.sourceLayer == "toponyme_bati_ponc" && FeaturesBDTOPO[0].sourceLayer == "equipement_de_transport") return feat;
+        if (feat.sourceLayer == "bati_ponc" 
+            && ["construction_ponctuelle", "detail_hydrographique"].some(name => FeaturesBDTOPO[0].sourceLayer == name)) return feat;
+
         // pour éviter les désynchronisation Bdtopo PLANIGN  on prend feature de plan ign si correspond au type de feature bdtopo sélectionnée.
         if (feat.layer.type != FeaturesBDTOPO[0].layer.type) return;
+        
         return feat;
       }
     }
