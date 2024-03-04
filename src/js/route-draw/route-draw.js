@@ -73,6 +73,9 @@ class RouteDraw {
       },
     };
 
+    // Mode lecture seule = affichage des détails de l'itinéraire
+    this.readonly = false;
+
     // mode: libre 0 ou guidé 1
     this.mode = this.options.mode || 1;
 
@@ -154,6 +157,7 @@ class RouteDraw {
    */
   activate() {
     this.dataHistory.unshift(JSON.parse(JSON.stringify(this.data)));
+    this.dom.title.classList.add("d-none");
     this.#listeners();
   }
 
@@ -205,6 +209,7 @@ class RouteDraw {
    */
   setName(name) {
     this.name = name;
+    this.__updateTitle(name);
   }
 
   /**
@@ -788,6 +793,16 @@ class RouteDraw {
     if (Globals.backButtonState === "routeDraw") {
       this.dataHistory[this.currentHistoryPosition].elevationData = JSON.parse(JSON.stringify(this.data.elevationData));
       this.__updateRouteInfo(this.data);
+      // Si mode lecture seule mais que l'alti est recalculée (non sauvegardé de base), on la rajoute dans les données enregistrées
+      if (this.readonly) {
+        this.routeDrawSave = new RouteDrawSave(null, {
+          data: JSON.parse(JSON.stringify(this.data)),
+          transport: this.transport,
+          name: this.name,
+          id: this.routeId,
+        });
+        this.routeDrawSave.saveToAccount();
+      }
     }
   }
 
@@ -1010,10 +1025,21 @@ class RouteDraw {
   }
 
   /**
-   * affiche le menu des résultats du calcul
+   * affiche le menu de tracé d'itinéraire
    * @public
    */
   show() {
+    this.readonly = false;
+    Globals.menu.open("routeDraw");
+  }
+
+  /**
+   * affiche le menu de tracé d'itinéraire (lecture seule)
+   * @public
+   */
+  showDetails() {
+    this.readonly = true;
+    this.dom.title.classList.remove("d-none");
     Globals.menu.open("routeDraw");
   }
 

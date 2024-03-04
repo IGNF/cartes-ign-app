@@ -84,14 +84,14 @@ const addControls = () => {
       unit: "metric"
     }), "bottom-left");
 
-    // contrôle tracé d'itinéraire
-    Globals.routeDraw = new RouteDraw(map, {});
-
     // contrôle d'intéractivité de la carte
     Globals.mapInteractivity = new MapInteractivity(map, {});
 
     // compte utilisateur
     Globals.myaccount = new MyAccount(map, {});
+
+    // contrôle tracé d'itinéraire
+    Globals.routeDraw = new RouteDraw(map, {});
 
     // signalement
     Globals.signalement = new Signalement(map, {});

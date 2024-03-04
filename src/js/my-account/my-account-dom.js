@@ -219,12 +219,9 @@ let MyAccountDOM = {
       this.exportRoute(route);
     });
 
+    // Au clic sur l'itinéraire = l'afficher
     container.querySelector(`#route-basic-tools_ID_${routeId}`).addEventListener("click", () => {
-      const buttonToClick = container.querySelector(`#route-visibility_ID_${routeId}`);
-      if (buttonToClick.checked) {
-        buttonToClick.click();
-      }
-      buttonToClick.click();
+      this.showRouteDetails(route);
     });
 
     container.querySelector(`#route-visibility_ID_${routeId}`).addEventListener("click", () => {
@@ -309,6 +306,7 @@ let MyAccountDOM = {
       this.exportLandmark(landmark);
     });
 
+    // Au clic sur le PR = l'afficher
     container.querySelector(`#landmark-basic-tools_ID_${landmarkId}`).addEventListener("click", () => {
       const buttonToClick = container.querySelector(`#landmark-visibility_ID_${landmarkId}`);
       if (buttonToClick.checked) {

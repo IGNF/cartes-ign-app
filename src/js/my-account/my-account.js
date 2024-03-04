@@ -128,6 +128,14 @@ class MyAccount {
         Globals.menu.open("position");
       });
     });
+    this.map.on("click", MyAccountLayers["line-casing"].id, (e) => {
+      if (["routeDraw", "routeDrawSave"].includes(Globals.backButtonState)) {
+        return;
+      }
+      const routeId = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["line-casing"].id]})[0].properties.id;
+      const route = this.routes.filter( route => route.id == routeId)[0];
+      this.showRouteDetails(route);
+    });
   }
 
   /**
@@ -303,6 +311,34 @@ class MyAccount {
     Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
     Globals.routeDraw.setName(route.name);
     Globals.routeDraw.setId(route.id);
+  }
+
+  /**
+   * Ouvre l'outil de tracé d'itinéraire en mode consultation pour afficher les caractéristiques techniques
+   * @param {*} route
+   */
+  showRouteDetails(route) {
+    if (!route.visible) {
+      route.visible = true;
+      this.#updateSources();
+      console.log(route);
+      document.getElementById(`route-visibility_ID_${route.id}`).checked = true;
+    }
+    let coordinates = [];
+    route.data.steps.forEach((step) => {
+      coordinates = coordinates.concat(step.geometry.coordinates);
+    });
+    const bounds = coordinates.reduce((bounds, coord) => {
+      return bounds.extend(coord);
+    }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+    this.map.fitBounds(bounds, {
+      padding: 100,
+    });
+    this.hide();
+    Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
+    Globals.routeDraw.setName(route.name);
+    Globals.routeDraw.setId(route.id);
+    Globals.routeDraw.showDetails();
   }
 
   /**
@@ -505,6 +541,7 @@ ${landmark.properties.description}
         properties: {
           name: route.name,
           visible: visible,
+          id: route.id,
         }
       };
       route.data.steps.forEach((step) => {

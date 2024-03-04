@@ -10,6 +10,7 @@ let RouteDrawDOM = {
 
   dom : {
     container: null,
+    title: null,
     summary: null,
     details: null,
     detailsList: null,
@@ -47,6 +48,10 @@ let RouteDrawDOM = {
     var div = this.dom.container = document.createElement("div");
     div.id = "routeDrawResults";
     div.className = "";
+    var title = this.dom.title = document.createElement("p");
+    title.classList.add("routeDrawResultsTitle");
+    title.classList.add("d-none");
+    div.appendChild(title);
 
     return div;
   },
@@ -130,6 +135,16 @@ let RouteDrawDOM = {
     div.style.display = "none";
 
     return div;
+  },
+
+
+  /**
+   * Met à jour le titre de l'itinéraire dans le dom
+   * @param {String} title - titre de l'itinéraire
+   * @private
+   */
+  __updateTitle (title) {
+    this.dom.title.innerText = title;
   },
 
   /**

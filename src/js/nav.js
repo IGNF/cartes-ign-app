@@ -59,7 +59,7 @@ class MenuNavigation {
     });
     // "Tracer un itinéraire"
     document.getElementById("routeDraw").addEventListener("click", () => {
-      this.open("routeDraw");
+      Globals.routeDraw.show();
     });
     // "Compte"
     document.getElementById("myaccount").addEventListener("click",  () => { this.open("myaccount"); });
@@ -205,19 +205,21 @@ class MenuNavigation {
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
       DOM.$backTopLeftBtn.classList.remove("d-none");
-      DOM.$routeDrawBtns.classList.remove("d-none");
-      DOM.$routeDrawEdit.classList.remove("d-none");
-      if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$bottomButtons.style.bottom = "calc(72px + 142px + var(--safe-area-inset-bottom))";
-      } else {
-        DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
-        DOM.$bottomButtons.style.width = "auto";
-        DOM.$bottomButtons.style.bottom = "calc(142px + var(--safe-area-inset-bottom))";
+      if (!Globals.routeDraw.readonly) {
+        DOM.$routeDrawBtns.classList.remove("d-none");
+        DOM.$routeDrawEdit.classList.remove("d-none");
+        if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+          DOM.$bottomButtons.style.bottom = "calc(72px + 142px + var(--safe-area-inset-bottom))";
+        } else {
+          DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
+          DOM.$bottomButtons.style.width = "auto";
+          DOM.$bottomButtons.style.bottom = "calc(142px + var(--safe-area-inset-bottom))";
+        }
+        Globals.routeDraw.activate();
       }
       DOM.$tabContainer.style.backgroundColor = "white";
       DOM.$sideBySideBtn.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
-      Globals.routeDraw.activate();
       Globals.currentScrollIndex = 1;
       break;
     case "poi":
@@ -441,14 +443,16 @@ class MenuNavigation {
       DOM.$filterPoiBtn.style.removeProperty("top");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
-      DOM.$routeDrawBtns.classList.add("d-none");
-      DOM.$routeDrawEdit.classList.add("d-none");
-      DOM.$bottomButtons.style.removeProperty("bottom");
-      DOM.$bottomButtons.style.removeProperty("left");
-      DOM.$bottomButtons.style.removeProperty("width");
+      if (!Globals.routeDraw.readonly) {
+        DOM.$routeDrawBtns.classList.add("d-none");
+        DOM.$routeDrawEdit.classList.add("d-none");
+        DOM.$bottomButtons.style.removeProperty("bottom");
+        DOM.$bottomButtons.style.removeProperty("left");
+        DOM.$bottomButtons.style.removeProperty("width");
+      }
       DOM.$sideBySideBtn.classList.remove("d-none");
       DOM.$tabContainer.style.removeProperty("background-color");
-      Globals.routeDraw.clear();
+      Globals.routeDraw.clear();+
       Globals.interactivityIndicator.enable();
       break;
     case "poi":

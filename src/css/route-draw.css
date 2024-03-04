@@ -89,7 +89,11 @@
   margin-right: 10px;
 }
 
-
+.routeDrawResultsTitle {
+  font-size: 15px;
+  font-family: "Open Sans Bold";
+  margin-top: 0;
+}
 
 .routeDrawSummaryTransport {
   display: block;

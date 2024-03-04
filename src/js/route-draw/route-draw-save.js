@@ -39,13 +39,7 @@ class RouteDrawSave {
      */
   #listeners() {
     document.getElementById("routeDrawSaveNameInputSubmit").addEventListener("click", () => {
-      let name = document.getElementById("routeDrawSaveNameInput").value;
-      if (name === "") {
-        name = `De ${this.options.data.points[0].properties.name} à ${this.options.data.points.slice(-1)[0].properties.name}`;
-      }
-      this.options.name = name;
-      this.options.visible = true;
-      Globals.myaccount.addRoute(JSON.parse(JSON.stringify(this.options)));
+      this.saveToAccount();
       this.hide();
       Globals.routeDraw.hide();
       Toast.show({
@@ -54,6 +48,19 @@ class RouteDrawSave {
         position: "top"
       });
     });
+  }
+
+  /**
+   * sauvegarde l'itinéraire dans le compte
+   */
+  saveToAccount() {
+    let name = document.getElementById("routeDrawSaveNameInput").value;
+    if (name === "") {
+      name = `De ${this.options.data.points[0].properties.name} à ${this.options.data.points.slice(-1)[0].properties.name}`;
+    }
+    this.options.name = name;
+    this.options.visible = true;
+    Globals.myaccount.addRoute(JSON.parse(JSON.stringify(this.options)));
   }
 
   /**
