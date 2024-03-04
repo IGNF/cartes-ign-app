@@ -1,7 +1,7 @@
 {
     "version": 8,
     "name": "POI OSM",
-    "glyphs": "https://wxs.ign.fr/static/vectorTiles/fonts/{fontstack}/{range}.pbf",
+    "glyphs": "https://wxs-pgie.ign.fr/static/vectorTiles/fonts/{fontstack}/{range}.pbf",
     "sprite": "data/poi-osm-sprite",
     "sources": {
         "poi_osm": {
