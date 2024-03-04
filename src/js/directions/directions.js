@@ -421,6 +421,7 @@ class Directions {
       element.value = "";
       element.dataset.coordinates = "";
     }
+    document.querySelectorAll(".lblDirectionsLocationsRemoveImg").forEach( (elem) => elem.click());
     this.__unsetComputeButtonLoading();
   }
 
