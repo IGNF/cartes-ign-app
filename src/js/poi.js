@@ -119,12 +119,22 @@ class POI {
         const poi = this.config[j];
         var layer = Object.assign({}, l); // clone
         layer.id = poi.id + " - " + layer.id;
-        layer.filter = [
-          "in",
-          poi.filters[0].field,
-          poi.filters[0].attributs
-        ].flat();
-        layer.layout.visibility = (poi.visible) ? "visible" : "none";
+        if (layer.filter) {
+          layer.filter = ["all", layer.filter, [
+            "in",
+            poi.filters[0].field,
+            poi.filters[0].attributs
+          ].flat()];
+        } else {
+          layer.filter = [
+            "in",
+            poi.filters[0].field,
+            poi.filters[0].attributs
+          ].flat();
+        }
+        if (layer.layout.visibility === "visible") {
+          layer.layout.visibility = (poi.visible) ? "visible" : "none";
+        }
         layer.metadata = {
           thematic: poi.id
         };

@@ -390,7 +390,7 @@ class Isochrone {
     this.polygon = null;
     this.center = null;
     this.poi.ids.forEach( (id) => {
-      if (this.map.getFilter(id)[0] === "all") {
+      if (this.map.getFilter(id)[0] === "all" && this.map.getFilter(id)[1][0] !== "!in") {
         this.map.setFilter(id, this.map.getFilter(id).splice(-1)[0]);
       }
     });
@@ -406,6 +406,12 @@ class Isochrone {
       for (let i = 0; i < layers.length; i++) {
         const element = layers[i];
         LayersGroup.addVisibilityByID(Globals.poi.id, element.id, el.checked);
+      }
+    });
+    // Retour en mode invisible pour la couche POI au bas niveaux de zoom
+    this.poi.ids.forEach( (id) => {
+      if (id.split(" - ")[1] === "POI OSM isochrone") {
+        LayersGroup.addVisibilityByID(Globals.poi.id, id, false);
       }
     });
   }
