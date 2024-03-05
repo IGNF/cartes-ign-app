@@ -2,6 +2,7 @@ import Globals from "../globals";
 import DOM from "../dom";
 import MapInteractivityLayers from "./map-interactivity-styles";
 import featurePropertyFilter from "./feature-property-filter";
+import gfiRules from "./gfi-rules";
 
 import Union from "@turf/union";
 import Buffer from "@turf/buffer";
@@ -127,7 +128,7 @@ class MapInteractivity {
     this.#multipleGFI(layersForGFI)
       .then((resp) => {
         this.loading = false;
-        Globals.position.compute(ev.lngLat, resp.layer, resp.html).then(() => {
+        Globals.position.compute(ev.lngLat, resp.title, resp.html).then(() => {
           Globals.menu.open("position");
         });
         this.map.on("click", this.handleInfoOnMap);
@@ -228,7 +229,7 @@ class MapInteractivity {
         `LAYER=${layer[0].split("$")[0]}` +
         `&TILECOL=${layer[1].tiles.tile.x}&TILEROW=${layer[1].tiles.tile.y}&TILEMATRIX=${layer[1].computeZoom}&TILEMATRIXSET=PM` +
         `&FORMAT=${layer[1].format}` +
-        `&STYLE=${layer[1].style}&INFOFORMAT=text/html&I=${layer[1].tiles.tilePixel.x}&J=${layer[1].tiles.tilePixel.y}`;
+        `&STYLE=${layer[1].style}&INFOFORMAT=application/json&I=${layer[1].tiles.tilePixel.x}&J=${layer[1].tiles.tilePixel.y}`;
       if (layer[0].split(":").slice(-1)[0] === "WMS") {
         // https://wiki.openstreetmap.org/wiki/Zoom_levels
         const resolution = 40075016.686 * Math.cos(layer[1].clickCoords.lat * Math.PI/180) / Math.pow(2, layer[1].computeZoom + 6);
@@ -243,29 +244,30 @@ class MapInteractivity {
         "&CRS=EPSG:3857" +
         `&BBOX=${bottomLeft[0]},${bottomLeft[1]},${topRight[0]},${topRight[1]}` +
         "&WIDTH=101&HEIGHT=101" +
-        "&INFO_FORMAT=text/html&I=50&J=50";
+        "&INFO_FORMAT=application/json&I=50&J=50";
       }
       const response = fetch(
         gfiURL,
         { signal: this.controller.signal }
-      ).then((response => {return response.text();})
+      ).then((response => {return response.json();})
         ,
         () => {
           throw new Error("GetFeatureInfo : HTTP error");
         })
         .then((res) => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(res, "text/html");
-          if (!doc.body.innerText.trim()) {
-            throw new Error(this.emptyError);
+          if (gfiRules[layer[0]]) {
+            return gfiRules.parseGFI(gfiRules[layer[0]], res);
+          } else {
+            let html = "<div>";
+            for (const [key, value] of Object.entries(res.features[0].properties)) {
+              html += `<p>${key}: ${value}</p>`;
+            }
+            html += `</div>`;
+            return {
+              title: layer[1].title,
+              html: html
+            };
           }
-          const xml = parser.parseFromString(res, "text/xml");
-          if (xml.getElementsByTagName("ExceptionReport").length > 0) {
-            const serializer = new XMLSerializer();
-            const xmlStr = serializer.serializeToString(doc);
-            throw new Error(xmlStr);
-          }
-          return res;
         });
       return response;
     });
@@ -273,18 +275,12 @@ class MapInteractivity {
     let responsesArray = Promise.allSettled(promisesArray);
     let response = (await responsesArray).find(r => r.status == "fulfilled");
     if (response) {
-      let i = (await responsesArray).indexOf(response);
-      const result = {
-        layer: layerArray[i][1].title,
-        html: response.value,
-      };
-      return result;
+      return response.value;
     }
     else {
       throw new Error(this.emptyError);
     }
   }
-
 
   /**
   * ajoute la source et le layer à la carte pour affichage du tracé
