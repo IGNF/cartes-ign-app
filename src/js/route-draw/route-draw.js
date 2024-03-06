@@ -1084,16 +1084,8 @@ class RouteDraw {
     // centre de la carte
     var center = this.map.getCenter();
     // position de la popup
-    let markerHeight = 0, markerRadius = 10, linearOffset = 25;
     var popupOffsets = {
-      "top": [0, 0],
-      "top-left": [0, 0],
-      "top-right": [0, 0],
-      "bottom": [0, -markerHeight],
-      "bottom-left": [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-      "bottom-right": [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-      "left": [markerRadius, (markerHeight - markerRadius) * -1],
-      "right": [-markerRadius, (markerHeight - markerRadius) * -1]
+      "bottom": [0, 100],
     };
     // ouverture d'une popup
     this.popup = new MapLibreGL.Popup({

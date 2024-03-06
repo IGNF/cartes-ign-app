@@ -261,7 +261,7 @@ class POI {
       if (e.target.checked) {
         Globals.comparePoi.showPoints();
         localStorage.setItem("poirltChecked", "checked");
-        this.map.flyTo({zoom: 4, center: [2.0, 47.33]})
+        this.map.flyTo({zoom: 4, center: [2.0, 47.33]});
       } else {
         Globals.comparePoi.hidePoints();
         localStorage.setItem("poirltChecked", "");
