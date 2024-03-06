@@ -128,6 +128,11 @@ class MapInteractivity {
     this.#multipleGFI(layersForGFI)
       .then((resp) => {
         this.loading = false;
+        try {
+          this.#highlightGFI(resp.geometry);
+        } catch (e) {
+          console.log(e);
+        }
         Globals.position.compute(ev.lngLat, resp.title, resp.html).then(() => {
           Globals.menu.open("position");
         });
@@ -150,7 +155,7 @@ class MapInteractivity {
       });
   }
 
-  // Met à jour la gémétrie highlightée au moment de la séléction et du dpélacement de la carte.
+  // Met à jour la gémétrie highlightée au moment de la séléction et du déplacement de la carte.
   #updateHighlightedGeom() {
     let source;
     const mapFeatures = this.map.queryRenderedFeatures();
@@ -262,10 +267,11 @@ class MapInteractivity {
             for (const [key, value] of Object.entries(res.features[0].properties)) {
               html += `<p>${key}: ${value}</p>`;
             }
-            html += `</div>`;
+            html += "</div>";
             return {
               title: layer[1].title,
-              html: html
+              html: html,
+              geometry: res.features[0].geometry,
             };
           }
         });
@@ -280,6 +286,39 @@ class MapInteractivity {
     else {
       throw new Error(this.emptyError);
     }
+  }
+
+  /**
+   * Ajoute à la carte la géométrie de la feature cliquée dans un GFI
+   * @param {*} gfiGeom
+   */
+  #highlightGFI(gfiGeom) {
+    this.#clearSources();
+    let source;
+
+    if (["Point", "MultiPoint"].includes(gfiGeom.type)) {
+      source = this.map.getSource(this.configuration.pointsource);
+    } else if (["LineString", "MultiLineString"].includes(gfiGeom.type)) {
+      source = this.map.getSource(this.configuration.polygonsource);
+    } else {
+      source = this.map.getSource(this.configuration.polygonsource);
+    }
+    this.#convertCoords(gfiGeom.coordinates);
+    source.setData(gfiGeom);
+  }
+
+  /**
+   * Convertit les coordonnées d'une feature GFI de webmarcator à WGS 84 de manière recursive
+   * @param {*} array geometry.coordinates
+   */
+  #convertCoords(array) {
+    if (typeof array[0] !== "number") {
+      array.forEach(elem => this.#convertCoords(elem));
+      return;
+    }
+    const convertedCoords = proj4(proj4.defs("EPSG:3857"), proj4.defs("EPSG:4326"), array);
+    array[0] = convertedCoords[0];
+    array[1] = convertedCoords[1];
   }
 
   /**
