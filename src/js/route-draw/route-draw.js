@@ -605,6 +605,11 @@ class RouteDraw {
   async #onDeleteWayPoint(e) {
     // TODO patience
     // On empêche l'intéraction tant que les opérations (hors alti) ne sont pas terminées
+    Toast.show({
+      text: "Sélectionnez le point que vous souhaitez supprimer",
+      duration: "short",
+      position: "bottom"
+    });
     this.map.off("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
     this.deactivate();
     const feature = this.map.queryRenderedFeatures(e.point, {
