@@ -113,8 +113,8 @@ const gfiRules = {
     };
     const featureProperties = gfi.features[0].properties;
     if (rule["title"][0] === "@") {
-      let str = featureProperties[rule.title.split("@")[1]]
-      result.title = str[0].toUpperCase() + str.slice(1);;
+      let str = featureProperties[rule.title.split("@")[1]];
+      result.title = str[0].toUpperCase() + str.slice(1);
     } else {
       result.title = rule.title;
     }
@@ -123,7 +123,6 @@ const gfiRules = {
     rule.body.forEach( (bodyElement) => {
       let p = bodyElement.map((str) => {
         let match = str.match("{{(.+)}}");
-        console.log(featureProperties)
         if(match && Object.prototype.hasOwnProperty.call(featureProperties, match[1]))
           return str.replace(match[0], featureProperties[match[1]]);
         else return str;
