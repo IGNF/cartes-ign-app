@@ -267,7 +267,7 @@ class POI {
         for (let i = 0; i < layers.length; i++) {
           const element = layers[i];
           if (element.id.split(" - ")[1] !== "POI OSM isochrone") {
-            LayersGroup.addVisibilityByID(this.id, element.id, true);
+            LayersGroup.addVisibilityByID(this.id, element.id, el.checked);
           }
         }
         let allUnchecked = true;
