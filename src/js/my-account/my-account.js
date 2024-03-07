@@ -321,7 +321,6 @@ class MyAccount {
     if (!route.visible) {
       route.visible = true;
       this.#updateSources();
-      console.log(route);
       document.getElementById(`route-visibility_ID_${route.id}`).checked = true;
     }
     let coordinates = [];

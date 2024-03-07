@@ -112,7 +112,7 @@ const onBackKeyDown = () => {
     return;
   }
   if (Globals.backButtonState === "routeDraw") {
-    Globals.menu.close("routeDraw");
+    Globals.routeDraw.hide();
     return;
   }
   if (Globals.backButtonState === "routeDrawSave") {

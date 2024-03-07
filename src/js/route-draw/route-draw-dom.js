@@ -11,6 +11,7 @@ let RouteDrawDOM = {
   dom : {
     container: null,
     title: null,
+    edit: null,
     summary: null,
     details: null,
     detailsList: null,
@@ -52,6 +53,13 @@ let RouteDrawDOM = {
     title.classList.add("routeDrawResultsTitle");
     title.classList.add("d-none");
     div.appendChild(title);
+
+    var edit = this.dom.edit = document.createElement("p");
+    edit.classList.add("routeDrawResultsEdit");
+    edit.classList.add("d-none");
+    edit.innerText = "Modifier";
+    edit.addEventListener("click", this.openEdition.bind(this));
+    div.appendChild(edit);
 
     return div;
   },

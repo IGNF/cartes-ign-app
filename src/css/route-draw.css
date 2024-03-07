@@ -95,6 +95,24 @@
   margin-top: 0;
 }
 
+.routeDrawResultsEdit {
+  appearance: unset;
+  display: block;
+  border: none;
+  border-radius: 70px;
+  background-color: #26a581;
+  padding: 7px 21px;
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  line-height: normal;
+  width: 55px;
+  float: right;
+}
+
 .routeDrawSummaryTransport {
   display: block;
   width: 30px;

@@ -118,7 +118,6 @@ class MapInteractivity {
     });
 
     let layersForGFI = layerswithzoom.filter( layer => layer[1].interactive ).map((layer) => {
-      console.log(layer);
       let arr = this.#latlngToTilePixel(ev.lngLat.lat, ev.lngLat.lng, layer[1].computeZoom);
       layer[1].tiles =  {tile: arr[0], tilePixel: arr[1]};
       layer[1].clickCoords = ev.lngLat;
@@ -174,7 +173,6 @@ class MapInteractivity {
       }
       source = this.map.getSource(this.configuration.polygonsource);
     } else {
-      console.log(union[0]);
       for (let i = 1; i <= toFuse.length - 1; i++) {
         union[0] = Union(union[0], toFuse[i], {properties: union.properties});
       }

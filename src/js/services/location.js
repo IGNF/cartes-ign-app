@@ -253,7 +253,6 @@ const enablePosition = async() => {
   }
   try {
     permissionStatus = await Geolocation.checkPermissions();
-    console.log(permissionStatus.location);
   } catch {
     // Location services disabled
     await NativeSettings.open({
@@ -270,10 +269,8 @@ const enablePosition = async() => {
   }
   if (["denied", "prompt", "prompt-with-rationale"].includes(permissionStatus.location)) {
     permissionStatus = await Geolocation.requestPermissions(["location"]);
-    console.log(permissionStatus.location);
   }
   if (["denied", "prompt-with-rationale"].includes(permissionStatus.location)) {
-    console.log(permissionStatus.location);
     // Location services denied
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
     showLocationDeniedPopup();

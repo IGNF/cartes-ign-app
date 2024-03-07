@@ -158,6 +158,7 @@ class RouteDraw {
   activate() {
     this.dataHistory.unshift(JSON.parse(JSON.stringify(this.data)));
     this.dom.title.classList.add("d-none");
+    this.dom.edit.classList.add("d-none");
     this.#listeners();
   }
 
@@ -219,6 +220,15 @@ class RouteDraw {
    */
   setId(id) {
     this.routeId = id;
+  }
+
+  /**
+   * Ouvre l'itinéraire en mode édition s'il est puvert en lecture seule
+   */
+  openEdition() {
+    const routeId = this.routeId;
+    this.hide();
+    document.getElementById(`route-edit_ID_${routeId}`).click();
   }
 
   /**
@@ -1045,6 +1055,7 @@ class RouteDraw {
   showDetails() {
     this.readonly = true;
     this.dom.title.classList.remove("d-none");
+    this.dom.edit.classList.remove("d-none");
     Globals.menu.open("routeDraw");
   }
 
@@ -1053,7 +1064,11 @@ class RouteDraw {
    * @public
    */
   hide() {
+    const routeId = this.routeId;
     Globals.menu.close("routeDraw");
+    if (routeId !== null && !document.getElementById(`route-visibility_ID_${routeId}`).checked) {
+      document.getElementById(`route-visibility_ID_${routeId}`).click();
+    }
   }
 
   /**
