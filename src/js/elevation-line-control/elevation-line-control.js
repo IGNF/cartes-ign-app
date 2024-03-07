@@ -4,7 +4,8 @@ import {
   LineElement,
   PointElement,
   LinearScale,
-  Filler
+  Filler,
+  Tooltip
 } from "chart.js";
 
 ChartJS.register(
@@ -13,6 +14,7 @@ ChartJS.register(
   PointElement,
   LinearScale,
   Filler,
+  Tooltip
 );
 
 import maplibregl from "maplibre-gl";
@@ -227,6 +229,24 @@ class ElevationLineControl {
         plugins: {
           crosshair: {
             color: "#3F4A55",
+          },
+          tooltip: {
+            mode: "index",
+            position: "average",
+            intersect: false,
+            backgroundColor: "#FFFA",
+            borderColor: "#3F4A55",
+            borderWidth: 1,
+            displayColors: false,
+            callbacks: {
+              label: (context) => {
+                return `Altitude : ${context.parsed.y.toLocaleString()} m
+Distance du départ : ${Math.round(context.parsed.x)} m`;
+              },
+              labelTextColor: () => {
+                return "#3F4A55";
+              }
+            }
           }
         },
         hover: {
@@ -241,6 +261,7 @@ class ElevationLineControl {
     target.addEventListener("touchend", () => {
       // Remove the vertical line and update the chart
       this.removeCrosshair = true;
+      this.chart.tooltip.opacity = 0;
       this.chart.crosshair = {x: 0, y: 0, draw: null};
       Globals.map.getSource("elevation-line-location").setData({
         type: "FeatureCollection",
