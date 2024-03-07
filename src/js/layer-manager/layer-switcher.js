@@ -568,20 +568,21 @@ class LayerSwitcher extends EventTarget {
     var props = LayersConfig.getLayerProps(id);
     this.index++;
     this.layers[id] = {
-      title : props.title,
-      quickLookUrl : LayersAdditional.getQuickLookUrl(id.split("$")[0]),
+      title: props.title,
+      quickLookUrl: LayersAdditional.getQuickLookUrl(id.split("$")[0]),
       style: props.style,
       type: props.type,
       base: props.base,
-      opacity : 100,
-      gray : false,
-      visibility : true,
-      index : this.index,
-      position : this.index, // cf. #updatePosition()
-      error : false,
-      maxNativeZoom : props.maxNativeZoom,
-      minNativeZoom : props.minNativeZoom,
-      format : props.format
+      opacity: 100,
+      gray: false,
+      visibility: true,
+      index: this.index,
+      position: this.index, // cf. #updatePosition()
+      error: false,
+      maxNativeZoom: props.maxNativeZoom,
+      minNativeZoom: props.minNativeZoom,
+      interactive: props.interactive,
+      format: props.format
     };
     this.#addLayerContainer(id);
     try {

@@ -87,6 +87,7 @@ const getLayerProps = (id) => {
     minNativeZoom = Math.min(...zoomLevels);
     maxNativeZoom = Math.max(...zoomLevels);
   }
+  var interactive = !(props.interactive === false);
   return {
     layer: props.name,
     base: getBaseLayers().includes(id), // couche de fonds ou autre
@@ -98,6 +99,7 @@ const getLayerProps = (id) => {
     url: props.serviceParams.serverUrl[key],
     minNativeZoom: minNativeZoom,
     maxNativeZoom: maxNativeZoom,
+    interactive: interactive,
   };
 };
 

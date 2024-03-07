@@ -68,6 +68,7 @@ class LayerCatalogue extends EventTarget {
         <div class="layerImg">
           <img src="${opts.layerQuickLook}" alt="${opts.layerName}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
           <div class="layer-badge"></div>
+          <div class="layer-interactive-badge-${opts.interactive}" ></div>
         </div>
         <div class="layer-title-thematic">${opts.layerThematic}</div>
         <div id="${opts.layerName}" class="layer-title">${opts.layerTitle}</div>
@@ -86,7 +87,8 @@ class LayerCatalogue extends EventTarget {
         layerName : props.layer,
         layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
         layerTitle : props.title,
-        layerThematic : ""
+        layerThematic : "",
+        interactive: props.interactive,
       });
     }
 
@@ -112,7 +114,8 @@ class LayerCatalogue extends EventTarget {
         layerName : props.layer,
         layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
         layerTitle : props.title,
-        layerThematic : thematic
+        layerThematic : thematic,
+        interactive: props.interactive,
       });
     }
 

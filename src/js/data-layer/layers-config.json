@@ -46,6 +46,7 @@
     "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS": {
       "name": "Aire-Parcellaire",
       "title": "Délimitation parcellaire AOC viticole",
+      "interactive": false,
       "description": "Selon les règlements européens n°110/2008 du 15 janvier 2008, n°1151/2012 du 21 novembre 2012 et n°1308/2013 de l’OCM , le cahier des charges des appellations définit l’aire géographique. Le terme de « délimitation parcellaire » désigne une aire qui repose sur les limites administratives du cadastre (les parcelles) et dont le maillage suffisamment fin permet de tenir compte de variations très localisées des éléments du milieu physique. Elle correspond à l'aire de production de la matière première. Elle est incluse dans l'aire géographique. Données produites par l'Institut National des Origines et la Qualité (INAO)",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -379,6 +380,7 @@
       "name": "ELEVATION.LEVEL0",
       "title": "Trait de côte Histolitt",
       "description": "Formalisation de la limite entre le domaine terrestre et le domaine marin.",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -639,6 +641,7 @@
       "name": "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40",
       "title": "Carte de l'état-major (1820-1866)",
       "description": "Carte française en couleurs du XIXè siècle en couleurs superposable aux cartes et données modernes.",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -748,6 +751,7 @@
       "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950",
       "title": "SCAN50 Historique de 1950",
       "description": "SCAN50 produit par l'IGN en 1950",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -875,6 +879,7 @@
       "name": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
       "title": "Plan IGN v2",
       "description": "Cartographie multi-échelles sur le territoire national, issue des bases de données vecteur de l’IGN, mis à jour régulièrement et réalisée selon un processus entièrement automatisé.",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -1044,6 +1049,7 @@
       "name": "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN",
       "title": "Carte des pentes",
       "description": "Carte des zones ayant une valeur de pente supérieure à 30°-35°-40°-45° d'après la BD ALTI au pas de 5m",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -1558,6 +1564,7 @@
       "name": "ORTHOIMAGERY.ORTHOPHOTOS",
       "title": "Photographies aériennes",
       "description": "Photographies aériennes",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -1733,6 +1740,7 @@
       "name": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
       "title": "Photographies aériennes historiques 1950-1965",
       "description": "Couverture en photographies aériennes de la France des années 50, telle qu'elle se présentait avant les grands aménagements des années 60. Cette couverture a été réalisée à partir des photographies aériennes historiques numérisées par l'IGN. Elle est disponible sur la France métropolitaine, les départements et régions d'Outre-Mer (la Guyane n'est que partiellement couverte) et les collectivités d'Outre-Mer sauf la Polynésie française. Les photographies sont orthorectifiées, c'est-à-dire corrigées des déformations dues à la prise de vue et au relief du terrain, et assemblées pour fournir une visualisation continue superposable avec le Référentiel à Grande Echelle (RGE®) ou les cartes.",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -1890,6 +1898,7 @@
       "name": "ORTHOIMAGERY.ORTHOPHOTOS.1980-1995",
       "title": "Ortho Historique 1980-1995",
       "description": "Couverture en photographies aériennes de la France des années 11980 à 1995. Cette couverture a été réalisée à partir des photographies aériennes historiques numérisées par l'IGN. Elle est disponible sur la France métropolitaine, les départements et régions d'Outre-Mer (la Guyane n'est que partiellement couverte) et les collectivités d'Outre-Mer sauf la Polynésie française. Les photographies sont orthorectifiées, c'est-à-dire corrigées des déformations dues à la prise de vue et au relief du terrain, et assemblées pour fournir une visualisation continue superposable avec le Référentiel à Grande Echelle (RGE®) ou les cartes.",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -2029,6 +2038,7 @@
       "name": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
       "title": "Photographies aériennes 2000-2005",
       "description": "Prises de vues aériennes des territoires pour les années 2000 à 2005",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -2156,6 +2166,7 @@
       "name": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
       "title": "2006-2010",
       "description": "Prises de vues aériennes des territoires disponibles à la fin des années 2006 à 2010",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -3124,6 +3135,7 @@
       "name": "TRANSPORTNETWORKS.RAILWAYS",
       "title": "Réseau ferroviaire",
       "description": "Carte du réseau ferroviaire",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -3251,6 +3263,7 @@
       "name": "TRANSPORTNETWORKS.ROADS",
       "title": "Routes",
       "description": "Affichage du réseau routier français et européen.",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -3998,6 +4011,7 @@
       "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV",
       "title": "Carte topographique IGN",
       "description": "La carte topographique représente avec précision le relief, symbolisé par des courbes de niveaux, ainsi que les détails du terrain : routes, sentiers, constructions, bois, arbre isolé, rivière, source... </br>En France, la carte topographique de base est réalisée par l'IGN. Le SCAN 25 Touristique comprend les pictogrammes du thème tourisme de la carte de base et les données du Club Vosgien.",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -4113,6 +4127,7 @@
       "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS",
       "title": "Cartes IGN",
       "description": "Cartes IGN",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -4276,6 +4291,7 @@
       "name": "GEOGRAPHICALGRIDSYSTEMS.CASSINI",
       "title": "XVIIIe siècle (Carte de Cassini)",
       "description": "Carte de Cassini en couleur (feuilles gravées et aquarellées), issue de l’exemplaire dit de « Marie-Antoinette » du XVIIIe siècle.",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
