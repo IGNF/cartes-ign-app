@@ -159,7 +159,10 @@
                 "information",
                 "picnic_site",
                 "post_office",
-                "toilets"
+                "toilets",
+                "charging_station",
+                "fuel",
+                "parking"
             ]
         }]
     },
@@ -177,7 +180,8 @@
                 "prison",
                 "school",
                 "townhall",
-                "university"
+                "university",
+                "hospital"
             ]
         }]
     },

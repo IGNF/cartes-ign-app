@@ -9,6 +9,7 @@ import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { App } from "@capacitor/app";
 import { NativeSettings, AndroidSettings, IOSSettings } from "capacitor-native-settings";
+import { Capacitor } from "@capacitor/core";
 
 import Buffer from "@turf/buffer";
 
@@ -416,7 +417,7 @@ let listenResumeAfterLocation = false;
  */
 const showLocationDisabledPopup = () => {
   showPopup(`
-  <div id="interactivityPopup">
+  <div id="locationPopup">
       <div class="divPositionTitle">La localisation de l'appareil est désactivée</div>
       <div class="divPopupClose" onclick="onCloselocationPopup(event)"></div>
       <div class="divPopupContent">
@@ -452,11 +453,10 @@ let listenResumeAfterAuthorisation = false;
 const showLocationDeniedPopup = () => {
   showPopup(`
   <div id="locationPopup">
-      <div class="divPositionTitle">L'accès à la localisation de l'appraeil est refusé</div>
+      <div class="divPositionTitle">L’accès à la localisation de votre appareil n’est pas autorisé.</div>
       <div class="divPopupClose" onclick="onCloselocationPopup(event)"></div>
       <div class="divPopupContent">
-      Vous avez refusé à l'application l'accès à la localisation de l'appareil.<br/>
-      Pour pouvoir utiliser le positionnement sur la carte, veuillez modifier les autorisations dans les paramètres de l'application.
+      Pour pouvoir utiliser le positionnement sur la carte, veuillez modifier les paramètres de l’application.
       </div>
       <div class="btnOpenParameters" onclick="openAppParameters(event)">Accèder aux paramètres de l'application</div>
   </div>
@@ -491,21 +491,18 @@ const showPopup = (content) => {
   // centre de la carte
   var center = Globals.map.getCenter();
   // position de la popup
-  let markerHeight = 0, markerRadius = 10, linearOffset = 25;
   var popupOffsets = {
-    "top": [0, 0],
-    "top-left": [0, 0],
-    "top-right": [0, 0],
-    "bottom": [0, -markerHeight],
-    "bottom-left": [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-    "bottom-right": [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
-    "left": [markerRadius, (markerHeight - markerRadius) * -1],
-    "right": [-markerRadius, (markerHeight - markerRadius) * -1]
+    "bottom": [0, 100],
   };
-    // ouverture d'une popup
+  if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && Capacitor.getPlatform() === "ios") {
+    popupOffsets = {
+      "bottom": [200, 100],
+    };
+  }
+  // ouverture d'une popup
   popup = new MapLibreGL.Popup({
     offset: popupOffsets,
-    className: "interactivityPopup",
+    className: "locationPopup",
     closeOnClick: true,
     closeOnMove: true,
     closeButton: false
