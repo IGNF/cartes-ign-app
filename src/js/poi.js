@@ -248,13 +248,6 @@ class POI {
           el.checked = false;
         }
         el.dispatchEvent(new Event("change"));
-        if (el.checked) {
-          var layers = LayersGroup.getGroupLayers(this.id).filter((layer) => { return layer.metadata.thematic === el.name; });
-          for (let i = 0; i < layers.length; i++) {
-            const element = layers[i];
-            LayersGroup.addVisibilityByID(this.id, element.id, true);
-          }
-        }
       });
     });
     document.getElementById("displayPOIGoBackTime").addEventListener("change", (e) => {
@@ -273,7 +266,9 @@ class POI {
         var layers = LayersGroup.getGroupLayers(this.id).filter((layer) => { return layer.metadata.thematic === e.target.name; });
         for (let i = 0; i < layers.length; i++) {
           const element = layers[i];
-          LayersGroup.addVisibilityByID(this.id, element.id, e.target.checked);
+          if (element.id.split(" - ")[1] !== "POI OSM isochrone") {
+            LayersGroup.addVisibilityByID(this.id, element.id, true);
+          }
         }
         let allUnchecked = true;
         let allChecked = true;
