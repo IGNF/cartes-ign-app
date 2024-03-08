@@ -273,6 +273,15 @@ class RouteDraw {
       document.getElementById(`routeDrawModeTransport${capitalizeFirstLetter(transport)}`).classList.remove("d-none");
       document.getElementById(`routeDrawModeTransport${capitalizeFirstLetter(this.transport)}`).classList.add("d-none");
     }
+    if (transport === "car") {
+      document.getElementById("routedraw-elevationline").classList.add("d-none");
+      document.querySelector("#routeDrawDetails .elevationLineHeader").classList.add("d-none");
+      document.querySelector("#routeDrawSummary .routeDrawSummaryDenivele").classList.add("d-none");
+    } else {
+      document.getElementById("routedraw-elevationline").classList.remove("d-none");
+      document.querySelector("#routeDrawDetails .elevationLineHeader").classList.remove("d-none");
+      document.querySelector("#routeDrawSummary .routeDrawSummaryDenivele").classList.remove("d-none");
+    }
     document.querySelector(".routeDrawSummaryTransport").className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + transport;
     this.transport = transport;
     this.#closeRouteDrawMode();
@@ -791,6 +800,9 @@ class RouteDraw {
    * met à jour les données d'altitude (profil alti)
    */
   async #updateElevation() {
+    if (this.transport === "car") {
+      return;
+    }
     this.__setElevationLoading();
     this.elevationLoading = true;
     const allCoordinates = this.data.steps.map((step) => step.geometry.coordinates).flat();

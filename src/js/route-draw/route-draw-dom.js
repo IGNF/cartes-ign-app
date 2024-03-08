@@ -77,6 +77,7 @@ let RouteDrawDOM = {
 
     var line1 = document.createElement("div");
     var line2 = document.createElement("div");
+    line2.className = "routeDrawSummaryDenivele";
 
     var labelTransport = document.createElement("label");
     labelTransport.className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + transport;
