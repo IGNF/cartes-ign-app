@@ -38,7 +38,7 @@ const featurePropertyFilter = (feature) => {
   let toponyme = getProperty(feature, "toponyme");
   let nature = getProperty(feature, "nature");
   let nature_detaillee = getProperty(feature, "nature_detaillee");
-  let usage = getProperty(feature, "usage")
+  let usage = getProperty(feature, "usage");
   let hauteur = getProperty(feature, "hauteur");
 
   //  Propriétés spécifiques reservoir
@@ -55,14 +55,14 @@ const featurePropertyFilter = (feature) => {
   
   // Propriétés spécifiques troncon_de_route
   if(feature.layer["source-layer"] == "troncon_de_route") {
-    let cpx_classement_administratif = getProperty(feature, "cpx_classement_administratif")
-    let cpx_numero = getProperty(feature, "cpx_numero")
-    let cpx_toponyme_route_nommee = getProperty(feature, "cpx_toponyme_route_nommee")
-    let cpx_toponyme_voie_verte = getProperty(feature, "cpx_toponyme_voie_verte")
-    let cpx_toponyme_itineraire_cyclable = getProperty(feature, "cpx_toponyme_itineraire_cyclable")
-    let nombre_de_voies = getProperty(feature, "nombre_de_voies")
-    let voie_prive = getProperty(feature, "voie_prive")
-    let acces_pieton = getProperty(feature, "acces_pieton")
+    let cpx_classement_administratif = getProperty(feature, "cpx_classement_administratif");
+    let cpx_numero = getProperty(feature, "cpx_numero");
+    let cpx_toponyme_route_nommee = getProperty(feature, "cpx_toponyme_route_nommee");
+    let cpx_toponyme_voie_verte = getProperty(feature, "cpx_toponyme_voie_verte");
+    let cpx_toponyme_itineraire_cyclable = getProperty(feature, "cpx_toponyme_itineraire_cyclable");
+    let nombre_de_voies = getProperty(feature, "nombre_de_voies");
+    let voie_prive = getProperty(feature, "voie_prive");
+    let acces_pieton = getProperty(feature, "acces_pieton");
 
     var routeName = `${cpx_classement_administratif} ${cpx_numero} ${cpx_toponyme_route_nommee}`;
     routeName = routeName.trim();
@@ -74,6 +74,8 @@ const featurePropertyFilter = (feature) => {
         result += `${nature}  <br/>`;
     }
     if (cpx_toponyme_voie_verte)
+      result += `${cpx_toponyme_voie_verte} <br/>`;
+    if (cpx_toponyme_itineraire_cyclable)
       result += `${cpx_toponyme_itineraire_cyclable} <br/>`;
     if (nombre_de_voies) {
       if (nombre_de_voies == "1")
@@ -92,42 +94,42 @@ const featurePropertyFilter = (feature) => {
   }
 
   //  Propriétés spécifiques batiment
-    if(feature.layer["source-layer"] == "batiment") {
-      // Batiment
-      let nombre_de_logements = getProperty(feature, "nombre_de_logements")
-      let nombre_d_etages = getProperty(feature, "nombre_d_etages")
-      let date_d_apparition = getProperty(feature, "date_d_apparition")
+  if(feature.layer["source-layer"] == "batiment") {
+    // Batiment
+    let nombre_de_logements = getProperty(feature, "nombre_de_logements");
+    let nombre_d_etages = getProperty(feature, "nombre_d_etages");
+    let date_d_apparition = getProperty(feature, "date_d_apparition");
 
-      if(nature && !isIndifferencie(nature)) {
-        result += `${nature}  <br/>`;
-      }
-      if(usage && !isIndifferencie(usage)) {
-        result += `Usage : ${usage}  <br/>`;
-      }
-      if(nombre_de_logements) {
-        result += `Nombre de logements : ${nombre_de_logements}  <br/>`;
-      }
-      if(nombre_d_etages && nombre_d_etages != "0") {
-        result += `Nombre d'étages : ${nombre_d_etages}  <br/>`;
-      }
-      if(date_d_apparition) {
-        result += `Date de construction : ${date_d_apparition.toLocaleString()}  <br/>`;
-      }
-      if(hauteur) {
-        result += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
-      }
-
-      return result;
+    if(nature && !isIndifferencie(nature)) {
+      result += `${nature}  <br/>`;
     }
+    if(usage && !isIndifferencie(usage)) {
+      result += `Usage : ${usage}  <br/>`;
+    }
+    if(nombre_de_logements) {
+      result += `Nombre de logements : ${nombre_de_logements}  <br/>`;
+    }
+    if(nombre_d_etages && nombre_d_etages != "0") {
+      result += `Nombre d'étages : ${nombre_d_etages}  <br/>`;
+    }
+    if(date_d_apparition) {
+      result += `Date de construction : ${date_d_apparition.toLocaleString()}  <br/>`;
+    }
+    if(hauteur) {
+      result += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
+    }
+
+    return result;
+  }
 
   if (feature.layer["source-layer"] != "construction_ponctuelle") {
     if (nature) {
-        result += `${nature}  <br/>`;
+      result += `${nature}  <br/>`;
     }
     if (hauteur) {
       result += `Hauteur : ${feature.properties.hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
     }
-    return result
+    return result;
   }
 
 
