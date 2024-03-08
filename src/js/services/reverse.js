@@ -30,6 +30,7 @@ const compute = async (coordinates) => {
     lon: coordinates.lon,
     lat: coordinates.lat,
     limit: 1,
+    category: "commune",
   };
 
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -52,7 +53,11 @@ const compute = async (coordinates) => {
       if (geojson.features[0].properties.housenumber) {
         number = geojson.features[0].properties.housenumber;
       }
-      street = geojson.features[0].properties.street;
+      if (geojson.features[0].properties.street) {
+        street = geojson.features[0].properties.street;
+      } else {
+        street = geojson.features[0].properties.name;
+      }
       postcode = geojson.features[0].properties.postcode;
       city = geojson.features[0].properties.city;
       lon = geojson.features[0].geometry.coordinates[0];
