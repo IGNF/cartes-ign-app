@@ -343,9 +343,11 @@ class Directions {
             padding: padding,
           });
         }
-        this.elevation.target = document.getElementById("directions-elevationline");
-        this.elevation.setCoordinates(routeCoordinates);
-        this.elevation.compute();
+        if (this.configuration.profile !== "car") {
+          this.elevation.target = document.getElementById("directions-elevationline");
+          this.elevation.setCoordinates(routeCoordinates);
+          this.elevation.compute();
+        }
       }
     });
   }

@@ -40,7 +40,7 @@ let DirectionsResultsDOM = {
     noDetailsDiv.appendChild(this.__addResultsDetailsContainerDOMElement());
     container.appendChild(noDetailsDiv);
     // ajout des détails
-    container.appendChild(this.__addResultsListDetailsContainerDOMElement(data.instructions));
+    container.appendChild(this.__addResultsListDetailsContainerDOMElement(data.instructions, data.transport));
 
     return container;
   },
@@ -143,7 +143,7 @@ let DirectionsResultsDOM = {
      * @returns {DOMElement}
      * @private
      */
-  __addResultsListDetailsContainerDOMElement (instructions) {
+  __addResultsListDetailsContainerDOMElement (instructions, transport) {
 
     var divList = document.createElement("div");
     divList.id = "directionsListDetails";
@@ -197,17 +197,18 @@ let DirectionsResultsDOM = {
         }
       });
     }
+    if (transport !== "Voiture") {
+      var profileHeader = document.createElement("p");
+      profileHeader.className = "elevationLineHeader";
+      profileHeader.textContent = "Profil altimétrique";
+      divList.appendChild(profileHeader);
 
-    var profileHeader = document.createElement("p");
-    profileHeader.className = "elevationLineHeader";
-    profileHeader.textContent = "Profil altimétrique";
-    divList.appendChild(profileHeader);
-
-    var canvasProfile = document.createElement("canvas");
-    canvasProfile.id = "directions-elevationline";
-    canvasProfile.className = "elevationLineCanvas";
-    canvasProfile.style.width = "100%";
-    divList.appendChild(canvasProfile);
+      var canvasProfile = document.createElement("canvas");
+      canvasProfile.id = "directions-elevationline";
+      canvasProfile.className = "elevationLineCanvas";
+      canvasProfile.style.width = "100%";
+      divList.appendChild(canvasProfile);
+    }
 
     return divList;
   },

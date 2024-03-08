@@ -1,7 +1,7 @@
 {
     "version": 8,
     "name": "POI OSM",
-    "glyphs": "https://data.geopf.fr/annexes/ressources/fontstack}/{range}.pbf",
+    "glyphs": "https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf",
     "sprite": "data/poi-osm-sprite",
     "sources": {
         "poi_osm": {
