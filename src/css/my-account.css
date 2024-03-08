@@ -2,7 +2,8 @@
   position: relative;
   width: 100%;
   color: #3F4A55;
-  margin-top: -68px;
+  margin-top: -72px;
+  height: 100vh;
 }
 
 #otherMenus {
@@ -41,6 +42,13 @@
   color: #788089;
 }
 
+#myAccountBody {
+  height: calc(100vh - 100px);
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  align-items: baseline;
+}
+
 #myAccountHeaderName {
   text-align: center;
   margin-top: 50px;
@@ -66,13 +74,36 @@
   margin: auto;
 }
 
+#myAccountImportBtn {
+  position: fixed;
+  border: #3F4A55 1px solid;
+  font-family: "Open Sans Semibold";
+  border-radius: 100px;
+  padding: 10px 20px 10px 50px;
+  box-shadow: #3F4A5533 0px 0px 10px;
+  bottom: 15px;
+  left: 50vw;
+  transform: translate(-50%);
+  background-color: white;
+  background-image: url("assets/import-file.svg");
+  background-repeat: no-repeat;
+  background-size: 15px;
+  background-position: 20px;
+  z-index: 100;
+}
+
 #myAccountBody > .layer-tabs-wrap {
  margin: 24px;
+ height: 100%;
+ min-height: 0;
+ height: calc(100% - 20px);
 }
 
 #myaccount-landmarks,
 #myaccount-routes {
   flex-grow: 1;
+  height: calc(100% - 37px);
+  overflow: scroll;
 }
 
 #myaccountRouteList {

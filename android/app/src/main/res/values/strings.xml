@@ -3,5 +3,5 @@
     <string name="app_name">"IGN M'app"</string>
     <string name="title_activity_main">"IGN M'app"</string>
     <string name="package_name">fr.ign.geoportail</string>
-    <string name="custom_url_scheme">fr.ign.geoportail</string>
+    <string name="custom_url_scheme">ignapp</string>
 </resources>

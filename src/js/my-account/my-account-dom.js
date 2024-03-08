@@ -16,6 +16,7 @@ let MyAccountDOM = {
     landmarkNumber: null,
     landmarkTab: null,
     landmarkList: null,
+    importBtn: null,
   },
 
   /**
@@ -39,6 +40,9 @@ let MyAccountDOM = {
     this.dom.landmarkList = this.__addAccountLandmarksContainerDOMElement(landmarks);
     this.dom.routeTab.appendChild(this.dom.routeList);
     this.dom.landmarkTab.appendChild(this.dom.landmarkList);
+
+    this.dom.importBtn = this.__addImportBtn();
+    container.appendChild(this.dom.importBtn);
 
     return container;
   },
@@ -84,6 +88,20 @@ let MyAccountDOM = {
     }
 
     return div;
+  },
+
+  /**
+   * ajout du bouton d'import
+   * @returns {DOMElement}
+   * @private
+   */
+  __addImportBtn() {
+    var btn = document.createElement("div");
+    btn.id = "myAccountImportBtn";
+    btn.innerText = "Importer";
+
+    btn.addEventListener("click", () => { this.importFile(); });
+    return btn;
   },
 
   /**

@@ -6,6 +6,7 @@ import utils from "../utils/unit-utils";
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
+import { FilePicker } from "@capawesome/capacitor-file-picker";
 import maplibregl from "maplibre-gl";
 import Sortable from "sortablejs";
 
@@ -65,7 +66,7 @@ class MyAccount {
       localStorage.setItem("savedRoutes", "[]");
     } else {
       var localRoutes = JSON.parse(localStorage.getItem("savedRoutes"));
-      this.routes = this.routes.concat(localRoutes);
+      this.routes = this.routes.concat(localRoutes.filter( route => !route.type));
     }
 
     // récupération des points de repère enregistrés en local
@@ -185,6 +186,70 @@ class MyAccount {
   async compute() {
     // TODO: patience
     // TODO: connection GPF
+  }
+
+  /**
+   * Importe un fichier landmark ou route
+   */
+  async importFile() {
+    const result = await FilePicker.pickFiles({
+      limit: 1,
+      readData: true,
+    });
+    try {
+      // UTF-8 decoding https://stackoverflow.com/a/64752311
+      const imported = JSON.parse(decodeURIComponent(atob(result.files[0].data).split("").map(function(c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join("")));
+      // Mode Landmark
+      if (imported.type === "Feature" && imported.geometry.type === "Point") {
+        if (!imported.properties) {
+          imported.properties = {};
+        }
+        if (!imported.properties.title) {
+          imported.properties.title = result.files[0].name.split(".")[0];
+        }
+        if (!imported.properties.description) {
+          imported.properties.description = "";
+        }
+        if (!imported.properties.color) {
+          imported.properties.color = "#3993F3";
+        }
+        if (!imported.properties.icon) {
+          imported.properties.icon = "landmark-icon-saved";
+        }
+        if (!imported.properties.locationName) {
+          imported.properties.locationName = "";
+        }
+        imported.properties.visible = true;
+        imported.id = -1;
+        this.addLandmark(imported);
+        document.getElementById("myaccount-landmarks-tab").click();
+        Toast.show({
+          duration: "long",
+          text: `Point de repère "${imported.properties.title}" ajouté à Mon Compte et à la carte`,
+          position: "bottom",
+        });
+      }
+      // Mode Route
+      if (imported.type === "FeatureCollection") {
+        if (!imported.data) {
+          imported.data = {};
+        }
+        if (!imported.data.name) {
+          imported.data.name = result.files[0].name.split(".")[0];
+        }
+        console.log(this.#geojsonToRoute(imported));
+        this.addRoute(this.#geojsonToRoute(imported));
+      }
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        duration: "short",
+        text: "Le fichier sélectionné n'est pas compatible",
+        position: "bottom",
+      });
+    }
   }
 
   /**
@@ -308,6 +373,7 @@ class MyAccount {
     });
     this.hide();
     Globals.routeDraw.show();
+    Globals.routeDraw.setTransport(route.transport);
     Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
     Globals.routeDraw.setName(route.name);
     Globals.routeDraw.setId(route.id);
@@ -334,6 +400,7 @@ class MyAccount {
       padding: 100,
     });
     this.hide();
+    Globals.routeDraw.setTransport(route.transport);
     Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
     Globals.routeDraw.setName(route.name);
     Globals.routeDraw.setId(route.id);
@@ -517,6 +584,69 @@ ${landmark.properties.description}
         duration: route.data.duration,
         elevationData: route.data.elevationData,
       },
+    };
+  }
+
+  /**
+   * Convertit une route au format geojson en route telle qu'enregistrée dans le compte
+   * @param {*} route
+   * @returns
+   */
+  #geojsonToRoute(routeJson) {
+    const steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
+    const points = routeJson.features.filter(feature => feature.geometry.type === "Point");
+    if (points.length === 0) {
+      for (let i = 0; i < steps.length; i++) {
+        let feature = steps[i];
+        let order = i === 0 ? "departure" : "";
+        if (i === steps.length - 1) {
+          order = "destination";
+        }
+        const lastIndex = feature.geometry.coordinates.length - 1;
+        points.push({
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: feature.geometry.coordinates[0]
+          },
+          properties: {
+            order: order === "departure" ? order : "",
+          },
+        });
+        if (order === "destination") {
+          points.push({
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: feature.geometry.coordinates[lastIndex]
+            },
+            properties: {
+              order: order,
+            },
+          });
+        }
+      }
+    }
+    if (!routeJson.data) {
+      routeJson.data = {};
+    }
+    return {
+      name: routeJson.data.name,
+      transport: routeJson.data.transport || "pedestrian",
+      visible: true,
+      data: {
+        distance: routeJson.data.distance || 0,
+        duration: routeJson.data.duration || 0,
+        elevationData: routeJson.data.elevationData || {
+          elevationData: [{ x: 0, y: 0 }],
+          coordinates: [],
+          dplus: 0,
+          dminus: 0,
+          unit: "m",
+        },
+        steps: steps,
+        points: points,
+      }
     };
   }
 

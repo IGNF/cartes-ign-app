@@ -131,7 +131,7 @@ class MapInteractivity {
         try {
           this.#highlightGFI(resp.geometry);
         } catch (e) {
-          console.log(e);
+          console.warn(e);
         }
         Globals.position.compute(ev.lngLat, resp.title, resp.html).then(() => {
           Globals.menu.open("position");

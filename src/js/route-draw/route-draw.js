@@ -9,6 +9,8 @@ import Reverse from "../services/reverse";
 import MapLibreGL from "maplibre-gl";
 import { Toast } from "@capacitor/toast";
 
+import turfLength from "@turf/length";
+
 import RouteDepartureIcon from "../../css/assets/route-draw/departure-marker.png";
 import RouteDestinationIcon from "../../css/assets/route-draw/destination-marker.png";
 
@@ -192,10 +194,24 @@ class RouteDraw {
   setData(data) {
     this.dataHistory = [];
     this.data = data;
-    if (this.data.elevationData.elevationData.length > 1) {
+    if (this.data.elevationData.elevationData && this.data.elevationData.elevationData.length > 1) {
       this.elevation.setData(this.data.elevationData);
     } else {
       this.#updateElevation();
+    }
+    if (this.data.distance === 0 && this.data.steps.length > 0) {
+      this.data.steps.forEach( (step) => {
+        this.data.distance += turfLength(step) * 1000;
+      });
+      if (this.data.duration === 0) {
+        if (this.transport === "pedestrian") {
+          // 4 km/h
+          this.data.duration = this.data.distance / (4 / 3.6);
+        } else {
+          // 50 km/h
+          this.data.duration = this.data.distance / (50 / 3.6);
+        }
+      }
     }
     this.#saveState();
     DOM.$routeDrawCancel.classList.add("inactive");
@@ -220,6 +236,16 @@ class RouteDraw {
    */
   setId(id) {
     this.routeId = id;
+  }
+
+  /**
+   * Paramétrage du transport
+   * @param {String} transport "car" ou "pedestrian"
+   */
+  setTransport(transport) {
+    if (["car", "pedestrian"].includes(transport)) {
+      this.#changeTransport(transport);
+    }
   }
 
   /**
