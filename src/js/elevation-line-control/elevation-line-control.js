@@ -60,7 +60,9 @@ class ElevationLineControl {
     this.loadingDom = document.createElement("div"); // div de la patience
     this.loadingDom.style.width = "100%";
     this.loadingDom.style.aspectRatio = "2 / 1";
-    this.loadingDom.style.position = "absolute";
+    this.loadingDom.style.position = "sticky";
+    this.loadingDom.style.flexShrink = "0";
+    this.loadingDom.style.marginBottom = "-50%";
     this.loadingDom.style.transform = "translate(0, -100%)";
     this.loadingDom.style.backgroundColor = "#3F4A5555";
     this.loadingDom.style.backgroundImage = "url(" + LoadingDark + ")";

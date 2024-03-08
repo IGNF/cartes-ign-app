@@ -1207,6 +1207,7 @@
       "name": "HYDROGRAPHY.HYDROGRAPHY",
       "title": "Hydrographie",
       "description": "Affichage des lacs, réservoirs, rivières et cours d'eau en France.",
+      "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,

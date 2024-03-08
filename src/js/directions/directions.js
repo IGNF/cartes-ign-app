@@ -345,6 +345,7 @@ class Directions {
         }
         if (this.configuration.profile !== "car") {
           this.elevation.target = document.getElementById("directions-elevationline");
+          this.elevation.loadingDomInDocument = false;
           this.elevation.setCoordinates(routeCoordinates);
           this.elevation.compute();
         }

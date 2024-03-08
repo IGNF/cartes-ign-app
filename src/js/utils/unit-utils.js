@@ -13,7 +13,7 @@ let utils = {
 
     var distanceKm = Math.round(10 * distance / 1000) / 10;
     if (distanceKm < 1) {
-      d = parseInt(distance, 10) + " m"; // arrondi !
+      d = Math.round(distance) + " m"; // arrondi !
     } else {
       if (distanceKm > 100) {
         distanceKm = Math.round(distanceKm);

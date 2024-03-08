@@ -34,9 +34,9 @@ class DirectionsResults {
   }
 
   /**
-     * creation de l'interface
-     * @public
-     */
+   * creation de l'interface
+   * @public
+   */
   render () {
     var target = this.target || document.getElementById("directionsResultsWindow");
     if (!target) {
