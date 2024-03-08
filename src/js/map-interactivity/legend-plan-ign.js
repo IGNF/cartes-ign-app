@@ -7,24 +7,13 @@ function beautifyLayerName(feature, source) {
     let featureRule = poiLegendRule.filter(l => l.subclass == feature.properties.symbo);
     let legend = [];
 
-    // Pas de règles spécifiées
-    if (featureRule.length == 0) {
-      if (Object.hasOwnProperty.call(feature.properties, "texte") && feature.properties.texte) legend.push(feature.properties.texte);
-      else legend.push(feature.properties.symbo);
-    }
-    // En cas de règle
-    else {
-      legend = featureRule[0].affichage.map(rule => {
-        let noTexte = false;
-        if (rule == "texte") {
-          if (!feature.properties.texte) noTexte = true;
-          else return feature.properties.texte;
-        }
-        if (rule == "symbo" || noTexte) {
-          if (!featureRule[0].libelle) return feature.properties.symbo;
-          else return featureRule[0].libelle;
-        }
-      });
+    let texte = Object.hasOwnProperty.call(feature.properties, "texte") ? feature.properties.texte : "";
+    let symbo = Object.hasOwnProperty.call(feature.properties, "symbo") ? feature.properties.symbo : "";
+    if (texte)
+      legend.push(texte);
+    if(symbo && featureRule.length > 0) {
+      symbo = Object.hasOwnProperty.call(featureRule[0], "libelle") ? featureRule[0].libelle : symbo;
+      legend.push(symbo);
     }
     return legend.join("<br/>");
   }
