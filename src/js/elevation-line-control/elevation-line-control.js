@@ -243,7 +243,7 @@ class ElevationLineControl {
             callbacks: {
               label: (context) => {
                 return `Altitude : ${context.parsed.y.toLocaleString()} m
-Distance du départ : ${Math.round(context.parsed.x)} m`;
+Distance du départ : ${Math.round(context.parsed.x)} ${this.unit}`;
               },
               labelTextColor: () => {
                 return "#3F4A55";
