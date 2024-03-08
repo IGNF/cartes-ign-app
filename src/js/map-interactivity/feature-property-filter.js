@@ -113,7 +113,9 @@ const featurePropertyFilter = (feature) => {
       result += `Nombre d'étages : ${nombre_d_etages}  <br/>`;
     }
     if(date_d_apparition) {
-      result += `Date de construction : ${date_d_apparition.toLocaleString()}  <br/>`;
+      let match = date_d_apparition.match("([0-9]+)/");
+      let year = match[1] ? match[1] : "";
+      result += `Année de construction : ${year}  <br/>`;
     }
     if(hauteur) {
       result += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
