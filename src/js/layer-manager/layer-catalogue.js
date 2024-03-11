@@ -233,6 +233,34 @@ class LayerCatalogue extends EventTarget {
   }
 
   /**
+   * Ajout de la couche de fonds ou de données sur la carte avec paramètres d'opacité, visibilité et n&b
+   * @param {*} layerOptions
+   * @fires addlayer
+   * @public
+   */
+  addLayerOptions(layerOptions) {
+    if (!layerOptions.id) {
+      return;
+    }
+
+    var element = document.getElementById(layerOptions.id);
+    element.classList.add("selectedLayer");
+
+    /**
+       * Evenement "addlayer"
+       * @event addlayer
+       * @type {*}
+       * @property {*} id -
+       */
+    this.dispatchEvent(
+      new CustomEvent("addlayeroptions", {
+        bubbles: true,
+        detail: layerOptions,
+      })
+    );
+  }
+
+  /**
    * Suppression d'une couche
    * @param {*} layerName
    * @fires removelayer

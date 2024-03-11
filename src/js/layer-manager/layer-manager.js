@@ -71,7 +71,15 @@ class LayerManager extends EventTarget {
      */
   #listeners() {
     this.layerCatalogue.addEventListener("addlayer", async (e) => {
-      await this.layerSwitcher.addLayer(e.detail.id).then(() => {});
+      await this.layerSwitcher.addLayer({
+        id: e.detail.id,
+        opacity: 100,
+        visible: true,
+        gray: false,
+      }).then(() => {});
+    });
+    this.layerCatalogue.addEventListener("addlayeroptions", async (e) => {
+      await this.layerSwitcher.addLayer(e.detail).then(() => {});
     });
     this.layerCatalogue.addEventListener("removelayer", (e) => {
       this.layerSwitcher.removeLayer(e.detail.id);
@@ -79,20 +87,36 @@ class LayerManager extends EventTarget {
 
     this.layerSwitcher.addEventListener("addlayer", (e) => {
       /**
-             * Evenement "addlayer"
-             * @event addlayer
-             * @type {*}
-             * @property {*} id -
-             * @property {*} options -
-             */
+       * Evenement "addlayer"
+       * @event addlayer
+       * @type {*}
+       * @property {*} id -
+       * @property {*} options -
+       */
       this.dispatchEvent(
         new CustomEvent("addlayer", {
           bubbles: true,
           detail: e.detail
         })
       );
-      if (Globals.layersDisplayed.indexOf(e.detail.id) === -1) {
-        Globals.layersDisplayed.push(e.detail.id);
+      let layerInLayerDisplayed = false;
+      const layerOptions = {
+        id: e.detail.id,
+        opacity: e.detail.options.opacity,
+        visible: e.detail.options.visibility,
+        gray: e.detail.options.gray,
+      };
+      for(let i = 0; i < Globals.layersDisplayed.length; i++) {
+        if (Globals.layersDisplayed[i] === e.detail.id) {
+          Globals.layersDisplayed[i] = layerOptions;
+          layerInLayerDisplayed = true;
+        }
+        if (Globals.layersDisplayed[i].id === e.detail.id) {
+          layerInLayerDisplayed = true;
+        }
+      }
+      if (!layerInLayerDisplayed) {
+        Globals.layersDisplayed.push(layerOptions);
       }
       var element = document.getElementById(e.detail.id);
       element.classList.add("selectedLayer");
@@ -111,7 +135,16 @@ class LayerManager extends EventTarget {
           detail: e.detail
         })
       );
-      Globals.layersDisplayed.splice(Globals.layersDisplayed.indexOf(e.detail.id), 1);
+      let index = -1;
+      for(let i = 0; i < Globals.layersDisplayed.length; i++) {
+        if (Globals.layersDisplayed[i].id === e.detail.id) {
+          index = i;
+          break;
+        }
+      }
+      if (index >= 0) {
+        Globals.layersDisplayed.splice(index, 1);
+      }
       var element = document.getElementById(e.detail.id);
       element.classList.remove("selectedLayer");
       if (e.detail.error) {
@@ -121,12 +154,12 @@ class LayerManager extends EventTarget {
     });
     this.layerSwitcher.addEventListener("movelayer", (e) => {
       /**
-             * Evenement "movelayer"
-             * @event movelayer
-             * @type {*}
-             * @property {*} id -
-             * @property {*} positions -
-             */
+       * Evenement "movelayer"
+       * @event movelayer
+       * @type {*}
+       * @property {*} id -
+       * @property {*} positions -
+       */
       this.dispatchEvent(
         new CustomEvent("movelayer", {
           bubbles: true,
@@ -187,8 +220,18 @@ class LayerManager extends EventTarget {
     // le layer manager devrait attendre la fin du 1er ajout de couche avant de passer à la suivante !
     if (this.options.layers) {
       for (let i = 0; i < this.options.layers.length; i++) {
-        const layerName = this.options.layers[i];
-        this.layerCatalogue.addLayer(layerName); // TODO transmettre des options de la couches (ex. opacité)
+        let layer;
+        if (typeof this.options.layers[i] === "string") {
+          layer = {
+            id: this.options.layers[i],
+            opacity: 100,
+            visible: true,
+            gray: false,
+          };
+        } else {
+          layer = this.options.layers[i];
+        }
+        this.layerCatalogue.addLayerOptions(layer); // TODO transmettre des options de la couches (ex. opacité)
       }
     }
   }

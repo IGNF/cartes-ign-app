@@ -8,7 +8,15 @@ let mapRLT2 = null;
  */
 let layersDisplayed;
 if (!localStorage.getItem("lastLayersDisplayed")) {
-  layersDisplayed = ["PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"];
+  layersDisplayed = [
+    {
+      id: "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS",
+      opacity: 100,
+      visible: true,
+      gray: false,
+    }
+  ]
+  ;
 } else {
   layersDisplayed = JSON.parse(localStorage.getItem("lastLayersDisplayed"));
 }

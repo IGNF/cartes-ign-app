@@ -246,10 +246,10 @@ class LayerSwitcher extends EventTarget {
   }
 
   /**
-     * Mise à jour des positions dans le gestionnaire et les styles
-     * lors de l'ajout ou suppression d'une couche
-     * @param {*} id
-     */
+   * Mise à jour des positions dans le gestionnaire et les styles
+   * lors de l'ajout ou suppression d'une couche
+   * @param {*} id
+   */
   #updatePosition(id) {
     // 1. redefinition des positions dans le gestionnaire
     // - on transforme un obj -> array
@@ -283,12 +283,22 @@ class LayerSwitcher extends EventTarget {
   }
 
   /**
-     * Opacité de la couche
-     * @param {*} id
-     * @param {*} value
-     */
+   * Opacité de la couche
+   * @param {*} id
+   * @param {*} value
+   */
   #setOpacity(id, value) {
     this.layers[id].opacity = value;
+    let index;
+    for(let i = 0; i < Globals.layersDisplayed.length; i++) {
+      if (Globals.layersDisplayed[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+    if (Globals.layersDisplayed[index]) {
+      Globals.layersDisplayed[index].opacity = value;
+    }
     // mise à jour de la couche (style)
     var type = this.layers[id].type;
     if (type === "raster") {
@@ -307,6 +317,16 @@ class LayerSwitcher extends EventTarget {
      */
   #setVisibility(id, value) {
     this.layers[id].visibility = value;
+    let index;
+    for(let i = 0; i < Globals.layersDisplayed.length; i++) {
+      if (Globals.layersDisplayed[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+    if (Globals.layersDisplayed[index]) {
+      Globals.layersDisplayed[index].visible = value;
+    }
     // mise à jour de la couche (style)
     var type = this.layers[id].type;
     if (type === "raster") {
@@ -319,12 +339,22 @@ class LayerSwitcher extends EventTarget {
   }
 
   /**
-     * Affichage du N&B
-     * @param {*} id
-     * @param {*} value
-     */
+   * Affichage du N&B
+   * @param {*} id
+   * @param {*} value
+   */
   #setColor(id, value) {
-    this.layers[id].gray = value;
+    this.layers[id].gray = !value;
+    let index;
+    for(let i = 0; i < Globals.layersDisplayed.length; i++) {
+      if (Globals.layersDisplayed[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+    if (Globals.layersDisplayed[index]) {
+      Globals.layersDisplayed[index].gray = !value;
+    }
 
     var type = this.layers[id].type;
     if (type === "raster") {
@@ -559,12 +589,13 @@ class LayerSwitcher extends EventTarget {
   }
 
   /**
-     * Ajout d'une couche dans le gestionnaire
-     * @param {*} id
-     * @fires addlayer
-     * @public
-     */
-  async addLayer(id) {
+   * Ajout d'une couche dans le gestionnaire
+   * @param {*} layerOptions
+   * @fires addlayer
+   * @public
+   */
+  async addLayer(layerOptions) {
+    const id = layerOptions.id;
     var props = LayersConfig.getLayerProps(id);
     this.index++;
     this.layers[id] = {
@@ -573,9 +604,9 @@ class LayerSwitcher extends EventTarget {
       style: props.style,
       type: props.type,
       base: props.base,
-      opacity: 100,
-      gray: false,
-      visibility: true,
+      opacity: layerOptions.opacity,
+      gray: layerOptions.gray,
+      visibility: layerOptions.visible,
       index: this.index,
       position: this.index, // cf. #updatePosition()
       error: false,
@@ -588,13 +619,19 @@ class LayerSwitcher extends EventTarget {
     try {
       await this.#addLayerMap(id);
       this.#updatePosition(id);
+      console.log(layerOptions);
+      this.#setOpacity(id, layerOptions.opacity);
+      if (layerOptions.gray) {
+        this.#setColor(id, !layerOptions.gray);
+      }
+      this.#setVisibility(id, layerOptions.visible);
       /**
-         * Evenement "addlayer"
-         * @event addlayer
-         * @type {*}
-         * @property {*} id -
-         * @property {*} options -
-         */
+       * Evenement "addlayer"
+       * @event addlayer
+       * @type {*}
+       * @property {*} id -
+       * @property {*} options -
+       */
       this.dispatchEvent(
         new CustomEvent("addlayer", {
           bubbles: true,
@@ -609,7 +646,6 @@ class LayerSwitcher extends EventTarget {
       this.layers[id].error = true;
       throw e;
     }
-
   }
 
   /**
