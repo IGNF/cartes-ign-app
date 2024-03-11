@@ -141,7 +141,7 @@ class MyAccount {
       this.showRouteDetails(route);
     });
 
-    App.addListener('appUrlOpen', (data) => {
+    App.addListener("appUrlOpen", (data) => {
       this.#importFileFromUrl(data.url);
     });
   }
@@ -211,8 +211,13 @@ class MyAccount {
       const fileData = await Filesystem.readFile({
         path: url
       });
-
-      this.#importData(fileData.data);
+      let filename;
+      try {
+        filename = url.split(".").splice(-2)[0];
+      } catch (e) {
+        filename = "Données importées";
+      }
+      this.#importData(fileData.data, filename);
     }
   }
 
@@ -224,14 +229,14 @@ class MyAccount {
       limit: 1,
       readData: true,
     });
-    this.#importData(result.files[0].data);
+    this.#importData(result.files[0].data, result.files[0].name.split(".")[0]);
   }
 
   /**
    * Importe la donnée d'un fichier
    * @param {String} data fichier sous forme base64
    */
-  #importData(data) {
+  #importData(data, defaultName) {
     try {
       // UTF-8 decoding https://stackoverflow.com/a/64752311
       const imported = JSON.parse(decodeURIComponent(atob(data).split("").map(function(c) {
@@ -243,7 +248,7 @@ class MyAccount {
           imported.properties = {};
         }
         if (!imported.properties.title) {
-          imported.properties.title = result.files[0].name.split(".")[0];
+          imported.properties.title = defaultName;
         }
         if (!imported.properties.description) {
           imported.properties.description = "";
@@ -274,9 +279,8 @@ class MyAccount {
           imported.data = {};
         }
         if (!imported.data.name) {
-          imported.data.name = result.files[0].name.split(".")[0];
+          imported.data.name = defaultName;
         }
-        console.log(this.#geojsonToRoute(imported));
         this.addRoute(this.#geojsonToRoute(imported));
       }
     } catch (e) {

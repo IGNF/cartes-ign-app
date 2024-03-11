@@ -55,6 +55,9 @@ async function search (text) {
    * Recherche un texte et le géocode à l'aide de look4,
    * puis va à sa position en ajoutant un marqueur
    */
+  if (text === "") {
+    return;
+  }
   let url = new URL("https://data.geopf.fr/geocodage/completion");
   let params =
       {

@@ -220,6 +220,9 @@ const layers = {
         30/50
       ],
     },
+    paint: {
+      "icon-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0],
+    },
   },
 };
 

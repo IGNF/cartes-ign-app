@@ -189,4 +189,119 @@ const layers = [
   },
 ];
 
-export default layers;
+const previewLayers = {
+  "directions-preview-point-casing": {
+    id: "directions-preview-point-casing",
+    type: "circle",
+    source: "",
+    paint: {
+      "circle-radius": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "DESTINATION"], false]], 6,
+          3
+        ],
+        5,
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "DESTINATION"], false]], 6,
+          3],
+        18,
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "DESTINATION"], false]], 17,
+          12],
+      ],
+      "circle-color": "#307CCD",
+    },
+    filter: ["==", ["get", "type"], "SNAPPOINT"],
+  },
+  "directions-preview-point": {
+    id: "directions-preview-point",
+    type: "circle",
+    source: "",
+    paint: {
+      "circle-radius": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "DESTINATION"], false]], 5,
+          ["boolean", ["get", "highlight"], false], 3,
+          1.5
+        ],
+        5,
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "DESTINATION"], false]], 5,
+          1.5],
+        18,
+        ["case",
+          ["any",
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "ORIGIN"], false],
+            ["boolean", ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "DESTINATION"], false]], 15,
+          9],
+      ],
+      "circle-color": "#ffffff"
+    },
+    filter: ["==", ["get", "type"], "SNAPPOINT"],
+  },
+  "directions-preview-point-ORIGIN": {
+    id: "directions-preview-point-ORIGIN",
+    type: "symbol",
+    source: "",
+    layout: {
+      "icon-allow-overlap": true,
+      "icon-image": "routeDepartureIcon",
+      "icon-size": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        10/50,
+        5,
+        10/50,
+        18,
+        30/50
+      ],
+    },
+    filter: ["all", ["==", ["get", "type"], "SNAPPOINT"], ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "ORIGIN"]],
+  },
+  "directions-preview-point-DESTINATION": {
+    id: "directions-preview-point-DESTINATION",
+    type: "symbol",
+    source: "",
+    layout: {
+      "icon-allow-overlap": true,
+      "icon-image": "routeDestinationIcon",
+      "icon-size": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        10/50,
+        5,
+        10/50,
+        18,
+        30/50
+      ],
+    },
+    filter: ["all", ["==", ["get", "type"], "SNAPPOINT"], ["==", ["get", "category", ["get", "waypointProperties", ["properties"]]], "DESTINATION"]],
+  },
+};
+
+export default {
+  layers,
+  previewLayers,
+};

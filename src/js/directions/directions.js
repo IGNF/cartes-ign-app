@@ -65,7 +65,7 @@ class Directions {
         "maplibre-gl-directions-alt-routeline",
         "maplibre-gl-directions-alt-routeline-casing"
       ],
-      layers: DirectionsLayers,
+      layers: DirectionsLayers.layers,
       dragThreshold: 10,
       refreshOnMove: false,
       bearings: false
@@ -182,6 +182,10 @@ class Directions {
 
     // rendu graphique
     this.render();
+
+    // Source et layers de preview
+    this.#addPreviewSourcesAndLayers();
+    this.previewPoints = [];
 
     // fonction d'event avec bind
     this.handleAddWayPoint = this.#onAddWayPoint.bind(this);
@@ -313,6 +317,7 @@ class Directions {
       //    legs[]
       //  }
       if (e.data.code === "Ok") {
+        this.#removePreview();
         this.results = new DirectionsResults(this.map, null, {
           duration : e.data.routes[0].duration || "",
           distance : e.data.routes[0].distance || "",
@@ -403,10 +408,40 @@ class Directions {
   }
 
   /**
-     * activation du mode interaction
-     * @param {*} status
-     * @public
-     */
+   * ajoute la source et le layer à la carte pour affichage du preview
+   */
+  #addPreviewSourcesAndLayers() {
+    this.map.addSource("directions-preview", {
+      "type": "geojson",
+      "data": {
+        type: "FeatureCollection",
+        features: [],
+      }
+    });
+
+    DirectionsLayers.previewLayers["directions-preview-point-casing"].source = "directions-preview";
+    DirectionsLayers.previewLayers["directions-preview-point"].source = "directions-preview";
+    DirectionsLayers.previewLayers["directions-preview-point-ORIGIN"].source = "directions-preview";
+    DirectionsLayers.previewLayers["directions-preview-point-DESTINATION"].source = "directions-preview";
+    this.map.addLayer(DirectionsLayers.previewLayers["directions-preview-point-casing"]);
+    this.map.addLayer(DirectionsLayers.previewLayers["directions-preview-point"]);
+    this.map.addLayer(DirectionsLayers.previewLayers["directions-preview-point-ORIGIN"]);
+    this.map.addLayer(DirectionsLayers.previewLayers["directions-preview-point-DESTINATION"]);
+  }
+
+  #removePreview() {
+    this.map.getSource("directions-preview").setData({
+      type: "FeatureCollection",
+      features: []
+    });
+    this.previewPoints = [];
+  }
+
+  /**
+   * activation du mode interaction
+   * @param {*} status
+   * @public
+   */
   interactive (status) {
     this.obj.interactive = status;
   }
@@ -424,6 +459,7 @@ class Directions {
       element.value = "";
       element.dataset.coordinates = "";
     }
+    this.#removePreview();
     document.querySelectorAll(".lblDirectionsLocationsRemoveImg").forEach( (elem) => elem.click());
     this.__unsetComputeButtonLoading();
   }
@@ -477,6 +513,57 @@ class Directions {
         target.value = strAddress;
       } else {
         target.value = e.detail.text.split(",")[0];
+      }
+
+      const inputList = Array.from(document.querySelectorAll(".inputDirectionsLocations"));
+      let index = 0;
+      for (let i = 0; i < inputList.length; i++) {
+        index = i;
+        if (inputList[i].id === target.id) {
+          break;
+        }
+      }
+      let category = "";
+      if (index === 0) {
+        category = "ORIGIN";
+      }
+      if (index === inputList.length - 1) {
+        category = "DESTINATION";
+      }
+      self.map.getSource("directions-preview").updateData({
+        add: [{
+          type: "Feature",
+          id: index,
+          geometry: {
+            type: "Point",
+            coordinates: [e.detail.coordinates.lon, e.detail.coordinates.lat]
+          },
+          properties: {
+            type: "SNAPPOINT",
+            waypointProperties: {
+              category: category,
+            }
+          }
+        }]
+      });
+
+      self.previewPoints.push([e.detail.coordinates.lon, e.detail.coordinates.lat]);
+
+      if (self.previewPoints.length > 1) {
+        let padding;
+        if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+          var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
+                      Math.min(window.innerHeight, window.innerWidth/2) + 42;
+          padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
+        } else {
+          padding = {top: 80, right: 20, bottom: window.innerHeight/2 + 20, left: 20};
+        }
+        const bounds = self.previewPoints.reduce((bounds, coord) => {
+          return bounds.extend(coord);
+        }, new maplibregl.LngLatBounds(self.previewPoints[0], self.previewPoints[0]));
+        self.map.fitBounds(bounds, {
+          padding: padding,
+        });
       }
 
       // on supprime les écouteurs

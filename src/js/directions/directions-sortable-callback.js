@@ -1,3 +1,5 @@
+import Globals from "../globals";
+
 var sortableCallback = (evt) => {
   if (evt.newDraggableIndex == evt.oldDraggableIndex) {
     return;
@@ -105,6 +107,40 @@ var sortableCallback = (evt) => {
       }
     }
   }
+  // Parcours des points pour mise à jour de la preview
+  const inputList = Array.from(document.querySelectorAll(".inputDirectionsLocations"));
+  const features = [];
+  for (let i = 0; i < inputList.length; i++) {
+    if (!inputList[i].dataset.coordinates) {
+      continue;
+    }
+    const coords = JSON.parse(inputList[i].dataset.coordinates);
+    let category = "";
+    if (i === 0) {
+      category = "ORIGIN";
+    }
+    if (i === inputList.length - 1) {
+      category = "DESTINATION";
+    }
+    features.push({
+      type: "Feature",
+      id: i,
+      geometry: {
+        type: "Point",
+        coordinates: coords
+      },
+      properties: {
+        type: "SNAPPOINT",
+        waypointProperties: {
+          category: category,
+        }
+      }
+    });
+  }
+  Globals.map.getSource("directions-preview").setData({
+    type: "FeatureCollection",
+    features: features
+  });
 };
 
 export default sortableCallback;
