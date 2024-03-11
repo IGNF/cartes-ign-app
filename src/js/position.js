@@ -103,7 +103,14 @@ class Position {
     }
 
     // template litteral
-    this.shareContent = `${this.header}
+    let trueHeader = "";
+    if (this.header.includes("landmarkSummaryIcon")) {
+      console.log(DomUtils.stringToHTML(this.header.trim()));
+      trueHeader = DomUtils.stringToHTML(this.header.trim()).innerText.trim();
+    } else if (this.header.includes("divLegendDescription")) {
+      trueHeader = DomUtils.stringToHTML(this.header.trim()).querySelector(".divLegendDescription").innerHTML.trim().replace("<br>", "\n");
+    }
+    this.shareContent = `${trueHeader ? trueHeader : this.header}
 ${this.name}
 Latitude : ${latitude}
 Longitude : ${longitude}
