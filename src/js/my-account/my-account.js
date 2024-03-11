@@ -7,6 +7,7 @@ import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import { FilePicker } from "@capawesome/capacitor-file-picker";
+import { App } from "@capacitor/app";
 import maplibregl from "maplibre-gl";
 import Sortable from "sortablejs";
 
@@ -102,6 +103,8 @@ class MyAccount {
       this.render();
       this.#listeners();
       this.#updateSources();
+
+      this.#importFileIfAppOpenedFromFile();
     });
 
     return this;
@@ -136,6 +139,10 @@ class MyAccount {
       const routeId = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["line-casing"].id]})[0].properties.id;
       const route = this.routes.filter( route => route.id == routeId)[0];
       this.showRouteDetails(route);
+    });
+
+    App.addListener('appUrlOpen', (data) => {
+      this.#importFileFromUrl(data.url);
     });
   }
 
@@ -189,6 +196,27 @@ class MyAccount {
   }
 
   /**
+   * importe le fichier si l'application a été ouverte via le clic au fichier et "ouvrir avec"
+   */
+  async #importFileIfAppOpenedFromFile() {
+    const { url } = await App.getLaunchUrl();
+    this.#importFileFromUrl(url);
+  }
+
+  /**
+   * importe le fichier à partir de l'url
+   */
+  async #importFileFromUrl(url) {
+    if (url.split("://")[0] === "content") {
+      const fileData = await Filesystem.readFile({
+        path: url
+      });
+
+      this.#importData(fileData.data);
+    }
+  }
+
+  /**
    * Importe un fichier landmark ou route
    */
   async importFile() {
@@ -196,9 +224,17 @@ class MyAccount {
       limit: 1,
       readData: true,
     });
+    this.#importData(result.files[0].data);
+  }
+
+  /**
+   * Importe la donnée d'un fichier
+   * @param {String} data fichier sous forme base64
+   */
+  #importData(data) {
     try {
       // UTF-8 decoding https://stackoverflow.com/a/64752311
-      const imported = JSON.parse(decodeURIComponent(atob(result.files[0].data).split("").map(function(c) {
+      const imported = JSON.parse(decodeURIComponent(atob(data).split("").map(function(c) {
         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
       }).join("")));
       // Mode Landmark
@@ -225,6 +261,7 @@ class MyAccount {
         imported.id = -1;
         this.addLandmark(imported);
         document.getElementById("myaccount-landmarks-tab").click();
+        this.map.flyTo({center: imported.geometry.coordinates});
         Toast.show({
           duration: "long",
           text: `Point de repère "${imported.properties.title}" ajouté à Mon Compte et à la carte`,
@@ -272,6 +309,16 @@ class MyAccount {
     this.__updateAccountRoutesContainerDOMElement(this.routes);
     localStorage.setItem("savedRoutes", JSON.stringify(this.routes));
     this.#updateSources();
+    let coordinates = [];
+    drawRouteSaveOptions.data.steps.forEach((step) => {
+      coordinates = coordinates.concat(step.geometry.coordinates);
+    });
+    const bounds = coordinates.reduce((bounds, coord) => {
+      return bounds.extend(coord);
+    }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+    this.map.fitBounds(bounds, {
+      padding: 100,
+    });
   }
 
   /**
@@ -563,7 +610,7 @@ ${landmark.properties.description}
     } else {
       landmark.properties.visible = true;
       this.hide();
-      this.map.flyTo({center: landmark.geometry.coordinates});
+      this.map.flyTo({center: landmark.geometry.coordinates, zoom: 14});
     }
     this.#updateSources();
   }

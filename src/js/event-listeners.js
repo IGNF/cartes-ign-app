@@ -159,7 +159,6 @@ function addListeners() {
   // Screen dimentions change
   window.addEventListener("resize", handleresize);
   window.addEventListener("orientationchange", handleresize);
-
 }
 
 export default {
