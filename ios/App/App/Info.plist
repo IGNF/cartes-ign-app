@@ -52,5 +52,29 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
  	<true/>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>JSON File</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.json</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>GEOJSON File</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.geojson.geojson</string>
+			</array>
+		</dict>
+	</array>
+
 </dict>
 </plist>
