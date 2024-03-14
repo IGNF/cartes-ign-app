@@ -207,7 +207,7 @@ class MyAccount {
    * importe le fichier à partir de l'url
    */
   async #importFileFromUrl(url) {
-    if (url.split("://")[0] === "content") {
+    if (url.split("://")[0] === "content" || url.split("://")[0] === "file") {
       const fileData = await Filesystem.readFile({
         path: url
       });
@@ -282,6 +282,11 @@ class MyAccount {
           imported.data.name = defaultName;
         }
         this.addRoute(this.#geojsonToRoute(imported));
+        Toast.show({
+          duration: "long",
+          text: `Itinéraire "${imported.data.name}" ajouté à Mon Compte et à la carte`,
+          position: "bottom",
+        });
       }
     } catch (e) {
       console.warn(e);
