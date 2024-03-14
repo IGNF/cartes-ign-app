@@ -619,7 +619,6 @@ class LayerSwitcher extends EventTarget {
     try {
       await this.#addLayerMap(id);
       this.#updatePosition(id);
-      console.log(layerOptions);
       this.#setOpacity(id, layerOptions.opacity);
       if (layerOptions.gray) {
         this.#setColor(id, !layerOptions.gray);

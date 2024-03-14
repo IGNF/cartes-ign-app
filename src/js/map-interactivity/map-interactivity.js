@@ -67,7 +67,7 @@ class MapInteractivity {
   }
 
   #listeners() {
-    this.map.on("click", this.handleInfoOnMap);
+    this.map.once("click", this.handleInfoOnMap);
   }
 
   #getInfoOnMap(ev) {
@@ -78,8 +78,6 @@ class MapInteractivity {
       DOM.$backTopLeftBtn.click();
     }
     let features = this.map.queryRenderedFeatures(ev.point);
-    // TODO: Patience
-    this.map.off("click", this.handleInfoOnMap);
     // On clique sur une feature tuile vectorielle
     let featureHTML = null;
     if (features.length > 0 && features[0].source === "location-precision"){
@@ -91,12 +89,12 @@ class MapInteractivity {
         Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML).then(() => {
           Globals.menu.open("position");
         });
-        this.map.on("click", this.handleInfoOnMap);
+        this.map.once("click", this.handleInfoOnMap);
         return;
       }
     }
     if (!Globals.interactivityIndicator.shown) {
-      this.map.on("click", this.handleInfoOnMap);
+      this.map.once("click", this.handleInfoOnMap);
       return;
     }
 
@@ -126,31 +124,29 @@ class MapInteractivity {
     });
 
     this.#multipleGFI(layersForGFI)
-      .then((resp) => {
+      .then(async (resp) => {
         this.loading = false;
         try {
           this.#highlightGFI(resp.geometry);
         } catch (e) {
           console.warn(e);
         }
-        Globals.position.compute(ev.lngLat, resp.title, resp.html).then(() => {
-          Globals.menu.open("position");
-        });
-        this.map.on("click", this.handleInfoOnMap);
+        await Globals.position.compute(ev.lngLat, resp.title, resp.html);
+        Globals.menu.open("position");
+        this.map.once("click", this.handleInfoOnMap);
         return;
-      }).catch(() => {
+      }).catch(async () => {
         this.loading = false;
         if (featureHTML !== null) {
           this.#clearSources();
-          Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML).then(() => {
-            Globals.menu.open("position");
-            this.selectedCleabs = features[0].properties.cleabs;
-            this.selectedFeatureType = features[0].geometry.type;
-            this.#updateHighlightedGeom();
-            this.map.on("move", this.handleUpdateHighlightedGeom);
-          });
+          await Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML);
+          Globals.menu.open("position");
+          this.selectedCleabs = features[0].properties.cleabs;
+          this.selectedFeatureType = features[0].geometry.type;
+          this.#updateHighlightedGeom();
+          this.map.on("move", this.handleUpdateHighlightedGeom);
         }
-        this.map.on("click", this.handleInfoOnMap);
+        this.map.once("click", this.handleInfoOnMap);
         return;
       });
   }
