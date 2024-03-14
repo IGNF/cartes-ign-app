@@ -75,6 +75,10 @@
 			</array>
 		</dict>
 	</array>
+  <key>CFBundleLocalizations</key>
+	<array>
+		<string>fr</string>
+	</array>
 
 </dict>
 </plist>
