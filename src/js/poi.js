@@ -45,6 +45,8 @@ class POI {
       json: {}
     };
 
+    this.layers = null;
+
     this.#render();
     this.#listeners();
 
@@ -97,8 +99,17 @@ class POI {
         return data;
       })
       .then((data) => {
-        this.filters = this.#createFilters(data.layers);
-        LayersGroup.addGroup(this.id, this.filters);
+        this.layers = data.layers;
+        this.filters = this.#createFilters();
+        // Initialisation des filtres "all" sur les couches
+        data.layers.forEach( (layer) => {
+          if (!layer.filter) {
+            layer.filter = ["all"];
+          } else if (layer.filter[0] !== "all") {
+            layer.filter = ["all", layer.filter];
+          }
+        })
+        LayersGroup.addGroup(this.id, data.layers);
       })
       .catch((e) => {
         throw new Error(e);
@@ -110,39 +121,28 @@ class POI {
    * @param {*} layers
    * @returns
    */
-  #createFilters(layers) {
-    var layersDisplay = layers;
-    var layersSelection = [];
-    for (let i = 0; i < layersDisplay.length; i++) {
-      const l = layersDisplay[i];
-      for (let j = 0; j < this.config.length; j++) {
-        const poi = this.config[j];
-        var layer = Object.assign({}, l); // clone
-        layer.id = poi.id + " - " + layer.id;
-        if (layer.filter) {
-          layer.filter = ["all", layer.filter, [
+  #createFilters() {
+    var filterSelection = {};
+    for (let j = 0; j < this.config.length; j++) {
+      const poi = this.config[j];
+      const id = poi.id;
+      let filter;
+      filter = [
+        "!in",
+        poi.filters[0].field,
+        poi.filters[0].attributs
+      ].flat();
+      filterSelection[id] = filter;
+    }
+    return filterSelection;
+  }
+
+        /* filter = ["all", l.filter, [
             "in",
             poi.filters[0].field,
             poi.filters[0].attributs
           ].flat()];
-        } else {
-          layer.filter = [
-            "in",
-            poi.filters[0].field,
-            poi.filters[0].attributs
-          ].flat();
-        }
-        if (layer.layout.visibility === "visible") {
-          layer.layout.visibility = (poi.visible) ? "visible" : "none";
-        }
-        layer.metadata = {
-          thematic: poi.id
-        };
-        layersSelection.push(layer);
-      }
-    }
-    return layersSelection;
-  }
+          */
 
   /**
    * creation de l'interface
@@ -242,12 +242,15 @@ class POI {
     document.getElementById("displayPOI").addEventListener("change", (e) => {
       const toggleChecked = e.target.checked;
       document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
+        let changed = false;
         if (toggleChecked) {
+          if (!el.checked) changed = true
           el.checked = true;
         } else {
+          if (el.checked) changed = true
           el.checked = false;
         }
-        el.dispatchEvent(new Event("change"));
+        if (changed) el.dispatchEvent(new Event("change"));
       });
     });
     document.getElementById("displayPOIGoBackTime").addEventListener("change", (e) => {
@@ -262,12 +265,25 @@ class POI {
     });
     // rendre visible ou non le filtre si la couche POI est active sinon rien à faire
     document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
-      el.addEventListener("change", (e) => {
-        var layers = LayersGroup.getGroupLayers(this.id).filter((layer) => { return layer.metadata.thematic === e.target.name; });
-        for (let i = 0; i < layers.length; i++) {
-          const element = layers[i];
-          if (element.id.split(" - ")[1] !== "POI OSM isochrone") {
-            LayersGroup.addVisibilityByID(this.id, element.id, el.checked);
+      el.addEventListener("change", () => {
+        const filter = this.filters[el.name];
+        for (let i = 0; i < this.layers.length; i++) {
+          const id = this.layers[i].id;
+          if (id !== "POI OSM isochrone") {
+            if (!el.checked) {
+              this.map.setFilter(id, this.map.getFilter(id).concat([filter]));
+            } else {
+              let index = -1;
+              const currentFilters = this.map.getFilter(id);
+              for (let i = 0; i < currentFilters.length; i++) {
+                if (JSON.stringify(filter) === JSON.stringify(currentFilters[i])) {
+                  index = i;
+                  break;
+                }
+              }
+              currentFilters.splice(index, 1);
+              this.map.setFilter(id, currentFilters);
+            }
           }
         }
         let allUnchecked = true;

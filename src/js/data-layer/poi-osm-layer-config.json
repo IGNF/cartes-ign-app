@@ -156,6 +156,7 @@
             "field": "symbo",
             "attributs": [
                 "atm",
+                "bank",
                 "information",
                 "picnic_site",
                 "post_office",

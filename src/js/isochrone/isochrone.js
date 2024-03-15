@@ -70,6 +70,8 @@ class Isochrone {
     // on detecte la presence des POI
     // avant la creation du rendu du contrôle
     this.poi = this.#hasLayerPoi();
+    // filtre spécifique d'affichage des POI
+    this.filter = null;
 
     this.#addSourcesAndLayers();
 
@@ -113,22 +115,10 @@ class Isochrone {
     var source = instance.sources[0]; // normalement, une seule source
 
     // gestion des filtres
-    var ids = instance.filters.map((o) => { return o.id; });
+    var ids = instance.layers.map((o) => { return o.id; });
 
     // creation des filtres
-    var filters = instance.filters.slice(); // clone
-    if (!filters) {
-      return null;
-    }
-    for (let i = 0; i < filters.length; i++) {
-      const filter = filters[i];
-      var id = this.configuration.source;
-      // modification de la source
-      filter.source = id;
-      filter.metadata.group = id;
-      filter.id += " (" + id + ")";
-      delete filter["source-layer"];
-    }
+    var filters = JSON.parse(JSON.stringify(instance.filters)); // clone
     return {
       id: source,
       config: config,
@@ -302,13 +292,18 @@ class Isochrone {
     });
 
     if (this.poi) {
+      LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM isochrone", true);
+      this.filter = ["all"];
       this.poi.ids.forEach( (id) => {
-        LayersGroup.addVisibilityByID(Globals.poi.id, id, true);
-        if (settings.poisToDisplay[id.split(" ")[0]] && !settings.showPoisOutside) {
-          this.map.setFilter(id, ["all", ["within", this.polygon], this.map.getFilter(id)]);
-        } else if (!settings.poisToDisplay[id.split(" ")[0]]) {
-          this.map.setFilter(id, ["all", ["==", "true", "false"], this.map.getFilter(id)]);
+        if (!settings.showPoisOutside) {
+          this.filter.push(["within", this.polygon]);
         }
+        for (const [category, checked] of Object.entries(settings.poisToDisplay)) {
+          if (!checked) {
+            this.filter.push(this.poi.filters[category]);
+          }
+        }
+        this.map.setFilter(id, this.map.getFilter(id).concat([this.filter]));
       });
     }
 
@@ -391,11 +386,21 @@ class Isochrone {
     // resultats
     this.polygon = null;
     this.center = null;
-    this.poi.ids.forEach( (id) => {
-      if (this.map.getFilter(id)[0] === "all" && this.map.getFilter(id)[1][0] !== "!in") {
-        this.map.setFilter(id, this.map.getFilter(id).splice(-1)[0]);
-      }
-    });
+    if (this.filter) {
+      this.poi.ids.forEach( (id) => {
+        let index = -1;
+        const currentFilters = this.map.getFilter(id);
+        for (let i = 0; i < currentFilters.length; i++) {
+          if (JSON.stringify(this.filter) === JSON.stringify(currentFilters[i])) {
+            index = i;
+            break;
+          }
+        }
+        currentFilters.splice(index, 1);
+        this.map.setFilter(id, currentFilters);
+      });
+    }
+    this.filter = null;
     if (Globals.searchResultMarker != null) {
       Globals.searchResultMarker.remove();
       Globals.searchResultMarker = null;
@@ -411,11 +416,7 @@ class Isochrone {
       }
     });
     // Retour en mode invisible pour la couche POI au bas niveaux de zoom
-    this.poi.ids.forEach( (id) => {
-      if (id.split(" - ")[1] === "POI OSM isochrone") {
-        LayersGroup.addVisibilityByID(Globals.poi.id, id, false);
-      }
-    });
+    LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM isochrone", false);
   }
 
   /**
