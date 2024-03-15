@@ -650,11 +650,6 @@ class RouteDraw {
   async #onDeleteWayPoint(e) {
     // TODO patience
     // On empêche l'intéraction tant que les opérations (hors alti) ne sont pas terminées
-    Toast.show({
-      text: "Sélectionnez le point que vous souhaitez supprimer",
-      duration: "short",
-      position: "bottom"
-    });
     this.map.off("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
     this.deactivate();
     const feature = this.map.queryRenderedFeatures(e.point, {
@@ -990,7 +985,7 @@ class RouteDraw {
    * @public
    */
   toggleDelete() {
-    if (this.delete == true) {
+    if (this.delete) {
       this.delete = false;
       DOM.$routeDrawDelete.classList.add("inactive");
       this.map.off("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
@@ -999,6 +994,11 @@ class RouteDraw {
       this.map.on("click", this.handleAddWayPoint);
       return;
     }
+    Toast.show({
+      text: "Sélectionnez le point que vous souhaitez supprimer",
+      duration: "short",
+      position: "bottom"
+    });
     this.delete = true;
     this.map.off("touchstart", RouteDrawLayers["point"].id, this.handleTouchStartPoint);
     this.map.off("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);

@@ -108,7 +108,7 @@ class POI {
           } else if (layer.filter[0] !== "all") {
             layer.filter = ["all", layer.filter];
           }
-        })
+        });
         LayersGroup.addGroup(this.id, data.layers);
       })
       .catch((e) => {
@@ -137,7 +137,7 @@ class POI {
     return filterSelection;
   }
 
-        /* filter = ["all", l.filter, [
+  /* filter = ["all", l.filter, [
             "in",
             poi.filters[0].field,
             poi.filters[0].attributs
@@ -244,10 +244,10 @@ class POI {
       document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
         let changed = false;
         if (toggleChecked) {
-          if (!el.checked) changed = true
+          if (!el.checked) changed = true;
           el.checked = true;
         } else {
-          if (el.checked) changed = true
+          if (el.checked) changed = true;
           el.checked = false;
         }
         if (changed) el.dispatchEvent(new Event("change"));
