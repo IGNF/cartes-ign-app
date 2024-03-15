@@ -35,21 +35,18 @@ class Isochrone {
     // configuration
     this.configuration = this.options.configuration || {
       source: "isochrone",
-      api: "https://valhalla1.openstreetmap.de/",
+      api: "https://data.geopf.fr/navigation/",
       route: "isochrone",
-      key: "json",
       template: (values) => {
-        return `{
-                  "locations":[
-                      { "lat" : ${values.location.lat}, "lon" : ${values.location.lon} }
-                  ],
-                  "costing" : "${values.transport}",
-                  "contours" : [
-                      { "${values.mode}" : ${values.value}, "color" : "${values.style.color}" }
-                  ],
-                  "polygons" : true,
-                  "show_locations" : true
-              }`;
+        return {
+          resource: "bdtopo-valhalla",
+          timeUnit: "second",
+          distanceUnit: "meter",
+          point: `${values.location.lon},${values.location.lat}`,
+          profile: values.transport,
+          costValue: values.value,
+          costType: values.mode,
+        };
       }
     };
 
@@ -187,10 +184,10 @@ class Isochrone {
         transport = "pedestrian";
         break;
       case "Voiture":
-        transport = "auto";
+        transport = "car";
         break;
       default:
-        transport = "auto";
+        transport = "pedestrian";
         break;
       }
     }
@@ -202,11 +199,11 @@ class Isochrone {
       switch (settings.mode.type) {
       case "Distance":
         mode = "distance";
-        value = Math.round(parseFloat(settings.mode.value, 10) * 1000) / 1000; // km arrondi au mètre
+        value = Math.round(parseFloat(settings.mode.value, 10) * 1000); // km (saisi) vers mètres
         break;
       case "Temps":
         mode = "time";
-        value = parseFloat(settings.mode.value) / 60; // secondes -> minutes
+        value = parseFloat(settings.mode.value);
         break;
       default:
         break;
@@ -254,20 +251,25 @@ class Isochrone {
     // }
     var url = this.configuration.api +
       this.configuration.route + "?" +
-      this.configuration.key + "=" +
-      encodeURIComponent(this.configuration.template({
+      new URLSearchParams(this.configuration.template({
         transport: transport,
         mode: mode,
         value: value,
         location: location,
-        style: {
-          color: this.style.color
-        }
       }));
 
     this.loading = true;
     var response = await fetch(url, { signal: this.controller.signal });
-    var geojson = await response.json();
+    var responseJson = await response.json();
+    var geojson = {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          geometry: responseJson.geometry
+        }
+      ]
+    };
     this.loading = false;
 
     if (response.status !== 200) {
@@ -281,7 +283,7 @@ class Isochrone {
 
     // par defaut, le 1er feature est le résultat de l'isochrone
     this.polygon = geojson.features[0];
-    this.center = geojson.features[1].geometry.coordinates[0];
+    this.center = [location.lon, location.lat];
 
     // bbox
     var bbox = GisUtils.getBoundingBox(this.polygon.geometry.coordinates[0]);
