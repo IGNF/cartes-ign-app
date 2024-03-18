@@ -312,7 +312,7 @@ class MenuNavigation {
       Globals.interactivityIndicator.hardDisable();
       // FIXME
       // "Ma position" par défaut dans le départ quand disponible
-      if (Location.getCurrentPosition()) {
+      if (previousBackState !== "searchDirections" && Location.getCurrentPosition()) {
         let target = Globals.directions.dom.inputDeparture;
         target.dataset.coordinates = "[" + Location.getCurrentPosition().coords.longitude + "," + Location.getCurrentPosition().coords.latitude + "]";
         target.value = "Ma position";

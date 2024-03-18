@@ -187,7 +187,7 @@ const watchPositionCallback = (position) => {
       lon: position.coords.longitude
     }, zoom, tracking_active || firstLocation);
     // Si la précision est insuffisante, ne pas zoomer à 16
-    if (lastAccuracy > 150) {
+    if (lastAccuracy > 150 && (tracking_active || firstLocation)) {
       const bbox = GisUtils.getBoundingBox(circle.geometry.coordinates[0]);
       var padding;
       // gestion du mode paysage / écran large
@@ -267,7 +267,7 @@ const enablePosition = async() => {
       return;
     }
   }
-  if (["denied", "prompt", "prompt-with-rationale"].includes(permissionStatus.location)) {
+  if (["denied", "prompt", "prompt-with-rationale"].includes(permissionStatus.location) && Capacitor.getPlatform() !== "web") {
     permissionStatus = await Geolocation.requestPermissions(["location"]);
   }
   if (["denied", "prompt-with-rationale"].includes(permissionStatus.location)) {
