@@ -72,6 +72,7 @@ class MapInteractivity {
 
   #getInfoOnMap(ev) {
     if (Globals.backButtonState === "routeDraw") {
+      this.map.once("click", this.handleInfoOnMap);
       return;
     }
     if (Globals.backButtonState.split("-")[0] === "position") {

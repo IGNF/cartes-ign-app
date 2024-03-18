@@ -452,7 +452,7 @@ class MenuNavigation {
       }
       DOM.$sideBySideBtn.classList.remove("d-none");
       DOM.$tabContainer.style.removeProperty("background-color");
-      Globals.routeDraw.clear();+
+      Globals.routeDraw.clear();
       Globals.interactivityIndicator.enable();
       break;
     case "poi":
