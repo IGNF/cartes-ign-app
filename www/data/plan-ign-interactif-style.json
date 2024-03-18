@@ -18,7 +18,7 @@
 			"type": "vector",
 			"maxzoom": 19,
 			"tiles": [
-				"https://data.geopf.fr/tms/1.0.0/BD_TOPO_VALID/{z}/{x}/{y}.pbf"
+				"https://data.geopf.fr/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf"
 			]
 		}
 	},
