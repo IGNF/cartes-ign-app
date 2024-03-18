@@ -425,6 +425,9 @@ class LayerSwitcher extends EventTarget {
     var visibility = this.layers[id].visibility;
     var title =  this.layers[id].title || id.split("$")[0];
 
+    var visibilityChecked = visibility ? "checked" : "";
+    var grayChecked = !gray ? "checked" : "";
+
     var index = this.#getIndex(id);
 
     // Template d'une couche
@@ -446,9 +449,9 @@ class LayerSwitcher extends EventTarget {
         <label id="show-advanced-tools_ID_${index}" title="Plus d'outils" class="tools-layer-advanced"></label>
         <div id="advanced-tools_ID_${index}" class="tools-layer-advanced-menu">
           <!-- N&B, visibility, info, remove -->
-          <input type="checkbox" id="color_ID_${index}" checked="${gray}" />
+          <input type="checkbox" id="color_ID_${index}" ${grayChecked} />
           <label id="color-picto_ID_${index}" for="color_ID_${index}" title="Couleur/NB" class="tools-layer-color">Noir et blanc</label>
-          <input type="checkbox" id="visibility_ID_${index}" checked="${visibility}" />
+          <input type="checkbox" id="visibility_ID_${index}" ${visibilityChecked} />
           <label id="visibility-picto_ID_${index}" for="visibility_ID_${index}" title="Afficher/masquer la couche" class="tools-layer-visibility">Masquer/afficher</label>
           <div id="info_ID_${index}" class="tools-layer-info" title="Informations de la couche">Informations</div>
           <div id="remove_ID_${index}" class="tools-layer-remove" title="Supprimer la couche">Supprimer</div>
