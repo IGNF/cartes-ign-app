@@ -27,7 +27,13 @@
             "maxzoom": 14.5,
             "layout": {
                 "visibility": "none",
-                "icon-image": "{symbo}_17"
+                "icon-image": "{symbo}_17",
+                "symbol-sort-key": [
+                    "match",
+                    ["get", "symbo"],
+                    "bus_stop", 10,
+                    1
+                ]
             },
             "filter": [
                 "!in","symbo",
@@ -38,7 +44,6 @@
                 "divers_orange",
                 "divers_rouge",
                 "divers_vert",
-                "bus_stop",
                 "bicycle_rental",
                 "parking",
                 "charging_station",
