@@ -41,7 +41,7 @@ class Isochrone {
         return {
           resource: "bdtopo-valhalla",
           timeUnit: "second",
-          distanceUnit: "meter",
+          distanceUnit: values.distanceUnit,
           point: `${values.location.lon},${values.location.lat}`,
           profile: values.transport,
           costValue: values.value,
@@ -184,12 +184,17 @@ class Isochrone {
 
     var mode = null;
     var value = null;
+    var distanceUnit = "meter";
     if (settings.mode) {
       // mettre en place le mode calcul !
       switch (settings.mode.type) {
       case "Distance":
         mode = "distance";
         value = Math.round(parseFloat(settings.mode.value, 10) * 1000); // km (saisi) vers mètres
+        if (value > 50000) {
+          value /= 1000;
+          distanceUnit = "kilometer";
+        }
         break;
       case "Temps":
         mode = "time";
@@ -246,6 +251,7 @@ class Isochrone {
         mode: mode,
         value: value,
         location: location,
+        distanceUnit: distanceUnit,
       }));
 
     this.loading = true;
