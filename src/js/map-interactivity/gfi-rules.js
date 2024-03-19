@@ -80,6 +80,8 @@ const gfiRules = {
       ]}
   },
   "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS": {
+    13: {"title": "@llib_frt",
+      "body": []},
     0: {"title": "@llib2_frt",
       "body": []}
   },
@@ -149,7 +151,7 @@ const gfiRules = {
       ]
     },
 
-    
+
   },
 
   /**
