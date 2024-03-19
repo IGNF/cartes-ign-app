@@ -258,7 +258,7 @@ class MapInteractivity {
         })
         .then((res) => {
           if (gfiRules[layer[0]]) {
-            return gfiRules.parseGFI(gfiRules[layer[0]], res);
+            return gfiRules.parseGFI(gfiRules[layer[0]], res, layer[1].computeZoom);
           } else {
             let html = "<div>";
             for (const [key, value] of Object.entries(res.features[0].properties)) {

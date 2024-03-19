@@ -3810,7 +3810,7 @@
 			"source-layer": "bati_surf",
 			"metadata": {
 				"legend-group": "bati_surf_fonctionnel_sportif",
-				"legend-title": "Terrain de sport"
+				"legend-title": "Bâtiment sportif"
 			},
 			"minzoom": 16,
 			"layout": {
@@ -4273,7 +4273,7 @@
 			"source-layer": "bati_surf",
 			"metadata": {
 				"legend-group": "bati_sportif_surfacique",
-				"legend-title": "Bâtiment sportif"
+				"legend-title": "Terrain de sport"
 			},
 			"layout": {
 				"visibility": "visible"
@@ -4299,7 +4299,7 @@
 			"source": "plan_ign",
 			"metadata": {
 				"legend-group": "bati_sportif_surfacique",
-				"legend-title": "Bâtiment sportif"
+				"legend-title": "Terrain de sport"
 			},
 			"source-layer": "bati_surf",
 			"layout": {
