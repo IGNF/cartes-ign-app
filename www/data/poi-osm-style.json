@@ -31,6 +31,7 @@
                 "symbol-sort-key": [
                     "match",
                     ["get", "symbo"],
+                    "parking", 100,
                     "bus_stop", 10,
                     1
                 ]
