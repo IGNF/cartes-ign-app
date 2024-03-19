@@ -163,7 +163,9 @@
                 "toilets",
                 "charging_station",
                 "fuel",
-                "parking"
+                "parking",
+                "drinking_water",
+                "picnic_table"
             ]
         }]
     },
