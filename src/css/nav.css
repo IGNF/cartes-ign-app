@@ -63,6 +63,14 @@
   background-image: url(../html/img/deplacer-s.svg);
 }
 
+#navimg-compare {
+  background-image: url(../html/img/compare.svg);
+}
+
+.navbar.hoverable:hover #navimg-compare{
+  background-image: url(../html/img/compare-s.svg);
+}
+
 #navimg-compte {
   background-image: url(../html/img/compte.svg);
 }

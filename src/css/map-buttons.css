@@ -38,13 +38,6 @@
   bottom: 0;
 }
 
-#sideBySideBtn {
-  background-image: url("assets/map-buttons/compare/compare.svg");
-  position: absolute;
-  left: 15px;
-  bottom: 0;
-}
-
 #sideBySideLeftLayer {
   background-image: url("assets/map-buttons/compare/compare-layer-left.svg");
   position: absolute;
