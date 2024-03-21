@@ -265,7 +265,6 @@ class MenuNavigation {
       // falls through
     case "parameterScreen":
     case "legalScreen":
-    case "privacyScreen":
       document.body.style.overflowY = "scroll";
       DOM.$whiteScreen.classList.remove("d-none");
       DOM.$search.style.display = "none";
@@ -533,7 +532,6 @@ class MenuNavigation {
       // falls through
     case "parameterScreen":
     case "legalScreen":
-    case "privacyScreen":
       document.body.style.removeProperty("overflow-y");
       DOM.$whiteScreen.classList.add("d-none");
       DOM.$search.style.display = "flex";

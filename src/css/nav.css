@@ -43,6 +43,10 @@
     flex-shrink: 0
 }
 
+.navbar.hoverable:hover > .navitembtn {
+  color: #26A581;
+}
+
 #navimg-explorer {
     background-image: url(../html/img/explorer.svg);
 }

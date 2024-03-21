@@ -33,11 +33,6 @@ const onBackKeyDown = () => {
     Globals.menu.open("myaccount");
     return;
   }
-  if (Globals.backButtonState === "privacyScreen") {
-    Globals.menu.close("privacyScreen");
-    Globals.menu.open("myaccount");
-    return;
-  }
   if (Globals.backButtonState === "informations") {
     Globals.menu.close("informations");
     return;

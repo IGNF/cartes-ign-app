@@ -43,7 +43,6 @@ const $bottomButtons = document.getElementById("bottomButtons");
 const $whiteScreen = document.getElementById("whiteScreen");
 const $parameterScreenWindow = document.getElementById("parameterScreenWindow");
 const $legalScreenWindow = document.getElementById("legalScreenWindow");
-const $privacyScreenWindow = document.getElementById("privacyScreenWindow");
 const $altMenuContainer = document.getElementById("altMenuContainer");
 
 const $informationsWindow = document.getElementById("informationsWindow");
@@ -84,7 +83,6 @@ export default {
   $backTopLeftBtn,
   $parameterScreenWindow,
   $legalScreenWindow,
-  $privacyScreenWindow,
   $altMenuContainer,
   $chkPrintCoordsOnContext,
   $chkPrintCoordsReticule,

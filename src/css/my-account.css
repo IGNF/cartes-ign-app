@@ -34,12 +34,17 @@
 }
 
 .smallMenuItem {
-  font-family: 'Open Sans';
+  font-family: 'Open Sans Semibold';
 }
 
-#menuItemLegal, #menuItemPrivacy {
-  padding-left: 5px;
-  color: #788089;
+#menuItemHelp {
+  padding-left: 30px;
+  color: #3F4A55;
+  background-image: url("assets/question.svg");
+  background-repeat: no-repeat;
+  background-size: 27px;
+  background-position: 0px;
+  margin-right: 10px;
 }
 
 #myAccountBody {
@@ -64,6 +69,7 @@
   font-size: 10px;
 }
 
+#myAccountImportBtn,
 #myAccountLogInBtn {
   background-color: #26A581;
   color: white;
@@ -75,6 +81,16 @@
 }
 
 #myAccountImportBtn {
+  margin-top: 10px;
+  padding: 13px 20px 13px 50px;
+  background-color: #26A581;
+  background-image: url("assets/import-file.svg");
+  background-repeat: no-repeat;
+  background-size: 18px;
+  background-position: 22px 14px;
+}
+
+/* #myAccountImportBtn {
   position: fixed;
   border: #3F4A55 1px solid;
   font-family: "Open Sans Semibold";
@@ -90,7 +106,7 @@
   background-size: 15px;
   background-position: 20px;
   z-index: 100;
-}
+} */
 
 #myAccountBody > .layer-tabs-wrap {
  margin: 24px;

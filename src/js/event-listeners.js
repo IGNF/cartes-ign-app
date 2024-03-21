@@ -62,15 +62,10 @@ function addListeners() {
     Globals.menu.close("myaccount");
     Globals.menu.open("parameterScreen");
   });
-  document.getElementById("menuItemLegal").addEventListener("click", () => {
+  document.getElementById("menuItemHelp").addEventListener("click", () => {
     DOM.$whiteScreen.style.animation = "unset";
     Globals.menu.close("myaccount");
     Globals.menu.open("legalScreen");
-  });
-  document.getElementById("menuItemPrivacy").addEventListener("click", () => {
-    DOM.$whiteScreen.style.animation = "unset";
-    Globals.menu.close("myaccount");
-    Globals.menu.open("privacyScreen");
   });
 
   // Rotation du marqueur de position (android)

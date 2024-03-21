@@ -41,8 +41,8 @@ let MyAccountDOM = {
     this.dom.routeTab.appendChild(this.dom.routeList);
     this.dom.landmarkTab.appendChild(this.dom.landmarkList);
 
-    this.dom.importBtn = this.__addImportBtn();
-    container.appendChild(this.dom.importBtn);
+    // this.dom.importBtn = this.__addImportBtn();
+    // container.appendChild(this.dom.importBtn);
 
     return container;
   },
@@ -58,34 +58,35 @@ let MyAccountDOM = {
     div.className = "";
     var bodyHeader = document.createElement("p");
     bodyHeader.id = "myAccountHeaderName";
-    var connected = true;
+    // var connected = true;
     if (!accountName) {
-      accountName = "Non connecté";
-      connected = false;
+      accountName = "Mes enregistrements";
+      // connected = false;
     }
     bodyHeader.innerText = accountName;
     div.appendChild(bodyHeader);
 
-    if (!connected) {
-      var notLoggedInWarn = document.createElement("p");
-      notLoggedInWarn.id = "myAccountNotLoggedInWarn";
-      notLoggedInWarn.innerText = "Les itinéraires enregistrés peuvent être perdus";
-      div.appendChild(notLoggedInWarn);
+    // INFO: pour le compte GPF
+    // if (!connected) {
+    //   var logInBtn = document.createElement("div");
+    //   logInBtn.id = "myAccountLogInBtn";
+    //   logInBtn.innerText = "Se connecter";
+    //   div.appendChild(logInBtn);
 
-      var logInBtn = document.createElement("div");
-      logInBtn.id = "myAccountLogInBtn";
-      logInBtn.innerText = "Se connecter";
-      div.appendChild(logInBtn);
+    //   logInBtn.addEventListener("click", () => {
+    //     console.warn("GPF auth not implemented");
+    //   });
+    // } else {
+    //   var logOutBtn = document.createElement("div");
+    //   logOutBtn.id = "myAccountLogOutBtn";
+    //   logOutBtn.innerText = "Se déconnecter";
+    //   div.appendChild(logOutBtn);
+    // }
 
-      logInBtn.addEventListener("click", () => {
-        console.warn("GPF auth not implemented");
-      });
-    } else {
-      var logOutBtn = document.createElement("div");
-      logOutBtn.id = "myAccountLogOutBtn";
-      logOutBtn.innerText = "Se déconnecter";
-      div.appendChild(logOutBtn);
-    }
+    // REMOVEME when account ready
+    this.dom.importBtn = this.__addImportBtn();
+
+    div.appendChild(this.dom.importBtn);
 
     return div;
   },
