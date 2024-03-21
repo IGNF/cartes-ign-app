@@ -37,7 +37,7 @@ const compute = async (coordinateList) => {
     lon: lonStr,
     lat: latStr,
     indent: "false",
-    sampling: 500,
+    sampling: 200,
     resource: "ign_rge_alti_wld",
   };
 
