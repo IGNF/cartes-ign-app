@@ -31,7 +31,7 @@
                 "symbol-sort-key": [
                     "match",
                     ["get", "symbo"],
-                    "parking", 100,
+                    "parking", 20,
                     "bus_stop", 10,
                     1
                 ]
@@ -46,7 +46,6 @@
                 "divers_rouge",
                 "divers_vert",
                 "bicycle_rental",
-                "parking",
                 "charging_station",
                 "fuel"
             ]

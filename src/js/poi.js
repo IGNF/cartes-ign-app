@@ -101,12 +101,16 @@ class POI {
       .then((data) => {
         this.layers = data.layers;
         this.filters = this.#createFilters();
-        // Initialisation des filtres "all" sur les couches
+        const filterExpression = ["any"];
+        Object.values(this.filters).forEach( (filter) => {
+          filterExpression.push(filter);
+        });
+        // Initialisation des filtres sur les couches
         data.layers.forEach( (layer) => {
           if (!layer.filter) {
-            layer.filter = ["all"];
+            layer.filter = ["all", filterExpression];
           } else if (layer.filter[0] !== "all") {
-            layer.filter = ["all", layer.filter];
+            layer.filter = ["all", layer.filter, filterExpression];
           }
         });
         LayersGroup.addGroup(this.id, data.layers);
@@ -128,7 +132,7 @@ class POI {
       const id = poi.id;
       let filter;
       filter = [
-        "!in",
+        "in",
         poi.filters[0].field,
         poi.filters[0].attributs
       ].flat();
@@ -136,13 +140,6 @@ class POI {
     }
     return filterSelection;
   }
-
-  /* filter = ["all", l.filter, [
-            "in",
-            poi.filters[0].field,
-            poi.filters[0].attributs
-          ].flat()];
-          */
 
   /**
    * creation de l'interface
@@ -271,17 +268,20 @@ class POI {
           const id = this.layers[i].id;
           if (id !== "POI OSM isochrone") {
             if (!el.checked) {
-              this.map.setFilter(id, this.map.getFilter(id).concat([filter]));
-            } else {
               let index = -1;
               const currentFilters = this.map.getFilter(id);
-              for (let i = 0; i < currentFilters.length; i++) {
-                if (JSON.stringify(filter) === JSON.stringify(currentFilters[i])) {
+              const currentAnyFilters = currentFilters[currentFilters.length - 1];
+              for (let i = 0; i < currentAnyFilters.length; i++) {
+                if (JSON.stringify(filter) === JSON.stringify(currentAnyFilters[i])) {
                   index = i;
                   break;
                 }
               }
-              currentFilters.splice(index, 1);
+              currentAnyFilters.splice(index, 1);
+              this.map.setFilter(id, currentFilters);
+            } else {
+              const currentFilters = this.map.getFilter(id);
+              currentFilters[currentFilters.length - 1] = currentFilters[currentFilters.length - 1].concat([filter]);
               this.map.setFilter(id, currentFilters);
             }
           }

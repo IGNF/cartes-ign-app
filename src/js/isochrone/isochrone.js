@@ -72,6 +72,7 @@ class Isochrone {
     this.poi = this.#hasLayerPoi();
     // filtre spécifique d'affichage des POI
     this.filter = null;
+    this.previousFilters = {};
 
     this.#addSourcesAndLayers();
 
@@ -301,15 +302,23 @@ class Isochrone {
       LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM isochrone", true);
       this.filter = ["all"];
       this.poi.ids.forEach( (id) => {
+        // Sauvegarde de l'état des filtres initiaux
+        if (!this.previousFilters[id]) {
+          this.previousFilters[id] = this.map.getFilter(id);
+        }
         if (!settings.showPoisOutside) {
           this.filter.push(["within", this.polygon]);
         }
+        const anyFilter = ["any"];
         for (const [category, checked] of Object.entries(settings.poisToDisplay)) {
-          if (!checked) {
-            this.filter.push(this.poi.filters[category]);
+          if (checked) {
+            anyFilter.push(this.poi.filters[category]);
           }
         }
-        this.map.setFilter(id, this.map.getFilter(id).concat([this.filter]));
+        this.filter.push(anyFilter);
+        const currentFilter = this.map.getFilter(id);
+        currentFilter[currentFilter.length - 1] = this.filter;
+        this.map.setFilter(id, currentFilter);
       });
     }
 
@@ -394,19 +403,11 @@ class Isochrone {
     this.center = null;
     if (this.filter) {
       this.poi.ids.forEach( (id) => {
-        let index = -1;
-        const currentFilters = this.map.getFilter(id);
-        for (let i = 0; i < currentFilters.length; i++) {
-          if (JSON.stringify(this.filter) === JSON.stringify(currentFilters[i])) {
-            index = i;
-            break;
-          }
-        }
-        currentFilters.splice(index, 1);
-        this.map.setFilter(id, currentFilters);
+        this.map.setFilter(id, this.previousFilters[id]);
       });
     }
     this.filter = null;
+    this.previousFilters = {};
     if (Globals.searchResultMarker != null) {
       Globals.searchResultMarker.remove();
       Globals.searchResultMarker = null;
