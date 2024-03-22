@@ -126,11 +126,11 @@ function addListeners() {
       DOM.$bottomButtons.style.removeProperty("left");
       DOM.$bottomButtons.style.removeProperty("width");
       if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$bottomButtons.style.bottom = "calc(72px + 142px + var(--safe-area-inset-bottom))";
+        DOM.$bottomButtons.style.bottom = "calc(72px + 112px + var(--safe-area-inset-bottom))";
       } else {
         DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
         DOM.$bottomButtons.style.width = "auto";
-        DOM.$bottomButtons.style.bottom = "calc(142px + var(--safe-area-inset-bottom))";
+        DOM.$bottomButtons.style.bottom = "calc(112px + var(--safe-area-inset-bottom))";
       }
     }
     if (["selectOnMapDirections", "selectOnMapIsochrone", "selectOnMapLandmark", "compare"].includes(Globals.backButtonState)) {

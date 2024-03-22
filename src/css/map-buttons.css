@@ -22,7 +22,7 @@
 
 #bottomButtons {
   position: absolute;
-  bottom: calc(72px + 42px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
+  bottom: calc(72px + 12px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
   width: 100vw;
 }
 
@@ -350,7 +350,7 @@
 
   #bottomButtons {
     position: fixed;
-    bottom: calc(42px);
+    bottom: calc(12px);
     width: calc(100vw - 75px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
     right: var(--safe-area-inset-right);
     z-index: 2500;
