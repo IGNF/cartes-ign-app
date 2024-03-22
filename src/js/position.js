@@ -6,6 +6,8 @@ import Globals from "./globals";
 import DomUtils from "./utils/dom-utils";
 import { Share } from "@capacitor/share";
 
+import LoadingDark from "../css/assets/loading-darkgrey.svg";
+
 /**
  * Permet d'afficher ma position sur la carte
  * avec quelques informations utiles (adresse, lat/lon, elevation, ...)
@@ -79,7 +81,7 @@ class Position {
     var address = this.address;
     var latitude = this.coordinates.lat;
     var longitude = this.coordinates.lon;
-    var altitude = this.elevation.toLocaleString();
+    var altitudeHtml = `<img src="${LoadingDark}" height="12px">`;
     var templateAddress;
 
     // adresse disponible
@@ -102,20 +104,8 @@ class Position {
       this.name = `${latitude}, ${longitude}`;
     }
 
+    this.#setShareContent(latitude, longitude);
     // template litteral
-    let trueHeader = "";
-    if (this.header.includes("landmarkSummaryIcon")) {
-      trueHeader = DomUtils.stringToHTML(this.header.trim()).innerText.trim();
-    } else if (this.header.includes("divLegendDescription")) {
-      trueHeader = DomUtils.stringToHTML(this.header.trim()).querySelector(".divLegendDescription").innerHTML.trim().replace("<br>", "\n");
-    }
-    this.shareContent = `${trueHeader ? trueHeader : this.header}
-${this.name}
-Latitude : ${latitude}
-Longitude : ${longitude}
-Altitude : ${altitude} m
-        `;
-
     var htmlButtons = `
       <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
       <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
@@ -160,7 +150,7 @@ Altitude : ${altitude} m
             <div class="divPositionCoord fontLight">
                 <p class="lblPositionCoord">Latitude : ${latitude}</p>
                 <p class="lblPositionCoord">Longitude : ${longitude}</p>
-                <p class="lblPositionCoord">Altitude : ${altitude}m</p>
+                <p class="lblPositionCoord">Altitude : <span id="positionAltitudeSpan">${altitudeHtml}</span> m</p>
             </div>
             ${this.additionalHtml}
         </div>
@@ -322,15 +312,6 @@ Altitude : ${altitude} m
       console.warn(`Error when fetching reverse: ${err}`);
     }
 
-    try {
-      await Elevation.compute(position.coordinates);
-    } catch(err) {
-      if (err.name === "AbortError") {
-        return;
-      }
-      console.warn(`Error when fetching elevation: ${err}`);
-    }
-
     this.coordinates = position.coordinates;
     this.address = Reverse.getAddress() || {
       number: "",
@@ -338,8 +319,40 @@ Altitude : ${altitude} m
       postcode: "",
       city: ""
     };
-    this.elevation = Elevation.getElevation();
+
     this.#render();
+    Elevation.compute(position.coordinates).then( () => {
+      this.elevation = Elevation.getElevation();
+      this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation.toLocaleString());
+      document.getElementById("positionAltitudeSpan").innerText = this.elevation.toLocaleString();
+    }).catch( (err) => {
+      if (err.name === "AbortError") {
+        return;
+      }
+      console.warn(`Error when fetching elevation: ${err}`);
+      this.elevation = "?";
+      this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation);
+      document.getElementById("positionAltitudeSpan").innerText = this.elevation;
+    });
+  }
+
+  #setShareContent(latitude, longitude, altitude = "") {
+    let trueHeader = "";
+    if (this.header.includes("landmarkSummaryIcon")) {
+      trueHeader = DomUtils.stringToHTML(this.header.trim()).innerText.trim();
+    } else if (this.header.includes("divLegendDescription")) {
+      trueHeader = DomUtils.stringToHTML(this.header.trim()).querySelector(".divLegendDescription").innerHTML.trim().replace("<br>", "\n");
+    }
+    var altitudeText = "";
+    if (altitude !== "") {
+      altitudeText = `
+Altitude : ${altitude} m`
+    }
+
+    this.shareContent = `${trueHeader ? trueHeader : this.header}
+${this.name}
+Latitude : ${latitude}
+Longitude : ${longitude}${altitudeText}`;
   }
 
   /**
