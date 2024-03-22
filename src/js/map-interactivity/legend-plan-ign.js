@@ -11,11 +11,13 @@ function beautifyLayerName(feature, source) {
     let symbo = Object.hasOwnProperty.call(feature.properties, "symbo") ? feature.properties.symbo : "";
     if (texte)
       legend.push(texte);
-    if(symbo && featureRule.length > 0) {
+    if (symbo && featureRule.length > 0) {
       symbo = Object.hasOwnProperty.call(featureRule[0], "libelle") ? featureRule[0].libelle : symbo;
-      legend.push(symbo);
+      legend.push(`<p class="positionSubTitle">${symbo} - Données OpenStreetMap</p>`);
+    } else {
+      legend.push(`<p class="positionSubTitle">Données OpenStreetMap</p>`)
     }
-    return legend.join("<br/>");
+    return legend.join("");
   }
   // PLAN IGN
   else {
@@ -198,7 +200,7 @@ function Legend(features, zoom) {
 
   // Légende pour POI
   if (source == "poi_osm") {
-    let featurePOI = features.filter(feat => { 
+    let featurePOI = features.filter(feat => {
       if (source == "poi_osm" && feat.source == "poi_osm") return feat;
     })
       .map(feat => {
@@ -230,15 +232,15 @@ function Legend(features, zoom) {
         if (feat.layer.type == "symbol" && !Object.hasOwnProperty.call(feat.layer.layout, "icon-image")) return;
         // les aplats zone bati ne sont jamais représentés dans la bdtopo
         if (feat.layer.id == "zone batie") return;
-        
+
         // Exceptions à la règle suivante qui évite les désynchronisations
         if (feat.sourceLayer == "toponyme_bati_ponc" && FeaturesBDTOPO[0].sourceLayer == "equipement_de_transport") return feat;
-        if (feat.sourceLayer == "bati_ponc" 
+        if (feat.sourceLayer == "bati_ponc"
             && ["construction_ponctuelle", "detail_hydrographique"].some(name => FeaturesBDTOPO[0].sourceLayer == name)) return feat;
 
         // pour éviter les désynchronisation Bdtopo PLANIGN  on prend feature de plan ign si correspond au type de feature bdtopo sélectionnée.
         if (feat.layer.type != FeaturesBDTOPO[0].layer.type) return;
-        
+
         return feat;
       }
     }

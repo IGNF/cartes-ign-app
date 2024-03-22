@@ -10,7 +10,6 @@
 #layerManagerWindow,
 #poiWindow,
 #routeDrawWindow {
-  margin-top: 10px;
   position: relative;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;

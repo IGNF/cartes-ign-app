@@ -11,19 +11,13 @@
   line-height: normal;
 }
 
-#positionContainer a {
-  color: #26A581;
-  font-family: "Open Sans";
-}
-
 /*
  * titre
  */
 .divPositionTitle {
   text-align: left;
   font-size: large;
-  margin: 10px;
-  padding-bottom: 10px;
+  margin: 0 10px 12px 10px;
 }
 
 /*
@@ -39,13 +33,13 @@
 }
 
 .lblPositionImgAddress {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   background-repeat: no-repeat;
   background-image: url("assets/directions/point-start.svg");
-  background-size: 24px;
+  background-size: 28px;
   background-position: center;
-  margin-right: 5px;
+  margin-right: 8px;
 }
 
 .divPositionSectionAddress {
@@ -151,12 +145,9 @@
  * coordonnées
  */
 .divPositionCoord {
-  margin: 10px 0;
-  padding-bottom: 10px;
-}
-
-.divPositionCoord p {
-  margin: 10px 0;
+  margin: 0;
+  color: #788089;
+  font-size: 11px;
 }
 
 .lblPositionCoord {}
@@ -229,4 +220,42 @@
   margin-bottom: auto;
   margin-top: auto;
   margin-left: 10px;
+}
+
+.divLegendDescription .positionSubTitle {
+  font-family: "Open Sans";
+  font-size: 11px;
+  color: #788089;
+  margin: 0;
+}
+
+.positionHtmlBefore {
+  font-family: "Open Sans";
+  line-height: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #DDE1E6;
+}
+
+.positionInfo {
+  font-family: "Open Sans";
+  padding-left: 50px;
+  background-repeat: no-repeat;
+  background-position: 0;
+}
+
+.positionInfo a {
+  color: #3F4A55;
+  text-decoration: underline;
+}
+
+.positionHours {
+  background-image: url("assets/horaire.svg");
+}
+
+.positionWeb {
+  background-image: url("assets/web.svg");
+}
+
+.positionTelephone {
+  background-image: url("assets/telephone.svg");
 }

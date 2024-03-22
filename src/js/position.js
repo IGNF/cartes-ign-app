@@ -53,7 +53,10 @@ class Position {
     this.header = "";
 
     // HTML additionnel (pour le GFI)
-    this.additionalHtml = "";
+    this.additionalHtml = {
+      beforeButtons: "",
+      afterButtons: ""
+    };
 
     // dom de l'interface
     this.container = null;
@@ -81,7 +84,7 @@ class Position {
     var address = this.address;
     var latitude = this.coordinates.lat;
     var longitude = this.coordinates.lon;
-    var altitudeHtml = `<img src="${LoadingDark}" height="12px">`;
+    var altitudeHtml = `<img src="${LoadingDark}" height="8px">`;
     var templateAddress;
 
     // adresse disponible
@@ -142,17 +145,16 @@ class Position {
                 <label class="lblPositionImgAddress"></label>
                 <div class="divPositionSectionAddress fontLight">
                   ${templateAddress}
+                  <div class="divPositionCoord fontLight">
+                    (${latitude}, ${longitude}) - Alt : <span id="positionAltitudeSpan">${altitudeHtml}</span> m
+                  </div>
                 </div>
             </div>
+            ${this.additionalHtml.beforeButtons}
             <div class="divPositionButtons">
                 ${htmlButtons}
             </div>
-            <div class="divPositionCoord fontLight">
-                <p class="lblPositionCoord">Latitude : ${latitude}</p>
-                <p class="lblPositionCoord">Longitude : ${longitude}</p>
-                <p class="lblPositionCoord">Altitude : <span id="positionAltitudeSpan">${altitudeHtml}</span> m</p>
-            </div>
-            ${this.additionalHtml}
+            ${this.additionalHtml.afterButtons}
         </div>
         `;
 
@@ -283,7 +285,7 @@ class Position {
    * @param {maplibregl.LngLat} lngLat position en paramètre, false si "Ma Position"
    * @public
    */
-  async compute(lngLat = false, text = "Repère placé", html = "") {
+  async compute(lngLat = false, text = "Repère placé", html = "", html2 = "") {
     this.clear();
     let position;
     if (lngLat === false) {
@@ -299,7 +301,8 @@ class Position {
     }
 
     this.header = position.text;
-    this.additionalHtml = html;
+    this.additionalHtml.beforeButtons = html;
+    this.additionalHtml.afterButtons = html2;
     try {
       await Reverse.compute({
         lat: position.coordinates.lat,
@@ -399,6 +402,10 @@ Longitude : ${longitude}${altitudeText}`;
       Globals.searchResultMarker.remove();
       Globals.searchResultMarker = null;
     }
+    this.additionalHtml = {
+      beforeButtons: "",
+      afterButtons: ""
+    };
   }
 
 }

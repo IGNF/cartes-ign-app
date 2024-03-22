@@ -87,7 +87,7 @@ class MapInteractivity {
     if (features.length > 0 && (features[0].source === "bdtopo" || features[0].source === "poi_osm")) {
       featureHTML = featurePropertyFilter(features[0]);
       if (features[0].source === "poi_osm") {
-        Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML).then(() => {
+        Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML.before, featureHTML.after).then(() => {
           Globals.menu.open("position");
         });
         this.map.once("click", this.handleInfoOnMap);
@@ -132,7 +132,7 @@ class MapInteractivity {
         } catch (e) {
           console.warn(e);
         }
-        await Globals.position.compute(ev.lngLat, resp.title, resp.html);
+        await Globals.position.compute(ev.lngLat, resp.title, resp.html, resp.html2);
         Globals.menu.open("position");
         this.map.once("click", this.handleInfoOnMap);
         return;
@@ -140,7 +140,7 @@ class MapInteractivity {
         this.loading = false;
         if (featureHTML !== null) {
           this.#clearSources();
-          await Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML);
+          await Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML.before, featureHTML.after);
           Globals.menu.open("position");
           this.selectedCleabs = features[0].properties.cleabs;
           this.selectedFeatureType = features[0].geometry.type;

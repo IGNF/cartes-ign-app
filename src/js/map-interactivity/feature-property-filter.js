@@ -17,20 +17,25 @@ const getProperty = (feature, prop) => {
 };
 
 const featurePropertyFilter = (feature) => {
-  let result = [];
+  let result = {
+    before: "<div class='positionHtmlBefore'>",
+    after: "<div class='positionHtmlAfter'>",
+  };
   if (feature.source === "poi_osm") {
     let web =  getProperty(feature, "web");
     let telephone = getProperty(feature, "telephone");
     let horaire = getProperty(feature, "horaire");
+    if (horaire) {
+      result.after += `<p class="positionHours positionInfo">Horaire : ${horaire}</p>`;
+    }
     if (web) {
-      result += `Site web : <a href="${web}" target="_blank">${web}</a>  <br/>`;
+      result.after += `<p class="positionWeb positionInfo"><a href="${web}" target="_blank">${web}</a></p>`;
     }
     if (telephone) {
-      result += `Téléphone : <a href="tel:${telephone.replace(/\s/g, "")}">${telephone}</a>  <br/>`;
+      result.after += `<p class="positionTelephone positionInfo"><a href="tel:${telephone.replace(/\s/g, "")}">${telephone}</a></p>`;
     }
-    if (horaire) {
-      result += `Horaire : ${horaire} <br/>`;
-    }
+    result.after += "</div>"
+    result.before = "";
     return result;
   }
 
@@ -45,14 +50,16 @@ const featurePropertyFilter = (feature) => {
   if(feature.layer["source-layer"] == "reservoir") {
     let volume = getProperty(feature, "volume");
     if (hauteur) {
-      result += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
+      result.before += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
     }
     if (volume) {
-      result = `Volume : ${volume.toLocaleString("fr-FR")} m3 <br/>`;
+      result.before = `Volume : ${volume.toLocaleString("fr-FR")} m3 <br/>`;
     }
+    result.before += "</div>"
+    result.after = "";
     return result;
   }
-  
+
   // Propriétés spécifiques troncon_de_route
   if(feature.layer["source-layer"] == "troncon_de_route") {
     let cpx_classement_administratif = getProperty(feature, "cpx_classement_administratif");
@@ -67,29 +74,30 @@ const featurePropertyFilter = (feature) => {
     var routeName = `${cpx_classement_administratif} ${cpx_numero} ${cpx_toponyme_route_nommee}`;
     routeName = routeName.trim();
     if (routeName) {
-      result += routeName + "<br/>";
+      result.before += routeName + "<br/>";
     }
     else {
       if (nature && natureRouteToDisplay.includes(nature))
-        result += `${nature}  <br/>`;
+        result.before += `${nature}<br/>`;
     }
     if (cpx_toponyme_voie_verte)
-      result += `${cpx_toponyme_voie_verte} <br/>`;
+      result.before += `${cpx_toponyme_voie_verte}<br/>`;
     if (cpx_toponyme_itineraire_cyclable)
-      result += `${cpx_toponyme_itineraire_cyclable} <br/>`;
+      result.before += `${cpx_toponyme_itineraire_cyclable}<br/>`;
     if (nombre_de_voies) {
       if (nombre_de_voies == "1")
-        result += `${nombre_de_voies} voie <br/>`;
+        result.before += `${nombre_de_voies} voie<br/>`;
       else
-        result += `${nombre_de_voies} voies <br/>`;
+        result.before += `${nombre_de_voies} voies<br/>`;
     }
     if (voie_prive) {
-      result += "Voie privée <br/>";
+      result.before += "Voie privée<br/>";
     }
     if (acces_pieton) {
-      result += `Accès piéton : ${acces_pieton} <br/>`;
-    } 
-
+      result.before += `Accès piéton : ${acces_pieton}<br/>`;
+    }
+    result.before += "</div>"
+    result.after = "";
     return result;
   }
 
@@ -101,52 +109,56 @@ const featurePropertyFilter = (feature) => {
     let date_d_apparition = getProperty(feature, "date_d_apparition");
 
     if(nature && !isIndifferencie(nature)) {
-      result += `${nature}  <br/>`;
+      result.before += `${nature}<br/>`;
     }
     if(usage && !isIndifferencie(usage)) {
-      result += `Usage : ${usage}  <br/>`;
+      result.before += `Usage : ${usage}<br/>`;
     }
     if(nombre_de_logements) {
-      result += `Nombre de logements : ${nombre_de_logements}  <br/>`;
+      result.before += `Nombre de logements : ${nombre_de_logements}<br/>`;
     }
     if(nombre_d_etages && nombre_d_etages != "0") {
-      result += `Nombre d'étages : ${nombre_d_etages}  <br/>`;
+      result.before += `Nombre d'étages : ${nombre_d_etages}<br/>`;
     }
     if(date_d_apparition) {
       let match = date_d_apparition.match("([0-9]+)/");
       let year = match[1] ? match[1] : "";
-      result += `Année de construction : ${year}  <br/>`;
+      result.before += `Année de construction : ${year}<br/>`;
     }
     if(hauteur) {
-      result += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
+      result.before += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres<br/>`;
     }
-
+    result.before += "</div>"
+    result.after = "";
     return result;
   }
 
   if (feature.layer["source-layer"] != "construction_ponctuelle") {
     if (nature) {
-      result += `${nature}  <br/>`;
+      result.before += `${nature}<br/>`;
     }
     if (hauteur) {
-      result += `Hauteur : ${feature.properties.hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
+      result.before += `Hauteur : ${feature.properties.hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
     }
+    result.before += "</div>"
+    result.after = "";
     return result;
   }
 
 
   // pour toutes les couches qui restent
   if (toponyme) {
-    result += toponyme + "<br/>";
+    result.before += toponyme + "<br/>";
   }
   if (nature && nature_detaillee) {
-    result += nature + ", " + nature_detaillee + "<br/>";
+    result.before += nature + ", " + nature_detaillee + "<br/>";
   }
   else if (nature && !nature_detaillee) {
-    result += nature + "<br/>";
+    result.before += nature + "<br/>";
   }
-  
-  
+
+  result.before += "</div>"
+  result.after = "";
   return result;
 };
 
