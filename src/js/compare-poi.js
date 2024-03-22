@@ -163,7 +163,7 @@ class ComparePoi {
       layout: {
         "icon-anchor": "bottom",
         "icon-image": "comparePoiIcon",
-        "icon-size": 0.75,
+        "icon-size": 0.5,
       }
     });
   }

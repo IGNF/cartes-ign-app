@@ -201,7 +201,7 @@ class POI {
                     ${strPOIThematics}
                 </div>
                 <div class="divPOIDisplayGoBackTime">
-                  <span>POI remonter le temps</span>
+                  <span>Afficher les points illustrant la transformation du territoire</span>
                   <label class="toggleSwitch">
                     <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox" ${rltChecked}>
                     <span class="toggleSlider"></span>

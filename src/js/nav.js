@@ -229,7 +229,7 @@ class MenuNavigation {
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
-      Globals.currentScrollIndex = 1;
+      Globals.currentScrollIndex = 2;
       break;
     case "layerManager":
       Globals.backButtonState = "layerManager-" + previousBackState;

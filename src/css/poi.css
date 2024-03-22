@@ -23,14 +23,22 @@
     width: 100%;
 }
 
-
 .divPOIDisplay > span,
 .divPOIDisplayGoBackTime > span {
     max-width: 50%;
     white-space: wrap;
     text-align: left;
-  }
+    font-family: "Open Sans Semibold";
+}
 
+.divPOIDisplayGoBackTime > span {
+    padding-left: 40px;
+    max-width: 65%;
+    background-image: url("assets/comparePoi.svg");
+    background-repeat: no-repeat;
+    background-size: 1.8em;
+    background-position: 3px;
+}
 
 .divPOIFilterItems {
     display: flex;

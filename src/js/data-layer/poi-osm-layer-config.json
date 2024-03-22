@@ -71,7 +71,7 @@
     },
     {
         "id": "culture_sports_loisirs",
-        "name": "Culture , Sports et Loisirs",
+        "name": "Culture, Sports et Loisirs",
         "visible": true,
         "filters": [{
             "field": "symbo",

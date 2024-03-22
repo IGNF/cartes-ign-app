@@ -290,7 +290,7 @@
   background-position: center;
   position: fixed;
   left: calc(50vw - 25px);
-  top: calc((100vh - 52px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px))/2 - 25px);
+  top: calc((100vh - 52px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px))/2 - 50px);
   pointer-events: none;
 }
 
