@@ -942,7 +942,7 @@
       "source": "plan_ign",
       "source-layer": "oro_lin",
       "minzoom": 14,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -968,7 +968,7 @@
       "source": "plan_ign",
       "source-layer": "oro_lin",
       "minzoom": 14,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -1226,7 +1226,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "hydro_reseau_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -1267,7 +1267,7 @@
       "source": "plan_ign",
       "source-layer": "hydro_reseau_sou",
       "minzoom": 12,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -1354,7 +1354,7 @@
       "source": "plan_ign",
       "source-layer": "ferre_sou",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "ferre_souterrain",
         "legend-title": "Voie ferrée souterraine"
@@ -1399,7 +1399,7 @@
       "source": "plan_ign",
       "source-layer": "ferre_sou",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "ferre_souterrain",
         "legend-title": "Voie ferrée souterraine"
@@ -1448,7 +1448,7 @@
       "source": "plan_ign",
       "source-layer": "ferre_sou",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "ferre_souterrain_etroit",
         "legend-title": "Voie ferrée étroite souterraine"
@@ -1487,7 +1487,7 @@
       "source": "plan_ign",
       "source-layer": "ferre_sou",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "ferre_souterrain_etroit",
         "legend-title": "Voie ferrée souterraine"
@@ -1530,7 +1530,7 @@
       "source": "plan_ign",
       "source-layer": "ferre_sou",
       "minzoom": 14,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1572,7 +1572,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "ferre_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "ferre_souterrain_funic",
         "legend-title": "Funiculaire - Transport urbain souterrain"
@@ -1609,7 +1609,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "ferre_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "ferre_souterrain_funic",
         "legend-title": "Funiculaire - Transport urbain souterrain"
@@ -1653,7 +1653,7 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1701,7 +1701,7 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 14,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "chemin_souterrain_escalier",
         "legend-title": "Escalier souterrain"
@@ -1746,7 +1746,7 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 14,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "chemin_souterrain_escalier",
         "legend-title": "Escalier souterrain"
@@ -1795,7 +1795,7 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 14,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1843,7 +1843,7 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1891,7 +1891,7 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 12,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1934,7 +1934,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "route_souterrain_non_revetu_carrossable",
         "legend-title": "Route non revêtue carrossable souterraine"
@@ -1982,7 +1982,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "route_souterrain_non_revetu_carrossable",
         "legend-title": "Route non revêtue carrossable souterraine"
@@ -2027,7 +2027,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 12,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2081,7 +2081,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 12,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2134,7 +2134,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2178,7 +2178,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2222,7 +2222,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2267,7 +2267,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2312,7 +2312,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2364,7 +2364,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2417,7 +2417,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 11,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2466,7 +2466,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 11,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -2528,7 +2528,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2584,7 +2584,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2641,7 +2641,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2694,7 +2694,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -2765,7 +2765,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 7,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2821,7 +2821,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2882,7 +2882,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2935,7 +2935,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -3004,7 +3004,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 7,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3057,7 +3057,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3115,7 +3115,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3165,7 +3165,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3218,7 +3218,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -3287,7 +3287,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -4350,7 +4350,7 @@
       "source": "plan_ign",
       "source-layer": "bati_zai",
       "minzoom": 15,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible"
       },
@@ -4592,15 +4592,7 @@
         "PISTE_CYCLABLE"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#9B5CCC",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#9B5CCC",
         "line-width": {
           "stops": [
             [
@@ -4810,15 +4802,7 @@
         "SENTIER"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#8C7274",
         "line-width": {
           "stops": [
             [
@@ -4869,15 +4853,7 @@
         "CHEMIN"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#8C7274",
         "line-width": {
           "stops": [
             [
@@ -4912,7 +4888,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5039,9 +5015,7 @@
           ],
           "#DE460E",
           17,
-          "#F18800",
-          18,
-          "#FFFFFF"
+          "#F18800"
         ],
         "line-width": {
           "stops": [
@@ -5079,7 +5053,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 12,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5151,15 +5125,7 @@
         "NON_CLASSEE_RESTREINT"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#969696",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#969696",
         "line-width": {
           "stops": [
             [
@@ -5191,7 +5157,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5247,15 +5213,7 @@
         "NON_CLASSEE"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#969696",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#969696",
         "line-width": {
           "stops": [
             [
@@ -5287,7 +5245,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5357,9 +5315,7 @@
           13,
           "#B4B4B4",
           17,
-          "#B4B4B4",
-          18,
-          "#FFFFFF"
+          "#B4B4B4"
         ],
         "line-width": {
           "stops": [
@@ -5396,7 +5352,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5463,7 +5419,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 11,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5600,9 +5556,7 @@
           10,
           "#B4B4B4",
           17,
-          "#B4B4B4",
-          18,
-          "#FFFFFF"
+          "#B4B4B4"
         ],
         "line-width": {
           "stops": [
@@ -5643,7 +5597,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5718,7 +5672,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5858,15 +5812,7 @@
         "PRINCIPALE_1"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#E2A52A",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#E2A52A",
         "line-width": {
           "stops": [
             [
@@ -5906,7 +5852,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5979,7 +5925,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6125,9 +6071,7 @@
           ],
           "#DE460E",
           17,
-          "#F18800",
-          18,
-          "#FFFFFF"
+          "#F18800"
         ],
         "line-width": {
           "stops": [
@@ -6164,7 +6108,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "routier_a_niveau_autoroute",
         "legend-title": "Autoroute"
@@ -6230,7 +6174,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "routier_a_niveau_autoroute",
         "legend-title": "Autoroute"
@@ -6280,7 +6224,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 8,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6403,7 +6347,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6664,7 +6608,7 @@
       "source": "plan_ign",
       "source-layer": "ferre",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6705,7 +6649,7 @@
       "source": "plan_ign",
       "source-layer": "ferre",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -6824,7 +6768,7 @@
       "source": "plan_ign",
       "source-layer": "routier_liaison",
       "minzoom": 8,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6879,9 +6823,7 @@
           ],
           "#BEBEBE",
           17,
-          "#646464",
-          18,
-          "#FFFFFF"
+          "#646464"
         ],
         "line-width": {
           "stops": [
@@ -6913,7 +6855,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_liaison",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -6977,15 +6919,7 @@
         "PONT_MOBILE_LIN"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#C8C8C8",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#C8C8C8",
         "line-width": {
           "stops": [
             [
@@ -7017,7 +6951,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_liaison",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -7084,7 +7018,7 @@
       "type": "fill",
       "source": "plan_ign",
       "source-layer": "routier_surf",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible"
       },
@@ -7107,7 +7041,7 @@
       "type": "fill",
       "source": "plan_ign",
       "source-layer": "routier_surf",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible"
       },
@@ -7130,7 +7064,7 @@
       "type": "fill",
       "source": "plan_ign",
       "source-layer": "routier_surf",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible"
       },
@@ -7337,15 +7271,7 @@
         "PISTE_CYCLABLE_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#9B5CCC",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#9B5CCC",
         "line-width": {
           "stops": [
             [
@@ -7555,15 +7481,7 @@
         "SENTIER_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#8C7274",
         "line-width": {
           "stops": [
             [
@@ -7614,15 +7532,7 @@
         "CHEMIN_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#8C7274",
         "line-width": {
           "stops": [
             [
@@ -7657,7 +7567,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -7784,9 +7694,7 @@
           ],
           "#DE460E",
           17,
-          "#F18800",
-          18,
-          "#FFFFFF"
+          "#F18800"
         ],
         "line-width": {
           "stops": [
@@ -7824,7 +7732,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 12,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -7896,15 +7804,7 @@
         "NON_CLASSEE_RESTREINT_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#969696",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#969696",
         "line-width": {
           "stops": [
             [
@@ -7936,7 +7836,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -7992,15 +7892,7 @@
         "NON_CLASSEE_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#969696",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#969696",
         "line-width": {
           "stops": [
             [
@@ -8032,7 +7924,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8101,9 +7993,7 @@
           13,
           "#B4B4B4",
           17,
-          "#B4B4B4",
-          18,
-          "#FFFFFF"
+          "#B4B4B4"
         ],
         "line-width": {
           "stops": [
@@ -8140,7 +8030,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8203,7 +8093,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 11,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8252,7 +8142,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 11,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8339,9 +8229,7 @@
           10,
           "#B4B4B4",
           17,
-          "#B4B4B4",
-          18,
-          "#FFFFFF"
+          "#B4B4B4"
         ],
         "line-width": {
           "stops": [
@@ -8382,7 +8270,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8449,7 +8337,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8502,7 +8390,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8584,15 +8472,7 @@
         "PRINCIPALE_1_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#E2A52A",
-          18,
-          "#FFFFFF"
-        ],
+        "line-color": "#E2A52A",
         "line-width": {
           "stops": [
             [
@@ -8632,7 +8512,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8701,7 +8581,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8754,7 +8634,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8842,9 +8722,7 @@
           ],
           "#DE460E",
           17,
-          "#F18800",
-          18,
-          "#FFFFFF"
+          "#F18800"
         ],
         "line-width": {
           "stops": [
@@ -8881,7 +8759,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "routier_superieur_autoroute",
         "legend-title": "Autoroute"
@@ -8947,7 +8825,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "metadata": {
         "legend-group": "routier_superieur_autoroute",
         "legend-title": "Autoroute"
@@ -8997,7 +8875,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9050,7 +8928,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9119,7 +8997,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9380,7 +9258,7 @@
       "source": "plan_ign",
       "source-layer": "ferre_sup",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -9421,7 +9299,7 @@
       "source": "plan_ign",
       "source-layer": "ferre_sup",
       "minzoom": 10,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9578,7 +9456,7 @@
       "source": "plan_ign",
       "source-layer": "limite_lin",
       "minzoom": 14,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -9668,7 +9546,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "limite_lin",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9873,7 +9751,7 @@
       "source": "plan_ign",
       "source-layer": "limite_lin",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9913,7 +9791,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "limite_lin",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9990,7 +9868,7 @@
       "source": "plan_ign",
       "source-layer": "limite_lin",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -10074,7 +9952,7 @@
       "source": "plan_ign",
       "source-layer": "limite_lin",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -10154,7 +10032,7 @@
       "source": "plan_ign",
       "source-layer": "limite_lin",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -11517,7 +11395,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_borne",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "symbo",
@@ -11562,7 +11440,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_borne",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "symbo",
@@ -11602,7 +11480,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_borne",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "symbo",
@@ -11647,7 +11525,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_borne",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "symbo",
@@ -11690,7 +11568,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_borne",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "symbo",
@@ -11734,7 +11612,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_borne",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "symbo",
@@ -11779,7 +11657,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_borne",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "symbo",
@@ -11819,7 +11697,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_borne",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "symbo",
@@ -11864,7 +11742,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_borne",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "symbo",
@@ -11907,7 +11785,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_borne",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "symbo",
@@ -12044,7 +11922,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_liaison_lin",
       "minzoom": 8,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "in",
         "txt_typo",
@@ -13393,7 +13271,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 17,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "all",
         [
@@ -13442,7 +13320,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 16,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "all",
         [
@@ -13490,7 +13368,7 @@
       "type": "symbol",
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "==",
         "txt_typo",
@@ -14232,7 +14110,7 @@
       "type": "symbol",
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "==",
         "txt_typo",
@@ -14273,7 +14151,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "all",
         [
@@ -14804,7 +14682,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "all",
         [
@@ -14858,7 +14736,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "all",
         [
@@ -15472,7 +15350,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "all",
         [
@@ -15523,7 +15401,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "all",
         [
@@ -15574,7 +15452,7 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 13,
-      "maxzoom": 20,
+      "maxzoom": 22,
       "filter": [
         "all",
         [
