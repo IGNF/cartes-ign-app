@@ -2,9 +2,9 @@ const gfiRules = {
   "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@limite",
+      "subtitle": "Restrictions UAS catégorie Ouverte et Aéromodélisme - Producteur : DGAC",
       "bodyBefore": [
-        ["Limite :", "{{limite}}"],
-        ["Source des données : DGAC"]
+        ["* Sauf conditions particulières publiées à l'arrêté « espaces » du 3 décembre 2020"],
       ],
       "bodyAfter": [],
     }
@@ -12,6 +12,7 @@ const gfiRules = {
   "VILLAGESETAPE$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@toponyme",
+      "subtitle": "Village étapes - Producteur : ???",
       "bodyBefore": [
         ["Commune labellisée Village étape"],
         ["<a href=https://www.village-etape.fr/les-villages-etapes/ target=\"_blank\">Plus d’informations</a>"]
@@ -22,6 +23,7 @@ const gfiRules = {
   "POI.MUSEUM$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@toponyme",
+      "subtitle": "Musées - Producteur : ???",
       "bodyBefore": [
         ["{{nature}}"],
         ["Adresse :", "{{adresse_postale}}", "{{acheminement}}"]
@@ -32,6 +34,7 @@ const gfiRules = {
   "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@name",
+      "subtitle": "Parcs et Jardins - Producteur : ???",
       "bodyBefore": [
         ["Conservatoire des Parcs et jardins"],
         ["<a href=\"{{url}}\"",  "alt=\"{{url}}\" target=\"_blank.POI\">", "{{linkname}}</a>"],
@@ -43,18 +46,20 @@ const gfiRules = {
   "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@name",
-      "bodyBefore": [
+      "subtitle": "Monuments nationaux - Producteur : ???",
+      "bodyBefore": [],
+      "bodyAfter": [
         ["{{sstitle}}"],
         ["<img src=\"https://data.geopf.fr/annexes/ressources/poicmn/{{image}}\">"],
         ["{{image_author}}"],
         ["{{content}}"]
       ],
-      "bodyAfter": [],
     }
   },
   "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@sitename",
+      "subtitle": "Sites NATURA 2000 au titre de la Directive Oiseaux - Producteur : ???",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -64,6 +69,7 @@ const gfiRules = {
   "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
+      "subtitle": "Parcs nationaux - Producteur : ???",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -73,6 +79,7 @@ const gfiRules = {
   "PROTECTEDAREAS.PNR$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
+      "subtitle": "Parcs naturels régionaux - Producteur : ???",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -82,6 +89,7 @@ const gfiRules = {
   "PROTECTEDAREAS.RN$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
+      "subtitle": "Réserves naturelles nationales - Producteur : ???",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -91,6 +99,7 @@ const gfiRules = {
   "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
+      "subtitle": "Réserves naturelles régionales - Producteur : ???",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -100,6 +109,7 @@ const gfiRules = {
   "PROTECTEDAREAS.RNC$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
+      "subtitle": "Réserves Naturelles de Corse - Producteur : ???",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -109,6 +119,7 @@ const gfiRules = {
   "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@sitename",
+      "subtitle": "Sites Natura 2000 au titre de la Directive Habitats - Producteur : ???",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -118,11 +129,13 @@ const gfiRules = {
   "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS": {
     13: {
       "title": "@llib_frt",
+      "subtitle": "Forêts publiques - Producteur : ???",
       "bodyBefore": [],
       "bodyAfter": [],
     },
     0: {
       "title": "@llib2_frt",
+      "subtitle": "Forêts publiques - Producteur : ???",
       "bodyBefore": [],
       "bodyAfter": [],
     }
@@ -130,6 +143,7 @@ const gfiRules = {
   "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$GEOPORTAIL:OGC:WMTS":{
     0: {
       "title": "Parcelles Cadastrales",
+      "subtitle": "PCI vecteur - Producteur : DGFIP",
       "bodyBefore": [
         ["Numéro de parcelle :", "{{numero}}"],
         ["Feuille :", "{{feuille}}"],
@@ -143,6 +157,7 @@ const gfiRules = {
   "LANDUSE.AGRICULTURE2021$GEOPORTAIL:OGC:WMTS": {
     0 :{
       "title": "@nom_cultu",
+      "subtitle": "Registre parcellaire graphique 2021 - Producteur : DGFIP",
       "bodyBefore": [
         ["Registre Parcellaire Agricole 2021"]
       ],
@@ -153,54 +168,64 @@ const gfiRules = {
   "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS": {
     12: {
       "title": "@nom",
+      "subtitle": "Limites administratives mises à jour en continu - Producteur : DGFIP",
       "bodyBefore": [
         ["Commune :", "{{nom}}"],
         ["Statut :", "{{statut}}"],
         ["Code INSEE :", "{{insee_com}}"],
         ["Population : {{population}} habitants"],
         ["Département :", "{{insee_dep}}"],
-        ["<a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a></p>"]
+      ],
     },
     10: {
       "title": "@nom",
+      "subtitle": "Limites administratives mises à jour en continu - Producteur : DGFIP",
       "bodyBefore": [
         ["{{nom}}"],
         ["Nature :", "{{nature}}"],
-        ["<a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=EPCI-{{code_siren}}\">Accéder aux infos INSEE</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a></p>"]
+      ],
     },
     9: {
       "title": "@nom",
+      "subtitle": "Limites administratives mises à jour en continu - Producteur : DGFIP",
       "bodyBefore": [
         ["Arrondissement Départemental :", "{{nom}}"],
         ["Code INSEE Département :", "{{insee_dep}}"],
         ["Code INSEE Arrondissement :", "{{insee_arr}}"],
         ["Région :", "{{insee_reg}}"],
-        ["<a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=DEP-{{insee_dep}}\">Accéder aux infos INSEE</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a></p>"]
+      ],
     },
     7: {
       "title": "@nom",
+      "subtitle": "Limites administratives mises à jour en continu - Producteur : DGFIP",
       "bodyBefore": [
         ["Département :", "{{nom}}"],
         ["Code INSEE :", "{{insee_dep}}"],
         ["Région :", "{{insee_reg}}"],
-        ["<a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=DEP-{{insee_dep}}\">Accéder aux infos INSEE</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a></p>"]
+      ],
     },
     0: {
       "title": "@nom",
+      "subtitle": "Limites administratives mises à jour en continu - Producteur : DGFIP",
       "bodyBefore": [
         ["Région :", "{{nom}}"],
         ["Code INSEE :", "{{insee_reg}}"],
-        ["<a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=REG-{{insee_reg}}\">Accéder aux infos INSEE</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a></p>"]
+      ],
     },
   },
 
@@ -227,6 +252,9 @@ const gfiRules = {
     } else {
       result.title = template.title;
     }
+    if (template["subtitle"]) {
+      result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`
+    }
     let bodyBefore = "<div class='positionHtmlBefore'>";
     template.bodyBefore.forEach( (bodyElement) => {
       let p = bodyElement.map((str) => {
@@ -236,7 +264,7 @@ const gfiRules = {
         else return str;
       });
       if (p)
-      bodyBefore += `<p>${p.join(" ")}</p>`;
+        bodyBefore += `<p>${p.join(" ")}</p>`;
     });
     bodyBefore += "</div>";
 
@@ -249,7 +277,7 @@ const gfiRules = {
         else return str;
       });
       if (p)
-      bodyAfter += `<p>${p.join(" ")}</p>`;
+        bodyAfter += `<p>${p.join(" ")}</p>`;
     });
     bodyAfter += "</div>";
 

@@ -349,7 +349,7 @@ class Position {
     var altitudeText = "";
     if (altitude !== "") {
       altitudeText = `
-Altitude : ${altitude} m`
+Altitude : ${altitude} m`;
     }
 
     this.shareContent = `${trueHeader ? trueHeader : this.header}

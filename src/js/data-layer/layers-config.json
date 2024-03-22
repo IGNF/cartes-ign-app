@@ -1448,7 +1448,7 @@
     },
     "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS": {
       "name": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST",
-      "title": "Limites administratives mises à jour en continu.",
+      "title": "Limites administratives mises à jour en continu",
       "description": "Limites administratives mises à jour en continu, édition Juillet 2023",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,

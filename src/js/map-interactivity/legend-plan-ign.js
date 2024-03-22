@@ -15,7 +15,7 @@ function beautifyLayerName(feature, source) {
       symbo = Object.hasOwnProperty.call(featureRule[0], "libelle") ? featureRule[0].libelle : symbo;
       legend.push(`<p class="positionSubTitle">${symbo} - Données OpenStreetMap</p>`);
     } else {
-      legend.push(`<p class="positionSubTitle">Données OpenStreetMap</p>`)
+      legend.push("<p class=\"positionSubTitle\">Données OpenStreetMap</p>");
     }
     return legend.join("");
   }

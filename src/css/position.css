@@ -136,11 +136,6 @@
   white-space: nowrap;
 }
 
-.btnPositionButtons:hover {
-  /* background-color: white;
-    color: #26A581; */
-}
-
 /*
  * coordonnées
  */
@@ -149,9 +144,6 @@
   color: #788089;
   font-size: 11px;
 }
-
-.lblPositionCoord {}
-
 
 /*
  * popup
@@ -222,7 +214,7 @@
   margin-left: 10px;
 }
 
-.divLegendDescription .positionSubTitle {
+.positionSubTitle {
   font-family: "Open Sans";
   font-size: 11px;
   color: #788089;

@@ -34,7 +34,7 @@ const featurePropertyFilter = (feature) => {
     if (telephone) {
       result.after += `<p class="positionTelephone positionInfo"><a href="tel:${telephone.replace(/\s/g, "")}">${telephone}</a></p>`;
     }
-    result.after += "</div>"
+    result.after += "</div>";
     result.before = "";
     return result;
   }
@@ -55,7 +55,7 @@ const featurePropertyFilter = (feature) => {
     if (volume) {
       result.before = `Volume : ${volume.toLocaleString("fr-FR")} m3 <br/>`;
     }
-    result.before += "</div>"
+    result.before += "</div>";
     result.after = "";
     return result;
   }
@@ -96,7 +96,7 @@ const featurePropertyFilter = (feature) => {
     if (acces_pieton) {
       result.before += `Accès piéton : ${acces_pieton}<br/>`;
     }
-    result.before += "</div>"
+    result.before += "</div>";
     result.after = "";
     return result;
   }
@@ -128,7 +128,7 @@ const featurePropertyFilter = (feature) => {
     if(hauteur) {
       result.before += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres<br/>`;
     }
-    result.before += "</div>"
+    result.before += "</div>";
     result.after = "";
     return result;
   }
@@ -140,7 +140,7 @@ const featurePropertyFilter = (feature) => {
     if (hauteur) {
       result.before += `Hauteur : ${feature.properties.hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
     }
-    result.before += "</div>"
+    result.before += "</div>";
     result.after = "";
     return result;
   }
@@ -157,7 +157,7 @@ const featurePropertyFilter = (feature) => {
     result.before += nature + "<br/>";
   }
 
-  result.before += "</div>"
+  result.before += "</div>";
   result.after = "";
   return result;
 };
