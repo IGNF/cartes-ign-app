@@ -253,7 +253,7 @@ const gfiRules = {
       result.title = template.title;
     }
     if (template["subtitle"]) {
-      result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`
+      result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`;
     }
     let bodyBefore = "<div class='positionHtmlBefore'>";
     template.bodyBefore.forEach( (bodyElement) => {

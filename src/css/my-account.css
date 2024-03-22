@@ -50,7 +50,7 @@
 #myAccountBody {
   height: calc(100vh - 100px);
   display: grid;
-  grid-template-rows: auto auto auto 1fr;
+  grid-template-rows: auto auto 1fr;
   align-items: baseline;
 }
 
