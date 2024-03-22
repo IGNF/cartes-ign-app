@@ -51,6 +51,38 @@
             ]
         },
         {
+            "id": "POI OSM outside isochrone",
+            "type": "symbol",
+            "source": "poi_osm",
+            "source-layer": "point_interet",
+            "minzoom": 14,
+            "maxzoom": 14.5,
+            "layout": {
+                "visibility": "none",
+                "icon-image": "{symbo}_17",
+                "symbol-sort-key": [
+                    "match",
+                    ["get", "symbo"],
+                    "parking", 20,
+                    "bus_stop", 10,
+                    1
+                ]
+            },
+            "filter": [
+                "!in","symbo",
+                "divers_bleu",
+                "divers_gris",
+                "divers_magenta",
+                "divers_marron",
+                "divers_orange",
+                "divers_rouge",
+                "divers_vert",
+                "bicycle_rental",
+                "charging_station",
+                "fuel"
+            ]
+        },
+        {
             "id": "POI OSM 16et17",
             "type": "symbol",
             "source": "poi_osm",

@@ -301,23 +301,28 @@ class Isochrone {
     if (this.poi) {
       LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM isochrone", true);
       this.filter = ["all"];
+      this.filter.push(["within", this.polygon]);
+      if (settings.showPoisOutside) {
+        LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM outside isochrone", true);
+      }
+
+      const anyFilter = ["any"];
+      for (const [category, checked] of Object.entries(settings.poisToDisplay)) {
+        if (checked) {
+          anyFilter.push(this.poi.filters[category]);
+        }
+      }
+      this.filter.push(anyFilter);
       this.poi.ids.forEach( (id) => {
         // Sauvegarde de l'état des filtres initiaux
         if (!this.previousFilters[id]) {
           this.previousFilters[id] = this.map.getFilter(id);
         }
-        if (!settings.showPoisOutside) {
-          this.filter.push(["within", this.polygon]);
-        }
-        const anyFilter = ["any"];
-        for (const [category, checked] of Object.entries(settings.poisToDisplay)) {
-          if (checked) {
-            anyFilter.push(this.poi.filters[category]);
-          }
-        }
-        this.filter.push(anyFilter);
         const currentFilter = this.map.getFilter(id);
         currentFilter[currentFilter.length - 1] = this.filter;
+        if (settings.showPoisOutside && id !== "POI OSM isochrone") {
+          currentFilter[currentFilter.length - 1] = this.filter[this.filter.length - 1];
+        }
         this.map.setFilter(id, currentFilter);
       });
     }
@@ -424,6 +429,7 @@ class Isochrone {
     });
     // Retour en mode invisible pour la couche POI au bas niveaux de zoom
     LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM isochrone", false);
+    LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM outside isochrone", false);
   }
 
   /**

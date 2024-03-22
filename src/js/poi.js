@@ -266,7 +266,7 @@ class POI {
         const filter = this.filters[el.name];
         for (let i = 0; i < this.layers.length; i++) {
           const id = this.layers[i].id;
-          if (id !== "POI OSM isochrone") {
+          if (id !== "POI OSM isochrone" && id !== "POI OSM outside isochrone") {
             if (!el.checked) {
               let index = -1;
               const currentFilters = this.map.getFilter(id);
