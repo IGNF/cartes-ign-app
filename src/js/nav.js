@@ -248,7 +248,7 @@ class MenuNavigation {
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
       DOM.$backTopLeftBtn.classList.remove("d-none");
-      Globals.currentScrollIndex = 1;
+      Globals.currentScrollIndex = 2;
       break;
     case "isochrone":
       // FIXME mettre en place une méthode sur la classe Search
