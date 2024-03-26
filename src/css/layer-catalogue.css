@@ -61,7 +61,7 @@
   margin: 0;
   display: grid;
   justify-content: space-between;
-  grid-template-columns: 26% 26% 26%;
+  grid-template-columns: 30% 30% 30%;
 }
 
 #baseLayers {
