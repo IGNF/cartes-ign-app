@@ -43,6 +43,7 @@
 
 .divPositionSectionAddress {
   text-align: left;
+  font-size: 14px;
 }
 
 .lblPositionAddress {
@@ -140,7 +141,7 @@
 .divPositionCoord {
   margin: 0;
   color: #788089;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 /*
@@ -214,7 +215,7 @@
 
 .positionSubTitle {
   font-family: "Open Sans";
-  font-size: 11px;
+  font-size: 12px;
   color: #788089;
   margin: 0;
 }
@@ -222,7 +223,6 @@
 .positionHtmlBefore {
   font-family: "Open Sans";
   line-height: 20px;
-  padding-bottom: 10px;
 }
 
 .positionInfo {
@@ -230,6 +230,9 @@
   padding-left: 50px;
   background-repeat: no-repeat;
   background-position: 0;
+  height: 32px;
+  display: flex;
+  align-items: center;
 }
 
 .positionInfo a {
@@ -247,4 +250,21 @@
 
 .positionTelephone {
   background-image: url("assets/telephone.svg");
+}
+
+.monumentsHistoriquesImageAuthor {
+  font-size: 12px;
+  font-family: "Open Sans";
+  color: #788089;
+  margin-top: 3px;
+}
+
+.monumentsHistoriquesContent {
+  font-family: "Open Sans";
+}
+
+.monumentsHistoriquesContent b {
+  font-size: 14px;
+  margin-bottom: -10px;
+  display: block;
 }

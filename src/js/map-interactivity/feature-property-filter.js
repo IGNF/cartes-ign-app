@@ -29,7 +29,7 @@ const featurePropertyFilter = (feature) => {
       result.after += `<p class="positionHours positionInfo">Horaire : ${horaire}</p>`;
     }
     if (web) {
-      result.after += `<p class="positionWeb positionInfo"><a href="${web}" target="_blank">${web}</a></p>`;
+      result.after += `<p class="positionWeb positionInfo"><a href="${web}" target="_blank">Accéder au site web</a></p>`;
     }
     if (telephone) {
       result.after += `<p class="positionTelephone positionInfo"><a href="tel:${telephone.replace(/\s/g, "")}">${telephone}</a></p>`;

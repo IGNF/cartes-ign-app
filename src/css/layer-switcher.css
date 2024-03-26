@@ -62,6 +62,7 @@ div[id^="thumbnail_ID_"] {
 
 .wrap-tools-layers {
   padding-left: 10px;
+  text-align: left;
 }
 
 span[id^="landmark-title_ID_"],

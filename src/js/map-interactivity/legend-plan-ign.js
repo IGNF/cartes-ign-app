@@ -9,11 +9,15 @@ function beautifyLayerName(feature, source) {
 
     let texte = Object.hasOwnProperty.call(feature.properties, "texte") ? feature.properties.texte : "";
     let symbo = Object.hasOwnProperty.call(feature.properties, "symbo") ? feature.properties.symbo : "";
-    if (texte)
+    if (texte) {
       legend.push(texte);
+    }
     if (symbo && featureRule.length > 0) {
       symbo = Object.hasOwnProperty.call(featureRule[0], "libelle") ? featureRule[0].libelle : symbo;
-      if (symbo !== "") {
+      if (!texte) {
+        legend.push(symbo);
+      }
+      if (symbo !== "" && texte) {
         legend.push(`<p class="positionSubTitle">${symbo} - Données OpenStreetMap</p>`);
       } else {
         legend.push("<p class=\"positionSubTitle\">Données OpenStreetMap</p>");

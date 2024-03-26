@@ -13,11 +13,10 @@ const gfiRules = {
     0: {
       "title": "@toponyme",
       "subtitle": "Village étapes - Producteur : Fédération française des villages étapes",
-      "bodyBefore": [
-        ["Commune labellisée Village étape"],
-        ["<a href=https://www.village-etape.fr/les-villages-etapes/ target=\"_blank\">Plus d’informations</a>"]
+      "bodyBefore": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=https://www.village-etape.fr/les-villages-etapes/ target=\"_blank\">Accéder au site web</a></p>"]
       ],
-      "bodyAfter": [],
     }
   },
   "POI.MUSEUM$GEOPORTAIL:OGC:WMS": {
@@ -25,8 +24,6 @@ const gfiRules = {
       "title": "@toponyme",
       "subtitle": "Musées - Producteur : IGN",
       "bodyBefore": [
-        ["{{nature}}"],
-        ["Adresse :", "{{adresse_postale}}", "{{acheminement}}"]
       ],
       "bodyAfter": [],
     }
@@ -36,11 +33,11 @@ const gfiRules = {
       "title": "@name",
       "subtitle": "Parcs et Jardins - Producteur : Conservatoire des jardins et paysages",
       "bodyBefore": [
-        ["Conservatoire des Parcs et jardins"],
-        ["<a href=\"{{url}}\"",  "alt=\"{{url}}\" target=\"_blank.POI\">", "{{linkname}}</a>"],
-        ["{{infos}}"]
+        ["{{cjp}}"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\"",  "alt=\"{{url}}\" target=\"_blank.POI\">", "Accéder à la fiche</a></p>"],
+      ],
     }
   },
   "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS": {
@@ -49,10 +46,9 @@ const gfiRules = {
       "subtitle": "Monuments nationaux - Producteur : Centre des monuments nationaux",
       "bodyBefore": [],
       "bodyAfter": [
-        ["{{sstitle}}"],
         ["<img src=\"https://data.geopf.fr/annexes/ressources/poicmn/{{image}}\">"],
-        ["{{image_author}}"],
-        ["{{content}}"]
+        ["<p class=\"monumentsHistoriquesImageAuthor\">{{image_author}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">{{content}}</p>"]
       ],
     }
   },
@@ -61,9 +57,10 @@ const gfiRules = {
       "title": "@sitename",
       "subtitle": "Sites NATURA 2000 au titre de la Directive Oiseaux - Producteur : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
-        ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+      ],
     }
   },
   "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS": {
@@ -71,9 +68,10 @@ const gfiRules = {
       "title": "@nom",
       "subtitle": "Parcs nationaux - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Parcs Nationaux de France, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
-        ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+      ],
     }
   },
   "PROTECTEDAREAS.PNR$GEOPORTAIL:OGC:WMTS": {
@@ -81,9 +79,10 @@ const gfiRules = {
       "title": "@nom",
       "subtitle": "Parcs naturels régionaux - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Fédération des Parcs naturels régionaux de France, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
-        ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+      ],
     }
   },
   "PROTECTEDAREAS.RN$GEOPORTAIL:OGC:WMTS": {
@@ -91,9 +90,10 @@ const gfiRules = {
       "title": "@nom",
       "subtitle": "Réserves naturelles nationales - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Réserves naturelles de France (RNF), Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
-        ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+      ],
     }
   },
   "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$GEOPORTAIL:OGC:WMTS": {
@@ -101,9 +101,10 @@ const gfiRules = {
       "title": "@nom",
       "subtitle": "Réserves naturelles régionales - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
-        ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+      ],
     }
   },
   "PROTECTEDAREAS.RNC$GEOPORTAIL:OGC:WMTS": {
@@ -111,9 +112,10 @@ const gfiRules = {
       "title": "@nom",
       "subtitle": "Réserves Naturelles de Corse - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
-        ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+      ],
     }
   },
   "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS": {
@@ -121,9 +123,10 @@ const gfiRules = {
       "title": "@sitename",
       "subtitle": "Sites Natura 2000 au titre de la Directive Habitats - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
-        ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
-      "bodyAfter": [],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+      ],
     }
   },
   "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS": {
@@ -148,16 +151,15 @@ const gfiRules = {
         ["Numéro de parcelle :", "{{numero}}"],
         ["Feuille :", "{{feuille}}"],
         ["Section :", "{{section}}"],
-        ["Commune : {{nom_com}}"],
-        ["Département :", "{{code_dep}}"]
       ],
       "bodyAfter": [],
     }
   },
   "LANDUSE.AGRICULTURE2021$GEOPORTAIL:OGC:WMTS": {
     0 :{
+      "pretitle": "Culture : ",
       "title": "@nom_cultu",
-      "subtitle": "Registre parcellaire graphique 2021 - Producteur : DGFIP",
+      "subtitle": "Registre parcellaire graphique 2021 - Producteur : Agence de services et de paiements (ASP)",
       "bodyBefore": [
         ["Registre Parcellaire Agricole 2021"]
       ],
@@ -168,63 +170,55 @@ const gfiRules = {
   "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS": {
     12: {
       "title": "@nom",
-      "subtitle": "Limites administratives mises à jour en continu - Producteur : DGFIP",
+      "subtitle": "Limites administratives mises à jour en continu - Producteur : IGN",
       "bodyBefore": [
         ["Commune :", "{{nom}}"],
-        ["Statut :", "{{statut}}"],
         ["Code INSEE :", "{{insee_com}}"],
-        ["Population : {{population}} habitants"],
+        ["Statut :", "{{statut}}"],
         ["Département :", "{{insee_dep}}"],
+        ["Population : {{population}} habitants"],
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder à la fiche</a></p>"]
       ],
     },
     10: {
       "title": "@nom",
-      "subtitle": "Limites administratives mises à jour en continu - Producteur : DGFIP",
+      "subtitle": "Limites administratives mises à jour en continu - Producteur : IGN",
       "bodyBefore": [
-        ["{{nom}}"],
         ["Nature :", "{{nature}}"],
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder à la fiche</a></p>"]
       ],
     },
     9: {
       "title": "@nom",
-      "subtitle": "Limites administratives mises à jour en continu - Producteur : DGFIP",
+      "subtitle": "Limites administratives mises à jour en continu - Producteur : IGN",
       "bodyBefore": [
         ["Arrondissement Départemental :", "{{nom}}"],
-        ["Code INSEE Département :", "{{insee_dep}}"],
-        ["Code INSEE Arrondissement :", "{{insee_arr}}"],
-        ["Région :", "{{insee_reg}}"],
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder à la fiche</a></p>"]
       ],
     },
     7: {
       "title": "@nom",
-      "subtitle": "Limites administratives mises à jour en continu - Producteur : DGFIP",
+      "subtitle": "Limites administratives mises à jour en continu - Producteur : IGN",
       "bodyBefore": [
-        ["Département :", "{{nom}}"],
         ["Code INSEE :", "{{insee_dep}}"],
-        ["Région :", "{{insee_reg}}"],
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder à la fiche</a></p>"]
       ],
     },
     0: {
       "title": "@nom",
-      "subtitle": "Limites administratives mises à jour en continu - Producteur : DGFIP",
+      "subtitle": "Limites administratives mises à jour en continu - Producteur : IGN",
       "bodyBefore": [
-        ["Région :", "{{nom}}"],
-        ["Code INSEE :", "{{insee_reg}}"],
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder aux infos INSEE</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder à la fiche</a></p>"]
       ],
     },
   },
@@ -252,19 +246,28 @@ const gfiRules = {
     } else {
       result.title = template.title;
     }
+    if (template["pretitle"]) {
+      result.title = template["pretitle"] + result.title;
+    }
     if (template["subtitle"]) {
       result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`;
     }
     let bodyBefore = "<div class='positionHtmlBefore'>";
     template.bodyBefore.forEach( (bodyElement) => {
+      let notFound = false;
       let p = bodyElement.map((str) => {
         let match = str.match("{{(.+)}}");
-        if(match && Object.prototype.hasOwnProperty.call(featureProperties, match[1]))
+        if (match && Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
           return str.replace(match[0], featureProperties[match[1]]);
-        else return str;
+        } else if (match) {
+          notFound = true;
+          return "";
+        } else {
+          return str;
+        }
       });
-      if (p)
-        bodyBefore += `<p>${p.join(" ")}</p>`;
+      if (p && !notFound)
+        bodyBefore += `${p.join(" ")}<br/>`;
     });
     bodyBefore += "</div>";
 
@@ -277,7 +280,7 @@ const gfiRules = {
         else return str;
       });
       if (p)
-        bodyAfter += `<p>${p.join(" ")}</p>`;
+        bodyAfter += `${p.join(" ")}`;
     });
     bodyAfter += "</div>";
 
