@@ -32,12 +32,12 @@
 
 
 .baseLayer .layerImg{
-  width: 120px;
+  width: 138px;
 }
 
 .subCatMenu .baseLayer .layerImg img{
-  width: 120px;
-  height: 80px;
+  width: 138px;
+  height: 92px;
 }
 
 .layer-title-thematic,
@@ -114,7 +114,7 @@
   padding-bottom: 1em;
   position: relative;
   flex-shrink: 0;
-  width: 112.5px;
+  width: 138px;
   margin-right: 12px;
 }
 
