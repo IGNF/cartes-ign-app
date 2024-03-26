@@ -2,7 +2,7 @@ const gfiRules = {
   "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@limite",
-      "subtitle": "Restrictions UAS catégorie Ouverte et Aéromodélisme - Producteur : DGAC",
+      "subtitle": "Restrictions UAS catégorie Ouverte et Aéromodélisme - Producteur : SIA",
       "bodyBefore": [
         ["* Sauf conditions particulières publiées à l'arrêté « espaces » du 3 décembre 2020"],
       ],
@@ -12,7 +12,7 @@ const gfiRules = {
   "VILLAGESETAPE$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@toponyme",
-      "subtitle": "Village étapes - Producteur : ???",
+      "subtitle": "Village étapes - Producteur : Fédération française des villages étapes",
       "bodyBefore": [
         ["Commune labellisée Village étape"],
         ["<a href=https://www.village-etape.fr/les-villages-etapes/ target=\"_blank\">Plus d’informations</a>"]
@@ -23,7 +23,7 @@ const gfiRules = {
   "POI.MUSEUM$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@toponyme",
-      "subtitle": "Musées - Producteur : ???",
+      "subtitle": "Musées - Producteur : IGN",
       "bodyBefore": [
         ["{{nature}}"],
         ["Adresse :", "{{adresse_postale}}", "{{acheminement}}"]
@@ -34,7 +34,7 @@ const gfiRules = {
   "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@name",
-      "subtitle": "Parcs et Jardins - Producteur : ???",
+      "subtitle": "Parcs et Jardins - Producteur : Conservatoire des jardins et paysages",
       "bodyBefore": [
         ["Conservatoire des Parcs et jardins"],
         ["<a href=\"{{url}}\"",  "alt=\"{{url}}\" target=\"_blank.POI\">", "{{linkname}}</a>"],
@@ -46,7 +46,7 @@ const gfiRules = {
   "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@name",
-      "subtitle": "Monuments nationaux - Producteur : ???",
+      "subtitle": "Monuments nationaux - Producteur : Centre des monuments nationaux",
       "bodyBefore": [],
       "bodyAfter": [
         ["{{sstitle}}"],
@@ -59,7 +59,7 @@ const gfiRules = {
   "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@sitename",
-      "subtitle": "Sites NATURA 2000 au titre de la Directive Oiseaux - Producteur : ???",
+      "subtitle": "Sites NATURA 2000 au titre de la Directive Oiseaux - Producteur : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -69,7 +69,7 @@ const gfiRules = {
   "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
-      "subtitle": "Parcs nationaux - Producteur : ???",
+      "subtitle": "Parcs nationaux - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Parcs Nationaux de France, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -79,7 +79,7 @@ const gfiRules = {
   "PROTECTEDAREAS.PNR$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
-      "subtitle": "Parcs naturels régionaux - Producteur : ???",
+      "subtitle": "Parcs naturels régionaux - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Fédération des Parcs naturels régionaux de France, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -89,7 +89,7 @@ const gfiRules = {
   "PROTECTEDAREAS.RN$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
-      "subtitle": "Réserves naturelles nationales - Producteur : ???",
+      "subtitle": "Réserves naturelles nationales - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Réserves naturelles de France (RNF), Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -99,7 +99,7 @@ const gfiRules = {
   "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
-      "subtitle": "Réserves naturelles régionales - Producteur : ???",
+      "subtitle": "Réserves naturelles régionales - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -109,7 +109,7 @@ const gfiRules = {
   "PROTECTEDAREAS.RNC$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
-      "subtitle": "Réserves Naturelles de Corse - Producteur : ???",
+      "subtitle": "Réserves Naturelles de Corse - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -119,7 +119,7 @@ const gfiRules = {
   "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@sitename",
-      "subtitle": "Sites Natura 2000 au titre de la Directive Habitats - Producteur : ???",
+      "subtitle": "Sites Natura 2000 au titre de la Directive Habitats - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
         ["<a href=\"{{url}}\">Plus d'informations</a>"]
       ],
@@ -129,13 +129,13 @@ const gfiRules = {
   "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS": {
     13: {
       "title": "@llib_frt",
-      "subtitle": "Forêts publiques - Producteur : ???",
+      "subtitle": "Forêts publiques - Producteur : Office National des Forêts",
       "bodyBefore": [],
       "bodyAfter": [],
     },
     0: {
       "title": "@llib2_frt",
-      "subtitle": "Forêts publiques - Producteur : ???",
+      "subtitle": "Forêts publiques - Producteur : Office National des Forêts",
       "bodyBefore": [],
       "bodyAfter": [],
     }

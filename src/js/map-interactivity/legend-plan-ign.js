@@ -13,7 +13,11 @@ function beautifyLayerName(feature, source) {
       legend.push(texte);
     if (symbo && featureRule.length > 0) {
       symbo = Object.hasOwnProperty.call(featureRule[0], "libelle") ? featureRule[0].libelle : symbo;
-      legend.push(`<p class="positionSubTitle">${symbo} - Données OpenStreetMap</p>`);
+      if (symbo !== "") {
+        legend.push(`<p class="positionSubTitle">${symbo} - Données OpenStreetMap</p>`);
+      } else {
+        legend.push("<p class=\"positionSubTitle\">Données OpenStreetMap</p>");
+      }
     } else {
       legend.push("<p class=\"positionSubTitle\">Données OpenStreetMap</p>");
     }
