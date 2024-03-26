@@ -136,7 +136,7 @@
 
 #interactivityBtn {
   background-image: url("assets/map-buttons/interactivity.svg");
-  background-size: 20px;
+  background-size: 13px;
   position: fixed;
   left: 15px;
   top: calc(80px + var(--safe-area-inset-top));

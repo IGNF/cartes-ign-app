@@ -32,12 +32,12 @@
 
 
 .baseLayer .layerImg{
-  width: 112.5px;
+  width: 120px;
 }
 
 .subCatMenu .baseLayer .layerImg img{
-  width: 112.5px;
-  height: 75px;
+  width: 120px;
+  height: 80px;
 }
 
 .layer-title-thematic,
@@ -92,12 +92,13 @@
   position: absolute;
   width: 15px;
   height: 15px;
-  top: 3px;
-  left: 3px;
+  top: 4px;
+  left: 5px;
   background-repeat: no-repeat;
   background-image: url("assets/map-buttons/interactivity.svg");
   background-color: white;
-  background-size: 15px;
+  background-size: 10px;
+  background-position: center;
   border: 2px solid white;
   border-radius: 50%;
 }
