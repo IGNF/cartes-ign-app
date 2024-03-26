@@ -332,6 +332,9 @@ class Position {
       if (err.name === "AbortError") {
         return;
       }
+      if (!this.coordinates) {
+        return;
+      }
       console.warn(`Error when fetching elevation: ${err}`);
       this.elevation = "?";
       this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation);
