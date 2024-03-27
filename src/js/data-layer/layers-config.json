@@ -11,7 +11,7 @@
 
         "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS",
         "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$GEOPORTAIL:OGC:WMTS",
-        "LANDUSE.AGRICULTURE2021$GEOPORTAIL:OGC:WMTS",
+        "LANDUSE.AGRICULTURE2022$GEOPORTAIL:OGC:WMTS",
         "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS",
         "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS",
         "ELEVATION.LEVEL0$GEOPORTAIL:OGC:WMTS",
@@ -1331,10 +1331,10 @@
         }
       ]
     },
-    "LANDUSE.AGRICULTURE2021$GEOPORTAIL:OGC:WMTS": {
-      "name": "LANDUSE.AGRICULTURE2021",
-      "title": "Registre parcellaire graphique 2021",
-      "description": "Registre parcellaire graphique : zones de cultures déclarées par les exploitants en 2021",
+    "LANDUSE.AGRICULTURE2022$GEOPORTAIL:OGC:WMTS": {
+      "name": "LANDUSE.AGRICULTURE2022",
+      "title": "Registre parcellaire graphique 2022",
+      "description": "Registre parcellaire graphique : zones de cultures déclarées par les exploitants en 2022",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,

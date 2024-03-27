@@ -155,13 +155,12 @@ const gfiRules = {
       "bodyAfter": [],
     }
   },
-  "LANDUSE.AGRICULTURE2021$GEOPORTAIL:OGC:WMTS": {
+  "LANDUSE.AGRICULTURE2022$GEOPORTAIL:OGC:WMTS": {
     0 :{
       "pretitle": "Culture : ",
       "title": "@nom_cultu",
-      "subtitle": "Registre parcellaire graphique 2021 - Producteur : Agence de services et de paiements (ASP)",
+      "subtitle": "Registre parcellaire graphique 2022 - Producteur : Agence de services et de paiements (ASP)",
       "bodyBefore": [
-        ["Registre Parcellaire Agricole 2021"]
       ],
       "bodyAfter": [],
     }
