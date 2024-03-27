@@ -20,7 +20,7 @@ const onBackKeyDown = () => {
   }
   if (Globals.backButtonState === "myaccount") {
     DOM.$whiteScreen.style.removeProperty("animation");
-    Globals.menu.close("myaccount");
+    Globals.myaccount.hide();
     return;
   }
   if (Globals.backButtonState === "parameterScreen") {
@@ -76,7 +76,7 @@ const onBackKeyDown = () => {
   }
   if (Globals.backButtonState.split("-")[0] === "position") {
     previousState = Globals.backButtonState.split("-")[1] || "default";
-    Globals.menu.close("position");
+    Globals.position.hide();
     // réouverture de menu précédent
     if (previousState !== "default") {
       Globals.menu.open(previousState, 0);

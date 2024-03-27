@@ -161,6 +161,26 @@ const layers = {
     },
     filter: ["==", ["get", "order"], "destination"],
   },
+  "landmark-selected": {
+    id: "my-account-landmarks-selected",
+    type: "circle",
+    source: "",
+    paint: {
+      "circle-radius": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        11,
+        5,
+        11,
+        18,
+        30
+      ],
+      "circle-color": ["get", "color"],
+      "circle-opacity": ["case", ["boolean", ["get", "selected"], false], 0.6, 0],
+    }
+  },
   "landmark-casing": {
     id: "my-account-landmarks-casing",
     type: "circle",

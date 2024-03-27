@@ -64,6 +64,9 @@ class Position {
     // open/close interface
     this.opened = false;
 
+    // fonction à exécuter à la fermeture du volet
+    this.hideCallback = null;
+
     return this;
   }
 
@@ -285,8 +288,11 @@ class Position {
    * @param {maplibregl.LngLat} lngLat position en paramètre, false si "Ma Position"
    * @public
    */
-  async compute(lngLat = false, text = "Repère placé", html = "", html2 = "") {
+  async compute(lngLat = false, text = "Repère placé", html = "", html2 = "", hideCallback = null) {
     this.clear();
+    if (hideCallback) {
+      this.hideCallback = hideCallback;
+    }
     let position;
     if (lngLat === false) {
       position = await Location.getLocation();
@@ -384,6 +390,10 @@ Longitude : ${longitude}${altitudeText}`;
         Globals.searchResultMarker.remove();
         Globals.searchResultMarker = null;
       }
+    }
+    if (this.hideCallback) {
+      this.hideCallback();
+      this.hideCallback = null;
     }
   }
 

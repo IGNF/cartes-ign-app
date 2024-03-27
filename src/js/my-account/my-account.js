@@ -128,7 +128,18 @@ class MyAccount {
           transform: translate(0, -2px);"></label>
         ${landmark.properties.title}
       </div>`;
-      Globals.position.compute(e.lngLat, title, landmark.properties.description).then(() => {
+      landmark.properties.selected = true;
+      for (let i = 0; i < this.landmarks.length; i++) {
+        if (this.landmarks[i].id == landmark.id) {
+          this.landmarks[i] = landmark;
+        }
+      }
+      this.#updateSources();
+      const deselectLandmarkCallback = () => {
+        landmark.properties.selected = false;
+        this.#updateSources();
+      }
+      Globals.position.compute(e.lngLat, title, landmark.properties.description, "", deselectLandmarkCallback).then(() => {
         Globals.menu.open("position");
       });
     });
@@ -820,6 +831,7 @@ ${landmark.properties.description}
         features: [],
       }
     });
+    MyAccountLayers["landmark-selected"].source = this.configuration.landmarksource;
     MyAccountLayers["landmark-casing"].source = this.configuration.landmarksource;
     MyAccountLayers["landmark"].source = this.configuration.landmarksource;
     MyAccountLayers["landmark-icon"].source = this.configuration.landmarksource;
@@ -829,6 +841,7 @@ ${landmark.properties.description}
    * ajoute le layer landmarks à la carte. Séparé pour pouvoir les ajouter en dernier, au-dessus des POI OSM
    */
   addLandmarksLayers() {
+    this.map.addLayer(MyAccountLayers["landmark-selected"]);
     this.map.addLayer(MyAccountLayers["landmark-casing"]);
     this.map.addLayer(MyAccountLayers["landmark"]);
     this.map.addLayer(MyAccountLayers["landmark-icon"]);
