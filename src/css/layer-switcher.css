@@ -193,6 +193,7 @@ div[id^="remove_ID_"] {
 div[id^="landmark-remove_ID_"]:hover,
 div[id^="route-remove_ID_"]:hover {
   background-image: url("./assets/layer-switcher/delete-layer-confirm.svg");
+  color: #F18345;
 }
 
 div[id^="landmark-edit_ID_"],

@@ -258,12 +258,15 @@
 }
 
 #routeDrawEdit > #routeDrawDelete {
-  background-image: url("assets/route-draw/delete.svg");
+  background-image: url("assets/route-draw/delete-w.svg");
   background-color: #F18345;
+  color: #F18345;
 }
 
 #routeDrawEdit > #routeDrawDelete.inactive {
+  background-image: url("assets/route-draw/delete.svg");
   background-color: #F4F6F8;
+  color: #3F4A55;
 }
 
 #routeDrawEdit > .button#routeDrawSave {
