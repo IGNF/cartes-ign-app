@@ -128,19 +128,19 @@ class MyAccount {
           transform: translate(0, -2px);"></label>
         ${landmark.properties.title}
       </div>`;
-      landmark.properties.selected = true;
-      for (let i = 0; i < this.landmarks.length; i++) {
-        if (this.landmarks[i].id == landmark.id) {
-          this.landmarks[i] = landmark;
-        }
-      }
-      this.#updateSources();
       const deselectLandmarkCallback = () => {
         landmark.properties.selected = false;
         this.#updateSources();
       };
       Globals.position.compute(e.lngLat, title, landmark.properties.description, "", deselectLandmarkCallback).then(() => {
-        Globals.menu.open("position");
+        landmark.properties.selected = true;
+        for (let i = 0; i < this.landmarks.length; i++) {
+          if (this.landmarks[i].id == landmark.id) {
+            this.landmarks[i] = landmark;
+          }
+        }
+        this.#updateSources();
+        Globals.position.show();
       });
     });
     this.map.on("click", MyAccountLayers["line-casing"].id, (e) => {

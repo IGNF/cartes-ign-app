@@ -290,8 +290,9 @@ class Position {
    */
   async compute(lngLat = false, text = "Repère placé", html = "", html2 = "", hideCallback = null) {
     this.clear();
-    if (hideCallback) {
-      this.hideCallback = hideCallback;
+    if (this.hideCallback) {
+      this.hideCallback();
+      this.hideCallback = null;
     }
     let position;
     if (lngLat === false) {
@@ -330,6 +331,9 @@ class Position {
     };
 
     this.#render();
+    if (hideCallback) {
+      this.hideCallback = hideCallback;
+    }
     Elevation.compute(position.coordinates).then( () => {
       this.elevation = Elevation.getElevation();
       this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation.toLocaleString());
@@ -420,7 +424,6 @@ Longitude : ${longitude}${altitudeText}`;
       afterButtons: ""
     };
   }
-
 }
 
 export default Position;
