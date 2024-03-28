@@ -3,6 +3,7 @@ import DOM from "../dom";
 import MapInteractivityLayers from "./map-interactivity-styles";
 import featurePropertyFilter from "./feature-property-filter";
 import gfiRules from "./gfi-rules";
+import colorFromSymbo from "./color-from-symbo";
 
 import Union from "@turf/union";
 import Buffer from "@turf/buffer";
@@ -30,6 +31,7 @@ class MapInteractivity {
     this.configuration = this.options.configuration || {
       pointsource: "map-interactivity-point",
       polygonsource: "map-interactivity-polygon",
+      selectedsource: "map-interactivity-selected-poi",
     };
 
     // style
@@ -87,7 +89,33 @@ class MapInteractivity {
     if (features.length > 0 && (features[0].source === "bdtopo" || features[0].source === "poi_osm")) {
       featureHTML = featurePropertyFilter(features[0]);
       if (features[0].source === "poi_osm") {
-        Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML.before, featureHTML.after).then(() => {
+        const source = this.map.getSource(this.configuration.selectedsource);
+        features[0].properties.opacity = 0.6;
+        features[0].properties.radiusRatio = 0;
+        features[0].properties.color = colorFromSymbo[features[0].properties.symbo];
+        source.setData({
+          "type": "FeatureCollection",
+          "features": [features[0]]
+        });
+        let intervalId = setInterval(() => {
+          console.log(features[0]);
+          if (features[0].properties.radiusRatio >= 1) {
+            clearInterval(intervalId);
+          }
+          features[0].properties.radiusRatio += 0.1;
+          source.setData({
+            "type": "FeatureCollection",
+            "features": [features[0]]
+          });
+        }, 20);
+        const deselectPoiCallback = () => {
+          clearInterval(intervalId);
+          source.setData({
+            "type": "FeatureCollection",
+            "features": []
+          });
+        };
+        Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML.before, featureHTML.after, deselectPoiCallback).then(() => {
           Globals.menu.open("position");
         });
         this.map.once("click", this.handleInfoOnMap);
@@ -336,12 +364,25 @@ class MapInteractivity {
         "features": []
       },
     });
+
+    this.map.addSource(this.configuration.selectedsource, {
+      "type": "geojson",
+      "data": {
+        "type": "FeatureCollection",
+        "features": []
+      },
+    });
     MapInteractivityLayers["point"].source = this.configuration.pointsource;
     this.map.addLayer(MapInteractivityLayers["point"]);
     MapInteractivityLayers["polygon"].source = this.configuration.polygonsource;
     this.map.addLayer(MapInteractivityLayers["polygon"]);
     MapInteractivityLayers["polygon-outline"].source = this.configuration.polygonsource;
     this.map.addLayer(MapInteractivityLayers["polygon-outline"]);
+
+    MapInteractivityLayers["selected-poi"].source = this.configuration.selectedsource;
+    MapInteractivityLayers["selected-poi-symbol"].source = this.configuration.selectedsource;
+    this.map.addLayer(MapInteractivityLayers["selected-poi"]);
+    this.map.addLayer(MapInteractivityLayers["selected-poi-symbol"]);
   }
 
   /**

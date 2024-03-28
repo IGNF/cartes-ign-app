@@ -30,7 +30,36 @@ const layers = {
       "line-opacity": 1,
       "line-width": 1,
     }
-  }
+  },
+  "selected-poi": {
+    id: "map-interactivity-selected-poi",
+    type: "circle",
+    source: "",
+    minzoom: 14.5,
+    paint: {
+      "circle-radius": [
+        "step",
+        [
+          "zoom"
+        ],
+        ["+", 8.5, ["*", 6.5, ["coalesce", ["get", "radiusRatio"], 0]]],
+        18,
+        ["+", 10.5, ["*", 8.5, ["coalesce", ["get", "radiusRatio"], 0]]],
+      ],
+      "circle-opacity": ["coalesce", ["get", "opacity"], 0],
+      "circle-color": ["coalesce", ["get", "color"], "#0000CC"]
+    }
+  },
+  "selected-poi-symbol": {
+    id: "map-interactivity-selected-poi-symbol",
+    type: "symbol",
+    source: "",
+    minzoom: 14.5,
+    layout: {
+        visibility: "visible",
+        "icon-image": "{symbo}_17"
+    },
+  },
 };
 
 export default layers;

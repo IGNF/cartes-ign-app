@@ -194,6 +194,10 @@ class Position {
       }
       // fermeture du panneau actuel
       if (this.options.closePositionCbk) {
+        if (this.hideCallback) {
+          this.hideCallback();
+          this.hideCallback = null;
+        }
         this.options.closePositionCbk();
         this.opened = false;
       }
@@ -213,6 +217,10 @@ class Position {
       }
       // fermeture du panneau actuel
       if (this.options.closePositionCbk) {
+        if (this.hideCallback) {
+          this.hideCallback();
+          this.hideCallback = null;
+        }
         this.options.closePositionCbk();
         this.opened = false;
       }
@@ -244,6 +252,10 @@ class Position {
       }
       // fermeture du panneau actuel
       if (this.options.closePositionCbk) {
+        if (this.hideCallback) {
+          this.hideCallback();
+          this.hideCallback = null;
+        }
         this.options.closePositionCbk();
         this.opened = false;
       }

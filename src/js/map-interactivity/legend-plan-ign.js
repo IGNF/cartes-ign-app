@@ -209,12 +209,13 @@ function Legend(features, zoom) {
   // Légende pour POI
   if (source == "poi_osm") {
     let featurePOI = features.filter(feat => {
-      if (source == "poi_osm" && feat.source == "poi_osm") return feat;
-    })
-      .map(feat => {
+      if (source == "poi_osm" && feat.source == "poi_osm" && feat.layer.type === "symbol") {
+        return feat;
+      }
+    }).map(feat => {
         feat.layer["properties"] = feat.properties;
         return feat.layer;
-      });
+    });
     layername = featurePOI.length > 0 ? beautifyLayerName(featurePOI[0], source) : "";
     if (featurePOI) {
       svg = MapBoxStyleToSVG(featurePOI, zoom);
