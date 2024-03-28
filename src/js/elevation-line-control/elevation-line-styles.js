@@ -36,7 +36,7 @@ const layers = {
         18,
         12,
       ],
-      "circle-color": "#F18345",
+      "circle-color": getComputedStyle(document.body).getPropertyValue("--orange"),
       "circle-opacity": 1,
     }
   }

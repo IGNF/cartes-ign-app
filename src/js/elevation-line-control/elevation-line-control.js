@@ -128,7 +128,7 @@ class ElevationLineControl {
         data: this.elevationData,
         fill: false,
         borderWidth: 3,
-        borderColor: "#26a581",
+        borderColor: getComputedStyle(document.body).getPropertyValue("--dark-green"),
         tension: 0.1,
         pointRadius: 0,
         showLine: true,
@@ -152,7 +152,7 @@ class ElevationLineControl {
       id: "crosshair",
       defaults: {
         width: 1,
-        color: "#3F4A55",
+        color: getComputedStyle(document.body).getPropertyValue("--dark-grey"),
         dash: [3, 3],
       },
       afterInit: (chart) => {
@@ -230,14 +230,14 @@ class ElevationLineControl {
         },
         plugins: {
           crosshair: {
-            color: "#3F4A55",
+            color: getComputedStyle(document.body).getPropertyValue("--dark-grey"),
           },
           tooltip: {
             mode: "index",
             position: "average",
             intersect: false,
             backgroundColor: "#FFFA",
-            borderColor: "#3F4A55",
+            borderColor: getComputedStyle(document.body).getPropertyValue("--dark-grey"),
             borderWidth: 1,
             displayColors: false,
             callbacks: {
@@ -246,7 +246,7 @@ class ElevationLineControl {
 Distance du départ : ${Math.round(context.parsed.x)} ${this.unit}`;
               },
               labelTextColor: () => {
-                return "#3F4A55";
+                return getComputedStyle(document.body).getPropertyValue("--dark-grey");
               }
             }
           }

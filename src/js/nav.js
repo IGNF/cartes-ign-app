@@ -261,7 +261,7 @@ class MenuNavigation {
       Globals.currentScrollIndex = 1;
       break;
     case "myaccount":
-      DOM.$whiteScreen.style.backgroundColor = "#f4f6f8";
+      DOM.$whiteScreen.style.backgroundColor = getComputedStyle(document.body).getPropertyValue("--false-white");
       // falls through
     case "parameterScreen":
     case "legalScreen":

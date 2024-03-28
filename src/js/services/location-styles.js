@@ -6,7 +6,7 @@ const layers = {
     source: "location-precision",
     layout: {},
     paint: {
-      "fill-color": "#26a581",
+      "fill-color": getComputedStyle(document.body).getPropertyValue("--dark-green"),
       "fill-opacity": 0.15,
     }
   },
@@ -16,7 +16,7 @@ const layers = {
     source: "location-precision",
     layout: {},
     paint: {
-      "line-color": "#26a581",
+      "line-color": getComputedStyle(document.body).getPropertyValue("--dark-green"),
       "line-opacity": 1,
       "line-width": 1,
     }

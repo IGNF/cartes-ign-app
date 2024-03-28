@@ -138,7 +138,7 @@ class MyAccount {
       const deselectLandmarkCallback = () => {
         landmark.properties.selected = false;
         this.#updateSources();
-      }
+      };
       Globals.position.compute(e.lngLat, title, landmark.properties.description, "", deselectLandmarkCallback).then(() => {
         Globals.menu.open("position");
       });

@@ -52,7 +52,7 @@ class RouteDraw {
 
     // style
     this.style = this.options.style || {
-      color: "26a581",
+      color: getComputedStyle(document.body).getPropertyValue("--dark-green"),
       opacity: 0.85
     };
 
