@@ -128,18 +128,27 @@ class MyAccount {
           transform: translate(0, -2px);"></label>
         ${landmark.properties.title}
       </div>`;
+      let intervalId = null;
       const deselectLandmarkCallback = () => {
-        landmark.properties.selected = false;
+        clearInterval(intervalId);
+        landmark.properties.radiusRatio = 0;
         this.#updateSources();
       };
       Globals.position.compute(e.lngLat, title, landmark.properties.description, "", deselectLandmarkCallback).then(() => {
-        landmark.properties.selected = true;
-        for (let i = 0; i < this.landmarks.length; i++) {
-          if (this.landmarks[i].id == landmark.id) {
-            this.landmarks[i] = landmark;
+        landmark.properties.radiusRatio = 0;
+        intervalId = setInterval(() => {
+          if (landmark.properties.radiusRatio >= 1) {
+            clearInterval(intervalId);
           }
-        }
-        this.#updateSources();
+          landmark.properties.radiusRatio += 0.2;
+          for (let i = 0; i < this.landmarks.length; i++) {
+            if (this.landmarks[i].id == landmark.id) {
+              this.landmarks[i] = landmark;
+            }
+          }
+          this.#updateSources();
+        }, 20);
+
         Globals.position.show();
       });
     });

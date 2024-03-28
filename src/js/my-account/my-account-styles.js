@@ -171,14 +171,14 @@ const layers = {
         ["exponential", 1.5],
         ["zoom"],
         0,
-        11,
+        ["+", 6, ["*", 5, ["coalesce", ["get", "radiusRatio"], 0]]],
         5,
-        11,
+        ["+", 6, ["*", 5, ["coalesce", ["get", "radiusRatio"], 0]]],
         18,
-        30
+        ["+", 17, ["*", 13, ["coalesce", ["get", "radiusRatio"], 0]]]
       ],
       "circle-color": ["get", "color"],
-      "circle-opacity": ["case", ["boolean", ["get", "selected"], false], 0.6, 0],
+      "circle-opacity": 0.6,
     }
   },
   "landmark-casing": {
