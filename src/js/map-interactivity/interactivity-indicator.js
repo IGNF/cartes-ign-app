@@ -45,6 +45,10 @@ class InteractivityIndicator {
 
     this.popup = null;
 
+    this.timeoutID1 = null;
+    this.timeoutID2 = null;
+    this.timeoutID3 = null;
+
     return this;
   }
 
@@ -135,8 +139,20 @@ class InteractivityIndicator {
      */
   active () {
     this.hardDisabled = false;
-    this.shown = true;
     DOM.$interactivityBtn.classList.remove("d-none");
+    if (!this.shown) {
+      this.timeoutID1 = setTimeout(() => {
+        DOM.$interactivityBtn.style.backgroundColor = "#26A581DD";
+        DOM.$interactivityBtn.style.width = "200px";
+        this.timeoutID2 = setTimeout(() => {
+          DOM.$interactivityBtn.style.removeProperty("width");
+          this.timeoutID3 = setTimeout(() => {
+            DOM.$interactivityBtn.style.removeProperty("background-color");
+          }, 450);
+        }, 2000);
+      }, 50);
+    }
+    this.shown = true;
   }
 
   /**
@@ -152,7 +168,12 @@ class InteractivityIndicator {
     }
     this.dontClear = false;
     this.shown = false;
+    clearTimeout(this.timeoutID1);
+    clearTimeout(this.timeoutID2);
+    clearTimeout(this.timeoutID3);
     DOM.$interactivityBtn.classList.add("d-none");
+    DOM.$interactivityBtn.style.removeProperty("background-color");
+    DOM.$interactivityBtn.style.removeProperty("width");
   }
 
   /**

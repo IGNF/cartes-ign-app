@@ -135,15 +135,27 @@
 }
 
 #interactivityBtn {
-  background-image: url("assets/map-buttons/interactivity.svg");
-  background-size: 13px;
   position: fixed;
-  left: 15px;
-  top: calc(80px + var(--safe-area-inset-top));
-  transition: top 0.15s;
-  height: 25px;
-  width: 25px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  left: 5px;
+  top: calc(70px + var(--safe-area-inset-top));
+  transition: top 0.15s, width 0.5s ease-out, background-color 0.5s ease;
+  overflow: hidden;
+  background-color: #fff0;
+  border-radius: 31px;
+  width: 54px;
+  height: 54px;
+  font-family: "Open Sans Semibold";
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+#interactivityInside {
+  margin: 6px;
+  background-color: var(--dark-green);
+  background-image: url("assets/map-buttons/interactivity-w.svg");
+  background-size: 20px;
+  flex-shrink: 0;
 }
 
 #routeDrawBtns {
