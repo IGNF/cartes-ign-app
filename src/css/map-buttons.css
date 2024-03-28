@@ -1,5 +1,5 @@
 .button {
-  color: #3F4A55;
+  color: var(--dark-grey);
   width: 40px;
   height: 40px;
   border-radius: 60px;
@@ -193,7 +193,7 @@
 }
 
 #routeDrawHelp {
-  background-color: #26A581;
+  background-color: var(--dark-green);
   width: 34px;
   height: 34px;
   color: white;
@@ -230,14 +230,14 @@
 }
 
 #routeDrawEdit > .button {
-  color: #3F4A55;
+  color: var(--dark-grey);
   width: 40px;
   height: 40px;
   border-radius: 60px;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #F4F6F8;
-  border: 1px solid #F4F6F8;
+  background-color: var(--false-white);
+  border: 1px solid var(--false-white);
   box-shadow: unset;
 }
 
@@ -259,19 +259,19 @@
 
 #routeDrawEdit > #routeDrawDelete {
   background-image: url("assets/route-draw/delete-w.svg");
-  background-color: #F18345;
-  color: #F18345;
+  background-color: var(--orange);
+  color: var(--orange);
 }
 
 #routeDrawEdit > #routeDrawDelete.inactive {
   background-image: url("assets/route-draw/delete.svg");
-  background-color: #F4F6F8;
-  color: #3F4A55;
+  background-color: var(--false-white);
+  color: var(--dark-grey);
 }
 
 #routeDrawEdit > .button#routeDrawSave {
-  background-color: #26A581;
-  border: 1px solid #26A581;
+  background-color: var(--dark-green);
+  border: 1px solid var(--dark-green);
   background-image: url("assets/route-draw/save.svg");
 }
 
@@ -298,7 +298,7 @@
 }
 
 #mapCenterMenu {
-  color: #3F4A55;
+  color: var(--dark-grey);
   display: flex;
   position: absolute;
   box-sizing: border-box;
@@ -322,7 +322,7 @@
   display: block;
   border: none;
   border-radius: 70px;
-  background-color: #26a581;
+  background-color: var(--dark-green);
   padding: 7px 21px;
   font-family: "Open Sans";
   font-weight: 600;

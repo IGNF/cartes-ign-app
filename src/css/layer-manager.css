@@ -10,8 +10,8 @@
   font-size: 0.9em;
   margin: auto;
   border-radius: 50px;
-  background-color: #26A581;
-  color: #fff;
+  background-color: var(--dark-green);
+  color: white;
   font-family: "Open Sans";
   padding: 3px 5px;
 }
@@ -35,11 +35,11 @@
   display: block;
   text-align: center;
   white-space: nowrap;
-  border-bottom: 2px solid #DDE1E6;
+  border-bottom: 2px solid var(--grey-2);
 }
 
 .layer-tabs-input:checked + .layer-tabs-label {
-  border-bottom: 2px solid #26a581;
+  border-bottom: 2px solid var(--dark-green);
 }
 
 .layer-tabs-input:checked:nth-of-type(1) ~ .layer-tabs-content:nth-of-type(1) {

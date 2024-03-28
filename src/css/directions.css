@@ -11,7 +11,7 @@
   margin: auto;
   border: none;
   border-radius: 70px;
-  background-color: #26a581;
+  background-color: var(--dark-green);
   padding: 14px 28px;
   font-family: "Open Sans";
   font-weight: 600;
@@ -47,7 +47,7 @@
   margin: auto;
   height: 34px;
   width: 220px;
-  background-color: #E9ECEF;
+  background-color: var(--light-grey);
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.08);
   padding: 8px;
   border-radius: 100px;
@@ -56,7 +56,7 @@
 }
 
 .lblDirectionsTransport, .lblDirectionsComputation {
-  color: #788089;
+  color: var(--mid-grey);
   padding-left: 25px;
   display: flex;
   align-items: center;
@@ -95,7 +95,7 @@
   display: flex;
   height: 44px;
   width: 115px;
-  background-color: #26A581;
+  background-color: var(--dark-green);
   z-index: 1;
   border-radius: 100px;
   transition: 0.25s ease-out;
@@ -170,7 +170,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background-color: #3F4A5555;
+  background-color: var(--dark-grey)55;
   z-index: 2;
   border-radius: 8px;
 }
@@ -181,20 +181,20 @@
   height: 45px;
   padding-left: 15px;
   padding-right: 25px;
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 8px;
   border: 1px solid;
-  border-color: #DDE1E6;
-  color: #3F4A55;
+  border-color: var(--grey-2);
+  color: var(--dark-grey);
 }
 
 .inputDirectionsLocations::placeholder {
-  color: #788089;
+  color: var(--mid-grey);
 }
 
 .inputDirectionsLocations:focus {
   outline: none;
-  border-color: #26a581;
+  border-color: var(--dark-green);
 }
 
 
@@ -224,7 +224,7 @@
 .lblDirectionsLocationsRemoveImg{
   background-image: url("assets/directions/location-step-remove.svg");
   border-radius: 25px;
-  border: 1px solid #DDE1E6;
+  border: 1px solid var(--grey-2);
   flex-shrink: 0;
   background-position: 1px 1px;
 }
@@ -265,7 +265,7 @@
   background-image: url("assets/directions/location-step-add.svg");
   line-height: 40px;
   background-position-y: 9px;
-  color: #3F4A55;
+  color: var(--dark-grey);
   background-color: #fff0;
   transition: background-color 0.1s;
   border-radius: 8px;

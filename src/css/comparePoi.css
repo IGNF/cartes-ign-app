@@ -21,7 +21,7 @@
 
 .comparePoiButton {
   color: white;
-  background-color: #26a581;
+  background-color: var(--dark-green);
   border-radius: 100px;
   padding: 7px 13px 7px 28px;
   background-image: url("assets/map-buttons/compare/compare.svg");
@@ -33,7 +33,7 @@
 }
 
 .comparePoiText {
-  border-top: 1px solid #DDE1E6;
+  border-top: 1px solid var(--grey-2);
   font-family: "Open Sans";
   margin-top: 10px;
   padding-top: 10px;

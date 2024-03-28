@@ -13,7 +13,7 @@
   position: relative;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  color:#3F4A55;
+  color:var(--dark-grey);
   font-size: 1.1em;
   text-align: justify;
   overflow-y: scroll;
@@ -53,10 +53,10 @@
   top: calc(100% - 72px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
   height: fit-content;
   width: 100%;
-  background-color: #f4f6f8;
+  background-color: var(--false-white);
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  color: #3f4a55;
+  color: var(--dark-grey);
   display: flex;
   flex-direction: column;
   z-index: 101;

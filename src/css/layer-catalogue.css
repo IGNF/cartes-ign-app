@@ -46,13 +46,12 @@
   font-size: 11px;
   font-style: normal;
   line-height: normal;
-  color: #091625;
   display: flex;
   text-align: left
 }
 
 .layer-title-thematic {
-  color: #26a581;
+  color: var(--dark-green);
   font-weight: 600;
 }
 
@@ -156,7 +155,7 @@
   right: 0;
   width: 20px;
   height: 100%;
-  background: linear-gradient(90deg,#fff0,#f4f6f8);
+  background: linear-gradient(90deg,#fff0,var(--false-white));
   opacity: 1;
   visibility: visible;
   flex-shrink: 0;
@@ -177,8 +176,8 @@
 
 .thematicButton {
   display: block;
-  border: 1px solid #3F4A55;
-  color: #3F4A55;
+  border: 1px solid var(--dark-grey);
+  color: var(--dark-grey);
   background-color: #fff0;
   border-radius: 50px;
   padding: 10px;
@@ -191,6 +190,6 @@
 }
 
 .thematic-button-active {
-  color: #26a581;
-  border-color: #26a581;
+  color: var(--dark-green);
+  border-color: var(--dark-green);
 }

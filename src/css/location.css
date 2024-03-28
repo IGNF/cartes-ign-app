@@ -4,7 +4,7 @@
   margin: auto;
   border: none;
   border-radius: 70px;
-  background-color: #26a581;
+  background-color: var(--dark-green);
   padding: 14px 28px;
   font-family: "Open Sans";
   font-weight: 600;

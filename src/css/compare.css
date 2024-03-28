@@ -2,7 +2,7 @@
   height: 32px;
   margin-top: 25px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #DDE1E6;
+  border-bottom: 1px solid var(--grey-2);
   margin-bottom: 24px;
   display: flex;
   justify-content: center;
@@ -15,7 +15,7 @@
 }
 
 .layerSelectorDiv > .toggleSwitch > .toggleSlider {
-  background-color: #26A581;
+  background-color: var(--dark-green);
 }
 
 .subCategoryRLTLayer {

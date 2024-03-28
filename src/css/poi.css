@@ -45,8 +45,8 @@
     flex-direction: column;
     width: calc(100% - 30px);
     font-family: "Open Sans";
-    border-bottom: 1px solid #DDE1E6;
-    border-top: 1px solid #DDE1E6;
+    border-bottom: 1px solid var(--grey-2);
+    border-top: 1px solid var(--grey-2);
     padding: 15px;
 }
 

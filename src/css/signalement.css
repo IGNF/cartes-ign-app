@@ -3,7 +3,7 @@
 }
 
 #signalementWindow a {
-  color: #26a581;
+  color: var(--dark-green);
   text-decoration: underline;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .signalementSubSection {
-  background-color: #DDE1E6;
+  background-color: var(--grey-2);
   padding: 1px 8px 15px 8px;
   margin: 15px 5px;
   border-radius: 5px;
@@ -41,11 +41,11 @@
   width: 100%;
   height: 45px;
   padding: 0 8px;
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 8px;
   border: 1px solid;
-  border-color: #DDE1E6;
-  color: #3F4A55;
+  border-color: var(--grey-2);
+  color: var(--dark-grey);
 }
 
 .signalement-textarea {
@@ -60,7 +60,7 @@
   margin: auto;
   border: none;
   border-radius: 70px;
-  background-color: #26a581;
+  background-color: var(--dark-green);
   padding: 14px 28px;
   font-family: "Open Sans";
   font-weight: 600;

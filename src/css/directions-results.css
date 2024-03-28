@@ -39,7 +39,7 @@
 }
 
 #directionsSummaryDuration {
-  color: #26a581;
+  color: var(--dark-green);
   font-size: medium;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .lblDirectionsSummaryDistance {
-  color: #3F4A55;
+  color: var(--dark-grey);
 }
 
 #directionsSummaryTransportPieton {
@@ -95,8 +95,8 @@
 .lblDirectionsShowDetails {
   font-family: "Open Sans Semibold";
   display: block;
-  border: 1px solid #26a581;
-  background-color: #ffffff;
+  border: 1px solid var(--dark-green);
+  background-color: white;
   border-radius: 50px;
   padding: 10px 13px 10px 10px;
   cursor: pointer;
@@ -105,12 +105,12 @@
   background-image: url("assets/directions/invisible.svg");
   background-repeat: no-repeat;
   background-position: 8px;
-  color: #26a581;
+  color: var(--dark-green);
 }
 
 #directionsDetails input[id="directionsShowDetail"]:checked + label {
   background-image: url("assets/directions/visible.svg");
-  background-color: #26a581;
+  background-color: var(--dark-green);
   color: white;
 }
 
@@ -121,7 +121,7 @@
   flex-direction: column;
   max-height: calc(100vh - 180px);
   overflow-y: scroll;
-  border-top: 1px solid #DDE1E6;
+  border-top: 1px solid var(--grey-2);
   font-family: "Open Sans";
 }
 
@@ -161,7 +161,7 @@
   background-image: url("assets/directions/point-start.svg");
 }
 .lblDirectionsDetailsItemGuidance-point-step {
-  background-color: #B8BCC1;
+  background-color: var(--grey);
   background-image: url("assets/directions/point-step.svg");
 }
 .lblDirectionsDetailsItemGuidance-point-finish {
@@ -176,19 +176,19 @@
 
 .divDirectionsDetailsItemDistanceAndDesc {
   flex-grow: 1;
-  border-bottom: 1px solid #DDE1E6;
+  border-bottom: 1px solid var(--grey-2);
   min-height: 30px;
 }
 
 .divDirectionsDetailsItemDistance {
-  color: #26a581;
+  color: var(--dark-green);
   font-size: 12px;
   font-family: "Open Sans Bold";
   padding-top: 10px;
 }
 
 .divDirectionsDetailsItemDuration {
-  border-bottom: 1px solid #DDE1E6;
+  border-bottom: 1px solid var(--grey-2);
   min-height: 20px;
 }
 

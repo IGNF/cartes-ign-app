@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 1px solid #DDE1E6;
+  border-bottom: 1px solid var(--grey-2);
   padding: 15px;
 }
 
@@ -41,7 +41,7 @@
   margin: auto;
   border: none;
   border-radius: 70px;
-  background-color: #26a581;
+  background-color: var(--dark-green);
   padding: 14px 28px;
   font-family: "Open Sans";
   font-weight: 600;
@@ -80,7 +80,7 @@
   margin: auto;
   height: 34px;
   width: 220px;
-  background-color: #e9ecef;
+  background-color: var(--light-grey);
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.08);
   padding: 10px;
   border-radius: 100px;
@@ -90,7 +90,7 @@
 
 .lblIsochroneMode,
 .lblIsochroneTransport {
-  color: #788089;
+  color: var(--mid-grey);
   padding-left: 25px;
   display: flex;
   align-items: center;
@@ -130,11 +130,11 @@
   display: flex;
   height: 44px;
   width: 110px;
-  background-color: #ffffff;
+  background-color: white;
   z-index: 1;
   border-radius: 100px;
   transition: 0.25s ease-out;
-  background-color: #26A581;
+  background-color: var(--dark-green);
 }
 
 #isochroneTransportVoiture + label {
@@ -193,15 +193,15 @@ input#isochroneValueDistanceInput[type=number]
   padding-left: 10px;
   border-radius: 8px;
   border: 1px solid;
-  border-color: #DDE1E6;
-  color: #3F4A55;
+  border-color: var(--grey-2);
+  color: var(--dark-grey);
   text-align: right;
 }
 
 #isochroneValueDurationInputHours:focus,
 #isochroneValueDurationInputMinutes:focus {
   outline: none;
-  border-color: #26a581;
+  border-color: var(--dark-green);
 }
 
 #isochroneValueDistance {
@@ -212,7 +212,7 @@ input#isochroneValueDistanceInput[type=number]
 
 #isochroneValueDistanceInput:focus {
   outline: none;
-  border:1px solid #26a581;
+  border:1px solid var(--dark-green);
 }
 
 /*
@@ -228,11 +228,11 @@ input#isochroneValueDistanceInput[type=number]
   margin: auto;
   padding-left: 15px;
   margin-bottom: 10px;
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 8px;
   border: 1px solid;
-  border-color: #DDE1E6;
-  color: #3F4A55;
+  border-color: var(--grey-2);
+  color: var(--dark-grey);
 }
 
 #isochroneLocationContainer {
@@ -261,14 +261,14 @@ input#isochroneValueDistanceInput[type=number]
   height: 100%;
   top: 0;
   left: 2.5%;
-  background-color: #3F4A5555;
+  background-color: var(--dark-grey)55;
   z-index: 2;
   border-radius: 8px;
 }
 
 .inputIsochroneLocation:focus {
   outline: none;
-  border-color: #26a581;
+  border-color: var(--dark-green);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
 }
 

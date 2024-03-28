@@ -100,7 +100,7 @@
   display: block;
   border: none;
   border-radius: 70px;
-  background-color: #26a581;
+  background-color: var(--dark-green);
   padding: 7px 21px;
   font-family: "Open Sans";
   font-weight: 600;
@@ -141,7 +141,7 @@
 
 .routeDrawSummaryDuration {
   background-image: url("assets/route-draw/clock.svg");
-  color: #26A581;
+  color: var(--dark-green);
 }
 
 .routeDrawSummaryDistance {
@@ -174,7 +174,7 @@
 
 .routeDrawWaypointDiv {
   color: white;
-  background-color: #26a581;
+  background-color: var(--dark-green);
   border-radius: 8px;
   padding: 14px 18px;
   height: 36px;
@@ -217,7 +217,7 @@
 }
 
 .routeDrawStepDiv {
-  color: #3F4A55;
+  color: var(--dark-grey);
   height: 32px;
   font-family: "Open Sans";
   font-weight: 600;
@@ -249,23 +249,23 @@
   border-radius: 8px;
   outline: none;
   box-shadow: 0px 0px 0px 0px;
-  border: 1px solid #DDE1E6;
+  border: 1px solid var(--grey-2);
   padding: 9px 8px;
   flex-grow: 1;
 
 }
 
 #routeDrawSaveNameInput::placeholder {
-  color: #788089;
+  color: var(--mid-grey);
 }
 
 #routeDrawSaveNameInput:focus {
-  border: 2px solid #26a581;
+  border: 2px solid var(--dark-green);
 }
 
 #routeDrawSaveNameInputSubmit {
   color: white;
-  background-color: #26a581;
+  background-color: var(--dark-green);
   width: fit-content;
   padding: 5px 10px;
   border-radius: 100px;

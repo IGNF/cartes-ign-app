@@ -51,7 +51,7 @@ body {
 
 h3 {
   font-family: "Open Sans Semibold";
-  color: #26A581;
+  color: var(--dark-green);
 }
 
 #whiteScreen {
@@ -86,7 +86,7 @@ h3 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #B8BCC1;
+  background-color: var(--grey);
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 21px;
@@ -106,11 +106,11 @@ h3 {
 }
 
 .toggleInput:checked + .toggleSlider {
-  background-color: #26A581;
+  background-color: var(--dark-green);
 }
 
 .toggleInput:disabled + .toggleSlider {
-  background-color: #DDE1E6;
+  background-color: var(--grey-2);
 }
 
 .toggleInput:checked + .toggleSlider:before {
@@ -147,7 +147,7 @@ h3 {
   height: 25px;
   width: 25px;
   background-color: white;
-  border: 1px solid #B8BCC1;
+  border: 1px solid var(--grey);
   border-radius: 0.3rem;
 }
 
@@ -165,7 +165,7 @@ h3 {
 
 /* Show the checkmark when checked */
 .chkContainer input:checked ~ .checkmark {
-  border: 1px solid #26A581;
+  border: 1px solid var(--dark-green);
   background-color: #E3F5EF;
 }
 
@@ -176,7 +176,7 @@ h3 {
   top: 4px;
   width: 5px;
   height: 12px;
-  border: solid #26A581;
+  border: solid var(--dark-green);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
@@ -186,12 +186,12 @@ h3 {
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  background: #f4f6f8;
+  background: var(--false-white);
   cursor: pointer;
   width: 130px;
   overflow: hidden;
   height: 16px;
-  color: #2dc398;
+  color: var(--dark-green);
 }
 
 /* Removes default focus */
@@ -204,7 +204,7 @@ input[type="range"]:focus {
 input[type="range"]::-webkit-slider-runnable-track {
   border-radius: 2px;
   height: 4px;
-  background: linear-gradient(#2dc398,#2dc398) 0/var(--sx)  100% no-repeat, #efefef;
+  background: linear-gradient(var(--dark-green),var(--dark-green)) 0/var(--sx)  100% no-repeat, #efefef;
 }
 
 input[type=range] {
@@ -218,11 +218,11 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   margin-top: -6px; /* Centers thumb on the track */
-  background-color: #2dc398;
+  background-color: var(--dark-green);
   border-radius: 16px;
   height: 16px;
   width: 16px;
-  border: #3F4A55 6px solid;
+  border: var(--dark-grey) 6px solid;
   box-sizing: border-box;
   box-shadow: unset;
 }
@@ -230,24 +230,24 @@ input[type="range"]::-webkit-slider-thumb {
 /*********** Firefox styles ***********/
 /* slider track */
 input[type="range"]::-moz-range-track {
-  background-color: #E9ECEF;
+  background-color: var(--light-grey);
   border-radius: 2px;
   height: 4px;
 }
 
 input[type="range"]::-moz-range-progress {
-  background-color: #2dc398;
+  background-color: var(--dark-green);
   border-radius: 2px;
   height: 4px;
 }
 
 /* slider thumb */
 input[type="range"]::-moz-range-thumb {
-  background-color: #2dc398;
+  background-color: var(--dark-green);
   border: none; /*Removes extra border that FF applies*/
   border-radius: 16px;
   height: 16px;
   width: 16px;
-  border: #3F4A55 6px solid;
+  border: var(--dark-grey) 6px solid;
   box-sizing: border-box;
 }
