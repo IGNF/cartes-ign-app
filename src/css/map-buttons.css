@@ -138,7 +138,7 @@
   position: fixed;
   left: 5px;
   top: calc(70px + var(--safe-area-inset-top));
-  transition: top 0.15s, width 0.5s ease-out, background-color 0.5s ease;
+  transition: top 0.15s, width 0.5s ease-out, background-color 0.5s ease, opacity 0.5s ease;
   overflow: hidden;
   background-color: #fff0;
   border-radius: 31px;

@@ -45,6 +45,7 @@ class InteractivityIndicator {
 
     this.popup = null;
 
+    // Timeouts pour l'animation
     this.timeoutID1 = null;
     this.timeoutID2 = null;
     this.timeoutID3 = null;
@@ -140,7 +141,13 @@ class InteractivityIndicator {
   active () {
     this.hardDisabled = false;
     DOM.$interactivityBtn.classList.remove("d-none");
+    DOM.$interactivityBtn.style.removeProperty("opacity");
+    DOM.$interactivityBtn.style.removeProperty("color");
+    document.getElementById("interactivityBtnText").innerText = "La carte est interactive";
     if (!this.shown) {
+      clearTimeout(this.timeoutID1);
+      clearTimeout(this.timeoutID2);
+      clearTimeout(this.timeoutID3);
       this.timeoutID1 = setTimeout(() => {
         DOM.$interactivityBtn.style.backgroundColor = "#26A581DD";
         DOM.$interactivityBtn.style.width = "200px";
@@ -157,9 +164,9 @@ class InteractivityIndicator {
 
   /**
      * Desactive l'indicateur d'activité
-     * @param {boolean} hard l'interactivité reste désactivée tant qu'active() n'est pas appelée
      */
   disable () {
+    document.getElementById("interactivityBtnText").innerText = "La carte n'est plus interactive";
     if (!Globals.mapInteractivity) {
       return;
     }
@@ -167,13 +174,24 @@ class InteractivityIndicator {
       Globals.mapInteractivity.clear();
     }
     this.dontClear = false;
+    if (this.shown) {
+      clearTimeout(this.timeoutID1);
+      clearTimeout(this.timeoutID2);
+      clearTimeout(this.timeoutID3);
+      this.timeoutID1 = setTimeout(() => {
+        DOM.$interactivityBtn.style.color = "#3F4A55";
+        DOM.$interactivityBtn.style.backgroundColor = "#F4F6F8E5";
+        DOM.$interactivityBtn.style.width = "240px";
+        this.timeoutID2 = setTimeout(() => {
+          DOM.$interactivityBtn.style.removeProperty("width");
+          this.timeoutID3 = setTimeout(() => {
+            DOM.$interactivityBtn.style.removeProperty("background-color");
+            DOM.$interactivityBtn.style.opacity = 0;
+          }, 450);
+        }, 2400);
+      }, 50);
+    }
     this.shown = false;
-    clearTimeout(this.timeoutID1);
-    clearTimeout(this.timeoutID2);
-    clearTimeout(this.timeoutID3);
-    DOM.$interactivityBtn.classList.add("d-none");
-    DOM.$interactivityBtn.style.removeProperty("background-color");
-    DOM.$interactivityBtn.style.removeProperty("width");
   }
 
   /**
@@ -197,6 +215,9 @@ class InteractivityIndicator {
    * @public
    */
   showPopup() {
+    if (!this.shown) {
+      return;
+    }
     // on supprime la popup
     if (this.popup) {
       this.popup.remove();
@@ -211,7 +232,7 @@ class InteractivityIndicator {
           <div class="divPopupContent">
               La carte est actuellement interactive<br/>
               • Le clic sur le Plan IGN fournit des informations sur la légende et les propriétés des objets.<br/>
-              • Le clic sur une donnée thématique fournit des informations sur la légende.
+              • Le clic sur une donnée thématique fournit des informations sur la légende et/ou sur la donnée cliquée.
           </div>
       </div>
       `;
