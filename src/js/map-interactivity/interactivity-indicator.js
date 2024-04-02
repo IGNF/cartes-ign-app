@@ -1,15 +1,8 @@
 import Globals from "../globals";
 import DOM from "../dom";
+import LayerConfig from "../layer-manager/layer-config";
 
 import MapLibreGL from "maplibre-gl";
-
-const thematicLayerNotInteractive = [
-  "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN",
-  "TRANSPORTNETWORKS.RAILWAYS",
-  "TRANSPORTNETWORKS.ROADS",
-  "ELEVATION.LEVEL0",
-  "Aire-Parcellaire",
-];
 
 /**
  * Indicateur d'activité du Plan IGN interactif et des couches thématiques sur la carte
@@ -120,10 +113,10 @@ class InteractivityIndicator {
             this.thematic = false;
             return;
           }
-          if (!thematicLayerNotInteractive.includes(layer[0].split("$")[0])) {
+          if (LayerConfig.getLayerProps(layer[0]).interactive) {
             this.thematic = true;
-            this.pii = false;
           }
+          this.pii = false;
         });
         this.position = true;
         if (this.thematic || this.pii && Math.floor(this.map.getZoom()) >= this.piiMinZoom) {
