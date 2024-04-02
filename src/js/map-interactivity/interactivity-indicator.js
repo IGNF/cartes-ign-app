@@ -107,6 +107,7 @@ class InteractivityIndicator {
         e.detail.entries.push(layer);
         e.detail.entries.forEach((layer) => {
           if (layer[1].base) {
+            this.pii = false;
             if (layer[0] === this.id) {
               this.pii = true;
             }
@@ -116,9 +117,9 @@ class InteractivityIndicator {
           if (LayerConfig.getLayerProps(layer[0]).interactive) {
             this.thematic = true;
           }
-          this.pii = false;
         });
         this.position = true;
+        console.log(this.pii);
         if (this.thematic || this.pii && Math.floor(this.map.getZoom()) >= this.piiMinZoom) {
           this.active();
         } else {
