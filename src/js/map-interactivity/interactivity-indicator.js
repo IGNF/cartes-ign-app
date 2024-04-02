@@ -1,6 +1,5 @@
 import Globals from "../globals";
 import DOM from "../dom";
-import LayerConfig from "../layer-manager/layer-config";
 
 import MapLibreGL from "maplibre-gl";
 
@@ -57,6 +56,7 @@ class InteractivityIndicator {
     Globals.manager.addEventListener("addlayer", this.onGetLastLayer);
     Globals.manager.addEventListener("removelayer", this.onGetLastLayer);
     Globals.manager.addEventListener("movelayer", this.onGetLastLayer);
+    Globals.manager.addEventListener("layervisibility", this.onGetLastLayer);
 
     this.onZoom = this.onZoom.bind(this);
     this.map.on("zoom", this.onZoom);
@@ -92,7 +92,7 @@ class InteractivityIndicator {
       return;
     }
     this.thematic = this.pii = this.position = false;
-    if (layer[0] === this.id) {
+    if (layer[0] === this.id && layer[1].visibility) {
       this.pii = true;
       this.position = true;
       if (Math.floor(this.map.getZoom()) >= this.piiMinZoom) {
@@ -101,12 +101,12 @@ class InteractivityIndicator {
         this.disable();
       }
     } else {
-      if (layer[1].base) {
+      if (layer[1].base && layer[1].visibility) {
         this.disable();
       } else {
         e.detail.entries.push(layer);
         e.detail.entries.forEach((layer) => {
-          if (layer[1].base) {
+          if (layer[1].base && layer[1].visibility) {
             this.pii = false;
             if (layer[0] === this.id) {
               this.pii = true;
@@ -114,12 +114,11 @@ class InteractivityIndicator {
             this.thematic = false;
             return;
           }
-          if (LayerConfig.getLayerProps(layer[0]).interactive) {
+          if (layer[1].interactive && layer[1].visibility) {
             this.thematic = true;
           }
         });
         this.position = true;
-        console.log(this.pii);
         if (this.thematic || this.pii && Math.floor(this.map.getZoom()) >= this.piiMinZoom) {
           this.active();
         } else {

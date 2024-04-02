@@ -30,8 +30,10 @@ import LayersConfig from "./layer-config";
  *        	→ this.removeLayer → call remove interface → fire event removeLayer
  *      → switcher
  *        	→ this.addLayer → call addContainer & addGroup & map.addLayer → fire event addLayer
- *       	→ this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
+ *       	  → this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
  *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer
+ *        	→ this.layervisibility
+ *
  *
  */
 class LayerManager extends EventTarget {
@@ -167,6 +169,21 @@ class LayerManager extends EventTarget {
         })
       );
       Globals.layersDisplayed.splice(e.detail.positions.new, 0, Globals.layersDisplayed.splice(e.detail.positions.old, 1)[0]);
+    });
+    this.layerSwitcher.addEventListener("layervisibility", (e) => {
+      /**
+       * Evenement "movelayer"
+       * @event movelayer
+       * @type {*}
+       * @property {*} id -
+       * @property {*} positions -
+       */
+      this.dispatchEvent(
+        new CustomEvent("layervisibility", {
+          bubbles: true,
+          detail: e.detail
+        })
+      );
     });
   }
 

@@ -34,7 +34,8 @@ import { Toast } from "@capacitor/toast";
  *      → switcher
  *        	→ this.addLayer → call addContainer & addGroup & map.addLayer → fire event addLayer
  *       	  → this.removeLayer → call removeContainer & removeGroup & map.removeLayer → fire event removeLayer
- *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer (TODO)
+ *        	→ this.moveLayer → call moveContainer & moveGroup & map.moveLayer
+ *        	→ this.layervisibility
  */
 class LayerSwitcher extends EventTarget {
 
@@ -336,6 +337,16 @@ class LayerSwitcher extends EventTarget {
     } else {
       throw new Error(`Type not yet implemented or unknow : ${type}`);
     }
+    this.dispatchEvent(
+      new CustomEvent("layervisibility", {
+        bubbles: true,
+        detail: {
+          id: id,
+          options: this.layers[id],
+          entries: this.getLayersOrder()
+        }
+      })
+    );
   }
 
   /**
