@@ -45,6 +45,9 @@ let popup = null;
 let lastAccuracy;
 let firstLocation;
 
+// Est-ce que le marqueur de "Ma Position" a un écouteur d'évènement ?
+let hasEventListener = false;
+
 /**
  * Interface pour les evenements
  * @example
@@ -138,9 +141,22 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
       .setLngLat([coords.lon, coords.lat])
       .addTo(Globals.map);
     Globals.myPositionMarker.setRotationAlignment("map");
-    Globals.myPositionIcon.addEventListener("click", () => {
-      Globals.position.compute(Globals.myPositionMarker.getLngLat(), "Ma position").then(() => Globals.menu.open("position"));
-    });
+    if (!hasEventListener) {
+      hasEventListener = true;
+      Globals.myPositionIcon.addEventListener("click", () => {
+        // Ecouteur uniquement en mode défaut, position, informations, couches ou filtres POI
+        if (
+          Globals.backButtonState !== "default" &&
+          Globals.backButtonState.split("-")[0] !== "position" &&
+          Globals.backButtonState !== "informations" &&
+          Globals.backButtonState !== "layerManager" &&
+          Globals.backButtonState !== "poi"
+        ) {
+          return;
+        }
+        Globals.position.compute(Globals.myPositionMarker.getLngLat(), "Ma position").then(() => Globals.menu.open("position"));
+      });
+    }
   }
 
   setMarkerRotation(positionBearing);

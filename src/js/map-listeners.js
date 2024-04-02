@@ -46,6 +46,7 @@ const addListeners = () => {
     if (evt.originalEvent.touches.length > 1) {
       return;
     }
+    // Repère placé uniquement en mode défaut, position, informations, couches ou filtres POI
     if (
       Globals.backButtonState !== "default" &&
       Globals.backButtonState.split("-")[0] !== "position" &&
