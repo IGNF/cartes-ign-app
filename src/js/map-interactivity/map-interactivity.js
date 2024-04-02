@@ -98,7 +98,6 @@ class MapInteractivity {
           "features": [features[0]]
         });
         let intervalId = setInterval(() => {
-          console.log(features[0]);
           if (features[0].properties.radiusRatio >= 1) {
             clearInterval(intervalId);
           }

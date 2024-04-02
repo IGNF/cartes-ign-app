@@ -56,8 +56,8 @@ const layers = {
     source: "",
     minzoom: 14.5,
     layout: {
-        visibility: "visible",
-        "icon-image": "{symbo}_17"
+      visibility: "visible",
+      "icon-image": "{symbo}_17"
     },
   },
 };

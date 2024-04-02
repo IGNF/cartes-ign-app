@@ -213,8 +213,8 @@ function Legend(features, zoom) {
         return feat;
       }
     }).map(feat => {
-        feat.layer["properties"] = feat.properties;
-        return feat.layer;
+      feat.layer["properties"] = feat.properties;
+      return feat.layer;
     });
     layername = featurePOI.length > 0 ? beautifyLayerName(featurePOI[0], source) : "";
     if (featurePOI) {

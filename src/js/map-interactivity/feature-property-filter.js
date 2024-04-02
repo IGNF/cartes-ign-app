@@ -1,3 +1,5 @@
+import parseOsmOpeningHours from "./parse-osm-opening-hours";
+
 /**
  *
  * @param {feature} feature maplibre issue de tuile vecteur
@@ -26,7 +28,7 @@ const featurePropertyFilter = (feature) => {
     let telephone = getProperty(feature, "telephone");
     let horaire = getProperty(feature, "horaire");
     if (horaire) {
-      result.after += `<p class="positionHours positionInfo">Horaire : ${horaire}</p>`;
+      result.after += `<p class="positionHours positionInfo">Horaire : ${parseOsmOpeningHours(horaire)}</p>`;
     }
     if (web) {
       result.after += `<p class="positionWeb positionInfo"><a href="${web}" target="_blank">Accéder au site web</a></p>`;
