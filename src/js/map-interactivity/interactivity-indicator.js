@@ -136,7 +136,7 @@ class InteractivityIndicator {
     DOM.$interactivityBtn.classList.remove("d-none");
     DOM.$interactivityBtn.style.removeProperty("opacity");
     DOM.$interactivityBtn.style.removeProperty("color");
-    document.getElementById("interactivityBtnText").innerText = "La carte est interactive";
+    document.getElementById("interactivityBtnText").innerText = "La carte est interrogeable";
     if (!this.shown) {
       clearTimeout(this.timeoutID1);
       clearTimeout(this.timeoutID2);
@@ -159,7 +159,7 @@ class InteractivityIndicator {
      * Desactive l'indicateur d'activité
      */
   disable () {
-    document.getElementById("interactivityBtnText").innerText = "La carte n'est plus interactive";
+    document.getElementById("interactivityBtnText").innerText = "La carte n'est plus interrogeable";
     if (!Globals.mapInteractivity) {
       return;
     }
@@ -220,10 +220,10 @@ class InteractivityIndicator {
     // template litteral
     const popupContent = `
       <div id="interactivityPopup">
-          <div class="divPositionTitle">La carte est interactive</div>
+          <div class="divPositionTitle">La carte est interrogeable</div>
           <div class="divPopupClose" onclick="onCloseinteractivityPopup(event)"></div>
           <div class="divPopupContent">
-              La carte est actuellement interactive<br/>
+              La carte est actuellement interrogeable<br/>
               • Le clic sur le Plan IGN fournit des informations sur la légende et les propriétés des objets.<br/>
               • Le clic sur une donnée thématique fournit des informations sur la légende et/ou sur la donnée cliquée.
           </div>
