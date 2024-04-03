@@ -55,9 +55,9 @@ function parseOsmOpeningHours(horaire) {
     for (let i = 0; i < hourSplit.length; i++) {
       const hourRange = hourSplit[i].split("-");
       if (i === hourSplit.length - 1 && i > 0) {
-        result.push(`et de ${hourRange[0]} à ${hourRange[1]}`);
+        result.push(` et de ${hourRange[0]} à ${hourRange[1]}`);
       } else {
-        result.push(`de ${hourRange[0]} à ${hourRange[1]} `);
+        result.push(`de ${hourRange[0]} à ${hourRange[1]}`);
       }
     }
     if (horaireSplit.length >= 2 && a === horaireSplit.length - 2) {
