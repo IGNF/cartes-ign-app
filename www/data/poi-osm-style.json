@@ -55,7 +55,7 @@
             "type": "symbol",
             "source": "poi_osm",
             "source-layer": "point_interet",
-            "minzoom": 14,
+            "minzoom": 9,
             "maxzoom": 14.5,
             "layout": {
                 "visibility": "none",

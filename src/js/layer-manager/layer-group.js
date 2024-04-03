@@ -42,7 +42,7 @@ const addLayerToGroup = (groupId, layer, beforeId, ignoreBeforeIdCheck) => {
     beforeId = getLayerIdFromIndex(getGroupFirstLayerId(groupId) - 1);
   }
   if (layer.type !== "raster") {
-    layer.id += groupId;
+    layer.id += `$$$${groupId}`;
   }
   var groupedLayer = Object.assign({}, layer, {metadata: Object.assign({}, layer.metadata || {}, {group: groupId})});
   Globals.map.addLayer(groupedLayer, beforeId);

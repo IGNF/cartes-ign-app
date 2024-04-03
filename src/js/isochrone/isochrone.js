@@ -299,11 +299,11 @@ class Isochrone {
     });
 
     if (this.poi) {
-      LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM isochrone", true);
+      LayersGroup.addVisibilityByID(Globals.poi.id, `POI OSM isochrone$$$${Globals.poi.id}`, true);
       this.filter = ["all"];
       this.filter.push(["within", this.polygon]);
       if (settings.showPoisOutside) {
-        LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM outside isochrone", true);
+        LayersGroup.addVisibilityByID(Globals.poi.id, `POI OSM outside isochrone$$$${Globals.poi.id}`, true);
       }
 
       const anyFilter = ["any"];
