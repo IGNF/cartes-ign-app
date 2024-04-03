@@ -16,41 +16,84 @@
   margin-left: 10px;
   margin-right: 10px;
   color: var(--dark-grey);
-  width: 100%;
   font-size: 1.1em;
   flex-direction: column;
-}
-
-.altMenu div {
-  border: 0px solid #D6D6D6;
-  border-radius: 5px;
-  background-color: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 10px;
 }
 
 .altMenu b {
   font-family: 'Open Sans Semibold';
 }
 
-#legalScreenWindow {
+#informationsScreenWindow {
   font-family: 'Open Sans';
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  margin: 0;
+  overflow-x: clip;
 }
 
-#legalScreenWindow a {
-  color: #0B6BA7;
+#informationsScreenWindow > div {
+  width: 100vw;
+  flex-shrink: 0;
+  padding: 0 10px;
+  box-sizing: border-box;
+  transition: margin 0.5s ease;
+}
+
+.informationsItems {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.informationsItems > div {
+  border-bottom: 1px solid var(--grey-2);
+  font-family: "Open Sans Semibold";
+  font-size: 13px;
+  padding: 15px 0;
+  margin: 0 15px;
+  background-image: url("assets/route-draw/chevron_right.svg");
+  background-repeat: no-repeat;
+  background-size: 40px;
+  background-position: right;
+}
+
+#informationsItemsCGU {
+  border-bottom: none;
 }
 
 .headerText {
+  color: var(--dark-grey);
+  text-align: center;
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.informationsContent {
+  font-size: 12px;
+}
+
+.informationsContent > div {
+  padding: 0 10px;
+}
+
+.informationsContent h3 {
+  color: var(--dark-grey);
+  padding-left: 5px;
+  font-size: 13px;
+}
+
+.informationsContentHeader {
+  color: var(--dark-grey);
   position: absolute;
-  top: -60px;
-  left: 50%;
-  transform: translate(-50%);
-  color: #555;
-  background-color: white;
-  padding: 5px 20px 5px 20px;
-  border-radius: 5px;
+  top: -50px;
+  width: calc(100vw - 100px);
+  font-family: "Open Sans Semibold";
+  font-size: 18px;
+  border-bottom: 1px solid var(--grey-2);
+  padding-bottom: 20px;
+  padding-left: 60px;
 }
 
 /* mode paysage et écrans larges */

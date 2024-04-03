@@ -261,10 +261,8 @@ class MenuNavigation {
       Globals.currentScrollIndex = 1;
       break;
     case "myaccount":
+    case "informationsScreen":
       DOM.$whiteScreen.style.backgroundColor = getComputedStyle(document.body).getPropertyValue("--false-white");
-      // falls through
-    case "parameterScreen":
-    case "legalScreen":
       document.body.style.overflowY = "scroll";
       DOM.$whiteScreen.classList.remove("d-none");
       DOM.$search.style.display = "none";
@@ -528,10 +526,8 @@ class MenuNavigation {
       isFinished = true;
       break;
     case "myaccount":
+    case "informationsScreen":
       DOM.$whiteScreen.style.removeProperty("background-color");
-      // falls through
-    case "parameterScreen":
-    case "legalScreen":
       document.body.style.removeProperty("overflow-y");
       DOM.$whiteScreen.classList.add("d-none");
       DOM.$search.style.display = "flex";

@@ -23,13 +23,8 @@ const onBackKeyDown = () => {
     Globals.myaccount.hide();
     return;
   }
-  if (Globals.backButtonState === "parameterScreen") {
-    Globals.menu.close("parameterScreen");
-    Globals.menu.open("myaccount");
-    return;
-  }
-  if (Globals.backButtonState === "legalScreen") {
-    Globals.menu.close("legalScreen");
+  if (Globals.backButtonState === "informationsScreen") {
+    Globals.menu.close("informationsScreen");
     Globals.menu.open("myaccount");
     return;
   }
@@ -139,6 +134,12 @@ const onBackKeyDown = () => {
   }
   if (Globals.backButtonState === "signalement") {
     Globals.menu.close("signalement");
+    return;
+  }
+  if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenCGU"].includes(Globals.backButtonState)) {
+    const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
+    $informationsScreenMenu.style.removeProperty("margin-left");
+    Globals.backButtonState = "informationsScreen";
     return;
   }
 };

@@ -57,15 +57,32 @@ function addListeners() {
   }, { passive: false });
 
   // Ecouteurs sur les sous menus Compte
-  document.getElementById("menuItemParamsIcon").addEventListener("click", () => {
+  document.getElementById("menuItemInformations").addEventListener("click", () => {
     DOM.$whiteScreen.style.animation = "unset";
     Globals.menu.close("myaccount");
-    Globals.menu.open("parameterScreen");
+    Globals.menu.open("informationsScreen");
   });
-  document.getElementById("menuItemHelp").addEventListener("click", () => {
-    DOM.$whiteScreen.style.animation = "unset";
-    Globals.menu.close("myaccount");
-    Globals.menu.open("legalScreen");
+  const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
+  document.getElementById("informationsItemsLegal").addEventListener("click", () => {
+    document.getElementById("informationsContentPrivacy").classList.add("d-none");
+    document.getElementById("informationsContentCGU").classList.add("d-none");
+    document.getElementById("informationsContentLegal").classList.remove("d-none");
+    $informationsScreenMenu.style.marginLeft = "-100%";
+    Globals.backButtonState = "informationsScreenLegal";
+  });
+  document.getElementById("informationsItemsPrivacy").addEventListener("click", () => {
+    document.getElementById("informationsContentLegal").classList.add("d-none");
+    document.getElementById("informationsContentCGU").classList.add("d-none");
+    document.getElementById("informationsContentPrivacy").classList.remove("d-none");
+    $informationsScreenMenu.style.marginLeft = "-100%";
+    Globals.backButtonState = "informationsScreenPrivacy";
+  });
+  document.getElementById("informationsItemsCGU").addEventListener("click", () => {
+    document.getElementById("informationsContentLegal").classList.add("d-none");
+    document.getElementById("informationsContentPrivacy").classList.add("d-none");
+    document.getElementById("informationsContentCGU").classList.remove("d-none");
+    $informationsScreenMenu.style.marginLeft = "-100%";
+    Globals.backButtonState = "informationsScreenCGU";
   });
 
   // Rotation du marqueur de position (android)

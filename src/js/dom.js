@@ -41,8 +41,7 @@ const $mapCenterSubmit = document.getElementById("mapCenterSubmit");
 const $bottomButtons = document.getElementById("bottomButtons");
 
 const $whiteScreen = document.getElementById("whiteScreen");
-const $parameterScreenWindow = document.getElementById("parameterScreenWindow");
-const $legalScreenWindow = document.getElementById("legalScreenWindow");
+const $informationsScreenWindow = document.getElementById("informationsScreenWindow");
 const $altMenuContainer = document.getElementById("altMenuContainer");
 
 const $informationsWindow = document.getElementById("informationsWindow");
@@ -81,8 +80,7 @@ export default {
   $myGeoLocation,
   $selectOnMap,
   $backTopLeftBtn,
-  $parameterScreenWindow,
-  $legalScreenWindow,
+  $informationsScreenWindow,
   $altMenuContainer,
   $chkPrintCoordsOnContext,
   $chkPrintCoordsReticule,

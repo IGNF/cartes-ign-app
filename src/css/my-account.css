@@ -28,13 +28,9 @@
   margin: 0 5px -3px 5px;
 }
 
-#menuItemParamsIcon {
-  background-image: url("assets/settings.svg");
-  padding-right: 15px;
-}
-
 .smallMenuItem {
   font-family: 'Open Sans Semibold';
+  text-decoration: underline;
 }
 
 #menuItemHelp {
