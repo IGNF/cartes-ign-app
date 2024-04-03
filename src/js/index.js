@@ -17,6 +17,7 @@ import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { SafeArea, SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 
 import { Capacitor } from "@capacitor/core";
+import { Network } from '@capacitor/network';
 
 // import CSS
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
@@ -134,6 +135,9 @@ function app() {
   });
   Globals.currentScrollIndex = 0;
 
+   // Ajout d'autres ecouteurs
+   EventListeners.addListeners();
+
   // Ajout des contrôles
   Controls.addControls();
 
@@ -147,9 +151,6 @@ function app() {
 
   // Ajout des ecouteurs de la carte
   MapListeners.addListeners();
-
-  // Ajout d'autres ecouteurs
-  EventListeners.addListeners();
 
   // Ajout des recherches recentes issues du localStorage
   RecentSearch.create();

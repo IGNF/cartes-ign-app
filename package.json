@@ -33,6 +33,7 @@
     "@capacitor/geolocation": "5.0.6",
     "@capacitor/ios": "5.6.0",
     "@capacitor/keyboard": "^5.0.8",
+    "@capacitor/network": "^5.0.7",
     "@capacitor/screen-orientation": "^5.0.7",
     "@capacitor/share": "^5.0.6",
     "@capacitor/status-bar": "^5.0.6",

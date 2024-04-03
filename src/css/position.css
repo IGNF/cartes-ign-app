@@ -148,6 +148,7 @@
  */
 
 #interactivityPopup,
+#onlinePopup,
 #locationPopup,
 #routeDrawHelpPopup {
   position: relative;
@@ -165,6 +166,7 @@
 
 .routeDrawHelpPopup>.maplibregl-popup-content,
 .interactivityPopup>.maplibregl-popup-content,
+.onlinePopup>.maplibregl-popup-content,
 .locationPopup>.maplibregl-popup-content {
   color: var(--dark-grey);
   border-radius: 15px;

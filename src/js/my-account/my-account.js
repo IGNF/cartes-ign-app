@@ -219,8 +219,10 @@ class MyAccount {
    * importe le fichier si l'application a été ouverte via le clic au fichier et "ouvrir avec"
    */
   async #importFileIfAppOpenedFromFile() {
-    const { url } = await App.getLaunchUrl();
-    this.#importFileFromUrl(url);
+    const url = await App.getLaunchUrl();
+    if (url) {
+      this.#importFileFromUrl(url.url);
+    }
   }
 
   /**

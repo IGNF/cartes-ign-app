@@ -90,6 +90,9 @@ let comparePoi = null;
 // Global control signalement
 let signalement = null;
 
+// Global flag: is the device connected to the internet?
+let online = true;
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];
@@ -128,4 +131,5 @@ export default {
   myaccount,
   comparePoi,
   signalement,
+  online,
 };

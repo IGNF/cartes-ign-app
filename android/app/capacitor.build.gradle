@@ -15,6 +15,7 @@ dependencies {
     implementation project(':capacitor-filesystem')
     implementation project(':capacitor-geolocation')
     implementation project(':capacitor-keyboard')
+    implementation project(':capacitor-network')
     implementation project(':capacitor-screen-orientation')
     implementation project(':capacitor-share')
     implementation project(':capacitor-status-bar')

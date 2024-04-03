@@ -16,6 +16,8 @@ import Landmark from "./landmark";
 
 import LocationLayers from "./services/location-styles";
 
+import { Network } from '@capacitor/network';
+
 /**
  * Ajout des contrôle à la fin du chargement de la carte
  * @see maplibregl.ScaleControl
@@ -127,6 +129,8 @@ const addControls = () => {
         // Cercle de précision sur la position
         Globals.map.addLayer(LocationLayers["precision"]);
         Globals.map.addLayer(LocationLayers["precision-outline"]);
+        const controlsloaded = new Event("controlsloaded");
+        window.dispatchEvent(controlsloaded);
       });
   });
 };

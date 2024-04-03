@@ -5,7 +5,7 @@
 
 /**
  * Obtenir la legende de la couche
- * ex. https://www.geoportail.gouv.fr/depot/layers/ORTHOIMAGERY.ORTHOPHOTOS/legendes/ORTHOIMAGERY.ORTHOPHOTOS-legend.png
+ * ex. https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg
  * @param {*} name
  * @returns
  */
