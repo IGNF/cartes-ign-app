@@ -1,6 +1,8 @@
 import Globals from "./globals";
 import DOM from "./dom";
 
+import { Toast } from "@capacitor/toast";
+
 import Location from "./services/location";
 
 /**
@@ -11,6 +13,14 @@ class MenuNavigation {
   constructor() {
     this.container = document.getElementById("navContainer");
     this.#listeners();
+  }
+
+  #offlineWarning() {
+    Toast.show({
+      text: "Fonctionnalité indisponible en mode hors ligne.",
+      duration: "long",
+      position: "bottom"
+    });
   }
 
   /**
@@ -59,6 +69,10 @@ class MenuNavigation {
     });
     // "Tracer un itinéraire"
     document.getElementById("routeDraw").addEventListener("click", () => {
+      if (!Globals.online) {
+        this.#offlineWarning();
+        return;
+      }
       Globals.routeDraw.show();
     });
     // "Compte"
@@ -86,6 +100,12 @@ class MenuNavigation {
      * @param {*} id
      */
   open(id, scrollIndex = -1) {
+    if (["isochrone", "directions"].includes(id)) {
+      if (!Globals.online) {
+        this.#offlineWarning();
+        return;
+      }
+    }
     // on vide tous les panneaux
     var lstElements = DOM.$tabContainer.childNodes;
     for (let i = 0; i < lstElements.length; i++) {

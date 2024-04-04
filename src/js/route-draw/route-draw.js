@@ -252,6 +252,14 @@ class RouteDraw {
    * Ouvre l'itinéraire en mode édition s'il est puvert en lecture seule
    */
   openEdition() {
+    if (!Globals.online) {
+      Toast.show({
+        text: "Fonctionnalité indisponible en mode hors ligne.",
+        duration: "long",
+        position: "bottom"
+      });
+      return;
+    }
     const routeId = this.routeId;
     this.hide();
     document.getElementById(`route-edit_ID_${routeId}`).click();

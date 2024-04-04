@@ -16,8 +16,6 @@ import Landmark from "./landmark";
 
 import LocationLayers from "./services/location-styles";
 
-import { Network } from '@capacitor/network';
-
 /**
  * Ajout des contrôle à la fin du chargement de la carte
  * @see maplibregl.ScaleControl

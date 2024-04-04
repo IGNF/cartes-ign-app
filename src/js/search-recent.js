@@ -5,8 +5,9 @@ var className = "recentresult";
 const addEntry = (value) => {
   var el = document.createElement("p");
   el.className = className;
-  el.setAttribute("fulltext", value);
-  var splitedText = value.split(",");
+  el.setAttribute("fulltext", value.text);
+  el.dataset.coordinates = "{\"lon\":" + value.coordinates.lon + ",\"lat\":" + value.coordinates.lat + "}";
+  var splitedText = value.text.split(",");
   var city = "";
   if (splitedText.length > 1) {
     city = splitedText[1].trim();
@@ -26,11 +27,11 @@ const addEntries = (values) => {
   }
 };
 
-const removeEntry = (value) => {
+const removeEntry = (text) => {
   var entries = document.getElementsByClassName(className);
   for (let index = 0; index < entries.length; index++) {
     const element = entries[index];
-    if (element.getAttribute("fulltext") === value) {
+    if (element.getAttribute("fulltext") === text) {
       element.remove();
     }
   }
@@ -76,15 +77,16 @@ let RecentSearch = {
         localStorage.setItem(this.key, "[]");
       }
       var storeSearches = JSON.parse(localStorage.getItem(this.key));
+      var texts = storeSearches.map(search => search.text);
       // Change l'odre pour avoir le plus récent en haut
-      if (storeSearches.includes(value)) {
-        var index = storeSearches.indexOf(value);
-        removeEntry(storeSearches[index]);
+      if (texts.includes(value)) {
+        var index = texts.indexOf(value);
+        removeEntry(storeSearches[index].text);
         storeSearches.splice(index, 1);
       }
 
       if (storeSearches.length > 3) {
-        removeEntry(storeSearches[0]);
+        removeEntry(storeSearches[0].text);
         storeSearches.shift();
       }
       storeSearches.push(value);

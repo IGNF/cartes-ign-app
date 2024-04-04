@@ -114,7 +114,7 @@ class InteractivityIndicator {
             this.thematic = false;
             return;
           }
-          if (layer[1].interactive && layer[1].visibility) {
+          if (layer[1].interactive && layer[1].visibility && Globals.online) {
             this.thematic = true;
           }
         });

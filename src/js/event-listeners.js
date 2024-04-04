@@ -2,13 +2,12 @@ import Geocode from "./services/geocode";
 import Location from "./services/location";
 import DOM from "./dom";
 import Globals from "./globals";
-import RecentSearch from "./search-recent";
 import State from "./state";
 import MapLibreGL from "maplibre-gl";
 import { Capacitor } from "@capacitor/core";
 import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
-import { Network } from '@capacitor/network';
+import { Network } from "@capacitor/network";
 import { App } from "@capacitor/app";
 
 /**
@@ -22,8 +21,16 @@ function addListeners() {
   /* event listeners pour élément non existants au démarrage */
   document.querySelector("body").addEventListener("click", (evt) => {
     var geocode = false;
-    /* Résultats autocompletion  et recherche récente */
-    if ( evt.target.classList.contains("autocompresult") || evt.target.classList.contains("recentresult")) {
+    /* Résultat recherche récente */
+    if (evt.target.classList.contains("recentresult")) {
+      geocode = false;
+      evt.target.classList.add("autocompresultselected");
+      DOM.$rech.value = evt.target.getAttribute("fulltext");
+      Geocode.moveTo(JSON.parse(evt.target.dataset.coordinates), 14);
+      setTimeout(() => Globals.menu.close("search"), 250);
+    }
+    /* Résultats autocompletion */
+    if ( evt.target.classList.contains("autocompresult")) {
       geocode = true;
       evt.target.classList.add("autocompresultselected");
       DOM.$rech.value = evt.target.getAttribute("fulltext");
@@ -49,7 +56,6 @@ function addListeners() {
         Geocode.searchAndMoveTo(DOM.$rech.value);
         setTimeout(() => Globals.menu.close("search"), 250);
       }
-      setTimeout(() =>  RecentSearch.add(DOM.$rech.value.trim()), 260);
     }
   }, true);
   document.querySelector("body").addEventListener("wheel", (evt) => {
@@ -210,7 +216,7 @@ function addListeners() {
       .addTo(map);
   }
 
-  Network.addListener('networkStatusChange', (status) => {
+  Network.addListener("networkStatusChange", (status) => {
     let newStatus = status.connected;
     if (newStatus === Globals.online) {
       return;
@@ -247,12 +253,12 @@ function addListeners() {
               <div class="divPositionTitle">Vous êtes hors ligne</div>
               <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
               <div class="divPopupContent">
-                La plupart des fonctionnalités de l'application sont désormais indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sue la carte.
+                La plupart des fonctionnalités de l'application sont indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sue la carte.
               </div>
           </div>
         `);
       }
-    })
+    });
   });
 }
 

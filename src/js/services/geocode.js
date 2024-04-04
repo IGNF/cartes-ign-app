@@ -2,6 +2,8 @@ import maplibregl from "maplibre-gl";
 
 import DOM from "../dom";
 import Globals from "../globals";
+import RecentSearch from "../search-recent";
+
 
 /**
  * Interface pour les evenements
@@ -73,6 +75,13 @@ async function search (text) {
   let geocode_result = response.results[0];
 
   DOM.$rech.value = Globals.search.computeLocationFullText(geocode_result);
+  RecentSearch.add({
+    text: Globals.search.computeLocationFullText(geocode_result),
+    coordinates: {
+      lat: geocode_result.y,
+      lon: geocode_result.x
+    }
+  });
 
   target.dispatchEvent(
     new CustomEvent("search", {

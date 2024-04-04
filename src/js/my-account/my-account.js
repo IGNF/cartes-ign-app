@@ -434,6 +434,14 @@ class MyAccount {
    * @param {*} route
    */
   editRoute(route) {
+    if (!Globals.online) {
+      Toast.show({
+        text: "Fonctionnalité indisponible en mode hors ligne.",
+        duration: "long",
+        position: "bottom"
+      });
+      return;
+    }
     if (route.visible) {
       route.visible = false;
       this.#updateSources();
