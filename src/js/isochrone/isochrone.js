@@ -320,7 +320,7 @@ class Isochrone {
         }
         const currentFilter = this.map.getFilter(id);
         currentFilter[currentFilter.length - 1] = this.filter;
-        if (settings.showPoisOutside && id !== "POI OSM isochrone") {
+        if (settings.showPoisOutside && id !== `POI OSM isochrone$$$${Globals.poi.id}`) {
           currentFilter[currentFilter.length - 1] = this.filter[this.filter.length - 1];
         }
         this.map.setFilter(id, currentFilter);
@@ -428,8 +428,8 @@ class Isochrone {
       }
     });
     // Retour en mode invisible pour la couche POI au bas niveaux de zoom
-    LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM isochrone", false);
-    LayersGroup.addVisibilityByID(Globals.poi.id, "POI OSM outside isochrone", false);
+    LayersGroup.addVisibilityByID(Globals.poi.id, `POI OSM isochrone$$$${Globals.poi.id}`, false);
+    LayersGroup.addVisibilityByID(Globals.poi.id, `POI OSM outside isochrone$$$${Globals.poi.id}`, false);
   }
 
   /**
