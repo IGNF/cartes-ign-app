@@ -9,7 +9,8 @@
     "overrideUserAgent": "IGN-app-android"
   },
   "ios": {
-    "overrideUserAgent": "IGN-app-ios"
+    "overrideUserAgent": "IGN-app-ios",
+    "preferredContentMode": "mobile"
   },
   "plugins": {
     "Keyboard": {

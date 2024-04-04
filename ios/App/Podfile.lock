@@ -5,12 +5,18 @@ PODS:
     - Capacitor
   - Capacitor (5.6.0):
     - CapacitorCordova
-  - CapacitorApp (5.0.6):
+  - CapacitorApp (5.0.7):
     - Capacitor
   - CapacitorCordova (5.6.0)
   - CapacitorFilesystem (5.2.0):
     - Capacitor
   - CapacitorGeolocation (5.0.6):
+    - Capacitor
+  - CapacitorKeyboard (5.0.8):
+    - Capacitor
+  - CapacitorNativeSettings (5.0.1):
+    - Capacitor
+  - CapacitorNetwork (5.0.7):
     - Capacitor
   - CapacitorScreenOrientation (5.0.7):
     - Capacitor
@@ -18,7 +24,11 @@ PODS:
     - Capacitor
   - CapacitorStatusBar (5.0.6):
     - Capacitor
+  - CapacitorTextZoom (5.0.7):
+    - Capacitor
   - CapacitorToast (5.0.6):
+    - Capacitor
+  - CapawesomeCapacitorFilePicker (5.3.0):
     - Capacitor
 
 DEPENDENCIES:
@@ -29,10 +39,15 @@ DEPENDENCIES:
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
   - "CapacitorGeolocation (from `../../node_modules/@capacitor/geolocation`)"
+  - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
+  - CapacitorNativeSettings (from `../../node_modules/capacitor-native-settings`)
+  - "CapacitorNetwork (from `../../node_modules/@capacitor/network`)"
   - "CapacitorScreenOrientation (from `../../node_modules/@capacitor/screen-orientation`)"
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
+  - "CapacitorTextZoom (from `../../node_modules/@capacitor/text-zoom`)"
   - "CapacitorToast (from `../../node_modules/@capacitor/toast`)"
+  - "CapawesomeCapacitorFilePicker (from `../../node_modules/@capawesome/capacitor-file-picker`)"
 
 EXTERNAL SOURCES:
   AashuDubeyCapacitorStatusbarSafeArea:
@@ -49,28 +64,43 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/filesystem"
   CapacitorGeolocation:
     :path: "../../node_modules/@capacitor/geolocation"
+  CapacitorKeyboard:
+    :path: "../../node_modules/@capacitor/keyboard"
+  CapacitorNativeSettings:
+    :path: "../../node_modules/capacitor-native-settings"
+  CapacitorNetwork:
+    :path: "../../node_modules/@capacitor/network"
   CapacitorScreenOrientation:
     :path: "../../node_modules/@capacitor/screen-orientation"
   CapacitorShare:
     :path: "../../node_modules/@capacitor/share"
   CapacitorStatusBar:
     :path: "../../node_modules/@capacitor/status-bar"
+  CapacitorTextZoom:
+    :path: "../../node_modules/@capacitor/text-zoom"
   CapacitorToast:
     :path: "../../node_modules/@capacitor/toast"
+  CapawesomeCapacitorFilePicker:
+    :path: "../../node_modules/@capawesome/capacitor-file-picker"
 
 SPEC CHECKSUMS:
   AashuDubeyCapacitorStatusbarSafeArea: 4833bf7ac284b54c6650f0d80634552094fd3229
   AgorapulseCapacitorMediastore: 8e715b430fa585618957e0c6fc73e544d6f95ee9
   Capacitor: ebfc16cdb8116d04c101686b080342872da42d43
-  CapacitorApp: 963d90cb449803d58efc33bb515c81151e69159d
+  CapacitorApp: 17fecd0e6cb23feafac7eb0939417389038b0979
   CapacitorCordova: 931b48fcdbc9bc985fc2f16cec9f77c794a27729
   CapacitorFilesystem: 02f9a9053b96e1881ba1fc98d846869413c195c2
   CapacitorGeolocation: c8f9b46f96e0b6cc80a6c7ff48a37cfc44ad2198
+  CapacitorKeyboard: aec619a578235c6ce279075009a2689c2cf5c42c
+  CapacitorNativeSettings: 6e94ed3c0465206756f320df18efc52f053ce3c7
+  CapacitorNetwork: 81ef9728aa7a65cac8c1181ce79e578162b57b57
   CapacitorScreenOrientation: cc638c369cb2b1dfc55f8265485a8b4e0b3cafd9
   CapacitorShare: cd41743331cb71d217c029de54b681cbd91e0fcc
   CapacitorStatusBar: a73a9ae0dd2ca30ee429782d5d3ae82dcfa80207
+  CapacitorTextZoom: 69814a62b1d0f23a899cca06ea9838c38de187ff
   CapacitorToast: 61a9bec819ad3aeccc1ebe3fcbff565c22969c71
+  CapawesomeCapacitorFilePicker: 41f486cb4a89c6a7c8a4f5d683dbf96658894182
 
-PODFILE CHECKSUM: cf085abeb28b2d1d7e3132929cd82275bc467f40
+PODFILE CHECKSUM: 273985847fa4fb9f5427b39f7fd2002cb5e71d6f
 
 COCOAPODS: 1.14.3

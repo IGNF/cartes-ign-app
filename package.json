@@ -37,6 +37,7 @@
     "@capacitor/screen-orientation": "^5.0.7",
     "@capacitor/share": "^5.0.6",
     "@capacitor/status-bar": "^5.0.6",
+    "@capacitor/text-zoom": "^5.0.7",
     "@capacitor/toast": "^5.0.6",
     "@capawesome/capacitor-file-picker": "^5.3.0",
     "@mapbox/mapbox-gl-sync-move": "^0.3.1",

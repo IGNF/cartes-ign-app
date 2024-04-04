@@ -8,6 +8,7 @@ import { Capacitor } from "@capacitor/core";
 import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { Network } from "@capacitor/network";
+import { TextZoom } from "@capacitor/text-zoom";
 import { App } from "@capacitor/app";
 
 /**
@@ -244,20 +245,32 @@ function addListeners() {
       `);
     }
   });
-
+  
   window.addEventListener("controlsloaded", () => {
     Network.getStatus().then((status) => {
       if (!status.connected) {
         showOnlinePopup(`
-          <div id="onlinePopup">
-              <div class="divPositionTitle">Vous êtes hors ligne</div>
-              <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
-              <div class="divPopupContent">
-                La plupart des fonctionnalités de l'application sont indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sue la carte.
-              </div>
-          </div>
+        <div id="onlinePopup">
+        <div class="divPositionTitle">Vous êtes hors ligne</div>
+        <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
+        <div class="divPopupContent">
+        La plupart des fonctionnalités de l'application sont indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sue la carte.
+        </div>
+        </div>
         `);
       }
+    });
+  });
+  
+  window.addEventListener("controlsloaded", () => {
+    TextZoom.getPreferred().then(value => {
+      TextZoom.set(value);
+    });
+  });
+
+  App.addListener("resume", () => {
+    TextZoom.getPreferred().then(value => {
+      TextZoom.set(value);
     });
   });
 }
