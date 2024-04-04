@@ -187,18 +187,12 @@ const gfiRules = {
       "bodyBefore": [
         ["Nature :", "{{nature}}"],
       ],
-      "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder à la fiche</a></p>"]
-      ],
     },
     9: {
       "title": "@nom",
       "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
         ["Arrondissement Départemental :", "{{nom}}"],
-      ],
-      "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder à la fiche</a></p>"]
       ],
     },
     7: {
@@ -207,17 +201,11 @@ const gfiRules = {
       "bodyBefore": [
         ["Code INSEE :", "{{insee_dep}}"],
       ],
-      "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder à la fiche</a></p>"]
-      ],
     },
     0: {
       "title": "@nom",
       "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
-      ],
-      "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder à la fiche</a></p>"]
       ],
     },
   },
