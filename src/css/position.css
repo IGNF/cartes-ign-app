@@ -233,6 +233,16 @@
   background-image: url("assets/web.svg");
 }
 
+.positionWeb::after {
+  content: "";
+  background-image: url("assets/external-link.svg");
+  width: 20px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+}
+
 .positionTelephone {
   background-image: url("assets/telephone.svg");
 }
