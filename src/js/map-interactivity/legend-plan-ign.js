@@ -18,26 +18,28 @@ function beautifyLayerName(feature, source) {
         legend.push(symbo);
       }
       if (symbo !== "" && texte) {
-        legend.push(`<p class="positionSubTitle">${symbo} - Données OpenStreetMap</p>`);
+        legend.push(`<p class="positionSubTitle">${symbo} - Source : OpenStreetMap</p>`);
       } else {
-        legend.push("<p class=\"positionSubTitle\">Données OpenStreetMap</p>");
+        legend.push("<p class=\"positionSubTitle\">Source : OpenStreetMap</p>");
       }
     } else {
-      legend.push("<p class=\"positionSubTitle\">Données OpenStreetMap</p>");
+      legend.push("<p class=\"positionSubTitle\">Source : OpenStreetMap</p>");
     }
     return legend.join("");
   }
   // PLAN IGN
   else {
-    if (Object.hasOwnProperty.call(feature.properties, "texte")
-      && feature.properties.texte)
-      return feature.properties.texte;
-
-    if (Object.hasOwnProperty.call(feature.layer, "metadata")
-      && Object.hasOwnProperty.call(feature.layer.metadata, "legend-title"))
-      return feature.layer.metadata["legend-title"];
+    let legend = [];
+    if (Object.hasOwnProperty.call(feature.properties, "texte") && feature.properties.texte) {
+      legend.push(feature.properties.texte);
+    } else if (Object.hasOwnProperty.call(feature.layer, "metadata") && Object.hasOwnProperty.call(feature.layer.metadata, "legend-title")) {
+      legend.push(feature.layer.metadata["legend-title"]);
+    }
+    if (legend.length > 0) {
+      legend.push("<p class=\"positionSubTitle\">Source : BD Topo® - IGN</p>");
+    }
+    return legend.join("");
   }
-  return "";
 }
 
 function getMapboxPropAtZoom(feature, prop, zoom, defaultValue) {
