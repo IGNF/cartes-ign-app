@@ -22,39 +22,35 @@ function addListeners() {
   /* event listeners pour élément non existants au démarrage */
   document.querySelector("body").addEventListener("click", (evt) => {
     var geocode = false;
-    /* Résultat recherche récente */
-    if (evt.target.classList.contains("recentresult")) {
-      geocode = false;
-      evt.target.classList.add("autocompresultselected");
-      DOM.$rech.value = evt.target.getAttribute("fulltext");
-      Geocode.moveTo(JSON.parse(evt.target.dataset.coordinates), 14);
-      setTimeout(() => Globals.menu.close("search"), 250);
-    }
-    /* Résultats autocompletion */
-    if ( evt.target.classList.contains("autocompresult")) {
+    /* Résultats autocompletion ou recherche récente */
+    let coords = null;
+    if ( evt.target.classList.contains("autocompresult") || evt.target.classList.contains("recentresult")) {
       geocode = true;
       evt.target.classList.add("autocompresultselected");
       DOM.$rech.value = evt.target.getAttribute("fulltext");
+      if (evt.target.classList.contains("recentresult")) {
+        coords = JSON.parse(evt.target.dataset.coordinates);
+      }
     }
     // si recherches recentes ou autocompletion, on realise un geocodage
     if (geocode) {
       if (Globals.backButtonState === "searchDirections") {
         setTimeout(() => {
-          Geocode.search(DOM.$rech.value);
+          Geocode.search(DOM.$rech.value, coords);
           Globals.menu.open("directions");
         }, 250);
       } else if(Globals.backButtonState === "searchIsochrone") {
         setTimeout(() => {
-          Geocode.search(DOM.$rech.value);
+          Geocode.search(DOM.$rech.value, coords);
           Globals.menu.open("isochrone");
         }, 250);
       } else if(Globals.backButtonState === "searchLandmark") {
         setTimeout(() => {
-          Geocode.search(DOM.$rech.value);
+          Geocode.search(DOM.$rech.value, coords);
           Globals.menu.open("landmark");
         }, 250);
       } else {
-        Geocode.searchAndMoveTo(DOM.$rech.value);
+        Geocode.searchAndMoveTo(DOM.$rech.value, coords);
         setTimeout(() => Globals.menu.close("search"), 250);
       }
     }
@@ -245,7 +241,7 @@ function addListeners() {
       `);
     }
   });
-  
+
   window.addEventListener("controlsloaded", () => {
     Network.getStatus().then((status) => {
       if (!status.connected) {
@@ -261,14 +257,20 @@ function addListeners() {
       }
     });
   });
-  
+
   window.addEventListener("controlsloaded", () => {
+    if (Capacitor.getPlatform() === "web") {
+      return;
+    }
     TextZoom.getPreferred().then(value => {
       TextZoom.set(value);
     });
   });
 
   App.addListener("resume", () => {
+    if (Capacitor.getPlatform() === "web") {
+      return;
+    }
     TextZoom.getPreferred().then(value => {
       TextZoom.set(value);
     });

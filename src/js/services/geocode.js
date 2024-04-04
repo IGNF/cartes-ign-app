@@ -52,7 +52,7 @@ function moveTo(coords, zoom=Globals.map.getZoom(), panTo=true) {
  * @returns
  * @fire search
  */
-async function search (text) {
+async function search (text, coords = null) {
   /**
    * Recherche un texte et le géocode à l'aide de look4,
    * puis va à sa position en ajoutant un marqueur
@@ -60,28 +60,38 @@ async function search (text) {
   if (text === "") {
     return;
   }
-  let url = new URL("https://data.geopf.fr/geocodage/completion");
-  let params =
-      {
-        type: "StreetAddress,PositionOfInterest",
-        maximumResponses: 1,
-        text: text,
-      };
+  let geocode_result;
+  if (!coords) {
+    let url = new URL("https://data.geopf.fr/geocodage/completion");
+    let params =
+        {
+          type: "StreetAddress,PositionOfInterest",
+          maximumResponses: 1,
+          text: text,
+        };
 
-  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-  let responseprom = await fetch(url);
-  let response = await responseprom.json();
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    let responseprom = await fetch(url);
+    let response = await responseprom.json();
 
-  let geocode_result = response.results[0];
+    geocode_result = response.results[0];
 
-  DOM.$rech.value = Globals.search.computeLocationFullText(geocode_result);
-  RecentSearch.add({
-    text: Globals.search.computeLocationFullText(geocode_result),
-    coordinates: {
-      lat: geocode_result.y,
-      lon: geocode_result.x
-    }
-  });
+    DOM.$rech.value = Globals.search.computeLocationFullText(geocode_result);
+    RecentSearch.add({
+      text: Globals.search.computeLocationFullText(geocode_result),
+      coordinates: {
+        lat: geocode_result.y,
+        lon: geocode_result.x
+      }
+    });
+  } else {
+    DOM.$rech.value = text;
+    geocode_result = {
+      fulltext: text,
+      y: coords.lat,
+      x: coords.lon
+    };
+  }
 
   target.dispatchEvent(
     new CustomEvent("search", {
@@ -106,8 +116,8 @@ async function search (text) {
  * recherche et deplacement sur la carte
  * @param {*} text
  */
-async function searchAndMoveTo(text) {
-  var coords = await search(text);
+async function searchAndMoveTo(text, coord = null) {
+  var coords = await search(text, coord);
   moveTo(coords, 14);
 }
 
