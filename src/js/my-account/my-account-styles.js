@@ -178,7 +178,7 @@ const layers = {
         ["+", 17, ["*", 13, ["coalesce", ["get", "radiusRatio"], 0]]]
       ],
       "circle-color": ["get", "color"],
-      "circle-opacity": 0.6,
+      "circle-opacity": ["case", ["boolean", ["get", "visible"], false], 0.6, 0],
     }
   },
   "landmark-casing": {
