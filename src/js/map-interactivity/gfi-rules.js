@@ -2,7 +2,7 @@ const gfiRules = {
   "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@limite",
-      "subtitle": "Restrictions UAS catégorie Ouverte et Aéromodélisme - Producteur : SIA",
+      "subtitle": "Restrictions UAS catégorie Ouverte et Aéromodélisme - Source : SIA",
       "bodyBefore": [
         ["* Sauf conditions particulières publiées à l'arrêté « espaces » du 3 décembre 2020"],
       ],
@@ -12,7 +12,7 @@ const gfiRules = {
   "VILLAGESETAPE$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@toponyme",
-      "subtitle": "Village étapes - Producteur : Fédération française des villages étapes",
+      "subtitle": "Village étapes - Source : Fédération française des villages étapes",
       "bodyBefore": [],
       "bodyAfter": [
         ["<p class=\"positionWeb positionInfo\"><a href=https://www.village-etape.fr/les-villages-etapes/ target=\"_blank\">Accéder au site web</a></p>"]
@@ -22,7 +22,7 @@ const gfiRules = {
   "POI.MUSEUM$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@toponyme",
-      "subtitle": "Musées - Producteur : IGN",
+      "subtitle": "Musées - Source : IGN",
       "bodyBefore": [
       ],
       "bodyAfter": [],
@@ -31,7 +31,7 @@ const gfiRules = {
   "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@name",
-      "subtitle": "Parcs et Jardins - Producteur : Conservatoire des jardins et paysages",
+      "subtitle": "Parcs et Jardins - Source : Conservatoire des jardins et paysages",
       "bodyBefore": [
         ["{{cjp}}"]
       ],
@@ -43,7 +43,7 @@ const gfiRules = {
   "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS": {
     0: {
       "title": "@name",
-      "subtitle": "Monuments nationaux - Producteur : Centre des monuments nationaux",
+      "subtitle": "Monuments nationaux - Source : Centre des monuments nationaux",
       "bodyBefore": [],
       "bodyAfter": [
         ["<img src=\"https://data.geopf.fr/annexes/ressources/poicmn/{{image}}\">"],
@@ -55,7 +55,7 @@ const gfiRules = {
   "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@sitename",
-      "subtitle": "Sites NATURA 2000 au titre de la Directive Oiseaux - Producteur : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
+      "subtitle": "Sites NATURA 2000 au titre de la Directive Oiseaux - Source : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
       ],
       "bodyAfter": [
@@ -66,7 +66,7 @@ const gfiRules = {
   "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
-      "subtitle": "Parcs nationaux - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Parcs Nationaux de France, Muséum national d’Histoire naturelle (MNHN)",
+      "subtitle": "Parcs nationaux - Source : Inventaire National du Patrimoine Naturel (INPN), Parcs Nationaux de France, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
       ],
       "bodyAfter": [
@@ -77,7 +77,7 @@ const gfiRules = {
   "PROTECTEDAREAS.PNR$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
-      "subtitle": "Parcs naturels régionaux - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Fédération des Parcs naturels régionaux de France, Muséum national d’Histoire naturelle (MNHN)",
+      "subtitle": "Parcs naturels régionaux - Source : Inventaire National du Patrimoine Naturel (INPN), Fédération des Parcs naturels régionaux de France, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
       ],
       "bodyAfter": [
@@ -88,7 +88,7 @@ const gfiRules = {
   "PROTECTEDAREAS.RN$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
-      "subtitle": "Réserves naturelles nationales - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Réserves naturelles de France (RNF), Muséum national d’Histoire naturelle (MNHN)",
+      "subtitle": "Réserves naturelles nationales - Source : Inventaire National du Patrimoine Naturel (INPN), Réserves naturelles de France (RNF), Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
       ],
       "bodyAfter": [
@@ -99,7 +99,7 @@ const gfiRules = {
   "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
-      "subtitle": "Réserves naturelles régionales - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
+      "subtitle": "Réserves naturelles régionales - Source : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
       ],
       "bodyAfter": [
@@ -110,7 +110,7 @@ const gfiRules = {
   "PROTECTEDAREAS.RNC$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@nom",
-      "subtitle": "Réserves Naturelles de Corse - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
+      "subtitle": "Réserves Naturelles de Corse - Source : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
       ],
       "bodyAfter": [
@@ -121,7 +121,7 @@ const gfiRules = {
   "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS": {
     0: {
       "title": "@sitename",
-      "subtitle": "Sites Natura 2000 au titre de la Directive Habitats - Producteurs : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
+      "subtitle": "Sites Natura 2000 au titre de la Directive Habitats - Source : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
       "bodyBefore": [
       ],
       "bodyAfter": [
@@ -132,13 +132,13 @@ const gfiRules = {
   "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS": {
     13: {
       "title": "@llib_frt",
-      "subtitle": "Forêts publiques - Producteur : Office National des Forêts",
+      "subtitle": "Forêts publiques - Source : Office National des Forêts",
       "bodyBefore": [],
       "bodyAfter": [],
     },
     0: {
       "title": "@llib2_frt",
-      "subtitle": "Forêts publiques - Producteur : Office National des Forêts",
+      "subtitle": "Forêts publiques - Source : Office National des Forêts",
       "bodyBefore": [],
       "bodyAfter": [],
     }
@@ -146,7 +146,7 @@ const gfiRules = {
   "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$GEOPORTAIL:OGC:WMTS":{
     0: {
       "title": "Parcelles Cadastrales",
-      "subtitle": "PCI vecteur - Producteur : DGFIP",
+      "subtitle": "PCI vecteur - Source : DGFIP",
       "bodyBefore": [
         ["Numéro de parcelle :", "{{numero}}"],
         ["Feuille :", "{{feuille}}"],
@@ -159,7 +159,7 @@ const gfiRules = {
     0 :{
       "pretitle": "Culture : ",
       "title": "@nom_cultu",
-      "subtitle": "Registre parcellaire graphique 2022 - Producteur : Agence de services et de paiements (ASP)",
+      "subtitle": "Registre parcellaire graphique 2022 - Source : Agence de services et de paiements (ASP)",
       "bodyBefore": [
       ],
       "bodyAfter": [],
@@ -169,7 +169,7 @@ const gfiRules = {
   "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS": {
     12: {
       "title": "@nom",
-      "subtitle": "Limites administratives mises à jour en continu - Producteur : IGN",
+      "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
         ["Commune :", "{{nom}}"],
         ["Code INSEE :", "{{insee_com}}"],
@@ -183,7 +183,7 @@ const gfiRules = {
     },
     10: {
       "title": "@nom",
-      "subtitle": "Limites administratives mises à jour en continu - Producteur : IGN",
+      "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
         ["Nature :", "{{nature}}"],
       ],
@@ -193,7 +193,7 @@ const gfiRules = {
     },
     9: {
       "title": "@nom",
-      "subtitle": "Limites administratives mises à jour en continu - Producteur : IGN",
+      "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
         ["Arrondissement Départemental :", "{{nom}}"],
       ],
@@ -203,7 +203,7 @@ const gfiRules = {
     },
     7: {
       "title": "@nom",
-      "subtitle": "Limites administratives mises à jour en continu - Producteur : IGN",
+      "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
         ["Code INSEE :", "{{insee_dep}}"],
       ],
@@ -213,7 +213,7 @@ const gfiRules = {
     },
     0: {
       "title": "@nom",
-      "subtitle": "Limites administratives mises à jour en continu - Producteur : IGN",
+      "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
       ],
       "bodyAfter": [
