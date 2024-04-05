@@ -15,7 +15,7 @@
   border-top-right-radius: 5px;
   color:var(--dark-grey);
   font-size: 1.1em;
-  text-align: justify;
+  text-align: left;
   overflow-y: scroll;
 }
 
