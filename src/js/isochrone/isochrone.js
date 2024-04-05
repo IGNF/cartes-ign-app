@@ -301,9 +301,8 @@ class Isochrone {
     if (this.poi) {
       LayersGroup.addVisibilityByID(Globals.poi.id, `POI OSM isochrone$$$${Globals.poi.id}`, true);
       this.filter = ["all"];
-      this.filter.push(["within", this.polygon]);
-      if (settings.showPoisOutside) {
-        LayersGroup.addVisibilityByID(Globals.poi.id, `POI OSM outside isochrone$$$${Globals.poi.id}`, true);
+      if (!settings.showPoisOutside) {
+        this.filter.push(["within", this.polygon]);
       }
 
       const anyFilter = ["any"];
@@ -429,7 +428,6 @@ class Isochrone {
     });
     // Retour en mode invisible pour la couche POI au bas niveaux de zoom
     LayersGroup.addVisibilityByID(Globals.poi.id, `POI OSM isochrone$$$${Globals.poi.id}`, false);
-    LayersGroup.addVisibilityByID(Globals.poi.id, `POI OSM outside isochrone$$$${Globals.poi.id}`, false);
   }
 
   /**

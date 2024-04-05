@@ -28,7 +28,12 @@ const featurePropertyFilter = (feature) => {
     let telephone = getProperty(feature, "telephone");
     let horaire = getProperty(feature, "horaire");
     if (horaire) {
-      result.after += `<p class="positionHours positionInfo">Horaire : ${parseOsmOpeningHours(horaire)}</p>`;
+      try {
+        result.after += `<p class="positionHours positionInfo">Horaire : ${parseOsmOpeningHours(horaire)}</p>`;
+      } catch {
+        console.warn("Could not parse horaire: " + horaire);
+        result.after += `<p class="positionHours positionInfo">Horaire : ${horaire}</p>`;
+      }
     }
     if (web) {
       result.after += `<p class="positionWeb positionInfo"><a href="${web}" target="_blank">Accéder au site web</a></p>`;

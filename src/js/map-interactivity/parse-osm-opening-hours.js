@@ -17,12 +17,12 @@ function parseOsmOpeningHours(horaire) {
   const result = [];
   // cas où les différents jours sont séparés par des virgules
   if (horaire.match(/, ?[A-Z]/g)) {
-    horaire = horaire.replace(/, ?L/g, "/ L");
-    horaire = horaire.replace(/, ?M/g, "/ M");
-    horaire = horaire.replace(/, ?J/g, "/ J");
-    horaire = horaire.replace(/, ?V/g, "/ V");
-    horaire = horaire.replace(/, ?S/g, "/ S");
-    horaire = horaire.replace(/, ?D/g, "/ D");
+    horaire = horaire.replace(/[0-9], ?L/g, "/ L");
+    horaire = horaire.replace(/[0-9], ?M/g, "/ M");
+    horaire = horaire.replace(/[0-9], ?J/g, "/ J");
+    horaire = horaire.replace(/[0-9], ?V/g, "/ V");
+    horaire = horaire.replace(/[0-9], ?S/g, "/ S");
+    horaire = horaire.replace(/[0-9], ?D/g, "/ D");
   }
   const horaireSplit = horaire.split("/").map((el) => el.trim());
   for (let a = 0; a < horaireSplit.length; a++) {
