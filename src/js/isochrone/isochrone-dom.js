@@ -91,7 +91,10 @@ let IsochroneDOM = {
             <!-- titre -->
               <p class="pIsochroneTitleTitle pIsochroneTitle">Lancer une recherche à proximité</p>
               <!-- location -->
-              <input id="isochroneLocation" class="inputIsochroneLocation" type="text" placeholder="Saisir une adresse..." name="location" data-coordinates="">
+              <div id="isochroneLocationContainer">
+                <input id="isochroneLocation" class="inputIsochroneLocation" type="text" placeholder="Saisir une adresse..." name="location" data-coordinates="">
+                <div id="clearIsochroneLocation" class="d-none"></div>
+              </div>
               <!-- type de calcul : distance / temps -->
               <div class="section">
                 <div class="divIsochroneMode">
@@ -163,6 +166,7 @@ let IsochroneDOM = {
     this.dom.showOutPoisChk = shadow.getElementById("showOutPoisChk");
     this.dom.isochroneCompute = shadow.getElementById("isochroneCompute");
     this.dom.poiToggle = shadow.getElementById("displayPOI-isochrone");
+    this.dom.clearLocation = shadow.getElementById("clearIsochroneLocation");
 
     this.dom.showOutPoisChk.addEventListener("change", (e) => {
       if (e.target.checked) {
@@ -202,7 +206,7 @@ let IsochroneDOM = {
       if (self.dom.modeDuration && self.dom.modeDuration.checked) {
         mode.type = self.dom.modeDuration.value;
         var minutes = parseInt(self.dom.durationValueMinutes.value, 10);
-        if (isNaN && isNaN(minutes)) {
+        if (isNaN(minutes)) {
           minutes = 0;
         }
         // durée exprimée en secondes
@@ -245,7 +249,7 @@ let IsochroneDOM = {
         return;
       }
 
-      if (mode.type === self.dom.modeDuration.value && mode.value > 60) {
+      if (mode.type === self.dom.modeDuration.value && mode.value > 3600) {
         Toast.show({
           text: "Le calcul de zone est limité à 60 minutes",
           duration: "long",
@@ -316,6 +320,11 @@ let IsochroneDOM = {
           this.dom.poiToggle.checked = false;
         }
       });
+    });
+    this.dom.clearLocation.addEventListener("click", () => {
+      this.dom.location.value = "";
+      this.dom.location.dataset.coordinates = "";
+      this.dom.clearLocation.classList.add("d-none");
     });
 
     return shadow;

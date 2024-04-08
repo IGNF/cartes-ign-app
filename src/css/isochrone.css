@@ -102,7 +102,7 @@
   transition: color 0.15s ease-in;
   background-repeat: no-repeat;
   background-size: 20px 25px;
-  background-position: 17px;
+  background-position: 13px;
   font-family: "Open Sans";
 }
 
@@ -121,19 +121,19 @@
 
 .divIsochroneMode input[id="isochroneModeDistance"]:checked ~ .sliderIsochrone,
 .divIsochroneTransport input[id="isochroneTransportVoiture"]:checked ~ .sliderIsochrone {
-  transform: translateX(58px);
+  transform: translateX(53px);
 }
 
 .divIsochroneMode input[id="isochroneModeDuration"]:checked ~ .sliderIsochrone,
 .divIsochroneTransport input[id="isochroneTransportPieton"]:checked ~ .sliderIsochrone {
-  transform: translateX(-58px);
+  transform: translateX(-53px);
 }
 
 .sliderIsochrone {
   position: absolute;
   display: flex;
   height: 44px;
-  width: 110px;
+  width: 120px;
   background-color: white;
   z-index: 1;
   border-radius: 100px;
@@ -167,33 +167,24 @@
 }
 
 .divIsochroneValue {
-  display: flex;
+  text-align: center;
 }
 
 .isochroneValueHidden {
   display: none;
 }
 
-#isochroneValueDuration {
-  margin: auto;
-  flex-direction: row;
-  align-items: center;
-}
-
-input#isochroneValueDurationInputHours[type=number],
 input#isochroneValueDurationInputMinutes[type=number],
 input#isochroneValueDistanceInput[type=number]
  {
   appearance: textfield;
 }
 
-#isochroneValueDurationInputHours,
 #isochroneValueDurationInputMinutes,
 #isochroneValueDistanceInput
 {
-  flex: 1;
   height: 35px;
-  width: 50%;
+  width: 95px;
   padding-left: 10px;
   border-radius: 8px;
   border: 1px solid;
@@ -202,21 +193,10 @@ input#isochroneValueDistanceInput[type=number]
   text-align: right;
 }
 
-#isochroneValueDurationInputHours:focus,
+#isochroneValueDistanceInput:focus,
 #isochroneValueDurationInputMinutes:focus {
   outline: none;
-  border-color: var(--dark-green);
-}
-
-#isochroneValueDistance {
-  margin: auto;
-  flex-direction: row;
-  align-items: center;
-}
-
-#isochroneValueDistanceInput:focus {
-  outline: none;
-  border:1px solid var(--dark-green);
+  border: 1px solid var(--dark-green);
 }
 
 /*
@@ -232,11 +212,27 @@ input#isochroneValueDistanceInput[type=number]
   margin: auto;
   padding-left: 15px;
   margin-bottom: 10px;
+  padding: 0 50px 0px 15px;
   background-color: white;
   border-radius: 8px;
   border: 1px solid;
   border-color: var(--grey-2);
   color: var(--dark-grey);
+  box-sizing: border-box;
+}
+
+#clearIsochroneLocation {
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  display: inline-block;
+  top: 5px;
+  right: 15px;
+  width: 58px;
+  height: 35px;
+  background-image: url("assets/clearSearch.svg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #isochroneLocationContainer {
@@ -249,7 +245,7 @@ input#isochroneValueDistanceInput[type=number]
   position: absolute;
   z-index: 1;
   top: 5px;
-  right: 2.5%;
+  right: calc(5% + 50px);
   width: 30px;
   height: 37px;
   background: linear-gradient(90deg, #fff0, #fff);
@@ -261,12 +257,12 @@ input#isochroneValueDistanceInput[type=number]
   content: "";
   display: block;
   position: absolute;
-  width: 95%;
+  width: 90%;
   height: 100%;
   top: 0;
-  left: 2.5%;
-  background-color: var(--dark-grey)55;
-  z-index: 2;
+  left: 5%;
+  background-color: #3F4A5555;
+  z-index: 100;
   border-radius: 8px;
 }
 

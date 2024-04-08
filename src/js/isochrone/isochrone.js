@@ -503,6 +503,7 @@ class Isochrone {
       // - la reponse du geocodage
       target.dataset.coordinates = "[" + e.detail.coordinates.lon + "," + e.detail.coordinates.lat + "]";
       target.value = e.detail.text;
+      self.dom.clearLocation.classList.remove("d-none");
       // on supprime les écouteurs
       cleanListeners();
     }
