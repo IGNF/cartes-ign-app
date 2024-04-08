@@ -135,6 +135,7 @@
 }
 
 #interactivityBtn {
+  z-index: 2998;
   position: fixed;
   left: 5px;
   top: calc(70px + var(--safe-area-inset-top));

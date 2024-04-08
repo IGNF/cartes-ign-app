@@ -21,8 +21,7 @@
 
 #isochroneWindow,
 #layerManagerWindow {
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .windowClose {
@@ -59,7 +58,7 @@
   color: var(--dark-grey);
   display: flex;
   flex-direction: column;
-  z-index: 101;
+  z-index: 1001;
   box-sizing: border-box;
   padding: 0 6% 6% 6%;
 }

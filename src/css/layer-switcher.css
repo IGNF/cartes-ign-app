@@ -129,14 +129,14 @@ div[id^="advanced-tools_ID_"] {
   flex-direction: column;
   position: absolute;
   left: 110px;
-  top: -30px;
+  bottom: 50%;
 }
 
 div[id^="landmark-advanced-tools_ID_"],
 div[id^="route-advanced-tools_ID_"] {
-  top: 25px;
-  right: 35px;
+  right: 30px;
   left: unset;
+  bottom: 25%;
 }
 
 label[id^="landmark-show-advanced-tools_ID_"]:hover
@@ -144,16 +144,11 @@ label[id^="landmark-show-advanced-tools_ID_"]:hover
 label[id^="route-show-advanced-tools_ID_"]:hover
   + div[id^="route-advanced-tools_ID_"],
 label[id^="show-advanced-tools_ID_"]:hover
-  + div[id^="advanced-tools_ID_"] {
-  display: flex;
-  max-height: 250px;
-  padding: 12px;
-  transition: max-height 0.3s ease-out;
-}
-
+  + div[id^="advanced-tools_ID_"],
 div[id^="landmark-advanced-tools_ID_"]:hover,
 div[id^="route-advanced-tools_ID_"]:hover,
-div[id^="advanced-tools_ID_"]:hover {
+div[id^="advanced-tools_ID_"]:hover
+  {
   display: flex;
   max-height: 250px;
   padding: 12px;

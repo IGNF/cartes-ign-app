@@ -115,7 +115,7 @@
 #myaccount-routes {
   flex-grow: 1;
   height: calc(100% - 37px);
-  overflow: scroll;
+  overflow-y: visible;
 }
 
 #myaccountRouteList {
