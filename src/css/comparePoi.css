@@ -15,8 +15,6 @@
   background-repeat: no-repeat;
   background-size: 20px;
   height: 23px;
-  display: flex;
-  align-items: center;
 }
 
 .comparePoiButton {
@@ -24,7 +22,7 @@
   background-color: var(--dark-green);
   border-radius: 100px;
   padding: 7px 13px 7px 28px;
-  background-image: url("assets/map-buttons/compare/compare.svg");
+  background-image: url("../html/img/compare-s.svg");
   background-repeat: no-repeat;
   background-size: 25px;
   background-position: 2px 3px;

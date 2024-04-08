@@ -102,8 +102,12 @@
   transition: color 0.15s ease-in;
   background-repeat: no-repeat;
   background-size: 20px 25px;
-  background-position: 12px 3px;
+  background-position: 17px;
   font-family: "Open Sans";
+}
+
+.lblIsochroneTransport {
+  padding-left: 30px;
 }
 
 .lblIsochroneMode {

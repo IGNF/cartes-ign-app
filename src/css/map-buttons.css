@@ -157,6 +157,7 @@
   background-image: url("assets/map-buttons/interactivity-w.svg");
   background-size: 20px;
   flex-shrink: 0;
+  margin-right: 12px;
 }
 
 #routeDrawBtns {
