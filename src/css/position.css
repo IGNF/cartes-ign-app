@@ -60,7 +60,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 10px 0 18px 0;
+  margin: 18px 0 18px 0;
   overflow-x: scroll;
   scrollbar-width: none;
   /* Firefox */
@@ -217,6 +217,7 @@
   min-height: 32px;
   display: flex;
   align-items: center;
+  background-position: top left;
 }
 
 .positionInfo a {
