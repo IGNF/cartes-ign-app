@@ -24,6 +24,7 @@
   position: absolute;
   bottom: calc(72px + 12px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
   width: 100vw;
+  transition: transform 0.5s ease-in-out;
 }
 
 #layerManagerBtn {
@@ -131,7 +132,7 @@
   padding-left: 25px;
   background-position: 13px center;
   width: 70px;
-  transition: top 0.15s;
+  transition: top 0.15s, transform 0.5s;
 }
 
 #interactivityBtn {
@@ -247,6 +248,7 @@
   box-sizing: border-box;
   left: 50%;
   transform: translateX(-50%);
+  transition: transform 0.5s;
 }
 
 #routeDrawEdit > .button {

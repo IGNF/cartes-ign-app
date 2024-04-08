@@ -279,6 +279,17 @@ function addListeners() {
       TextZoom.set(value);
     });
   });
+
+  window.addEventListener("scroll", (e) => {
+    DOM.$bottomButtons.style.removeProperty("transform");
+    DOM.$routeDrawEdit.style.removeProperty("transform");
+    DOM.$filterPoiBtn.style.removeProperty("transform");
+    if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && window.scrollY > window.innerHeight / 2) {
+      DOM.$bottomButtons.style.transform = "translateY(-100vh)";
+      DOM.$routeDrawEdit.style.transform = "translateX(100vw)";
+      DOM.$filterPoiBtn.style.transform = "translateY(-100vh)";
+    }
+  })
 }
 
 export default {
