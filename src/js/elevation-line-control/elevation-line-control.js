@@ -217,7 +217,7 @@ class ElevationLineControl {
             title: {
               display: true,
               text: `Distance (${this.unit})`,
-            }
+            },
           },
           y: {
             title: {
@@ -278,9 +278,10 @@ Distance du départ : ${Math.round(context.parsed.x)} ${this.unit}`;
 
   /**
    * requête au service et construction de la donnée
+   * @param {float} totalDistance Distance totale réelle de l'itinéraire (différente de celle calculée à cause du sampling)
    * @public
    */
-  async compute() {
+  async compute(totalDistance = 0) {
     this.#setLoading();
     // Gestion du cas où pas assez de coordonnées sont présentes
     if (this.coordinates.length < 2) {
@@ -339,6 +340,14 @@ Distance du départ : ${Math.round(context.parsed.x)} ${this.unit}`;
 
     this.dplus = Math.round(100 * this.dplus) / 100;
     this.dminus = Math.round(100 * this.dminus) / 100;
+
+    if (totalDistance) {
+      // Ratio entre la distance totale réelle de l'itinéraire et la distance calculée (différente à cause du sampling)
+      const ratio = totalDistance / currentDistance;
+      this.elevationData.forEach((elevation) => {
+        elevation.x = Math.round(elevation.x * ratio);
+      });
+    }
 
     if (currentDistance > 2000) {
       this.unit = "km";

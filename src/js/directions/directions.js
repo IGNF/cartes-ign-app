@@ -352,7 +352,7 @@ class Directions {
           this.elevation.target = document.getElementById("directions-elevationline");
           this.elevation.loadingDomInDocument = false;
           this.elevation.setCoordinates(routeCoordinates);
-          this.elevation.compute();
+          this.elevation.compute(e.data.routes[0].distance);
         }
       }
     });

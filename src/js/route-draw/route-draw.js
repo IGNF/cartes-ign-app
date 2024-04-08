@@ -838,7 +838,7 @@ class RouteDraw {
     this.elevation.setCoordinates(allCoordinates);
     let aborted;
     try {
-      aborted = await this.elevation.compute();
+      aborted = await this.elevation.compute(this.data.distance);
     } finally {
       if (!aborted) {
         this.elevationLoading = false;
