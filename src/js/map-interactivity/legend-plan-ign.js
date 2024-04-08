@@ -4,7 +4,6 @@ import poiLegendRule from "./poi-legend-rules";
 function beautifyLayerName(feature, source) {
   // POI OSM
   if (source == "poi_osm") {
-    console.log(feature.properties);
     let featureRule = poiLegendRule.filter((l) => {
       let classMatches = true;
       if (l.class) {

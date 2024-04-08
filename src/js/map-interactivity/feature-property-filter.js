@@ -39,7 +39,23 @@ const featurePropertyFilter = (feature) => {
       result.after += `<p class="positionWeb positionInfo"><a href="${web}" target="_blank">Accéder au site web</a></p>`;
     }
     if (telephone) {
-      result.after += `<p class="positionTelephone positionInfo"><a href="tel:${telephone.replace(/\s/g, "")}">${telephone}</a></p>`;
+      telephone = telephone.replace(/\s/g, "");
+      const telArray = telephone.split("");
+      if (telArray[0] === "0") {
+        let offset = 0;
+        for (let i = 2; i < 10; i += 2) {
+          telArray.splice(i + offset, 0, " ");
+          offset++;
+        }
+      } else {
+        telArray.splice(3, 0, " ");
+        let offset = 0;
+        for (let i = 5; i < 13; i += 2) {
+          telArray.splice(i + offset, 0, " ");
+          offset++;
+        }
+      }
+      result.after += `<p class="positionTelephone positionInfo"><a href="tel:${telephone}">${telArray.join("")}</a></p>`;
     }
     result.after += "</div>";
     result.before = "";
