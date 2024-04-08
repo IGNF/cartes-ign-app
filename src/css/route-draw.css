@@ -13,7 +13,7 @@
 }
 
 #routeDrawMode:not(.routeDrawModeClose):hover > #routeDrawModeSelect {
-  max-height: 68px;
+  max-height: 76px;
 }
 
 .routeDrawIcon {
@@ -49,6 +49,15 @@
 
 #routeDrawSelectGuided {
   position: relative;
+  padding-top: 4px;
+}
+
+#routeDrawModeSelectModeFree {
+  padding-bottom: 4px;
+}
+
+#routeDrawModeSelectTransportPedestrian {
+  padding-top: 4px;
 }
 
 #routeDrawModeSelectTransport {

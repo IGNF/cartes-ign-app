@@ -118,7 +118,7 @@
   width: 90%;
   color: var(--grey-2);
   background-color: var(--grey-2);
-  margin: 3px 0;
+  margin: 5px 0;
 }
 
 .navbar.hoverable:hover .subnav {

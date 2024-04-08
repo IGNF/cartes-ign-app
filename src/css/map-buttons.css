@@ -174,6 +174,10 @@
   position: relative;
 }
 
+#routeDrawMode:hover > #routeDrawModeText {
+  color: var(--dark-green);
+}
+
 #routeDrawModeTransportPedestrian, #routeDrawModeTransportCar {
   display: block;
   width: 30px;
@@ -186,6 +190,8 @@
 
 #routeDrawModeTransportCar {
   background-image: url("assets/route-draw/voiture-green.svg");
+  background-size: 17px;
+  background-position: 13px 13px;
 }
 
 #routeDrawModeText {

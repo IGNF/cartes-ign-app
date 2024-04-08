@@ -111,7 +111,16 @@ label[id^="show-advanced-tools_ID_"] {
   background-image: url("./assets/options-layer.svg");
   background-repeat: no-repeat;
   background-position: center;
+  flex-shrink: 0;
+  border-radius: 50%;
 }
+
+label[id^="landmark-show-advanced-tools_ID_"]:hover,
+label[id^="route-show-advanced-tools_ID_"]:hover,
+label[id^="show-advanced-tools_ID_"]:hover {
+  background-color: var(--grey-2);
+}
+
 div[id^="landmark-advanced-tools_ID_"],
 div[id^="route-advanced-tools_ID_"],
 div[id^="advanced-tools_ID_"] {
