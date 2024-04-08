@@ -4,7 +4,15 @@ import poiLegendRule from "./poi-legend-rules";
 function beautifyLayerName(feature, source) {
   // POI OSM
   if (source == "poi_osm") {
-    let featureRule = poiLegendRule.filter(l => l.subclass == feature.properties.symbo);
+    console.log(feature.properties);
+    let featureRule = poiLegendRule.filter((l) => {
+      let classMatches = true;
+      if (l.class) {
+        classMatches = l.class == feature.properties.class;
+      }
+      const subclassMatches = l.subclass == feature.properties.subclass;
+      return subclassMatches && classMatches;
+    });
     let legend = [];
 
     let texte = Object.hasOwnProperty.call(feature.properties, "texte") ? feature.properties.texte : "";
