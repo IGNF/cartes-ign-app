@@ -63,7 +63,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -226,7 +226,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -396,7 +396,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -523,7 +523,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -657,7 +657,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -767,7 +767,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -895,7 +895,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -1065,7 +1065,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -1223,7 +1223,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -1350,7 +1350,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -1465,7 +1465,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -1581,7 +1581,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -1757,7 +1757,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -1915,7 +1915,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -2055,7 +2055,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -2183,7 +2183,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -2310,7 +2310,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -2425,7 +2425,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -2540,7 +2540,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -2691,7 +2691,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -2806,7 +2806,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -2921,7 +2921,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -3036,7 +3036,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -3152,7 +3152,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -3280,7 +3280,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -3407,7 +3407,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/wmts"
+          "appign": "https://wmts.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
