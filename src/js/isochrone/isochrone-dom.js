@@ -19,7 +19,6 @@ let IsochroneDOM = {
     modeDistance: null,
     distanceValue: null,
     modeDuration: null,
-    durationValueHours: null,
     durationValueMinutes: null,
     transportCar: null,
     transportPedestrian: null
@@ -105,16 +104,14 @@ let IsochroneDOM = {
                 <div id="isochroneModeValueDuration">
                   <p class="pIsochroneTitle">Définir un temps de trajet</p>
                   <div id="isochroneValueDuration" class="divIsochroneValue">
-                    <input id="isochroneValueDurationInputHours" min="0" step="1" type="number" placeholder="0">
-                    <label class="unit">h</label>
-                    <input id="isochroneValueDurationInputMinutes" min="0" max="59" step="1" type="number" placeholder="0">
+                    <input id="isochroneValueDurationInputMinutes" min="0" max="60" step="1" type="number" placeholder="0">
                     <label class="unit">min</label>
                   </div>
                 </div>
                 <div id="isochroneModeValueDistance" class="isochroneValueHidden">
                   <p class="pIsochroneTitle">Définir une distance</p>
                   <div id="isochroneValueDistance" class="divIsochroneValue">
-                    <input id="isochroneValueDistanceInput" min="0" step="any" type="number" placeholder="0">
+                    <input id="isochroneValueDistanceInput" min="0" max="50" step="any" type="number" placeholder="0">
                     <label class="unit">km</label>
                   </div>
                 </div>
@@ -159,7 +156,6 @@ let IsochroneDOM = {
     this.dom.modeDistance = shadow.getElementById("isochroneModeDistance");
     this.dom.distanceValue = shadow.getElementById("isochroneValueDistanceInput");
     this.dom.modeDuration = shadow.getElementById("isochroneModeDuration");
-    this.dom.durationValueHours = shadow.getElementById("isochroneValueDurationInputHours");
     this.dom.durationValueMinutes = shadow.getElementById("isochroneValueDurationInputMinutes");
     this.dom.transportCar = shadow.getElementById("isochroneTransportVoiture");
     this.dom.transportPedestrian = shadow.getElementById("isochroneTransportPieton");
@@ -205,16 +201,12 @@ let IsochroneDOM = {
       // temps ?
       if (self.dom.modeDuration && self.dom.modeDuration.checked) {
         mode.type = self.dom.modeDuration.value;
-        var hours = parseInt(self.dom.durationValueHours.value, 10);
-        if (isNaN && isNaN(hours)) {
-          hours = 0;
-        }
         var minutes = parseInt(self.dom.durationValueMinutes.value, 10);
         if (isNaN && isNaN(minutes)) {
           minutes = 0;
         }
         // durée exprimée en secondes
-        mode.value = hours * 3600 + minutes * 60;
+        mode.value = minutes * 60;
       }
       // distance ?
       if (self.dom.modeDistance && self.dom.modeDistance.checked) {
@@ -247,6 +239,24 @@ let IsochroneDOM = {
       if (!value) {
         Toast.show({
           text: "Ajoutez un point de départ pour le calcul de la zone",
+          duration: "long",
+          position: "bottom"
+        });
+        return;
+      }
+
+      if (mode.type === self.dom.modeDuration.value && mode.value > 60) {
+        Toast.show({
+          text: "Le calcul de zone est limité à 60 minutes",
+          duration: "long",
+          position: "bottom"
+        });
+        return;
+      }
+
+      if (mode.type === self.dom.modeDistance.value && mode.value > 50) {
+        Toast.show({
+          text: "Le calcul de zone est limité à 50 kilomètres",
           duration: "long",
           position: "bottom"
         });
