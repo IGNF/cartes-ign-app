@@ -16,8 +16,9 @@
  */
 .divPositionTitle {
   text-align: left;
-  font-size: large;
-  margin: 0 10px 12px 10px;
+  font-size: 15px;
+  font-family: "Open Sans Bold";
+  margin: 0 10px 17px 0px;
 }
 
 /*
@@ -151,16 +152,17 @@
 #locationPopup,
 #routeDrawHelpPopup {
   position: relative;
+  padding: 24px;
 }
 
 .divPopupClose {
-  width: 25px;
-  height: 25px;
-  background-image: url("assets/directions/location-step-remove.svg");
-  background-size: 25px;
+  width: 30px;
+  height: 30px;
+  background-image: url("assets/clearSearch.svg");
+  background-size: 30px;
   position: absolute;
-  right: 0;
-  top: -15px;
+  right: 15px;
+  top: 20px;
 }
 
 .routeDrawHelpPopup>.maplibregl-popup-content,
@@ -169,6 +171,7 @@
 .locationPopup>.maplibregl-popup-content {
   color: var(--dark-grey);
   border-radius: 15px;
+  padding: 0;
 }
 
 .routeDrawHelpPopup>.maplibregl-popup-tip,
