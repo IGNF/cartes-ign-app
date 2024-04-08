@@ -202,8 +202,6 @@ input#isochroneValueDistanceInput[type=number]
 /*
  * location
  */
-.divIsochroneLocation {}
-
 .inputIsochroneLocation {
   display: block;
   position: relative;
@@ -219,6 +217,11 @@ input#isochroneValueDistanceInput[type=number]
   border-color: var(--grey-2);
   color: var(--dark-grey);
   box-sizing: border-box;
+}
+
+.inputIsochroneLocation:not(:placeholder-shown) {
+  border: 1px solid var(--dark-green);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
 }
 
 #clearIsochroneLocation {
