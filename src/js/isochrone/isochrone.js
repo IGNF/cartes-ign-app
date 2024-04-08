@@ -4,6 +4,9 @@ import LayersGroup from "../layer-manager/layer-group";
 
 import GisUtils from "../utils/gis-utils";
 
+import { Toast } from "@capacitor/toast";
+
+
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
 import Location from "../services/location";
@@ -294,6 +297,15 @@ class Isochrone {
     } else {
       padding = {top: 80, right: 20, bottom: 120, left: 20};
     }
+    this.map.once("moveend", () => {
+      if (this.map.getZoom() < 11) {
+        Toast.show({
+          text: "Zoomez pour afficher les centres d'intérêt sélectionnés",
+          duration: "long",
+          position: "bottom"
+        });
+      }
+    })
     this.map.fitBounds(bbox, {
       padding: padding
     });
