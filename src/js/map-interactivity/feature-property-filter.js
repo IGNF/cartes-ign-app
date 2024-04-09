@@ -19,6 +19,7 @@ const getProperty = (feature, prop) => {
 };
 
 const featurePropertyFilter = (feature) => {
+
   let result = {
     before: "<div class='positionHtmlBefore'>",
     after: "<div class='positionHtmlAfter'>",
@@ -66,7 +67,6 @@ const featurePropertyFilter = (feature) => {
   let toponyme = getProperty(feature, "toponyme");
   let nature = getProperty(feature, "nature");
   let nature_detaillee = getProperty(feature, "nature_detaillee");
-  let usage = getProperty(feature, "usage");
   let hauteur = getProperty(feature, "hauteur");
 
   //  Propriétés spécifiques reservoir
@@ -85,7 +85,6 @@ const featurePropertyFilter = (feature) => {
 
   // Propriétés spécifiques troncon_de_route
   if(feature.layer["source-layer"] == "troncon_de_route") {
-    let cpx_classement_administratif = getProperty(feature, "cpx_classement_administratif");
     let cpx_numero = getProperty(feature, "cpx_numero");
     let cpx_toponyme_route_nommee = getProperty(feature, "cpx_toponyme_route_nommee");
     let cpx_toponyme_voie_verte = getProperty(feature, "cpx_toponyme_voie_verte");
@@ -94,10 +93,11 @@ const featurePropertyFilter = (feature) => {
     let voie_prive = getProperty(feature, "voie_prive");
     let acces_pieton = getProperty(feature, "acces_pieton");
 
-    var routeName = `${cpx_classement_administratif} ${cpx_numero} ${cpx_toponyme_route_nommee}`;
-    routeName = routeName.trim();
-    if (routeName) {
-      result.before += routeName + "<br/>";
+    if (cpx_numero) {
+      result.before += `${cpx_numero}<br/>`;
+    }
+    if (cpx_toponyme_route_nommee) {
+      result.before += `${cpx_toponyme_route_nommee}<br/>`;
     }
     else {
       if (nature && natureRouteToDisplay.includes(nature))
@@ -113,12 +113,26 @@ const featurePropertyFilter = (feature) => {
       else
         result.before += `${nombre_de_voies} voies<br/>`;
     }
-    if (voie_prive) {
-      result.before += "Voie privée<br/>";
-    }
     if (acces_pieton) {
       result.before += `Accès piéton : ${acces_pieton}<br/>`;
     }
+    if (voie_prive) {
+      result.before += "Voie privée<br/>";
+    }
+    result.before += "</div>";
+    result.after = "";
+    return result;
+  }
+
+  //  Propriétés spécifiques batiment religieux
+  if(feature.layer["source-layer"] == "batiment") {
+    // Batiment
+
+    let usage = getProperty(feature, "usage_1");
+    if (usage == "Religieux" && !isIndifferencie(nature)) {
+      result.before += `${nature}<br/>`;
+    }
+  
     result.before += "</div>";
     result.after = "";
     return result;
@@ -131,32 +145,52 @@ const featurePropertyFilter = (feature) => {
     let nombre_d_etages = getProperty(feature, "nombre_d_etages");
     let date_d_apparition = getProperty(feature, "date_d_apparition");
 
-    if(nature && !isIndifferencie(nature)) {
-      result.before += `${nature}<br/>`;
-    }
-    if(usage && !isIndifferencie(usage)) {
-      result.before += `Usage : ${usage}<br/>`;
-    }
-    if(nombre_de_logements) {
+    if(nombre_de_logements && nature == "Bâtiment résidentiel ou quelconque") {
       result.before += `Nombre de logements : ${nombre_de_logements}<br/>`;
     }
-    if(nombre_d_etages && nombre_d_etages != "0") {
-      result.before += `Nombre d'étages : ${nombre_d_etages}<br/>`;
+    if(nombre_d_etages) {
+      if (nombre_d_etages == "0")
+        result.before += "Bâtiment de plain-pied<br/>";
+      else
+        result.before += `Nombre d'étages : ${nombre_d_etages}<br/>`;
+    }
+    if(hauteur) {
+      result.before += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres<br/>`;
     }
     if(date_d_apparition) {
       let match = date_d_apparition.match("([0-9]+)/");
       let year = match[1] ? match[1] : "";
       result.before += `Année de construction : ${year}<br/>`;
     }
-    if(hauteur) {
-      result.before += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres<br/>`;
+
+    result.before += "</div>";
+    result.after = "";
+    return result;
+  }
+
+  //  Propriétés spécifiques ligne de chemin de fer
+  if(feature.layer["source-layer"] == "troncon_de_voie_ferree") {
+    // Batiment
+    let cpx_toponyme = getProperty(feature, "cpx_toponyme");
+    let usage = getProperty(feature, "usage");
+    let nombre_de_voies = getProperty(feature, "nombre_de_voies");
+
+    if(cpx_toponyme) {
+      result.before += `${cpx_toponyme}<br/>`;
+    }
+    if(usage) {
+      result.before += `Usage : ${usage}<br/>`;
+    }
+    if(nombre_de_voies) {
+      result.before += `Nombre de voies : ${nombre_de_voies}<br/>`;
     }
     result.before += "</div>";
     result.after = "";
     return result;
   }
 
-  if (feature.layer["source-layer"] != "construction_ponctuelle") {
+  if (feature.layer["source-layer"] != "construction_ponctuelle"
+    && feature.layer["source-layer"] != "cours_d_eau") {
     if (nature) {
       result.before += `${nature}<br/>`;
     }
