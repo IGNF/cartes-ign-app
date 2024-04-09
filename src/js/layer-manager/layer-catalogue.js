@@ -124,10 +124,12 @@ class LayerCatalogue extends EventTarget {
       <h4 id="baseLayersLabel">Fonds de carte</h4>
       <div class="subCatMenu" id="baseLayers">
         ${strBaseLayers}
+        <div id="baseLayersAfter"></div>
       </div>
       <h4 id="thematicLayersLabel">Données thématiques</h4>
       <div class="subCatButton" id="thematicButtons">
         ${strThematicButtons}
+        <div id="subCatButtonAfter"></div>
       </div>
       <div class="subCatMenu" id="thematicLayers">
         ${strThematicLayers}
@@ -200,6 +202,15 @@ class LayerCatalogue extends EventTarget {
         el.click();
       }
     });
+    function horizontalParentScroll(event) {
+      event.target.parentElement.scrollBy({
+        left: event.target.parentElement.offsetWidth * 0.8,
+        top: 0,
+        behavior : "smooth",
+      });
+    }
+    document.getElementById("baseLayersAfter").addEventListener("click", horizontalParentScroll);
+    document.getElementById("subCatButtonAfter").addEventListener("click", horizontalParentScroll);
   }
 
   /**

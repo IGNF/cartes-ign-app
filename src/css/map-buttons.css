@@ -136,7 +136,7 @@
 }
 
 #interactivityBtn {
-  z-index: 2998;
+  z-index: 2997;
   position: fixed;
   left: 5px;
   top: calc(70px + var(--safe-area-inset-top));
@@ -382,7 +382,8 @@
   }
 
   #interactivityBtn {
-    left: calc(90px + var(--safe-area-inset-left));
+    right: calc(var(--safe-area-inset-right) + 15px);
+    left: unset;
   }
 
   #filterPoiBtn {

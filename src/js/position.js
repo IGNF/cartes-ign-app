@@ -155,7 +155,8 @@ class Position {
             </div>
             ${this.additionalHtml.beforeButtons}
             <div class="divPositionButtons">
-                ${htmlButtons}
+              ${htmlButtons}
+              <div id="divPositionButtonsAfter"></div>
             </div>
             ${this.additionalHtml.afterButtons}
         </div>
@@ -281,6 +282,15 @@ class Position {
         }
       });
     }
+
+    function horizontalParentScroll(event) {
+      event.target.parentElement.scrollBy({
+        left: event.target.parentElement.offsetWidth * 0.8,
+        top: 0,
+        behavior : "smooth",
+      });
+    }
+    shadowContainer.getElementById("divPositionButtonsAfter").addEventListener("click", horizontalParentScroll);
 
     // ajout du container shadow
     target.appendChild(shadowContainer);

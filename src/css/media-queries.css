@@ -4,7 +4,7 @@
     width: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
     left: 0;
     border-top-left-radius: 0px;
-    z-index: 2550;
+    z-index: 2997;
     padding: 0 15px 15px calc(var(--safe-area-inset-left) + 42px);
     transition: top 0.3s;
     display: none;

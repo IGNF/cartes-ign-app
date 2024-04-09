@@ -69,16 +69,19 @@
   scrollbar-width: none;
 }
 
-.divPositionButtons::after {
+#divPositionButtonsAfter {
   content: "";
-  pointer-events: none;
   position: sticky;
   z-index: 6;
   top: 0;
   right: 0;
-  width: 20px;
+  width: 40px;
   height: 45px;
-  background: linear-gradient(90deg, #fff0, var(--false-white));
+  width: 40px;
+  background: url("assets/arrow-right.svg"), linear-gradient(90deg,#fff0,var(--false-white) 40%);
+  background-repeat: no-repeat;
+  background-position: right 2px top 50%, right;
+  background-size: 20px, cover;
   opacity: 1;
   visibility: visible;
   flex-shrink: 0;
