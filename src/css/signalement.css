@@ -8,11 +8,12 @@
 }
 
 .signalementTitle {
-  font-family: "Open Sans Bold";
+  font-family: "Fira Sans Semibold";
+  font-size: 17px;
 }
 
 .signalementSubTitle {
-  font-family: "Open Sans Semibold";
+  font-family: "Fira Sans Medium";
 }
 
 .signalementText {

@@ -36,6 +36,8 @@
   text-align: center;
   white-space: nowrap;
   border-bottom: 2px solid var(--grey-2);
+  font-family: "Fira Sans SemiBold";
+  font-size: 13px;
 }
 
 .layer-tabs-input:checked + .layer-tabs-label {

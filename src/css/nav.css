@@ -34,6 +34,7 @@
     vertical-align: middle;
     white-space: nowrap;
     font-size: 12px;
+    font-family: "Fira Sans Semibold";
 }
 
 .navitembtn > div {
@@ -134,7 +135,7 @@
   line-height: normal;
   font-weight: 600;
   align-self: stretch;
-  font-family: "Open Sans";
+  font-family: "Open Sans Semibold";
 }
 
 .nav-text {
@@ -148,13 +149,13 @@
 
 .nav-text-header {
   font-size: 15px;
+  font-family: "Fira Sans Semibold";
 }
 
 .nav-text-caption {
   font-size: 12px;
   align-self: stretch;
-  font-family: "Open Sans";
-  font-weight: 200;
+  font-family: "Open Sans Semibold";
 }
 
 .nav-arrow, .nav-picto {

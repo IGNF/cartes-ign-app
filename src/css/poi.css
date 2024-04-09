@@ -3,9 +3,7 @@
 .spanPOITitle {
     text-align: left;
     width: 100%;
-    font-family: "Open Sans";
-    font-weight: bold;
-    font-size: 1.2em;
+    font-size: 17px;
 }
 
 .divPOIDisplayGoBackTime > div,
@@ -17,6 +15,7 @@
     padding-top: 15px;
     align-items: center;
     padding-bottom: 5px;
+    font-size: 15px;
 }
 
 .divPOIDisplayGoBackTime {
@@ -25,7 +24,7 @@
 }
 
 .divPOIDisplay {
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     width: 100%;
 }
 
@@ -33,12 +32,12 @@
     max-width: 75%;
     white-space: wrap;
     text-align: left;
-    font-family: "Open Sans Semibold";
+    font-family: "Fira Sans Semibold";
 }
 
 .divPOIDisplayGoBackTime > div > span {
-  font-family: "Open Sans Semibold";
-  font-size: 1.2em;
+  font-family: "Fira Sans Semibold";
+  font-size: 17px;
 }
 
 .divPOIDisplayGoBackTime > span:last-child {
@@ -50,15 +49,17 @@
     background-size: 18px;
     background-position: top left;
     font-family: "Open Sans Semibold";
+    font-size: 13px;
 }
 
 .divPOIFilterItems {
     display: flex;
     flex-direction: column;
     width: calc(100% - 30px);
-    font-family: "Open Sans";
+    font-family: "Open Sans Semibold";
+    font-size: 14px;
     border-bottom: 1px solid var(--grey-2);
-    padding: 15px;
+    padding: 8px 15px 15px 15px;
 }
 
 .lblPOIFilterItem {

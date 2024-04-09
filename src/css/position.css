@@ -16,10 +16,11 @@
  */
 .divPositionTitle {
   text-align: left;
-  font-size: 15px;
-  font-family: "Open Sans Bold";
+  font-size: 17px;
+  font-family: "Fira Sans Semibold";
   margin: 0 10px 17px 0px;
 }
+
 
 /*
  * addresse
@@ -47,11 +48,13 @@
 }
 
 .lblPositionAddress {
-  font-family: "Open Sans Bold";
+  font-family: "Fira Sans Semibold";
+  font-size: 15px;
 }
 
 .lblPositionCity {
-  font-size: 0.9em;
+  font-family: "Open Sans Semibold";
+  font-size: 12px;
 }
 
 /*
@@ -64,7 +67,6 @@
   margin: 18px 0 18px 0;
   overflow-x: scroll;
   scrollbar-width: none;
-  /* Firefox */
 }
 
 .divPositionButtons::after {
@@ -91,6 +93,7 @@
   width: 25px;
   background-size: 25px;
   background-repeat: no-repeat;
+  margin-right: 6px;
 }
 
 .lblPositionShareImg {
@@ -120,8 +123,7 @@
 .btnPositionButtons {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 10px;
+  padding: 10px 14px;
   color: white;
   background-color: var(--dark-green);
   border-radius: 50px;
@@ -132,6 +134,8 @@
   outline: none;
   border: none;
   white-space: nowrap;
+  font-family: "Open Sans Semibold";
+  font-size: 12px;
 }
 
 /*
@@ -153,6 +157,8 @@
 #routeDrawHelpPopup {
   position: relative;
   padding: 24px;
+  font-family: "Open Sans";
+  font-size: 13px;
 }
 
 .divPopupClose {
@@ -262,7 +268,8 @@
 }
 
 .monumentsHistoriquesContent b {
-  font-size: 14px;
+  font-size: 15px;
   margin-bottom: -10px;
   display: block;
+  font-family: "Fira Sans Semibold";
 }

@@ -27,8 +27,9 @@
 }
 
 .pIsochroneTitleTitle {
-  font-family: "Open Sans Bold";
+  font-family: "Fira Sans Medium";
   margin-top: 0;
+  font-size: 16px;
 }
 
 
@@ -217,6 +218,7 @@ input#isochroneValueDistanceInput[type=number]
   border-color: var(--grey-2);
   color: var(--dark-grey);
   box-sizing: border-box;
+  font-family: "open Sans Semibold";
 }
 
 .inputIsochroneLocation:not(:placeholder-shown) {
@@ -281,17 +283,17 @@ input#isochroneValueDistanceInput[type=number]
 .filterTitle {
   text-align: left;
   width: 100%;
-  font-family: "Open Sans";
-  font-weight: bold;
-  font-size: 1.1em;
-  margin-bottom: 12px;
+  font-family: "Fira Sans Medium";
+  font-size: 17px;
+  margin-bottom: 0px;
 }
 
 .divIsochronePOIFilter {
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-family: "Open Sans";
+  font-family: "Open Sans Semibold";
+  font-size: 13px;
 }
 
 .lblIsochroneFilter {
@@ -311,7 +313,8 @@ input#isochroneValueDistanceInput[type=number]
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-family: "Open Sans";
+  font-family: "Open Sans Semibold";
+  font-size: 13px;
   padding-top: 15px;
   align-items: center;
 }

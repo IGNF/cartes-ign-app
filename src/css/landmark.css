@@ -3,13 +3,13 @@
 }
 
 .landmarkTitle {
-  font-family: "Open Sans Bold";
-  font-size: 1.3em;
+  font-family: "Fira Sans Semibold";
+  font-size: 17px;
 }
 
 .landmarkSubtitle {
-  font-family: "Open Sans Semibold";
-  font-size: 1.1em;
+  font-family: "Fira Sans medium";
+  font-size: 14px;
   margin-bottom: 10px;
 }
 
@@ -108,10 +108,12 @@
   height: 1em;
   position: relative;
   margin: 0;
-  padding-top: 40px;
+  padding-top: 43px;
   text-align: center;
   margin-bottom: 18px;
   font-weight: 600;
+  font-family: "Fira Sans Semibold";
+  font-size: 12px;
 }
 
 #landmark-icon-favourite + .landmarkIconInputLabel {

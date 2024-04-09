@@ -69,7 +69,8 @@
   background-repeat: no-repeat;
   background-size: 20px 25px;
   background-position: 12px 3px;
-  font-family: "Open Sans";
+  font-family: "Open Sans Semibold";
+  font-size: 12px;
 }
 
 .lblDirectionsComputation {
@@ -186,6 +187,7 @@
   border: 1px solid;
   border-color: var(--grey-2);
   color: var(--dark-grey);
+  font-family: "Open Sans Semibold";
 }
 
 .inputDirectionsLocations::placeholder {

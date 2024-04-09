@@ -258,6 +258,8 @@ Distance du départ : ${Math.round(context.parsed.x)} ${this.unit}`;
       },
       plugins: [plugin],
     };
+    ChartJS.defaults.font.size = 12;
+    ChartJS.defaults.font.family = "Open Sans Semibold";
     this.chart = new ChartJS(target, chartConfig);
     // Add touchend event listener for mobile devices
     target.addEventListener("touchend", () => {

@@ -100,7 +100,7 @@
 
 .routeDrawResultsTitle {
   font-size: 15px;
-  font-family: "Open Sans Bold";
+  font-family: "Fira Sans Semibold";
   margin-top: 0;
 }
 
@@ -140,6 +140,12 @@
 }
 
 .routeDrawSummaryDuration,
+.routeDrawSummaryDistance {
+  font-family: "Fira Sans Medium";
+  font-size: 15px;
+}
+
+.routeDrawSummaryDuration,
 .routeDrawSummaryDistance,
 .routeDrawSummaryDPlus,
 .routeDrawSummaryDMinus{
@@ -167,12 +173,12 @@
 }
 
 .routeDrawSummaryDPlus, .routeDrawSummaryDMinus {
-  font-family: "Open Sans";
+  font-family: "Open Sans Semibold";
 }
 
 .detailsHeader {
   font-size: 15px;
-  font-family: "Open Sans Bold";
+  font-family: "Fira Sans Semibold";
 }
 
 .routedrawDetails {
@@ -195,14 +201,15 @@
 .routeDrawWaypointTextDiv {
   display: flex;
   flex-direction: column;
-  font-family: "Open Sans";
+  font-family: "Open Sans Semibold";
   flex-grow: 1;
   margin-left: 12px;
+  font-size: 12px;
 }
 
 .routeDrawWaypointLabel {
-  font-weight: 600;
-  font-size: 12px;
+  font-size: 15px;
+  font-family: "Fira Sans Semibold";
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -246,6 +253,16 @@
   margin-right: 10px;
 }
 
+#routeDrawSaveHeader {
+  font-family: "Fira Sans Medium";
+  font-size: 17px;
+}
+
+#routeDrawSummary > p {
+  font-family: "Fira Sans Semibold";
+  font-size: 15px;
+}
+
 #routeDrawSaveNameInputDiv {
   display: flex;
   flex-direction: row;
@@ -276,7 +293,8 @@
   color: white;
   background-color: var(--dark-green);
   width: fit-content;
-  padding: 5px 10px;
+  padding: 8px 13px;
   border-radius: 100px;
   margin-left: 15px;
+  font-family: "Open Sans Semibold";
 }

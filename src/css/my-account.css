@@ -55,6 +55,7 @@
   margin-top: 50px;
   font-size: 18px;
   margin-bottom: 0;
+  font-family: "Fira Sans Medium";
 }
 
 #myAccountNotLoggedInWarn {
@@ -143,12 +144,6 @@ div[id^=route-basic-tools_ID_] {
   width: 100%;
 }
 
-div[id^=landmark-title_ID_]
-div[id^=route-title_ID_] {
-  font-size: 13px;
-  font-family: "Open Sans Bold";
-}
-
 .wrap-tools-layers .routeDrawSummaryDuration,
 .wrap-tools-layers .routeDrawSummaryDistance,
 .wrap-tools-layers .routeDrawSummaryDPlus {
@@ -157,6 +152,7 @@ div[id^=route-title_ID_] {
   color: var(--dark-grey);
   font-family: "Open Sans";
   font-weight: normal;
+  font-size: 12px;
 }
 
 .wrap-tools-layers .routeDrawSummaryDPlus {

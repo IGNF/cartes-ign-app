@@ -5,16 +5,25 @@
 
 .comparePoiTitle {
   margin: 12px 0;
-  font-size: 13px;
+  font-size: 17px;
+  font-family: "Fira Sans Medium";
+}
+
+.comparePoiLocationWrapper {
+  display: flex;
+  align-items: center;
 }
 
 .comparePoiLocation {
-  font-family: "Open Sans";
+  font-family: "Open Sans Semibold";
+  font-size: 12px;
   padding-left: 25px;
   background-image: url("assets/autocompresult.svg");
   background-repeat: no-repeat;
   background-size: 20px;
   height: 23px;
+  display: flex;
+  align-items: center;
 }
 
 .comparePoiButton {
@@ -28,6 +37,7 @@
   background-position: 2px 3px;
   width: fit-content;
   align-self: end;
+  margin-left: 20px;
 }
 
 .comparePoiText {

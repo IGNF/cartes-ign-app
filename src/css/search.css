@@ -41,7 +41,7 @@
   padding: 9px 50px 9px 33px;
   border: 0px;
   background-color: white;
-  font-family: "Open Sans Bold";
+  font-family: "Open Sans Semibold";
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -97,25 +97,30 @@
   border-bottom: solid 1px #D8DFE4;
 }
 
+#resultsRechRecent p:first-child{
+  font-family: "Fira Sans Semibold";
+  font-size: 15px;
+}
+
 #myGeoLocation > p,
 #selectOnMap > p,
 .recentresult,
 .autocompresultselected,
 .autocompresult {
-  padding: 0.6em 0.2em;
+  padding: 7px 10px;
   margin: 0;
-  padding-left: 10px;
-  padding-right: 10px;
   background-position: left;
   background-repeat: no-repeat;
   background-size: 20px;
   text-align: left;
-  padding-left: 25px;
+  padding-left: 30px;
+  font-family: "Fira Sans Semibold";
+  font-size: 15px;
 }
 
 .autocompresult em, .recentresult em {
   opacity: 0.9;
-  font-size: 0.9em;
+  font-size: 12px;
   font-style: normal;
   font-family: "Open Sans";
 }

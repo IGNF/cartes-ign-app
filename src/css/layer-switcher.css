@@ -69,7 +69,8 @@ span[id^="landmark-title_ID_"],
 span[id^="route-title_ID_"],
 span[id^="title_ID_"] {
   word-break: break-word;
-  font-family: "Open Sans Semibold";
+  font-family: "Fira Sans Semibold";
+  font-size: 14px;
   color: var(--dark-grey);
 }
 

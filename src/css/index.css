@@ -3,17 +3,24 @@
   src: url("./fonts/OpenSans-SemiBold.ttf");
 }
 @font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/OpenSans-Regular.ttf");
+}
+@font-face {
   font-family: "Open Sans Bold";
   src: url("./fonts/OpenSans-Bold.ttf");
 }
 @font-face {
-  font-family: "Open Sans Extrabold";
-  src: url("./fonts/OpenSans-ExtraBold.ttf");
+  font-family: "Fira Sans Semibold";
+  src: url("./fonts/FiraSans-SemiBold.ttf");
 }
-
 @font-face {
-  font-family: "Open Sans";
-  src: url("./fonts/OpenSans-Regular.ttf");
+  font-family: "Fira Sans Medium";
+  src: url("./fonts/FiraSans-Medium.ttf");
+}
+@font-face {
+  font-family: "Fira Sans";
+  src: url("./fonts/FiraSans-Regular.ttf");
 }
 
 [hidden], .d-none {
@@ -40,7 +47,7 @@ body {
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
   user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
   background-color: white;
-  font-family: "Open Sans Bold", -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: "Open Sans Semibold", -apple-system, -apple-system-font, sans-serif;
   font-size:12px;
   height:100vh;
   margin:0px;
@@ -50,8 +57,9 @@ body {
 }
 
 h3 {
-  font-family: "Open Sans Semibold";
-  color: var(--dark-green);
+  font-family: "Fira Sans Semibold";
+  font-size: 17px;
+  color: var(--dark-grey);
 }
 
 #whiteScreen {

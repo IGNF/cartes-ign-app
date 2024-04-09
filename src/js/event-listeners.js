@@ -280,7 +280,7 @@ function addListeners() {
     });
   });
 
-  window.addEventListener("scroll", (e) => {
+  window.addEventListener("scroll", () => {
     DOM.$bottomButtons.style.removeProperty("transform");
     DOM.$routeDrawEdit.style.removeProperty("transform");
     DOM.$filterPoiBtn.style.removeProperty("transform");
@@ -289,7 +289,7 @@ function addListeners() {
       DOM.$routeDrawEdit.style.transform = "translateX(100vw)";
       DOM.$filterPoiBtn.style.transform = "translateY(-100vh)";
     }
-  })
+  });
 }
 
 export default {

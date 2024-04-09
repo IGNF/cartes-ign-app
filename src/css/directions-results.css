@@ -40,14 +40,16 @@
 
 #directionsSummaryDuration {
   color: var(--dark-green);
-  font-size: medium;
+  font-family: "Fira Sans Medium";
+  font-size: 15px;
 }
 
 .lblDirectionsSummaryDuration {
 }
 
 #directionsSummaryDistance {
-  font-size: medium;
+  font-size: 15px;
+  font-family: "Fira Sans Medium";
   padding: 0 10px;
 }
 
@@ -192,8 +194,8 @@
 
 .divDirectionsDetailsItemDistance {
   color: var(--dark-green);
-  font-size: 12px;
-  font-family: "Open Sans Bold";
+  font-size: 15px;
+  font-family: "Fira Sans Semibold";
   padding-top: 15px;
 }
 
@@ -211,11 +213,12 @@
   width: calc(100% - 10px);
   padding-bottom: 15px;
   padding-right: 10px;
+  font-family: "Open Sans Semibold";
 }
 
 .elevationLineHeader {
   font-size: 15px;
-  font-family: "Open Sans Bold";
+  font-family: "Fira Sans Semibold";
 }
 
 

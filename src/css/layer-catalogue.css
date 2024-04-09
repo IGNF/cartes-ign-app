@@ -5,8 +5,13 @@
 
 #layerManagerWindow h4 {
   margin: 0 0 10px 0;
-  font-family: "Open Sans Semibold";
-  font-size: 1.1em;
+  font-family: "Fira Sans Semibold";
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#layerManagerWindow #thematicLayersLabel {
+  margin: 8px 0 2px 0;
 }
 
 #layer-thematics {
@@ -42,8 +47,8 @@
 
 .layer-title-thematic,
 .layer-title {
-  font-family: "Open Sans";
-  font-size: 11px;
+  font-family: "Open Sans Semibold";
+  font-size: 12px;
   font-style: normal;
   line-height: normal;
   display: flex;
@@ -136,7 +141,7 @@
 }
 
 .subCatButton {
-  margin: 0 0 10px 0;
+  margin: 0 0 6px 0;
   position: relative;
   overflow-x: scroll;
   height: 55px;
@@ -185,8 +190,8 @@
   text-align: center;
   white-space: nowrap;
   margin-right: 10px;
-  font-family: "Open Sans Semibold";
-  font-size: 0.8em
+  font-family: "Open Sans Bold";
+  font-size: 11px;
 }
 
 .thematic-button-active {

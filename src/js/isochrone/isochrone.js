@@ -305,7 +305,7 @@ class Isochrone {
           position: "bottom"
         });
       }
-    })
+    });
     this.map.fitBounds(bbox, {
       padding: padding
     });
