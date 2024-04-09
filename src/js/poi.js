@@ -189,9 +189,8 @@ class POI {
 
     var tpltContainer = `
             <div class="divPOIContainer">
-                <span class="spanPOITitle">Points d'interêts</span>
                 <div class="divPOIDisplay">
-                  <span>Afficher les POI</span>
+                  <span class="spanPOITitle">Afficher les centres d'intérêt</span>
                   <label class="toggleSwitch">
                     <input id="displayPOI" class="toggleInput" type="checkbox" checked>
                     <span class="toggleSlider"></span>
@@ -201,11 +200,14 @@ class POI {
                     ${strPOIThematics}
                 </div>
                 <div class="divPOIDisplayGoBackTime">
-                  <span>Afficher les points illustrant la transformation du territoire</span>
-                  <label class="toggleSwitch">
-                    <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox" ${rltChecked}>
-                    <span class="toggleSlider"></span>
-                  </label>
+                  <div>
+                    <span>Afficher l'évolution du territoire</span>
+                    <label class="toggleSwitch">
+                      <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox" ${rltChecked}>
+                      <span class="toggleSlider"></span>
+                    </label>
+                  </div>
+                  <span>Afficher les lieux témoignant de la transformation du territoire</span>
                 </div>
             </div>
         `;

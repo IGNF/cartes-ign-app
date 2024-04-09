@@ -5,10 +5,10 @@
     width: 100%;
     font-family: "Open Sans";
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
-.divPOIDisplayGoBackTime,
+.divPOIDisplayGoBackTime > div,
 .divPOIDisplay {
     display: flex;
     flex-direction: row;
@@ -16,28 +16,40 @@
     font-family: "Open Sans";
     padding-top: 15px;
     align-items: center;
+    padding-bottom: 5px;
+}
+
+.divPOIDisplayGoBackTime {
+  display: flex;
+  flex-direction: column;
 }
 
 .divPOIDisplay {
-    padding-bottom: 15px;
+    padding-bottom: 5px;
     width: 100%;
 }
 
-.divPOIDisplay > span,
-.divPOIDisplayGoBackTime > span {
-    max-width: 50%;
+.divPOIDisplay > span {
+    max-width: 75%;
     white-space: wrap;
     text-align: left;
     font-family: "Open Sans Semibold";
 }
 
-.divPOIDisplayGoBackTime > span {
-    padding-left: 40px;
+.divPOIDisplayGoBackTime > div > span {
+  font-family: "Open Sans Semibold";
+  font-size: 1.2em;
+}
+
+.divPOIDisplayGoBackTime > span:last-child {
+    padding-left: 28px;
+    margin-top: 8px;
     max-width: 65%;
     background-image: url("assets/comparePoi.svg");
     background-repeat: no-repeat;
-    background-size: 1.8em;
-    background-position: 3px;
+    background-size: 18px;
+    background-position: top left;
+    font-family: "Open Sans Semibold";
 }
 
 .divPOIFilterItems {
@@ -46,7 +58,6 @@
     width: calc(100% - 30px);
     font-family: "Open Sans";
     border-bottom: 1px solid var(--grey-2);
-    border-top: 1px solid var(--grey-2);
     padding: 15px;
 }
 
