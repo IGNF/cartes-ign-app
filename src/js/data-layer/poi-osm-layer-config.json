@@ -1,6 +1,6 @@
 [{
         "id": "commerce",
-        "name": "Commerce",
+        "name": "Commerces",
         "visible": true,
         "filters": [{
             "field": "symbo",
@@ -71,7 +71,7 @@
     },
     {
         "id": "culture_sports_loisirs",
-        "name": "Culture, Sports et Loisirs",
+        "name": "Culture, sports et loisirs",
         "visible": true,
         "filters": [{
             "field": "symbo",

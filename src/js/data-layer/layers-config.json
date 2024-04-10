@@ -878,7 +878,7 @@
     },
     "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
-      "title": "Plan IGN v2",
+      "title": "Plan IGN",
       "description": "Cartographie multi-échelles sur le territoire national, issue des bases de données vecteur de l’IGN, mis à jour régulièrement et réalisée selon un processus entièrement automatisé.",
       "interactive": false,
       "globalConstraint": {
@@ -2166,7 +2166,7 @@
     },
     "ORTHOIMAGERY.ORTHOPHOTOS2006-2010$GEOPORTAIL:OGC:WMTS": {
       "name": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
-      "title": "2006-2010",
+      "title": "Photographies aériennes 2006-2010",
       "description": "Prises de vues aériennes des territoires disponibles à la fin des années 2006 à 2010",
       "interactive": false,
       "globalConstraint": {

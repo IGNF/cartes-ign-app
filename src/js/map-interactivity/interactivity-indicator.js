@@ -223,7 +223,7 @@ class InteractivityIndicator {
           <div class="divPositionTitle">La carte est interrogeable</div>
           <div class="divPopupClose" onclick="onCloseinteractivityPopup(event)"></div>
           <div class="divPopupContent">
-              Cliquez sur le plan IGN ou sur une donnée thématique pour obtenir la légende et les propriétés des objets.
+          Cliquez sur le plan IGN ou sur une donnée thématique pour afficher la légende ou des informations détaillées (ex : les caractéristiques d’un bâtiment, la culture d’un champ).
           </div>
       </div>
       `;

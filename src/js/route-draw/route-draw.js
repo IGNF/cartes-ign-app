@@ -1131,14 +1131,11 @@ class RouteDraw {
     // template litteral
     const popupContent = `
         <div id="routeDrawHelpPopup">
-            <div class="divPositionTitle">Mode de saisie</div>
+            <div class="divPositionTitle">Aide</div>
             <div class="divPopupClose" onclick="onCloseRouteDrawHelpPopup(event)"></div>
             <div class="divPopupContent">
-                La saisie d'itinéraire peut se faire selon deux modes pour les itinéraires pédestres :<br/>
-                • Saisie guidée : Le chemin entre deux points saisis suivra le réseau des routes et chemins.<br/>
-                • Saisie libre : Le chemin sera constitué de lignes droites entre les points saisis.<br/>
-                Il est possible de faire un itinéraire pédestre combinant les deux modes de saisie. <br/><br/>
-                Pour les itinéraires en véhicule, seule la saisie guidée est disponible.
+              Saisie guidée : le tracé entre deux points suit le sentier, le chemin ou la route <br />
+              Saisie libre (à pied uniquement) : le tracé entre deux points forme une ligne droite
             </div>
         </div>
         `;

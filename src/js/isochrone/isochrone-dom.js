@@ -68,9 +68,8 @@ let IsochroneDOM = {
 
       strPoi = `
       <div class="section">
-        <label class="filterTitle">Lieux à afficher</label>
         <div class="divPOIDisplay">
-          <span>Tout sélectionner</span>
+          <span class="filterTitle">Afficher les centres d'intérêt</span>
           <label class="toggleSwitch">
             <input id="displayPOI-isochrone" class="toggleInput" type="checkbox" checked>
             <span class="toggleSlider"></span>
@@ -89,10 +88,10 @@ let IsochroneDOM = {
         <div id="isochroneContainer">
           <form id="isochroneForm" onkeypress="return event.keyCode != 13;">
             <!-- titre -->
-              <p class="pIsochroneTitleTitle pIsochroneTitle">Lancer une recherche à proximité</p>
+              <p class="pIsochroneTitleTitle pIsochroneTitle">Découvrir à proximité de :</p>
               <!-- location -->
               <div id="isochroneLocationContainer">
-                <input id="isochroneLocation" class="inputIsochroneLocation" type="text" placeholder="Saisir une adresse..." name="location" data-coordinates="">
+                <input id="isochroneLocation" class="inputIsochroneLocation" type="text" placeholder="Ma position, un lieu ou une adresse..." name="location" data-coordinates="">
                 <div id="clearIsochroneLocation" class="d-none"></div>
               </div>
               <!-- type de calcul : distance / temps -->
@@ -121,7 +120,7 @@ let IsochroneDOM = {
               </div>
               <!-- transport -->
               <div class="section">
-                <p class="pIsochroneTitle">Comment vous déplacez-vous ?</label>
+                <p class="pIsochroneTitle">Choisir un moyen de transport</label>
                 <div class="divIsochroneTransport">
                   <input id="isochroneTransportPieton" type="radio" name="Transport" value="Pieton" checked="true">
                   <label class="lblIsochroneTransport" for="isochroneTransportPieton" title="À pied">À pied</label>
@@ -136,12 +135,12 @@ let IsochroneDOM = {
                   <span>Afficher le contour de ma zone de recherche</span><label class="toggleSwitch"><input id="showLimitsChk" class="toggleInput" type="checkbox" checked><span class="toggleSlider"></span></label>
                 </div>
                 <div class="divIsochroneDisplayOption">
-                  <span>Afficher les lieux en dehors de la zone de recherche</span><label class="toggleSwitch"><input id="showOutPoisChk" class="toggleInput" type="checkbox" ><span class="toggleSlider"></span></label>
+                  <span>Afficher les centres d’intérêt en dehors de ma zone de recherche</span><label class="toggleSwitch"><input id="showOutPoisChk" class="toggleInput" type="checkbox" ><span class="toggleSlider"></span></label>
                 </div>
 
               </div>
               <!-- bouton de calcul -->
-              <input id="isochroneCompute" class="btnIsochroneCompute" type="submit" value="Calculer">
+              <input id="isochroneCompute" class="btnIsochroneCompute" type="submit" value="Valider">
           </form>
         </div>
     `;

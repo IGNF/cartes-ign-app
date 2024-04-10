@@ -45,7 +45,7 @@ let RouteDrawSaveDOM = {
 
     var header = document.createElement("p");
     header.id = "routeDrawSaveHeader";
-    header.innerText = "Enregistrement de l'itinéraire";
+    header.innerText = "Enregistrer votre itinéraire";
     div.appendChild(header);
 
     var nameInputDiv = document.createElement("div");
@@ -53,12 +53,12 @@ let RouteDrawSaveDOM = {
     var nameInput = document.createElement("input");
     nameInput.id = "routeDrawSaveNameInput";
     nameInput.type = "text";
-    nameInput.placeholder = "Entrez le nom de l'itinéraire";
+    nameInput.placeholder = "Saisir un nom";
     if (name) {
       nameInput.value = name;
     }
     var nameInputSubmit = document.createElement("div");
-    nameInputSubmit.innerText = "Confirmer";
+    nameInputSubmit.innerText = "Enregistrer";
     nameInputSubmit.id = "routeDrawSaveNameInputSubmit";
     nameInputDiv.appendChild(nameInput);
     nameInputDiv.appendChild(nameInputSubmit);
@@ -79,7 +79,7 @@ let RouteDrawSaveDOM = {
     div.id = "routeDrawSummary";
     div.className = "";
     var header = document.createElement("p");
-    header.innerText = "Résumé :";
+    header.innerText = "Résumé";
     div.appendChild(header);
 
     var line1 = document.createElement("div");

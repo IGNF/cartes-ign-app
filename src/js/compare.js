@@ -71,7 +71,7 @@ class Compare {
         var props = LayersConfig.getLayerProps(rltLayers[j]);
         if (rltLayers[j].split(".")[0] == "ORTHOIMAGERY") {
           if (rltLayers[j] == "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS") {
-            props.title = "Aujourd'hui";
+            props.title = "Photographies aériennes - aujourd'hui";
           }
           strRLTLayersPhotos += tplLayer({
             type: "rltLayer",

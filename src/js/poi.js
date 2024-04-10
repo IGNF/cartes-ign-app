@@ -177,7 +177,7 @@ class POI {
       strPOIThematics += tplPOIThematics({
         id: item.id,
         name: item.name,
-        visible: item.visible // TODO
+        visible: item.visible
       });
     }
 
@@ -201,7 +201,7 @@ class POI {
                 </div>
                 <div class="divPOIDisplayGoBackTime">
                   <div>
-                    <span>Voir l'évolution du territoire</span>
+                    <span>Observer l'évolution du territoire</span>
                     <label class="toggleSwitch">
                       <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox" ${rltChecked}>
                       <span class="toggleSlider"></span>
