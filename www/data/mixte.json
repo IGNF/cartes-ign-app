@@ -1,7 +1,7 @@
 {
 	"version": 8,
 	"name": "PLAN IGN",
-    "glyphs":"https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf",
+    "glyphs": "data/fonts/{fontstack}/0-255.pbf?v={range}",
 		"sprite": "data/poi-osm-sprite",
     "sources": {
         "plan_ign": {
@@ -3354,7 +3354,6 @@
 				"visibility": "visible",
                 "symbol-placement": "point",
                 "text-field": "{texte}",
-				"text-anchor": "right",
                 "text-size": { "stops": [[13, 12], [18, 18]] },
                 "text-allow-overlap": false,
 				"text-offset": [-2.00, 0],

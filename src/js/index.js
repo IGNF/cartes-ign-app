@@ -11,12 +11,15 @@ import Controls from "./controls";
 import RecentSearch from "./search-recent";
 import MenuNavigation from "./nav";
 import InteractivityIndicator from "./map-interactivity/interactivity-indicator";
-import { StatusBar, Style } from "@capacitor/status-bar";
-import { ScreenOrientation } from "@capacitor/screen-orientation";
-// https://github.com/ionic-team/capacitor/issues/2840
-import { SafeArea, SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
+import PopupUtils from "./utils/popup-utils";
 
 import { Capacitor } from "@capacitor/core";
+import { ScreenOrientation } from "@capacitor/screen-orientation";
+import { SplashScreen } from "@capacitor/splash-screen";
+import { StatusBar, Style } from "@capacitor/status-bar";
+import { SafeArea, SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
+import { TextZoom } from "@capacitor/text-zoom";
+import { Network } from "@capacitor/network";
 
 // import CSS
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
@@ -32,27 +35,51 @@ import MapCenterImg from "../css/assets/map-center.svg";
  * Fonction définissant l'application
  */
 function app() {
-  SafeAreaController.injectCSSVariables();
-  if (Capacitor.isPluginAvailable("StatusBar")) {
-    StatusBar.setOverlaysWebView({ overlay: true });
-    StatusBar.setStyle({ style: Style.Light });
-  }
-  SafeArea.getStatusBarHeight().then(({ height }) => {
-    let difference;
-    ScreenOrientation.orientation().then((orientation) => {
-      if (orientation.type.split("-")[0] === "landscape") {
-        difference = screen.width - window.innerWidth;
-      } else {
-        difference = screen.height - window.innerHeight - height;
-        if (difference < 0) {
-          difference += 50;
-        }
+  // Ecouteur sur le chargement total des contrôles
+  window.addEventListener("controlsloaded", async () => {
+    SplashScreen.hide();
+    // INFO: BUG https://github.com/ionic-team/capacitor-plugins/issues/1160
+    setTimeout( () => {
+      SafeAreaController.injectCSSVariables();
+      if (Capacitor.isPluginAvailable("StatusBar")) {
+        StatusBar.setOverlaysWebView({ overlay: true });
+        StatusBar.setStyle({ style: Style.Light });
       }
-      difference = Math.max(difference, 0);
-      document.documentElement.style.setProperty("--nav-bar-height", difference + "px");
+      SafeArea.getStatusBarHeight().then(({ height }) => {
+        let difference;
+        ScreenOrientation.orientation().then((orientation) => {
+          if (orientation.type.split("-")[0] === "landscape") {
+            difference = screen.width - window.innerWidth;
+          } else {
+            difference = screen.height - window.innerHeight - height;
+            if (difference < 0) {
+              difference += 50;
+            }
+          }
+          difference = Math.max(difference, 0);
+          document.documentElement.style.setProperty("--nav-bar-height", difference + "px");
+        });
+      });
+    }, 500);
+    if (Capacitor.getPlatform() !== "web") {
+      TextZoom.getPreferred().then(value => {
+        TextZoom.set(value);
+      });
+    }
+    Network.getStatus().then((status) => {
+      if (!status.connected) {
+        PopupUtils.showOnlinePopup(`
+        <div id="onlinePopup">
+        <div class="divPositionTitle">Vous êtes hors ligne</div>
+        <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
+        <div class="divPopupContent">
+        La plupart des fonctionnalités de l'application sont indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sue la carte.
+        </div>
+        </div>
+        `, map);
+      }
     });
   });
-
 
   // Définition des icones
   Globals.myPositionIcon = document.createElement("div");

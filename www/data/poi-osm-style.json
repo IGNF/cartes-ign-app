@@ -1,7 +1,7 @@
 {
     "version": 8,
     "name": "POI OSM",
-    "glyphs": "data/fonts/{fontstack}/{range}.pbf",
+    "glyphs": "data/fonts/{fontstack}/0-255.pbf?v={range}",
     "sprite": "data/poi-osm-sprite",
     "sources": {
         "poi_osm": {

@@ -15,6 +15,15 @@
   "plugins": {
     "Keyboard": {
       "resizeOnFullScreen": true
+    },
+    "SplashScreen": {
+      "launchAutoHide": false,
+      "launchFadeOutDuration": 500,
+      "backgroundColor": "#ffffff",
+      "androidScaleType": "CENTER_CROP",
+      "spinnerColor": "#000000",
+      "splashFullScreen": false,
+      "splashImmersive": false
     }
   }
 }

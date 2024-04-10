@@ -201,7 +201,7 @@ class POI {
                 </div>
                 <div class="divPOIDisplayGoBackTime">
                   <div>
-                    <span>Afficher l'évolution du territoire</span>
+                    <span>Voir l'évolution du territoire</span>
                     <label class="toggleSwitch">
                       <input id="displayPOIGoBackTime" class="toggleInput" type="checkbox" ${rltChecked}>
                       <span class="toggleSlider"></span>

@@ -35,26 +35,18 @@
             </intent-filter>
             <!-- Pour les pièces jointes -->
             <intent-filter>
-              <data
-                android:scheme="content"
-                android:mimeType="application/json"
-                android:pathSuffix=".json" />
-              <data
-                android:scheme="content"
-                android:mimeType="application/geo+json"
-                android:pathSuffix=".geojson" />
-              <data
-                android:scheme="content"
-                android:mimeType="application/octet-stream"
-                android:pathSuffix=".json" />
-              <data
-                android:scheme="content"
-                android:mimeType="application/octet-stream"
-                android:pathSuffix=".geojson" />
-              <action android:name="android.intent.action.VIEW" />
+                <data android:scheme="content" android:mimeType="application/json" android:pathSuffix=".json" />
+                <data android:scheme="content" android:mimeType="application/geo+json" android:pathSuffix=".geojson" />
+                <data android:scheme="content" android:mimeType="application/octet-stream" android:pathSuffix=".json" />
+                <data
+                    android:scheme="content"
+                    android:mimeType="application/octet-stream"
+                    android:pathSuffix=".geojson"
+                />
+                <action android:name="android.intent.action.VIEW" />
 
-              <category android:name="android.intent.category.DEFAULT" />
-              <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
 

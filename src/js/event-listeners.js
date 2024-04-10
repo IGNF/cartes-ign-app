@@ -3,8 +3,10 @@ import Location from "./services/location";
 import DOM from "./dom";
 import Globals from "./globals";
 import State from "./state";
-import MapLibreGL from "maplibre-gl";
+import PopupUtils from "./utils/popup-utils";
+
 import { Capacitor } from "@capacitor/core";
+// https://github.com/ionic-team/capacitor/issues/2840
 import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { Network } from "@capacitor/network";
@@ -184,39 +186,6 @@ function addListeners() {
   window.addEventListener("resize", handleresize);
   window.addEventListener("orientationchange", handleresize);
 
-  // Mode offline
-  let popup = null;
-  function showOnlinePopup(content) {
-    // on supprime la popup
-    if (popup) {
-      popup.remove();
-      popup = null;
-    }
-
-    window.onCloseonlinePopup = () => {
-      popup.remove();
-    };
-
-    // centre de la carte
-    var center = map.getCenter();
-    // position de la popup
-    var popupOffsets = {
-      "bottom": [0, 100],
-    };
-    // ouverture d'une popup
-    popup = new MapLibreGL.Popup({
-      offset: popupOffsets,
-      className: "onlinePopup",
-      closeOnClick: true,
-      closeOnMove: true,
-      closeButton: false
-    })
-      .setLngLat(center)
-      .setHTML(content)
-      .setMaxWidth("300px")
-      .addTo(map);
-  }
-
   Network.addListener("networkStatusChange", (status) => {
     let newStatus = status.connected;
     if (newStatus === Globals.online) {
@@ -224,7 +193,7 @@ function addListeners() {
     }
     Globals.online = newStatus;
     if (newStatus) {
-      showOnlinePopup(`
+      PopupUtils.showOnlinePopup(`
       <div id="onlinePopup">
           <div class="divPositionTitle">Vous êtes en ligne</div>
           <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
@@ -232,9 +201,9 @@ function addListeners() {
             Toutes les fonctionnalités de l'application sont de nouveau disponibles.
           </div>
       </div>
-      `);
+      `, map);
     } else {
-      showOnlinePopup(`
+      PopupUtils.showOnlinePopup(`
       <div id="onlinePopup">
           <div class="divPositionTitle">Vous êtes hors ligne</div>
           <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
@@ -242,33 +211,8 @@ function addListeners() {
             La plupart des fonctionnalités de l'application sont désormais indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sue la carte.
           </div>
       </div>
-      `);
+      `, map);
     }
-  });
-
-  window.addEventListener("controlsloaded", () => {
-    Network.getStatus().then((status) => {
-      if (!status.connected) {
-        showOnlinePopup(`
-        <div id="onlinePopup">
-        <div class="divPositionTitle">Vous êtes hors ligne</div>
-        <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
-        <div class="divPopupContent">
-        La plupart des fonctionnalités de l'application sont indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sue la carte.
-        </div>
-        </div>
-        `);
-      }
-    });
-  });
-
-  window.addEventListener("controlsloaded", () => {
-    if (Capacitor.getPlatform() === "web") {
-      return;
-    }
-    TextZoom.getPreferred().then(value => {
-      TextZoom.set(value);
-    });
   });
 
   App.addListener("resume", () => {
