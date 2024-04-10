@@ -74,13 +74,12 @@
   position: sticky;
   z-index: 6;
   top: 0;
-  right: 0;
-  width: 40px;
+  right: -1px;
   height: 45px;
-  width: 40px;
+  width: 41px;
   background: url("assets/arrow-right.svg"), linear-gradient(90deg,#fff0,var(--false-white) 40%);
   background-repeat: no-repeat;
-  background-position: right 2px top 50%, right;
+  background-position: right 3px top 50%, right;
   background-size: 20px, cover;
   opacity: 1;
   visibility: visible;
