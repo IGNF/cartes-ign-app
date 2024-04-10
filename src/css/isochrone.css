@@ -211,7 +211,7 @@ input#isochroneValueDistanceInput[type=number]
   margin: auto;
   padding-left: 15px;
   margin-bottom: 10px;
-  padding: 0 50px 0px 15px;
+  padding: 0 15px 0px 15px;
   background-color: white;
   border-radius: 8px;
   border: 1px solid;
@@ -232,30 +232,16 @@ input#isochroneValueDistanceInput[type=number]
   position: absolute;
   display: inline-block;
   top: 5px;
-  right: 15px;
+  right: calc(5% + 1px);
   width: 58px;
   height: 35px;
-  background-image: url("assets/clearSearch.svg");
+  background: url("assets/clearSearch.svg"), linear-gradient(90deg,#fff0,var(--false-white) 10px);
   background-repeat: no-repeat;
   background-position: center;
 }
 
 #isochroneLocationContainer {
   position: relative;
-}
-
-#isochroneLocationContainer::after {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  z-index: 1;
-  top: 5px;
-  right: calc(5% + 50px);
-  width: 30px;
-  height: 37px;
-  background: linear-gradient(90deg, #fff0, #fff);
-  opacity: 1;
-  visibility: visible;
 }
 
 #isochroneLocationContainer.disabled::before {
