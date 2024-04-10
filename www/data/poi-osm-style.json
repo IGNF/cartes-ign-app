@@ -1,7 +1,7 @@
 {
     "version": 8,
     "name": "POI OSM",
-    "glyphs": "https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf",
+    "glyphs": "data/fonts/{fontstack}/{range}.pbf",
     "sprite": "data/poi-osm-sprite",
     "sources": {
         "poi_osm": {
@@ -23,15 +23,18 @@
             "type": "symbol",
             "source": "poi_osm",
             "source-layer": "point_interet",
-            "minzoom": 11,
-            "maxzoom": 14.5,
+            "minzoom": 10,
+            "maxzoom": 15,
             "layout": {
                 "visibility": "none",
                 "icon-image": "{symbo}_17",
                 "symbol-sort-key": [
                     "match",
                     ["get", "symbo"],
-                    "parking", 20,
+                    "bicycle_rental", 30,
+                    "parking", 25,
+                    "fuel", 20,
+                    "charging_station", 15,
                     "bus_stop", 10,
                     1
                 ]
@@ -44,18 +47,58 @@
                 "divers_marron",
                 "divers_orange",
                 "divers_rouge",
-                "divers_vert",
-                "bicycle_rental",
-                "charging_station",
-                "fuel"
+                "divers_vert"
             ]
+        },
+        {
+          "id": "POI OSM 14",
+          "type": "symbol",
+          "source": "poi_osm",
+          "source-layer": "point_interet",
+          "minzoom": 13,
+          "maxzoom": 14,
+          "layout": {
+            "visibility": "visible",
+            "icon-image": "{symbo}_17"
+          },
+            "filter": [
+              "in","symbo",
+              "aerodrome",
+              "courthouse",
+              "hospital",
+              "station",
+              "townhall"
+          ]
+        },
+        {
+          "id": "POI OSM 15",
+          "type": "symbol",
+          "source": "poi_osm",
+          "source-layer": "point_interet",
+          "minzoom": 14,
+          "maxzoom": 15,
+          "layout": {
+            "visibility": "visible",
+            "icon-image": "{symbo}_17"
+          },
+            "filter": [
+            "in","symbo",
+            "aerodrome",
+            "christian",
+            "college",
+            "courthouse",
+            "hospital",
+            "station",
+            "townhall",
+            "university"
+          ]
         },
         {
             "id": "POI OSM 16et17",
             "type": "symbol",
             "source": "poi_osm",
             "source-layer": "point_interet",
-            "minzoom": 14.5,
+            "minzoom": 15,
             "maxzoom": 18,
             "layout": {
                 "visibility": "visible",
@@ -89,7 +132,16 @@
                 "text-padding": 3,
                 "text-anchor": "bottom",
                 "text-font": ["Source Sans Pro Bold Italic"],
-                "icon-image": "{symbo}_21"
+                "icon-image": "{symbo}_21",
+                "symbol-sort-key": [
+                  "case",
+                  [
+                    "in",
+                    "divers",
+                    ["get", "symbo"]
+                  ], 100,
+                  1
+              ]
             },
             "paint": {
                 "text-color": [

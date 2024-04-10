@@ -1,7 +1,7 @@
 {
   "version": 8,
   "name": "PLAN IGN interactif",
-  "glyphs": "https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf",
+  "glyphs": "data/fonts/{fontstack}/0-255.pbf",
   "sprite": "data/poi-osm-sprite",
   "metadata": {
     "geoportail:tooltip": "BDTOPO/multicouche_bdtopo"
