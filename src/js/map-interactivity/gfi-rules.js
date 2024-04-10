@@ -152,7 +152,7 @@ const gfiRules = {
         ["Population : {{population}} habitants"],
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"http://www.insee.fr/fr/themes/comparateur.asp?codgeo=COM-{{insee_com}}\">Accéder à la fiche</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=COM-{{insee_com}}\">Accéder à la fiche INSEE</a></p>"]
       ],
     },
     10: {
@@ -161,12 +161,18 @@ const gfiRules = {
       "bodyBefore": [
         ["Nature :", "{{nature}}"],
       ],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-{{code_siren}}\">Accéder à la fiche INSEE</a></p>"]
+      ],
     },
     9: {
       "title": "@nom",
       "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
         ["Arrondissement Départemental :", "{{nom}}"],
+      ],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=ARR-{{insee_dep}}{{insee_arr}}\">Accéder à la fiche INSEE</a></p>"]
       ],
     },
     7: {
@@ -175,10 +181,16 @@ const gfiRules = {
       "bodyBefore": [
         ["Code INSEE :", "{{insee_dep}}"],
       ],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=DEP-{{insee_dep}}\">Accéder à la fiche INSEE</a></p>"]
+      ],
     },
     0: {
       "title": "@nom",
       "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=REG-{{insee_reg}}\">Accéder à la fiche INSEE</a></p>"]
+      ],
     },
   },
 
@@ -217,15 +229,18 @@ const gfiRules = {
       template.bodyBefore.forEach( (bodyElement) => {
         let notFound = false;
         let p = bodyElement.map((str) => {
-          let match = str.match("{{(.+)}}");
-          if (match && Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
-            return str.replace(match[0], featureProperties[match[1]]);
-          } else if (match) {
-            notFound = true;
-            return "";
-          } else {
-            return str;
+          let match = str.match("{{([^}]+)}}");
+          console.log(match);
+          while (match) {
+            if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+              str = str.replace(match[0], featureProperties[match[1]]);
+              match = str.match("{{([^}]+)}}");
+            } else {
+              notFound = true;
+              return "";
+            }
           }
+          return str;
         });
         if (p && !notFound)
           bodyBefore += `${p.join(" ")}<br/>`;
@@ -236,13 +251,22 @@ const gfiRules = {
     if (template.bodyAfter) {
       bodyAfter += "<div class='positionHtmlAfter'>";
       template.bodyAfter.forEach( (bodyElement) => {
+        let notFound = false;
         let p = bodyElement.map((str) => {
-          let match = str.match("{{(.+)}}");
-          if(match && Object.prototype.hasOwnProperty.call(featureProperties, match[1]))
-            return str.replace(match[0], featureProperties[match[1]]);
-          else return str;
+          let match = str.match("{{([^}]+)}}");
+          console.log(match);
+          while (match) {
+            if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+              str = str.replace(match[0], featureProperties[match[1]]);
+              match = str.match("{{([^}]+)}}");
+            } else {
+              notFound = true;
+              return "";
+            }
+          }
+          return str;
         });
-        if (p)
+        if (p && !notFound)
           bodyAfter += `${p.join(" ")}`;
       });
       bodyAfter += "</div>";
