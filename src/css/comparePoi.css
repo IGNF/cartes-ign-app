@@ -23,10 +23,6 @@
   background-repeat: no-repeat;
   background-size: 20px;
   height: 23px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  white-space: nowrap;
 }
 
 .comparePoiButton {

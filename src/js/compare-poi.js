@@ -87,8 +87,7 @@ class ComparePoi {
     }
     this.dom = {
       title: this.target.querySelector(".comparePoiTitle"),
-      commune: this.target.querySelector(".comparePoiCommune"),
-      departement: this.target.querySelector(".comparePoiDepartement"),
+      location: this.target.querySelector(".comparePoiLocation"),
       button: this.target.querySelector(".comparePoiButton"),
       text: this.target.querySelector(".comparePoiText"),
     };
@@ -113,8 +112,7 @@ class ComparePoi {
       };
       this.theme = comparePoi.properties.theme;
       this.dom.title.innerText = comparePoi.properties.accroche;
-      this.dom.commune.innerText = comparePoi.properties.commune;
-      this.dom.departement.innerText = comparePoi.properties.departement;
+      this.dom.location.innerText = comparePoi.properties.commune + ", " + comparePoi.properties.departement;
       this.dom.text.innerHTML = comparePoi.properties.text;
       this.showWindow();
     });

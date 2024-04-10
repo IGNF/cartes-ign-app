@@ -230,7 +230,6 @@ const gfiRules = {
         let notFound = false;
         let p = bodyElement.map((str) => {
           let match = str.match("{{([^}]+)}}");
-          console.log(match);
           while (match) {
             if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
               str = str.replace(match[0], featureProperties[match[1]]);
@@ -254,7 +253,6 @@ const gfiRules = {
         let notFound = false;
         let p = bodyElement.map((str) => {
           let match = str.match("{{([^}]+)}}");
-          console.log(match);
           while (match) {
             if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
               str = str.replace(match[0], featureProperties[match[1]]);
