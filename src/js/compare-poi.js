@@ -115,7 +115,7 @@ class ComparePoi {
       this.dom.title.innerText = comparePoi.properties.accroche;
       this.dom.commune.innerText = comparePoi.properties.commune;
       this.dom.departement.innerText = comparePoi.properties.departement;
-      this.dom.text.innerText = comparePoi.properties.text;
+      this.dom.text.innerHTML = comparePoi.properties.text;
       this.showWindow();
     });
     this.dom.button.addEventListener("click", this.handleCompareButton);
