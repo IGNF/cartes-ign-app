@@ -28,7 +28,7 @@
 .inputLandmarkLocation,
 .landmark-textarea,
 .landmark-input-text {
-  font-family: "Open Sans";
+  font-family: "Open Sans Semibold";
   margin: 5px 0 10px 0;
   box-sizing: border-box;
   width: 100%;
@@ -39,6 +39,7 @@
   border: 1px solid;
   border-color: var(--grey-2);
   color: var(--dark-grey);
+  font-size: 12px;
 }
 
 .inputLandmarkLocation:focus,
