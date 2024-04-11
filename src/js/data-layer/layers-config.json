@@ -48,7 +48,9 @@
       "name": "Aire-Parcellaire",
       "title": "Délimitation parcellaire AOC viticole",
       "interactive": false,
-      "description": "Selon les règlements européens n°110/2008 du 15 janvier 2008, n°1151/2012 du 21 novembre 2012 et n°1308/2013 de l’OCM , le cahier des charges des appellations définit l’aire géographique. Le terme de « délimitation parcellaire » désigne une aire qui repose sur les limites administratives du cadastre (les parcelles) et dont le maillage suffisamment fin permet de tenir compte de variations très localisées des éléments du milieu physique. Elle correspond à l'aire de production de la matière première. Elle est incluse dans l'aire géographique. Données produites par l'Institut National des Origines et la Qualité (INAO)",
+      "description": "Représentation des délimitations parcellaires des appellations d’origine contrôlée (AOC) viticoles sur la France métropolitaine.<br />Attention : ces données sont proposées à titre informatif.<br /> Les délimitations parcellaires officielles sont consultables sur les plans déposés en mairie ou auprès des services de l’INAO.",
+      "source": "Institut national de l’origine et de la qualité (INAO)",
+      "maj": "Novembre 2020",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -210,8 +212,10 @@
     },
     "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$GEOPORTAIL:OGC:WMTS": {
       "name": "CADASTRALPARCELS.PARCELLAIRE_EXPRESS",
-      "title": "PCI vecteur",
-      "description": "Plan cadastral informatisé vecteur de la DGFIP édition Juillet 2023.",
+      "title": "Parcelles cadastrales",
+      "description": "Représentation du plan cadastral informatisé (PCI) vecteur de la DGFiP. <br />Cette donnée n’a pas fait l’objet de corrections géométriques. Un décalage par rapport à d’autres données (photographies aériennes en particulier) peut apparaître.<br />Certaines communes peuvent ne pas être encore couvertes.",
+      "source": "Direction générale des Finances publiques (DGFiP), IGN",
+      "maj": "Donnée mise à jour tous les trimestres",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -379,8 +383,10 @@
     },
     "ELEVATION.LEVEL0$GEOPORTAIL:OGC:WMTS": {
       "name": "ELEVATION.LEVEL0",
-      "title": "Trait de côte Histolitt",
+      "title": "Trait de côte HISTOLITT®",
       "description": "Formalisation de la limite entre le domaine terrestre et le domaine marin.",
+      "source": "Service hydrographique et océanographique de la marine (SHOM), IGN",
+      "maj": "Juin 2012",
       "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -508,7 +514,9 @@
     "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS": {
       "name": "FORETS.PUBLIQUES",
       "title": "Forêts publiques",
-      "description": "Localisation des forêts publiques domaniales et non domaniales (communales, sectionales, départementales et d'établissements publics) gérées par l'Office national des forêts (ONF).",
+      "description": "Localisation des forêts publiques domaniales et non domaniales (communales, sectionales, départementales et d’établissements publics) gérées par l’Office national des forêts (ONF).",
+      "source": "Office National des Forêts (ONF)",
+      "maj": "Juillet 2021",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -1049,7 +1057,9 @@
     "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN",
       "title": "Carte des pentes",
-      "description": "Carte des zones ayant une valeur de pente supérieure à 30°-35°-40°-45° d'après la BD ALTI au pas de 5m",
+      "description": "Représentation des classes de pentes supérieures à 30°, 35°, 40°, et 45° obtenues par traitement automatique du modèle numérique de terrain RGE ALTI de l’IGN au pas de 1m. La représentation des pentes n’engage pas la responsabilité de l’IGN.",
+      "source": "IGN",
+      "maj": "Mars 2020",
       "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -1206,8 +1216,10 @@
     },
     "HYDROGRAPHY.HYDROGRAPHY$GEOPORTAIL:OGC:WMTS": {
       "name": "HYDROGRAPHY.HYDROGRAPHY",
-      "title": "Hydrographie",
-      "description": "Affichage des lacs, réservoirs, rivières et cours d'eau en France.",
+      "title": "Réseau hydrographique",
+      "description": "Affichage des lacs, réservoirs, rivières et cours d’eau en France.",
+      "source": "IGN",
+      "maj": "Avril 2022",
       "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -1336,6 +1348,8 @@
       "name": "LANDUSE.AGRICULTURE2022",
       "title": "Registre parcellaire graphique 2022",
       "description": "Registre parcellaire graphique : zones de cultures déclarées par les exploitants en 2022",
+      "source": "Agence de services et de paiement (ASP)",
+      "maj": "Déclarations 2022",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -1450,7 +1464,9 @@
     "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS": {
       "name": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST",
       "title": "Limites administratives mises à jour en continu",
-      "description": "Limites administratives mises à jour en continu, édition Juillet 2023",
+      "description": "Limites administratives des collectivités territoriales, mises à jour en continu.<br />Régions, départements, cantons, communes, arrondissements (pour Paris, Lyon et Marseille) et établissements publics de coopération intercommunale (EPCI).",
+      "source": "IGN",
+      "maj": "Septembre 2023",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -1565,7 +1581,9 @@
     "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS": {
       "name": "ORTHOIMAGERY.ORTHOPHOTOS",
       "title": "Photographies aériennes",
-      "description": "Photographies aériennes",
+      "description": "Prises de vues satellitaires ou aériennes des territoires",
+      "source": "IGN et partenaires",
+      "maj": "Décembre 2023",
       "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -2295,7 +2313,9 @@
     "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS": {
       "name": "PROTECTEDAREAS.PN",
       "title": "Parcs nationaux",
-      "description": "Les parcs nationaux sont de vastes espaces protégés terrestres ou marins dont le patrimoine naturel est exceptionnel, et dont le but est à la fois de protéger des processus écologiques à large échelle et de fournir des possibilités de découverte de la nature. Mise à jour 04-2023",
+      "description": "Zones naturelles labellisées en raison de leur richesse naturelle exceptionnelle.",
+      "source": "Inventaire National du Patrimoine Naturel (INPN), Parcs Nationaux de France, Muséum national d’Histoire naturelle (MNHN)",
+      "maj": "Septembre 2023",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -2409,8 +2429,10 @@
     },
     "PROTECTEDAREAS.PNR$GEOPORTAIL:OGC:WMTS": {
       "name": "PROTECTEDAREAS.PNR",
-      "title": "Parcs naturels régionaux",
-      "description": "Les parcs naturels régionaux ont pour but de valoriser de vastes espaces de fort intérêt culturel et naturel, et de veiller au développement durable de ces territoires dont le caractère rural est souvent très affirmé. 04-2023",
+      "title": "Parcs régionaux",
+      "description": "Les parcs naturels régionaux sont des territoires ruraux reconnus pour leurs valeurs patrimoniales et paysagères.",
+      "source": "Inventaire National du Patrimoine Naturel (INPN), Fédération des Parcs naturels régionaux de France, Muséum national d’Histoire naturelle (MNHN)",
+      "maj": "Septembre 2023",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -2525,7 +2547,9 @@
     "PROTECTEDAREAS.RN$GEOPORTAIL:OGC:WMTS": {
       "name": "PROTECTEDAREAS.RN",
       "title": "Réserves naturelles nationales",
-      "description": "Les réserves naturelles sont des espaces protégés terrestres ou marins dont le patrimoine naturel est exceptionnel, tant sur le plan de la biodiversité que parfois sur celui de la géodiversité. 04-2023",
+      "description": "Espaces remarquables protégés par une réglementation adaptée tenant compte du contexte local.",
+      "source": "Inventaire National du Patrimoine Naturel (INPN), Réserves naturelles de France (RNF), Muséum national d’Histoire naturelle (MNHN)",
+      "maj": "Septembre 2023",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -2676,7 +2700,9 @@
     "PROTECTEDAREAS.RNC$GEOPORTAIL:OGC:WMTS": {
       "name": "PROTECTEDAREAS.RNC",
       "title": "Réserves Naturelles de Corse",
-      "description": "Les réserves naturelles sont des espaces protégés terrestres ou marins dont le patrimoine naturel est exceptionnel, tant sur le plan de la biodiversité que parfois sur celui de la géodiversité. </br><a href=\"http://www.geoportail.gouv.fr/depot/fiches/mnhn/actualite_donnees_mnhn.pdf\" alt=\"Date des données\" target=\"_blank\">Date des données</a>",
+      "description": "Espaces remarquables protégés par une réglementation adaptée tenant compte du contexte local.",
+      "source": "Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
+      "maj": "Février 2018",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -2790,8 +2816,10 @@
     },
     "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS": {
       "name": "PROTECTEDAREAS.SIC",
-      "title": "Sites Natura 2000 au titre de la Directive Habitats",
-      "description": "Le réseau Natura 2000 s'inscrit au coeur de la politique de conservation de la nature de l'Union européenne et est un élément clé de l'objectif visant à enrayer l'érosion de la biodiversité.04-2023",
+      "title": "Sites Natura 2000 - Directive Habitats",
+      "description": "Le réseau Natura 2000 s’inscrit au cœur de la politique de conservation de la nature de l’Union européenne et est un élément clé de l’objectif visant à enrayer l’érosion de la biodiversité.",
+      "source": "Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
+      "maj": "Juillet 2023",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -2905,8 +2933,10 @@
     },
     "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS": {
       "name": "PROTECTEDAREAS.ZPS",
-      "title": "Sites NATURA 2000 au titre de la Directive Oiseaux",
-      "description": "Le réseau Natura 2000 s'inscrit au coeur de la politique de conservation de la nature de l'Union européenne et est un élément clé de l'objectif visant à enrayer l'érosion de la biodiversité.04-2023",
+      "title": "Sites Natura 2000 - Directive Oiseaux",
+      "description": "Zones mises en place dans le cadre de la Directive Oiseaux de 1979 visant à désigner des territoires permettant d’assurer le bon état de conservation d’espèces d’oiseaux menacées, vulnérables ou rares.",
+      "source": "Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
+      "maj": "Juillet 2023",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -3021,7 +3051,9 @@
     "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$GEOPORTAIL:OGC:WMTS": {
       "name": "PROTECTEDSITES.MNHN.RESERVES-REGIONALES",
       "title": "Réserves naturelles régionales",
-      "description": "Les réserves naturelles régionales sont gérées prioritairement à des fins de conservation de la nature. Elles sont placées sous la responsabilité exclusive des conseils régionaux.04-2023",
+      "description": "Espaces dont la conservation de la faune, de la flore ou du patrimoine géologique présente une importance particulière. La compétence de classement des RNR est confiée aux conseils régionaux.",
+      "source": "Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
+      "maj": "Avril 2023",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -3136,7 +3168,9 @@
     "TRANSPORTNETWORKS.RAILWAYS$GEOPORTAIL:OGC:WMTS": {
       "name": "TRANSPORTNETWORKS.RAILWAYS",
       "title": "Réseau ferroviaire",
-      "description": "Carte du réseau ferroviaire",
+      "description": "Carte du réseau ferroviaire en France métropolitaine.",
+      "source": "IGN",
+      "maj": "Août 2023",
       "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -3265,6 +3299,8 @@
       "name": "TRANSPORTNETWORKS.ROADS",
       "title": "Routes",
       "description": "Affichage du réseau routier français et européen.",
+      "source": "IGN",
+      "maj": "Août 2023",
       "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -3392,7 +3428,9 @@
     "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS": {
       "name": "TRANSPORTS.DRONES.RESTRICTIONS",
       "title": "Restrictions UAS catégorie Ouverte et Aéromodélisme",
-      "description": "Représentation des zones soumises à interdictions ou à restrictions pour l’usage, à titre de loisir, d’aéronefs télépilotés (ou drones), sur le territoire métropolitain, à jour au 07-2020 Elle intègre partiellement les interdictions s'appuyant sur des données non publiées à l'AIP et ne couvre pas les interdictions temporaires. Cette carte est basée sur l’arrêté « espace » du 09/11/2017. La représentation des zones soumises à interdictions ou à restrictions n’engage pas la responsabilité des producteurs de la donnée. Le contour des agglomérations est fourni à titre purement indicatif. Consultez les interdictions temporaires sur https://www.sia.aviation-civile.gouv.fr/.",
+      "description": "Représentation des zones soumises à interdictions ou à restrictions pour l’usage, dans la catégorie Ouverte, ou par des associations d’aéromodélisme (en dehors des sites d’aéromodélisme publiés), d’aéronefs sans équipage à bord (drones ou aéromodèles), sur le territoire métropolitain.<br />Cette carte intègre partiellement les interdictions s’appuyant sur des données publiées hors de l’AIP (Aeronautical Information Publication) et ne couvre pas les interdictions temporaires. Cette carte est basée sur la version en vigueur à compter du 31 décembre 2020, de l’arrêté « Espace » du 3 décembre 2020. Les zones de restriction apparaissant sur la carte correspondent donc uniquement aux limitations indiquées dans l'arrêté Espace.",
+      "source": "Service de l’information aéronautique (SIA)",
+      "maj": "Avril 2023",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
@@ -3519,7 +3557,9 @@
     "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS": {
       "name": "CJP-PARCS-JARDINS_BDD-POI_WLD_WM",
       "title": "Parcs et Jardins",
-      "description": "Il n'y a pas de description de définie pour cette couche.",
+      "description": "Localisation des jardins sélectionnés par le Conservatoire des jardins et paysages pour favoriser leur connaissance auprès du public.",
+      "source": "Conservatoire des jardins et paysages",
+      "maj": "Avril 2017",
       "globalConstraint": {
         "minScaleDenominator": 0.0,
         "maxScaleDenominator": 62236752975597,
@@ -3642,7 +3682,9 @@
     "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS": {
       "name": "POI.MONUMENTS_BDD_WLD_WM",
       "title": "Monuments nationaux",
-      "description": "Le Centre des monuments nationaux est un établissement public administratif placé sous la tutelle du ministre de la Culture et de la Communication. Il conserve, restaure, gère, anime, ouvre à la visite près de 100 monuments nationaux propriété de l'Etat, au nombre desquels : l'abbaye du Mont-Saint-Michel, les châteaux d'Angers et d'Azay-le-Rideau, le château et les remparts de la cité de Carcassonne, l'Arc de triomphe et la Sainte-Chapelle, pour n'en citer que quelques-uns. Tous illustrent par leur diversité, la richesse du patrimoine français de toutes les époques : abbayes, châteaux, grottes préhistoriques, sites archéologiques...",
+      "description": "Localisation des sites gérés par le Centre des monuments nationaux.",
+      "source": "Centre des monuments nationaux",
+      "maj": "Avril 2017",
       "globalConstraint": {
         "minScaleDenominator": 0.0,
         "maxScaleDenominator": 62236752975597,
@@ -3765,7 +3807,9 @@
     "POI.MUSEUM$GEOPORTAIL:OGC:WMS": {
       "name": "POI.MUSEUM",
       "title": "Musées",
-      "description": "Établissement ouvert au public exposant une grande collection d'objets, de documents, etc., relatifs aux arts et aux sciences et pouvant servir à leur histoire. Source : IGN BD Topo 2017",
+      "description": "Localisation des musées.",
+      "source": "IGN",
+      "maj": "Décembre 2017",
       "globalConstraint": {
         "minScaleDenominator": 0.0,
         "maxScaleDenominator": 62236752975597,
@@ -3888,7 +3932,9 @@
     "VILLAGESETAPE$GEOPORTAIL:OGC:WMS": {
       "name": "VILLAGESETAPE",
       "title": "Villages étapes",
-      "description": "Communes de moins de 5 000 habitants, situées à moins de 5km d'un grand axe routier national 03-2023",
+      "description": "Localisation des Villages étapes. Alternatives aux aires de services, les communes labellisées offrent une pause alliant commerces, équipements et convivialité.<br />Les communes labellisées Villages étapes sont des communes de moins de 5 000 habitants et sont situées à moins de 5 km d'un grand axe routier national.<br />Label national créé en 1995.",
+      "source": "Fédération française des villages étapes",
+      "maj": "Octobre 2023",
       "globalConstraint": {
         "minScaleDenominator": 0.0,
         "maxScaleDenominator": 62236752975597,
@@ -4012,7 +4058,9 @@
     "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV",
       "title": "Carte topographique IGN",
-      "description": "La carte topographique représente avec précision le relief, symbolisé par des courbes de niveaux, ainsi que les détails du terrain : routes, sentiers, constructions, bois, arbre isolé, rivière, source... </br>En France, la carte topographique de base est réalisée par l'IGN. Le SCAN 25 Touristique comprend les pictogrammes du thème tourisme de la carte de base et les données du Club Vosgien.",
+      "description": "La carte topographique représente avec précision le relief, symbolisé par des courbes de niveaux, ainsi que les détails du terrain : routes, sentiers, constructions, bois, arbres isolé, rivières, sources… </br>Cette carte présente également des parcours et des informations pour la randonnée fournies par la Fédération Française de la Randonnée Pédestre (FFRandonnée) et le Club Vosgien.",
+      "source": "IGN, Gouvernement de la Nouvelle-Calédonie",
+      "maj": "Septembre 2023",
       "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -4128,7 +4176,9 @@
     "GEOGRAPHICALGRIDSYSTEMS.MAPS$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS",
       "title": "Cartes IGN",
-      "description": "Cartes IGN",
+      "description": "Cinq types de cartes adaptées aux échelles d’affichage : cartes à grande échelle, cartes topographiques, cartes de tourisme, cartes administratives et routières, cartes à petite échelle.",
+      "source": "IGN, Gouvernement de la Nouvelle-Calédonie",
+      "maj": "Septembre 2023",
       "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -4412,7 +4462,9 @@
       },
       "name": "PLAN.IGN.INTERACTIF",
       "title": "Plan IGN",
-      "description": "Plan IGN vectoriel, interactif : au clic, affichez les informations de légende et les données issues de la BD Topo.",
+      "description": "Plan vectoriel interrogeable. En cliquant sur le plan, les informations de légende et les données issues de la BD Topo s'affichent.",
+      "source": "IGN",
+      "maj": "Décembre 2023",
       "formats": [
         {
           "current": true,
@@ -4454,8 +4506,10 @@
         }
       },
       "name": "PLAN.IGN.MIXTE",
-      "title": "Plan IGN mixte",
+      "title": "Plan aérien",
       "description": "Plan IGN mixte",
+      "source": "IGN",
+      "maj": "Décembre 2023",
       "formats": [
         {
           "current": true,

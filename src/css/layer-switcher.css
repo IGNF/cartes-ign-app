@@ -244,3 +244,17 @@ div[id^="route-share_ID_"] {
 .tools-layer-remove {
   margin-bottom: 0px;
 }
+
+#informationsText > p {
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+#informationsText > p:last-child {
+  margin-top: 5px;
+}
+
+#informationsText .layerInfoMaj,
+#informationsText .layerInfoSource {
+  font-family: "Open Sans Bold";
+}

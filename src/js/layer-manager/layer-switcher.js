@@ -401,7 +401,11 @@ class LayerSwitcher extends EventTarget {
       var id = this.#getId(index);
       var text = document.getElementById("informationsText");
       var p = LayersConfig.getLayerProps(id);
-      text.innerHTML = p.desc;
+      text.innerHTML = `
+      <p>${p.desc}</p>
+      <p><span class="layerInfoSource">Source :</span> ${p.source}</p>
+      <p><span class="layerInfoMaj">Mise à jour :</span> ${p.maj}</p>
+      `;
       var img = document.getElementById("informationsImg");
       img.src = LayersAdditional.getLegend(id.split("$")[0]);
       Globals.menu.open("informations");

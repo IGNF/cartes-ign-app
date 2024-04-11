@@ -93,6 +93,8 @@ const getLayerProps = (id) => {
     base: getBaseLayers().includes(id), // couche de fonds ou autre
     title: props.title,
     desc: props.description,
+    source: props.source || "",
+    maj: props.maj || "",
     type: (isVector) ? "vector" : "raster",
     style: (isVector) ? style.url : style.name || "normal",
     format: format.name || "",
