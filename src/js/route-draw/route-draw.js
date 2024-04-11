@@ -159,8 +159,7 @@ class RouteDraw {
    */
   activate() {
     this.dataHistory.unshift(JSON.parse(JSON.stringify(this.data)));
-    this.dom.title.classList.add("d-none");
-    this.dom.edit.classList.add("d-none");
+    this.dom.titlewrapper.classList.add("d-none");
     this.#listeners();
   }
 
@@ -249,7 +248,7 @@ class RouteDraw {
   }
 
   /**
-   * Ouvre l'itinéraire en mode édition s'il est puvert en lecture seule
+   * Ouvre l'itinéraire en mode édition s'il est ouvert en lecture seule
    */
   openEdition() {
     if (!Globals.online) {
@@ -263,6 +262,31 @@ class RouteDraw {
     const routeId = this.routeId;
     this.hide();
     document.getElementById(`route-edit_ID_${routeId}`).click();
+  }
+
+  /**
+   * Partage l'itinéraire à l'aide de la méthode de myAccount
+   */
+  shareRoute() {
+    const routeId = this.routeId;
+    document.getElementById(`route-share_ID_${routeId}`).click();
+  }
+
+  /**
+   * Exporte l'itinéraire à l'aide de la méthode de myAccount
+   */
+  exportRoute() {
+    const routeId = this.routeId;
+    document.getElementById(`route-export_ID_${routeId}`).click();
+  }
+
+  /**
+   * Supprime l'itinéraire à l'aide de la méthode de myAccount
+   */
+  deleteRoute() {
+    const routeId = this.routeId;
+    this.hide();
+    Globals.myaccount.deleteRoute(routeId);
   }
 
   /**
@@ -1100,8 +1124,7 @@ class RouteDraw {
    */
   showDetails() {
     this.readonly = true;
-    this.dom.title.classList.remove("d-none");
-    this.dom.edit.classList.remove("d-none");
+    this.dom.titlewrapper.classList.remove("d-none");
     Globals.menu.open("routeDraw");
   }
 

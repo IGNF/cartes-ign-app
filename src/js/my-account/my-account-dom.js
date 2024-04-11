@@ -251,24 +251,18 @@ let MyAccountDOM = {
       this.editRoute(route);
     });
 
-    let deleteRoute = () => {
-      this.deleteRoute(routeId);
-    };
-
-    let handleDeleteRoute = deleteRoute.bind(this);
-
+    let hasBeenClicked = false;
     container.querySelector(`#route-remove_ID_${routeId}`).addEventListener("click", () => {
-      Toast.show({
-        text: "Confirmez la suppression de l'itinéraire",
-        duration: "short",
-        position: "bottom"
-      });
-      container.querySelector(`#route-remove_ID_${routeId}`).addEventListener("click", handleDeleteRoute);
-    });
-
-    document.addEventListener("click", (event) => {
-      if (!event.target.closest(`#route-remove_ID_${routeId}`)) {
-        container.querySelector(`#route-remove_ID_${routeId}`).removeEventListener("click", handleDeleteRoute);
+      if (!hasBeenClicked) {
+        Toast.show({
+          text: "Confirmez la suppression de l'itinéraire",
+          duration: "short",
+          position: "bottom"
+        });
+        hasBeenClicked = true;
+      } else {
+        this.deleteRoute(routeId);
+        hasBeenClicked = false;
       }
     });
 

@@ -98,28 +98,22 @@
   margin-right: 10px;
 }
 
+.routeDrawTitleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
 .routeDrawResultsTitle {
   font-size: 15px;
   font-family: "Fira Sans Semibold";
   margin-top: 0;
 }
 
-.routeDrawResultsEdit {
-  appearance: unset;
-  display: block;
-  border: none;
-  border-radius: 70px;
-  background-color: var(--dark-green);
-  padding: 7px 21px;
-  font-family: "Open Sans";
-  font-weight: 600;
-  font-size: 12px;
-  color: white;
-  cursor: pointer;
-  text-align: center;
-  line-height: normal;
-  width: 55px;
-  float: right;
+#route-draw-advanced-tools {
+  right: 30px;
+  left: unset;
 }
 
 .routeDrawSummaryTransport {
