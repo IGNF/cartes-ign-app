@@ -37,7 +37,7 @@ const poiLegendRules = [
   },
   {
     "subclass": "college",
-    "libelle": "",
+    "libelle": "Enseignement supérieur",
   },
   {
     "subclass": "conference_centre",
@@ -69,7 +69,7 @@ const poiLegendRules = [
   },
   {
     "subclass": "fuel",
-    "libelle": "Station service",
+    "libelle": "Station-service",
   },
   {
     "subclass": "grave_yard",
@@ -110,7 +110,7 @@ const poiLegendRules = [
   },
   {
     "subclass": "prison",
-    "libelle": "Etablissement péntencière",
+    "libelle": "Etablissement pénitencier",
   },
   {
     "subclass": "pub",
@@ -126,7 +126,7 @@ const poiLegendRules = [
   },
   {
     "subclass": "school",
-    "libelle": "",
+    "libelle": "Ecole, collège ou lycée",
   },
   {
     "subclass": "toilets",
@@ -367,6 +367,10 @@ const poiLegendRules = [
   {
     "subclass": "frozen_food",
     "libelle": "Produits surgelés",
+  },
+  {
+    "subclass": "theatre",
+    "libelle": "Théâtre",
   }
 ];
 

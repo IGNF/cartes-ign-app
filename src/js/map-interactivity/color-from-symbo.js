@@ -27,7 +27,6 @@ const colorFromSymbo = {
   "post_office": "#626A6F",
   "prison": "#626A6F",
   "recycling": "#626A6F",
-  "school": "#626A6F",
   "toilets": "#626A6F",
   "townhall": "#626A6F",
   "university": "#626A6F",
