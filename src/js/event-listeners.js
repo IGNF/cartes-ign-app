@@ -84,13 +84,6 @@ function addListeners() {
     $informationsScreenMenu.style.marginLeft = "-100%";
     Globals.backButtonState = "informationsScreenPrivacy";
   });
-  document.getElementById("informationsItemsCGU").addEventListener("click", () => {
-    document.getElementById("informationsContentLegal").classList.add("d-none");
-    document.getElementById("informationsContentPrivacy").classList.add("d-none");
-    document.getElementById("informationsContentCGU").classList.remove("d-none");
-    $informationsScreenMenu.style.marginLeft = "-100%";
-    Globals.backButtonState = "informationsScreenCGU";
-  });
 
   // Rotation du marqueur de position (android)
   if (Capacitor.getPlatform() !== "ios") {
@@ -228,7 +221,11 @@ function addListeners() {
     DOM.$bottomButtons.style.removeProperty("transform");
     DOM.$routeDrawEdit.style.removeProperty("transform");
     DOM.$filterPoiBtn.style.removeProperty("transform");
-    if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && window.scrollY > window.innerHeight / 2) {
+    let thresh = 2 * window.innerHeight / 3;
+    if (Globals.backButtonState === "routeDraw" && !Globals.routeDraw.readonly) {
+      thresh = window.innerHeight / 2;
+    }
+    if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && window.scrollY > thresh) {
       DOM.$bottomButtons.style.transform = "translateY(-100vh)";
       DOM.$routeDrawEdit.style.transform = "translateX(100vw)";
       DOM.$filterPoiBtn.style.transform = "translateY(-100vh)";

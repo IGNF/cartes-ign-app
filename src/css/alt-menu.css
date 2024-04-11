@@ -63,6 +63,25 @@
   border-bottom: none;
 }
 
+.informationsItems > .informationsItemsLink {
+  background-image: none;
+  text-decoration: underline;
+}
+
+.informationsItemsLink > a {
+  color: var(--dark-grey);
+}
+
+.informationsItemsLink > a > span {
+  display: inline-block;
+  background-image: url("assets/external-link.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: -2px;
+  width: 1.8em;
+  height: 1em;
+}
+
 .headerText {
   color: var(--dark-grey);
   text-align: center;
