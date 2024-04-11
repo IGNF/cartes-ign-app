@@ -6,9 +6,6 @@ import parseOsmOpeningHours from "./parse-osm-opening-hours";
  * @returns chaine de caractère HTML qui décrit la feature
  */
 
-const natureRouteToDisplay = ["Autoroute", "Bretelle", "Chemin",
-  "Piste cyclable", "Sentier", "Rue piétonne", "Escalier"];
-
 const isIndifferencie = (prop) => {
   if (prop == "Indifférenciée" || prop == "Indifférencié") return true;
   else return false;
@@ -70,7 +67,7 @@ const featurePropertyFilter = (feature) => {
   let hauteur = getProperty(feature, "hauteur");
 
   // pas de légende bdtopo
-  const noBdtopoAttr = ["construction_lineaire", "detail_hydrographique", "zone_d_estran", "ligne_orographique"]
+  const noBdtopoAttr = ["construction_lineaire", "detail_hydrographique", "zone_d_estran", "ligne_orographique"];
   if (noBdtopoAttr.includes(feature.layer["source-layer"])) {
     result.after += "</div>";
     result.before = "";
@@ -238,7 +235,7 @@ const featurePropertyFilter = (feature) => {
 
   // Régles spécifiques zone_de_vegetation
   if (feature.layer["source-layer"] == "zone_de_vegetation") {
-    const vegetationNoAttr = ["Lande ligneuse", "Vigne", "Verger", "Forêt ouverte", "Mangrove"]
+    const vegetationNoAttr = ["Lande ligneuse", "Vigne", "Verger", "Forêt ouverte", "Mangrove"];
     if (!vegetationNoAttr.includes(nature)) {
       result.before += nature + "<br/>";
     }
