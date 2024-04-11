@@ -15931,24 +15931,6 @@
       }
     },
     {
-      "id": "industriel_et_commercial",
-      "type": "fill",
-      "source": "bdtopo",
-      "source-layer": "zone_d_activite_ou_d_interet",
-      "minzoom": 14,
-      "paint": {
-        "fill-color": "transparent"
-      },
-      "filter": [
-        "all",
-        [
-          "==",
-          "categorie",
-          "Industriel et commercial"
-        ]
-      ]
-    },
-    {
       "id": "religieux",
       "type": "fill",
       "source": "bdtopo",
@@ -15984,24 +15966,7 @@
         ]
       ]
     },
-    {
-      "id": "science_et_enseignement",
-      "type": "fill",
-      "source": "bdtopo",
-      "source-layer": "zone_d_activite_ou_d_interet",
-      "minzoom": 14,
-      "paint": {
-        "fill-color": "transparent"
-      },
-      "filter": [
-        "all",
-        [
-          "==",
-          "categorie",
-          "Science et enseignement"
-        ]
-      ]
-    },
+
     {
       "id": "sport",
       "type": "fill",
@@ -16017,8 +15982,84 @@
           "==",
           "categorie",
           "Sport"
+        ],
+        [ "!=",
+          "nature",
+          "Autre équipement sportif"
         ]
       ]
+    },
+
+
+    {
+		"id": "science_enseignement",
+		"type": "fill",
+		"source": "bdtopo",
+		"source-layer": "zone_d_activite_ou_d_interet",
+		"minzoom": 14,
+		"paint": {
+		  "fill-color": "transparent"
+		},
+		"filter": [
+		  "all",
+		  [
+			"==",
+			"categorie",
+			"Science et enseignement"
+		  ]
+		]
+	  },
+    {
+      "id": "administratif_ou_militaire",
+      "type": "fill",
+      "source": "bdtopo",
+      "source-layer": "zone_d_activite_ou_d_interet",
+      "minzoom": 14,
+      "paint": {
+        "fill-color": "transparent"
+      },
+      "filter": [
+        "all",
+        [
+          "in",
+          ["get", "nature"],
+          ["literal", [
+			"Caserne", 
+		  	"Caserne de pompiers",
+			"Administration centrale de l'Etat",
+			"Poste", "Palais de justice",
+			"Autre service déconcentré de l'Etat",
+			"Préfecture", "Préfecture de région",
+			"Divers public ou administratif",
+			"Etablissement pénitentiaire",
+			"Gendarmerie", "Surveillance maritime", "Capitainerie"
+			]]
+        ]
+      ]
+    },
+
+    {
+      "id": "cimetiere_surf",
+      "type": "fill",
+      "source": "bdtopo",
+      "source-layer": "cimetiere",
+      "minzoom": 14,
+      "paint": {
+        "fill-color": "transparent"
+      }
+    },
+    {
+      "id": "zone_de_vegetation_surf",
+      "type": "fill",
+      "source": "bdtopo",
+      "source-layer": "zone_de_vegetation",
+      "paint": {
+        "fill-color": "transparent"
+      },
+      "minzoom": 14,
+      "layout": {
+        "visibility": "visible"
+      }
     },
     {
       "id": "surface_hydrographique_surf",
@@ -16037,7 +16078,27 @@
       "paint": {
         "line-color": "transparent"
       },
-      "minzoom": 13
+      "minzoom": 13,
+      "line-width": {
+        "stops": [
+          [
+            6,
+            0.3
+          ],
+          [
+            9,
+            1.5
+          ],
+          [
+            14,
+            1.5
+          ],
+          [
+            19,
+            6.5
+          ]
+        ]
+      }
     },
     {
       "id": "cours_d_eau",
@@ -16046,11 +16107,26 @@
       "source-layer": "cours_d_eau",
       "paint": {
         "line-color": "transparent",
-        "line-dasharray": [
-          6,
-          2
-        ],
-        "line-width": 15
+        "line-width": {
+          "stops": [
+            [
+              6,
+              0.3
+            ],
+            [
+              9,
+              1.5
+            ],
+            [
+              14,
+              1.5
+            ],
+            [
+              19,
+              6.5
+            ]
+          ]
+        }
       },
       "minzoom": 13,
       "layout": {
@@ -16070,19 +16146,6 @@
         "circle-radius": 15
       },
       "minzoom": 15
-    },
-    {
-      "id": "zone_de_vegetation_surf",
-      "type": "fill",
-      "source": "bdtopo",
-      "source-layer": "zone_de_vegetation",
-      "paint": {
-        "fill-color": "transparent"
-      },
-      "minzoom": 14,
-      "layout": {
-        "visibility": "visible"
-      }
     },
     {
       "id": "zone_d_estran_surf",
@@ -16126,7 +16189,30 @@
       ],
       "paint": {
         "line-color": "transparent",
-        "line-width": 15
+        "line-width": {
+          "stops": [
+            [
+              14,
+              2.5
+            ],
+            [
+              16,
+              3.7
+            ],
+            [
+              17,
+              6.8
+            ],
+            [
+              18,
+              8.4
+            ],
+            [
+              19,
+              14
+            ]
+          ]
+        }
       }
     },
     {
@@ -16145,7 +16231,26 @@
       ],
       "paint": {
         "line-color": "transparent",
-        "line-width": 15
+        "line-width": {
+          "stops": [
+            [
+              16,
+              3.2
+            ],
+            [
+              17,
+              5.4
+            ],
+            [
+              18,
+              7.7
+            ],
+            [
+              19,
+              16.8
+            ]
+          ]
+        }
       }
     },
     {
@@ -16164,7 +16269,29 @@
       ],
       "paint": {
         "line-color": "transparent",
-        "line-width": 15
+        "line-width": {
+          "stops": [
+          [
+            11,
+            2
+          ],
+          [
+            16,
+            3.5
+          ],
+          [
+            17,
+            6
+          ],
+          [
+            18,
+            8.4
+          ],
+          [
+            19,
+            18.3
+          ]
+        ]}
       }
     },
     {
@@ -16200,6 +16327,10 @@
             [
               19,
               2
+            ],
+            [
+              20,
+              7
             ]
           ]
         }
@@ -16221,7 +16352,31 @@
       ],
       "paint": {
         "line-color": "transparent",
-        "line-width": 15
+        
+        "line-width": {
+          "stops": [
+            [
+              14,
+              2.5
+            ],
+            [
+              16,
+              3.7
+            ],
+            [
+              17,
+              6.8
+            ],
+            [
+              18,
+              8.4
+            ],
+            [
+              19,
+              14
+            ]
+          ]
+        }
       }
     },
     {
@@ -16282,45 +16437,22 @@
           "stops": [
             [
               16,
-              1.1
+              1.75
             ],
             [
               17,
-              1.7
+              3
             ],
             [
               18,
-              2
+              4.2
             ],
             [
               19,
-              3.5
+              9.5
             ]
           ]
         }
-      }
-    },
-    {
-      "id": "escalier-inline",
-      "type": "line",
-      "source": "bdtopo",
-      "source-layer": "troncon_de_route",
-      "minzoom": 13,
-      "filter": [
-        "all",
-        [
-          "==",
-          "nature",
-          "Escalier"
-        ]
-      ],
-      "paint": {
-        "line-color": "transparent",
-        "line-width": 15,
-        "line-dasharray": [
-          3,
-          0.2
-        ]
       }
     },
     {
@@ -16339,11 +16471,26 @@
       ],
       "paint": {
         "line-color": "transparent",
-        "line-dasharray": [
-          6,
-          2
-        ],
-        "line-width": 15
+        "line-width": {
+          "stops": [
+            [
+              16,
+              3.2
+            ],
+            [
+              17,
+              5.4
+            ],
+            [
+              18,
+              7.7
+            ],
+            [
+              19,
+              16.8
+            ]
+          ]
+        }
       }
     },
     {
@@ -16362,34 +16509,30 @@
       ],
       "paint": {
         "line-color": "transparent",
-        "line-width": 5,
-        "line-dasharray": [
-          3,
-          2
-        ]
-      }
-    },
-    {
-      "id": "sentier-inline",
-      "type": "line",
-      "source": "bdtopo",
-      "source-layer": "troncon_de_route",
-      "minzoom": 13,
-      "filter": [
-        "all",
-        [
-          "==",
-          "nature",
-          "Sentier"
-        ]
-      ],
-      "paint": {
-        "line-color": "transparent",
-        "line-width": 5,
-        "line-dasharray": [
-          3,
-          2
-        ]
+        "line-width": {
+          "stops": [
+            [
+              16,
+              1
+            ],
+            [
+              17,
+              1.2
+            ],
+            [
+              18,
+              1.4
+            ],
+            [
+              19,
+              2
+            ],
+            [
+              20,
+              6
+            ]
+          ]
+        }
       }
     },
     {
@@ -16412,21 +16555,6 @@
       }
     },
     {
-      "id": "troncon_de_voie_ferree_dash",
-      "type": "line",
-      "source": "bdtopo",
-      "source-layer": "troncon_de_voie_ferree",
-      "minzoom": 13,
-      "paint": {
-        "line-color": "transparent",
-        "line-dasharray": [
-          0.1,
-          0.8
-        ],
-        "line-width": 15
-      }
-    },
-    {
       "id": "troncon_de_voie_ferree_line",
       "type": "line",
       "source": "bdtopo",
@@ -16434,7 +16562,18 @@
       "minzoom": 13,
       "paint": {
         "line-color": "transparent",
-        "line-width": 15
+        "line-width": {
+          "stops": [
+            [
+              12,
+              3.5
+            ],
+            [
+              19,
+              14.7
+            ]
+          ]
+        }
       }
     },
     {
@@ -16757,28 +16896,12 @@
       }
     },
     {
-      "id": "transport_par_cable_dash",
-      "type": "line",
-      "source": "bdtopo",
-      "source-layer": "transport_par_cable",
-      "minzoom": 1,
-      "paint": {
-        "line-color": "transparent",
-        "line-dasharray": [
-          0.1,
-          0.8
-        ],
-        "line-width": 15
-      }
-    },
-    {
       "id": "transport_par_cable_line",
       "type": "line",
       "source": "bdtopo",
       "source-layer": "transport_par_cable",
-      "minzoom": 1,
       "paint": {
-        "line-color": "transparent",
+        "line-color": "red",
         "line-width": 15
       }
     },
@@ -16887,16 +17010,6 @@
         "fill-color": "transparent"
       },
       "minzoom": 14
-    },
-    {
-      "id": "cimetiere_surf",
-      "type": "fill",
-      "source": "bdtopo",
-      "source-layer": "cimetiere",
-      "minzoom": 14,
-      "paint": {
-        "fill-color": "transparent"
-      }
     },
     {
       "id": "construction_lineaire",

@@ -306,23 +306,4 @@ function Legend(features, zoom) {
   return legend;
 }
 
-/**
- * PROBLEME
- * La premiere feature bdtopo n'est pas systématiquement
- * La premiere feature de planIGN.
- * gestion des line dasharray
- * group de légendes : 2 line / 1 line et 1 fill
- *
- * Pour le titre des batiments public aller chercher dans 2e feature de la bdtopo
- * type "zone_d_activite_ou_d_interet"
- * afficher le toponyme
- *
- * CAS à gérer :
- *  -on clique sur la chapelle de l EHPAD de la louvière.
- *  -on clique sur la mairie d'aurillac
- *  -préfecture du Cantal
- *  -forme sous un toponyme
- *
- *  */
-
 export default Legend;
