@@ -69,6 +69,21 @@ const featurePropertyFilter = (feature) => {
   let nature_detaillee = getProperty(feature, "nature_detaillee");
   let hauteur = getProperty(feature, "hauteur");
 
+  // pas de légende bdtopo
+  const noBdtopoAttr = ["construction_lineaire", "detail_hydrographique", "zone_d_estran", "ligne_orographique"]
+  if (noBdtopoAttr.includes(feature.layer["source-layer"])) {
+    result.after += "</div>";
+    result.before = "";
+    return result;
+  }
+  if (feature.layer["source-layer"] == "surface_hydrographique" && ["Marais salant", "Marais"].includes(nature)) {
+    result.after += "</div>";
+    result.before = "";
+    return result;
+  }
+
+
+  
   //  Propriétés spécifiques reservoir
   if(feature.layer["source-layer"] == "reservoir") {
     let volume = getProperty(feature, "volume");
@@ -94,27 +109,20 @@ const featurePropertyFilter = (feature) => {
     let acces_pieton = getProperty(feature, "acces_pieton");
 
     if (cpx_numero) {
-      result.before += `${cpx_numero}<br/>`;
+      result.before += `Numéro : ${cpx_numero}<br/>`;
     }
     if (cpx_toponyme_route_nommee) {
-      result.before += `${cpx_toponyme_route_nommee}<br/>`;
-    }
-    else {
-      if (nature && natureRouteToDisplay.includes(nature))
-        result.before += `${nature}<br/>`;
+      result.before += `Nom : ${cpx_toponyme_route_nommee}<br/>`;
     }
     if (cpx_toponyme_voie_verte)
       result.before += `${cpx_toponyme_voie_verte}<br/>`;
     if (cpx_toponyme_itineraire_cyclable)
       result.before += `${cpx_toponyme_itineraire_cyclable}<br/>`;
     if (nombre_de_voies) {
-      if (nombre_de_voies == "1")
-        result.before += `${nombre_de_voies} voie<br/>`;
-      else
-        result.before += `${nombre_de_voies} voies<br/>`;
+      result.before += `Nombre de voies : ${nombre_de_voies}<br/>`;
     }
     if (acces_pieton) {
-      result.before += `Accès piéton : ${acces_pieton}<br/>`;
+      result.before += `Mode d'accès piéton : ${acces_pieton}<br/>`;
     }
     if (voie_prive) {
       result.before += "Voie privée<br/>";
@@ -138,7 +146,7 @@ const featurePropertyFilter = (feature) => {
       let nombre_d_etages = getProperty(feature, "nombre_d_etages");
       let date_d_apparition = getProperty(feature, "date_d_apparition");
   
-      if(nombre_de_logements && nature == "Bâtiment résidentiel ou quelconque") {
+      if(nombre_de_logements && (nature == "Bâtiment résidentiel ou quelconque" || nature == "Indifférenciée")) {
         result.before += `Nombre de logements : ${nombre_de_logements}<br/>`;
       }
       if(nombre_d_etages) {
@@ -170,7 +178,7 @@ const featurePropertyFilter = (feature) => {
     let nombre_de_voies = getProperty(feature, "nombre_de_voies");
 
     if(cpx_toponyme) {
-      result.before += `${cpx_toponyme}<br/>`;
+      result.before += `Nom : ${cpx_toponyme}<br/>`;
     }
     if(usage) {
       result.before += `Usage : ${usage}<br/>`;
@@ -182,14 +190,57 @@ const featurePropertyFilter = (feature) => {
     result.after = "";
     return result;
   }
+  // Régles spécifiques cimetière
+  if (feature.layer["source-layer"] == "cimetiere") {
+    if (nature) {
+      result.before += `Cimetière ${nature.toLowerCase()}<br/>`;
+    }
+    result.before += "</div>";
+    result.after = "";
+    return result;
+  }
 
-  if (feature.layer["source-layer"] != "construction_ponctuelle"
-    && feature.layer["source-layer"] != "cours_d_eau") {
+  // Régles spécifiques réservoir
+  if (feature.layer["source-layer"] == "reservoir") {
+    let volume = getProperty(feature, "volume");
     if (nature) {
       result.before += `${nature}<br/>`;
     }
     if (hauteur) {
       result.before += `Hauteur : ${feature.properties.hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
+    }
+    if (volume) {
+      result.before += `Volume : ${feature.properties.volume.toLocaleString("fr-FR")} mètres  <br/>`;
+    }
+    result.before += "</div>";
+    result.after = "";
+    return result;
+  }
+
+  // Régles spécifiques construction ponctuelle
+  if (feature.layer["source-layer"] == "construction_ponctuelle") {
+    let date_d_apparition = getProperty(feature, "date_d_apparition");
+    if (nature_detaillee) {
+      result.before += `Type : ${nature_detaillee}<br/>`;
+    }
+    if (hauteur) {
+      result.before += `Hauteur : ${feature.properties.hauteur.toLocaleString("fr-FR")} mètres  <br/>`;
+    }
+    if(date_d_apparition) {
+      let match = date_d_apparition.match("([0-9]+)/");
+      let year = match[1] ? match[1] : "";
+      result.before += `Année de construction : ${year}<br/>`;
+    }
+    result.before += "</div>";
+    result.after = "";
+    return result;
+  }
+
+  // Régles spécifiques zone_de_vegetation
+  if (feature.layer["source-layer"] == "zone_de_vegetation") {
+    const vegetationNoAttr = ["Lande ligneuse", "Vigne", "Verger", "Forêt ouverte", "Mangrove"]
+    if (!vegetationNoAttr.includes(nature)) {
+      result.before += nature + "<br/>";
     }
     result.before += "</div>";
     result.after = "";
