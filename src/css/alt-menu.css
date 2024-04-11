@@ -93,6 +93,7 @@
 
 .informationsContent {
   font-size: 12px;
+  margin-top: -72px;
 }
 
 .informationsContent > div {
@@ -108,14 +109,11 @@
 
 .informationsContentHeader {
   color: var(--dark-grey);
-  position: absolute;
-  top: -50px;
   width: calc(100vw - 100px);
   font-family: "Fira Sans Medium";
   font-size: 18px;
   border-bottom: 1px solid var(--grey-2);
-  padding-bottom: 20px;
-  padding-left: 60px;
+  padding: 20px 0 20px 60px;
 }
 
 /* mode paysage et écrans larges */

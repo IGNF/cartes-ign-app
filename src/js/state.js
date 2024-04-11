@@ -136,9 +136,16 @@ const onBackKeyDown = () => {
     Globals.menu.close("signalement");
     return;
   }
-  if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenCGU"].includes(Globals.backButtonState)) {
+  if (["informationsScreenLegal", "informationsScreenPrivacy"].includes(Globals.backButtonState)) {
     const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
     $informationsScreenMenu.style.removeProperty("margin-left");
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    }, 500);
     Globals.backButtonState = "informationsScreen";
     return;
   }

@@ -72,14 +72,12 @@ function addListeners() {
   const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
   document.getElementById("informationsItemsLegal").addEventListener("click", () => {
     document.getElementById("informationsContentPrivacy").classList.add("d-none");
-    document.getElementById("informationsContentCGU").classList.add("d-none");
     document.getElementById("informationsContentLegal").classList.remove("d-none");
     $informationsScreenMenu.style.marginLeft = "-100%";
     Globals.backButtonState = "informationsScreenLegal";
   });
   document.getElementById("informationsItemsPrivacy").addEventListener("click", () => {
     document.getElementById("informationsContentLegal").classList.add("d-none");
-    document.getElementById("informationsContentCGU").classList.add("d-none");
     document.getElementById("informationsContentPrivacy").classList.remove("d-none");
     $informationsScreenMenu.style.marginLeft = "-100%";
     Globals.backButtonState = "informationsScreenPrivacy";
