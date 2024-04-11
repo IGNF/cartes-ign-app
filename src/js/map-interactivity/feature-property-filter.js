@@ -124,45 +124,39 @@ const featurePropertyFilter = (feature) => {
     return result;
   }
 
-  //  Propriétés spécifiques batiment religieux
+  //  Propriétés spécifiques batiment
   if(feature.layer["source-layer"] == "batiment") {
-    // Batiment
 
+    // Batiment religieux
     let usage = getProperty(feature, "usage_1");
     if (usage == "Religieux" && !isIndifferencie(nature)) {
       result.before += `${nature}<br/>`;
     }
+    // Autres batiments
+    else {
+      let nombre_de_logements = getProperty(feature, "nombre_de_logements");
+      let nombre_d_etages = getProperty(feature, "nombre_d_etages");
+      let date_d_apparition = getProperty(feature, "date_d_apparition");
   
-    result.before += "</div>";
-    result.after = "";
-    return result;
-  }
-
-  //  Propriétés spécifiques batiment
-  if(feature.layer["source-layer"] == "batiment") {
-    // Batiment
-    let nombre_de_logements = getProperty(feature, "nombre_de_logements");
-    let nombre_d_etages = getProperty(feature, "nombre_d_etages");
-    let date_d_apparition = getProperty(feature, "date_d_apparition");
-
-    if(nombre_de_logements && nature == "Bâtiment résidentiel ou quelconque") {
-      result.before += `Nombre de logements : ${nombre_de_logements}<br/>`;
+      if(nombre_de_logements && nature == "Bâtiment résidentiel ou quelconque") {
+        result.before += `Nombre de logements : ${nombre_de_logements}<br/>`;
+      }
+      if(nombre_d_etages) {
+        if (nombre_d_etages == "0")
+          result.before += "Bâtiment de plain-pied<br/>";
+        else
+          result.before += `Nombre d'étages : ${nombre_d_etages}<br/>`;
+      }
+      if(hauteur) {
+        result.before += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres<br/>`;
+      }
+      if(date_d_apparition) {
+        let match = date_d_apparition.match("([0-9]+)/");
+        let year = match[1] ? match[1] : "";
+        result.before += `Année de construction : ${year}<br/>`;
+      }
     }
-    if(nombre_d_etages) {
-      if (nombre_d_etages == "0")
-        result.before += "Bâtiment de plain-pied<br/>";
-      else
-        result.before += `Nombre d'étages : ${nombre_d_etages}<br/>`;
-    }
-    if(hauteur) {
-      result.before += `Hauteur : ${hauteur.toLocaleString("fr-FR")} mètres<br/>`;
-    }
-    if(date_d_apparition) {
-      let match = date_d_apparition.match("([0-9]+)/");
-      let year = match[1] ? match[1] : "";
-      result.before += `Année de construction : ${year}<br/>`;
-    }
-
+  
     result.before += "</div>";
     result.after = "";
     return result;
