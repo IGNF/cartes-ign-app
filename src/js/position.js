@@ -248,7 +248,7 @@ class Position {
       }
     });
     if (type !== "landmark") {
-      shadowContainer.getElementById("positionLandmark").addEventListener("click", async (e) => {
+      shadowContainer.getElementById("positionLandmark").addEventListener("click", async () => {
         let coordinates = this.coordinates;
         if (type !== "myposition") {
           let position = await Location.getLocation();
@@ -295,7 +295,7 @@ class Position {
           this.options.closePositionCbk();
           this.opened = false;
         }
-      }
+      };
       // Récupération de l'id du landmark
       let landmarkId = -1;
       [...shadowContainer.getElementById("landmarkPositionTitle").classList].forEach((cl) => {

@@ -67,7 +67,7 @@ const featurePropertyFilter = (feature) => {
   let hauteur = getProperty(feature, "hauteur");
 
   // pas de légende bdtopo
-  const noBdtopoAttr = ["construction_lineaire", "detail_hydrographique", "zone_d_estran", "ligne_orographique"];
+  const noBdtopoAttr = ["surface_hydrographique", "construction_lineaire", "detail_hydrographique", "zone_d_estran", "ligne_orographique"];
   if (noBdtopoAttr.includes(feature.layer["source-layer"])) {
     result.after += "</div>";
     result.before = "";
