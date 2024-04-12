@@ -10,6 +10,9 @@ import Buffer from "@turf/buffer";
 import proj4 from "proj4";
 import Legend from "./legend-plan-ign";
 
+import LoadingGreen from "../../css/assets/loading-green.svg";
+
+
 /**
  * Interface sur l'interaction avec la carte
  * @module MapInteractivity
@@ -160,6 +163,9 @@ class MapInteractivity {
     this.#multipleGFI(layersForGFI)
       .then(async (resp) => {
         this.loading = false;
+        DOM.$mapCenter.style.removeProperty("background-image");
+      DOM.$mapCenter.style.removeProperty("background-size");
+      DOM.$mapCenter.classList.add("d-none");
         try {
           this.#highlightGFI(resp.geometry);
         } catch (e) {
@@ -176,6 +182,9 @@ class MapInteractivity {
         return;
       }).catch(async () => {
         this.loading = false;
+        DOM.$mapCenter.style.removeProperty("background-image");
+        DOM.$mapCenter.style.removeProperty("background-size");
+        DOM.$mapCenter.classList.add("d-none");
         if (featureHTML !== null) {
           this.#clearSources();
           await Globals.position.compute({
@@ -254,6 +263,9 @@ class MapInteractivity {
 
   async #multipleGFI(layerArray) {
     this.loading = true;
+    DOM.$mapCenter.style.backgroundImage = `url(${LoadingGreen})`;
+    DOM.$mapCenter.style.backgroundSize = "75px";
+    DOM.$mapCenter.classList.remove("d-none");
 
     let GFIArray = layerArray.filter(layer => layer[1].visibility === true);
     GFIArray = GFIArray.filter(layer => layer[1].base === false);
@@ -490,6 +502,9 @@ class MapInteractivity {
       this.controller.abort();
       this.controller = new AbortController();
       this.loading = false;
+      DOM.$mapCenter.style.removeProperty("background-image");
+      DOM.$mapCenter.style.removeProperty("background-size");
+      DOM.$mapCenter.classList.add("d-none");
     }
     this.#clearSources();
   }
