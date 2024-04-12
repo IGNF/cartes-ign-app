@@ -255,18 +255,87 @@ class MapInteractivity {
   async #multipleGFI(layerArray) {
     this.loading = true;
 
-    let GFIArray = layerArray.filter(layer => layer[1].visibility == true);
-    GFIArray = GFIArray.filter(layer => layer[1].base == false);
+    let GFIArray = layerArray.filter(layer => layer[1].visibility === true);
+    GFIArray = GFIArray.filter(layer => layer[1].base === false);
 
     // On récupère la liste des indices des layers non requêtables
     let indexbase = [];
     for (var index = 0; index < layerArray.length; index++) {
-      if(layerArray[index][1].visibility && layerArray[index][1].base)
-      {
+      if (layerArray[index][1].visibility && layerArray[index][1].base) {
         indexbase.push(index);
       }
     }
     GFIArray = GFIArray.filter(layer => GFIArray.indexOf(layer) < Math.min(...indexbase));
+
+    // check si le pixel de la couche est transparent, si oui, l'enlever de GFI Array (pas de GFI)
+    const layersToRemove = [];
+    let pixelValuePromiseArray = GFIArray.map((layer) => {
+      let tileUrl = "https://data.geopf.fr/wmts?" +
+      "SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&" +
+      `LAYER=${layer[0].split("$")[0]}` +
+      `&TILECOL=${layer[1].tiles.tile.x}&TILEROW=${layer[1].tiles.tile.y}&TILEMATRIX=${layer[1].computeZoom}&TILEMATRIXSET=PM` +
+      `&FORMAT=${layer[1].format}` +
+      `&STYLE=${layer[1].style}`;
+      if (layer[0].split(":").slice(-1)[0] === "WMS") {
+        // https://wiki.openstreetmap.org/wiki/Zoom_levels
+        const resolution = 40075016.686 * Math.cos(layer[1].clickCoords.lat * Math.PI/180) / Math.pow(2, layer[1].computeZoom + 6);
+        const clickMercatorCoords = proj4(proj4.defs("EPSG:4326"), proj4.defs("EPSG:3857"), [layer[1].clickCoords.lng, layer[1].clickCoords.lat]);
+        // https://gis.stackexchange.com/questions/79201/lat-long-values-in-a-wms-getfeatureinfo-request
+        const bottomLeft = [clickMercatorCoords[0] - 50 * resolution, clickMercatorCoords[1] - 50 * resolution];
+        const topRight = [clickMercatorCoords[0] + 50 * resolution, clickMercatorCoords[1] + 50 * resolution];
+        tileUrl = "https://data.geopf.fr/wms-v/ows?" +
+        "SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&" +
+        `LAYERS=${layer[0].split("$")[0]}` +
+        `&QUERY_LAYERS=${layer[0].split("$")[0]}` +
+        "&CRS=EPSG:3857" +
+        `&BBOX=${bottomLeft[0]},${bottomLeft[1]},${topRight[0]},${topRight[1]}` +
+        "&WIDTH=101&HEIGHT=101" +
+        "&FORMAT=image/png";
+      }
+
+      const response = fetch(tileUrl).then((result) => {
+        if (!result.ok) {
+          layersToRemove.push(layer);
+          return false;
+        }
+        return result.blob();
+      }).then((blob) => {
+        if (!blob) {
+          return;
+        }
+        return new Promise( (resolve) => {
+          const img = new Image();
+          img.onload = function() {
+            const canvas = document.createElement("canvas");
+            canvas.width = 256;
+            canvas.height = 256;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            let pixelData;
+            if (layer[0].split(":").slice(-1)[0] === "WMS") {
+              pixelData = ctx.getImageData(50, 50, 1, 1).data;
+            } else {
+              pixelData = ctx.getImageData(layer[1].tiles.tilePixel.x, layer[1].tiles.tilePixel.y, 1, 1).data;
+            }
+            const pixelValue = pixelData[3]; // Assuming grayscale, adjust accordingly
+            if (pixelValue === 0) {
+              layersToRemove.push(layer);
+            }
+            resolve();
+          };
+          img.src = URL.createObjectURL(blob);
+        });
+      }).catch((err) => {
+        console.error(err);
+      });
+
+      return response;
+    });
+
+    const pixelValueStatus = Promise.allSettled(pixelValuePromiseArray);
+    await pixelValueStatus;
+    GFIArray = GFIArray.filter(layer => !layersToRemove.includes(layer));
+    // END: check des pixels transparents
 
     let promisesArray = GFIArray.map((layer) => {
       let gfiURL = "https://data.geopf.fr/wmts?" +
@@ -294,27 +363,24 @@ class MapInteractivity {
       const response = fetch(
         gfiURL,
         { signal: this.controller.signal }
-      ).then((response => {return response.json();})
-        ,
-        () => {
-          throw new Error("GetFeatureInfo : HTTP error");
-        })
-        .then((res) => {
-          if (gfiRules[layer[0]]) {
-            return gfiRules.parseGFI(gfiRules[layer[0]], res, layer[1].computeZoom);
-          } else {
-            let html = "<div>";
-            for (const [key, value] of Object.entries(res.features[0].properties)) {
-              html += `<p>${key}: ${value}</p>`;
-            }
-            html += "</div>";
-            return {
-              title: layer[1].title,
-              html: html,
-              geometry: res.features[0].geometry,
-            };
+      ).then((response => {return response.json();}), () => {
+        throw new Error("GetFeatureInfo : HTTP error");
+      }).then((res) => {
+        if (gfiRules[layer[0]]) {
+          return gfiRules.parseGFI(gfiRules[layer[0]], res, layer[1].computeZoom);
+        } else {
+          let html = "<div>";
+          for (const [key, value] of Object.entries(res.features[0].properties)) {
+            html += `<p>${key}: ${value}</p>`;
           }
-        });
+          html += "</div>";
+          return {
+            title: layer[1].title,
+            html: html,
+            geometry: res.features[0].geometry,
+          };
+        }
+      });
       return response;
     });
 
