@@ -30,9 +30,7 @@ function addListeners() {
       geocode = true;
       evt.target.classList.add("autocompresultselected");
       DOM.$rech.value = evt.target.getAttribute("fulltext");
-      if (evt.target.classList.contains("recentresult")) {
-        coords = JSON.parse(evt.target.dataset.coordinates);
-      }
+      coords = JSON.parse(evt.target.dataset.coordinates);
     }
     // si recherches recentes ou autocompletion, on realise un geocodage
     if (geocode) {

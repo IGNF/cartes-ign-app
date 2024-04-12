@@ -49,10 +49,11 @@ function moveTo(coords, zoom=Globals.map.getZoom(), panTo=true) {
 /**
  * recherche
  * @param {*} text
+ * @param {*} coords
  * @returns
  * @fire search
  */
-async function search (text, coords = null) {
+async function search (text, coords) {
   /**
    * Recherche un texte et le géocode à l'aide de look4,
    * puis va à sa position en ajoutant un marqueur
@@ -60,38 +61,12 @@ async function search (text, coords = null) {
   if (text === "") {
     return;
   }
-  let geocode_result;
-  if (!coords) {
-    let url = new URL("https://data.geopf.fr/geocodage/completion");
-    let params =
-        {
-          type: "StreetAddress,PositionOfInterest",
-          maximumResponses: 1,
-          text: text,
-        };
-
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-    let responseprom = await fetch(url);
-    let response = await responseprom.json();
-
-    geocode_result = response.results[0];
-
-    DOM.$rech.value = Globals.search.computeLocationFullText(geocode_result);
-    RecentSearch.add({
-      text: Globals.search.computeLocationFullText(geocode_result),
-      coordinates: {
-        lat: geocode_result.y,
-        lon: geocode_result.x
-      }
-    });
-  } else {
-    DOM.$rech.value = text;
-    geocode_result = {
-      fulltext: text,
-      y: coords.lat,
-      x: coords.lon
-    };
-  }
+  DOM.$rech.value = text;
+  const geocode_result = {
+    fulltext: text,
+    y: coords.lat,
+    x: coords.lon
+  };
 
   target.dispatchEvent(
     new CustomEvent("search", {

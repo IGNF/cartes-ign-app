@@ -164,12 +164,11 @@ class Search {
     Globals.signal = Globals.controller.signal;
     let location = DOM.$rech.value;
     let url = new URL("https://data.geopf.fr/geocodage/completion");
-    let params =
-        {
-          type: "StreetAddress,PositionOfInterest",
-          maximumResponses: 10,
-          text: location,
-        };
+    let params = {
+      type: "StreetAddress,PositionOfInterest",
+      maximumResponses: 10,
+      text: location,
+    };
 
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     let signal = Globals.signal;
@@ -191,7 +190,9 @@ class Search {
       this.autocompletion_results.push({
         fulltext: this.computeLocationFullText(elem),
         firsttext: splitedText[0],
-        city: city
+        city: city,
+        lng: elem.x,
+        lat: elem.y,
       });
     }
     // Seulement les valeurs uniques
@@ -215,7 +216,7 @@ class Search {
    * @public
    */
   computeAutocompResultHTML(autocompresult) {
-    return `<p class='autocompresult' fulltext='${autocompresult.fulltext}'>
+    return `<p class='autocompresult' fulltext='${autocompresult.fulltext}' data-coordinates='{"lon":${autocompresult.lng},"lat":${autocompresult.lat}}'>
     ${autocompresult.firsttext}<br/>
     <em class='autocompcity'>${autocompresult.city}</em></p>
     ` ;
