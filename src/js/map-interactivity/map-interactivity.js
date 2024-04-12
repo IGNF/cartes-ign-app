@@ -181,7 +181,7 @@ class MapInteractivity {
           await Globals.position.compute({
             lngLat: ev.lngLat,
             text: Legend(features, Math.floor(this.map.getZoom())),
-            html1: featureHTML.before,
+            html: featureHTML.before,
             html2: featureHTML.after
           });
           Globals.menu.open("position");
