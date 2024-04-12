@@ -242,8 +242,12 @@ class ElevationLineControl {
             displayColors: false,
             callbacks: {
               label: (context) => {
+                let distanceText = Math.round(context.parsed.x);
+                if (this.unit === "km") {
+                  distanceText = Math.round(context.parsed.x * 100) / 100;
+                }
                 return `Altitude : ${context.parsed.y.toLocaleString()} m
-Distance du départ : ${Math.round(context.parsed.x)} ${this.unit}`;
+Distance du départ : ${distanceText} ${this.unit}`;
               },
               labelTextColor: () => {
                 return getComputedStyle(document.body).getPropertyValue("--dark-grey");
