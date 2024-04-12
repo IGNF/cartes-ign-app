@@ -8,9 +8,14 @@ on:
 
 jobs:
   deploy:
-    runs-on: macos-latest
+    runs-on: macos-13
 
     steps:
+      - name: Update XCode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.0.1'
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -79,7 +84,8 @@ jobs:
           EXPORT_PLIST: ${{ secrets.IOS_EXPORT_PRODUCTION }}
         run: |
           EXPORT_PLIST_PATH=$RUNNER_TEMP/ExportOptions.plist
-          echo -n "$EXPORT_PLIST" | base64 --decode --output $EXPORT_PLIST_PATH
+          echo $EXPORT_PLIST_PATH
+          echo -n "$EXPORT_PLIST" | base64 --decode -i - -o $EXPORT_PLIST_PATH
           cd ios/App && xcodebuild -exportArchive -archivePath $GITHUB_WORKSPACE/ign.xcarchive -exportOptionsPlist $EXPORT_PLIST_PATH -exportPath $RUNNER_TEMP/export
 
       - name: Upload application
@@ -94,7 +100,7 @@ jobs:
           API_KEY_BASE64: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
         run: |
           mkdir -p ~/private_keys
-          echo -n "$API_KEY_BASE64" | base64 --decode --output ~/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
+          echo -n " $API_KEY_BASE64" | base64 --decode -i - -o ~/private_keys/AuthKey_${{ secrets.APPSTORE_API_KEY_ID }}.p8
 
       - name: "Upload file to test flight using CLI"
         run: |
