@@ -104,16 +104,16 @@ let IsochroneDOM = {
                   <span class="sliderIsochrone"></span>
                 </div>
                 <div id="isochroneModeValueDuration">
-                  <p class="pIsochroneTitle">Définir un temps de trajet</p>
+                  <p class="pIsochroneTitle">Définir un temps de trajet - 1h max</p>
                   <div id="isochroneValueDuration" class="divIsochroneValue">
-                    <input id="isochroneValueDurationInputMinutes" min="0" max="60" step="1" type="number" placeholder="0">
+                    <input id="isochroneValueDurationInputMinutes" min="0" max="60" step="1" type="number" placeholder="0" oninput="this.value = !!this.value && this.value < 0 ? 0 : this.value > 60 ? 60 : this.value">
                     <label class="unit">min</label>
                   </div>
                 </div>
                 <div id="isochroneModeValueDistance" class="isochroneValueHidden">
-                  <p class="pIsochroneTitle">Définir une distance</p>
+                  <p class="pIsochroneTitle">Définir une distance - 50 km max</p>
                   <div id="isochroneValueDistance" class="divIsochroneValue">
-                    <input id="isochroneValueDistanceInput" min="0" max="50" step="any" type="number" placeholder="0">
+                    <input id="isochroneValueDistanceInput" min="0" max="50" step="any" type="number" placeholder="0" oninput="this.value = !!this.value && this.value < 0 ? 0 : this.value > 50 ? 50 : this.value">>
                     <label class="unit">km</label>
                   </div>
                 </div>
@@ -242,24 +242,6 @@ let IsochroneDOM = {
       if (!value) {
         Toast.show({
           text: "Ajoutez un point de départ pour le calcul de la zone",
-          duration: "long",
-          position: "bottom"
-        });
-        return;
-      }
-
-      if (mode.type === self.dom.modeDuration.value && mode.value > 3600) {
-        Toast.show({
-          text: "Le calcul de zone est limité à 60 minutes",
-          duration: "long",
-          position: "bottom"
-        });
-        return;
-      }
-
-      if (mode.type === self.dom.modeDistance.value && mode.value > 50) {
-        Toast.show({
-          text: "Le calcul de zone est limité à 50 kilomètres",
           duration: "long",
           position: "bottom"
         });

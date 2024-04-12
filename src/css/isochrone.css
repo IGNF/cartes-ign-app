@@ -235,7 +235,7 @@ input#isochroneValueDistanceInput[type=number]
   right: calc(5% + 1px);
   width: 58px;
   height: 35px;
-  background: url("assets/clearSearch.svg"), linear-gradient(90deg,#fff0,var(--false-white) 10px);
+  background: url("assets/clearSearch.svg"), linear-gradient(90deg,#fff0,white 10px);
   background-repeat: no-repeat;
   background-position: center;
 }
