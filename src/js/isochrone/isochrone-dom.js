@@ -113,7 +113,7 @@ let IsochroneDOM = {
                 <div id="isochroneModeValueDistance" class="isochroneValueHidden">
                   <p class="pIsochroneTitle">Définir une distance - 50 km max</p>
                   <div id="isochroneValueDistance" class="divIsochroneValue">
-                    <input id="isochroneValueDistanceInput" min="0" max="50" step="any" type="number" placeholder="0" oninput="this.value = !!this.value && this.value < 0 ? 0 : this.value > 50 ? 50 : this.value">>
+                    <input id="isochroneValueDistanceInput" min="0" max="50" step="any" type="number" placeholder="0" oninput="this.value = !!this.value && this.value < 0 ? 0 : this.value > 50 ? 50 : this.value">
                     <label class="unit">km</label>
                   </div>
                 </div>
