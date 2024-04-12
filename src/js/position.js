@@ -154,7 +154,7 @@ class Position {
     // template litteral
     var strContainer = `
       <div id="${id.main}">
-          <div class="divPositionTitle">${this.header}${htmlAdvanced}</div>
+          <div class="divPositionTitleWrapper"><div class="divPositionTitle">${this.header}</div>${htmlAdvanced}</div>
           <div class="divPositionAddress">
               <label class="lblPositionImgAddress"></label>
               <div class="divPositionSectionAddress fontLight">

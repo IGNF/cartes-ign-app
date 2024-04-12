@@ -14,14 +14,17 @@
 /*
  * titre
  */
+.divPositionTitleWrapper {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 0 10px 17px 0px;
+}
+
 .divPositionTitle {
   text-align: left;
   font-size: 17px;
   font-family: "Fira Sans Semibold";
-  margin: 0 10px 17px 0px;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
 }
 
 #position-landmark-advanced-tools {
