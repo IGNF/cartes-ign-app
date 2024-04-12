@@ -79,6 +79,10 @@ function app() {
         `, map);
       }
     });
+    if (!localStorage.getItem("hasBeenLaunched")) {
+      document.getElementById("geolocateBtn").click();
+      localStorage.setItem("hasBeenLaunched", true);
+    }
   });
 
   // Définition des icones
