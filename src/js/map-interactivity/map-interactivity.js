@@ -114,7 +114,13 @@ class MapInteractivity {
             "features": []
           });
         };
-        Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML.before, featureHTML.after, deselectPoiCallback).then(() => {
+        Globals.position.compute({
+          lngLat: ev.lngLat,
+          text: Legend(features, Math.floor(this.map.getZoom())),
+          html: featureHTML.before,
+          html2: featureHTML.after,
+          hideCallback: deselectPoiCallback,
+        }).then(() => {
           Globals.menu.open("position");
         });
         this.map.once("click", this.handleInfoOnMap);
@@ -159,7 +165,12 @@ class MapInteractivity {
         } catch (e) {
           console.warn(e);
         }
-        await Globals.position.compute(ev.lngLat, resp.title, resp.html, resp.html2);
+        await Globals.position.compute({
+          lngLat: ev.lngLat,
+          text: resp.title,
+          html: resp.html,
+          html2: resp.html2
+        });
         Globals.menu.open("position");
         this.map.once("click", this.handleInfoOnMap);
         return;
@@ -167,7 +178,12 @@ class MapInteractivity {
         this.loading = false;
         if (featureHTML !== null) {
           this.#clearSources();
-          await Globals.position.compute(ev.lngLat, Legend(features, Math.floor(this.map.getZoom())), featureHTML.before, featureHTML.after);
+          await Globals.position.compute({
+            lngLat: ev.lngLat,
+            text: Legend(features, Math.floor(this.map.getZoom())),
+            html1: featureHTML.before,
+            html2: featureHTML.after
+          });
           Globals.menu.open("position");
           this.selectedCleabs = features[0].properties.cleabs;
           this.selectedFeatureType = features[0].geometry.type;

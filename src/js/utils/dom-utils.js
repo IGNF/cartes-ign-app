@@ -29,6 +29,14 @@ let domUtils = {
 
   },
 
+  horizontalParentScroll: (event) => {
+    event.target.parentElement.scrollBy({
+      left: event.target.parentElement.offsetWidth * 0.8,
+      top: 0,
+      behavior : "smooth",
+    });
+  }
+
 };
 
 export default domUtils;

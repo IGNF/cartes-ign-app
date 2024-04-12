@@ -19,6 +19,7 @@
   overflow-y: scroll;
 }
 
+#positionWindow,
 #routeDrawWindow,
 #isochroneWindow,
 #layerManagerWindow {

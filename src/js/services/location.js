@@ -154,7 +154,11 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
         ) {
           return;
         }
-        Globals.position.compute(Globals.myPositionMarker.getLngLat(), "Ma position").then(() => Globals.menu.open("position"));
+        Globals.position.compute({
+          lngLat: Globals.myPositionMarker.getLngLat(),
+          text: "Ma position",
+          type: "myposition"
+        }).then(() => Globals.menu.open("position"));
       });
     }
   }

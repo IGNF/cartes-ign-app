@@ -134,7 +134,14 @@ class MyAccount {
         landmark.properties.radiusRatio = 0;
         this.#updateSources();
       };
-      Globals.position.compute(e.lngLat, title, landmark.properties.description, "", deselectLandmarkCallback).then(() => {
+      Globals.position.compute({
+        lngLat: e.lngLat,
+        text: title,
+        html1: landmark.properties.description,
+        html2: "",
+        hideCallback: deselectLandmarkCallback,
+        type: "landmark"
+      }).then(() => {
         landmark.properties.radiusRatio = 0;
         intervalId = setInterval(() => {
           if (landmark.properties.radiusRatio >= 1) {
@@ -556,8 +563,8 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
       title: `${landmark.properties.title}`,
       text: `${landmark.properties.title}
 ${landmark.properties.locationName}
-Latitude : ${landmark.geometry.coordinates[1]}
-Longitude : ${landmark.geometry.coordinates[0]}
+Latitude : ${Math.round(landmark.geometry.coordinates[1] * 1e6) / 1e6}
+Longitude : ${Math.round(landmark.geometry.coordinates[0] * 1e6) / 1e6}
 ${landmark.properties.description}
 `,
       dialogTitle: "Partager mon point de repère",

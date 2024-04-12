@@ -5,6 +5,7 @@ import Location from "./services/location";
 import Globals from "./globals";
 import DomUtils from "./utils/dom-utils";
 import { Share } from "@capacitor/share";
+import { Toast } from "@capacitor/toast";
 
 import LoadingDark from "../css/assets/loading-darkgrey.svg";
 
@@ -72,9 +73,10 @@ class Position {
 
   /**
    * rendu du menu
+   * @param {string} type type de position default, myposition ou landmark
    * @private
    */
-  #render() {
+  #render(type) {
     var target = this.target || document.getElementById("positionWindow");
     if (!target) {
       console.warn();
@@ -120,47 +122,56 @@ class Position {
       <button id="positionSignal" class="btnPositionButtons"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
       `;
 
-    if (this.header === "Ma position") {
+    if (type === "myposition") {
       htmlButtons = `
         <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
         <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
         <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
         <button id="positionLandmark" class="btnPositionButtons"><label class="lblPositionImg lblPositionLandmarkImg"></label>Point de repère</button>
-        `;
+      `;
     }
 
+    var htmlAdvanced = "";
     // Si c'est un landmark
-    if (this.header.includes("landmarkSummaryIcon")) {
+    if (type === "landmark") {
       htmlButtons = `
-      <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
-      <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
-      <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
-      <button id="positionLandmark" class="btnPositionButtons positionLandmarkEdit"><label class="lblPositionImg lblPositionLandmarkEditImg"></label>Modifier</button>
-      <button id="positionSignal" class="btnPositionButtons"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
+        <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+        <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+        <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+        <button id="positionSignal" class="btnPositionButtons"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
+      `;
+      htmlAdvanced = `
+        <label id="position-landmark-show-advanced-tools" title="Plus d'outils" class="tools-layer-advanced"></label>
+        <div id="position-landmark-advanced-tools" class="tools-layer-advanced-menu">
+          <div id="position-landmark-share" class="tools-layer-share" title="Partager le point de repère">Partager</div>
+          <div id="position-landmark-edit" class="tools-layer-edit" title="Modifier le point de repère">Modifier</div>
+          <div id="position-landmark-export" class="tools-layer-export" title="Exporter le point de repère">Exporter</div>
+          <div id="position-landmark-remove" class="tools-layer-remove" title="Supprimer le point de repère'">Supprimer</div>
+        </div>
       `;
     }
 
     // template litteral
     var strContainer = `
-        <div id="${id.main}">
-            <div class="divPositionTitle">${this.header}</div>
-            <div class="divPositionAddress">
-                <label class="lblPositionImgAddress"></label>
-                <div class="divPositionSectionAddress fontLight">
-                  ${templateAddress}
-                  <div class="divPositionCoord fontLight">
-                    (${latitude}, ${longitude}) - Alt : <span id="positionAltitudeSpan">${altitudeHtml}</span> m
-                  </div>
+      <div id="${id.main}">
+          <div class="divPositionTitle">${this.header}${htmlAdvanced}</div>
+          <div class="divPositionAddress">
+              <label class="lblPositionImgAddress"></label>
+              <div class="divPositionSectionAddress fontLight">
+                ${templateAddress}
+                <div class="divPositionCoord fontLight">
+                  (${latitude}, ${longitude}) - Alt : <span id="positionAltitudeSpan">${altitudeHtml}</span> m
                 </div>
-            </div>
-            ${this.additionalHtml.beforeButtons}
-            <div class="divPositionButtons">
-              ${htmlButtons}
-              <div id="divPositionButtonsAfter"></div>
-            </div>
-            ${this.additionalHtml.afterButtons}
-        </div>
-        `;
+              </div>
+          </div>
+          ${this.additionalHtml.beforeButtons}
+          <div class="divPositionButtons">
+            ${htmlButtons}
+            <div id="divPositionButtonsAfter"></div>
+          </div>
+          ${this.additionalHtml.afterButtons}
+      </div>
+    `;
 
     // transformation du container : String -> DOM
     var container = DomUtils.stringToHTML(strContainer.trim());
@@ -236,43 +247,33 @@ class Position {
         target.value = this.name;
       }
     });
-    shadowContainer.getElementById("positionLandmark").addEventListener("click", async (e) => {
-      let coordinates = this.coordinates;
-      if (this.header === "Ma position") {
-        let position = await Location.getLocation();
-        coordinates = position.coordinates;
-      }
-      // Récupération de l'id du landmark
-      let landmarkId = -1;
-      if ([...e.target.classList].includes("positionLandmarkEdit")) {
-        [...document.getElementById("landmarkPositionTitle").classList].forEach((cl) => {
-          if (cl.split("-")[0] === "landmarkPosition") {
-            landmarkId = parseInt(cl.split("-")[1]);
-          }
-        });
-      }
-      // fermeture du panneau actuel
-      if (this.options.closePositionCbk) {
-        if (this.hideCallback) {
-          this.hideCallback();
-          this.hideCallback = null;
+    if (type !== "landmark") {
+      shadowContainer.getElementById("positionLandmark").addEventListener("click", async (e) => {
+        let coordinates = this.coordinates;
+        if (type !== "myposition") {
+          let position = await Location.getLocation();
+          coordinates = position.coordinates;
         }
-        this.options.closePositionCbk();
-        this.opened = false;
-      }
-      // ouverture du panneau Point de repère
-      if (this.options.openLandmarkCbk) {
-        if (landmarkId >= 0) {
-          document.getElementById(`landmark-edit_ID_${landmarkId}`).click();
-        } else {
+        // fermeture du panneau actuel
+        if (this.options.closePositionCbk) {
+          if (this.hideCallback) {
+            this.hideCallback();
+            this.hideCallback = null;
+          }
+          this.options.closePositionCbk();
+          this.opened = false;
+        }
+        // ouverture du panneau Point de repère
+        if (this.options.openLandmarkCbk) {
           this.options.openLandmarkCbk();
           let target = document.getElementById("landmarkLocation");
           target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
           target.value = this.name;
         }
-      }
-    });
-    if (this.header !== "Ma position") {
+      });
+    }
+
+    if (type !== "myposition") {
       shadowContainer.getElementById("positionSignal").addEventListener("click", () => {
         const coordinates = this.coordinates;
         // ouverture du panneau Signalement
@@ -283,14 +284,56 @@ class Position {
       });
     }
 
-    function horizontalParentScroll(event) {
-      event.target.parentElement.scrollBy({
-        left: event.target.parentElement.offsetWidth * 0.8,
-        top: 0,
-        behavior : "smooth",
+    if (type === "landmark") {
+      // fermeture du panneau actuel
+      const closeSelf = () => {
+        if (this.options.closePositionCbk) {
+          if (this.hideCallback) {
+            this.hideCallback();
+            this.hideCallback = null;
+          }
+          this.options.closePositionCbk();
+          this.opened = false;
+        }
+      }
+      // Récupération de l'id du landmark
+      let landmarkId = -1;
+      [...shadowContainer.getElementById("landmarkPositionTitle").classList].forEach((cl) => {
+        if (cl.split("-")[0] === "landmarkPosition") {
+          landmarkId = parseInt(cl.split("-")[1]);
+        }
+      });
+      shadowContainer.getElementById("position-landmark-share").addEventListener("click", () => {
+        // ouverture du panneau Point de repère
+        document.getElementById(`landmark-share_ID_${landmarkId}`).click();
+      });
+      shadowContainer.getElementById("position-landmark-edit").addEventListener("click", () => {
+        closeSelf();
+        // ouverture du panneau Point de repère
+        document.getElementById(`landmark-edit_ID_${landmarkId}`).click();
+      });
+      shadowContainer.getElementById("position-landmark-export").addEventListener("click", () => {
+        // ouverture du panneau Point de repère
+        document.getElementById(`landmark-export_ID_${landmarkId}`).click();
+      });
+      let hasBeenClicked = false;
+      shadowContainer.getElementById("position-landmark-remove").addEventListener("click", () => {
+        if (!hasBeenClicked) {
+          Toast.show({
+            text: "Confirmez la suppression du point de repère",
+            duration: "short",
+            position: "bottom"
+          });
+          hasBeenClicked = true;
+        } else {
+          closeSelf();
+          Globals.myaccount.deleteLandmark(landmarkId);
+          hasBeenClicked = false;
+        }
       });
     }
-    shadowContainer.getElementById("divPositionButtonsAfter").addEventListener("click", horizontalParentScroll);
+
+    shadowContainer.getElementById("divPositionButtonsAfter").addEventListener("click", DomUtils.horizontalParentScroll);
 
     // ajout du container shadow
     target.appendChild(shadowContainer);
@@ -307,10 +350,22 @@ class Position {
 
   /**
    * calcul la position avec les méta informations
-   * @param {maplibregl.LngLat} lngLat position en paramètre, false si "Ma Position"
+   * @param {Object} options options de la position
+   * @param {Object} options.lngLat position en paramètre (propriétés lng et lat), false si "Ma Position"
+   * @param {string} options.text texte d'en-tête de la position
+   * @param {string} options.html html situé avant les boutons d'action
+   * @param {string} options.html2 html situé après les boutons d'action
+   * @param {Function} options.hideCallback fonction de callback pour la fermeture de la position (pour les animations)
+   * @param {string} options.type type de position : default, myposition ou landmark
    * @public
    */
-  async compute(lngLat = false, text = "Repère placé", html = "", html2 = "", hideCallback = null) {
+  async compute(options = {}) {
+    const lngLat = options.lngLat || false;
+    const text = options.text ||  "Repère placé";
+    const html = options.html || "";
+    const html2 = options.html2 || "";
+    const hideCallback = options.hideCallback || null;
+    const type = options.type || "default";
     this.clear();
     if (this.hideCallback) {
       this.hideCallback();
@@ -352,7 +407,7 @@ class Position {
       city: ""
     };
 
-    this.#render();
+    this.#render(type);
     if (hideCallback) {
       this.hideCallback = hideCallback;
     }

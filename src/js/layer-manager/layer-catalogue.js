@@ -202,15 +202,9 @@ class LayerCatalogue extends EventTarget {
         el.click();
       }
     });
-    function horizontalParentScroll(event) {
-      event.target.parentElement.scrollBy({
-        left: event.target.parentElement.offsetWidth * 0.8,
-        top: 0,
-        behavior : "smooth",
-      });
-    }
-    document.getElementById("baseLayersAfter").addEventListener("click", horizontalParentScroll);
-    document.getElementById("subCatButtonAfter").addEventListener("click", horizontalParentScroll);
+
+    document.getElementById("baseLayersAfter").addEventListener("click", DomUtils.horizontalParentScroll);
+    document.getElementById("subCatButtonAfter").addEventListener("click", DomUtils.horizontalParentScroll);
   }
 
   /**

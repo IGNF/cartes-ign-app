@@ -60,7 +60,7 @@ const addListeners = () => {
       if (Globals.backButtonState.split("-")[0] === "position") {
         Globals.menu.close("position");
       }
-      Globals.position.compute(evt.lngLat).then(() => {
+      Globals.position.compute({ lngLat: evt.lngLat }).then(() => {
         Globals.menu.open("position");
       });
       Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})

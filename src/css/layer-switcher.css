@@ -104,6 +104,7 @@ div[id^="opacity-middle-div_ID_"] {
   padding-left: 6px;
 }
 
+#position-landmark-show-advanced-tools,
 #route-draw-show-advanced-tools,
 label[id^="landmark-show-advanced-tools_ID_"],
 label[id^="route-show-advanced-tools_ID_"],
@@ -117,6 +118,7 @@ label[id^="show-advanced-tools_ID_"] {
   border-radius: 50%;
 }
 
+#position-landmark-show-advanced-tools:hover,
 #route-draw-show-advanced-tools:hover,
 label[id^="landmark-show-advanced-tools_ID_"]:hover,
 label[id^="route-show-advanced-tools_ID_"]:hover,
@@ -124,6 +126,7 @@ label[id^="show-advanced-tools_ID_"]:hover {
   background-color: var(--grey-2);
 }
 
+#position-landmark-advanced-tools,
 #route-draw-advanced-tools,
 div[id^="landmark-advanced-tools_ID_"],
 div[id^="route-advanced-tools_ID_"],
@@ -151,6 +154,13 @@ div[id^="route-advanced-tools_ID_"] {
   left: unset;
   bottom: 25%;
 }
+
+#route-draw-advanced-tools, #position-landmark-advanced-tools {
+  right: 30px;
+  left: unset;
+}
+
+#position-landmark-show-advanced-tools:hover + #position-landmark-advanced-tools,
 #route-draw-show-advanced-tools:hover + #route-draw-advanced-tools,
 label[id^="landmark-show-advanced-tools_ID_"]:hover
   + div[id^="landmark-advanced-tools_ID_"],
@@ -159,6 +169,7 @@ label[id^="route-show-advanced-tools_ID_"]:hover
 label[id^="show-advanced-tools_ID_"]:hover
   + div[id^="advanced-tools_ID_"],
 #route-draw-advanced-tools:hover,
+#position-landmark-advanced-tools:hover,
 div[id^="landmark-advanced-tools_ID_"]:hover,
 div[id^="route-advanced-tools_ID_"]:hover,
 div[id^="advanced-tools_ID_"]:hover
@@ -193,35 +204,24 @@ div[id^="info_ID_"] {
   background-image: url("./assets/layer-switcher/info-layer.svg");
 }
 
-#route-draw-advanced-remove,
-div[id^="landmark-remove_ID_"],
-div[id^="route-remove_ID_"],
-div[id^="remove_ID_"] {
+.tools-layer-remove {
   background-image: url("./assets/layer-switcher/delete-layer.svg");
 }
 
-#route-draw-advanced-remove:hover,
-div[id^="landmark-remove_ID_"]:hover,
-div[id^="route-remove_ID_"]:hover {
+.tools-layer-remove:hover {
   background-image: url("./assets/layer-switcher/delete-layer-confirm.svg");
   color: var(--orange);
 }
 
-#route-draw-advanced-edit,
-div[id^="landmark-edit_ID_"],
-div[id^="route-edit_ID_"] {
+.tools-layer-edit {
   background-image: url("./assets/layer-switcher/edit-layer.svg");
 }
 
-#route-draw-advanced-export,
-div[id^="landmark-export_ID_"],
-div[id^="route-export_ID_"] {
+.tools-layer-export {
   background-image: url("./assets/layer-switcher/export-layer.svg");
 }
 
-#route-draw-advanced-share,
-div[id^="landmark-share_ID_"],
-div[id^="route-share_ID_"] {
+.tools-layer-share {
   background-image: url("./assets/layer-switcher/share-layer.svg");
 }
 

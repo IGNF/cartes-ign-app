@@ -50,7 +50,7 @@ class MenuNavigation {
     });
     // "Où suis-je ?"
     document.getElementById("position").addEventListener("click", () => {
-      Globals.position.compute()
+      Globals.position.compute({ type: "myposition" })
         .then(() => {
           this.open("position");
         });
