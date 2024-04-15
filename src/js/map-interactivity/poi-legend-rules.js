@@ -76,6 +76,10 @@ const poiLegendRules = [
     "libelle": "Cimetière",
   },
   {
+    "subclass": "cemetery",
+    "libelle": "Cimetière",
+  },
+  {
     "subclass": "hospital",
     "libelle": "Hôpital",
   },
@@ -346,7 +350,7 @@ const poiLegendRules = [
   },
   {
     "subclass": "convenience",
-    "libelle": "Commerce",
+    "libelle": "Alimentation générale",
   },
   {
     "subclass": "greengrocer",
@@ -371,6 +375,38 @@ const poiLegendRules = [
   {
     "subclass": "theatre",
     "libelle": "Théâtre",
+  },
+  {
+    "subclass": "bank",
+    "libelle": "Banque",
+  },
+  {
+    "subclass": "clothes",
+    "libelle": "Boutique de vêtements",
+  },
+  {
+    "subclass": "hairdresser",
+    "libelle": "Coiffeur",
+  },
+  {
+    "subclass": "horse_riding",
+    "libelle": "Centre équestre",
+  },
+  {
+    "subclass": "christian",
+    "libelle": "Edifice chrétien",
+  },
+  {
+    "subclass": "jewish",
+    "libelle": "Edifice judaïque",
+  },
+  {
+    "subclass": "muslim",
+    "libelle": "Edifice musulman",
+  },
+  {
+    "subclass": "car_repair",
+    "libelle": "Garage automobile",
   }
 ];
 
