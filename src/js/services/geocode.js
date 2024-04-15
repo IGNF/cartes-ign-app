@@ -4,7 +4,6 @@ import DOM from "../dom";
 import Globals from "../globals";
 import RecentSearch from "../search-recent";
 
-
 /**
  * Interface pour les evenements
  * @example
@@ -53,13 +52,22 @@ function moveTo(coords, zoom=Globals.map.getZoom(), panTo=true) {
  * @returns
  * @fire search
  */
-async function search (text, coords) {
+async function search (text, coords, save = true) {
   /**
    * Recherche un texte et le géocode à l'aide de look4,
    * puis va à sa position en ajoutant un marqueur
    */
   if (text === "") {
     return;
+  }
+  if (save) {
+    RecentSearch.add({
+      text: text,
+      coordinates: {
+        lat: coords.lat,
+        lon: coords.lon
+      }
+    });
   }
   DOM.$rech.value = text;
   const geocode_result = {
@@ -91,8 +99,8 @@ async function search (text, coords) {
  * recherche et deplacement sur la carte
  * @param {*} text
  */
-async function searchAndMoveTo(text, coord = null) {
-  var coords = await search(text, coord);
+async function searchAndMoveTo(text, coord = null, save = true) {
+  var coords = await search(text, coord, save);
   moveTo(coords, 14);
 }
 

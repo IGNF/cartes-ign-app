@@ -26,8 +26,10 @@ function addListeners() {
     var geocode = false;
     /* Résultats autocompletion ou recherche récente */
     let coords = null;
+    let save = true;
     if ( evt.target.classList.contains("autocompresult") || evt.target.classList.contains("recentresult")) {
       geocode = true;
+      save = !evt.target.classList.contains("recentresult");
       evt.target.classList.add("autocompresultselected");
       DOM.$rech.value = evt.target.getAttribute("fulltext");
       coords = JSON.parse(evt.target.dataset.coordinates);
@@ -36,21 +38,21 @@ function addListeners() {
     if (geocode) {
       if (Globals.backButtonState === "searchDirections") {
         setTimeout(() => {
-          Geocode.search(DOM.$rech.value, coords);
+          Geocode.search(DOM.$rech.value, coords, save);
           Globals.menu.open("directions");
         }, 250);
       } else if(Globals.backButtonState === "searchIsochrone") {
         setTimeout(() => {
-          Geocode.search(DOM.$rech.value, coords);
+          Geocode.search(DOM.$rech.value, coords, save);
           Globals.menu.open("isochrone");
         }, 250);
       } else if(Globals.backButtonState === "searchLandmark") {
         setTimeout(() => {
-          Geocode.search(DOM.$rech.value, coords);
+          Geocode.search(DOM.$rech.value, coords, save);
           Globals.menu.open("landmark");
         }, 250);
       } else {
-        Geocode.searchAndMoveTo(DOM.$rech.value, coords);
+        Geocode.searchAndMoveTo(DOM.$rech.value, coords, save);
         setTimeout(() => Globals.menu.close("search"), 250);
       }
     }
