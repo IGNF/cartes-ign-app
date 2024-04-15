@@ -27,7 +27,7 @@ function addListeners() {
     /* Résultats autocompletion ou recherche récente */
     let coords = null;
     let save = true;
-    if ( evt.target.classList.contains("autocompresult") || evt.target.classList.contains("recentresult")) {
+    if (evt.target.classList.contains("autocompresult") || evt.target.classList.contains("recentresult")) {
       geocode = true;
       save = !evt.target.classList.contains("recentresult");
       evt.target.classList.add("autocompresultselected");
