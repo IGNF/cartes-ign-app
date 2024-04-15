@@ -282,6 +282,10 @@ class MapInteractivity {
     // check si le pixel de la couche est transparent, si oui, l'enlever de GFI Array (pas de GFI)
     const layersToRemove = [];
     let pixelValuePromiseArray = GFIArray.map((layer) => {
+      // Les entités dans ces couches sont transparentes, et donc pixels transparents à ne pas ignorer
+      if (["CADASTRALPARCELS.PARCELLAIRE_EXPRESS", "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST"].includes(layer[0].split("$")[0])) {
+        return;
+      }
       let tileUrl = "https://data.geopf.fr/wmts?" +
       "SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&" +
       `LAYER=${layer[0].split("$")[0]}` +
