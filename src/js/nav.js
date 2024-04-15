@@ -678,7 +678,16 @@ class MenuNavigation {
 
   /** ... */
   updateScrollAnchors() {
-    Globals.maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
+    if (Globals.backButtonState !== "compare") {
+      DOM.$tabContainer.style.removeProperty("display");
+    }
+    if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && Globals.currentScrollIndex !== 0) {
+      DOM.$tabContainer.style.display = "flex";
+    }
+    Globals.maxScroll = Math.min(
+      document.scrollingElement.clientHeight - 72,
+      document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight
+    );
     Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
     if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
       Globals.anchors = [0, document.scrollingElement.clientHeight - 72, Globals.maxScroll];
@@ -694,14 +703,8 @@ class MenuNavigation {
 
   /** ... */
   #scrollTo(value) {
-    if (Globals.backButtonState !== "compare") {
-      DOM.$tabContainer.style.removeProperty("display");
-    }
-    if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-      if (Globals.currentScrollIndex == 0) {
-        return;
-      }
-      DOM.$tabContainer.style.display = "flex";
+    if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && Globals.currentScrollIndex === 0) {
+      return;
     }
     window.scroll({
       top: value,

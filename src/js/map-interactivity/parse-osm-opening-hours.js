@@ -14,6 +14,9 @@ const days = {
  * @returns String horaire formaté plus joliment
  */
 function parseOsmOpeningHours(horaire) {
+  if (horaire === "closed") {
+    return "Fermé définitivement";
+  }
   const result = [];
   // cas où les différents jours sont séparés par des virgules
   if (horaire.match(/, ?[A-Z]/g)) {
