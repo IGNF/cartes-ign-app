@@ -87,7 +87,7 @@
 "grave_yard_17" :{"x":522,"y":202,"width":17,"height":17,"pixelRatio":1},
 "grave_yard_21" :{"x":631,"y":359,"width":21,"height":21,"pixelRatio":1},
 "Gravier" :{"x":0,"y":0,"width":226,"height":284,"pixelRatio":1},
-"Graviersec" :{"x":227,"y":0,"width":226,"height":284,"pixelRatio":1},
+"GravierSec" :{"x":227,"y":0,"width":226,"height":284,"pixelRatio":1},
 "greengrocer_17" :{"x":587,"y":404,"width":17,"height":17,"pixelRatio":1},
 "greengrocer_21" :{"x":543,"y":359,"width":21,"height":21,"pixelRatio":1},
 "hairdresser_17" :{"x":605,"y":404,"width":17,"height":17,"pixelRatio":1},
