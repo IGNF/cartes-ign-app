@@ -435,6 +435,8 @@ class Position {
       trueHeader = DomUtils.stringToHTML(this.header.trim()).innerText.trim();
     } else if (this.header.includes("divLegendDescription")) {
       trueHeader = DomUtils.stringToHTML(this.header.trim()).querySelector(".divLegendDescription").innerHTML.trim().replace("<br>", "\n");
+    } else if (this.header.includes("positionSubTitle")) {
+      trueHeader = this.header.trim().replace("<p class=\"positionSubTitle\">", "\n").replace("</p>", "\n");
     }
     var altitudeText = "";
     if (altitude !== "") {
