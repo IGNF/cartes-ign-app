@@ -164,8 +164,8 @@ class MapInteractivity {
       .then(async (resp) => {
         this.loading = false;
         DOM.$mapCenter.style.removeProperty("background-image");
-      DOM.$mapCenter.style.removeProperty("background-size");
-      DOM.$mapCenter.classList.add("d-none");
+        DOM.$mapCenter.style.removeProperty("background-size");
+        DOM.$mapCenter.classList.add("d-none");
         try {
           this.#highlightGFI(resp.geometry);
         } catch (e) {

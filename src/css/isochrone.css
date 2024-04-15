@@ -306,7 +306,11 @@ input#isochroneValueDistanceInput[type=number]
 }
 
 .divIsochroneDisplayOption > span {
-  max-width: 50%;
   white-space: wrap;
   text-align: left;
+}
+
+.divIsochroneDisplayOption > .toggleSwitch {
+  flex-shrink: 0;
+  margin-left: 20px;
 }
