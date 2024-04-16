@@ -210,6 +210,7 @@ class Position {
           this.hideCallback();
           this.hideCallback = null;
         }
+        Globals.isochrone.clear();
         this.options.closePositionCbk();
         this.opened = false;
       }
@@ -233,6 +234,7 @@ class Position {
           this.hideCallback();
           this.hideCallback = null;
         }
+        Globals.isochrone.clear();
         this.options.closePositionCbk();
         this.opened = false;
       }
@@ -260,6 +262,7 @@ class Position {
             this.hideCallback();
             this.hideCallback = null;
           }
+          Globals.isochrone.clear();
           this.options.closePositionCbk();
           this.opened = false;
         }
@@ -292,6 +295,7 @@ class Position {
             this.hideCallback();
             this.hideCallback = null;
           }
+          Globals.isochrone.clear();
           this.options.closePositionCbk();
           this.opened = false;
         }
