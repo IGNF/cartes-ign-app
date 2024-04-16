@@ -79,8 +79,8 @@ let RecentSearch = {
       var storeSearches = JSON.parse(localStorage.getItem(this.key));
       var texts = storeSearches.map(search => search.text);
       // Change l'odre pour avoir le plus récent en haut
-      if (texts.includes(value)) {
-        var index = texts.indexOf(value);
+      if (texts.includes(value.text)) {
+        var index = texts.indexOf(value.text);
         removeEntry(storeSearches[index].text);
         storeSearches.splice(index, 1);
       }

@@ -76,18 +76,21 @@ async function search (text, coords, save = true) {
     x: coords.lon
   };
 
-  target.dispatchEvent(
-    new CustomEvent("search", {
-      bubbles: true,
-      detail: {
-        text : geocode_result.fulltext,
-        coordinates: {
-          lat: geocode_result.y,
-          lon: geocode_result.x
+  // INFO: setTimeout pour comportement normal de directions (laisser le temps de faire le clean listeners)
+  setTimeout(() => {
+    target.dispatchEvent(
+      new CustomEvent("search", {
+        bubbles: true,
+        detail: {
+          text : geocode_result.fulltext,
+          coordinates: {
+            lat: geocode_result.y,
+            lon: geocode_result.x
+          }
         }
-      }
-    })
-  );
+      })
+    );
+  }, 100);
 
   return {
     lat: geocode_result.y,
