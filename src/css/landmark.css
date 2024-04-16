@@ -126,7 +126,6 @@
   padding-top: 43px;
   text-align: center;
   margin-bottom: 18px;
-  font-weight: 600;
   font-family: "Fira Sans Semibold";
   font-size: 12px;
 }
@@ -159,8 +158,7 @@
   border-radius: 70px;
   background-color: var(--dark-green);
   padding: 14px 28px;
-  font-family: "Open Sans";
-  font-weight: 600;
+  font-family: "Open Sans Semibold";
   font-size: 16px;
   color: white;
   cursor: pointer;

@@ -124,8 +124,7 @@
   background-image: url("assets/map-buttons/filtrer.svg");
   position: fixed;
   top: calc(80px + var(--safe-area-inset-top));
-  font-family: "Open Sans";
-  font-weight: 600;
+  font-family: "Open Sans Semibold";
   display: flex;
   align-items: center;
   justify-content: center;
@@ -226,8 +225,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  font-family: "Open Sans";
-  font-weight: 600;
+  font-family: "Open Sans Semibold";
   margin-right: 6px;
   right: unset;
 }
@@ -332,11 +330,10 @@
   padding: 10px 30px 8px 15px;
   z-index: 3003;
   flex-direction: row;
-  font-weight: 600;
   align-items: center;
   flex-wrap: nowrap;
   justify-content: space-between;
-  font-family: "Open Sans";
+  font-family: "Open Sans Semibold";
 }
 
 #mapCenterSubmit {
@@ -346,8 +343,7 @@
   border-radius: 70px;
   background-color: var(--dark-green);
   padding: 7px 21px;
-  font-family: "Open Sans";
-  font-weight: 600;
+  font-family: "Open Sans Semibold";
   font-size: 12px;
   color: white;
   cursor: pointer;

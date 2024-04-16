@@ -7,7 +7,6 @@
   margin: 0 0 10px 0;
   font-family: "Fira Sans Semibold";
   font-size: 15px;
-  font-weight: 600;
 }
 
 #layerManagerWindow #thematicLayersLabel {
@@ -57,7 +56,6 @@
 
 .layer-title-thematic {
   color: var(--dark-green);
-  font-weight: 600;
 }
 
 #layerManagerWindow #thematicLayers {

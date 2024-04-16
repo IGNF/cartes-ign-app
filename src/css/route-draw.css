@@ -2,7 +2,6 @@
   max-height: 0px;
   transition: max-height 0.2s ease-out;
   font-size: 10px;
-  font-weight: normal;
   overflow: hidden;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
   position: absolute;
@@ -224,8 +223,7 @@
 .routeDrawStepDiv {
   color: var(--dark-grey);
   height: 32px;
-  font-family: "Open Sans";
-  font-weight: 600;
+  font-family: "Open Sans Semibold";
   display: flex;
   align-items: center;
   padding: 4px 8px;

@@ -4,7 +4,6 @@
 
 .fontLight {
   font-family: "Open Sans";
-  font-weight: 500;
   color: var(--dark-grey);
   font-size: 13px;
   letter-spacing: 0;
