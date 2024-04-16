@@ -46,6 +46,8 @@ const onBackKeyDown = () => {
     return;
   }
   if (Globals.backButtonState === "searchDirections") {
+    const closesearch = new Event("closesearch");
+    window.dispatchEvent(closesearch);
     Globals.menu.close("searchDirections");
     return;
   }
@@ -62,10 +64,14 @@ const onBackKeyDown = () => {
     return;
   }
   if (Globals.backButtonState === "searchIsochrone") {
+    const closesearch = new Event("closesearch");
+    window.dispatchEvent(closesearch);
     Globals.menu.close("searchIsochrone");
     return;
   }
   if (Globals.backButtonState === "searchLandmark") {
+    const closesearch = new Event("closesearch");
+    window.dispatchEvent(closesearch);
     Globals.menu.close("searchLandmark");
     return;
   }

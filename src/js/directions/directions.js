@@ -583,6 +583,8 @@ class Directions {
 
     // abonnement au reverse
     Reverse.target.addEventListener("reverse", setLocation);
+
+    window.addEventListener("closesearch", cleanListeners);
   }
 }
 

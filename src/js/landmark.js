@@ -261,6 +261,8 @@ class Landmark {
 
     // abonnement à la geolocalisation
     Location.target.addEventListener("geolocation", setLocation);
+
+    window.addEventListener("closesearch", cleanListeners);
   }
 }
 
