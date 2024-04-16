@@ -35,7 +35,7 @@ const layers = {
     id: "map-interactivity-selected-poi",
     type: "circle",
     source: "",
-    minzoom: 14.5,
+    minzoom: 2,
     paint: {
       "circle-radius": [
         "step",
@@ -54,7 +54,7 @@ const layers = {
     id: "map-interactivity-selected-poi-symbol",
     type: "symbol",
     source: "",
-    minzoom: 14.5,
+    minzoom: 2,
     layout: {
       visibility: "visible",
       "icon-image": "{symbo}_17"
