@@ -386,6 +386,7 @@ class MenuNavigation {
       isFinished = true;
       break;
     case "comparePoi":
+      Globals.comparePoi.clearSources();
       DOM.$search.style.display = "flex";
       DOM.$filterPoiBtn.style.removeProperty("top");
       DOM.$backTopLeftBtn.classList.add("d-none");

@@ -1,8 +1,9 @@
-import Globals from "./globals";
-import DOM from "./dom";
+import Globals from "../globals";
+import DOM from "../dom";
+import comparePoiLayers from "./compare-poi-styles";
 
-import ComparePoiData from "./data-layer/poi_rlt.json";
-import ComparePoiIcon from "../css/assets/comparePoi.png";
+import ComparePoiData from "../data-layer/poi_rlt.json";
+import ComparePoiIcon from "../../css/assets/comparePoi.png";
 
 /**
  * Contrôle sur les "POI Remonter le temps"
@@ -39,6 +40,9 @@ class ComparePoi {
     this.opened = false;
 
     this.map = map;
+
+    this.animationIntervalId = null;
+    this.#addSourcesAndLayers();
 
     this.target = this.options.target || document.getElementById("comparePoiWindow");
 
@@ -102,6 +106,23 @@ class ComparePoi {
         return;
       }
       const comparePoi = this.map.queryRenderedFeatures(e.point, {layers: [this.configuration.source]})[0];
+      comparePoi.properties.opacity = 0.6;
+      comparePoi.properties.radiusRatio = 0;
+      const source = this.map.getSource("selected-compare-poi");
+      source.setData({
+        "type": "FeatureCollection",
+        "features": [comparePoi]
+      });
+      this.animationIntervalId = setInterval(() => {
+        if (comparePoi.properties.radiusRatio >= 1) {
+          clearInterval(this.animationIntervalId);
+        }
+        comparePoi.properties.radiusRatio += 0.1;
+        source.setData({
+          "type": "FeatureCollection",
+          "features": [comparePoi]
+        });
+      }, 20);
       // Zoom - 1 car décalage entre niveaux de zoom maplibre et autres libs carto
       this.compareConfig = {
         zoom: comparePoi.properties.zoom - 1,
@@ -120,6 +141,7 @@ class ComparePoi {
   }
 
   #onClickCompareButton() {
+    this.clearSources();
     Globals.menu.open("compare");
     Globals.backButtonState = "comparePoiActivated";
     this.dom.button.classList.add("d-none");
@@ -135,6 +157,33 @@ class ComparePoi {
     Globals.compare.setParams(this.compareConfig);
   }
 
+   /**
+  * ajoute la source et le layer à la carte pour affichage du tracé
+  */
+  #addSourcesAndLayers() {
+    this.map.addSource("selected-compare-poi", {
+      "type": "geojson",
+      "data": {
+        "type": "FeatureCollection",
+        "features": []
+      },
+    });
+
+    comparePoiLayers["selected-compare-poi"].source = "selected-compare-poi";
+    this.map.addLayer(comparePoiLayers["selected-compare-poi"]);
+  }
+
+  /**
+   * Supprime les donnés dans les sources
+   */
+  clearSources() {
+    clearInterval(this.animationIntervalId);
+    this.map.getSource("selected-compare-poi").setData({
+      "type": "FeatureCollection",
+      "features": []
+    });
+  }
+
   /**
    * Cache la couche POI sur la carte
    * @public
@@ -142,6 +191,7 @@ class ComparePoi {
   hidePoints() {
     if (this.map.getLayer(this.configuration.source)) {
       this.map.removeLayer(this.configuration.source);
+      this.clearSources();
     }
   }
 
@@ -179,6 +229,7 @@ class ComparePoi {
    * @public
    */
   hideWindow() {
+    this.clearSources();
     this.opened = false;
     Globals.menu.close("comparePoi");
   }

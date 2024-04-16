@@ -10,7 +10,7 @@ import POI from "./poi";
 import RouteDraw from "./route-draw/route-draw";
 import MapInteractivity from "./map-interactivity/map-interactivity";
 import MyAccount from "./my-account/my-account";
-import ComparePoi from "./compare-poi";
+import ComparePoi from "./compare-poi/compare-poi";
 import Signalement from "./signalement";
 import Landmark from "./landmark";
 
