@@ -250,7 +250,7 @@ class Position {
     if (type !== "landmark") {
       shadowContainer.getElementById("positionLandmark").addEventListener("click", async () => {
         let coordinates = this.coordinates;
-        if (type !== "myposition") {
+        if (type === "myposition") {
           let position = await Location.getLocation();
           coordinates = position.coordinates;
         }
