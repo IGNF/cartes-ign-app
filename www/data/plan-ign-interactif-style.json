@@ -997,10 +997,7 @@
           0.1,
           1
         ],
-        "line-translate": [
-          0,
-          4
-        ]
+        "line-offset": 4
       },
       "metadata": {
         "legend-group": "Talus",
@@ -16024,7 +16021,7 @@
           "in",
           ["get", "nature"],
           ["literal", [
-			"Caserne", 
+			"Caserne",
 		  	"Caserne de pompiers",
 			"Administration centrale de l'Etat",
 			"Poste", "Palais de justice",
@@ -16352,7 +16349,7 @@
       ],
       "paint": {
         "line-color": "transparent",
-        
+
         "line-width": {
           "stops": [
             [
