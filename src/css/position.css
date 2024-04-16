@@ -172,6 +172,14 @@
   font-size: 13px;
 }
 
+.interactivityPopup,
+.onlinePopup,
+.locationPopup,
+.routeDrawHelpPopup {
+  position: fixed;
+  z-index: 9999;
+}
+
 .divPopupClose {
   width: 30px;
   height: 30px;
@@ -192,6 +200,7 @@
 }
 
 .routeDrawHelpPopup>.maplibregl-popup-tip,
+.onlinePopup>.maplibregl-popup-tip,
 .interactivityPopup>.maplibregl-popup-tip,
 .locationPopup>.maplibregl-popup-tip {
   display: none;

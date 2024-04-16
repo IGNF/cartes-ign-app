@@ -528,6 +528,9 @@ const showPopup = (content) => {
     .setHTML(popupContent)
     .setMaxWidth("300px")
     .addTo(Globals.map);
+  // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
+  var popupEl = document.querySelectorAll(".locationPopup")[0];
+  document.body.appendChild(popupEl);
 };
 
 const isLocationActive = () => {

@@ -31,6 +31,9 @@ function showOnlinePopup(content, map) {
     .setHTML(content)
     .setMaxWidth("300px")
     .addTo(map);
+  // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
+  var popupEl = document.querySelectorAll(".onlinePopup")[0];
+  document.body.appendChild(popupEl);
 }
 
 export default {

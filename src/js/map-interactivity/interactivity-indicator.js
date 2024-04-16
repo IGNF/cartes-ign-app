@@ -250,6 +250,9 @@ class InteractivityIndicator {
       .setHTML(popupContent)
       .setMaxWidth("300px")
       .addTo(this.map);
+    // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
+    var popupEl = document.querySelectorAll(".interactivityPopup")[0];
+    document.body.appendChild(popupEl);
   }
 
 }
