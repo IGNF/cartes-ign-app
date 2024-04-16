@@ -106,14 +106,14 @@ let IsochroneDOM = {
                 <div id="isochroneModeValueDuration">
                   <p class="pIsochroneTitle">Définir un temps de trajet - 1h max</p>
                   <div id="isochroneValueDuration" class="divIsochroneValue">
-                    <input id="isochroneValueDurationInputMinutes" min="0" max="60" step="1" type="number" placeholder="0" oninput="this.value = !!this.value && this.value < 0 ? 0 : this.value > 60 ? 60 : this.value">
+                    <input id="isochroneValueDurationInputMinutes" min="0" max="60" step="1" type="number" placeholder="0">
                     <label class="unit">min</label>
                   </div>
                 </div>
                 <div id="isochroneModeValueDistance" class="isochroneValueHidden">
                   <p class="pIsochroneTitle">Définir une distance - 50 km max</p>
                   <div id="isochroneValueDistance" class="divIsochroneValue">
-                    <input id="isochroneValueDistanceInput" min="0" max="50" step="any" type="number" placeholder="0" oninput="this.value = !!this.value && this.value < 0 ? 0 : this.value > 50 ? 50 : this.value">
+                    <input id="isochroneValueDistanceInput" min="0" max="50" step="any" type="number" placeholder="0">
                     <label class="unit">km</label>
                   </div>
                 </div>
@@ -166,6 +166,29 @@ let IsochroneDOM = {
     this.dom.isochroneCompute = shadow.getElementById("isochroneCompute");
     this.dom.poiToggle = shadow.getElementById("displayPOI-isochrone");
     this.dom.clearLocation = shadow.getElementById("clearIsochroneLocation");
+
+    const limitInputValue = (limit) => {
+      return function(e) {
+        if (e.target.value < 0) {
+          Toast.show({
+            text: "La valeur saisie doit être supérieure à 0",
+            duration: "short",
+            position: "bottom"
+          });
+        }
+        if (e.target.value > limit) {
+          Toast.show({
+            text: "La valeur saisie doit être inférieure ou égale à " + limit,
+            duration: "short",
+            position: "bottom"
+          });
+        }
+        e.target.value = !!e.target.value && e.target.value < 0 ? 0 : e.target.value > limit ? limit : e.target.value;
+      };
+    };
+
+    this.dom.durationValueMinutes.addEventListener("input", limitInputValue(60));
+    this.dom.distanceValue.addEventListener("input", limitInputValue(50));
 
     this.dom.showOutPoisChk.addEventListener("change", (e) => {
       if (e.target.checked) {
