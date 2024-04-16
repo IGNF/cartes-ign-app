@@ -91,7 +91,7 @@ class Directions {
       if (configuration.profile == "pedestrian") {
         configuration.optimization = "shortest";
       }
-      url = `${configuration.api}?resource=bdtopo-osrm&profile=${configuration.profile}&optimization=${configuration.optimization}&start=${waypointsCoordinates.shift()}&end=${waypointsCoordinates.pop()}&intermediates=${waypointsCoordinates.join("|")}&geometryFormat=polyline`;
+      url = `${configuration.api}?resource=bdtopo-valhalla&profile=${configuration.profile}&optimization=${configuration.optimization}&start=${waypointsCoordinates.shift()}&end=${waypointsCoordinates.pop()}&intermediates=${waypointsCoordinates.join("|")}&geometryFormat=polyline`;
 
       if (waypointsBearings) {
         console.debug(waypointsBearings);
