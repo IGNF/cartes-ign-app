@@ -298,7 +298,7 @@ class MyAccount {
         this.map.flyTo({center: imported.geometry.coordinates});
         Toast.show({
           duration: "long",
-          text: `Point de repère "${imported.properties.title}" ajouté à Enregistrés et à la carte`,
+          text: `Point de repère "${imported.properties.title}" ajouté à 'Enregistrés' et à la carte`,
           position: "bottom",
         });
       }
@@ -313,7 +313,7 @@ class MyAccount {
         this.addRoute(this.#geojsonToRoute(imported));
         Toast.show({
           duration: "long",
-          text: `Itinéraire "${imported.data.name}" ajouté à Enregistrés et à la carte`,
+          text: `Itinéraire "${imported.data.name}" ajouté à 'Enregistrés' et à la carte`,
           position: "bottom",
         });
       }

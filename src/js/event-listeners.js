@@ -12,6 +12,7 @@ import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { Network } from "@capacitor/network";
 import { TextZoom } from "@capacitor/text-zoom";
 import { App } from "@capacitor/app";
+import { Keyboard } from "@capacitor/keyboard";
 
 /**
  * Ecouteurs generiques
@@ -108,6 +109,20 @@ function addListeners() {
   document.addEventListener("pause", saveState);
   window.addEventListener("beforeunload", saveState);
 
+  let keyboardWillHide = false;
+  if (Capacitor.getPlatform() !== "web") {
+    Keyboard.addListener("keyboardWillHide", () => {
+      keyboardWillHide = true;
+    });
+
+    Keyboard.addListener("keyboardDidHide", () => {
+      setTimeout(() => {
+        keyboardWillHide = false;
+        Globals.menu.updateScrollAnchors();
+      }, 50);
+    });
+  }
+
   const handleresize = () => {
     SafeAreaController.addSafeAreaVariables().then( () => {
       ScreenOrientation.orientation().then((orientation) => {
@@ -122,6 +137,9 @@ function addListeners() {
 
     if (Globals.backButtonState !== "default") {
       Globals.currentScrollIndex = 1;
+      if (keyboardWillHide) {
+        Globals.currentScrollIndex = 2;
+      }
     }
     if (["searchDirections", "searchIsochrone", "searchLandmark", "search"].includes(Globals.backButtonState)) {
       document.body.style.removeProperty("overflow-y");

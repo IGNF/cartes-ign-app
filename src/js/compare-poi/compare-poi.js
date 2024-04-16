@@ -157,7 +157,7 @@ class ComparePoi {
     Globals.compare.setParams(this.compareConfig);
   }
 
-   /**
+  /**
   * ajoute la source et le layer à la carte pour affichage du tracé
   */
   #addSourcesAndLayers() {

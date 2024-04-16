@@ -43,7 +43,7 @@ class RouteDrawSave {
       this.hide();
       Globals.routeDraw.hide();
       Toast.show({
-        text: "Itinéraire enregistré dans 'Compte'",
+        text: "Itinéraire enregistré dans 'Enregistrés'",
         duration: "long",
         position: "top"
       });
