@@ -29,10 +29,14 @@
 }
 
 .divPOIDisplay > span {
-    max-width: 75%;
     white-space: wrap;
     text-align: left;
     font-family: "Fira Sans Semibold";
+}
+
+.divPOIDisplay > .toggleSwitch {
+    flex-shrink: 0;
+    margin-left: 20px;
 }
 
 .divPOIDisplayGoBackTime > div > span {
