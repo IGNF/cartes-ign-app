@@ -298,6 +298,12 @@ let IsochroneDOM = {
 
     this.dom.poiToggle.addEventListener("change", (e) => {
       const toggleChecked = e.target.checked;
+      if (toggleChecked) {
+        this.dom.showLimitsChk.disabled = false;
+      } else {
+        this.dom.showLimitsChk.checked = true;
+        this.dom.showLimitsChk.disabled = true;
+      }
       document.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
         if (toggleChecked) {
           el.checked = true;
@@ -313,6 +319,7 @@ let IsochroneDOM = {
         document.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
           if (el.checked) {
             allUnchecked = false;
+            this.dom.showLimitsChk.disabled = false;
           } else {
             allChecked = false;
           }
@@ -322,6 +329,13 @@ let IsochroneDOM = {
         }
         if (allUnchecked) {
           this.dom.poiToggle.checked = false;
+          this.dom.showLimitsChk.checked = true;
+          this.dom.showLimitsChk.disabled = true;
+          Toast.show({
+            text: "Aucun centre d’intérêt n'est sélectionné. La zone de contour est obligatoire.",
+            duration: "long",
+            position: "bottom"
+          });
         }
       });
     });
