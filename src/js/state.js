@@ -142,7 +142,7 @@ const onBackKeyDown = () => {
     Globals.menu.close("signalement");
     return;
   }
-  if (["informationsScreenLegal", "informationsScreenPrivacy"].includes(Globals.backButtonState)) {
+  if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenAccessibility"].includes(Globals.backButtonState)) {
     const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
     $informationsScreenMenu.style.removeProperty("margin-left");
     setTimeout(() => {
