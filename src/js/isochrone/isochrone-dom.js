@@ -106,14 +106,14 @@ let IsochroneDOM = {
                 <div id="isochroneModeValueDuration">
                   <p class="pIsochroneTitle">Définir un temps de trajet - 1h max</p>
                   <div id="isochroneValueDuration" class="divIsochroneValue">
-                    <input id="isochroneValueDurationInputMinutes" min="0" max="60" step="1" type="number" placeholder="0">
+                    <input id="isochroneValueDurationInputMinutes" type="text" inputmode="numeric" placeholder="0">
                     <label class="unit">min</label>
                   </div>
                 </div>
                 <div id="isochroneModeValueDistance" class="isochroneValueHidden">
                   <p class="pIsochroneTitle">Définir une distance - 50 km max</p>
                   <div id="isochroneValueDistance" class="divIsochroneValue">
-                    <input id="isochroneValueDistanceInput" min="0" max="50" step="any" type="number" placeholder="0">
+                    <input id="isochroneValueDistanceInput" type="text" inputmode="numeric"" placeholder="0">
                     <label class="unit">km</label>
                   </div>
                 </div>
@@ -183,7 +183,7 @@ let IsochroneDOM = {
             position: "bottom"
           });
         }
-        e.target.value = !!e.target.value && e.target.value < 0 ? 0 : e.target.value > limit ? limit : e.target.value;
+        e.target.value = !!e.target.value && parseFloat(e.target.value) < 0 ? 0 : parseFloat(e.target.value) > limit ? limit : e.target.value;
       };
     };
 
