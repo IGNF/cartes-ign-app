@@ -4057,7 +4057,7 @@
 
     "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV$GEOPORTAIL:OGC:WMTS": {
       "name": "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR.CV",
-      "title": "Carte topographique IGN",
+      "title": "Carte TOPO 25",
       "description": "La carte topographique représente avec précision le relief, symbolisé par des courbes de niveaux, ainsi que les détails du terrain : routes, sentiers, constructions, bois, arbres isolé, rivières, sources… </br>Cette carte présente également des parcours et des informations pour la randonnée fournies par la Fédération Française de la Randonnée Pédestre (FFRandonnée) et le Club Vosgien.",
       "source": "IGN, Gouvernement de la Nouvelle-Calédonie",
       "maj": "Septembre 2023",
