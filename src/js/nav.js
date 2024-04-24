@@ -131,7 +131,6 @@ class MenuNavigation {
     case "landmark":
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.classList.add("d-none");
-      DOM.$sideBySideBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 1;
@@ -140,7 +139,6 @@ class MenuNavigation {
       DOM.$positionWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
-      DOM.$sideBySideBtn.classList.add("d-none");
       break;
     case "comparePoi":
       DOM.$search.style.display = "none";
@@ -194,7 +192,6 @@ class MenuNavigation {
     case "compare":
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.classList.add("d-none");
-      DOM.$sideBySideBtn.classList.add("d-none");
       DOM.$geolocateBtn.classList.add("d-none");
       DOM.$layerManagerBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -238,7 +235,6 @@ class MenuNavigation {
         Globals.routeDraw.activate();
       }
       DOM.$tabContainer.style.backgroundColor = "white";
-      DOM.$sideBySideBtn.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 1;
       break;
@@ -275,7 +271,6 @@ class MenuNavigation {
       // ex. Globals.search.hide()
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.classList.add("d-none");
-      DOM.$sideBySideBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 1;
@@ -325,7 +320,6 @@ class MenuNavigation {
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
-      DOM.$sideBySideBtn.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
       // FIXME
       // "Ma position" par défaut dans le départ quand disponible
@@ -373,7 +367,6 @@ class MenuNavigation {
       DOM.$search.style.display = "flex";
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
-      DOM.$sideBySideBtn.classList.remove("d-none");
       Globals.landmark.clear();
       Globals.interactivityIndicator.enable();
       break;
@@ -382,7 +375,6 @@ class MenuNavigation {
       DOM.$filterPoiBtn.classList.remove("d-none");
       Globals.interactivityIndicator.enable();
       Globals.signalement.clear();
-      DOM.$sideBySideBtn.classList.remove("d-none");
       isSpecific = true;
       isFinished = true;
       break;
@@ -426,7 +418,6 @@ class MenuNavigation {
     case "compare":
       DOM.$search.style.display = "flex";
       DOM.$filterPoiBtn.classList.remove("d-none");
-      DOM.$sideBySideBtn.classList.remove("d-none");
       DOM.$geolocateBtn.classList.remove("d-none");
       DOM.$layerManagerBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
@@ -468,7 +459,6 @@ class MenuNavigation {
         DOM.$bottomButtons.style.removeProperty("left");
         DOM.$bottomButtons.style.removeProperty("width");
       }
-      DOM.$sideBySideBtn.classList.remove("d-none");
       DOM.$tabContainer.style.removeProperty("background-color");
       Globals.routeDraw.clear();
       Globals.interactivityIndicator.enable();
@@ -500,7 +490,6 @@ class MenuNavigation {
       DOM.$search.style.display = "flex";
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
-      DOM.$sideBySideBtn.classList.remove("d-none");
       Globals.isochrone.clear();
       Globals.interactivityIndicator.enable();
       break;
@@ -561,7 +550,6 @@ class MenuNavigation {
       DOM.$filterPoiBtn.style.removeProperty("top");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
-      DOM.$sideBySideBtn.classList.remove("d-none");
       Globals.directions.clear();
       Globals.interactivityIndicator.enable();
       break;
@@ -619,7 +607,6 @@ class MenuNavigation {
     DOM.$resultDiv.hidden = true;
     DOM.$resultDiv.innerHTML = "";
     DOM.$searchresultsWindow.classList.add("d-none");
-    DOM.$sideBySideBtn.classList.remove("d-none");
     DOM.$layerManagerBtn.classList.remove("d-none");
     DOM.$filterPoiBtn.classList.remove("d-none");
     DOM.$interactivityBtn.classList.remove("d-none");
@@ -644,7 +631,6 @@ class MenuNavigation {
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$search.style.display = "none";
       DOM.$backTopLeftBtn.classList.remove("d-none");
-      DOM.$sideBySideBtn.classList.add("d-none");
       DOM.$landmarkWindow.classList.remove("d-none");
       Globals.backButtonState = "landmark"; // on revient sur le contrôle !
       Globals.currentScrollIndex = 1;
@@ -656,7 +642,6 @@ class MenuNavigation {
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$search.style.display = "none";
       DOM.$backTopLeftBtn.classList.remove("d-none");
-      DOM.$sideBySideBtn.classList.add("d-none");
       DOM.$isochroneWindow.classList.remove("d-none");
       Globals.backButtonState = "isochrone"; // on revient sur le contrôle !
       Globals.currentScrollIndex = 1;
@@ -666,7 +651,6 @@ class MenuNavigation {
     case "selectOnMapDirections":
       DOM.$search.style.display = "none";
       DOM.$backTopLeftBtn.classList.remove("d-none");
-      DOM.$sideBySideBtn.classList.add("d-none");
       DOM.$directionsWindow.classList.remove("d-none");
       Globals.backButtonState = "directions"; // on revient sur le contrôle !
       Globals.currentScrollIndex = 2;
