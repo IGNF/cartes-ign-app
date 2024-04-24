@@ -434,7 +434,7 @@ class Position {
   }
 
   #setShareContent(latitude, longitude, altitude = "") {
-    let trueHeader = "";
+    let trueHeader = this.header;
     if (this.header.includes("landmarkSummaryIcon")) {
       trueHeader = DomUtils.stringToHTML(this.header.trim()).innerText.trim();
     } else if (this.header.includes("divLegendDescription")) {
