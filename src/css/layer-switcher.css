@@ -41,6 +41,7 @@ div[id^="basic-tools_ID_"] {
   flex-direction: row;
   padding: 10px;
   max-width: calc(100% - 70px);
+  width: 100%;
 }
 div[id^="landmark-basic-tools_ID_"],
 div[id^="route-basic-tools_ID_"] {
