@@ -308,7 +308,7 @@ Distance du départ : ${distanceText} ${this.unit}`;
     try {
       responseElevation = await ElevationLine.compute(this.coordinates);
     } catch(err) {
-      if (!err.message.includes("The user aborted a request.")) {
+      if (!err.message.includes("aborted")) {
         Toast.show({
           text: "Erreur lors du calcul de profil altimétrique",
           duration: "short",

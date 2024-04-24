@@ -22,6 +22,8 @@ PODS:
     - Capacitor
   - CapacitorShare (5.0.6):
     - Capacitor
+  - CapacitorSplashScreen (5.0.7):
+    - Capacitor
   - CapacitorStatusBar (5.0.6):
     - Capacitor
   - CapacitorTextZoom (5.0.7):
@@ -44,6 +46,7 @@ DEPENDENCIES:
   - "CapacitorNetwork (from `../../node_modules/@capacitor/network`)"
   - "CapacitorScreenOrientation (from `../../node_modules/@capacitor/screen-orientation`)"
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
+  - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - "CapacitorTextZoom (from `../../node_modules/@capacitor/text-zoom`)"
   - "CapacitorToast (from `../../node_modules/@capacitor/toast`)"
@@ -74,6 +77,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/screen-orientation"
   CapacitorShare:
     :path: "../../node_modules/@capacitor/share"
+  CapacitorSplashScreen:
+    :path: "../../node_modules/@capacitor/splash-screen"
   CapacitorStatusBar:
     :path: "../../node_modules/@capacitor/status-bar"
   CapacitorTextZoom:
@@ -96,11 +101,12 @@ SPEC CHECKSUMS:
   CapacitorNetwork: 81ef9728aa7a65cac8c1181ce79e578162b57b57
   CapacitorScreenOrientation: cc638c369cb2b1dfc55f8265485a8b4e0b3cafd9
   CapacitorShare: cd41743331cb71d217c029de54b681cbd91e0fcc
+  CapacitorSplashScreen: dd3de3f3644710fa2a697cfb91ec262eece4d242
   CapacitorStatusBar: a73a9ae0dd2ca30ee429782d5d3ae82dcfa80207
   CapacitorTextZoom: 69814a62b1d0f23a899cca06ea9838c38de187ff
   CapacitorToast: 61a9bec819ad3aeccc1ebe3fcbff565c22969c71
   CapawesomeCapacitorFilePicker: 41f486cb4a89c6a7c8a4f5d683dbf96658894182
 
-PODFILE CHECKSUM: 273985847fa4fb9f5427b39f7fd2002cb5e71d6f
+PODFILE CHECKSUM: 4cacad91ca7bb9e89b73d3809bd26554a7ecd8ed
 
 COCOAPODS: 1.14.3
