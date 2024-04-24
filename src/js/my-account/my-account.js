@@ -14,6 +14,7 @@ import Sortable from "sortablejs";
 import LandmarkIconSaved from "../../css/assets/landmark-saved-map.png";
 import LandmarkIconFavourite from "../../css/assets/landmark-favourite-map.png";
 import LandmarkIconTovisit from "../../css/assets/landmark-tovisit-map.png";
+import { Capacitor } from "@capacitor/core";
 
 /**
  * Interface sur la fenêtre du compte
@@ -576,6 +577,10 @@ ${landmark.properties.description}
    * @param {*} route
    */
   exportRoute(route) {
+    let documentsName = "Documents";
+    if (Capacitor.getPlatform() === "ios") {
+      documentsName = "Fichiers";
+    }
     Filesystem.writeFile({
       path: `${route.name}.geojson`,
       data: JSON.stringify(this.#routeToGeojson(route)),
@@ -583,7 +588,7 @@ ${landmark.properties.description}
       encoding: Encoding.UTF8,
     }).then(() => {
       Toast.show({
-        text: "Fichier enregistré dans Documents.",
+        text: `Fichier enregistré dans ${documentsName}.`,
         duration: "long",
         position: "bottom"
       });
@@ -602,6 +607,10 @@ ${landmark.properties.description}
    * @param {*} route
    */
   exportLandmark(landmark) {
+    let documentsName = "Documents";
+    if (Capacitor.getPlatform() === "ios") {
+      documentsName = "Fichiers";
+    }
     Filesystem.writeFile({
       path: `${landmark.properties.title}.geojson`,
       data: JSON.stringify(landmark),
@@ -609,7 +618,7 @@ ${landmark.properties.description}
       encoding: Encoding.UTF8,
     }).then(() => {
       Toast.show({
-        text: "Fichier enregistré dans Documents.",
+        text: `Fichier enregistré dans ${documentsName}.`,
         duration: "long",
         position: "bottom"
       });
