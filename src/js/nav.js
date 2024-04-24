@@ -249,6 +249,7 @@ class MenuNavigation {
       break;
     case "layerManager":
       Globals.backButtonState = "layerManager-" + previousBackState;
+      DOM.$layerManagerBtn.classList.add("active");
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -471,6 +472,7 @@ class MenuNavigation {
       break;
     case "layerManager":
       DOM.$search.style.display = "flex";
+      DOM.$layerManagerBtn.classList.remove("active");
       DOM.$filterPoiBtn.style.removeProperty("top");
       DOM.$backTopLeftBtn.classList.add("d-none");
       break;

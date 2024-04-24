@@ -33,6 +33,12 @@
   bottom: 50px;
 }
 
+#layerManagerBtn.active {
+  background-image: url("assets/map-buttons/layers-w.svg");
+  background-color: var(--dark-green);
+  border: 1px solid var(--dark-green);
+}
+
 #geolocateBtn {
   background-image: url("assets/map-buttons/localisation.svg");
   position: absolute;

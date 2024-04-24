@@ -66,7 +66,13 @@ const addListeners = () => {
   DOM.$sideBySideBtn.addEventListener("click", () => { Globals.menu.open("compare"); });
 
   // Bouton du gestionnaire de couches
-  DOM.$layerManagerBtn.addEventListener("click", () => { Globals.menu.open("layerManager"); });
+  DOM.$layerManagerBtn.addEventListener("click", () => {
+    if (Globals.backButtonState.split("-")[0] === "layerManager") {
+      DOM.$backTopLeftBtn.click();
+    } else {
+      Globals.menu.open("layerManager");
+    }
+  });
 
   // Bouton des filtres POI
   DOM.$filterPoiBtn.addEventListener("click", () => { Globals.menu.open("poi"); });
