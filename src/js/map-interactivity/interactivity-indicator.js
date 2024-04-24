@@ -136,7 +136,7 @@ class InteractivityIndicator {
     DOM.$interactivityBtn.classList.remove("d-none");
     DOM.$interactivityBtn.style.removeProperty("opacity");
     DOM.$interactivityBtn.style.removeProperty("color");
-    document.getElementById("interactivityBtnText").innerText = "La carte est interrogeable";
+    document.getElementById("interactivityBtnText").innerText = "La carte est interactive";
     if (!this.shown) {
       clearTimeout(this.timeoutID1);
       clearTimeout(this.timeoutID2);
@@ -159,7 +159,7 @@ class InteractivityIndicator {
      * Desactive l'indicateur d'activité
      */
   disable () {
-    document.getElementById("interactivityBtnText").innerText = "La carte n'est plus interrogeable";
+    document.getElementById("interactivityBtnText").innerText = "La carte n'est plus interactive";
     if (!Globals.mapInteractivity) {
       return;
     }
@@ -220,7 +220,7 @@ class InteractivityIndicator {
     // template litteral
     const popupContent = `
       <div id="interactivityPopup">
-          <div class="divPositionTitle">La carte est interrogeable</div>
+          <div class="divPositionTitle">La carte est interactive</div>
           <div class="divPopupClose" onclick="onCloseinteractivityPopup(event)"></div>
           <div class="divPopupContent">
           Cliquez sur le plan IGN ou sur une donnée thématique pour afficher la légende ou des informations détaillées (ex : les caractéristiques d’un bâtiment, la culture d’un champ).

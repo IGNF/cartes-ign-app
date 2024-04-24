@@ -4462,7 +4462,7 @@
       },
       "name": "PLAN.IGN.INTERACTIF",
       "title": "Plan IGN",
-      "description": "Plan vectoriel interrogeable. En cliquant sur le plan, les informations de légende et les données issues de la BD Topo s'affichent.",
+      "description": "Plan vectoriel interactif. En cliquant sur le plan, les informations de légende et les données issues de la BD Topo s'affichent.",
       "source": "IGN",
       "maj": "Décembre 2023",
       "formats": [
