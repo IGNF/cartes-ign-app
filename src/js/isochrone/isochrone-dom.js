@@ -303,6 +303,11 @@ let IsochroneDOM = {
       } else {
         this.dom.showLimitsChk.checked = true;
         this.dom.showLimitsChk.disabled = true;
+        Toast.show({
+          text: "Aucun centre d’intérêt n'est sélectionné. La zone de contour est obligatoire.",
+          duration: "long",
+          position: "bottom"
+        });
       }
       document.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
         if (toggleChecked) {
