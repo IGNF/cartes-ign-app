@@ -54,7 +54,6 @@ class Search {
         DOM.$resultDiv.firstChild.click();
       } else if (DOM.$rech.value !== ""){
         let resultStr = "";
-        DOM.$clearSearch.classList.remove("d-none");
         this.suggest().then( () => {
           if (this.autocompletion_results.length > 0){
             for (let i = 0 ; i < this.autocompletion_results.length; i++) {
@@ -70,7 +69,6 @@ class Search {
           }
         });
       } else if (DOM.$rech.value === "") {
-        DOM.$clearSearch.classList.add("d-none");
         DOM.$resultsRechRecent.hidden = false;
         DOM.$resultDiv.hidden = true;
         DOM.$resultDiv.innerHTML = "";
@@ -136,7 +134,6 @@ class Search {
     });
     document.getElementById(id.clearSearch).addEventListener("click", () => {
       DOM.$rech.value = "";
-      document.getElementById(id.clearSearch).classList.add("d-none");
       if (Globals.searchResultMarker != null) {
         Globals.searchResultMarker.remove();
         Globals.searchResultMarker = null;
@@ -230,7 +227,6 @@ class Search {
     if (this.options.openSearchCbk) {
       this.options.openSearchCbk();
     }
-    DOM.$resultsRechRecent.hidden = false;
   }
 
   /**

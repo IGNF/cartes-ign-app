@@ -162,6 +162,10 @@
   background-image: url("assets/clearSearch.svg");
 }
 
+#lieuRech:placeholder-shown + #clearSearch {
+  display: none;
+}
+
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #searchContainer {
     width: 40%;

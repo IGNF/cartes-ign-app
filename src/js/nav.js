@@ -305,6 +305,7 @@ class MenuNavigation {
       DOM.$selectOnMap.classList.remove("d-none");
       // falls through
     case "search":
+      DOM.$resultsRechRecent.hidden = false;
       DOM.$searchresultsWindow.classList.remove("d-none");
       DOM.$whiteScreen.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
