@@ -21,6 +21,9 @@ const gfiRules = {
     0: {
       "title": "@toponyme",
       "subtitle": "Musées - Source : IGN",
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=http://www.culture.gouv.fr/public/mistral/museo_fr?ACTION=CHERCHER&FIELD_98=REF&VALUE_98={{identifiant_gestionnaire}} target=\"_blank\">Accéder à la fiche Muséofile</a></p>"]
+      ],
     }
   },
   "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS": {
@@ -255,6 +258,12 @@ const gfiRules = {
           let match = str.match("{{([^}]+)}}");
           while (match) {
             if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+              if (match[1] === "identifiant_gestionnaire") {
+                if (!featureProperties[match[1]]) {
+                  return "";
+                }
+                featureProperties[match[1]] = featureProperties[match[1]].charAt(0).toUpperCase() + featureProperties[match[1]].slice(1);
+              }
               str = str.replace(match[0], featureProperties[match[1]]);
               match = str.match("{{([^}]+)}}");
             } else {

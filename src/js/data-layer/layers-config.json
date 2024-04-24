@@ -3809,7 +3809,7 @@
       "title": "Musées",
       "description": "Localisation des musées.",
       "source": "IGN",
-      "maj": "Décembre 2017",
+      "maj": "Avril 2024",
       "globalConstraint": {
         "minScaleDenominator": 0.0,
         "maxScaleDenominator": 62236752975597,
