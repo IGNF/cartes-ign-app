@@ -102,9 +102,6 @@ function addListeners() {
   document.addEventListener("backbutton", State.onBackKeyDown, false);
 
   const saveState = () => {
-    while (Globals.backButtonState !== "default") {
-      State.onBackKeyDown();
-    }
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
@@ -203,6 +200,7 @@ function addListeners() {
   // Screen dimentions change
   window.addEventListener("resize", handleresize);
   window.addEventListener("orientationchange", handleresize);
+  App.addListener("resume", handleresize)
 
   Network.addListener("networkStatusChange", (status) => {
     let newStatus = status.connected;
