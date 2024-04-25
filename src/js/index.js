@@ -20,7 +20,7 @@ import { StatusBar, Style } from "@capacitor/status-bar";
 import { SafeArea, SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { TextZoom } from "@capacitor/text-zoom";
 import { Network } from "@capacitor/network";
-import { Device } from '@capacitor/device';
+import { Device } from "@capacitor/device";
 
 // import CSS
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";

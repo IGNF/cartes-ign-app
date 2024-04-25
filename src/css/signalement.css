@@ -1,10 +1,24 @@
+#signalementOSMWindow,
 #signalementWindow {
   font-family: "Open Sans";
 }
 
+#signalementOSMWindow a,
 #signalementWindow a {
   color: var(--dark-green);
   text-decoration: underline;
+}
+#signalementOSMWindow a::after,
+#signalementWindow a::after {
+  content: "";
+  display: inline-block;
+  background-image: url("assets/external-link.svg");
+  width: 20px;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0.8em;
+  background-position: bottom;
 }
 
 .signalementTitle {

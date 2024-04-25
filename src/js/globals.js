@@ -89,6 +89,7 @@ let comparePoi = null;
 
 // Global control signalement
 let signalement = null;
+let signalementOSM = null;
 
 // Global flag: is the device connected to the internet?
 let online = true;
@@ -131,5 +132,6 @@ export default {
   myaccount,
   comparePoi,
   signalement,
+  signalementOSM,
   online,
 };

@@ -200,7 +200,7 @@ function addListeners() {
   // Screen dimentions change
   window.addEventListener("resize", handleresize);
   window.addEventListener("orientationchange", handleresize);
-  App.addListener("resume", handleresize)
+  App.addListener("resume", handleresize);
 
   Network.addListener("networkStatusChange", (status) => {
     let newStatus = status.connected;

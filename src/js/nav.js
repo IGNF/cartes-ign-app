@@ -136,6 +136,7 @@ class MenuNavigation {
       Globals.currentScrollIndex = 1;
       break;
     case "signalement":
+    case "signalementOSM":
       DOM.$positionWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
@@ -372,6 +373,7 @@ class MenuNavigation {
       Globals.interactivityIndicator.enable();
       break;
     case "signalement":
+    case "signalementOSM":
       DOM.$positionWindow.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
       Globals.interactivityIndicator.enable();

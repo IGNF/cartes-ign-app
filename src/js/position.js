@@ -32,6 +32,7 @@ class Position {
       openIsochroneCbk: null,
       openDirectionsCbk: null,
       openSignalCbk: null,
+      openSignalOSMCbk: null,
       openLandmarkCbk: null,
     };
 
@@ -281,8 +282,12 @@ class Position {
         const coordinates = this.coordinates;
         // ouverture du panneau Signalement
         if (this.options.openSignalCbk) {
-          this.options.openSignalCbk();
-          Globals.signalement.data.location = coordinates;
+          if (type === "osm") {
+            this.options.openSignalOSMCbk();
+          } else {
+            this.options.openSignalCbk();
+            Globals.signalement.data.location = coordinates;
+          }
         }
       });
     }

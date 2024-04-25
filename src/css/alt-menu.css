@@ -72,7 +72,8 @@
   color: var(--dark-grey);
 }
 
-.informationsItemsLink > a > span {
+.informationsItemsLink > a::after {
+  content: "";
   display: inline-block;
   background-image: url("assets/external-link.svg");
   background-repeat: no-repeat;

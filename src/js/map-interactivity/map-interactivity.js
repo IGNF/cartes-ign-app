@@ -127,6 +127,7 @@ class MapInteractivity {
           html: featureHTML.before,
           html2: featureHTML.after,
           hideCallback: deselectPoiCallback,
+          type: "osm",
         }).then(() => {
           Globals.menu.open("position");
         });

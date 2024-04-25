@@ -142,6 +142,10 @@ const onBackKeyDown = () => {
     Globals.menu.close("signalement");
     return;
   }
+  if (Globals.backButtonState === "signalementOSM") {
+    Globals.menu.close("signalementOSM");
+    return;
+  }
   if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenAccessibility"].includes(Globals.backButtonState)) {
     const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
     $informationsScreenMenu.style.removeProperty("margin-left");

@@ -12,6 +12,7 @@ import MapInteractivity from "./map-interactivity/map-interactivity";
 import MyAccount from "./my-account/my-account";
 import ComparePoi from "./compare-poi/compare-poi";
 import Signalement from "./signalement";
+import SignalementOSM from "./signalement-osm";
 import Landmark from "./landmark";
 
 import LocationLayers from "./services/location-styles";
@@ -55,6 +56,7 @@ const addControls = () => {
       openIsochroneCbk : () => { Globals.menu.open("isochrone"); },
       openDirectionsCbk : () => { Globals.menu.open("directions"); },
       openSignalCbk : () => { Globals.menu.open("signalement"); },
+      openSignalOSMCbk : () => { Globals.menu.open("signalementOSM"); },
       openLandmarkCbk : () => { Globals.menu.open("landmark"); },
     });
 
@@ -95,6 +97,7 @@ const addControls = () => {
 
     // signalement
     Globals.signalement = new Signalement(map, {});
+    Globals.signalementOSM = new SignalementOSM(map, {});
 
     // points de repère
     Globals.landmark = new Landmark(map, {
