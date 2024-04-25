@@ -89,6 +89,10 @@ class MapInteractivity {
     if (features.length > 0 && features[0].source === "location-precision"){
       features.shift();
     }
+    if (features.length > 0 && features[0].source === "comparepoi"){
+      this.map.once("click", this.handleInfoOnMap);
+      return;
+    }
     if (features.length > 0 && (Globals.interactivityIndicator.pii && features[0].source === "bdtopo" || features[0].source === "poi_osm")) {
       featureHTML = featurePropertyFilter(features[0]);
       if (features[0].source === "poi_osm") {
