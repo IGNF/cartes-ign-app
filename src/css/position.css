@@ -171,6 +171,13 @@
   font-family: "Open Sans";
   font-size: 13px;
 }
+#interactivityPopup .divPositionTitle,
+#onlinePopup .divPositionTitle,
+#locationPopup .divPositionTitle,
+#routeDrawHelpPopup .divPositionTitle {
+  margin-right: 30px;
+}
+
 
 .interactivityPopup,
 .onlinePopup,

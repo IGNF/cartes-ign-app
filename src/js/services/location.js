@@ -234,22 +234,22 @@ const trackLocation = () => {
   Geolocation.checkPermissions().then((status) => {
     if (status.location !== "denied") {
       firstLocation = true;
-      // Récupération rapide d'une position
-      // Geolocation.watchPosition({
-      //   maximumAge: 0,
-      //   timeout: 3000,
-      //   enableHighAccuracy: false
-      // }, watchPositionCallback).then( (watchId) => {
-      //   Geolocation.clearWatch(watchId);
-      // });
-
-      Geolocation.watchPosition({
-        maximumAge: 1000,
-        timeout: 10000,
-        enableHighAccuracy: true
-      }, watchPositionCallback).then( (watchId) => {
-        watch_id = watchId;
-      });
+      // Android frequency problem for geolocation https://www.reddit.com/r/ionic/comments/zfg9xn/capacitor_geolocation_works_great_on_the_web_and/
+      if (Capacitor.getPlatform() === "android") {
+        watch_id = navigator.geolocation.watchPosition(watchPositionCallback, (err) => {console.log(err);}, {
+          maximumAge: 1000,
+          timeout: 10000,
+          enableHighAccuracy: true
+        });
+      } else {
+        Geolocation.watchPosition({
+          maximumAge: 1000,
+          timeout: 10000,
+          enableHighAccuracy: true
+        }, watchPositionCallback).then( (watchId) => {
+          watch_id = watchId;
+        });
+      }
     } else {
       // Location services denied
       DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
