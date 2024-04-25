@@ -20,6 +20,7 @@ import { StatusBar, Style } from "@capacitor/status-bar";
 import { SafeArea, SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { TextZoom } from "@capacitor/text-zoom";
 import { Network } from "@capacitor/network";
+import { Device } from '@capacitor/device';
 
 // import CSS
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
@@ -39,10 +40,13 @@ function app() {
   window.addEventListener("controlsloaded", async () => {
     SplashScreen.hide();
     // INFO: BUG https://github.com/ionic-team/capacitor-plugins/issues/1160
-    setTimeout( () => {
+    setTimeout( async () => {
       SafeAreaController.injectCSSVariables();
       if (Capacitor.isPluginAvailable("StatusBar")) {
-        StatusBar.setOverlaysWebView({ overlay: true });
+        const info = await Device.getInfo();
+        if (!(info.platform === "android" && info.androidSDKVersion < 29)) {
+          StatusBar.setOverlaysWebView({ overlay: true });
+        }
         StatusBar.setStyle({ style: Style.Light });
       }
       SafeArea.getStatusBarHeight().then(({ height }) => {
