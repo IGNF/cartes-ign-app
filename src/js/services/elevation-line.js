@@ -31,7 +31,7 @@ const compute = async (coordinateList) => {
   clear();
   if (Capacitor.getPlatform() === "ios") {
     await new Promise(res => setTimeout(res, 25));
-  };
+  }
   controller = new AbortController();
   const lonStr = coordinateList.map( (coord) => coord[0]).join("|");
   const latStr = coordinateList.map( (coord) => coord[1]).join("|");

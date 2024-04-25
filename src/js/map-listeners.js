@@ -10,31 +10,27 @@ import Location from "./services/location";
 const addListeners = () => {
   const map = Globals.map;
 
-  // TODO pour des zooms à niveaux entiers uniquement (utilie si POI toujouts limités à zoom 16)
-  // map.on('zoom', function() {
-  //   var currentZoom = map.getZoom();
-  //   var roundedZoom = Math.round(currentZoom); // Round the zoom level to the nearest whole number
-
-  //   if (currentZoom !== roundedZoom) {
-  //       // Set the map's zoom level to the rounded value
-  //       map.once('moveend', function() {
-  //           map.setZoom(roundedZoom);
-  //       });
-  //   }
-  // });
-
   // Rotation de la carte avec le mutlitouch
   map.on("rotate", () => {
     DOM.$compassBtn.style.transform = "rotate(" + (map.getBearing() * -1) + "deg)";
     DOM.$compassBtn.classList.remove("d-none");
   });
 
+  let lastMapCenter = null;
   // Désactivation du tracking au déplacement non programmatique de la carte
   map.on("dragstart", () => {
     if (Location.isTrackingActive()){
-      // De tracking a simple suivi de position
-      Location.disableTracking();
+      lastMapCenter = map.getCenter();
     }
+  });
+  map.on("dragend", () => {
+    if (Location.isTrackingActive() && lastMapCenter){
+      if (lastMapCenter.distanceTo(map.getCenter()) > 100) {
+        // De tracking a simple suivi de position
+        Location.disableTracking();
+      }
+    }
+    lastMapCenter = null;
   });
 
   // l'event contextmenu n'est pas enclenché par clic long sur la carte... https://github.com/maplibre/maplibre-gl-js/issues/373
