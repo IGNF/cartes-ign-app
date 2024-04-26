@@ -83,7 +83,17 @@ class MapInteractivity {
     if (Globals.backButtonState.split("-")[0] === "position") {
       DOM.$backTopLeftBtn.click();
     }
-    let features = this.map.queryRenderedFeatures(ev.point);
+    let bbox = [
+      {
+        x: ev.point.x - 20,
+        y: ev.point.y - 20,
+      },
+      {
+        x: ev.point.x + 20,
+        y: ev.point.y + 20,
+      }
+    ];
+    let features = this.map.queryRenderedFeatures(bbox);
     // On clique sur une feature tuile vectorielle
     let featureHTML = null;
     if (features.length > 0 && features[0].source === "location-precision"){
