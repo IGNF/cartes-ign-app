@@ -79,8 +79,6 @@ const featurePropertyFilter = (feature) => {
     return result;
   }
 
-
-  
   //  Propriétés spécifiques reservoir
   if(feature.layer["source-layer"] == "reservoir") {
     let volume = getProperty(feature, "volume");
@@ -142,7 +140,7 @@ const featurePropertyFilter = (feature) => {
       let nombre_de_logements = getProperty(feature, "nombre_de_logements");
       let nombre_d_etages = getProperty(feature, "nombre_d_etages");
       let date_d_apparition = getProperty(feature, "date_d_apparition");
-  
+
       if(nombre_de_logements && (nature == "Bâtiment résidentiel ou quelconque" || nature == "Indifférenciée")) {
         result.before += `Nombre de logements : ${nombre_de_logements}<br/>`;
       }
@@ -161,7 +159,7 @@ const featurePropertyFilter = (feature) => {
         result.before += `Année de construction : ${year}<br/>`;
       }
     }
-  
+
     result.before += "</div>";
     result.after = "";
     return result;
@@ -247,7 +245,7 @@ const featurePropertyFilter = (feature) => {
 
   // pour toutes les couches qui restent
   if (toponyme) {
-    result.before += toponyme + "<br/>";
+    result.before += `<b>${toponyme}</b><br/>`;
   }
   if (nature && nature_detaillee) {
     result.before += nature + ", " + nature_detaillee + "<br/>";

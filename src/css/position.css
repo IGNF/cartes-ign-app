@@ -245,6 +245,11 @@
   line-height: 20px;
 }
 
+.positionHtmlBefore b {
+  font-family: "Open Sans Semibold";
+  font-weight: normal;
+}
+
 .positionInfo {
   font-family: "Open Sans";
   padding-left: 50px;
