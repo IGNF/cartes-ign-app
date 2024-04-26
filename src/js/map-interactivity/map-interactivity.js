@@ -229,7 +229,14 @@ class MapInteractivity {
     } else if (["LineString", "MultiLineString"].includes(this.selectedFeatureType)) {
       union[0] = Buffer(toFuse[0], 5, {units: "meters"});
       for (let i = 1; i <= toFuse.length - 1; i++) {
-        union[0] = Union(union[0], Buffer(toFuse[i], 5, {units: "meters"}), {properties: union.properties});
+        try {
+          union[0] = Union(union[0], Buffer(toFuse[i], 5, {units: "meters"}), {properties: union.properties});
+        } catch (e) {
+          console.warn("Polygon union failure");
+          if (Buffer(toFuse[i], 5, {units: "meters"}).geometry.coordinates[0].length > union[0].geometry.coordinates[0].length) {
+            union[0] = Buffer(toFuse[i], 5, {units: "meters"});
+          }
+        }
       }
       source = this.map.getSource(this.configuration.polygonsource);
     } else {
