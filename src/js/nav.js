@@ -266,6 +266,7 @@ class MenuNavigation {
       Globals.interactivityIndicator.enable();
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+      DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.currentScrollIndex = 2;
       break;
