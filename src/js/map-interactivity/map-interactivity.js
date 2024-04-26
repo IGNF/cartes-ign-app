@@ -85,12 +85,12 @@ class MapInteractivity {
     }
     let bbox = [
       {
-        x: ev.point.x - 20,
-        y: ev.point.y - 20,
+        x: ev.point.x - 8,
+        y: ev.point.y - 8,
       },
       {
-        x: ev.point.x + 20,
-        y: ev.point.y + 20,
+        x: ev.point.x + 8,
+        y: ev.point.y + 8,
       }
     ];
     let features = this.map.queryRenderedFeatures(bbox);
