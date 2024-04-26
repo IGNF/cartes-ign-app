@@ -35,6 +35,21 @@ let domUtils = {
       top: 0,
       behavior : "smooth",
     });
+
+    var addScollArrow = function () {
+      if (event.target.parentElement.scrollLeft !== maxScrollLeft) {
+        event.target.classList.remove("d-none");
+      }
+      event.target.parentElement.removeEventListener("scrollend", addScollArrow);
+    }
+
+    var maxScrollLeft = event.target.parentElement.scrollWidth - event.target.parentElement.clientWidth;
+    event.target.parentElement.addEventListener("scrollend", () => {
+      if (event.target.parentElement.scrollLeft === maxScrollLeft) {
+        event.target.classList.add("d-none");
+        event.target.parentElement.addEventListener("scrollend", addScollArrow);
+      }
+    });
   }
 
 };
