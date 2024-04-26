@@ -601,7 +601,7 @@ class MenuNavigation {
       Globals.backButtonState = "routeDraw"; // on revient sur le contrôle !
       return;
     }
-    if (id === "signalement") {
+    if (["signalement", "signalementOSM"].includes(id)) {
       Globals.backButtonState = "position"; // on revient sur le contrôle !
       return;
     }
