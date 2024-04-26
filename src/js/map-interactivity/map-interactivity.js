@@ -76,7 +76,7 @@ class MapInteractivity {
   }
 
   #getInfoOnMap(ev) {
-    if (Globals.backButtonState === "routeDraw") {
+    if (Globals.backButtonState.split("-").includes("routeDraw")) {
       this.map.once("click", this.handleInfoOnMap);
       return;
     }
