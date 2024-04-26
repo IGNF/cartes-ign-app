@@ -254,6 +254,13 @@ class MenuNavigation {
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
       DOM.$backTopLeftBtn.classList.remove("d-none");
+      if (!Globals.routeDraw.readonly) {
+        DOM.$routeDrawBtns.classList.add("d-none");
+        DOM.$routeDrawEdit.classList.add("d-none");
+        DOM.$bottomButtons.style.removeProperty("bottom");
+        DOM.$bottomButtons.style.removeProperty("left");
+        DOM.$bottomButtons.style.removeProperty("width");
+      }
       Globals.currentScrollIndex = 1;
       break;
     case "informations":
