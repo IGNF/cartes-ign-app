@@ -263,6 +263,7 @@ class MenuNavigation {
       if (previousBackState.split("-")[0] !== "position") {
         Globals.backButtonState = "position-" + previousBackState;
       }
+      Globals.interactivityIndicator.enable();
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
       DOM.$backTopLeftBtn.classList.remove("d-none");

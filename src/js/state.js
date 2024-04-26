@@ -79,7 +79,7 @@ const onBackKeyDown = () => {
     previousState = Globals.backButtonState.split("-")[1] || "default";
     Globals.position.hide();
     // réouverture de menu précédent
-    if (previousState !== "default") {
+    if (!["default", "signalement", "signalementOSM"].includes(previousState)) {
       Globals.menu.open(previousState, 0);
       return;
     }
