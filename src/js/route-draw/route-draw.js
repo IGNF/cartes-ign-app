@@ -298,11 +298,11 @@ class RouteDraw {
     this.map.on("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);
     this.#editionButtonsListeners();
 
-    DOM.$routeDrawModeSelectTransportPedestrian.addEventListener("click", () => {
+    DOM.$routeDrawModeSelectTransportPedestrian.addEventListener("pointerdown", () => {
       this.#changeTransport("pedestrian");
       this.changeMode(1);
     });
-    DOM.$routeDrawModeSelectTransportCar.addEventListener("click", () => {
+    DOM.$routeDrawModeSelectTransportCar.addEventListener("pointerdown", () => {
       this.#changeTransport("car");
       this.changeMode(1);
     });

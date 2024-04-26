@@ -181,7 +181,7 @@
   position: relative;
 }
 
-#routeDrawMode:hover > #routeDrawModeText {
+#routeDrawMode:not(.routeDrawModeClose):hover > #routeDrawModeText {
   color: var(--dark-green);
 }
 
