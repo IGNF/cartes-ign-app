@@ -380,6 +380,7 @@ class MenuNavigation {
       DOM.$filterPoiBtn.classList.remove("d-none");
       Globals.interactivityIndicator.enable();
       Globals.signalement.clear();
+      Globals.signalementOSM.clear();
       isSpecific = true;
       isFinished = true;
       break;

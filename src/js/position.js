@@ -283,6 +283,7 @@ class Position {
         // ouverture du panneau Signalement
         if (this.options.openSignalCbk) {
           if (type === "osm") {
+            Globals.signalementOSM.setLocation(coordinates);
             this.options.openSignalOSMCbk();
           } else {
             this.options.openSignalCbk();
