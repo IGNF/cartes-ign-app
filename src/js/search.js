@@ -51,7 +51,11 @@ class Search {
         // Cancel the default action, if needed
         event.preventDefault();
         // Trigger the button element with a click
-        DOM.$resultDiv.firstChild.click();
+        if (DOM.$resultsRechRecent.hidden) {
+          DOM.$resultDiv.firstChild.click();
+        } else {
+          DOM.$resultsRechRecent.querySelector(".recentresult").click();
+        }
       } else if (DOM.$rech.value !== ""){
         let resultStr = "";
         this.suggest().then( () => {
