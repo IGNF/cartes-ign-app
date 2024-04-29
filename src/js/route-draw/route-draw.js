@@ -1124,6 +1124,7 @@ class RouteDraw {
    */
   showDetails() {
     this.readonly = true;
+    this.deactivate();
     this.dom.titlewrapper.classList.remove("d-none");
     Globals.menu.open("routeDraw");
   }
