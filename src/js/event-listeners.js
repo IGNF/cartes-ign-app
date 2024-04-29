@@ -224,7 +224,7 @@ function addListeners() {
           <div class="divPositionTitle">Vous êtes hors ligne</div>
           <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
           <div class="divPopupContent">
-            La plupart des fonctionnalités de l'application sont désormais indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sue la carte.
+            La plupart des fonctionnalités de l'application sont désormais indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sur la carte.
           </div>
       </div>
       `, map);

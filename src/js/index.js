@@ -70,19 +70,6 @@ function app() {
         TextZoom.set(value);
       });
     }
-    Network.getStatus().then((status) => {
-      if (!status.connected) {
-        PopupUtils.showOnlinePopup(`
-        <div id="onlinePopup">
-        <div class="divPositionTitle">Vous êtes hors ligne</div>
-        <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
-        <div class="divPopupContent">
-        La plupart des fonctionnalités de l'application sont indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sue la carte.
-        </div>
-        </div>
-        `, map);
-      }
-    });
     if (!localStorage.getItem("hasBeenLaunched")) {
       document.getElementById("geolocateBtn").click();
       localStorage.setItem("hasBeenLaunched", true);
@@ -159,9 +146,6 @@ function app() {
   Globals.mapRLT1 = mapRLT1;
   Globals.mapRLT2 = mapRLT2;
 
-  // DEBUG
-  window.mapGlobal = map;
-
   window.scroll({
     top: 0,
     left: 0,
@@ -226,6 +210,21 @@ function app() {
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
     map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
     map.setZoom(localStorage.getItem("lastMapZoom") || map.getZoom());
+    map.once("moveend", () => {
+      Network.getStatus().then((status) => {
+        if (!status.connected) {
+          PopupUtils.showOnlinePopup(`
+          <div id="onlinePopup">
+          <div class="divPositionTitle">Vous êtes hors ligne</div>
+          <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
+          <div class="divPopupContent">
+          La plupart des fonctionnalités de l'application sont indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sur la carte.
+          </div>
+          </div>
+          `, map);
+        }
+      });
+    });
   }
 
   // Chargement des couches par defaut dans le localStorage
