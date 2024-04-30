@@ -41,7 +41,7 @@ let domUtils = {
         event.target.classList.remove("d-none");
       }
       event.target.parentElement.removeEventListener("scrollend", addScollArrow);
-    }
+    };
 
     var maxScrollLeft = event.target.parentElement.scrollWidth - event.target.parentElement.clientWidth;
     event.target.parentElement.addEventListener("scrollend", () => {
