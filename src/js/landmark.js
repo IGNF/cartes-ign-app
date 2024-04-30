@@ -99,6 +99,11 @@ class Landmark {
         position: "top"
       });
       this.map.flyTo({center: landmarkJson.geometry.coordinates});
+      this.map.once("resize", () => {
+        setTimeout(() => {
+          this.map.flyTo({center: landmarkJson.geometry.coordinates});
+        }, 100);
+      });
       this.hide();
     });
   }

@@ -4,6 +4,8 @@ import DOM from "../dom";
 import Globals from "../globals";
 import RecentSearch from "../search-recent";
 
+import { Keyboard } from "@capacitor/keyboard";
+
 /**
  * Interface pour les evenements
  * @example
@@ -42,6 +44,11 @@ function moveTo(coords, zoom=Globals.map.getZoom(), panTo=true) {
 
   if (panTo) {
     Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
+    Globals.map.once("resize", () => {
+      setTimeout(() => {
+        Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
+      }, 100);
+    });
   }
 }
 

@@ -358,6 +358,13 @@ class MyAccount {
     this.map.fitBounds(bounds, {
       padding: 100,
     });
+    Globals.map.once("resize", () => {
+      setTimeout(() => {
+        this.map.fitBounds(bounds, {
+          padding: 100,
+        });
+      }, 100);
+    });
   }
 
   /**
