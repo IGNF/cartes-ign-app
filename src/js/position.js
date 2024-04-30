@@ -395,8 +395,6 @@ class Position {
     }
 
     this.header = position.text;
-    this.additionalHtml.beforeButtons = html;
-    this.additionalHtml.afterButtons = html2;
     try {
       await Reverse.compute({
         lat: position.coordinates.lat,
@@ -408,6 +406,8 @@ class Position {
       }
       console.warn(`Error when fetching reverse: ${err}`);
     }
+    this.additionalHtml.beforeButtons = html;
+    this.additionalHtml.afterButtons = html2;
 
     this.coordinates = position.coordinates;
     this.address = Reverse.getAddress() || {
