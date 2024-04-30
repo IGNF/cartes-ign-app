@@ -171,7 +171,9 @@
   background-image: url("assets/directions/point-finish.svg");
 }
 
+
 .lblDirectionsDetailsItemGuidance-point-finish + div > .divDirectionsDetailsItemDesc,
+.lblDirectionsDetailsItemGuidance-point-step + div > .divDirectionsDetailsItemDesc,
 .lblDirectionsDetailsItemGuidance-point-start + div > .divDirectionsDetailsItemDesc {
   padding-top: 15px;
 }
