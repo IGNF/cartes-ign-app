@@ -93,6 +93,9 @@ function addListeners() {
   document.addEventListener("backbutton", State.onBackKeyDown, false);
 
   const saveState = () => {
+    if (Globals.backButtonState.split("-")[0] === "position") {
+      DOM.$backTopLeftBtn.click();
+    }
     localStorage.setItem("lastMapLat", map.getCenter().lat);
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());

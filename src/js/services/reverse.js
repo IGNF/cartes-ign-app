@@ -35,7 +35,7 @@ const compute = async (coordinates) => {
 
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
-  var response = await fetch(url, { signal : controller.signal });
+  var response = await fetch(url, { signal: controller.signal });
   var geojson = await response.json();
 
   if (response.status !== 200) {
