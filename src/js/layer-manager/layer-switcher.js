@@ -276,7 +276,7 @@ class LayerSwitcher extends EventTarget {
         var pos = this.layers[id].position;
         var beforeId = this.map.getStyle().layers[pos].id;
         var max = (pos === Object.keys(this.layers).length - 1);
-        if (!max) {
+        if (!max && pos !== 0) {
           LayersGroup.moveGroup(id, beforeId);
         }
       }
