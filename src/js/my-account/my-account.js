@@ -138,7 +138,7 @@ class MyAccount {
       Globals.position.compute({
         lngLat: e.lngLat,
         text: title,
-        html: landmark.properties.description,
+        html: `<div class="positionHtmlBefore">${landmark.properties.description}</div>`,
         html2: "",
         hideCallback: deselectLandmarkCallback,
         type: "landmark"

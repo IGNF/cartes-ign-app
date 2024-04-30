@@ -13,7 +13,11 @@ const addListeners = () => {
   // Rotation de la carte avec le mutlitouch
   map.on("rotate", () => {
     DOM.$compassBtn.style.transform = "rotate(" + (map.getBearing() * -1) + "deg)";
-    DOM.$compassBtn.classList.remove("d-none");
+    if (map.getBearing() !== 0) {
+      DOM.$compassBtn.classList.remove("d-none");
+    } else {
+      DOM.$compassBtn.classList.add("d-none");
+    }
   });
 
   let lastMapCenter = null;

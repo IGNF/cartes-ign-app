@@ -31,35 +31,7 @@ const addListeners = () => {
       // De tracking a simple suivi de position
       Location.disableTracking();
     }
-    map.setBearing(Math.round((map.getBearing() % 360) + 360 ) % 360);
-
-    let interval;
-    let currentRotation;
-
-    function animateRotate() {
-      if (Location.isTrackingActive()) {
-        clearInterval(interval);
-        DOM.$compassBtn.style.pointerEvents = "";
-      }
-
-      if (map.getBearing() < 0) {
-        currentRotation = map.getBearing() + 1;
-
-      } else {
-        currentRotation = map.getBearing() - 1;
-      }
-
-      map.setBearing(Math.round(currentRotation));
-
-      if (currentRotation % 360 == 0) {
-        clearInterval(interval);
-        DOM.$compassBtn.style.pointerEvents = "";
-        DOM.$compassBtn.classList.add("d-none");
-      }
-    }
-
-    DOM.$compassBtn.style.pointerEvents = "none";
-    interval = setInterval(animateRotate, 1);
+    map.rotateTo(0);
   });
 
   // Bouton Comparaison de carte
