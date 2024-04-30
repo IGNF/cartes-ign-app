@@ -235,6 +235,10 @@ const addGray = (id) => {
   var layers = Globals.map.getStyle().layers;
   for (var i = 0; i < layers.length; i++) {
     var layer = layers[i];
+    if (layer.type === "raster") {
+      Globals.map.setPaintProperty(layer.id, "raster-saturation", -1);
+      continue;
+    }
     originalLayerColors[layer.id] = {};
     if (layer.metadata && layer.metadata.group === id) {
       var value = null;
@@ -297,10 +301,14 @@ const addColor = (id) => {
   var layers = Globals.map.getStyle().layers;
   for (var i = 0; i < layers.length; i++) {
     var layer = layers[i];
-    if (layer.metadata && layer.metadata.group === id) {
-      Object.entries(originalLayerColors[layer.id]).forEach((entry) => {
-        Globals.map.setPaintProperty(layer.id, entry[0], entry[1]);
-      });
+    if (layer.type !== "raster") {
+      if (layer.metadata && layer.metadata.group === id) {
+        Object.entries(originalLayerColors[layer.id]).forEach((entry) => {
+          Globals.map.setPaintProperty(layer.id, entry[0], entry[1]);
+        });
+      }
+    } else {
+      Globals.map.setPaintProperty(layer.id, "raster-saturation", 0);
     }
   }
 };
