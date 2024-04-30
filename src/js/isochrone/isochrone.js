@@ -297,15 +297,26 @@ class Isochrone {
     } else {
       padding = {top: 80, right: 20, bottom: 120, left: 20};
     }
-    this.map.once("moveend", () => {
-      if (this.map.getZoom() < 11) {
-        Toast.show({
-          text: "Zoomez pour afficher les centres d'intérêt sélectionnés",
-          duration: "long",
-          position: "bottom"
-        });
+
+    const anyFilter = ["any"];
+    let onePoiChecked = false;
+    for (const [category, checked] of Object.entries(settings.poisToDisplay)) {
+      if (checked) {
+        anyFilter.push(this.poi.filters[category]);
+        onePoiChecked = true;
       }
-    });
+    }
+    if (onePoiChecked) {
+      this.map.once("moveend", () => {
+        if (this.map.getZoom() < 11) {
+          Toast.show({
+            text: "Zoomez pour afficher les centres d'intérêt sélectionnés",
+            duration: "long",
+            position: "bottom"
+          });
+        }
+      });
+    }
     this.map.fitBounds(bbox, {
       padding: padding
     });
@@ -317,12 +328,6 @@ class Isochrone {
         this.filter.push(["within", this.polygon]);
       }
 
-      const anyFilter = ["any"];
-      for (const [category, checked] of Object.entries(settings.poisToDisplay)) {
-        if (checked) {
-          anyFilter.push(this.poi.filters[category]);
-        }
-      }
       this.filter.push(anyFilter);
       this.poi.ids.forEach( (id) => {
         // Sauvegarde de l'état des filtres initiaux
