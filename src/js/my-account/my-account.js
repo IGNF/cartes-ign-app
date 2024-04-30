@@ -582,7 +582,7 @@ ${landmark.properties.description}
       documentsName = "Fichiers";
     }
     Filesystem.writeFile({
-      path: `${route.name}.geojson`,
+      path: `${route.name}.geojson`.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g,' '),
       data: JSON.stringify(this.#routeToGeojson(route)),
       directory: Directory.Documents,
       encoding: Encoding.UTF8,
@@ -612,7 +612,7 @@ ${landmark.properties.description}
       documentsName = "Fichiers";
     }
     Filesystem.writeFile({
-      path: `${landmark.properties.title}.geojson`,
+      path: `${landmark.properties.title}.geojson`.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g,' '),
       data: JSON.stringify(landmark),
       directory: Directory.Documents,
       encoding: Encoding.UTF8,
