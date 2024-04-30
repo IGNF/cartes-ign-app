@@ -393,6 +393,10 @@ const poiLegendRules = [
     "libelle": "Centre équestre",
   },
   {
+    "subclass": "horse_racing",
+    "libelle": "Hippodrome",
+  },
+  {
     "subclass": "christian",
     "libelle": "Edifice chrétien",
   },
