@@ -139,10 +139,6 @@ class ComparePoi {
       this.dom.location.innerText = comparePoi.properties.commune + ", " + comparePoi.properties.departement;
       this.dom.text.innerHTML = comparePoi.properties.text;
       this.showWindow();
-      const boundHideWindow = this.hideWindow.bind(this);
-      setTimeout( () => {
-        this.map.once("click", boundHideWindow);
-      }, 100);
     });
     this.dom.button.addEventListener("click", this.handleCompareButton);
   }
