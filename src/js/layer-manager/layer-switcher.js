@@ -366,7 +366,6 @@ class LayerSwitcher extends EventTarget {
    * @param {*} value
    */
   #setColor(id, value) {
-    console.log(id);
     this.layers[id].gray = !value;
     let index;
     for(let i = 0; i < Globals.layersDisplayed.length; i++) {

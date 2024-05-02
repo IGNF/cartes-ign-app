@@ -235,7 +235,7 @@ const addGray = (id) => {
   var layers = Globals.map.getStyle().layers;
   for (var i = 0; i < layers.length; i++) {
     var layer = layers[i];
-    if (layer.type === "raster") {
+    if (layer.metadata && layer.metadata.group === id && layer.type === "raster") {
       Globals.map.setPaintProperty(layer.id, "raster-saturation", -1);
       continue;
     }
