@@ -99,7 +99,7 @@ class MapInteractivity {
     if (features.length > 0 && features[0].source === "location-precision"){
       features.shift();
     }
-    if (features.length > 0 && features[0].source === "comparepoi"){
+    if (features.length > 0 && (features[0].source === "comparepoi" || features[0].source === "my-account-landmark")){
       this.map.once("click", this.handleInfoOnMap);
       return;
     }
