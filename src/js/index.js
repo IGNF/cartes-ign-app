@@ -242,8 +242,28 @@ function app() {
   Globals.menu.show();
   // HACK: Nécessaire pour iOS qui ne met pas à jour la taille de l'écran au lancement...
   if (Capacitor.getPlatform() === "ios") {
-    Globals.map.on("load", () => Globals.map.resize());
+    map.once("load", () => Globals.map.resize());
   }
+  setTimeout(() => {
+    if (!Globals.mapLoaded) {
+      map.flyTo(map.getCenter());
+      map.once("moveend", () => {
+        Network.getStatus().then((status) => {
+          if (!status.connected) {
+            PopupUtils.showOnlinePopup(`
+            <div id="onlinePopup">
+            <div class="divPositionTitle">Vous êtes hors ligne</div>
+            <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
+            <div class="divPopupContent">
+            La plupart des fonctionnalités de l'application sont indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sur la carte.
+            </div>
+            </div>
+            `, map);
+          }
+        });
+      });
+    }
+  }, 4000);
 }
 
 app();

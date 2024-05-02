@@ -99,6 +99,8 @@ let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElem
 let anchors = [0, maxScroll / 2.5, maxScroll];
 let currentScrollIndex = 0;
 
+let mapLoaded = false;
+
 export default {
   map,
   mapRLT1,
@@ -134,4 +136,5 @@ export default {
   signalement,
   signalementOSM,
   online,
+  mapLoaded,
 };

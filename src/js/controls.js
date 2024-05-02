@@ -31,8 +31,8 @@ import LocationLayers from "./services/location-styles";
 const addControls = () => {
   const map = Globals.map;
   // on ajoute les contrôles à la fin du chargement de la carte
-  map.on("load", () => {
-
+  map.once("load", () => {
+    Globals.mapLoaded = true;
     // INFO
     // Le contrôle Directions doit être chargé au debut afin d'y ajouter les filtres
     // qui doivent servir de pivots :
