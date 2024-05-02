@@ -201,7 +201,7 @@ class Position {
     });
     shadowContainer.getElementById("positionNear").addEventListener("click", async () => {
       let coordinates = this.coordinates;
-      if (this.header === "Ma position") {
+      if (type === "myposition") {
         let position = await Location.getLocation();
         coordinates = position.coordinates;
       }
@@ -225,7 +225,7 @@ class Position {
     });
     shadowContainer.getElementById("positionRoute").addEventListener("click", async () => {
       let coordinates = this.coordinates;
-      if (this.header === "Ma position") {
+      if (type === "myposition") {
         let position = await Location.getLocation();
         coordinates = position.coordinates;
       }
@@ -243,7 +243,7 @@ class Position {
       if (this.options.openDirectionsCbk) {
         this.options.openDirectionsCbk();
         let target = Globals.directions.dom.inputArrival;
-        if (this.header === "Ma position") {
+        if (type === "myposition") {
           target = Globals.directions.dom.inputDeparture;
         }
         target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
@@ -420,6 +420,9 @@ class Position {
     this.#render(type);
     if (hideCallback) {
       this.hideCallback = hideCallback;
+    }
+    if (type === "myposition") {
+      this.map.flyTo({ center: [this.coordinates.lon, this.coordinates.lat] });
     }
     Elevation.compute(position.coordinates).then( () => {
       this.elevation = Elevation.getElevation();
