@@ -4,8 +4,6 @@ import DOM from "../dom";
 import Globals from "../globals";
 import RecentSearch from "../search-recent";
 
-import { Keyboard } from "@capacitor/keyboard";
-
 /**
  * Interface pour les evenements
  * @example

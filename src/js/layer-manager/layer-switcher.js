@@ -206,20 +206,7 @@ class LayerSwitcher extends EventTarget {
       // les couches raster possedent un seul style,
       // on associe donc position dans le style et position dans le gestionnaire.
       // pour le vecteur tuilé, il faut determiner le nombre de styles pour chaque position.
-      const getIndexLayer = (pos) => {
-        var index = 0;
-        if (pos === 0) {
-          index = 0;
-        } else {
-          const entries = Object.entries(this.layers);
-          for (let i = 0; i < pos; i++) {
-            const id = entries.find((e) => { return e[1].position === i; })[0];
-            index += LayersGroup.getGroupLayers(id).length;
-          }
-        }
-        return index;
-      };
-      var beforeIdx = getIndexLayer(newPosition + direction);
+      var beforeIdx = this.#getIndexLayer(newPosition + direction);
       var beforeId = this.map.getStyle().layers[beforeIdx].id;
       LayersGroup.moveGroup(id, beforeId);
       /**
@@ -247,6 +234,29 @@ class LayerSwitcher extends EventTarget {
   }
 
   /**
+   *
+   * @param {*} pos position du layer group (style maplibre) ou layer (raster)
+   * @returns index réel du groupe ou du layer dans le style de la map
+   */
+  // INFO
+  // les couches raster possedent un seul style,
+  // on associe donc position dans le style et position dans le gestionnaire.
+  // pour le vecteur tuilé, il faut determiner le nombre de styles pour chaque position.
+  #getIndexLayer(pos) {
+    var index = 0;
+    if (pos === 0) {
+      index = 0;
+    } else {
+      const entries = Object.entries(this.layers);
+      for (let i = 0; i < pos; i++) {
+        const id = entries.find((e) => { return e[1].position === i; })[0];
+        index += LayersGroup.getGroupLayers(id).length;
+      }
+    }
+    return index;
+  }
+
+  /**
    * Mise à jour des positions dans le gestionnaire et les styles
    * lors de l'ajout ou suppression d'une couche
    * @param {*} id
@@ -270,13 +280,14 @@ class LayerSwitcher extends EventTarget {
     // on redefinie la position des couches vecteurs tuilés dans les styles
     if (typeof id !== "undefined") {
       if (this.layers[id].type === "vector") {
-        // ici, on part du principe que nous avons qu'une seule couche vecteur
-        // possible sur l'application car la couche POI OSM ou les couches des
-        // contrôles sont toujours au dessus des autres couches.
         var pos = this.layers[id].position;
-        var beforeId = this.map.getStyle().layers[pos].id;
+        var beforeId = this.map.getStyle().layers[this.#getIndexLayer(pos)].id;
         var max = (pos === Object.keys(this.layers).length - 1);
-        if (!max && pos !== 0) {
+        if (!max) {
+          // ne jamais déplacer le groupe avant le background tout blanc
+          if (beforeId.split("$$$")[0] === "bckgrd") {
+            return;
+          }
           LayersGroup.moveGroup(id, beforeId);
         }
       }
@@ -355,6 +366,7 @@ class LayerSwitcher extends EventTarget {
    * @param {*} value
    */
   #setColor(id, value) {
+    console.log(id);
     this.layers[id].gray = !value;
     let index;
     for(let i = 0; i < Globals.layersDisplayed.length; i++) {
