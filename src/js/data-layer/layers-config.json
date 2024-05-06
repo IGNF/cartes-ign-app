@@ -15,6 +15,7 @@
         "LANDUSE.AGRICULTURE2022$GEOPORTAIL:OGC:WMTS",
         "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS",
         "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS",
+        "LANDCOVER.FORESTINVENTORY.V2$GEOPORTAIL:OGC:WMTS",
         "ELEVATION.LEVEL0$GEOPORTAIL:OGC:WMTS",
         "HYDROGRAPHY.HYDROGRAPHY$GEOPORTAIL:OGC:WMTS",
         "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS",
@@ -651,7 +652,7 @@
       "title": "Carte forestière",
       "description": "Localisation de 32 types de formations végétales sur le territoire.",
       "source": "IGN",
-      "maj": "Janvier 2018",
+      "maj": "Janvier 2018<br/><br/>Les informations de cette couche correspondent à des données collectées entre 2010 et et 2018. Une nouvelle mise à jour est en cours de réalisation.",
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
         "minScaleDenominator": 266.5911979812229,
