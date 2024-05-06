@@ -60,6 +60,7 @@
         "name": "Risques naturels",
         "keys": ["appign"],
         "layers": [
+          "DEBROUSSAILLEMENT$GEOPORTAIL:OGC:WMTS",
           "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$GEOPORTAIL:OGC:WMTS"
         ]
     },

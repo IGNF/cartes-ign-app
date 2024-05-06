@@ -16,6 +16,7 @@
         "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS",
         "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS",
         "LANDCOVER.FORESTINVENTORY.V2$GEOPORTAIL:OGC:WMTS",
+        "DEBROUSSAILLEMENT$GEOPORTAIL:OGC:WMTS",
         "ELEVATION.LEVEL0$GEOPORTAIL:OGC:WMTS",
         "HYDROGRAPHY.HYDROGRAPHY$GEOPORTAIL:OGC:WMTS",
         "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS",
@@ -746,6 +747,136 @@
         {
           "name": "normal",
           "title": "Légende générique",
+          "current": true,
+          "url": null
+        }
+      ],
+      "legends": [
+        {
+          "format": "image/jpeg",
+          "url": "https://data.geopf.fr/annexes/ressources/legendes/LEGEND.jpg",
+          "minScaleDenominator": "200"
+        }
+      ],
+      "formats": [
+        {
+          "name": "image/png",
+          "current": true
+        }
+      ]
+    },
+    "DEBROUSSAILLEMENT$GEOPORTAIL:OGC:WMTS": {
+      "name": "DEBROUSSAILLEMENT",
+      "title": "Obligations légales de débroussaillement",
+      "description": "Le Zonage Informatif des Obligations légales de débroussaillement (OLD) est une carte en ligne qui permet aux particuliers de pouvoir localiser leur terrain et savoir s’ils sont soumis à la réglementation sur les OLD. Le Zonage Informatif des OLD ne précise pas les règles à appliquer pour débroussailler correctement (profondeur de débroussaillement depuis l’habitation, distance entre les arbres, hauteur d’élagage, etc.). Pour se renseigner sur la réglementation sur les OLD en vigueur sur leur département, les particuliers peuvent contacter la mairie ou la préfecture.",
+      "source": "IGN",
+      "maj": "Mars 2024",
+      "interactive": false,
+      "globalConstraint": {
+        "maxScaleDenominator": 559082264.0287179,
+        "minScaleDenominator": 266.5911979812229,
+        "bbox": {
+          "left": -5.15047,
+          "right": 9.57054,
+          "top": 51.0991,
+          "bottom": 41.3252
+        }
+      },
+      "serviceParams": {
+        "id": "OGC:WMTS",
+        "version": "1.0.0",
+        "serverUrl": {
+          "appign": "https://data.geopf.fr/wmts"
+        }
+      },
+      "defaultProjection": "EPSG:3857",
+      "wmtsOptions": {
+        "tileMatrixSetLink": "PM",
+        "tileMatrixSetLimits": {
+          "6": {
+            "minTileRow": "21",
+            "maxTileRow": "23",
+            "minTileCol": "31",
+            "maxTileCol": "33"
+          },
+          "7": {
+            "minTileRow": "42",
+            "maxTileRow": "47",
+            "minTileCol": "62",
+            "maxTileCol": "67"
+          },
+          "8": {
+            "minTileRow": "85",
+            "maxTileRow": "95",
+            "minTileCol": "124",
+            "maxTileCol": "134"
+          },
+          "9": {
+            "minTileRow": "171",
+            "maxTileRow": "191",
+            "minTileCol": "248",
+            "maxTileCol": "269"
+          },
+          "10": {
+            "minTileRow": "342",
+            "maxTileRow": "382",
+            "minTileCol": "497",
+            "maxTileCol": "539"
+          },
+          "11": {
+            "minTileRow": "684",
+            "maxTileRow": "765",
+            "minTileCol": "994",
+            "maxTileCol": "1078"
+          },
+          "12": {
+            "minTileRow": "1369",
+            "maxTileRow": "1530",
+            "minTileCol": "1989",
+            "maxTileCol": "2156"
+          },
+          "13": {
+            "minTileRow": "2738",
+            "maxTileRow": "3061",
+            "minTileCol": "3978",
+            "maxTileCol": "4313"
+          },
+          "14": {
+            "minTileRow": "5477",
+            "maxTileRow": "6123",
+            "minTileCol": "7957",
+            "maxTileCol": "8627"
+          },
+          "15": {
+            "minTileRow": "10955",
+            "maxTileRow": "12246",
+            "minTileCol": "15915",
+            "maxTileCol": "17255"
+          },
+          "16": {
+            "minTileRow": "21911",
+            "maxTileRow": "24492",
+            "minTileCol": "31830",
+            "maxTileCol": "34510"
+          },
+          "17": {
+            "minTileRow": "43822",
+            "maxTileRow": "48985",
+            "minTileCol": "63660",
+            "maxTileCol": "69020"
+          },
+          "18": {
+            "minTileRow": "87645",
+            "maxTileRow": "97970",
+            "minTileCol": "127321",
+            "maxTileCol": "138041"
+          }
+        }
+      },
+      "styles": [
+        {
+          "name": "nolegend",
+          "title": "Données sans légende",
           "current": true,
           "url": null
         }
