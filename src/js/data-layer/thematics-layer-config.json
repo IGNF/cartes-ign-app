@@ -36,7 +36,8 @@
         "name": "Forêt",
         "keys": ["appign"],
         "layers": [
-            "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS"
+            "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS",
+            "LANDCOVER.FORESTINVENTORY.V2$GEOPORTAIL:OGC:WMTS"
         ]
     },
     {

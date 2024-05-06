@@ -124,6 +124,16 @@ const gfiRules = {
       "subtitle": "Forêts publiques - Source : Office National des Forêts",
     }
   },
+  "LANDCOVER.FORESTINVENTORY.V2$GEOPORTAIL:OGC:WMTS": {
+    0: {
+      "title": "@tfv",
+      "subtitle": "Carte forestière - Source : IGN",
+      "bodyBefore": [
+        ["Type générique :", "{{tfv_g11}}"],
+        ["Essence :", "{{essence}}"],
+      ],
+    }
+  },
   "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$GEOPORTAIL:OGC:WMTS":{
     0: {
       "title": "Parcelles Cadastrales",
