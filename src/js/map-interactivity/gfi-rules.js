@@ -225,7 +225,7 @@ const gfiRules = {
     );
     let template = rule[z];
     if (template["title"][0] === "@") {
-      let str = featureProperties[template.title.split("@")[1]];
+      let str = featureProperties[template.title.split("@")[1]].replace("", "'");
       result.title = str[0].toUpperCase() + str.slice(1);
     } else {
       result.title = template.title;
