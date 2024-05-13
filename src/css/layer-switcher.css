@@ -120,6 +120,11 @@ label[id^="show-advanced-tools_ID_"] {
   border-radius: 50%;
 }
 
+#position-landmark-show-advanced-tools:focus-within,
+#route-draw-show-advanced-tools:focus-within,
+label[id^="landmark-show-advanced-tools_ID_"]:focus-within,
+label[id^="route-show-advanced-tools_ID_"]:focus-within,
+label[id^="show-advanced-tools_ID_"]:focus-within,
 #position-landmark-show-advanced-tools:hover,
 #route-draw-show-advanced-tools:hover,
 label[id^="landmark-show-advanced-tools_ID_"]:hover,
@@ -162,6 +167,19 @@ div[id^="route-advanced-tools_ID_"] {
   left: unset;
 }
 
+#position-landmark-show-advanced-tools:focus-within + #position-landmark-advanced-tools,
+#route-draw-show-advanced-tools:focus-within + #route-draw-advanced-tools,
+label[id^="landmark-show-advanced-tools_ID_"]:focus-within
+  + div[id^="landmark-advanced-tools_ID_"],
+label[id^="route-show-advanced-tools_ID_"]:focus-within
+  + div[id^="route-advanced-tools_ID_"],
+label[id^="show-advanced-tools_ID_"]:focus-within
+  + div[id^="advanced-tools_ID_"],
+#route-draw-advanced-tools:focus-within,
+#position-landmark-advanced-tools:focus-within,
+div[id^="landmark-advanced-tools_ID_"]:focus-within,
+div[id^="route-advanced-tools_ID_"]:focus-within,
+div[id^="advanced-tools_ID_"]:focus-within,
 #position-landmark-show-advanced-tools:hover + #position-landmark-advanced-tools,
 #route-draw-show-advanced-tools:hover + #route-draw-advanced-tools,
 label[id^="landmark-show-advanced-tools_ID_"]:hover

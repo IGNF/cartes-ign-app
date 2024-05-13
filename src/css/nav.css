@@ -44,6 +44,7 @@
     flex-shrink: 0
 }
 
+.navbar.hoverable:focus-within > .navitembtn,
 .navbar.hoverable:hover > .navitembtn {
   color: var(--dark-green);
 }
@@ -52,6 +53,7 @@
     background-image: url(../html/img/explorer.svg);
 }
 
+.navbar.hoverable:focus-within #navimg-explorer,
 .navbar.hoverable:hover #navimg-explorer {
     background-image: url(../html/img/explorer-s.svg);
 }
@@ -60,6 +62,7 @@
   background-image: url(../html/img/deplacer.svg);
 }
 
+.navbar.hoverable:focus-within #navimg-deplacer,
 .navbar.hoverable:hover #navimg-deplacer {
   background-image: url(../html/img/deplacer-s.svg);
 }
@@ -68,7 +71,8 @@
   background-image: url(../html/img/compare.svg);
 }
 
-.navbar.hoverable:hover #navimg-compare{
+.navbar.hoverable:focus-within #navimg-compare,
+.navbar.hoverable:hover #navimg-compare {
   background-image: url(../html/img/compare-s.svg);
 }
 
@@ -76,6 +80,7 @@
   background-image: url(../html/img/compte.svg);
 }
 
+.navbar.hoverable:focus-within #navimg-compte,
 .navbar.hoverable:hover #navimg-compte {
   background-image: url(../html/img/compte-s.svg);
 }
@@ -122,6 +127,7 @@
   margin: 5px 0;
 }
 
+.navbar.hoverable:focus-within .subnav,
 .navbar.hoverable:hover .subnav {
   transform: translate(100%);
 }
@@ -208,6 +214,7 @@
     display: none;
   }
 
+  .navbar.hoverable:focus-within .subnav,
   .navbar.hoverable:hover .subnav {
     transform: translate(0, -100%);
     display: flex;
