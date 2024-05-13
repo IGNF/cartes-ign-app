@@ -121,7 +121,7 @@
 .subnav hr {
   border: none;
   height: 1px;
-  width: 90%;
+  width: 95%;
   color: var(--grey-2);
   background-color: var(--grey-2);
   margin: 5px 0;
@@ -172,6 +172,7 @@
 
 .nav-arrow {
   background-image: url(../html/img/right-arrow.svg);
+  margin-left: auto;
 }
 
 #isochrone > .nav-picto {
