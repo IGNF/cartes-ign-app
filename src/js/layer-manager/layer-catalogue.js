@@ -66,7 +66,7 @@ class LayerCatalogue extends EventTarget {
       return `
       <div class="layer ${opts.type}" id="${opts.layerID}">
         <div class="layerImg">
-          <img src="${opts.layerQuickLook}" alt="${opts.layerName}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
+          <img src="${opts.layerQuickLook}" alt="${opts.layerTitle}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
           <div class="layer-badge"></div>
           <div class="layer-interactive-badge-${opts.interactive}" ></div>
         </div>
