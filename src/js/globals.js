@@ -27,12 +27,6 @@ if (!localStorage.getItem("lastLayersDisplayed")) {
  */
 let backButtonState = "default";
 
-/**
- * global: map state
- * is one of: 'default' 'drawRoute' 'compare' ...
- */
-let mapState = "default";
-
 /** global: last text in search bar */
 let lastTextInSearch = "";
 
@@ -61,7 +55,7 @@ let position = null;
 
 // Global Compare Plugin
 let compare = null;
-let comparedLayers = ["ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS", "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$GEOPORTAIL:OGC:WMTS"];
+let comparedLayers = ["ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$GEOPORTAIL:OGC:WMTS", "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS"];
 
 // Global Menu navigation
 let menu = null;
@@ -107,7 +101,6 @@ export default {
   mapRLT2,
   layersDisplayed,
   backButtonState,
-  mapState,
   lastTextInSearch,
   myPositionMarker,
   searchResultMarker,
