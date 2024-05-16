@@ -702,6 +702,22 @@ ${landmark.properties.description}
    * @returns
    */
   #geojsonToRoute(routeJson) {
+    routeJson.features.forEach(feature => {
+      if (feature.geometry.type === "MultiLineString") {
+        feature.geometry.coordinates.forEach(linestringCoords => {
+          const newFeature = {
+            type: "Feature",
+            properties: feature.properties,
+            geometry: {
+              type: "LineString",
+              coordinates: linestringCoords
+            }
+          };
+          routeJson.features.push(newFeature);
+        });
+      }
+    });
+    routeJson.features = routeJson.features.filter(feature => ["LineString", "Point"].includes(feature.geometry.type));
     const steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
     const points = routeJson.features.filter(feature => feature.geometry.type === "Point");
     if (points.length === 0) {
