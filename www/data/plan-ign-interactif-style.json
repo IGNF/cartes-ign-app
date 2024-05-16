@@ -17,6 +17,7 @@
     "bdtopo": {
       "type": "vector",
       "maxzoom": 19,
+      "minzoom": 15,
       "tiles": [
         "https://data.geopf.fr/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf"
       ]
