@@ -1,0 +1,29 @@
+name: 🚀 Demander une évolution
+description: Suggérer une idée d'évolution ou de nouvelle fonctionnalité pour cartes.gouv.fr
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need-description
+    attributes:
+        label: Le besoin que vous rencontrez
+        description: |
+          Décrivez de façon claire et concise à quel besoin vous êtes confronté.
+    validations:
+        required: true
+  - type: textarea
+    id: possible-solution
+    attributes:
+        label: La solution que vous aimeriez
+        description: |
+            Décrivez précisément comment vous aimeriez que l'application ou la nouvelle fonctionnalité se comporte pour répondre à votre besoin.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Les alternatives que vous avez considéré
+      description: Décrivez si possible les solutions alternatives que vous avez envisagé. Cela peut-être d'autres outils ou une fonctionnalité différente.
+  - type: textarea
+    id: additional-context
+    attributes:
+        label: Autres éléments de contexte
+        description: |
+          N'hésitez pas à ajouter tout élément de contexte qui vous semble utile pour aider l'équipe à mieux comprendre votre demande : copie d'écran, jeux de données...

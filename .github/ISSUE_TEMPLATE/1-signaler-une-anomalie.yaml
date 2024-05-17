@@ -1,0 +1,48 @@
+name: 🐛 Signaler une anomalie
+description: Aidez nous à améliorer cartes.gouv.fr en complétant ce rapport d'anomalie
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        Une description claire et concise de l'anomalie rencontrée.
+        Ajoutez si possible des copies d'écran si cela peut aider à expliquer le problème.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: Comportement attendu
+      description: Une description claire et concise du comportement que vous vous attendiez à rencontrer.
+    validations:
+      required: true
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: Comment reproduire l'anomalie
+      description: |
+        Dans quelles conditions se produit l'anomalie : sur un ordinateur de bureau ou sur mobile ? Avec quel système d'exploitation ? Quel navigateur et version ?
+        Etapes pour reproduire le comportement :
+        1. Se rendre sur ...
+        2. Cliquer sur ...
+        3. Scroller jusqu'à ...
+        4. Constater l'erreur ...
+
+        Ajoutez des copies d'écran si nécessaire.
+    validations:
+      required: true
+  - type: textarea
+    id: possible-solution
+    attributes:
+      label: Solution possible
+      description: |
+        Optionnel : seulement si vous avez des suggestions pour corriger cette anomalie.
+        N'hésitez pas à créer une Pull Request pour avoir un retour plus direct.
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Complément de contexte
+      description: |
+        Optionnel : Ajoutez toute information qui vous semblerait utile pour nous aider à cerner cette anomalie.
