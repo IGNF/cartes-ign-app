@@ -67,7 +67,7 @@
           "vacant",
           "variety_store",
           "wine",
-          "yes"
+          "divers_magenta"
         ]
       }
     ]
@@ -93,7 +93,8 @@
           "swimming_pool",
           "theatre",
           "theme_park",
-          "zoo"
+          "zoo",
+          "divers_vert"
         ]
       }
     ]
@@ -108,7 +109,8 @@
         "attributs": [
           "camp_site",
           "hotel",
-          "hut"
+          "hut",
+          "divers_rouge"
         ]
       }
     ]
@@ -132,7 +134,8 @@
           "jewish",
           "muslim",
           "viewpoint",
-          "waterway"
+          "waterway",
+          "divers_marron"
         ]
       }
     ]
@@ -146,7 +149,8 @@
         "field": "symbo",
         "attributs": [
           "bar",
-          "restaurant"
+          "restaurant",
+          "divers_orange"
         ]
       }
     ]
@@ -186,7 +190,9 @@
           "rest_area",
           "services",
           "drinking_water",
-          "picnic_table"
+          "picnic_table",
+          "divers_gris",
+          "divers_bleu"
         ]
       }
     ]
