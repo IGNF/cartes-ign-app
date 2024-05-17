@@ -9,13 +9,16 @@ Cartes IGN est l'application mobile développée par l'IGN pour découvrir la Fr
 ## Installation et tests en local
 
 Installation des dépendances :
-`npm i`
+
+```npm i```
 
 Serveur de test pour développement sur navigateur :
-`npm run serve:dev`
+
+```npm run serve:dev```
 
 Installation sur un émulateur Android ou sur un téléphone Android branché en mode débuggage :
-`npm run run:android`
+
+```npm run run:android```
 
 ## Contributions
 
@@ -24,4 +27,5 @@ Pour suggérer des modifications, merci d'utiliser les [issues](https://github.c
 ## License
 
 [A définir](LICENSE)
+
 [Licenses des dépendances](third-party-licenses.txt)
