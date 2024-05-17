@@ -32,16 +32,30 @@
                 <data android:pathSuffix=".json" />
                 <data android:pathSuffix=".geojson" />
                 <data android:host="*" />
+                <data android:pathPattern=".*\\.json" />
+                <data android:pathPattern=".*\\..*\\.json" />
+                <data android:pathPattern=".*\\..*\\..*\\.json" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.json" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.json" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.json" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.json" />
+                <data android:pathPattern=".*\\.geojson" />
+                <data android:pathPattern=".*\\..*\\.geojson" />
+                <data android:pathPattern=".*\\..*\\..*\\.geojson" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.geojson" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.geojson" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.geojson" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.geojson" />
             </intent-filter>
             <!-- Pour les pièces jointes -->
             <intent-filter>
-                <data android:scheme="content" android:mimeType="application/json" android:pathSuffix=".json" />
-                <data android:scheme="content" android:mimeType="application/geo+json" android:pathSuffix=".geojson" />
-                <data android:scheme="content" android:mimeType="application/octet-stream" android:pathSuffix=".json" />
+                <data android:scheme="content" android:mimeType="application/json" android:pathPattern=".*\\.json" />
+                <data android:scheme="content" android:mimeType="application/geo+json" android:pathPattern=".*\\.geojson" />
+                <data android:scheme="content" android:mimeType="application/octet-stream" android:pathPattern=".*\\.json" />
                 <data
                     android:scheme="content"
                     android:mimeType="application/octet-stream"
-                    android:pathSuffix=".geojson"
+                    android:pathPattern=".*\\.geojson"
                 />
                 <action android:name="android.intent.action.VIEW" />
 
