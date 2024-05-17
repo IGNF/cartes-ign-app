@@ -22,7 +22,7 @@
     "ecosystem:capacitor"
   ],
   "author": "IGN",
-  "license": "Apache-2.0",
+  "license": "GPLv3",
   "dependencies": {
     "@aashu-dubey/capacitor-statusbar-safe-area": "^2.1.1",
     "@agorapulse/capacitor-mediastore": "^0.2.0",
@@ -66,6 +66,7 @@
     "css-minimizer-webpack-plugin": "^5.0.1",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.56.0",
+    "eslint-plugin-license-header": "^0.6.1",
     "generate-license-file": "^3.4.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.6.0",

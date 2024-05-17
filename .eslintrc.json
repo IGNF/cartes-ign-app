@@ -9,6 +9,9 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
+    "plugins": [
+        "license-header"
+    ],
     "rules": {
         "indent": [
             "error",
@@ -25,6 +28,7 @@
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "license-header/header": [ "error", "./license-header.js" ]
     }
 }

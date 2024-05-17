@@ -26,6 +26,6 @@ Pour suggérer des modifications, merci d'utiliser les [issues](https://github.c
 
 ## License
 
-[A définir](LICENSE)
+[GNU GPLv3](LICENSE)
 
 [Licenses des dépendances](third-party-licenses.txt)
