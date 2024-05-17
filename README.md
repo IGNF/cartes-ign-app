@@ -24,3 +24,4 @@ Pour suggérer des modifications, merci d'utiliser les [issues](https://github.c
 ## License
 
 [A définir](LICENSE)
+[Licenses des dépendances](third-party-licenses.txt)
