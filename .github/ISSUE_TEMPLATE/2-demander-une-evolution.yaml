@@ -1,5 +1,5 @@
 name: 🚀 Demander une évolution
-description: Suggérer une idée d'évolution ou de nouvelle fonctionnalité pour cartes.gouv.fr
+description: Suggérer une idée d'évolution ou de nouvelle fonctionnalité pour Cartes IGN
 labels: [enhancement]
 body:
   - type: textarea

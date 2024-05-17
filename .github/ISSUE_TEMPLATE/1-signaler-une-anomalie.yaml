@@ -1,5 +1,5 @@
 name: 🐛 Signaler une anomalie
-description: Aidez nous à améliorer cartes.gouv.fr en complétant ce rapport d'anomalie
+description: Aidez nous à améliorer Cartes IGN en complétant ce rapport d'anomalie
 labels: [bug]
 body:
   - type: textarea
