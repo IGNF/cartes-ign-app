@@ -16,6 +16,8 @@ import { FilePicker } from "@capawesome/capacitor-file-picker";
 import { App } from "@capacitor/app";
 import maplibregl from "maplibre-gl";
 import Sortable from "sortablejs";
+import { kml, gpx } from "@tmcw/togeojson";
+import { DOMParser } from "xmldom"
 
 import LandmarkIconSaved from "../../css/assets/landmark-saved-map.png";
 import LandmarkIconFavourite from "../../css/assets/landmark-favourite-map.png";
@@ -253,7 +255,8 @@ class MyAccount {
       } catch (e) {
         filename = "Données importées";
       }
-      this.#importData(fileData.data, filename);
+      let fileExtension = url.split(".").splice(-2)[1];
+      this.#importData(fileData.data, filename, fileExtension);
     }
   }
 
@@ -265,19 +268,28 @@ class MyAccount {
       limit: 1,
       readData: true,
     });
-    this.#importData(result.files[0].data, result.files[0].name.split(".")[0]);
+    this.#importData(result.files[0].data, result.files[0].name.split(".")[0], result.files[0].name.split(".")[1]);
   }
 
   /**
    * Importe la donnée d'un fichier
    * @param {String} data fichier sous forme base64
    */
-  #importData(data, defaultName) {
+  #importData(data, defaultName, extension = "json") {
     try {
+      let imported;
       // UTF-8 decoding https://stackoverflow.com/a/64752311
-      const imported = JSON.parse(decodeURIComponent(atob(data).split("").map(function(c) {
+      const rawData = decodeURIComponent(atob(data).split("").map(function(c) {
         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join("")));
+      }).join(""));
+      if (extension === "gpx") {
+        imported = gpx(new DOMParser().parseFromString(rawData));
+      } else if (extension === "kml") {
+        imported = kml(new DOMParser().parseFromString(rawData));
+      } else {
+        imported = JSON.parse(rawData);
+      }
+
       // Mode Landmark
       if (imported.type === "Feature" && imported.geometry.type === "Point") {
         if (!imported.properties) {

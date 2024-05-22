@@ -31,6 +31,8 @@
                 <data android:mimeType="*/*" />
                 <data android:pathSuffix=".json" />
                 <data android:pathSuffix=".geojson" />
+                <data android:pathSuffix=".gpx" />
+                <data android:pathSuffix=".kml" />
                 <data android:host="*" />
                 <data android:pathPattern=".*\\.json" />
                 <data android:pathPattern=".*\\..*\\.json" />
@@ -46,6 +48,20 @@
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.geojson" />
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.geojson" />
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.geojson" />
+                <data android:pathPattern=".*\\.gpx" />
+                <data android:pathPattern=".*\\..*\\.gpx" />
+                <data android:pathPattern=".*\\..*\\..*\\.gpx" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.gpx" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.gpx" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.gpx" />
+                <data android:pathPattern=".*\\.kml" />
+                <data android:pathPattern=".*\\..*\\.kml" />
+                <data android:pathPattern=".*\\..*\\..*\\.kml" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.kml" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kml" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.kml" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.kml" />
             </intent-filter>
             <!-- Pour les pièces jointes -->
             <intent-filter>
