@@ -17,7 +17,7 @@ import { App } from "@capacitor/app";
 import maplibregl from "maplibre-gl";
 import Sortable from "sortablejs";
 import { kml, gpx } from "@tmcw/togeojson";
-import { DOMParser } from "xmldom"
+import { DOMParser } from "xmldom";
 
 import LandmarkIconSaved from "../../css/assets/landmark-saved-map.png";
 import LandmarkIconFavourite from "../../css/assets/landmark-favourite-map.png";
@@ -87,14 +87,14 @@ class MyAccount {
       this.landmarks = this.landmarks.concat(localLandmarks);
     }
 
-    this.map.loadImage(LandmarkIconSaved, (_, image) => {
-      this.map.addImage("landmark-icon-saved", image);
+    this.map.loadImage(LandmarkIconSaved).then((image) => {
+      this.map.addImage("landmark-icon-saved", image.data);
     });
-    this.map.loadImage(LandmarkIconFavourite, (_, image) => {
-      this.map.addImage("landmark-icon-favourite", image);
+    this.map.loadImage(LandmarkIconFavourite).then((image) => {
+      this.map.addImage("landmark-icon-favourite", image.data);
     });
-    this.map.loadImage(LandmarkIconTovisit, (_, image) => {
-      this.map.addImage("landmark-icon-tovisit", image);
+    this.map.loadImage(LandmarkIconTovisit).then((image) => {
+      this.map.addImage("landmark-icon-tovisit", image.data);
     });
 
     // récupération des infos et rendu graphique

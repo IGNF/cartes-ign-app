@@ -101,11 +101,11 @@ class RouteDraw {
     this.elevation = new ElevationLineControl({ target: document.getElementById("routedraw-elevationline") });
     this.elevation.addSourcesAndLayers();
 
-    this.map.loadImage(RouteDepartureIcon, (_, image) => {
-      this.map.addImage("routeDepartureIcon", image);
+    this.map.loadImage(RouteDepartureIcon).then((image) => {
+      this.map.addImage("routeDepartureIcon", image.data);
     });
-    this.map.loadImage(RouteDestinationIcon, (_, image) => {
-      this.map.addImage("routeDestinationIcon", image);
+    this.map.loadImage(RouteDestinationIcon).then((image) => {
+      this.map.addImage("routeDestinationIcon", image.data);
     });
 
     // fonction d'event avec bind

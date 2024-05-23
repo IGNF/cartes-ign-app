@@ -82,8 +82,8 @@ class ComparePoi {
       type: "geojson",
       data: ComparePoiData,
     });
-    this.map.loadImage(ComparePoiIcon, (_, image) => {
-      this.map.addImage("comparePoiIcon", image);
+    this.map.loadImage(ComparePoiIcon).then((image) => {
+      this.map.addImage("comparePoiIcon", image.data);
     });
   }
 
