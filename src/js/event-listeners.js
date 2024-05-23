@@ -97,6 +97,7 @@ function addListeners() {
 
   // Action du backbutton
   document.addEventListener("backbutton", State.onBackKeyDown, false);
+  DOM.$tabClose.addEventListener("click", State.onBackKeyDown, false);
 
   const saveState = () => {
     if (Globals.backButtonState.split("-")[0] === "position") {

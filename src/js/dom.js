@@ -56,6 +56,7 @@ const $informationsImg = document.getElementById("informationsImg");
 const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
 const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule");
 
+const $tabClose = document.getElementById("tabClose");
 const $tabContainer = document.getElementById("tabContainer");
 
 const $searchresultsWindow = document.getElementById("searchresultsWindow");
@@ -131,4 +132,5 @@ export default {
   $signalementWindow,
   $signalementOSMWindow,
   $landmarkWindow,
+  $tabClose,
 };
