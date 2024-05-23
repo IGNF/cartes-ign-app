@@ -36,24 +36,37 @@ let domUtils = {
   },
 
   horizontalParentScroll: (event) => {
+    var maxScrollLeft = event.target.parentElement.scrollWidth - event.target.parentElement.clientWidth;
+    if (event.target.parentElement.scrollLeft >= maxScrollLeft - 10) {
+      console.log("ici");
+      console.log(event.target.parentElement);
+      event.target.parentElement.scrollTo({
+        left: 0,
+        top: 0,
+        behavior : "smooth",
+      });
+      return;
+    }
+
     event.target.parentElement.scrollBy({
       left: event.target.parentElement.offsetWidth * 0.8,
       top: 0,
       behavior : "smooth",
     });
 
-    var addScollArrow = function () {
+    var reverseScrollArrow = function () {
       if (event.target.parentElement.scrollLeft !== maxScrollLeft) {
-        event.target.classList.remove("d-none");
+        event.target.classList.remove("reverse");
       }
-      event.target.parentElement.removeEventListener("scrollend", addScollArrow);
+      event.target.parentElement.removeEventListener("scrollend", reverseScrollArrow);
     };
 
-    var maxScrollLeft = event.target.parentElement.scrollWidth - event.target.parentElement.clientWidth;
     event.target.parentElement.addEventListener("scrollend", () => {
-      if (event.target.parentElement.scrollLeft === maxScrollLeft) {
-        event.target.classList.add("d-none");
-        event.target.parentElement.addEventListener("scrollend", addScollArrow);
+      console.log(event.target.parentElement.scrollLeft);
+      console.log(maxScrollLeft);
+      if (event.target.parentElement.scrollLeft >= maxScrollLeft - 10) {
+        event.target.classList.add("reverse");
+        event.target.parentElement.addEventListener("scrollend", reverseScrollArrow);
       }
     });
   }

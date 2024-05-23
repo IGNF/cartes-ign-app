@@ -164,6 +164,13 @@
   visibility: visible;
   flex-shrink: 0;
 }
+#subCatButtonAfter.reverse,
+#baseLayersAfter.reverse {
+  background: url("assets/arrow-left.svg"), linear-gradient(90deg,#fff0,var(--false-white) 40%);
+  background-repeat: no-repeat;
+  background-position: right 3px top 50%, right;
+  background-size: 20px, cover;
+}
 #subCatButtonAfter {
   height: 100%;
 }
