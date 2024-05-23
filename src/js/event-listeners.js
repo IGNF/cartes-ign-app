@@ -239,7 +239,9 @@ function addListeners() {
       return;
     }
     TextZoom.getPreferred().then(value => {
-      TextZoom.set(value);
+      TextZoom.set({
+        value: Math.min(1.5, value.value)
+      });
     });
   });
 

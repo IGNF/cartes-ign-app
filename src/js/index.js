@@ -73,7 +73,9 @@ function app() {
     }, 500);
     if (Capacitor.getPlatform() !== "web") {
       TextZoom.getPreferred().then(value => {
-        TextZoom.set(value);
+        TextZoom.set({
+          value: Math.min(1.5, value.value)
+        });
       });
     }
     if (!localStorage.getItem("hasBeenLaunched")) {
