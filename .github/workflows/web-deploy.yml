@@ -2,52 +2,15 @@ name: Web deploy
 
 on:
   workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  push:
+    branches: ["develop"]
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v3
-
-      - name: Make envfile
+      - name: Send curl to trigger build
         run: |
-          echo "GPF_key=${{ secrets.GPF_key }}" > .env
-          echo "signalement_url=${{ secrets.SIGNALEMENT_URL }}" >> .env
+          curl -X POST --fail -F token=${{ secrets.CI_token }} -F "ref=main" -F "variables[RUN_NIGHTLY_BUILD]=true" https://gitlab.gpf-tech.ign.fr/api/v4/projects/1292/trigger/pipeline
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Install app dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          # Upload entire repository
-          path: 'www'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
