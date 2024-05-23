@@ -11417,7 +11417,7 @@
         "text-field": "{borne_sur}",
         "text-size": 11,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-offset": [
           0,
           -1
@@ -11457,7 +11457,7 @@
         "text-field": "{borne_sur}",
         "text-size": 11,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-offset": [
           0,
           -1.3
@@ -11502,7 +11502,7 @@
         "text-field": "{borne_sur}",
         "text-size": 11,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-offset": [
           0,
           -1.4
@@ -11545,7 +11545,7 @@
         "text-field": "{borne_sur}",
         "text-size": 11,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-offset": [
           0,
           -1.5
@@ -11589,7 +11589,7 @@
         "text-field": "{borne_sur}",
         "text-size": 11,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-offset": [
           0,
           -1.6
@@ -11634,7 +11634,7 @@
         "text-field": "{borne_sous}",
         "text-size": 11,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-offset": [
           0,
           1
@@ -11674,7 +11674,7 @@
         "text-field": "{borne_sous}",
         "text-size": 11,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-offset": [
           0,
           1.3
@@ -11719,7 +11719,7 @@
         "text-field": "{borne_sous}",
         "text-size": 11,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-offset": [
           0,
           1.4
@@ -11762,7 +11762,7 @@
         "text-field": "{borne_sous}",
         "text-size": 11,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-offset": [
           0,
           1.5
@@ -11806,7 +11806,7 @@
         "text-field": "{borne_sous}",
         "text-size": 11,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-offset": [
           0,
           1.6
@@ -12804,7 +12804,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-padding": 5,
         "text-font": [
           "Source Sans Pro Regular"
@@ -12831,7 +12831,7 @@
         "text-field": "{texte}",
         "text-size": 14,
         "text-anchor": "center",
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-padding": 1,
         "text-font": [
           "Source Sans Pro Italic"
@@ -13180,7 +13180,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-padding": 1,
         "text-font": [
           "Source Sans Pro Italic"
@@ -13223,7 +13223,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-padding": 5,
         "text-font": [
           "Source Sans Pro Regular"
@@ -13299,7 +13299,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -13348,7 +13348,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -13388,7 +13388,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -13857,7 +13857,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-padding": 1,
         "text-font": [
           "Source Sans Pro Italic"
@@ -14000,7 +14000,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-padding": 10,
         "text-font": [
           "Source Sans Pro Regular"
@@ -14130,7 +14130,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -14184,7 +14184,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -14715,7 +14715,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -14770,7 +14770,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -14886,7 +14886,7 @@
         "symbol-placement": "point",
         "text-field": "{texte}",
         "text-size": 17,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -14964,7 +14964,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-padding": 1,
         "text-font": [
           "Source Sans Pro Regular"
@@ -14995,7 +14995,7 @@
         "symbol-placement": "point",
         "text-field": "{texte}",
         "text-size": 21,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-padding": 1,
         "text-font": [
           "Source Sans Pro Regular"
@@ -15173,7 +15173,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-padding": 10,
         "text-font": [
           "Source Sans Pro Regular"
@@ -15219,7 +15219,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "bottom-left",
         "text-offset": [
           0.3,
@@ -15286,7 +15286,7 @@
         "symbol-placement": "point",
         "text-field": "{texte}",
         "text-size": 19,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -15329,7 +15329,7 @@
         "symbol-placement": "point",
         "text-field": "{texte}",
         "text-size": 21,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -15379,7 +15379,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-transform": "uppercase",
@@ -15430,7 +15430,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-transform": "uppercase",
@@ -15482,7 +15482,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-transform": "uppercase",
@@ -15526,7 +15526,7 @@
         "symbol-placement": "point",
         "text-field": "{texte}",
         "text-size": 23,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-font": [
@@ -15565,7 +15565,7 @@
         "symbol-placement": "point",
         "text-field": "{texte}",
         "text-size": 17,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-transform": "uppercase",
@@ -15605,7 +15605,7 @@
         "symbol-placement": "point",
         "text-field": "{texte}",
         "text-size": 19,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-transform": "uppercase",
@@ -15645,7 +15645,7 @@
         "symbol-placement": "point",
         "text-field": "{texte}",
         "text-size": 21,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-transform": "uppercase",
@@ -15755,7 +15755,7 @@
         "symbol-placement": "point",
         "text-field": "{texte}",
         "text-size": 23,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-transform": "uppercase",
@@ -15796,7 +15796,7 @@
             ]
           ]
         },
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 10,
         "text-font": [
@@ -15825,7 +15825,7 @@
         "visibility": "visible",
         "text-field": "{texte}",
         "text-size": 9,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-transform": "uppercase",
@@ -15855,7 +15855,7 @@
         "visibility": "visible",
         "text-field": "{texte}",
         "text-size": 13,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 2,
         "text-transform": "uppercase",
@@ -15885,7 +15885,7 @@
         "visibility": "visible",
         "text-field": "{texte}",
         "text-size": 13,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 2,
         "text-transform": "uppercase",
@@ -15914,7 +15914,7 @@
         "visibility": "visible",
         "text-field": "{texte}",
         "text-size": 15,
-        "text-allow-overlap": true,
+        "text-allow-overlap": false,
         "text-anchor": "center",
         "text-padding": 1,
         "text-transform": "uppercase",
