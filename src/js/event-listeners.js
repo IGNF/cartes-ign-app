@@ -195,9 +195,6 @@ function addListeners() {
         DOM.$bottomButtons.style.width = "calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right))";
       }
     }
-    if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-      Globals.map.setPadding({bottom: 0});
-    }
     Globals.menu.updateScrollAnchors();
   };
 
@@ -255,9 +252,6 @@ function addListeners() {
       DOM.$bottomButtons.style.transform = "translateY(-100vh)";
       DOM.$routeDrawEdit.style.transform = "translateX(100vw)";
       DOM.$filterPoiBtn.style.transform = "translateY(-100vh)";
-    }
-    if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-      Globals.map.setPadding({bottom: window.scrollY});
     }
   });
 }

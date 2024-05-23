@@ -180,7 +180,16 @@ class ElevationLineControl {
               "coordinates": this.profileLngLats[point.element.$context.index]
             }
           });
-          Globals.map.setCenter(this.profileLngLats[point.element.$context.index]);
+          const coordinates = [
+            [this.profileLngLats[point.element.$context.index][0] - 0.005, this.profileLngLats[point.element.$context.index][1] - 0.005],
+            [this.profileLngLats[point.element.$context.index][0] + 0.005, this.profileLngLats[point.element.$context.index][1] + 0.005]
+          ];
+          const bounds = coordinates.reduce((bounds, coord) => {
+            return bounds.extend(coord);
+          }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+          Globals.map.fitBounds(bounds, {
+            padding: {bottom: window.scrollY},
+          });
           chart.crosshair = {x, y, draw: inChartArea};
           chart.draw();
         } else {
