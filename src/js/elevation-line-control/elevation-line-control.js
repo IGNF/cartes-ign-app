@@ -180,6 +180,7 @@ class ElevationLineControl {
               "coordinates": this.profileLngLats[point.element.$context.index]
             }
           });
+          Globals.map.setCenter(this.profileLngLats[point.element.$context.index]);
           chart.crosshair = {x, y, draw: inChartArea};
           chart.draw();
         } else {
