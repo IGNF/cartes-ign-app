@@ -17,7 +17,7 @@ import { App } from "@capacitor/app";
 import maplibregl from "maplibre-gl";
 import Sortable from "sortablejs";
 import { kml, gpx } from "@tmcw/togeojson";
-import { DOMParser } from "xmldom";
+import { DOMParser } from "@xmldom/xmldom";
 
 import LandmarkIconSaved from "../../css/assets/landmark-saved-map.png";
 import LandmarkIconFavourite from "../../css/assets/landmark-favourite-map.png";
