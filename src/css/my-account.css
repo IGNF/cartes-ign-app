@@ -67,7 +67,7 @@
 }
 
 #myAccountImportBtn,
-#myAccountLogInBtn {
+#myAccountAuthBtn {
   background-color: var(--dark-green);
   color: white;
   font-family: "Open Sans Semibold";

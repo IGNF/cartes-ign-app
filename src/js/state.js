@@ -34,6 +34,11 @@ const onBackKeyDown = () => {
     Globals.menu.open("myaccount");
     return;
   }
+  if (Globals.backButtonState === "auth") {
+    Globals.menu.close("auth");
+    Globals.menu.open("myaccount");
+    return;
+  }
   if (Globals.backButtonState === "informations") {
     Globals.menu.close("informations");
     return;

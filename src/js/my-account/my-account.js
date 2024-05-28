@@ -8,6 +8,7 @@ import Globals from "../globals";
 import MyAccountDOM from "./my-account-dom";
 import MyAccountLayers from "./my-account-styles";
 import utils from "../utils/unit-utils";
+import Auth from "./my-account-auth"
 
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
@@ -58,6 +59,9 @@ class MyAccount {
 
     // nom d'utilisateur
     this.accountName = null;
+
+    // paramètre de connexion
+    this.auth = new Auth()
 
     // itinéraires
     this.routes = [];

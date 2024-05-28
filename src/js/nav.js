@@ -270,6 +270,15 @@ class MenuNavigation {
       }
       Globals.currentScrollIndex = 1;
       break;
+    case "auth":
+        Globals.backButtonState = "auth";
+        document.body.style.overflowY = "scroll";
+        DOM.$whiteScreen.classList.remove('d-none');
+        DOM.$search.style.display = "none";
+        DOM.$backTopLeftBtn.classList.remove('d-none');
+        DOM.$altMenuContainer.classList.remove('d-none');
+        Globals.currentScrollIndex = 0;
+        break;
     case "informations":
       Globals.currentScrollIndex = 1;
       break;
@@ -557,6 +566,15 @@ class MenuNavigation {
       isFinished = true;
       break;
     case "myaccount":
+    case "auth":
+      DOM.$whiteScreen.style.removeProperty("background-color");
+      document.body.style.removeProperty("overflow-y");
+      DOM.$whiteScreen.classList.add("d-none");
+      DOM.$search.style.display = "flex";
+      DOM.$filterPoiBtn.style.removeProperty("top");
+      DOM.$backTopLeftBtn.classList.add("d-none");
+      DOM.$altMenuContainer.classList.add("d-none");
+        break;
     case "informationsScreen":
       DOM.$whiteScreen.style.removeProperty("background-color");
       document.body.style.removeProperty("overflow-y");

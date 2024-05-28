@@ -8,7 +8,7 @@ import { Toast } from "@capacitor/toast";
 
 import utils from "../utils/unit-utils";
 import DomUtils from "../utils/dom-utils";
-
+import Globals from "../globals";
 /**
  * DOM de la fenêtre de compte
  * @mixin MyAccountDOM
@@ -23,6 +23,8 @@ let MyAccountDOM = {
     landmarkTab: null,
     landmarkList: null,
     importBtn: null,
+    authBtn: null,
+    logOutBtn: null,
   },
 
   /**
@@ -64,34 +66,25 @@ let MyAccountDOM = {
     div.className = "";
     var bodyHeader = document.createElement("p");
     bodyHeader.id = "myAccountHeaderName";
-    // var connected = true;
+    var connected = true;
     if (!accountName) {
       accountName = "Mes enregistrements";
-      // connected = false;
+      connected = false;
     }
     bodyHeader.innerText = accountName;
     div.appendChild(bodyHeader);
 
     // INFO: pour le compte GPF
-    // if (!connected) {
-    //   var logInBtn = document.createElement("div");
-    //   logInBtn.id = "myAccountLogInBtn";
-    //   logInBtn.innerText = "Se connecter";
-    //   div.appendChild(logInBtn);
-
-    //   logInBtn.addEventListener("click", () => {
-    //     console.warn("GPF auth not implemented");
-    //   });
-    // } else {
-    //   var logOutBtn = document.createElement("div");
-    //   logOutBtn.id = "myAccountLogOutBtn";
-    //   logOutBtn.innerText = "Se déconnecter";
-    //   div.appendChild(logOutBtn);
-    // }
+    if (!connected) {
+      this.dom.authBtn = this.__addauthBtn();
+      div.appendChild(this.dom.authBtn);
+    } else {
+      this.dom.logOutBtn = this.__addLogOutBtn();
+      div.appendChild(this.dom.logOutBtn);
+    }
 
     // REMOVEME when account ready
     this.dom.importBtn = this.__addImportBtn();
-
     div.appendChild(this.dom.importBtn);
 
     return div;
@@ -110,6 +103,40 @@ let MyAccountDOM = {
     btn.addEventListener("click", () => { this.importFile(); });
     return btn;
   },
+
+    /**
+   * ajout du bouton de connection
+   * @returns {DOMElement}
+   * @private
+   */
+    __addauthBtn() {
+      var authBtn = document.createElement("div");
+      authBtn.id = "myAccountAuthBtn";
+      authBtn.innerText = "Se connecter";
+  
+      authBtn.addEventListener("click", () => { 
+        console.log("open connection page");
+        Globals.menu.close('myaccount');
+        Globals.menu.open('auth');   
+      });
+      return authBtn;
+    },
+
+    /**
+   * ajout du bouton de déconnection
+   * @returns {DOMElement}
+   * @private
+   */
+    __addLogOutBtn() {
+      var logOutBtn = document.createElement("div");
+      logOutBtn.id = "myAccountLogOutBtn";
+      logOutBtn.innerText = "Se déconnecter";
+  
+      logOutBtn.addEventListener("click", () => { 
+        console.log("déconnection page"); 
+      });
+      return logOutBtn;
+    },
 
   /**
    * ajout du container des onglets

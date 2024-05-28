@@ -66,6 +66,7 @@ const $directionsResultsWindow = document.getElementById("directionsResultsWindo
 const $isochroneWindow = document.getElementById("isochroneWindow");
 const $positionWindow = document.getElementById("positionWindow");
 const $myaccountWindow = document.getElementById("myaccountWindow");
+const $authWindow = document.getElementById("authWindow");
 const $poiWindow = document.getElementById("poiWindow");
 const $routeDrawWindow = document.getElementById("routeDrawWindow");
 const $routeDrawSaveWindow = document.getElementById("routeDrawSaveWindow");
@@ -106,6 +107,7 @@ export default {
   $compareLayers1Window,
   $compareLayers2Window,
   $myaccountWindow,
+  $authWindow,
   $informationsWindow,
   $informationsText,
   $informationsImg,
