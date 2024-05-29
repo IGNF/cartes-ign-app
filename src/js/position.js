@@ -174,7 +174,7 @@ class Position {
           ${this.additionalHtml.beforeButtons}
           <div class="divPositionButtons">
             ${htmlButtons}
-            <div id="divPositionButtonsAfter"></div>
+            <div id="divPositionButtonsAfter" title="Faire défiler le menu" tabindex="0"><div></div></div>
           </div>
           ${this.additionalHtml.afterButtons}
       </div>

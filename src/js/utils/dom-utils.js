@@ -38,8 +38,6 @@ let domUtils = {
   horizontalParentScroll: (event) => {
     var maxScrollLeft = event.target.parentElement.scrollWidth - event.target.parentElement.clientWidth;
     if (event.target.parentElement.scrollLeft >= maxScrollLeft - 10) {
-      console.log("ici");
-      console.log(event.target.parentElement);
       event.target.parentElement.scrollTo({
         left: 0,
         top: 0,
@@ -62,8 +60,6 @@ let domUtils = {
     };
 
     event.target.parentElement.addEventListener("scrollend", () => {
-      console.log(event.target.parentElement.scrollLeft);
-      console.log(maxScrollLeft);
       if (event.target.parentElement.scrollLeft >= maxScrollLeft - 10) {
         event.target.classList.add("reverse");
         event.target.parentElement.addEventListener("scrollend", reverseScrollArrow);

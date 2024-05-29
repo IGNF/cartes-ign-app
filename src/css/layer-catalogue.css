@@ -156,20 +156,35 @@
   top: 0;
   right: -1px;
   width: 41px;
-  background: url("assets/arrow-right.svg"), linear-gradient(90deg,#fff0,var(--false-white) 40%);
+  background: linear-gradient(90deg,#fff0,var(--false-white) 40%);
   background-repeat: no-repeat;
-  background-position: right 3px top 50%, right;
-  background-size: 20px, cover;
+  background-position: right;
+  background-size: cover;
   opacity: 1;
   visibility: visible;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: self-end;
 }
-#subCatButtonAfter.reverse,
-#baseLayersAfter.reverse {
-  background: url("assets/arrow-left.svg"), linear-gradient(90deg,#fff0,var(--false-white) 40%);
+
+#baseLayersAfter > div,
+#subCatButtonAfter > div {
+  pointer-events: none;
+  height: 20px;
+  width: 28px;
+  background-image: url("assets/arrow-right.svg");
   background-repeat: no-repeat;
-  background-position: right 3px top 50%, right;
-  background-size: 20px, cover;
+  background-position: right 3px top 50%;
+  background-size: 20px;
+  transition: transform 0.2s ease-out;
+}
+
+#subCatButtonAfter.reverse > div,
+#baseLayersAfter.reverse > div {
+  transform-origin: center;
+  transform: rotate(-180deg);
 }
 #subCatButtonAfter {
   height: 100%;

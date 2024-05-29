@@ -130,12 +130,12 @@ class LayerCatalogue extends EventTarget {
       <h4 id="baseLayersLabel">Fonds de carte</h4>
       <div class="subCatMenu" id="baseLayers">
         ${strBaseLayers}
-        <div id="baseLayersAfter"></div>
+        <div id="baseLayersAfter" tabindex="0" title="Faire défiler le menu"><div></div></div>
       </div>
       <h4 id="thematicLayersLabel">Données thématiques</h4>
       <div class="subCatButton" id="thematicButtons">
         ${strThematicButtons}
-        <div id="subCatButtonAfter"></div>
+        <div id="subCatButtonAfter" tabindex="0" title="Faire défiler le menu"><div></div></div>
       </div>
       <div class="subCatMenu" id="thematicLayers">
         ${strThematicLayers}
