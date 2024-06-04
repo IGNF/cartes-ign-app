@@ -139,9 +139,9 @@ class POI {
       let filter;
       filter = [
         "in",
-        poi.filters[0].field,
-        poi.filters[0].attributs
-      ].flat();
+        ["get", poi.filters[0].field],
+        ["literal", poi.filters[0].attributs]
+      ];
       filterSelection[id] = filter;
     }
     return filterSelection;

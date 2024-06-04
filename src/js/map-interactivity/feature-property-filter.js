@@ -102,7 +102,6 @@ const featurePropertyFilter = (feature) => {
 
   // Propriétés spécifiques troncon_de_route
   if(feature.layer["source-layer"] == "troncon_de_route") {
-    console.log(feature);
     let cpx_numero = getProperty(feature, "cpx_numero");
     let cpx_toponyme_route_nommee = getProperty(feature, "cpx_toponyme_route_nommee");
     let nom_1_droite = getProperty(feature, "nom_1_droite");
