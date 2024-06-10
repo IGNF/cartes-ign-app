@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import Globals from "../globals";
 import DOM from "../dom";
 import comparePoiLayers from "./compare-poi-styles";
@@ -76,8 +82,8 @@ class ComparePoi {
       type: "geojson",
       data: ComparePoiData,
     });
-    this.map.loadImage(ComparePoiIcon, (_, image) => {
-      this.map.addImage("comparePoiIcon", image);
+    this.map.loadImage(ComparePoiIcon).then((image) => {
+      this.map.addImage("comparePoiIcon", image.data);
     });
   }
 

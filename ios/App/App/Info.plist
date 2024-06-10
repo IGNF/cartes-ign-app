@@ -74,6 +74,26 @@
 				<string>org.geojson.geojson</string>
 			</array>
 		</dict>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>GPS Exchange Format (GPX)</string>
+      <key>LSHandlerRank</key>
+      <string>Owner</string>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>com.topografix.gpx</string>
+      </array>
+    </dict>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>Google Earth KML</string>
+      <key>LSHandlerRank</key>
+      <string>Owner</string>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>com.google.earth.kml</string>
+      </array>
+     </dict>
 	</array>
   <key>CFBundleLocalizations</key>
 	<array>

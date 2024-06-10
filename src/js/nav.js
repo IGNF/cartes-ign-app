@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import Globals from "./globals";
 import DOM from "./dom";
 
@@ -253,6 +259,7 @@ class MenuNavigation {
       DOM.$layerManagerBtn.classList.add("active");
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+      DOM.$tabContainer.style.removeProperty("background-color");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawBtns.classList.add("d-none");

@@ -1,8 +1,9 @@
 /**
- * Mapbox GL Layer Group Management Plugin
- * ISC License - Copyright (c) 2017, Mapbox
- * https://github.com/mapbox/mapbox-gl-layer-groups.git
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
+
 import Globals from "../globals";
 
 // Pour le passage en couleur après passage en noir et blanc

@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import LayersConfig from "./layer-manager/layer-config";
 import LayersGroup from "./layer-manager/layer-group";
 
@@ -133,9 +139,9 @@ class POI {
       let filter;
       filter = [
         "in",
-        poi.filters[0].field,
-        poi.filters[0].attributs
-      ].flat();
+        ["get", poi.filters[0].field],
+        ["literal", poi.filters[0].attributs]
+      ];
       filterSelection[id] = filter;
     }
     return filterSelection;

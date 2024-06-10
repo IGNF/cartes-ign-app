@@ -40,15 +40,18 @@
                 ]
             },
             "filter": [
-                "!in","symbo",
-                "divers_bleu",
-                "divers_gris",
-                "divers_magenta",
-                "divers_marron",
-                "divers_orange",
-                "divers_rouge",
-                "divers_vert"
-            ]
+                "!", ["in",
+                ["get", "symbo"],
+                ["literal", [
+                  "divers_bleu",
+                  "divers_gris",
+                  "divers_magenta",
+                  "divers_marron",
+                  "divers_orange",
+                  "divers_rouge",
+                  "divers_vert"
+                ]]
+            ]]
         },
         {
           "id": "POI OSM 14",
@@ -62,12 +65,15 @@
             "icon-image": "{symbo}_17"
           },
             "filter": [
-              "in","symbo",
-              "aerodrome",
-              "courthouse",
-              "hospital",
-              "station",
-              "townhall"
+              "in",
+              ["get", "symbo"],
+              ["literal", [
+                "aerodrome",
+                "courthouse",
+                "hospital",
+                "station",
+                "townhall"
+              ]]
           ]
         },
         {
@@ -82,15 +88,18 @@
             "icon-image": "{symbo}_17"
           },
             "filter": [
-            "in","symbo",
-            "aerodrome",
-            "christian",
-            "college",
-            "courthouse",
-            "hospital",
-            "station",
-            "townhall",
-            "university"
+            "in",
+            ["get", "symbo"],
+            ["literal", [
+              "aerodrome",
+              "christian",
+              "college",
+              "courthouse",
+              "hospital",
+              "station",
+              "townhall",
+              "university"
+            ]]
           ]
         },
         {
@@ -105,15 +114,18 @@
                 "icon-image": "{symbo}_17"
             },
             "filter": [
-                "!in","symbo",
-                "divers_bleu",
-                "divers_gris",
-                "divers_magenta",
-                "divers_marron",
-                "divers_orange",
-                "divers_rouge",
-                "divers_vert"
-			      ]
+                "!", ["in",
+                ["get", "symbo"],
+                ["literal", [
+                  "divers_bleu",
+                  "divers_gris",
+                  "divers_magenta",
+                  "divers_marron",
+                  "divers_orange",
+                  "divers_rouge",
+                  "divers_vert"
+                ]]
+			      ]]
         },
         {
             "id": "POI OSM 18et19",

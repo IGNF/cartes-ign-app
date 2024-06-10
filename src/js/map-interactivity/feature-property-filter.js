@@ -1,4 +1,11 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import parseOsmOpeningHours from "./parse-osm-opening-hours";
+import wayNameDictionnary from "./way-name-dictionnary";
 
 /**
  *
@@ -97,6 +104,8 @@ const featurePropertyFilter = (feature) => {
   if(feature.layer["source-layer"] == "troncon_de_route") {
     let cpx_numero = getProperty(feature, "cpx_numero");
     let cpx_toponyme_route_nommee = getProperty(feature, "cpx_toponyme_route_nommee");
+    let nom_1_droite = getProperty(feature, "nom_1_droite");
+    let nom_1_gauche = getProperty(feature, "nom_1_gauche");
     let cpx_toponyme_voie_verte = getProperty(feature, "cpx_toponyme_voie_verte");
     let cpx_toponyme_itineraire_cyclable = getProperty(feature, "cpx_toponyme_itineraire_cyclable");
     let nombre_de_voies = getProperty(feature, "nombre_de_voies");
@@ -108,6 +117,22 @@ const featurePropertyFilter = (feature) => {
     }
     if (cpx_toponyme_route_nommee) {
       result.before += `Nom : ${cpx_toponyme_route_nommee}<br/>`;
+    } else if (nom_1_droite) {
+      const firstWord = nom_1_droite.split(" ")[0];
+      if (firstWord in wayNameDictionnary) {
+        const nom_1_droite_array = nom_1_droite.split(" ");
+        nom_1_droite_array.splice(0, 1, wayNameDictionnary[firstWord]);
+        nom_1_droite = nom_1_droite_array.join(" ");
+      }
+      result.before += `Nom : ${nom_1_droite}<br/>`;
+    } else if (nom_1_gauche) {
+      const firstWord = nom_1_gauche.split(" ")[0];
+      if (firstWord in wayNameDictionnary) {
+        const nom_1_gauche_array = nom_1_gauche.split(" ");
+        nom_1_gauche_array.splice(0, 1, wayNameDictionnary[firstWord]);
+        nom_1_gauche = nom_1_gauche_array.join(" ");
+      }
+      result.before += `Nom : ${nom_1_gauche}<br/>`;
     }
     if (cpx_toponyme_voie_verte)
       result.before += `${cpx_toponyme_voie_verte}<br/>`;

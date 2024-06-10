@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import RouteDrawDOM from "./route-draw-dom";
 import RouteDrawSave from "./route-draw-save";
 import Globals from "../globals";
@@ -95,11 +101,11 @@ class RouteDraw {
     this.elevation = new ElevationLineControl({ target: document.getElementById("routedraw-elevationline") });
     this.elevation.addSourcesAndLayers();
 
-    this.map.loadImage(RouteDepartureIcon, (_, image) => {
-      this.map.addImage("routeDepartureIcon", image);
+    this.map.loadImage(RouteDepartureIcon).then((image) => {
+      this.map.addImage("routeDepartureIcon", image.data);
     });
-    this.map.loadImage(RouteDestinationIcon, (_, image) => {
-      this.map.addImage("routeDestinationIcon", image);
+    this.map.loadImage(RouteDestinationIcon).then((image) => {
+      this.map.addImage("routeDestinationIcon", image.data);
     });
 
     // fonction d'event avec bind

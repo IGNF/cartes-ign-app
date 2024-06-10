@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     namespace "fr.ign.geoportail"
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "fr.ign.geoportail"
         minSdkVersion rootProject.ext.minSdkVersion

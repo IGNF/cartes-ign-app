@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import {
   Chart as ChartJS,
   ScatterController,
@@ -173,6 +179,16 @@ class ElevationLineControl {
               "type": "Point",
               "coordinates": this.profileLngLats[point.element.$context.index]
             }
+          });
+          const coordinates = [
+            [this.profileLngLats[point.element.$context.index][0] - 0.005, this.profileLngLats[point.element.$context.index][1] - 0.005],
+            [this.profileLngLats[point.element.$context.index][0] + 0.005, this.profileLngLats[point.element.$context.index][1] + 0.005]
+          ];
+          const bounds = coordinates.reduce((bounds, coord) => {
+            return bounds.extend(coord);
+          }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+          Globals.map.fitBounds(bounds, {
+            padding: {bottom: window.scrollY},
           });
           chart.crosshair = {x, y, draw: inChartArea};
           chart.draw();

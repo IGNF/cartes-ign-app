@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import maplibregl from "maplibre-gl";
 
 import Globals from "./globals";
@@ -66,7 +72,9 @@ function app() {
     }, 500);
     if (Capacitor.getPlatform() !== "web") {
       TextZoom.getPreferred().then(value => {
-        TextZoom.set(value);
+        TextZoom.set({
+          value: Math.min(1.5, value.value)
+        });
       });
     }
     if (!localStorage.getItem("hasBeenLaunched")) {

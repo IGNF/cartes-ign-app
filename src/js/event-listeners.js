@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import Geocode from "./services/geocode";
 import Location from "./services/location";
 import DOM from "./dom";
@@ -91,6 +97,7 @@ function addListeners() {
 
   // Action du backbutton
   document.addEventListener("backbutton", State.onBackKeyDown, false);
+  DOM.$tabClose.addEventListener("click", State.onBackKeyDown, false);
 
   const saveState = () => {
     if (Globals.backButtonState.split("-")[0] === "position") {
@@ -230,7 +237,9 @@ function addListeners() {
       return;
     }
     TextZoom.getPreferred().then(value => {
-      TextZoom.set(value);
+      TextZoom.set({
+        value: Math.min(1.5, value.value)
+      });
     });
   });
 

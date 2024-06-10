@@ -1,12 +1,12 @@
 <div class="d-none" id="navContainer">
     <div class="navbar hoverable">
-        <button class="navitembtn">
+        <button class="navitembtn" tabindex="200">
             <div class="navitemimg" id="navimg-explorer"></div>
             <span>Explorer</span>
         </button>
         <div class="subnav">
           <div class="navheader"></div>
-          <div id="isochrone" class="navitem">
+          <div id="isochrone" class="navitem" tabindex="210">
             <div class="nav-picto"></div>
             <div class="nav-text">
               <p class="nav-text-header">À proximité</p>
@@ -15,7 +15,7 @@
             <div class="nav-arrow"></div>
           </div>
           <hr />
-          <div id="position" class="navitem">
+          <div id="position" class="navitem" tabindex="211">
             <div class="nav-picto"></div>
             <div class="nav-text">
               <p class="nav-text-header">Où suis-je ?</p>
@@ -24,7 +24,7 @@
             <div class="nav-arrow"></div>
           </div>
           <hr />
-          <div id="landmark" class="navitem">
+          <div id="landmark" class="navitem" tabindex="212">
             <div class="nav-picto"></div>
             <div class="nav-text">
               <p class="nav-text-header">Créer un point de repère</p>
@@ -35,37 +35,39 @@
         </div>
     </div>
     <div class="navbar hoverable">
-        <button class="navitembtn">
+        <button class="navitembtn" tabindex="201">
             <div class="navitemimg" id="navimg-deplacer"></div>
             <span>Se déplacer</span>
         </button>
         <div class="subnav">
           <div class="navheader"></div>
-          <div id="directions" class="navitem">
+          <div id="directions" class="navitem" tabindex="220">
             <div class="nav-picto"></div>
             <div class="nav-text">
               <p class="nav-text-header">S'y rendre</p>
               <p class="nav-text-caption">Calculez un itinéraire depuis votre position ou un autre point de départ</p>
             </div>
+            <div class="nav-arrow"></div>
           </div>
           <hr />
-          <div id="routeDraw" class="navitem">
+          <div id="routeDraw" class="navitem" tabindex="221">
             <div class="nav-picto"></div>
             <div class="nav-text">
               <p class="nav-text-header">Tracer un itinéraire</p>
               <p class="nav-text-caption">Tracez votre propre parcours point à point en suivant ou non les routes et les chemins</p>
             </div>
+            <div class="nav-arrow"></div>
           </div>
         </div>
     </div>
     <div class="navbar hoverable">
-      <button id="sideBySideBtn" class="navitembtn">
+      <button id="sideBySideBtn" class="navitembtn" tabindex="202">
           <div class="navitemimg" id="navimg-compare"></div>
           <span>Comparer</span>
       </button>
     </div>
     <div class="navbar hoverable">
-        <button id="myaccount" class="navitembtn">
+        <button id="myaccount" class="navitembtn" tabindex="203">
             <div class="navitemimg" id="navimg-compte"></div>
             <span>Enregistrés</span>
         </button>

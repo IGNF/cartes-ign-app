@@ -7,11 +7,11 @@
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 
-    <title>Cartes IGN</title>
+    <title>Application Cartes IGN</title>
   </head>
   <body>
       <!-- background color -->
-      <div id="whiteScreen" class="d-none"></div>
+      <div id="whiteScreen" class="d-none" aria-hidden="true"></div>
 
       <div class="app">
 
@@ -34,7 +34,7 @@
             et ancré en bas de l'écran.
           -->
           <div id="tabContainer">
-            <div id="tabHeader"></div>
+            <div id="tabHeader"><div id="tabHandle"></div><div id="tabClose" tabindex="0" title="Fermer le volet"></div></div>
               <%= require('html-loader!./tabs/layermanagerWindow.html').default %>
               <%= require('html-loader!./tabs/directionsWindow.html').default %>
               <%= require('html-loader!./tabs/directionsResultsWindow.html').default %>

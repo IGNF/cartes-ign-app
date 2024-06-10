@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import MapLibreGlCompare from "@maplibre/maplibre-gl-compare";
 import syncMaps from "@mapbox/mapbox-gl-sync-move";
 
@@ -298,7 +304,6 @@ class Compare {
    * @public
    */
   show() {
-    Globals.mapState = "compare";
     if (this.actived) {
       return;
     }
@@ -343,7 +348,6 @@ class Compare {
     }
     this.map.setCenter(this.mapRLT1.getCenter());
     this.map.setZoom(this.mapRLT1.getZoom());
-    Globals.mapState = "default";
     document.querySelector("#map").classList.remove("d-none");
     document.querySelector("#mapRLT1").classList.add("d-none");
     document.querySelector("#mapRLT2").classList.add("d-none");

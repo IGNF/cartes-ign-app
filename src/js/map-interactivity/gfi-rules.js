@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 const gfiRules = {
   "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS": {
     0: {
@@ -225,7 +231,7 @@ const gfiRules = {
     );
     let template = rule[z];
     if (template["title"][0] === "@") {
-      let str = featureProperties[template.title.split("@")[1]];
+      let str = featureProperties[template.title.split("@")[1]].replace("", "'");
       result.title = str[0].toUpperCase() + str.slice(1);
     } else {
       result.title = template.title;

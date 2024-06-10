@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import Globals from "../globals";
 import LayersConfig from "./layer-config";
 import LayersAdditional from "./layer-additional";
@@ -66,7 +72,7 @@ class LayerCatalogue extends EventTarget {
       return `
       <div class="layer ${opts.type}" id="${opts.layerID}">
         <div class="layerImg">
-          <img src="${opts.layerQuickLook}" alt="${opts.layerName}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
+          <img src="${opts.layerQuickLook}" alt="${opts.layerTitle}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
           <div class="layer-badge"></div>
           <div class="layer-interactive-badge-${opts.interactive}" ></div>
         </div>
@@ -124,12 +130,12 @@ class LayerCatalogue extends EventTarget {
       <h4 id="baseLayersLabel">Fonds de carte</h4>
       <div class="subCatMenu" id="baseLayers">
         ${strBaseLayers}
-        <div id="baseLayersAfter"></div>
+        <div id="baseLayersAfter" tabindex="0" title="Faire défiler le menu"><div></div></div>
       </div>
       <h4 id="thematicLayersLabel">Données thématiques</h4>
       <div class="subCatButton" id="thematicButtons">
         ${strThematicButtons}
-        <div id="subCatButtonAfter"></div>
+        <div id="subCatButtonAfter" tabindex="0" title="Faire défiler le menu"><div></div></div>
       </div>
       <div class="subCatMenu" id="thematicLayers">
         ${strThematicLayers}

@@ -1,63 +1,63 @@
 <!-- Bouton de retour : invisible si l'outil de recherche est affiché -->
-<div class="button d-none" id="backTopLeftBtn"></div>
+<div class="button d-none" id="backTopLeftBtn" tabindex="2" title="Retour arrière"></div>
 <!-- Filtres POI -->
-<div class="button" id="filterPoiBtn">Filtres</div>
+<div class="button" id="filterPoiBtn" tabindex="3">Filtres</div>
 <!-- Mode de comparaison de carte -->
 <div id="compareMode" class="d-none">
-  <div id="compareLeftRight" class="selected"></div>
-  <div id="compareUpDown"></div>
-  <div id="compareFade"></div>
+  <div id="compareLeftRight" class="selected" tabindex="4"></div>
+  <div id="compareUpDown" tabindex="5"></div>
+  <div id="compareFade" tabindex="6"></div>
 </div>
 
 <!-- Réticule central -->
-<div id="mapCenter" class="d-none"></div>
+<div id="mapCenter" class="d-none" aria-hidden="true"></div>
 <div id="mapCenterMenu" class="d-none">
-  <span>Choisir un point en déplaçant la carte</span><span id="mapCenterSubmit">OK</span>
+  <span>Choisir un point en déplaçant la carte</span><span id="mapCenterSubmit" tabindex="100">OK</span>
 </div>
 
 <!-- Indicateur d'interactivité du Plan IGN -->
-<div class="d-none" id="interactivityBtn"><div class="button" id="interactivityInside"></div><span id="interactivityBtnText">La carte est interactive</span></div>
+<div class="d-none" id="interactivityBtn" tabindex="3"><div class="button" id="interactivityInside"></div><span id="interactivityBtnText">La carte est interactive</span></div>
 <div id="bottomButtons">
   <!-- Geolocalisation -->
-  <div class="button" id="geolocateBtn"></div>
+  <div class="button" id="geolocateBtn" tabindex="51" title="Se géolocaliser sur la carte"></div>
   <!-- Boussole (invisible par defaut) -->
-  <div class="button d-none" id="compassBtn"></div>
+  <div class="button d-none" id="compassBtn" tabindex="50" title="Aligner la carte avec le Nord"></div>
   <!-- Gestionnaire de couches -->
-  <div class="button" id="layerManagerBtn"></div>
+  <div class="button" id="layerManagerBtn" tabindex="52" title="Ouvrir le menu cartes et données"></div>
   <!-- Comparaison de carte -->
-  <div class="button d-none" id="sideBySideLeftLayer"></div>
-  <div class="button d-none" id="sideBySideRightLayer"></div>
+  <div class="button d-none" id="sideBySideLeftLayer" tabindex="53" title="Ouvrir le menu cartes pour la première carte à comparer"></div>
+  <div class="button d-none" id="sideBySideRightLayer" tabindex="54" title="Ouvrir le menu cartes pour la seconde carte à comparer"></div>
   <div class="d-none" id="sideBySideFadeSlider">
     <div id="sideBySideFadeSlider-range">
-      <input id="sideBySideFadeSlider-range-input" type="range" value="0" style="--value: 0; --min: 0; --max: 100;">
+      <input id="sideBySideFadeSlider-range-input" type="range" value="0" style="--value: 0; --min: 0; --max: 100;" tabindex="55">
     </div>
   </div>
   <!-- Tracé d'itinéraire -->
   <div id="routeDrawBtns" class="d-none">
-    <div class="button" id="routeDrawMode">
+    <div class="button" id="routeDrawMode" tabindex="60">
       <span id="routeDrawModeTransportPedestrian"></span>
       <span id="routeDrawModeTransportCar" class="d-none"></span>
       <span id="routeDrawModeText">Saisie guidée</span>
       <span id="routeDrawModeArrow"></span>
       <div id="routeDrawModeSelect">
         <div id="routeDrawModeSelectMode">
-          <div class="routeDrawSelectChoice" id="routeDrawSelectGuided">Saisie guidée <span class="routeDrawChevronRight routeDrawIcon"></span>
+          <div class="routeDrawSelectChoice" id="routeDrawSelectGuided" tabindex="61">Saisie guidée <span class="routeDrawChevronRight routeDrawIcon"></span>
             <div id="routeDrawModeSelectTransport">
-              <p class="routeDrawSelectChoice" id="routeDrawModeSelectTransportPedestrian"><span class="routeDrawIcon routeDrawPedestrian"></span>À pied</p>
-              <p class="routeDrawSelectChoice" id="routeDrawModeSelectTransportCar"><span class="routeDrawIcon routeDrawCar"></span>Véhicule</p>
+              <p class="routeDrawSelectChoice" id="routeDrawModeSelectTransportPedestrian" tabindex="63"><span class="routeDrawIcon routeDrawPedestrian"></span>À pied</p>
+              <p class="routeDrawSelectChoice" id="routeDrawModeSelectTransportCar" tabindex="64"><span class="routeDrawIcon routeDrawCar"></span>Véhicule</p>
             </div>
           </div>
-          <p class="routeDrawSelectChoice" id="routeDrawModeSelectModeFree">Saisie libre</p>
+          <p class="routeDrawSelectChoice" id="routeDrawModeSelectModeFree" tabindex="62">Saisie libre</p>
         </div>
       </div>
     </div>
-    <div class="button" id="routeDrawHelp">?</div>
+    <div class="button" id="routeDrawHelp" tabindex="65">?</div>
   </div>
 </div>
 <!-- Tracé d'itinéraire -->
 <div id="routeDrawEdit" class="d-none">
-  <div class="button inactive" id="routeDrawCancel"><span>Annuler</span></div>
-  <div class="button inactive" id="routeDrawRestore"><span>Refaire</span></div>
-  <div class="button inactive" id="routeDrawDelete"><span>Supprimer</span></div>
-  <div class="button" id="routeDrawSave"><span>Enregistrer</span></div>
+  <div class="button inactive" id="routeDrawCancel" tabindex="66"><span>Annuler</span></div>
+  <div class="button inactive" id="routeDrawRestore" tabindex="67"><span>Refaire</span></div>
+  <div class="button inactive" id="routeDrawDelete" tabindex="68"><span>Supprimer</span></div>
+  <div class="button" id="routeDrawSave" tabindex="69"><span>Enregistrer</span></div>
 </div>

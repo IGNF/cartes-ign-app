@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Institut national de l'information géographique et forestière
+ *
+ * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ */
+
 import Globals from "../globals";
 import MyAccountDOM from "./my-account-dom";
 import MyAccountLayers from "./my-account-styles";
@@ -10,6 +16,8 @@ import { FilePicker } from "@capawesome/capacitor-file-picker";
 import { App } from "@capacitor/app";
 import maplibregl from "maplibre-gl";
 import Sortable from "sortablejs";
+import { kml, gpx } from "@tmcw/togeojson";
+import { DOMParser } from "@xmldom/xmldom";
 
 import LandmarkIconSaved from "../../css/assets/landmark-saved-map.png";
 import LandmarkIconFavourite from "../../css/assets/landmark-favourite-map.png";
@@ -79,14 +87,14 @@ class MyAccount {
       this.landmarks = this.landmarks.concat(localLandmarks);
     }
 
-    this.map.loadImage(LandmarkIconSaved, (_, image) => {
-      this.map.addImage("landmark-icon-saved", image);
+    this.map.loadImage(LandmarkIconSaved).then((image) => {
+      this.map.addImage("landmark-icon-saved", image.data);
     });
-    this.map.loadImage(LandmarkIconFavourite, (_, image) => {
-      this.map.addImage("landmark-icon-favourite", image);
+    this.map.loadImage(LandmarkIconFavourite).then((image) => {
+      this.map.addImage("landmark-icon-favourite", image.data);
     });
-    this.map.loadImage(LandmarkIconTovisit, (_, image) => {
-      this.map.addImage("landmark-icon-tovisit", image);
+    this.map.loadImage(LandmarkIconTovisit).then((image) => {
+      this.map.addImage("landmark-icon-tovisit", image.data);
     });
 
     // récupération des infos et rendu graphique
@@ -247,7 +255,8 @@ class MyAccount {
       } catch (e) {
         filename = "Données importées";
       }
-      this.#importData(fileData.data, filename);
+      let fileExtension = url.split(".").splice(-2)[1];
+      this.#importData(fileData.data, filename, fileExtension);
     }
   }
 
@@ -259,19 +268,28 @@ class MyAccount {
       limit: 1,
       readData: true,
     });
-    this.#importData(result.files[0].data, result.files[0].name.split(".")[0]);
+    this.#importData(result.files[0].data, result.files[0].name.split(".")[0], result.files[0].name.split(".")[1]);
   }
 
   /**
    * Importe la donnée d'un fichier
    * @param {String} data fichier sous forme base64
    */
-  #importData(data, defaultName) {
+  #importData(data, defaultName, extension = "json") {
     try {
+      let imported;
       // UTF-8 decoding https://stackoverflow.com/a/64752311
-      const imported = JSON.parse(decodeURIComponent(atob(data).split("").map(function(c) {
+      const rawData = decodeURIComponent(atob(data).split("").map(function(c) {
         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join("")));
+      }).join(""));
+      if (extension === "gpx") {
+        imported = gpx(new DOMParser().parseFromString(rawData));
+      } else if (extension === "kml") {
+        imported = kml(new DOMParser().parseFromString(rawData));
+      } else {
+        imported = JSON.parse(rawData);
+      }
+
       // Mode Landmark
       if (imported.type === "Feature" && imported.geometry.type === "Point") {
         if (!imported.properties) {
@@ -702,6 +720,22 @@ ${landmark.properties.description}
    * @returns
    */
   #geojsonToRoute(routeJson) {
+    routeJson.features.forEach(feature => {
+      if (feature.geometry.type === "MultiLineString") {
+        feature.geometry.coordinates.forEach(linestringCoords => {
+          const newFeature = {
+            type: "Feature",
+            properties: feature.properties,
+            geometry: {
+              type: "LineString",
+              coordinates: linestringCoords
+            }
+          };
+          routeJson.features.push(newFeature);
+        });
+      }
+    });
+    routeJson.features = routeJson.features.filter(feature => ["LineString", "Point"].includes(feature.geometry.type));
     const steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
     const points = routeJson.features.filter(feature => feature.geometry.type === "Point");
     if (points.length === 0) {
