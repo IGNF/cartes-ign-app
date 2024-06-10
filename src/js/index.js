@@ -17,7 +17,7 @@ import Controls from "./controls";
 import RecentSearch from "./search-recent";
 import MenuNavigation from "./nav";
 import InteractivityIndicator from "./map-interactivity/interactivity-indicator";
-import PopupUtils from "./utils/popup-utils";
+import StatusPopups from "./status-popups";
 
 import { Capacitor } from "@capacitor/core";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
@@ -25,7 +25,6 @@ import { SplashScreen } from "@capacitor/splash-screen";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { SafeArea, SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { TextZoom } from "@capacitor/text-zoom";
-import { Network } from "@capacitor/network";
 import { Device } from "@capacitor/device";
 
 // import CSS
@@ -219,19 +218,8 @@ function app() {
     map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
     map.setZoom(localStorage.getItem("lastMapZoom") || map.getZoom());
     map.once("moveend", () => {
-      Network.getStatus().then((status) => {
-        if (!status.connected) {
-          PopupUtils.showOnlinePopup(`
-          <div id="onlinePopup">
-          <div class="divPositionTitle">Vous êtes hors ligne</div>
-          <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
-          <div class="divPopupContent">
-          La plupart des fonctionnalités de l'application sont indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sur la carte.
-          </div>
-          </div>
-          `, map);
-        }
-      });
+      StatusPopups.getNetworkPopup(map);
+      StatusPopups.getEditoPopup(map);
     });
   }
 
@@ -256,21 +244,15 @@ function app() {
     if (!Globals.mapLoaded) {
       map.flyTo(map.getCenter());
       map.once("moveend", () => {
-        Network.getStatus().then((status) => {
-          if (!status.connected) {
-            PopupUtils.showOnlinePopup(`
-            <div id="onlinePopup">
-            <div class="divPositionTitle">Vous êtes hors ligne</div>
-            <div class="divPopupClose" onclick="onCloseonlinePopup(event)"></div>
-            <div class="divPopupContent">
-            La plupart des fonctionnalités de l'application sont indisponibles. Vous pouvez consulter les cartes et données déjà chargées, ainsi que les données enregistrées, et visualiser votre position sur la carte.
-            </div>
-            </div>
-            `, map);
-          }
-        });
+        StatusPopups.getNetworkPopup(map);
       });
     }
+    setTimeout(() => {
+      if (!Globals.mapLoaded) {
+        SplashScreen.hide();
+        StatusPopups.getEditoPopup(map);
+      }
+    }, 2000);
   }, 4000);
 }
 

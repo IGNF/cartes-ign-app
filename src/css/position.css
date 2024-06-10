@@ -183,6 +183,7 @@
  */
 
 #interactivityPopup,
+#editoPopup,
 #onlinePopup,
 #locationPopup,
 #routeDrawHelpPopup {
@@ -191,15 +192,17 @@
   font-family: "Open Sans";
   font-size: 13px;
 }
+
 #interactivityPopup .divPositionTitle,
+#editoPopup .divPositionTitle,
 #onlinePopup .divPositionTitle,
 #locationPopup .divPositionTitle,
 #routeDrawHelpPopup .divPositionTitle {
   margin-right: 30px;
 }
 
-
 .interactivityPopup,
+.editoPopup,
 .onlinePopup,
 .locationPopup,
 .routeDrawHelpPopup {
@@ -218,6 +221,7 @@
 }
 
 .routeDrawHelpPopup>.maplibregl-popup-content,
+.editoPopup>.maplibregl-popup-content,
 .interactivityPopup>.maplibregl-popup-content,
 .onlinePopup>.maplibregl-popup-content,
 .locationPopup>.maplibregl-popup-content {
@@ -227,6 +231,7 @@
 }
 
 .routeDrawHelpPopup>.maplibregl-popup-tip,
+.editoPopup>.maplibregl-popup-tip,
 .onlinePopup>.maplibregl-popup-tip,
 .interactivityPopup>.maplibregl-popup-tip,
 .locationPopup>.maplibregl-popup-tip {

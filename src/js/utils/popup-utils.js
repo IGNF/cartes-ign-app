@@ -42,6 +42,36 @@ function showOnlinePopup(content, map) {
   document.body.appendChild(popupEl);
 }
 
+function showEditoPopup(content, map) {
+  let editoPopup;
+  window.onCloseeditoPopup = () => {
+    editoPopup.remove();
+  };
+
+  // centre de la carte
+  var center = map.getCenter();
+  // position de la popup
+  var popupOffsets = {
+    "bottom": [0, 100],
+  };
+  // ouverture d'une popup
+  editoPopup = new MapLibreGL.Popup({
+    offset: popupOffsets,
+    className: "editoPopup",
+    closeOnClick: true,
+    closeOnMove: true,
+    closeButton: false
+  })
+    .setLngLat(center)
+    .setHTML(content)
+    .setMaxWidth("300px")
+    .addTo(map);
+  // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
+  var popupEl = document.querySelectorAll(".editoPopup")[0];
+  document.body.appendChild(popupEl);
+}
+
 export default {
   showOnlinePopup,
+  showEditoPopup,
 };
