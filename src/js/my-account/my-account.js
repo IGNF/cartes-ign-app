@@ -19,6 +19,7 @@ import maplibregl from "maplibre-gl";
 import Sortable from "sortablejs";
 import { kml, gpx } from "@tmcw/togeojson";
 import { DOMParser } from "@xmldom/xmldom";
+import GeoJsonToGpx from "@dwayneparton/geojson-to-gpx";
 
 import LandmarkIconSaved from "../../css/assets/landmark-saved-map.png";
 import LandmarkIconFavourite from "../../css/assets/landmark-favourite-map.png";
@@ -577,9 +578,15 @@ class MyAccount {
           encoding: Encoding.UTF8,
         });
       } else if (value === "gpx") {
+        const gpx = GeoJsonToGpx(this.#routeToGeojson(route), {
+          metadata: {
+            name: route.name,
+          }
+        });
+        const gpxString = new XMLSerializer().serializeToString(gpx);
         result = await Filesystem.writeFile({
-          path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.json`,
-          data: JSON.stringify(this.#routeToGeojson(route)),
+          path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.gpx`,
+          data: gpxString,
           directory: Directory.Cache,
           encoding: Encoding.UTF8,
         });
@@ -667,9 +674,15 @@ ${landmark.properties.description}
           encoding: Encoding.UTF8,
         });
       } else if (value === "gpx") {
+        const gpx = GeoJsonToGpx(this.#routeToGeojson(route), {
+          metadata: {
+            name: route.name,
+          }
+        });
+        const gpxString = new XMLSerializer().serializeToString(gpx);
         await Filesystem.writeFile({
-          path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`,
-          data: JSON.stringify(this.#routeToGeojson(route)),
+          path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.gpx`,
+          data: gpxString,
           directory: Directory.Documents,
           encoding: Encoding.UTF8,
         });

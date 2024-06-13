@@ -41,6 +41,7 @@
     "@capacitor/text-zoom": "^6.0.0",
     "@capacitor/toast": "^6.0.0",
     "@capawesome/capacitor-file-picker": "^6.0.0",
+    "@dwayneparton/geojson-to-gpx": "^0.2.0",
     "@ionic/pwa-elements": "^3.3.0",
     "@mapbox/mapbox-gl-sync-move": "^0.3.1",
     "@maplibre/maplibre-gl-compare": "^0.5.0",
