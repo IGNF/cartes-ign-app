@@ -1,0 +1,48 @@
+action-sheet {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.15);
+  position: fixed;
+  top: 0;
+}
+
+#sheetContent {
+  position: fixed;
+  bottom: 0;
+  height: fit-content;
+  width: 100%;
+  background-color: white;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  color: var(--dark-grey);
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 0 6% 6% 6%;
+}
+
+.actionSheet-title {
+  font-family: "Fira Sans Semibold";
+  font-size: 17px;
+  text-align: center;
+  margin-top: 0;
+}
+
+.actionSheet-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.actionSheet-buttons-button {
+  color: var(--dark-green);
+  background-color: var(--light-green);
+  padding: 0px 27px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  margin-right: 18px;
+  border-radius: 100px;
+}

@@ -8,6 +8,7 @@ import Globals from "../globals";
 import MyAccountDOM from "./my-account-dom";
 import MyAccountLayers from "./my-account-styles";
 import utils from "../utils/unit-utils";
+import ActionSheet from "../action-sheet";
 
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
@@ -549,13 +550,47 @@ class MyAccount {
    * Partage l'itinéraire sous forme de fichier
    * @param {*} route
    */
-  shareRoute(route) {
-    Filesystem.writeFile({
-      path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.json`,
-      data: JSON.stringify(this.#routeToGeojson(route)),
-      directory: Directory.Cache,
-      encoding: Encoding.UTF8,
-    }).then((result) => {
+  async shareRoute(route) {
+    const value = await ActionSheet.show({
+      style: "buttons",
+      title: "Choisissez votre format de partage",
+      options: [
+        {
+          text: "JSON",
+          value: "json",
+          class: ""
+        },
+        {
+          text: "GPX",
+          value: "gpx",
+          class: ""
+        }
+      ]
+    });
+    try {
+      let result;
+      if (value === "json") {
+        result = await Filesystem.writeFile({
+          path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.json`,
+          data: JSON.stringify(this.#routeToGeojson(route)),
+          directory: Directory.Cache,
+          encoding: Encoding.UTF8,
+        });
+      } else if (value === "gpx") {
+        result = await Filesystem.writeFile({
+          path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.json`,
+          data: JSON.stringify(this.#routeToGeojson(route)),
+          directory: Directory.Cache,
+          encoding: Encoding.UTF8,
+        });
+      } else {
+        Toast.show({
+          text: "Annulation du partage",
+          duration: "short",
+          position: "bottom"
+        });
+        return;
+      }
       Share.share({
         title: `${route.name}`,
         text: `${route.name}
@@ -563,21 +598,22 @@ Temps : ${utils.convertSecondsToTime(route.data.duration)}, Distance : ${utils.c
 Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : ${route.data.elevationData.dminus} m`,
         dialogTitle: "Partager mon itinéraire",
         url: result.uri,
-      }).catch( () => {
-        Toast.show({
-          text: "L'itinéraire n'a pas pu être partagé. Partage du résumé...",
-          duration: "long",
-          position: "bottom"
-        });
-        Share.share({
-          title: `${route.name}`,
-          text: `${route.name}
+      });
+    } catch (err) {
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être partagé. Partage du résumé...",
+        duration: "long",
+        position: "bottom"
+      });
+      Share.share({
+        title: `${route.name}`,
+        text: `${route.name}
 Temps : ${utils.convertSecondsToTime(route.data.duration)}, Distance : ${utils.convertDistance(route.data.distance)}
 Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : ${route.data.elevationData.dminus} m`,
-          dialogTitle: "Partager mon itinéraire (résumé)",
-        });
+        dialogTitle: "Partager mon itinéraire (résumé)",
       });
-    });
+    }
+
   }
 
   /**
@@ -601,30 +637,63 @@ ${landmark.properties.description}
    * Exporte l'itinéraire sous forme d'un ficheir geojson
    * @param {*} route
    */
-  exportRoute(route) {
+  async exportRoute(route) {
     let documentsName = "Documents";
     if (Capacitor.getPlatform() === "ios") {
       documentsName = "Fichiers";
     }
-    Filesystem.writeFile({
-      path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`,
-      data: JSON.stringify(this.#routeToGeojson(route)),
-      directory: Directory.Documents,
-      encoding: Encoding.UTF8,
-    }).then(() => {
+    const value = await ActionSheet.show({
+      style: "buttons",
+      title: "Choisissez votre format d'export",
+      options: [
+        {
+          text: "JSON",
+          value: "json",
+          class: ""
+        },
+        {
+          text: "GPX",
+          value: "gpx",
+          class: ""
+        }
+      ]
+    });
+    try {
+      if (value === "json") {
+        await Filesystem.writeFile({
+          path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`,
+          data: JSON.stringify(this.#routeToGeojson(route)),
+          directory: Directory.Documents,
+          encoding: Encoding.UTF8,
+        });
+      } else if (value === "gpx") {
+        await Filesystem.writeFile({
+          path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`,
+          data: JSON.stringify(this.#routeToGeojson(route)),
+          directory: Directory.Documents,
+          encoding: Encoding.UTF8,
+        });
+      } else {
+        Toast.show({
+          text: "Annulation de l'export",
+          duration: "short",
+          position: "bottom"
+        });
+        return;
+      }
       Toast.show({
         text: `Fichier enregistré dans ${documentsName}.`,
         duration: "long",
         position: "bottom"
       });
-    }).catch( () => {
+    } catch (err) {
       Toast.show({
         text: "L'itinéraire n'a pas pu être savegardé. Partage...",
         duration: "long",
         position: "bottom"
       });
       this.shareRoute(route);
-    });
+    }
   }
 
   /**

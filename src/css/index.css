@@ -56,7 +56,7 @@ body {
   color:white;
 }
 
-pwa-toast {
+pwa-toast, action-sheet {
   z-index: 999999;
 }
 
