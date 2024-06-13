@@ -39,7 +39,7 @@ action-sheet {
 }
 
 .actionSheet-buttons-button {
-  color: var(--dark-green);
+  color: var(--darker-green);
   background-color: var(--light-green);
   padding: 0px 27px;
   height: 44px;
