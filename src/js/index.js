@@ -37,6 +37,10 @@ import PositionImg from "../css/assets/position.svg";
 import PositionImgGrey from "../css/assets/position-grey.svg";
 import MapCenterImg from "../css/assets/map-center.svg";
 
+// Affichage des éléments PWA en mode WE (Toast et ActionSheet)
+import { defineCustomElements } from "@ionic/pwa-elements/loader";
+defineCustomElements(window);
+
 /**
  * Fonction définissant l'application
  */
