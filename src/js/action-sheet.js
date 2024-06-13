@@ -11,6 +11,7 @@
 class ActionSheet extends EventTarget {
 
   _target = document.getElementsByTagName("action-sheet")[0];
+  _targetWrapper = document.getElementById("sheetContent");
   _targetContent = document.getElementById("sheetOptions");
   _closeElem = document.getElementById("sheetClose");
 
@@ -78,21 +79,28 @@ class ActionSheet extends EventTarget {
       }
       elem.classList.add(elementClass);
       elem.innerText = option.text;
-      elem.addEventListener("click", () => {
-        /**
-         * Evenement "optionSelect"
-         * @event optionSelect
-         * @type {*}
-         * @property {*} value -
-         */
-        this.dispatchEvent(
-          new CustomEvent("optionSelect", {
-            bubbles: true,
-            detail: {
-              value: option.value
-            }
-          })
-        );
+      elem.addEventListener("click", (e) => {
+
+        if (wrapperClass === "actionSheet-buttons") {
+          e.target.style.color = "white";
+          e.target.style.backgroundColor = "var(--dark-green)";
+        }
+        setTimeout(() => {
+          /**
+           * Evenement "optionSelect"
+           * @event optionSelect
+           * @type {*}
+           * @property {*} value -
+           */
+          this.dispatchEvent(
+            new CustomEvent("optionSelect", {
+              bubbles: true,
+              detail: {
+                value: option.value
+              }
+            })
+          );
+        }, 200);
       });
       div.appendChild(elem);
     }
@@ -114,6 +122,10 @@ class ActionSheet extends EventTarget {
     this._createHtml();
 
     this._target.classList.remove("d-none");
+    setTimeout( () => {
+      this._targetWrapper.style.transform = "unset";
+    }, 10);
+
     const result = await new Promise((resolve) => {
       this.addEventListener("optionSelect", (e) => {
         resolve(e.detail.value);
@@ -127,8 +139,11 @@ class ActionSheet extends EventTarget {
   }
 
   hide() {
-    this._target.classList.add("d-none");
-    this._clearHtml();
+    this._targetWrapper.style.removeProperty("transform");
+    setTimeout( () => {
+      this._target.classList.add("d-none");
+      this._clearHtml();
+    }, 300);
   }
 }
 

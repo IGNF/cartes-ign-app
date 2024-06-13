@@ -10,6 +10,8 @@ action-sheet {
 #sheetContent {
   position: fixed;
   bottom: 0;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
   height: fit-content;
   width: 100%;
   background-color: white;
@@ -45,4 +47,5 @@ action-sheet {
   text-align: center;
   margin-right: 18px;
   border-radius: 100px;
+  transition: color 0.2s, background-color 0.2s;
 }
