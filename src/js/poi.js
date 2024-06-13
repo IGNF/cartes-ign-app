@@ -187,7 +187,7 @@ class POI {
       });
     }
 
-    let rltChecked = "";
+    let rltChecked = "checked";
     // Chargement de la position précédente
     if (localStorage.getItem("poirltChecked")) {
       rltChecked = localStorage.getItem("poirltChecked");
