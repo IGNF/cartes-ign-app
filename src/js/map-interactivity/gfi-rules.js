@@ -148,6 +148,7 @@ const gfiRules = {
         ["Numéro de parcelle :", "{{numero}}"],
         ["Feuille :", "{{feuille}}"],
         ["Section :", "{{section}}"],
+        ["Contenance :", "{{contenance}}"],
       ],
     }
   },
