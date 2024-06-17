@@ -117,7 +117,8 @@
 
 #sideBySideFadeSlider-range-input {
   width: 100%;
-  background: white;
+  background: #fff0;
+  padding: 2em 0;
 }
 
 #compassBtn {

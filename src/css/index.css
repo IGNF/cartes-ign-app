@@ -223,6 +223,7 @@ input[type=range] {
   --range: calc(var(--max) - var(--min));
   --ratio: calc((var(--value) - var(--min)) / var(--range));
   --sx: calc(0.5 * 16px + var(--ratio) * (100% - 16px));
+  background-clip: padding-box;
 }
 
 /* slider thumb */
