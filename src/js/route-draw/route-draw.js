@@ -1005,10 +1005,12 @@ class RouteDraw {
     this.currentHistoryPosition--;
     DOM.$routeDrawCancel.classList.remove("inactive");
     this.data = JSON.parse(JSON.stringify(this.dataHistory[this.currentHistoryPosition]));
-    if (this.data.elevationData.elevationData.length > 1) {
-      this.elevation.setData(this.data.elevationData);
-    } else {
-      this.#updateElevation();
+    if (this.data.elevationData.elevationData) {
+      if (this.data.elevationData.elevationData.length > 1) {
+        this.elevation.setData(this.data.elevationData);
+      } else {
+        this.#updateElevation();
+      }
     }
     this.#updateSources();
     this.__updateRouteInfo(this.data);
