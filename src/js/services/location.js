@@ -9,6 +9,7 @@ import maplibregl from "maplibre-gl";
 import DOM from "../dom";
 import Globals from "../globals";
 import GisUtils from "../utils/gis-utils";
+import threeD from "../three-d";
 
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
@@ -497,7 +498,7 @@ const getOrientation = async (event) => {
   mapBearing = tempMapBearing;
   if (navigation_active) {
     if (!isMapPanning) {
-      Globals.map.easeTo({bearing: -mapBearing, duration: 100});
+      Globals.map.easeTo({bearing: -mapBearing, pitch: 45, duration: 100});
     }
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
@@ -557,6 +558,7 @@ const disableTracking = () => {
   tracking_active = false;
   if (navigation_active) {
     navigation_active = false;
+    threeD.remove3dBuildings();
   }
   Globals.map.touchZoomRotate.enable();
   Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
