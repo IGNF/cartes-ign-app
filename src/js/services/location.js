@@ -9,6 +9,7 @@ import maplibregl from "maplibre-gl";
 import DOM from "../dom";
 import Globals from "../globals";
 import GisUtils from "../utils/gis-utils";
+import threeD from "../three-d";
 
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
@@ -186,6 +187,7 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
     Globals.myPositionMarker = new maplibregl.Marker({
       element: (gps) ? positionIcon : Globals.searchResultIcon,
       anchor: (gps) ? "center" : "bottom",
+      pitchAlignment: "map",
     })
       .setLngLat([coords.lon, coords.lat])
       .addTo(Globals.map);
@@ -217,10 +219,19 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
   if (panTo) {
     if (tracking_active) {
       isMapPanning = true;
-      Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom, bearing: -mapBearing, duration: 500});
+      Globals.map.flyTo({
+        center: [coords.lon, coords.lat],
+        zoom: zoom,
+        bearing: -mapBearing,
+        pitch: 45,
+        duration: 500});
       Globals.map.once("moveend", () => {isMapPanning = false;});
     } else {
-      Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
+      Globals.map.flyTo({
+        center: [coords.lon, coords.lat],
+        zoom: zoom,
+        pitch: 0,
+      });
     }
   }
 };
@@ -250,7 +261,7 @@ const watchPositionCallback = (position) => {
     localStorage.setItem("lastKnownPosition", JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}));
     var zoom = Globals.map.getZoom();
     if (firstLocation || tracking_active) {
-      zoom = Math.max(Globals.map.getZoom(), 16);
+      zoom = Math.max(Globals.map.getZoom(), 16.5);
     }
     moveTo({
       lat: position.coords.latitude,
@@ -384,17 +395,26 @@ const locationOnOff = async () => {
     }
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
     tracking_active = true;
-    Globals.map.setCenter([currentPosition.coords.longitude, currentPosition.coords.latitude]);
-    Globals.map.setZoom(16);
-    Globals.map.setBearing(-mapBearing);
-    DOM.$compassBtn.classList.remove("d-none");
-    DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
+    Globals.map.setMaxPitch(45);
+    threeD.add3dBuildings();
+    Globals.map.flyTo({
+      center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
+      zoom: 16.5,
+      bearing: -mapBearing,
+      pitch: 45,
+    });
     Toast.show({
       text: "Mode navigation activé",
       duration: "short",
       position: "bottom"
     });
   } else {
+    threeD.remove3dBuildings();
+    Globals.map.flyTo({
+      pitch: 0,
+      duration: 500,
+    })
+    setTimeout( () => {Globals.map.setMaxPitch(0)}, 500);
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
     Geolocation.clearWatch({id: watch_id});
     clean();
@@ -436,7 +456,7 @@ const getOrientation = async (event) => {
   mapBearing = tempMapBearing;
   if (tracking_active) {
     if (!isMapPanning) {
-      Globals.map.easeTo({bearing: -mapBearing, duration: 100});
+      Globals.map.easeTo({bearing: -mapBearing, pitch: 45, duration: 100});
     }
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
@@ -490,9 +510,16 @@ const getLocation = async () => {
   return results;
 };
 
-const disableTracking = () => {
+const disableTracking = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
   tracking_active = false;
+  threeD.remove3dBuildings();
+  Globals.map.flyTo({
+    pitch: 0,
+    bearing: bearing,
+    duration: 500,
+  })
+  setTimeout( () => {Globals.map.setMaxPitch(0)}, 500);
   Toast.show({
     text: "Suivi de position activé",
     duration: "short",
