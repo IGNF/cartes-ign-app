@@ -5,7 +5,7 @@
  */
 
 import parseOsmOpeningHours from "./parse-osm-opening-hours";
-import wayNameDictionnary from "./way-name-dictionnary";
+// import wayNameDictionnary from "./way-name-dictionnary";
 
 /**
  *
@@ -104,8 +104,8 @@ const featurePropertyFilter = (feature) => {
   if(feature.layer["source-layer"] == "troncon_de_route") {
     let cpx_numero = getProperty(feature, "cpx_numero");
     let cpx_toponyme_route_nommee = getProperty(feature, "cpx_toponyme_route_nommee");
-    let nom_1_droite = getProperty(feature, "nom_1_droite");
-    let nom_1_gauche = getProperty(feature, "nom_1_gauche");
+    // let nom_1_droite = getProperty(feature, "nom_1_droite");
+    // let nom_1_gauche = getProperty(feature, "nom_1_gauche");
     let cpx_toponyme_voie_verte = getProperty(feature, "cpx_toponyme_voie_verte");
     let cpx_toponyme_itineraire_cyclable = getProperty(feature, "cpx_toponyme_itineraire_cyclable");
     let nombre_de_voies = getProperty(feature, "nombre_de_voies");

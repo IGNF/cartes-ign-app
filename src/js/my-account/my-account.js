@@ -824,9 +824,6 @@ ${landmark.properties.description}
       for (let i = 0; i < steps.length; i++) {
         let feature = steps[i];
         let order = i === 0 ? "departure" : "";
-        if (i === steps.length - 1) {
-          order = "destination";
-        }
         const lastIndex = feature.geometry.coordinates.length - 1;
         points.push({
           type: "Feature",
@@ -838,7 +835,7 @@ ${landmark.properties.description}
             order: order === "departure" ? order : "",
           },
         });
-        if (order === "destination") {
+        if (i === steps.length - 1) {
           points.push({
             type: "Feature",
             geometry: {
@@ -846,7 +843,7 @@ ${landmark.properties.description}
               coordinates: feature.geometry.coordinates[lastIndex]
             },
             properties: {
-              order: order,
+              order: "destination",
             },
           });
         }

@@ -196,7 +196,7 @@ class RouteDraw {
    * @param {*} data
    * @public
    */
-  setData(data) {
+  async setData(data) {
     this.dataHistory = [];
     this.data = data;
     if (this.data.elevationData.elevationData && this.data.elevationData.elevationData.length > 1) {
@@ -204,17 +204,34 @@ class RouteDraw {
     } else {
       this.#updateElevation();
     }
+    for (const point of this.data.points) {
+      if (!point.properties.name) {
+        const coords = {
+          lat: point.geometry.coordinates[1],
+          lng: point.geometry.coordinates[0],
+        };
+        const address = await this.#computePointName(coords);
+        point.properties.name = address;
+      }
+    }
     if (this.data.distance === 0 && this.data.steps.length > 0) {
       this.data.steps.forEach( (step) => {
-        this.data.distance += turfLength(step) * 1000;
+        step.properties.distance = turfLength(step) * 1000;
+        this.data.distance += step.properties.distance;
       });
       if (this.data.duration === 0) {
         if (this.transport === "pedestrian") {
           // 4 km/h
-          this.data.duration = this.data.distance / (4 / 3.6);
+          this.data.steps.forEach( (step) => {
+            step.properties.duration = step.properties.distance / (4 / 3.6);
+            this.data.duration += step.properties.duration;
+          });
         } else {
           // 50 km/h
-          this.data.duration = this.data.distance / (50 / 3.6);
+          this.data.steps.forEach( (step) => {
+            step.properties.duration = step.properties.distance / (50 / 3.6);
+            this.data.duration += step.properties.duration;
+          });
         }
       }
     }
