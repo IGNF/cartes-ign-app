@@ -1,0 +1,169 @@
+{
+  "version": 8,
+  "name": "PLAN IGN bâti 3d",
+  "glyphs": "https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf",
+  "sprite": "data/poi-osm-sprite",
+  "metadata": {
+    "geoportail:tooltip": "BDTOPO/multicouche_bdtopo"
+  },
+  "sources": {
+    "bdtopo": {
+      "type": "vector",
+      "maxzoom": 19,
+      "minzoom": 15,
+      "tiles": [
+        "https://data.geopf.fr/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf"
+      ]
+    }
+  },
+  "transition": {
+    "duration": 300,
+    "delay": 0
+  },
+  "layers": [
+    {
+      "id": "batiment_residentiel_vol",
+      "type": "fill-extrusion",
+      "source": "bdtopo",
+      "source-layer": "batiment",
+      "minzoom": 16,
+      "filter": [
+        "==",
+        "usage_1",
+        "Résidentiel"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#F1EBD9"
+      }
+    },
+    {
+      "id": "batiment_annexe_vol",
+      "type": "fill-extrusion",
+      "source": "bdtopo",
+      "source-layer": "batiment",
+      "minzoom": 16,
+      "filter": [
+        "==",
+        "usage_1",
+        "Annexe"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#F1EBD9"
+      }
+    },
+    {
+      "id": "batiment_agricole_vol",
+      "type": "fill-extrusion",
+      "source": "bdtopo",
+      "source-layer": "batiment",
+      "minzoom": 16,
+      "filter": [
+        "==",
+        "usage_1",
+        "Agricole"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#E6E6E6"
+      }
+    },
+    {
+      "id": "batiment_commercial_et_services_vol",
+      "type": "fill-extrusion",
+      "source": "bdtopo",
+      "source-layer": "batiment",
+      "minzoom": 16,
+      "filter": [
+        "==",
+        "usage_1",
+        "Commercial et services"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#E3BFE2"
+      }
+    },
+    {
+      "id": "batiment_industriel_vol",
+      "type": "fill-extrusion",
+      "source": "bdtopo",
+      "source-layer": "batiment",
+      "minzoom": 16,
+      "filter": [
+        "==",
+        "usage_1",
+        "Industriel"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#E6E6E6"
+      }
+    },
+    {
+      "id": "batiment_sportif_vol",
+      "type": "fill-extrusion",
+      "source": "bdtopo",
+      "source-layer": "batiment",
+      "minzoom": 16,
+      "filter": [
+        "==",
+        "usage_1",
+        "Sportif"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#DCE6E4"
+      }
+    },
+    {
+      "id": "batiment_religieux_vol",
+      "type": "fill-extrusion",
+      "source": "bdtopo",
+      "source-layer": "batiment",
+      "minzoom": 16,
+      "filter": [
+        "==",
+        "usage_1",
+        "Religieux"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#F7E1E1"
+      }
+    },
+    {
+      "id": "batiment_indifferencie_vol",
+      "type": "fill-extrusion",
+      "source": "bdtopo",
+      "source-layer": "batiment",
+      "minzoom": 16,
+      "filter": [
+        "==",
+        "usage_1",
+        "Indifférencié"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#F1EBD9"
+      }
+    }
+  ]
+}

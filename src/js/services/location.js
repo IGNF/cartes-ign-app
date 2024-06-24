@@ -9,6 +9,7 @@ import maplibregl from "maplibre-gl";
 import DOM from "../dom";
 import Globals from "../globals";
 import GisUtils from "../utils/gis-utils";
+import threeD from "../three-d";
 
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
@@ -431,6 +432,7 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
     navigation_active = true;
     Globals.map.setMaxPitch(45);
+    threeD.add3dBuildings();
     const padding = {top: DOM.$map.clientHeight * 0.5};
     Globals.map.easeTo({
       center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
@@ -446,6 +448,7 @@ const locationOnOff = async () => {
       position: "bottom"
     });
   } else {
+    threeD.remove3dBuildings();
     Globals.map.flyTo({
       pitch: 0,
       duration: 500,
@@ -492,7 +495,7 @@ const getOrientation = async (event) => {
   mapBearing = tempMapBearing;
   if (navigation_active) {
     if (!isMapPanning) {
-      Globals.map.easeTo({bearing: -mapBearing, duration: 100});
+      Globals.map.easeTo({bearing: -mapBearing, pitch: 45, duration: 100});
     }
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
@@ -552,6 +555,7 @@ const disableTracking = () => {
   if (navigation_active) {
     Globals.map.setMaxPitch(0);
     navigation_active = false;
+    threeD.remove3dBuildings();
   }
   Globals.map.touchZoomRotate.enable();
   Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
