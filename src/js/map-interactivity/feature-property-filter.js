@@ -117,23 +117,25 @@ const featurePropertyFilter = (feature) => {
     }
     if (cpx_toponyme_route_nommee) {
       result.before += `Nom : ${cpx_toponyme_route_nommee}<br/>`;
-    } else if (nom_1_droite) {
-      const firstWord = nom_1_droite.split(" ")[0];
-      if (firstWord in wayNameDictionnary) {
-        const nom_1_droite_array = nom_1_droite.split(" ");
-        nom_1_droite_array.splice(0, 1, wayNameDictionnary[firstWord]);
-        nom_1_droite = nom_1_droite_array.join(" ");
-      }
-      result.before += `Nom : ${nom_1_droite}<br/>`;
-    } else if (nom_1_gauche) {
-      const firstWord = nom_1_gauche.split(" ")[0];
-      if (firstWord in wayNameDictionnary) {
-        const nom_1_gauche_array = nom_1_gauche.split(" ");
-        nom_1_gauche_array.splice(0, 1, wayNameDictionnary[firstWord]);
-        nom_1_gauche = nom_1_gauche_array.join(" ");
-      }
-      result.before += `Nom : ${nom_1_gauche}<br/>`;
     }
+    // TODO: si on veut finalement afficher le nom de la route
+    // } else if (nom_1_droite) {
+    //   const firstWord = nom_1_droite.split(" ")[0];
+    //   if (firstWord in wayNameDictionnary) {
+    //     const nom_1_droite_array = nom_1_droite.split(" ");
+    //     nom_1_droite_array.splice(0, 1, wayNameDictionnary[firstWord]);
+    //     nom_1_droite = nom_1_droite_array.join(" ");
+    //   }
+    //   result.before += `Nom : ${nom_1_droite}<br/>`;
+    // } else if (nom_1_gauche) {
+    //   const firstWord = nom_1_gauche.split(" ")[0];
+    //   if (firstWord in wayNameDictionnary) {
+    //     const nom_1_gauche_array = nom_1_gauche.split(" ");
+    //     nom_1_gauche_array.splice(0, 1, wayNameDictionnary[firstWord]);
+    //     nom_1_gauche = nom_1_gauche_array.join(" ");
+    //   }
+    //   result.before += `Nom : ${nom_1_gauche}<br/>`;
+    // }
     if (cpx_toponyme_voie_verte)
       result.before += `${cpx_toponyme_voie_verte}<br/>`;
     if (cpx_toponyme_itineraire_cyclable)
