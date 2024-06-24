@@ -66,6 +66,10 @@ h3 {
   color: var(--dark-grey);
 }
 
+input[type=text] {
+  font-size: 16px;
+}
+
 #whiteScreen {
   width: 100vw;
   height: 100vh;

@@ -259,6 +259,7 @@ div[id^="info_ID_"] {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  font-size: 14px;
 }
 
 .tools-layer-remove {
