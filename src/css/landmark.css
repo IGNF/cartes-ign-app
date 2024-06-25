@@ -39,7 +39,7 @@
   border: 1px solid;
   border-color: var(--grey-2);
   color: var(--dark-grey);
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .inputLandmarkLocation:focus,

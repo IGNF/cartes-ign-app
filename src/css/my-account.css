@@ -32,6 +32,9 @@
   font-family: 'Open Sans Semibold';
   text-decoration: underline;
   font-size: 13px;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--dark-green);
 }
 
 #menuItemHelp {

@@ -48,12 +48,12 @@ body {
   user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
   background-color: white;
   font-family: "Open Sans Semibold", -apple-system, -apple-system-font, sans-serif;
-  font-size:12px;
-  height:100vh;
-  margin:0px;
-  padding:0px;
-  width:100%;
-  color:white;
+  font-size: 13px;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  color: white;
 }
 
 pwa-toast, action-sheet {
@@ -66,8 +66,8 @@ h3 {
   color: var(--dark-grey);
 }
 
-input[type=text] {
-  font-size: 16px;
+input[type=text], textarea, input[type=email], select {
+  font-size: 15px;
 }
 
 #whiteScreen {
