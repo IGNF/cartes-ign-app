@@ -242,7 +242,14 @@ function app() {
   Globals.menu.show();
   // HACK: Nécessaire pour iOS qui ne met pas à jour la taille de l'écran au lancement...
   if (Capacitor.getPlatform() === "ios") {
-    map.once("load", () => Globals.map.resize());
+    map.once("load", () => {
+      Globals.map.resize();
+      map.once("moveend", () => {
+        StatusPopups.getNetworkPopup(map);
+        StatusPopups.getEditoPopup(map);
+      });
+    });
+
   }
   setTimeout(() => {
     if (!Globals.mapLoaded) {

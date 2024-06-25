@@ -1,43 +1,40 @@
 PODS:
-  - AashuDubeyCapacitorStatusbarSafeArea (2.1.1):
+  - AashuDubeyCapacitorStatusbarSafeArea (3.0.0):
     - Capacitor
-  - AgorapulseCapacitorMediastore (0.2.0):
-    - Capacitor
-  - Capacitor (5.6.0):
+  - Capacitor (6.0.0):
     - CapacitorCordova
-  - CapacitorApp (5.0.7):
+  - CapacitorApp (6.0.0):
     - Capacitor
-  - CapacitorCordova (5.6.0)
-  - CapacitorDevice (5.0.6):
+  - CapacitorCordova (6.0.0)
+  - CapacitorDevice (6.0.0):
     - Capacitor
-  - CapacitorFilesystem (5.2.0):
+  - CapacitorFilesystem (6.0.0):
     - Capacitor
-  - CapacitorGeolocation (5.0.6):
+  - CapacitorGeolocation (6.0.0):
     - Capacitor
-  - CapacitorKeyboard (5.0.8):
+  - CapacitorKeyboard (6.0.0):
     - Capacitor
-  - CapacitorNativeSettings (5.0.1):
+  - CapacitorNativeSettings (6.0.0):
     - Capacitor
-  - CapacitorNetwork (5.0.7):
+  - CapacitorNetwork (6.0.0):
     - Capacitor
-  - CapacitorScreenOrientation (5.0.7):
+  - CapacitorScreenOrientation (6.0.0):
     - Capacitor
-  - CapacitorShare (5.0.6):
+  - CapacitorShare (6.0.0):
     - Capacitor
-  - CapacitorSplashScreen (5.0.7):
+  - CapacitorSplashScreen (6.0.0):
     - Capacitor
-  - CapacitorStatusBar (5.0.6):
+  - CapacitorStatusBar (6.0.0):
     - Capacitor
-  - CapacitorTextZoom (5.0.7):
+  - CapacitorTextZoom (6.0.0):
     - Capacitor
-  - CapacitorToast (5.0.6):
+  - CapacitorToast (6.0.0):
     - Capacitor
-  - CapawesomeCapacitorFilePicker (5.3.0):
+  - CapawesomeCapacitorFilePicker (6.0.0):
     - Capacitor
 
 DEPENDENCIES:
   - "AashuDubeyCapacitorStatusbarSafeArea (from `../../node_modules/@aashu-dubey/capacitor-statusbar-safe-area`)"
-  - "AgorapulseCapacitorMediastore (from `../../node_modules/@agorapulse/capacitor-mediastore`)"
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
@@ -58,8 +55,6 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   AashuDubeyCapacitorStatusbarSafeArea:
     :path: "../../node_modules/@aashu-dubey/capacitor-statusbar-safe-area"
-  AgorapulseCapacitorMediastore:
-    :path: "../../node_modules/@agorapulse/capacitor-mediastore"
   Capacitor:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorApp:
@@ -94,25 +89,24 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capawesome/capacitor-file-picker"
 
 SPEC CHECKSUMS:
-  AashuDubeyCapacitorStatusbarSafeArea: 4833bf7ac284b54c6650f0d80634552094fd3229
-  AgorapulseCapacitorMediastore: 8e715b430fa585618957e0c6fc73e544d6f95ee9
-  Capacitor: ebfc16cdb8116d04c101686b080342872da42d43
-  CapacitorApp: 17fecd0e6cb23feafac7eb0939417389038b0979
-  CapacitorCordova: 931b48fcdbc9bc985fc2f16cec9f77c794a27729
-  CapacitorDevice: 2c968f98a1ec4d22357418c1521e7ddc46c675e6
-  CapacitorFilesystem: 02f9a9053b96e1881ba1fc98d846869413c195c2
-  CapacitorGeolocation: c8f9b46f96e0b6cc80a6c7ff48a37cfc44ad2198
-  CapacitorKeyboard: aec619a578235c6ce279075009a2689c2cf5c42c
-  CapacitorNativeSettings: 6e94ed3c0465206756f320df18efc52f053ce3c7
-  CapacitorNetwork: 81ef9728aa7a65cac8c1181ce79e578162b57b57
-  CapacitorScreenOrientation: cc638c369cb2b1dfc55f8265485a8b4e0b3cafd9
-  CapacitorShare: cd41743331cb71d217c029de54b681cbd91e0fcc
-  CapacitorSplashScreen: dd3de3f3644710fa2a697cfb91ec262eece4d242
-  CapacitorStatusBar: a73a9ae0dd2ca30ee429782d5d3ae82dcfa80207
-  CapacitorTextZoom: 69814a62b1d0f23a899cca06ea9838c38de187ff
-  CapacitorToast: 61a9bec819ad3aeccc1ebe3fcbff565c22969c71
-  CapawesomeCapacitorFilePicker: 41f486cb4a89c6a7c8a4f5d683dbf96658894182
+  AashuDubeyCapacitorStatusbarSafeArea: b32e282503c277e7e6bd2b030feef16658476b5b
+  Capacitor: 559d073c4ca6c27f8e7002c807eea94c3ba435a9
+  CapacitorApp: 9d53aec7101f7b030a950c5bdc4df8612576b279
+  CapacitorCordova: 8c4bfdf69368512e85b1d8b724dd7546abeb30af
+  CapacitorDevice: f8fd88f9edd1261c55a109f32015b09bbbfdc4a0
+  CapacitorFilesystem: 60e59ba274c234a979e7a3be2552feaadcee4263
+  CapacitorGeolocation: 1f12bbe372b65116e851bd8e3a94cf0ef9bacebb
+  CapacitorKeyboard: deacbd09d8d1029c3681197fb05d206b721d5f73
+  CapacitorNativeSettings: ab24b68c6e6e7391c6ade889d2a83aaceed0fc36
+  CapacitorNetwork: f15a94c16a33cba7c47a17814cb6bcfe3ea34ded
+  CapacitorScreenOrientation: d78ce2b710bfcd1c32d3a090d32b6686c1c95e4f
+  CapacitorShare: a771200d3b924a5d7ad9d9fecbac517e4c0aa74f
+  CapacitorSplashScreen: 5431ab8d19c1c6e95777d53bfaa7a36a6c3d94c7
+  CapacitorStatusBar: 2e4369f99166125435641b1908d05f561eaba6f6
+  CapacitorTextZoom: 696722e5c479b364f2429584f11ad386d609bd1a
+  CapacitorToast: ba573a7bc5dfd622e78d5be126a84ee221da4180
+  CapawesomeCapacitorFilePicker: 983e8d272d200897cf1c12cf9a62439fa2fb2c35
 
-PODFILE CHECKSUM: ec34be5a0573f47cee711d68be263c3c85ae995f
+PODFILE CHECKSUM: 45f2516610a7861872f461597a0b2998b0239460
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2
