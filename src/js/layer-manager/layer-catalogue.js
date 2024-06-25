@@ -210,7 +210,10 @@ class LayerCatalogue extends EventTarget {
     });
 
     document.getElementById("baseLayersAfter").addEventListener("click", DomUtils.horizontalParentScroll);
+    document.getElementById("baseLayersAfter").parentElement.addEventListener("scrollend", DomUtils.horizontalParentScrollend);
     document.getElementById("subCatButtonAfter").addEventListener("click", DomUtils.horizontalParentScroll);
+    document.getElementById("subCatButtonAfter").parentElement.addEventListener("scrollend", DomUtils.horizontalParentScrollend);
+
   }
 
   /**

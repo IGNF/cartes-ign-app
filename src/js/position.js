@@ -350,6 +350,7 @@ class Position {
     }
 
     shadowContainer.getElementById("divPositionButtonsAfter").addEventListener("click", DomUtils.horizontalParentScroll);
+    shadowContainer.getElementById("divPositionButtonsAfter").parentElement.addEventListener("scrollend", DomUtils.horizontalParentScrollend);
 
     // ajout du container shadow
     target.appendChild(shadowContainer);
