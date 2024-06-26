@@ -106,6 +106,8 @@ class MenuNavigation {
      * @param {*} id
      */
   open(id, scrollIndex = -1) {
+    // Apparition de la croix (cas général)
+    DOM.$tabClose.classList.remove("d-none");
     if (["isochrone", "directions"].includes(id)) {
       if (!Globals.online) {
         this.#offlineWarning();
@@ -226,6 +228,8 @@ class MenuNavigation {
       Globals.currentScrollIndex = 1;
       break;
     case "routeDraw":
+      // Disparition de la croix pour le tracé d'itinéraire (décision UI)
+      DOM.$tabClose.classList.add("d-none");
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -453,6 +457,8 @@ class MenuNavigation {
       break;
     case "routeDrawSave":
       // Réouverture de routeDraw sans utilisr this.open("routeDraw")
+      // Disparition de la croix
+      DOM.$tabClose.classList.add("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM["$routeDrawWindow"].classList.remove("d-none");
       DOM.$routeDrawBtns.classList.remove("d-none");
