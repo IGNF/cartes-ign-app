@@ -609,14 +609,16 @@ class RouteDraw {
     this.#updateSources();
     var promises = [];
     if (index > 0) {
-      const computeBefore = this.#computeStep(index - 1, this.data.steps[index - 1].properties.mode, false);
+      const mode = this.data.steps[index - 1] ? this.data.steps[index - 1].properties.mode : this.mode;
+      const computeBefore = this.#computeStep(index - 1, mode, false);
       promises.push(computeBefore);
       if (this.mode === 1 && this.data.steps[index - 1].properties.mode === 0 && index > 1) {
         computeBefore.then(() => promises.push(this.#computeStep(index - 2, this.data.steps[index - 2].properties.mode, false)));
       }
     }
     if (index < this.data.points.length - 1) {
-      const computeAfter = this.#computeStep(index, this.data.steps[index].properties.mode, false);
+      const mode = this.data.steps[index] ? this.data.steps[index].properties.mode : this.mode;
+      const computeAfter = this.#computeStep(index, mode, false);
       promises.push(computeAfter);
       if (this.mode === 1 && index < this.data.points.length - 2 && this.data.steps[index].properties.mode === 0) {
         computeAfter.then(() => promises.push(this.#computeStep(index + 1, this.data.steps[index + 1].properties.mode, false)));
