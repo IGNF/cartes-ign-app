@@ -666,7 +666,9 @@ ${landmark.properties.description}
       ]
     });
     try {
+      let formatName;
       if (value === "json") {
+        formatName = "JSON";
         await Filesystem.writeFile({
           path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`,
           data: JSON.stringify(this.#routeToGeojson(route)),
@@ -674,6 +676,7 @@ ${landmark.properties.description}
           encoding: Encoding.UTF8,
         });
       } else if (value === "gpx") {
+        formatName = "GPX";
         const gpx = GeoJsonToGpx(this.#routeToGeojson(route), {
           metadata: {
             name: route.name,
@@ -695,7 +698,7 @@ ${landmark.properties.description}
         return;
       }
       Toast.show({
-        text: `Fichier enregistré dans ${documentsName}.`,
+        text: `Fichier enregistré dans ${documentsName} au format ${formatName}.`,
         duration: "long",
         position: "bottom"
       });

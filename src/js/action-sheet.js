@@ -100,7 +100,7 @@ class ActionSheet extends EventTarget {
               }
             })
           );
-        }, 200);
+        }, 600);
       });
       div.appendChild(elem);
     }
@@ -143,7 +143,7 @@ class ActionSheet extends EventTarget {
     setTimeout( () => {
       this._target.classList.add("d-none");
       this._clearHtml();
-    }, 300);
+    }, 500);
   }
 }
 

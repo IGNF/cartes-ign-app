@@ -11,7 +11,7 @@ action-sheet {
   position: fixed;
   bottom: 0;
   transform: translateY(100%);
-  transition: transform 0.3s ease-out;
+  transition: transform 0.5s ease-in-out;
   height: fit-content;
   width: 100%;
   background-color: white;
