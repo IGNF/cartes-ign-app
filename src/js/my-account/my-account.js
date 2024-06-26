@@ -820,6 +820,16 @@ ${landmark.properties.description}
     routeJson.features = routeJson.features.filter(feature => ["LineString", "Point"].includes(feature.geometry.type));
     const steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
     const points = routeJson.features.filter(feature => feature.geometry.type === "Point");
+    let stepId, pointId = 0;
+    steps.forEach((step) => {
+      step.properties.id = stepId;
+      stepId++;
+      step.properties.mode = 1;
+    });
+    points.forEach((point) => {
+      point.properties.id = pointId;
+      pointId++;
+    });
     if (points.length === 0) {
       for (let i = 0; i < steps.length; i++) {
         let feature = steps[i];
@@ -833,8 +843,10 @@ ${landmark.properties.description}
           },
           properties: {
             order: order === "departure" ? order : "",
+            id: pointId,
           },
         });
+        pointId++;
         if (i === steps.length - 1) {
           points.push({
             type: "Feature",
