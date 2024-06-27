@@ -433,6 +433,7 @@ const locationOnOff = async () => {
     navigation_active = true;
     Globals.map.setMaxPitch(45);
     threeD.add3dBuildings();
+    threeD.add3dTerrain();
     const padding = {top: DOM.$map.clientHeight * 0.5};
     Globals.map.easeTo({
       center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
