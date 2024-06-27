@@ -35,6 +35,7 @@
   text-underline-offset: 6px;
   text-decoration-thickness: 2px;
   text-decoration-color: var(--dark-green);
+  color: var(--black);
 }
 
 #menuItemHelp {
@@ -74,7 +75,7 @@
 #myAccountLogInBtn {
   background-color: var(--dark-green);
   color: white;
-  font-family: "Open Sans Semibold";
+  font-family: "Open Sans";
   width: fit-content;
   padding: 10px 28px;
   border-radius: 100px;
@@ -111,7 +112,7 @@
 } */
 
 #myAccountBody > .layer-tabs-wrap {
- margin: 24px;
+ margin: 24px 18px;
  height: 100%;
  min-height: 0;
  height: calc(100% - 20px);
@@ -155,8 +156,8 @@ div[id^=route-basic-tools_ID_] {
   padding-left: 24px;
   background-size: 12px;
   color: var(--dark-grey);
-  font-family: "Open Sans";
-  font-size: 12px;
+  font-size: 13px;
+  padding-right: 0;
 }
 
 .wrap-tools-layers .routeDrawSummaryDPlus {
@@ -164,9 +165,14 @@ div[id^=route-basic-tools_ID_] {
   background-position: -2px;
 }
 
+.wrap-tools-layers .routeDrawSummaryDistance {
+  background-image: url("assets/route-draw/arrow-leftright.svg");
+}
+
 .wrap-tools-layers .routeDrawSummaryDuration {
   background-size: 20px;
   background-position: 2px;
+  background-image: url("assets/route-draw/clock.svg");
 }
 
 .landmarkSummaryIcon {

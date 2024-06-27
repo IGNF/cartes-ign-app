@@ -63,7 +63,7 @@
 
 .lblPositionCity {
   font-family: "Open Sans Semibold";
-  font-size: 12px;
+  font-size: 13px;
 }
 
 /*
@@ -174,8 +174,8 @@
  */
 .divPositionCoord {
   margin: 0;
-  color: var(--mid-grey);
-  font-size: 12px;
+  color: var(--darkish-grey);
+  font-size: 13px;
 }
 
 /*
@@ -260,13 +260,12 @@
 
 .positionSubTitle {
   font-family: "Open Sans";
-  font-size: 12px;
+  font-size: 13px;
   color: var(--mid-grey);
   margin: 0;
 }
 
 .positionHtmlBefore {
-  font-family: "Open Sans";
   line-height: 20px;
 }
 
@@ -315,7 +314,6 @@
 
 .monumentsHistoriquesImageAuthor {
   font-size: 12px;
-  font-family: "Open Sans";
   color: var(--mid-grey);
   margin-top: 3px;
 }

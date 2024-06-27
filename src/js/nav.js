@@ -83,8 +83,6 @@ class MenuNavigation {
     });
     // "Compte"
     document.getElementById("myaccount").addEventListener("click",  () => { this.open("myaccount"); });
-    // Gestionnaire des couches
-    document.getElementById("informationsWindowClose").addEventListener("click", () => { this.close("informations");});
   }
 
   /**

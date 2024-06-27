@@ -96,7 +96,7 @@
 
 #routeDrawSaveSummary > div > label,
 #routeDrawSummary > div > label {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .routeDrawTitleWrapper {
@@ -142,16 +142,21 @@
   background-position: 0px center;
   background-repeat: no-repeat;
   padding-left: 35px;
+  font-size: 14px;
+}
+.routeDrawSummaryDuration,
+.routeDrawSummaryDistance {
+  padding-left: 0px;
+  font-size: 17px;
+  padding-right: 8px;
 }
 
 .routeDrawSummaryDuration {
-  background-image: url("assets/route-draw/clock.svg");
   color: var(--dark-green);
 }
 
 .routeDrawSummaryDistance {
   background-position: 6px center;
-  background-image: url("assets/route-draw/arrow-leftright.svg");
 }
 
 .routeDrawSummaryDPlus {

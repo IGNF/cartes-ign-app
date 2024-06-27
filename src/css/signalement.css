@@ -16,7 +16,6 @@
   width: 20px;
   height: 1em;
   background-repeat: no-repeat;
-  background-position: center;
   background-size: 0.8em;
   background-position: bottom;
 }
@@ -35,11 +34,27 @@
   margin: 5px 0 0 0;
 }
 
-.signalementSubSection {
-  background-color: var(--grey-2);
-  padding: 1px 8px 15px 8px;
+.signalementSubSection > .signalementText {
+  background-color: var(--light-green);
+  padding: 15px 8px;
   margin: 15px 5px;
   border-radius: 5px;
+}
+
+#signalementWindow .signalementSubSection > .signalementText > a {
+  color: var(--darker-green);
+  text-decoration: none;
+  font-family: "Open Sans Semibold";
+  display: flex;
+  align-items: center;
+}
+
+#signalementWindow .signalementSubSection > .signalementText > a::after {
+  background-image: url("assets/external-link-green.svg");
+  width: 40px;
+  height: 2em;
+  background-size: 1.2em;
+  background-position: center;
 }
 
 .signalementForm {

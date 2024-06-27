@@ -31,7 +31,7 @@ div[id^="cross-picto_ID_"] {
   right: unset;
   top: unset;
   width: 25px;
-  background: url("./assets/drag-and-drop-light.svg") center center no-repeat, var(--false-white);
+  background: url("./assets/drag-and-drop.svg") center center no-repeat, var(--false-white);
 }
 
 div[id^="landmark-basic-tools_ID_"],
@@ -72,7 +72,7 @@ span[id^="route-title_ID_"],
 span[id^="title_ID_"] {
   word-break: break-word;
   font-family: "Fira Sans Semibold";
-  font-size: 14px;
+  font-size: 15px;
   color: var(--dark-grey);
 }
 

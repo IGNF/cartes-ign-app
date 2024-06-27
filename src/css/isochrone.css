@@ -14,7 +14,7 @@
   padding: 5px;
   position: absolute;
   transform: translate(-40px, 6px);
-  color: var(--mid-grey);
+  color: var(--dark-grey);
 }
 /*
  * container
@@ -195,6 +195,11 @@ input#isochroneValueDistanceInput[type=number]
   color: var(--dark-grey);
   text-align: right;
   padding-right: 40px;
+}
+
+#isochroneValueDistanceInput::placeholder,
+#isochroneValueDurationInputMinutes::placeholder {
+  color: var(--dark-grey);
 }
 
 #isochroneValueDistanceInput:focus,
