@@ -110,7 +110,7 @@ let IsochroneDOM = {
                   <span class="sliderIsochrone"></span>
                 </div>
                 <div id="isochroneModeValueDuration">
-                  <p class="pIsochroneTitle">Définir un temps de trajet - 1h max</p>
+                  <p class="pIsochroneTitle">Définir un temps de trajet - 60 min max</p>
                   <div id="isochroneValueDuration" class="divIsochroneValue">
                     <input id="isochroneValueDurationInputMinutes" type="text" inputmode="numeric" placeholder="0">
                     <label class="unit">min</label>

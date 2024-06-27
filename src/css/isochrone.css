@@ -12,6 +12,9 @@
 
 .unit {
   padding: 5px;
+  position: absolute;
+  transform: translate(-40px, 6px);
+  color: var(--mid-grey);
 }
 /*
  * container
@@ -104,6 +107,7 @@
   background-size: 20px 25px;
   background-position: 13px;
   font-family: "Open Sans";
+  font-size: 14px;
 }
 
 .lblIsochroneTransport {
@@ -184,13 +188,13 @@ input#isochroneValueDistanceInput[type=number]
 #isochroneValueDistanceInput
 {
   height: 35px;
-  width: 95px;
-  padding-left: 10px;
+  width: 55px;
   border-radius: 8px;
   border: 1px solid;
   border-color: var(--grey-2);
   color: var(--dark-grey);
   text-align: right;
+  padding-right: 40px;
 }
 
 #isochroneValueDistanceInput:focus,
@@ -278,7 +282,7 @@ input#isochroneValueDistanceInput[type=number]
   flex-direction: column;
   width: 100%;
   font-family: "Open Sans Semibold";
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .lblIsochroneFilter {
@@ -299,7 +303,7 @@ input#isochroneValueDistanceInput[type=number]
   flex-direction: row;
   justify-content: space-between;
   font-family: "Open Sans Semibold";
-  font-size: 13px;
+  font-size: 14px;
   padding-top: 15px;
   align-items: center;
 }
