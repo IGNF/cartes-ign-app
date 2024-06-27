@@ -59,11 +59,11 @@ const addControls = () => {
       // callback sur l'ouverture / fermeture du panneau
       openPositionCbk : () => { Globals.menu.open("position"); },
       closePositionCbk : () => { Globals.menu.close("position"); },
-      openIsochroneCbk : () => { Globals.menu.open("isochrone"); },
-      openDirectionsCbk : () => { Globals.menu.open("directions"); },
-      openSignalCbk : () => { Globals.menu.open("signalement"); },
-      openSignalOSMCbk : () => { Globals.menu.open("signalementOSM"); },
-      openLandmarkCbk : () => { Globals.menu.open("landmark"); },
+      openIsochroneCbk : () => { Globals.menu.open("isochrone", -1, "position"); },
+      openDirectionsCbk : () => { Globals.menu.open("directions", -1, "position"); },
+      openSignalCbk : () => { Globals.menu.open("signalement", -1, "position"); },
+      openSignalOSMCbk : () => { Globals.menu.open("signalementOSM", -1, "position"); },
+      openLandmarkCbk : () => { Globals.menu.open("landmark", -1, "position"); },
     });
 
     // contrôle Recherche

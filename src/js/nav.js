@@ -103,7 +103,7 @@ class MenuNavigation {
      * Ouvre le panneau avec le contenu du composant (tab)
      * @param {*} id
      */
-  open(id, scrollIndex = -1) {
+  open(id, scrollIndex = -1, previousBackState = Globals.backButtonState) {
     // Apparition de la croix (cas général)
     DOM.$tabClose.classList.remove("d-none");
     if (["isochrone", "directions"].includes(id)) {
@@ -122,7 +122,6 @@ class MenuNavigation {
     }
 
     // on met à jour l'état du panneau demandé
-    var previousBackState = Globals.backButtonState;
     Globals.backButtonState = id;
 
     // on ajoute le panneau demandé
@@ -135,6 +134,7 @@ class MenuNavigation {
     var isSpecific = false;
     switch (id) {
     case "landmark":
+      Globals.backButtonState = "landmark-" + previousBackState;
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -142,7 +142,9 @@ class MenuNavigation {
       Globals.currentScrollIndex = 1;
       break;
     case "signalement":
+      Globals.backButtonState = "signalement-" + previousBackState;
     case "signalementOSM":
+      Globals.backButtonState = "signalementOSM-" + previousBackState;
       DOM.$positionWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
@@ -289,6 +291,7 @@ class MenuNavigation {
     case "isochrone":
       // FIXME mettre en place une méthode sur la classe Search
       // ex. Globals.search.hide()
+      Globals.backButtonState = "isochrone-" + previousBackState;
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -336,6 +339,7 @@ class MenuNavigation {
       Globals.currentScrollIndex = 0;
       break;
     case "directions":
+      Globals.backButtonState = "directions-" + previousBackState;
       DOM.$search.style.display = "none";
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
       DOM.$filterPoiBtn.classList.remove("d-none");
@@ -353,7 +357,6 @@ class MenuNavigation {
     default:
       break;
     }
-
     if (isSpecific) {
       this.#open(id);
       return;
@@ -508,7 +511,6 @@ class MenuNavigation {
       DOM.$filterPoiBtn.style.removeProperty("top");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.mapInteractivity.clear();
-      Globals.position.clear();
       break;
     case "isochrone":
       // FIXME mettre en place une méthode sur la classe Searchs

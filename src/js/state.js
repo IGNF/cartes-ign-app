@@ -15,31 +15,31 @@ import { App } from "@capacitor/app";
  */
 const onBackKeyDown = () => {
   // Handle the back button
-  var previousState;
-  if (Globals.backButtonState == "default") {
+  const previousState = Globals.backButtonState.split("-")[1] || "default";;
+  const backState = Globals.backButtonState.split("-")[0];
+  if (backState == "default") {
     App.exitApp();
     return;
   }
-  if (Globals.backButtonState === "search") {
+  if (backState === "search") {
     Globals.menu.close("search");
     return;
   }
-  if (Globals.backButtonState === "myaccount") {
+  if (backState === "myaccount") {
     DOM.$whiteScreen.style.removeProperty("animation");
     Globals.myaccount.hide();
     return;
   }
-  if (Globals.backButtonState === "informationsScreen") {
+  if (backState === "informationsScreen") {
     Globals.menu.close("informationsScreen");
     Globals.menu.open("myaccount");
     return;
   }
-  if (Globals.backButtonState === "informations") {
+  if (backState === "informations") {
     Globals.menu.close("informations");
     return;
   }
-  if (Globals.backButtonState.split("-")[0] === "layerManager") {
-    previousState = Globals.backButtonState.split("-")[1] || "default";
+  if (backState === "layerManager") {
     Globals.menu.close("layerManager");
     if (previousState !== "default") {
       Globals.menu.open(previousState);
@@ -47,42 +47,49 @@ const onBackKeyDown = () => {
     }
     return;
   }
-  if (Globals.backButtonState === "directions") {
+  if (backState === "directions") {
     Globals.menu.close("directions");
     return;
   }
-  if (Globals.backButtonState === "searchDirections") {
+  if (backState === "searchDirections") {
     const closesearch = new Event("closesearch");
     window.dispatchEvent(closesearch);
     Globals.menu.close("searchDirections");
     return;
   }
-  if (Globals.backButtonState === "directionsResults") {
+  if (backState === "directionsResults") {
     Globals.menu.close("directionsResults");
     return;
   }
-  if (Globals.backButtonState === "isochrone") {
+  if (backState === "isochrone") {
     Globals.menu.close("isochrone");
+    if (previousState !== "default") {
+      Globals.menu.open(previousState);
+      return;
+    }
     return;
   }
-  if (Globals.backButtonState === "landmark") {
+  if (backState === "landmark") {
     Globals.menu.close("landmark");
+    if (previousState !== "default") {
+      Globals.menu.open(previousState);
+      return;
+    }
     return;
   }
-  if (Globals.backButtonState === "searchIsochrone") {
+  if (backState === "searchIsochrone") {
     const closesearch = new Event("closesearch");
     window.dispatchEvent(closesearch);
     Globals.menu.close("searchIsochrone");
     return;
   }
-  if (Globals.backButtonState === "searchLandmark") {
+  if (backState === "searchLandmark") {
     const closesearch = new Event("closesearch");
     window.dispatchEvent(closesearch);
     Globals.menu.close("searchLandmark");
     return;
   }
-  if (Globals.backButtonState.split("-")[0] === "position") {
-    previousState = Globals.backButtonState.split("-")[1] || "default";
+  if (backState === "position") {
     Globals.position.hide();
     // réouverture de menu précédent
     if (!["default", "signalement", "signalementOSM"].includes(previousState)) {
@@ -91,8 +98,7 @@ const onBackKeyDown = () => {
     }
     return;
   }
-  if (Globals.backButtonState.split("-")[0] === "poi") {
-    previousState = Globals.backButtonState.split("-")[1];
+  if (backState === "poi") {
     Globals.menu.close("poi");
     // réouverture de menu précédent
     if (previousState !== "default") {
@@ -101,58 +107,66 @@ const onBackKeyDown = () => {
     }
     return;
   }
-  if (Globals.backButtonState === "compare") {
+  if (backState === "compare") {
     Globals.menu.close("compare");
     return;
   }
-  if (Globals.backButtonState === "compareLayers1") {
+  if (backState === "compareLayers1") {
     Globals.menu.close("compareLayers1");
     return;
   }
-  if (Globals.backButtonState === "compareLayers2") {
+  if (backState === "compareLayers2") {
     Globals.menu.close("compareLayers2");
     return;
   }
-  if (Globals.backButtonState === "routeDraw") {
+  if (backState === "routeDraw") {
     Globals.routeDraw.hide();
     return;
   }
-  if (Globals.backButtonState === "routeDrawSave") {
+  if (backState === "routeDrawSave") {
     Globals.menu.close("routeDrawSave");
     return;
   }
-  if (Globals.backButtonState === "selectOnMapDirections") {
+  if (backState === "selectOnMapDirections") {
     Globals.menu.close("selectOnMapDirections");
     return;
   }
-  if (Globals.backButtonState === "selectOnMapIsochrone") {
+  if (backState === "selectOnMapIsochrone") {
     Globals.menu.close("selectOnMapIsochrone");
     return;
   }
-  if (Globals.backButtonState === "selectOnMapLandmark") {
+  if (backState === "selectOnMapLandmark") {
     Globals.menu.close("selectOnMapLandmark");
     return;
   }
-  if (Globals.backButtonState === "comparePoi") {
+  if (backState === "comparePoi") {
     Globals.menu.close("comparePoi");
     return;
   }
-  if (Globals.backButtonState === "comparePoiActivated") {
+  if (backState === "comparePoiActivated") {
     document.getElementById("comparePoiWindow").querySelector(".comparePoiText").classList.add("d-none");
     document.getElementById("comparePoiWindow").querySelector(".comparePoiButton").classList.remove("d-none");
     Globals.currentScrollIndex = 0;
     Globals.menu.open("compare");
     return;
   }
-  if (Globals.backButtonState === "signalement") {
+  if (backState === "signalement") {
     Globals.menu.close("signalement");
+    if (previousState !== "default") {
+      Globals.menu.open(previousState);
+      return;
+    }
     return;
   }
-  if (Globals.backButtonState === "signalementOSM") {
+  if (backState === "signalementOSM") {
     Globals.menu.close("signalementOSM");
+    if (previousState !== "default") {
+      Globals.menu.open(previousState);
+      return;
+    }
     return;
   }
-  if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenAccessibility"].includes(Globals.backButtonState)) {
+  if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenAccessibility"].includes(backState)) {
     const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
     $informationsScreenMenu.style.removeProperty("margin-left");
     setTimeout(() => {
