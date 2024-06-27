@@ -101,12 +101,13 @@ class Compare {
 
       var templateToggle = `
         <div class="layerSelectorDiv">
-            <span>Photos</span>
-            <label class="toggleSwitch">
-                <input id="rltMapToggle${i + 1}" class="toggleInput" type="checkbox">
-                <span class="toggleSlider"></span>
-            </label>
-            <span>Cartes</span>
+          <div class="divCompareLayerType">
+            <input id="layerSelectorPhotos${i + 1}" type="radio" name="Type${i + 1}" value="Photos" checked="true">
+            <label id="layerSelectorPhotosLabel${i + 1}" class="lblCompareLayerType" for="layerSelectorPhotos${i + 1}" title="Photos">Photos</label>
+            <input id="layerSelectorCartes${i + 1}" type="radio" name="Type${i + 1}" value="Cartes">
+            <label id="layerSelectorCartesLabel${i + 1}" class="lblCompareLayerType" for="layerSelectorCartes${i + 1}" title="Cartes">Cartes</label>
+            <span class="sliderIsochrone"></span>
+          </div>
         </div>`;
       var templateLayers = `
         <div class="layersRLT">
@@ -154,7 +155,7 @@ class Compare {
       document.getElementById("mapRLT1").style.opacity = 1 - (this.fadeSliderInput.value / 100);
     });
 
-    document.getElementById("rltMapToggle1").addEventListener("change", (e) => {
+    document.getElementById("layerSelectorCartes1").addEventListener("change", (e) => {
       if (e.target.checked) {
         document.getElementById("RLTphotoLayers1").classList.add("d-none");
         document.getElementById("RLTmapLayers1").classList.remove("d-none");
@@ -163,13 +164,31 @@ class Compare {
         document.getElementById("RLTmapLayers1").classList.add("d-none");
       }
     });
-    document.getElementById("rltMapToggle2").addEventListener("change", (e) => {
+    document.getElementById("layerSelectorCartes2").addEventListener("change", (e) => {
       if (e.target.checked) {
         document.getElementById("RLTphotoLayers2").classList.add("d-none");
         document.getElementById("RLTmapLayers2").classList.remove("d-none");
       } else {
         document.getElementById("RLTphotoLayers2").classList.remove("d-none");
         document.getElementById("RLTmapLayers2").classList.add("d-none");
+      }
+    });
+    document.getElementById("layerSelectorPhotos1").addEventListener("change", (e) => {
+      if (e.target.checked) {
+        document.getElementById("RLTphotoLayers1").classList.remove("d-none");
+        document.getElementById("RLTmapLayers1").classList.add("d-none");
+      } else {
+        document.getElementById("RLTphotoLayers1").classList.add("d-none");
+        document.getElementById("RLTmapLayers1").classList.remove("d-none");
+      }
+    });
+    document.getElementById("layerSelectorPhotos2").addEventListener("change", (e) => {
+      if (e.target.checked) {
+        document.getElementById("RLTphotoLayers2").classList.remove("d-none");
+        document.getElementById("RLTmapLayers2").classList.add("d-none");
+      } else {
+        document.getElementById("RLTphotoLayers2").classList.add("d-none");
+        document.getElementById("RLTmapLayers2").classList.remove("d-none");
       }
     });
 

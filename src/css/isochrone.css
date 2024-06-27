@@ -65,16 +65,19 @@
 /*
  * transport / mode
  */
+.divCompareLayerType input[type="radio"],
 .divIsochroneMode input[type="radio"],
 .divIsochroneTransport input[type="radio"] {
   display: none;
 }
 
+.divCompareLayerType *,
 .divIsochroneMode *,
 .divIsochroneTransport * {
   z-index: 2;
 }
 
+.divCompareLayerType,
 .divIsochroneMode,
 .divIsochroneTransport {
   display: flex;
@@ -91,6 +94,7 @@
   align-items: center;
 }
 
+.lblCompareLayerType,
 .lblIsochroneMode,
 .lblIsochroneTransport {
   color: var(--mid-grey);
@@ -114,20 +118,24 @@
   padding-left: 30px;
 }
 
+.lblCompareLayerType,
 .lblIsochroneMode {
   padding: 0;
 }
 
+.divCompareLayerType input[type="radio"]:checked + label,
 .divIsochroneTransport input[type="radio"]:checked + label,
 .divIsochroneMode input[type="radio"]:checked + label {
   color: white;
 }
 
+.divCompareLayerType input[id^="layerSelectorCartes"]:checked ~ .sliderIsochrone,
 .divIsochroneMode input[id="isochroneModeDistance"]:checked ~ .sliderIsochrone,
 .divIsochroneTransport input[id="isochroneTransportVoiture"]:checked ~ .sliderIsochrone {
   transform: translateX(53px);
 }
 
+.divCompareLayerType input[id^="layerSelectorPhotos"]:checked ~ .sliderIsochrone,
 .divIsochroneMode input[id="isochroneModeDuration"]:checked ~ .sliderIsochrone,
 .divIsochroneTransport input[id="isochroneTransportPieton"]:checked ~ .sliderIsochrone {
   transform: translateX(-53px);
@@ -138,7 +146,6 @@
   display: flex;
   height: 44px;
   width: 120px;
-  background-color: white;
   z-index: 1;
   border-radius: 100px;
   transition: 0.25s ease-out;

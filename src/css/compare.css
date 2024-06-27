@@ -1,13 +1,10 @@
 .layerSelectorDiv {
-  height: 32px;
+  height: 54px;
   margin-top: 0px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--grey-2);
   margin-bottom: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
 }
 
 .layerSelectorDiv > .toggleSwitch {
