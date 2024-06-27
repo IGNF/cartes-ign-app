@@ -896,7 +896,9 @@ class RouteDraw {
     }
     this.data.elevationData = this.elevation.getData();
     if (Globals.backButtonState === "routeDraw") {
-      this.dataHistory[this.currentHistoryPosition].elevationData = JSON.parse(JSON.stringify(this.data.elevationData));
+      if (this.dataHistory[this.currentHistoryPosition]) {
+        this.dataHistory[this.currentHistoryPosition].elevationData = JSON.parse(JSON.stringify(this.data.elevationData));
+      }
       this.__updateRouteInfo(this.data);
       // Si mode lecture seule mais que l'alti est recalculée (non sauvegardé de base), on la rajoute dans les données enregistrées
       if (this.readonly) {
