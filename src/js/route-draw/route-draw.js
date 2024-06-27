@@ -483,6 +483,7 @@ class RouteDraw {
     this.movedPoint = this.data.points[this.movedPointIndex];
     this.movedPoint.properties.highlight = true;
     this.#updateSources();
+    this.pointWasMoved = true;
 
     this.map.on("touchmove", this.handleTouchMove);
     this.map.once("touchend", this.handleTouchEnd);

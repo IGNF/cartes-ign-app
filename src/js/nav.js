@@ -143,6 +143,7 @@ class MenuNavigation {
       break;
     case "signalement":
       Globals.backButtonState = "signalement-" + previousBackState;
+      // falls through
     case "signalementOSM":
       Globals.backButtonState = "signalementOSM-" + previousBackState;
       DOM.$positionWindow.classList.add("d-none");

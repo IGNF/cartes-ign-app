@@ -15,7 +15,7 @@ import { App } from "@capacitor/app";
  */
 const onBackKeyDown = () => {
   // Handle the back button
-  const previousState = Globals.backButtonState.split("-")[1] || "default";;
+  const previousState = Globals.backButtonState.split("-")[1] || "default";
   const backState = Globals.backButtonState.split("-")[0];
   if (backState == "default") {
     App.exitApp();
