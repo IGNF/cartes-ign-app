@@ -210,7 +210,10 @@ class RouteDraw {
           lat: point.geometry.coordinates[1],
           lng: point.geometry.coordinates[0],
         };
-        const address = await this.#computePointName(coords);
+        let address = `${coords.lat}, ${coords.lng}`;
+        if (point.properties.order) {
+          address = await this.#computePointName(coords);
+        }
         point.properties.name = address;
       }
     }

@@ -821,7 +821,7 @@ ${landmark.properties.description}
       }
     });
     routeJson.features = routeJson.features.filter(feature => ["LineString", "Point"].includes(feature.geometry.type));
-    const steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
+    let steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
     const points = routeJson.features.filter(feature => feature.geometry.type === "Point");
     let stepId, pointId = 0;
     steps.forEach((step) => {
@@ -834,51 +834,40 @@ ${landmark.properties.description}
       pointId++;
     });
     if (points.length === 0) {
-      for (let i = 0; i < steps.length; i++) {
-        let feature = steps[i];
+      let feature = steps[0];
+      if (feature.properties._gpxType) {
+        const newSteps = [];
         const lastIndex = feature.geometry.coordinates.length - 1;
-        points.push({
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: feature.geometry.coordinates[0]
-          },
-          properties: {
-            order: i === 0  ? "departure" : "",
-            id: pointId,
-          },
-        });
-        pointId++;
-        if (feature.properties._gpxType) {
-          for (let j = 1; j <= lastIndex; j++) {
-            points.push({
-              type: "Feature",
-              geometry: {
-                type: "Point",
-                coordinates: feature.geometry.coordinates[j]
-              },
-              properties: {
-                order: j === lastIndex ? "destination" : "",
-                id: pointId,
-              },
-            });
-            pointId++;
-          }
+        let step = 1;
+        if (feature.geometry.coordinates.length > 50) {
+          step = feature.geometry.coordinates.length / 50;
         }
-        if (!feature.properties._gpxType && i === steps.length - 1) {
+        for (let j = 0; j <= lastIndex; j += step) {
+          let inetgerJ = Math.floor(j);
           points.push({
             type: "Feature",
             geometry: {
               type: "Point",
-              coordinates: feature.geometry.coordinates[lastIndex]
+              coordinates: feature.geometry.coordinates[inetgerJ]
             },
             properties: {
-              order: "destination",
+              order: inetgerJ === lastIndex ? "destination" : inetgerJ === 0 ? "departure" : "",
               id: pointId,
             },
           });
           pointId++;
+          if (inetgerJ !== lastIndex) {
+            newSteps.push({
+              type: "Feature",
+              geometry: {
+                type: "LineString",
+                coordinates: feature.geometry.coordinates.slice(inetgerJ, Math.floor(j + step) + 1),
+              },
+              properties: {...feature.properties, id: pointId},
+            });
+          }
         }
+        steps = newSteps;
       }
     }
     if (!routeJson.data) {
