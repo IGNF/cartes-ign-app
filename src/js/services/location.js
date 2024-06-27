@@ -397,6 +397,7 @@ const locationOnOff = async () => {
     tracking_active = true;
     Globals.map.setMaxPitch(45);
     threeD.add3dBuildings();
+    threeD.add3dTerrain();
     Globals.map.flyTo({
       center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
       zoom: 16.5,
