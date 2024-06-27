@@ -836,7 +836,6 @@ ${landmark.properties.description}
     if (points.length === 0) {
       for (let i = 0; i < steps.length; i++) {
         let feature = steps[i];
-        let order = i === 0 ? "departure" : "";
         const lastIndex = feature.geometry.coordinates.length - 1;
         points.push({
           type: "Feature",
@@ -845,12 +844,28 @@ ${landmark.properties.description}
             coordinates: feature.geometry.coordinates[0]
           },
           properties: {
-            order: order === "departure" ? order : "",
+            order: i === 0  ? "departure" : "",
             id: pointId,
           },
         });
         pointId++;
-        if (i === steps.length - 1) {
+        if (feature.properties._gpxType) {
+          for (let j = 1; j <= lastIndex; j++) {
+            points.push({
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: feature.geometry.coordinates[j]
+              },
+              properties: {
+                order: j === lastIndex ? "destination" : "",
+                id: pointId,
+              },
+            });
+            pointId++;
+          }
+        }
+        if (!feature.properties._gpxType && i === steps.length - 1) {
           points.push({
             type: "Feature",
             geometry: {
@@ -859,8 +874,10 @@ ${landmark.properties.description}
             },
             properties: {
               order: "destination",
+              id: pointId,
             },
           });
+          pointId++;
         }
       }
     }
