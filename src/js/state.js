@@ -17,6 +17,7 @@ const onBackKeyDown = () => {
   // Handle the back button
   const previousState = Globals.backButtonState.split("-")[1] || "default";
   const backState = Globals.backButtonState.split("-")[0];
+  console.log(Globals.backButtonState);
   if (backState == "default") {
     App.exitApp();
     return;
@@ -49,6 +50,10 @@ const onBackKeyDown = () => {
   }
   if (backState === "directions") {
     Globals.menu.close("directions");
+    if (previousState !== "default") {
+      Globals.menu.open(previousState);
+      return;
+    }
     return;
   }
   if (backState === "searchDirections") {
