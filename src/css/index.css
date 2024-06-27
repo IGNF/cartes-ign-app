@@ -102,13 +102,13 @@ input[type=text], textarea, input[type=email], select {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--grey);
+  background-color: var(--grey-2);
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 21px;
 }
 
-.toggleSlider:before {
+.toggleSlider::before {
   position: absolute;
   content: "";
   height: 15px;
@@ -119,6 +119,19 @@ input[type=text], textarea, input[type=email], select {
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 50%;
+}
+
+.toggleSlider::after {
+  content: "1 0";
+  display: block;
+  width: 36px;
+  height: 21px;
+  line-height: 21px;
+  color: var(--black);
+  font-size: 12px;
+  font-family: "Open Sans Semibold";
+  text-align: center;
+  word-spacing: 6px;
 }
 
 .toggleInput:checked + .toggleSlider {
@@ -133,6 +146,10 @@ input[type=text], textarea, input[type=email], select {
   -webkit-transform: translateX(15px);
   -ms-transform: translateX(15px);
   transform: translateX(15px);
+}
+
+.toggleInput:checked + .toggleSlider::after {
+  color: white;
 }
 
 /* Checkbox */
