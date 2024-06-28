@@ -401,10 +401,19 @@ const getLocation = async () => {
   if (currentPosition === null) {
     await enablePosition();
     // Récupération rapide de la position si elle n'est pas connue
-    position = await Geolocation.getCurrentPosition({
-      maximumAge: 0,
-      timeout: 3000,
-    });
+    if (Capacitor.getPlatform() === "android") {
+      position = await new Promise( (resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          maximumAge: 0,
+          timeout: 3000,
+        });
+      });
+    } else {
+      position = await Geolocation.getCurrentPosition({
+        maximumAge: 0,
+        timeout: 3000,
+      });
+    }
   }
 
   results = {
