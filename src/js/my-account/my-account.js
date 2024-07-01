@@ -822,51 +822,62 @@ ${landmark.properties.description}
     });
     routeJson.features = routeJson.features.filter(feature => ["LineString", "Point"].includes(feature.geometry.type));
     let steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
-    const points = routeJson.features.filter(feature => feature.geometry.type === "Point");
+    const fromGpx = Boolean(steps[0].properties._gpxType);
+    const points = routeJson.features.filter(feature => feature.geometry.type === "Point" && !fromGpx);
     let stepId, pointId = 0;
     steps.forEach((step) => {
       step.properties.id = stepId;
       stepId++;
-      step.properties.mode = 1;
+      step.properties.mode = 0;
     });
     points.forEach((point) => {
       point.properties.id = pointId;
       pointId++;
     });
     if (points.length === 0) {
-      let feature = steps[0];
-      if (feature.properties._gpxType) {
+      if (fromGpx) {
         const newSteps = [];
-        const lastIndex = feature.geometry.coordinates.length - 1;
-        let step = 1;
-        if (feature.geometry.coordinates.length > 50) {
-          step = feature.geometry.coordinates.length / 50;
-        }
-        for (let j = 0; j <= lastIndex; j += step) {
-          let inetgerJ = Math.floor(j);
-          points.push({
-            type: "Feature",
-            geometry: {
-              type: "Point",
-              coordinates: feature.geometry.coordinates[inetgerJ]
-            },
-            properties: {
-              order: inetgerJ === lastIndex ? "destination" : inetgerJ === 0 ? "departure" : "",
-              id: pointId,
-            },
-          });
-          pointId++;
-          if (inetgerJ !== lastIndex) {
-            newSteps.push({
+        for (let i = 0; i < steps.length; i++) {
+          const feature = steps[i];
+          const lastIndex = feature.geometry.coordinates.length - 1;
+          let pointIndexStep = 1;
+          if (feature.geometry.coordinates.length > 50) {
+            pointIndexStep = lastIndex / 50;
+          }
+          for (let j = 0; Math.floor(Math.round(j * 100) / 100) <= lastIndex; j += pointIndexStep) {
+            let integerJ = Math.floor(Math.round(j * 100) / 100);
+            let order = "";
+            if (integerJ === 0 && i === 0) {
+              order = "departure";
+            }
+            if (integerJ === lastIndex && i === steps.length - 1) {
+              order = "destination";
+            }
+            points.push({
               type: "Feature",
               geometry: {
-                type: "LineString",
-                coordinates: feature.geometry.coordinates.slice(inetgerJ, Math.floor(j + step) + 1),
+                type: "Point",
+                coordinates: feature.geometry.coordinates[integerJ]
               },
-              properties: {...feature.properties, id: pointId},
+              properties: {
+                order: order,
+                id: pointId,
+              },
             });
+            pointId++;
+            if (integerJ !== lastIndex) {
+              newSteps.push({
+                type: "Feature",
+                geometry: {
+                  type: "LineString",
+                  coordinates: feature.geometry.coordinates.slice(integerJ, Math.floor(Math.round((j + pointIndexStep) * 100) / 100) + 1),
+                },
+                properties: {...feature.properties, id: pointId},
+              });
+            }
           }
         }
+
         steps = newSteps;
       }
     }
