@@ -823,17 +823,19 @@ ${landmark.properties.description}
     routeJson.features = routeJson.features.filter(feature => ["LineString", "Point"].includes(feature.geometry.type));
     let steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
     const fromGpx = Boolean(steps[0].properties._gpxType);
-    const points = routeJson.features.filter(feature => feature.geometry.type === "Point" && !fromGpx);
+    const points = routeJson.features.filter(feature => feature.geometry.type === "Point");
     let stepId, pointId = -1;
     steps.forEach((step) => {
       step.properties.id = stepId;
       stepId--;
       step.properties.mode = 1;
     });
-    points.forEach((point) => {
+    for(let i = 0; i < points.length; i++) {
+      const point = points[i];
       point.properties.id = pointId;
+      point.properties.order = i === 0 ? "departure" : i === points.length - 1 ? "destination" : "";
       pointId--;
-    });
+    }
     if (points.length === 0) {
       if (fromGpx) {
         const newSteps = [];
