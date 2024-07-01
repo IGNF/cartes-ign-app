@@ -831,7 +831,7 @@ class RouteDraw {
       }
       this.loading = false;
       // Ajout de tronçon intermédiaire si passage de mode libre à guidé pour rattachement au réseau routier.
-      if (index === this.data.steps.length && this.data.steps[index - 1].properties.mode === 0 &&
+      if (index === this.data.steps.length && index > 1 && this.data.steps[index - 1].properties.mode === 0 &&
         firstPoint.geometry.coordinates[0] !== json.geometry.coordinates[0][0] &&
         firstPoint.geometry.coordinates[1] !== json.geometry.coordinates[0][1])
       {
