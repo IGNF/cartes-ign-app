@@ -824,15 +824,15 @@ ${landmark.properties.description}
     let steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
     const fromGpx = Boolean(steps[0].properties._gpxType);
     const points = routeJson.features.filter(feature => feature.geometry.type === "Point" && !fromGpx);
-    let stepId, pointId = 0;
+    let stepId, pointId = -1;
     steps.forEach((step) => {
       step.properties.id = stepId;
-      stepId++;
+      stepId--;
       step.properties.mode = 1;
     });
     points.forEach((point) => {
       point.properties.id = pointId;
-      pointId++;
+      pointId--;
     });
     if (points.length === 0) {
       if (fromGpx) {
@@ -866,7 +866,7 @@ ${landmark.properties.description}
                   id: pointId,
                 },
               });
-              pointId++;
+              pointId--;
             }
             if (integerJ !== lastIndex) {
               newSteps.push({
