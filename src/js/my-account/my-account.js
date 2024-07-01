@@ -828,7 +828,7 @@ ${landmark.properties.description}
     steps.forEach((step) => {
       step.properties.id = stepId;
       stepId++;
-      step.properties.mode = 0;
+      step.properties.mode = 1;
     });
     points.forEach((point) => {
       point.properties.id = pointId;
