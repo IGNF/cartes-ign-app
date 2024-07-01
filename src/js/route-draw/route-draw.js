@@ -830,6 +830,42 @@ class RouteDraw {
         return;
       }
       this.loading = false;
+      // Ajout de tronçon intermédiaire si passage de mode libre à guidé pour rattachement au réseau routier.
+      if (index === this.data.steps.length && this.data.steps[index - 1].properties.mode === 0 &&
+        firstPoint.geometry.coordinates[0] !== json.geometry.coordinates[0][0] &&
+        firstPoint.geometry.coordinates[1] !== json.geometry.coordinates[0][1])
+      {
+        const oldFirstPoint = JSON.parse(JSON.stringify(firstPoint));
+        this.data.points.splice(index, 0, oldFirstPoint);
+        const distance = new MapLibreGL.LngLat(
+          oldFirstPoint.geometry.coordinates[0], oldFirstPoint.geometry.coordinates[1]
+        ).distanceTo(
+          new MapLibreGL.LngLat(json.geometry.coordinates[0][0], json.geometry.coordinates[0][1])
+        );
+        const duration = distance / (4 / 3.6); // 4 km/h divisé par 3.6 pour m/s
+        const stepCoords = [
+          oldFirstPoint.geometry.coordinates,
+          json.geometry.coordinates[0]
+        ];
+        const step = {
+          type: "Feature",
+          geometry: {
+            type: "LineString",
+            coordinates: stepCoords
+          },
+          properties: {
+            start_name: firstPoint.properties.name,
+            end_name: lastPoint.properties.name,
+            duration: duration,
+            distance: distance,
+            id: this.nextStepId,
+            mode: mode,
+          }
+        };
+        this.nextStepId++;
+        this.data.steps.push(step);
+        index++;
+      }
       lastPoint.geometry.coordinates = json.geometry.coordinates.slice(-1)[0];
       firstPoint.geometry.coordinates = json.geometry.coordinates[0];
       stepCoords = json.geometry.coordinates;
