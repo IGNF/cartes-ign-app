@@ -853,18 +853,21 @@ ${landmark.properties.description}
             if (integerJ === lastIndex && i === steps.length - 1) {
               order = "destination";
             }
-            points.push({
-              type: "Feature",
-              geometry: {
-                type: "Point",
-                coordinates: feature.geometry.coordinates[integerJ]
-              },
-              properties: {
-                order: order,
-                id: pointId,
-              },
-            });
-            pointId++;
+            // S'il y a plusieurs features, ne pas ajouter le dernier point
+            if (!(integerJ === lastIndex && !(i === steps.length - 1))) {
+              points.push({
+                type: "Feature",
+                geometry: {
+                  type: "Point",
+                  coordinates: feature.geometry.coordinates[integerJ]
+                },
+                properties: {
+                  order: order,
+                  id: pointId,
+                },
+              });
+              pointId++;
+            }
             if (integerJ !== lastIndex) {
               newSteps.push({
                 type: "Feature",
@@ -877,7 +880,6 @@ ${landmark.properties.description}
             }
           }
         }
-
         steps = newSteps;
       }
     }
