@@ -836,8 +836,11 @@ ${landmark.properties.description}
       point.properties.order = i === 0 ? "departure" : i === points.length - 1 ? "destination" : "";
       pointId--;
     }
-    const lastPoint = points[points.length - 1].geometry.coordinates;
     const lastLinePoint = steps[steps.length - 1].geometry.coordinates[steps[steps.length - 1].geometry.coordinates.length - 1];
+    let lastPoint = lastLinePoint;
+    if (points.length !== 0) {
+      lastPoint = points[points.length - 1].geometry.coordinates;
+    }
     // Cas rencontré lors de l'import de GeoJSON issu de la conversion à partir de GPX
     if (lastPoint[0] !== lastLinePoint[0] || lastPoint[1] !== lastLinePoint[1]) {
       points[points.length - 1].properties.order = "";
@@ -873,8 +876,6 @@ ${landmark.properties.description}
             if (integerJ === lastIndex && i === steps.length - 1) {
               order = "destination";
             }
-            console.log(integerJ);
-            console.log(lastIndex);
             // S'il y a plusieurs features, ne pas ajouter le dernier point
             if (!(integerJ === lastIndex && !(i === steps.length - 1))) {
               points.push({
