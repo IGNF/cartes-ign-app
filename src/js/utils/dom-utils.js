@@ -40,12 +40,12 @@ let domUtils = {
     var reverseScrollArrow = function () {
       if (event.target.scrollLeft <= maxScrollLeft - 10) {
         event.target.lastElementChild.classList.remove("reverse");
-        event.target.removeEventListener("scrollend", reverseScrollArrow);
+        event.target.removeEventListener("scroll", reverseScrollArrow);
       }
     };
     if (event.target.scrollLeft >= maxScrollLeft - 10) {
       event.target.lastElementChild.classList.add("reverse");
-      event.target.addEventListener("scrollend", reverseScrollArrow);
+      event.target.addEventListener("scroll", reverseScrollArrow);
     }
   },
 
@@ -59,9 +59,9 @@ let domUtils = {
       });
       return;
     }
-
+    var scrollToValue = Math.min(event.target.parentElement.offsetWidth * 0.8, maxScrollLeft - event.target.parentElement.scrollLeft);
     event.target.parentElement.scrollBy({
-      left: event.target.parentElement.offsetWidth * 0.8,
+      left: scrollToValue,
       top: 0,
       behavior : "smooth",
     });
