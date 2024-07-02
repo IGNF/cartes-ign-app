@@ -8,6 +8,7 @@ import Globals from "../globals";
 import MyAccountDOM from "./my-account-dom";
 import MyAccountLayers from "./my-account-styles";
 import utils from "../utils/unit-utils";
+import gisUtils from "../utils/gis-utils";
 import ActionSheet from "../action-sheet";
 
 import { Share } from "@capacitor/share";
@@ -578,7 +579,7 @@ class MyAccount {
           encoding: Encoding.UTF8,
         });
       } else if (value === "gpx") {
-        const gpx = GeoJsonToGpx(this.#routeToGeojson(route), {
+        const gpx = GeoJsonToGpx(this.#routeToGeojson(route, "gpx"), {
           metadata: {
             name: route.name,
           }
@@ -677,12 +678,13 @@ ${landmark.properties.description}
         });
       } else if (value === "gpx") {
         formatName = "GPX";
-        const gpx = GeoJsonToGpx(this.#routeToGeojson(route), {
+        const gpx = GeoJsonToGpx(this.#routeToGeojson(route, "gpx"), {
           metadata: {
             name: route.name,
           }
         });
         const gpxString = new XMLSerializer().serializeToString(gpx);
+        console.log(gpxString);
         await Filesystem.writeFile({
           path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.gpx`,
           data: gpxString,
@@ -703,6 +705,7 @@ ${landmark.properties.description}
         position: "bottom"
       });
     } catch (err) {
+      console.error(err);
       Toast.show({
         text: "L'itinéraire n'a pas pu être savegardé. Partage...",
         duration: "long",
@@ -785,10 +788,27 @@ ${landmark.properties.description}
    * @param {*} route
    * @returns
    */
-  #routeToGeojson(route) {
+  #routeToGeojson(route, linesStyle="default") {
+    let steps = JSON.parse(JSON.stringify(route.data.steps));
+    if (linesStyle === "gpx") {
+      const coords = [];
+      steps.forEach( (step) => {
+        coords.push(step.geometry.coordinates);
+      });
+      const dissolvedCoords = gisUtils.geoJsonMultiLineStringCoordsToSingleLineStringCoords(coords);
+
+      steps = [{
+        type: "Feature",
+        geometry: {
+          type: "LineString",
+          coordinates: dissolvedCoords,
+        },
+        properties: {},
+      }];
+    }
     return {
       type: "FeatureCollection",
-      features: route.data.points.concat(route.data.steps),
+      features: route.data.points.concat(steps),
       data: {
         name: route.name,
         transport: route.transport,

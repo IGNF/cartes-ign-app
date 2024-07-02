@@ -21,6 +21,31 @@ let gisUtils = {
     }
 
     return [[bounds.xMin, bounds.yMin], [bounds.xMax, bounds.yMax]];
+  },
+
+  // adapted from https://github.com/IGNF/road2/blob/9069468d0f1fa22dcb59073f57b4924de4fcb4f3/src/js/utils/gisManager.js#L87C3-L144C4
+  geoJsonMultiLineStringCoordsToSingleLineStringCoords(srcCoords) {
+    if (srcCoords.length === 0) {
+      return [];
+    }
+
+    if (srcCoords.length === 1) {
+      return srcCoords[0];
+    }
+
+    // Transformation des coordonnées en mode MultiLineString vers LineString
+    const dissolvedCoords = [];
+    const firstLine = srcCoords[0];
+
+    dissolvedCoords.push(...firstLine);
+
+    for (let i = 1; i < srcCoords.length; i++) {
+      let curr_line = srcCoords[i];
+      curr_line.splice(0, 1);
+      dissolvedCoords.push(...curr_line);
+    }
+
+    return dissolvedCoords;
   }
 };
 
