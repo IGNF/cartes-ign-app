@@ -10,7 +10,36 @@ import DOM from "../dom";
 import Globals from "../globals";
 import GisUtils from "../utils/gis-utils";
 
-import { Geolocation } from "@capacitor/geolocation";
+let Geolocation;
+try {
+  Geolocation = (await import("@capacitor/geolocation")).Geolocation;
+} catch (e) {
+  Geolocation = {
+    checkPermissions: async () => {
+      try {
+        await new Promise( (resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            maximumAge: 0,
+            timeout: 3000,
+          });
+        });
+        return {
+          location: "granted",
+        };
+      } catch {
+        return {
+          location: "denied",
+        };
+      }
+    },
+    requestPermissions: async () => {
+      NativeSettings.open({
+        optionAndroid: AndroidSettings.Location,
+        optionIOS: IOSSettings.LocationServices
+      });
+    },
+  }
+}
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { App } from "@capacitor/app";
