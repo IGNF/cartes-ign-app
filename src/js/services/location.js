@@ -38,7 +38,7 @@ try {
         optionIOS: IOSSettings.LocationServices
       });
     },
-  }
+  };
 }
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
