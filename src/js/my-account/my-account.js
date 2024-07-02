@@ -822,7 +822,6 @@ ${landmark.properties.description}
     });
     routeJson.features = routeJson.features.filter(feature => ["LineString", "Point"].includes(feature.geometry.type));
     let steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
-    const fromGpx = Boolean(steps[0].properties._gpxType);
     const points = routeJson.features.filter(feature => feature.geometry.type === "Point");
     let stepId, pointId = -1;
     steps.forEach((step) => {
@@ -858,53 +857,51 @@ ${landmark.properties.description}
       pointId--;
     }
     if (points.length === 0) {
-      if (fromGpx) {
-        const newSteps = [];
-        for (let i = 0; i < steps.length; i++) {
-          const feature = steps[i];
-          const lastIndex = feature.geometry.coordinates.length - 1;
-          let pointIndexStep = 1;
-          if (feature.geometry.coordinates.length > 50) {
-            pointIndexStep = lastIndex / 50;
+      const newSteps = [];
+      for (let i = 0; i < steps.length; i++) {
+        const feature = steps[i];
+        const lastIndex = feature.geometry.coordinates.length - 1;
+        let pointIndexStep = 1;
+        if (feature.geometry.coordinates.length > 50) {
+          pointIndexStep = lastIndex / 50;
+        }
+        for (let j = 0; Math.floor(Math.round(j * 100) / 100) <= lastIndex; j += pointIndexStep) {
+          let integerJ = Math.floor(Math.round(j * 100) / 100);
+          let order = "";
+          if (integerJ === 0 && i === 0) {
+            order = "departure";
           }
-          for (let j = 0; Math.floor(Math.round(j * 100) / 100) <= lastIndex; j += pointIndexStep) {
-            let integerJ = Math.floor(Math.round(j * 100) / 100);
-            let order = "";
-            if (integerJ === 0 && i === 0) {
-              order = "departure";
-            }
-            if (integerJ === lastIndex && i === steps.length - 1) {
-              order = "destination";
-            }
-            // S'il y a plusieurs features, ne pas ajouter le dernier point
-            if (!(integerJ === lastIndex && !(i === steps.length - 1))) {
-              points.push({
-                type: "Feature",
-                geometry: {
-                  type: "Point",
-                  coordinates: feature.geometry.coordinates[integerJ]
-                },
-                properties: {
-                  order: order,
-                  id: pointId,
-                },
-              });
-              pointId--;
-            }
-            if (integerJ !== lastIndex) {
-              newSteps.push({
-                type: "Feature",
-                geometry: {
-                  type: "LineString",
-                  coordinates: feature.geometry.coordinates.slice(integerJ, Math.floor(Math.round((j + pointIndexStep) * 100) / 100) + 1),
-                },
-                properties: {...feature.properties, id: pointId},
-              });
-            }
+          if (integerJ === lastIndex && i === steps.length - 1) {
+            order = "destination";
+          }
+          // S'il y a plusieurs features, ne pas ajouter le dernier point
+          if (!(integerJ === lastIndex && !(i === steps.length - 1))) {
+            points.push({
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: feature.geometry.coordinates[integerJ]
+              },
+              properties: {
+                order: order,
+                id: pointId,
+              },
+            });
+            pointId--;
+          }
+          if (integerJ !== lastIndex) {
+            newSteps.push({
+              type: "Feature",
+              geometry: {
+                type: "LineString",
+                coordinates: feature.geometry.coordinates.slice(integerJ, Math.floor(Math.round((j + pointIndexStep) * 100) / 100) + 1),
+              },
+              properties: {...feature.properties, id: pointId},
+            });
           }
         }
-        steps = newSteps;
       }
+      steps = newSteps;
     }
     if (!routeJson.data) {
       routeJson.data = {};
