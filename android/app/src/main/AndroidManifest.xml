@@ -66,8 +66,10 @@
             <!-- Pour les pièces jointes -->
             <intent-filter>
                 <data android:scheme="content" android:mimeType="application/json" android:pathPattern=".*\\.json" />
+                <data android:scheme="content" android:mimeType="application/gpx+xml" android:pathPattern=".*\\.gpx" />
                 <data android:scheme="content" android:mimeType="application/geo+json" android:pathPattern=".*\\.geojson" />
                 <data android:scheme="content" android:mimeType="application/octet-stream" android:pathPattern=".*\\.json" />
+                <data android:scheme="content" android:mimeType="application/octet-stream" android:pathPattern=".*\\.gpx" />
                 <data
                     android:scheme="content"
                     android:mimeType="application/octet-stream"
