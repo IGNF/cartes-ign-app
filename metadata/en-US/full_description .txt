@@ -1,9 +1,1 @@
-Cartes IGN est l'application cartographique et de navigation 100% gratuite conçue par l’IGN, disponible sur mobile et tablette. Retrouvez la précision des fonds de cartes IGN (plan IGN et cartes topographiques) combinées à la richesse des données géographiques thématiques proposées par l'IGN et ses partenaires (administratif, foncier, agriculture, forêt, tourisme, espaces protégés, transport…) pour explorer et comprendre le territoire français.
-
-Bon plan ! Cliquez sur la carte interactive pour obtenir des informations complémentaires sur le territoire français comme les caractéristiques d’un bâtiment ou le type de culture d’un champ.
-
-Survolez la France et observez l’évolution des paysages français à l’heure du changement climatique en comparant, tel un géographe, des cartes IGN ou des photographies aériennes de différentes époques. Vue du ciel, l’empreinte de l’homme sur le territoire est surprenante !
-
-Découvrez des points d’intérêt autour de vous grâce à Cartes IGN, une application cartographique pour tous, facile à utiliser, qui propose aussi tous les outils pratiques pour vous déplacer sans être tracé : calculer un itinéraire, tracer un parcours, créer et enregistrer un point de repère, afficher sa position et la partager à ses proches…
-
-Partez à la découverte du territoire français avec Cartes IGN !
+This app is only available in french. Plese switch the locale to fr-FR to access the detailed description.
