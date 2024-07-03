@@ -22,6 +22,8 @@ import { kml, gpx } from "@tmcw/togeojson";
 import { DOMParser } from "@xmldom/xmldom";
 import GeoJsonToGpx from "@dwayneparton/geojson-to-gpx";
 
+import LineSlice from "@turf/line-slice";
+
 import LandmarkIconSaved from "../../css/assets/landmark-saved-map.png";
 import LandmarkIconFavourite from "../../css/assets/landmark-favourite-map.png";
 import LandmarkIconTovisit from "../../css/assets/landmark-tovisit-map.png";
@@ -876,6 +878,7 @@ ${landmark.properties.description}
       });
       pointId--;
     }
+    // Si pas de points itermédiaires (souvent GPX)
     if (points.length === 0) {
       const newSteps = [];
       for (let i = 0; i < steps.length; i++) {
@@ -920,6 +923,17 @@ ${landmark.properties.description}
             });
           }
         }
+      }
+      steps = newSteps;
+    }
+    // Si plusieurs points mais 1 segment
+    if (points.length > 2 && steps.length === 1) {
+      const newSteps = [];
+      const step = steps[0];
+      for (let i = 0; i < points.length - 1; i++) {
+        const startPoint = points[i];
+        const endPoint = points[i + 1];
+        newSteps.push(LineSlice(startPoint, endPoint, step));
       }
       steps = newSteps;
     }

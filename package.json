@@ -51,6 +51,7 @@
     "@tmcw/togeojson": "^5.8.1",
     "@turf/buffer": "^6.5.0",
     "@turf/length": "^6.5.0",
+    "@turf/line-slice": "^7.0.0",
     "@turf/union": "^6.5.0",
     "@xmldom/xmldom": "^0.8.10",
     "capacitor-native-settings": "^6.0.0",
