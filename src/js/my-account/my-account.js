@@ -686,7 +686,6 @@ ${landmark.properties.description}
           }
         });
         const gpxString = new XMLSerializer().serializeToString(gpx);
-        console.log(gpxString);
         await Filesystem.writeFile({
           path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.gpx`,
           data: gpxString,
