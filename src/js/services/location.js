@@ -10,11 +10,40 @@ import DOM from "../dom";
 import Globals from "../globals";
 import GisUtils from "../utils/gis-utils";
 
-import { Geolocation } from "@capacitor/geolocation";
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { App } from "@capacitor/app";
 import { NativeSettings, AndroidSettings, IOSSettings } from "capacitor-native-settings";
+let Geolocation;
+try {
+  Geolocation = (await import("@capacitor/geolocation")).Geolocation;
+} catch (e) {
+  Geolocation = {
+    checkPermissions: async () => {
+      try {
+        await new Promise( (resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            maximumAge: 0,
+            timeout: 3000,
+          });
+        });
+        return {
+          location: "granted",
+        };
+      } catch {
+        return {
+          location: "denied",
+        };
+      }
+    },
+    requestPermissions: async () => {
+      NativeSettings.open({
+        optionAndroid: AndroidSettings.Location,
+        optionIOS: IOSSettings.LocationServices
+      });
+    },
+  };
+}
 import { Capacitor } from "@capacitor/core";
 
 import Buffer from "@turf/buffer";
@@ -401,10 +430,19 @@ const getLocation = async () => {
   if (currentPosition === null) {
     await enablePosition();
     // Récupération rapide de la position si elle n'est pas connue
-    position = await Geolocation.getCurrentPosition({
-      maximumAge: 0,
-      timeout: 3000,
-    });
+    if (Capacitor.getPlatform() === "android") {
+      position = await new Promise( (resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          maximumAge: 0,
+          timeout: 3000,
+        });
+      });
+    } else {
+      position = await Geolocation.getCurrentPosition({
+        maximumAge: 0,
+        timeout: 3000,
+      });
+    }
   }
 
   results = {

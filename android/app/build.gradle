@@ -16,6 +16,18 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+
+    flavorDimensions "default"
+    productFlavors {
+        google {
+            dimension "default"
+        }
+        fdroid {
+            dimension "default"
+            versionNameSuffix "+foss"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -43,6 +55,15 @@ dependencies {
 }
 
 apply from: 'capacitor.build.gradle'
+
+project.afterEvaluate {
+    if (project.hasProperty("buildFlavor")) {
+        def buildFlavor = project.property("buildFlavor")
+        if (buildFlavor == "google") {
+            apply from: 'build_google.gradle'
+        }
+    }
+}
 
 try {
     def servicesJSON = file('google-services.json')
