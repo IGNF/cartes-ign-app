@@ -18,6 +18,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- Deep links -->
+            <intent-filter android:autoVerify="true">
+              <action android:name="android.intent.action.VIEW" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <category android:name="android.intent.category.BROWSABLE" />
+              <data android:scheme="https" android:host="cartes-ign.ign.fr" />
+            </intent-filter>
             <!-- Pour l'ouvertutre des fichiers en local -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -28,12 +35,10 @@
 
                 <data android:scheme="content" />
                 <data android:scheme="file" />
-                <data android:mimeType="*/*" />
                 <data android:pathSuffix=".json" />
                 <data android:pathSuffix=".geojson" />
                 <data android:pathSuffix=".gpx" />
                 <data android:pathSuffix=".kml" />
-                <data android:host="*" />
                 <data android:pathPattern=".*\\.json" />
                 <data android:pathPattern=".*\\..*\\.json" />
                 <data android:pathPattern=".*\\..*\\..*\\.json" />
@@ -80,13 +85,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
-            <!-- Deep links -->
-            <intent-filter android:autoVerify="true">
-              <action android:name="android.intent.action.VIEW" />
-              <category android:name="android.intent.category.DEFAULT" />
-              <category android:name="android.intent.category.BROWSABLE" />
-              <data android:scheme="https" android:host="cartes-ign.ign.fr" />
-          </intent-filter>
+
         </activity>
 
         <provider
