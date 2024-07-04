@@ -9,7 +9,6 @@ import maplibregl from "maplibre-gl";
 import DOM from "../dom";
 import Globals from "../globals";
 import GisUtils from "../utils/gis-utils";
-import threeD from "../three-d";
 
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
@@ -432,8 +431,8 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
     navigation_active = true;
     Globals.map.setMaxPitch(45);
-    threeD.add3dBuildings();
-    threeD.add3dTerrain();
+    Globals.threeD.add3dBuildings();
+    Globals.threeD.add3dTerrain();
     const padding = {top: DOM.$map.clientHeight * 0.5};
     Globals.map.easeTo({
       center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
@@ -449,7 +448,8 @@ const locationOnOff = async () => {
       position: "bottom"
     });
   } else {
-    threeD.remove3dBuildings();
+    Globals.threeD.remove3dBuildings();
+    Globals.threeD.remove3dTerrain();
     Globals.map.flyTo({
       pitch: 0,
       duration: 500,
@@ -553,6 +553,7 @@ const getLocation = async () => {
 const disableTracking = () => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
   tracking_active = false;
+<<<<<<< HEAD
   if (navigation_active) {
     Globals.map.setMaxPitch(0);
     navigation_active = false;
@@ -566,6 +567,10 @@ const disableTracking = () => {
 const disableNavigation = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
   navigation_active = false;
+=======
+  Globals.threeD.remove3dBuildings();
+  Globals.threeD.remove3dTerrain();
+>>>>>>> 4617b4d (feat(3d): 3d now a global control)
   Globals.map.flyTo({
     pitch: 0,
     bearing: bearing,
