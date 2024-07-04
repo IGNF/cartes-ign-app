@@ -132,7 +132,7 @@ function app() {
     maxZoom: 21,
     locale: "fr",
     maxPitch: 0,
-    touchPitch: false,
+    touchPitch: true,
     crossSourceCollisions: false,
   });
 

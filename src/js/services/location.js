@@ -394,9 +394,9 @@ const locationOnOff = async () => {
     }
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
     tracking_active = true;
-    Globals.map.setMaxPitch(45);
-    Globals.threeD.add3dBuildings();
-    Globals.threeD.add3dTerrain();
+    if (!Globals.threeD.on) {
+      Globals.map.setMaxPitch(45);
+    }
     Globals.map.flyTo({
       center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
       zoom: 16.5,
@@ -409,13 +409,13 @@ const locationOnOff = async () => {
       position: "bottom"
     });
   } else {
-    Globals.threeD.remove3dBuildings();
-    Globals.threeD.remove3dTerrain();
-    Globals.map.flyTo({
-      pitch: 0,
-      duration: 500,
-    })
-    setTimeout( () => {Globals.map.setMaxPitch(0)}, 500);
+    if (!Globals.threeD.on) {
+      Globals.map.flyTo({
+        pitch: 0,
+        duration: 500,
+      })
+      setTimeout( () => {Globals.map.setMaxPitch(0)}, 500);
+    }
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
     Geolocation.clearWatch({id: watch_id});
     clean();
@@ -514,13 +514,14 @@ const getLocation = async () => {
 const disableTracking = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
   tracking_active = false;
-  Globals.threeD.remove3dBuildings();
-  Globals.threeD.remove3dTerrain();
-  Globals.map.flyTo({
-    pitch: 0,
-    bearing: bearing,
-    duration: 500,
-  })
+  if (!Globals.threeD.on) {
+    Globals.map.flyTo({
+      pitch: 0,
+      bearing: bearing,
+      duration: 500,
+    })
+    setTimeout( () => {Globals.map.setMaxPitch(0)}, 500);
+  }
   setTimeout( () => {Globals.map.setMaxPitch(0)}, 500);
   Toast.show({
     text: "Suivi de position activé",

@@ -81,6 +81,29 @@ const addListeners = () => {
       Globals.menu.close("selectOnMapLandmark");
     }
   });
+
+  // Toggle 3D
+  DOM.$threeDBtn.addEventListener("click", () => {
+    if (Globals.threeD.on) {
+      Globals.threeD.remove3dBuildings();
+      Globals.threeD.remove3dTerrain();
+      if (!Location.isTrackingActive()) {
+        Globals.map.flyTo({
+          pitch: 0,
+          duration: 500,
+        });
+        setTimeout( () => {Globals.map.setMaxPitch(0)}, 500);
+      }
+    } else {
+      Globals.map.setMaxPitch(80);
+      Globals.threeD.add3dBuildings();
+      Globals.threeD.add3dTerrain();
+      Globals.map.flyTo({
+        pitch: 45,
+        duration: 500,
+      });
+    }
+  });
 };
 
 export default {
