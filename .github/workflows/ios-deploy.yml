@@ -25,7 +25,7 @@ jobs:
           echo "signalement_url=${{ secrets.SIGNALEMENT_URL }}" >> .env
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
@@ -93,7 +93,7 @@ jobs:
           cd ios/App && xcodebuild -exportArchive -archivePath $GITHUB_WORKSPACE/ign.xcarchive -exportOptionsPlist $EXPORT_PLIST_PATH -exportPath $RUNNER_TEMP/export
 
       - name: Upload application
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app
           path: ${{ runner.temp }}/export/App.ipa
