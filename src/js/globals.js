@@ -94,6 +94,9 @@ let osmPoiAccessibility = null;
 let signalement = null;
 let signalementOSM = null;
 
+// Global control 3d
+let threeD = null;
+
 // Global flag: is the device connected to the internet?
 let online = true;
 
@@ -149,4 +152,5 @@ export default {
   mapLoaded,
   walkingSpeed,
   osmPoiAccessibility,
+  threeD,
 };
