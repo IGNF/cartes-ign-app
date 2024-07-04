@@ -555,7 +555,6 @@ const disableTracking = () => {
   DOM.$geolocateBtn.classList.remove("locationFixe");
   DOM.$geolocateBtn.classList.remove("locationFollow");
   tracking_active = false;
-<<<<<<< HEAD
   if (navigation_active) {
     navigation_active = false;
     threeD.remove3dBuildings();
@@ -569,6 +568,7 @@ const disableNavigation = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.classList.add("locationFixe");
   DOM.$geolocateBtn.classList.remove("locationFollow");
   navigation_active = false;
+<<<<<<< HEAD
 <<<<<<< HEAD
   Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
 =======
@@ -584,6 +584,20 @@ const disableNavigation = (bearing = Globals.map.getBearing()) => {
   });
   if (bearing === 0) {
     DOM.$compassBtn.classList.add("d-none");
+=======
+  Globals.threeD.remove3dBuildings();
+  Globals.threeD.remove3dTerrain();
+  if (!Globals.threeD.on) {
+    Globals.map.flyTo({
+      pitch: 0,
+      bearing: bearing,
+      duration: 500,
+    })
+    if (bearing === 0) {
+      DOM.$compassBtn.classList.add("d-none");
+    }
+    setTimeout( () => {Globals.map.setMaxPitch(0)}, 500);
+>>>>>>> bb1e8d8 (feat(3d): add hillshade, sky. Now through map button and not navigation)
   }
 };
 

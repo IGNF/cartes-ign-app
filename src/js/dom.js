@@ -21,6 +21,7 @@ const $selectOnMap = document.getElementById("selectOnMap");
 const $geolocateBtn = document.getElementById("geolocateBtn");
 const $backTopLeftBtn = document.getElementById("backTopLeftBtn");
 const $compassBtn = document.getElementById("compassBtn");
+const $threeDBtn = document.getElementById("threeDBtn");
 const $layerManagerBtn = document.getElementById("layerManagerBtn");
 const $sideBySideBtn = document.getElementById("sideBySideBtn");
 const $compareMode = document.getElementById("compareMode");
@@ -134,6 +135,10 @@ export default {
   $fullScreenBtn,
   $mapScale,
   $map,
+<<<<<<< HEAD
   $createCompareLandmarkBtn,
   $compareLandmarkWindow,
+=======
+  $threeDBtn,
+>>>>>>> d1a4abc (feat(3d): add hillshade, sky. Now through map button and not navigation)
 };
