@@ -69,6 +69,9 @@ class ThreeD {
     const elevations = new Float32Array(width * height);
     for (let i = 0; i < width * height; i++) {
       elevations[i] = dataView.getFloat32(i * 4, true);
+      if (elevations[i] < 100) {
+        elevations[i] = 0;
+      }
     }
     return { elevations, width, height };
   }
