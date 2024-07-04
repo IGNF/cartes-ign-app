@@ -9,7 +9,6 @@ import maplibregl from "maplibre-gl";
 import DOM from "../dom";
 import Globals from "../globals";
 import GisUtils from "../utils/gis-utils";
-import threeD from "../three-d";
 
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
@@ -394,8 +393,8 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
     tracking_active = true;
     Globals.map.setMaxPitch(45);
-    threeD.add3dBuildings();
-    threeD.add3dTerrain();
+    Globals.threeD.add3dBuildings();
+    Globals.threeD.add3dTerrain();
     Globals.map.flyTo({
       center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
       zoom: 16.5,
@@ -408,7 +407,8 @@ const locationOnOff = async () => {
       position: "bottom"
     });
   } else {
-    threeD.remove3dBuildings();
+    Globals.threeD.remove3dBuildings();
+    Globals.threeD.remove3dTerrain();
     Globals.map.flyTo({
       pitch: 0,
       duration: 500,
@@ -512,7 +512,8 @@ const getLocation = async () => {
 const disableTracking = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
   tracking_active = false;
-  threeD.remove3dBuildings();
+  Globals.threeD.remove3dBuildings();
+  Globals.threeD.remove3dTerrain();
   Globals.map.flyTo({
     pitch: 0,
     bearing: bearing,
