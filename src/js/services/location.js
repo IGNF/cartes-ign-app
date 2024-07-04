@@ -9,7 +9,6 @@ import maplibregl from "maplibre-gl";
 import DOM from "../dom";
 import Globals from "../globals";
 import GisUtils from "../utils/gis-utils";
-import threeD from "../three-d";
 
 import { Toast } from "@capacitor/toast";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
@@ -556,6 +555,7 @@ const disableTracking = () => {
   DOM.$geolocateBtn.classList.remove("locationFixe");
   DOM.$geolocateBtn.classList.remove("locationFollow");
   tracking_active = false;
+<<<<<<< HEAD
   if (navigation_active) {
     navigation_active = false;
     threeD.remove3dBuildings();
@@ -569,7 +569,14 @@ const disableNavigation = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.classList.add("locationFixe");
   DOM.$geolocateBtn.classList.remove("locationFollow");
   navigation_active = false;
+<<<<<<< HEAD
   Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
+=======
+=======
+  Globals.threeD.remove3dBuildings();
+  Globals.threeD.remove3dTerrain();
+>>>>>>> 4617b4d (feat(3d): 3d now a global control)
+>>>>>>> d8b8e79 (feat(3d): 3d now a global control)
   Globals.map.flyTo({
     bearing: bearing,
     pitch: 0,
