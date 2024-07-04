@@ -430,7 +430,9 @@ const locationOnOff = async () => {
     }
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
     navigation_active = true;
-    Globals.map.setMaxPitch(45);
+    if (!Globals.threeD.on) {
+      Globals.map.setMaxPitch(45);
+    }
     Globals.threeD.add3dBuildings();
     Globals.threeD.add3dTerrain();
     const padding = {top: DOM.$map.clientHeight * 0.5};
@@ -450,11 +452,13 @@ const locationOnOff = async () => {
   } else {
     Globals.threeD.remove3dBuildings();
     Globals.threeD.remove3dTerrain();
-    Globals.map.flyTo({
-      pitch: 0,
-      duration: 500,
-    });
-    setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
+    if (!Globals.threeD.on) {
+      Globals.map.flyTo({
+        pitch: 0,
+        duration: 500,
+      });
+      setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
+    }
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
     tracking_active = false;
     navigation_active = false;
@@ -553,7 +557,6 @@ const getLocation = async () => {
 const disableTracking = () => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
   tracking_active = false;
-<<<<<<< HEAD
   if (navigation_active) {
     Globals.map.setMaxPitch(0);
     navigation_active = false;
@@ -567,18 +570,18 @@ const disableTracking = () => {
 const disableNavigation = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
   navigation_active = false;
-=======
   Globals.threeD.remove3dBuildings();
   Globals.threeD.remove3dTerrain();
->>>>>>> 4617b4d (feat(3d): 3d now a global control)
-  Globals.map.flyTo({
-    pitch: 0,
-    bearing: bearing,
-    duration: 500,
-  });
-  setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
-  if (bearing === 0) {
-    DOM.$compassBtn.classList.add("d-none");
+  if (!Globals.threeD.on) {
+    Globals.map.flyTo({
+      pitch: 0,
+      bearing: bearing,
+      duration: 500,
+    })
+    if (bearing === 0) {
+      DOM.$compassBtn.classList.add("d-none");
+    }
+    setTimeout( () => {Globals.map.setMaxPitch(0)}, 500);
   }
 };
 

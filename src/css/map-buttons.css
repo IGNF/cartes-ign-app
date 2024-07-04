@@ -178,6 +178,15 @@
   bottom: 132px;
 }
 
+#threeDBtn {
+  position: absolute;
+  top: calc(130px + var(--safe-area-inset-top));
+  font-family: "Open Sans Semibold";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #filterPoiBtn {
   background-image: url("assets/map-buttons/filtrer.svg");
   position: fixed;

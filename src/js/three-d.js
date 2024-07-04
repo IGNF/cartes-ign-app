@@ -7,6 +7,14 @@
 import Globals from "./globals";
 import maplibregl from "maplibre-gl";
 
+const hillsLayer = {
+  id: "hills",
+  type: "hillshade",
+  source: "bil-terrain",
+  layout: {visibility: "visible"},
+  paint: {"hillshade-shadow-color": "#473B24"}
+}
+
 /**
  * Interface sur le contrôle 3d
  * @module ThreeD
@@ -29,6 +37,8 @@ class ThreeD {
     this.map = map;
 
     this.buildingsLayers = [];
+
+    this.on = false;
 
     return this;
   }
@@ -104,6 +114,12 @@ class ThreeD {
 
     // Set terrain using the custom source
     Globals.map.setTerrain({ source: 'bil-terrain', exaggeration: 1.5 });
+    Globals.map.setSky({
+      "sky-color": "#199EF3",
+      "fog-ground-blend": 0.8,
+    });
+    Globals.map.addLayer(hillsLayer);
+    this.on = true;
   }
 
   async add3dBuildings() {
@@ -118,17 +134,20 @@ class ThreeD {
     this.buildingsLayers.forEach((layer) => {
       Globals.map.addLayer(layer, layerIdBefore);
     });
+    this.on = true;
   }
 
   remove3dBuildings() {
     this.buildingsLayers.forEach((layer) => {
       Globals.map.removeLayer(layer.id);
     })
-    Globals.interactivityIndicator.enable();
+    this.on = false;
   }
 
   remove3dTerrain() {
     Globals.map.setTerrain();
+    Globals.map.removeLayer(hillsLayer.id);
+    this.on = false;
   }
 }
 
