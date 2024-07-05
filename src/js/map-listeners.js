@@ -15,7 +15,6 @@ import Location from "./services/location";
  */
 const addListeners = () => {
   const map = Globals.map;
-
   // Rotation de la carte avec le mutlitouch
   map.on("rotate", () => {
     DOM.$compassBtn.style.transform = "rotate(" + (map.getBearing() * -1) + "deg)";

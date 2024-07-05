@@ -8,6 +8,8 @@ import Globals from "./globals";
 import DOM from "./dom";
 import Location from "./services/location";
 
+import proj4 from "proj4";
+
 /**
  * Barre de recherche et géocodage
  */
@@ -34,6 +36,12 @@ class Search {
     this.target = this.options.target;
 
     this.#addEvents();
+
+    // to render poi osm images
+    this.canvasElement = document.createElement("canvas");
+    this.canvasElement.width = 20;
+    this.canvasElement.height = 20;
+    this.canvasContext = this.canvasElement.getContext('2d');
 
     return this;
   }
@@ -173,20 +181,28 @@ class Search {
     let url = new URL("https://data.geopf.fr/geocodage/completion");
     let params = {
       type: "StreetAddress,PositionOfInterest",
-      maximumResponses: 10,
+      maximumResponses: 5,
       text: location,
     };
 
+    let poiUrl = new URL("https://data.geopf.fr/private/recherche/api/indexes/POI_OSM_auto/suggest");
+    let poiParams = {
+      size: 5,
+      text: location,
+      apikey: "a",
+    };
+
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    Object.keys(poiParams).forEach(key => poiUrl.searchParams.append(key, poiParams[key]));
     let signal = Globals.signal;
-    let responseprom = await fetch(url, {signal});
-    let response = await responseprom.json();
-    if (response.status !== "OK") {
+    let responseprom = await Promise.all([fetch(url, {signal}), fetch(poiUrl, {signal})]);
+    let response = await Promise.all([responseprom[0].json(), responseprom[1].json()]);
+    if (response[0].status !== "OK" && !responseprom[1].ok) {
       return;
     }
     this.autocompletion_results = [];
-    for (let i = 0 ; i < response.results.length; i++) {
-      let elem = response.results[i];
+    for (let i = 0 ; i < response[0].results.length; i++) {
+      let elem = response[0].results[i];
       let splitedText = this.computeLocationFullText(elem).split(",");
       let city = "";
       if (splitedText.length > 1){
@@ -201,6 +217,27 @@ class Search {
         lng: elem.x,
         lat: elem.y,
       });
+    }
+    for (let i = 0 ; i < response[1].length; i++) {
+      try {
+        let elem = response[1][i];
+        let lngLat = proj4(proj4.defs("EPSG:3857"), proj4.defs("EPSG:4326"), elem.source.extent.coordinates);
+        let spriteImageData = this.map.getImage(`${elem.source.type}_17`).data;
+        let imageData = new ImageData(new Uint8ClampedArray(spriteImageData.data), spriteImageData.width, spriteImageData.height);
+        this.canvasContext.putImageData(imageData, (20 - spriteImageData.width) / 2, (20 - spriteImageData.height) / 2);
+        this.autocompletion_results.push({
+          fulltext: elem.source.title,
+          firsttext: elem.source.title,
+          city: "",
+          lng: lngLat[0],
+          lat: lngLat[1],
+          imageURL: this.canvasElement.toDataURL("image/png"),
+          poiOsm: true,
+        });
+        this.canvasContext.reset();
+      } catch (error) {
+        console.error(error);
+      }
     }
     // Seulement les valeurs uniques
     this.autocompletion_results = this.autocompletion_results
@@ -223,7 +260,13 @@ class Search {
    * @public
    */
   computeAutocompResultHTML(autocompresult) {
-    return `<p class="autocompresult" fulltext="${autocompresult.fulltext}" data-coordinates='{"lon":${autocompresult.lng},"lat":${autocompresult.lat}}'>
+    let styleString = "";
+    let poiOsmClass = "";
+    if (autocompresult.poiOsm) {
+      styleString = `style="background-image: url(${autocompresult.imageURL})"`;
+      poiOsmClass = "poiOsm";
+    }
+    return `<p class="autocompresult ${poiOsmClass}" fulltext="${autocompresult.fulltext}" data-coordinates='{"lon":${autocompresult.lng},"lat":${autocompresult.lat}}' ${styleString}>
     ${autocompresult.firsttext}<br/>
     <em class='autocompcity'>${autocompresult.city}</em></p>
     ` ;
