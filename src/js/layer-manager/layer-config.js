@@ -94,6 +94,7 @@ const getLayerProps = (id) => {
     maxNativeZoom = Math.max(...zoomLevels);
   }
   var interactive = !(props.interactive === false);
+  var bounds = [props.globalConstraint.bbox.left, props.globalConstraint.bbox.bottom, props.globalConstraint.bbox.right, props.globalConstraint.bbox.top];
   return {
     layer: props.name,
     base: getBaseLayers().includes(id), // couche de fonds ou autre
@@ -108,6 +109,7 @@ const getLayerProps = (id) => {
     minNativeZoom: minNativeZoom,
     maxNativeZoom: maxNativeZoom,
     interactive: interactive,
+    bounds: bounds
   };
 };
 
@@ -234,6 +236,7 @@ const createRasterTileSource = (id) => {
     tileSize: 256,
     maxzoom: props.maxNativeZoom,
     minzoom: props.minNativeZoom,
+    ...(props.bounds && {bounds: props.bounds})
   };
 };
 
