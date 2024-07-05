@@ -28,8 +28,8 @@
         "name": "Agriculture",
         "keys": ["appign"],
         "layers": [
-          "LANDUSE.AGRICULTURE2022$GEOPORTAIL:OGC:WMTS",
-          "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS"
+            "LANDUSE.AGRICULTURE2022$GEOPORTAIL:OGC:WMTS",
+            "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS"
         ]
     },
     {
@@ -52,26 +52,27 @@
         "name": "Espaces protégés",
         "keys": ["appign"],
         "layers": [
-          "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS",
-          "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS"
+            "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS",
+            "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS"
         ]
     },
     {
         "name": "Risques naturels",
         "keys": ["appign"],
         "layers": [
-          "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$GEOPORTAIL:OGC:WMTS"
+            "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$GEOPORTAIL:OGC:WMTS",
+            "GEOGRAPHICALGRIDSYSTEM.DFCI$GEOPORTAIL:OGC:WMTS"
         ]
     },
     {
         "name": "Tourisme et loisirs",
         "keys": ["appign"],
         "layers": [
-          "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS",
-          "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS",
-          "POI.MUSEUM$GEOPORTAIL:OGC:WMS",
-          "VILLAGESETAPE$GEOPORTAIL:OGC:WMS",
-          "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS"
+            "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS",
+            "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS",
+            "POI.MUSEUM$GEOPORTAIL:OGC:WMS",
+            "VILLAGESETAPE$GEOPORTAIL:OGC:WMS",
+            "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS"
         ]
     },
     {
