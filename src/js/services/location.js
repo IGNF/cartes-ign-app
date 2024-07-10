@@ -497,7 +497,7 @@ const getOrientation = async (event) => {
   mapBearing = tempMapBearing;
   if (navigation_active) {
     if (!isMapPanning) {
-      Globals.map.easeTo({bearing: -mapBearing, pitch: 45, duration: 100});
+      Globals.map.easeTo({bearing: -mapBearing, duration: 100});
     }
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
@@ -557,7 +557,6 @@ const disableTracking = () => {
   tracking_active = false;
   if (navigation_active) {
     navigation_active = false;
-    threeD.remove3dBuildings();
   }
   Globals.map.touchZoomRotate.enable();
   Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
@@ -568,15 +567,7 @@ const disableNavigation = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.classList.add("locationFixe");
   DOM.$geolocateBtn.classList.remove("locationFollow");
   navigation_active = false;
-<<<<<<< HEAD
-<<<<<<< HEAD
   Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
-=======
-=======
-  Globals.threeD.remove3dBuildings();
-  Globals.threeD.remove3dTerrain();
->>>>>>> 4617b4d (feat(3d): 3d now a global control)
->>>>>>> d8b8e79 (feat(3d): 3d now a global control)
   Globals.map.flyTo({
     bearing: bearing,
     pitch: 0,
@@ -584,20 +575,6 @@ const disableNavigation = (bearing = Globals.map.getBearing()) => {
   });
   if (bearing === 0) {
     DOM.$compassBtn.classList.add("d-none");
-=======
-  Globals.threeD.remove3dBuildings();
-  Globals.threeD.remove3dTerrain();
-  if (!Globals.threeD.on) {
-    Globals.map.flyTo({
-      pitch: 0,
-      bearing: bearing,
-      duration: 500,
-    })
-    if (bearing === 0) {
-      DOM.$compassBtn.classList.add("d-none");
-    }
-    setTimeout( () => {Globals.map.setMaxPitch(0)}, 500);
->>>>>>> bb1e8d8 (feat(3d): add hillshade, sky. Now through map button and not navigation)
   }
 };
 

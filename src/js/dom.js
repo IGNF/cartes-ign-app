@@ -135,10 +135,7 @@ export default {
   $fullScreenBtn,
   $mapScale,
   $map,
-<<<<<<< HEAD
   $createCompareLandmarkBtn,
   $compareLandmarkWindow,
-=======
   $threeDBtn,
->>>>>>> d1a4abc (feat(3d): add hillshade, sky. Now through map button and not navigation)
 };
