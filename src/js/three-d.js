@@ -69,7 +69,7 @@ class ThreeD {
     const elevations = new Float32Array(width * height);
     for (let i = 0; i < width * height; i++) {
       elevations[i] = dataView.getFloat32(i * 4, true);
-      if (elevations[i] < 100) {
+      if (elevations[i] < -10 || elevations[i] > 4900) {
         elevations[i] = 0;
       }
     }
@@ -81,7 +81,7 @@ class ThreeD {
       Globals.map.addSource("bil-terrain", {
         type: "raster-dem",
         tiles: [
-          "dem://data.geopf.fr/wms-r/wms?bbox={bbox-epsg-3857}&format=image/x-bil;bits=32&service=WMS&version=1.3.0&request=GetMap&crs=EPSG:3857&width=256&height=256&styles=normal&layers=ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES"
+          `dem://data.geopf.fr/private/wms-r/wms?apikey=${process.env.GPF_key}&bbox={bbox-epsg-3857}&format=image/x-bil;bits=32&service=WMS&version=1.3.0&request=GetMap&crs=EPSG:3857&width=256&height=256&styles=normal&layers=ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES.LINEAR`
         ],
         minzoom: 6,
         maxzoom: 14,
@@ -93,7 +93,7 @@ class ThreeD {
           const { elevations, width, height } = await this.#fetchAndParseXBil(`https://${params.url.split("://")[1]}`);
           const data = new Uint8ClampedArray(width * height * 4);
           for (let i = 0; i < elevations.length; i++) {
-            const elevation = Math.round(elevations[i] * 10) / 10;
+            let elevation = Math.round(elevations[i] * 10) / 10;
             // reverse https://docs.mapbox.com/data/tilesets/reference/mapbox-terrain-dem-v1/#elevation-data
             const baseElevationValue = 10 * (elevation + 10000);
             const red = Math.floor(baseElevationValue / (256 * 256)) % 256;
@@ -121,7 +121,12 @@ class ThreeD {
       "sky-color": "#199EF3",
       "fog-ground-blend": 0.8,
     });
-    Globals.map.addLayer(hillsLayer);
+    // HACK
+    // on positionne toujours le style avant ceux du calcul d'itineraires (directions)
+    // afin que le calcul soit toujours la couche visible du dessus !
+    var layerIndexBefore = Globals.map.getStyle().layers.findIndex((l) => l.source === "maplibre-gl-directions");
+    var layerIdBefore = (layerIndexBefore !== -1) ? Globals.map.getStyle().layers[layerIndexBefore].id : null;
+    Globals.map.addLayer(hillsLayer, layerIdBefore);
     this.on = true;
   }
 
