@@ -2,78 +2,78 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleDisplayName</key>
-        <string>Cartes IGN</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
-	<key>ITSAppUsesNonExemptEncryption</key><false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Votre position est nécessaire pour vous positionner sur la carte et calculer des itinéraires et isochrones à partir de votre position</string>
-	<key>UIFileSharingEnabled</key>
-	<true/>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
- 	<true/>
-	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeName</key>
-			<string>JSON File</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.json</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeName</key>
-			<string>GEOJSON File</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>org.geojson.geojson</string>
-			</array>
-		</dict>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>en</string>
+  <key>CFBundleDisplayName</key>
+    <string>Cartes IGN</string>
+  <key>CFBundleExecutable</key>
+  <string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleIdentifier</key>
+  <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>$(PRODUCT_NAME)</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleShortVersionString</key>
+  <string>$(MARKETING_VERSION)</string>
+  <key>CFBundleVersion</key>
+  <string>$(CURRENT_PROJECT_VERSION)</string>
+  <key>LSRequiresIPhoneOS</key>
+  <true/>
+  <key>UILaunchStoryboardName</key>
+  <string>LaunchScreen</string>
+  <key>UIMainStoryboardFile</key>
+  <string>Main</string>
+  <key>UIRequiredDeviceCapabilities</key>
+  <array>
+    <string>armv7</string>
+  </array>
+  <key>UISupportedInterfaceOrientations</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+  </array>
+  <key>UISupportedInterfaceOrientations~ipad</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+  </array>
+  <key>UIViewControllerBasedStatusBarAppearance</key>
+  <true/>
+  <key>ITSAppUsesNonExemptEncryption</key><false/>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Votre position est nécessaire pour vous positionner sur la carte et calculer des itinéraires et isochrones à partir de votre position</string>
+  <key>UIFileSharingEnabled</key>
+  <true/>
+  <key>LSSupportsOpeningDocumentsInPlace</key>
+   <true/>
+  <key>CFBundleDocumentTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>JSON File</string>
+      <key>LSHandlerRank</key>
+      <string>Owner</string>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>public.json</string>
+      </array>
+    </dict>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>GEOJSON File</string>
+      <key>LSHandlerRank</key>
+      <string>Owner</string>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>org.geojson.geojson</string>
+      </array>
+    </dict>
     <dict>
       <key>CFBundleTypeName</key>
       <string>GPS Exchange Format (GPX)</string>
@@ -82,6 +82,7 @@
       <key>LSItemContentTypes</key>
       <array>
         <string>com.topografix.gpx</string>
+        <string>com.apple.dt.document.gpx</string>
       </array>
     </dict>
     <dict>
@@ -94,11 +95,86 @@
         <string>com.google.earth.kml</string>
       </array>
      </dict>
-	</array>
+  </array>
+  <key>UTExportedTypeDeclarations</key>
+  <array>
+    <dict>
+      <key>UTTypeIdentifier</key>
+      <string>public.geojson</string>
+      <key>UTTypeDescription</key>
+      <string>GeoJSON File</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+          <string>public.json</string>
+      </array>
+      <key>UTTypeTagSpecification</key>
+      <dict>
+          <key>public.filename-extension</key>
+          <array>
+            <string>geojson</string>
+          </array>
+      </dict>
+    </dict>
+    <dict>
+      <key>UTTypeIdentifier</key>
+      <string>public.geojson</string>
+      <key>UTTypeDescription</key>
+      <string>GeoJSON File</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+          <string>public.json</string>
+      </array>
+      <key>UTTypeTagSpecification</key>
+      <dict>
+          <key>public.filename-extension</key>
+          <array>
+            <string>json</string>
+          </array>
+      </dict>
+    </dict>
+    <dict>
+      <key>UTTypeIdentifier</key>
+      <string>com.topografix.gpx</string>
+      <key>UTTypeReferenceURL</key>
+	    <string>http://www.topografix.com/GPX/1/1/</string>
+      <key>UTTypeDescription</key>
+      <string>GPS Exchange Format (GPX)</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+          <string>public.xml</string>
+      </array>
+      <key>UTTypeTagSpecification</key>
+      <dict>
+          <key>public.filename-extension</key>
+          <array>
+            <string>gpx</string>
+          </array>
+      </dict>
+    </dict>
+    <dict>
+      <key>UTTypeIdentifier</key>
+      <string>com.apple.dt.document.gpx</string>
+      <key>UTTypeReferenceURL</key>
+      <string>http://www.topografix.com/GPX/1/1/</string>
+      <key>UTTypeDescription</key>
+      <string>GPX File</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+        <string>public.xml</string>
+      </array>
+      <key>UTTypeTagSpecification</key>
+      <dict>
+        <key>public.filename-extension</key>
+        <array>
+          <string>gpx</string>
+        </array>
+      </dict>
+    </dict>
+  </array>
   <key>CFBundleLocalizations</key>
-	<array>
-		<string>fr</string>
-	</array>
+  <array>
+    <string>fr</string>
+  </array>
 
 </dict>
 </plist>
