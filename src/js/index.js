@@ -50,7 +50,7 @@ function app() {
   window.addEventListener("controlsloaded", async () => {
     SplashScreen.hide();
     App.getLaunchUrl().then( (url) => {
-      if (url.url) {
+      if (url && url.url) {
         if (url.url.split("://")[0] === "https") {
           const urlParams = new URLSearchParams(url.url.split("?")[1]);
           if (urlParams.get("lng") && urlParams.get("lat")) {
