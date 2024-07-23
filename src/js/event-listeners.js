@@ -19,6 +19,7 @@ import { Network } from "@capacitor/network";
 import { TextZoom } from "@capacitor/text-zoom";
 import { App } from "@capacitor/app";
 import { Keyboard } from "@capacitor/keyboard";
+import maplibregl from "maplibre-gl";
 
 /**
  * Ecouteurs generiques
@@ -253,6 +254,34 @@ function addListeners() {
       DOM.$routeDrawEdit.style.transform = "translateX(100vw)";
       DOM.$filterPoiBtn.style.transform = "translateY(-100vh)";
     }
+  });
+
+  // Partage par liens
+  App.addListener("resume", () => {
+    App.getLaunchUrl().then( (url) => {
+      if (url.url) {
+        if (url.url.split("://")[0] === "https") {
+          const urlParams = new URLSearchParams(url.url.split("?")[1]);
+          if (urlParams.get("lng") && urlParams.get("lat")) {
+            const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
+            const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
+            map.flyTo({zoom: zoom, center: center});
+            map.once("moveend", () => {
+              Globals.position.compute({ lngLat: center }).then(() => {
+                Globals.menu.open("position");
+              });
+              if (Globals.searchResultMarker != null) {
+                Globals.searchResultMarker.remove();
+                Globals.searchResultMarker = null;
+              }
+              Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
+                .setLngLat(center)
+                .addTo(map);
+            });
+          }
+        }
+      }
+    });
   });
 }
 

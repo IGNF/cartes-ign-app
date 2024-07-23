@@ -26,6 +26,7 @@ import { StatusBar, Style } from "@capacitor/status-bar";
 import { SafeArea, SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { TextZoom } from "@capacitor/text-zoom";
 import { Device } from "@capacitor/device";
+import { App } from "@capacitor/app";
 
 // import CSS
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
@@ -48,6 +49,32 @@ function app() {
   // Ecouteur sur le chargement total des contrôles
   window.addEventListener("controlsloaded", async () => {
     SplashScreen.hide();
+    App.getLaunchUrl().then( (url) => {
+      if (url.url) {
+        if (url.url.split("://")[0] === "https") {
+          const urlParams = new URLSearchParams(url.url.split("?")[1]);
+          if (urlParams.get("lng") && urlParams.get("lat")) {
+            const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
+            map.setCenter(center);
+            map.setZoom(parseFloat(urlParams.get("z")) || map.getZoom());
+            Globals.position.compute({ lngLat: center }).then(() => {
+              Globals.menu.open("position");
+            });
+            if (Globals.searchResultMarker != null) {
+              Globals.searchResultMarker.remove();
+              Globals.searchResultMarker = null;
+            }
+            Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
+              .setLngLat(center)
+              .addTo(map);
+            map.once("moveend", () => {
+              StatusPopups.getNetworkPopup(map);
+              StatusPopups.getEditoPopup(map);
+            });
+          }
+        }
+      }
+    });
     // INFO: BUG https://github.com/ionic-team/capacitor-plugins/issues/1160
     setTimeout( async () => {
       SafeAreaController.injectCSSVariables();
@@ -249,7 +276,6 @@ function app() {
         StatusPopups.getEditoPopup(map);
       });
     });
-
   }
   setTimeout(() => {
     if (!Globals.mapLoaded) {
