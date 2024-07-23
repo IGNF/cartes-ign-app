@@ -244,6 +244,11 @@ function addListeners() {
     });
   });
 
+  const handleScrollDown = () => {
+    Globals.currentScrollIndex = 1;
+    Globals.menu.updateScrollAnchors();
+  };
+
   window.addEventListener("scroll", () => {
     DOM.$bottomButtons.style.removeProperty("transform");
     DOM.$routeDrawEdit.style.removeProperty("transform");
@@ -253,6 +258,14 @@ function addListeners() {
       DOM.$bottomButtons.style.transform = "translateY(-100vh)";
       DOM.$routeDrawEdit.style.transform = "translateX(100vw)";
       DOM.$filterPoiBtn.style.transform = "translateY(-100vh)";
+    }
+    const inset = Math.round(parseFloat(getComputedStyle(document.body).getPropertyValue("--safe-area-inset-top").slice(0, -2)));
+    if (window.scrollY >= window.innerHeight - 72 - inset) {
+      DOM.$tabContainer.classList.add("scrolledMax");
+      document.getElementById("tabHandle").addEventListener("click", handleScrollDown);
+    } else {
+      DOM.$tabContainer.classList.remove("scrolledMax");
+      document.getElementById("tabHandle").removeEventListener("click", handleScrollDown);
     }
   });
 
