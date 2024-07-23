@@ -69,6 +69,25 @@
 #tabHeader {
   width: 100%;
   height: 40px;
+  position: sticky;
+  top: var(--safe-area-inset-top);
+  background-color: inherit;
+}
+
+.scrolledMax > #tabHeader {
+  z-index: 3000;
+}
+
+.scrolledMax::before {
+  content: "";
+  display: block;
+  padding: var(--safe-area-inset-top);
+  background-color: inherit;
+  width: inherit;
+  z-index: 3000;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 #tabHandle {
@@ -81,6 +100,10 @@
   flex-shrink: 0;
 }
 
+.scrolledMax > #tabHeader > #tabHandle {
+  background-image: url(../html/img/navheaderarrow.svg);
+}
+
 #sheetClose,
 #tabClose {
   width: 35px;
@@ -89,7 +112,7 @@
   background-image: url(./assets/close.svg);
   flex-shrink: 0;
   position: absolute;
-  right: 15px;
+  right: 0px;
   top: 5px;
 }
 

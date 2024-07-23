@@ -38,6 +38,13 @@
   border-bottom: 2px solid var(--grey-2);
   font-family: "Fira Sans SemiBold";
   font-size: 15px;
+  position: sticky;
+  top: calc(39px + var(--safe-area-inset-top));
+}
+
+.scrolledMax .layer-tabs-label {
+  background-color: var(--false-white);
+  z-index: 3000;
 }
 
 .layer-tabs-input:checked + .layer-tabs-label {
