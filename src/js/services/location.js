@@ -24,23 +24,36 @@ try {
         await new Promise( (resolve, reject) => {
           navigator.geolocation.getCurrentPosition(resolve, reject, {
             maximumAge: 0,
-            timeout: 3000,
+            timeout: 1,
           });
         });
         return {
           location: "granted",
         };
-      } catch {
-        return {
-          location: "denied",
-        };
+      } catch (e) {
+        // code 1 : geolocation denied https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError/code
+        if (e.code === 1) {
+          return {
+            location: "denied",
+          };
+        } else if (e.code === 2) {
+          throw new Error("Location services disabled");
+        } else {
+          return {
+            location: "granted",
+          };
+        }
       }
     },
     requestPermissions: async () => {
-      NativeSettings.open({
-        optionAndroid: AndroidSettings.Location,
-        optionIOS: IOSSettings.LocationServices
+      await NativeSettings.open({
+        optionAndroid: AndroidSettings.ApplicationDetails,
+        optionIOS: IOSSettings.App
       });
+      return await Geolocation.checkPermissions();
+    },
+    clearWatch: (idObject) => {
+      navigator.geolocation.clearWatch(idObject.id);
     },
   };
 }
@@ -271,7 +284,20 @@ const trackLocation = () => {
       firstLocation = true;
       // Android frequency problem for geolocation https://www.reddit.com/r/ionic/comments/zfg9xn/capacitor_geolocation_works_great_on_the_web_and/
       if (Capacitor.getPlatform() === "android") {
-        watch_id = navigator.geolocation.watchPosition(watchPositionCallback, (err) => {console.warn(err);}, {
+        watch_id = navigator.geolocation.watchPosition(watchPositionCallback, (err) => {
+          console.warn(err);
+          DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
+          Geolocation.clearWatch({id: watch_id});
+          clean();
+          currentPosition = null;
+          location_active = false;
+          tracking_active = false;
+          Toast.show({
+            text: "Impossible de récupérer la géolocalisation. Est-elle activée ?",
+            duration: "long",
+            position: "bottom"
+          });
+        }, {
           maximumAge: 1000,
           timeout: 10000,
           enableHighAccuracy: true

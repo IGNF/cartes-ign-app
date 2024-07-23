@@ -259,7 +259,7 @@ function addListeners() {
   // Partage par liens
   App.addListener("resume", () => {
     App.getLaunchUrl().then( (url) => {
-      if (url.url) {
+      if (url && url.url) {
         if (url.url.split("://")[0] === "https") {
           const urlParams = new URLSearchParams(url.url.split("?")[1]);
           if (urlParams.get("lng") && urlParams.get("lat")) {
