@@ -188,9 +188,9 @@ class POI {
     }
 
     let rltChecked = "checked";
-    // Chargement de la position précédente
-    if (localStorage.getItem("poirltChecked")) {
-      rltChecked = localStorage.getItem("poirltChecked");
+    // Chargement de la valeut de la checkbox POI RLT
+    if (localStorage.getItem("poirltChecked") !== "checked") {
+      rltChecked = "";
     }
 
     var tpltContainer = `
@@ -265,7 +265,7 @@ class POI {
         this.map.flyTo({zoom: 4, center: [2.0, 47.33]});
       } else {
         Globals.comparePoi.hidePoints();
-        localStorage.setItem("poirltChecked", "");
+        localStorage.setItem("poirltChecked", "unchecked");
       }
     });
     // rendre visible ou non le filtre si la couche POI est active sinon rien à faire
