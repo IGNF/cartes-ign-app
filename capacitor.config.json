@@ -6,7 +6,8 @@
     "androidScheme": "https"
   },
   "android": {
-    "overrideUserAgent": "IGN-app-android"
+    "overrideUserAgent": "IGN-app-android",
+    "flavor": "google"
   },
   "ios": {
     "overrideUserAgent": "IGN-app-ios",
