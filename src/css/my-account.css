@@ -118,11 +118,20 @@
  height: calc(100% - 20px);
 }
 
+#myAccountBody .layer-tabs-label {
+  position: unset;
+}
+
 #myaccount-landmarks,
 #myaccount-routes {
   flex-grow: 1;
   height: calc(100% - 37px);
   overflow-y: scroll;
+}
+
+#myaccount-landmarks:has(label[id^=landmark-show-advanced-tools_ID_]:hover),
+#myaccount-routes:has(label[id^=landmark-show-advanced-tools_ID_]:hover) {
+  overflow-y: visible;
 }
 
 #myaccountRouteList {
