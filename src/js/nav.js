@@ -90,6 +90,7 @@ class MenuNavigation {
      */
   hide() {
     this.container.classList.add("d-none");
+    DOM.$tabContainer.style.removeProperty("height");
   }
 
   /**
@@ -97,6 +98,7 @@ class MenuNavigation {
      */
   show() {
     this.container.classList.remove("d-none");
+    DOM.$tabContainer.style.height = "0px";
   }
 
   /**
@@ -184,6 +186,7 @@ class MenuNavigation {
       DOM.$tabContainer.style.removeProperty("top");
       DOM.$compareLayers2Window.classList.add("d-none");
       DOM.$compareLayers1Window.classList.remove("d-none");
+      DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$sideBySideLeftLayer.classList.add("d-none");
       Globals.currentScrollIndex = 2;
       break;
@@ -191,6 +194,7 @@ class MenuNavigation {
       DOM.$tabContainer.style.removeProperty("top");
       DOM.$compareLayers1Window.classList.add("d-none");
       DOM.$compareLayers2Window.classList.remove("d-none");
+      DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$sideBySideRightLayer.classList.add("d-none");
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$sideBySideLeftLayer.style.left = "calc(50% + 15px)";
@@ -299,6 +303,7 @@ class MenuNavigation {
       break;
     case "myaccount":
     case "informationsScreen":
+      DOM.$tabContainer.style.height = "0px";
       DOM.$whiteScreen.style.backgroundColor = getComputedStyle(document.body).getPropertyValue("--false-white");
       document.body.style.overflowY = "scroll";
       DOM.$whiteScreen.classList.remove("d-none");
@@ -364,6 +369,10 @@ class MenuNavigation {
     // on cache le menu de navigation
     this.hide();
 
+    if (!DOM.$whiteScreen.classList.contains("d-none")) {
+      DOM.$tabContainer.style.height = "0px";
+    }
+
     // on procede à l'affichage du panneau
     if (scrollIndex !== -1) {
       Globals.currentScrollIndex = scrollIndex;
@@ -423,6 +432,7 @@ class MenuNavigation {
     case "compareLayers1":
       DOM.$tabContainer.style.top = "100vh";
       DOM.$compareLayers1Window.classList.add("d-none");
+      DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
       DOM.$sideBySideLeftLayer.classList.remove("d-none");
       Globals.currentScrollIndex = 0;
       isSpecific = true;
@@ -432,6 +442,7 @@ class MenuNavigation {
       DOM.$tabContainer.style.top = "100vh";
       DOM.$sideBySideLeftLayer.style.removeProperty("left");
       DOM.$compareLayers2Window.classList.add("d-none");
+      DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
       DOM.$sideBySideRightLayer.classList.remove("d-none");
       Globals.currentScrollIndex = 0;
       isSpecific = true;

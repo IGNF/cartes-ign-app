@@ -33,7 +33,7 @@
           <!-- Toutes les informations sont affichées dans un onglet resizable
             et ancré en bas de l'écran.
           -->
-          <div id="tabContainer">
+          <div id="tabContainer" style="height: 0px;">
             <div id="tabHeader"><div id="tabHandle"></div><div id="tabClose" tabindex="0" title="Fermer le volet"></div></div>
               <%= require('html-loader!./tabs/layermanagerWindow.html').default %>
               <%= require('html-loader!./tabs/directionsWindow.html').default %>
