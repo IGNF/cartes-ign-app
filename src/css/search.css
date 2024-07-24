@@ -78,7 +78,7 @@
   display: flex;
   flex-flow: column;
   position: relative;
-  margin: 0 2.5%;
+  margin: 0 4%;
 }
 
 #resultsRech {
@@ -93,14 +93,17 @@
   margin: 4px 0;
 }
 
-#resultsRechRecent{
+#resultsRechRecent {
   padding-bottom: 5px;
-  border-bottom: solid 1px #D8DFE4;
+  border-top: solid 1px #D8DFE4;
+  margin-top: 16px;
+  padding-top: 24px;
 }
 
 #resultsRechRecent p:first-child{
-  font-family: "Fira Sans Semibold";
-  font-size: 15px;
+  font-family: "Open Sans Semibold";
+  font-size: 13px;
+  margin-top: 0;
 }
 
 #myGeoLocation > p,
@@ -108,15 +111,19 @@
 .recentresult,
 .autocompresultselected,
 .autocompresult {
-  padding: 7px 10px;
+  padding: 0 10px;
   margin: 0;
   background-position: left;
   background-repeat: no-repeat;
-  background-size: 20px;
+  background-size: 34px;
   text-align: left;
-  padding-left: 30px;
+  padding-left: 44px;
   font-family: "Fira Sans Semibold";
   font-size: 15px;
+  height: 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .autocompresult em, .recentresult em {
