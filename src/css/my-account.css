@@ -130,7 +130,7 @@
 }
 
 #myaccount-landmarks:has(label[id^=landmark-show-advanced-tools_ID_]:hover),
-#myaccount-routes:has(label[id^=landmark-show-advanced-tools_ID_]:hover) {
+#myaccount-routes:has(label[id^=route-show-advanced-tools_ID_]:hover) {
   overflow-y: visible;
 }
 
