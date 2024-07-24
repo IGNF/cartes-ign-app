@@ -638,7 +638,7 @@ ${landmark.properties.locationName}
 Latitude : ${Math.round(landmark.geometry.coordinates[1] * 1e6) / 1e6}
 Longitude : ${Math.round(landmark.geometry.coordinates[0] * 1e6) / 1e6}
 ${landmark.properties.description}
-`,
+https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lng=${landmark.geometry.coordinates[1]}&z=15`,
       dialogTitle: "Partager mon point de repère",
     });
   }
