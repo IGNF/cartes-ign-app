@@ -270,10 +270,12 @@ class MyAccount {
    */
   async importFile() {
     const result = await FilePicker.pickFiles({
-      limit: 1,
+      limit: 0,
       readData: true,
     });
-    this.#importData(result.files[0].data, result.files[0].name.split(".")[0], result.files[0].name.split(".")[1]);
+    result.files.forEach( (file) => {
+      this.#importData(file.data, file.name.split(".")[0], file.name.split(".")[1]);
+    });
   }
 
   /**
