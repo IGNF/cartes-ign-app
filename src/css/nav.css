@@ -6,7 +6,7 @@
     height: 60px ;
     font-size: 12px;
     background-color: white;
-    padding: 10px 0px max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px) 0px;
+    padding: 8px 0px max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px) 0px;
     z-index: 3002;
     flex-direction: row;
     align-items: center;
@@ -39,9 +39,10 @@
 
 .navitembtn > div {
     margin-bottom: 5px;
-    height: 42px;
-    width: 42px;
-    flex-shrink: 0
+    height: 48px;
+    width: 48px;
+    flex-shrink: 0;
+    background-size: 48px;
 }
 
 .navbar.hoverable:focus-within > .navitembtn,
@@ -95,7 +96,7 @@
 .subnav {
     position: absolute;
     background-color: var(--false-white);
-    bottom: calc(70px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
+    bottom: calc(68px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
     left: -100%;
     transition: transform 0.2s;
     transition-timing-function: ease-out;

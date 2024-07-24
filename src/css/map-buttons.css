@@ -10,6 +10,7 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   z-index: 200;
   border: 1px solid white;
+  padding: 3px;
 }
 
 #backTopLeftBtn {
@@ -18,6 +19,7 @@
   left: calc(15px + var(--safe-area-inset-left));
   background-image: url("assets/map-buttons/back.svg");
   z-index: 3003;
+  padding: 0;
 }
 
 #bottomButtons {
@@ -30,7 +32,7 @@
 #layerManagerBtn {
   background-image: url("assets/map-buttons/layers.svg");
   position: absolute;
-  bottom: 50px;
+  bottom: 56px;
 }
 
 #layerManagerBtn.active {
@@ -50,6 +52,7 @@
   position: absolute;
   left: 15px;
   bottom: 0;
+  background-size: 70px;
 }
 
 #sideBySideRightLayer {
@@ -57,25 +60,26 @@
   position: absolute;
   right: 15px;
   bottom: 0;
+  background-size: 70px;
 }
 
 #compareMode {
   position: fixed;
   top: calc(10px + var(--safe-area-inset-top));
   right: calc(15px + var(--safe-area-inset-left));
-  width: 120px;
-  height: 40px;
+  width: 150px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   z-index: 2;
 }
 
 #compareMode > div {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 40px;
+  background-size: 50px;
   filter: grayscale(1);
 }
 
@@ -124,7 +128,7 @@
 #compassBtn {
   background-image: url("assets/map-buttons/compass.svg");
   position: absolute;
-  bottom: 100px;
+  bottom: 112px;
 }
 
 #filterPoiBtn {
@@ -139,6 +143,7 @@
   background-position: 13px center;
   width: 70px;
   transition: top 0.15s, transform 0.5s;
+  font-size: 14px;
 }
 
 #interactivityBtn {
@@ -150,8 +155,8 @@
   overflow: hidden;
   background-color: #fff0;
   border-radius: 31px;
-  width: 54px;
-  height: 54px;
+  width: 60px;
+  height: 60px;
   font-family: "Open Sans Semibold";
   display: flex;
   align-items: center;
@@ -176,9 +181,8 @@
 }
 
 #routeDrawMode {
-  width: 135px;
+  width: 145px;
   justify-content: space-between;
-  font-size: 11px;
   position: relative;
 }
 
@@ -223,8 +227,6 @@
 
 #routeDrawHelp {
   background-color: var(--dark-green);
-  width: 34px;
-  height: 34px;
   color: white;
   border: unset;
   justify-content: center;
@@ -237,6 +239,7 @@
   font-family: "Open Sans Semibold";
   margin-right: 6px;
   right: unset;
+  font-size: 13px;
 }
 
 #routeDrawEdit {
@@ -306,7 +309,7 @@
 
 #routeDrawEdit > .button > span {
   position: absolute;
-  bottom: 10px;
+  bottom: 6px;
   width: 42px;
   display: flex;
   justify-content: center;

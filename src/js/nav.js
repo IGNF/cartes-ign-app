@@ -182,7 +182,6 @@ class MenuNavigation {
       break;
     case "compareLayers1":
       DOM.$tabContainer.style.removeProperty("top");
-      DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$compareLayers2Window.classList.add("d-none");
       DOM.$compareLayers1Window.classList.remove("d-none");
       DOM.$sideBySideLeftLayer.classList.add("d-none");
@@ -190,7 +189,6 @@ class MenuNavigation {
       break;
     case "compareLayers2":
       DOM.$tabContainer.style.removeProperty("top");
-      DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$compareLayers1Window.classList.add("d-none");
       DOM.$compareLayers2Window.classList.remove("d-none");
       DOM.$sideBySideRightLayer.classList.add("d-none");
@@ -424,7 +422,6 @@ class MenuNavigation {
       break;
     case "compareLayers1":
       DOM.$tabContainer.style.top = "100vh";
-      DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
       DOM.$compareLayers1Window.classList.add("d-none");
       DOM.$sideBySideLeftLayer.classList.remove("d-none");
       Globals.currentScrollIndex = 0;
@@ -433,7 +430,6 @@ class MenuNavigation {
       break;
     case "compareLayers2":
       DOM.$tabContainer.style.top = "100vh";
-      DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
       DOM.$sideBySideLeftLayer.style.removeProperty("left");
       DOM.$compareLayers2Window.classList.add("d-none");
       DOM.$sideBySideRightLayer.classList.remove("d-none");

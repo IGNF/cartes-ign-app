@@ -17,7 +17,7 @@
 }
 
 #bottomButtons > .maplibregl-control-container > .maplibregl-ctrl-bottom-left {
-  bottom: 50px;
+  bottom: 56px;
 }
 
 #routeDrawBtns.d-none + .maplibregl-control-container > .maplibregl-ctrl-bottom-left {
