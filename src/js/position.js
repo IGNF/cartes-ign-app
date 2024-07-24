@@ -200,7 +200,7 @@ class Position {
     // ajout des listeners principaux :
     shadowContainer.getElementById("positionShare").addEventListener("click", () => {
       Share.share({
-        title: `Partager ${this.header}`,
+        title: `Partager ${this.#getTrueHeader()}}`,
         text: this.shareContent,
         dialogTitle: "Partager la position",
       });
@@ -450,6 +450,23 @@ class Position {
   }
 
   #setShareContent(latitude, longitude, altitude = "") {
+    const trueHeader = this.#getTrueHeader();
+    var altitudeText = "";
+    if (altitude !== "") {
+      altitudeText = `
+Altitude : ${altitude} m`;
+    }
+
+    const zoom = Math.round(this.map.getZoom() * 100) / 100;
+    this.shareContent = `${trueHeader ? trueHeader : this.header}
+${this.name}
+Latitude : ${latitude}
+Longitude : ${longitude}${altitudeText}
+https://cartes-ign.ign.fr?lng=${longitude}&lng=${latitude}&z=${zoom}`;
+  }
+
+  /* Transforme le HTML du header de la position en texte pour le partage */
+  #getTrueHeader() {
     let trueHeader = this.header;
     if (this.header.includes("landmarkSummaryIcon")) {
       trueHeader = DomUtils.stringToHTML(this.header.trim()).innerText.trim();
@@ -459,16 +476,7 @@ class Position {
     if (trueHeader.includes("positionSubTitle")) {
       trueHeader = trueHeader.trim().replace("<p class=\"positionSubTitle\">", "\n").replace("</p>", "\n");
     }
-    var altitudeText = "";
-    if (altitude !== "") {
-      altitudeText = `
-Altitude : ${altitude} m`;
-    }
-
-    this.shareContent = `${trueHeader ? trueHeader : this.header}
-${this.name}
-Latitude : ${latitude}
-Longitude : ${longitude}${altitudeText}`;
+    return trueHeader;
   }
 
   /**
