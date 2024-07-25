@@ -81,7 +81,7 @@
 .scrolledMax::before {
   content: "";
   display: block;
-  padding: var(--safe-area-inset-top);
+  padding-top: var(--safe-area-inset-top);
   background-color: inherit;
   width: inherit;
   z-index: 3000;
