@@ -187,17 +187,26 @@ class MenuNavigation {
       DOM.$compareLayers2Window.classList.add("d-none");
       DOM.$compareLayers1Window.classList.remove("d-none");
       DOM.$bottomButtons.style.removeProperty("bottom");
-      DOM.$sideBySideLeftLayer.classList.add("d-none");
+      DOM.$sideBySideRightLayer.classList.add("inactive");
       Globals.currentScrollIndex = 2;
+      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px)";
+        DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 78px)";
+        DOM.$sideBySideFadeSlider.style.transform = "unset";
+        DOM.$sideBySideFadeSlider.style.width = "calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px)";
+      }
       break;
     case "compareLayers2":
       DOM.$tabContainer.style.removeProperty("top");
       DOM.$compareLayers1Window.classList.add("d-none");
       DOM.$compareLayers2Window.classList.remove("d-none");
       DOM.$bottomButtons.style.removeProperty("bottom");
-      DOM.$sideBySideRightLayer.classList.add("d-none");
+      DOM.$sideBySideLeftLayer.classList.add("inactive");
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(50% + 15px)";
+        DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px)+ 15px)";
+        DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px)+ 56px)";
+        DOM.$sideBySideFadeSlider.style.transform = "unset";
+        DOM.$sideBySideFadeSlider.style.width = "calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px)";
       }
       Globals.currentScrollIndex = 2;
       break;
@@ -431,9 +440,13 @@ class MenuNavigation {
       break;
     case "compareLayers1":
       DOM.$tabContainer.style.top = "100vh";
+      DOM.$sideBySideLeftLayer.style.removeProperty("left");
+      DOM.$sideBySideFadeSlider.style.removeProperty("left");
+      DOM.$sideBySideFadeSlider.style.removeProperty("width");
+      DOM.$sideBySideFadeSlider.style.removeProperty("transform");
       DOM.$compareLayers1Window.classList.add("d-none");
       DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
-      DOM.$sideBySideLeftLayer.classList.remove("d-none");
+      DOM.$sideBySideRightLayer.classList.remove("inactive");
       Globals.currentScrollIndex = 0;
       isSpecific = true;
       isFinished = true;
@@ -441,9 +454,12 @@ class MenuNavigation {
     case "compareLayers2":
       DOM.$tabContainer.style.top = "100vh";
       DOM.$sideBySideLeftLayer.style.removeProperty("left");
+      DOM.$sideBySideFadeSlider.style.removeProperty("left");
+      DOM.$sideBySideFadeSlider.style.removeProperty("width");
+      DOM.$sideBySideFadeSlider.style.removeProperty("transform");
       DOM.$compareLayers2Window.classList.add("d-none");
       DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
-      DOM.$sideBySideRightLayer.classList.remove("d-none");
+      DOM.$sideBySideLeftLayer.classList.remove("inactive");
       Globals.currentScrollIndex = 0;
       isSpecific = true;
       isFinished = true;
