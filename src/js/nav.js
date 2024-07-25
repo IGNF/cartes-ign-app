@@ -562,6 +562,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.style.removeProperty("left");
       DOM.$altMenuContainer.classList.add("d-none");
       DOM.$selectOnMap.classList.add("d-none");
+      DOM.$tabContainer.style.removeProperty("height");
       Globals.currentScrollIndex = 1;
       // falls through
     case "directionsResults":

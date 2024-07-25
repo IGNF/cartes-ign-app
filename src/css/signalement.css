@@ -65,12 +65,12 @@
 .signalement-select,
 .signalement-textarea,
 .signalement-input-text {
-  font-family: "Open Sans";
-  margin: 5px 0 10px 0;
+  font-family: "Open Sans Semibold";
+  margin: 10px 0;
   box-sizing: border-box;
   width: 100%;
   height: 45px;
-  padding: 0 8px;
+  padding: 13px 8px 0 8px;
   background-color: white;
   border-radius: 8px;
   border: 1px solid;
@@ -78,10 +78,26 @@
   color: var(--dark-grey);
 }
 
+.signalement-select:focus,
+.signalement-textarea:focus,
+.signalement-input-text:focus {
+  outline: none;
+  border-color: var(--dark-green);
+}
+
+.signalement-select {
+  padding: 0 8px;
+}
+
+.signalement-select {
+  font-family: "Fira Sans Bold";
+  color: var(--darkish-grey);
+}
+
 .signalement-textarea {
   resize: none;
-  height: 6em;
-  padding: 8px;
+  height: 7em;
+  padding: 21px 8px 8px 8px;
 }
 
 .signalement-submit {
