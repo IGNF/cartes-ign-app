@@ -15,6 +15,10 @@
   src: url("./fonts/FiraSans-SemiBold.ttf");
 }
 @font-face {
+  font-family: "Fira Sans Bold";
+  src: url("./fonts/FiraSans-Bold.ttf");
+}
+@font-face {
   font-family: "Fira Sans Medium";
   src: url("./fonts/FiraSans-Medium.ttf");
 }
@@ -78,6 +82,57 @@ input, textarea, select {
   position: fixed;
   animation: fadeIn 0.15s;
 }
+
+/* DS IGN forms */
+.dsign-form-label,
+.signalement-select {
+  font-family: "Fira Sans Bold";
+  color: var(--darkish-grey);
+}
+
+.textarea-label {
+  font-family: "Fira Sans";
+  color: var(--mid-grey);
+}
+
+.dsign-form-element {
+  position: relative;
+}
+
+.dsign-form-label {
+  position: absolute;
+  font-size: 15px;
+  top: 10px;
+  left: 12px;
+  transition: font-size 0.3s, top 0.3s;
+  pointer-events: none;
+}
+
+textarea + .dsign-form-label {
+  top: 18px;
+}
+
+input[type=email] + .dsign-form-label,
+input[type=text] + .dsign-form-label {
+  top: 23px;
+}
+
+input[type=text]:not(:placeholder-shown) + .dsign-form-label,
+input[type=text]:focus + .dsign-form-label,
+input[type=email]:not(:placeholder-shown) + .dsign-form-label,
+input[type=email]:focus + .dsign-form-label,
+textarea:not(:placeholder-shown) + .dsign-form-label,
+textarea:focus + .dsign-form-label {
+  font-size: 11px;
+}
+
+input[type=email]:not(:placeholder-shown) + .dsign-form-label,
+input[type=email]:focus + .dsign-form-label,
+input[type=text]:not(:placeholder-shown) + .dsign-form-label,
+input[type=text]:focus + .dsign-form-label {
+  top: 13px;
+}
+/* END DS IGN forms */
 
 /* Toggle Switch */
 .toggleSwitch {
@@ -151,10 +206,11 @@ input, textarea, select {
 .toggleInput:checked + .toggleSlider::after {
   color: white;
 }
+/* END Toggle Switch  */
 
 /* Checkbox */
- /* Customize the label (the container) */
- .chkContainer {
+/* Customize the label (the container) */
+.chkContainer {
   display: block;
   position: relative;
   padding-left: 35px;
@@ -213,6 +269,8 @@ input, textarea, select {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
+/* END Checkbox */
+
 
 /** Range **/
 /*********** Baseline, reset styles ***********/
@@ -285,3 +343,4 @@ input[type="range"]::-moz-range-thumb {
   border: var(--dark-grey) 6px solid;
   box-sizing: border-box;
 }
+/** END Range **/

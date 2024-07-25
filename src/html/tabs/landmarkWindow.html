@@ -2,9 +2,18 @@
   <p id="landmarkWindowTitle" class="landmarkTitle">Créer un point de repère</p>
   <p class="asterisk">* Champs obligatoires</p>
   <form class="landmarkForm">
-    <input id="landmarkLocation" class="inputLandmarkLocation" required type="text" placeholder="Saisir une adresse ou un lieu sur la carte *" name="location" data-coordinates="">
-    <input type="text" id="landmark-title" name="landmark-title" class="landmark-input-text" placeholder="Saisir un titre *" title="Nom du point de repère" required="">
-    <textarea id="landmark-description" name="landmark-description" class="landmark-textarea" title="Saisir une description" placeholder="Saisir une description"></textarea>
+    <div class="dsign-form-element">
+      <input id="landmarkLocation" class="inputLandmarkLocation" required type="text" placeholder="" name="location" data-coordinates="">
+      <label class="dsign-form-label">Saisir une adresse ou un lieu sur la carte *</label>
+    </div>
+    <div class="dsign-form-element">
+      <input type="text" id="landmark-title" name="landmark-title" class="landmark-input-text" placeholder="" title="Nom du point de repère" required="">
+      <label class="dsign-form-label">Saisir un titre *</label>
+    </div>
+    <div class="dsign-form-element">
+      <textarea id="landmark-description" name="landmark-description" class="landmark-textarea" title="Saisir une description" placeholder=""></textarea>
+      <label class="dsign-form-label">Saisir une description</label>
+    </div>
     <p class="landmarkSubtitle">Choisir une couleur</p>
     <div class="landmarkRadio">
       <input class="landmarkColorInput" type="radio" id="landmark-color-blue" name="landmark-color" value="#3993F3" checked />
