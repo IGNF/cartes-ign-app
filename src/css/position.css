@@ -238,16 +238,6 @@
   display: none;
 }
 
-/*
- * boutons sociaux
- */
-.divPositionShareButtons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
 .divLegendContainer {
   display: flex;
 }
@@ -277,30 +267,37 @@
 .positionInfo {
   font-family: "Open Sans";
   padding-left: 50px;
+  padding-right: 20px;
   background-repeat: no-repeat;
   background-position: 0;
-  min-height: 32px;
+  min-height: 44px;
   display: flex;
   align-items: center;
-  background-position: top left;
+  background-position: 10px center;
+  color: var(--darker-green);
+  background-color: var(--light-green);
+  border-radius: 100px;
 }
 
 .positionInfo a {
-  color: var(--dark-grey);
+  color: var(--darker-green);
   text-decoration: underline;
 }
 
 .positionHours {
   background-image: url("assets/horaire.svg");
+  color: var(--dark-grey);
+  background-color: unset;
 }
 
 .positionWeb {
   background-image: url("assets/web.svg");
+  width: fit-content;
 }
 
 .positionWeb::after {
   content: "";
-  background-image: url("assets/external-link.svg");
+  background-image: url("assets/external-link-green.svg");
   width: 20px;
   height: 30px;
   background-repeat: no-repeat;
@@ -310,6 +307,7 @@
 
 .positionTelephone {
   background-image: url("assets/telephone.svg");
+  width: fit-content;
 }
 
 .monumentsHistoriquesImageAuthor {
