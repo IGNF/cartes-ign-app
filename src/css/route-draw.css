@@ -220,7 +220,7 @@
 }
 
 .routeDrawFirstWaypointImg {
-  background-image: url("assets/route-draw/details-departure.svg");
+  background-image: url("assets/directions/point-start.svg");
 }
 
 .routeDrawLastWaypointImg {
