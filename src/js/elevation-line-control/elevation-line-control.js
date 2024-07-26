@@ -168,6 +168,9 @@ class ElevationLineControl {
         };
       },
       afterEvent: (chart, args) => {
+        if (this.profileLngLats.length === 0) {
+          return;
+        }
         const {inChartArea} = args;
         const point = this.chart.getElementsAtEventForMode(args.event, "index", { intersect: false }, true)[0];
         if (!this.removeCrosshair && args.event.type !== "click" && point) {
