@@ -272,11 +272,6 @@
   border-radius: 8px;
 }
 
-.hidden {
-  max-height: 0;
-  overflow: hidden;
-}
-
 .hidden .lblDirectionsLocations {
   background-image: none;
   border: none;

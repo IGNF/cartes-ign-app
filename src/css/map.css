@@ -16,11 +16,7 @@
   justify-content: flex-end;
 }
 
-#bottomButtons > .maplibregl-control-container > .maplibregl-ctrl-bottom-left {
-  bottom: 56px;
-}
-
-#routeDrawBtns.d-none + .maplibregl-control-container > .maplibregl-ctrl-bottom-left {
+.maplibregl-control-container > .maplibregl-ctrl-bottom-left {
   bottom: -3px;
 }
 

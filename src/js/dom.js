@@ -29,11 +29,6 @@ const $compareLayers1Window = document.getElementById("compareLayers1Window");
 const $compareLayers2Window = document.getElementById("compareLayers2Window");
 const $filterPoiBtn = document.getElementById("filterPoiBtn");
 const $interactivityBtn = document.getElementById("interactivityBtn");
-const $routeDrawBtns = document.getElementById("routeDrawBtns");
-const $routeDrawMode = document.getElementById("routeDrawMode");
-const $routeDrawModeSelectTransportPedestrian = document.getElementById("routeDrawModeSelectTransportPedestrian");
-const $routeDrawModeSelectTransportCar = document.getElementById("routeDrawModeSelectTransportCar");
-const $routeDrawHelp = document.getElementById("routeDrawHelp");
 const $routeDrawEdit = document.getElementById("routeDrawEdit");
 const $routeDrawCancel = document.getElementById("routeDrawCancel");
 const $routeDrawRestore = document.getElementById("routeDrawRestore");
@@ -114,11 +109,6 @@ export default {
   $poiWindow,
   $interactivityBtn,
   $routeDrawWindow,
-  $routeDrawBtns,
-  $routeDrawMode,
-  $routeDrawModeSelectTransportPedestrian,
-  $routeDrawModeSelectTransportCar,
-  $routeDrawHelp,
   $routeDrawEdit,
   $bottomButtons,
   $routeDrawCancel,

@@ -2,7 +2,7 @@ action-sheet {
   display: block;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
 }
@@ -22,7 +22,7 @@ action-sheet {
   flex-direction: column;
   z-index: 1;
   box-sizing: border-box;
-  padding: 0 6% 6% 6%;
+  padding: 0 6% 44px 6%;
 }
 
 .actionSheet-title {

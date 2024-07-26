@@ -7,6 +7,8 @@
 import utils from "../utils/unit-utils";
 import DomUtils from "../utils/dom-utils";
 
+import ActionSheet from "../action-sheet";
+
 import { Toast } from "@capacitor/toast";
 
 import LoadingDark from "../../css/assets/loading-darkgrey.svg";
@@ -24,18 +26,23 @@ let RouteDrawDOM = {
     summary: null,
     details: null,
     detailsList: null,
+    changeMode: null,
+    modeSelectDom: null,
   },
 
   /**
-     * obtenir le container principal
-     * @param {*} transport
-     * @returns {DOMElement}
-     * @public
-     */
+   * obtenir le container principal
+   * @param {*} transport
+   * @returns {DOMElement}
+   * @public
+   */
   getContainer (transport) {
     // nettoyage
     if (this.dom.container) {
       this.dom.container.remove();
+    }
+    if (this.dom.modeSelectDom) {
+      this.dom.modeSelectDom.remove();
     }
     // ajout du container principal
     var container = this.__addResultsContainerDOMElement();
@@ -45,15 +52,16 @@ let RouteDrawDOM = {
     // ajout des détails (profil alti et détails du parcours)
     this.dom.details = this.__addResultsListDetailsContainerDOMElement();
     container.appendChild(this.dom.details);
+    this.dom.modeSelectDom = this.__addModeSelectDOMElement();
 
     return container;
   },
 
   /**
-     * ajout du container principal
-     * @returns {DOMElement}
-     * @private
-     */
+   * ajout du container principal
+   * @returns {DOMElement}
+   * @private
+   */
   __addResultsContainerDOMElement () {
     var div = this.dom.container = document.createElement("div");
     div.id = "routeDrawResults";
@@ -105,12 +113,14 @@ let RouteDrawDOM = {
   },
 
   /**
-     * ajoute le container le résumé du parcours
-     * @param {*} transport
-     * @returns {DOMElement}
-     * @private
-     */
+   * ajoute le container le résumé du parcours
+   * @param {*} transport
+   * @returns {DOMElement}
+   * @private
+   */
   __addResultsSummaryContainerDOMElement (transport) {
+    var wrapper = document.createElement("div");
+    wrapper.id = "routeDrawSummaryWrapper";
     var div = document.createElement("div");
     div.id = "routeDrawSummary";
     div.className = "";
@@ -145,15 +155,35 @@ let RouteDrawDOM = {
 
     div.appendChild(line1);
     div.appendChild(line2);
+    wrapper.appendChild(div);
 
-    return div;
+    var mode = this.dom.changeMode = document.createElement("div");
+    mode.id = "routeDrawMode";
+    mode.class = "d-none";
+    mode.innerText = "Saisie guidée";
+
+    mode.addEventListener("click", () => {
+      if (this.data.steps.length > 0) {
+        if (this.transport === "car") {
+          this.__informChangeTransportImpossible();
+          return;
+        }
+      }
+      ActionSheet.show({
+        style: "custom",
+        content: this.dom.modeSelectDom,
+      });
+    });
+    wrapper.appendChild(mode);
+
+    return wrapper;
   },
 
   /**
-     * ajoute le container sur les détails du parcours
-     * @returns {DOMElement}
-     * @private
-     */
+   * ajoute le container sur les détails du parcours
+   * @returns {DOMElement}
+   * @private
+   */
   __addResultsListDetailsContainerDOMElement () {
 
     var div = document.createElement("div");
@@ -186,6 +216,105 @@ let RouteDrawDOM = {
     return div;
   },
 
+  /**
+   * ajoute le DOM de la modale de sélection de mode de saisie
+   * @returns {DOMElement}
+   * @private
+   */
+  __addModeSelectDOMElement () {
+    var div = document.createElement("div");
+    div.id = "routeDrawModeActionSheet";
+    var modeSelectHTML = `
+      <div>
+        <div class="routeDrawModeTitle">
+          <span>Mode saisie guidée</span>
+          <label class="toggleSwitch">
+            <input id="routeDrawModeGuided" class="toggleInput" type="checkbox" checked>
+            <span class="toggleSlider"></span>
+          </label>
+        </div>
+        <div>
+          Le tracé entre deux points suit le sentier, le chemin, la route. Véhicule non modifiable en cours de saisie.
+        </div>
+        <div id="routeDrawVehicleSelect">
+          <label class="radio-wrapper">
+            <span>À pied</span>
+            <input id="routeDrawGuidedPedestrian" type="radio" name="routeDrawGuidedVehicule" value="foot" checked>
+            <div class="radio-input"></div>
+          </label>
+          <label class="radio-wrapper">
+            <span>Véhicule</span>
+            <input id="routeDrawGuidedCar" type="radio" name="routeDrawGuidedVehicule" value="car">
+            <div class="radio-input"></div>
+          </label>
+        </div>
+      </div>
+      <div>
+        <div class="routeDrawModeTitle">
+          <span>Mode saisie libre</span>
+          <label class="toggleSwitch">
+            <input id="routeDrawModeFree" class="toggleInput" type="checkbox">
+            <span class="toggleSlider"></span>
+          </label>
+        </div>
+        <div>
+          Le tracé entre deux points forme une ligne droite (à pied uniquement).
+        </div>
+      </div>
+    `;
+    div.innerHTML = modeSelectHTML;
+
+    var toggleGuided = div.querySelector("#routeDrawModeGuided");
+    var toggleFree = div.querySelector("#routeDrawModeFree");
+    var routeDrawVehicleSelect = div.querySelector("#routeDrawVehicleSelect");
+    toggleGuided.addEventListener("change", () => {
+      if (toggleGuided.checked) {
+        this.changeMode(1);
+        toggleFree.checked = false;
+        routeDrawVehicleSelect.classList.remove("hidden");
+      } else {
+        this.changeMode(0);
+        toggleFree.checked = true;
+        routeDrawVehicleSelect.classList.add("hidden");
+      }
+    });
+    toggleFree.addEventListener("change", () => {
+      if (toggleFree.checked) {
+        this.changeMode(0);
+        toggleGuided.checked = false;
+        routeDrawVehicleSelect.classList.add("hidden");
+      } else {
+        this.changeMode(1);
+        toggleGuided.checked = true;
+        routeDrawVehicleSelect.classList.remove("hidden");
+      }
+    });
+
+    var pedestrianRadio = div.querySelector("#routeDrawGuidedPedestrian");
+    var carRadio = div.querySelector("#routeDrawGuidedCar");
+    pedestrianRadio.addEventListener("change", () => {
+      if (pedestrianRadio.checked) {
+        this.setTransport("pedestrian");
+      } else {
+        this.setTransport("car");
+      }
+    });
+    carRadio.addEventListener("change", () => {
+      if (carRadio.checked) {
+        this.setTransport("car");
+      } else {
+        this.setTransport("pedestrian");
+      }
+    });
+    routeDrawVehicleSelect.addEventListener("click", () => {
+      if (this.data.steps.length > 0) {
+        this.__informChangeTransportImpossible();
+      }
+    });
+
+    return div;
+  },
+
 
   /**
    * Met à jour le titre de l'itinéraire dans le dom
@@ -197,11 +326,11 @@ let RouteDrawDOM = {
   },
 
   /**
-     * Met à jour les infos dans le DOM
-     * @param {*} data - RouteDraw.data
-     * @returns {DOMElement}
-     * @private
-     */
+   * Met à jour les infos dans le DOM
+   * @param {*} data - RouteDraw.data
+   * @returns {DOMElement}
+   * @private
+   */
   __updateRouteInfo (data) {
     var labelDuration = this.dom.summary.querySelector(".routeDrawSummaryDuration");
     labelDuration.textContent = utils.convertSecondsToTime(data.duration);
@@ -276,12 +405,20 @@ let RouteDrawDOM = {
     } else {
       this.dom.details.style.display = "none";
     }
+
+    if (data.steps.length > 0) {
+      this.dom.modeSelectDom.querySelector("#routeDrawGuidedPedestrian").disabled = true;
+      this.dom.modeSelectDom.querySelector("#routeDrawGuidedCar").disabled = true;
+    } else {
+      this.dom.modeSelectDom.querySelector("#routeDrawGuidedPedestrian").disabled = false;
+      this.dom.modeSelectDom.querySelector("#routeDrawGuidedCar").disabled = false;
+    }
   },
 
   /**
-     * bouton de calcul en mode chargement
-     * @private
-     */
+   * bouton de calcul en mode chargement
+   * @private
+   */
   __setElevationLoading () {
     var loadingImgHtml = `<img src="${LoadingDark}" height="12px">`;
     var labelDPlus = this.dom.summary.querySelector(".routeDrawSummaryDPlus");
@@ -292,11 +429,23 @@ let RouteDrawDOM = {
   },
 
   /**
-     * bouton de calcul: fin du chargement
-     * @private
-     */
+   * bouton de calcul: fin du chargement
+   * @private
+   */
   __unsetElevationLoading () {
     console.debug("Profil alti loaded");
+  },
+
+  __informChangeTransportImpossible() {
+    let msg = "Impossible de changer de mode en cours de saisie";
+    if (this.transport === "pedestrian") {
+      msg = "Impossible de changer de véhicule en cours de saisie";
+    }
+    Toast.show({
+      text: msg,
+      duration: "short",
+      position: "bottom"
+    });
   },
 
 };

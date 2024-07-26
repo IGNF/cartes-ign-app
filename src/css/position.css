@@ -185,8 +185,7 @@
 #interactivityPopup,
 #editoPopup,
 #onlinePopup,
-#locationPopup,
-#routeDrawHelpPopup {
+#locationPopup {
   position: relative;
   padding: 24px;
   font-family: "Open Sans";
@@ -196,16 +195,14 @@
 #interactivityPopup .divPositionTitle,
 #editoPopup .divPositionTitle,
 #onlinePopup .divPositionTitle,
-#locationPopup .divPositionTitle,
-#routeDrawHelpPopup .divPositionTitle {
+#locationPopup .divPositionTitle {
   margin-right: 30px;
 }
 
 .interactivityPopup,
 .editoPopup,
 .onlinePopup,
-.locationPopup,
-.routeDrawHelpPopup {
+.locationPopup {
   position: fixed;
   z-index: 9999;
 }
@@ -220,7 +217,6 @@
   top: 20px;
 }
 
-.routeDrawHelpPopup>.maplibregl-popup-content,
 .editoPopup>.maplibregl-popup-content,
 .interactivityPopup>.maplibregl-popup-content,
 .onlinePopup>.maplibregl-popup-content,
@@ -230,7 +226,6 @@
   padding: 0;
 }
 
-.routeDrawHelpPopup>.maplibregl-popup-tip,
 .editoPopup>.maplibregl-popup-tip,
 .onlinePopup>.maplibregl-popup-tip,
 .interactivityPopup>.maplibregl-popup-tip,

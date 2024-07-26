@@ -195,76 +195,6 @@
   margin-right: 12px;
 }
 
-#routeDrawBtns {
-  position: absolute;
-  left: 15px;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-}
-
-#routeDrawMode {
-  width: 145px;
-  justify-content: space-between;
-  position: relative;
-}
-
-#routeDrawMode:not(.routeDrawModeClose):focus-within > #routeDrawModeText,
-#routeDrawMode:not(.routeDrawModeClose):hover > #routeDrawModeText {
-  color: var(--dark-green);
-}
-
-#routeDrawModeTransportPedestrian, #routeDrawModeTransportCar {
-  display: block;
-  width: 30px;
-  height: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url("assets/route-draw/pieton-green.svg");
-  padding-left: 8px;
-}
-
-#routeDrawModeTransportCar {
-  background-image: url("assets/route-draw/voiture-green.svg");
-  background-size: 17px;
-  background-position: 13px 13px;
-}
-
-#routeDrawModeText {
-  white-space: nowrap;
-}
-
-#routeDrawModeArrow {
-  width: 30px;
-  height: 100%;
-  background-image: url("assets/route-draw/chevron_right.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: transform 0.2s ease-out;
-}
-
-#routeDrawMode:not(.routeDrawModeClose):focus-within > #routeDrawModeArrow,
-#routeDrawMode:not(.routeDrawModeClose):hover > #routeDrawModeArrow {
-  transform: rotate(-90deg);
-}
-
-#routeDrawHelp {
-  background-color: var(--dark-green);
-  color: white;
-  border: unset;
-  justify-content: center;
-}
-
-#routeDrawBtns > div {
-  display: flex;
-  align-items: center;
-  position: relative;
-  font-family: "Open Sans Semibold";
-  margin-right: 6px;
-  right: unset;
-  font-size: 13px;
-}
-
 #routeDrawEdit {
   background-color: white;
   border-radius: 5px;
@@ -438,7 +368,7 @@
 
   #routeDrawEdit > .button > span {
     position: relative;
-    bottom: -40px;
+    bottom: -44px;
   }
 
   #mapCenter {

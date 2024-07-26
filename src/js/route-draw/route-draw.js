@@ -20,11 +20,6 @@ import turfLength from "@turf/length";
 import RouteDepartureIcon from "../../css/assets/route-draw/departure-marker.png";
 import RouteDestinationIcon from "../../css/assets/route-draw/destination-marker.png";
 
-/** util */
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 /**
  * Interface sur le tracé d'itinéraire
  * @module RouteDraw
@@ -323,25 +318,12 @@ class RouteDraw {
     this.map.on("touchstart", RouteDrawLayers["point"].id, this.handleTouchStartPoint);
     this.map.on("touchstart", RouteDrawLayers["line"].id, this.handleTouchStartLine);
     this.#editionButtonsListeners();
-
-    DOM.$routeDrawModeSelectTransportPedestrian.addEventListener("pointerdown", () => {
-      this.#changeTransport("pedestrian");
-      this.changeMode(1);
-    });
-    DOM.$routeDrawModeSelectTransportCar.addEventListener("pointerdown", () => {
-      this.#changeTransport("car");
-      this.changeMode(1);
-    });
-    document.getElementById("routeDrawModeSelectModeFree").addEventListener("click", () => {
-      this.#changeTransport("pedestrian");
-      this.changeMode(0);
-    });
   }
 
   #changeTransport(transport) {
     if (this.transport !== transport) {
       if (this.data.steps.length > 0) {
-        this.#informChangeTransportImpossible();
+        this.__informChangeTransportImpossible();
         return;
       }
       let savedPoints;
@@ -354,40 +336,20 @@ class RouteDraw {
         this.#updateSources();
       }
       this.activate();
-      document.getElementById(`routeDrawModeTransport${capitalizeFirstLetter(transport)}`).classList.remove("d-none");
-      document.getElementById(`routeDrawModeTransport${capitalizeFirstLetter(this.transport)}`).classList.add("d-none");
     }
     if (transport === "car") {
       document.getElementById("routedraw-elevationline").classList.add("d-none");
       document.querySelector("#routeDrawDetails .elevationLineHeader").classList.add("d-none");
       document.querySelector("#routeDrawSummary .routeDrawSummaryDenivele").classList.add("d-none");
+      this.dom.modeSelectDom.querySelector("#routeDrawGuidedCar").checked = true;
     } else {
       document.getElementById("routedraw-elevationline").classList.remove("d-none");
       document.querySelector("#routeDrawDetails .elevationLineHeader").classList.remove("d-none");
       document.querySelector("#routeDrawSummary .routeDrawSummaryDenivele").classList.remove("d-none");
+      this.dom.modeSelectDom.querySelector("#routeDrawGuidedPedestrian").checked = true;
     }
     document.querySelector(".routeDrawSummaryTransport").className = "routeDrawSummaryTransport lblRouteDrawSummaryTransport" + transport;
     this.transport = transport;
-    this.#closeRouteDrawMode();
-  }
-
-  #informChangeTransportImpossible() {
-    Toast.show({
-      text: "Impossible de changer de mode en cours de saisie",
-      duration: "short",
-      position: "bottom"
-    });
-  }
-
-  #closeRouteDrawMode() {
-    document.getElementById("routeDrawMode").classList.add("routeDrawModeClose");
-    document.getElementById("routeDrawMode").addEventListener("click", (e) => {
-      if ([
-        "routeDrawMode", "routeDrawModeArrow", "routeDrawModeText", "routeDrawModeTransportPedestrian", "routeDrawModeTransportCar"
-      ].includes(e.target.id)) {
-        document.getElementById("routeDrawMode").classList.remove("routeDrawModeClose");
-      }
-    });
   }
 
   /**
@@ -759,11 +721,6 @@ class RouteDraw {
     // Enregistrement de l'état dans l'historique
     this.#saveState();
     this.#editionButtonsListeners();
-    if (this.transport === "car") {
-      document.getElementById("routeDrawModeSelect").style.removeProperty("max-height");
-      document.getElementById("routeDrawModeArrow").style.removeProperty("transform");
-      document.getElementById("routeDrawMode").removeEventListener("click", this.#informChangeTransportImpossible);
-    }
   }
 
   /**
@@ -905,13 +862,6 @@ class RouteDraw {
     if (Globals.backButtonState === "routeDraw") {
       this.__updateRouteInfo(this.data);
     }
-    if (this.data.steps.length > 0) {
-      if (this.transport === "car") {
-        document.getElementById("routeDrawModeSelect").style.maxHeight = "0";
-        document.getElementById("routeDrawModeArrow").style.transform = "translate(0)";
-        document.getElementById("routeDrawMode").addEventListener("click", this.#informChangeTransportImpossible);
-      }
-    }
   }
 
   /**
@@ -1047,13 +997,6 @@ class RouteDraw {
     if (this.currentHistoryPosition == this.dataHistory.length - 1) {
       DOM.$routeDrawCancel.classList.add("inactive");
     }
-    if (this.data.steps.length === 0) {
-      if (this.transport === "car") {
-        document.getElementById("routeDrawModeSelect").style.removeProperty("max-height");
-        document.getElementById("routeDrawModeArrow").style.removeProperty("transform");
-        document.getElementById("routeDrawMode").removeEventListener("click", this.#informChangeTransportImpossible);
-      }
-    }
   }
 
   /**
@@ -1115,11 +1058,11 @@ class RouteDraw {
   changeMode(mode) {
     if (mode == 1) {
       this.mode = 1;
-      DOM.$routeDrawMode.querySelector("#routeDrawModeText").innerText = "Saisie guidée";
+      this.dom.changeMode.innerText = "Saisie guidée";
       return;
     }
     this.mode = 0;
-    DOM.$routeDrawMode.querySelector("#routeDrawModeText").innerText = "Saisie libre";
+    this.dom.changeMode.innerText = "Saisie libre";
   }
 
   /**
@@ -1171,11 +1114,6 @@ class RouteDraw {
     this.#clearSources();
     DOM.$routeDrawRestore.classList.add("inactive");
     DOM.$routeDrawCancel.classList.add("inactive");
-    if (this.transport === "car") {
-      document.getElementById("routeDrawModeSelect").style.removeProperty("max-height");
-      document.getElementById("routeDrawModeArrow").style.removeProperty("transform");
-      document.getElementById("routeDrawMode").removeEventListener("click", this.#informChangeTransportImpossible);
-    }
   }
 
   /**
@@ -1209,57 +1147,6 @@ class RouteDraw {
       document.getElementById(`route-visibility_ID_${routeId}`).click();
     }
   }
-
-  /**
-   * affiche la popup d'aide
-   * @public
-   */
-  showHelpPopup() {
-    // on supprime la popup
-    if (this.popup) {
-      this.popup.remove();
-      this.popup = null;
-    }
-
-    // template litteral
-    const popupContent = `
-        <div id="routeDrawHelpPopup">
-            <div class="divPositionTitle">Aide</div>
-            <div class="divPopupClose" onclick="onCloseRouteDrawHelpPopup(event)"></div>
-            <div class="divPopupContent">
-              Saisie guidée : le tracé entre deux points suit le sentier, le chemin ou la route <br />
-              Saisie libre (à pied uniquement) : le tracé entre deux points forme une ligne droite
-            </div>
-        </div>
-        `;
-    var self = this;
-    window.onCloseRouteDrawHelpPopup = () => {
-      self.popup.remove();
-    };
-
-    // centre de la carte
-    var center = this.map.getCenter();
-    // position de la popup
-    var popupOffsets = {
-      "bottom": [0, 100],
-    };
-    // ouverture d'une popup
-    this.popup = new MapLibreGL.Popup({
-      offset: popupOffsets,
-      className: "routeDrawHelpPopup",
-      closeOnClick: true,
-      closeOnMove: true,
-      closeButton: false
-    })
-      .setLngLat(center)
-      .setHTML(popupContent)
-      .setMaxWidth("300px")
-      .addTo(this.map);
-    // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
-    var popupEl = document.querySelectorAll(".routeDrawHelpPopup")[0];
-    document.body.appendChild(popupEl);
-  }
-
 }
 
 // mixins

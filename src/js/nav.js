@@ -232,7 +232,7 @@ class MenuNavigation {
     case "routeDrawSave":
       DOM.$routeDrawWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
-      DOM.$routeDrawBtns.classList.add("d-none");
+      Globals.routeDraw.dom.changeMode.classList.add("d-none");
       DOM.$routeDrawEdit.classList.add("d-none");
       DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$bottomButtons.style.removeProperty("left");
@@ -246,7 +246,7 @@ class MenuNavigation {
       DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
-        DOM.$routeDrawBtns.classList.remove("d-none");
+        Globals.routeDraw.dom.changeMode.classList.remove("d-none");
         DOM.$routeDrawEdit.classList.remove("d-none");
         if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
           DOM.$bottomButtons.style.bottom = "calc(72px + 112px + var(--safe-area-inset-bottom))";
@@ -278,7 +278,7 @@ class MenuNavigation {
       DOM.$tabContainer.style.removeProperty("background-color");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
-        DOM.$routeDrawBtns.classList.add("d-none");
+        Globals.routeDraw.dom.changeMode.classList.add("d-none");
         DOM.$routeDrawEdit.classList.add("d-none");
         DOM.$bottomButtons.style.removeProperty("bottom");
         DOM.$bottomButtons.style.removeProperty("left");
@@ -486,7 +486,7 @@ class MenuNavigation {
       DOM.$tabClose.classList.add("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM["$routeDrawWindow"].classList.remove("d-none");
-      DOM.$routeDrawBtns.classList.remove("d-none");
+      Globals.routeDraw.dom.changeMode.classList.remove("d-none");
       DOM.$routeDrawEdit.classList.remove("d-none");
       if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$bottomButtons.style.bottom = "calc(72px + 112px + var(--safe-area-inset-bottom))";
@@ -504,7 +504,7 @@ class MenuNavigation {
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       if (!Globals.routeDraw.readonly) {
-        DOM.$routeDrawBtns.classList.add("d-none");
+        Globals.routeDraw.dom.changeMode.classList.add("d-none");
         DOM.$routeDrawEdit.classList.add("d-none");
         DOM.$bottomButtons.style.removeProperty("bottom");
         DOM.$bottomButtons.style.removeProperty("left");

@@ -58,6 +58,11 @@ body {
   padding: 0px;
   width: 100%;
   color: white;
+  overflow-x: clip;
+}
+
+body:has(action-sheet:not(.d-none)) {
+  overflow-y: hidden;
 }
 
 pwa-toast, action-sheet {
@@ -81,6 +86,12 @@ input, textarea, select {
   z-index: 2999;
   position: fixed;
   animation: fadeIn 0.15s;
+}
+
+.hidden {
+  max-height: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
 }
 
 /* DS IGN forms */
@@ -255,7 +266,7 @@ input[type=text]:focus + .dsign-form-label {
 /* Show the checkmark when checked */
 .chkContainer input:checked ~ .checkmark {
   border: 1px solid var(--dark-green);
-  background-color: #E3F5EF;
+  background-color: var(--light-green);
 }
 
 
@@ -344,3 +355,82 @@ input[type="range"]::-moz-range-thumb {
   box-sizing: border-box;
 }
 /** END Range **/
+
+/* Radio buttons */
+.radio-wrapper {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+  line-height: 27px;
+}
+
+.radio-wrapper:has(input:disabled) {
+  color: var(--grey);
+}
+
+/* Hide the browser's default radio */
+.radio-wrapper input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio */
+.radio-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 23px;
+  width: 23px;
+  background-color: white;
+  border: 1px solid var(--grey);
+  border-radius: 100%;
+}
+
+.radio-input:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+input:disabled ~ .radio-input {
+  background-color: var(--light-grey);
+}
+
+/* Show the checkmark when checked */
+.radio-wrapper input:checked ~ .radio-input:after {
+  display: block;
+}
+
+/* Show the checkmark when checked */
+.radio-wrapper input:checked ~ .radio-input {
+  border: 1px solid var(--dark-green);
+  background-color: var(--light-green);
+}
+
+.radio-wrapper input:checked:disabled ~ .radio-input {
+  border: 1px solid var(--grey);
+  background-color: var(--light-grey);
+}
+
+
+/* Style the checkmark/indicator */
+.radio-wrapper input:checked ~ .radio-input:after {
+  content: "";
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  background-color: var(--dark-green);
+  top: 4px;
+  left: 4px;
+}
+
+.radio-wrapper input:checked:disabled ~ .radio-input:after {
+  background-color: var(--grey);
+}
+/* END Radio buttons */

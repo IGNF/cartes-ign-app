@@ -129,6 +129,8 @@
   overflow-y: scroll;
 }
 
+#myaccount-routes:has(.tools-layer-advanced-menu:hover),
+#myaccount-landmarks:has(.tools-layer-advanced-menu:hover),
 #myaccount-landmarks:has(label[id^=landmark-show-advanced-tools_ID_]:hover),
 #myaccount-routes:has(label[id^=route-show-advanced-tools_ID_]:hover) {
   overflow-y: visible;
