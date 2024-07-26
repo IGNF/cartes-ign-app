@@ -117,8 +117,6 @@ class MyAccount {
       this.render();
       this.#listeners();
       this.#updateSources();
-
-      this.#importFileIfAppOpenedFromFile();
     });
 
     return this;
@@ -252,11 +250,11 @@ class MyAccount {
   async #importFileFromUrl(url) {
     if (url.split("://")[0] === "content" || url.split("://")[0] === "file") {
       const fileData = await Filesystem.readFile({
-        path: url
+        path: url,
       });
       let filename;
       try {
-        filename = url.split(".").splice(-2)[0];
+        filename = url.split("/").splice(-1)[0].split(".").splice(-2)[0];
       } catch (e) {
         filename = "Données importées";
       }
@@ -289,14 +287,19 @@ class MyAccount {
       const rawData = decodeURIComponent(atob(data).split("").map(function(c) {
         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
       }).join(""));
+      if (rawData[0] === "<") {
+        extension = "gpx";
+      }
       if (extension === "gpx") {
         imported = gpx(new DOMParser().parseFromString(rawData));
+        if (imported.features.length === 0) {
+          imported = kml(new DOMParser().parseFromString(rawData));
+        }
       } else if (extension === "kml") {
         imported = kml(new DOMParser().parseFromString(rawData));
       } else {
         imported = JSON.parse(rawData);
       }
-
       // Mode Landmark
       if (imported.type === "Feature" && imported.geometry.type === "Point") {
         if (!imported.properties) {
@@ -334,7 +337,7 @@ class MyAccount {
           imported.data = {};
         }
         if (!imported.data.name) {
-          imported.data.name = defaultName;
+          imported.data.name = imported.features[0].properties.name || defaultName;
         }
         this.addRoute(this.#geojsonToRoute(imported));
         Toast.show({
