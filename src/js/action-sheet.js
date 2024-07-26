@@ -45,10 +45,12 @@ class ActionSheet extends EventTarget {
       actionTitle.innerText = this._title;
       this._targetContent.appendChild(actionTitle);
     }
-    if (this._options.length > 0) {
+    if (this._options.length > 0 || this._style === "custom") {
       let optionsHtml;
       if (this._style === "list") {
         optionsHtml = this._createListHtml(this._options);
+      } else if (this._style === "custom") {
+        optionsHtml = this._content;
       } else {
         optionsHtml = this._createButtonsHtml(this._options);
       }
@@ -58,6 +60,7 @@ class ActionSheet extends EventTarget {
 
   _clearHtml() {
     this._targetContent.innerHTML = "";
+    this._content = "";
   }
 
   _createListHtml(options) {
@@ -109,14 +112,16 @@ class ActionSheet extends EventTarget {
 
   async show(settings) {
     this.settings = settings || {
-      style: "list", // can be "buttons"
+      style: "list", // can be "buttons", "list", "custom"
       options: [], // {class: "", text: "", value: ""}
       title: "",
+      content: "", // dom element if "custom" style
     };
 
     this._title = this.settings.title || "";
     this._options = this.settings.options || [];
     this._style = this.settings.style || "list";
+    this._content = this.settings.content || "";
 
     this._listeners();
     this._createHtml();

@@ -55,9 +55,6 @@ const addListeners = () => {
   // Bouton des filtres POI
   DOM.$filterPoiBtn.addEventListener("click", () => { Globals.menu.open("poi"); });
 
-  // Bouton d'aide'du tracé d'itinéraire
-  DOM.$routeDrawHelp.addEventListener("click", () => { Globals.routeDraw.showHelpPopup(); });
-
   // Indicateur d'interactivité
   DOM.$interactivityBtn.addEventListener("click", () => { Globals.interactivityIndicator.showPopup(); });
 
