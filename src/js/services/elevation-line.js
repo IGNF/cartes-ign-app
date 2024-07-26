@@ -39,44 +39,56 @@ const compute = async (coordinateList) => {
     await new Promise(res => setTimeout(res, 25));
   }
   controller = new AbortController();
-  const lonStr = coordinateList.map( (coord) => coord[0]).join("|");
-  const latStr = coordinateList.map( (coord) => coord[1]).join("|");
-
-  let url = new URL("https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevationLine.json");
-  let params = {
-    lon: lonStr,
-    lat: latStr,
-    indent: "false",
-    sampling: 200,
-    resource: "ign_rge_alti_wld",
-  };
-
-  const response = await fetch(url, {
-    method: "POST",
-    signal: controller.signal,
-    body: JSON.stringify(params),
-    headers: {
-      "accept": "application/json",
-      "Content-Type": "application/json",
-    },
-  });
-  results = await response.json();
-
-  if (response.status !== 200) {
-    throw new Error(response.message);
+  let coordinateListList = [];
+  while (coordinateList.length > 3000) {
+    coordinateListList.push(coordinateList.splice(0, 3000));
   }
+  coordinateListList.push(coordinateList);
+  const promiseList = [];
+  coordinateListList.forEach((coordList) => {
+    const lonStr = coordList.map( (coord) => coord[0]).join("|");
+    const latStr = coordList.map( (coord) => coord[1]).join("|");
 
+    let url = new URL("https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevationLine.json");
+    let params = {
+      lon: lonStr,
+      lat: latStr,
+      indent: "false",
+      sampling: 200,
+      resource: "ign_rge_alti_wld",
+    };
+
+    promiseList.push(
+      fetch(url, {
+        method: "POST",
+        signal: controller.signal,
+        body: JSON.stringify(params),
+        headers: {
+          "accept": "application/json",
+          "Content-Type": "application/json",
+        },
+      }).then( (resp) => resp.json())
+    );
+  });
+
+  const result = {
+    "elevations": [],
+  };
   // ex. response
   // {"elevations": [{"lon": 0.2367,"lat": 48.0551,"z": 96.53,"acc": 2.5},{"lon": 2.157,"lat": 46.6077,"z": 208.77,"acc": 2.5},{"lon": 4.3907,"lat": 43.91,"z": 182.68,"acc": 2.5}]}
+  const responses = await Promise.all(promiseList);
+  responses.forEach( (response) => {
+    result["elevations"] = result["elevations"].concat(response["elevations"]);
+  });
 
   target.dispatchEvent(
     new CustomEvent("elevationLine", {
       bubbles: true,
-      detail: results
+      detail: result
     })
   );
 
-  return results;
+  return result;
 };
 
 /**
