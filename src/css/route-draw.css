@@ -86,7 +86,7 @@
   align-items: center;
 }
 
-#routeDrawSummaryDenivele {
+.routeDrawSummaryDenivele {
   flex-wrap: wrap;
 }
 
@@ -129,6 +129,7 @@
 .routeDrawSummaryDistance {
   font-family: "Fira Sans Medium";
   font-size: 15px;
+  white-space: nowrap;
 }
 
 .routeDrawSummaryDuration,
