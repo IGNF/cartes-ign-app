@@ -123,24 +123,19 @@ textarea + .dsign-form-label {
   top: 18px;
 }
 
-input[type=email] + .dsign-form-label,
-input[type=text] + .dsign-form-label {
+.dsign-form-element > input + .dsign-form-label {
   top: 23px;
 }
 
-input[type=text]:not(:placeholder-shown) + .dsign-form-label,
-input[type=text]:focus + .dsign-form-label,
-input[type=email]:not(:placeholder-shown) + .dsign-form-label,
-input[type=email]:focus + .dsign-form-label,
+.dsign-form-element > input:not(:placeholder-shown) + .dsign-form-label,
+.dsign-form-element > input:focus + .dsign-form-label,
 textarea:not(:placeholder-shown) + .dsign-form-label,
 textarea:focus + .dsign-form-label {
   font-size: 11px;
 }
 
-input[type=email]:not(:placeholder-shown) + .dsign-form-label,
-input[type=email]:focus + .dsign-form-label,
-input[type=text]:not(:placeholder-shown) + .dsign-form-label,
-input[type=text]:focus + .dsign-form-label {
+.dsign-form-element > input:not(:placeholder-shown) + .dsign-form-label,
+.dsign-form-element > input:focus + .dsign-form-label {
   top: 13px;
 }
 /* END DS IGN forms */
