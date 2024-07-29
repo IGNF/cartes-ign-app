@@ -289,7 +289,8 @@ class Position {
         // ouverture du panneau Signalement
         if (this.options.openSignalCbk) {
           if (type === "osm") {
-            Globals.signalementOSM.setLocation(coordinates);
+            Globals.signalementOSM.data.poiName = this.#getTrueHeader().split("\n")[0];
+            Globals.signalementOSM.data.location = coordinates;
             this.options.openSignalOSMCbk();
           } else {
             this.options.openSignalCbk();

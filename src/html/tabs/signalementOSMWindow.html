@@ -1,11 +1,28 @@
 <div class="d-none" id="signalementOSMWindow">
-  <div>
+  <div id="signalementOsmMain">
     <p class="signalementTitle">Donnée OpenStreetMap</p>
     <p class="signalementText">
-      Cette donnée provient d’OpenStreetMap. L’application vous permettra bientôt de faire un signalement.
+      Cette donnée provient d’OpenStreetMap. Le forumlaire ci-dessous permet de créer un signalement (note) auprès de la communauté, identifié comme provenant de l'application Cartes IGN.
     </p>
-    <p class="signalementText">
-      <a href="https://www.openstreetmap.org/note/new#map=19/48.69975/2.60581" target="_blank" title="Contribuer à OpenStreetMap" id="osmNoteLink">Écrire une note sur OpenStreetMap</a>
-    </p>
+    <form class="signalementForm">
+      <div class="dsign-form-element">
+        <input type="text" id="signalement-osm-title" name="signalement-title" class="signalement-input-text" placeholder=" " title="Titre du signalement" required="">
+        <label class="dsign-form-label">Titre</label>
+      </div>
+      <div class="textarea-label">Donnez un titre à votre signalement</div>
+      <div class="dsign-form-element">
+        <textarea id="signalement-osm-description" name="signalement-description" class="signalement-textarea" title="Description" required="" placeholder=" "></textarea>
+        <label class="dsign-form-label">Description</label>
+      </div>
+      <div class="textarea-label">Explicitez votre signalement de façon la plus détaillée possible</div>
+      <div class="signalement-submit">Valider</div>
+    </form>
   </div>
+  <div id="signalementOsmDone" class="d-none">
+    <p class="signalementText">
+      Votre signalement a bien été créé dans la communauté OSM. Pour le retrouver, cliquez sur le lien suivant.
+    </p>
+    <a id="osmNoteUrl" href="https://www.openstreetmap.org/note/1" target="_blank" title="Lien vers mon signalement OpenStreetMap">Mon signalement dans OpenStreetMap</a>
+  </div>
+
 </div>
