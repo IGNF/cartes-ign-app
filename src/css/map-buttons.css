@@ -24,7 +24,7 @@
 
 #bottomButtons {
   position: absolute;
-  bottom: calc(72px + 12px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
+  bottom: calc(72px + 25px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
   width: 100vw;
   transition: transform 0.5s ease-in-out;
 }
@@ -32,7 +32,7 @@
 #layerManagerBtn {
   background-image: url("assets/map-buttons/layers.svg");
   position: absolute;
-  bottom: 56px;
+  bottom: 66px;
 }
 
 #layerManagerBtn.active {
@@ -151,7 +151,7 @@
 #compassBtn {
   background-image: url("assets/map-buttons/compass.svg");
   position: absolute;
-  bottom: 112px;
+  bottom: 132px;
 }
 
 #filterPoiBtn {
@@ -204,7 +204,7 @@
   justify-content: space-between;
   z-index: 3001;
   position: absolute;
-  bottom: calc(72px + 15px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
+  bottom: calc(72px + 15px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
   width: calc(100vw - 30px);
   height: 82px;
   padding: 10px 26px;
@@ -278,7 +278,7 @@
   background-position: center;
   position: fixed;
   left: calc(50vw - 25px);
-  top: calc((100vh - 52px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px))/2 - 50px);
+  top: calc((100vh - 52px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px))/2 - 50px);
   pointer-events: none;
 }
 
@@ -287,9 +287,9 @@
   display: flex;
   position: absolute;
   box-sizing: border-box;
-  top: calc(100% - 72px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
+  top: calc(100% - 72px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
   width: 100%;
-  height: calc(72px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 0px));
+  height: calc(72px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
   font-size: 12px;
   background-color: white;
   padding: 10px 30px 8px 15px;
@@ -336,7 +336,7 @@
 
   #bottomButtons {
     position: fixed;
-    bottom: calc(12px);
+    bottom: max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px);
     width: calc(100vw - 75px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
     right: var(--safe-area-inset-right);
     z-index: 2500;
@@ -345,6 +345,7 @@
   #interactivityBtn {
     right: calc(var(--safe-area-inset-right) + 15px);
     left: unset;
+
   }
 
   #filterPoiBtn {
