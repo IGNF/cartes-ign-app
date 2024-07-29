@@ -1,7 +1,7 @@
 {
   "name": "geoportail-app",
   "displayName": "Cartes IGN",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "description": "Découvrez la France autrement et observez l’évolution du territoire",
   "main": "index.js",
   "engines": {
