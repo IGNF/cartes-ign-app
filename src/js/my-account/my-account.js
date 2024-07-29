@@ -175,9 +175,14 @@ class MyAccount {
       if (["routeDraw", "routeDrawSave"].includes(Globals.backButtonState)) {
         return;
       }
+      if (this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]}).length > 0) {
+        return;
+      }
       const routeId = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["line-casing"].id]})[0].properties.id;
       const route = this.routes.filter( route => route.id == routeId)[0];
-      this.showRouteDetails(route);
+      if (route.visible) {
+        this.showRouteDetails(route);
+      }
     });
 
     App.addListener("appUrlOpen", (data) => {
