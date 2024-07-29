@@ -104,12 +104,9 @@ class Landmark {
         duration: "long",
         position: "top"
       });
-      this.map.flyTo({center: landmarkJson.geometry.coordinates});
-      this.map.once("resize", () => {
-        setTimeout(() => {
-          this.map.flyTo({center: landmarkJson.geometry.coordinates});
-        }, 100);
-      });
+      setTimeout(() => {
+        this.map.flyTo({center: landmarkJson.geometry.coordinates});
+      }, 200);
       this.hide();
     });
   }
