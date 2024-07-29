@@ -463,7 +463,7 @@ Altitude : ${altitude} m`;
 ${this.name}
 Latitude : ${latitude}
 Longitude : ${longitude}${altitudeText}
-https://cartes-ign.ign.fr?lng=${longitude}&lng=${latitude}&z=${zoom}`;
+https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=${zoom}`;
   }
 
   /* Transforme le HTML du header de la position en texte pour le partage */
