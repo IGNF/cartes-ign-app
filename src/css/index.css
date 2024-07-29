@@ -102,7 +102,7 @@ input, textarea, select {
 }
 
 .textarea-label {
-  font-family: "Fira Sans";
+  font-family: "Open Sans";
   color: var(--mid-grey);
 }
 

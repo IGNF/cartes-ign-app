@@ -14,10 +14,11 @@
       <p class="signalementTitle">Saisir un signalement</p>
       <div class="dsign-form-element">
         <input type="text" id="signalement-title" name="signalement-title" class="signalement-input-text" placeholder="" title="Nom du signalement" required="">
-        <label class="dsign-form-label">Nommez votre signalement</label>
+        <label class="dsign-form-label">Titre</label>
       </div>
+      <div class="textarea-label">Donnez un titre à votre signalement</div>
       <select id="signalement-theme" name="signalement-theme" class="signalement-select" title="Thème">
-        <option value="" selected disabled>Choisissez un thème :</option>
+        <option value="" selected disabled>Thème :</option>
         <option value="Réseau routier">Réseau routier</option>
         <option value="Bâtiment">Bâtiment</option>
         <option value="Toponyme">Toponyme</option>
@@ -28,6 +29,7 @@
         <option value="Point évolution territoire">Point évolution territoire</option>
         <option value="Autre">Autre</option>
       </select>
+      <div class="textarea-label">Choisissez un thème pour votre signalement</div>
       <div class="dsign-form-element">
         <textarea id="signalement-description" name="signalement-description" class="signalement-textarea" title="Description" required="" placeholder=""></textarea>
         <label class="dsign-form-label">Description</label>
@@ -35,8 +37,9 @@
       <div class="textarea-label">Explicitez votre signalement de façon la plus détaillée possible (sinon nous ne serons pas en mesure de le traiter)</div>
       <div class="dsign-form-element">
         <input type="email" id="signalement-email" class="signalement-input-text" title="Email" autocomplete="email" placeholder="" required="">
-        <label class="dsign-form-label">Renseignez votre adresse courriel</label>
+        <label class="dsign-form-label">Adresse courriel</label>
       </div>
+      <div class="textarea-label">Renseignez votre adresse courriel pour valider le signalement</div>
       <div class="signalement-submit">Valider</div>
     </form>
   </div>
