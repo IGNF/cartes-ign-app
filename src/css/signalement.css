@@ -8,6 +8,17 @@
   color: var(--dark-green);
   text-decoration: underline;
 }
+
+#signalementOSMWindow a {
+  font-size: 15px;
+  margin-top: 20px;
+  display: block;
+}
+
+#signalementOsmDone > .signalementText {
+  font-size: 15px;
+}
+
 #signalementOSMWindow a::after,
 #signalementWindow a::after {
   content: "";
