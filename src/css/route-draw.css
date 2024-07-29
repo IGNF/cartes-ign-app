@@ -259,6 +259,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 #routeDrawSaveNameInput {
@@ -286,6 +288,5 @@
   width: fit-content;
   padding: 8px 13px;
   border-radius: 100px;
-  margin-left: 15px;
   font-family: "Open Sans Semibold";
 }
