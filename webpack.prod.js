@@ -1,32 +1,33 @@
-const path = require('path');
+/* eslint-disable license-header/header */
+const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 
 module.exports = {
-  mode: 'production',
-  entry: './src/js/index.js',
+  mode: "production",
+  entry: "./src/js/index.js",
   output: {
-    path: path.resolve(__dirname, 'www'),
-    filename: 'js/index.bundle.js',
-    assetModuleFilename: 'css/assets/[hash][ext][query]'
+    path: path.resolve(__dirname, "www"),
+    filename: "js/index.bundle.js",
+    assetModuleFilename: "css/assets/[hash][ext][query]"
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/index.bundle.css",
     }),
     new HtmlWebpackPlugin({
-      template: 'src/html/index.html'
+      template: "src/html/index.html"
     }),
     new PreloadWebpackPlugin({
-      rel: 'preload',
-      as: 'image',
-      include: 'allAssets',
+      rel: "preload",
+      as: "image",
+      include: "allAssets",
       fileWhitelist: [/\.(png|jpe?g|gif|svg)$/],
-      includeHtmlNames: ['index.html'],
+      includeHtmlNames: ["index.html"],
     }),
     new Dotenv(),
   ],
@@ -35,10 +36,10 @@ module.exports = {
       {
         test: /\.(?:js|mjs|cjs)$/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
             presets: [
-              ['@babel/preset-env', { targets: {
+              ["@babel/preset-env", { targets: {
                 "ios": "13"
               }}]
             ]
@@ -49,15 +50,15 @@ module.exports = {
         test: /\.(scss|css)$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader'
+          "css-loader",
+          "sass-loader"
         ]
       },
       {
         test: /\.(ttf|png|svg|jpg)$/,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
-   ]
+    ]
   },
   optimization: {
     minimizer: [

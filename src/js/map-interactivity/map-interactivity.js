@@ -86,6 +86,10 @@ class MapInteractivity {
       this.map.once("click", this.handleInfoOnMap);
       return;
     }
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
+      this.map.once("click", this.handleInfoOnMap);
+      return;
+    }
     if (Globals.backButtonState.split("-")[0] === "position") {
       DOM.$backTopLeftBtn.click();
     }
