@@ -272,10 +272,20 @@ let RouteDrawDOM = {
         this.changeMode(1);
         toggleFree.checked = false;
         routeDrawVehicleSelect.classList.remove("hidden");
+        Toast.show({
+          text: "Mode saisie guidée activé",
+          duration: "short",
+          position: "bottom"
+        });
       } else {
         this.changeMode(0);
         toggleFree.checked = true;
         routeDrawVehicleSelect.classList.add("hidden");
+        Toast.show({
+          text: "Mode saisie libre (piéton) activé",
+          duration: "short",
+          position: "bottom"
+        });
       }
     });
     toggleFree.addEventListener("change", () => {
@@ -283,10 +293,20 @@ let RouteDrawDOM = {
         this.changeMode(0);
         toggleGuided.checked = false;
         routeDrawVehicleSelect.classList.add("hidden");
+        Toast.show({
+          text: "Mode saisie libre (piéton) activé",
+          duration: "short",
+          position: "bottom"
+        });
       } else {
         this.changeMode(1);
         toggleGuided.checked = true;
         routeDrawVehicleSelect.classList.remove("hidden");
+        Toast.show({
+          text: "Mode saisie guidée activé",
+          duration: "short",
+          position: "bottom"
+        });
       }
     });
 
@@ -295,15 +315,35 @@ let RouteDrawDOM = {
     pedestrianRadio.addEventListener("change", () => {
       if (pedestrianRadio.checked) {
         this.setTransport("pedestrian");
+        Toast.show({
+          text: "Mode saisie guidée (piéton) activé",
+          duration: "short",
+          position: "bottom"
+        });
       } else {
         this.setTransport("car");
+        Toast.show({
+          text: "Mode saisie guidée (véhicule) activé",
+          duration: "short",
+          position: "bottom"
+        });
       }
     });
     carRadio.addEventListener("change", () => {
       if (carRadio.checked) {
         this.setTransport("car");
+        Toast.show({
+          text: "Mode saisie guidée (véhicule) activé",
+          duration: "short",
+          position: "bottom"
+        });
       } else {
         this.setTransport("pedestrian");
+        Toast.show({
+          text: "Mode saisie guidée (piéton) activé",
+          duration: "short",
+          position: "bottom"
+        });
       }
     });
     routeDrawVehicleSelect.addEventListener("click", () => {
