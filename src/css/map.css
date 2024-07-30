@@ -16,7 +16,7 @@
   justify-content: flex-end;
 }
 
-.maplibregl-control-container > .maplibregl-ctrl-bottom-left {
+#bottomButtons > .maplibregl-ctrl-bottom-left {
   bottom: -3px;
 }
 

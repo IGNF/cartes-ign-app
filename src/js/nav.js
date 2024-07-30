@@ -226,7 +226,7 @@ class MenuNavigation {
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$bottomButtons.style.width = "calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right))";
       }
-      DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.add("d-none");
+      DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-left").classList.add("d-none");
       Globals.compare.show();
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 0;
@@ -476,7 +476,7 @@ class MenuNavigation {
       DOM.$tabContainer.style.removeProperty("top");
       DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$bottomButtons.style.removeProperty("width");
-      DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.remove("d-none");
+      DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-left").classList.remove("d-none");
       Globals.compare.hide();
       Globals.interactivityIndicator.enable();
       break;

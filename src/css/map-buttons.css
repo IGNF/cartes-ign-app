@@ -165,7 +165,7 @@
   padding-left: 25px;
   background-position: 13px center;
   width: 5.385rem;
-  transition: top 0.15s, transform 0.5s;
+  transition: top 0.3s, transform 0.5s;
   font-size: 14px;
 }
 
@@ -174,7 +174,7 @@
   position: fixed;
   left: 5px;
   top: calc(70px + var(--safe-area-inset-top));
-  transition: top 0.15s, width 0.5s ease-out, background-color 0.5s ease, opacity 0.5s ease;
+  transition: top 0.3s, width 0.5s ease-out, background-color 0.5s ease, opacity 0.5s ease;
   overflow: hidden;
   background-color: #fff0;
   border-radius: 31px;
@@ -320,6 +320,57 @@
   line-height: normal;
 }
 
+.maplibregl-ctrl-top-right > .maplibregl-ctrl {
+  margin-top: calc(148px + var(--safe-area-inset-top));
+  margin-right: 15px;
+  box-shadow: unset;
+  background-color: unset;
+  transition: margin-top 0.3s;
+}
+
+.maplibregl-ctrl-top-right > .maplibregl-ctrl:has(.maplibregl-ctrl-shrink) {
+  margin-top: calc(100vh - var(--safe-area-inset-bottom) - 20px - 48px);
+}
+
+button.maplibregl-ctrl-shrink,
+button.maplibregl-ctrl-fullscreen {
+  box-sizing: content-box;
+  color: var(--dark-grey);
+  width: 40px;
+  height: 40px;
+  border-radius: 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  z-index: 200;
+  border: 1px solid white;
+  padding: 3px;
+  background-size: 30px;
+}
+
+.maplibregl-ctrl button .maplibregl-ctrl-icon {
+  display: none;
+}
+
+button.maplibregl-ctrl-fullscreen {
+  background-image: url("assets/map-buttons/fullscreen.svg");
+}
+
+button.maplibregl-ctrl-shrink {
+  background-image: url("assets/map-buttons/shrink.svg");
+}
+
+.maplibregl-ctrl button:not(:disabled):hover {
+  background-color: white;
+}
+
+.maplibregl-ctrl-group button:focus:only-child {
+  border-radius: 60px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+
 @media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   .button {
     right: calc(var(--safe-area-inset-right) + 15px);
@@ -346,14 +397,16 @@
   }
 
   #interactivityBtn {
-    right: calc(var(--safe-area-inset-right) + 15px);
-    left: unset;
-
+    left: calc(85px + var(--safe-area-inset-left));
   }
 
   #filterPoiBtn {
     top: calc(10px + var(--safe-area-inset-top));
     position: fixed;
+  }
+
+  .maplibregl-ctrl-top-right > .maplibregl-ctrl {
+    margin-top: calc(78px + var(--safe-area-inset-top));
   }
 
   #routeDrawEdit {

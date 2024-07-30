@@ -134,6 +134,9 @@ class MyAccount {
       if (["routeDraw", "routeDrawSave"].includes(Globals.backButtonState)) {
         return;
       }
+      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
+        return;
+      }
       const landmark = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]})[0];
       const title = `<div id="landmarkPositionTitle" class="divLegendContainer landmarkPosition-${landmark.id}">
         <label class="landmarkSummaryIcon landmarkSummaryIcon${landmark.properties.icon}"
@@ -179,6 +182,9 @@ class MyAccount {
         return;
       }
       if (this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]}).length > 0) {
+        return;
+      }
+      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
         return;
       }
       const routeId = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["line-casing"].id]})[0].properties.id;
