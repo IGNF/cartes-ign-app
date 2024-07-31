@@ -234,7 +234,7 @@ let RouteDrawDOM = {
           </label>
         </div>
         <div>
-          Le tracé entre deux points suit le sentier, le chemin, la route. Véhicule non modifiable en cours de saisie.
+          Le tracé entre deux points suit le sentier, le chemin, la route. Le mode de locomation n’est pas modifiable en cours de saisie.
         </div>
         <div id="routeDrawVehicleSelect">
           <label class="radio-wrapper">
