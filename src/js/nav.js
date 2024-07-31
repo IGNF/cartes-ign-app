@@ -194,6 +194,7 @@ class MenuNavigation {
         DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 78px)";
         DOM.$sideBySideFadeSlider.style.transform = "unset";
         DOM.$sideBySideFadeSlider.style.width = "calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px)";
+        Globals.currentScrollIndex = 1;
       }
       break;
     case "compareLayers2":
@@ -203,10 +204,11 @@ class MenuNavigation {
       DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$sideBySideLeftLayer.classList.add("inactive");
       if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px)+ 15px)";
+        DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px)";
         DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px)+ 56px)";
         DOM.$sideBySideFadeSlider.style.transform = "unset";
         DOM.$sideBySideFadeSlider.style.width = "calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px)";
+        Globals.currentScrollIndex = 1;
       }
       Globals.currentScrollIndex = 2;
       break;

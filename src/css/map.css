@@ -20,6 +20,11 @@
   bottom: -3px;
 }
 
+#mapRLT2 .maplibregl-control-container > .maplibregl-ctrl-bottom-left,
+#mapRLT1 .maplibregl-control-container > .maplibregl-ctrl-bottom-left {
+  bottom: 10px;
+}
+
 .maplibregl-ctrl-scale {
   background-color: #0000;
   font-family: "Open Sans";
