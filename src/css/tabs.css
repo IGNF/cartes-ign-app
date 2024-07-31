@@ -65,6 +65,10 @@
   padding: 0 6% 44px 6%;
 }
 
+#tabContainer.scrolledMax {
+  z-index: 3004;
+}
+
 #sheetHeader,
 #tabHeader {
   width: 100%;
