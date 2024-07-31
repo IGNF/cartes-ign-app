@@ -725,7 +725,10 @@ class MenuNavigation {
     );
     Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
     if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-      Globals.anchors = [0, document.scrollingElement.clientHeight - 72, Globals.maxScroll];
+      const insetBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-bottom").slice(0, -2));
+      const navHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-bar-height").slice(0, -2));
+
+      Globals.anchors = [0, document.scrollingElement.clientHeight - 72 - Math.max(insetBottom - 10 - navHeight, 20), Globals.maxScroll];
     }
     this.#scrollTo(Globals.anchors[Globals.currentScrollIndex]);
   }

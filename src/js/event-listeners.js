@@ -279,6 +279,13 @@ function addListeners() {
   const handleScrollDown = () => {
     Globals.currentScrollIndex = 1;
     Globals.menu.updateScrollAnchors();
+    if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches ) {
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+      });
+    }
   };
 
   window.addEventListener("scroll", () => {
@@ -291,8 +298,11 @@ function addListeners() {
       DOM.$routeDrawEdit.style.transform = "translateX(100vw)";
       DOM.$filterPoiBtn.style.transform = "translateY(-100vh)";
     }
-    const inset = Math.round(parseFloat(getComputedStyle(document.body).getPropertyValue("--safe-area-inset-top").slice(0, -2)));
-    if (window.scrollY >= window.innerHeight - 72 - inset) {
+    const insetTop = Math.round(parseFloat(getComputedStyle(document.body).getPropertyValue("--safe-area-inset-top").slice(0, -2)));
+    const insetBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-bottom").slice(0, -2));
+    const navHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-bar-height").slice(0, -2));
+
+    if (window.scrollY >= window.innerHeight - 72 - Math.max(insetBottom - 10 - navHeight, 20) - insetTop) {
       DOM.$tabContainer.classList.add("scrolledMax");
       document.getElementById("tabHandle").addEventListener("click", handleScrollDown);
     } else {
