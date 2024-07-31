@@ -161,6 +161,7 @@ class RouteDraw {
   activate() {
     this.dataHistory.unshift(JSON.parse(JSON.stringify(this.data)));
     this.dom.titlewrapper.classList.add("d-none");
+    this.dom.changeMode.classList.remove("d-none");
     this.#listeners();
   }
 
@@ -1132,8 +1133,10 @@ class RouteDraw {
   showDetails() {
     this.readonly = true;
     this.deactivate();
+    this.dom.changeMode.classList.add("d-none");
     this.dom.titlewrapper.classList.remove("d-none");
     Globals.menu.open("routeDraw");
+
   }
 
   /**
