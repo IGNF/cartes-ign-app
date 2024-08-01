@@ -250,7 +250,7 @@ class MenuNavigation {
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.remove("d-none");
         if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-          DOM.$bottomButtons.style.bottom = "calc(72px + 112px + var(--safe-area-inset-bottom))";
+          DOM.$bottomButtons.style.bottom = "calc(72px + 112px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px))";
         } else {
           DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
           DOM.$bottomButtons.style.width = "auto";
