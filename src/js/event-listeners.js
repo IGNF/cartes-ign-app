@@ -312,7 +312,7 @@ function addListeners() {
   });
 
   // Partage par liens
-  App.addListener("resume", () => {
+  App.addListener("appUrlOpen", () => {
     App.getLaunchUrl().then( (url) => {
       if (url && url.url) {
         if (url.url.split("://")[0] === "https") {

@@ -119,6 +119,8 @@ class MyAccount {
       this.#updateSources();
     });
 
+    this.#importFileIfAppOpenedFromFile();
+
     return this;
   }
 
