@@ -190,6 +190,24 @@
   margin: 0;
   color: var(--darkish-grey);
   font-size: 13px;
+  display: flex;
+}
+
+#positionCoordsSpan {
+  text-decoration: underline;
+  display: flex;
+  align-items: center;
+}
+
+#positionCoordsSpan::after {
+  content: "";
+  display: inline-block;
+  background-image: url("assets/copy.svg");
+  width: 20px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px;
 }
 
 /*
