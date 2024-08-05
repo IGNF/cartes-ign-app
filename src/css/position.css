@@ -182,27 +182,18 @@
  * popup
  */
 
-#interactivityPopup,
-#editoPopup,
-#onlinePopup,
-#locationPopup {
+.maplibregl-popup-content > div {
   position: relative;
   padding: 24px;
   font-family: "Open Sans";
   font-size: 13px;
 }
 
-#interactivityPopup .divPositionTitle,
-#editoPopup .divPositionTitle,
-#onlinePopup .divPositionTitle,
-#locationPopup .divPositionTitle {
+.maplibregl-popup-content > div > .divPositionTitle {
   margin-right: 30px;
 }
 
-.interactivityPopup,
-.editoPopup,
-.onlinePopup,
-.locationPopup {
+.maplibregl-popup {
   position: fixed;
   z-index: 9999;
 }
@@ -217,19 +208,17 @@
   top: 20px;
 }
 
-.editoPopup>.maplibregl-popup-content,
-.interactivityPopup>.maplibregl-popup-content,
-.onlinePopup>.maplibregl-popup-content,
-.locationPopup>.maplibregl-popup-content {
+.maplibregl-popup-content {
   color: var(--dark-grey);
   border-radius: 15px;
   padding: 0;
 }
 
-.editoPopup>.maplibregl-popup-tip,
-.onlinePopup>.maplibregl-popup-tip,
-.interactivityPopup>.maplibregl-popup-tip,
-.locationPopup>.maplibregl-popup-tip {
+.maplibregl-popup-content > div > div:nth-child(2).divPopupContent {
+  margin-top: 25px;
+}
+
+.maplibregl-popup-tip {
   display: none;
 }
 
