@@ -32,6 +32,20 @@
 }
 
 /*
+ * info géocodage
+ */
+.divPositionAdressOriginInfo {
+  color: var(--darker-green);
+  background-color: var(--light-green);
+  padding: 14px 48px 14px 10px;
+  border-radius: 6px;
+  background-image: url("assets/help-darkergreen.svg");
+  background-position: center right 6px;
+  background-size: 32px;
+  background-repeat: no-repeat;
+}
+
+/*
  * addresse
  */
 .divPositionAddress {

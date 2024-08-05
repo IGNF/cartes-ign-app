@@ -13,6 +13,8 @@ import DomUtils from "./utils/dom-utils";
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
 
+import PopupUtils from "./utils/popup-utils";
+
 import LoadingDark from "../css/assets/loading-darkgrey.svg";
 
 /**
@@ -74,6 +76,10 @@ class Position {
 
     // fonction à exécuter à la fermeture du volet
     this.hideCallback = null;
+
+    this.addressInfoPopup = {
+      popup: null
+    };
 
     return this;
   }
@@ -162,6 +168,7 @@ class Position {
     var strContainer = `
       <div id="${id.main}">
           <div class="divPositionTitleWrapper"><div class="divPositionTitle">${this.header}</div>${htmlAdvanced}</div>
+          <div class="divPositionAdressOriginInfo">Adresse la plus proche du point sélectionné</div>
           <div class="divPositionAddress">
               <label class="lblPositionImgAddress"></label>
               <div class="divPositionSectionAddress fontLight">
@@ -349,6 +356,7 @@ class Position {
         }
       });
     }
+    shadowContainer.querySelector(".divPositionAdressOriginInfo").addEventListener("click", this.#showAdressInfoPopup.bind(this));
 
     shadowContainer.getElementById("divPositionButtonsAfter").addEventListener("click", DomUtils.horizontalParentScroll);
     shadowContainer.getElementById("divPositionButtonsAfter").parentElement.addEventListener("scroll", DomUtils.horizontalParentScrollend);
@@ -478,6 +486,24 @@ https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=${zoom}`;
       trueHeader = trueHeader.trim().replace("<p class=\"positionSubTitle\">", "\n").replace("</p>", "\n");
     }
     return trueHeader;
+  }
+
+  #showAdressInfoPopup() {
+    PopupUtils.showPopup(
+      `
+      <div id="addressInfoPopup">
+          <div class="divPositionTitle">Adresse la plus proche du point sélectionné</div>
+          <div class="divPopupClose" onclick="onCloseaddressInfoPopup(event)"></div>
+          <div class="divPopupContent">
+          L'adresse affichée est obtenue grâce au service de géocodage inverse. Ce service retourne, à partir d'un point sur la carte, l'adresse correspondante la plus proche. Selon ce principe, une adresse retournée peut différer de l'adresse postale d'un lieu.
+          </div>
+      </div>
+      `,
+      this.map,
+      "addressInfoPopup",
+      "onCloseaddressInfoPopup",
+      this.addressInfoPopup
+    );
   }
 
   /**
