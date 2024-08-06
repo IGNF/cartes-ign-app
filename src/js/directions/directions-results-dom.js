@@ -46,7 +46,12 @@ let DirectionsResultsDOM = {
     noDetailsDiv.appendChild(this.__addResultsDetailsContainerDOMElement());
     container.appendChild(noDetailsDiv);
     // ajout des détails
-    container.appendChild(this.__addResultsListDetailsContainerDOMElement(data.instructions, data.transport));
+    try {
+
+      container.appendChild(this.__addResultsListDetailsContainerDOMElement(data.instructions, data.transport));
+    } catch (err) {
+      console.error(err);
+    }
 
     return container;
   },
@@ -155,7 +160,28 @@ let DirectionsResultsDOM = {
     divList.id = "directionsListDetails";
     divList.className = "";
 
+    divList.appendChild(this.__addInstructionListDOMElement(instructions));
+
     // FIXME comment fusionner les points intermediaires ?
+    if (transport !== "Voiture") {
+      var profileHeader = document.createElement("p");
+      profileHeader.className = "elevationLineHeader";
+      profileHeader.textContent = "Profil altimétrique";
+      divList.appendChild(profileHeader);
+
+      var canvasProfile = document.createElement("canvas");
+      canvasProfile.id = "directions-elevationline";
+      canvasProfile.className = "elevationLineCanvas";
+      canvasProfile.style.width = "100%";
+      divList.appendChild(canvasProfile);
+    }
+
+    return divList;
+  },
+
+  __addInstructionListDOMElement(instructions) {
+    var divList = document.createElement("div");
+    divList.id = "directionsInstructionsList";
     var first = instructions[0].steps[0];
     var last = instructions.slice(-1)[0].steps.slice(-1)[0];
 
@@ -202,18 +228,6 @@ let DirectionsResultsDOM = {
           divList.appendChild(el);
         }
       });
-    }
-    if (transport !== "Voiture") {
-      var profileHeader = document.createElement("p");
-      profileHeader.className = "elevationLineHeader";
-      profileHeader.textContent = "Profil altimétrique";
-      divList.appendChild(profileHeader);
-
-      var canvasProfile = document.createElement("canvas");
-      canvasProfile.id = "directions-elevationline";
-      canvasProfile.className = "elevationLineCanvas";
-      canvasProfile.style.width = "100%";
-      divList.appendChild(canvasProfile);
     }
 
     return divList;
@@ -281,6 +295,11 @@ let DirectionsResultsDOM = {
 
 
     return divContainer;
+  },
+
+  __updateDurationDom() {
+    this.dom.container.querySelector("#directionsSummaryDuration").textContent = utils.convertSecondsToTime(this.options.duration);
+    this.dom.container.querySelector("#directionsInstructionsList").replaceWith(this.__addInstructionListDOMElement(this.options.instructions));
   }
 
 };

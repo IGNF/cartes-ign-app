@@ -98,6 +98,20 @@ class DirectionsResults {
     }
   }
 
+  updateDuration(newDuration) {
+    const oldDuration = this.options.duration;
+    this.options.duration = newDuration;
+
+    const ratio = newDuration / oldDuration;
+    this.options.instructions.forEach( (instruction) => {
+      instruction.steps.forEach( (step) => {
+        step.duration *= ratio;
+      });
+    });
+
+    this.__updateDurationDom();
+  }
+
 }
 
 // mixins
