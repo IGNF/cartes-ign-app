@@ -142,6 +142,11 @@ div[id^="route-container_ID_"] {
   justify-content: space-between;
   border-bottom: 1px solid var(--grey-2);
   padding: 10px 0;
+  color: var(--dark-grey);
+}
+
+div[id^="route-container_ID_"] .routeDrawSummaryDuration {
+  color: var(--dark-grey);
 }
 
 div[id^=landmark-cross-picto_ID_],
@@ -152,6 +157,13 @@ div[id^=route-cross-picto_ID_] {
 div[id^=landmark-basic-tools_ID_],
 div[id^=route-basic-tools_ID_] {
   width: 100%;
+}
+
+div[id^="route-container_ID_"]:has([id^="route-visibility_ID"]:not(:checked)) .routeDrawSummaryDuration,
+div[id^="route-container_ID_"]:has([id^="route-visibility_ID"]:not(:checked)) span[id^=route-title_ID_],
+div[id^="route-container_ID_"]:has([id^="route-visibility_ID"]:not(:checked)) [id^=route-summary-div_ID_],
+div[id^="landmark-container_ID_"]:has([id^="landmark-visibility_ID"]:not(:checked)) span[id^=landmark-title_ID_] {
+  color: var(--mid-grey);
 }
 
 label[id^="landmark-show-advanced-tools_ID_"]:focus-within
@@ -208,7 +220,6 @@ div[id^="route-advanced-tools_ID_"]:hover
 .wrap-tools-layers .routeDrawSummaryDPlus {
   padding-left: 24px;
   background-size: 12px;
-  color: var(--dark-grey);
   font-size: 13px;
   padding-right: 0;
 }
