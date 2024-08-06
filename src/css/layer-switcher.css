@@ -196,26 +196,10 @@ div[id^="advanced-tools_ID_"]:hover
   display: flex;
   max-height: 250px;
   padding: 18px 15px;
-  transition: max-height 0.3s ease-out;
+  transition: max-height 0.6s ease-out;
   gap: 20px;
 }
 
-label[id^="landmark-show-advanced-tools_ID_"]:focus-within
-  + div[id^="landmark-advanced-tools_ID_"],
-label[id^="route-show-advanced-tools_ID_"]:focus-within
-  + div[id^="route-advanced-tools_ID_"],
-div[id^="landmark-advanced-tools_ID_"]:focus-within,
-div[id^="route-advanced-tools_ID_"]:focus-within,
-label[id^="landmark-show-advanced-tools_ID_"]:hover
-  + div[id^="landmark-advanced-tools_ID_"],
-label[id^="route-show-advanced-tools_ID_"]:hover
-  + div[id^="route-advanced-tools_ID_"],
-div[id^="landmark-advanced-tools_ID_"]:hover,
-div[id^="route-advanced-tools_ID_"]:hover
-  {
-  max-height: 350px;
-  bottom: -70px;
-}
 
 input[id^="landmark-visibility_ID_"],
 input[id^="route-visibility_ID_"],

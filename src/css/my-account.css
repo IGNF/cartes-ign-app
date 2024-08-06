@@ -129,13 +129,6 @@
   overflow-y: scroll;
 }
 
-#myaccount-routes:has(.tools-layer-advanced-menu:hover),
-#myaccount-landmarks:has(.tools-layer-advanced-menu:hover),
-#myaccount-landmarks:has(label[id^=landmark-show-advanced-tools_ID_]:hover),
-#myaccount-routes:has(label[id^=route-show-advanced-tools_ID_]:hover) {
-  overflow-y: visible;
-}
-
 #myaccountRouteList {
   display: flex;
   flex-direction: column;
@@ -159,6 +152,55 @@ div[id^=route-cross-picto_ID_] {
 div[id^=landmark-basic-tools_ID_],
 div[id^=route-basic-tools_ID_] {
   width: 100%;
+}
+
+label[id^="landmark-show-advanced-tools_ID_"]:focus-within
+  + div[id^="landmark-advanced-tools_ID_"],
+label[id^="route-show-advanced-tools_ID_"]:focus-within
+  + div[id^="route-advanced-tools_ID_"],
+div[id^="landmark-advanced-tools_ID_"]:focus-within,
+div[id^="route-advanced-tools_ID_"]:focus-within,
+label[id^="landmark-show-advanced-tools_ID_"]:hover
+  + div[id^="landmark-advanced-tools_ID_"],
+label[id^="route-show-advanced-tools_ID_"]:hover
+  + div[id^="route-advanced-tools_ID_"],
+div[id^="landmark-advanced-tools_ID_"]:hover,
+div[id^="route-advanced-tools_ID_"]:hover
+  {
+  bottom: unset;
+  max-height: 350px;
+  top: 25%;
+}
+
+[id^="landmark-container_ID"]:nth-child(n + 4) > label[id^="landmark-show-advanced-tools_ID_"]:focus-within
+  + div[id^="landmark-advanced-tools_ID_"],
+[id^="route-container_ID"]:nth-child(n + 4) > label[id^="route-show-advanced-tools_ID_"]:focus-within
+  + div[id^="route-advanced-tools_ID_"],
+[id^="landmark-container_ID"]:nth-child(n + 4) > div[id^="landmark-advanced-tools_ID_"]:focus-within,
+[id^="route-container_ID"]:nth-child(n + 4) > div[id^="route-advanced-tools_ID_"]:focus-within,
+[id^="landmark-container_ID"]:nth-child(n + 4) > label[id^="landmark-show-advanced-tools_ID_"]:hover
+  + div[id^="landmark-advanced-tools_ID_"],
+[id^="route-container_ID"]:nth-child(n + 4) > label[id^="route-show-advanced-tools_ID_"]:hover
+  + div[id^="route-advanced-tools_ID_"],
+[id^="landmark-container_ID"]:nth-child(n + 4) > div[id^="landmark-advanced-tools_ID_"]:hover,
+[id^="route-container_ID"]:nth-child(n + 4) > div[id^="route-advanced-tools_ID_"]:hover {
+  top: -40%;
+}
+
+[id^="landmark-container_ID"]:nth-child(n + 5) > label[id^="landmark-show-advanced-tools_ID_"]:focus-within
+  + div[id^="landmark-advanced-tools_ID_"],
+[id^="route-container_ID"]:nth-child(n + 5) > label[id^="route-show-advanced-tools_ID_"]:focus-within
+  + div[id^="route-advanced-tools_ID_"],
+[id^="landmark-container_ID"]:nth-child(n + 5) > div[id^="landmark-advanced-tools_ID_"]:focus-within,
+[id^="route-container_ID"]:nth-child(n + 5) > div[id^="route-advanced-tools_ID_"]:focus-within,
+[id^="landmark-container_ID"]:nth-child(n + 5) > label[id^="landmark-show-advanced-tools_ID_"]:hover
+  + div[id^="landmark-advanced-tools_ID_"],
+[id^="route-container_ID"]:nth-child(n + 5) > label[id^="route-show-advanced-tools_ID_"]:hover
+  + div[id^="route-advanced-tools_ID_"],
+[id^="landmark-container_ID"]:nth-child(n + 5) > div[id^="landmark-advanced-tools_ID_"]:hover,
+[id^="route-container_ID"]:nth-child(n + 5) > div[id^="route-advanced-tools_ID_"]:hover {
+  top: unset;
+  bottom: 25%;
 }
 
 .wrap-tools-layers .routeDrawSummaryDuration,
