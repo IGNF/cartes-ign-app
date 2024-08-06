@@ -35,7 +35,7 @@ const addListeners = () => {
   });
   map.on("dragend", () => {
     if (Location.isTrackingActive() && lastMapCenter){
-      if (lastMapCenter.distanceTo(map.getCenter()) > 100) {
+      if (lastMapCenter.distanceTo(map.getCenter()) > 50) {
         // De tracking a simple suivi de position
         Location.disableTracking();
       }

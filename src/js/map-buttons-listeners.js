@@ -33,14 +33,15 @@ const addListeners = () => {
   // Rotation de la boussole
   DOM.$compassBtn.addEventListener("click", () => {
     const map = Globals.map;
-    if (Location.isTrackingActive()){
-      // De tracking a simple suivi de position
-      Location.disableTracking();
+    if (Location.isNavigationActive()){
+      // De nivigation a simple suivi de position
+      Location.disableNavigation(0);
+    } else {
+      if (map.getBearing() === 0) {
+        DOM.$compassBtn.classList.add("d-none");
+      }
+      map.rotateTo(0);
     }
-    if (map.getBearing() === 0) {
-      DOM.$compassBtn.classList.add("d-none");
-    }
-    map.rotateTo(0);
   });
 
   // Bouton Comparaison de carte
