@@ -207,6 +207,9 @@
   min-height: 20px;
   border-bottom: 1px solid var(--grey-2);
   white-space: nowrap;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
 }
 
 .divDirectionsDetailsItemDesc {
