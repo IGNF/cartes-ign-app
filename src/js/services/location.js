@@ -75,6 +75,10 @@ let location_active = false;
 
 // Suivi de la carte
 let tracking_active = false;
+
+// Suivi de la carte avec boussole
+let navigation_active = false;
+
 let watch_id;
 let currentPosition = null;
 
@@ -186,6 +190,7 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
     Globals.myPositionMarker = new maplibregl.Marker({
       element: (gps) ? positionIcon : Globals.searchResultIcon,
       anchor: (gps) ? "center" : "bottom",
+      pitchAlignment: "map",
     })
       .setLngLat([coords.lon, coords.lat])
       .addTo(Globals.map);
@@ -216,11 +221,26 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
 
   if (panTo) {
     if (tracking_active) {
+      let bearing = Globals.map.getBearing();
+      let pitch = 0;
+      if (navigation_active) {
+        bearing = -mapBearing;
+        pitch = 45;
+      }
       isMapPanning = true;
-      Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom, bearing: -mapBearing, duration: 500});
+      Globals.map.flyTo({
+        center: [coords.lon, coords.lat],
+        zoom: zoom,
+        bearing: bearing,
+        pitch: pitch,
+        duration: 500});
       Globals.map.once("moveend", () => {isMapPanning = false;});
     } else {
-      Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
+      Globals.map.flyTo({
+        center: [coords.lon, coords.lat],
+        zoom: zoom,
+        pitch: 0
+      });
     }
   }
 };
@@ -249,8 +269,8 @@ const watchPositionCallback = (position) => {
     currentPosition = position;
     localStorage.setItem("lastKnownPosition", JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}));
     var zoom = Globals.map.getZoom();
-    if (firstLocation || tracking_active) {
-      zoom = Math.max(Globals.map.getZoom(), 16);
+    if (firstLocation) {
+      zoom = Math.max(Globals.map.getZoom(), 16.5);
     }
     moveTo({
       lat: position.coords.latitude,
@@ -360,6 +380,7 @@ const enablePosition = async() => {
     return;
   }
   location_active = true;
+  tracking_active = true;
   if (!currentPosition && localStorage.getItem("lastKnownPosition")) {
     const lastPosition = JSON.parse(localStorage.getItem("lastKnownPosition"));
     moveTo({
@@ -382,11 +403,26 @@ const locationOnOff = async () => {
     if (currentPosition === null) {
       return;
     }
-    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
+    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
     tracking_active = true;
     Globals.map.setCenter([currentPosition.coords.longitude, currentPosition.coords.latitude]);
-    Globals.map.setZoom(16);
-    Globals.map.setBearing(-mapBearing);
+    Toast.show({
+      text: "Suivi de position activé",
+      duration: "short",
+      position: "bottom"
+    });
+  } else if (!navigation_active) {
+    if (currentPosition === null) {
+      return;
+    }
+    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
+    navigation_active = true;
+    Globals.map.setMaxPitch(45);
+    Globals.map.flyTo({
+      center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
+      bearing: -mapBearing,
+      pitch: 45,
+    });
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
     Toast.show({
@@ -395,14 +431,16 @@ const locationOnOff = async () => {
       position: "bottom"
     });
   } else {
+    Globals.map.flyTo({
+      pitch: 0,
+      duration: 500,
+    });
+    setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
-    Geolocation.clearWatch({id: watch_id});
-    clean();
-    currentPosition = null;
-    location_active = false;
     tracking_active = false;
+    navigation_active = false;
     Toast.show({
-      text: "Navigation et suivi de position désactivés",
+      text: "Navigation désactivée",
       duration: "short",
       position: "bottom"
     });
@@ -434,7 +472,7 @@ const getOrientation = async (event) => {
     tempMapBearing -= 90;
   }
   mapBearing = tempMapBearing;
-  if (tracking_active) {
+  if (navigation_active) {
     if (!isMapPanning) {
       Globals.map.easeTo({bearing: -mapBearing, duration: 100});
     }
@@ -491,8 +529,26 @@ const getLocation = async () => {
 };
 
 const disableTracking = () => {
-  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
+  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
   tracking_active = false;
+  navigation_active = false;
+  Toast.show({
+    text: "Suivi de position activé",
+    duration: "short",
+    position: "bottom"
+  });
+};
+
+const disableNavigation = (bearing = Globals.map.getBearing()) => {
+  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
+  navigation_active = false;
+  tracking_active = false;
+  Globals.map.flyTo({
+    pitch: 0,
+    bearing: bearing,
+    duration: 500,
+  });
+  setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
   Toast.show({
     text: "Suivi de position activé",
     duration: "short",
@@ -577,6 +633,10 @@ const isTrackingActive = () => {
   return tracking_active;
 };
 
+const isNavigationActive = () => {
+  return navigation_active;
+};
+
 const getCurrentPosition = () => {
   return currentPosition;
 };
@@ -586,10 +646,12 @@ export default {
   getCurrentPosition,
   isLocationActive,
   isTrackingActive,
+  isNavigationActive,
   moveTo,
   enablePosition,
   locationOnOff,
   getOrientation,
   getLocation,
   disableTracking,
+  disableNavigation,
 };
