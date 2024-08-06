@@ -101,6 +101,14 @@ let currentScrollIndex = 0;
 
 let mapLoaded = false;
 
+// Walking speed for time calculation
+let walkingSpeed;
+if (!localStorage.getItem("walkingSpeed")) {
+  walkingSpeed = 4 / 3.6;
+} else {
+  walkingSpeed = parseFloat(localStorage.getItem("walkingSpeed")) / 3.6;
+}
+
 export default {
   map,
   mapRLT1,
@@ -136,4 +144,5 @@ export default {
   signalementOSM,
   online,
   mapLoaded,
+  walkingSpeed,
 };
