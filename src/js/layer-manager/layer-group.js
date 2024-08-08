@@ -264,6 +264,11 @@ const addGray = (id) => {
           originalLayerColors[layer.id]["text-halo-color"] = value;
           Globals.map.setPaintProperty(layer.id, "text-halo-color", convert(value));
         }
+        value = Globals.map.getLayoutProperty(layer.id, "icon-image");
+        if (value) {
+          originalLayerColors[layer.id]["icon-image"] = value;
+          Globals.map.setLayoutProperty(layer.id, "icon-image", value + "__bw");
+        }
       } else {
         value = Globals.map.getPaintProperty(layer.id, `${layer.type}-color`);
         if (value) {
@@ -278,6 +283,15 @@ const addGray = (id) => {
           } else {
             Globals.map.setPaintProperty(layer.id, `${layer.type}-color`, convert(value));
           }
+        }
+        try {
+          value = Globals.map.getPaintProperty(layer.id, `${layer.type}-pattern`);
+          if (value) {
+            originalLayerColors[layer.id][`${layer.type}-pattern`] = value;
+            Globals.map.setPaintProperty(layer.id, `${layer.type}-pattern`, value + "__bw");
+          }
+        } catch (err) {
+          console.debug(err);
         }
         try {
           value = Globals.map.getPaintProperty(layer.id, `${layer.type}-outline-color`);
@@ -305,7 +319,11 @@ const addColor = (id) => {
     if (layer.type !== "raster") {
       if (layer.metadata && layer.metadata.group === id) {
         Object.entries(originalLayerColors[layer.id]).forEach((entry) => {
-          Globals.map.setPaintProperty(layer.id, entry[0], entry[1]);
+          if (entry[0] === "icon-image") {
+            Globals.map.setLayoutProperty(layer.id, entry[0], entry[1]);
+          } else {
+            Globals.map.setPaintProperty(layer.id, entry[0], entry[1]);
+          }
         });
       }
     } else {
