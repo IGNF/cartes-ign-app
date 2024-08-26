@@ -61,14 +61,13 @@ import { Capacitor } from "@capacitor/core";
 
 import Buffer from "@turf/buffer";
 
-import MapLibreGL from "maplibre-gl";
-
 // fichiers SVG
 import LocationImg from "../../css/assets/map-buttons/localisation.svg";
 import LocationFollowImg from "../../css/assets/map-buttons/location-follow.svg";
 import LocationFixeImg from "../../css/assets/map-buttons/location-fixed.svg";
 import LocationLoading from "../../css/assets/loading-green.svg";
 import LocationDisabled from "../../css/assets/map-buttons/location-disabled.svg";
+import PopupUtils from "../utils/popup-utils";
 
 /* Géolocalisation */
 // Positionnement du mobile
@@ -88,7 +87,9 @@ let positionBearing = 0;
 
 let positionIsGrey = false;
 
-let popup = null;
+let popup = {
+  popup: null
+};
 
 let lastAccuracy;
 let firstLocation;
@@ -329,8 +330,8 @@ const trackLocation = () => {
 const enablePosition = async() => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationLoading + "\")";
   let permissionStatus;
-  if (popup) {
-    popup.remove();
+  if (popup.popup) {
+    popup.popup.remove();
   }
   try {
     permissionStatus = await Geolocation.checkPermissions();
@@ -564,43 +565,7 @@ const showLocationDeniedPopup = () => {
  * Affiche une popup en finction de son contenu
  */
 const showPopup = (content) => {
-  // on supprime la popup
-  if (popup) {
-    popup.remove();
-  }
-
-  // template litteral
-  const popupContent = content;
-  window.onCloselocationPopup = () => {
-    popup.remove();
-  };
-
-  // centre de la carte
-  var center = Globals.map.getCenter();
-  // position de la popup
-  var popupOffsets = {
-    "bottom": [0, 100],
-  };
-  if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && Capacitor.getPlatform() === "ios") {
-    popupOffsets = {
-      "bottom": [200, 100],
-    };
-  }
-  // ouverture d'une popup
-  popup = new MapLibreGL.Popup({
-    offset: popupOffsets,
-    className: "locationPopup",
-    closeOnClick: true,
-    closeOnMove: true,
-    closeButton: false
-  })
-    .setLngLat(center)
-    .setHTML(popupContent)
-    .setMaxWidth("300px")
-    .addTo(Globals.map);
-  // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
-  var popupEl = document.querySelectorAll(".locationPopup")[0];
-  document.body.appendChild(popupEl);
+  PopupUtils.showPopup(content, Globals.map, "locationPopup", "onCloselocationPopup", popup);
 };
 
 const isLocationActive = () => {

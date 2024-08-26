@@ -7,7 +7,7 @@
 import Globals from "../globals";
 import DOM from "../dom";
 
-import MapLibreGL from "maplibre-gl";
+import PopupUtils from "../utils/popup-utils";
 
 /**
  * Indicateur d'activité du Plan IGN interactif et des couches thématiques sur la carte
@@ -41,7 +41,9 @@ class InteractivityIndicator {
 
     this.piiMinZoom = 15; // zoom mini pour l'interactivité
 
-    this.popup = null;
+    this.popup = {
+      popup: null
+    };
 
     // Timeouts pour l'animation
     this.timeoutID1 = null;
@@ -218,13 +220,8 @@ class InteractivityIndicator {
       return;
     }
     // on supprime la popup
-    if (this.popup) {
-      this.popup.remove();
-      this.popup = null;
-    }
-
-    // template litteral
-    const popupContent = `
+    PopupUtils.showPopup(
+      `
       <div id="interactivityPopup">
           <div class="divPositionTitle">La carte est interactive</div>
           <div class="divPopupClose" onclick="onCloseinteractivityPopup(event)"></div>
@@ -232,33 +229,12 @@ class InteractivityIndicator {
           Cliquez sur le plan IGN ou sur une donnée thématique pour afficher la légende ou des informations détaillées (ex : les caractéristiques d’un bâtiment, la culture d’un champ).
           </div>
       </div>
-      `;
-    var self = this;
-    window.onCloseinteractivityPopup = () => {
-      self.popup.remove();
-    };
-
-    // centre de la carte
-    var center = this.map.getCenter();
-    // position de la popup
-    var popupOffsets = {
-      "bottom": [0, 100],
-    };
-    // ouverture d'une popup
-    this.popup = new MapLibreGL.Popup({
-      offset: popupOffsets,
-      className: "interactivityPopup",
-      closeOnClick: true,
-      closeOnMove: true,
-      closeButton: false
-    })
-      .setLngLat(center)
-      .setHTML(popupContent)
-      .setMaxWidth("300px")
-      .addTo(this.map);
-    // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
-    var popupEl = document.querySelectorAll(".interactivityPopup")[0];
-    document.body.appendChild(popupEl);
+      `,
+      this.map,
+      "interactivityPopup",
+      "onCloseinteractivityPopup",
+      this.addressInfoPopup
+    );
   }
 
 }

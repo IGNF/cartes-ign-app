@@ -7,16 +7,22 @@
 import MapLibreGL from "maplibre-gl";
 
 // Mode offline
-let popup = null;
-function showOnlinePopup(content, map) {
+let popup = {
+  popup: null
+};
+let editoPopup = {
+  popup: null
+};
+
+function showPopup(content, map, className, closeMethodName, object) {
   // on supprime la popup
-  if (popup) {
-    popup.remove();
-    popup = null;
+  if (object.popup) {
+    object.popup.remove();
+    object.popup = null;
   }
 
-  window.onCloseonlinePopup = () => {
-    popup.remove();
+  window[closeMethodName] = () => {
+    object.popup.remove();
   };
 
   // centre de la carte
@@ -26,9 +32,9 @@ function showOnlinePopup(content, map) {
     "bottom": [0, 100],
   };
   // ouverture d'une popup
-  popup = new MapLibreGL.Popup({
+  object.popup = new MapLibreGL.Popup({
     offset: popupOffsets,
-    className: "onlinePopup",
+    className: className,
     closeOnClick: true,
     closeOnMove: true,
     closeButton: false
@@ -38,40 +44,21 @@ function showOnlinePopup(content, map) {
     .setMaxWidth("300px")
     .addTo(map);
   // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
-  var popupEl = document.querySelectorAll(".onlinePopup")[0];
+  var popupEl = document.querySelectorAll(`.${className}`)[0];
   document.body.appendChild(popupEl);
 }
 
-function showEditoPopup(content, map) {
-  let editoPopup;
-  window.onCloseeditoPopup = () => {
-    editoPopup.remove();
-  };
+function showOnlinePopup(content, map) {
+  showPopup(content, map, "onlinePopup", "onCloseonlinePopup", popup);
+}
 
-  // centre de la carte
-  var center = map.getCenter();
-  // position de la popup
-  var popupOffsets = {
-    "bottom": [0, 100],
-  };
-  // ouverture d'une popup
-  editoPopup = new MapLibreGL.Popup({
-    offset: popupOffsets,
-    className: "editoPopup",
-    closeOnClick: true,
-    closeOnMove: true,
-    closeButton: false
-  })
-    .setLngLat(center)
-    .setHTML(content)
-    .setMaxWidth("300px")
-    .addTo(map);
-  // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
-  var popupEl = document.querySelectorAll(".editoPopup")[0];
-  document.body.appendChild(popupEl);
+
+function showEditoPopup(content, map) {
+  showPopup(content, map, "editoPopup", "onCloseeditoPopup", editoPopup);
 }
 
 export default {
   showOnlinePopup,
   showEditoPopup,
+  showPopup,
 };
