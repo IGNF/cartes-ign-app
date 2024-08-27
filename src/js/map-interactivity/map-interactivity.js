@@ -82,7 +82,7 @@ class MapInteractivity {
   }
 
   #getInfoOnMap(ev) {
-    if (Globals.backButtonState.split("-").includes("routeDraw")) {
+    if (Globals.backButtonState.split("-").includes("routeDraw") || Globals.backButtonState.includes("selectOnMap")) {
       this.map.once("click", this.handleInfoOnMap);
       return;
     }
