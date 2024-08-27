@@ -101,6 +101,13 @@ let firstLocation;
 // Est-ce que le marqueur de "Ma Position" a un écouteur d'évènement ?
 let hasEventListener = false;
 
+// Varaibles pour la gestion d'évènements touch et zoom spécifiques à la localisation activée
+let startDist = 0;
+let startZoom = 0;
+let startBearing =0;
+let startAngle = 0;
+let rotationEnabled = false;
+
 /**
  * Interface pour les evenements
  * @example
@@ -406,6 +413,9 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
     tracking_active = true;
     Globals.map.setCenter([currentPosition.coords.longitude, currentPosition.coords.latitude]);
+    Globals.map.touchZoomRotate.disable();
+    Globals.map.getCanvasContainer().addEventListener("touchstart", locationOnTouchStartHandler);
+    Globals.map.getCanvasContainer().addEventListener("touchmove", locationOnTouchMoveHandler);
     Toast.show({
       text: "Suivi de position activé",
       duration: "short",
@@ -439,6 +449,9 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
     tracking_active = false;
     navigation_active = false;
+    Globals.map.touchZoomRotate.enable();
+    Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
+    Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
     Toast.show({
       text: "Navigation désactivée",
       duration: "short",
@@ -532,6 +545,9 @@ const disableTracking = () => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
   tracking_active = false;
   navigation_active = false;
+  Globals.map.touchZoomRotate.enable();
+  Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
+  Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
   Toast.show({
     text: "Suivi de position activé",
     duration: "short",
@@ -548,6 +564,9 @@ const disableNavigation = (bearing = Globals.map.getBearing()) => {
     bearing: bearing,
     duration: 500,
   });
+  Globals.map.touchZoomRotate.enable();
+  Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
+  Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
   setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
   Toast.show({
     text: "Suivi de position activé",
@@ -640,6 +659,55 @@ const isNavigationActive = () => {
 const getCurrentPosition = () => {
   return currentPosition;
 };
+
+// Event handlers for rotation and zoom when tracking active
+const locationOnTouchStartHandler = (e) => {
+  if (e.touches.length === 2) {
+    startDist = getTouchDistance(e.touches);
+    startZoom = Globals.map.getZoom();
+    startBearing = Globals.map.getBearing();
+    startAngle = getTouchAngle(e.touches);
+    rotationEnabled = false;
+  }
+};
+
+const locationOnTouchMoveHandler = (e) => {
+  if (e.touches.length === 2) {
+    e.preventDefault();
+
+    const currentDist = getTouchDistance(e.touches);
+    const scale = currentDist / startDist;
+    const newZoom = startZoom + Math.log2(scale);
+
+    const currentAngle = getTouchAngle(e.touches);
+    let angleDelta = currentAngle - startAngle;
+    if (!rotationEnabled && Math.abs(angleDelta) > 8) {
+      rotationEnabled = true;
+      startAngle += angleDelta;
+      angleDelta = 0;
+    }
+    const newBearing = startBearing + angleDelta;
+
+    Globals.map.setZoom(newZoom, { around: Globals.map.getCenter() });
+    if (rotationEnabled) {
+      Globals.map.setBearing(newBearing);
+    }
+  }
+};
+
+function getTouchDistance(touches) {
+  const [touch1, touch2] = touches;
+  const dx = touch1.clientX - touch2.clientX;
+  const dy = touch1.clientY - touch2.clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+function getTouchAngle(touches) {
+  const [touch1, touch2] = touches;
+  const dx = touch1.clientX - touch2.clientX;
+  const dy = touch1.clientY - touch2.clientY;
+  return Math.atan2(dy, dx) * (180 / Math.PI);
+}
 
 export default {
   target,
