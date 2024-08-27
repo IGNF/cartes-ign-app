@@ -9,6 +9,7 @@ import maplibregl from "maplibre-gl";
 import DOM from "../dom";
 import Globals from "../globals";
 import RecentSearch from "../search-recent";
+import Location from "./location";
 
 /**
  * Interface pour les evenements
@@ -47,6 +48,9 @@ function moveTo(coords, zoom=Globals.map.getZoom(), panTo=true) {
   Globals.searchResultIcon.addEventListener("click", clean);
 
   if (panTo) {
+    if (Location.isTrackingActive()) {
+      Location.disableTracking();
+    }
     Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
     Globals.map.once("resize", () => {
       setTimeout(() => {

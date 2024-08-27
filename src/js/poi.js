@@ -10,6 +10,8 @@ import LayersGroup from "./layer-manager/layer-group";
 import PoiConfig from "./data-layer/poi-osm-layer-config.json";
 import DomUtils from "./utils/dom-utils";
 import Globals from "./globals";
+import Location from "./services/location";
+
 
 /**
  * Contrôle sur le filtrage attributaire des POI osm
@@ -262,6 +264,9 @@ class POI {
       if (e.target.checked) {
         Globals.comparePoi.showPoints();
         localStorage.setItem("poirltChecked", "checked");
+        if (Location.isTrackingActive()) {
+          Location.disableTracking();
+        }
         this.map.flyTo({zoom: 4, center: [2.0, 47.33]});
       } else {
         Globals.comparePoi.hidePoints();

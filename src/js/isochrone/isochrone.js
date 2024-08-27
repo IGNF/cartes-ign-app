@@ -323,6 +323,9 @@ class Isochrone {
         }
       });
     }
+    if (Location.isTrackingActive()) {
+      Location.disableTracking();
+    }
     this.map.fitBounds(bbox, {
       padding: padding
     });

@@ -105,6 +105,9 @@ class Landmark {
         position: "top"
       });
       setTimeout(() => {
+        if (Location.isTrackingActive()) {
+          Location.disableTracking();
+        }
         this.map.flyTo({center: landmarkJson.geometry.coordinates});
       }, 200);
       this.hide();

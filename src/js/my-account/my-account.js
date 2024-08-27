@@ -10,6 +10,7 @@ import MyAccountLayers from "./my-account-styles";
 import utils from "../utils/unit-utils";
 import gisUtils from "../utils/gis-utils";
 import ActionSheet from "../action-sheet";
+import Location from "../services/location";
 
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
@@ -331,6 +332,9 @@ class MyAccount {
         imported.id = -1;
         this.addLandmark(imported);
         document.getElementById("myaccount-landmarks-tab").click();
+        if (Location.isTrackingActive()) {
+          Location.disableTracking();
+        }
         this.map.flyTo({center: imported.geometry.coordinates});
         Toast.show({
           duration: "long",
@@ -390,6 +394,9 @@ class MyAccount {
     const bounds = coordinates.reduce((bounds, coord) => {
       return bounds.extend(coord);
     }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+    if (Location.isTrackingActive()) {
+      Location.disableTracking();
+    }
     this.map.fitBounds(bounds, {
       padding: 100,
     });
@@ -504,6 +511,9 @@ class MyAccount {
     const bounds = coordinates.reduce((bounds, coord) => {
       return bounds.extend(coord);
     }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+    if (Location.isTrackingActive()) {
+      Location.disableTracking();
+    }
     this.map.fitBounds(bounds, {
       padding: 100,
     });
@@ -532,6 +542,9 @@ class MyAccount {
     const bounds = coordinates.reduce((bounds, coord) => {
       return bounds.extend(coord);
     }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+    if (Location.isTrackingActive()) {
+      Location.disableTracking();
+    }
     this.map.fitBounds(bounds, {
       padding: 100,
     });
@@ -548,6 +561,9 @@ class MyAccount {
    * @param {*} landmark
    */
   editLandmark(landmark) {
+    if (Location.isTrackingActive()) {
+      Location.disableTracking();
+    }
     this.map.flyTo({center: landmark.geometry.coordinates});
     this.hide();
     Globals.landmark.show();
@@ -774,6 +790,9 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
       const bounds = coordinates.reduce((bounds, coord) => {
         return bounds.extend(coord);
       }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+      if (Location.isTrackingActive()) {
+        Location.disableTracking();
+      }
       this.map.fitBounds(bounds, {
         padding: 100,
       });
@@ -791,6 +810,9 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
     } else {
       landmark.properties.visible = true;
       this.hide();
+      if (Location.isTrackingActive()) {
+        Location.disableTracking();
+      }
       this.map.flyTo({center: landmark.geometry.coordinates, zoom: 14});
     }
     this.#updateSources();
