@@ -39,6 +39,7 @@ const $routeDrawSave = document.getElementById("routeDrawSave");
 const $fullScreenBtn = null;
 const $mapScale = null;
 
+const $map = document.getElementById("map");
 const $mapCenter = document.getElementById("mapCenter");
 const $mapCenterMenu = document.getElementById("mapCenterMenu");
 const $mapCenterSubmit = document.getElementById("mapCenterSubmit");
