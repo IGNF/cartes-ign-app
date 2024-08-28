@@ -230,17 +230,21 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
     if (tracking_active) {
       let bearing = Globals.map.getBearing();
       let pitch = 0;
+      let padding = 0;
       if (navigation_active) {
         bearing = -mapBearing;
         pitch = 45;
+        padding = {top: DOM.$map.clientHeight * 0.5};
       }
       isMapPanning = true;
-      Globals.map.flyTo({
+      Globals.map.easeTo({
         center: [coords.lon, coords.lat],
         zoom: zoom,
         bearing: bearing,
         pitch: pitch,
-        duration: 500});
+        duration: 500,
+        padding: padding,
+      });
       Globals.map.once("moveend", () => {isMapPanning = false;});
     } else {
       Globals.map.flyTo({
@@ -289,11 +293,9 @@ const watchPositionCallback = (position) => {
       var padding;
       // gestion du mode paysage / écran large
       if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
-                    Math.min(window.innerHeight, window.innerWidth/2) + 42;
-        padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
+        padding = {top: 20, right: 20, bottom: 20, left: 20};
       } else {
-        padding = {top: 80, right: 20, bottom: 120, left: 20};
+        padding = {top: 80, right: 20, bottom: 40, left: 20};
       }
       Globals.map.fitBounds(bbox, {
         padding: padding
@@ -412,6 +414,7 @@ const locationOnOff = async () => {
     }
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
     tracking_active = true;
+    Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
     Globals.map.setCenter([currentPosition.coords.longitude, currentPosition.coords.latitude]);
     Globals.map.touchZoomRotate.disable();
     Globals.map.getCanvasContainer().addEventListener("touchstart", locationOnTouchStartHandler);
@@ -428,10 +431,12 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
     navigation_active = true;
     Globals.map.setMaxPitch(45);
-    Globals.map.flyTo({
+    const padding = {top: DOM.$map.clientHeight * 0.5};
+    Globals.map.easeTo({
       center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
       bearing: -mapBearing,
       pitch: 45,
+      padding: padding,
     });
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
@@ -544,35 +549,27 @@ const getLocation = async () => {
 const disableTracking = () => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
   tracking_active = false;
-  navigation_active = false;
+  if (navigation_active) {
+    Globals.map.setMaxPitch(0);
+    navigation_active = false;
+  }
   Globals.map.touchZoomRotate.enable();
   Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
   Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
-  Toast.show({
-    text: "Suivi de position activé",
-    duration: "short",
-    position: "bottom"
-  });
 };
 
 const disableNavigation = (bearing = Globals.map.getBearing()) => {
-  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
+  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
   navigation_active = false;
-  tracking_active = false;
   Globals.map.flyTo({
     pitch: 0,
     bearing: bearing,
     duration: 500,
   });
-  Globals.map.touchZoomRotate.enable();
-  Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
-  Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
   setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
-  Toast.show({
-    text: "Suivi de position activé",
-    duration: "short",
-    position: "bottom"
-  });
+  if (bearing === 0) {
+    DOM.$compassBtn.classList.add("d-none");
+  }
 };
 
 let listenResumeAfterLocation = false;
