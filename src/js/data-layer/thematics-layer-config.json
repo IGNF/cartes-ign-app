@@ -28,7 +28,7 @@
         "name": "Agriculture",
         "keys": ["appign"],
         "layers": [
-          "LANDUSE.AGRICULTURE2022$GEOPORTAIL:OGC:WMTS",
+          "LANDUSE.AGRICULTURE2023$GEOPORTAIL:OGC:WMTS",
           "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS"
         ]
     },
