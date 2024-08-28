@@ -35,6 +35,7 @@ const $routeDrawRestore = document.getElementById("routeDrawRestore");
 const $routeDrawDelete = document.getElementById("routeDrawDelete");
 const $routeDrawSave = document.getElementById("routeDrawSave");
 
+const $map = document.getElementById("map");
 const $mapCenter = document.getElementById("mapCenter");
 const $mapCenterMenu = document.getElementById("mapCenterMenu");
 const $mapCenterSubmit = document.getElementById("mapCenterSubmit");
@@ -125,4 +126,5 @@ export default {
   $landmarkWindow,
   $tabClose,
   $sideBySideFadeSlider,
+  $map,
 };

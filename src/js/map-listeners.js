@@ -28,11 +28,7 @@ const addListeners = () => {
 
   // Désactivation du tracking au déplacement non programmatique de la carte
   map.on("dragstart", () => {
-    if (Location.isNavigationActive()){
-      Location.disableNavigation(0);
-    } else if (Location.isTrackingActive()){
-      Location.disableTracking();
-    }
+    Location.disableTracking();
   });
 
   // l'event contextmenu n'est pas enclenché par clic long sur la carte... https://github.com/maplibre/maplibre-gl-js/issues/373
