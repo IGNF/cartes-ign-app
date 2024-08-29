@@ -269,6 +269,25 @@ class Compare {
         this.sideBySide.remove();
       }
       this.sideBySide = new MapLibreGlCompare(this.mapRLT1, this.mapRLT2, this.container, { orientation: "vertical" });
+      document.querySelector(".compare-swiper-vertical").tabIndex = 0;
+      document.querySelector(".compare-swiper-vertical").title = "Déplacer la séparation";
+      document.querySelector(".compare-swiper-vertical").addEventListener("keydown", (e) => {
+        document.getElementById("mapRLT1").style.transition = "clip 0.2s";
+        document.getElementById("mapRLT2").style.transition = "clip 0.2s";
+        document.querySelector(".maplibregl-compare").style.transition = "transform 0.2s";
+
+        const currentX = e.target.parentElement.style.transform.split("(")[1].split("px")[0];
+        if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
+          this.sideBySide.setSlider(parseInt(currentX) - 50);
+        } else if (e.key === "ArrowUp" || e.key === "ArrowRight") {
+          this.sideBySide.setSlider(parseInt(currentX) + 50);
+        }
+        setTimeout(() => {
+          document.getElementById("mapRLT1").style.removeProperty("transition");
+          document.getElementById("mapRLT2").style.removeProperty("transition");
+          document.querySelector(".maplibregl-compare").style.removeProperty("transition");
+        }, 200);
+      });
     } else if (this.mode == "upDown") {
       document.querySelector("#compareUpDown").classList.add("selected");
       document.querySelector("#sideBySideFadeSlider").classList.add("d-none");
@@ -279,6 +298,25 @@ class Compare {
         this.sideBySide.remove();
       }
       this.sideBySide = new MapLibreGlCompare(this.mapRLT1, this.mapRLT2, this.container, { orientation: "horizontal" });
+      document.querySelector(".compare-swiper-horizontal").tabIndex = 0;
+      document.querySelector(".compare-swiper-horizontal").title = "Déplacer la séparation";
+      document.querySelector(".compare-swiper-horizontal").addEventListener("keydown", (e) => {
+        document.getElementById("mapRLT1").style.transition = "clip 0.2s";
+        document.getElementById("mapRLT2").style.transition = "clip 0.2s";
+        document.querySelector(".maplibregl-compare").style.transition = "transform 0.2s";
+
+        const currentY = e.target.parentElement.style.transform.split("(")[1].split("px,")[1].split("px")[0].trim();
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+          this.sideBySide.setSlider(parseInt(currentY) + 50);
+        } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+          this.sideBySide.setSlider(parseInt(currentY) - 50);
+        }
+        setTimeout(() => {
+          document.getElementById("mapRLT1").style.removeProperty("transition");
+          document.getElementById("mapRLT2").style.removeProperty("transition");
+          document.querySelector(".maplibregl-compare").style.removeProperty("transition");
+        }, 200);
+      });
     } else if (this.mode == "fade") {
       document.querySelector("#compareFade").classList.add("selected");
       if (this.sideBySide) {
