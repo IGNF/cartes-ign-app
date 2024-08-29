@@ -60,6 +60,7 @@
     "capacitor-native-settings": "^6.0.0",
     "chart.js": "^4.4.1",
     "install": "^0.13.0",
+    "lodash": "^4.17.21",
     "maplibre-gl": "^4.3.2",
     "npm": "^10.5.0",
     "proj4": "^2.10.0"

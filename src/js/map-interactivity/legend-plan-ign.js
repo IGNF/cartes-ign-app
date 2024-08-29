@@ -214,7 +214,7 @@ function getLegend(svg, layername) {
   return html;
 }
 
-function Legend(features, zoom) {
+function legend(features, zoom) {
 
   const source = features.length > 0 ? features[0].source : "";
   let legend = "";
@@ -328,4 +328,7 @@ function Legend(features, zoom) {
   return legend;
 }
 
-export default Legend;
+export default {
+  legend,
+  beautifyLayerName
+};

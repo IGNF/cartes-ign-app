@@ -20,6 +20,7 @@ import ComparePoi from "./compare-poi/compare-poi";
 import Signalement from "./signalement";
 import SignalementOSM from "./signalement-osm";
 import Landmark from "./landmark";
+import MapboxAccessibility from "./poi-accessibility";
 
 import LocationLayers from "./services/location-styles";
 
@@ -132,6 +133,7 @@ const addControls = () => {
         });
         // Poi RLT
         Globals.comparePoi = new ComparePoi(map, {});
+        Globals.osmPoiAccessibility = new MapboxAccessibility(map, {});
         Globals.myaccount.addLandmarksLayers();
         // Cercle de précision sur la position
         Globals.map.addLayer(LocationLayers["precision"]);

@@ -142,7 +142,7 @@ class MapInteractivity {
         };
         Globals.position.compute({
           lngLat: ev.lngLat,
-          text: Legend(features, Math.floor(this.map.getZoom())),
+          text: Legend.legend(features, Math.floor(this.map.getZoom())),
           html: featureHTML.before,
           html2: featureHTML.after,
           hideCallback: deselectPoiCallback,
@@ -213,7 +213,7 @@ class MapInteractivity {
           this.#clearSources();
           await Globals.position.compute({
             lngLat: ev.lngLat,
-            text: Legend(features, Math.floor(this.map.getZoom())),
+            text: Legend.legend(features, Math.floor(this.map.getZoom())),
             html: featureHTML.before,
             html2: featureHTML.after
           });
