@@ -581,6 +581,219 @@
       }
     },
     {
+			"id": "bati ZAI - Gris 14à18",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "bati_zai",
+            "minzoom":13,
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "visible"
+			},
+            "filter": ["in","nature",
+									"Aérodrome",
+									"Aéroport"
+            ],
+			"paint": {
+				"fill-color": "#C8C8C8",
+                "fill-opacity": 0.3,
+				"fill-outline-color": "#787878"
+			},
+      "metadata": {
+        "legend-title": "Aérodrome, Aéroport"
+      }
+		},
+		{
+			"id": "bati ZAI - Gris 16à18",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "bati_zai",
+            "minzoom":15,
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "visible"
+			},
+            "filter": ["in","nature",
+									"Aire de repos ou de service",
+									"Aire d'accueil des gens du voyage",
+									"Parc des expositions",
+									"Déchèterie",
+									"Carrière",
+									"Divers commercial",
+									"Marché",
+									"Divers industriel",
+									"Zone industrielle",
+									"Usine",
+									"Station d'épuration"
+            ],
+			"paint": {
+				"fill-color": "#C8C8C8",
+                "fill-opacity": 0.3,
+				"fill-outline-color": "#787878"
+			},
+      "metadata": {
+        "legend-title": "Aire de repos, déchèterie, zone industrielle ou usine"
+      }
+		},
+		{
+			"id": "bati ZAI - Gris clair",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "bati_zai",
+            "minzoom":13,
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "visible"
+			},
+            "filter": ["==","nature","Parking"],
+			"paint": {
+				"fill-color": "#EBEBF5",
+                "fill-opacity": 0.3,
+				"fill-outline-color": "#AAAAAA"
+			},
+      "metadata": {
+        "legend-title": "Parking"
+      }
+		},
+		{
+			"id": "bati ZAI - Vert clair 14à18",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "bati_zai",
+            "minzoom":13,
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "visible"
+			},
+            "filter": ["==","nature","Espace public Vert"],
+			"paint": {
+				"fill-color": "#c0ebd2",
+                "fill-opacity": 0.5,
+				"fill-outline-color": "#76d764"
+			},
+      "metadata": {
+        "legend-title": "Espace vert"
+      }
+		},
+		{
+			"id": "bati ZAI - Vert clair 16à18",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "bati_zai",
+            "minzoom":15,
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "visible"
+			},
+            "filter": ["in","nature",
+									"Aire de détente",
+									"Camping",
+									"Parc de loisirs",
+									"Parc zoologique"
+            ],
+			"paint": {
+				"fill-color": "#c0ebd2",
+                "fill-opacity": 0.5,
+				"fill-outline-color": "#76d764"
+			},
+      "metadata": {
+        "legend-title": "Camping, parc, zoo ou aire de détente"
+      }
+		},
+		{
+			"id": "bati ZAI - Beige",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "bati_zai",
+            "minzoom":15,
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "visible"
+			},
+            "filter": ["==","nature","Espace public Beige"],
+			"paint": {
+				"fill-color": "#FAE6A0",
+                "fill-opacity": 0.5,
+				"fill-outline-color": "#FAE6A0"
+			},
+      "metadata": {
+        "legend-title": "Place ou esplanade"
+      }
+		},
+		{
+			"id": "bati ZAI - Vert foncé",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "bati_zai",
+            "minzoom":15,
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "visible"
+			},
+            "filter": ["in","nature",
+									"Golf",
+									"Hippodrome",
+									"Piscine",
+									"Sports mécaniques",
+									"Equipement de cyclisme",
+									"Autre équipement sportif",
+									"Centre équestre",
+									"Haras",
+									"Stade"
+            ],
+			"paint": {
+				"fill-color": "#99C12B",
+                "fill-opacity": 0.3,
+				"fill-outline-color": "#99C12B"
+			},
+      "metadata": {
+        "legend-title": "Zone d'activité sportive"
+      }
+		},
+		{
+			"id": "bati ZAI - Marron",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "bati_zai",
+            "minzoom":15,
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "visible"
+			},
+            "filter": ["in","nature",
+									"Construction",
+									"Vestige archéologique"
+            ],
+			"paint": {
+				"fill-color": "#99642B",
+                "fill-opacity": 0.3,
+				"fill-outline-color": "#99642B"
+			},
+      "metadata": {
+        "legend-title": "Construction ou vestige archéologique"
+      }
+		},
+		{
+			"id": "bati ZAI - Gris Bleu Elec",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "bati_zai",
+            "minzoom":15,
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "visible"
+			},
+            "filter": ["==","nature","Centrale électrique"],
+			"paint": {
+				"fill-color": "#7993B6",
+                "fill-opacity": 0.3,
+				"fill-outline-color": "#7993B6"
+			},
+      "metadata": {
+        "legend-title": "Centrale électique"
+      }
+		},
+    {
       "id": "zone batie",
       "type": "fill",
       "source": "plan_ign",
@@ -1658,9 +1871,9 @@
         "line-join": "round"
       },
       "filter": [
-        "==",
+        "in",
         "symbo",
-        "PISTE_CYCLABLE_SOU"
+        "PISTE_CYCLABLE_SOU", "VOIE_VERTE_SOU"
       ],
       "paint": {
         "line-color": "#AB81CC",
@@ -1928,6 +2141,30 @@
       }
     },
     {
+			"id": "Routier souterrain - filet extérieur - route non revetu carrosable restreint",
+			"type": "line",
+			"source": "plan_ign",
+			"source-layer": "routier_route_sou",
+			"maxzoom": 18,
+      "metadata": {
+        "legend-group": "route_souterrain_non_revetu_carrossable_restreint",
+        "legend-title": "Route non revêtue carrossable souterraine restreinte"
+      },
+			"layout": {
+				"visibility": "visible",
+                "line-cap": "round",
+                "line-join": "round"
+			},
+			"filter": ["==","symbo","NON_REVETUE_CARRO_RESTREINT_SOU"],
+			"paint": {
+				"line-color": "#AFAFAF",
+		        "line-width": {
+				"stops": [[14, 3.2], [15, 5.4], [16, 7.7], [17, 16.8]]
+                },
+				"line-dasharray": [2,2]
+			}
+		},
+    {
       "id": "Routier souterrain - filet extérieur - route non revetu carrosable",
       "type": "line",
       "source": "plan_ign",
@@ -1975,6 +2212,29 @@
         ]
       }
     },
+    {
+			"id": "Routier souterrain - filet interieur - route non revetu carrosable restreint",
+			"type": "line",
+			"source": "plan_ign",
+			"source-layer": "routier_route_sou",
+			"maxzoom": 18,
+      "metadata": {
+        "legend-group": "route_souterrain_non_revetu_carrossable_restreint",
+        "legend-title": "Route non revêtue carrossable souterraine restreinte"
+      },
+			"layout": {
+				"visibility": "visible",
+                "line-cap": "round",
+                "line-join": "round"
+			},
+			"filter": ["==","symbo","NON_REVETUE_CARRO_RESTREINT_SOU"],
+			"paint": {
+				"line-color": "#F2F5FF",
+		        "line-width": {
+				"stops": [[14, 2.3], [15, 4.1], [16, 6.3], [17, 13.5]]
+                }
+			}
+		},
     {
       "id": "Routier souterrain - filet interieur - route non revetu carrosable",
       "type": "line",
@@ -4287,8 +4547,8 @@
         "NATATION_SURF"
       ],
       "paint": {
-        "fill-color": "#FFFFFF",
-        "fill-outline-color": "#BCD9AB"
+        "fill-color": "#F1F5E7",
+        "fill-outline-color": "#F1F5E7"
       }
     },
     {
@@ -4374,7 +4634,6 @@
         "Office de tourisme",
         "Hôpital",
         "Police",
-        "Piscine",
         "Enseignement supérieur",
         "Poste",
         "Caserne",
@@ -4383,7 +4642,10 @@
         "Science",
         "Structure d'accueil pour personnes handicapées",
         "Administration centrale de l'Etat",
-        "Caserne de pompiers"
+        "Caserne de pompiers",
+        "Centre de documentation",
+        "Salle de spectacle ou conférence",
+        "Ecomusée"
       ],
       "paint": {
         "fill-color": "#E3BFE2",
@@ -4585,9 +4847,9 @@
         "line-join": "round"
       },
       "filter": [
-        "==",
+        "in",
         "symbo",
-        "PISTE_CYCLABLE"
+        "PISTE_CYCLABLE", "VOIE_VERTE"
       ],
       "paint": {
         "line-color": "#9B5CCC",
@@ -4882,6 +5144,30 @@
       }
     },
     {
+			"id": "Routier a niveau - filet extérieur - route non revetu carrosable restreint",
+			"type": "line",
+			"source": "plan_ign",
+			"source-layer": "routier_route",
+			"maxzoom": 18,
+			"layout": {
+				"visibility": "visible",
+                "line-cap": "round",
+                "line-join": "round"
+			},
+			"filter": ["==","symbo","NON_REVETUE_CARRO_RESTREINT"],
+			"paint": {
+				"line-color": {"stops": [[12, "#646464"], [17, "#8C8C8C"]]},
+		        "line-width": {
+				"stops": [[14, 3.2], [15, 5.4], [16, 7.7], [17, 16.8]]
+                },
+				"line-dasharray": [2,2]
+			},
+      "metadata": {
+      "legend-group": "routier_a_niveau_route_non_revetu_carrossable_restreint",
+      "legend-title": "Route non revêtue carrossable restreinte"
+    }
+		},
+    {
       "id": "Routier a niveau - filet extérieur - route non revetu carrosable",
       "type": "line",
       "source": "plan_ign",
@@ -4935,6 +5221,28 @@
       "metadata": {
         "legend-group": "routier_a_niveau_route_non_revetu_carrossable",
         "legend-title": "Route non revêtue carrossable"
+      }
+    },
+    {
+      "id": "Routier a niveau - filet interieur - route non revetu carrosable restreint",
+      "type": "line",
+      "source": "plan_ign",
+      "source-layer": "routier_route",
+      "layout": {
+        "visibility": "visible",
+                "line-cap": "round",
+                "line-join": "round"
+      },
+      "filter": ["==","symbo","NON_REVETUE_CARRO_RESTREINT"],
+      "paint": {
+        "line-color": "#EDF1FF",
+            "line-width": {
+        "stops": [[14, 2.3], [15, 4.1], [16, 6.3], [17, 13.5], [18, 16.8]]
+                }
+      },
+      "metadata": {
+        "legend-group": "routier_a_niveau_route_non_revetu_carrossable_restreint",
+        "legend-title": "Route non revêtue carrossable restreinte"
       }
     },
     {
@@ -6777,7 +7085,7 @@
         "symbo",
         "BAC_AUTO",
         "LIAISON_MARITIME",
-        "BAC_LIAISON_MARITIME"
+        "BAC"
       ],
       "paint": {
         "line-color": "#5792C2",
@@ -7264,9 +7572,9 @@
         "line-join": "round"
       },
       "filter": [
-        "==",
+        "in",
         "symbo",
-        "PISTE_CYCLABLE_SUP"
+        "PISTE_CYCLABLE_SUP", "VOIE_VERTE_SUP"
       ],
       "paint": {
         "line-color": "#9B5CCC",
@@ -7561,6 +7869,30 @@
       }
     },
     {
+      "id": "Routier superieur - filet extérieur - route non revetu carrosable restreint",
+			"type": "line",
+			"source": "plan_ign",
+			"source-layer": "routier_route_sup",
+			"maxzoom": 18,
+      "metadata": {
+        "legend-group": "routier_superieur_route_non_revetue_carrossable_restreint",
+        "legend-title": "Route non revêtue carrosable restreinte"
+      },
+			"layout": {
+				"visibility": "visible",
+                "line-cap": "butt",
+                "line-join": "round"
+			},
+			"filter": ["==","symbo","NON_REVETUE_CARRO_RESTREINT_SUP"],
+			"paint": {
+				"line-color": {"stops": [[12, "#646464"], [17, "#8C8C8C"]]},
+		        "line-width": {
+				"stops": [[14, 3.2], [15, 5.4], [16, 7.7], [17, 16.8]]
+                },
+				"line-dasharray": [2,2]
+			}
+		},
+    {
       "id": "Routier superieur - filet extérieur - route non revetu carrosable",
       "type": "line",
       "source": "plan_ign",
@@ -7616,6 +7948,28 @@
         "legend-title": "Route non revêtue carrosable"
       }
     },
+    {
+      "id": "Routier superieur - filet interieur - route non revetu carrosable restreint",
+			"type": "line",
+			"source": "plan_ign",
+			"source-layer": "routier_route_sup",
+			"layout": {
+				"visibility": "visible",
+                "line-cap": "butt",
+                "line-join": "round"
+			},
+			"filter": ["==","symbo","NON_REVETUE_CARRO_RESTREINT_SUP"],
+			"paint": {
+				"line-color": "#EDF1FF",
+		        "line-width": {
+				"stops": [[14, 2.3], [15, 4.1], [16, 6.3], [17, 13.5], [18, 16.8]]
+                }
+			},
+      "metadata": {
+        "legend-group": "routier_superieur_route_non_revetue_carrossable_restreint",
+        "legend-title": "Route non revêtue carrosable restreinte"
+      }
+		},
     {
       "id": "Routier superieur - filet interieur - route non revetu carrosable",
       "type": "line",
@@ -11321,7 +11675,7 @@
         "GARE_VOYAGEURS"
       ],
       "paint": {
-        "icon-color": "#787878"
+        "icon-color": "#4E4E4E"
       },
       "metadata": {
         "legend-title": "Gare ferroviaire"
@@ -11649,6 +12003,26 @@
       }
     },
     {
+      "id": "toponyme religieux ge zoom 18 à 19",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_bati_ponc",
+            "minzoom":17,
+            "filter": ["==","txt_typo","religieux_ge"],
+      "layout": {
+        "visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{texte}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+      },
+      "paint": {
+                "text-color": "#000000"
+      }
+    },
+    {
       "id": "toponyme parc d'attractions zoom 14",
       "type": "symbol",
       "source": "plan_ign",
@@ -11717,6 +12091,29 @@
         "text-color": "#000000"
       }
     },
+    {
+      "id": "toponyme parc d'attractions ge zoom 18 à 19",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":17,
+            "filter": ["all",
+						["==","txt_typo","divers_bati_ge"],
+						["==","symbo","PARC_ATTRACTIONS"]
+			],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{texte}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#000000"
+			}
+		},
     {
       "id": "toponyme bati divers zoom 15",
       "type": "symbol",
@@ -11791,6 +12188,56 @@
       }
     },
     {
+      "id": "toponyme Hippodrome ge zoom 15 a 17",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":14,
+            "maxzoom":17,
+            "filter": ["all",
+						["==","txt_typo","divers_bati_ge"],
+						["==","symbo","HIPPODROME"]
+			],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{designation}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#000000"
+			}
+		},
+		{
+			"id": "toponyme bati divers ge zoom 18 à 19",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":17,
+            "filter": ["all",
+						["==","txt_typo","divers_bati_ge"],
+						["in","symbo",
+										"CENTRALE_ELECTRIQUE",
+										"HIPPODROME",
+										"STADE"]
+			],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{texte}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#000000"
+			}
+		},
+    {
       "id": "toponyme chateau zoom 16",
       "type": "symbol",
       "source": "plan_ign",
@@ -11861,6 +12308,53 @@
         "text-color": "#000000"
       }
     },
+    {
+      "id": "toponyme chateau ge zoom 16 a 17",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":15,
+            "maxzoom":17,
+            "filter": ["all",
+						["==","txt_typo","divers_bati_ge"],
+						["==","symbo","CHATEAU"]
+			],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{designation}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#000000"
+			}
+		},
+		{
+			"id": "toponyme chateau ge zoom 18 à 19",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":17,
+            "filter": ["all",
+						["==","txt_typo","divers_bati_ge"],
+						["==","symbo","CHATEAU"]
+			],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{texte}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#000000"
+			}
+		},
     {
       "id": "toponyme station epuration, de pompage, usine de production eau",
       "type": "symbol",
@@ -13606,7 +14100,7 @@
       }
     },
     {
-      "id": "toponyme bati ponc zai zoom 17 et 18",
+      "id": "toponyme bati ponc zai zoom 17 a 19",
       "type": "symbol",
       "source": "plan_ign",
       "source-layer": "toponyme_bati_ponc",
@@ -13630,6 +14124,164 @@
       "paint": {
         "text-color": "#000000"
       }
+    },
+    {
+			"id": "toponyme bati ponc zai_15 zoom 15",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":14,
+            "maxzoom":15,
+            "filter": ["==","txt_typo","zai_15"],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{designation}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#000000"
+			}
+		},
+		{
+			"id": "toponyme bati ponc zai_15 zoom 16 a 19",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":15,
+            "filter": ["==","txt_typo","zai_15"],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{texte}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#000000"
+			}
+		},
+		{
+			"id": "toponyme bati ponc zai zoom 16 vert",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":15,
+			"maxzoom":16,
+            "filter": ["==","txt_typo","zai_vert"],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{designation}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#287B00",
+                "text-halo-color": "rgba(255, 255, 255, 0.5)",
+                "text-halo-width": 1
+			}
+		},
+		{
+			"id": "toponyme bati ponc zai zoom 17 a 19 vert",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":16,
+            "filter": ["==","txt_typo","zai_vert"],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{texte}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#287B00",
+                "text-halo-color": "rgba(255, 255, 255, 0.5)",
+                "text-halo-width": 1
+			}
+		},
+		{
+			"id": "toponyme bati ponc zai zoom 17 a 19 beige",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":16,
+            "filter": ["==","txt_typo","zai_beige"],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{texte}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#686042",
+                "text-halo-color": "rgba(255, 255, 255, 0.5)",
+                "text-halo-width": 1
+			}
+		},
+		{
+			"id": "toponyme bati ponc monuments zoom 15 à 19",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":14,
+            "filter": ["all",
+						["==","txt_typo","divers_bati"],
+						["==","symbo","MONUMENT"]
+			],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{texte}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#000000",
+                "text-halo-color": "rgba(255, 255, 255, 0.5)",
+                "text-halo-width": 1
+			}
+		},
+		{
+			"id": "toponyme bati ponc monuments ge zoom 18 à 19",
+			"type": "symbol",
+			"source": "plan_ign",
+			"source-layer": "toponyme_bati_ponc",
+            "minzoom":17,
+            "filter": ["all",
+						["==","txt_typo","divers_bati_ge"],
+						["==","symbo","MONUMENT"]
+			],
+			"layout": {
+				"visibility": "visible",
+                "symbol-placement": "point",
+                "text-field": "{texte}",
+                "text-size": 11,
+                "text-allow-overlap": false,
+                "text-padding": 1,
+                "text-font": ["Source Sans Pro Italic"]
+			},
+			"paint": {
+                "text-color": "#000000",
+                "text-halo-color": "rgba(255, 255, 255, 0.5)",
+                "text-halo-width": 1
+			}
     },
     {
       "id": "toponyme localite importance 4",

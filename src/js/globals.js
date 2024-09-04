@@ -87,6 +87,9 @@ let myaccount = null;
 // Global control compare Poi
 let comparePoi = null;
 
+// Global control osm poi accessibility
+let osmPoiAccessibility = null;
+
 // Global control signalement
 let signalement = null;
 let signalementOSM = null;
@@ -145,4 +148,5 @@ export default {
   online,
   mapLoaded,
   walkingSpeed,
+  osmPoiAccessibility,
 };

@@ -43,7 +43,7 @@
   position: fixed;
 }
 
-.maplibregl-compare .compare-swiper-vertical {
+.maplibregl-compare > .compare-swiper-vertical {
   background-color: white;
   background-image: url(assets/map-buttons/compare/compare-slider.svg);
   background-position: center;
@@ -51,11 +51,25 @@
   touch-action: none;
 }
 
-.maplibregl-compare .compare-swiper-horizontal {
+.maplibregl-compare .compare-swiper-vertical::after {
+  content: "";
+  display: block;
+  padding: 125px 20px;
+  transform: translate(0, -85px);
+}
+
+.maplibregl-compare > .compare-swiper-horizontal {
   transform:rotate(90deg) translate(0, 50%);
   background-color: white;
   background-image: url(assets/map-buttons/compare/compare-slider.svg);
   background-position: center;
   background-repeat: no-repeat;
   touch-action: none;
+}
+
+.maplibregl-compare .compare-swiper-horizontal::after {
+  content: "";
+  display: block;
+  padding: 125px 30px;
+  transform: translate(0, -95px);
 }

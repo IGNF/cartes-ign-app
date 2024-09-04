@@ -27,6 +27,7 @@ import maplibregl from "maplibre-gl";
 import ElevationLine from "../services/elevation-line";
 import ElevationLineLayers from "./elevation-line-styles";
 import Globals from "../globals";
+import Location from "../services/location";
 
 import { Toast } from "@capacitor/toast";
 
@@ -190,6 +191,9 @@ class ElevationLineControl {
           const bounds = coordinates.reduce((bounds, coord) => {
             return bounds.extend(coord);
           }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+          if (Location.isTrackingActive()) {
+            Location.disableTracking();
+          }
           Globals.map.fitBounds(bounds, {
             padding: {bottom: window.scrollY},
           });

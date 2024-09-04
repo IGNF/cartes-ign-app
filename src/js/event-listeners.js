@@ -318,6 +318,9 @@ function addListeners() {
         if (url.url.split("://")[0] === "https") {
           const urlParams = new URLSearchParams(url.url.split("?")[1]);
           if (urlParams.get("lng") && urlParams.get("lat")) {
+            while (Globals.backButtonState.split("-")[0] !== "default") {
+              State.onBackKeyDown();
+            }
             const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
             const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
             map.flyTo({zoom: zoom, center: center});

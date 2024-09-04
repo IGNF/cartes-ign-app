@@ -152,11 +152,11 @@ const gfiRules = {
       ],
     }
   },
-  "LANDUSE.AGRICULTURE2022$GEOPORTAIL:OGC:WMTS": {
+  "LANDUSE.AGRICULTURE2023$GEOPORTAIL:OGC:WMTS": {
     0 :{
       "pretitle": "Culture : ",
       "title": "@nom_cultu",
-      "subtitle": "Registre parcellaire graphique 2022 - Source : Agence de services et de paiements (ASP)",
+      "subtitle": "Registre parcellaire graphique 2023 - Source : Agence de services et de paiements (ASP)",
     }
   },
 

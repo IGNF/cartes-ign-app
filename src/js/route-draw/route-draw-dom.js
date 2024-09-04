@@ -477,9 +477,9 @@ let RouteDrawDOM = {
   },
 
   __informChangeTransportImpossible() {
-    let msg = "Impossible de changer de mode en cours de saisie";
+    let msg = "Vous avez choisi le mode de locomotion véhicule. Vous ne pouvez pas le modifier en cours de saisie.";
     if (this.transport === "pedestrian") {
-      msg = "Impossible de changer de véhicule en cours de saisie";
+      msg = "Vous avez choisi le mode de locomotion piéton. Vous ne pouvez pas le modifier en cours de saisie.";
     }
     Toast.show({
       text: msg,

@@ -352,7 +352,9 @@ class Directions {
           const bounds = routeCoordinates.reduce((bounds, coord) => {
             return bounds.extend(coord);
           }, new maplibregl.LngLatBounds(routeCoordinates[0], routeCoordinates[0]));
-
+          if (Location.isTrackingActive()) {
+            Location.disableTracking();
+          }
           this.map.fitBounds(bounds, {
             padding: padding,
           });
@@ -573,6 +575,9 @@ class Directions {
         const bounds = self.previewPoints.reduce((bounds, coord) => {
           return bounds.extend(coord);
         }, new maplibregl.LngLatBounds(self.previewPoints[0], self.previewPoints[0]));
+        if (Location.isTrackingActive()) {
+          Location.disableTracking();
+        }
         self.map.fitBounds(bounds, {
           padding: padding,
         });

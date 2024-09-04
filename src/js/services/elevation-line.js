@@ -40,8 +40,8 @@ const compute = async (coordinateList) => {
   }
   controller = new AbortController();
   let coordinateListList = [];
-  while (coordinateList.length > 3000) {
-    coordinateListList.push(coordinateList.splice(0, 3000));
+  while (coordinateList.length > 1500) {
+    coordinateListList.push(coordinateList.splice(0, 1500));
   }
   coordinateListList.push(coordinateList);
   const promiseList = [];
