@@ -46,7 +46,14 @@ let gisUtils = {
     }
 
     return dissolvedCoords;
-  }
+  },
+
+  // https://en.wikipedia.org/wiki/Naismith's_rule#Scarf's_equivalence_between_distance_and_climb
+  // all parameters in standard units (meters and m/s, result in seconds)
+  getHikeTimeScarfsRule(horizontalDistance, verticalDistance, speed) {
+    const equivalentDistance = horizontalDistance + 7.92 * verticalDistance;
+    return equivalentDistance / speed;
+  },
 };
 
 export default gisUtils;

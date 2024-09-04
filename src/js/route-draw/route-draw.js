@@ -12,6 +12,8 @@ import DOM from "../dom";
 import RouteDrawLayers from "./route-draw-styles";
 import Reverse from "../services/reverse";
 
+import GisUtils from "../utils/gis-utils";
+
 import MapLibreGL from "maplibre-gl";
 import { Toast } from "@capacitor/toast";
 
@@ -890,6 +892,7 @@ class RouteDraw {
       if (this.dataHistory[this.currentHistoryPosition]) {
         this.dataHistory[this.currentHistoryPosition].elevationData = JSON.parse(JSON.stringify(this.data.elevationData));
       }
+      this.data.duration = GisUtils.getHikeTimeScarfsRule(this.data.distance, this.data.elevationData.dplus, Globals.walkingSpeed);
       this.__updateRouteInfo(this.data);
       // Si mode lecture seule mais que l'alti est recalculée (non sauvegardé de base), on la rajoute dans les données enregistrées
       if (this.readonly) {

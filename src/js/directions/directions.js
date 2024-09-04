@@ -11,6 +11,9 @@ import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
 import DirectionsLayers from "./directions-styles";
 import directionsSortableCallback from "./directions-sortable-callback";
+import Globals from "../globals";
+
+import GisUtils from "../utils/gis-utils";
 
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
@@ -360,7 +363,10 @@ class Directions {
           this.elevation.target = document.getElementById("directions-elevationline");
           this.elevation.loadingDomInDocument = false;
           this.elevation.setCoordinates(routeCoordinates);
-          this.elevation.compute(e.data.routes[0].distance);
+          this.elevation.compute(e.data.routes[0].distance).then( () => {
+            const newDuration = GisUtils.getHikeTimeScarfsRule(this.results.options.distance, this.elevation.dplus, Globals.walkingSpeed);
+            this.results.updateDuration(newDuration);
+          });
         }
       }
     });
