@@ -17124,7 +17124,7 @@
       "source": "bdtopo",
       "source-layer": "transport_par_cable",
       "paint": {
-        "line-color": "red",
+        "line-color": "transparent",
         "line-width": 15
       }
     },
