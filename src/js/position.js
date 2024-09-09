@@ -495,7 +495,7 @@ https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=${zoom}`;
           <div class="divPositionTitle">Adresse la plus proche du point sélectionné</div>
           <div class="divPopupClose" onclick="onCloseaddressInfoPopup(event)"></div>
           <div class="divPopupContent">
-          L'adresse affichée est obtenue grâce au service de géocodage inverse. Ce service retourne, à partir d'un point sur la carte, l'adresse correspondante la plus proche. Selon ce principe, une adresse retournée peut différer de l'adresse postale d'un lieu.
+              L'adresse affichée est obtenue grâce au service de géocodage inverse. Ce service retourne, à partir d'un point sur la carte, l'adresse de la Base Adresse Nationale (BAN) la plus proche. Selon ce principe, une adresse affichée peut différer de l'adresse connue d'un lieu.
           </div>
       </div>
       `,
