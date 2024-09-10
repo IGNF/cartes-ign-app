@@ -30,4 +30,4 @@ def convertFileStopsToStep(path):
     json.dump(style, file, indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":
-  convertFileStopsToStep("www/data/mixte.json")
+  convertFileStopsToStep("www/data/plan-ign-interactif-style.json")
