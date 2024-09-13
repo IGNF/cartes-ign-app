@@ -16483,11 +16483,69 @@
       ]
     },
     {
+      "id": "espace_public",
+      "type": "fill",
+      "source": "bdtopo",
+      "source-layer": "zone_d_activite_ou_d_interet",
+      "minzoom": 14,
+      "maxzoom": 18,
+      "paint": {
+        "fill-color": "transparent"
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "nature",
+          "Espace public"
+        ]
+      ]
+    },
+    {
+      "id": "culture_et_loisirs",
+      "type": "fill",
+      "source": "bdtopo",
+      "source-layer": "zone_d_activite_ou_d_interet",
+      "minzoom": 14,
+      "maxzoom": 18,
+      "paint": {
+        "fill-color": "transparent"
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "categorie",
+          "Culture et loisirs"
+        ]
+      ]
+    },
+    {
+      "id": "industriel_et_commercial",
+      "type": "fill",
+      "source": "bdtopo",
+      "source-layer": "zone_d_activite_ou_d_interet",
+      "minzoom": 14,
+      "maxzoom": 18,
+      "paint": {
+        "fill-color": "transparent"
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          "categorie",
+          "Industriel et commercial"
+        ]
+      ]
+    },
+    {
       "id": "sport",
       "type": "fill",
       "source": "bdtopo",
       "source-layer": "zone_d_activite_ou_d_interet",
       "minzoom": 14,
+      "maxzoom": 18,
       "paint": {
         "fill-color": "transparent"
       },
@@ -16497,11 +16555,6 @@
           "==",
           "categorie",
           "Sport"
-        ],
-        [
-          "!=",
-          "nature",
-          "Autre équipement sportif"
         ]
       ]
     },
