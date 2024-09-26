@@ -636,7 +636,7 @@
         "fill-outline-color": "#787878"
       },
       "metadata": {
-        "legend-title": "Aire de repos, déchèterie, zone industrielle ou usine"
+        "legend-title": "Zone industrielle ou commerciale"
       }
     },
     {
@@ -711,7 +711,7 @@
         "fill-outline-color": "#76d764"
       },
       "metadata": {
-        "legend-title": "Camping, parc, zoo ou aire de détente"
+        "legend-title": "Zone de loisirs"
       }
     },
     {
@@ -16604,6 +16604,7 @@
               "Autre service déconcentré de l'Etat",
               "Préfecture",
               "Préfecture de région",
+              "Hôtel de région",
               "Divers public ou administratif",
               "Etablissement pénitentiaire",
               "Gendarmerie",
