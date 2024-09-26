@@ -255,6 +255,14 @@ function app() {
   }
 
   // Chargement des couches par defaut dans le localStorage
+  // En premier lieu : on ne garde que les layers bien présents dans l'appli (peut arriver lors d'un màj si on supprime ou remplace une couche)
+  const newLayersDisplayed = [];
+  Globals.layersDisplayed.forEach( (layer) => {
+    if ((layer.id in LayersConfig.thematicLayerSources) || (layer.id in LayersConfig.baseLayerSources)) {
+      newLayersDisplayed.push(layer);
+    }
+  });
+  Globals.layersDisplayed = newLayersDisplayed;
   Globals.manager = new LayerManager({
     layers : Globals.layersDisplayed,
   });
