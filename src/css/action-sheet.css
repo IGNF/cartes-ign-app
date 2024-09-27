@@ -49,3 +49,9 @@ action-sheet {
   border-radius: 100px;
   transition: color 0.2s, background-color 0.2s;
 }
+
+.actionSheet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

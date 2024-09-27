@@ -8,6 +8,7 @@ import Globals from "../globals";
 import LayersConfig from "./layer-config";
 import LayersGroup from "./layer-group";
 import LayersAdditional from "./layer-additional";
+import ActionSheet from "../action-sheet";
 
 import Sortable from "sortablejs";
 
@@ -406,30 +407,55 @@ class LayerSwitcher extends EventTarget {
     var index = this.#getIndex(id);
 
     // outils avancés
-    shadow.getElementById(`visibility_ID_${index}`).addEventListener("click", (e) => {
-      var id = this.#getId(index);
-      this.#setVisibility(id, e.target.checked);
-    });
-    shadow.getElementById(`remove_ID_${index}`).addEventListener("click", () => {
-      var id = this.#getId(index);
-      this.removeLayer(id);
-    });
-    shadow.getElementById(`info_ID_${index}`).addEventListener("click", () => {
-      var id = this.#getId(index);
-      var text = document.getElementById("informationsText");
-      var p = LayersConfig.getLayerProps(id);
-      text.innerHTML = `
-      <p>${p.desc}</p>
-      <p><span class="layerInfoSource">Source :</span> ${p.source}</p>
-      <p><span class="layerInfoMaj">Mise à jour :</span> ${p.maj}</p>
-      `;
-      var img = document.getElementById("informationsImg");
-      img.src = LayersAdditional.getLegend(id.split("$")[0]);
-      Globals.menu.open("informations");
-    });
-    shadow.getElementById(`color_ID_${index}`).addEventListener("click", (e) => {
-      var id = this.#getId(index);
-      this.#setColor(id, e.target.checked);
+    shadow.getElementById(`show-advanced-tools_ID_${index}`).addEventListener("click", () => {
+      const invisibleClass = this.layers[id].visibility ? "" : " invisible";
+      ActionSheet.show({
+        options: [
+          {
+            class: "tools-layer-color",
+            text: !this.layers[id].gray ? "Afficher en noir et blanc" : "Afficher en couleur",
+            value: "greyscale",
+          },
+          {
+            class: `tools-layer-visibility${invisibleClass}`,
+            text: this.layers[id].visibility ? "Masquer" : "Afficher",
+            value: "visibility",
+          },
+          {
+            class: "tools-layer-info",
+            text: "Informations",
+            value: "info",
+          },
+          {
+            class: "tools-layer-remove",
+            text: "Retirer",
+            value: "remove",
+          },
+        ],
+        timeToHide: 50,
+      }).then( (value) => {
+        if (value === "visibility") {
+          this.#setVisibility(id, !this.layers[id].visibility);
+        }
+        if (value === "remove") {
+          this.removeLayer(id);
+        }
+        if (value === "info") {
+          var text = document.getElementById("informationsText");
+          var p = LayersConfig.getLayerProps(id);
+          text.innerHTML = `
+          <p>${p.desc}</p>
+          <p><span class="layerInfoSource">Source :</span> ${p.source}</p>
+          <p><span class="layerInfoMaj">Mise à jour :</span> ${p.maj}</p>
+          `;
+          var img = document.getElementById("informationsImg");
+          img.src = LayersAdditional.getLegend(id.split("$")[0]);
+          Globals.menu.open("informations");
+        }
+        if (value === "greyscale") {
+          this.#setColor(id, this.layers[id].gray);
+        }
+      });
     });
 
     // opacité des couches
@@ -453,12 +479,7 @@ class LayerSwitcher extends EventTarget {
   #addLayerContainer(id) {
     var quickLookUrl = this.layers[id].quickLookUrl || ImageNotFound;
     var opacity = this.layers[id].opacity;
-    var gray = this.layers[id].gray;
-    var visibility = this.layers[id].visibility;
     var title =  this.layers[id].title || id.split("$")[0];
-
-    var visibilityChecked = visibility ? "checked" : "";
-    var grayChecked = !gray ? "checked" : "";
 
     var index = this.#getIndex(id);
 
@@ -479,15 +500,6 @@ class LayerSwitcher extends EventTarget {
           </div>
         </div>
         <label id="show-advanced-tools_ID_${index}" title="Plus d'outils" class="tools-layer-advanced"></label>
-        <div id="advanced-tools_ID_${index}" class="tools-layer-advanced-menu">
-          <!-- N&B, visibility, info, remove -->
-          <input type="checkbox" id="color_ID_${index}" ${grayChecked} />
-          <label id="color-picto_ID_${index}" for="color_ID_${index}" title="Couleur/NB" class="tools-layer-color">Noir et blanc</label>
-          <input type="checkbox" id="visibility_ID_${index}" ${visibilityChecked} />
-          <label id="visibility-picto_ID_${index}" for="visibility_ID_${index}" title="Afficher/masquer la couche" class="tools-layer-visibility">Masquer/afficher</label>
-          <div id="info_ID_${index}" class="tools-layer-info" title="Informations de la couche">Informations</div>
-          <div id="remove_ID_${index}" class="tools-layer-remove" title="Supprimer la couche">Supprimer</div>
-        </div>
       </div>
       `;
 

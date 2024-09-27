@@ -133,95 +133,19 @@ label[id^="show-advanced-tools_ID_"]:hover {
   background-color: var(--grey-2);
 }
 
-#position-landmark-advanced-tools,
-#route-draw-advanced-tools,
-div[id^="landmark-advanced-tools_ID_"],
-div[id^="route-advanced-tools_ID_"],
-div[id^="advanced-tools_ID_"] {
-  margin: auto;
-  display: flex;
-  overflow: hidden;
-  padding: 0;
-  transition: max-height 0s;
-  max-height: 0px;
-  border-radius: 5px;
-  background-color: white;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
-  z-index: 1;
-  width: fit-content;
-  flex-direction: column;
-  position: absolute;
-  left: 110px;
-  bottom: 50%;
-}
-
-div[id^="landmark-advanced-tools_ID_"],
-div[id^="route-advanced-tools_ID_"] {
-  right: 30px;
-  left: unset;
-}
-
-#route-draw-advanced-tools, #position-landmark-advanced-tools {
-  right: 30px;
-  left: unset;
-}
-
-#position-landmark-show-advanced-tools:focus-within + #position-landmark-advanced-tools,
-#route-draw-show-advanced-tools:focus-within + #route-draw-advanced-tools,
-label[id^="landmark-show-advanced-tools_ID_"]:focus-within
-  + div[id^="landmark-advanced-tools_ID_"],
-label[id^="route-show-advanced-tools_ID_"]:focus-within
-  + div[id^="route-advanced-tools_ID_"],
-label[id^="show-advanced-tools_ID_"]:focus-within
-  + div[id^="advanced-tools_ID_"],
-#route-draw-advanced-tools:focus-within,
-#position-landmark-advanced-tools:focus-within,
-div[id^="landmark-advanced-tools_ID_"]:focus-within,
-div[id^="route-advanced-tools_ID_"]:focus-within,
-div[id^="advanced-tools_ID_"]:focus-within,
-#position-landmark-show-advanced-tools:hover + #position-landmark-advanced-tools,
-#route-draw-show-advanced-tools:hover + #route-draw-advanced-tools,
-label[id^="landmark-show-advanced-tools_ID_"]:hover
-  + div[id^="landmark-advanced-tools_ID_"],
-label[id^="route-show-advanced-tools_ID_"]:hover
-  + div[id^="route-advanced-tools_ID_"],
-label[id^="show-advanced-tools_ID_"]:hover
-  + div[id^="advanced-tools_ID_"],
-#route-draw-advanced-tools:hover,
-#position-landmark-advanced-tools:hover,
-div[id^="landmark-advanced-tools_ID_"]:hover,
-div[id^="route-advanced-tools_ID_"]:hover,
-div[id^="advanced-tools_ID_"]:hover
-  {
-  display: flex;
-  max-height: 250px;
-  padding: 18px 15px;
-  transition: max-height 0.6s ease-out;
-  gap: 20px;
-}
-
-
-input[id^="landmark-visibility_ID_"],
-input[id^="route-visibility_ID_"],
-input[id^="visibility_ID_"],
-input[id^="color_ID_"] {
-  display: none;
-}
-label[id^="color-picto_ID_"] {
+.tools-layer-color {
   background-image: url("./assets/layer-switcher/nb-layer.svg");
 }
 
-label[id^="landmark-visibility-picto_ID_"],
-label[id^="route-visibility-picto_ID_"],
-label[id^="visibility-picto_ID_"] {
+.tools-layer-visibility {
   background-image: url("./assets/layer-switcher/hide-layer.svg");
 }
 
-input[type=checkbox]:checked + .tools-layer-visibility {
+.tools-layer-visibility.invisible {
   background-image: url("./assets/layer-switcher/show-layer.svg");
 }
 
-div[id^="info_ID_"] {
+.tools-layer-info {
   background-image: url("./assets/layer-switcher/info-layer.svg");
 }
 
@@ -229,7 +153,7 @@ div[id^="info_ID_"] {
   background-image: url("./assets/layer-switcher/delete-layer.svg");
 }
 
-.tools-layer-remove:hover {
+.tools-layer-remove.confirm-needed:hover {
   background-image: url("./assets/layer-switcher/delete-layer-confirm.svg");
   color: var(--orange);
 }

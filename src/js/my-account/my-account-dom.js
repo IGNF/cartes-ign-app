@@ -6,6 +6,7 @@
 
 import { Toast } from "@capacitor/toast";
 
+import ActionSheet from "../action-sheet";
 import utils from "../utils/unit-utils";
 import DomUtils from "../utils/dom-utils";
 
@@ -201,11 +202,12 @@ let MyAccountDOM = {
   __addRouteContainer(route) {
     var title = route.name;
     var routeId = route.id;
-    var checked = route.visible ? "checked" : "";
+
+    var invisibleClass = route.visible ? "" : "invisible";
 
     // Template d'une route
     var tplContainer = `
-      <div class="tools-layer-panel draggable-layer" id="route-container_ID_${routeId}">
+      <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="route-container_ID_${routeId}">
         <div class="handle-draggable-layer" id="route-cross-picto_ID_${routeId}"></div>
         <div id="route-basic-tools_ID_${routeId}">
           <label class="routeDrawSummaryTransport lblRouteDrawSummaryTransport${route.transport}"></label>
@@ -219,14 +221,6 @@ let MyAccountDOM = {
           </div>
         </div>
         <label id="route-show-advanced-tools_ID_${routeId}" title="Plus d'outils" class="tools-layer-advanced"></label>
-        <div id="route-advanced-tools_ID_${routeId}" class="tools-layer-advanced-menu">
-          <div id="route-share_ID_${routeId}" class="tools-layer-share" title="Partager l'itinéraire">Partager</div>
-          <input type="checkbox" id="route-visibility_ID_${routeId}" ${checked}/>
-          <label id="route-visibility-picto_ID_${routeId}" for="route-visibility_ID_${routeId}" title="Afficher/masquer l'itinéraire'" class="tools-layer-visibility">Afficher/masquer</label>
-          <div id="route-edit_ID_${routeId}" class="tools-layer-edit" title="Modifier l'itinéraire">Modifier</div>
-          <div id="route-export_ID_${routeId}" class="tools-layer-export" title="Exporter l'itinéraire">Exporter</div>
-          <div id="route-remove_ID_${routeId}" class="tools-layer-remove" title="Supprimer l'itinéraire'">Supprimer</div>
-        </div>
       </div>
       `;
 
@@ -236,40 +230,71 @@ let MyAccountDOM = {
     // Event listener vide pour gestion du touch
     container.querySelector(".handle-draggable-layer").addEventListener("click", () => { });
 
-    container.querySelector(`#route-share_ID_${routeId}`).addEventListener("click", () => {
-      this.shareRoute(route);
-    });
-
-    container.querySelector(`#route-export_ID_${routeId}`).addEventListener("click", () => {
-      this.exportRoute(route);
+    container.querySelector(`#route-show-advanced-tools_ID_${routeId}`).addEventListener("click", () => {
+      const invisibleClass = route.visible ? "" : " invisible";
+      ActionSheet.show({
+        options: [
+          {
+            class: "tools-layer-share",
+            text: "Partager",
+            value: "share",
+          },
+          {
+            class: `tools-layer-visibility${invisibleClass}`,
+            text: route.visible ? "Masquer de la carte" : "Afficher sur la carte",
+            value: "visibility",
+          },
+          {
+            class: "tools-layer-edit",
+            text: "Modifier",
+            value: "edit",
+          },
+          {
+            class: "tools-layer-export",
+            text: "Exporter",
+            value: "export",
+          },
+          {
+            class: "tools-layer-remove confirm-needed",
+            text: "Supprimer",
+            value: "delete",
+            confirmCallback: () => {
+              Toast.show({
+                text: "Confirmez la suppression de l'itinéraire",
+                duration: "short",
+                position: "bottom"
+              });
+            }
+          },
+        ],
+        timeToHide: 50,
+      }).then( (value) => {
+        if (value === "visibility") {
+          if (route.visible) {
+            container.classList.add("invisible");
+          } else {
+            container.classList.remove("invisible");
+          }
+          this.toggleShowRoute(route);
+        }
+        if (value === "share") {
+          this.shareRoute(route);
+        }
+        if (value === "edit") {
+          this.editRoute(route);
+        }
+        if (value === "export") {
+          this.exportRoute(route);
+        }
+        if (value === "delete") {
+          this.deleteRoute(routeId);
+        }
+      });
     });
 
     // Au clic sur l'itinéraire = l'afficher
     container.querySelector(`#route-basic-tools_ID_${routeId}`).addEventListener("click", () => {
       this.showRouteDetails(route);
-    });
-
-    container.querySelector(`#route-visibility_ID_${routeId}`).addEventListener("click", () => {
-      this.toggleShowRoute(route);
-    });
-
-    container.querySelector(`#route-edit_ID_${routeId}`).addEventListener("click", () => {
-      this.editRoute(route);
-    });
-
-    let hasBeenClicked = false;
-    container.querySelector(`#route-remove_ID_${routeId}`).addEventListener("click", () => {
-      if (!hasBeenClicked) {
-        Toast.show({
-          text: "Confirmez la suppression de l'itinéraire",
-          duration: "short",
-          position: "bottom"
-        });
-        hasBeenClicked = true;
-      } else {
-        this.deleteRoute(routeId);
-        hasBeenClicked = false;
-      }
     });
 
     if (!container) {
@@ -287,11 +312,12 @@ let MyAccountDOM = {
   __addLandmarkContainer(landmark) {
     var title = landmark.properties.title;
     var landmarkId = landmark.id;
-    var checked = landmark.properties.visible ? "checked" : "";
+
+    var invisibleClass = landmark.properties.visible ? "" : "invisible";
 
     // Template d'une route
     var tplContainer = `
-      <div class="tools-layer-panel draggable-layer" id="landmark-container_ID_${landmarkId}">
+      <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="landmark-container_ID_${landmarkId}">
         <div class="handle-draggable-layer" id="landmark-cross-picto_ID_${landmarkId}"></div>
         <div id="landmark-basic-tools_ID_${landmarkId}">
           <label class="landmarkSummaryIcon landmarkSummaryIcon${landmark.properties.icon}" style="background-color:${landmark.properties.color}"></label>
@@ -300,14 +326,6 @@ let MyAccountDOM = {
           </div>
         </div>
         <label id="landmark-show-advanced-tools_ID_${landmarkId}" title="Plus d'outils" class="tools-layer-advanced"></label>
-        <div id="landmark-advanced-tools_ID_${landmarkId}" class="tools-layer-advanced-menu">
-          <div id="landmark-share_ID_${landmarkId}" class="tools-layer-share" title="Partager le point de repère">Partager</div>
-          <input type="checkbox" id="landmark-visibility_ID_${landmarkId}" ${checked}/>
-          <label id="landmark-visibility-picto_ID_${landmarkId}" for="landmark-visibility_ID_${landmarkId}" title="Afficher/masquer le point de repère" class="tools-layer-visibility">Afficher/masquer</label>
-          <div id="landmark-edit_ID_${landmarkId}" class="tools-layer-edit" title="Modifier le point de repère">Modifier</div>
-          <div id="landmark-export_ID_${landmarkId}" class="tools-layer-export" title="Exporter le point de repère">Exporter</div>
-          <div id="landmark-remove_ID_${landmarkId}" class="tools-layer-remove" title="Supprimer le point de repère'">Supprimer</div>
-        </div>
       </div>
       `;
 
@@ -317,49 +335,72 @@ let MyAccountDOM = {
     // Event listener vide pour gestion du touch
     container.querySelector(".handle-draggable-layer").addEventListener("click", () => { });
 
-    container.querySelector(`#landmark-share_ID_${landmarkId}`).addEventListener("click", () => {
-      this.shareLandmark(landmark);
-    });
-
-    container.querySelector(`#landmark-export_ID_${landmarkId}`).addEventListener("click", () => {
-      this.exportLandmark(landmark);
+    container.querySelector(`#landmark-show-advanced-tools_ID_${landmarkId}`).addEventListener("click", () => {
+      const invisibleClass = landmark.properties.visible ? "" : " invisible";
+      ActionSheet.show({
+        options: [
+          {
+            class: "tools-layer-share",
+            text: "Partager",
+            value: "share",
+          },
+          {
+            class: `tools-layer-visibility${invisibleClass}`,
+            text: landmark.properties.visible ? "Masquer de la carte" : "Afficher sur la carte",
+            value: "visibility",
+          },
+          {
+            class: "tools-layer-edit",
+            text: "Modifier",
+            value: "edit",
+          },
+          {
+            class: "tools-layer-export",
+            text: "Exporter",
+            value: "export",
+          },
+          {
+            class: "tools-layer-remove confirm-needed",
+            text: "Supprimer",
+            value: "delete",
+            confirmCallback: () => {
+              Toast.show({
+                text: "Confirmez la suppression du point de repère",
+                duration: "short",
+                position: "bottom"
+              });
+            }
+          },
+        ],
+        timeToHide: 50,
+      }).then( (value) => {
+        if (value === "visibility") {
+          if (landmark.properties.visible) {
+            container.classList.add("invisible");
+          } else {
+            container.classList.remove("invisible");
+          }
+          this.toggleShowLandmark(landmark);
+        }
+        if (value === "share") {
+          this.shareLandmark(landmark);
+        }
+        if (value === "edit") {
+          this.editLandmark(landmark);
+        }
+        if (value === "export") {
+          this.exportLandmark(landmark);
+        }
+        if (value === "delete") {
+          this.deleteLandmark(landmarkId);
+        }
+      });
     });
 
     // Au clic sur le PR = l'afficher
     container.querySelector(`#landmark-basic-tools_ID_${landmarkId}`).addEventListener("click", () => {
-      const buttonToClick = container.querySelector(`#landmark-visibility_ID_${landmarkId}`);
-      if (buttonToClick.checked) {
-        buttonToClick.click();
-      }
-      buttonToClick.click();
-    });
-
-    container.querySelector(`#landmark-visibility_ID_${landmarkId}`).addEventListener("click", () => {
-      this.toggleShowLandmark(landmark);
-    });
-
-    container.querySelector(`#landmark-edit_ID_${landmarkId}`).addEventListener("click", () => {
-      this.editLandmark(landmark);
-    });
-
-    let deleteLandmark = () => {
-      this.deleteLandmark(landmarkId);
-    };
-
-    let handleDeleteLandmark = deleteLandmark.bind(this);
-
-    container.querySelector(`#landmark-remove_ID_${landmarkId}`).addEventListener("click", () => {
-      Toast.show({
-        text: "Confirmez la suppression du point de repère",
-        duration: "short",
-        position: "bottom"
-      });
-      container.querySelector(`#landmark-remove_ID_${landmarkId}`).addEventListener("click", handleDeleteLandmark);
-    });
-
-    document.addEventListener("click", (event) => {
-      if (!event.target.closest(`#landmark-remove_ID_${landmarkId}`)) {
-        container.querySelector(`#landmark-remove_ID_${landmarkId}`).removeEventListener("click", handleDeleteLandmark);
+      if (!landmark.properties.visible) {
+        this.toggleShowLandmark(landmark);
       }
     });
 

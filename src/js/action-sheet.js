@@ -78,11 +78,24 @@ class ActionSheet extends EventTarget {
       const option = options[i];
       const elem = document.createElement("div");
       if (option.class) {
-        elem.classList.add(option.class);
+        option.class.split(" ").forEach( (cssClass) => {
+          elem.classList.add(cssClass);
+        });
       }
       elem.classList.add(elementClass);
       elem.innerText = option.text;
+      let hasBeenClicked = false;
       elem.addEventListener("click", (e) => {
+
+        if (elem.classList.contains("confirm-needed")) {
+          if (!hasBeenClicked) {
+            hasBeenClicked = true;
+            if (option.confirmCallback) {
+              option.confirmCallback();
+            }
+            return;
+          }
+        }
 
         if (wrapperClass === "actionSheet-buttons") {
           e.target.style.color = "white";
@@ -103,7 +116,7 @@ class ActionSheet extends EventTarget {
               }
             })
           );
-        }, 600);
+        }, this._timeToHide);
       });
       div.appendChild(elem);
     }
@@ -113,15 +126,17 @@ class ActionSheet extends EventTarget {
   async show(settings) {
     this.settings = settings || {
       style: "list", // can be "buttons", "list", "custom"
-      options: [], // {class: "", text: "", value: ""}
+      options: [], // {class: "", text: "", value: "", confirmCallback: null}
       title: "",
       content: "", // dom element if "custom" style
+      timeToHide: 600, // ms, time after option select to hide
     };
 
     this._title = this.settings.title || "";
     this._options = this.settings.options || [];
     this._style = this.settings.style || "list";
     this._content = this.settings.content || "";
+    this._timeToHide = this.settings.timeToHide || 600;
 
     this._listeners();
     this._createHtml();
