@@ -206,7 +206,7 @@
   position: absolute;
   bottom: calc(72px + 15px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
   width: calc(100vw - 30px);
-  height: 82px;
+  height: calc(82px + 1em - 13px);
   padding: 10px 26px;
   box-sizing: border-box;
   left: 50%;
@@ -224,6 +224,8 @@
   background-color: var(--false-white);
   border: 1px solid var(--false-white);
   box-shadow: unset;
+  display: flex;
+  justify-content: center;
 }
 
 #routeDrawCancel {
@@ -263,10 +265,11 @@
 #routeDrawEdit > .button > span {
   position: absolute;
   bottom: 6px;
-  width: 42px;
-  display: flex;
-  justify-content: center;
+  width: fit-content;
+  max-width: 70px;
   font-family: "Open Sans Semibold";
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #mapCenter {
