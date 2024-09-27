@@ -3,12 +3,11 @@
 #layer-thematics-number,
 #layer-switcher-number {
   display: inline-block;
-  width: 18px;
-  height: 18px;
-  line-height: 18px;
+  width: 1.2em;
+  height: 0.9em;
+  line-height: 0.9em;
   text-align: center;
   font-size: 0.9em;
-  margin: auto;
   border-radius: 50px;
   background-color: var(--dark-green);
   color: white;
@@ -29,17 +28,23 @@
 }
 
 .layer-tabs-label {
-  width: 50%;
-  height: 35px;
+  width: 47%;
+  min-height: 35px;
+  height: auto;
   cursor: pointer;
-  display: block;
-  text-align: center;
-  white-space: nowrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 2px solid var(--grey-2);
   font-family: "Fira Sans SemiBold";
   font-size: 15px;
   position: sticky;
   top: calc(39px + var(--safe-area-inset-top));
+}
+
+.layer-tabs-label-text {
+  flex-grow: 1;
+  text-align: center;
 }
 
 .scrolledMax .layer-tabs-label {
