@@ -171,6 +171,10 @@
   flex-shrink: 0;
 }
 
+.nav-picto {
+  align-self: flex-start;
+}
+
 .nav-arrow {
   background-image: url(../html/img/right-arrow.svg);
   margin-left: auto;
