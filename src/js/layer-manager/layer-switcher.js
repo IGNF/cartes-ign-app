@@ -428,7 +428,7 @@ class LayerSwitcher extends EventTarget {
           },
           {
             class: "tools-layer-remove",
-            text: "Retirer",
+            text: "Retirer de ma sélection",
             value: "remove",
           },
         ],

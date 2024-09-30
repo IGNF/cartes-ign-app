@@ -14,6 +14,7 @@ class ActionSheet extends EventTarget {
   _targetWrapper = document.getElementById("sheetContent");
   _targetContent = document.getElementById("sheetOptions");
   _closeElem = document.getElementById("sheetClose");
+  _shown = false;
 
   constructor() {
     super();
@@ -124,6 +125,16 @@ class ActionSheet extends EventTarget {
   }
 
   async show(settings) {
+    // Si on demande l'ouverture de l'ActionSheet alors qu'elle est ouverte, on attend qu'elle se ferme.
+    if (this._shown) {
+      await new Promise((resolve) => {
+        this.addEventListener("hideSheet", () => {
+          resolve(null);
+        });
+      });
+    }
+
+    this._shown = true;
     this.settings = settings || {
       style: "list", // can be "buttons", "list", "custom"
       options: [], // {class: "", text: "", value: "", confirmCallback: null}
@@ -163,6 +174,18 @@ class ActionSheet extends EventTarget {
     setTimeout( () => {
       this._target.classList.add("d-none");
       this._clearHtml();
+      this._shown = false;
+      /**
+       * Evenement "hideSheet"
+       * @event hideSheet
+       * @type {*}
+       * @property {*} value -
+       */
+      this.dispatchEvent(
+        new CustomEvent("hideSheet", {
+          bubbles: true,
+        })
+      );
     }, 500);
   }
 }

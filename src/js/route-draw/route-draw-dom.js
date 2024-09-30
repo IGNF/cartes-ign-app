@@ -5,7 +5,6 @@
  */
 
 import utils from "../utils/unit-utils";
-import DomUtils from "../utils/dom-utils";
 
 import ActionSheet from "../action-sheet";
 
@@ -78,36 +77,55 @@ let RouteDrawDOM = {
     labelAdvancedTools.title = "Plus d'outils";
     labelAdvancedTools.className = "tools-layer-advanced";
 
-    var tplContainer = `
-    <div id="route-draw-advanced-tools" class="tools-layer-advanced-menu">
-      <div id="route-draw-advanced-edit" class="tools-layer-edit" title="Modifier l'itinéraire">Modifier</div>
-      <div id="route-draw-advanced-share" class="tools-layer-share" title="Partager l'itinéraire">Partager</div>
-      <div id="route-draw-advanced-export" class="tools-layer-export" title="Exporter l'itinéraire">Exporter</div>
-      <div id="route-draw-advanced-remove" class="tools-layer-remove" title="Supprimer l'itinéraire'">Supprimer</div>
-    </div>
-    `;
-
-    var advancedTools = DomUtils.stringToHTML(tplContainer.trim());
-    advancedTools.querySelector("#route-draw-advanced-share").addEventListener("click", this.shareRoute.bind(this));
-    advancedTools.querySelector("#route-draw-advanced-export").addEventListener("click", this.exportRoute.bind(this));
-    advancedTools.querySelector("#route-draw-advanced-edit").addEventListener("click", this.openEdition.bind(this));
-    let hasBeenClicked = false;
-    advancedTools.querySelector("#route-draw-advanced-remove").addEventListener("click", () => {
-      if (!hasBeenClicked) {
-        Toast.show({
-          text: "Confirmez la suppression de l'itinéraire",
-          duration: "short",
-          position: "bottom"
-        });
-        hasBeenClicked = true;
-      } else {
-        this.deleteRoute();
-        hasBeenClicked = false;
-      }
+    labelAdvancedTools.addEventListener("click", () => {
+      ActionSheet.show({
+        options: [
+          {
+            class: "tools-layer-edit",
+            text: "Modifier",
+            value: "edit",
+          },
+          {
+            class: "tools-layer-share",
+            text: "Partager",
+            value: "share",
+          },
+          {
+            class: "tools-layer-export",
+            text: "Exporter",
+            value: "export",
+          },
+          {
+            class: "tools-layer-remove confirm-needed",
+            text: "Supprimer",
+            value: "delete",
+            confirmCallback: () => {
+              Toast.show({
+                text: "Confirmez la suppression de l'itinéraire",
+                duration: "short",
+                position: "bottom"
+              });
+            }
+          },
+        ],
+        timeToHide: 50,
+      }).then( (value) => {
+        if (value === "share") {
+          this.shareRoute();
+        }
+        if (value === "edit") {
+          this.openEdition();
+        }
+        if (value === "export") {
+          this.exportRoute();
+        }
+        if (value === "delete") {
+          this.deleteRoute();
+        }
+      });
     });
 
     wrapper.appendChild(labelAdvancedTools);
-    wrapper.appendChild(advancedTools);
     div.appendChild(wrapper);
     return div;
   },

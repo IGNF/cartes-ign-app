@@ -502,7 +502,6 @@ class MyAccount {
     if (route.visible) {
       route.visible = false;
       this.#updateSources();
-      document.getElementById(`route-visibility_ID_${route.id}`).checked = false;
     }
     let coordinates = [];
     route.data.steps.forEach((step) => {
@@ -526,6 +525,14 @@ class MyAccount {
   }
 
   /**
+   * Ouvre l'outil de tracé d'itinéraire pour modifier un itinéraire à partir de son ID
+   * @param {Number} routeId
+   */
+  editRouteFromID(routeId) {
+    this.editRoute(this.#getRouteFromID(routeId));
+  }
+
+  /**
    * Ouvre l'outil de tracé d'itinéraire en mode consultation pour afficher les caractéristiques techniques
    * @param {*} route
    */
@@ -533,7 +540,7 @@ class MyAccount {
     if (!route.visible) {
       route.visible = true;
       this.#updateSources();
-      document.getElementById(`route-visibility_ID_${route.id}`).checked = true;
+      document.getElementById(`route-container_ID_${route.id}`).classList.remove("invisible");
     }
     let coordinates = [];
     route.data.steps.forEach((step) => {
@@ -651,7 +658,14 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
         dialogTitle: "Partager mon itinéraire (résumé)",
       });
     }
+  }
 
+  /**
+  * Partage l'itinéraire sous forme de fichier à partir de son ID
+  * @param {Number} routeId
+  */
+  shareRouteFromID(routeId) {
+    this.shareRoute(this.#getRouteFromID(routeId));
   }
 
   /**
@@ -672,7 +686,7 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
   }
 
   /**
-   * Exporte l'itinéraire sous forme d'un ficheir geojson
+   * Exporte l'itinéraire sous forme d'un fichier
    * @param {*} route
    */
   async exportRoute(route) {
@@ -745,6 +759,14 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
   }
 
   /**
+  * Exporte l'itinéraire sous forme d'un fichier à partir de son ID
+  * @param {Number} routeId
+  */
+  exportRouteFromID(routeId) {
+    this.exportRoute(this.#getRouteFromID(routeId));
+  }
+
+  /**
    * Exporte le point de repère sous forme d'un ficheir geojson
    * @param {*} route
    */
@@ -801,6 +823,17 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
   }
 
   /**
+  * Affiche l'itinéraire s'il est caché à partir de son ID
+  * @param {Number} routeId
+  */
+  showRouteFromID(routeId) {
+    const route = this.#getRouteFromID(routeId);
+    if (!route.visible) {
+      this.toggleShowRoute();
+    }
+  }
+
+  /**
    * Affiche le point de repère s'il est caché, ou le cache s'il est affiché
    * @param {*} landmark
    */
@@ -816,6 +849,26 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
       this.map.flyTo({center: landmark.geometry.coordinates, zoom: 14});
     }
     this.#updateSources();
+  }
+
+  /**
+   * Récupère un itinéraire via son ID
+   * @param {Number} routeId
+   * @returns route
+   */
+  #getRouteFromID(routeId) {
+    if (routeId === null) {
+      console.error("Null route ID");
+      return;
+    }
+    let route;
+    for (let i = 0; i < Globals.myaccount.routes.length; i++) {
+      route = Globals.myaccount.routes[i];
+      if (route.id === routeId) {
+        break;
+      }
+    }
+    return route;
   }
 
   /**

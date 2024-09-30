@@ -285,32 +285,29 @@ class RouteDraw {
     }
     const routeId = this.routeId;
     this.hide();
-    document.getElementById(`route-edit_ID_${routeId}`).click();
+    Globals.myaccount.editRouteFromID(routeId);
   }
 
   /**
    * Partage l'itinéraire à l'aide de la méthode de myAccount
    */
   shareRoute() {
-    const routeId = this.routeId;
-    document.getElementById(`route-share_ID_${routeId}`).click();
+    Globals.myaccount.shareRouteFromID(this.routeId);
   }
 
   /**
    * Exporte l'itinéraire à l'aide de la méthode de myAccount
    */
   exportRoute() {
-    const routeId = this.routeId;
-    document.getElementById(`route-export_ID_${routeId}`).click();
+    Globals.myaccount.exportRouteFromID(this.routeId);
   }
 
   /**
    * Supprime l'itinéraire à l'aide de la méthode de myAccount
    */
   deleteRoute() {
-    const routeId = this.routeId;
     this.hide();
-    Globals.myaccount.deleteRoute(routeId);
+    Globals.myaccount.deleteRoute(this.routeId);
   }
 
   /**
@@ -1147,10 +1144,9 @@ class RouteDraw {
    * @public
    */
   hide() {
-    const routeId = this.routeId;
     Globals.menu.close("routeDraw");
-    if (routeId !== null && !document.getElementById(`route-visibility_ID_${routeId}`).checked) {
-      document.getElementById(`route-visibility_ID_${routeId}`).click();
+    if (this.routeId !== null) {
+      Globals.myaccount.showRouteFromID(this.routeId);
     }
   }
 }
