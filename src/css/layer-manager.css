@@ -2,7 +2,7 @@
 #myaccount-landmarks-number,
 #layer-thematics-number,
 #layer-switcher-number {
-  display: inline-block;
+  display: flex;
   width: 1.2rem;
   height: 0.9rem;
   line-height: 0.9em;
@@ -13,6 +13,8 @@
   color: white;
   font-family: "Open Sans";
   padding: 3px 5px;
+  justify-content: center;
+  align-items: center;
 }
 
 .layer-tabs-wrap {

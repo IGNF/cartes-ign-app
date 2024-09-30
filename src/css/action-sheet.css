@@ -48,6 +48,8 @@ action-sheet {
   margin-right: 18px;
   border-radius: 100px;
   transition: color 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: center;
 }
 
 .actionSheet-list {
