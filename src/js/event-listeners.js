@@ -273,6 +273,7 @@ function addListeners() {
       TextZoom.set({
         value: Math.min(1.5, value.value)
       });
+      document.documentElement.style.fontSize = `calc(13px * ${value.value})`;
     });
   });
 

@@ -45,7 +45,8 @@
   justify-content: space-around;
   margin: auto;
   height: 34px;
-  width: 220px;
+  width: 17rem;
+  max-width: calc(100% - 16px);
   background-color: var(--light-grey);
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.08);
   padding: 8px;
@@ -82,19 +83,19 @@
 
 .divDirectionsTransport input[id="directionsTransportVoiture"]:checked ~ .sliderDirections,
 .divDirectionsComputation input[id="directionsComputationShortest"]:checked ~ .sliderComputation {
-  transform: translateX(58px);
+  transform: translateX(4.5rem);
 }
 
 .divDirectionsTransport input[id="directionsTransportPieton"]:checked ~ .sliderDirections,
 .divDirectionsComputation input[id="directionsComputationFastest"]:checked ~ .sliderComputation {
-  transform: translateX(-58px);
+  transform: translateX(-4.5rem);
 }
 
 .sliderDirections, .sliderComputation {
   position: absolute;
   display: flex;
   height: 44px;
-  width: 115px;
+  width: 9rem;
   background-color: var(--dark-green);
   z-index: 1;
   border-radius: 100px;
@@ -262,7 +263,8 @@
   display: flex;
   width: 180px;
   height: 40px;
-  justify-content: space-around;
+  padding-left: 40px;
+  align-items: center;
   background-image: url("assets/directions/location-step-add.svg");
   line-height: 40px;
   background-position-y: 9px;
