@@ -151,7 +151,7 @@ class InteractivityIndicator {
       clearTimeout(this.timeoutID3);
       this.timeoutID1 = setTimeout(() => {
         DOM.$interactivityBtn.style.backgroundColor = "#26A581DD";
-        DOM.$interactivityBtn.style.width = "230px";
+        DOM.$interactivityBtn.style.width = "calc(110px + 9.7em)";
         this.timeoutID2 = setTimeout(() => {
           DOM.$interactivityBtn.style.removeProperty("width");
           this.timeoutID3 = setTimeout(() => {
@@ -182,7 +182,7 @@ class InteractivityIndicator {
       this.timeoutID1 = setTimeout(() => {
         DOM.$interactivityBtn.style.color = "#3F4A55";
         DOM.$interactivityBtn.style.backgroundColor = "#F4F6F8E5";
-        DOM.$interactivityBtn.style.width = "270px";
+        DOM.$interactivityBtn.style.width = "calc(110px + 12.8em)";
         this.timeoutID2 = setTimeout(() => {
           DOM.$interactivityBtn.style.removeProperty("width");
           this.timeoutID3 = setTimeout(() => {
