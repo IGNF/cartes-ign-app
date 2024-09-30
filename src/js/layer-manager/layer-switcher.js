@@ -435,6 +435,11 @@ class LayerSwitcher extends EventTarget {
         timeToHide: 50,
       }).then( (value) => {
         if (value === "visibility") {
+          if (this.layers[id].visibility) {
+            document.getElementById(`container_ID_${index}`).classList.add("invisible");
+          } else {
+            document.getElementById(`container_ID_${index}`).classList.remove("invisible");
+          }
           this.#setVisibility(id, !this.layers[id].visibility);
         }
         if (value === "remove") {
@@ -482,10 +487,11 @@ class LayerSwitcher extends EventTarget {
     var title =  this.layers[id].title || id.split("$")[0];
 
     var index = this.#getIndex(id);
+    const invisibleClass = this.layers[id].visibility ? "" : " invisible";
 
     // Template d'une couche
     var tplContainer = `
-      <div class="tools-layer-panel draggable-layer" id="container_ID_${index}">
+      <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="container_ID_${index}">
         <div class="handle-draggable-layer" id="cross-picto_ID_${index}"></div>
         <div id="basic-tools_ID_${index}">
           <div id="thumbnail_ID_${index}">

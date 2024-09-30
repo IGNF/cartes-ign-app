@@ -20,7 +20,7 @@
   flex-wrap: wrap;
   position: relative;
   justify-content: space-evenly;
-  /* align-items: center; */
+  column-gap: 2%;
 }
 
 .layer-tabs-input {
@@ -28,7 +28,7 @@
 }
 
 .layer-tabs-label {
-  width: 47%;
+  width: 49%;
   min-height: 35px;
   height: auto;
   cursor: pointer;

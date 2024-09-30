@@ -10,13 +10,16 @@
   min-height: 160px;
 }
 
-
 div[id^="landmark-container_ID_"],
 div[id^="route-container_ID_"],
 div[id^="container_ID_"] {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+div[id^="container_ID_"].invisible > div[id^=basic-tools_ID_] {
+  opacity: 0.5;
 }
 
 .tools-layer-panel {
@@ -47,7 +50,6 @@ div[id^="landmark-basic-tools_ID_"],
 div[id^="route-basic-tools_ID_"] {
   align-items: center
 }
-
 
 div[id^="thumbnail_ID_"] {
   height: 50px;

@@ -159,8 +159,8 @@ div[id^=route-basic-tools_ID_] {
   width: 100%;
 }
 
-div[id^="route-container_ID_"].invisible,
-div[id^="landmark-container_ID_"].invisible {
+div[id^="route-container_ID_"].invisible > div[id^="route-basic-tools_ID_"],
+div[id^="landmark-container_ID_"].invisible > div[id^=landmark-basic-tools_ID_] {
   opacity: 0.5;
 }
 
