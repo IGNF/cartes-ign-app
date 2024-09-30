@@ -82,10 +82,11 @@
 .divIsochroneTransport {
   display: flex;
   position: relative;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: auto;
   height: 34px;
-  width: 220px;
+  width: 17rem;
+  max-width: calc(100% - 16px);
   background-color: var(--light-grey);
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.08);
   padding: 10px;
@@ -98,12 +99,12 @@
 .lblIsochroneMode,
 .lblIsochroneTransport {
   color: var(--mid-grey);
-  padding-left: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
+  column-gap: 5px;
   height: 30px;
-  width: 120px;
+  width: 50%;
   border-radius: 100px;
   cursor: pointer;
   transition: color 0.15s ease-in;
@@ -112,10 +113,6 @@
   background-position: 13px;
   font-family: "Open Sans";
   font-size: 14px;
-}
-
-.lblIsochroneTransport {
-  padding-left: 30px;
 }
 
 .lblCompareLayerType,
@@ -132,39 +129,49 @@
 .divCompareLayerType input[id^="layerSelectorCartes"]:checked ~ .sliderIsochrone,
 .divIsochroneMode input[id="isochroneModeDistance"]:checked ~ .sliderIsochrone,
 .divIsochroneTransport input[id="isochroneTransportVoiture"]:checked ~ .sliderIsochrone {
-  transform: translateX(53px);
+  transform: translateX(calc(100% - 15px));
 }
 
 .divCompareLayerType input[id^="layerSelectorPhotos"]:checked ~ .sliderIsochrone,
 .divIsochroneMode input[id="isochroneModeDuration"]:checked ~ .sliderIsochrone,
 .divIsochroneTransport input[id="isochroneTransportPieton"]:checked ~ .sliderIsochrone {
-  transform: translateX(-53px);
+  transform: translateX(-5px);
 }
 
 .sliderIsochrone {
   position: absolute;
   display: flex;
   height: 44px;
-  width: 120px;
+  width: 50%;
   z-index: 1;
   border-radius: 100px;
   transition: 0.25s ease-out;
   background-color: var(--dark-green);
 }
 
-#isochroneTransportVoiture + label {
+#isochroneTransportVoiture + label > span {
   background-image: url("assets/directions/voiture.svg");
+  display: inline-block;
+  width: 25px;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 0px center;
 }
 
-#isochroneTransportVoiture:checked + label {
+#isochroneTransportVoiture:checked + label > span {
   background-image: url("assets/directions/voiture-s.svg");
 }
 
-#isochroneTransportPieton + label {
+#isochroneTransportPieton + label > span {
   background-image: url("assets/directions/pieton.svg");
+  display: inline-block;
+  width: 25px;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 0px center;
 }
 
-#isochroneTransportPieton:checked + label {
+#isochroneTransportPieton:checked + label > span {
   background-image: url("assets/directions/pieton-s.svg");
 }
 

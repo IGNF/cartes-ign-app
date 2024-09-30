@@ -196,13 +196,16 @@ let DirectionsDOM = {
     div.appendChild(inputPedestrian);
 
     var labelPedestrian = document.createElement("label");
+    var spanPedestrian = document.createElement("span");
+    labelPedestrian.textContent = "À pied";
+    labelPedestrian.appendChild(spanPedestrian);
     labelPedestrian.className = "lblDirectionsTransport";
     labelPedestrian.htmlFor = "directionsTransportPieton";
     labelPedestrian.title = "À pied";
-    labelPedestrian.textContent = "À pied";
     div.appendChild(labelPedestrian);
 
     var inputCar = this.dom.inputCar = document.createElement("input");
+
     inputCar.id = "directionsTransportVoiture";
     inputCar.type = "radio";
     inputCar.name = "Transport";
@@ -215,10 +218,12 @@ let DirectionsDOM = {
     div.appendChild(inputCar);
 
     var labelCar = document.createElement("label");
+    var spanCar = document.createElement("span");
+    labelCar.textContent = "Véhicule";
+    labelCar.appendChild(spanCar);
     labelCar.className = "lblDirectionsTransport";
     labelCar.htmlFor = "directionsTransportVoiture";
     labelCar.title = "Véhicule";
-    labelCar.textContent = "Véhicule";
     div.appendChild(labelCar);
 
     var slider = document.createElement("span");

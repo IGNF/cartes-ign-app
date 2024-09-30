@@ -42,7 +42,7 @@
 .divDirectionsTransport, .divDirectionsComputation {
   display: flex;
   position: relative;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: auto;
   height: 34px;
   width: 17rem;
@@ -57,12 +57,13 @@
 
 .lblDirectionsTransport, .lblDirectionsComputation {
   color: var(--mid-grey);
-  padding-left: 25px;
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
+  column-gap: 5px;
   height: 30px;
-  width: 120px;
+  width: 50%;
   border-radius: 100px;
   cursor: pointer;
   transition: color 0.15s ease-in;
@@ -73,48 +74,54 @@
   font-size: 14px;
 }
 
-.lblDirectionsComputation {
-  padding: 0;
-}
-
 .divDirectionsTransport input[type="radio"]:checked + label, .divDirectionsComputation input[type="radio"]:checked + label {
   color: white;
 }
 
 .divDirectionsTransport input[id="directionsTransportVoiture"]:checked ~ .sliderDirections,
 .divDirectionsComputation input[id="directionsComputationShortest"]:checked ~ .sliderComputation {
-  transform: translateX(4.5rem);
+  transform: translateX(calc(100% - 15px));
 }
 
 .divDirectionsTransport input[id="directionsTransportPieton"]:checked ~ .sliderDirections,
 .divDirectionsComputation input[id="directionsComputationFastest"]:checked ~ .sliderComputation {
-  transform: translateX(-4.5rem);
+  transform: translateX(-5px);
 }
 
 .sliderDirections, .sliderComputation {
   position: absolute;
   display: flex;
   height: 44px;
-  width: 9rem;
+  width: 50%;
   background-color: var(--dark-green);
   z-index: 1;
   border-radius: 100px;
   transition: 0.25s ease-out;
 }
 
-#directionsTransportVoiture + label {
+#directionsTransportVoiture + label > span {
   background-image: url("assets/directions/voiture.svg");
+  display: inline-block;
+  width: 25px;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 0px center;
 }
 
-#directionsTransportVoiture:checked + label {
+#directionsTransportVoiture:checked + label > span {
   background-image: url("assets/directions/voiture-s.svg");
 }
 
-#directionsTransportPieton + label {
+#directionsTransportPieton + label > span {
   background-image: url("assets/directions/pieton.svg");
+  display: inline-block;
+  width: 25px;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 0px center;
 }
 
-#directionsTransportPieton:checked + label {
+#directionsTransportPieton:checked + label > span {
   background-image: url("assets/directions/pieton-s.svg");
 }
 
