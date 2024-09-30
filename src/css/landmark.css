@@ -72,6 +72,10 @@
   display: none;
 }
 
+.landmarkRadio {
+  margin-top: 7px;
+}
+
 .landmarkColorInputLabel {
   display: inline-block;
   width: 28px;
@@ -79,7 +83,7 @@
   height: 28px;
   border-radius: 100%;
   position: relative;
-  margin: 0 4px;
+  margin: 0 9px;
 }
 
 #landmark-color-orange + .landmarkColorInputLabel {
