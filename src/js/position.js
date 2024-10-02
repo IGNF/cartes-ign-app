@@ -12,6 +12,7 @@ import Globals from "./globals";
 import DomUtils from "./utils/dom-utils";
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
+import ActionSheet from "./action-sheet";
 
 import PopupUtils from "./utils/popup-utils";
 
@@ -155,12 +156,6 @@ class Position {
       `;
       htmlAdvanced = `
         <label id="position-landmark-show-advanced-tools" title="Plus d'outils" class="tools-layer-advanced"></label>
-        <div id="position-landmark-advanced-tools" class="tools-layer-advanced-menu">
-          <div id="position-landmark-share" class="tools-layer-share" title="Partager le point de repère">Partager</div>
-          <div id="position-landmark-edit" class="tools-layer-edit" title="Modifier le point de repère">Modifier</div>
-          <div id="position-landmark-export" class="tools-layer-export" title="Exporter le point de repère">Exporter</div>
-          <div id="position-landmark-remove" class="tools-layer-remove" title="Supprimer le point de repère'">Supprimer</div>
-        </div>
       `;
     }
 
@@ -327,33 +322,54 @@ class Position {
           landmarkId = parseInt(cl.split("-")[1]);
         }
       });
-      shadowContainer.getElementById("position-landmark-share").addEventListener("click", () => {
-        // ouverture du panneau Point de repère
-        document.getElementById(`landmark-share_ID_${landmarkId}`).click();
-      });
-      shadowContainer.getElementById("position-landmark-edit").addEventListener("click", () => {
-        closeSelf();
-        // ouverture du panneau Point de repère
-        document.getElementById(`landmark-edit_ID_${landmarkId}`).click();
-      });
-      shadowContainer.getElementById("position-landmark-export").addEventListener("click", () => {
-        // ouverture du panneau Point de repère
-        document.getElementById(`landmark-export_ID_${landmarkId}`).click();
-      });
-      let hasBeenClicked = false;
-      shadowContainer.getElementById("position-landmark-remove").addEventListener("click", () => {
-        if (!hasBeenClicked) {
-          Toast.show({
-            text: "Confirmez la suppression du point de repère",
-            duration: "short",
-            position: "bottom"
-          });
-          hasBeenClicked = true;
-        } else {
-          closeSelf();
-          Globals.myaccount.deleteLandmark(landmarkId);
-          hasBeenClicked = false;
-        }
+      shadowContainer.getElementById("position-landmark-show-advanced-tools").addEventListener("click", () => {
+        ActionSheet.show({
+          options: [
+            {
+              class: "tools-layer-share",
+              text: "Partager",
+              value: "share",
+            },
+            {
+              class: "tools-layer-edit",
+              text: "Modifier",
+              value: "edit",
+            },
+            {
+              class: "tools-layer-export",
+              text: "Exporter",
+              value: "export",
+            },
+            {
+              class: "tools-layer-remove confirm-needed",
+              text: "Supprimer",
+              value: "delete",
+              confirmCallback: () => {
+                Toast.show({
+                  text: "Confirmez la suppression du point de repère",
+                  duration: "short",
+                  position: "bottom"
+                });
+              }
+            },
+          ],
+          timeToHide: 50,
+        }).then( (value) => {
+          if (value === "share") {
+            Globals.myaccount.shareLandmarkFromID(landmarkId);
+          }
+          if (value === "edit") {
+            closeSelf();
+            Globals.myaccount.editLandmarkFromID(landmarkId);
+          }
+          if (value === "export") {
+            Globals.myaccount.exportLandmarkFromID(landmarkId);
+          }
+          if (value === "delete") {
+            closeSelf();
+            Globals.myaccount.deleteLandmark(landmarkId);
+          }
+        });
       });
     }
     shadowContainer.querySelector(".divPositionAdressOriginInfo").addEventListener("click", this.#showAdressInfoPopup.bind(this));

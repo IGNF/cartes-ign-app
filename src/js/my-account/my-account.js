@@ -586,6 +586,14 @@ class MyAccount {
   }
 
   /**
+   * Ouvre l'outil de création de point de repère pour le modifer à partir de son ID
+   * @param {Number} landmarkId
+   */
+  editLandmarkFromID(landmarkId) {
+    this.editLandmark(this.#getLandmarkFromID(landmarkId));
+  }
+
+  /**
    * Partage l'itinéraire sous forme de fichier
    * @param {*} route
    */
@@ -683,6 +691,14 @@ ${landmark.properties.description}
 https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark.geometry.coordinates[1]}&z=15`,
       dialogTitle: "Partager mon point de repère",
     });
+  }
+
+  /**
+   * Partage le point de repère à partir de son ID
+   * @param {Number} landmarkId
+   */
+  shareLandmarkFromID(landmarkId) {
+    this.shareLandmark(this.#getLandmarkFromID(landmarkId));
   }
 
   /**
@@ -796,6 +812,14 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
   }
 
   /**
+   * Exporte le point de repère à partir de son ID
+   * @param {Number} landmarkId
+   */
+  exportLandmarkFromID(landmarkId) {
+    this.exportLandmark(this.#getLandmarkFromID(landmarkId));
+  }
+
+  /**
    * Affiche l'itinéraire s'il est caché, ou le cache s'il est affiché
    * @param {*} route
    */
@@ -869,6 +893,26 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
       }
     }
     return route;
+  }
+
+  /**
+   * Récupère un PR via son ID
+   * @param {Number} landmarkId
+   * @returns route
+   */
+  #getLandmarkFromID(landmarkId) {
+    if (landmarkId === null) {
+      console.error("Null landmark ID");
+      return;
+    }
+    let landmark;
+    for (let i = 0; i < Globals.myaccount.landmarks.length; i++) {
+      landmark = Globals.myaccount.landmarks[i];
+      if (landmark.id === landmarkId) {
+        break;
+      }
+    }
+    return landmark;
   }
 
   /**

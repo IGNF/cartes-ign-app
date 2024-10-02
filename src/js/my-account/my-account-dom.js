@@ -399,9 +399,11 @@ let MyAccountDOM = {
 
     // Au clic sur le PR = l'afficher
     container.querySelector(`#landmark-basic-tools_ID_${landmarkId}`).addEventListener("click", () => {
-      if (!landmark.properties.visible) {
+      if (landmark.properties.visible) {
         this.toggleShowLandmark(landmark);
       }
+      container.classList.remove("invisible");
+      this.toggleShowLandmark(landmark);
     });
 
     if (!container) {
