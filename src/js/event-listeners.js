@@ -270,10 +270,12 @@ function addListeners() {
       return;
     }
     TextZoom.getPreferred().then(value => {
+      const newValue = Math.min(1.5, value.value);
       TextZoom.set({
-        value: Math.min(1.5, value.value)
+        value: newValue
       });
-      document.documentElement.style.fontSize = `calc(13px * ${value.value})`;
+      document.documentElement.style.fontSize = `calc(13px * ${newValue})`;
+      document.documentElement.style.setProperty("--text-zoom", newValue);
     });
   });
 

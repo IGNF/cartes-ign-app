@@ -47,7 +47,7 @@
 .divPOIDisplayGoBackTime > span:last-child {
     padding-left: 28px;
     margin-top: 8px;
-    max-width: 65%;
+    max-width: 90%;
     background-image: url("assets/comparePoi.svg");
     background-repeat: no-repeat;
     background-size: 18px;

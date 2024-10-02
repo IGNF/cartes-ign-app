@@ -40,6 +40,10 @@
     to { opacity: 1; }
 }
 
+:root {
+  --text-zoom: 1;
+}
+
 * {
   -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
   overscroll-behavior: none;
@@ -184,14 +188,14 @@ textarea:focus + .dsign-form-label {
 
 .toggleSlider::after {
   content: "1 0";
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 36px;
   height: 21px;
-  line-height: 21px;
   color: var(--black);
-  font-size: 12px;
+  font-size: calc(12px / var(--text-zoom));
   font-family: "Open Sans Semibold";
-  text-align: center;
   word-spacing: 6px;
 }
 
