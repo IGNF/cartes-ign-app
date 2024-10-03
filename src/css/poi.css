@@ -42,6 +42,7 @@
 .divPOIDisplayGoBackTime > div > span {
   font-family: "Fira Sans Semibold";
   font-size: 17px;
+  max-width: calc(100% - 36px);
 }
 
 .divPOIDisplayGoBackTime > span:last-child {
