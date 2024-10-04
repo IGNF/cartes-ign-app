@@ -62,27 +62,13 @@ class Search {
         } else {
           DOM.$resultsRechRecent.querySelector(".recentresult").click();
         }
-      } else if (DOM.$rech.value !== ""){
-        let resultStr = "";
-        this.suggest().then( () => {
-          if (this.autocompletion_results.length > 0){
-            for (let i = 0 ; i < this.autocompletion_results.length; i++) {
-              resultStr += this.computeAutocompResultHTML(this.autocompletion_results[i]);
-            }
-            DOM.$resultDiv.innerHTML = resultStr;
-            DOM.$resultDiv.hidden = false;
-            DOM.$resultsRechRecent.hidden = true;
-          }
-        }).catch( (err) => {
-          if (err.name === "AbortError") {
-            return;
-          }
-        });
-      } else if (DOM.$rech.value === "") {
-        DOM.$resultsRechRecent.hidden = false;
-        DOM.$resultDiv.hidden = true;
-        DOM.$resultDiv.innerHTML = "";
+      } else {
+        this.#suggestAndDisplay();
       }
+    });
+
+    document.getElementById(id.searchInput).addEventListener("paste", () => {
+      this.#suggestAndDisplay();
     });
 
     document.getElementById(id.searchInput).addEventListener("click", () => {
@@ -157,6 +143,30 @@ class Search {
     });
   }
 
+  #suggestAndDisplay() {
+    if (DOM.$rech.value !== ""){
+      let resultStr = "";
+      this.suggest().then( () => {
+        if (this.autocompletion_results.length > 0){
+          for (let i = 0 ; i < this.autocompletion_results.length; i++) {
+            resultStr += this.computeAutocompResultHTML(this.autocompletion_results[i]);
+          }
+          DOM.$resultDiv.innerHTML = resultStr;
+          DOM.$resultDiv.hidden = false;
+          DOM.$resultsRechRecent.hidden = true;
+        }
+      }).catch( (err) => {
+        if (err.name === "AbortError") {
+          return;
+        }
+      });
+    } else if (DOM.$rech.value === "") {
+      DOM.$resultsRechRecent.hidden = false;
+      DOM.$resultDiv.hidden = true;
+      DOM.$resultDiv.innerHTML = "";
+    }
+  }
+
   /**
    *  Autocompletion
    *  @private
@@ -202,11 +212,139 @@ class Search {
         lat: elem.y,
       });
     }
+    const coordResult = this.#computeCoordsSearch(location);
+    if (coordResult.coord) {
+      this.autocompletion_results.push({
+        fulltext: coordResult.coord,
+        firsttext: coordResult.coord,
+        city: "Coordonnées",
+        lng: coordResult.lon,
+        lat: coordResult.lat,
+      });
+    }
     // Seulement les valeurs uniques
     this.autocompletion_results = this.autocompletion_results
       .filter((val, idx, s) => s.indexOf(val) === idx)
       .slice(0,9);
   }
+
+  /**
+   * Fonction récupérée de look4. Permet de repérer des coordonnées à partir du texte en entrée. Renvoie un objet de type position
+   *
+   * @param inputRequest {String} texte en entrée
+   */
+
+  #computeCoordsSearch(inputRequest) {
+    var toparse = inputRequest;
+    /*
+      Transformation string en objet position
+      - support degrès décimaux et sexa en °'" et dms
+      - par défault lat puis lon sauf si une coordonnée est suffixée d'un point cardianal (NSEOnseoWw)
+    */
+
+    toparse = toparse.toLowerCase();
+    toparse = toparse.replace("coordonnées : ", "");
+
+    var tryparse = function (toparse) {
+      var lat, lon;
+
+      if (toparse.match(/[d°]/) === null || toparse.match(/[d°]/g).length != 2) {
+        toparse = toparse.replace(/(-?[0-9.]+)[ ]*[d°]?/g, "$1°");
+      }
+
+      // DMS
+      toparse = toparse.replace("d", "°");
+      toparse = toparse.replace("m", "'");
+      toparse = toparse.replace("s", "\"");
+      toparse = toparse.replace("w", "o");
+      toparse = toparse.replace(/ +/g, "");
+
+      var parts = toparse.match(/-?[0-9]+\.?[0-9]*[°'"]?/g);
+      if (!parts) {
+        // si rien ne match, on sort
+        return {};
+      }
+      var coord = [200.0, 200.0];
+      var sign = [1, 1];
+      var ind = -1;
+      parts.forEach(function(part) {
+        if (part.match("°") !== null) {
+          ind++;
+          coord[ind] = parseFloat(part.replace("°", ""));
+          if (coord[ind] < 0) {
+            sign[ind] = -1;
+            coord[ind] *= -1;
+          }
+        } else if (part.match("'") !== null) {
+          coord[ind] += parseFloat(part.replace("'", "")) / 60;
+        } else if (part.match("\"") !== null) {
+          coord[ind] += parseFloat(part.replace("\"", "")) / 3600;
+        }
+      });
+      var sens = true; //lat lon
+      parts = toparse.match(/°[^nseo°]*([nseo]?)/g);
+      if (parts !== null) {
+        if (parts.length != 2) {
+          return {};
+        }
+        if (parts[0].match(/[ns]/) !== null) {
+          if (parts[0].match("s") !== null) {
+            sign[0] = -1;
+          }
+        } else if (parts[0].match(/[eo]/) !== null) {
+          sens = false;
+          if (parts[0].match("o") !== null) {
+            sign[0] = -1;
+          }
+        }
+        if (parts[1].match(/[ns]/) !== null) {
+          sens = false;
+          if (parts[1].match("s") !== null) {
+            sign[1] = -1;
+          }
+        } else if (parts[1].match(/[eo]/) !== null) {
+          if (parts[1].match("o") !== null) {
+            sign[1] = -1;
+          }
+        }
+      }
+
+      if (coord[0] == 200 || coord[1] == 200) {
+        return {};
+      }
+
+      if (sens) {
+        lat = coord[0] * sign[0];
+        lon = coord[1] * sign[1];
+      } else {
+        lon = coord[0] * sign[0];
+        lat = coord[1] * sign[1];
+      }
+
+      if (lat > 90 || lat < -90) {
+        return {};
+      }
+      if (lon > 180 || lon < -180) {
+        return {};
+      }
+      return { lat: lat, lon: lon };
+    };
+
+    var coord = {};
+    coord = tryparse(toparse);
+
+    if (coord.lat === undefined || coord.lon === undefined) {
+      coord = tryparse(toparse.replace(/\./g, " ").replace(/,/g, "."));
+    }
+    if (coord.lat === undefined || coord.lon === undefined) {
+      return {};
+    }
+    var lat = coord.lat;
+    var lon = coord.lon;
+    var str = lat + " " + lon; //str = lat lon en décimal pour compatibilité Google
+    return { coord: str, lon: lon, lat: lat };
+  }
+
 
   /**
    * Retourne le texte complet du resultat de l'autocompletion
