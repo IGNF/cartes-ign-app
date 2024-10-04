@@ -186,7 +186,7 @@
   background-color: var(--dark-green);
   border-radius: 8px;
   padding: 14px 18px;
-  height: 36px;
+  height: calc(36px * var(--text-zoom));
   display: flex;
   flex-direction: row;
   align-items: center;
