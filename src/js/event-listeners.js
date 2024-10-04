@@ -110,6 +110,11 @@ function addListeners() {
     localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
     localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
     localStorage.setItem("savedLandmarks", JSON.stringify(Globals.myaccount.landmarks));
+    const checkedPoi = {};
+    document.querySelectorAll(".inputPOIFilterItem.checkbox").forEach((poiCheckbox) => {
+      checkedPoi[poiCheckbox.id] = poiCheckbox.checked;
+    });
+    localStorage.setItem("checkedOsmPoi", JSON.stringify(checkedPoi));
   };
 
   // Sauvegarde de l'état de l'application
