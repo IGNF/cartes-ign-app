@@ -113,7 +113,7 @@
 }
 
 /* mode paysage et écrans larges */
-@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #altMenuContainer {
     width: calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right));
     left: calc(var(--safe-area-inset-left))

@@ -149,27 +149,11 @@ function addListeners() {
         Globals.currentScrollIndex = 2;
       }
     }
-    if (["searchDirections", "searchIsochrone", "searchLandmark", "search"].includes(Globals.backButtonState)) {
-      document.body.style.removeProperty("overflow-y");
-      DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
-      DOM.$backTopLeftBtn.style.removeProperty("height");
-      DOM.$backTopLeftBtn.style.removeProperty("width");
-      DOM.$backTopLeftBtn.style.removeProperty("top");
-      DOM.$backTopLeftBtn.style.removeProperty("left");
-      if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        document.body.style.overflowY = "scroll";
-        DOM.$backTopLeftBtn.style.boxShadow = "unset";
-        DOM.$backTopLeftBtn.style.height = "44px";
-        DOM.$backTopLeftBtn.style.width = "24px";
-        DOM.$backTopLeftBtn.style.top = "calc(12px + var(--safe-area-inset-top))";
-        DOM.$backTopLeftBtn.style.left = "15px";
-      }
-    }
     if (Globals.backButtonState === "routeDraw") {
       DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$bottomButtons.style.removeProperty("left");
       DOM.$bottomButtons.style.removeProperty("width");
-      if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         if (!Globals.routeDraw.readonly) {
           DOM.$bottomButtons.style.bottom = "calc(72px + 112px + var(--safe-area-inset-bottom))";
         }
@@ -186,13 +170,13 @@ function addListeners() {
     }
     if (Globals.backButtonState === "compareLayers2") {
       DOM.$sideBySideLeftLayer.style.removeProperty("left");
-      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$sideBySideLeftLayer.style.left = "calc(50% + 15px)";
       }
     }
     if (["compare", "compareLayers1", "compareLayers2"].includes(Globals.backButtonState)) {
       DOM.$bottomButtons.style.removeProperty("width");
-      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$bottomButtons.style.width = "calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right))";
       }
       const slider = document.querySelector(".maplibregl-compare");
@@ -202,7 +186,7 @@ function addListeners() {
           sliderX = window.innerHeight / 2;
         } else {
           if (["compareLayers1", "compareLayers2"].includes(Globals.backButtonState)
-            && window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches
+            && window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches
           ) {
             sliderX = 3 * window.innerWidth / 4;
           } else {
@@ -216,7 +200,7 @@ function addListeners() {
       }
     }
     if (["compareLayers1", "compareLayers2"].includes(Globals.backButtonState)) {
-      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px)";
         DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 78px)";
         DOM.$sideBySideFadeSlider.style.transform = "unset";
@@ -282,7 +266,7 @@ function addListeners() {
   const handleScrollDown = () => {
     Globals.currentScrollIndex = 1;
     Globals.menu.updateScrollAnchors();
-    if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches ) {
+    if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches ) {
       window.scroll({
         top: 0,
         left: 0,
@@ -296,7 +280,7 @@ function addListeners() {
     DOM.$routeDrawEdit.style.removeProperty("transform");
     DOM.$filterPoiBtn.style.removeProperty("transform");
     const thresh = window.innerHeight / 2;
-    if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && window.scrollY > thresh) {
+    if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && window.scrollY > thresh) {
       DOM.$bottomButtons.style.transform = "translateY(-100vh)";
       DOM.$routeDrawEdit.style.transform = "translateX(100vw)";
       DOM.$filterPoiBtn.style.transform = "translateY(-100vh)";

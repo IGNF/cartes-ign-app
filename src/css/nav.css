@@ -207,7 +207,7 @@
   background-image: url(../html/img/tracer.svg);
 }
 
-@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #navContainer {
     flex-direction: column;
     width: calc(75px + var(--safe-area-inset-left));

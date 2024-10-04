@@ -260,7 +260,7 @@ const watchPositionCallback = (position) => {
       const bbox = GisUtils.getBoundingBox(circle.geometry.coordinates[0]);
       var padding;
       // gestion du mode paysage / écran large
-      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
                     Math.min(window.innerHeight, window.innerWidth/2) + 42;
         padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
