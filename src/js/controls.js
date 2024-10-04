@@ -93,6 +93,9 @@ const addControls = () => {
       unit: "metric"
     }), "bottom-left");
 
+    // contrôle fullscreen
+    map.addControl(new maplibregl.FullscreenControl(), "top-right");
+
     // contrôle d'intéractivité de la carte
     Globals.mapInteractivity = new MapInteractivity(map, {});
 

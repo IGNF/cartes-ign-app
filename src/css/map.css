@@ -16,7 +16,7 @@
   justify-content: flex-end;
 }
 
-.maplibregl-control-container > .maplibregl-ctrl-bottom-left {
+#bottomButtons > .maplibregl-ctrl-bottom-left {
   bottom: -3px;
 }
 
@@ -59,7 +59,7 @@
   flex-direction: column;
 }
 
-@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #map {
     height: 100vh;
     width: 100vw;

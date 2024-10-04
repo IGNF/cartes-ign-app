@@ -201,7 +201,7 @@ function app() {
   Controls.addControls();
 
   // HACK: déplacement de l'échelle hors de la div map pour qu'elle bouge librement
-  var mapLibreControls = document.querySelectorAll(".maplibregl-control-container")[2];
+  var mapLibreControls = document.querySelectorAll(".maplibregl-ctrl-bottom-left")[2];
   var parent = document.getElementById("bottomButtons");
   parent.appendChild(mapLibreControls);
 

@@ -154,7 +154,8 @@ class MenuNavigation {
       break;
     case "comparePoi":
       DOM.$search.style.display = "none";
-      DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
+      DOM.$filterPoiBtn.classList.add("higher");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.currentScrollIndex = 2;
       break;
@@ -189,7 +190,7 @@ class MenuNavigation {
       DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$sideBySideRightLayer.classList.add("inactive");
       Globals.currentScrollIndex = 2;
-      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px)";
         DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 78px)";
         DOM.$sideBySideFadeSlider.style.transform = "unset";
@@ -203,7 +204,7 @@ class MenuNavigation {
       DOM.$compareLayers2Window.classList.remove("d-none");
       DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$sideBySideLeftLayer.classList.add("inactive");
-      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px)";
         DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px)+ 56px)";
         DOM.$sideBySideFadeSlider.style.transform = "unset";
@@ -223,10 +224,10 @@ class MenuNavigation {
       DOM.$sideBySideRightLayer.classList.remove("d-none");
       DOM.$tabContainer.style.top = "100vh";
       DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
-      if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$bottomButtons.style.width = "calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right))";
       }
-      DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.add("d-none");
+      DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-left").classList.add("d-none");
       Globals.compare.show();
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 0;
@@ -245,11 +246,12 @@ class MenuNavigation {
       // Disparition de la croix pour le tracé d'itinéraire (décision UI)
       DOM.$tabClose.classList.add("d-none");
       DOM.$search.style.display = "none";
-      DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
+      DOM.$filterPoiBtn.classList.add("higher");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.remove("d-none");
-        if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
           DOM.$bottomButtons.style.bottom = "calc(72px + 112px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px))";
         } else {
           DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
@@ -266,7 +268,8 @@ class MenuNavigation {
       Globals.backButtonState = "poi-" + previousBackState;
       Globals.routeDraw.deactivate();
       DOM.$search.style.display = "none";
-      DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
+      DOM.$filterPoiBtn.classList.add("higher");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       Globals.currentScrollIndex = 2;
@@ -275,7 +278,8 @@ class MenuNavigation {
       Globals.backButtonState = "layerManager-" + previousBackState;
       DOM.$layerManagerBtn.classList.add("active");
       DOM.$search.style.display = "none";
-      DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
+      DOM.$filterPoiBtn.classList.add("higher");
       DOM.$tabContainer.style.removeProperty("background-color");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
@@ -295,7 +299,8 @@ class MenuNavigation {
       }
       Globals.interactivityIndicator.enable();
       DOM.$search.style.display = "none";
-      DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
+      DOM.$filterPoiBtn.classList.add("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.currentScrollIndex = 2;
@@ -340,21 +345,16 @@ class MenuNavigation {
       DOM.$searchresultsWindow.classList.remove("d-none");
       DOM.$whiteScreen.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
-      if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        document.body.style.overflowY = "scroll";
-        DOM.$backTopLeftBtn.style.boxShadow = "unset";
-        DOM.$backTopLeftBtn.style.height = "44px";
-        DOM.$backTopLeftBtn.style.width = "24px";
-        DOM.$backTopLeftBtn.style.top = "calc(12px + var(--safe-area-inset-top))";
-        DOM.$backTopLeftBtn.style.left = "15px";
-      }
+      DOM.$backTopLeftBtn.classList.add("searching");
+      document.body.classList.add("searching");
       DOM.$altMenuContainer.classList.remove("d-none");
       Globals.currentScrollIndex = 0;
       break;
     case "directions":
       Globals.backButtonState = "directions-" + previousBackState;
       DOM.$search.style.display = "none";
-      DOM.$filterPoiBtn.style.top = "calc(10px + var(--safe-area-inset-top))";
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
+      DOM.$filterPoiBtn.classList.add("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
@@ -423,7 +423,8 @@ class MenuNavigation {
     case "comparePoi":
       Globals.comparePoi.clearSources();
       DOM.$search.style.display = "flex";
-      DOM.$filterPoiBtn.style.removeProperty("top");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
+      DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       break;
     case "selectOnMapDirections":
@@ -476,7 +477,7 @@ class MenuNavigation {
       DOM.$tabContainer.style.removeProperty("top");
       DOM.$bottomButtons.style.removeProperty("bottom");
       DOM.$bottomButtons.style.removeProperty("width");
-      DOM.$bottomButtons.querySelector(".maplibregl-control-container").classList.remove("d-none");
+      DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-left").classList.remove("d-none");
       Globals.compare.hide();
       Globals.interactivityIndicator.enable();
       break;
@@ -488,7 +489,7 @@ class MenuNavigation {
       DOM["$routeDrawWindow"].classList.remove("d-none");
       Globals.routeDraw.dom.changeMode.classList.remove("d-none");
       DOM.$routeDrawEdit.classList.remove("d-none");
-      if (!window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         DOM.$bottomButtons.style.bottom = "calc(72px + 112px + var(--safe-area-inset-bottom))";
       } else {
         DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
@@ -500,7 +501,8 @@ class MenuNavigation {
       break;
     case "routeDraw":
       DOM.$search.style.display = "flex";
-      DOM.$filterPoiBtn.style.removeProperty("top");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
+      DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       if (!Globals.routeDraw.readonly) {
@@ -515,14 +517,16 @@ class MenuNavigation {
       break;
     case "poi":
       DOM.$search.style.display = "flex";
-      DOM.$filterPoiBtn.style.removeProperty("top");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
+      DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
       break;
     case "layerManager":
       DOM.$search.style.display = "flex";
       DOM.$layerManagerBtn.classList.remove("active");
-      DOM.$filterPoiBtn.style.removeProperty("top");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
+      DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       break;
     case "informations":
@@ -531,7 +535,8 @@ class MenuNavigation {
       break;
     case "position":
       DOM.$search.style.display = "flex";
-      DOM.$filterPoiBtn.style.removeProperty("top");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
+      DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.mapInteractivity.clear();
       break;
@@ -548,14 +553,10 @@ class MenuNavigation {
       if (document.querySelector(".autocompresultselected")) {
         document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
       }
-      document.body.style.removeProperty("overflow-y");
+      document.body.classList.remove("searching");
       DOM.$whiteScreen.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
-      DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
-      DOM.$backTopLeftBtn.style.removeProperty("height");
-      DOM.$backTopLeftBtn.style.removeProperty("width");
-      DOM.$backTopLeftBtn.style.removeProperty("top");
-      DOM.$backTopLeftBtn.style.removeProperty("left");
+      DOM.$backTopLeftBtn.classList.remove("searching");
       DOM.$altMenuContainer.classList.add("d-none");
       isSpecific = true;
       isFinished = false;
@@ -567,14 +568,10 @@ class MenuNavigation {
       if (document.querySelector(".autocompresultselected")) {
         document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
       }
-      document.body.style.removeProperty("overflow-y");
+      document.body.classList.remove("searching");
       DOM.$whiteScreen.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
-      DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
-      DOM.$backTopLeftBtn.style.removeProperty("height");
-      DOM.$backTopLeftBtn.style.removeProperty("width");
-      DOM.$backTopLeftBtn.style.removeProperty("top");
-      DOM.$backTopLeftBtn.style.removeProperty("left");
+      DOM.$backTopLeftBtn.classList.remove("searching");
       DOM.$altMenuContainer.classList.add("d-none");
       DOM.$selectOnMap.classList.add("d-none");
       DOM.$tabContainer.style.removeProperty("height");
@@ -592,13 +589,13 @@ class MenuNavigation {
       document.body.style.removeProperty("overflow-y");
       DOM.$whiteScreen.classList.add("d-none");
       DOM.$search.style.display = "flex";
-      DOM.$filterPoiBtn.style.removeProperty("top");
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$altMenuContainer.classList.add("d-none");
       break;
     case "directions":
       DOM.$search.style.display = "flex";
-      DOM.$filterPoiBtn.style.removeProperty("top");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
+      DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.directions.clear();
@@ -718,7 +715,7 @@ class MenuNavigation {
     if (Globals.backButtonState !== "compare") {
       DOM.$tabContainer.style.removeProperty("display");
     }
-    if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && Globals.currentScrollIndex !== 0) {
+    if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && Globals.currentScrollIndex !== 0) {
       DOM.$tabContainer.style.display = "flex";
     }
     Globals.maxScroll = Math.min(
@@ -726,7 +723,7 @@ class MenuNavigation {
       document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight
     );
     Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
-    if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+    if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
       const insetBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-bottom").slice(0, -2));
       const navHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-bar-height").slice(0, -2));
 
@@ -743,7 +740,7 @@ class MenuNavigation {
 
   /** ... */
   #scrollTo(value) {
-    if (window.matchMedia("(min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && Globals.currentScrollIndex === 0) {
+    if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && Globals.currentScrollIndex === 0) {
       return;
     }
     window.scroll({

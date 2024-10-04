@@ -1,5 +1,11 @@
+@media not (min-width: 400px), not (min-aspect-ratio: 1/1) {
+  body.searching {
+    overflow-y: scroll;
+  }
+}
+
 /* mode paysage et écrans larges */
-@media (min-width: 615px), screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #tabContainer {
     width: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
     left: 0;
