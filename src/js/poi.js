@@ -125,6 +125,8 @@ class POI {
       })
       .catch((e) => {
         throw new Error(e);
+      }).finally(() => {
+        this.#uncheck();
       });
   }
 
@@ -319,8 +321,22 @@ class POI {
   }
 
   /**
-     * Sauvegarde les informations du sprite pour la génération de légende
-     */
+   * Décoche toutes les checkboxes à décocher en fonction de la précédente sélection enregistrée
+   */
+  #uncheck() {
+    if (localStorage.getItem("checkedOsmPoi")) {
+      const checkedOsmPoi = JSON.parse(localStorage.getItem("checkedOsmPoi"));
+      document.querySelectorAll(".inputPOIFilterItem.checkbox").forEach((poiCheckbox) => {
+        if (!checkedOsmPoi[poiCheckbox.id] && poiCheckbox.checked) {
+          poiCheckbox.click();
+        }
+      });
+    }
+  }
+
+  /**
+   * Sauvegarde les informations du sprite pour la génération de légende
+   */
   #loadSprite(url) {
     this.sprite.url = url;
     fetch(this.sprite.url + ".json",)
