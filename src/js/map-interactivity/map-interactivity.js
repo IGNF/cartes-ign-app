@@ -191,6 +191,7 @@ class MapInteractivity {
     this.#multipleGFI(layersForGFI)
       .then(async (resp) => {
         this.loading = false;
+        // FIXME: STYLE: passer par une classe et style CSS
         DOM.$mapCenter.style.removeProperty("background-image");
         DOM.$mapCenter.style.removeProperty("background-size");
         DOM.$mapCenter.classList.add("d-none");

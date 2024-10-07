@@ -142,6 +142,7 @@ class InteractivityIndicator {
   active () {
     this.hardDisabled = false;
     DOM.$interactivityBtn.classList.remove("d-none");
+    // FIXME: STYLE: passer par une classe et style CSS
     DOM.$interactivityBtn.style.removeProperty("opacity");
     DOM.$interactivityBtn.style.removeProperty("color");
     document.getElementById("interactivityBtnText").innerText = "La carte est interactive";

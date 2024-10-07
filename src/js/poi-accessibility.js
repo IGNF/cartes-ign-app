@@ -47,6 +47,7 @@ class MapboxAccessibility {
       feature.marker = document.createElement("button");
       feature.marker.setAttribute("title", label);
       feature.marker.setAttribute("tabindex", 0);
+      // FIXME: STYLE: passer par une classe et style CSS
       feature.marker.style.display = "block";
 
       let position;

@@ -230,6 +230,7 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
  */
 const watchPositionCallback = (position) => {
   if (firstLocation) {
+    // FIXME: STYLE: passer par une classe et style CSS
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
     Toast.show({
       text: "Suivi de position activé",

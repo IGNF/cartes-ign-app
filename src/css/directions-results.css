@@ -116,7 +116,6 @@
   color: white;
 }
 
-/* INFO l'affichage est programmatique */
 #directionsListDetails {
   display: none;
   position: relative;
@@ -125,6 +124,10 @@
   overflow-y: scroll;
   border-top: 1px solid var(--grey-2);
   font-family: "Open Sans";
+}
+
+#directionsResults:has(#directionsShowDetail:checked) #directionsListDetails {
+  display: flex;
 }
 
 .divDirectionsDetailsItem {

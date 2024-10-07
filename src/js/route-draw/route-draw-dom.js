@@ -216,6 +216,7 @@ let RouteDrawDOM = {
     var canvasProfile = document.createElement("canvas");
     canvasProfile.id = "routedraw-elevationline";
     canvasProfile.className = "elevationLineCanvas";
+    // FIXME: STYLE: passer par une classe et style CSS
     canvasProfile.style.width = "100%";
     div.appendChild(canvasProfile);
 
@@ -229,7 +230,7 @@ let RouteDrawDOM = {
     this.dom.detailsList.className = "routedrawDetails";
     div.appendChild(this.dom.detailsList);
 
-    div.style.display = "none";
+    div.classList.add("d-none");
 
     return div;
   },
@@ -459,9 +460,9 @@ let RouteDrawDOM = {
         waypointDiv.appendChild(waypointTextDiv);
         this.dom.detailsList.appendChild(waypointDiv);
       }
-      this.dom.details.style.removeProperty("display");
+      this.dom.details.classList.remove("d-none");
     } else {
-      this.dom.details.style.display = "none";
+      this.dom.details.classList.add("d-none");
     }
 
     if (data.steps.length > 0) {

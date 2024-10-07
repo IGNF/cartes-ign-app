@@ -366,6 +366,7 @@ let IsochroneDOM = {
   __setComputeButtonLoading () {
     this.dom.isochroneCompute.value = "";
     this.dom.isochroneCompute.disabled = true;
+    // FIXME: STYLE: passer par une classe et style CSS
     this.dom.isochroneCompute.style.backgroundImage = "url(" + LoadingWhite + ")";
     document.querySelectorAll("#isochroneLocationContainer").forEach((el) => {
       el.classList.add("disabled");

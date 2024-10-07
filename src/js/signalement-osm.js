@@ -89,6 +89,7 @@ class SignalementOSM {
         console.warn("Signalement sans lieu !");
         return;
       }
+      // FIXME: STYLE: passer par une classe et style CSS
       this.dom.submitButton.style.pointerEvents = "none";
       this.dom.submitButton.style.backgroundImage = "url(" + LoadingWhite + ")";
       this.dom.submitButton.style.color = "#0000";

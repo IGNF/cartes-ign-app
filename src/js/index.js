@@ -120,6 +120,7 @@ function app() {
   // Définition des icones
   Globals.myPositionIcon = document.createElement("div");
   Globals.myPositionIcon.class = "myPositionIcon";
+  // FIXME: STYLE: passer par une classe et style CSS
   Globals.myPositionIcon.style.width = "51px";
   Globals.myPositionIcon.style.height = "51px";
   Globals.myPositionIcon.style.backgroundSize = "contain";
@@ -127,6 +128,7 @@ function app() {
 
   Globals.myPositionIconGrey = document.createElement("div");
   Globals.myPositionIconGrey.class = "myPositionIconGrey";
+  // FIXME: STYLE: passer par une classe et style CSS
   Globals.myPositionIconGrey.style.width = "51px";
   Globals.myPositionIconGrey.style.height = "51px";
   Globals.myPositionIconGrey.style.backgroundSize = "contain";
@@ -134,6 +136,7 @@ function app() {
 
   Globals.searchResultIcon = document.createElement("div");
   Globals.searchResultIcon.class = "searchResultIcon";
+  // FIXME: STYLE: passer par une classe et style CSS
   Globals.searchResultIcon.style.width = "36px";
   Globals.searchResultIcon.style.height = "36px";
   Globals.searchResultIcon.style.backgroundSize = "contain";
