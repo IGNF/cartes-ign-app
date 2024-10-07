@@ -139,6 +139,7 @@ class MenuNavigation {
       Globals.backButtonState = "landmark-" + previousBackState;
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 1;
@@ -150,6 +151,7 @@ class MenuNavigation {
       Globals.backButtonState = "signalementOSM-" + previousBackState;
       DOM.$positionWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
       break;
     case "comparePoi":
@@ -163,6 +165,7 @@ class MenuNavigation {
     case "selectOnMapIsochrone":
     case "selectOnMapLandmark":
       DOM.$filterPoiBtn.classList.add("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("d-none");
       DOM.$layerManagerBtn.classList.add("d-none");
       DOM.$mapCenter.classList.remove("d-none");
       DOM.$mapCenterMenu.classList.remove("d-none");
@@ -225,6 +228,7 @@ class MenuNavigation {
     case "routeDrawSave":
       DOM.$routeDrawWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("d-none");
       Globals.routeDraw.dom.changeMode.classList.add("d-none");
       DOM.$routeDrawEdit.classList.add("d-none");
       DOM.$bottomButtons.classList.remove("routeDraw");
@@ -234,8 +238,8 @@ class MenuNavigation {
       // Disparition de la croix pour le tracé d'itinéraire (décision UI)
       DOM.$tabClose.classList.add("d-none");
       DOM.$search.classList.add("d-none");
-      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.remove("d-none");
@@ -250,10 +254,10 @@ class MenuNavigation {
       Globals.backButtonState = "poi-" + previousBackState;
       Globals.routeDraw.deactivate();
       DOM.$search.classList.add("d-none");
-      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("d-none");
       Globals.currentScrollIndex = 2;
       break;
     case "layerManager":
@@ -279,9 +283,10 @@ class MenuNavigation {
       }
       Globals.interactivityIndicator.enable();
       DOM.$search.classList.add("d-none");
-      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.currentScrollIndex = 2;
       break;
@@ -291,6 +296,7 @@ class MenuNavigation {
       Globals.backButtonState = "isochrone-" + previousBackState;
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("highest");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 1;
@@ -333,9 +339,10 @@ class MenuNavigation {
     case "directions":
       Globals.backButtonState = "directions-" + previousBackState;
       DOM.$search.classList.add("d-none");
-      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
       // FIXME
@@ -389,6 +396,7 @@ class MenuNavigation {
     case "landmark":
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.landmark.clear();
       Globals.interactivityIndicator.enable();
@@ -397,6 +405,7 @@ class MenuNavigation {
     case "signalementOSM":
       DOM.$positionWindow.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("d-none");
       Globals.interactivityIndicator.enable();
       Globals.signalement.clear();
       Globals.signalementOSM.clear();
@@ -412,6 +421,7 @@ class MenuNavigation {
       break;
     case "selectOnMapDirections":
       DOM.$filterPoiBtn.classList.remove("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("d-none");
       // falls through
     case "selectOnMapIsochrone":
     case "selectOnMapLandmark":
@@ -467,6 +477,7 @@ class MenuNavigation {
       // Disparition de la croix
       DOM.$tabClose.classList.add("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("d-none");
       DOM["$routeDrawWindow"].classList.remove("d-none");
       Globals.routeDraw.dom.changeMode.classList.remove("d-none");
       DOM.$routeDrawEdit.classList.remove("d-none");
@@ -476,9 +487,10 @@ class MenuNavigation {
       break;
     case "routeDraw":
       DOM.$search.classList.remove("d-none");
-      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.add("d-none");
@@ -490,16 +502,17 @@ class MenuNavigation {
       break;
     case "poi":
       DOM.$search.classList.remove("d-none");
-      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("d-none");
       break;
     case "layerManager":
       DOM.$search.classList.remove("d-none");
       DOM.$layerManagerBtn.classList.remove("active");
-      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       break;
     case "informations":
@@ -508,8 +521,8 @@ class MenuNavigation {
       break;
     case "position":
       DOM.$search.classList.remove("d-none");
-      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.mapInteractivity.clear();
       break;
@@ -517,6 +530,7 @@ class MenuNavigation {
       // FIXME mettre en place une méthode sur la classe Searchs
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("highest");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.isochrone.clear();
       Globals.interactivityIndicator.enable();
@@ -567,9 +581,10 @@ class MenuNavigation {
       break;
     case "directions":
       DOM.$search.classList.remove("d-none");
-      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.directions.clear();
       Globals.interactivityIndicator.enable();

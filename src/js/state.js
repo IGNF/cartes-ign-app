@@ -132,14 +132,20 @@ const onBackKeyDown = () => {
     return;
   }
   if (backState === "selectOnMapDirections") {
+    const closesearch = new Event("closesearch");
+    window.dispatchEvent(closesearch);
     Globals.menu.close("selectOnMapDirections");
     return;
   }
   if (backState === "selectOnMapIsochrone") {
+    const closesearch = new Event("closesearch");
+    window.dispatchEvent(closesearch);
     Globals.menu.close("selectOnMapIsochrone");
     return;
   }
   if (backState === "selectOnMapLandmark") {
+    const closesearch = new Event("closesearch");
+    window.dispatchEvent(closesearch);
     Globals.menu.close("selectOnMapLandmark");
     return;
   }

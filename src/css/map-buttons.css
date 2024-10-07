@@ -344,6 +344,10 @@
   margin-top: calc(78px + var(--safe-area-inset-top));
 }
 
+.maplibregl-ctrl-top-right > .maplibregl-ctrl.highest {
+  margin-top: calc(10px + var(--safe-area-inset-top));
+}
+
 .maplibregl-ctrl-top-right > .maplibregl-ctrl:has(.maplibregl-ctrl-shrink) {
   margin-top: calc(100vh - var(--safe-area-inset-bottom) - 20px - 48px);
 }
