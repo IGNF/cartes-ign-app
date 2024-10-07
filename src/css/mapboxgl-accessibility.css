@@ -10,4 +10,7 @@ ISC License
   border-radius: 0;
   border: none;
   position: fixed;
+  display: block;
+  width: 24px;
+  height: 24px;
 }

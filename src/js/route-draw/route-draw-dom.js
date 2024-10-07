@@ -216,8 +216,6 @@ let RouteDrawDOM = {
     var canvasProfile = document.createElement("canvas");
     canvasProfile.id = "routedraw-elevationline";
     canvasProfile.className = "elevationLineCanvas";
-    // FIXME: STYLE: passer par une classe et style CSS
-    canvasProfile.style.width = "100%";
     div.appendChild(canvasProfile);
 
     var detailsHeader = document.createElement("p");

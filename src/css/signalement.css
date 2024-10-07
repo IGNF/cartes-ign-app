@@ -133,3 +133,9 @@
   background-size: 22px;
   margin-top: 10px;
 }
+
+.signalement-submit.inactive {
+  pointer-events: none;
+  background-image: url(assets/loading-white.svg);
+  color: #0000;
+}

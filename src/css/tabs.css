@@ -134,4 +134,5 @@
 
 .elevationLineCanvas {
   touch-action: none;
+  width: 100%;
 }

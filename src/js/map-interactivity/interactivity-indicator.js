@@ -15,10 +15,10 @@ import PopupUtils from "../utils/popup-utils";
 class InteractivityIndicator {
 
   /**
-     * constructeur
-     * @param {*} map
-     * @param {*} options
-     */
+   * constructeur
+   * @param {*} map
+   * @param {*} options
+   */
   constructor(map, options) {
     this.options = options || {
       id: "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"
@@ -137,12 +137,11 @@ class InteractivityIndicator {
   }
 
   /**
-     * Active l'indicateur d'activité
-     */
+   * Active l'indicateur d'activité
+   */
   active () {
     this.hardDisabled = false;
     DOM.$interactivityBtn.classList.remove("d-none");
-    // FIXME: STYLE: passer par une classe et style CSS
     DOM.$interactivityBtn.style.removeProperty("opacity");
     DOM.$interactivityBtn.style.removeProperty("color");
     document.getElementById("interactivityBtnText").innerText = "La carte est interactive";
@@ -197,16 +196,16 @@ class InteractivityIndicator {
   }
 
   /**
-     * Desactive l'indicateur d'activité jusqu'à nouvel ordre
-     */
+   * Desactive l'indicateur d'activité jusqu'à nouvel ordre
+   */
   hardDisable() {
     this.hardDisabled = true;
     this.disable();
   }
 
   /**
-     * Réactive l'indicateur après désactivation forcée
-     */
+   * Réactive l'indicateur après désactivation forcée
+   */
   enable() {
     this.hardDisabled = false;
     this.map.fire("zoom");

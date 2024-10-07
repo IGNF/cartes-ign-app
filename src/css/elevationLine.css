@@ -1,0 +1,13 @@
+.elevationLineLoadingDom {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  position: sticky;
+  flex-shrink: 0;
+  margin-bottom: -50%;
+  transform: translate(0, -100%);
+  background-color: #3F4A5555;
+  background-image: url(assets/loading-darkgrey.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50px;
+}

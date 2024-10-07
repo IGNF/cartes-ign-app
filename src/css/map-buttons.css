@@ -297,6 +297,11 @@
   pointer-events: none;
 }
 
+#mapCenter.loading {
+  background-image: url("assets/loading-green.svg");
+  background-size: 75px;
+}
+
 #mapCenterMenu {
   color: var(--dark-grey);
   display: flex;
