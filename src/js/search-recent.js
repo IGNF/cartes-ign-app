@@ -54,9 +54,9 @@ let RecentSearch = {
   key : "lastRecentSearches",
 
   /**
-     * creation de la liste complète des recherches recentes
-     * @returns {null}
-     */
+   * creation de la liste complète des recherches recentes
+   * @returns {null}
+   */
   create () {
     try {
       if (!localStorage.getItem(this.key)) {
@@ -73,10 +73,10 @@ let RecentSearch = {
   },
 
   /**
-     * ajout d'une entrée dans la liste des recherches recentes
-     * @param {*} value
-     * @returns {null}
-     */
+   * ajout d'une entrée dans la liste des recherches recentes
+   * @param {*} value
+   * @returns {null}
+   */
   add (value) {
     try {
       if (!localStorage.getItem(this.key)) {
