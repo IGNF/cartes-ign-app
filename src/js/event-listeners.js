@@ -157,17 +157,8 @@ function addListeners() {
     if (["selectOnMapDirections", "selectOnMapIsochrone", "selectOnMapLandmark", "compare"].includes(Globals.backButtonState)) {
       Globals.currentScrollIndex = 0;
     }
-    if (Globals.backButtonState === "compareLayers2") {
-      DOM.$sideBySideLeftLayer.style.removeProperty("left");
-      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(50% + 15px)";
-      }
-    }
+
     if (["compare", "compareLayers1", "compareLayers2"].includes(Globals.backButtonState)) {
-      DOM.$bottomButtons.style.removeProperty("width");
-      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$bottomButtons.style.width = "calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right))";
-      }
       const slider = document.querySelector(".maplibregl-compare");
       if (slider) {
         let sliderX;
@@ -186,19 +177,6 @@ function addListeners() {
         setTimeout( () => {
           Globals.compare.sideBySide.setSlider(sliderX);
         }, 50);
-      }
-    }
-    if (["compareLayers1", "compareLayers2"].includes(Globals.backButtonState)) {
-      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px)";
-        DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 78px)";
-        DOM.$sideBySideFadeSlider.style.transform = "unset";
-        DOM.$sideBySideFadeSlider.style.width = "calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px)";
-      } else {
-        DOM.$sideBySideLeftLayer.style.removeProperty("left");
-        DOM.$sideBySideFadeSlider.style.removeProperty("left");
-        DOM.$sideBySideFadeSlider.style.removeProperty("width");
-        DOM.$sideBySideFadeSlider.style.removeProperty("transform");
       }
     }
     Globals.menu.updateScrollAnchors();

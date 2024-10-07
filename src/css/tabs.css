@@ -73,6 +73,10 @@
   background-color: white;
 }
 
+#tabContainer.compare {
+  top: 100vh;
+}
+
 #sheetHeader,
 #tabHeader {
   width: 100%;

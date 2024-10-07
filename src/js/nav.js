@@ -180,34 +180,30 @@ class MenuNavigation {
       this.updateScrollAnchors();
       break;
     case "compareLayers1":
-      DOM.$tabContainer.style.removeProperty("top");
       DOM.$compareLayers2Window.classList.add("d-none");
       DOM.$compareLayers1Window.classList.remove("d-none");
-      DOM.$bottomButtons.style.removeProperty("bottom");
+      DOM.$tabContainer.classList.remove("compare");
+      DOM.$bottomButtons.classList.remove("compare");
       DOM.$sideBySideRightLayer.classList.add("inactive");
+      DOM.$sideBySideLeftLayer.classList.add("compareLayers");
+      DOM.$sideBySideFadeSlider.classList.add("compareLayers");
       Globals.currentScrollIndex = 2;
       if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px)";
-        DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 78px)";
-        DOM.$sideBySideFadeSlider.style.transform = "unset";
-        DOM.$sideBySideFadeSlider.style.width = "calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px)";
         Globals.currentScrollIndex = 1;
       }
       break;
     case "compareLayers2":
-      DOM.$tabContainer.style.removeProperty("top");
       DOM.$compareLayers1Window.classList.add("d-none");
       DOM.$compareLayers2Window.classList.remove("d-none");
-      DOM.$bottomButtons.style.removeProperty("bottom");
+      DOM.$tabContainer.classList.remove("compare");
+      DOM.$bottomButtons.classList.remove("compare");
       DOM.$sideBySideLeftLayer.classList.add("inactive");
+      DOM.$sideBySideLeftLayer.classList.add("compareLayers");
+      DOM.$sideBySideFadeSlider.classList.add("compareLayers");
+      Globals.currentScrollIndex = 2;
       if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px)";
-        DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px)+ 56px)";
-        DOM.$sideBySideFadeSlider.style.transform = "unset";
-        DOM.$sideBySideFadeSlider.style.width = "calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px)";
         Globals.currentScrollIndex = 1;
       }
-      Globals.currentScrollIndex = 2;
       break;
     case "compare":
       DOM.$search.classList.add("d-none");
@@ -218,11 +214,9 @@ class MenuNavigation {
       DOM.$compareMode.classList.remove("d-none");
       DOM.$sideBySideLeftLayer.classList.remove("d-none");
       DOM.$sideBySideRightLayer.classList.remove("d-none");
-      DOM.$tabContainer.style.top = "100vh";
-      DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
-      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$bottomButtons.style.width = "calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right))";
-      }
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$bottomButtons.classList.add("compare");
+      DOM.$bottomButtons.classList.add("compareWidth");
       DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-left").classList.add("d-none");
       Globals.compare.show();
       Globals.interactivityIndicator.hardDisable();
@@ -354,6 +348,9 @@ class MenuNavigation {
         target.value = "Ma position";
       }
       Globals.currentScrollIndex = 2;
+      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        Globals.currentScrollIndex = 1;
+      }
       break;
     default:
       break;
@@ -428,26 +425,24 @@ class MenuNavigation {
       isFinished = true;
       break;
     case "compareLayers1":
-      DOM.$tabContainer.style.top = "100vh";
-      DOM.$sideBySideLeftLayer.style.removeProperty("left");
-      DOM.$sideBySideFadeSlider.style.removeProperty("left");
-      DOM.$sideBySideFadeSlider.style.removeProperty("width");
-      DOM.$sideBySideFadeSlider.style.removeProperty("transform");
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$sideBySideLeftLayer.classList.remove("compareLayers");
+      DOM.$sideBySideFadeSlider.classList.remove("compareLayers");
       DOM.$compareLayers1Window.classList.add("d-none");
-      DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$bottomButtons.classList.add("compare");
       DOM.$sideBySideRightLayer.classList.remove("inactive");
       Globals.currentScrollIndex = 0;
       isSpecific = true;
       isFinished = true;
       break;
     case "compareLayers2":
-      DOM.$tabContainer.style.top = "100vh";
-      DOM.$sideBySideLeftLayer.style.removeProperty("left");
-      DOM.$sideBySideFadeSlider.style.removeProperty("left");
-      DOM.$sideBySideFadeSlider.style.removeProperty("width");
-      DOM.$sideBySideFadeSlider.style.removeProperty("transform");
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$sideBySideLeftLayer.classList.remove("compareLayers");
+      DOM.$sideBySideFadeSlider.classList.remove("compareLayers");
       DOM.$compareLayers2Window.classList.add("d-none");
-      DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$bottomButtons.classList.add("compare");
       DOM.$sideBySideLeftLayer.classList.remove("inactive");
       Globals.currentScrollIndex = 0;
       isSpecific = true;
@@ -462,9 +457,9 @@ class MenuNavigation {
       DOM.$compareMode.classList.add("d-none");
       DOM.$sideBySideLeftLayer.classList.add("d-none");
       DOM.$sideBySideRightLayer.classList.add("d-none");
-      DOM.$tabContainer.style.removeProperty("top");
-      DOM.$bottomButtons.style.removeProperty("bottom");
-      DOM.$bottomButtons.style.removeProperty("width");
+      DOM.$tabContainer.classList.remove("compare");
+      DOM.$bottomButtons.classList.remove("compare");
+      DOM.$bottomButtons.classList.add("compareWidth");
       DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-left").classList.remove("d-none");
       Globals.compare.hide();
       Globals.interactivityIndicator.enable();
