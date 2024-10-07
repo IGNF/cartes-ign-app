@@ -157,8 +157,8 @@ class ComparePoi {
     this.dom.text.classList.remove("d-none");
     this.dom.title.innerText = `${this.theme}`;
     DOM.$comparePoiWindow.classList.remove("d-none");
-    DOM.$tabContainer.style.removeProperty("top");
-    DOM.$bottomButtons.style.removeProperty("bottom");
+    DOM.$tabContainer.classList.remove("compare");
+    DOM.$bottomButtons.classList.remove("compare");
     DOM.$sideBySideLeftLayer.classList.add("d-none");
     DOM.$sideBySideRightLayer.classList.add("d-none");
     Globals.currentScrollIndex = 2;

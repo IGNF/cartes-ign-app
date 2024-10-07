@@ -77,6 +77,10 @@
   top: 100vh;
 }
 
+#tabContainer.noHeight {
+  height: 0px;
+}
+
 #sheetHeader,
 #tabHeader {
   width: 100%;

@@ -90,7 +90,7 @@ class MenuNavigation {
      */
   hide() {
     this.container.classList.add("d-none");
-    DOM.$tabContainer.style.removeProperty("height");
+    DOM.$tabContainer.classList.remove("noHeight");
   }
 
   /**
@@ -98,7 +98,7 @@ class MenuNavigation {
      */
   show() {
     this.container.classList.remove("d-none");
-    DOM.$tabContainer.style.height = "0px";
+    DOM.$tabContainer.classList.add("noHeight");
   }
 
   /**
@@ -171,7 +171,7 @@ class MenuNavigation {
         document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
       }
       DOM.$search.classList.add("d-none");
-      document.body.style.removeProperty("overflow-y");
+      document.body.classList.remove("searching");
       DOM.$whiteScreen.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("searching");
       DOM.$altMenuContainer.classList.add("d-none");
@@ -266,9 +266,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.add("d-none");
-        DOM.$bottomButtons.style.removeProperty("bottom");
-        DOM.$bottomButtons.style.removeProperty("left");
-        DOM.$bottomButtons.style.removeProperty("width");
+        DOM.$bottomButtons.classList.remove("routeDraw");
       }
       Globals.currentScrollIndex = 1;
       break;
@@ -299,9 +297,9 @@ class MenuNavigation {
       break;
     case "myaccount":
     case "informationsScreen":
-      DOM.$tabContainer.style.height = "0px";
-      DOM.$whiteScreen.style.backgroundColor = getComputedStyle(document.body).getPropertyValue("--false-white");
-      document.body.style.overflowY = "scroll";
+      DOM.$tabContainer.classList.add("noHeight");
+      DOM.$whiteScreen.classList.add("falseWhite");
+      document.body.classList.add("scrollable");
       DOM.$whiteScreen.classList.remove("d-none");
       DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -313,7 +311,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$tabContainer.classList.add("white");
       Globals.interactivityIndicator.enable();
-      DOM.$tabContainer.style.removeProperty("height");
+      DOM.$tabContainer.classList.remove("noHeight");
       Globals.currentScrollIndex = 2;
       break;
     case "searchDirections":
@@ -364,7 +362,7 @@ class MenuNavigation {
     this.hide();
 
     if (!DOM.$whiteScreen.classList.contains("d-none")) {
-      DOM.$tabContainer.style.height = "0px";
+      DOM.$tabContainer.classList.add("noHeight");
     }
 
     // on procede à l'affichage du panneau
@@ -472,13 +470,7 @@ class MenuNavigation {
       DOM["$routeDrawWindow"].classList.remove("d-none");
       Globals.routeDraw.dom.changeMode.classList.remove("d-none");
       DOM.$routeDrawEdit.classList.remove("d-none");
-      if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$bottomButtons.style.bottom = "calc(72px + 112px + var(--safe-area-inset-bottom))";
-      } else {
-        DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
-        DOM.$bottomButtons.style.width = "auto";
-        DOM.$bottomButtons.style.bottom = "calc(112px + var(--safe-area-inset-bottom))";
-      }
+      DOM.$bottomButtons.classList.add("routeDraw");
       isSpecific = true;
       isFinished = true;
       break;
@@ -555,7 +547,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("searching");
       DOM.$altMenuContainer.classList.add("d-none");
       DOM.$selectOnMap.classList.add("d-none");
-      DOM.$tabContainer.style.removeProperty("height");
+      DOM.$tabContainer.classList.remove("noHeight");
       Globals.currentScrollIndex = 1;
       // falls through
     case "directionsResults":
@@ -566,8 +558,8 @@ class MenuNavigation {
       break;
     case "myaccount":
     case "informationsScreen":
-      DOM.$whiteScreen.style.removeProperty("background-color");
-      document.body.style.removeProperty("overflow-y");
+      DOM.$whiteScreen.classList.remove("falseWhite");
+      document.body.classList.remove("scrollable");
       DOM.$whiteScreen.classList.add("d-none");
       DOM.$search.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
@@ -604,7 +596,7 @@ class MenuNavigation {
 
     // on met à jour l'état du panneau : vers le menu de navigation
     Globals.backButtonState = "default";
-    DOM.$tabContainer.style.removeProperty("height");
+    DOM.$tabContainer.classList.remove("noHeight");
   }
 
   /**
