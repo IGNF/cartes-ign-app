@@ -387,6 +387,10 @@ button.maplibregl-ctrl-shrink {
     top: calc(12px + var(--safe-area-inset-top));
     left: 15px;
   }
+
+  #bottomButtons.routeDraw {
+    bottom: calc(72px + 112px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
+  }
 }
 
 @media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
@@ -412,6 +416,12 @@ button.maplibregl-ctrl-shrink {
     width: calc(100vw - 75px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
     right: var(--safe-area-inset-right);
     z-index: 2500;
+  }
+
+  #bottomButtons.routeDraw {
+    left: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
+    width: auto;
+    bottom: calc(112px + var(--safe-area-inset-bottom));
   }
 
   #interactivityBtn {
