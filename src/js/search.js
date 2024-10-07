@@ -215,7 +215,7 @@ class Search {
     const coordResult = this.#computeCoordsSearch(location);
     if (coordResult.coord) {
       this.autocompletion_results.push({
-        fulltext: coordResult.coord,
+        fulltext: coordResult.coord + ", Coordonnées",
         firsttext: coordResult.coord,
         city: "Coordonnées",
         lng: coordResult.lon,
