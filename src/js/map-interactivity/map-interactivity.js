@@ -16,9 +16,6 @@ import Buffer from "@turf/buffer";
 import proj4 from "proj4";
 import Legend from "./legend-plan-ign";
 
-import LoadingGreen from "../../css/assets/loading-green.svg";
-
-
 /**
  * Interface sur l'interaction avec la carte
  * @module MapInteractivity
@@ -191,9 +188,7 @@ class MapInteractivity {
     this.#multipleGFI(layersForGFI)
       .then(async (resp) => {
         this.loading = false;
-        // FIXME: STYLE: passer par une classe et style CSS
-        DOM.$mapCenter.style.removeProperty("background-image");
-        DOM.$mapCenter.style.removeProperty("background-size");
+        DOM.$mapCenter.classList.remove("loading");
         DOM.$mapCenter.classList.add("d-none");
         try {
           this.#highlightGFI(resp.geometry);
@@ -211,8 +206,7 @@ class MapInteractivity {
         return;
       }).catch(async () => {
         this.loading = false;
-        DOM.$mapCenter.style.removeProperty("background-image");
-        DOM.$mapCenter.style.removeProperty("background-size");
+        DOM.$mapCenter.classList.remove("loading");
         DOM.$mapCenter.classList.add("d-none");
         if (featureHTML !== null) {
           this.#clearSources();
@@ -299,8 +293,7 @@ class MapInteractivity {
 
   async #multipleGFI(layerArray) {
     this.loading = true;
-    DOM.$mapCenter.style.backgroundImage = `url(${LoadingGreen})`;
-    DOM.$mapCenter.style.backgroundSize = "75px";
+    DOM.$mapCenter.classList.add("loading");
     DOM.$mapCenter.classList.remove("d-none");
 
     let GFIArray = layerArray.filter(layer => layer[1].visibility === true);
@@ -542,8 +535,7 @@ class MapInteractivity {
       this.controller.abort();
       this.controller = new AbortController();
       this.loading = false;
-      DOM.$mapCenter.style.removeProperty("background-image");
-      DOM.$mapCenter.style.removeProperty("background-size");
+      DOM.$mapCenter.classList.remove("loading");
       DOM.$mapCenter.classList.add("d-none");
     }
     this.#clearSources();

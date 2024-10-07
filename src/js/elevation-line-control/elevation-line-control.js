@@ -31,9 +31,6 @@ import Location from "../services/location";
 
 import { Toast } from "@capacitor/toast";
 
-import LoadingDark from "../../css/assets/loading-darkgrey.svg";
-
-
 /**
  * Interface sur le contrôle profil altimétrique
  * @module ElevationLineControl
@@ -65,19 +62,8 @@ class ElevationLineControl {
     this.chart = null;
 
     this.loadingDom = document.createElement("div"); // div de la patience
-    // FIXME: STYLE: passer par une classe et style CSS
-    this.loadingDom.style.width = "100%";
-    this.loadingDom.style.aspectRatio = "2 / 1";
-    this.loadingDom.style.position = "sticky";
-    this.loadingDom.style.flexShrink = "0";
-    this.loadingDom.style.marginBottom = "-50%";
-    this.loadingDom.style.transform = "translate(0, -100%)";
-    this.loadingDom.style.backgroundColor = "#3F4A5555";
-    this.loadingDom.style.backgroundImage = "url(" + LoadingDark + ")";
-    this.loadingDom.style.backgroundPosition = "center";
-    this.loadingDom.style.backgroundRepeat = "no-repeat";
-    this.loadingDom.style.backgroundSize = "50px";
-    this.loadingDom.style.display = "none";
+    this.loadingDom.className = "elevationLineLoadingDom";
+    this.loadingDom.classList.add("d-none");
     this.loadingDomInDocument = false;
 
     return this;
@@ -397,8 +383,7 @@ Distance du départ : ${distanceText} ${this.unit}`;
       this.target.after(this.loadingDom);
       this.loadingDomInDocument = true;
     }
-    // FIXME: STYLE: passer par une classe et style CSS
-    this.loadingDom.style.removeProperty("display");
+    this.loadingDom.classList.remove("d-none");
   }
 
   /**
@@ -406,7 +391,7 @@ Distance du départ : ${distanceText} ${this.unit}`;
    * @private
    */
   #unsetLoading() {
-    this.loadingDom.style.display = "none";
+    this.loadingDom.classList.add("d-none");
   }
 
   /**

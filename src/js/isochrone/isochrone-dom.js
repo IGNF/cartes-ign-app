@@ -5,7 +5,6 @@
  */
 
 import DomUtils from "../utils/dom-utils";
-import LoadingWhite from "../../css/assets/loading-white.svg";
 
 import { Toast } from "@capacitor/toast";
 
@@ -366,8 +365,7 @@ let IsochroneDOM = {
   __setComputeButtonLoading () {
     this.dom.isochroneCompute.value = "";
     this.dom.isochroneCompute.disabled = true;
-    // FIXME: STYLE: passer par une classe et style CSS
-    this.dom.isochroneCompute.style.backgroundImage = "url(" + LoadingWhite + ")";
+    this.dom.isochroneCompute.classList.add("loading");
     document.querySelectorAll("#isochroneLocationContainer").forEach((el) => {
       el.classList.add("disabled");
     });
@@ -380,7 +378,7 @@ let IsochroneDOM = {
   __unsetComputeButtonLoading () {
     this.dom.isochroneCompute.value = "Calculer";
     this.dom.isochroneCompute.disabled = false;
-    this.dom.isochroneCompute.style.removeProperty("background-image");
+    this.dom.isochroneCompute.classList.remove("loading");
     document.querySelectorAll("#isochroneLocationContainer").forEach((el) => {
       el.classList.remove("disabled");
     });

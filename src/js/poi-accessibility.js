@@ -47,17 +47,13 @@ class MapboxAccessibility {
       feature.marker = document.createElement("button");
       feature.marker.setAttribute("title", label);
       feature.marker.setAttribute("tabindex", 0);
-      // FIXME: STYLE: passer par une classe et style CSS
-      feature.marker.style.display = "block";
+      feature.marker.className = "mapboxgl-accessibility-marker";
 
       let position;
       if (feature.geometry.type === "Point") {
         position = this.map.project(feature.geometry.coordinates);
       }
-      feature.marker.style.width = "24px";
-      feature.marker.style.height = "24px";
       feature.marker.style.transform = `translate(-50%, -50%) translate(${position.x}px, ${position.y}px)`;
-      feature.marker.className = "mapboxgl-accessibility-marker";
 
       this.map.getCanvasContainer().appendChild(feature.marker);
       return feature;

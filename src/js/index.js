@@ -33,11 +33,6 @@ import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "../css/app.scss";
 
-// fichiers SVG
-import PositionImg from "../css/assets/position.svg";
-import PositionImgGrey from "../css/assets/position-grey.svg";
-import MapCenterImg from "../css/assets/map-center.svg";
-
 // Affichage des éléments PWA en mode WE (Toast et ActionSheet)
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 defineCustomElements(window);
@@ -119,28 +114,13 @@ function app() {
 
   // Définition des icones
   Globals.myPositionIcon = document.createElement("div");
-  Globals.myPositionIcon.class = "myPositionIcon";
-  // FIXME: STYLE: passer par une classe et style CSS
-  Globals.myPositionIcon.style.width = "51px";
-  Globals.myPositionIcon.style.height = "51px";
-  Globals.myPositionIcon.style.backgroundSize = "contain";
-  Globals.myPositionIcon.style.backgroundImage = "url(" + PositionImg + ")";
+  Globals.myPositionIcon.className = "myPositionIcon";
 
   Globals.myPositionIconGrey = document.createElement("div");
-  Globals.myPositionIconGrey.class = "myPositionIconGrey";
-  // FIXME: STYLE: passer par une classe et style CSS
-  Globals.myPositionIconGrey.style.width = "51px";
-  Globals.myPositionIconGrey.style.height = "51px";
-  Globals.myPositionIconGrey.style.backgroundSize = "contain";
-  Globals.myPositionIconGrey.style.backgroundImage = "url(" + PositionImgGrey + ")";
+  Globals.myPositionIconGrey.className = "myPositionIconGrey";
 
   Globals.searchResultIcon = document.createElement("div");
-  Globals.searchResultIcon.class = "searchResultIcon";
-  // FIXME: STYLE: passer par une classe et style CSS
-  Globals.searchResultIcon.style.width = "36px";
-  Globals.searchResultIcon.style.height = "36px";
-  Globals.searchResultIcon.style.backgroundSize = "contain";
-  Globals.searchResultIcon.style.backgroundImage = "url(" + MapCenterImg + ")";
+  Globals.searchResultIcon.className = "searchResultIcon";
 
   // Main map
   const map = new maplibregl.Map({

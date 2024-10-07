@@ -8,8 +8,6 @@ import Globals from "./globals";
 
 import { Toast } from "@capacitor/toast";
 
-import LoadingWhite from "../css/assets/loading-white.svg";
-
 /**
  * Permet de créer une Note OpenStreetMap depuis un POI OSM
  */
@@ -89,23 +87,16 @@ class SignalementOSM {
         console.warn("Signalement sans lieu !");
         return;
       }
-      // FIXME: STYLE: passer par une classe et style CSS
-      this.dom.submitButton.style.pointerEvents = "none";
-      this.dom.submitButton.style.backgroundImage = "url(" + LoadingWhite + ")";
-      this.dom.submitButton.style.color = "#0000";
+      this.dom.submitButton.classList.add("inactive");
       this.#send().then( (response) => {
         this.target.querySelector("#osmNoteUrl").href = `https://www.openstreetmap.org/note/${response.properties.id}`;
         this.target.querySelector("#signalementOsmMain").classList.add("d-none");
         this.target.querySelector("#signalementOsmDone").classList.remove("d-none");
-        this.dom.submitButton.style.removeProperty("pointer-events");
-        this.dom.submitButton.style.removeProperty("background-image");
-        this.dom.submitButton.style.removeProperty("color");
+        this.dom.submitButton.classList.remove("inactive");
       }).catch( () => {
         this.target.querySelector("#signalementOsmMain").classList.add("d-none");
         this.target.querySelector("#signalementOsmDone").classList.remove("d-none");
-        this.dom.submitButton.style.removeProperty("pointer-events");
-        this.dom.submitButton.style.removeProperty("background-image");
-        this.dom.submitButton.style.removeProperty("color");
+        this.dom.submitButton.classList.remove("inactive");
         this.hide();
         Toast.show({
           text: "Une erreur s'est produite lors de la création de la note",

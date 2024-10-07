@@ -59,6 +59,28 @@
   flex-direction: column;
 }
 
+/* Marker icons */
+.myPositionIcon {
+  width: 51px;
+  height: 51px;
+  background-size: contain;
+  background-image: url(assets/position.svg);
+}
+
+.myPositionIconGrey {
+  width: 51px;
+  height: 51px;
+  background-size: contain;
+  background-image: url(assets/position-grey.svg);
+}
+
+.searchResultIcon {
+  width: 36px;
+  height: 36px;
+  background-size: contain;
+  background-image: url(assets/map-center.svg);
+}
+
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #map {
     height: 100vh;

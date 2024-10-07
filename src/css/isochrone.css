@@ -62,6 +62,10 @@
   background-size: 22px;
 }
 
+.btnIsochroneCompute.loading {
+  background-image: url(assets/loading-white.svg);
+}
+
 /*
  * transport / mode
  */
