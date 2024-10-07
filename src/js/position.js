@@ -12,8 +12,9 @@ import Globals from "./globals";
 import DomUtils from "./utils/dom-utils";
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
-import ActionSheet from "./action-sheet";
+import { Clipboard } from "@capacitor/clipboard";
 
+import ActionSheet from "./action-sheet";
 import PopupUtils from "./utils/popup-utils";
 
 import LoadingDark from "../css/assets/loading-darkgrey.svg";
@@ -103,7 +104,7 @@ class Position {
     var address = this.address;
     var latitude = this.coordinates.lat;
     var longitude = this.coordinates.lon;
-    var altitudeHtml = `<img src="${LoadingDark}" height="8px">`;
+    var altitudeHtml = `<img src="${LoadingDark}" height="8px" title="Chargement de l'altitude en cours...">`;
     var templateAddress;
 
     // adresse disponible
@@ -169,7 +170,7 @@ class Position {
               <div class="divPositionSectionAddress fontLight">
                 ${templateAddress}
                 <div class="divPositionCoord fontLight">
-                  (${latitude}, ${longitude}) - Alt : <span id="positionAltitudeSpan">${altitudeHtml}</span> m
+                  <span id="positionCoordsSpan">(${latitude}, ${longitude})</span><span> - Alt : <span id="positionAltitudeSpan">${altitudeHtml}</span> m</span>
                 </div>
               </div>
           </div>
@@ -377,6 +378,18 @@ class Position {
     shadowContainer.getElementById("divPositionButtonsAfter").addEventListener("click", DomUtils.horizontalParentScroll);
     shadowContainer.getElementById("divPositionButtonsAfter").parentElement.addEventListener("scroll", DomUtils.horizontalParentScrollend);
 
+    shadowContainer.getElementById("positionCoordsSpan").addEventListener("click", () => {
+      let coordinates = this.coordinates;
+      Clipboard.write({
+        string: `${coordinates.lat}, ${coordinates.lon}`
+      }).then( () => {
+        Toast.show({
+          text: "Coordonnées copiées dans le presse-papier",
+          duration: "short",
+          position: "bottom"
+        });
+      });
+    });
     // ajout du container shadow
     target.appendChild(shadowContainer);
 
