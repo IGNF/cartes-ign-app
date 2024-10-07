@@ -29,6 +29,14 @@
   transition: transform 0.5s ease-in-out;
 }
 
+#bottomButtons.routeDraw {
+  bottom: calc(72px + 112px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
+}
+
+#bottomButtons.compare {
+  bottom: calc(42px + var(--safe-area-inset-bottom));
+}
+
 #layerManagerBtn {
   background-image: url("assets/map-buttons/layers.svg");
   position: absolute;
@@ -414,6 +422,16 @@ button.maplibregl-ctrl-shrink {
     z-index: 2500;
   }
 
+  #bottomButtons.routeDraw {
+    left: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
+    width: auto;
+    bottom: calc(112px + var(--safe-area-inset-bottom));
+  }
+
+  #bottomButtons.compareWidth {
+    width: calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right));
+  }
+
   #interactivityBtn {
     left: calc(85px + var(--safe-area-inset-left));
   }
@@ -456,4 +474,15 @@ button.maplibregl-ctrl-shrink {
     width: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
     border-top-right-radius: 8px;
   }
+
+  #sideBySideLeftLayer.compareLayers {
+    left: calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px);
+  }
+
+  #sideBySideFadeSlider.compareLayers {
+    left: calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 78px);
+    transform: unset;
+    width: calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px);
+  }
+
 }

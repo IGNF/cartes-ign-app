@@ -65,6 +65,7 @@ class ElevationLineControl {
     this.chart = null;
 
     this.loadingDom = document.createElement("div"); // div de la patience
+    // FIXME: STYLE: passer par une classe et style CSS
     this.loadingDom.style.width = "100%";
     this.loadingDom.style.aspectRatio = "2 / 1";
     this.loadingDom.style.position = "sticky";
@@ -396,6 +397,7 @@ Distance du départ : ${distanceText} ${this.unit}`;
       this.target.after(this.loadingDom);
       this.loadingDomInDocument = true;
     }
+    // FIXME: STYLE: passer par une classe et style CSS
     this.loadingDom.style.removeProperty("display");
   }
 

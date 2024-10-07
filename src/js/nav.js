@@ -90,7 +90,7 @@ class MenuNavigation {
      */
   hide() {
     this.container.classList.add("d-none");
-    DOM.$tabContainer.style.removeProperty("height");
+    DOM.$tabContainer.classList.remove("noHeight");
   }
 
   /**
@@ -98,7 +98,7 @@ class MenuNavigation {
      */
   show() {
     this.container.classList.remove("d-none");
-    DOM.$tabContainer.style.height = "0px";
+    DOM.$tabContainer.classList.add("noHeight");
   }
 
   /**
@@ -137,7 +137,7 @@ class MenuNavigation {
     switch (id) {
     case "landmark":
       Globals.backButtonState = "landmark-" + previousBackState;
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
@@ -153,7 +153,7 @@ class MenuNavigation {
       Globals.interactivityIndicator.hardDisable();
       break;
     case "comparePoi":
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -170,51 +170,43 @@ class MenuNavigation {
       if (document.querySelector(".autocompresultselected")) {
         document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
       }
-      DOM.$search.style.display = "none";
-      document.body.style.removeProperty("overflow-y");
+      DOM.$search.classList.add("d-none");
+      document.body.classList.remove("searching");
       DOM.$whiteScreen.classList.add("d-none");
-      DOM.$backTopLeftBtn.style.removeProperty("box-shadow");
-      DOM.$backTopLeftBtn.style.removeProperty("height");
-      DOM.$backTopLeftBtn.style.removeProperty("width");
-      DOM.$backTopLeftBtn.style.removeProperty("top");
-      DOM.$backTopLeftBtn.style.removeProperty("left");
+      DOM.$backTopLeftBtn.classList.remove("searching");
       DOM.$altMenuContainer.classList.add("d-none");
       DOM.$selectOnMap.classList.add("d-none");
       Globals.currentScrollIndex = 0;
       this.updateScrollAnchors();
       break;
     case "compareLayers1":
-      DOM.$tabContainer.style.removeProperty("top");
       DOM.$compareLayers2Window.classList.add("d-none");
       DOM.$compareLayers1Window.classList.remove("d-none");
-      DOM.$bottomButtons.style.removeProperty("bottom");
+      DOM.$tabContainer.classList.remove("compare");
+      DOM.$bottomButtons.classList.remove("compare");
       DOM.$sideBySideRightLayer.classList.add("inactive");
+      DOM.$sideBySideLeftLayer.classList.add("compareLayers");
+      DOM.$sideBySideFadeSlider.classList.add("compareLayers");
       Globals.currentScrollIndex = 2;
       if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px)";
-        DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 78px)";
-        DOM.$sideBySideFadeSlider.style.transform = "unset";
-        DOM.$sideBySideFadeSlider.style.width = "calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px)";
         Globals.currentScrollIndex = 1;
       }
       break;
     case "compareLayers2":
-      DOM.$tabContainer.style.removeProperty("top");
       DOM.$compareLayers1Window.classList.add("d-none");
       DOM.$compareLayers2Window.classList.remove("d-none");
-      DOM.$bottomButtons.style.removeProperty("bottom");
+      DOM.$tabContainer.classList.remove("compare");
+      DOM.$bottomButtons.classList.remove("compare");
       DOM.$sideBySideLeftLayer.classList.add("inactive");
+      DOM.$sideBySideLeftLayer.classList.add("compareLayers");
+      DOM.$sideBySideFadeSlider.classList.add("compareLayers");
+      Globals.currentScrollIndex = 2;
       if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$sideBySideLeftLayer.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px)";
-        DOM.$sideBySideFadeSlider.style.left = "calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px)+ 56px)";
-        DOM.$sideBySideFadeSlider.style.transform = "unset";
-        DOM.$sideBySideFadeSlider.style.width = "calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px)";
         Globals.currentScrollIndex = 1;
       }
-      Globals.currentScrollIndex = 2;
       break;
     case "compare":
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$geolocateBtn.classList.add("d-none");
       DOM.$layerManagerBtn.classList.add("d-none");
@@ -222,11 +214,9 @@ class MenuNavigation {
       DOM.$compareMode.classList.remove("d-none");
       DOM.$sideBySideLeftLayer.classList.remove("d-none");
       DOM.$sideBySideRightLayer.classList.remove("d-none");
-      DOM.$tabContainer.style.top = "100vh";
-      DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
-      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$bottomButtons.style.width = "calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right))";
-      }
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$bottomButtons.classList.add("compare");
+      DOM.$bottomButtons.classList.add("compareWidth");
       DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-left").classList.add("d-none");
       Globals.compare.show();
       Globals.interactivityIndicator.hardDisable();
@@ -237,37 +227,29 @@ class MenuNavigation {
       DOM.$filterPoiBtn.classList.add("d-none");
       Globals.routeDraw.dom.changeMode.classList.add("d-none");
       DOM.$routeDrawEdit.classList.add("d-none");
-      DOM.$bottomButtons.style.removeProperty("bottom");
-      DOM.$bottomButtons.style.removeProperty("left");
-      DOM.$bottomButtons.style.removeProperty("width");
+      DOM.$bottomButtons.classList.remove("routeDraw");
       Globals.currentScrollIndex = 1;
       break;
     case "routeDraw":
       // Disparition de la croix pour le tracé d'itinéraire (décision UI)
       DOM.$tabClose.classList.add("d-none");
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.remove("d-none");
-        if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-          DOM.$bottomButtons.style.bottom = "calc(72px + 112px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px))";
-        } else {
-          DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
-          DOM.$bottomButtons.style.width = "auto";
-          DOM.$bottomButtons.style.bottom = "calc(112px + var(--safe-area-inset-bottom))";
-        }
+        DOM.$bottomButtons.classList.add("routeDraw");
         Globals.routeDraw.activate();
       }
-      DOM.$tabContainer.style.backgroundColor = "white";
+      DOM.$tabContainer.classList.add("white");
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 1;
       break;
     case "poi":
       Globals.backButtonState = "poi-" + previousBackState;
       Globals.routeDraw.deactivate();
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -277,16 +259,14 @@ class MenuNavigation {
     case "layerManager":
       Globals.backButtonState = "layerManager-" + previousBackState;
       DOM.$layerManagerBtn.classList.add("active");
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
-      DOM.$tabContainer.style.removeProperty("background-color");
+      DOM.$tabContainer.classList.remove("white");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.add("d-none");
-        DOM.$bottomButtons.style.removeProperty("bottom");
-        DOM.$bottomButtons.style.removeProperty("left");
-        DOM.$bottomButtons.style.removeProperty("width");
+        DOM.$bottomButtons.classList.remove("routeDraw");
       }
       Globals.currentScrollIndex = 1;
       break;
@@ -298,7 +278,7 @@ class MenuNavigation {
         Globals.backButtonState = "position-" + previousBackState;
       }
       Globals.interactivityIndicator.enable();
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
@@ -309,7 +289,7 @@ class MenuNavigation {
       // FIXME mettre en place une méthode sur la classe Search
       // ex. Globals.search.hide()
       Globals.backButtonState = "isochrone-" + previousBackState;
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
@@ -317,27 +297,27 @@ class MenuNavigation {
       break;
     case "myaccount":
     case "informationsScreen":
-      DOM.$tabContainer.style.height = "0px";
-      DOM.$whiteScreen.style.backgroundColor = getComputedStyle(document.body).getPropertyValue("--false-white");
-      document.body.style.overflowY = "scroll";
+      DOM.$tabContainer.classList.add("noHeight");
+      DOM.$whiteScreen.classList.add("falseWhite");
+      document.body.classList.add("scrollable");
       DOM.$whiteScreen.classList.remove("d-none");
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$altMenuContainer.classList.remove("d-none");
       Globals.currentScrollIndex = 0;
       break;
     case "directionsResults":
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
-      DOM.$tabContainer.style.backgroundColor = "white";
+      DOM.$tabContainer.classList.add("white");
       Globals.interactivityIndicator.enable();
-      DOM.$tabContainer.style.removeProperty("height");
+      DOM.$tabContainer.classList.remove("noHeight");
       Globals.currentScrollIndex = 2;
       break;
     case "searchDirections":
     case "searchIsochrone":
     case "searchLandmark":
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       DOM.$selectOnMap.classList.remove("d-none");
       // falls through
     case "search":
@@ -352,7 +332,7 @@ class MenuNavigation {
       break;
     case "directions":
       Globals.backButtonState = "directions-" + previousBackState;
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
@@ -366,6 +346,9 @@ class MenuNavigation {
         target.value = "Ma position";
       }
       Globals.currentScrollIndex = 2;
+      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        Globals.currentScrollIndex = 1;
+      }
       break;
     default:
       break;
@@ -379,7 +362,7 @@ class MenuNavigation {
     this.hide();
 
     if (!DOM.$whiteScreen.classList.contains("d-none")) {
-      DOM.$tabContainer.style.height = "0px";
+      DOM.$tabContainer.classList.add("noHeight");
     }
 
     // on procede à l'affichage du panneau
@@ -404,7 +387,7 @@ class MenuNavigation {
     var isFinished = false; // hack pour search !
     switch (id) {
     case "landmark":
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.landmark.clear();
@@ -422,7 +405,7 @@ class MenuNavigation {
       break;
     case "comparePoi":
       Globals.comparePoi.clearSources();
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
@@ -440,33 +423,31 @@ class MenuNavigation {
       isFinished = true;
       break;
     case "compareLayers1":
-      DOM.$tabContainer.style.top = "100vh";
-      DOM.$sideBySideLeftLayer.style.removeProperty("left");
-      DOM.$sideBySideFadeSlider.style.removeProperty("left");
-      DOM.$sideBySideFadeSlider.style.removeProperty("width");
-      DOM.$sideBySideFadeSlider.style.removeProperty("transform");
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$sideBySideLeftLayer.classList.remove("compareLayers");
+      DOM.$sideBySideFadeSlider.classList.remove("compareLayers");
       DOM.$compareLayers1Window.classList.add("d-none");
-      DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$bottomButtons.classList.add("compare");
       DOM.$sideBySideRightLayer.classList.remove("inactive");
       Globals.currentScrollIndex = 0;
       isSpecific = true;
       isFinished = true;
       break;
     case "compareLayers2":
-      DOM.$tabContainer.style.top = "100vh";
-      DOM.$sideBySideLeftLayer.style.removeProperty("left");
-      DOM.$sideBySideFadeSlider.style.removeProperty("left");
-      DOM.$sideBySideFadeSlider.style.removeProperty("width");
-      DOM.$sideBySideFadeSlider.style.removeProperty("transform");
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$sideBySideLeftLayer.classList.remove("compareLayers");
+      DOM.$sideBySideFadeSlider.classList.remove("compareLayers");
       DOM.$compareLayers2Window.classList.add("d-none");
-      DOM.$bottomButtons.style.bottom = "calc(42px + var(--safe-area-inset-bottom))";
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$bottomButtons.classList.add("compare");
       DOM.$sideBySideLeftLayer.classList.remove("inactive");
       Globals.currentScrollIndex = 0;
       isSpecific = true;
       isFinished = true;
       break;
     case "compare":
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$geolocateBtn.classList.remove("d-none");
       DOM.$layerManagerBtn.classList.remove("d-none");
@@ -474,9 +455,9 @@ class MenuNavigation {
       DOM.$compareMode.classList.add("d-none");
       DOM.$sideBySideLeftLayer.classList.add("d-none");
       DOM.$sideBySideRightLayer.classList.add("d-none");
-      DOM.$tabContainer.style.removeProperty("top");
-      DOM.$bottomButtons.style.removeProperty("bottom");
-      DOM.$bottomButtons.style.removeProperty("width");
+      DOM.$tabContainer.classList.remove("compare");
+      DOM.$bottomButtons.classList.remove("compare");
+      DOM.$bottomButtons.classList.add("compareWidth");
       DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-left").classList.remove("d-none");
       Globals.compare.hide();
       Globals.interactivityIndicator.enable();
@@ -489,41 +470,33 @@ class MenuNavigation {
       DOM["$routeDrawWindow"].classList.remove("d-none");
       Globals.routeDraw.dom.changeMode.classList.remove("d-none");
       DOM.$routeDrawEdit.classList.remove("d-none");
-      if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        DOM.$bottomButtons.style.bottom = "calc(72px + 112px + var(--safe-area-inset-bottom))";
-      } else {
-        DOM.$bottomButtons.style.left = "min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))";
-        DOM.$bottomButtons.style.width = "auto";
-        DOM.$bottomButtons.style.bottom = "calc(112px + var(--safe-area-inset-bottom))";
-      }
+      DOM.$bottomButtons.classList.add("routeDraw");
       isSpecific = true;
       isFinished = true;
       break;
     case "routeDraw":
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.add("d-none");
-        DOM.$bottomButtons.style.removeProperty("bottom");
-        DOM.$bottomButtons.style.removeProperty("left");
-        DOM.$bottomButtons.style.removeProperty("width");
+        DOM.$bottomButtons.classList.remove("routeDraw");
       }
-      DOM.$tabContainer.style.removeProperty("background-color");
+      DOM.$tabContainer.classList.remove("white");
       Globals.routeDraw.clear();
       Globals.interactivityIndicator.enable();
       break;
     case "poi":
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
       break;
     case "layerManager":
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       DOM.$layerManagerBtn.classList.remove("active");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
@@ -534,7 +507,7 @@ class MenuNavigation {
       isFinished = true;
       break;
     case "position":
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
@@ -542,7 +515,7 @@ class MenuNavigation {
       break;
     case "isochrone":
       // FIXME mettre en place une méthode sur la classe Searchs
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.isochrone.clear();
@@ -574,26 +547,26 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("searching");
       DOM.$altMenuContainer.classList.add("d-none");
       DOM.$selectOnMap.classList.add("d-none");
-      DOM.$tabContainer.style.removeProperty("height");
+      DOM.$tabContainer.classList.remove("noHeight");
       Globals.currentScrollIndex = 1;
       // falls through
     case "directionsResults":
-      DOM.$tabContainer.style.removeProperty("background-color");
+      DOM.$tabContainer.classList.remove("white");
       Globals.interactivityIndicator.hardDisable();
       isSpecific = true;
       isFinished = true;
       break;
     case "myaccount":
     case "informationsScreen":
-      DOM.$whiteScreen.style.removeProperty("background-color");
-      document.body.style.removeProperty("overflow-y");
+      DOM.$whiteScreen.classList.remove("falseWhite");
+      document.body.classList.remove("scrollable");
       DOM.$whiteScreen.classList.add("d-none");
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$altMenuContainer.classList.add("d-none");
       break;
     case "directions":
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl").classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
@@ -623,7 +596,7 @@ class MenuNavigation {
 
     // on met à jour l'état du panneau : vers le menu de navigation
     Globals.backButtonState = "default";
-    DOM.$tabContainer.style.removeProperty("height");
+    DOM.$tabContainer.classList.remove("noHeight");
   }
 
   /**
@@ -666,7 +639,7 @@ class MenuNavigation {
       this.#midScroll();
       break;
     case "search":
-      DOM.$search.style.display = "flex";
+      DOM.$search.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       break;
     case "directionsResults":
@@ -677,7 +650,7 @@ class MenuNavigation {
     case "searchLandmark":
     case "selectOnMapLandmark":
       DOM.$filterPoiBtn.classList.add("d-none");
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$landmarkWindow.classList.remove("d-none");
       Globals.backButtonState = "landmark"; // on revient sur le contrôle !
@@ -688,7 +661,7 @@ class MenuNavigation {
     case "searchIsochrone":
     case "selectOnMapIsochrone":
       DOM.$filterPoiBtn.classList.add("d-none");
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$isochroneWindow.classList.remove("d-none");
       Globals.backButtonState = "isochrone"; // on revient sur le contrôle !
@@ -697,7 +670,7 @@ class MenuNavigation {
       break;
     case "searchDirections":
     case "selectOnMapDirections":
-      DOM.$search.style.display = "none";
+      DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$directionsWindow.classList.remove("d-none");
       Globals.backButtonState = "directions"; // on revient sur le contrôle !

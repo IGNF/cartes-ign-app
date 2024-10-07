@@ -121,8 +121,6 @@ let DirectionsResultsDOM = {
      */
   __addResultsDetailsContainerDOMElement () {
     // contexte de la classse
-    var self = this;
-
     var div = document.createElement("div");
     div.id = "directionsDetails";
     div.className = "";
@@ -130,9 +128,6 @@ let DirectionsResultsDOM = {
     var inputShow = this.dom.inputShow = document.createElement("input");
     inputShow.id = "directionsShowDetail";
     inputShow.type = "checkbox";
-    inputShow.addEventListener("change", function (e) {
-      self.toggleDisplayDetails(e);
-    });
     div.appendChild(inputShow);
 
     var labelShow = document.createElement("label");
@@ -172,6 +167,7 @@ let DirectionsResultsDOM = {
       var canvasProfile = document.createElement("canvas");
       canvasProfile.id = "directions-elevationline";
       canvasProfile.className = "elevationLineCanvas";
+      // FIXME: STYLE: passer par une classe et style CSS
       canvasProfile.style.width = "100%";
       divList.appendChild(canvasProfile);
     }

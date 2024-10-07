@@ -69,6 +69,18 @@
   z-index: 3004;
 }
 
+#tabContainer.white {
+  background-color: white;
+}
+
+#tabContainer.compare {
+  top: 100vh;
+}
+
+#tabContainer.noHeight {
+  height: 0px;
+}
+
 #sheetHeader,
 #tabHeader {
   width: 100%;

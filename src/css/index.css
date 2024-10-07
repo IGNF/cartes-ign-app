@@ -66,6 +66,10 @@ body {
   overflow-x: clip;
 }
 
+body.scrollable {
+  overflow-y: scroll;
+}
+
 body:has(action-sheet:not(.d-none)) {
   overflow-y: hidden;
 }
@@ -91,6 +95,10 @@ input, textarea, select {
   z-index: 2999;
   position: fixed;
   animation: fadeIn 0.15s;
+}
+
+#whiteScreen.falseWhite {
+  background-color: var(--false-white);
 }
 
 .hidden {
