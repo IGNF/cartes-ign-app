@@ -107,6 +107,10 @@ input, textarea, select {
   padding: 0 !important;
 }
 
+.opacity0 {
+  opacity: 0 !important;
+}
+
 /* DS IGN forms */
 .dsign-form-label,
 .signalement-select {

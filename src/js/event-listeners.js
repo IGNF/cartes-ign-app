@@ -243,14 +243,20 @@ function addListeners() {
   };
 
   window.addEventListener("scroll", () => {
-    DOM.$bottomButtons.style.removeProperty("transform");
-    DOM.$routeDrawEdit.style.removeProperty("transform");
-    DOM.$filterPoiBtn.style.removeProperty("transform");
+    DOM.$bottomButtons.classList.remove("opacity0");
+    DOM.$routeDrawEdit.classList.remove("opacity0");
+    DOM.$filterPoiBtn.classList.remove("opacity0");
+    if (DOM.$fullScreenBtn) {
+      DOM.$fullScreenBtn.classList.remove("opacity0");
+    }
     const thresh = window.innerHeight / 2;
     if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && window.scrollY > thresh) {
-      DOM.$bottomButtons.style.transform = "translateY(-100vh)";
-      DOM.$routeDrawEdit.style.transform = "translateX(100vw)";
-      DOM.$filterPoiBtn.style.transform = "translateY(-100vh)";
+      DOM.$bottomButtons.classList.add("opacity0");
+      DOM.$routeDrawEdit.classList.add("opacity0");
+      DOM.$filterPoiBtn.classList.add("opacity0");
+      if (DOM.$fullScreenBtn) {
+        DOM.$fullScreenBtn.classList.add("opacity0");
+      }
     }
     const insetTop = Math.round(parseFloat(getComputedStyle(document.body).getPropertyValue("--safe-area-inset-top").slice(0, -2)));
     const insetBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-bottom").slice(0, -2));

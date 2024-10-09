@@ -26,7 +26,7 @@
   position: absolute;
   bottom: calc(72px + 25px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
   width: 100vw;
-  transition: transform 0.5s ease-in-out;
+  transition: opacity 0.5s;
 }
 
 #bottomButtons.routeDraw {
@@ -173,7 +173,7 @@
   padding-left: 25px;
   background-position: 13px center;
   width: 5.385rem;
-  transition: top 0.3s, transform 0.5s;
+  transition: top 0.3s, opacity 0.5s;
   font-size: 14px;
 }
 
@@ -223,7 +223,7 @@
   box-sizing: border-box;
   left: 50%;
   transform: translateX(-50%);
-  transition: transform 0.5s;
+  transition: opacity 0.5s;
 }
 
 #routeDrawEdit > .button {
@@ -342,7 +342,7 @@
   margin-right: 15px;
   box-shadow: unset;
   background-color: unset;
-  transition: margin-top 0.3s;
+  transition: margin-top 0.3s, opacity 0.5s;
 }
 
 .maplibregl-ctrl-top-right > .maplibregl-ctrl.higher {

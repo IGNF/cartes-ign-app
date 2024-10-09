@@ -21,6 +21,7 @@ import Signalement from "./signalement";
 import SignalementOSM from "./signalement-osm";
 import Landmark from "./landmark";
 import MapboxAccessibility from "./poi-accessibility";
+import DOM from "./dom";
 
 import LocationLayers from "./services/location-styles";
 
@@ -95,6 +96,8 @@ const addControls = () => {
 
     // contrôle fullscreen
     map.addControl(new maplibregl.FullscreenControl(), "top-right");
+
+    DOM.$fullScreenBtn = document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl");
 
     // contrôle d'intéractivité de la carte
     Globals.mapInteractivity = new MapInteractivity(map, {});

@@ -34,6 +34,7 @@ const $routeDrawCancel = document.getElementById("routeDrawCancel");
 const $routeDrawRestore = document.getElementById("routeDrawRestore");
 const $routeDrawDelete = document.getElementById("routeDrawDelete");
 const $routeDrawSave = document.getElementById("routeDrawSave");
+const $fullScreenBtn = null;
 
 const $mapCenter = document.getElementById("mapCenter");
 const $mapCenterMenu = document.getElementById("mapCenterMenu");
@@ -125,4 +126,5 @@ export default {
   $landmarkWindow,
   $tabClose,
   $sideBySideFadeSlider,
+  $fullScreenBtn,
 };
