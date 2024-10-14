@@ -198,6 +198,10 @@
   white-space: nowrap;
 }
 
+:fullscreen > #interactivityBtn {
+  top: calc(10px + var(--safe-area-inset-top));
+}
+
 #interactivityInside {
   margin: 6px;
   background-color: var(--dark-green);

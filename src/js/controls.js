@@ -96,7 +96,6 @@ const addControls = () => {
 
     // contrôle fullscreen
     map.addControl(new maplibregl.FullscreenControl(), "top-right");
-
     DOM.$fullScreenBtn = document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl");
 
     // contrôle d'intéractivité de la carte

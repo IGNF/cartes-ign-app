@@ -13,6 +13,8 @@ const $searchResults = document.getElementById("searchResults");
 const $resultsRechRecent = document.getElementById("resultsRechRecent");
 const $searchImage = document.getElementById("searchImage");
 
+const $map = document.getElementById("map");
+
 const $myGeoLocation = document.getElementById("myGeoLocation");
 const $selectOnMap = document.getElementById("selectOnMap");
 
@@ -35,6 +37,7 @@ const $routeDrawRestore = document.getElementById("routeDrawRestore");
 const $routeDrawDelete = document.getElementById("routeDrawDelete");
 const $routeDrawSave = document.getElementById("routeDrawSave");
 const $fullScreenBtn = null;
+const $mapScale = null;
 
 const $mapCenter = document.getElementById("mapCenter");
 const $mapCenterMenu = document.getElementById("mapCenterMenu");
@@ -127,4 +130,6 @@ export default {
   $tabClose,
   $sideBySideFadeSlider,
   $fullScreenBtn,
+  $mapScale,
+  $map,
 };

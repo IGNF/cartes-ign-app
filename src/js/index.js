@@ -18,6 +18,7 @@ import RecentSearch from "./search-recent";
 import MenuNavigation from "./nav";
 import InteractivityIndicator from "./map-interactivity/interactivity-indicator";
 import StatusPopups from "./status-popups";
+import DOM from "./dom";
 
 import { Capacitor } from "@capacitor/core";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
@@ -186,6 +187,7 @@ function app() {
   // HACK: déplacement de l'échelle hors de la div map pour qu'elle bouge librement
   var mapLibreControls = document.querySelectorAll(".maplibregl-ctrl-bottom-left")[2];
   var parent = document.getElementById("bottomButtons");
+  DOM.$mapScale = mapLibreControls;
   parent.appendChild(mapLibreControls);
 
   // Ajout des ecouteurs des boutons de la carte
