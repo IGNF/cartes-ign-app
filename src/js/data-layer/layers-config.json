@@ -41,7 +41,7 @@
         "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2$GEOPORTAIL:OGC:WMTS",
         "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950$GEOPORTAIL:OGC:WMTS",
         "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40$GEOPORTAIL:OGC:WMTS",
-        "GEOGRAPHICALGRIDSYSTEMS.CASSINI$GEOPORTAIL:OGC:WMTS"
+        "BNF-IGNF_GEOGRAPHICALGRIDSYSTEMS.CASSINI$GEOPORTAIL:OGC:WMTS"
       ]
     }
   },
@@ -4588,10 +4588,10 @@
         }
       ]
     },
-    "GEOGRAPHICALGRIDSYSTEMS.CASSINI$GEOPORTAIL:OGC:WMTS": {
-      "name": "GEOGRAPHICALGRIDSYSTEMS.CASSINI",
+    "BNF-IGNF_GEOGRAPHICALGRIDSYSTEMS.CASSINI$GEOPORTAIL:OGC:WMTS": {
+      "name": "BNF-IGNF_GEOGRAPHICALGRIDSYSTEMS.CASSINI",
       "title": "XVIIIe siècle (Carte de Cassini)",
-      "description": "Carte de Cassini en couleur (feuilles gravées et aquarellées), issue de l’exemplaire dit de « Marie-Antoinette » du XVIIIe siècle.",
+      "description": "Planches numérisées colorisées de la carte de Cassini détenue par la BNF",
       "interactive": false,
       "globalConstraint": {
         "maxScaleDenominator": 559082264.0287179,
@@ -4607,7 +4607,7 @@
         "id": "OGC:WMTS",
         "version": "1.0.0",
         "serverUrl": {
-          "appign": "https://data.geopf.fr/private/wmts"
+          "appign": "https://data.geopf.fr/wmts"
         }
       },
       "defaultProjection": "EPSG:3857",
@@ -4667,12 +4667,6 @@
             "maxTileRow": "13479",
             "minTileCol": "22",
             "maxTileCol": "16361"
-          },
-          "15": {
-            "minTileRow": "5809",
-            "maxTileRow": "26958",
-            "minTileCol": "45",
-            "maxTileCol": "32722"
           }
         }
       },
@@ -4693,7 +4687,7 @@
       ],
       "formats": [
         {
-          "name": "image/jpeg",
+          "name": "image/png",
           "current": true
         }
       ]

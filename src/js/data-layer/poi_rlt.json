@@ -2490,7 +2490,7 @@
       },
       "properties": {
         "zoom": "10.5",
-        "layer1": "GEOGRAPHICALGRIDSYSTEMS.CASSINI",
+        "layer1": "BNF-IGNF_GEOGRAPHICALGRIDSYSTEMS.CASSINI",
         "layer2": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
         "mode": "vSlider",
         "commune": "Douaumont-Vaux",
