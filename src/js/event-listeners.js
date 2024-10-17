@@ -306,7 +306,7 @@ function addListeners() {
     if (document.fullscreenElement) {
       DOM.$map.appendChild(DOM.$interactivityBtn);
       DOM.$map.appendChild(DOM.$mapScale);
-      Globals.interactivityIndicator.disable();
+      Globals.interactivityIndicator.hardDisable();
     } else {
       DOM.$map.parentNode.parentNode.appendChild(DOM.$interactivityBtn);
       DOM.$bottomButtons.appendChild(DOM.$mapScale);
