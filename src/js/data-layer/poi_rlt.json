@@ -2793,6 +2793,300 @@
         "theme": "Urbanisation",
         "text": "À partir de 1960, l’État développe la politique des villes nouvelles. Pour désengorger les métropoles et équilibrer les territoires, il crée neuf villes dotées de tous les équipements contrairement aux villes-dortoirs de banlieue. Cinq villes nouvelles naissent en Île-de-France et quatre en province dont celle d’Étang-de-Berre aujourd’hui intégrée à la métropole d’Aix-Marseille-Provence.<br/>Source : IGN - Atlas de l'anthropocène"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.570956",
+          "16.239606"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Baie-Mahault",
+        "departement": "Guadeloupe",
+        "accroche": "Observez l'extension de la zone industrielle de Jarry",
+        "theme": "Aménagement du territoire",
+        "text": "Situé sur le territoire de la commune de Baie-Mahault, Jarry est le plus grand bassin d’activités industrielles et commerciales de la Guadeloupe. Depuis le début des années 2000, ce poumon économique connaît une extension constante.\nSource : Région Guadeloupe"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.548952",
+          "16.252710"
+        ]
+      },
+      "properties": {
+        "zoom": "16.6",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Baie-Mahault",
+        "departement": "Guadeloupe",
+        "accroche": "Observez la construction du pont de la Gabarre qui enjambe la rivière Salée",
+        "theme": "Aménagement du territoire",
+        "text": "Dans les années 60, la croissance démographique et économique de la Guadeloupe entraine une augmentation très rapide du trafic automobile. Pour permettre la circulation entre la Grande-Terre et la Basse-Terre, le pont de la Gabarre est mis en service en 1973. Ce pont était le seul moyen de franchir la Rivière Salée jusqu'à la mise en service du pont mobile de l'Alliance en 1997.\nSource : media Franceinfo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.525391",
+          "16.263682"
+        ]
+      },
+      "properties": {
+        "zoom": "14.4",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Les Abymes",
+        "departement": "Guadeloupe",
+        "accroche": "Observez la construction de l'aéroport de Guadeloupe - Pôle Caraïbes",
+        "theme": "Aménagement du territoire",
+        "text": "C’est en 1948 que débute la construction de l'aéroport de Pointe-à-Pitre, les liaisons aériennes étant jusque-là effectuées par des hydravions qui se posaient sur la Darse. L’inauguration a lieu en 1953. L'arrivée du Boeing 747 et la croissance du trafic entraînent une quasi reconstruction de l’aérogare en 1972. Une route est aussi créée afin de relier l’aéroport à la ville.\nSource : Guadeloupe-aéroport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.692323",
+          "16.248026"
+        ]
+      },
+      "properties": {
+        "zoom": "15.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Sainte-Rose",
+        "departement": "Guadeloupe",
+        "accroche": "Observez le recul de la forêt dans la commune de Sainte-Rose",
+        "theme": "Forêt",
+        "text": "En 2019, la Guadeloupe présentait le plus fort taux de déforestation de l'outre-mer. Le développement urbain et agricole est en particulier responsable de la disparition progressive de nombreuses espèces des forêts de basse altitude. La destruction, la dégradation et la fragmentation des milieux naturels constituent les principales menaces affectant les espèces végétales.\nSource : MNHM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.521553",
+          "16.251925"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Les Abymes",
+        "departement": "Guadeloupe",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.\nSource : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-52.692948",
+          "5.163970"
+        ]
+      },
+      "properties": {
+        "zoom": "14.5",
+        "layer1": "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950",
+        "layer2": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+        "mode": "vSlider",
+        "commune": "Kourou",
+        "departement": "Guyane",
+        "accroche": "Observez la création du Centre spatial guyanais",
+        "theme": "Aménagement du territoire",
+        "text": "Suite aux accords d'Evian, la France doit renoncer à sa base spatiale en Algérie. Le Centre national d'études spatiales retient alors La Guyane pour la construction d'une nouvelle base de lancements. Dès 1964, de gigantesques travaux d'aménagement sont alors entrepris sur le site de Kourou. Ils se concrétisent par le lancement réussi de la fusée-sonde Véronique en 1968.\nSource : Centre spatial guyanais"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-52.367430",
+          "4.905123"
+        ]
+      },
+      "properties": {
+        "zoom": "15.5",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Matoury",
+        "departement": "Guyane",
+        "accroche": "Observez la construction du pont qui enjambe la rivière Cayenne",
+        "theme": "Aménagement du territoire",
+        "text": "Construit dans les années 1970, le pont Larivot permet aux véhicules de traverser l'estuaire de la rivière Cayenne et relie les villes de Cayenne, Kourou et Saint-Laurent du Maroni. Long de 1 250 m, il accueille un trafic quotidien de 20 000 véhicules. Afin d'améliorer la circulation, un second pont est actuellement en construction.\nSource : Direction générale des territoires et de la mer\n"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-52.316006",
+          "4.924390"
+        ]
+      },
+      "properties": {
+        "zoom": "14.1",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Cayenne",
+        "departement": "Guyane",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.\nSource : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "55.440005",
+          "-21.320166"
+        ]
+      },
+      "properties": {
+        "zoom": "15.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-Pierre",
+        "departement": "La Réunion",
+        "accroche": "Observez l'installation de la centrale solaire de l'aéroport de Pierrefonds",
+        "theme": "Aménagement du territoire",
+        "text": "Inaugurée en 2023, la centrale solaire de Pierrefonds s'étend sur une dizaine d'hectares au sol sur des zones inexploitées de l'aéroport et comptabilise 20 000 modules de panneaux photovoltaïques. Elle permet de produire une électricité verte correspondant à la consommation annuelle de 8 400 personnes.\nSource : Actus Réunion"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "55.653807",
+          "-20.962371"
+        ]
+      },
+      "properties": {
+        "zoom": "14.2",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-André",
+        "departement": "La Réunion",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.\nSource : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.038546",
+          "14.607932"
+        ]
+      },
+      "properties": {
+        "zoom": "16.6",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Fort-de-France",
+        "departement": "Martinique",
+        "accroche": "Observez la transformation d'une décharge sauvage en site de recyclage",
+        "theme": "Aménagement du territoire",
+        "text": "En 2013, le Conseil Général de la Martinique décide de fermer la décharge de la Trompeuse. Des travaux de réhabilitation sont entrepris, permettant au Parc Technologique Environnemental de voir le jour. Ce site est désormais consacré à la réception, au traitement, au recyclage et à la valorisation des déchets.\nSource : Syndicat Martiniquais de Traitement et de Valorisation des Déchets"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.087110",
+          "14.609182"
+        ]
+      },
+      "properties": {
+        "zoom": "15.1",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Fort-de-France",
+        "departement": "Martinique",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.\nSource : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "45.118355",
+          "-12.729817"
+        ]
+      },
+      "properties": {
+        "zoom": "16.9",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2011-2015",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Dzoumogné",
+        "departement": "Mayotte",
+        "accroche": "Observez la transformation d’une décharge en centrale solaire",
+        "theme": "Environnement",
+        "text": "Implantée sur une ancienne décharge, la centrale solaire de Dzoumogné s'étend sur 4 hectares. Cet aménagement a contribué à la réhabilitation d'un espace jusque-là dédié au dépôt d’ordures ménagères. Au moment de sa construction, elle est la plus grande centrale photovoltaïque au sol de Mayotte. Sa production alimente plus de 2 000 foyers par jour.\nSource : mayotte.gouv.fr\n"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.968360",
+          "48.786480"
+        ]
+      },
+      "properties": {
+        "zoom": "15.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": " Élancourt",
+        "departement": "Yvelines",
+        "accroche": "Observez la revanche de la colline d'Elancourt",
+        "theme": "Aménagement du territoire",
+        "text": "La colline d’Elancourt baptisée \"colline de la Revanche\" porte bien son surnom ! Jadis petite carrière de pierres meulières (1950’), elle devient une décharge d'ordures ménagères (1970’) puis une casse automobile (1982). L'accumulation des matériaux va donner à la colline sa hauteur et son apparence actuelles pour en faire, de manière totalement artificielle, le point culminant de la région Ile-de-France soit 231m en 1992 !\nLes 28 et 29 juillet 2024, elle devient la plus célèbre des collines en accueillant l’épreuve VTT de Cross-country des Jeux Olympiques. Quel parcours pour ce tas de gravats !\nSource : ign.fr"
+      }
     }
   ]
 }
