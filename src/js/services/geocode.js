@@ -51,12 +51,17 @@ function moveTo(coords, zoom=Globals.map.getZoom(), panTo=true) {
     if (Location.isTrackingActive()) {
       Location.disableTracking();
     }
-    Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
-    Globals.map.once("resize", () => {
+    const moveAgain = () => {
       setTimeout(() => {
         Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
       }, 100);
-    });
+    };
+    Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
+    // Gestion de la disparaition du clavier
+    Globals.map.once("resize", moveAgain);
+    setTimeout(() => {
+      Globals.map.off("resize", moveAgain);
+    }, 1000);
   }
 }
 
