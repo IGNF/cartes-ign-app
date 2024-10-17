@@ -37,6 +37,9 @@ const addListeners = () => {
       // De tracking a simple suivi de position
       Location.disableTracking();
     }
+    if (map.getBearing() === 0) {
+      DOM.$compassBtn.classList.add("d-none");
+    }
     map.rotateTo(0);
   });
 
