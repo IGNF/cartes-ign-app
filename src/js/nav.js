@@ -421,10 +421,10 @@ class MenuNavigation {
       break;
     case "selectOnMapDirections":
       DOM.$filterPoiBtn.classList.remove("d-none");
-      DOM.$fullScreenBtn.classList.remove("d-none");
       // falls through
     case "selectOnMapIsochrone":
     case "selectOnMapLandmark":
+      DOM.$fullScreenBtn.classList.remove("d-none");
       DOM.$layerManagerBtn.classList.remove("d-none");
       DOM.$mapCenter.classList.add("d-none");
       DOM.$mapCenterMenu.classList.add("d-none");
