@@ -198,7 +198,7 @@
   white-space: nowrap;
 }
 
-:fullscreen > #interactivityBtn {
+#map:has(.maplibregl-ctrl-shrink) > #interactivityBtn {
   top: calc(10px + var(--safe-area-inset-top));
 }
 

@@ -97,6 +97,19 @@ const addControls = () => {
     // contrôle fullscreen
     map.addControl(new maplibregl.FullscreenControl(), "top-right");
     DOM.$fullScreenBtn = document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl");
+    DOM.$fullScreenBtn.addEventListener("click", () => {
+      setTimeout(() => {
+        if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
+          DOM.$map.appendChild(DOM.$interactivityBtn);
+          DOM.$map.appendChild(DOM.$mapScale);
+          Globals.interactivityIndicator.hardDisable();
+        } else {
+          DOM.$map.parentNode.parentNode.appendChild(DOM.$interactivityBtn);
+          DOM.$bottomButtons.appendChild(DOM.$mapScale);
+          Globals.interactivityIndicator.enable();
+        }
+      }, 50);
+    });
 
     // contrôle d'intéractivité de la carte
     Globals.mapInteractivity = new MapInteractivity(map, {});

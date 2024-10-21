@@ -301,18 +301,6 @@ function addListeners() {
       }
     });
   });
-
-  DOM.$map.addEventListener("fullscreenchange", () => {
-    if (document.fullscreenElement) {
-      DOM.$map.appendChild(DOM.$interactivityBtn);
-      DOM.$map.appendChild(DOM.$mapScale);
-      Globals.interactivityIndicator.hardDisable();
-    } else {
-      DOM.$map.parentNode.parentNode.appendChild(DOM.$interactivityBtn);
-      DOM.$bottomButtons.appendChild(DOM.$mapScale);
-      Globals.interactivityIndicator.enable();
-    }
-  });
 }
 
 export default {
