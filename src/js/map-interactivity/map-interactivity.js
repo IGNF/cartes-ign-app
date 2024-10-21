@@ -83,7 +83,7 @@ class MapInteractivity {
       this.map.once("click", this.handleInfoOnMap);
       return;
     }
-    if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
+    if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
       this.map.once("click", this.handleInfoOnMap);
       return;
     }

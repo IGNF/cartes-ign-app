@@ -11,6 +11,7 @@ import utils from "../utils/unit-utils";
 import gisUtils from "../utils/gis-utils";
 import ActionSheet from "../action-sheet";
 import Location from "../services/location";
+import DOM from "../dom";
 
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
@@ -134,7 +135,7 @@ class MyAccount {
       if (["routeDraw", "routeDrawSave"].includes(Globals.backButtonState)) {
         return;
       }
-      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
+      if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
         return;
       }
       const landmark = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]})[0];
@@ -184,7 +185,7 @@ class MyAccount {
       if (this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]}).length > 0) {
         return;
       }
-      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
+      if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
         return;
       }
       const routeId = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["line-casing"].id]})[0].properties.id;

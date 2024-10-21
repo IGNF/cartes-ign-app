@@ -58,7 +58,8 @@ const addListeners = () => {
       Globals.backButtonState.split("-")[0] !== "position" &&
       Globals.backButtonState !== "informations" &&
       Globals.backButtonState !== "layerManager" &&
-      Globals.backButtonState !== "poi"
+      Globals.backButtonState !== "poi" &&
+      !DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")
     ) {
       return;
     }
