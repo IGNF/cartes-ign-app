@@ -306,8 +306,9 @@ class RouteDraw {
    * Supprime l'itinéraire à l'aide de la méthode de myAccount
    */
   deleteRoute() {
+    const routeID = this.routeId;
     this.hide();
-    Globals.myaccount.deleteRoute(this.routeId);
+    Globals.myaccount.deleteRoute(routeID);
   }
 
   /**
