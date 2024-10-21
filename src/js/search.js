@@ -67,8 +67,10 @@ class Search {
       }
     });
 
-    document.getElementById(id.searchInput).addEventListener("paste", () => {
-      this.#suggestAndDisplay();
+    document.getElementById(id.searchInput).addEventListener("textInput", () => {
+      setTimeout( () => {
+        this.#suggestAndDisplay();
+      }, 100);
     });
 
     document.getElementById(id.searchInput).addEventListener("click", () => {
