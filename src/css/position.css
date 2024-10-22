@@ -63,6 +63,7 @@
   background-size: 28px;
   background-position: center;
   margin-right: 8px;
+  align-self: flex-start;
 }
 
 .divPositionSectionAddress {
@@ -191,6 +192,11 @@
   color: var(--darkish-grey);
   font-size: 13px;
   display: flex;
+  flex-wrap: wrap;
+}
+
+.divPositionCoord > span {
+  white-space: nowrap;
 }
 
 #positionCoordsSpan {
