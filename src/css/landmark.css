@@ -145,6 +145,7 @@
   margin-bottom: 26px;
   font-family: "Fira Sans Semibold";
   font-size: 12px;
+  white-space: nowrap;
 }
 
 #landmark-icon-favourite + .landmarkIconInputLabel {
