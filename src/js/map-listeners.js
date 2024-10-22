@@ -63,6 +63,9 @@ const addListeners = () => {
     ) {
       return;
     }
+    if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
+      return;
+    }
     contextMenuTimeout = setTimeout(() => {
       if (Globals.backButtonState.split("-")[0] === "position") {
         Globals.menu.close("position");
