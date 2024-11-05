@@ -65,14 +65,12 @@ jobs:
           # import certificate and provisioning profile from secrets
           echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
           echo -n "$DISTRIBUTION_CERTIFICATE_P12" | base64 --decode -o $CERTIFICATE_DISTR_PATH
-          mv $HOME/secrets/build.mobileprovision $PP_PATH
           echo -n "$DEPLOY_PROVISION_PROFILE_BASE64" | base64 --decode -o $DPP_PATH
           ## Comment this if build mobileprovision too big in base64 for GH secrets
           echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
           ## And use this instead
           # mv $HOME/secrets/build.mobileprovision $PP_PATH
-          echo -n "$DEPLOY_PROVISION_PROFILE_BASE64" | base64 --decode -o $DPP_PATH
-
+          
           # create temporary keychain
           security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
           security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
