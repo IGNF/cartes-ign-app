@@ -38,11 +38,11 @@ jobs:
 
       - name: Sync
         run: npx cap sync
-
-      - name: Decrypt build mobileprovision
-        run: ios/decrypt_provision.sh
-        env:
-          BUILD_PROVISION_PASSPHRASE: ${{ secrets.BUILD_PROVISION_PASSPHRASE }}
+      ## Use this if build mobileprovision too big in base64 for GH secrets 
+      # - name: Decrypt build mobileprovision
+      #   run: ios/decrypt_provision.sh
+      #   env:
+      #     BUILD_PROVISION_PASSPHRASE: ${{ secrets.BUILD_PROVISION_PASSPHRASE }}
 
       - name: Install the Apple certificate and provisioning profile
         env:
