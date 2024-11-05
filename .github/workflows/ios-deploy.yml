@@ -51,6 +51,8 @@ jobs:
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
           P12_PASSWORD_DISTR: ${{ secrets.P12_PASSWORD_DISTR }}
           DEPLOY_PROVISION_PROFILE_BASE64: ${{ secrets.DEPLOY_PROVISION_PROFILE_BASE64 }}
+          ## Comment this if build mobileprovision too big in base64 for GH secrets 
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           # create variables
@@ -64,6 +66,11 @@ jobs:
           echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
           echo -n "$DISTRIBUTION_CERTIFICATE_P12" | base64 --decode -o $CERTIFICATE_DISTR_PATH
           mv $HOME/secrets/build.mobileprovision $PP_PATH
+          echo -n "$DEPLOY_PROVISION_PROFILE_BASE64" | base64 --decode -o $DPP_PATH
+          ## Comment this if build mobileprovision too big in base64 for GH secrets
+          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+          ## And use this instead
+          # mv $HOME/secrets/build.mobileprovision $PP_PATH
           echo -n "$DEPLOY_PROVISION_PROFILE_BASE64" | base64 --decode -o $DPP_PATH
 
           # create temporary keychain
