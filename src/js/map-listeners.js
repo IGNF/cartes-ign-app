@@ -26,21 +26,9 @@ const addListeners = () => {
     }
   });
 
-  let lastMapCenter = null;
   // Désactivation du tracking au déplacement non programmatique de la carte
   map.on("dragstart", () => {
-    if (Location.isTrackingActive()){
-      lastMapCenter = map.getCenter();
-    }
-  });
-  map.on("dragend", () => {
-    if (Location.isTrackingActive() && lastMapCenter){
-      if (lastMapCenter.distanceTo(map.getCenter()) > 100) {
-        // De tracking a simple suivi de position
-        Location.disableTracking();
-      }
-    }
-    lastMapCenter = null;
+    Location.disableTracking();
   });
 
   // l'event contextmenu n'est pas enclenché par clic long sur la carte... https://github.com/maplibre/maplibre-gl-js/issues/373

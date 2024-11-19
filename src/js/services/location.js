@@ -75,6 +75,10 @@ let location_active = false;
 
 // Suivi de la carte
 let tracking_active = false;
+
+// Suivi de la carte avec boussole
+let navigation_active = false;
+
 let watch_id;
 let currentPosition = null;
 
@@ -96,6 +100,13 @@ let firstLocation;
 
 // Est-ce que le marqueur de "Ma Position" a un écouteur d'évènement ?
 let hasEventListener = false;
+
+// Varaibles pour la gestion d'évènements touch et zoom spécifiques à la localisation activée
+let startDist = 0;
+let startZoom = 0;
+let startBearing =0;
+let startAngle = 0;
+let rotationEnabled = false;
 
 /**
  * Interface pour les evenements
@@ -186,6 +197,7 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
     Globals.myPositionMarker = new maplibregl.Marker({
       element: (gps) ? positionIcon : Globals.searchResultIcon,
       anchor: (gps) ? "center" : "bottom",
+      pitchAlignment: "map",
     })
       .setLngLat([coords.lon, coords.lat])
       .addTo(Globals.map);
@@ -216,11 +228,30 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
 
   if (panTo) {
     if (tracking_active) {
+      let bearing = Globals.map.getBearing();
+      let pitch = 0;
+      let padding = 0;
+      if (navigation_active) {
+        bearing = -mapBearing;
+        pitch = 45;
+        padding = {top: DOM.$map.clientHeight * 0.5};
+      }
       isMapPanning = true;
-      Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom, bearing: -mapBearing, duration: 500});
+      Globals.map.easeTo({
+        center: [coords.lon, coords.lat],
+        zoom: zoom,
+        bearing: bearing,
+        pitch: pitch,
+        duration: 500,
+        padding: padding,
+      });
       Globals.map.once("moveend", () => {isMapPanning = false;});
     } else {
-      Globals.map.flyTo({center: [coords.lon, coords.lat], zoom: zoom});
+      Globals.map.flyTo({
+        center: [coords.lon, coords.lat],
+        zoom: zoom,
+        pitch: 0
+      });
     }
   }
 };
@@ -249,8 +280,8 @@ const watchPositionCallback = (position) => {
     currentPosition = position;
     localStorage.setItem("lastKnownPosition", JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}));
     var zoom = Globals.map.getZoom();
-    if (firstLocation || tracking_active) {
-      zoom = Math.max(Globals.map.getZoom(), 16);
+    if (firstLocation) {
+      zoom = Math.max(Globals.map.getZoom(), 16.5);
     }
     moveTo({
       lat: position.coords.latitude,
@@ -262,11 +293,9 @@ const watchPositionCallback = (position) => {
       var padding;
       // gestion du mode paysage / écran large
       if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
-                    Math.min(window.innerHeight, window.innerWidth/2) + 42;
-        padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
+        padding = {top: 20, right: 20, bottom: 20, left: 20};
       } else {
-        padding = {top: 80, right: 20, bottom: 120, left: 20};
+        padding = {top: 80, right: 20, bottom: 40, left: 20};
       }
       Globals.map.fitBounds(bbox, {
         padding: padding
@@ -360,6 +389,7 @@ const enablePosition = async() => {
     return;
   }
   location_active = true;
+  tracking_active = true;
   if (!currentPosition && localStorage.getItem("lastKnownPosition")) {
     const lastPosition = JSON.parse(localStorage.getItem("lastKnownPosition"));
     moveTo({
@@ -382,11 +412,32 @@ const locationOnOff = async () => {
     if (currentPosition === null) {
       return;
     }
-    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
+    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
     tracking_active = true;
+    Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
     Globals.map.setCenter([currentPosition.coords.longitude, currentPosition.coords.latitude]);
-    Globals.map.setZoom(16);
-    Globals.map.setBearing(-mapBearing);
+    Globals.map.touchZoomRotate.disable();
+    Globals.map.getCanvasContainer().addEventListener("touchstart", locationOnTouchStartHandler);
+    Globals.map.getCanvasContainer().addEventListener("touchmove", locationOnTouchMoveHandler);
+    Toast.show({
+      text: "Suivi de position activé",
+      duration: "short",
+      position: "bottom"
+    });
+  } else if (!navigation_active) {
+    if (currentPosition === null) {
+      return;
+    }
+    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
+    navigation_active = true;
+    Globals.map.setMaxPitch(45);
+    const padding = {top: DOM.$map.clientHeight * 0.5};
+    Globals.map.easeTo({
+      center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
+      bearing: -mapBearing,
+      pitch: 45,
+      padding: padding,
+    });
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
     Toast.show({
@@ -395,14 +446,19 @@ const locationOnOff = async () => {
       position: "bottom"
     });
   } else {
+    Globals.map.flyTo({
+      pitch: 0,
+      duration: 500,
+    });
+    setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
-    Geolocation.clearWatch({id: watch_id});
-    clean();
-    currentPosition = null;
-    location_active = false;
     tracking_active = false;
+    navigation_active = false;
+    Globals.map.touchZoomRotate.enable();
+    Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
+    Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
     Toast.show({
-      text: "Navigation et suivi de position désactivés",
+      text: "Navigation désactivée",
       duration: "short",
       position: "bottom"
     });
@@ -434,7 +490,7 @@ const getOrientation = async (event) => {
     tempMapBearing -= 90;
   }
   mapBearing = tempMapBearing;
-  if (tracking_active) {
+  if (navigation_active) {
     if (!isMapPanning) {
       Globals.map.easeTo({bearing: -mapBearing, duration: 100});
     }
@@ -491,13 +547,29 @@ const getLocation = async () => {
 };
 
 const disableTracking = () => {
-  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
+  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
   tracking_active = false;
-  Toast.show({
-    text: "Suivi de position activé",
-    duration: "short",
-    position: "bottom"
+  if (navigation_active) {
+    Globals.map.setMaxPitch(0);
+    navigation_active = false;
+  }
+  Globals.map.touchZoomRotate.enable();
+  Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
+  Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
+};
+
+const disableNavigation = (bearing = Globals.map.getBearing()) => {
+  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
+  navigation_active = false;
+  Globals.map.flyTo({
+    pitch: 0,
+    bearing: bearing,
+    duration: 500,
   });
+  setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
+  if (bearing === 0) {
+    DOM.$compassBtn.classList.add("d-none");
+  }
 };
 
 let listenResumeAfterLocation = false;
@@ -577,19 +649,74 @@ const isTrackingActive = () => {
   return tracking_active;
 };
 
+const isNavigationActive = () => {
+  return navigation_active;
+};
+
 const getCurrentPosition = () => {
   return currentPosition;
 };
+
+// Event handlers for rotation and zoom when tracking active
+const locationOnTouchStartHandler = (e) => {
+  if (e.touches.length === 2) {
+    startDist = getTouchDistance(e.touches);
+    startZoom = Globals.map.getZoom();
+    startBearing = Globals.map.getBearing();
+    startAngle = getTouchAngle(e.touches);
+    rotationEnabled = false;
+  }
+};
+
+const locationOnTouchMoveHandler = (e) => {
+  if (e.touches.length === 2) {
+    e.preventDefault();
+
+    const currentDist = getTouchDistance(e.touches);
+    const scale = currentDist / startDist;
+    const newZoom = startZoom + Math.log2(scale);
+
+    const currentAngle = getTouchAngle(e.touches);
+    let angleDelta = currentAngle - startAngle;
+    if (!rotationEnabled && Math.abs(angleDelta) > 8) {
+      rotationEnabled = true;
+      startAngle += angleDelta;
+      angleDelta = 0;
+    }
+    const newBearing = startBearing + angleDelta;
+
+    Globals.map.setZoom(newZoom, { around: Globals.map.getCenter() });
+    if (rotationEnabled) {
+      Globals.map.setBearing(newBearing);
+    }
+  }
+};
+
+function getTouchDistance(touches) {
+  const [touch1, touch2] = touches;
+  const dx = touch1.clientX - touch2.clientX;
+  const dy = touch1.clientY - touch2.clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+function getTouchAngle(touches) {
+  const [touch1, touch2] = touches;
+  const dx = touch1.clientX - touch2.clientX;
+  const dy = touch1.clientY - touch2.clientY;
+  return Math.atan2(dy, dx) * (180 / Math.PI);
+}
 
 export default {
   target,
   getCurrentPosition,
   isLocationActive,
   isTrackingActive,
+  isNavigationActive,
   moveTo,
   enablePosition,
   locationOnOff,
   getOrientation,
   getLocation,
   disableTracking,
+  disableNavigation,
 };
