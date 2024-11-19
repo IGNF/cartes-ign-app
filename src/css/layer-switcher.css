@@ -120,6 +120,7 @@ label[id^="show-advanced-tools_ID_"] {
   background-position: center;
   flex-shrink: 0;
   border-radius: 50%;
+  background-color: var(--light-grey);
 }
 
 #position-landmark-show-advanced-tools:focus-within,

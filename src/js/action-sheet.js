@@ -102,6 +102,12 @@ class ActionSheet extends EventTarget {
           e.target.style.color = "white";
           e.target.style.backgroundColor = "var(--dark-green)";
         }
+        if (wrapperClass === "actionSheet-list") {
+          e.target.style.backgroundColor = "var(--light-grey)";
+          setTimeout(() => {
+            e.target.style.removeProperty("background-color");
+          }, 400);
+        }
         setTimeout(() => {
           /**
            * Evenement "optionSelect"
@@ -141,6 +147,7 @@ class ActionSheet extends EventTarget {
       title: "",
       content: "", // dom element if "custom" style
       timeToHide: 600, // ms, time after option select to hide
+      passive: false, // if true, the sheet is not closed by selecting an option
     };
 
     this._title = this.settings.title || "";
@@ -148,6 +155,9 @@ class ActionSheet extends EventTarget {
     this._style = this.settings.style || "list";
     this._content = this.settings.content || "";
     this._timeToHide = this.settings.timeToHide || 600;
+    if (this.settings.passive) {
+      this._timeToHide = 0;
+    }
 
     this._listeners();
     this._createHtml();
@@ -159,7 +169,9 @@ class ActionSheet extends EventTarget {
 
     const result = await new Promise((resolve) => {
       this.addEventListener("optionSelect", (e) => {
-        resolve(e.detail.value);
+        if (!this.settings.passive) {
+          resolve(e.detail.value);
+        }
       });
       this.addEventListener("closeSheet", () => {
         resolve(null);

@@ -18,12 +18,18 @@ let MyAccountDOM = {
   dom: {
     container: null,
     routeNumber: null,
+    routeTabHeader: null,
     routeTab: null,
     routeList: null,
     landmarkNumber: null,
+    landmarkTabHeader: null,
     landmarkTab: null,
     landmarkList: null,
-    importBtn: null,
+    compareLandmarkNumber: null,
+    compareLandmarkTabHeader: null,
+    compareLandmarkTab: null,
+    compareLandmarkList: null,
+    tabsMenuBtn: null,
   },
 
   /**
@@ -33,7 +39,7 @@ let MyAccountDOM = {
    * @returns {DOMElement}
    * @public
    */
-  getContainer(accountName, routes, landmarks) {
+  getContainer(accountName, routes, landmarks, compareLandmarks) {
     // nettoyage
     if (this.dom.container) {
       this.dom.container.remove();
@@ -45,11 +51,11 @@ let MyAccountDOM = {
     this.dom.routeList = this.__addAccountRoutesContainerDOMElement(routes);
     // ajout des points de repères
     this.dom.landmarkList = this.__addAccountLandmarksContainerDOMElement(landmarks);
+    // ajout des points de repères RLT
+    this.dom.compareLandmarkList = this.__addAccountCompareLandmarksContainerDOMElement(compareLandmarks);
     this.dom.routeTab.appendChild(this.dom.routeList);
     this.dom.landmarkTab.appendChild(this.dom.landmarkList);
-
-    // this.dom.importBtn = this.__addImportBtn();
-    // container.appendChild(this.dom.importBtn);
+    this.dom.compareLandmarkTab.appendChild(this.dom.compareLandmarkList);
 
     return container;
   },
@@ -90,26 +96,7 @@ let MyAccountDOM = {
     //   div.appendChild(logOutBtn);
     // }
 
-    // REMOVEME when account ready
-    this.dom.importBtn = this.__addImportBtn();
-
-    div.appendChild(this.dom.importBtn);
-
     return div;
-  },
-
-  /**
-   * ajout du bouton d'import
-   * @returns {DOMElement}
-   * @private
-   */
-  __addImportBtn() {
-    var btn = document.createElement("div");
-    btn.id = "myAccountImportBtn";
-    btn.innerText = "Importer";
-
-    btn.addEventListener("click", () => { this.importFile(); });
-    return btn;
   },
 
   /**
@@ -119,20 +106,36 @@ let MyAccountDOM = {
    */
   __addTabsContainerDOMElement() {
     var tplContainer = `
-    <div class="layer-tabs-wrap">
-      <input class="layer-tabs-input" name="myaccount-tabs" type="radio" id="myaccount-routes-tab" checked="checked"/>
-      <label class="layer-tabs-label" for="myaccount-routes-tab">Mes itinéraires <span id="myaccount-routes-number">0</span></label>
-      <input class="layer-tabs-input" name="myaccount-tabs" type="radio" id="myaccount-landmarks-tab"/>
-      <label class="layer-tabs-label" for="myaccount-landmarks-tab">Mes points de repère <span id="myaccount-landmarks-number">0</span></label>
-      <div class="layer-tabs-content" id="myaccount-routes"></div>
-      <div class="layer-tabs-content" id="myaccount-landmarks"></div>
+    <div class="tabs-wrap">
+      <div class="tabs-menu-btn" tabindex="10" title="Sélectionner un onglet"></div>
+      <div class="tabs-wrap-tabs">
+        <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-routes-tab" checked="checked"/>
+        <label class="tabs-label" for="myaccount-routes-tab">Itinéraires <span id="myaccount-routes-number">0</span></label>
+        <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-landmarks-tab"/>
+        <label class="tabs-label" for="myaccount-landmarks-tab">Points de repère <span id="myaccount-landmarks-number">0</span></label>
+        <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-compare-landmarks-tab"/>
+        <label class="tabs-label" for="myaccount-compare-landmarks-tab">Repères Comparer <span id="myaccount-compare-landmarks-number">0</span></label>
+      </div>
+      <div class="tabs-wrap-content">
+        <div class="tabs-content" id="myaccount-routes"><div id="myAccountImportBtnRoutes">Importer</div></div>
+        <div class="tabs-content" id="myaccount-landmarks"><div id="myAccountImportBtnLandmarks">Importer</div></div>
+        <div class="tabs-content" id="myaccount-compare-landmarks"></div>
+      </div>
     </div>`;
     // transformation du container : String -> DOM
     var container = DomUtils.stringToHTML(tplContainer.trim());
+    container.querySelector("#myAccountImportBtnRoutes").addEventListener("click", () => { this.importFile(); });
+    container.querySelector("#myAccountImportBtnLandmarks").addEventListener("click", () => { this.importFile(); });
+    this.dom.routeTabHeader = container.querySelector("#myaccount-routes-tab");
     this.dom.routeTab = container.querySelector("#myaccount-routes");
     this.dom.routeNumber = container.querySelector("#myaccount-routes-number");
+    this.dom.landmarkTabHeader = container.querySelector("#myaccount-landmarks-tab");
     this.dom.landmarkTab = container.querySelector("#myaccount-landmarks");
     this.dom.landmarkNumber = container.querySelector("#myaccount-landmarks-number");
+    this.dom.compareLandmarkTabHeader = container.querySelector("#myaccount-compare-landmarks-tab");
+    this.dom.compareLandmarkTab = container.querySelector("#myaccount-compare-landmarks");
+    this.dom.compareLandmarkNumber = container.querySelector("#myaccount-compare-landmarks-number");
+    this.dom.tabsMenuBtn = container.querySelector(".tabs-menu-btn");
     return container;
   },
 
@@ -192,6 +195,35 @@ let MyAccountDOM = {
       this.dom.landmarkList.appendChild(this.__addLandmarkContainer(landmarks[i]));
     }
     this.dom.landmarkNumber.innerText = landmarks.length;
+  },
+
+  /**
+   * ajoute le container sur les points de repère RLT
+   * @param {*} compareLandmarks
+   * @returns {DOMElement}
+   * @private
+   */
+  __addAccountCompareLandmarksContainerDOMElement(compareLandmarks) {
+    var divList = this.dom.container = document.createElement("div");
+    divList.id = "myaccountCompareLandmarksList";
+    for (let i = 0; i < compareLandmarks.length; i++) {
+      divList.appendChild(this.__addCompareLandmarkContainer(compareLandmarks[i]));
+    }
+    this.dom.compareLandmarkNumber.innerText = compareLandmarks.length;
+    return divList;
+  },
+
+  /**
+   * met à jour le container sur les points de repère RLT
+   * @param {*} compareLandmarks
+   * @private
+   */
+  __updateAccountCompareLandmarksContainerDOMElement(compareLandmarks) {
+    this.dom.compareLandmarkList.innerHTML = "";
+    for (let i = 0; i < compareLandmarks.length; i++) {
+      this.dom.landmarkList.appendChild(this.__addCompareLandmarkContainer(compareLandmarks[i]));
+    }
+    this.dom.landmarkNumber.innerText = compareLandmarks.length;
   },
 
   /**
@@ -404,6 +436,107 @@ let MyAccountDOM = {
       }
       container.classList.remove("invisible");
       this.toggleShowLandmark(landmark);
+    });
+
+    if (!container) {
+      console.warn();
+      return;
+    }
+    return container;
+  },
+
+  /**
+   * Ajout d'une entrée pour un point de repère RLT (DOM)
+   * @param {*} compareLandmark
+   * @private
+   */
+  __addCompareLandmarkContainer(compareLandmark) {
+    var title = compareLandmark.properties.title;
+    var landmarkId = compareLandmark.id;
+
+    var invisibleClass = compareLandmark.properties.visible ? "" : "invisible";
+
+    // Template d'une route
+    var tplContainer = `
+      <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="compare-landmark-container_ID_${landmarkId}">
+        <div class="handle-draggable-layer" id="compare-landmark-cross-picto_ID_${landmarkId}"></div>
+        <div id="compare-landmark-basic-tools_ID_${landmarkId}">
+          <label class="landmarkSummaryIcon compareLandmarkSummaryIcon${compareLandmark.properties.color}"></label>
+          <div class="wrap-tools-layers">
+            <span id="compare-landmark-title_ID_${landmarkId}">${title}</span>
+          </div>
+        </div>
+        <label id="compare-landmark-show-advanced-tools_ID_${landmarkId}" title="Plus d'outils" class="tools-layer-advanced"></label>
+      </div>
+      `;
+
+    // transformation du container : String -> DOM
+    var container = DomUtils.stringToHTML(tplContainer.trim());
+
+    // Event listener vide pour gestion du touch
+    container.querySelector(".handle-draggable-layer").addEventListener("click", () => { });
+
+    container.querySelector(`#compare-landmark-show-advanced-tools_ID_${landmarkId}`).addEventListener("click", () => {
+      const invisibleClass = compareLandmark.properties.visible ? "" : " invisible";
+      ActionSheet.show({
+        options: [
+          {
+            class: "tools-layer-share",
+            text: "Partager",
+            value: "share",
+          },
+          {
+            class: `tools-layer-visibility${invisibleClass}`,
+            text: compareLandmark.properties.visible ? "Masquer de la carte" : "Afficher sur la carte",
+            value: "visibility",
+          },
+          {
+            class: "tools-layer-edit",
+            text: "Modifier",
+            value: "edit",
+          },
+          {
+            class: "tools-layer-remove confirm-needed",
+            text: "Supprimer",
+            value: "delete",
+            confirmCallback: () => {
+              Toast.show({
+                text: "Confirmez la suppression du point de repère",
+                duration: "short",
+                position: "bottom"
+              });
+            }
+          },
+        ],
+        timeToHide: 50,
+      }).then( (value) => {
+        if (value === "visibility") {
+          if (compareLandmark.properties.visible) {
+            container.classList.add("invisible");
+          } else {
+            container.classList.remove("invisible");
+          }
+          this.toggleShowCompareLandmark(compareLandmark);
+        }
+        if (value === "share") {
+          this.shareCompareLandmark(compareLandmark);
+        }
+        if (value === "edit") {
+          this.editCompareLandmark(compareLandmark);
+        }
+        if (value === "delete") {
+          this.deleteCompareLandmark(landmarkId);
+        }
+      });
+    });
+
+    // Au clic sur le PR = l'afficher
+    container.querySelector(`#compare-landmark-basic-tools_ID_${landmarkId}`).addEventListener("click", () => {
+      if (compareLandmark.properties.visible) {
+        this.toggleShowLandmark(compareLandmark);
+      }
+      container.classList.remove("invisible");
+      this.toggleShowCompareLandmark(compareLandmark);
     });
 
     if (!container) {

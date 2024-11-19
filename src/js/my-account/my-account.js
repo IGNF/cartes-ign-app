@@ -131,6 +131,44 @@ class MyAccount {
    * @private
    */
   #listeners() {
+    this.dom.tabsMenuBtn.addEventListener("click", () => {
+      const selectOption = (e) => {
+        let option = e.detail.value;
+        if (option === "routes") {
+          this.dom.routeTabHeader.click();
+        } else if (option === "landmarks") {
+          this.dom.landmarkTabHeader.click();
+        } else if (option === "compare-landmarks") {
+          this.dom.compareLandmarkTabHeader.click();
+        }
+
+      }
+      ActionSheet.addEventListener("optionSelect", selectOption);
+      ActionSheet.show({
+        title: "",
+        passive: true,
+        options: [
+          {
+            text: "Itinéraires",
+            value: "routes",
+            class: "actionSheetTabOption",
+          },
+          {
+            text: "Points de repère",
+            value: "landmarks",
+            class: "actionSheetTabOption",
+          },
+          {
+            text: "Repères Comparer",
+            value: "compare-landmarks",
+            class: "actionSheetTabOption",
+          }
+        ]
+      }).then(() => {
+        ActionSheet.removeEventListener("optionSelect", selectOption);
+      });
+    });
+
     this.map.on("click", MyAccountLayers["landmark-casing"].id, (e) => {
       if (["routeDraw", "routeDrawSave"].includes(Globals.backButtonState)) {
         return;
@@ -211,7 +249,7 @@ class MyAccount {
       return;
     }
 
-    var container = this.getContainer(this.accountName, this.routes, this.landmarks);
+    var container = this.getContainer(this.accountName, this.routes, this.landmarks, []);
     if (!container) {
       console.warn();
       return;
