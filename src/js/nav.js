@@ -217,6 +217,7 @@ class MenuNavigation {
       DOM.$compareMode.classList.remove("d-none");
       DOM.$sideBySideLeftLayer.classList.remove("d-none");
       DOM.$sideBySideRightLayer.classList.remove("d-none");
+      DOM.$createRltlandmarkBtn.classList.remove("d-none");
       DOM.$tabContainer.classList.add("compare");
       DOM.$bottomButtons.classList.add("compare");
       DOM.$bottomButtons.classList.add("compareWidth");
@@ -465,6 +466,7 @@ class MenuNavigation {
       DOM.$compareMode.classList.add("d-none");
       DOM.$sideBySideLeftLayer.classList.add("d-none");
       DOM.$sideBySideRightLayer.classList.add("d-none");
+      DOM.$createRltlandmarkBtn.classList.add("d-none");
       DOM.$tabContainer.classList.remove("compare");
       DOM.$bottomButtons.classList.remove("compare");
       DOM.$bottomButtons.classList.add("compareWidth");

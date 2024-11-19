@@ -73,6 +73,22 @@
   filter: grayscale(0);
 }
 
+#createRltlandmarkBtn {
+  position: absolute;
+  right: 9px;
+  bottom: 66px;
+  z-index: 1000;
+  justify-content: right;
+}
+
+#createRltlandmarkInside {
+  background-image: url("assets/map-buttons/compare/create-rlt-landmark.svg");
+  background-size: 70px;
+  margin: 6px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
 #compareMode:has(#compareUpDown.selected) ~ #bottomButtons > #sideBySideLeftLayer {
   background-image: url("assets/map-buttons/compare/compare-layer-top.svg");
 }
@@ -186,6 +202,9 @@
   position: fixed;
   left: 5px;
   top: calc(70px + var(--safe-area-inset-top));
+}
+
+#interactivityBtn, #createRltlandmarkBtn {
   transition: top 0.3s, width 0.5s ease-out, background-color 0.5s ease, opacity 0.5s ease;
   overflow: hidden;
   background-color: #fff0;
