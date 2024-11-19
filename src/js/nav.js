@@ -135,6 +135,13 @@ class MenuNavigation {
     // y'a t il des particularités sur l'ouverture du panneau demandé ?
     var isSpecific = false;
     switch (id) {
+    case "compareLandmark":
+      Globals.backButtonState = "compareLandmark";
+      DOM.$createCompareLandmarkBtn.classList.add("d-none");
+      DOM.$tabContainer.classList.remove("compare");
+      DOM.$bottomButtons.classList.remove("compare");
+      Globals.currentScrollIndex = 2;
+      break;
     case "landmark":
       Globals.backButtonState = "landmark-" + previousBackState;
       DOM.$search.classList.add("d-none");
@@ -183,6 +190,7 @@ class MenuNavigation {
       this.updateScrollAnchors();
       break;
     case "compareLayers1":
+      Globals.backButtonState = "compareLayers1-" + previousBackState;
       DOM.$compareLayers2Window.classList.add("d-none");
       DOM.$compareLayers1Window.classList.remove("d-none");
       DOM.$tabContainer.classList.remove("compare");
@@ -196,6 +204,7 @@ class MenuNavigation {
       }
       break;
     case "compareLayers2":
+      Globals.backButtonState = "compareLayers2-" + previousBackState;
       DOM.$compareLayers1Window.classList.add("d-none");
       DOM.$compareLayers2Window.classList.remove("d-none");
       DOM.$tabContainer.classList.remove("compare");
@@ -217,7 +226,7 @@ class MenuNavigation {
       DOM.$compareMode.classList.remove("d-none");
       DOM.$sideBySideLeftLayer.classList.remove("d-none");
       DOM.$sideBySideRightLayer.classList.remove("d-none");
-      DOM.$createRltlandmarkBtn.classList.remove("d-none");
+      DOM.$createCompareLandmarkBtn.classList.remove("d-none");
       DOM.$tabContainer.classList.add("compare");
       DOM.$bottomButtons.classList.add("compare");
       DOM.$bottomButtons.classList.add("compareWidth");
@@ -394,6 +403,15 @@ class MenuNavigation {
     var isSpecific = false;
     var isFinished = false; // hack pour search !
     switch (id) {
+    case "compareLandmark":
+      DOM.$createCompareLandmarkBtn.classList.remove("d-none");
+      Globals.compareLandmark.clear();
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$bottomButtons.classList.add("compare");
+      Globals.currentScrollIndex = 0;
+      isSpecific = true;
+      isFinished = true;
+      break;
     case "landmark":
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
@@ -434,7 +452,6 @@ class MenuNavigation {
       isFinished = true;
       break;
     case "compareLayers1":
-      DOM.$tabContainer.classList.add("compare");
       DOM.$sideBySideLeftLayer.classList.remove("compareLayers");
       DOM.$sideBySideFadeSlider.classList.remove("compareLayers");
       DOM.$compareLayers1Window.classList.add("d-none");
@@ -446,7 +463,6 @@ class MenuNavigation {
       isFinished = true;
       break;
     case "compareLayers2":
-      DOM.$tabContainer.classList.add("compare");
       DOM.$sideBySideLeftLayer.classList.remove("compareLayers");
       DOM.$sideBySideFadeSlider.classList.remove("compareLayers");
       DOM.$compareLayers2Window.classList.add("d-none");
@@ -466,7 +482,7 @@ class MenuNavigation {
       DOM.$compareMode.classList.add("d-none");
       DOM.$sideBySideLeftLayer.classList.add("d-none");
       DOM.$sideBySideRightLayer.classList.add("d-none");
-      DOM.$createRltlandmarkBtn.classList.add("d-none");
+      DOM.$createCompareLandmarkBtn.classList.add("d-none");
       DOM.$tabContainer.classList.remove("compare");
       DOM.$bottomButtons.classList.remove("compare");
       DOM.$bottomButtons.classList.add("compareWidth");
@@ -627,7 +643,7 @@ class MenuNavigation {
      * @param {*} id
      */
   #close(id) {
-    if (["compareLayers1", "compareLayers2"].includes(id)) {
+    if (["compareLayers1", "compareLayers2", "compareLandmark"].includes(id)) {
       Globals.backButtonState = "compare"; // on revient sur le contrôle !
       return;
     }

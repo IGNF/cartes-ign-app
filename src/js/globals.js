@@ -94,6 +94,10 @@ let osmPoiAccessibility = null;
 let signalement = null;
 let signalementOSM = null;
 
+// Global control landmark and RTL landmark
+let landmark = null;
+let compareLandmark = null;
+
 // Global flag: is the device connected to the internet?
 let online = true;
 
@@ -149,4 +153,6 @@ export default {
   mapLoaded,
   walkingSpeed,
   osmPoiAccessibility,
+  landmark,
+  compareLandmark,
 };

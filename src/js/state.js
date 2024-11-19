@@ -117,10 +117,18 @@ const onBackKeyDown = () => {
   }
   if (backState === "compareLayers1") {
     Globals.menu.close("compareLayers1");
+    if (previousState === "compareLandmark") {
+      Globals.menu.open(previousState);
+      return;
+    }
     return;
   }
   if (backState === "compareLayers2") {
     Globals.menu.close("compareLayers2");
+    if (previousState === "compareLandmark") {
+      Globals.menu.open(previousState);
+      return;
+    }
     return;
   }
   if (backState === "routeDraw") {
@@ -174,6 +182,10 @@ const onBackKeyDown = () => {
       Globals.menu.open(previousState);
       return;
     }
+    return;
+  }
+  if (backState === "compareLandmark") {
+    Globals.menu.close("compareLandmark");
     return;
   }
   if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenAccessibility"].includes(backState)) {

@@ -24,6 +24,7 @@ import MapboxAccessibility from "./poi-accessibility";
 import DOM from "./dom";
 
 import LocationLayers from "./services/location-styles";
+import compareLandmark from "./compareLandmark";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -130,6 +131,7 @@ const addControls = () => {
       openSearchControlCbk : () => { Globals.menu.open("searchLandmark"); },
       closeSearchControlCbk : () => { Globals.menu.close("searchLandmark"); },
     });
+    Globals.compareLandmark = new compareLandmark(Globals.mapRLT2, {});
 
     // contrôle filtres POI
     Globals.poi = new POI(map, {});

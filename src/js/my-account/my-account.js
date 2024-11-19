@@ -26,9 +26,9 @@ import GeoJsonToGpx from "@dwayneparton/geojson-to-gpx";
 
 import LineSlice from "@turf/line-slice";
 
-import LandmarkIconSaved from "../../css/assets/landmark-saved-map.png";
-import LandmarkIconFavourite from "../../css/assets/landmark-favourite-map.png";
-import LandmarkIconTovisit from "../../css/assets/landmark-tovisit-map.png";
+import LandmarkIconSaved from "../../css/assets/landmark/landmark-saved-map.png";
+import LandmarkIconFavourite from "../../css/assets/landmark/landmark-favourite-map.png";
+import LandmarkIconTovisit from "../../css/assets/landmark/landmark-tovisit-map.png";
 import { Capacitor } from "@capacitor/core";
 
 /**

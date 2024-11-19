@@ -205,13 +205,13 @@ div[id^=route-summary-div_ID_] {
 }
 
 .landmarkSummaryIconlandmark-icon-favourite {
-  background-image: url("assets/landmark-favourite-map.png");
+  background-image: url("assets/landmark/landmark-favourite-map.png");
 }
 
 .landmarkSummaryIconlandmark-icon-saved {
-  background-image: url("assets/landmark-saved-map.png");
+  background-image: url("assets/landmark/landmark-saved-map.png");
 }
 
 .landmarkSummaryIconlandmark-icon-tovisit {
-  background-image: url("assets/landmark-tovisit-map.png");
+  background-image: url("assets/landmark/landmark-tovisit-map.png");
 }
