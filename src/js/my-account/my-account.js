@@ -29,6 +29,11 @@ import LineSlice from "@turf/line-slice";
 import LandmarkIconSaved from "../../css/assets/landmark/landmark-saved-map.png";
 import LandmarkIconFavourite from "../../css/assets/landmark/landmark-favourite-map.png";
 import LandmarkIconTovisit from "../../css/assets/landmark/landmark-tovisit-map.png";
+import CompareLandmarkBlue from "../../css/assets/compareLandmark/compare-landmark-blue.png";
+import CompareLandmarkPurple from "../../css/assets/compareLandmark/compare-landmark-purple.png";
+import CompareLandmarkOrange from "../../css/assets/compareLandmark/compare-landmark-orange.png";
+import CompareLandmarkGreen from "../../css/assets/compareLandmark/compare-landmark-green.png";
+import CompareLandmarkYellow from "../../css/assets/compareLandmark/compare-landmark-yellow.png";
 import { Capacitor } from "@capacitor/core";
 
 /**
@@ -55,6 +60,7 @@ class MyAccount {
       linesource: "my-account-line",
       pointsource: "my-account-point",
       landmarksource: "my-account-landmark",
+      compareLandmarksource: "my-account-compare-landmark",
     };
 
     // target
@@ -71,12 +77,14 @@ class MyAccount {
 
     // points de repère
     this.landmarks = [];
+    this.compareLandmarks = [];
 
     this.#addSourcesAndLayers();
 
     // Identifiant unique pour les itinéraires
     this.lastRouteId = 0;
     this.lastLandmarkId = 0;
+    this.lastCompareLandmarkId = 0;
 
     // récupération des itinéraires enregistrés en local
     if (!localStorage.getItem("savedRoutes")) {
@@ -94,6 +102,14 @@ class MyAccount {
       this.landmarks = this.landmarks.concat(localLandmarks);
     }
 
+    // récupération des points de repère comparer enregistrés en local
+    if (!localStorage.getItem("savedCompareLandmarks")) {
+      localStorage.setItem("savedCompareLandmarks", "[]");
+    } else {
+      var localCompareLandmarks = JSON.parse(localStorage.getItem("savedCompareLandmarks"));
+      this.compareLandmarks = this.compareLandmarks.concat(localCompareLandmarks);
+    }
+
     this.map.loadImage(LandmarkIconSaved).then((image) => {
       this.map.addImage("landmark-icon-saved", image.data);
     });
@@ -102,6 +118,21 @@ class MyAccount {
     });
     this.map.loadImage(LandmarkIconTovisit).then((image) => {
       this.map.addImage("landmark-icon-tovisit", image.data);
+    });
+    this.map.loadImage(CompareLandmarkBlue).then((image) => {
+      this.map.addImage("compare-landmark-blue", image.data);
+    });
+    this.map.loadImage(CompareLandmarkPurple).then((image) => {
+      this.map.addImage("compare-landmark-purple", image.data);
+    });
+    this.map.loadImage(CompareLandmarkOrange).then((image) => {
+      this.map.addImage("compare-landmark-orange", image.data);
+    });
+    this.map.loadImage(CompareLandmarkGreen).then((image) => {
+      this.map.addImage("compare-landmark-green", image.data);
+    });
+    this.map.loadImage(CompareLandmarkYellow).then((image) => {
+      this.map.addImage("compare-landmark-yellow", image.data);
     });
 
     // récupération des infos et rendu graphique
@@ -115,6 +146,11 @@ class MyAccount {
       this.landmarks.forEach((landmark) => {
         landmark.id = this.lastLandmarkId;
         this.lastLandmarkId++;
+      });
+      // Ajout d'identifiant unique aux compareLandmarks
+      this.compareLandmarks.forEach((compareLandmark) => {
+        compareLandmark.id = this.lastCompareLandmarkId;
+        this.lastCompareLandmarkId++;
       });
       this.render();
       this.#listeners();
@@ -141,8 +177,7 @@ class MyAccount {
         } else if (option === "compare-landmarks") {
           this.dom.compareLandmarkTabHeader.click();
         }
-
-      }
+      };
       ActionSheet.addEventListener("optionSelect", selectOption);
       ActionSheet.show({
         title: "",
@@ -249,7 +284,7 @@ class MyAccount {
       return;
     }
 
-    var container = this.getContainer(this.accountName, this.routes, this.landmarks, []);
+    var container = this.getContainer(this.accountName, this.routes, this.landmarks, this.compareLandmarks);
     if (!container) {
       console.warn();
       return;
@@ -478,6 +513,29 @@ class MyAccount {
   }
 
   /**
+   * Ajout d'un point de repère Comparer à l'espace utilisateur
+   * @param {*} compareLandmarkGeojson
+   */
+  addCompareLandmark(compareLandmarkGeojson) {
+    if (typeof compareLandmarkGeojson.id !== "undefined" && compareLandmarkGeojson.id >= 0) {
+      for (let i = 0; i < this.compareLandmarks.length; i++) {
+        if (this.compareLandmarks[i].id === compareLandmarkGeojson.id){
+          this.compareLandmarks[i] = JSON.parse(JSON.stringify(compareLandmarkGeojson));
+          break;
+        }
+      }
+    } else {
+      const newlandmark = JSON.parse(JSON.stringify(compareLandmarkGeojson));
+      newlandmark.id = this.lastLandmarkId;
+      this.lastCompareLandmarkId++;
+      this.compareLandmarks.unshift(newlandmark);
+    }
+    this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
+    localStorage.setItem("savedCompareLandmarks", JSON.stringify(this.compareLandmarks));
+    this.#updateSources();
+  }
+
+  /**
    * Supprime un itinéraire de l'epace utilisateur
    */
   deleteRoute(routeId) {
@@ -504,6 +562,22 @@ class MyAccount {
       }
       this.landmarks.splice(i, 1);
       this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
+      this.#updateSources();
+      break;
+    }
+  }
+
+  /**
+   * Supprime un point de repère Comparer de l'epace utilisateur
+   */
+  deleteCompareLandmark(compareLandmarkId) {
+    for (let i = 0; i < this.compareLandmarks.length; i++) {
+      let compareLandmark = this.compareLandmarks[i];
+      if (compareLandmark.id !== compareLandmarkId) {
+        continue;
+      }
+      this.compareLandmarks.splice(i, 1);
+      this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
       this.#updateSources();
       break;
     }
@@ -1206,6 +1280,12 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
       type: "FeatureCollection",
       features: this.landmarks,
     });
+
+    var compareLandmarksource = this.map.getSource(this.configuration.compareLandmarksource);
+    compareLandmarksource.setData({
+      type: "FeatureCollection",
+      features: this.compareLandmarks,
+    });
   }
 
   /**
@@ -1253,6 +1333,15 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
     MyAccountLayers["landmark-casing"].source = this.configuration.landmarksource;
     MyAccountLayers["landmark"].source = this.configuration.landmarksource;
     MyAccountLayers["landmark-icon"].source = this.configuration.landmarksource;
+
+    this.map.addSource(this.configuration.compareLandmarksource, {
+      "type": "geojson",
+      "data": {
+        type: "FeatureCollection",
+        features: [],
+      }
+    });
+    MyAccountLayers["compare-landmark"].source = this.configuration.compareLandmarksource;
   }
 
   /**
@@ -1263,6 +1352,7 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
     this.map.addLayer(MyAccountLayers["landmark-casing"]);
     this.map.addLayer(MyAccountLayers["landmark"]);
     this.map.addLayer(MyAccountLayers["landmark-icon"]);
+    this.map.addLayer(MyAccountLayers["compare-landmark"]);
   }
 
   /**

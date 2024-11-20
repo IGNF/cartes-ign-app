@@ -19,13 +19,14 @@ class compareLandmark {
    * @param {*} map
    * @param {*} options
    */
-  constructor(map, options) {
+  constructor(map1, map2, options) {
     this.options = options || {
       target: null,
     };
     this.target = this.options.target || document.getElementById("compareLandmarkWindow");
 
-    this.map = map;
+    this.map1 = map1;
+    this.map2 = map2;
 
     this.data = {
       title: null,
@@ -64,12 +65,22 @@ class compareLandmark {
   #listeners() {
     this.dom.submitButton.addEventListener("click", () => {
       const color = Array.from(this.dom.radioColors).filter((el) => el.checked)[0].value;
+      let compareMode = "vSlider";
+      if (document.getElementById("compareUpDown").classList.contains("selected")) {
+        compareMode = "hSlider";
+      } else if (document.getElementById("compareFade").classList.contains("selected")) {
+        compareMode = "fade";
+      }
       this.data = {
         title: this.dom.title.value,
         description: this.dom.description.value,
-        location: [this.map.getCenter().lng, this.map.getCenter().lat],
-        zoom: this.map.getZoom(),
+        location: [this.map1.getCenter().lng, this.map1.getCenter().lat],
+        zoom: this.map1.getZoom(),
         color: color,
+        icon: `compare-landmark-${color}`,
+        layer1: this.map1.getLayer("maplayer").source.split("$")[0],
+        layer2: this.map2.getLayer("maplayer").source.split("$")[0],
+        mode: compareMode,
       };
       if (!this.data.location || !this.data.title) {
         Toast.show({
@@ -80,8 +91,7 @@ class compareLandmark {
         return;
       }
       const compareLandmarkJson = this.#generateGeoJson();
-      console.log(compareLandmarkJson);
-      // Globals.myaccount.addCompareLandmark(JSON.parse(JSON.stringify(compareLandmarkJson)));
+      Globals.myaccount.addCompareLandmark(JSON.parse(JSON.stringify(compareLandmarkJson)));
       Toast.show({
         text: "Point de repère enregistré dans 'Enregistrés'",
         duration: "long",
@@ -108,10 +118,16 @@ class compareLandmark {
         coordinates: this.data.location,
       },
       properties: {
-        title: this.data.title,
-        description: this.data.description,
-        zoom: this.data.zoom,
+        accroche: this.data.title,
+        theme: this.data.title,
+        text: this.data.description,
+        // Zoom +1 pour compatibilité avec POI RLT classiques
+        zoom: this.data.zoom + 1,
         color: this.data.color,
+        icon: this.data.icon,
+        layer1: this.data.layer1,
+        layer2: this.data.layer2,
+        mode: this.data.mode,
         visible: true,
       }
     };

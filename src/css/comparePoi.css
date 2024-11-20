@@ -22,7 +22,15 @@
   background-image: url("assets/autocompresult.svg");
   background-repeat: no-repeat;
   background-size: 30px;
+  background-position: left center;
   height: 37px;
+  display: flex;
+  align-items: center;
+}
+
+.comparePoiLocation:empty {
+  background-image: unset;
+  height: 0;
 }
 
 .comparePoiButton {
@@ -44,4 +52,10 @@
   font-family: "Open Sans";
   margin-top: 10px;
   padding-top: 10px;
+}
+
+.comparePoiLocationWrapper:has(.comparePoiLocation:empty) + .comparePoiText {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
 }

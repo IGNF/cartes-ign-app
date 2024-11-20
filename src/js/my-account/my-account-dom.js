@@ -221,9 +221,9 @@ let MyAccountDOM = {
   __updateAccountCompareLandmarksContainerDOMElement(compareLandmarks) {
     this.dom.compareLandmarkList.innerHTML = "";
     for (let i = 0; i < compareLandmarks.length; i++) {
-      this.dom.landmarkList.appendChild(this.__addCompareLandmarkContainer(compareLandmarks[i]));
+      this.dom.compareLandmarkList.appendChild(this.__addCompareLandmarkContainer(compareLandmarks[i]));
     }
-    this.dom.landmarkNumber.innerText = compareLandmarks.length;
+    this.dom.compareLandmarkNumber.innerText = compareLandmarks.length;
   },
 
   /**
@@ -451,7 +451,7 @@ let MyAccountDOM = {
    * @private
    */
   __addCompareLandmarkContainer(compareLandmark) {
-    var title = compareLandmark.properties.title;
+    var title = compareLandmark.properties.accroche;
     var landmarkId = compareLandmark.id;
 
     var invisibleClass = compareLandmark.properties.visible ? "" : "invisible";
@@ -461,7 +461,7 @@ let MyAccountDOM = {
       <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="compare-landmark-container_ID_${landmarkId}">
         <div class="handle-draggable-layer" id="compare-landmark-cross-picto_ID_${landmarkId}"></div>
         <div id="compare-landmark-basic-tools_ID_${landmarkId}">
-          <label class="landmarkSummaryIcon compareLandmarkSummaryIcon${compareLandmark.properties.color}"></label>
+          <label class="compareLandmarkSummaryIcon compareLandmarkSummaryIcon${compareLandmark.properties.color}"></label>
           <div class="wrap-tools-layers">
             <span id="compare-landmark-title_ID_${landmarkId}">${title}</span>
           </div>
@@ -516,7 +516,7 @@ let MyAccountDOM = {
           } else {
             container.classList.remove("invisible");
           }
-          this.toggleShowCompareLandmark(compareLandmark);
+          this.toggleShowLandmark(compareLandmark);
         }
         if (value === "share") {
           this.shareCompareLandmark(compareLandmark);

@@ -306,6 +306,7 @@
   font-family: "Open Sans";
 }
 
+div[id^="compare-landmark-container_ID_"],
 div[id^="landmark-container_ID_"],
 div[id^="route-container_ID_"] {
   width: 100%;
@@ -319,6 +320,7 @@ div[id^="route-container_ID_"] .routeDrawSummaryDuration {
   color: var(--dark-grey);
 }
 
+div[id^="compare-landmark-cross-picto_ID_"],
 div[id^=landmark-cross-picto_ID_],
 div[id^=route-cross-picto_ID_] {
   margin-left: 15px;
@@ -329,6 +331,7 @@ div[id^=route-basic-tools_ID_] {
   width: 100%;
 }
 
+div[id^="compare-landmark-container_ID_"].invisible > div[id^="compare-landmark-basic-tools_ID_"],
 div[id^="route-container_ID_"].invisible > div[id^="route-basic-tools_ID_"],
 div[id^="landmark-container_ID_"].invisible > div[id^=landmark-basic-tools_ID_] {
   opacity: 0.5;
@@ -384,4 +387,31 @@ div[id^=route-summary-div_ID_] {
 
 .landmarkSummaryIconlandmark-icon-tovisit {
   background-image: url("assets/landmark/landmark-tovisit-map.png");
+}
+
+.compareLandmarkSummaryIcon {
+  width: 25px;
+  height: 25px;
+  background-size: 25px;
+  background-position: center;
+}
+
+.compareLandmarkSummaryIconblue {
+  background-image: url(assets/compareLandmark/compare-landmark-blue.svg);
+}
+
+.compareLandmarkSummaryIconpurple {
+  background-image: url(assets/compareLandmark/compare-landmark-purple.svg);
+}
+
+.compareLandmarkSummaryIconorange {
+  background-image: url(assets/compareLandmark/compare-landmark-orange.svg);
+}
+
+.compareLandmarkSummaryIcongreen {
+  background-image: url(assets/compareLandmark/compare-landmark-green.svg);
+}
+
+.compareLandmarkSummaryIconyellow {
+  background-image: url(assets/compareLandmark/compare-landmark-yellow.svg);
 }

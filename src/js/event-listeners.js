@@ -108,8 +108,6 @@ function addListeners() {
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
-    localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
-    localStorage.setItem("savedLandmarks", JSON.stringify(Globals.myaccount.landmarks));
     const checkedPoi = {};
     document.querySelectorAll(".inputPOIFilterItem.checkbox").forEach((poiCheckbox) => {
       checkedPoi[poiCheckbox.id] = poiCheckbox.checked;

@@ -250,6 +250,20 @@ const layers = {
       "icon-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0],
     },
   },
+  "compare-landmark": {
+    id: "my-account-compare-landmark",
+    type: "symbol",
+    source: "",
+    layout: {
+      "icon-image": ["get", "icon"],
+      "icon-allow-overlap": true,
+      "icon-size": 0.5,
+      "icon-anchor": "bottom",
+    },
+    paint: {
+      "icon-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0],
+    },
+  },
 };
 
 export default layers;

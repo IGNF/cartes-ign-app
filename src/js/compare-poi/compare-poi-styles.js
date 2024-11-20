@@ -22,7 +22,7 @@ const layers = {
         ["+", 10.5, ["*", 8.5, ["coalesce", ["get", "radiusRatio"], 0]]],
       ],
       "circle-opacity": ["coalesce", ["get", "opacity"], 0],
-      "circle-color": "#26A581"
+      "circle-color": ["case", ["has", "color"], ["get", "color"], "#26A581"],
     }
   },
 };
