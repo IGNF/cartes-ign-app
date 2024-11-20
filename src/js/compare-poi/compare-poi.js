@@ -169,6 +169,7 @@ class ComparePoi {
     DOM.$bottomButtons.classList.remove("compare");
     DOM.$sideBySideLeftLayer.classList.add("d-none");
     DOM.$sideBySideRightLayer.classList.add("d-none");
+    DOM.$createCompareLandmarkBtn.classList.add("d-none");
     Globals.currentScrollIndex = 2;
     Globals.menu.updateScrollAnchors();
     Globals.compare.setParams(this.compareConfig);

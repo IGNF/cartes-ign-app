@@ -195,6 +195,7 @@ class MenuNavigation {
       DOM.$compareLayers1Window.classList.remove("d-none");
       DOM.$tabContainer.classList.remove("compare");
       DOM.$bottomButtons.classList.remove("compare");
+      DOM.$sideBySideLeftLayer.classList.remove("inactive");
       DOM.$sideBySideRightLayer.classList.add("inactive");
       DOM.$sideBySideLeftLayer.classList.add("compareLayers");
       DOM.$sideBySideFadeSlider.classList.add("compareLayers");
@@ -209,6 +210,7 @@ class MenuNavigation {
       DOM.$compareLayers2Window.classList.remove("d-none");
       DOM.$tabContainer.classList.remove("compare");
       DOM.$bottomButtons.classList.remove("compare");
+      DOM.$sideBySideRightLayer.classList.remove("inactive");
       DOM.$sideBySideLeftLayer.classList.add("inactive");
       DOM.$sideBySideLeftLayer.classList.add("compareLayers");
       DOM.$sideBySideFadeSlider.classList.add("compareLayers");

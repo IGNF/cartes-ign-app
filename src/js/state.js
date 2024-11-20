@@ -16,6 +16,7 @@ import { App } from "@capacitor/app";
 const onBackKeyDown = () => {
   // Handle the back button
   const previousState = Globals.backButtonState.split("-")[1] || "default";
+  const previousStates = Globals.backButtonState.split("-");
   const backState = Globals.backButtonState.split("-")[0];
   if (backState == "default") {
     App.exitApp();
@@ -117,16 +118,16 @@ const onBackKeyDown = () => {
   }
   if (backState === "compareLayers1") {
     Globals.menu.close("compareLayers1");
-    if (previousState === "compareLandmark") {
-      Globals.menu.open(previousState);
+    if (previousStates.includes("compareLandmark")) {
+      Globals.menu.open("compareLandmark");
       return;
     }
     return;
   }
   if (backState === "compareLayers2") {
     Globals.menu.close("compareLayers2");
-    if (previousState === "compareLandmark") {
-      Globals.menu.open(previousState);
+    if (previousStates.includes("compareLandmark")) {
+      Globals.menu.open("compareLandmark");
       return;
     }
     return;

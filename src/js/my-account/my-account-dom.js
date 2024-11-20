@@ -536,7 +536,7 @@ let MyAccountDOM = {
         this.toggleShowLandmark(compareLandmark);
       }
       container.classList.remove("invisible");
-      this.toggleShowCompareLandmark(compareLandmark);
+      this.toggleShowLandmark(compareLandmark);
     });
 
     if (!container) {

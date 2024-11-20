@@ -526,7 +526,7 @@ class MyAccount {
       }
     } else {
       const newlandmark = JSON.parse(JSON.stringify(compareLandmarkGeojson));
-      newlandmark.id = this.lastLandmarkId;
+      newlandmark.id = this.lastCompareLandmarkId;
       this.lastCompareLandmarkId++;
       this.compareLandmarks.unshift(newlandmark);
     }
@@ -702,6 +702,44 @@ class MyAccount {
       icon: landmark.properties.icon,
     });
     Globals.landmark.setId(landmark.id);
+  }
+
+  /**
+ * Ouvre l'outil de création de point de repère pour le modifer
+ * @param {*} compareLandmark
+ */
+  editCompareLandmark(compareLandmark) {
+    if (Location.isTrackingActive()) {
+      Location.disableTracking();
+    }
+    this.map.flyTo({center: compareLandmark.geometry.coordinates, zoom: compareLandmark.properties.zoom});
+    this.hide();
+    Globals.menu.open("compare");
+    DOM.$tabContainer.classList.remove("compare");
+    DOM.$bottomButtons.classList.remove("compare");
+    Globals.currentScrollIndex = 2;
+    Globals.menu.updateScrollAnchors();
+    Globals.compare.setParams({
+      // Zoom - 1 car décalage entre niveaux de zoom maplibre et autres libs carto
+      zoom: compareLandmark.properties.zoom - 1,
+      mode: compareLandmark.properties.mode,
+      layer1: compareLandmark.properties.layer1,
+      layer2: compareLandmark.properties.layer2,
+      center: compareLandmark.geometry.coordinates,
+    });
+    Globals.compareLandmark.show();
+    Globals.compareLandmark.setData({
+      title: compareLandmark.properties.accroche,
+      description: compareLandmark.properties.text,
+      location: compareLandmark.geometry.coordinates,
+      zoom: compareLandmark.properties.zoom,
+      color: compareLandmark.properties.color,
+      icon: compareLandmark.properties.icon,
+      layer1: compareLandmark.properties.layer1,
+      layer2: compareLandmark.properties.layer2,
+      mode: compareLandmark.properties.mode,
+    });
+    Globals.compareLandmark.setId(compareLandmark.id);
   }
 
   /**

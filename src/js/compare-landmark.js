@@ -147,7 +147,7 @@ class compareLandmark {
    */
   setId(id) {
     this.compareLandmarkId = id;
-    document.getElementById("compareLandmarkWindowTitle").innerText = "Modifier un point de repère";
+    document.getElementById("compareLandmarkWindowTitle").innerText = "Modifier un point de repère Comparer";
   }
 
   /**
@@ -177,9 +177,14 @@ class compareLandmark {
       title: null,
       description: null,
       location: null,
+      zoom: null,
       color: null,
+      icon: null,
+      layer1: null,
+      layer2: null,
+      mode: null,
     };
-    this.landmarkId = null;
+    this.compareLandmarkId = null;
     document.getElementById("compareLandmarkWindowTitle").innerText = "Créer un point de repère Comparer";
   }
 }
