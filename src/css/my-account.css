@@ -246,7 +246,7 @@
   border-radius: 20px;
 }
 
-#myaccount-routes:not(:has(#myaccountRouteList))::before {
+#myaccountRouteList:not(:has(*))::before {
   content: "Aucun itinéraire enregistré";
   font-size: 15px;
   color: var(--mid-grey);
@@ -255,7 +255,7 @@
   display: block;
   text-align: center;
 }
-#myaccount-routes:not(:has(#myaccountRouteList))::after {
+#myaccountRouteList:not(:has(*))::after {
   content: "Vous pouvez enregistrer les itinéraires tracés depuis le menu Se déplacer, ou bien en importer depuis un fichier geojson ou gpx ou via le partage depuis un autre appareil";
   font-size: 15px;
   color: var(--mid-grey);
@@ -266,7 +266,7 @@
   font-family: "Open Sans";
 }
 
-#myaccount-landmarks:not(:has(#myaccountLandmarksList))::before {
+#myaccountLandmarksList:not(:has(*))::before {
   content: "Aucun point de repère";
   font-size: 15px;
   color: var(--mid-grey);
@@ -275,7 +275,7 @@
   display: block;
   text-align: center;
 }
-#myaccount-landmarks:not(:has(#myaccountLandmarksList))::after {
+#myaccountLandmarksList:not(:has(*))::after {
   content: "Vous pouvez en créer à tout moment depuis le menu Explorer ou en interagissant avec la carte, ou bien en importer depuis un fichier";
   font-size: 15px;
   color: var(--mid-grey);
@@ -286,7 +286,7 @@
   font-family: "Open Sans";
 }
 
-#myaccount-compare-landmarks:not(:has(*))::before {
+#myaccountCompareLandmarksList:not(:has(*))::before {
   content: "Aucun repère Comparer";
   font-size: 15px;
   color: var(--mid-grey);
@@ -295,7 +295,7 @@
   display: block;
   text-align: center;
 }
-#myaccount-compare-landmarks:not(:has(*))::after {
+#myaccountCompareLandmarksList:not(:has(*))::after {
   content: "Vous pouvez en créer depuis le menu Comparer";
   font-size: 15px;
   color: var(--mid-grey);
