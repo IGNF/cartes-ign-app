@@ -32,6 +32,31 @@
   background-image: url(assets/compareLandmark/compare-landmark-yellow.svg);
 }
 
+#mapCenter:has(~ #tabContainer > #compareLandmarkWindow:not(.d-none)) {
+  background-size: 25px;
+  top: calc(50vh - 37.5px);
+}
+
+#mapCenter:has(~ #tabContainer > #compareLandmarkWindow:not(.d-none) #compareLandmark-color-blue:checked)  {
+  background-image: url(assets/compareLandmark/compare-landmark-blue.svg);
+}
+
+#mapCenter:has(~ #tabContainer > #compareLandmarkWindow:not(.d-none) #compareLandmark-color-purple:checked)  {
+  background-image: url(assets/compareLandmark/compare-landmark-purple.svg);
+}
+
+#mapCenter:has(~ #tabContainer > #compareLandmarkWindow:not(.d-none) #compareLandmark-color-orange:checked)  {
+  background-image: url(assets/compareLandmark/compare-landmark-orange.svg);
+}
+
+#mapCenter:has(~ #tabContainer > #compareLandmarkWindow:not(.d-none) #compareLandmark-color-green:checked)  {
+  background-image: url(assets/compareLandmark/compare-landmark-green.svg);
+}
+
+#mapCenter:has(~ #tabContainer > #compareLandmarkWindow:not(.d-none) #compareLandmark-color-yellow:checked)  {
+  background-image: url(assets/compareLandmark/compare-landmark-yellow.svg);
+}
+
 .compareLandmarkColorInput:checked + .compareLandmarkColorInputLabel::after {
   content: "";
   position: absolute;

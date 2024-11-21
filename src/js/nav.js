@@ -140,6 +140,7 @@ class MenuNavigation {
       DOM.$createCompareLandmarkBtn.classList.add("d-none");
       DOM.$tabContainer.classList.remove("compare");
       DOM.$bottomButtons.classList.remove("compare");
+      DOM.$mapCenter.classList.remove("d-none");
       Globals.currentScrollIndex = 2;
       break;
     case "landmark":
@@ -410,6 +411,7 @@ class MenuNavigation {
       Globals.compareLandmark.clear();
       DOM.$tabContainer.classList.add("compare");
       DOM.$bottomButtons.classList.add("compare");
+      DOM.$mapCenter.classList.add("d-none");
       Globals.currentScrollIndex = 0;
       isSpecific = true;
       isFinished = true;
