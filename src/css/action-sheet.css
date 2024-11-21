@@ -57,3 +57,7 @@ action-sheet {
   flex-direction: column;
   gap: 15px;
 }
+
+.actionSheet-list-option {
+  transition: background-color 0.2s;
+}

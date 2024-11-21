@@ -206,6 +206,16 @@ class Compare {
       Globals.menu.open("compareLayers2");
     });
 
+    DOM.$createCompareLandmarkBtn.addEventListener("click", () => {
+      if (Globals.backButtonState == "compareLayers1") {
+        Globals.menu.close("compareLayers1");
+      }
+      if (Globals.backButtonState == "compareLayers2") {
+        Globals.menu.close("compareLayers2");
+      }
+      Globals.menu.open("compareLandmark");
+    });
+
     // clic sur une rlt de fonds
     document.querySelectorAll(".rltLayer").forEach((el) => {
       el.addEventListener("click", () => {
@@ -383,6 +393,22 @@ class Compare {
     this.mapRLT1.setZoom(this.map.getZoom());
     this.mapRLT2.setZoom(this.map.getZoom());
     this.#changeMode();
+
+    DOM.$createCompareLandmarkBtn.style.removeProperty("opacity");
+    DOM.$createCompareLandmarkBtn.style.removeProperty("color");
+    clearTimeout(this.timeoutID1);
+    clearTimeout(this.timeoutID2);
+    clearTimeout(this.timeoutID3);
+    this.timeoutID1 = setTimeout(() => {
+      DOM.$createCompareLandmarkBtn.style.backgroundColor = "#26A581DD";
+      DOM.$createCompareLandmarkBtn.style.width = "calc(63px + 14.446rem)";
+      this.timeoutID2 = setTimeout(() => {
+        DOM.$createCompareLandmarkBtn.style.removeProperty("width");
+        this.timeoutID3 = setTimeout(() => {
+          DOM.$createCompareLandmarkBtn.style.removeProperty("background-color");
+        }, 450);
+      }, 2000);
+    }, 50);
   }
 
   /**

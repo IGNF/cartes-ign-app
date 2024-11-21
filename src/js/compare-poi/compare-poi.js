@@ -33,6 +33,7 @@ class ComparePoi {
     // configuration
     this.configuration = this.options.configuration || {
       source: "comparepoi",
+      customSource: "my-account-compare-landmark",
     };
 
     this.compareConfig = {
@@ -107,14 +108,14 @@ class ComparePoi {
    * ajout d'ecouteurs
    */
   #listeners() {
-    this.map.on("click", this.configuration.source, (e) => {
+    let handleLayerClick = (e) => {
       if (["routeDraw", "routeDrawSave"].includes(Globals.backButtonState)) {
         return;
       }
       if (Globals.backButtonState.split("-")[0] === "position") {
         DOM.$backTopLeftBtn.click();
       }
-      const comparePoi = this.map.queryRenderedFeatures(e.point, {layers: [this.configuration.source]})[0];
+      const comparePoi = this.map.queryRenderedFeatures(e.point, {layers: [this.configuration.source, this.configuration.customSource]})[0];
       comparePoi.properties.opacity = 0.6;
       comparePoi.properties.radiusRatio = 0;
       const source = this.map.getSource("selected-compare-poi");
@@ -132,8 +133,8 @@ class ComparePoi {
           "features": [comparePoi]
         });
       }, 20);
-      // Zoom - 1 car décalage entre niveaux de zoom maplibre et autres libs carto
       this.compareConfig = {
+        // Zoom - 1 car décalage entre niveaux de zoom maplibre et autres libs carto
         zoom: comparePoi.properties.zoom - 1,
         mode: comparePoi.properties.mode,
         layer1: comparePoi.properties.layer1,
@@ -142,10 +143,17 @@ class ComparePoi {
       };
       this.theme = comparePoi.properties.theme;
       this.dom.title.innerText = comparePoi.properties.accroche;
-      this.dom.location.innerText = comparePoi.properties.commune + ", " + comparePoi.properties.departement;
+      this.dom.location.innerText = "";
+      if (comparePoi.properties.commune) {
+        this.dom.location.innerText = comparePoi.properties.commune + ", " + comparePoi.properties.departement;
+      }
+      console.log(this);
       this.dom.text.innerHTML = comparePoi.properties.text;
       this.showWindow();
-    });
+    };
+
+    this.map.on("click", this.configuration.source, handleLayerClick);
+    this.map.on("click", this.configuration.customSource, handleLayerClick);
     this.dom.button.addEventListener("click", this.handleCompareButton);
   }
 
@@ -161,6 +169,7 @@ class ComparePoi {
     DOM.$bottomButtons.classList.remove("compare");
     DOM.$sideBySideLeftLayer.classList.add("d-none");
     DOM.$sideBySideRightLayer.classList.add("d-none");
+    DOM.$createCompareLandmarkBtn.classList.add("d-none");
     Globals.currentScrollIndex = 2;
     Globals.menu.updateScrollAnchors();
     Globals.compare.setParams(this.compareConfig);

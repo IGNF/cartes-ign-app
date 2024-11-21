@@ -108,8 +108,6 @@ function addListeners() {
     localStorage.setItem("lastMapLng", map.getCenter().lng);
     localStorage.setItem("lastMapZoom", map.getZoom());
     localStorage.setItem("lastLayersDisplayed", JSON.stringify(Globals.layersDisplayed));
-    localStorage.setItem("savedRoutes", JSON.stringify(Globals.myaccount.routes));
-    localStorage.setItem("savedLandmarks", JSON.stringify(Globals.myaccount.landmarks));
     const checkedPoi = {};
     document.querySelectorAll(".inputPOIFilterItem.checkbox").forEach((poiCheckbox) => {
       checkedPoi[poiCheckbox.id] = poiCheckbox.checked;
@@ -284,18 +282,42 @@ function addListeners() {
             const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
             const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
             map.flyTo({zoom: zoom, center: center});
-            map.once("moveend", () => {
-              Globals.position.compute({ lngLat: center }).then(() => {
-                Globals.menu.open("position");
+            if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("text") && urlParams.get("color")) {
+              const feature = {
+                type: "Feature",
+                id: -1,
+                geometry: {
+                  type: "Point",
+                  coordinates: [center.lng, center.lat],
+                },
+                properties: {
+                  accroche: urlParams.get("title"),
+                  theme: urlParams.get("title"),
+                  text: urlParams.get("text"),
+                  zoom: zoom,
+                  color: urlParams.get("color"),
+                  icon: `compare-landmark-${urlParams.get("color")}`,
+                  layer1: urlParams.get("l1"),
+                  layer2: urlParams.get("l2"),
+                  mode: urlParams.get("m"),
+                  visible: true,
+                }
+              };
+              Globals.myaccount.addCompareLandmark(feature);
+            } else {
+              map.once("moveend", () => {
+                Globals.position.compute({ lngLat: center }).then(() => {
+                  Globals.menu.open("position");
+                });
+                if (Globals.searchResultMarker != null) {
+                  Globals.searchResultMarker.remove();
+                  Globals.searchResultMarker = null;
+                }
+                Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
+                  .setLngLat(center)
+                  .addTo(map);
               });
-              if (Globals.searchResultMarker != null) {
-                Globals.searchResultMarker.remove();
-                Globals.searchResultMarker = null;
-              }
-              Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
-                .setLngLat(center)
-                .addTo(map);
-            });
+            }
           }
         }
       }

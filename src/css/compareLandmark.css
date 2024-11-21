@@ -1,0 +1,61 @@
+.compareLandmarkColorInput {
+  display: none;
+}
+
+.compareLandmarkColorInputLabel {
+  display: inline-block;
+  background-image: url(assets/compareLandmark/compare-landmark-blue.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  background-color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 9px 26px 9px;
+}
+
+#compareLandmark-color-purple + .compareLandmarkColorInputLabel {
+  background-image: url(assets/compareLandmark/compare-landmark-purple.svg);
+}
+
+#compareLandmark-color-orange + .compareLandmarkColorInputLabel {
+  background-image: url(assets/compareLandmark/compare-landmark-orange.svg);
+}
+
+#compareLandmark-color-green + .compareLandmarkColorInputLabel {
+  background-image: url(assets/compareLandmark/compare-landmark-green.svg);
+}
+
+#compareLandmark-color-yellow + .compareLandmarkColorInputLabel {
+  background-image: url(assets/compareLandmark/compare-landmark-yellow.svg);
+}
+
+.compareLandmarkColorInput:checked + .compareLandmarkColorInputLabel::after {
+  content: "";
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  border: 2px solid #7EB9F7;
+  box-sizing: border-box;
+  top: -4px;
+  left: -4px;
+}
+
+#compareLandmark-color-purple:checked + .compareLandmarkColorInputLabel::after {
+  border: 2px solid #8774E4;
+}
+
+#compareLandmark-color-orange:checked + .compareLandmarkColorInputLabel::after{
+  border: 2px solid #F18345;
+}
+
+#compareLandmark-color-green:checked + .compareLandmarkColorInputLabel::after{
+  border: 2px solid #B6D688;
+}
+
+#compareLandmark-color-yellow:checked + .compareLandmarkColorInputLabel::after{
+  border: 2px solid #EFC931;
+}

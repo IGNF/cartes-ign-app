@@ -71,26 +71,27 @@
   font-size: 10px;
 }
 
-#myAccountImportBtn,
+#myAccountImportBtnRoutes,
+#myAccountImportBtnLandmarks,
 #myAccountLogInBtn {
-  background-color: var(--dark-green);
-  color: white;
-  font-family: "Open Sans";
+  background-color: var(--light-green);
+  color: #1C7B66;
+  font-family: "Open Sans Semibold";
   width: fit-content;
   padding: 10px 28px;
   border-radius: 100px;
   margin: auto;
+  font-size: 14px;
 }
 
-#myAccountImportBtn {
+#myAccountImportBtnRoutes,
+#myAccountImportBtnLandmarks {
   margin-top: 10px;
   padding: 13px 20px 13px 50px;
-  background-color: var(--dark-green);
   background-image: url("assets/import-file.svg");
   background-repeat: no-repeat;
   background-size: 18px;
   background-position: 22px 14px;
-  font-size: 14px;
 }
 
 /* #myAccountImportBtn {
@@ -111,31 +112,201 @@
   z-index: 100;
 } */
 
-#myAccountBody > .layer-tabs-wrap {
- margin: 24px 18px;
- height: 100%;
- min-height: 0;
- height: calc(100% - 20px);
+/* GESTION DES TABS */
+
+.tabs-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 24px 18px;
+  min-height: 0;
+  height: calc(100% - 20px);
+  width: calc(100vw - 36px);
 }
 
-#myAccountBody .layer-tabs-label {
-  position: unset;
+.tabs-input {
+  display: none;
 }
 
-#myaccount-landmarks,
-#myaccount-routes {
-  flex-grow: 1;
+.tabs-menu-btn {
+  background-color: var(--light-grey);
+  background-image: url(assets/menu.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 100%;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  margin-right: 6px;
+  position: relative;
+  transform: translateY(2px);
+}
+.tabs-menu-btn::after {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-right: 6px;
+  height: 2px;
+  background-color: var(--grey-2);
+  position: absolute;
+  bottom: -12px;
+}
+
+.tabs-wrap-tabs {
+  display: flex;
+  overflow-x: scroll;
+  flex-shrink: 0;
+  width: calc(100% - 40px);
+}
+
+.tabs-label {
+  width: fit-content;
+  gap: 10px;
+  padding: 0 5px;
+  min-height: 40px;
+  height: auto;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--grey-2);
+  font-family: "Fira Sans SemiBold";
+  font-size: 15px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.scrolledMax .tabs-label {
+  background-color: var(--false-white);
+  z-index: 3000;
+}
+
+.tabs-input:checked + .tabs-label {
+  border-bottom: 2px solid var(--dark-green);
+}
+
+.tabs-wrap-tabs:has(.tabs-input:checked:nth-of-type(1)) ~ .tabs-wrap-content > .tabs-content:nth-of-type(1) {
+  display: block;
+  position: relative;
+  top: 0;
+  z-index: 100;
+  transform: translateY(0px);
+}
+.tabs-wrap-tabs:has(.tabs-input:checked:nth-of-type(2)) ~ .tabs-wrap-content > .tabs-content:nth-of-type(2) {
+  display: block;
+  position: relative;
+  top: 0;
+  z-index: 100;
+  transform: translateY(0px);
+}
+.tabs-wrap-tabs:has(.tabs-input:checked:nth-of-type(3)) ~ .tabs-wrap-content > .tabs-content:nth-of-type(3) {
+  display: block;
+  position: relative;
+  top: 0;
+  z-index: 100;
+  transform: translateY(0px);
+}
+.tabs-wrap-tabs:has(.tabs-input:checked:nth-of-type(4)) ~ .tabs-wrap-content > .tabs-content:nth-of-type(4) {
+  display: block;
+  position: relative;
+  top: 0;
+  z-index: 100;
+  transform: translateY(0px);
+}
+
+.tabs-wrap-content {
   height: calc(100% - 37px);
+  width: 100%;
+}
+
+.tabs-content {
+  z-index: -1;
+  display: none;
+  left: 0;
+  width: 100%;
+  height: 100%;
   overflow-y: scroll;
 }
 
-#myaccountRouteList {
+.tabs-content > div {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0;
+  width: 100%;
 }
 
+.actionSheetTabOption {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  padding-left: 20px;
+  border-radius: 20px;
+}
+
+#myaccount-routes:not(:has(#myaccountRouteList))::before {
+  content: "Aucun itinéraire enregistré";
+  font-size: 15px;
+  color: var(--mid-grey);
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+#myaccount-routes:not(:has(#myaccountRouteList))::after {
+  content: "Vous pouvez enregistrer les itinéraires tracés depuis le menu Se déplacer, ou bien en importer depuis un fichier geojson ou gpx ou via le partage depuis un autre appareil";
+  font-size: 15px;
+  color: var(--mid-grey);
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-family: "Open Sans";
+}
+
+#myaccount-landmarks:not(:has(#myaccountLandmarksList))::before {
+  content: "Aucun point de repère";
+  font-size: 15px;
+  color: var(--mid-grey);
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+#myaccount-landmarks:not(:has(#myaccountLandmarksList))::after {
+  content: "Vous pouvez en créer à tout moment depuis le menu Explorer ou en interagissant avec la carte, ou bien en importer depuis un fichier";
+  font-size: 15px;
+  color: var(--mid-grey);
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-family: "Open Sans";
+}
+
+#myaccount-compare-landmarks:not(:has(*))::before {
+  content: "Aucun repère Comparer";
+  font-size: 15px;
+  color: var(--mid-grey);
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+#myaccount-compare-landmarks:not(:has(*))::after {
+  content: "Vous pouvez en créer depuis le menu Comparer";
+  font-size: 15px;
+  color: var(--mid-grey);
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-family: "Open Sans";
+}
+
+div[id^="compare-landmark-container_ID_"],
 div[id^="landmark-container_ID_"],
 div[id^="route-container_ID_"] {
   width: 100%;
@@ -149,6 +320,7 @@ div[id^="route-container_ID_"] .routeDrawSummaryDuration {
   color: var(--dark-grey);
 }
 
+div[id^="compare-landmark-cross-picto_ID_"],
 div[id^=landmark-cross-picto_ID_],
 div[id^=route-cross-picto_ID_] {
   margin-left: 15px;
@@ -159,6 +331,7 @@ div[id^=route-basic-tools_ID_] {
   width: 100%;
 }
 
+div[id^="compare-landmark-container_ID_"].invisible > div[id^="compare-landmark-basic-tools_ID_"],
 div[id^="route-container_ID_"].invisible > div[id^="route-basic-tools_ID_"],
 div[id^="landmark-container_ID_"].invisible > div[id^=landmark-basic-tools_ID_] {
   opacity: 0.5;
@@ -205,13 +378,40 @@ div[id^=route-summary-div_ID_] {
 }
 
 .landmarkSummaryIconlandmark-icon-favourite {
-  background-image: url("assets/landmark-favourite-map.png");
+  background-image: url("assets/landmark/landmark-favourite-map.png");
 }
 
 .landmarkSummaryIconlandmark-icon-saved {
-  background-image: url("assets/landmark-saved-map.png");
+  background-image: url("assets/landmark/landmark-saved-map.png");
 }
 
 .landmarkSummaryIconlandmark-icon-tovisit {
-  background-image: url("assets/landmark-tovisit-map.png");
+  background-image: url("assets/landmark/landmark-tovisit-map.png");
+}
+
+.compareLandmarkSummaryIcon {
+  width: 25px;
+  height: 25px;
+  background-size: 25px;
+  background-position: center;
+}
+
+.compareLandmarkSummaryIconblue {
+  background-image: url(assets/compareLandmark/compare-landmark-blue.svg);
+}
+
+.compareLandmarkSummaryIconpurple {
+  background-image: url(assets/compareLandmark/compare-landmark-purple.svg);
+}
+
+.compareLandmarkSummaryIconorange {
+  background-image: url(assets/compareLandmark/compare-landmark-orange.svg);
+}
+
+.compareLandmarkSummaryIcongreen {
+  background-image: url(assets/compareLandmark/compare-landmark-green.svg);
+}
+
+.compareLandmarkSummaryIconyellow {
+  background-image: url(assets/compareLandmark/compare-landmark-yellow.svg);
 }

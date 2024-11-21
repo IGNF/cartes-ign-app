@@ -26,6 +26,7 @@ const $sideBySideBtn = document.getElementById("sideBySideBtn");
 const $compareMode = document.getElementById("compareMode");
 const $sideBySideLeftLayer = document.getElementById("sideBySideLeftLayer");
 const $sideBySideRightLayer = document.getElementById("sideBySideRightLayer");
+const $createCompareLandmarkBtn = document.getElementById("createCompareLandmarkBtn");
 const $sideBySideFadeSlider = document.getElementById("sideBySideFadeSlider");
 const $compareLayers1Window = document.getElementById("compareLayers1Window");
 const $compareLayers2Window = document.getElementById("compareLayers2Window");
@@ -73,6 +74,7 @@ const $comparePoiWindow = document.getElementById("comparePoiWindow");
 const $signalementWindow = document.getElementById("signalementWindow");
 const $signalementOSMWindow = document.getElementById("signalementOSMWindow");
 const $landmarkWindow = document.getElementById("landmarkWindow");
+const $compareLandmarkWindow = document.getElementById("compareLandmarkWindow");
 
 export default {
   $search,
@@ -132,4 +134,6 @@ export default {
   $fullScreenBtn,
   $mapScale,
   $map,
+  $createCompareLandmarkBtn,
+  $compareLandmarkWindow,
 };

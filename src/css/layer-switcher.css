@@ -10,6 +10,7 @@
   min-height: 160px;
 }
 
+div[id^="compare-landmark-container_ID_"],
 div[id^="landmark-container_ID_"],
 div[id^="route-container_ID_"],
 div[id^="container_ID_"] {
@@ -27,6 +28,7 @@ div[id^="container_ID_"].invisible > div[id^=basic-tools_ID_] {
   padding-bottom: 20px;
 }
 
+div[id^="compare-landmark-cross-picto_ID_"],
 div[id^="landmark-cross-picto_ID_"],
 div[id^="route-cross-picto_ID_"],
 div[id^="cross-picto_ID_"] {
@@ -37,6 +39,7 @@ div[id^="cross-picto_ID_"] {
   background: url("./assets/drag-and-drop.svg") center center no-repeat;
 }
 
+div[id^="compare-landmark-basic-tools_ID_"],
 div[id^="landmark-basic-tools_ID_"],
 div[id^="route-basic-tools_ID_"],
 div[id^="basic-tools_ID_"] {
@@ -46,6 +49,7 @@ div[id^="basic-tools_ID_"] {
   max-width: calc(100% - 70px);
   width: 100%;
 }
+div[id^="compare-landmark-basic-tools_ID_"],
 div[id^="landmark-basic-tools_ID_"],
 div[id^="route-basic-tools_ID_"] {
   align-items: center
@@ -69,6 +73,7 @@ div[id^="thumbnail_ID_"] {
   max-width: calc(100% - 60px);
 }
 
+span[id^="compare-landmark-title_ID_"],
 span[id^="landmark-title_ID_"],
 span[id^="route-title_ID_"],
 span[id^="title_ID_"] {
@@ -110,6 +115,7 @@ div[id^="opacity-middle-div_ID_"] {
 
 #position-landmark-show-advanced-tools,
 #route-draw-show-advanced-tools,
+label[id^="compare-landmark-show-advanced-tools_ID_"],
 label[id^="landmark-show-advanced-tools_ID_"],
 label[id^="route-show-advanced-tools_ID_"],
 label[id^="show-advanced-tools_ID_"] {
@@ -120,19 +126,7 @@ label[id^="show-advanced-tools_ID_"] {
   background-position: center;
   flex-shrink: 0;
   border-radius: 50%;
-}
-
-#position-landmark-show-advanced-tools:focus-within,
-#route-draw-show-advanced-tools:focus-within,
-label[id^="landmark-show-advanced-tools_ID_"]:focus-within,
-label[id^="route-show-advanced-tools_ID_"]:focus-within,
-label[id^="show-advanced-tools_ID_"]:focus-within,
-#position-landmark-show-advanced-tools:hover,
-#route-draw-show-advanced-tools:hover,
-label[id^="landmark-show-advanced-tools_ID_"]:hover,
-label[id^="route-show-advanced-tools_ID_"]:hover,
-label[id^="show-advanced-tools_ID_"]:hover {
-  background-color: var(--grey-2);
+  background-color: var(--light-grey);
 }
 
 .tools-layer-color {
