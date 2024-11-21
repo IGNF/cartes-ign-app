@@ -68,6 +68,15 @@ class compareLandmark {
    * Ajout des listeners
    */
   #listeners() {
+    const checkFormValidity = () => {
+      if (this.dom.title.value) {
+        this.dom.submitButton.classList.remove("disabled");
+      } else {
+        this.dom.submitButton.classList.add("disabled");
+      }
+    };
+    this.dom.title.addEventListener("input", checkFormValidity);
+
     this.dom.submitButton.addEventListener("click", () => {
       const color = Array.from(this.dom.radioColors).filter((el) => el.checked)[0].value;
       let compareMode = "vSlider";

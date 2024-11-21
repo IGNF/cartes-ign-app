@@ -476,6 +476,7 @@ class Directions {
     this.#removePreview();
     document.querySelectorAll(".lblDirectionsLocationsRemoveImg").forEach( (elem) => elem.click());
     this.__unsetComputeButtonLoading();
+    this.dom.buttonCompute.classList.add("disabled");
   }
 
   ////////////////////////////////////////////
@@ -581,6 +582,7 @@ class Directions {
         self.map.fitBounds(bounds, {
           padding: padding,
         });
+        self.dom.buttonCompute.classList.remove("disabled");
       }
 
       // on supprime les écouteurs

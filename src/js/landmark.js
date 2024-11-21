@@ -78,6 +78,16 @@ class Landmark {
       // ouverture du menu de recherche
       this.onOpenSearchLocation(e);
     });
+
+    const checkFormValidity = () => {
+      if (this.dom.location.value && this.dom.title.value) {
+        this.dom.submitButton.classList.remove("disabled");
+      } else {
+        this.dom.submitButton.classList.add("disabled");
+      }
+    };
+    this.dom.title.addEventListener("input", checkFormValidity);
+
     this.dom.submitButton.addEventListener("click", () => {
       const color = Array.from(this.dom.radioColors).filter((el) => el.checked)[0].value;
       const icon = Array.from(this.dom.radioIcons).filter((el) => el.checked)[0].value;
@@ -196,6 +206,7 @@ class Landmark {
     };
     this.landmarkId = null;
     document.getElementById("landmarkWindowTitle").innerText = "Créer un point de repère";
+    this.dom.submitButton.classList.add("disabled");
   }
 
   /**
@@ -259,6 +270,9 @@ class Landmark {
       // - la reponse du geocodage
       target.dataset.coordinates = "[" + e.detail.coordinates.lon + "," + e.detail.coordinates.lat + "]";
       target.value = e.detail.text;
+      if (self.dom.title.value) {
+        self.dom.submitButton.classList.remove("disabled");
+      }
       // on supprime les écouteurs
       cleanListeners();
     }

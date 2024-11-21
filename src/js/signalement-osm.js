@@ -63,6 +63,17 @@ class SignalementOSM {
    * Ajout des listeners
    */
   #listeners() {
+    const checkFormValidity = () => {
+      if (this.dom.title.value && this.dom.description.value) {
+        this.dom.submitButton.classList.remove("disabled");
+      } else {
+        this.dom.submitButton.classList.add("disabled");
+      }
+    };
+
+    this.dom.title.addEventListener("input", checkFormValidity);
+    this.dom.description.addEventListener("input", checkFormValidity);
+
     this.dom.submitButton.addEventListener("click", () => {
       this.data = {
         title: this.dom.title.value,
@@ -172,6 +183,7 @@ Descrition :\n ${this.data.description}
     };
     this.target.querySelector("#signalementOsmMain").classList.remove("d-none");
     this.target.querySelector("#signalementOsmDone").classList.add("d-none");
+    this.dom.submitButton.classList.add("disabled");
   }
 
 }

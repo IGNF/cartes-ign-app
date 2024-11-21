@@ -111,6 +111,13 @@ input, textarea, select {
   opacity: 0 !important;
 }
 
+.form-submit.disabled,
+input[type="submit"].disabled {
+  background-color: var(--light-grey);
+  color: var(--grey);
+  cursor: not-allowed;
+}
+
 /* DS IGN forms */
 .dsign-form-label,
 .signalement-select {

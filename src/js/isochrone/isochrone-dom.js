@@ -26,7 +26,8 @@ let IsochroneDOM = {
     modeDuration: null,
     durationValueMinutes: null,
     transportCar: null,
-    transportPedestrian: null
+    transportPedestrian: null,
+    isochroneCompute: null,
   },
 
   /**
@@ -145,7 +146,7 @@ let IsochroneDOM = {
 
               </div>
               <!-- bouton de calcul -->
-              <input id="isochroneCompute" class="btnIsochroneCompute" type="submit" value="Valider">
+              <input id="isochroneCompute" class="btnIsochroneCompute disabled" type="submit" value="Valider">
           </form>
         </div>
     `;
@@ -189,6 +190,11 @@ let IsochroneDOM = {
           });
         }
         e.target.value = !!e.target.value && parseFloat(e.target.value) < 0 ? 0 : parseFloat(e.target.value) > limit ? limit : e.target.value;
+        if (e.target.value > 0 && self.dom.location.dataset.coordinates) {
+          self.dom.isochroneCompute.classList.remove("disabled");
+        } else {
+          self.dom.isochroneCompute.classList.add("disabled");
+        }
       };
     };
 
@@ -353,6 +359,7 @@ let IsochroneDOM = {
       this.dom.location.value = "";
       this.dom.location.dataset.coordinates = "";
       this.dom.clearLocation.classList.add("d-none");
+      this.dom.isochroneCompute.classList.add("disabled");
     });
 
     return shadow;

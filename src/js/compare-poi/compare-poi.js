@@ -147,7 +147,6 @@ class ComparePoi {
       if (comparePoi.properties.commune) {
         this.dom.location.innerText = comparePoi.properties.commune + ", " + comparePoi.properties.departement;
       }
-      console.log(this);
       this.dom.text.innerHTML = comparePoi.properties.text;
       this.showWindow();
     };

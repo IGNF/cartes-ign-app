@@ -138,7 +138,7 @@ let DirectionsDOM = {
   __addComputeButtonDOMElement() {
     var input = this.dom.buttonCompute = document.createElement("input");
     input.id = "directionsCompute";
-    input.className = "btnDirectionsCompute";
+    input.className = "btnDirectionsCompute disabled";
     input.type = "submit";
     input.value = "Calculer";
 

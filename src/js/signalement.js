@@ -68,6 +68,19 @@ class Signalement {
    * Ajout des listeners
    */
   #listeners() {
+    const checkFormValidity = () => {
+      if (this.dom.title.value && this.dom.description.value && this.dom.theme.value && this.dom.email.value) {
+        this.dom.submitButton.classList.remove("disabled");
+      } else {
+        this.dom.submitButton.classList.add("disabled");
+      }
+    };
+
+    this.dom.title.addEventListener("input", checkFormValidity);
+    this.dom.description.addEventListener("input", checkFormValidity);
+    this.dom.theme.addEventListener("input", checkFormValidity);
+    this.dom.email.addEventListener("input", checkFormValidity);
+
     this.dom.submitButton.addEventListener("click", () => {
       this.data = {
         title: this.dom.title.value,
@@ -187,6 +200,7 @@ class Signalement {
       email: null,
       location: null,
     };
+    this.dom.submitButton.classList.add("disabled");
   }
 
 }

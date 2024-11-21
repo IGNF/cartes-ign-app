@@ -445,6 +445,8 @@ class Isochrone {
     this.__unsetComputeButtonLoading();
     this.computed = false;
 
+    this.dom.isochroneCompute.classList.add("disabled");
+
     document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
       var layers = LayersGroup.getGroupLayers(Globals.poi.id).filter((layer) => { return layer.metadata.thematic === el.name; });
       for (let i = 0; i < layers.length; i++) {
@@ -518,6 +520,9 @@ class Isochrone {
       target.dataset.coordinates = "[" + e.detail.coordinates.lon + "," + e.detail.coordinates.lat + "]";
       target.value = e.detail.text;
       self.dom.clearLocation.classList.remove("d-none");
+      if (parseFloat(self.dom.distanceValue.value) > 0 || parseFloat(self.dom.durationValueMinutes.value) > 0) {
+        self.dom.isochroneCompute.classList.remove("disabled");
+      }
       // on supprime les écouteurs
       cleanListeners();
     }
