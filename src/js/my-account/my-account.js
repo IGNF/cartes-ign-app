@@ -868,7 +868,7 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
       title: `${props.accroche}`,
       text: `${props.accroche}
 ${props.text}`,
-      url: `https://cartes-ign.ign.fr?lng=${compareLandmark.geometry.coordinates[0]}&lat=${compareLandmark.geometry.coordinates[1]}&z=${props.zoom}&l1=${props.layer1}&l2=${props.layer2}&m=${props.mode}&title=${props.accroche}`,
+      url: `https://cartes-ign.ign.fr?lng=${compareLandmark.geometry.coordinates[0]}&lat=${compareLandmark.geometry.coordinates[1]}&z=${props.zoom}&l1=${props.layer1}&l2=${props.layer2}&m=${props.mode}&title=${props.accroche}&text=${props.text}&color=${props.color}`,
       dialogTitle: "Partager mon point de repère Comparer",
     });
   }

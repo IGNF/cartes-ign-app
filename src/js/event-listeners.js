@@ -282,17 +282,28 @@ function addListeners() {
             const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
             const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
             map.flyTo({zoom: zoom, center: center});
-            if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m")) {
-              map.once("moveend", () => {
-                Globals.menu.open("compare");
-                Globals.compare.setParams({
-                  zoom: zoom - 1,
-                  mode: urlParams.get("m"),
+            if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("text") && urlParams.get("color")) {
+              const feature = {
+                type: "Feature",
+                id: -1,
+                geometry: {
+                  type: "Point",
+                  coordinates: [center.lng, center.lat],
+                },
+                properties: {
+                  accroche: urlParams.get("title"),
+                  theme: urlParams.get("title"),
+                  text: urlParams.get("text"),
+                  zoom: zoom,
+                  color: urlParams.get("color"),
+                  icon: `compare-landmark-${urlParams.get("color")}`,
                   layer1: urlParams.get("l1"),
                   layer2: urlParams.get("l2"),
-                  center: center,
-                });
-              });
+                  mode: urlParams.get("m"),
+                  visible: true,
+                }
+              };
+              Globals.myaccount.addCompareLandmark(feature);
             } else {
               map.once("moveend", () => {
                 Globals.position.compute({ lngLat: center }).then(() => {

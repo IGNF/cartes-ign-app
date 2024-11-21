@@ -32,7 +32,12 @@ class compareLandmark {
       title: null,
       description: null,
       location: null,
+      zoom: null,
       color: null,
+      icon: null,
+      layer1: null,
+      layer2: null,
+      mode: null,
     };
 
     // ID du point de repère s'il s'agit d'une modification d'un point de repère existant
