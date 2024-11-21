@@ -282,18 +282,31 @@ function addListeners() {
             const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
             const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
             map.flyTo({zoom: zoom, center: center});
-            map.once("moveend", () => {
-              Globals.position.compute({ lngLat: center }).then(() => {
-                Globals.menu.open("position");
+            if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m")) {
+              map.once("moveend", () => {
+                Globals.menu.open("compare");
+                Globals.compare.setParams({
+                  zoom: zoom - 1,
+                  mode: urlParams.get("m"),
+                  layer1: urlParams.get("l1"),
+                  layer2: urlParams.get("l2"),
+                  center: center,
+                });
               });
-              if (Globals.searchResultMarker != null) {
-                Globals.searchResultMarker.remove();
-                Globals.searchResultMarker = null;
-              }
-              Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
-                .setLngLat(center)
-                .addTo(map);
-            });
+            } else {
+              map.once("moveend", () => {
+                Globals.position.compute({ lngLat: center }).then(() => {
+                  Globals.menu.open("position");
+                });
+                if (Globals.searchResultMarker != null) {
+                  Globals.searchResultMarker.remove();
+                  Globals.searchResultMarker = null;
+                }
+                Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
+                  .setLngLat(center)
+                  .addTo(map);
+              });
+            }
           }
         }
       }

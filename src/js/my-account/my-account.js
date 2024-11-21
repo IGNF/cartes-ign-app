@@ -859,6 +859,21 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
   }
 
   /**
+   * Partage le point de repère Comparer
+   * @param {*} compareLandmark
+   */
+  shareCompareLandmark(compareLandmark) {
+    let props = compareLandmark.properties;
+    Share.share({
+      title: `${props.accroche}`,
+      text: `${props.accroche}
+${props.text}`,
+      url: `https://cartes-ign.ign.fr?lng=${compareLandmark.geometry.coordinates[0]}&lat=${compareLandmark.geometry.coordinates[1]}&z=${props.zoom}&l1=${props.layer1}&l2=${props.layer2}&m=${props.mode}&title=${props.accroche}`,
+      dialogTitle: "Partager mon point de repère Comparer",
+    });
+  }
+
+  /**
    * Exporte l'itinéraire sous forme d'un fichier
    * @param {*} route
    */
