@@ -1,34 +1,34 @@
 <!-- Bouton de retour : invisible si l'outil de recherche est affiché -->
-<div class="button d-none" id="backTopLeftBtn" tabindex="2" title="Retour arrière"></div>
+<div class="button d-none" id="backTopLeftBtn" tabindex="2" title="Retour arrière" role="button"></div>
 <!-- Filtres POI -->
-<div class="button" id="filterPoiBtn" tabindex="3">Filtres</div>
+<div class="button" id="filterPoiBtn" tabindex="3" role="button">Filtres</div>
 <!-- Mode de comparaison de carte -->
 <div id="compareMode" class="d-none">
-  <div id="compareLeftRight" title="Comparer horizontalement" class="selected" tabindex="4"></div>
-  <div id="compareUpDown" title="Comparer verticalement" tabindex="5"></div>
-  <div id="compareFade" title="Comparer en mode fondu" tabindex="6"></div>
+  <div id="compareLeftRight" title="Comparer horizontalement" class="selected" tabindex="4" role="button"></div>
+  <div id="compareUpDown" title="Comparer verticalement" tabindex="5" role="button"></div>
+  <div id="compareFade" title="Comparer en mode fondu" tabindex="6" role="button"></div>
 </div>
 
 <!-- Réticule central -->
 <div id="mapCenter" class="d-none" aria-hidden="true"></div>
 <div id="mapCenterMenu" class="d-none">
-  <span>Choisir un point en déplaçant la carte</span><span id="mapCenterSubmit" tabindex="100">OK</span>
+  <span>Choisir un point en déplaçant la carte</span><span id="mapCenterSubmit" tabindex="100" role="button">OK</span>
 </div>
 
 <!-- Indicateur d'interactivité du Plan IGN -->
-<div class="d-none" id="interactivityBtn" tabindex="3"><div class="button" id="interactivityInside"></div><span id="interactivityBtnText">La carte est interactive</span></div>
+<div class="d-none" id="interactivityBtn" tabindex="3"><div class="button" id="interactivityInside" role="button"></div><span id="interactivityBtnText">La carte est interactive</span></div>
 <div id="bottomButtons">
   <!-- Geolocalisation -->
-  <div class="button" id="geolocateBtn" tabindex="51" title="Se géolocaliser sur la carte"></div>
+  <div class="button" id="geolocateBtn" tabindex="51" title="Se géolocaliser sur la carte" role="button"></div>
   <!-- Boussole (invisible par defaut) -->
-  <div class="button d-none" id="compassBtn" tabindex="50" title="Aligner la carte avec le Nord"></div>
+  <div class="button d-none" id="compassBtn" tabindex="50" title="Aligner la carte avec le Nord" role="button"></div>
   <!-- Gestionnaire de couches -->
-  <div class="button" id="layerManagerBtn" tabindex="52" title="Ouvrir le menu cartes et données"></div>
+  <div class="button" id="layerManagerBtn" tabindex="52" title="Ouvrir le menu cartes et données" role="button"></div>
   <!-- Comparaison de carte -->
-  <div class="button d-none" id="sideBySideLeftLayer" tabindex="53" title="Ouvrir le menu cartes pour la première carte à comparer"></div>
-  <div class="button d-none" id="sideBySideRightLayer" tabindex="54" title="Ouvrir le menu cartes pour la seconde carte à comparer"></div>
+  <div class="button d-none" id="sideBySideLeftLayer" tabindex="53" title="Ouvrir le menu cartes pour la première carte à comparer" role="button"></div>
+  <div class="button d-none" id="sideBySideRightLayer" tabindex="54" title="Ouvrir le menu cartes pour la seconde carte à comparer" role="button"></div>
   <!-- Bouton de création de PR RLT (même animation que interactivityBtn) -->
-  <div class="d-none" id="createCompareLandmarkBtn" tabindex="55"><span id="createCompareLandmarkBtnText">Créer un repère Comparer</span><div class="button" id="createCompareLandmarkInside"></div></div>
+  <div class="d-none" id="createCompareLandmarkBtn" tabindex="55"><span id="createCompareLandmarkBtnText">Créer un repère Comparer</span><div class="button" id="createCompareLandmarkInside" role="button"></div></div>
   <div class="d-none" id="sideBySideFadeSlider">
     <div id="sideBySideFadeSlider-range">
       <input id="sideBySideFadeSlider-range-input" type="range" value="0" style="--value: 0; --min: 0; --max: 100;" tabindex="55">
@@ -37,8 +37,8 @@
 </div>
 <!-- Tracé d'itinéraire -->
 <div id="routeDrawEdit" class="d-none">
-  <div class="button inactive" id="routeDrawCancel" tabindex="66"><span>Annuler</span></div>
-  <div class="button inactive" id="routeDrawRestore" tabindex="67"><span>Refaire</span></div>
-  <div class="button inactive" id="routeDrawDelete" tabindex="68"><span>Supprimer</span></div>
-  <div class="button" id="routeDrawSave" tabindex="69"><span>Enregistrer</span></div>
+  <div class="button inactive" id="routeDrawCancel" tabindex="66" role="button"><span>Annuler</span></div>
+  <div class="button inactive" id="routeDrawRestore" tabindex="67" role="button"><span>Refaire</span></div>
+  <div class="button inactive" id="routeDrawDelete" tabindex="68" role="button"><span>Supprimer</span></div>
+  <div class="button" id="routeDrawSave" tabindex="69" role="button"><span>Enregistrer</span></div>
 </div>
