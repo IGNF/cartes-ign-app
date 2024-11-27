@@ -683,7 +683,7 @@ const locationOnTouchMoveHandler = (e) => {
       startAngle += angleDelta;
       angleDelta = 0;
     }
-    const newBearing = startBearing + angleDelta;
+    const newBearing = startBearing - angleDelta;
 
     Globals.map.setZoom(newZoom, { around: Globals.map.getCenter() });
     if (rotationEnabled) {
