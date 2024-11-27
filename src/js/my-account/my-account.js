@@ -311,6 +311,15 @@ class MyAccount {
         this.setLandmarkPosition(evt.oldDraggableIndex, evt.newDraggableIndex);
       }
     });
+    Sortable.create(this.dom.compareLandmarkList, {
+      handle: ".handle-draggable-layer",
+      draggable: ".draggable-layer",
+      animation: 200,
+      forceFallback: true,
+      onEnd : (evt) => {
+        this.setLandmarkPosition(evt.oldDraggableIndex, evt.newDraggableIndex);
+      }
+    });
   }
 
   /**
