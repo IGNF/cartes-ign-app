@@ -555,6 +555,7 @@ class MenuNavigation {
       DOM.$fullScreenBtn.classList.remove("highest");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.isochrone.clear();
+      Globals.isochrone.clearForm();
       Globals.interactivityIndicator.enable();
       break;
     case "search":

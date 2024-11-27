@@ -190,7 +190,22 @@ let IsochroneDOM = {
           });
         }
         e.target.value = !!e.target.value && parseFloat(e.target.value) < 0 ? 0 : parseFloat(e.target.value) > limit ? limit : e.target.value;
-        if (e.target.value > 0 && self.dom.location.dataset.coordinates) {
+      };
+    };
+
+    const checkInputValidity = (checkBox) => {
+      return function(e) {
+        if (e.target.value > 0 && checkBox.checked && self.dom.location.dataset.coordinates) {
+          self.dom.isochroneCompute.classList.remove("disabled");
+        } else {
+          self.dom.isochroneCompute.classList.add("disabled");
+        }
+      };
+    };
+
+    const checkCheckboxValidity = (input) => {
+      return function(e) {
+        if (input.value > 0 && e.target.checked && self.dom.location.dataset.coordinates) {
           self.dom.isochroneCompute.classList.remove("disabled");
         } else {
           self.dom.isochroneCompute.classList.add("disabled");
@@ -200,6 +215,11 @@ let IsochroneDOM = {
 
     this.dom.durationValueMinutes.addEventListener("input", limitInputValue(60));
     this.dom.distanceValue.addEventListener("input", limitInputValue(50));
+    this.dom.durationValueMinutes.addEventListener("input", checkInputValidity(this.dom.modeDuration));
+    this.dom.distanceValue.addEventListener("input", checkInputValidity(this.dom.modeDistance));
+
+    this.dom.modeDistance.addEventListener("change", checkCheckboxValidity(this.dom.distanceValue));
+    this.dom.modeDuration.addEventListener("change", checkCheckboxValidity(this.dom.durationValueMinutes));
 
     this.dom.showOutPoisChk.addEventListener("change", (e) => {
       if (e.target.checked) {
