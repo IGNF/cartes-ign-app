@@ -80,6 +80,8 @@ const addListeners = () => {
       Globals.landmark.onAddWayPoint({lngLat: Globals.map.getCenter()});
       Globals.menu.close("selectOnMapLandmark");
     }
+    const closesearch = new Event("closesearch");
+    window.dispatchEvent(closesearch);
   });
 };
 
