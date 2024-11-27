@@ -964,7 +964,7 @@ ${props.text}`,
       documentsName = "Fichiers";
     }
     Filesystem.writeFile({
-      path: `${landmark.properties.title}.geojson`.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_"),
+      path: `${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`,
       data: JSON.stringify(landmark),
       directory: Directory.Documents,
       encoding: Encoding.UTF8,
