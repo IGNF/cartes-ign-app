@@ -3,7 +3,7 @@
   width: 100%;
   color: var(--dark-grey);
   margin-top: -72px;
-  height: 100vh;
+  height: calc(100vh - var(--safe-area-inset-top) - var(--safe-area-inset-bottom));
 }
 
 #otherMenus {
@@ -49,7 +49,7 @@
 }
 
 #myAccountBody {
-  height: calc(100vh - 100px);
+  height: calc(100% - 100px);
   display: grid;
   grid-template-rows: auto auto 1fr;
   align-items: baseline;
