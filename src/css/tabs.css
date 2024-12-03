@@ -128,7 +128,7 @@
   background-image: url(./assets/close.svg);
   flex-shrink: 0;
   position: absolute;
-  right: 0px;
+  right: 4px;
   top: 5px;
 }
 

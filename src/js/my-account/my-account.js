@@ -186,17 +186,17 @@ class MyAccount {
           {
             text: "Itinéraires",
             value: "routes",
-            class: "actionSheetTabOption",
+            class: "actionSheetTabOptionRoutes",
           },
           {
             text: "Points de repère",
             value: "landmarks",
-            class: "actionSheetTabOption",
+            class: "actionSheetTabOptionLandmarks",
           },
           {
             text: "Repères Comparer",
             value: "compare-landmarks",
-            class: "actionSheetTabOption",
+            class: "actionSheetTabOptionCompareLandmarks",
           }
         ]
       }).then(() => {

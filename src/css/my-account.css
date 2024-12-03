@@ -86,7 +86,7 @@
 
 #myAccountImportBtnRoutes,
 #myAccountImportBtnLandmarks {
-  margin-top: 10px;
+  margin-top: 20px;
   padding: 13px 20px 13px 50px;
   background-image: url("assets/import-file.svg");
   background-repeat: no-repeat;
@@ -237,20 +237,34 @@
   width: 100%;
 }
 
-.actionSheetTabOption {
+[class^="actionSheetTabOption"] {
   height: 40px;
   display: flex;
   align-items: center;
   font-size: 14px;
-  padding-left: 20px;
+  padding-left: 40px;
   border-radius: 20px;
+  background-position: center left 15px;
+  background-repeat: no-repeat;
+}
+
+body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type(1):checked) .actionSheetTabOptionRoutes {
+  background-image: url(assets/checkmark.svg);
+}
+
+body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type(2):checked) .actionSheetTabOptionLandmarks {
+  background-image: url(assets/checkmark.svg);
+}
+
+body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type(3):checked) .actionSheetTabOptionCompareLandmarks {
+  background-image: url(assets/checkmark.svg);
 }
 
 #myaccountRouteList:not(:has(*))::before {
   content: "Aucun itinéraire enregistré";
   font-size: 15px;
   color: var(--mid-grey);
-  margin-top: 20px;
+  margin-top: 80px;
   width: 100%;
   display: block;
   text-align: center;
@@ -270,7 +284,7 @@
   content: "Aucun point de repère";
   font-size: 15px;
   color: var(--mid-grey);
-  margin-top: 20px;
+  margin-top: 80px;
   width: 100%;
   display: block;
   text-align: center;
@@ -290,7 +304,7 @@
   content: "Aucun repère Comparer";
   font-size: 15px;
   color: var(--mid-grey);
-  margin-top: 20px;
+  margin-top: 80px;
   width: 100%;
   display: block;
   text-align: center;
