@@ -229,7 +229,7 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
   if (panTo) {
     if (tracking_active) {
       let bearing = Globals.map.getBearing();
-      let pitch = 0;
+      let pitch = Globals.map.getPitch();
       let padding = 0;
       if (navigation_active) {
         bearing = -mapBearing;
@@ -250,7 +250,6 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
       Globals.map.flyTo({
         center: [coords.lon, coords.lat],
         zoom: zoom,
-        pitch: 0
       });
     }
   }
@@ -430,7 +429,6 @@ const locationOnOff = async () => {
     }
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
     navigation_active = true;
-    Globals.map.setMaxPitch(45);
     const padding = {top: DOM.$map.clientHeight * 0.5};
     Globals.map.easeTo({
       center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
@@ -446,11 +444,6 @@ const locationOnOff = async () => {
       position: "bottom"
     });
   } else {
-    Globals.map.flyTo({
-      pitch: 0,
-      duration: 500,
-    });
-    setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
     tracking_active = false;
     navigation_active = false;
@@ -550,7 +543,6 @@ const disableTracking = () => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
   tracking_active = false;
   if (navigation_active) {
-    Globals.map.setMaxPitch(0);
     navigation_active = false;
   }
   Globals.map.touchZoomRotate.enable();
@@ -562,11 +554,9 @@ const disableNavigation = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
   navigation_active = false;
   Globals.map.flyTo({
-    pitch: 0,
     bearing: bearing,
     duration: 500,
   });
-  setTimeout( () => {Globals.map.setMaxPitch(0);}, 500);
   if (bearing === 0) {
     DOM.$compassBtn.classList.add("d-none");
   }

@@ -40,7 +40,7 @@ const addListeners = () => {
       if (map.getBearing() === 0) {
         DOM.$compassBtn.classList.add("d-none");
       }
-      map.rotateTo(0);
+      map.easeTo({bearing: 0, pitch: 0});
     }
   });
 

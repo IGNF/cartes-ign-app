@@ -131,8 +131,7 @@ function app() {
     attributionControl: false,
     maxZoom: 21,
     locale: "fr",
-    maxPitch: 0,
-    touchPitch: false,
+    maxPitch: 45,
     crossSourceCollisions: false,
   });
 
