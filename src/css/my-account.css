@@ -270,7 +270,7 @@ body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type
   text-align: center;
 }
 #myaccountRouteList:not(:has(*))::after {
-  content: "Vous pouvez enregistrer les itinéraires tracés depuis le menu Se déplacer, ou bien en importer depuis un fichier geojson ou gpx ou via le partage depuis un autre appareil";
+  content: "Vous pouvez enregister les itinéraires tracés depuis le menu Se dépacer ou importer un fichier au format geojson ou gpx";
   font-size: 15px;
   color: var(--mid-grey);
   margin-top: 20px;
@@ -290,7 +290,7 @@ body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type
   text-align: center;
 }
 #myaccountLandmarksList:not(:has(*))::after {
-  content: "Vous pouvez en créer à tout moment depuis le menu Explorer ou en interagissant avec la carte, ou bien en importer depuis un fichier";
+  content: "Vous en créer à tout moment depuis le menu Explorer ou à parti d’un clic long sur la carte";
   font-size: 15px;
   color: var(--mid-grey);
   margin-top: 20px;
