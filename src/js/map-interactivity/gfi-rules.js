@@ -3,6 +3,7 @@
  *
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
+import DeptCommWiki from "../data-layer/dep_com_wiki.json";
 
 const gfiRules = {
   "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS": {
@@ -172,7 +173,7 @@ const gfiRules = {
         ["Population : {{population}} habitants"],
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=COM-{{insee_com}}\">Accéder à la fiche INSEE</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=COM-{{insee_com}}\">Accéder à la fiche INSEE</a></p>", "<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{fiche_wikipedia}}\">Accéder à la fiche Wikipédia</a></p>"]
       ],
     },
     10: {
@@ -284,8 +285,17 @@ const gfiRules = {
               str = str.replace(match[0], featureProperties[match[1]]);
               match = str.match("{{([^}]+)}}");
             } else {
-              notFound = true;
-              return "";
+              if (match[1] === "fiche_wikipedia") {
+                if (!featureProperties["insee_dep"] || !featureProperties["nom"]) {
+                  return "";
+                }
+                featureProperties[match[1]] = DeptCommWiki[featureProperties["insee_dep"]][featureProperties["nom"]];
+                str = str.replace(match[0], featureProperties[match[1]]);
+                match = str.match("{{([^}]+)}}");
+              } else {
+                notFound = true;
+                return "";
+              }
             }
           }
           return str;

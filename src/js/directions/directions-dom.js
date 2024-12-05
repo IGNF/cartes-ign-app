@@ -437,17 +437,6 @@ let DirectionsDOM = {
     divContainer.appendChild(divInput);
 
     divDefault.appendChild(divContainer);
-
-    // INFO : fonctionnalité desactivée sur la nouvelle maquette ?
-    // var labelReverse = document.createElement("label");
-    // labelReverse.id = "directionsLocationImg_reverse";
-    // labelReverse.className = "lblDirectionsLocations";
-    // labelReverse.addEventListener("click", function (e) {
-    //     // TODO
-    //     console.log(e);
-    // });
-    // divDefault.appendChild(labelReverse);
-
     div.appendChild(divDefault);
 
     var labelAddStep = document.createElement("label");
