@@ -447,6 +447,11 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
     tracking_active = false;
     navigation_active = false;
+    Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
+    Globals.map.flyTo({
+      pitch: 0,
+      duration: 200,
+    });
     Globals.map.touchZoomRotate.enable();
     Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
     Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
@@ -553,8 +558,10 @@ const disableTracking = () => {
 const disableNavigation = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
   navigation_active = false;
+  Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
   Globals.map.flyTo({
     bearing: bearing,
+    pitch: 0,
     duration: 500,
   });
   if (bearing === 0) {

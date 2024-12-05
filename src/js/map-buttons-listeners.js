@@ -37,7 +37,7 @@ const addListeners = () => {
       // De nivigation a simple suivi de position
       Location.disableNavigation(0);
     } else {
-      if (map.getBearing() === 0) {
+      if (map.getBearing() === 0 && map.getPitch() === 0) {
         DOM.$compassBtn.classList.add("d-none");
       }
       map.easeTo({bearing: 0, pitch: 0});

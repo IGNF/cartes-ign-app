@@ -16,15 +16,18 @@ import Location from "./services/location";
 const addListeners = () => {
   const map = Globals.map;
 
-  // Rotation de la carte avec le mutlitouch
-  map.on("rotate", () => {
+  // Rotation ou tilt de la carte avec le mutlitouch
+  const compassListener = () => {
     DOM.$compassBtn.style.transform = "rotate(" + (map.getBearing() * -1) + "deg)";
-    if (map.getBearing() !== 0) {
+    if (map.getBearing() !== 0 || map.getPitch() !== 0) {
       DOM.$compassBtn.classList.remove("d-none");
     } else {
       DOM.$compassBtn.classList.add("d-none");
     }
-  });
+  };
+  map.on("rotate", compassListener);
+
+  map.on("pitch", compassListener);
 
   // Désactivation du tracking au déplacement non programmatique de la carte
   map.on("dragstart", () => {
