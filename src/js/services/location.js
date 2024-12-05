@@ -15,6 +15,7 @@ import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { App } from "@capacitor/app";
 import { NativeSettings, AndroidSettings, IOSSettings } from "capacitor-native-settings";
 let Geolocation;
+import { KeepAwake } from '@capacitor-community/keep-awake';
 try {
   Geolocation = (await import("@capacitor/geolocation")).Geolocation;
 } catch (e) {
@@ -423,6 +424,7 @@ const locationOnOff = async () => {
       duration: "short",
       position: "bottom"
     });
+    KeepAwake.keepAwake();
   } else if (!navigation_active) {
     if (currentPosition === null) {
       return;
@@ -447,6 +449,7 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
     tracking_active = false;
     navigation_active = false;
+    KeepAwake.allowSleep();
     Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
     Globals.map.flyTo({
       pitch: 0,

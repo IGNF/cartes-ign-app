@@ -30,6 +30,7 @@
   "license": "GPLv3",
   "dependencies": {
     "@aashu-dubey/capacitor-statusbar-safe-area": "^3.0.0",
+    "@capacitor-community/keep-awake": "^5.0.1",
     "@capacitor/android": "^6.0.0",
     "@capacitor/app": "^6.0.0",
     "@capacitor/clipboard": "^6.0.0",
