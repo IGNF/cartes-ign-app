@@ -129,7 +129,7 @@ Titre : ${this.data.title}\n\n
 
 Nom ou type de POI concerné : ${this.data.poiName}\n\n
 
-Descrition :\n ${this.data.description}
+Description :\n ${this.data.description}
     `;
 
     const requestBody = {
