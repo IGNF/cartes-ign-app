@@ -3,7 +3,7 @@
  *
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
-import DeptCommWiki from "../data-layer/dep_com_wiki.json";
+import InseeCommWiki from "../data-layer/com_wiki.json";
 
 const gfiRules = {
   "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS": {
@@ -286,10 +286,10 @@ const gfiRules = {
               match = str.match("{{([^}]+)}}");
             } else {
               if (match[1] === "fiche_wikipedia") {
-                if (!featureProperties["insee_dep"] || !featureProperties["nom"]) {
+                if (!featureProperties["insee_com"]) {
                   return "";
                 }
-                featureProperties[match[1]] = DeptCommWiki[featureProperties["insee_dep"]][featureProperties["nom"]];
+                featureProperties[match[1]] = InseeCommWiki[featureProperties["insee_com"]];
                 str = str.replace(match[0], featureProperties[match[1]]);
                 match = str.match("{{([^}]+)}}");
               } else {
