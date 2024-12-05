@@ -252,7 +252,7 @@ let MyAccountDOM = {
             </div>
           </div>
         </div>
-        <label id="route-show-advanced-tools_ID_${routeId}" title="Plus d'outils" class="tools-layer-advanced"></label>
+        <label id="route-show-advanced-tools_ID_${routeId}" title="Plus d'outils" class="tools-layer-advanced" role="button" tabindex="0"></label>
       </div>
       `;
 
@@ -357,7 +357,7 @@ let MyAccountDOM = {
             <span id="landmark-title_ID_${landmarkId}">${title}</span>
           </div>
         </div>
-        <label id="landmark-show-advanced-tools_ID_${landmarkId}" title="Plus d'outils" class="tools-layer-advanced"></label>
+        <label id="landmark-show-advanced-tools_ID_${landmarkId}" title="Plus d'outils" class="tools-layer-advanced" role="button" tabindex="0"></label>
       </div>
       `;
 
@@ -466,7 +466,7 @@ let MyAccountDOM = {
             <span id="compare-landmark-title_ID_${landmarkId}">${title}</span>
           </div>
         </div>
-        <label id="compare-landmark-show-advanced-tools_ID_${landmarkId}" title="Plus d'outils" class="tools-layer-advanced"></label>
+        <label id="compare-landmark-show-advanced-tools_ID_${landmarkId}" title="Plus d'outils" class="tools-layer-advanced" role="button" tabindex="0"></label>
       </div>
       `;
 

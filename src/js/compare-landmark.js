@@ -27,6 +27,7 @@ class compareLandmark {
 
     this.map1 = map1;
     this.map2 = map2;
+    this.location = null;
 
     this.data = {
       title: null,
@@ -57,6 +58,7 @@ class compareLandmark {
       return;
     }
     this.dom = {
+      changePosition: this.target.querySelector("#move-compare-landmark-btn"),
       title: this.target.querySelector("#compareLandmark-title"),
       description: this.target.querySelector("#compareLandmark-description"),
       radioColors: this.target.querySelectorAll("[name='compareLandmark-color']"),
@@ -77,6 +79,10 @@ class compareLandmark {
     };
     this.dom.title.addEventListener("input", checkFormValidity);
 
+    this.dom.changePosition.addEventListener("click", () => {
+      Globals.menu.open("selectOnMapCompareLandmark");
+    });
+
     this.dom.submitButton.addEventListener("click", () => {
       const color = Array.from(this.dom.radioColors).filter((el) => el.checked)[0].value;
       let compareMode = "vSlider";
@@ -88,7 +94,7 @@ class compareLandmark {
       this.data = {
         title: this.dom.title.value,
         description: this.dom.description.value,
-        location: [this.map1.getCenter().lng, this.map1.getCenter().lat],
+        location: this.location,
         zoom: this.map1.getZoom(),
         color: color,
         icon: `compare-landmark-${color}`,
@@ -96,6 +102,7 @@ class compareLandmark {
         layer2: this.map2.getLayer("maplayer").source.split("$")[0],
         mode: compareMode,
       };
+      console.log(this.data);
       if (!this.data.location || !this.data.title) {
         Toast.show({
           text: "Donnez un titre à votre point de repère",
@@ -149,6 +156,7 @@ class compareLandmark {
 
   setData(data) {
     this.data = data;
+    this.location = data.location;
     this.dom.title.value = this.data.title;
     this.dom.description.value = this.data.description;
     Array.from(this.dom.radioColors).filter((el) => el.value == data.color)[0].checked = true;
@@ -187,6 +195,7 @@ class compareLandmark {
   clear() {
     this.dom.title.value = "";
     this.dom.description.value = "";
+    this.location = null;
     this.data = {
       title: null,
       description: null,

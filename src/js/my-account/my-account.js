@@ -760,6 +760,14 @@ class MyAccount {
   }
 
   /**
+   * Partage le point de repère Comparer à partir de son ID
+   * @param {Number} compareLandmarkId
+   */
+  editCompareLandmarkFromID(compareLandmarkId) {
+    this.editCompareLandmark(this.#getCompareLandmarkFromID(compareLandmarkId));
+  }
+
+  /**
    * Partage l'itinéraire sous forme de fichier
    * @param {*} route
    */
@@ -880,6 +888,14 @@ ${props.text}`,
       url: `https://cartes-ign.ign.fr?lng=${compareLandmark.geometry.coordinates[0]}&lat=${compareLandmark.geometry.coordinates[1]}&z=${props.zoom}&l1=${props.layer1}&l2=${props.layer2}&m=${props.mode}&title=${props.accroche}&text=${props.text}&color=${props.color}`,
       dialogTitle: "Partager mon point de repère Comparer",
     });
+  }
+
+  /**
+   * Partage le point de repère Comparer à partir de son ID
+   * @param {Number} compareLandmarkId
+   */
+  shareCompareLandmarkFromID(compareLandmarkId) {
+    this.shareCompareLandmark(this.#getCompareLandmarkFromID(compareLandmarkId));
   }
 
   /**
@@ -1079,7 +1095,7 @@ ${props.text}`,
   /**
    * Récupère un PR via son ID
    * @param {Number} landmarkId
-   * @returns route
+   * @returns landmark
    */
   #getLandmarkFromID(landmarkId) {
     if (landmarkId === null) {
@@ -1094,6 +1110,26 @@ ${props.text}`,
       }
     }
     return landmark;
+  }
+
+  /**
+   * Récupère un PR RLT via son ID
+   * @param {Number} compareLandmarkId
+   * @returns compare landmark
+   */
+  #getCompareLandmarkFromID(compareLandmarkId) {
+    if (compareLandmarkId === null) {
+      console.error("Null compareLandmarkId ID");
+      return;
+    }
+    let compareLandmark;
+    for (let i = 0; i < Globals.myaccount.compareLandmarks.length; i++) {
+      compareLandmark = Globals.myaccount.compareLandmarks[i];
+      if (compareLandmark.id === compareLandmarkId) {
+        break;
+      }
+    }
+    return compareLandmark;
   }
 
   /**

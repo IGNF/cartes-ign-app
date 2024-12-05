@@ -505,7 +505,7 @@ class LayerSwitcher extends EventTarget {
             </div>
           </div>
         </div>
-        <label id="show-advanced-tools_ID_${index}" title="Plus d'outils" class="tools-layer-advanced"></label>
+        <label id="show-advanced-tools_ID_${index}" title="Plus d'outils" class="tools-layer-advanced" role="button" tabindex="0"></label>
       </div>
       `;
 

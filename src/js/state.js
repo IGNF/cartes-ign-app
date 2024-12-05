@@ -18,12 +18,9 @@ const onBackKeyDown = () => {
   const previousState = Globals.backButtonState.split("-")[1] || "default";
   const previousStates = Globals.backButtonState.split("-");
   const backState = Globals.backButtonState.split("-")[0];
+  /* comportements custom */
   if (backState == "default") {
     App.exitApp();
-    return;
-  }
-  if (backState === "search") {
-    Globals.menu.close("search");
     return;
   }
   if (backState === "myaccount") {
@@ -34,10 +31,6 @@ const onBackKeyDown = () => {
   if (backState === "informationsScreen") {
     Globals.menu.close("informationsScreen");
     Globals.menu.open("myaccount");
-    return;
-  }
-  if (backState === "informations") {
-    Globals.menu.close("informations");
     return;
   }
   if (backState === "layerManager") {
@@ -60,10 +53,6 @@ const onBackKeyDown = () => {
     const closesearch = new Event("closesearch");
     window.dispatchEvent(closesearch);
     Globals.menu.close("searchDirections");
-    return;
-  }
-  if (backState === "directionsResults") {
-    Globals.menu.close("directionsResults");
     return;
   }
   if (backState === "isochrone") {
@@ -112,10 +101,6 @@ const onBackKeyDown = () => {
     }
     return;
   }
-  if (backState === "compare") {
-    Globals.menu.close("compare");
-    return;
-  }
   if (backState === "compareLayers1") {
     Globals.menu.close("compareLayers1");
     if (previousStates.includes("compareLandmark")) {
@@ -132,12 +117,16 @@ const onBackKeyDown = () => {
     }
     return;
   }
-  if (backState === "routeDraw") {
-    Globals.routeDraw.hide();
+  if (backState === "selectOnMapCompareLandmark") {
+    Globals.menu.close("selectOnMapCompareLandmark");
+    if (previousState === "compareLandmark") {
+      Globals.menu.open("compareLandmark");
+      return;
+    }
     return;
   }
-  if (backState === "routeDrawSave") {
-    Globals.menu.close("routeDrawSave");
+  if (backState === "routeDraw") {
+    Globals.routeDraw.hide();
     return;
   }
   if (backState === "selectOnMapDirections") {
@@ -156,10 +145,6 @@ const onBackKeyDown = () => {
     const closesearch = new Event("closesearch");
     window.dispatchEvent(closesearch);
     Globals.menu.close("selectOnMapLandmark");
-    return;
-  }
-  if (backState === "comparePoi") {
-    Globals.menu.close("comparePoi");
     return;
   }
   if (backState === "comparePoiActivated") {
@@ -185,10 +170,6 @@ const onBackKeyDown = () => {
     }
     return;
   }
-  if (backState === "compareLandmark") {
-    Globals.menu.close("compareLandmark");
-    return;
-  }
   if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenAccessibility"].includes(backState)) {
     const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
     $informationsScreenMenu.style.removeProperty("margin-left");
@@ -202,6 +183,8 @@ const onBackKeyDown = () => {
     Globals.backButtonState = "informationsScreen";
     return;
   }
+  /* comportement par défaut */
+  Globals.menu.close(backState);
 };
 
 export default {

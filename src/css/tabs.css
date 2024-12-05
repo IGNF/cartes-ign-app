@@ -90,6 +90,10 @@
   background-color: inherit;
 }
 
+#tabHeader:not(:has(~ div:not(.d-none))) {
+  height: 0px;
+}
+
 .scrolledMax > #tabHeader {
   z-index: 3000;
 }

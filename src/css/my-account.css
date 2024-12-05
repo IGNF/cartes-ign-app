@@ -290,7 +290,7 @@ body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type
   text-align: center;
 }
 #myaccountLandmarksList:not(:has(*))::after {
-  content: "Vous en créer à tout moment depuis le menu Explorer ou à parti d’un clic long sur la carte";
+  content: "Vous pouvez en créer à tout moment depuis le menu Explorer ou à partir d’un clic long sur la carte";
   font-size: 15px;
   color: var(--mid-grey);
   margin-top: 20px;

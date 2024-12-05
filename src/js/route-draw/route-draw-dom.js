@@ -76,6 +76,8 @@ let RouteDrawDOM = {
     labelAdvancedTools.id = "route-draw-show-advanced-tools";
     labelAdvancedTools.title = "Plus d'outils";
     labelAdvancedTools.className = "tools-layer-advanced";
+    labelAdvancedTools.role = "button";
+    labelAdvancedTools.tabIndex = "0";
 
     labelAdvancedTools.addEventListener("click", () => {
       ActionSheet.show({

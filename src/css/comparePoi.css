@@ -7,6 +7,14 @@
   margin: 12px 0;
   font-size: 17px;
   font-family: "Fira Sans Medium";
+  display: flex;
+  padding-left: 5px;
+  gap: 14px;
+  align-items: center;
+}
+
+#comparePoiWindow .divPositionTitleWrapper {
+  margin-bottom: 0;
 }
 
 .comparePoiLocationWrapper {
@@ -28,9 +36,15 @@
   align-items: center;
 }
 
-.comparePoiLocation:empty {
-  background-image: unset;
-  height: 0;
+.comparePoiLocation:empty::after {
+  display: block;
+  content: "";
+  height: 30px;
+  width: 30px;
+  background-size: 15px;
+  background-image: url("assets/loading-darkgrey.svg");
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .comparePoiButton {

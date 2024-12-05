@@ -15,7 +15,7 @@ import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { App } from "@capacitor/app";
 import { NativeSettings, AndroidSettings, IOSSettings } from "capacitor-native-settings";
 let Geolocation;
-import { KeepAwake } from '@capacitor-community/keep-awake';
+import { KeepAwake } from "@capacitor-community/keep-awake";
 try {
   Geolocation = (await import("@capacitor/geolocation")).Geolocation;
 } catch (e) {

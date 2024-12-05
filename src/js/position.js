@@ -156,7 +156,7 @@ class Position {
         <button id="positionSignal" class="btnPositionButtons"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
       `;
       htmlAdvanced = `
-        <label id="position-landmark-show-advanced-tools" title="Plus d'outils" class="tools-layer-advanced"></label>
+        <label id="position-landmark-show-advanced-tools" title="Plus d'outils" class="tools-layer-advanced" role="button" tabindex="0"></label>
       `;
     }
 

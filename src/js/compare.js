@@ -139,15 +139,15 @@ class Compare {
   #listeners() {
     document.querySelector("#compareLeftRight").addEventListener("click", () => {
       this.mode = "leftright";
-      this.#changeMode();
+      this.changeMode();
     });
     document.querySelector("#compareUpDown").addEventListener("click", () => {
       this.mode = "upDown";
-      this.#changeMode();
+      this.changeMode();
     });
     document.querySelector("#compareFade").addEventListener("click", () => {
       this.mode = "fade";
-      this.#changeMode();
+      this.changeMode();
     });
 
     this.fadeSliderInput.addEventListener("input", () => this.fadeSliderInput.style.setProperty("--value", this.fadeSliderInput.value));
@@ -213,7 +213,7 @@ class Compare {
       if (Globals.backButtonState == "compareLayers2") {
         Globals.menu.close("compareLayers2");
       }
-      Globals.menu.open("compareLandmark");
+      Globals.menu.open("selectOnMapCompareLandmark");
     });
 
     // clic sur une rlt de fonds
@@ -260,13 +260,13 @@ class Compare {
   /**
    * change le mode de comparaison
    */
-  #changeMode() {
+  changeMode() {
     document.querySelector("#compareLeftRight").classList.remove("selected");
     document.querySelector("#compareUpDown").classList.remove("selected");
     document.querySelector("#compareFade").classList.remove("selected");
     if (this.clearSync !== null) {
       this.clearSync();
-      this.clearSync == null;
+      this.clearSync = null;
     }
 
     if (this.mode == "leftright") {
@@ -392,7 +392,7 @@ class Compare {
     this.mapRLT2.setCenter(this.map.getCenter());
     this.mapRLT1.setZoom(this.map.getZoom());
     this.mapRLT2.setZoom(this.map.getZoom());
-    this.#changeMode();
+    this.changeMode();
 
     DOM.$createCompareLandmarkBtn.style.removeProperty("opacity");
     DOM.$createCompareLandmarkBtn.style.removeProperty("color");
@@ -427,7 +427,7 @@ class Compare {
     }
     if (this.clearSync !== null) {
       this.clearSync();
-      this.clearSync == null;
+      this.clearSync = null;
     }
     this.map.setCenter(this.mapRLT1.getCenter());
     this.map.setZoom(this.mapRLT1.getZoom());

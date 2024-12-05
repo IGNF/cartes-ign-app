@@ -79,6 +79,11 @@ const addListeners = () => {
     } else if (Globals.backButtonState === "selectOnMapLandmark") {
       Globals.landmark.onAddWayPoint({lngLat: Globals.map.getCenter()});
       Globals.menu.close("selectOnMapLandmark");
+    } else if (Globals.backButtonState.split("-")[0] === "selectOnMapCompareLandmark") {
+      Globals.menu.close("selectOnMapCompareLandmark");
+      Globals.menu.open("compareLandmark");
+      Globals.compareLandmark.location = [Globals.mapRLT1.getCenter().lng, Globals.mapRLT1.getCenter().lat];
+      return;
     }
     const closesearch = new Event("closesearch");
     window.dispatchEvent(closesearch);

@@ -118,6 +118,13 @@ input[type="submit"].disabled {
   cursor: not-allowed;
 }
 
+.secondary-button {
+  color: var(--darker-green);
+  background-color: var(--light-green);
+  border-radius: 8px;
+  padding: 14px 10px;
+}
+
 /* DS IGN forms */
 .dsign-form-label,
 .signalement-select {

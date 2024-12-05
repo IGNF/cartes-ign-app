@@ -113,12 +113,7 @@ div[id^="opacity-middle-div_ID_"] {
   padding-left: 6px;
 }
 
-#position-landmark-show-advanced-tools,
-#route-draw-show-advanced-tools,
-label[id^="compare-landmark-show-advanced-tools_ID_"],
-label[id^="landmark-show-advanced-tools_ID_"],
-label[id^="route-show-advanced-tools_ID_"],
-label[id^="show-advanced-tools_ID_"] {
+.tools-layer-advanced {
   width: 25px;
   height: 25px;
   background-image: url("./assets/options-layer.svg");

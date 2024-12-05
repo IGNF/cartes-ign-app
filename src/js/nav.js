@@ -135,12 +135,22 @@ class MenuNavigation {
     // y'a t il des particularités sur l'ouverture du panneau demandé ?
     var isSpecific = false;
     switch (id) {
+    case "selectOnMapCompareLandmark":
+      Globals.backButtonState = "selectOnMapCompareLandmark-" + previousBackState;
+      document.querySelector("#mapRLT2").classList.add("d-none");
+      document.getElementById("mapRLT1").style.removeProperty("opacity");
+      DOM.$bottomButtons.classList.add("d-none");
+      DOM.$tabContainer.classList.remove("compare");
+      DOM.$compareMode.classList.add("d-none");
+      Globals.compare.sideBySide.remove();
+      DOM.$mapCenter.classList.remove("d-none");
+      DOM.$mapCenterMenu.classList.remove("d-none");
+      break;
     case "compareLandmark":
       Globals.backButtonState = "compareLandmark";
       DOM.$createCompareLandmarkBtn.classList.add("d-none");
       DOM.$tabContainer.classList.remove("compare");
       DOM.$bottomButtons.classList.remove("compare");
-      DOM.$mapCenter.classList.remove("d-none");
       Globals.currentScrollIndex = 2;
       break;
     case "landmark":
@@ -406,6 +416,19 @@ class MenuNavigation {
     var isSpecific = false;
     var isFinished = false; // hack pour search !
     switch (id) {
+    case "selectOnMapCompareLandmark":
+      document.querySelector("#mapRLT2").classList.remove("d-none");
+      DOM.$bottomButtons.classList.remove("d-none");
+      DOM.$tabContainer.classList.add("compare");
+      DOM.$compareMode.classList.remove("d-none");
+      Globals.compare.mapRLT2.setCenter(Globals.compare.mapRLT1.getCenter());
+      Globals.compare.mapRLT2.setZoom(Globals.compare.mapRLT1.getZoom());
+      Globals.compare.changeMode();
+      DOM.$mapCenter.classList.add("d-none");
+      DOM.$mapCenterMenu.classList.add("d-none");
+      isSpecific = true;
+      isFinished = true;
+      break;
     case "compareLandmark":
       DOM.$createCompareLandmarkBtn.classList.remove("d-none");
       Globals.compareLandmark.clear();
@@ -648,7 +671,7 @@ class MenuNavigation {
      * @param {*} id
      */
   #close(id) {
-    if (["compareLayers1", "compareLayers2", "compareLandmark"].includes(id)) {
+    if (["compareLayers1", "compareLayers2", "compareLandmark", "selectOnMapCompareLandmark"].includes(id)) {
       Globals.backButtonState = "compare"; // on revient sur le contrôle !
       return;
     }

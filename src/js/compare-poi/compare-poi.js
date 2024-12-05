@@ -7,9 +7,19 @@
 import Globals from "../globals";
 import DOM from "../dom";
 import comparePoiLayers from "./compare-poi-styles";
+import Reverse from "../services/reverse";
+import ActionSheet from "../action-sheet";
+
+import { Toast } from "@capacitor/toast";
 
 import ComparePoiData from "../data-layer/poi_rlt.json";
 import ComparePoiIcon from "../../css/assets/comparePoi.png";
+import ComparePoiIconSvg from "../../css/assets/comparePoi.svg";
+import CompareLandmarkBlue from "../../css/assets/compareLandmark/compare-landmark-blue.svg";
+import CompareLandmarkPurple from "../../css/assets/compareLandmark/compare-landmark-purple.svg";
+import CompareLandmarkOrange from "../../css/assets/compareLandmark/compare-landmark-orange.svg";
+import CompareLandmarkGreen from "../../css/assets/compareLandmark/compare-landmark-green.svg";
+import CompareLandmarkYellow from "../../css/assets/compareLandmark/compare-landmark-yellow.svg";
 
 /**
  * Contrôle sur les "POI Remonter le temps"
@@ -56,6 +66,9 @@ class ComparePoi {
     this.theme = null;
     this.sousTheme = null;
 
+    this.iconHTML = null;
+    this.comparePoiId = null;
+
     this.handleCompareButton = this.#onClickCompareButton.bind(this);
     this.dom = {
       title: null,
@@ -98,6 +111,7 @@ class ComparePoi {
     }
     this.dom = {
       title: this.target.querySelector(".comparePoiTitle"),
+      advancedBtn: this.target.querySelector(".tools-layer-advanced"),
       location: this.target.querySelector(".comparePoiLocation"),
       button: this.target.querySelector(".comparePoiButton"),
       text: this.target.querySelector(".comparePoiText"),
@@ -115,7 +129,12 @@ class ComparePoi {
       if (Globals.backButtonState.split("-")[0] === "position") {
         DOM.$backTopLeftBtn.click();
       }
-      const comparePoi = this.map.queryRenderedFeatures(e.point, {layers: [this.configuration.source, this.configuration.customSource]})[0];
+      const layers = [this.configuration.customSource];
+      if (this.map.getLayer(this.configuration.source)) {
+        layers.push(this.configuration.source);
+      }
+      const comparePoi = this.map.queryRenderedFeatures(e.point, {layers: layers})[0];
+      this.comparePoiId = comparePoi.id || -1;
       comparePoi.properties.opacity = 0.6;
       comparePoi.properties.radiusRatio = 0;
       const source = this.map.getSource("selected-compare-poi");
@@ -142,10 +161,53 @@ class ComparePoi {
         center: comparePoi.geometry.coordinates,
       };
       this.theme = comparePoi.properties.theme;
-      this.dom.title.innerText = comparePoi.properties.accroche;
+      let icon = ComparePoiIconSvg;
+      if (comparePoi.properties.color) {
+        this.dom.advancedBtn.classList.remove("d-none");
+        switch (comparePoi.properties.color) {
+        case "blue":
+          icon = CompareLandmarkBlue;
+          break;
+        case "purple":
+          icon = CompareLandmarkPurple;
+          break;
+        case "orange":
+          icon = CompareLandmarkOrange;
+          break;
+        case "green":
+          icon = CompareLandmarkGreen;
+          break;
+        case "yellow":
+          icon = CompareLandmarkYellow;
+          break;
+        default:
+          break;
+        }
+      }
+      this.iconHTML = `<img src="${icon}" height="23px"></img>`;
+      this.dom.title.innerHTML = `${this.iconHTML}${comparePoi.properties.accroche}`;
       this.dom.location.innerText = "";
       if (comparePoi.properties.commune) {
         this.dom.location.innerText = comparePoi.properties.commune + ", " + comparePoi.properties.departement;
+      } else {
+        Reverse.compute({
+          lon: comparePoi.geometry.coordinates[0],
+          lat: comparePoi.geometry.coordinates[1],
+        })
+          .then(() => {})
+          .catch(() => {})
+          .finally(() => {
+            var coords = {lon : comparePoi.geometry.coordinates[0], lat : comparePoi.geometry.coordinates[1]};
+            var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
+            var strAddress = address;
+            if (typeof address !== "string") {
+              strAddress = "";
+              strAddress += (address.number !== "") ? address.number + " " : "";
+              strAddress += (address.street !== "") ? address.street + ", " : "";
+              strAddress += address.city;
+            }
+            this.dom.location.innerText = strAddress;
+          });
       }
       this.dom.text.innerHTML = comparePoi.properties.text;
       this.showWindow();
@@ -154,6 +216,47 @@ class ComparePoi {
     this.map.on("click", this.configuration.source, handleLayerClick);
     this.map.on("click", this.configuration.customSource, handleLayerClick);
     this.dom.button.addEventListener("click", this.handleCompareButton);
+    this.dom.advancedBtn.addEventListener("click", () => {
+      ActionSheet.show({
+        options: [
+          {
+            class: "tools-layer-share",
+            text: "Partager",
+            value: "share",
+          },
+          {
+            class: "tools-layer-edit",
+            text: "Modifier",
+            value: "edit",
+          },
+          {
+            class: "tools-layer-remove confirm-needed",
+            text: "Supprimer",
+            value: "delete",
+            confirmCallback: () => {
+              Toast.show({
+                text: "Confirmez la suppression du repère Comparer",
+                duration: "short",
+                position: "bottom"
+              });
+            }
+          },
+        ],
+        timeToHide: 50,
+      }).then( (value) => {
+        if (value === "share") {
+          Globals.myaccount.shareCompareLandmarkFromID(this.comparePoiId );
+        }
+        if (value === "edit") {
+          this.hideWindow();
+          Globals.myaccount.editCompareLandmarkFromID(this.comparePoiId );
+        }
+        if (value === "delete") {
+          this.hideWindow();
+          Globals.myaccount.deleteCompareLandmark(this.comparePoiId );
+        }
+      });
+    });
   }
 
   #onClickCompareButton() {
@@ -162,7 +265,7 @@ class ComparePoi {
     Globals.backButtonState = "comparePoiActivated";
     this.dom.button.classList.add("d-none");
     this.dom.text.classList.remove("d-none");
-    this.dom.title.innerText = `${this.theme}`;
+    this.dom.title.innerHTML = `${this.iconHTML}${this.theme}`;
     DOM.$comparePoiWindow.classList.remove("d-none");
     DOM.$tabContainer.classList.remove("compare");
     DOM.$bottomButtons.classList.remove("compare");
@@ -247,8 +350,16 @@ class ComparePoi {
    */
   hideWindow() {
     this.clearSources();
+    this.dom.advancedBtn.classList.add("d-none");
     this.opened = false;
-    Globals.menu.close("comparePoi");
+    if (Globals.backButtonState == "comparePoiActivated") {
+      document.getElementById("comparePoiWindow").querySelector(".comparePoiText").classList.add("d-none");
+      document.getElementById("comparePoiWindow").querySelector(".comparePoiButton").classList.remove("d-none");
+      Globals.currentScrollIndex = 0;
+      Globals.menu.open("compare");
+    } else {
+      Globals.menu.close("comparePoi");
+    }
   }
 }
 
