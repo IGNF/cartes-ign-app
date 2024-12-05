@@ -291,6 +291,9 @@ const gfiRules = {
                   return "";
                 }
                 featureProperties[match[1]] = InseeCommWiki[featureProperties["insee_com"]];
+                if (!featureProperties[match[1]]) {
+                  return "";
+                }
                 str = str.replace(match[0], featureProperties[match[1]]);
                 match = str.match("{{([^}]+)}}");
               } else {
