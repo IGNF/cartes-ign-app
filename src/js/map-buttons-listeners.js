@@ -67,6 +67,7 @@ const addListeners = () => {
 
   // Sélection de point via le réticule pour isochrone et directions
   DOM.$mapCenterSubmit.addEventListener("click", () => {
+    const closesearch = new Event("closesearch");
     if (Globals.backButtonState === "selectOnMapIsochrone") {
       Globals.isochrone.onAddWayPoint({lngLat: Globals.map.getCenter()});
       Globals.menu.close("selectOnMapIsochrone");
@@ -74,19 +75,18 @@ const addListeners = () => {
       Reverse.compute({
         lon: Globals.map.getCenter().lng,
         lat: Globals.map.getCenter().lat,
+      }).then(() => {
+        Globals.menu.close("selectOnMapDirections");
       });
-      Globals.menu.close("selectOnMapDirections");
     } else if (Globals.backButtonState === "selectOnMapLandmark") {
       Globals.landmark.onAddWayPoint({lngLat: Globals.map.getCenter()});
       Globals.menu.close("selectOnMapLandmark");
+      window.dispatchEvent(closesearch);
     } else if (Globals.backButtonState.split("-")[0] === "selectOnMapCompareLandmark") {
       Globals.menu.close("selectOnMapCompareLandmark");
       Globals.menu.open("compareLandmark");
       Globals.compareLandmark.location = [Globals.mapRLT1.getCenter().lng, Globals.mapRLT1.getCenter().lat];
-      return;
     }
-    const closesearch = new Event("closesearch");
-    window.dispatchEvent(closesearch);
   });
 };
 
