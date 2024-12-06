@@ -16,6 +16,13 @@
   margin: 0 9px 26px 9px;
 }
 
+#move-compare-landmark-btn {
+  background-image: url(assets/location-green.svg);
+  background-position: center right 15px;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+}
+
 #compareLandmark-color-purple + .compareLandmarkColorInputLabel {
   background-image: url(assets/compareLandmark/compare-landmark-purple.svg);
 }
