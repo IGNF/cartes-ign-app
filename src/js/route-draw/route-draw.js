@@ -1137,7 +1137,7 @@ class RouteDraw {
     this.dom.changeMode.classList.add("d-none");
     this.dom.titlewrapper.classList.remove("d-none");
     Globals.menu.open("routeDraw");
-
+    DOM.$tabClose.classList.remove("d-none");
   }
 
   /**
@@ -1145,10 +1145,12 @@ class RouteDraw {
    * @public
    */
   hide() {
-    Globals.menu.close("routeDraw");
-    if (this.routeId !== null) {
-      Globals.myaccount.showRouteFromID(this.routeId);
+    const routeId = this.routeId;
+    if (routeId !== null) {
+      console.log(routeId);
+      Globals.myaccount.showRouteFromID(routeId);
     }
+    Globals.menu.close("routeDraw");
   }
 }
 

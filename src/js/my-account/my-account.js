@@ -268,7 +268,11 @@ class MyAccount {
       if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
         return;
       }
-      const routeId = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["line-casing"].id]})[0].properties.id;
+      const visibleRoutes = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["line-casing"].id]}).filter((route) => route.properties.visible);
+      if (visibleRoutes.length === 0) {
+        return;
+      }
+      const routeId = visibleRoutes[0].properties.id;
       const route = this.routes.filter( route => route.id == routeId)[0];
       if (route.visible) {
         this.showRouteDetails(route);
@@ -1130,7 +1134,7 @@ ${props.text}`,
     try {
       const route = this.#getRouteFromID(routeId);
       if (!route.visible) {
-        this.toggleShowRoute();
+        this.toggleShowRoute(route);
       }
     } catch (e) {
       console.warn(e);
