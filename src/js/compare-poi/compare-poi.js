@@ -119,6 +119,73 @@ class ComparePoi {
   }
 
   /**
+   *  mise à jour des données de la fenêtre
+   * @param {Object} comparePoi
+   * @returns
+   */
+  setData(comparePoi) {
+    this.comparePoiId = -1;
+    if (comparePoi.id !== null && comparePoi.id >= 0) {
+      this.comparePoiId = comparePoi.id;
+    }
+    this.compareConfig = {
+      // Zoom - 1 car décalage entre niveaux de zoom maplibre et autres libs carto
+      zoom: comparePoi.properties.zoom - 1,
+      mode: comparePoi.properties.mode,
+      layer1: comparePoi.properties.layer1,
+      layer2: comparePoi.properties.layer2,
+      center: comparePoi.geometry.coordinates,
+    };
+    this.theme = comparePoi.properties.theme;
+    let icon = ComparePoiIconSvg;
+    if (comparePoi.properties.color) {
+      this.dom.advancedBtn.classList.remove("d-none");
+      switch (comparePoi.properties.color) {
+      case "blue":
+        icon = CompareLandmarkBlue;
+        break;
+      case "purple":
+        icon = CompareLandmarkPurple;
+        break;
+      case "orange":
+        icon = CompareLandmarkOrange;
+        break;
+      case "green":
+        icon = CompareLandmarkGreen;
+        break;
+      case "yellow":
+        icon = CompareLandmarkYellow;
+        break;
+      default:
+        break;
+      }
+    }
+    this.iconHTML = `<img src="${icon}" height="23px"></img>`;
+    this.dom.title.innerHTML = `${this.iconHTML}${comparePoi.properties.accroche}`;
+    this.dom.location.innerText = "";
+    if (comparePoi.properties.commune) {
+      this.dom.location.innerText = comparePoi.properties.commune + ", " + comparePoi.properties.departement;
+    } else {
+      Reverse.compute({
+        lon: comparePoi.geometry.coordinates[0],
+        lat: comparePoi.geometry.coordinates[1],
+      })
+        .then(() => {})
+        .catch(() => {})
+        .finally(() => {
+          var coords = {lon : comparePoi.geometry.coordinates[0], lat : comparePoi.geometry.coordinates[1]};
+          var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
+          var strAddress = address;
+          if (typeof address !== "string") {
+            strAddress = address.city;
+          }
+          this.dom.location.innerText = strAddress;
+        });
+    }
+    this.dom.text.innerHTML = comparePoi.properties.text;
+  }
+
+  /**
    * ajout d'ecouteurs
    */
   #listeners() {
@@ -134,7 +201,6 @@ class ComparePoi {
         layers.push(this.configuration.source);
       }
       const comparePoi = this.map.queryRenderedFeatures(e.point, {layers: layers})[0];
-      this.comparePoiId = comparePoi.id || -1;
       comparePoi.properties.opacity = 0.6;
       comparePoi.properties.radiusRatio = 0;
       const source = this.map.getSource("selected-compare-poi");
@@ -152,64 +218,7 @@ class ComparePoi {
           "features": [comparePoi]
         });
       }, 20);
-      this.compareConfig = {
-        // Zoom - 1 car décalage entre niveaux de zoom maplibre et autres libs carto
-        zoom: comparePoi.properties.zoom - 1,
-        mode: comparePoi.properties.mode,
-        layer1: comparePoi.properties.layer1,
-        layer2: comparePoi.properties.layer2,
-        center: comparePoi.geometry.coordinates,
-      };
-      this.theme = comparePoi.properties.theme;
-      let icon = ComparePoiIconSvg;
-      if (comparePoi.properties.color) {
-        this.dom.advancedBtn.classList.remove("d-none");
-        switch (comparePoi.properties.color) {
-        case "blue":
-          icon = CompareLandmarkBlue;
-          break;
-        case "purple":
-          icon = CompareLandmarkPurple;
-          break;
-        case "orange":
-          icon = CompareLandmarkOrange;
-          break;
-        case "green":
-          icon = CompareLandmarkGreen;
-          break;
-        case "yellow":
-          icon = CompareLandmarkYellow;
-          break;
-        default:
-          break;
-        }
-      }
-      this.iconHTML = `<img src="${icon}" height="23px"></img>`;
-      this.dom.title.innerHTML = `${this.iconHTML}${comparePoi.properties.accroche}`;
-      this.dom.location.innerText = "";
-      if (comparePoi.properties.commune) {
-        this.dom.location.innerText = comparePoi.properties.commune + ", " + comparePoi.properties.departement;
-      } else {
-        Reverse.compute({
-          lon: comparePoi.geometry.coordinates[0],
-          lat: comparePoi.geometry.coordinates[1],
-        })
-          .then(() => {})
-          .catch(() => {})
-          .finally(() => {
-            var coords = {lon : comparePoi.geometry.coordinates[0], lat : comparePoi.geometry.coordinates[1]};
-            var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
-            var strAddress = address;
-            if (typeof address !== "string") {
-              strAddress = "";
-              strAddress += (address.number !== "") ? address.number + " " : "";
-              strAddress += (address.street !== "") ? address.street + ", " : "";
-              strAddress += address.city;
-            }
-            this.dom.location.innerText = strAddress;
-          });
-      }
-      this.dom.text.innerHTML = comparePoi.properties.text;
+      this.setData(comparePoi);
       this.showWindow();
     };
 
@@ -245,15 +254,15 @@ class ComparePoi {
         timeToHide: 50,
       }).then( (value) => {
         if (value === "share") {
-          Globals.myaccount.shareCompareLandmarkFromID(this.comparePoiId );
+          Globals.myaccount.shareCompareLandmarkFromID(this.comparePoiId);
         }
         if (value === "edit") {
           this.hideWindow();
-          Globals.myaccount.editCompareLandmarkFromID(this.comparePoiId );
+          Globals.myaccount.editCompareLandmarkFromID(this.comparePoiId);
         }
         if (value === "delete") {
           this.hideWindow();
-          Globals.myaccount.deleteCompareLandmark(this.comparePoiId );
+          Globals.myaccount.deleteCompareLandmark(this.comparePoiId);
         }
       });
     });

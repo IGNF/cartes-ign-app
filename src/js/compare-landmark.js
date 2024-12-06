@@ -102,7 +102,6 @@ class compareLandmark {
         layer2: this.map2.getLayer("maplayer").source.split("$")[0],
         mode: compareMode,
       };
-      console.log(this.data);
       if (!this.data.location || !this.data.title) {
         Toast.show({
           text: "Donnez un titre à votre point de repère",
@@ -119,6 +118,12 @@ class compareLandmark {
         position: "top"
       });
       this.hide();
+      if (this.compareLandmarkId === null || this.compareLandmarkId < 0) {
+        compareLandmarkJson.id = Globals.myaccount.lastCompareLandmarkId - 1;
+      }
+      Globals.comparePoi.setData(compareLandmarkJson);
+      Globals.comparePoi.showWindow();
+      Globals.comparePoi.handleCompareButton();
     });
   }
 

@@ -68,6 +68,10 @@
   padding-top: 10px;
 }
 
+.comparePoiText:empty {
+  border-top: unset;
+}
+
 .comparePoiLocationWrapper:has(.comparePoiLocation:empty) + .comparePoiText {
   border-top: none;
   margin-top: 0;

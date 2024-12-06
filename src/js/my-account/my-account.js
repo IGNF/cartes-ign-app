@@ -208,6 +208,13 @@ class MyAccount {
       if (["routeDraw", "routeDrawSave"].includes(Globals.backButtonState)) {
         return;
       }
+      const compareLayers = ["my-account-compare-landmark"];
+      if (this.map.getLayer("comparepoi")) {
+        compareLayers.push("comparepoi");
+      }
+      if (this.map.queryRenderedFeatures(e.point, {layers: compareLayers}).length > 0) {
+        return;
+      }
       if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
         return;
       }
@@ -657,7 +664,16 @@ class MyAccount {
    * @param {Number} routeId
    */
   editRouteFromID(routeId) {
-    this.editRoute(this.#getRouteFromID(routeId));
+    try {
+      this.editRoute(this.#getRouteFromID(routeId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**
@@ -756,7 +772,16 @@ class MyAccount {
    * @param {Number} landmarkId
    */
   editLandmarkFromID(landmarkId) {
-    this.editLandmark(this.#getLandmarkFromID(landmarkId));
+    try {
+      this.editLandmark(this.#getLandmarkFromID(landmarkId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "Le point de repère n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**
@@ -764,7 +789,16 @@ class MyAccount {
    * @param {Number} compareLandmarkId
    */
   editCompareLandmarkFromID(compareLandmarkId) {
-    this.editCompareLandmark(this.#getCompareLandmarkFromID(compareLandmarkId));
+    try {
+      this.editCompareLandmark(this.#getCompareLandmarkFromID(compareLandmarkId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "Le point de repère Comparer n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**
@@ -847,7 +881,16 @@ Dénivelé positif : ${route.data.elevationData.dplus} m, Dénivelé négatif : 
   * @param {Number} routeId
   */
   shareRouteFromID(routeId) {
-    this.shareRoute(this.#getRouteFromID(routeId));
+    try {
+      this.shareRoute(this.#getRouteFromID(routeId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**
@@ -872,7 +915,16 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
    * @param {Number} landmarkId
    */
   shareLandmarkFromID(landmarkId) {
-    this.shareLandmark(this.#getLandmarkFromID(landmarkId));
+    try {
+      this.shareLandmark(this.#getLandmarkFromID(landmarkId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "Le point de repère n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**
@@ -895,7 +947,16 @@ ${props.text}`,
    * @param {Number} compareLandmarkId
    */
   shareCompareLandmarkFromID(compareLandmarkId) {
-    this.shareCompareLandmark(this.#getCompareLandmarkFromID(compareLandmarkId));
+    try {
+      this.shareCompareLandmark(this.#getCompareLandmarkFromID(compareLandmarkId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "Le point de repère Comparer n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**
@@ -976,7 +1037,16 @@ ${props.text}`,
   * @param {Number} routeId
   */
   exportRouteFromID(routeId) {
-    this.exportRoute(this.#getRouteFromID(routeId));
+    try {
+      this.exportRoute(this.#getRouteFromID(routeId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**
@@ -1013,7 +1083,16 @@ ${props.text}`,
    * @param {Number} landmarkId
    */
   exportLandmarkFromID(landmarkId) {
-    this.exportLandmark(this.#getLandmarkFromID(landmarkId));
+    try {
+      this.exportLandmark(this.#getLandmarkFromID(landmarkId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "Le point de repère n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**
@@ -1048,10 +1127,20 @@ ${props.text}`,
   * @param {Number} routeId
   */
   showRouteFromID(routeId) {
-    const route = this.#getRouteFromID(routeId);
-    if (!route.visible) {
-      this.toggleShowRoute();
+    try {
+      const route = this.#getRouteFromID(routeId);
+      if (!route.visible) {
+        this.toggleShowRoute();
+      }
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
     }
+
   }
 
   /**
@@ -1079,8 +1168,7 @@ ${props.text}`,
    */
   #getRouteFromID(routeId) {
     if (routeId === null) {
-      console.error("Null route ID");
-      return;
+      throw new Error("Null route ID");
     }
     let route;
     for (let i = 0; i < Globals.myaccount.routes.length; i++) {
@@ -1089,7 +1177,11 @@ ${props.text}`,
         break;
       }
     }
-    return route;
+    if (route.id === routeId) {
+      return route;
+    } else {
+      throw new Error("Unknown route ID");
+    }
   }
 
   /**
@@ -1099,8 +1191,7 @@ ${props.text}`,
    */
   #getLandmarkFromID(landmarkId) {
     if (landmarkId === null) {
-      console.error("Null landmark ID");
-      return;
+      throw new Error("Null landmark ID");
     }
     let landmark;
     for (let i = 0; i < Globals.myaccount.landmarks.length; i++) {
@@ -1109,7 +1200,11 @@ ${props.text}`,
         break;
       }
     }
-    return landmark;
+    if (landmark.id === landmarkId) {
+      return landmark;
+    } else {
+      throw new Error("Unknown landmark ID");
+    }
   }
 
   /**
@@ -1119,8 +1214,7 @@ ${props.text}`,
    */
   #getCompareLandmarkFromID(compareLandmarkId) {
     if (compareLandmarkId === null) {
-      console.error("Null compareLandmarkId ID");
-      return;
+      throw new Error("Null compareLandmark ID");
     }
     let compareLandmark;
     for (let i = 0; i < Globals.myaccount.compareLandmarks.length; i++) {
@@ -1129,7 +1223,11 @@ ${props.text}`,
         break;
       }
     }
-    return compareLandmark;
+    if (compareLandmark.id === compareLandmarkId) {
+      return compareLandmark;
+    } else {
+      throw new Error("Unknown compareLandmark ID");
+    }
   }
 
   /**
