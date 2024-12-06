@@ -416,6 +416,7 @@ const locationOnOff = async () => {
     tracking_active = true;
     Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
     Globals.map.setCenter([currentPosition.coords.longitude, currentPosition.coords.latitude]);
+    Globals.map.setPitch(0);
     Globals.map.touchZoomRotate.disable();
     Globals.map.getCanvasContainer().addEventListener("touchstart", locationOnTouchStartHandler);
     Globals.map.getCanvasContainer().addEventListener("touchmove", locationOnTouchMoveHandler);
