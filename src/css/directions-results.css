@@ -130,7 +130,7 @@
   display: flex;
 }
 
-#tabContainer:has(#directionsShowDetail:checked) {
+#tabContainer #directionsResultsWindow:not(.d-none):has(#directionsShowDetail:checked) {
   height: 100vh;
 }
 
