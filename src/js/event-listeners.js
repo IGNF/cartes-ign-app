@@ -241,6 +241,7 @@ function addListeners() {
   };
 
   window.addEventListener("scroll", () => {
+    /* Gestion de la disparition des boutons au scroll */
     DOM.$bottomButtons.classList.remove("opacity0");
     DOM.$routeDrawEdit.classList.remove("opacity0");
     DOM.$filterPoiBtn.classList.remove("opacity0");
@@ -256,6 +257,8 @@ function addListeners() {
         DOM.$fullScreenBtn.classList.add("opacity0");
       }
     }
+
+    /* Gestion de l'état ScrolledMax du panneau */
     const insetTop = Math.round(parseFloat(getComputedStyle(document.body).getPropertyValue("--safe-area-inset-top").slice(0, -2)));
     const insetBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-bottom").slice(0, -2));
     const navHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-bar-height").slice(0, -2));
@@ -267,6 +270,14 @@ function addListeners() {
       DOM.$tabContainer.classList.remove("scrolledMax");
       document.getElementById("tabHandle").removeEventListener("click", handleScrollDown);
     }
+
+    /* Gestion de la hauteur des détails du résultat du calcul d'iti */
+    const directionsListDetails = document.getElementById("directionsListDetails");
+    if (directionsListDetails) {
+      const resultHeight = window.scrollY - 72;
+      directionsListDetails.style.flexBasis = `${resultHeight}px`;
+    }
+
   });
 
   // Partage par liens

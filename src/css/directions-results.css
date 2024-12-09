@@ -120,7 +120,7 @@
   display: none;
   position: relative;
   flex-direction: column;
-  max-height: calc(100vh - 180px);
+  max-height: calc(100vh - 155px - var(--safe-area-inset-top));
   overflow-y: scroll;
   border-top: 1px solid var(--grey-2);
   font-family: "Open Sans";
@@ -128,6 +128,10 @@
 
 #directionsResults:has(#directionsShowDetail:checked) #directionsListDetails {
   display: flex;
+}
+
+#tabContainer:has(#directionsShowDetail:checked) {
+  height: 100vh;
 }
 
 .divDirectionsDetailsItem {
