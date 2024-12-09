@@ -132,6 +132,8 @@ class MenuNavigation {
       element.classList.remove("d-none");
     }
 
+    let target = null;
+
     // y'a t il des particularités sur l'ouverture du panneau demandé ?
     var isSpecific = false;
     switch (id) {
@@ -368,10 +370,9 @@ class MenuNavigation {
       DOM.$fullScreenBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
-      // FIXME
       // "Ma position" par défaut dans le départ quand disponible
-      if (!["searchDirections", "directions"].includes(previousBackState) && Location.getCurrentPosition()) {
-        let target = Globals.directions.dom.inputDeparture;
+      target = Globals.directions.dom.inputDeparture;
+      if (!target.value && Location.getCurrentPosition()) {
         target.dataset.coordinates = "[" + Location.getCurrentPosition().coords.longitude + "," + Location.getCurrentPosition().coords.latitude + "]";
         target.value = "Ma position";
       }
