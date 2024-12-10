@@ -4,6 +4,7 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
+import Globals from "../globals";
 import Instruction from "./directions-instructions";
 import utils from "../utils/unit-utils";
 
@@ -136,7 +137,12 @@ let DirectionsResultsDOM = {
     labelShow.title = "Détails";
     labelShow.textContent = "Détails";
     labelShow.addEventListener("click", function () {
-      // TODO
+      setTimeout(() => {
+        if (inputShow.checked) {
+          Globals.currentScrollIndex = 1;
+          Globals.menu.updateScrollAnchors();
+        }
+      }, 50);
     });
     div.appendChild(labelShow);
 
