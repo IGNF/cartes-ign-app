@@ -5,6 +5,13 @@
  */
 
 import InseeCommWiki from "../data-layer/com_wiki.json";
+let inseeCommWiki;
+try {
+  const resp = await fetch("https://ignf.github.io/cartes-ign-app/com_wiki.json");
+  inseeCommWiki = await resp.json();
+} catch (e) {
+  inseeCommWiki = InseeCommWiki;
+}
 
 const gfiRules = {
   "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS": {
@@ -290,7 +297,7 @@ const gfiRules = {
                 if (!featureProperties["insee_com"]) {
                   return "";
                 }
-                featureProperties[match[1]] = InseeCommWiki[featureProperties["insee_com"]];
+                featureProperties[match[1]] = inseeCommWiki[featureProperties["insee_com"]];
                 if (!featureProperties[match[1]]) {
                   return "";
                 }
