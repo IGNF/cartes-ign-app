@@ -19,15 +19,19 @@ jobs:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
       - run: |
-          cp src/js/data-layer/com_wiki.json docs/com_wiki.json
-          cp www/data/mixte.json docs/mixte.json
-          cp www/data/plan-ign-interactif-style.json docs/plan-ign-interactif-style.json
-          cp www/data/poi-osm-style.json docs/poi-osm-style.json
-          mkdir docs/data
-          cp www/data/poi-osm-sprite.png docs/data/poi-osm-sprite.png
-          cp www/data/poi-osm-sprite.json docs/data/poi-osm-sprite.json
-          cp www/data/poi-osm-sprite@2x.png docs/data/poi-osm-sprite@2x.png
-          cp www/data/poi-osm-sprite@2x.json docs/data/poi-osm-sprite@2x.json
+          mkdir public
+          cp src/js/data-layer/com_wiki.json public/com_wiki.json
+          cp www/data/mixte.json public/mixte.json
+          cp www/data/plan-ign-interactif-style.json public/plan-ign-interactif-style.json
+          cp www/data/poi-osm-style.json public/poi-osm-style.json
+          sed -i 's/\"sprite\": \"data/\"sprite\": \"https:\/\/ignf.github.io\/cartes-ign-app\/data/g' public/mixte.json
+          sed -i 's/\"sprite\": \"data/\"sprite\": \"https:\/\/ignf.github.io\/cartes-ign-app\/data/g' public/plan-ign-interactif-style.json
+          sed -i 's/\"sprite\": \"data/\"sprite\": \"https:\/\/ignf.github.io\/cartes-ign-app\/data/g' public/poi-osm-style.json
+          mkdir public/data
+          cp www/data/poi-osm-sprite.png public/data/poi-osm-sprite.png
+          cp www/data/poi-osm-sprite.json public/data/poi-osm-sprite.json
+          cp www/data/poi-osm-sprite@2x.png public/data/poi-osm-sprite@2x.png
+          cp www/data/poi-osm-sprite@2x.json public/data/poi-osm-sprite@2x.json
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         # If you're changing the branch from main,
@@ -36,5 +40,4 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
           force_orphan: true
