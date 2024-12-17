@@ -1,6 +1,6 @@
 # Cartes IGN
 
-[Guide utilisateur]([https://www.ign.fr/telechargez-application-cartographique-cartes-ign](https://www.ign.fr/publications-de-l-ign/institut/Publications/Autres_publications/livret-appli-cartes-ign.pdf))
+[Guide utilisateur](https://www.ign.fr/publications-de-l-ign/institut/Publications/Autres_publications/livret-appli-cartes-ign.pdf)
 
 ## Présentation
 
