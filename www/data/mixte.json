@@ -43,7 +43,7 @@
         "line-join": "round"
       },
       "filter": [
-        "==",
+        "in",
         "symbo",
         "PISTE_CYCLABLE_SOU",
         "VOIE_VERTE_SOU"
@@ -2019,19 +2019,13 @@
         "line-join": "round"
       },
       "filter": [
-        "==",
+        "in",
         "symbo",
         "PISTE_CYCLABLE",
         "VOIE_VERTE"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#9B5CCC"
-        ],
+        "line-color": "#9B5CCC",
         "line-opacity": {
           "stops": [
             [
@@ -2091,13 +2085,7 @@
         "ESCALIER"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274"
-        ],
+        "line-color": "#8C7274",
         "line-opacity": {
           "stops": [
             [
@@ -2205,13 +2193,7 @@
         "RUE_PIETONNE"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274"
-        ],
+        "line-color": "#8C7274",
         "line-opacity": {
           "stops": [
             [
@@ -2271,13 +2253,7 @@
         "SENTIER"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274"
-        ],
+        "line-color": "#8C7274",
         "line-opacity": {
           "stops": [
             [
@@ -2337,13 +2313,7 @@
         "CHEMIN"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274"
-        ],
+        "line-color": "#8C7274",
         "line-opacity": {
           "stops": [
             [
@@ -2594,13 +2564,7 @@
         "NON_CLASSEE_RESTREINT"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#969696"
-        ],
+        "line-color": "#969696",
         "line-opacity": {
           "stops": [
             [
@@ -2652,13 +2616,7 @@
         "NON_CLASSEE"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#969696"
-        ],
+        "line-color": "#969696",
         "line-opacity": {
           "stops": [
             [
@@ -2974,13 +2932,7 @@
         "PRINCIPALE_1"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#E2A52A"
-        ],
+        "line-color": "#E2A52A",
         "line-opacity": {
           "stops": [
             [
@@ -4569,7 +4521,7 @@
         "line-join": "round"
       },
       "filter": [
-        "==",
+        "in",
         "symbo",
         "PISTE_CYCLABLE_SUP",
         "VOIE_VERTE_SUP"
@@ -4641,13 +4593,7 @@
         "ESCALIER_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274"
-        ],
+        "line-color": "#8C7274",
         "line-opacity": {
           "stops": [
             [
@@ -4755,13 +4701,7 @@
         "RUE_PIETONNE_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274"
-        ],
+        "line-color": "#8C7274",
         "line-opacity": {
           "stops": [
             [
@@ -4821,13 +4761,7 @@
         "SENTIER_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274"
-        ],
+        "line-color": "#8C7274",
         "line-opacity": {
           "stops": [
             [
@@ -4887,13 +4821,7 @@
         "CHEMIN_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#8C7274"
-        ],
+        "line-color": "#8C7274",
         "line-opacity": {
           "stops": [
             [
@@ -5144,13 +5072,7 @@
         "NON_CLASSEE_RESTREINT_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#969696"
-        ],
+        "line-color": "#969696",
         "line-opacity": {
           "stops": [
             [
@@ -5202,13 +5124,7 @@
         "NON_CLASSEE_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#969696"
-        ],
+        "line-color": "#969696",
         "line-opacity": {
           "stops": [
             [
@@ -5523,13 +5439,7 @@
         "PRINCIPALE_1_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#E2A52A"
-        ],
+        "line-color": "#E2A52A",
         "line-opacity": {
           "stops": [
             [
@@ -7482,75 +7392,6 @@
           "symbo",
           "CHATEAU",
           "CHATEAU_FORT"
-        ]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 11,
-        "text-allow-overlap": false,
-        "text-padding": 1,
-        "text-font": [
-          "Source Sans Pro Italic"
-        ]
-      },
-      "paint": {
-        "text-color": "#FFFFFF"
-      }
-    },
-    {
-      "id": "toponyme chateau ge zoom 16 a 17",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_bati_ponc",
-      "minzoom": 15,
-      "maxzoom": 17,
-      "filter": [
-        "all",
-        [
-          "==",
-          "txt_typo",
-          "divers_bati_ge"
-        ],
-        [
-          "==",
-          "symbo",
-          "CHATEAU"
-        ]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{designation}",
-        "text-size": 11,
-        "text-allow-overlap": false,
-        "text-padding": 1,
-        "text-font": [
-          "Source Sans Pro Italic"
-        ]
-      },
-      "paint": {
-        "text-color": "#FFFFFF"
-      }
-    },
-    {
-      "id": "toponyme chateau ge zoom 18 à 19",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_bati_ponc",
-      "minzoom": 17,
-      "filter": [
-        "all",
-        [
-          "==",
-          "txt_typo",
-          "divers_bati_ge"
-        ],
-        [
-          "==",
-          "symbo",
-          "CHATEAU"
         ]
       ],
       "layout": {

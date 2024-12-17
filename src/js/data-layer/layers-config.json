@@ -4719,6 +4719,12 @@
           "name": "standard",
           "title": "Style standard",
           "current": true,
+          "url": "https://ignf.github.io/cartes-ign-app/plan-ign-interactif-style.json"
+        },
+        {
+          "name": "fallback",
+          "title": "Style standard",
+          "current": true,
           "url": "data/plan-ign-interactif-style.json"
         }
       ],
@@ -4764,6 +4770,12 @@
           "name": "standard",
           "title": "Style standard",
           "current": true,
+          "url": "https://ignf.github.io/cartes-ign-app/mixte.json"
+        },
+        {
+          "name": "fallback",
+          "title": "Style standard",
+          "current": true,
           "url": "data/mixte.json"
         }
       ],
@@ -4804,6 +4816,12 @@
       "styles": [
         {
           "name": "standard",
+          "title": "Style standard",
+          "current": true,
+          "url": "https://ignf.github.io/cartes-ign-app/poi-osm-style.json"
+        },
+        {
+          "name": "fallback",
           "title": "Style standard",
           "current": true,
           "url": "data/poi-osm-style.json"

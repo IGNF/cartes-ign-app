@@ -82,6 +82,10 @@ const getLayerProps = (id) => {
   if (!style) {
     style = props.styles[0];
   }
+  var fallbackStyle = "";
+  if (isVector) {
+    fallbackStyle = props.styles[1];
+  }
   var format = props.formats.length ? props.formats.find((f) => { return f.current === true; }) : "";
   if (!format) {
     format = props.formats[0];
@@ -103,6 +107,7 @@ const getLayerProps = (id) => {
     maj: props.maj || "",
     type: (isVector) ? "vector" : "raster",
     style: (isVector) ? style.url : style.name || "normal",
+    fallbackStyle: (isVector) ? fallbackStyle.url : style.name || "normal",
     format: format.name || "",
     url: props.serviceParams.serverUrl[key],
     minNativeZoom: minNativeZoom,

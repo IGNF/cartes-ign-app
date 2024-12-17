@@ -561,6 +561,7 @@ class LayerSwitcher extends EventTarget {
 
     var type = this.layers[id].type;
     var style = [];
+    var fallback = [];
     if (type === "raster") {
       style.push({
         id : id,
@@ -569,6 +570,7 @@ class LayerSwitcher extends EventTarget {
       });
     } else if (type === "vector") {
       style = this.layers[id].style; // url !
+      fallback = this.layers[id].fallbackStyle; // url !;
     } else {
       // ex. geojson
       this.layers[id].error = true;
@@ -588,11 +590,10 @@ class LayerSwitcher extends EventTarget {
       });
     } else {
       // Vecteur
-      promise = fetch(style)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
+      var fetchStyle = async (style, fallback) => {
+        try {
+          const response = await fetch(style);
+          const data = await response.json();
           // INFO
           // on ajoute les sources !
           // les sources des couches tuiles vectorielles ne sont pas pré chargées
@@ -602,32 +603,33 @@ class LayerSwitcher extends EventTarget {
             if (Object.hasOwnProperty.call(data.sources, key)) {
               const source = data.sources[key];
               // on ne peut pas ajouter la même source !
-              if (! this.map.getStyle().sources[key]) {
+              if (!this.map.getStyle().sources[key]) {
                 this.map.addSource(key, source);
               }
             }
           }
-          return data;
-        })
-        .then((data) => {
+          const data_1 = data;
           // les sprites et les glyphs sont uniques sinon exceptions !
           // mais, normalement, on ajoute que des couches IGN, on mutualise sur ces informations.
           // FIXME comment gerer les exceptions ?
-          if (!data.sprite.startsWith("http")) {
-            data.sprite = document.URL + data.sprite;
+          if (!data_1.sprite.startsWith("http")) {
+            data_1.sprite = document.URL + data_1.sprite;
           }
-          this.map.setSprite(data.sprite);
-          this.map.setGlyphs(data.glyphs);
-          return data;
-        })
-        .then((data) => {
-          LayersGroup.addGroup(id, data.layers, layerIdBefore);
-          this.layers[id].style = data.layers; // sauvegarde !
-        })
-        .catch((e) => {
-          this.layers[id].error = true;
-          throw new Error(e);
-        });
+          this.map.setSprite(data_1.sprite);
+          this.map.setGlyphs(data_1.glyphs);
+          const data_2 = data_1;
+          LayersGroup.addGroup(id, data_2.layers, layerIdBefore);
+          this.layers[id].style = data_2.layers; // sauvegarde !
+        } catch (e) {
+          if (fallback) {
+            fetchStyle(fallback, null);
+          } else {
+            this.layers[id].error = true;
+            throw new Error(e);
+          }
+        }
+      };
+      promise = fetchStyle(style, fallback);
     }
 
     return promise;
@@ -655,6 +657,7 @@ class LayerSwitcher extends EventTarget {
       title: props.title,
       quickLookUrl: LayersAdditional.getQuickLookUrl(id.split("$")[0]),
       style: props.style,
+      fallbackStyle: props.fallbackStyle,
       type: props.type,
       base: props.base,
       opacity: layerOptions.opacity,
