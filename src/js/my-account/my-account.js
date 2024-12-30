@@ -566,6 +566,7 @@ class MyAccount {
       }
       this.routes.splice(i, 1);
       this.__updateAccountRoutesContainerDOMElement(this.routes);
+      localStorage.setItem("savedRoutes", JSON.stringify(this.routes));
       this.#updateSources();
       break;
     }
@@ -582,6 +583,7 @@ class MyAccount {
       }
       this.landmarks.splice(i, 1);
       this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
+      localStorage.setItem("savedLandmarks", JSON.stringify(this.landmarks));
       this.#updateSources();
       break;
     }
@@ -598,6 +600,7 @@ class MyAccount {
       }
       this.compareLandmarks.splice(i, 1);
       this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
+      localStorage.setItem("savedCompareLandmarks", JSON.stringify(this.compareLandmarks));
       this.#updateSources();
       break;
     }
