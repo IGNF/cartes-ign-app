@@ -8,6 +8,8 @@ import Globals from "./globals";
 import DOM from "./dom";
 import Location from "./services/location";
 
+import jsUtils from "./utils/js-utils";
+
 /**
  * Barre de recherche et géocodage
  */
@@ -52,7 +54,7 @@ class Search {
       clearSearch: "clearSearch"
     };
 
-    document.getElementById(id.searchInput).addEventListener("keyup", (event) => {
+    document.getElementById(id.searchInput).addEventListener("keyup", jsUtils.debounce( (event) => {
       if (event.key === "Enter" || event.keyCode === 13) {
         // Cancel the default action, if needed
         event.preventDefault();
@@ -65,13 +67,13 @@ class Search {
       } else {
         this.#suggestAndDisplay();
       }
-    });
+    }, 300));
 
-    document.getElementById(id.searchInput).addEventListener("textInput", () => {
+    document.getElementById(id.searchInput).addEventListener("textInput", jsUtils.debounce(() => {
       setTimeout( () => {
         this.#suggestAndDisplay();
       }, 100);
-    });
+    }, 300));
 
     document.getElementById(id.searchInput).addEventListener("click", () => {
       DOM.$resultDiv.hidden = true;
