@@ -18,6 +18,7 @@ import { Toast } from "@capacitor/toast";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import { FilePicker } from "@capawesome/capacitor-file-picker";
 import { App } from "@capacitor/app";
+import { Preferences } from "@capacitor/preferences";
 import maplibregl from "maplibre-gl";
 import Sortable from "sortablejs";
 import { kml, gpx } from "@tmcw/togeojson";
@@ -87,28 +88,32 @@ class MyAccount {
     this.lastCompareLandmarkId = 0;
 
     // récupération des itinéraires enregistrés en local
-    if (!localStorage.getItem("savedRoutes")) {
-      localStorage.setItem("savedRoutes", "[]");
-    } else {
-      var localRoutes = JSON.parse(localStorage.getItem("savedRoutes"));
-      this.routes = this.routes.concat(localRoutes.filter( route => !route.type));
-    }
+    Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
+      if (resp.value) {
+        var localRoutes = JSON.parse(resp.value);
+        console.log(localRoutes);
+        this.routes = this.routes.concat(localRoutes.filter( route => !route.type));
+        this.#updateSources();
+      }
+    });
 
     // récupération des points de repère enregistrés en local
-    if (!localStorage.getItem("savedLandmarks")) {
-      localStorage.setItem("savedLandmarks", "[]");
-    } else {
-      var localLandmarks = JSON.parse(localStorage.getItem("savedLandmarks"));
-      this.landmarks = this.landmarks.concat(localLandmarks);
-    }
+    Preferences.get( { key: "savedLandmarks"} ).then( (resp) => {
+      if (resp.value) {
+        var localLandmarks = JSON.parse(resp.value);
+        this.landmarks = this.landmarks.concat(localLandmarks);
+        this.#updateSources();
+      }
+    });
 
     // récupération des points de repère comparer enregistrés en local
-    if (!localStorage.getItem("savedCompareLandmarks")) {
-      localStorage.setItem("savedCompareLandmarks", "[]");
-    } else {
-      var localCompareLandmarks = JSON.parse(localStorage.getItem("savedCompareLandmarks"));
-      this.compareLandmarks = this.compareLandmarks.concat(localCompareLandmarks);
-    }
+    Preferences.get( { key: "savedCompareLandmarks"} ).then( (resp) => {
+      if (resp.value) {
+        var localCompareLandmarks = JSON.parse(resp.value);
+        this.compareLandmarks = this.compareLandmarks.concat(localCompareLandmarks);
+        this.#updateSources();
+      }
+    });
 
     this.map.loadImage(LandmarkIconSaved).then((image) => {
       this.map.addImage("landmark-icon-saved", image.data);
@@ -485,7 +490,10 @@ class MyAccount {
       this.routes.unshift(drawRouteSaveOptions);
     }
     this.__updateAccountRoutesContainerDOMElement(this.routes);
-    localStorage.setItem("savedRoutes", JSON.stringify(this.routes));
+    Preferences.set({
+      key: "savedRoutes",
+      value: JSON.stringify(this.routes),
+    });
     this.#updateSources();
     let coordinates = [];
     drawRouteSaveOptions.data.steps.forEach((step) => {
@@ -528,7 +536,10 @@ class MyAccount {
       this.landmarks.unshift(newlandmark);
     }
     this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
-    localStorage.setItem("savedLandmarks", JSON.stringify(this.landmarks));
+    Preferences.set({
+      key: "savedLandmarks",
+      value: JSON.stringify(this.landmarks),
+    });
     this.#updateSources();
   }
 
@@ -551,7 +562,10 @@ class MyAccount {
       this.compareLandmarks.unshift(newlandmark);
     }
     this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
-    localStorage.setItem("savedCompareLandmarks", JSON.stringify(this.compareLandmarks));
+    Preferences.set({
+      key: "savedCompareLandmarks",
+      value: JSON.stringify(this.compareLandmarks),
+    });
     this.#updateSources();
   }
 
@@ -566,7 +580,10 @@ class MyAccount {
       }
       this.routes.splice(i, 1);
       this.__updateAccountRoutesContainerDOMElement(this.routes);
-      localStorage.setItem("savedRoutes", JSON.stringify(this.routes));
+      Preferences.set({
+        key: "savedRoutes",
+        value: JSON.stringify(this.routes),
+      });
       this.#updateSources();
       break;
     }
@@ -583,7 +600,10 @@ class MyAccount {
       }
       this.landmarks.splice(i, 1);
       this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
-      localStorage.setItem("savedLandmarks", JSON.stringify(this.landmarks));
+      Preferences.set({
+        key: "savedLandmarks",
+        value: JSON.stringify(this.landmarks),
+      });
       this.#updateSources();
       break;
     }
@@ -600,7 +620,10 @@ class MyAccount {
       }
       this.compareLandmarks.splice(i, 1);
       this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
-      localStorage.setItem("savedCompareLandmarks", JSON.stringify(this.compareLandmarks));
+      Preferences.set({
+        key: "savedCompareLandmarks",
+        value: JSON.stringify(this.compareLandmarks),
+      });
       this.#updateSources();
       break;
     }
