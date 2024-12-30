@@ -18,8 +18,8 @@ let jsUtils = {
       clearTimeout(timer);
       timer = setTimeout( function(){
         callback.apply(context, args);
-      }, delay)
-    }
+      }, delay);
+    };
   }
 };
 
