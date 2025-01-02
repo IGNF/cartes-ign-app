@@ -62,12 +62,6 @@ import { Capacitor } from "@capacitor/core";
 
 import Buffer from "@turf/buffer";
 
-// fichiers SVG
-import LocationImg from "../../css/assets/map-buttons/localisation.svg";
-import LocationFollowImg from "../../css/assets/map-buttons/location-follow.svg";
-import LocationFixeImg from "../../css/assets/map-buttons/location-fixed.svg";
-import LocationLoading from "../../css/assets/loading-green.svg";
-import LocationDisabled from "../../css/assets/map-buttons/location-disabled.svg";
 import PopupUtils from "../utils/popup-utils";
 
 /* Géolocalisation */
@@ -262,7 +256,7 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
 const watchPositionCallback = (position) => {
   if (firstLocation) {
     // FIXME: STYLE: passer par une classe et style CSS
-    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
+    DOM.$geolocateBtn.classList.add("locationFixe");
     Toast.show({
       text: "Suivi de position activé",
       duration: "short",
@@ -317,7 +311,8 @@ const trackLocation = () => {
       if (Capacitor.getPlatform() === "android") {
         watch_id = navigator.geolocation.watchPosition(watchPositionCallback, (err) => {
           console.warn(err);
-          DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
+          DOM.$geolocateBtn.classList.remove("locationFixe");
+          DOM.$geolocateBtn.classList.remove("locationDisabled");
           Geolocation.clearWatch({id: watch_id});
           clean();
           currentPosition = null;
@@ -344,12 +339,14 @@ const trackLocation = () => {
       }
     } else {
       // Location services denied
-      DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
+      DOM.$geolocateBtn.classList.remove("locationFixe");
+      DOM.$geolocateBtn.classList.add("locationDisabled");
       showLocationDeniedPopup();
     }
   }).catch(() => {
     // Location services disabled
-    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
+    DOM.$geolocateBtn.classList.remove("locationFixe");
+    DOM.$geolocateBtn.classList.add("locationDisabled");
     showLocationDisabledPopup();
   });
 };
@@ -358,7 +355,7 @@ const trackLocation = () => {
  * Modification du statut de localisation
  */
 const enablePosition = async() => {
-  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationLoading + "\")";
+  DOM.$geolocateBtn.classList.add("locationLoading");
   let permissionStatus;
   if (popup.popup) {
     popup.popup.remove();
@@ -374,7 +371,8 @@ const enablePosition = async() => {
     try {
       permissionStatus = await Geolocation.checkPermissions();
     } catch {
-      DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
+      DOM.$geolocateBtn.classList.remove("locationLoading");
+      DOM.$geolocateBtn.classList.add("locationDisabled");
       showLocationDisabledPopup();
       return;
     }
@@ -384,10 +382,12 @@ const enablePosition = async() => {
   }
   if (["denied", "prompt-with-rationale"].includes(permissionStatus.location)) {
     // Location services denied
-    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationDisabled + "\")";
+    DOM.$geolocateBtn.classList.remove("locationLoading");
+    DOM.$geolocateBtn.classList.add("locationDisabled");
     showLocationDeniedPopup();
     return;
   }
+  DOM.$geolocateBtn.classList.remove("locationLoading");
   location_active = true;
   tracking_active = true;
   if (!currentPosition && localStorage.getItem("lastKnownPosition")) {
@@ -412,7 +412,9 @@ const locationOnOff = async () => {
     if (currentPosition === null) {
       return;
     }
-    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
+    DOM.$geolocateBtn.classList.remove("locationDisabled");
+    DOM.$geolocateBtn.classList.remove("locationLoading");
+    DOM.$geolocateBtn.classList.add("locationFixe");
     tracking_active = true;
     Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
     Globals.map.setCenter([currentPosition.coords.longitude, currentPosition.coords.latitude]);
@@ -430,7 +432,8 @@ const locationOnOff = async () => {
     if (currentPosition === null) {
       return;
     }
-    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFollowImg + "\")";
+    DOM.$geolocateBtn.classList.remove("locationFixe");
+    DOM.$geolocateBtn.classList.add("locationFollow");
     navigation_active = true;
     const padding = {top: DOM.$map.clientHeight * 0.5};
     Globals.map.easeTo({
@@ -447,7 +450,7 @@ const locationOnOff = async () => {
       position: "bottom"
     });
   } else {
-    DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
+    DOM.$geolocateBtn.classList.remove("locationFollow");
     tracking_active = false;
     navigation_active = false;
     KeepAwake.allowSleep();
@@ -549,7 +552,8 @@ const getLocation = async () => {
 };
 
 const disableTracking = () => {
-  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationImg + "\")";
+  DOM.$geolocateBtn.classList.remove("locationFixe");
+  DOM.$geolocateBtn.classList.remove("locationFollow");
   tracking_active = false;
   if (navigation_active) {
     navigation_active = false;
@@ -560,7 +564,8 @@ const disableTracking = () => {
 };
 
 const disableNavigation = (bearing = Globals.map.getBearing()) => {
-  DOM.$geolocateBtn.style.backgroundImage = "url(\"" + LocationFixeImg + "\")";
+  DOM.$geolocateBtn.classList.add("locationFixe");
+  DOM.$geolocateBtn.classList.remove("locationFollow");
   navigation_active = false;
   Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
   Globals.map.flyTo({

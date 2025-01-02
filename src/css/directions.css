@@ -28,6 +28,10 @@
   background-size: 22px;
 }
 
+.btnDirectionsCompute.loading {
+  background-image: url(assets/loading-white.svg)
+}
+
 /*
  * checkboxes
  */
@@ -279,6 +283,10 @@
   background-color: #fff0;
   transition: background-color 0.1s;
   border-radius: 8px;
+}
+
+#directionsLocationImg_step.animated {
+  background-color: #E7E7E7;
 }
 
 .hidden .lblDirectionsLocations {

@@ -394,18 +394,16 @@ class Compare {
     this.mapRLT2.setZoom(this.map.getZoom());
     this.changeMode();
 
-    DOM.$createCompareLandmarkBtn.style.removeProperty("opacity");
-    DOM.$createCompareLandmarkBtn.style.removeProperty("color");
     clearTimeout(this.timeoutID1);
     clearTimeout(this.timeoutID2);
     clearTimeout(this.timeoutID3);
     this.timeoutID1 = setTimeout(() => {
-      DOM.$createCompareLandmarkBtn.style.backgroundColor = "#26A581DD";
-      DOM.$createCompareLandmarkBtn.style.width = "calc(63px + 14.446rem)";
+      DOM.$createCompareLandmarkBtn.classList.add("backgroundGreen");
+      DOM.$createCompareLandmarkBtn.classList.add("widthOn");
       this.timeoutID2 = setTimeout(() => {
-        DOM.$createCompareLandmarkBtn.style.removeProperty("width");
+        DOM.$createCompareLandmarkBtn.classList.remove("widthOn");
         this.timeoutID3 = setTimeout(() => {
-          DOM.$createCompareLandmarkBtn.style.removeProperty("background-color");
+          DOM.$createCompareLandmarkBtn.classList.remove("backgroundGreen");
         }, 450);
       }, 2000);
     }, 50);

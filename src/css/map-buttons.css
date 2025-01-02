@@ -55,6 +55,25 @@
   bottom: 0;
 }
 
+#geolocateBtn.locationLoading {
+  background-image: url("assets/loading-green.svg");
+}
+
+#geolocateBtn.locationFixe {
+  background-image: url("assets/map-buttons/location-fixed.svg");
+}
+
+#geolocateBtn.locationFollow {
+  background-image: url("assets/map-buttons/location-follow.svg");
+}
+
+#geolocateBtn.locationDisabled {
+  background-image: url("assets/map-buttons/location-disabled.svg");
+}
+
+
+locationFollow
+
 #sideBySideLeftLayer {
   background-image: url("assets/map-buttons/compare/compare-layer-left.svg");
   position: absolute;
@@ -215,6 +234,34 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
+}
+
+#interactivityBtn.backgroundGreen, #createCompareLandmarkBtn.backgroundGreen {
+  background-color: #26A581DD;
+}
+
+#interactivityBtn.backgroundWhite, #createCompareLandmarkBtn.backgroundWhite {
+  background-color: #F4F6F8E5;
+}
+
+#interactivityBtn.textColor, #createCompareLandmarkBtn.textColor {
+  color: #3F4A55;
+}
+
+#interactivityBtn.widthOn {
+  width: calc(63px + 12.846rem);
+}
+
+#createCompareLandmarkBtn.widthOn {
+  width: calc(63px + 14.446rem);
+}
+
+#interactivityBtn.widthOff, #createCompareLandmarkBtn.widthOff {
+  width: calc(63px + 15.923rem);
+}
+
+#interactivityBtn.noOpacity, #createCompareLandmarkBtn.noOpacity {
+  opacity: 0;
 }
 
 #map:has(.maplibregl-ctrl-shrink) > #interactivityBtn {
