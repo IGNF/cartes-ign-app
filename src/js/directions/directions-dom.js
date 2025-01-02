@@ -4,7 +4,6 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import LoadingWhite from "../../css/assets/loading-white.svg";
 import { Toast } from "@capacitor/toast";
 
 /**
@@ -152,7 +151,7 @@ let DirectionsDOM = {
   __setComputeButtonLoading() {
     this.dom.buttonCompute.value = "";
     this.dom.buttonCompute.disabled = true;
-    this.dom.buttonCompute.style.backgroundImage = "url(" + LoadingWhite + ")";
+    this.dom.buttonCompute.classList.add("loading");
     document.querySelectorAll(".inputDirectionsLocationsContainer").forEach((el) => {
       el.classList.add("disabled");
     });
@@ -165,7 +164,7 @@ let DirectionsDOM = {
   __unsetComputeButtonLoading() {
     this.dom.buttonCompute.value = "Calculer";
     this.dom.buttonCompute.disabled = false;
-    this.dom.buttonCompute.style.removeProperty("background-image");
+    this.dom.buttonCompute.classList.remove("loading");
     document.querySelectorAll(".inputDirectionsLocationsContainer").forEach((el) => {
       el.classList.remove("disabled");
     });
@@ -445,8 +444,8 @@ let DirectionsDOM = {
     labelAddStep.title = "Ajouter une étape";
     labelAddStep.textContent = "Ajouter une étape";
     labelAddStep.addEventListener("click", function () {
-      labelAddStep.style.backgroundColor = "#E7E7E7";
-      setTimeout(() => { labelAddStep.style.removeProperty("background-color"); }, 150);
+      labelAddStep.classList.add("animated");
+      setTimeout(() => { labelAddStep.classList.remove("animated"); }, 150);
       var locations = document.querySelectorAll(".divDirectionsLocationsItem");
       for (let index = 0; index < locations.length; index++) {
         const element = locations[index];

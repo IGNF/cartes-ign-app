@@ -142,20 +142,20 @@ class InteractivityIndicator {
   active () {
     this.hardDisabled = false;
     DOM.$interactivityBtn.classList.remove("d-none");
-    DOM.$interactivityBtn.style.removeProperty("opacity");
-    DOM.$interactivityBtn.style.removeProperty("color");
+    DOM.$interactivityBtn.classList.remove("noOpacity");
+    DOM.$interactivityBtn.classList.remove("textColor");
     document.getElementById("interactivityBtnText").innerText = "La carte est interactive";
     if (!this.shown) {
       clearTimeout(this.timeoutID1);
       clearTimeout(this.timeoutID2);
       clearTimeout(this.timeoutID3);
       this.timeoutID1 = setTimeout(() => {
-        DOM.$interactivityBtn.style.backgroundColor = "#26A581DD";
-        DOM.$interactivityBtn.style.width = "calc(63px + 12.846rem)";
+        DOM.$interactivityBtn.classList.add("backgroundGreen");
+        DOM.$interactivityBtn.classList.add("widthOn");
         this.timeoutID2 = setTimeout(() => {
-          DOM.$interactivityBtn.style.removeProperty("width");
+          DOM.$interactivityBtn.classList.remove("widthOn");
           this.timeoutID3 = setTimeout(() => {
-            DOM.$interactivityBtn.style.removeProperty("background-color");
+            DOM.$interactivityBtn.classList.remove("backgroundGreen");
           }, 450);
         }, 2000);
       }, 50);
@@ -180,14 +180,14 @@ class InteractivityIndicator {
       clearTimeout(this.timeoutID2);
       clearTimeout(this.timeoutID3);
       this.timeoutID1 = setTimeout(() => {
-        DOM.$interactivityBtn.style.color = "#3F4A55";
-        DOM.$interactivityBtn.style.backgroundColor = "#F4F6F8E5";
-        DOM.$interactivityBtn.style.width = "calc(63px + 15.923rem)";
+        DOM.$interactivityBtn.classList.add("textColor");
+        DOM.$interactivityBtn.classList.add("backgroundWhite");
+        DOM.$interactivityBtn.classList.add("widthOff");
         this.timeoutID2 = setTimeout(() => {
-          DOM.$interactivityBtn.style.removeProperty("width");
+          DOM.$interactivityBtn.classList.remove("widthOff");
           this.timeoutID3 = setTimeout(() => {
-            DOM.$interactivityBtn.style.removeProperty("background-color");
-            DOM.$interactivityBtn.style.opacity = 0;
+            DOM.$interactivityBtn.classList.remove("backgroundWhite");
+            DOM.$interactivityBtn.classList.add("noOpacity");
           }, 450);
         }, 2400);
       }, 50);
