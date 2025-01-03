@@ -91,7 +91,6 @@ class MyAccount {
     Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
       if (resp.value) {
         var localRoutes = JSON.parse(resp.value);
-        console.log(localRoutes);
         this.routes = this.routes.concat(localRoutes.filter( route => !route.type));
         this.#updateSources();
       }

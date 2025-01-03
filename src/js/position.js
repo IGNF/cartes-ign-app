@@ -18,6 +18,7 @@ import ActionSheet from "./action-sheet";
 import PopupUtils from "./utils/popup-utils";
 
 import LoadingDark from "../css/assets/loading-darkgrey.svg";
+import ImmersivePosion from "./immersive-position";
 
 /**
  * Permet d'afficher ma position sur la carte
@@ -82,6 +83,8 @@ class Position {
     this.addressInfoPopup = {
       popup: null
     };
+
+    this.immersivePosition = null;
 
     return this;
   }
@@ -485,6 +488,14 @@ class Position {
       this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation);
       document.getElementById("positionAltitudeSpan").innerText = this.elevation;
     });
+
+    if (type === "myposition") {
+      this.immersivePosition = new ImmersivePosion({lat: this.coordinates.lat, lng: this.coordinates.lon});
+      this.immersivePosition.addEventListener("cityLoaded", (e) => {
+        console.log(e.detail);
+      });
+      this.immersivePosition.computeAll();
+    }
   }
 
   #setShareContent(latitude, longitude, altitude = "") {
@@ -575,6 +586,8 @@ https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=${zoom}`;
     this.elevation = null;
     this.opened = false;
     this.shareContent = null;
+    this.immersivePosition = null;
+
     // nettoyage du DOM
     if (this.container) {
       this.container.remove();
