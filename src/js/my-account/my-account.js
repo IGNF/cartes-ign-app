@@ -93,6 +93,7 @@ class MyAccount {
         var localRoutes = JSON.parse(resp.value);
         console.log(localRoutes);
         this.routes = this.routes.concat(localRoutes.filter( route => !route.type));
+        this.__updateAccountRoutesContainerDOMElement(this.routes);
         this.#updateSources();
       }
     });
@@ -102,6 +103,7 @@ class MyAccount {
       if (resp.value) {
         var localLandmarks = JSON.parse(resp.value);
         this.landmarks = this.landmarks.concat(localLandmarks);
+        this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
         this.#updateSources();
       }
     });
@@ -111,6 +113,7 @@ class MyAccount {
       if (resp.value) {
         var localCompareLandmarks = JSON.parse(resp.value);
         this.compareLandmarks = this.compareLandmarks.concat(localCompareLandmarks);
+        this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
         this.#updateSources();
       }
     });
@@ -855,6 +858,7 @@ class MyAccount {
     try {
       let result;
       if (value === "json") {
+        console.log(JSON.stringify(this.#routeToGeojson(route)));
         result = await Filesystem.writeFile({
           path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.json`,
           data: JSON.stringify(this.#routeToGeojson(route)),
