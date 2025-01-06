@@ -20,6 +20,18 @@ let jsUtils = {
         callback.apply(context, args);
       }, delay);
     };
+  },
+
+  // see https://stackoverflow.com/a/73775602
+  download(filename, text, mimetype="application/json") {
+    var element = document.createElement("a");
+    element.setAttribute("href", `data:${mimetype};charset=utf-8,` + encodeURIComponent(text));
+    element.setAttribute("download", filename);
+
+    element.style.display = "none";
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
   }
 };
 

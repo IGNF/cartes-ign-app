@@ -36,6 +36,7 @@ import CompareLandmarkOrange from "../../css/assets/compareLandmark/compare-land
 import CompareLandmarkGreen from "../../css/assets/compareLandmark/compare-landmark-green.png";
 import CompareLandmarkYellow from "../../css/assets/compareLandmark/compare-landmark-yellow.png";
 import { Capacitor } from "@capacitor/core";
+import jsUtils from "../utils/js-utils";
 
 /**
  * Interface sur la fenêtre du compte
@@ -1029,6 +1030,10 @@ ${props.text}`,
           directory: Directory.Documents,
           encoding: Encoding.UTF8,
         });
+        // For testing purposes
+        if (Capacitor.getPlatform() === "web") {
+          jsUtils.download(`${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`, JSON.stringify(this.#routeToGeojson(route)));
+        }
       } else if (value === "gpx") {
         formatName = "GPX";
         const gpx = GeoJsonToGpx(this.#routeToGeojson(route, "gpx"), {
@@ -1092,6 +1097,10 @@ ${props.text}`,
     let documentsName = "Documents";
     if (Capacitor.getPlatform() === "ios") {
       documentsName = "Fichiers";
+    }
+    // For testing purposes
+    if (Capacitor.getPlatform() === "web") {
+      jsUtils.download(`${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`, JSON.stringify(landmark));
     }
     Filesystem.writeFile({
       path: `${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`,
