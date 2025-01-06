@@ -780,6 +780,9 @@ class RouteDraw {
       this.loading = true;
       try {
         var response = await fetch(url, { signal: this.controller.signal });
+        if (!response.ok) {
+          throw Error;
+        }
         var json = await response.json();
       } catch (err) {
         this.loading = false;
