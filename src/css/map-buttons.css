@@ -71,9 +71,6 @@
   background-image: url("assets/map-buttons/location-disabled.svg");
 }
 
-
-locationFollow
-
 #sideBySideLeftLayer {
   background-image: url("assets/map-buttons/compare/compare-layer-left.svg");
   position: absolute;
