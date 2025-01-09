@@ -193,7 +193,7 @@ class POI {
 
     let rltChecked = "checked";
     // Chargement de la valeut de la checkbox POI RLT
-    if (localStorage.getItem("poirltChecked") !== "checked") {
+    if (localStorage.getItem("poirltChecked") && localStorage.getItem("poirltChecked") !== "checked") {
       rltChecked = "";
     }
 
