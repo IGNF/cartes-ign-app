@@ -144,11 +144,14 @@ class InteractivityIndicator {
     DOM.$interactivityBtn.classList.remove("d-none");
     DOM.$interactivityBtn.classList.remove("noOpacity");
     DOM.$interactivityBtn.classList.remove("textColor");
+    DOM.$interactivityBtn.classList.remove("widthOff");
+    DOM.$interactivityBtn.classList.remove("backgroundWhite");
     document.getElementById("interactivityBtnText").innerText = "La carte est interactive";
     if (!this.shown) {
       clearTimeout(this.timeoutID1);
       clearTimeout(this.timeoutID2);
       clearTimeout(this.timeoutID3);
+      console.log("coucou");
       this.timeoutID1 = setTimeout(() => {
         DOM.$interactivityBtn.classList.add("backgroundGreen");
         DOM.$interactivityBtn.classList.add("widthOn");
@@ -164,8 +167,8 @@ class InteractivityIndicator {
   }
 
   /**
-     * Desactive l'indicateur d'activité
-     */
+   * Desactive l'indicateur d'activité
+   */
   disable () {
     document.getElementById("interactivityBtnText").innerText = "La carte n'est plus interactive";
     if (!Globals.mapInteractivity) {
@@ -182,7 +185,9 @@ class InteractivityIndicator {
       this.timeoutID1 = setTimeout(() => {
         DOM.$interactivityBtn.classList.add("textColor");
         DOM.$interactivityBtn.classList.add("backgroundWhite");
+        DOM.$interactivityBtn.classList.remove("backgroundGreen");
         DOM.$interactivityBtn.classList.add("widthOff");
+        DOM.$interactivityBtn.classList.remove("widthOn");
         this.timeoutID2 = setTimeout(() => {
           DOM.$interactivityBtn.classList.remove("widthOff");
           this.timeoutID3 = setTimeout(() => {
