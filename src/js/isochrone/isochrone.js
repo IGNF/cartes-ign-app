@@ -456,7 +456,6 @@ class Isochrone {
     this.__unsetComputeButtonLoading();
     this.computed = false;
 
-    this.dom.isochroneCompute.classList.add("disabled");
 
     document.querySelectorAll(".inputPOIFilterItem").forEach((el) => {
       var layers = LayersGroup.getGroupLayers(Globals.poi.id).filter((layer) => { return layer.metadata.thematic === el.name; });

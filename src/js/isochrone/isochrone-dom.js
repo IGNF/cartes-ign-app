@@ -146,7 +146,7 @@ let IsochroneDOM = {
 
               </div>
               <!-- bouton de calcul -->
-              <input id="isochroneCompute" class="btnIsochroneCompute disabled" type="submit" value="Valider">
+              <input id="isochroneCompute" class="btnIsochroneCompute disabled" type="submit" value="Calculer">
           </form>
         </div>
     `;
