@@ -159,6 +159,7 @@ class Landmark {
     this.dom.location.value = this.data.locationName;
     Array.from(this.dom.radioColors).filter((el) => el.value == data.color)[0].checked = true;
     Array.from(this.dom.radioIcons).filter((el) => el.value == data.icon)[0].checked = true;
+    this.dom.submitButton.classList.remove("disabled");
   }
 
   /**
