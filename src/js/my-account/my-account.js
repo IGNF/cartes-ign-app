@@ -89,32 +89,28 @@ class MyAccount {
     this.lastCompareLandmarkId = 0;
 
     // récupération des itinéraires enregistrés en local
-    Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
+    let promiseRoutes = Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
       if (resp.value) {
         var localRoutes = JSON.parse(resp.value);
-        console.log(localRoutes);
         this.routes = this.routes.concat(localRoutes.filter( route => !route.type));
-        this.__updateAccountRoutesContainerDOMElement(this.routes);
         this.#updateSources();
       }
     });
 
     // récupération des points de repère enregistrés en local
-    Preferences.get( { key: "savedLandmarks"} ).then( (resp) => {
+    let promiseLandmarks = Preferences.get( { key: "savedLandmarks"} ).then( (resp) => {
       if (resp.value) {
         var localLandmarks = JSON.parse(resp.value);
         this.landmarks = this.landmarks.concat(localLandmarks);
-        this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
         this.#updateSources();
       }
     });
 
     // récupération des points de repère comparer enregistrés en local
-    Preferences.get( { key: "savedCompareLandmarks"} ).then( (resp) => {
+    let promiseCompareLandmarks = Preferences.get( { key: "savedCompareLandmarks"} ).then( (resp) => {
       if (resp.value) {
         var localCompareLandmarks = JSON.parse(resp.value);
         this.compareLandmarks = this.compareLandmarks.concat(localCompareLandmarks);
-        this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
         this.#updateSources();
       }
     });
@@ -145,7 +141,7 @@ class MyAccount {
     });
 
     // récupération des infos et rendu graphique
-    this.compute().then(() => {
+    Promise.all([this.compute(), promiseCompareLandmarks, promiseLandmarks, promiseRoutes]).then(() => {
       // Ajout d'identifiant unique aux routes
       this.routes.forEach((route) => {
         route.id = this.lastRouteId;
@@ -164,6 +160,18 @@ class MyAccount {
       this.render();
       this.#listeners();
       this.#updateSources();
+      Preferences.set({
+        key: "savedRoutes",
+        value: JSON.stringify(this.routes),
+      });
+      Preferences.set({
+        key: "savedLandmarks",
+        value: JSON.stringify(this.landmarks),
+      });
+      Preferences.set({
+        key: "savedCompareLandmarks",
+        value: JSON.stringify(this.compareLandmarks),
+      });
     });
 
     this.#importFileIfAppOpenedFromFile();
