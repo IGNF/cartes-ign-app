@@ -584,7 +584,7 @@ class Directions {
         });
         self.dom.buttonCompute.classList.remove("disabled");
       } else if (self.previewPoints.length === 1) {
-        if (self.dom.inputArrival.value == "Ma position" || self.dom.inputDeparture.value == "Ma position") {
+        if (self.dom.inputArrival.value && self.dom.inputDeparture.value) {
           self.dom.buttonCompute.classList.remove("disabled");
         }
       }

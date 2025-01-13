@@ -165,6 +165,7 @@ class compareLandmark {
     this.dom.title.value = this.data.title;
     this.dom.description.value = this.data.description;
     Array.from(this.dom.radioColors).filter((el) => el.value == data.color)[0].checked = true;
+    this.dom.submitButton.classList.remove("disabled");
   }
 
   /**
