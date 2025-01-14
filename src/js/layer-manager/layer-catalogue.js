@@ -153,6 +153,65 @@ class LayerCatalogue extends EventTarget {
     target.appendChild(container);
   }
 
+  add3DThematicLayers() {
+    var target = this.options.target || document.getElementById("layer-thematics");
+    if (!target) {
+      console.warn();
+      return;
+    }
+    var container = target.querySelector("#thematicLayers");
+
+    var buildings3DLayerHtml = `
+      <div class="layer thematicLayer" id="3D.BUILDINGS">
+        <div class="layerImg">
+          <img src="${ImageNotFound}" alt="Bâtiments 3D" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
+          <div class="layer-badge"></div>
+          <div class="layer-interactive-badge-false"></div>
+        </div>
+        <div class="layer-title-thematic">3D</div>
+        <div id="3d-buildings" class="layer-title">Bâtiments 3D</div>
+      </div>
+      `;
+
+    var buildings3DLayerElement = DomUtils.stringToHTML(buildings3DLayerHtml.trim());
+    buildings3DLayerElement.addEventListener("click", () => {
+      if (buildings3DLayerElement.classList.contains("selectedLayer")) {
+        Globals.threeD.remove3dBuildings();
+        buildings3DLayerElement.classList.remove("selectedLayer");
+      } else {
+        Globals.threeD.add3dBuildings();
+        buildings3DLayerElement.classList.add("selectedLayer");
+      }
+    });
+
+    container.appendChild(buildings3DLayerElement);
+
+    var terrainLayerHtml = `
+      <div class="layer thematicLayer" id="3D.TERRAIN">
+        <div class="layerImg">
+          <img src="${ImageNotFound}" alt="Relief 3D" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
+          <div class="layer-badge"></div>
+          <div class="layer-interactive-badge-false"></div>
+        </div>
+        <div class="layer-title-thematic">3D</div>
+        <div id="3d-terrain" class="layer-title">Relief 3D</div>
+      </div>
+      `;
+
+    var terrainLayerElement = DomUtils.stringToHTML(terrainLayerHtml.trim());
+    terrainLayerElement.addEventListener("click", () => {
+      if (terrainLayerElement.classList.contains("selectedLayer")) {
+        Globals.threeD.remove3dTerrain();
+        terrainLayerElement.classList.remove("selectedLayer");
+      } else {
+        Globals.threeD.add3dTerrain();
+        terrainLayerElement.classList.add("selectedLayer");
+      }
+    });
+
+    container.appendChild(terrainLayerElement);
+  }
+
   /**
    * Ecouteurs
    */

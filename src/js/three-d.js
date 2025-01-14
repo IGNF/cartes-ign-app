@@ -12,7 +12,8 @@ const hillsLayer = {
   type: "hillshade",
   source: "bil-terrain",
   layout: {visibility: "visible"},
-  paint: {"hillshade-shadow-color": "#473B24"}
+  paint: {"hillshade-shadow-color": "#473B24"},
+  metadata: {group: "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"},
 }
 
 /**
@@ -37,8 +38,7 @@ class ThreeD {
     this.map = map;
 
     this.buildingsLayers = [];
-
-    this.on = false;
+    this.terrainOn = false;
 
     return this;
   }
@@ -117,17 +117,25 @@ class ThreeD {
 
     // Set terrain using the custom source
     Globals.map.setTerrain({ source: 'bil-terrain', exaggeration: 1.5 });
-    Globals.map.setSky({
-      "sky-color": "#199EF3",
-      "fog-ground-blend": 0.8,
-    });
+    this.addHillShadeToPlanIgn();
+    this.terrainOn = true;
+  }
+
+  addHillShadeToPlanIgn() {
+    if (Globals.map.getLayer(hillsLayer.id)) {
+      return;
+    }
     // HACK
-    // on positionne toujours le style avant ceux du calcul d'itineraires (directions)
-    // afin que le calcul soit toujours la couche visible du dessus !
-    var layerIndexBefore = Globals.map.getStyle().layers.findIndex((l) => l.source === "maplibre-gl-directions");
+    // on positionne toujours le  layer après la dernière couche de PLAN IGN
+    var beforeId = "detail_hydrographique$$$PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS";
+    if (!Globals.map.getLayer(beforeId)) {
+      return;
+    }
+    var layerIndexBefore = Globals.map.getStyle().layers.findIndex((l) => l.id === beforeId) + 1;
     var layerIdBefore = (layerIndexBefore !== -1) ? Globals.map.getStyle().layers[layerIndexBefore].id : null;
-    Globals.map.addLayer(hillsLayer, layerIdBefore);
-    this.on = true;
+    if (layerIdBefore) {
+      Globals.map.addLayer(hillsLayer, layerIdBefore);
+    }
   }
 
   async add3dBuildings() {
@@ -137,25 +145,25 @@ class ThreeD {
     // HACK
     // on positionne toujours le style avant ceux du calcul d'itineraires (directions)
     // afin que le calcul soit toujours la couche visible du dessus !
-    var layerIndexBefore = Globals.map.getStyle().layers.findIndex((l) => l.source === "maplibre-gl-directions");
+    var layerIndexBefore = Globals.map.getStyle().layers.findIndex((l) => l.source === "maplibre-gl-directions") + 1;
     var layerIdBefore = (layerIndexBefore !== -1) ? Globals.map.getStyle().layers[layerIndexBefore].id : null;
     this.buildingsLayers.forEach((layer) => {
       Globals.map.addLayer(layer, layerIdBefore);
     });
-    this.on = true;
   }
 
   remove3dBuildings() {
     this.buildingsLayers.forEach((layer) => {
       Globals.map.removeLayer(layer.id);
     })
-    this.on = false;
   }
 
   remove3dTerrain() {
     Globals.map.setTerrain();
-    Globals.map.removeLayer(hillsLayer.id);
-    this.on = false;
+    if (Globals.map.getLayer(hillsLayer.id)) {
+      Globals.map.removeLayer(hillsLayer.id);
+    }
+    this.terrainOn = false;
   }
 }
 
