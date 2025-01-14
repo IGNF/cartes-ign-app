@@ -136,6 +136,7 @@ const addControls = () => {
 
     // 3d
     Globals.threeD = new ThreeD(map, {});
+    Globals.manager.layerCatalogue.add3DThematicLayers();
 
     // contrôle filtres POI
     Globals.poi = new POI(map, {});
