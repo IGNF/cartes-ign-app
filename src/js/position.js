@@ -257,6 +257,9 @@ class Position {
         }
         target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
         target.value = this.name;
+        if (Globals.directions.dom.inputArrival.value && Globals.directions.dom.inputDeparture.value) {
+          Globals.directions.dom.buttonCompute.classList.remove("disabled");
+        }
       }
     });
     if (type !== "landmark") {
