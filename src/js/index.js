@@ -87,14 +87,14 @@ function app() {
               Globals.position.compute({ lngLat: center }).then(() => {
                 Globals.menu.open("position");
               });
+              if (Globals.searchResultMarker != null) {
+                Globals.searchResultMarker.remove();
+                Globals.searchResultMarker = null;
+              }
+              Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
+                .setLngLat(center)
+                .addTo(map);
             }
-            if (Globals.searchResultMarker != null) {
-              Globals.searchResultMarker.remove();
-              Globals.searchResultMarker = null;
-            }
-            Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
-              .setLngLat(center)
-              .addTo(map);
             map.once("moveend", () => {
               StatusPopups.getNetworkPopup(map);
               StatusPopups.getEditoPopup(map);

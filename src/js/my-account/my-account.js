@@ -985,7 +985,7 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
    */
   shareCompareLandmark(compareLandmark) {
     let props = compareLandmark.properties;
-    let url = encodeURI(`https://cartes-ign.ign.fr?lng=${compareLandmark.geometry.coordinates[0]}&lat=${compareLandmark.geometry.coordinates[1]}&z=${props.zoom}&l1=${props.layer1}&l2=${props.layer2}&m=${props.mode}&title=${props.accroche}&text=${props.text}&color=${props.color}`.replace(/ /g, "%20"));
+    let url = encodeURI(`https://cartes-ign.ign.fr?lng=${compareLandmark.geometry.coordinates[0]}&lat=${compareLandmark.geometry.coordinates[1]}&z=${props.zoom}&l1=${props.layer1}&l2=${props.layer2}&m=${props.mode}&title=${props.accroche}&text=${props.text}&color=${props.color}`).replace(/ /g, "%20");
     Share.share({
       title: `${props.accroche}`,
       text: `${props.accroche}
