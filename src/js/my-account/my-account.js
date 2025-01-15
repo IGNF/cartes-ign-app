@@ -345,7 +345,7 @@ class MyAccount {
       animation: 200,
       forceFallback: true,
       onEnd : (evt) => {
-        this.setLandmarkPosition(evt.oldDraggableIndex, evt.newDraggableIndex);
+        this.setCompareLandmarkPosition(evt.oldDraggableIndex, evt.newDraggableIndex);
       }
     });
   }
@@ -502,10 +502,6 @@ class MyAccount {
       this.routes.unshift(drawRouteSaveOptions);
     }
     this.__updateAccountRoutesContainerDOMElement(this.routes);
-    Preferences.set({
-      key: "savedRoutes",
-      value: JSON.stringify(this.routes),
-    });
     this.#updateSources();
     let coordinates = [];
     drawRouteSaveOptions.data.steps.forEach((step) => {
@@ -548,10 +544,6 @@ class MyAccount {
       this.landmarks.unshift(newlandmark);
     }
     this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
-    Preferences.set({
-      key: "savedLandmarks",
-      value: JSON.stringify(this.landmarks),
-    });
     this.#updateSources();
   }
 
@@ -574,10 +566,6 @@ class MyAccount {
       this.compareLandmarks.unshift(newlandmark);
     }
     this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
-    Preferences.set({
-      key: "savedCompareLandmarks",
-      value: JSON.stringify(this.compareLandmarks),
-    });
     this.#updateSources();
   }
 
@@ -650,6 +638,7 @@ class MyAccount {
     const route = this.routes[oldIndex];
     this.routes.splice(oldIndex, 1);
     this.routes.splice(newIndex, 0, route);
+    this.#updateSources();
   }
 
   /**
@@ -661,6 +650,19 @@ class MyAccount {
     const landmark = this.landmarks[oldIndex];
     this.landmarks.splice(oldIndex, 1);
     this.landmarks.splice(newIndex, 0, landmark);
+    this.#updateSources();
+  }
+
+  /**
+   * Change l'ordre des points de repère Comparer dans l'objet
+   * @param {*} oldIndex
+   * @param {*} newIndex
+   */
+  setCompareLandmarkPosition(oldIndex, newIndex) {
+    const compareLandmark = this.compareLandmarks[oldIndex];
+    this.compareLandmarks.splice(oldIndex, 1);
+    this.compareLandmarks.splice(newIndex, 0, compareLandmark);
+    this.#updateSources();
   }
 
   /**
@@ -1533,6 +1535,19 @@ ${props.text}`,
     compareLandmarksource.setData({
       type: "FeatureCollection",
       features: this.compareLandmarks,
+    });
+
+    Preferences.set({
+      key: "savedRoutes",
+      value: JSON.stringify(this.routes),
+    });
+    Preferences.set({
+      key: "savedLandmarks",
+      value: JSON.stringify(this.landmarks),
+    });
+    Preferences.set({
+      key: "savedCompareLandmarks",
+      value: JSON.stringify(this.compareLandmarks),
     });
   }
 
