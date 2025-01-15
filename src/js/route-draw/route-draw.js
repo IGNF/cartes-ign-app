@@ -1150,7 +1150,6 @@ class RouteDraw {
   hide() {
     const routeId = this.routeId;
     if (routeId !== null) {
-      console.log(routeId);
       Globals.myaccount.showRouteFromID(routeId);
     }
     Globals.menu.close("routeDraw");

@@ -302,9 +302,9 @@ function addListeners() {
                   coordinates: [center.lng, center.lat],
                 },
                 properties: {
-                  accroche: urlParams.get("title"),
-                  theme: urlParams.get("title"),
-                  text: urlParams.get("text"),
+                  accroche: urlParams.get("title").replace(/%20/g, " "),
+                  theme: urlParams.get("title").replace(/%20/g, " "),
+                  text: urlParams.get("text").replace(/%20/g, " "),
                   zoom: zoom,
                   color: urlParams.get("color"),
                   icon: `compare-landmark-${urlParams.get("color")}`,

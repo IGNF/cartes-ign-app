@@ -12,7 +12,6 @@ let jsUtils = {
   debounce(callback, delay) {
     var timer;
     return function() {
-      console.log(delay);
       var args = arguments;
       var context = this;
       clearTimeout(timer);

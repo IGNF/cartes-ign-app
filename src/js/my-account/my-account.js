@@ -235,7 +235,13 @@ class MyAccount {
       if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
         return;
       }
-      const landmark = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]})[0];
+      const landmarkMap = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]})[0];
+      const landmark = {
+        type: "Feature",
+        id: landmarkMap.id,
+        geometry: landmarkMap.geometry,
+        properties: landmarkMap.properties,
+      };
       const title = `<div id="landmarkPositionTitle" class="divLegendContainer landmarkPosition-${landmark.id}">
         <label class="landmarkSummaryIcon landmarkSummaryIcon${landmark.properties.icon}"
         style="background-color:${landmark.properties.color};
@@ -248,6 +254,7 @@ class MyAccount {
       const deselectLandmarkCallback = () => {
         clearInterval(intervalId);
         landmark.properties.radiusRatio = 0;
+        this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
         this.#updateSources();
       };
       Globals.position.compute({
@@ -870,7 +877,6 @@ class MyAccount {
     try {
       let result;
       if (value === "json") {
-        console.log(JSON.stringify(this.#routeToGeojson(route)));
         result = await Filesystem.writeFile({
           path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.json`,
           data: JSON.stringify(this.#routeToGeojson(route)),
@@ -979,7 +985,7 @@ https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark
    */
   shareCompareLandmark(compareLandmark) {
     let props = compareLandmark.properties;
-    let url = encodeURI(`https://cartes-ign.ign.fr?lng=${compareLandmark.geometry.coordinates[0]}&lat=${compareLandmark.geometry.coordinates[1]}&z=${props.zoom}&l1=${props.layer1}&l2=${props.layer2}&m=${props.mode}&title=${props.accroche}&text=${props.text}&color=${props.color}`.replace(/ /g, "_"));
+    let url = encodeURI(`https://cartes-ign.ign.fr?lng=${compareLandmark.geometry.coordinates[0]}&lat=${compareLandmark.geometry.coordinates[1]}&z=${props.zoom}&l1=${props.layer1}&l2=${props.layer2}&m=${props.mode}&title=${props.accroche}&text=${props.text}&color=${props.color}`.replace(/ /g, "%20"));
     Share.share({
       title: `${props.accroche}`,
       text: `${props.accroche}

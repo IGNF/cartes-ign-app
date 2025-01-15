@@ -151,7 +151,6 @@ class InteractivityIndicator {
       clearTimeout(this.timeoutID1);
       clearTimeout(this.timeoutID2);
       clearTimeout(this.timeoutID3);
-      console.log("coucou");
       this.timeoutID1 = setTimeout(() => {
         DOM.$interactivityBtn.classList.add("backgroundGreen");
         DOM.$interactivityBtn.classList.add("widthOn");

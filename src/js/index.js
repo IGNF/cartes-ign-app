@@ -83,9 +83,11 @@ function app() {
             const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
             map.setCenter(center);
             map.setZoom(parseFloat(urlParams.get("z")) || map.getZoom());
-            Globals.position.compute({ lngLat: center }).then(() => {
-              Globals.menu.open("position");
-            });
+            if (!(urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("text") && urlParams.get("color"))) {
+              Globals.position.compute({ lngLat: center }).then(() => {
+                Globals.menu.open("position");
+              });
+            }
             if (Globals.searchResultMarker != null) {
               Globals.searchResultMarker.remove();
               Globals.searchResultMarker = null;
