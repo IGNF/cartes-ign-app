@@ -446,6 +446,7 @@ class MyAccount {
           imported.properties.locationName = "";
         }
         imported.properties.visible = true;
+        imported.properties.radiusRatio = 0;
         imported.id = -1;
         this.addLandmark(imported);
         document.getElementById("myaccount-landmarks-tab").click();
@@ -1110,11 +1111,19 @@ ${props.text}`,
     }
     // For testing purposes
     if (Capacitor.getPlatform() === "web") {
-      jsUtils.download(`${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`, JSON.stringify(landmark));
+      jsUtils.download(`${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`, JSON.stringify({
+        type: "Feature",
+        geometry: landmark.geometry,
+        properties: landmark.properties,
+      }));
     }
     Filesystem.writeFile({
       path: `${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`,
-      data: JSON.stringify(landmark),
+      data: JSON.stringify({
+        type: "Feature",
+        geometry: landmark.geometry,
+        properties: landmark.properties,
+      }),
       directory: Directory.Documents,
       encoding: Encoding.UTF8,
     }).then(() => {
