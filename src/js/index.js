@@ -29,6 +29,7 @@ import { TextZoom } from "@capacitor/text-zoom";
 import { Device } from "@capacitor/device";
 import { App } from "@capacitor/app";
 import { Preferences } from "@capacitor/preferences";
+import { Toast } from "@capacitor/toast";
 
 // import CSS
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
@@ -81,24 +82,54 @@ function app() {
           const urlParams = new URLSearchParams(url.url.split("?")[1]);
           if (urlParams.get("lng") && urlParams.get("lat")) {
             const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
+            const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
             map.setCenter(center);
-            map.setZoom(parseFloat(urlParams.get("z")) || map.getZoom());
-            if (!(urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("text") && urlParams.get("color"))) {
-              Globals.position.compute({ lngLat: center }).then(() => {
-                Globals.menu.open("position");
-              });
-              if (Globals.searchResultMarker != null) {
-                Globals.searchResultMarker.remove();
-                Globals.searchResultMarker = null;
-              }
-              Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
-                .setLngLat(center)
-                .addTo(map);
-            }
+            map.setZoom(zoom);
             map.once("moveend", () => {
               StatusPopups.getNetworkPopup(map);
               StatusPopups.getEditoPopup(map);
             });
+            if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("color")) {
+              const feature = {
+                type: "Feature",
+                id: -1,
+                geometry: {
+                  type: "Point",
+                  coordinates: [center.lng, center.lat],
+                },
+                properties: {
+                  accroche: urlParams.get("title").replace(/%20/g, " "),
+                  theme: urlParams.get("title").replace(/%20/g, " "),
+                  text: urlParams.get("text").replace(/%20/g, " "),
+                  zoom: zoom,
+                  color: urlParams.get("color"),
+                  icon: `compare-landmark-${urlParams.get("color")}`,
+                  layer1: urlParams.get("l1"),
+                  layer2: urlParams.get("l2"),
+                  mode: urlParams.get("m"),
+                  visible: true,
+                }
+              };
+              Globals.myaccount.addCompareLandmark(feature);
+              Toast.show({
+                duration: "long",
+                text: `Point de repère Comparer "${urlParams.get("title").replace(/%20/g, " ")}" ajouté à 'Enregistrés' et à la carte`,
+                position: "bottom",
+              });
+            } else {
+              map.once("moveend", () => {
+                Globals.position.compute({ lngLat: center }).then(() => {
+                  Globals.menu.open("position");
+                });
+                if (Globals.searchResultMarker != null) {
+                  Globals.searchResultMarker.remove();
+                  Globals.searchResultMarker = null;
+                }
+                Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
+                  .setLngLat(center)
+                  .addTo(map);
+              });
+            }
           }
         }
       }
