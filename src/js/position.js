@@ -18,6 +18,7 @@ import ActionSheet from "./action-sheet";
 import PopupUtils from "./utils/popup-utils";
 
 import LoadingDark from "../css/assets/loading-darkgrey.svg";
+import ImmersivePosion from "./immersive-position";
 
 /**
  * Permet d'afficher ma position sur la carte
@@ -82,6 +83,8 @@ class Position {
     this.addressInfoPopup = {
       popup: null
     };
+
+    this.immersivePosition = null;
 
     return this;
   }
@@ -414,13 +417,13 @@ class Position {
    * @param {string} options.html html situé avant les boutons d'action
    * @param {string} options.html2 html situé après les boutons d'action
    * @param {Function} options.hideCallback fonction de callback pour la fermeture de la position (pour les animations)
-   * @param {string} options.type type de position : default, myposition ou landmark
+   * @param {string} options.type type de position : default, context, myposition ou landmark
    * @public
    */
   async compute(options = {}) {
     const lngLat = options.lngLat || false;
     const text = options.text ||  "Repère placé";
-    const html = options.html || "";
+    let html = options.html || "";
     const html2 = options.html2 || "";
     const hideCallback = options.hideCallback || null;
     const type = options.type || "default";
@@ -441,6 +444,11 @@ class Position {
         text: text
       };
     }
+    this.coordinates = position.coordinates;
+    if (type === "myposition" || type === "context") {
+      this.immersivePosition = new ImmersivePosion({lat: this.coordinates.lat, lng: this.coordinates.lon});
+      html = `<div id="immersivePostionHtmlBefore">${this.immersivePosition.computeHtml()}</div>`;
+    }
 
     this.header = position.text;
     try {
@@ -457,7 +465,6 @@ class Position {
     this.additionalHtml.beforeButtons = html;
     this.additionalHtml.afterButtons = html2;
 
-    this.coordinates = position.coordinates;
     this.address = Reverse.getAddress() || {
       number: "",
       street: "",
@@ -488,6 +495,13 @@ class Position {
       this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation);
       document.getElementById("positionAltitudeSpan").innerText = this.elevation;
     });
+
+    if (type === "myposition" || type === "context") {
+      this.immersivePosition.addEventListener("dataLoaded", () => {
+        document.getElementById("immersivePostionHtmlBefore").innerHTML = this.immersivePosition.computeHtml();
+      });
+      this.immersivePosition.computeAll();
+    }
   }
 
   #setShareContent(latitude, longitude, altitude = "") {
@@ -578,6 +592,8 @@ https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=${zoom}`;
     this.elevation = null;
     this.opened = false;
     this.shareContent = null;
+    this.immersivePosition = null;
+
     // nettoyage du DOM
     if (this.container) {
       this.container.remove();
