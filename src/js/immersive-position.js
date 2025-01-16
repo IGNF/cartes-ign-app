@@ -50,7 +50,7 @@ const queryConfig = [
     attributes: ["nature", "toponyme"],
     geom_name: "geometrie",
     around: 5,
-    additional_cql: "AND categorie='Culture et loisirs'",
+    additional_cql: "AND categorie='Culture et loisirs' AND nature IN ('Abri de montagne', 'Aire de détente', 'Camping', 'Construction', 'Ecomusée', 'Hébergement de loisirs', 'Monument', 'Musée', 'Office de tourisme', 'Parc de loisirs', 'Parc zoologique', 'Point de vue', 'Refuge', 'Vestige archéologique')",
   },
   {
     layer: "BDTOPO_V3:cours_d_eau",
@@ -186,10 +186,13 @@ class ImmersivePosion extends EventTarget {
         }
         feature_attributes.push(feature.properties[attribute]);
       });
-      results_attributes.push(feature_attributes);
+      if (attributes.length === 1) {
+        results_attributes.push(feature_attributes[0]);
+      } else {
+        results_attributes.push(feature_attributes);
+      }
     });
-
-    return results_attributes;
+    return Array.from( new Set(results_attributes) );
   }
 }
 

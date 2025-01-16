@@ -445,7 +445,6 @@ class Position {
       };
     }
     this.coordinates = position.coordinates;
-    console.log(type);
     if (type === "myposition" || type === "context") {
       this.immersivePosition = new ImmersivePosion({lat: this.coordinates.lat, lng: this.coordinates.lon});
       html = `<div id="immersivePostionHtmlBefore">${this.immersivePosition.computeHtml()}</div>`;
