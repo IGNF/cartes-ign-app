@@ -44,24 +44,24 @@ import LayersConfig from "./layer-config";
  */
 class LayerManager extends EventTarget {
   /**
-     * constructeur
-     * @param {*} options -
-     * @param {*} options.target - ...
-     * @param {*} options.layers - ...
-     * @example
-     * new LayerManger({
-     *   layers : [
-     *     layers : "couche1, couche2, ...",
-     *     type : "base" // data ou thematic
-     *   ]
-     * });
-     */
+   * constructeur
+   * @param {*} options -
+   * @param {*} options.target - ...
+   * @param {*} options.layers - ...
+   * @example
+   * new LayerManger({
+   *   layers : [
+   *     layers : "couche1, couche2, ...",
+   *     type : "base" // data ou thematic
+   *   ]
+   * });
+   */
   constructor(options) {
     super();
     this.options = options || {
       /**
-             * ["layerid", "layer2id"]
-             */
+       * ["layerid", "layer2id"]
+       */
       layers : [],
       target : null
     };
