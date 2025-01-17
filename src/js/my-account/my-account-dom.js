@@ -17,6 +17,7 @@ import DomUtils from "../utils/dom-utils";
 let MyAccountDOM = {
   dom: {
     container: null,
+    tabsHeaderWrapper: null,
     routeNumber: null,
     routeTabHeader: null,
     routeTab: null,
@@ -29,6 +30,10 @@ let MyAccountDOM = {
     compareLandmarkTabHeader: null,
     compareLandmarkTab: null,
     compareLandmarkList: null,
+    offlineMapNumber: null,
+    offlineMapTabHeader: null,
+    offlineMapTab: null,
+    offlineMapList: null,
     tabsMenuBtn: null,
   },
 
@@ -39,7 +44,7 @@ let MyAccountDOM = {
    * @returns {DOMElement}
    * @public
    */
-  getContainer(accountName, routes, landmarks, compareLandmarks) {
+  getContainer(accountName, routes, landmarks, compareLandmarks, offlineMaps) {
     // nettoyage
     if (this.dom.container) {
       this.dom.container.remove();
@@ -53,9 +58,12 @@ let MyAccountDOM = {
     this.dom.landmarkList = this.__addAccountLandmarksContainerDOMElement(landmarks);
     // ajout des points de repères RLT
     this.dom.compareLandmarkList = this.__addAccountCompareLandmarksContainerDOMElement(compareLandmarks);
+    // ajout des cartes téléchargées
+    this.dom.offlineMapList = this.__addAccountOfflineMapsContainerDOMElement(offlineMaps);
     this.dom.routeTab.appendChild(this.dom.routeList);
     this.dom.landmarkTab.appendChild(this.dom.landmarkList);
     this.dom.compareLandmarkTab.appendChild(this.dom.compareLandmarkList);
+    this.dom.offlineMapTab.appendChild(this.dom.offlineMapList);
 
     return container;
   },
@@ -109,7 +117,9 @@ let MyAccountDOM = {
     <div class="tabs-wrap">
       <div class="tabs-menu-btn" tabindex="10" title="Sélectionner un onglet"></div>
       <div class="tabs-wrap-tabs">
-        <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-routes-tab" checked="checked"/>
+        <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-offline-maps-tab" checked="checked"/>
+        <label class="tabs-label" for="myaccount-offline-maps-tab">Cartes téléchargées <span id="myaccount-offline-maps-number">0</span></label>
+        <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-routes-tab"/>
         <label class="tabs-label" for="myaccount-routes-tab">Itinéraires <span id="myaccount-routes-number">0</span></label>
         <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-landmarks-tab"/>
         <label class="tabs-label" for="myaccount-landmarks-tab">Points de repère <span id="myaccount-landmarks-number">0</span></label>
@@ -117,6 +127,7 @@ let MyAccountDOM = {
         <label class="tabs-label" for="myaccount-compare-landmarks-tab">Repères Comparer <span id="myaccount-compare-landmarks-number">0</span></label>
       </div>
       <div class="tabs-wrap-content">
+        <div class="tabs-content" id="myaccount-offline-maps"><div id="myAccountDownloadMapBtn">Télécharger une carte</div></div>
         <div class="tabs-content" id="myaccount-routes"><div id="myAccountImportBtnRoutes">Importer</div></div>
         <div class="tabs-content" id="myaccount-landmarks"><div id="myAccountImportBtnLandmarks">Importer</div></div>
         <div class="tabs-content" id="myaccount-compare-landmarks"></div>
@@ -126,6 +137,8 @@ let MyAccountDOM = {
     var container = DomUtils.stringToHTML(tplContainer.trim());
     container.querySelector("#myAccountImportBtnRoutes").addEventListener("click", () => { this.importFile(); });
     container.querySelector("#myAccountImportBtnLandmarks").addEventListener("click", () => { this.importFile(); });
+    container.querySelector("#myAccountDownloadMapBtn").addEventListener("click", () => { this.dowloadMap(); });
+    this.dom.tabsHeaderWrapper = container.querySelector(".tabs-wrap-tabs")
     this.dom.routeTabHeader = container.querySelector("#myaccount-routes-tab");
     this.dom.routeTab = container.querySelector("#myaccount-routes");
     this.dom.routeNumber = container.querySelector("#myaccount-routes-number");
@@ -135,6 +148,9 @@ let MyAccountDOM = {
     this.dom.compareLandmarkTabHeader = container.querySelector("#myaccount-compare-landmarks-tab");
     this.dom.compareLandmarkTab = container.querySelector("#myaccount-compare-landmarks");
     this.dom.compareLandmarkNumber = container.querySelector("#myaccount-compare-landmarks-number");
+    this.dom.offlineMapTabHeader = container.querySelector("#myaccount-offline-maps-tab");
+    this.dom.offlineMapTab = container.querySelector("#myaccount-offline-maps");
+    this.dom.offlineMapNumber = container.querySelector("#myaccount-offline-maps-number");
     this.dom.tabsMenuBtn = container.querySelector(".tabs-menu-btn");
     return container;
   },
@@ -224,6 +240,35 @@ let MyAccountDOM = {
       this.dom.compareLandmarkList.appendChild(this.__addCompareLandmarkContainer(compareLandmarks[i]));
     }
     this.dom.compareLandmarkNumber.innerText = compareLandmarks.length;
+  },
+
+  /**
+   * ajoute le container sur les cartes téléchargées
+   * @param {*} offlineMaps
+   * @returns {DOMElement}
+   * @private
+   */
+  __addAccountOfflineMapsContainerDOMElement(offlineMaps) {
+    var divList = this.dom.container = document.createElement("div");
+    divList.id = "myaccountOfflineMapsList";
+    for (let i = 0; i < offlineMaps.length; i++) {
+      divList.appendChild(this.__addOfflineMapContainer(offlineMaps[i]));
+    }
+    this.dom.offlineMapNumber.innerText = offlineMaps.length;
+    return divList;
+  },
+
+  /**
+   * met à jour le container sur les cartes téléchargées
+   * @param {*} offlineMaps
+   * @private
+   */
+  __updateAccountOfflineMapsContainerDOMElement(offlineMaps) {
+    this.dom.offlineMapList.innerHTML = "";
+    for (let i = 0; i < offlineMaps.length; i++) {
+      this.dom.offlineMapList.appendChild(this.__addOfflineMapContainer(offlineMaps[i]));
+    }
+    this.dom.offlineMapNumber.innerText = offlineMaps.length;
   },
 
   /**
@@ -347,7 +392,7 @@ let MyAccountDOM = {
 
     var invisibleClass = landmark.properties.visible ? "" : "invisible";
 
-    // Template d'une route
+    // Template d'un PR
     var tplContainer = `
       <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="landmark-container_ID_${landmarkId}">
         <div class="handle-draggable-layer" id="landmark-cross-picto_ID_${landmarkId}"></div>
@@ -456,7 +501,7 @@ let MyAccountDOM = {
 
     var invisibleClass = compareLandmark.properties.visible ? "" : "invisible";
 
-    // Template d'une route
+    // Template d'un repère comparer
     var tplContainer = `
       <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="compare-landmark-container_ID_${landmarkId}">
         <div class="handle-draggable-layer" id="compare-landmark-cross-picto_ID_${landmarkId}"></div>
@@ -537,6 +582,79 @@ let MyAccountDOM = {
       }
       container.classList.remove("invisible");
       this.toggleShowLandmark(compareLandmark);
+    });
+
+    if (!container) {
+      console.warn();
+      return;
+    }
+    return container;
+  },
+
+  /**
+   * Ajout d'une entrée pour une carte téléchargée (DOM)
+   * @param {*} offlineMap
+   * @private
+   */
+  __addOfflineMapContainer(offlineMap) {
+    var title = offlineMap.properties.name;
+    var offlineMapId = v.id;
+
+    // Template d'une carte téléchargée
+    var tplContainer = `
+      <div class="tools-layer-panel draggable-layer" id="offline-map-container_ID_${offlineMapId}">
+        <div class="handle-draggable-layer" id="offline-map-cross-picto_ID_${offlineMapId}"></div>
+        <div id="offline-map-basic-tools_ID_${offlineMapId}">
+          <label class="offlineMapSummaryIcon"></label>
+          <div class="wrap-tools-layers">
+            <span id="offline-map-title_ID_${offlineMapId}">${title}</span>
+          </div>
+        </div>
+        <label id="offline-map-show-advanced-tools_ID_${offlineMapId}" title="Plus d'outils" class="tools-layer-advanced" role="button" tabindex="0"></label>
+      </div>
+      `;
+
+    // transformation du container : String -> DOM
+    var container = DomUtils.stringToHTML(tplContainer.trim());
+
+    // Event listener vide pour gestion du touch
+    container.querySelector(".handle-draggable-layer").addEventListener("click", () => { });
+
+    container.querySelector(`#compare-landmark-show-advanced-tools_ID_${offlineMapId}`).addEventListener("click", () => {
+      ActionSheet.show({
+        options: [
+          {
+            class: "tools-layer-edit",
+            text: "Renommer",
+            value: "rename",
+          },
+          {
+            class: "tools-layer-remove confirm-needed",
+            text: "Supprimer",
+            value: "delete",
+            confirmCallback: () => {
+              Toast.show({
+                text: "Confirmez la suppression de la carte",
+                duration: "short",
+                position: "bottom"
+              });
+            }
+          },
+        ],
+        timeToHide: 50,
+      }).then( (value) => {
+        if (value === "rename") {
+          this.renameOfflineMap(offlineMap);
+        }
+        if (value === "delete") {
+          this.deleteOfflineMap(offlineMapId);
+        }
+      });
+    });
+
+    // Au clic sur la carte : zoomer sur l'emprise
+    container.querySelector(`#offline-map-basic-tools_ID_${offlineMapId}`).addEventListener("click", () => {
+      console.log("maplibre map: fly to offline location");
     });
 
     if (!container) {

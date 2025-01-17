@@ -81,6 +81,9 @@ class MyAccount {
     this.landmarks = [];
     this.compareLandmarks = [];
 
+    // cartes téléchargées
+    this.offlineMaps = [];
+
     this.#addSourcesAndLayers();
 
     // Identifiant unique pour les itinéraires
@@ -187,19 +190,34 @@ class MyAccount {
     this.dom.tabsMenuBtn.addEventListener("click", () => {
       const selectOption = (e) => {
         let option = e.detail.value;
+        let left = 0;
         if (option === "routes") {
           this.dom.routeTabHeader.click();
+          left = 180;
         } else if (option === "landmarks") {
           this.dom.landmarkTabHeader.click();
+          left = 300;
         } else if (option === "compare-landmarks") {
           this.dom.compareLandmarkTabHeader.click();
+          left = 500;
+        } else if (option === "offline-maps") {
+          this.dom.offlineMapTabHeader.click();
         }
+        this.dom.tabsHeaderWrapper.scrollTo({
+          left: left,
+          behavior: "smooth",
+        });
       };
       ActionSheet.addEventListener("optionSelect", selectOption);
       ActionSheet.show({
         title: "",
         passive: true,
         options: [
+          {
+            text: "Cartes téléchargées",
+            value: "offline-maps",
+            class: "actionSheetTabOptionOfflineMaps",
+          },
           {
             text: "Itinéraires",
             value: "routes",
@@ -319,7 +337,7 @@ class MyAccount {
       return;
     }
 
-    var container = this.getContainer(this.accountName, this.routes, this.landmarks, this.compareLandmarks);
+    var container = this.getContainer(this.accountName, this.routes, this.landmarks, this.compareLandmarks, this.offlineMaps);
     if (!container) {
       console.warn();
       return;
@@ -493,6 +511,13 @@ class MyAccount {
   }
 
   /**
+   * Lance l'interface de téléchargement de carte hors ligne
+   */
+  dowloadMap() {
+    console.log("Launch map download");
+  }
+
+  /**
    * Ajout d'un itinéraire tracé à l'espace utilisateur
    * @param {*} drawRouteSaveOptions
    */
@@ -635,6 +660,13 @@ class MyAccount {
       this.#updateSources();
       break;
     }
+  }
+
+  /**
+   * Supprime une carte téléchargée de l'epace utilisateur
+   */
+  deleteOfflineMap(offlineMapId) {
+   console.log("Delete offline map with id: " + offlineMapId);
   }
 
   /**
@@ -782,9 +814,9 @@ class MyAccount {
   }
 
   /**
- * Ouvre l'outil de création de point de repère pour le modifer
- * @param {*} compareLandmark
- */
+   * Ouvre l'outil de création de point de repère pour le modifer
+   * @param {*} compareLandmark
+   */
   editCompareLandmark(compareLandmark) {
     if (Location.isTrackingActive()) {
       Location.disableTracking();
@@ -817,6 +849,15 @@ class MyAccount {
       mode: compareLandmark.properties.mode,
     });
     Globals.compareLandmark.setId(compareLandmark.id);
+  }
+
+  /**
+   * Ouvre la fenêtre de renommage de carte hors ligne
+   * @param {*} offlineMap
+   */
+  renameOfflineMap(offlineMap) {
+    console.log("Open custom ActionSheet to rename:");
+    console.log(offlineMap);
   }
 
   /**

@@ -71,11 +71,12 @@
   font-size: 10px;
 }
 
+#myAccountDownloadMapBtn,
 #myAccountImportBtnRoutes,
 #myAccountImportBtnLandmarks,
 #myAccountLogInBtn {
   background-color: var(--light-green);
-  color: #1C7B66;
+  color: var(--darker-green);
   font-family: "Open Sans Semibold";
   width: fit-content;
   padding: 10px 28px;
@@ -84,6 +85,7 @@
   font-size: 14px;
 }
 
+#myAccountDownloadMapBtn,
 #myAccountImportBtnRoutes,
 #myAccountImportBtnLandmarks {
   margin-top: 20px;
@@ -93,6 +95,18 @@
   background-size: 18px;
   background-position: 22px 14px;
 }
+
+#myAccountDownloadMapBtn {
+  background-image: url("assets/download.svg");
+  background-size: 15px;
+}
+
+#myAccountDownloadMapBtn:not(:has(~ div > div)) {
+  background-color: var(--dark-green);
+  color: white;
+  background-image: url("assets/download-white.svg");
+}
+
 
 /* #myAccountImportBtn {
   position: fixed;
@@ -248,15 +262,19 @@
   background-repeat: no-repeat;
 }
 
-body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type(1):checked) .actionSheetTabOptionRoutes {
+body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type(1):checked) .actionSheetTabOptionOfflineMaps {
   background-image: url(assets/checkmark.svg);
 }
 
-body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type(2):checked) .actionSheetTabOptionLandmarks {
+body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type(2):checked) .actionSheetTabOptionRoutes {
   background-image: url(assets/checkmark.svg);
 }
 
-body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type(3):checked) .actionSheetTabOptionCompareLandmarks {
+body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type(3):checked) .actionSheetTabOptionLandmarks {
+  background-image: url(assets/checkmark.svg);
+}
+
+body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type(4):checked) .actionSheetTabOptionCompareLandmarks {
   background-image: url(assets/checkmark.svg);
 }
 
@@ -319,6 +337,27 @@ body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type
   text-align: center;
   font-family: "Open Sans";
 }
+
+#myaccountOfflineMapsList:not(:has(*))::before {
+  content: "Aucune carte n'a été téléchargée";
+  font-size: 15px;
+  color: var(--mid-grey);
+  margin-top: 80px;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+#myaccountOfflineMapsList:not(:has(*))::after {
+  content: "Pour garantir la gratuité de l'application, le téléchargement hosr ligne est disponible uniquement pour le Plan IGN.";
+  font-size: 15px;
+  color: var(--mid-grey);
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-family: "Open Sans";
+}
+
 
 div[id^="compare-landmark-container_ID_"],
 div[id^="landmark-container_ID_"],
