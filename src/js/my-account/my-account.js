@@ -513,8 +513,8 @@ class MyAccount {
   /**
    * Lance l'interface de téléchargement de carte hors ligne
    */
-  dowloadMap() {
-    console.log("Launch map download");
+  downloadMap() {
+    Globals.offlineMaps.open();
   }
 
   /**
