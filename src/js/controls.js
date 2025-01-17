@@ -25,6 +25,7 @@ import DOM from "./dom";
 
 import LocationLayers from "./services/location-styles";
 import compareLandmark from "./compare-landmark";
+import OfflineMaps from "./offline-maps/offline-maps";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -132,6 +133,8 @@ const addControls = () => {
       closeSearchControlCbk : () => { Globals.menu.close("searchLandmark"); },
     });
     Globals.compareLandmark = new compareLandmark(Globals.mapRLT1, Globals.mapRLT2, {});
+
+    Globals.offlineMaps = new OfflineMaps(map, {});
 
     // contrôle filtres POI
     Globals.poi = new POI(map, {});

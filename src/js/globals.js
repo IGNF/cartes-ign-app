@@ -99,6 +99,9 @@ let signalementOSM = null;
 let landmark = null;
 let compareLandmark = null;
 
+// Global control offline maps
+let offlineMaps = null;
+
 // Global flag: is the device connected to the internet?
 let online = (await Network.getStatus()).connected;
 
@@ -156,4 +159,5 @@ export default {
   osmPoiAccessibility,
   landmark,
   compareLandmark,
+  offlineMaps,
 };
