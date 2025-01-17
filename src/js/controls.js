@@ -22,6 +22,7 @@ import SignalementOSM from "./signalement-osm";
 import Landmark from "./landmark";
 import MapboxAccessibility from "./poi-accessibility";
 import DOM from "./dom";
+import ThreeD from "./three-d";
 
 import LocationLayers from "./services/location-styles";
 import compareLandmark from "./compare-landmark";
@@ -132,6 +133,10 @@ const addControls = () => {
       closeSearchControlCbk : () => { Globals.menu.close("searchLandmark"); },
     });
     Globals.compareLandmark = new compareLandmark(Globals.mapRLT1, Globals.mapRLT2, {});
+
+    // 3d
+    Globals.threeD = new ThreeD(map, {});
+    Globals.manager.layerCatalogue.add3DThematicLayers();
 
     // contrôle filtres POI
     Globals.poi = new POI(map, {});

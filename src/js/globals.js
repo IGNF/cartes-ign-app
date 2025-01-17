@@ -98,6 +98,9 @@ let signalementOSM = null;
 let landmark = null;
 let compareLandmark = null;
 
+// Global control 3d
+let threeD = null;
+
 // Global flag: is the device connected to the internet?
 let online = true;
 
@@ -155,4 +158,5 @@ export default {
   osmPoiAccessibility,
   landmark,
   compareLandmark,
+  threeD,
 };
