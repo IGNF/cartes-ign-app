@@ -14,7 +14,7 @@ const hillsLayer = {
   layout: {visibility: "visible"},
   paint: {"hillshade-shadow-color": "#473B24"},
   metadata: {group: "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"},
-}
+};
 
 /**
  * Interface sur le contrôle 3d
@@ -88,7 +88,7 @@ class ThreeD {
         tileSize: 256
       });
 
-      maplibregl.addProtocol("dem", async (params, abortController) => {
+      maplibregl.addProtocol("dem", async (params) => {
         try {
           const { elevations, width, height } = await this.#fetchAndParseXBil(`https://${params.url.split("://")[1]}`);
           const data = new Uint8ClampedArray(width * height * 4);
@@ -109,14 +109,15 @@ class ThreeD {
           return {
             data: imageBitmap
           };
-      } catch (error) {
-        throw error;
-      }
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
       });
     }
 
     // Set terrain using the custom source
-    Globals.map.setTerrain({ source: 'bil-terrain', exaggeration: 1.5 });
+    Globals.map.setTerrain({ source: "bil-terrain", exaggeration: 1.5 });
     this.addHillShadeToPlanIgn();
     this.terrainOn = true;
   }
@@ -155,7 +156,7 @@ class ThreeD {
   remove3dBuildings() {
     this.buildingsLayers.forEach((layer) => {
       Globals.map.removeLayer(layer.id);
-    })
+    });
   }
 
   remove3dTerrain() {
