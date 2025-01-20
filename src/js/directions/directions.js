@@ -31,11 +31,11 @@ import Sortable from "sortablejs";
  */
 class Directions {
   /**
-     * constructeur
-     * @constructs
-     * @param {*} map
-     * @param {*} options
-     */
+   * constructeur
+   * @constructs
+   * @param {*} map
+   * @param {*} options
+   */
   constructor (map, options) {
     this.options = options || {
       target : null,
@@ -204,9 +204,9 @@ class Directions {
   }
 
   /**
-     * creation de l'interface principale
-     * @public
-     */
+   * creation de l'interface principale
+   * @public
+   */
   render () {
     var target = this.options.target || document.getElementById("directionsWindow");
     if (!target) {
@@ -303,8 +303,8 @@ class Directions {
   }
 
   /**
-     * ajout d'ecouteurs pour la saisie interactive
-     */
+   * ajout d'ecouteurs pour la saisie interactive
+   */
   #listeners() {
     this.obj.on("addwaypoint", this.handleAddWayPoint);
     // events
@@ -373,11 +373,11 @@ class Directions {
   }
 
   /**
-     * ecouteur lors de l'ajout d'un point avec addWayPoint()
-     * @see https://maplibre.org/maplibre-gl-directions/api/interfaces/MapLibreGlDirectionsWaypointEventData.html
-     * @param {*} e
-     * @returns
-     */
+   * ecouteur lors de l'ajout d'un point avec addWayPoint()
+   * @see https://maplibre.org/maplibre-gl-directions/api/interfaces/MapLibreGlDirectionsWaypointEventData.html
+   * @param {*} e
+   * @returns
+   */
   #onAddWayPoint(e) {
     var index = e.data.index;
     if (!e.originalEvent) {
@@ -461,9 +461,9 @@ class Directions {
   }
 
   /**
-     * nettoyage du tracé
-     * @public
-     */
+   * nettoyage du tracé
+   * @public
+   */
   clear () {
     this.obj.clear();
     this.obj.off("addwaypoint", this.handleAddWayPoint);
@@ -483,12 +483,12 @@ class Directions {
   // autres méthodes...
   ////////////////////////////////////////////
   /**
-     * listener issu du dom sur l'interface du menu 'search'
-     * @param {*} e
-     * @see MenuDisplay.openSearchDirections()
-     * @see MenuDisplay.closeSearchDirections
-     * @see Geocode
-     */
+   * listener issu du dom sur l'interface du menu 'search'
+   * @param {*} e
+   * @see MenuDisplay.openSearchDirections()
+   * @see MenuDisplay.closeSearchDirections
+   * @see Geocode
+   */
   onOpenSearchLocation (e) {
     // contexte
     var self = this;

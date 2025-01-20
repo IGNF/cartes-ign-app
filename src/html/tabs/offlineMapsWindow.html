@@ -1,0 +1,50 @@
+<div class="d-none" id="offlineMapsWindow">
+  <div id="offlineMapsWindowSelectOnMap" class="d-none">
+    <div>
+      <span>Définir la zone en déplaçant la carte</span>
+      <span id="offlineMapsLocationSelect" tabindex="100" role="button">OK</span>
+    </div>
+    <div class="divPositionAdressOriginInfo">
+      Disponible uniquement pour le Plan IGN
+    </div>
+  </div>
+  <div id="offlineMapsWindowStartDownload" class="d-none">
+    <h3>Votre carte hors ligne est prête</h3>
+    <div>
+      <span>Poids estimé : <span id="offlineMapsEstimatedWeight">0</span> Mo</span>
+      <span id="offlineMapsDownload" tabindex="100" role="button">Télécharger</span>
+    </div>
+    <div class="info">
+      Vérifiez l'espace disponible sur votre téléphone avant de lancer le téléchargement.
+    </div>
+  </div>
+  <div id="offlineMapsWindowDownloading" class="d-none">
+    <h3>Téléchargement de votre carte...</h3>
+    <div>
+      <p><span><span id="offlineMapsCurrentWeight">0</span> Mo</span> / <span>Temps restant estimé : <span id="offlineMapsETAMin">0</span> min <span span id="offlineMapsETASec">0</span> s</span></p>
+    </div>
+    <div id="offlineMapsProgressDiv">
+      <span id="offlineMapsProgressBar"><span id="offlineMapsProgress"></span></span><span id="offlineMapsDLPercent">0</span>%
+    </div>
+    <div class="info">
+      Ne pas quitter durant le chargement. <span id="offlineMapsCancel" tabindex="100" role="button">Annuler</span>
+    </div>
+  </div>
+  <div id="offlineMapsWindowName" class="d-none">
+    <h3>Succès du téléchargement !</h3>
+    Dernière étape, donner un nom à votre carte.
+    <div class="dsign-form-element">
+      <input type="text" id="offlineMaps-title" name="offlineMaps-title" class="landmark-input-text" placeholder=" " title="Nommer votre carte">
+      <label class="dsign-form-label">Nommer votre carte</label>
+    </div>
+    <div id="offlineMapsSave" class="form-submit">Enregistrer</div>
+  </div>
+  <div id="offlineMapsWindowError" class="d-none">
+    <h3>Échec du téléchargement</h3>
+    Vérifiez l'espace disponible sur votre téléphone avant de lancer le téléchargement, ou créez une nouvelle carte.
+    <div>
+      <span id="offlineMapsFailLocation" tabindex="100" role="button">Définir une zone</span>
+      <span id="offlineMapsFailRetry" tabindex="100" role="button">Réessayer</span>
+    </div>
+  </div>
+</div>

@@ -21,11 +21,11 @@ import Signalement from "./signalement";
 import SignalementOSM from "./signalement-osm";
 import Landmark from "./landmark";
 import MapboxAccessibility from "./poi-accessibility";
+import CompareLandmark from "./compare-landmark";
+import OfflineMaps from "./offline-maps";
 import DOM from "./dom";
 
 import LocationLayers from "./services/location-styles";
-import compareLandmark from "./compare-landmark";
-import OfflineMaps from "./offline-maps/offline-maps";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -132,9 +132,19 @@ const addControls = () => {
       openSearchControlCbk : () => { Globals.menu.open("searchLandmark"); },
       closeSearchControlCbk : () => { Globals.menu.close("searchLandmark"); },
     });
-    Globals.compareLandmark = new compareLandmark(Globals.mapRLT1, Globals.mapRLT2, {});
+    Globals.compareLandmark = new CompareLandmark(Globals.mapRLT1, Globals.mapRLT2, {});
 
-    Globals.offlineMaps = new OfflineMaps(map, {});
+    Globals.offlineMaps = new OfflineMaps(map, {
+      // callback sur l'ouverture / fermeture du panneau de recherche
+      openSearchControlCbk : () => {
+        Globals.menu.close("myaccount");
+        Globals.menu.open("searchDownload");
+      },
+      closeSearchControlCbk : () => {
+        Globals.menu.close("searchDownload");
+        Globals.menu.open("offlineMaps");
+      }
+    });
 
     // contrôle filtres POI
     Globals.poi = new POI(map, {});

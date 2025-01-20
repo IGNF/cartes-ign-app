@@ -148,7 +148,7 @@ class RouteDraw {
     this.routeId = null;
 
     // annulation de la reqête fetch
-    this.controller = new AbortController();
+    this.abortController = new AbortController();
 
     // requête en cours d'execution ?
     this.loading = false;
@@ -779,7 +779,7 @@ class RouteDraw {
         });
       this.loading = true;
       try {
-        var response = await fetch(url, { signal: this.controller.signal });
+        var response = await fetch(url, { signal: this.abortController.signal });
         if (!response.ok) {
           throw Error;
         }
@@ -1098,8 +1098,8 @@ class RouteDraw {
     this.__unsetElevationLoading();
     this.deactivate();
     if (this.loading) {
-      this.controller.abort();
-      this.controller = new AbortController();
+      this.abortController.abort();
+      this.abortController = new AbortController();
       this.loading = false;
     }
     this.data = {

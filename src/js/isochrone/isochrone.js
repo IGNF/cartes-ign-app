@@ -89,7 +89,7 @@ class Isochrone {
     this.#render();
 
     // annulation de la reqête fetch
-    this.controller = new AbortController();
+    this.abortController = new AbortController();
 
     // requête en cours d'execution ?
     this.loading = false;
@@ -265,7 +265,7 @@ class Isochrone {
       }));
 
     this.loading = true;
-    var response = await fetch(url, { signal: this.controller.signal });
+    var response = await fetch(url, { signal: this.abortController.signal });
     var responseJson = await response.json();
     var geojson = {
       type: "FeatureCollection",
@@ -429,8 +429,8 @@ class Isochrone {
   clear() {
     // stopper le fetch en cours sur le service
     if (this.loading) {
-      this.controller.abort();
-      this.controller = new AbortController();
+      this.abortController.abort();
+      this.abortController = new AbortController();
       this.loading = false;
     }
     // supprimer la couche isochrone

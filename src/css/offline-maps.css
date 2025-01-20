@@ -1,0 +1,137 @@
+#whiteScreen.downloadOverlay {
+  background-color: rgba(0,0,0,.7);
+  /* Carré de 200px de côté au centre */
+  clip-path: polygon(
+    0% 0%, 0% 100%, calc(50% - 100px) 100%, calc(50% - 100px) calc(50% - 100px),
+    calc(50% + 100px) calc(50% - 100px), calc(50% + 100px) calc(50% + 100px),
+    calc(50% - 100px) calc(50% + 100px), calc(50% - 100px) 100%,
+    100% 100%, 100% 0%
+  );
+  z-index: 2998;
+  height: calc(100vh - 52px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
+  pointer-events: none;
+}
+
+#offlineMapsWindow span[role="button"] {
+  appearance: unset;
+  display: inline-block;
+  border: none;
+  border-radius: 70px;
+  background-color: var(--dark-green);
+  padding: 7px 15px;
+  font-family: "Open Sans Semibold";
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+#offlineMapsSave {
+  appearance: unset; /* for ios */
+  display: block;
+  margin: auto;
+  border: none;
+  border-radius: 70px;
+  background-color: var(--dark-green);
+  padding: 14px 35px;
+  font-family: "Open Sans Semibold";
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  width: fit-content;
+  margin-top: 26px;
+}
+
+#offlineMapsWindowDownloading > div.info,
+#offlineMapsWindowSelectOnMap > div,
+#offlineMapsWindowStartDownload > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#offlineMapsWindowSelectOnMap > .divPositionAdressOriginInfo {
+  margin-top: 15px;
+}
+
+#offlineMapsWindow div.info {
+  border-top: var(--grey-2) solid 1px;
+  margin-top: 16px;
+  padding-top: 16px;
+  font-family: "Open Sans";
+}
+
+#offlineMapsWindowStartDownload span[role="button"] {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  font-size: 14px;
+  padding-left: 40px;
+  background-image: url("assets/download-white.svg");
+  background-repeat: no-repeat;
+  background-size: 15px;
+  background-position: 15px center;
+}
+
+#offlineMapsWindowDownloading span[role="button"] {
+  background-color: var(--light-green);
+  color: var(--darker-green);
+  font-size: 14px;
+  font-family: "Open Sans Semibold";
+  padding: 10px 20px;
+}
+
+#offlineMapsProgressDiv {
+  display: flex;
+  align-items: center;
+}
+
+#offlineMapsProgressBar {
+  width: 100%;
+  display: block;
+  position: relative;
+  background-color: var(--grey-2);
+  height: 8px;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+#offlineMapsProgress {
+  position: absolute;
+  left: 0;
+  height: 8px;
+  border-radius: 4px;
+  background-color: var(--dark-green);
+  width: 0;
+}
+
+#offlineMapsWindow h3 {
+  margin-top: 0;
+}
+
+#offlineMapsWindowName {
+  text-align: center;
+  font-family: "Open Sans";
+}
+
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+  #whiteScreen.downloadOverlay {
+    height: 100vh;
+    z-index: 2997;
+    /* Carré de 200px de côté au centre */
+    clip-path: polygon(
+      0% 0%, 0% 100%, calc(75% - 100px) 100%, calc(75% - 100px) calc(50% - 100px),
+      calc(75% + 100px) calc(50% - 100px), calc(75% + 100px) calc(50% + 100px),
+      calc(75% - 100px) calc(50% + 100px), calc(75% - 100px) 100%,
+      100% 100%, 100% 0%
+    );
+  }
+}
