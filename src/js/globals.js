@@ -45,8 +45,8 @@ let myPositionIconGrey;
 let searchResultIcon;
 
 // Pour l'annulation de fetch
-let controller = new AbortController();
-let signal = controller.signal;
+let searchAbortController = new AbortController();
+let searchAbortSignal = searchAbortController.signal;
 
 // Global Search plugin
 let search = null;
@@ -132,8 +132,8 @@ export default {
   myPositionIcon,
   myPositionIconGrey,
   searchResultIcon,
-  controller,
-  signal,
+  searchAbortController,
+  searchAbortSignal,
   currentScrollIndex,
   maxScroll,
   anchors,

@@ -514,7 +514,12 @@ class MyAccount {
    * Lance l'interface de téléchargement de carte hors ligne
    */
   downloadMap() {
-    Globals.offlineMaps.open();
+    // Place le plan IGN au dessus de la pile des couches
+    const planIgnLayerBtn = document.getElementById("PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS");
+    do {
+      planIgnLayerBtn.click();
+    } while (!planIgnLayerBtn.classList.contains("selectedLayer"));
+    Globals.offlineMaps.openSearchLocation();
   }
 
   /**

@@ -8,7 +8,7 @@
 let results;
 
 /** gestion annulation du fetch */
-let controller = new AbortController();
+let abortController = new AbortController();
 /**
  * Interface pour les evenements
  * @example
@@ -36,7 +36,7 @@ const compute = async (coordinates) => {
 
   clear();
 
-  controller = new AbortController();
+  abortController = new AbortController();
 
   let url = new URL("https://data.geopf.fr/altimetrie/1.0/calcul/alti/rest/elevation.json");
   let params = {
@@ -49,7 +49,7 @@ const compute = async (coordinates) => {
 
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
-  var response = await fetch(url, { signal : controller.signal });
+  var response = await fetch(url, { signal : abortController.signal });
   results = await response.json();
 
   if (response.status !== 200) {
@@ -88,7 +88,7 @@ const getElevation = () => {
 };
 
 const clear = () => {
-  controller.abort();
+  abortController.abort();
   results = null;
 };
 

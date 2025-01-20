@@ -348,7 +348,7 @@ body:has(#myAccountBody > .tabs-wrap > .tabs-wrap-tabs > .tabs-input:nth-of-type
   text-align: center;
 }
 #myaccountOfflineMapsList:not(:has(*))::after {
-  content: "Pour garantir la gratuité de l'application, le téléchargement hosr ligne est disponible uniquement pour le Plan IGN.";
+  content: "Pour garantir la gratuité de l'application, le téléchargement hors ligne est disponible uniquement pour le Plan IGN.";
   font-size: 15px;
   color: var(--mid-grey);
   margin-top: 20px;

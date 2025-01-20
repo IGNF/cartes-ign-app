@@ -75,6 +75,7 @@ const $signalementWindow = document.getElementById("signalementWindow");
 const $signalementOSMWindow = document.getElementById("signalementOSMWindow");
 const $landmarkWindow = document.getElementById("landmarkWindow");
 const $compareLandmarkWindow = document.getElementById("compareLandmarkWindow");
+const $offlineMapsWindow = document.getElementById("offlineMapsWindow");
 
 export default {
   $search,
@@ -136,4 +137,5 @@ export default {
   $map,
   $createCompareLandmarkBtn,
   $compareLandmarkWindow,
+  $offlineMapsWindow,
 };

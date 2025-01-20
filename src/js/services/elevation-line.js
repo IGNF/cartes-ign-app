@@ -10,7 +10,7 @@ import { Capacitor } from "@capacitor/core";
 let results;
 
 /** gestion annulation du fetch */
-let controller = new AbortController();
+let abortController = new AbortController();
 /**
  * Interface pour les evenements
  * @example
@@ -38,7 +38,7 @@ const compute = async (coordinateList) => {
   if (Capacitor.getPlatform() === "ios") {
     await new Promise(res => setTimeout(res, 25));
   }
-  controller = new AbortController();
+  abortController = new AbortController();
   let coordinateListList = [];
   while (coordinateList.length > 1500) {
     coordinateListList.push(coordinateList.splice(0, 1500));
@@ -61,7 +61,7 @@ const compute = async (coordinateList) => {
     promiseList.push(
       fetch(url, {
         method: "POST",
-        signal: controller.signal,
+        signal: abortController.signal,
         body: JSON.stringify(params),
         headers: {
           "accept": "application/json",
@@ -104,7 +104,7 @@ const getElevationLine = () => {
 };
 
 const clear = () => {
-  controller.abort();
+  abortController.abort();
   results = null;
 };
 

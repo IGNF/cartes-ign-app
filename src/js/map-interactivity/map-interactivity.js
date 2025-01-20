@@ -65,7 +65,7 @@ class MapInteractivity {
     this.handleUpdateHighlightedGeom = this.#updateHighlightedGeom.bind(this);
 
     // annulation de la reqête fetch
-    this.controller = new AbortController();
+    this.abortController = new AbortController();
 
     // requête en cours d'execution ?
     this.loading = false;
@@ -386,7 +386,7 @@ class MapInteractivity {
       }
       const response = fetch(
         gfiURL,
-        { signal: this.controller.signal }
+        { signal: this.abortController.signal }
       ).then((response => {return response.json();}), () => {
         throw new Error("GetFeatureInfo : HTTP error");
       }).then((res) => {
@@ -511,8 +511,8 @@ class MapInteractivity {
      */
   clear () {
     if (this.loading) {
-      this.controller.abort();
-      this.controller = new AbortController();
+      this.abortController.abort();
+      this.abortController = new AbortController();
       this.loading = false;
       DOM.$mapCenter.classList.remove("loading");
       DOM.$mapCenter.classList.add("d-none");
