@@ -4527,13 +4527,7 @@
         "VOIE_VERTE_SUP"
       ],
       "paint": {
-        "line-color": [
-          "step",
-          [
-            "zoom"
-          ],
-          "#9B5CCC"
-        ],
+        "line-color": "#9B5CCC",
         "line-opacity": {
           "stops": [
             [
