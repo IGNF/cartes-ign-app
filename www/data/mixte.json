@@ -9,7 +9,7 @@
       "tiles": [
         "https://data.geopf.fr/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf"
       ],
-      "maxzoom": 19
+      "maxzoom": 18
     },
     "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS": {
       "type": "raster",

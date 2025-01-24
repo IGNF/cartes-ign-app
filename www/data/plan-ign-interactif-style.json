@@ -9,7 +9,7 @@
   "sources": {
     "plan_ign": {
       "type": "vector",
-      "maxzoom": 19,
+      "maxzoom": 18,
       "tiles": [
         "https://data.geopf.fr/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf"
       ]
