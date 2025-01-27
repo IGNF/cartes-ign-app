@@ -3087,6 +3087,321 @@
         "theme": "Aménagement du territoire",
         "text": "La colline d’Elancourt baptisée \"colline de la Revanche\" porte bien son surnom ! Jadis petite carrière de pierres meulières (1950’), elle devient une décharge d'ordures ménagères (1970’) puis une casse automobile (1982). L'accumulation des matériaux va donner à la colline sa hauteur et son apparence actuelles pour en faire, de manière totalement artificielle, le point culminant de la région Ile-de-France soit 231m en 1992 !\nLes 28 et 29 juillet 2024, elle devient la plus célèbre des collines en accueillant l’épreuve VTT de Cross-country des Jeux Olympiques. Quel parcours pour ce tas de gravats !\nSource : ign.fr"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.181653",
+          "49.107912"
+        ]
+      },
+      "properties": {
+        "zoom": "17.5",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Metz",
+        "departement": "Moselle",
+        "accroche": "Observez la construction du musée Beaubourg sur le terrain de l’ancienne gare",
+        "theme": "Aménagement du territoire",
+        "text": "La construction du musée débute en 2006 à la place de l'ancienne gare de marchandises. Inauguré en 2010, le Centre Pompidou-Metz fait partie du projet d’aménagement du quartier de l’Amphithéâtre. Son architecture unique est remarquable : l'ensemble de plus de 10 000 m² évoque un vaste chapiteau entouré d'un parvis et d'un jardin.\nLe saviez-vous ? La flèche centrale qui culmine à 77 m est un clin d’œil à la date de création du Centre Pompidou à Paris en 1977.\nSource : metz.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.361010",
+          "43.296465"
+        ]
+      },
+      "properties": {
+        "zoom": "18",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Marseille",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez la construction du MuCEM sur le port marseillais",
+        "theme": "Aménagement du territoire",
+        "text": "Le musée des civilisations de l’Europe et de la Méditerranée (MuCEM) a ouvert ses portes en juin 2013. Situé à l’entrée du port de Marseille, il bénéficie d'un cadre et d'une architecture exceptionnels : le fort Saint-Jean fait partie intégrante du musée auquel il est relié par une passerelle de 115 m. Une seconde passerelle de 70 m assure une continuité dans le parcours urbain entre l’ancien quartier du Panier et le nouveau quartier du \"J4\".  Sources : Mucem"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.370601",
+          "48.851688"
+        ]
+      },
+      "properties": {
+        "zoom": "17",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Paris",
+        "departement": "Paris",
+        "accroche": "Observez la construction de l’Opéra Bastille à la place de l’ancienne gare ",
+        "theme": "Aménagement du territoire",
+        "text": "Le saviez-vous ? L’Opéra Bastille a été construit à la place de l’ancienne gare de la Bastille, en activité de 1859 à 1969, du restaurant la Tour d’Argent et d’un cinéma. Commandé par le président François Mitterrand en 1982 au ministre de la Culture, Jack Lang, ce nouvel opéra moderne est inauguré en 1989 à l’occasion des festivités du bicentenaire de la Révolution française. La grande salle est l’une des plus grandes du monde avec 2 700 places.\nSource : operadeparis.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-0.569528",
+          "47.500203"
+        ]
+      },
+      "properties": {
+        "zoom": "15.8",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Angers",
+        "departement": "Maine-et-Loire",
+        "accroche": "Observez la transformation d’un golf et aérodrome en un parc à thème Terra Bonatica",
+        "theme": "Aménagement du territoire",
+        "text": "Terra Botanica est le premier parc à thème européen dédié au monde végétal. Il a été construit dans le quartier Les Hauts de Saint-Aubin, à la place d'un terrain de golf et de l’ancien aérodrome d’Angers-Avrillé. Ses 18 hectares de jardins, de serres et d’espaces\naquatiques offrent une balade ludique et pédagogique pour toute la famille.\nDominant les basses vallées angevines classées Natura 2000, le parc végétal ne cesse de se diversifier pour proposer des attractions et des spectacles grand public.\nSource : terrabotanica.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "0.366930",
+          "46.664349"
+        ]
+      },
+      "properties": {
+        "zoom": "14.8",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Chasseneuil-du-Poitou",
+        "departement": "Vienne",
+        "accroche": "Observez la naissance du célèbre Futuroscope",
+        "theme": "Aménagement du territoire",
+        "text": "Pensé dès sa création en 1987 comme un outil de développement du territoire par les élus du Département de la Vienne, le Futuroscope est devenu une formidable locomotive pour l’économie, l’emploi et le tourisme de cette terre rurale.\nLe saviez-vous ? Le Futuroscope est le premier grand parc d’attractions inauguré en France, avant le Parc Astérix (1989) et Disneyland (1992).\nSource : futuroscope.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.359585",
+          "43.659060"
+        ]
+      },
+      "properties": {
+        "zoom": "16.2",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Blagnac",
+        "departement": "Haute-Garonne",
+        "accroche": "Observez l’extension de Toulouse-Blagnac pour y construire l’Aeroscopia",
+        "theme": "Aménagement du territoire",
+        "text": "Aeroscopia est un musée dédié à l'aéronautique installé près des immenses hangars d'Airbus. Depuis 2015, il rassemble, sous une halle monumentale, une impressionnante collection d'avions retraçant l'histoire de l'aviation. Au total, une trentaine d'avions historiques, militaires et civils sont exposés sur un espace de 7 200 m², parmi lesquels le concorde, l'A380 et plus récemment l'A380-800.\nSource : metropole.toulouse.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.018656",
+          "43.178025"
+        ]
+      },
+      "properties": {
+        "zoom": "17.2",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2011-2015",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Narbonne",
+        "departement": "Aude",
+        "accroche": "Observez la construction du musée de Narbo Via le long du canal de la Robine",
+        "theme": "Aménagement du territoire",
+        "text": "Le musée Narbo Via est un musée archéologique qui retrace l’histoire romaine du narbonnais. Inauguré en 2021, le musée abrite une collection antique exceptionnelle d'environ 1 300 pièces.\nnarbovia.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.366558",
+          "43.310358"
+        ]
+      },
+      "properties": {
+        "zoom": "18.2",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Marseille ",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez la transformation d’un silo à grains en salle de spectacle",
+        "theme": "Aménagement du territoire",
+        "text": "Le CEPAC Silo est une salle de spectacle de 2 100 places inaugurée en 2011. Elle tire son nom de l’ancien silo à céréales d’Arenc construit en 1924, sauvé de la démolition en 2000 avant d'être reconverti en salle de diffusion. Bâtiment industriel emblématique de Marseille, il est labellisé patrimoine du 20ème siècle en 2004. Cette construction Art déco d’une surface de 16 000 m² participe à la revalorisation du quartier de la Joliette.\nSource : cepacsilo-marseille.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.279331",
+          "45.861844"
+        ]
+      },
+      "properties": {
+        "zoom": "17.5",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Limoges",
+        "departement": "Haute-Vienne",
+        "accroche": "Observez la construction du Zénith de Limoges",
+        "theme": "Aménagement du territoire",
+        "text": "Le Zénith Limoges Métropole est une salle de spectacle construite sur un espace de 51 600 m² pouvant accueillir 6 800 spectateurs. Reconnaissable grâce à son architecture unique, le Zénith est un équipement majeur qui dynamise le territoire.\nLe saviez-vous ? Inauguré en 2007, c'est Michel Polnareff qui y assure le tout premier concert.\nSource : limoges-metropole.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "7.269372",
+          "43.708877"
+        ]
+      },
+      "properties": {
+        "zoom": "18.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Nice",
+        "departement": "Alpes-Maritimes",
+        "accroche": "Observez l’implantation du musée Chagall à Nice",
+        "theme": "Aménagement du territoire",
+        "text": "Le musée national Marc Chagall est inauguré en 1973 par le ministre des Affaires culturelles André Malraux, en présence de l'artiste qui a participé activement à sa conception. A l'origine, le musée accueille 17 toiles illustrant des épisodes de la Bible, puis la collection s'enrichit grâce aux diverses donations. Véritable œuvre d'art, le bâtiment est dessiné par l’ancien collaborateur de Le Corbusier, André Hermant.\nLe saviez-vous ? C'est le premier musée national consacré à un artiste vivant.\nSource : marcchagall.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "0.693292",
+          "47.391220"
+        ]
+      },
+      "properties": {
+        "zoom": "17.7",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Tours",
+        "departement": "Indre-et-Loire",
+        "accroche": "Observez la construction du Palais des Congrès de Tours",
+        "theme": "Aménagement du territoire",
+        "text": "Le projet de construction du Palais des Congrès de Tours remonte à la fin du 19e siècle et a subi de nombreuses modifications au fil du temps. Inauguré finalement en 1993, le bâtiment est un vaisseau de verre de 23 000 m² imaginé par l'architecte de renommée internationale Jean Nouvel. Il est idéalement situé au cœur de la ville de Tours, face à la gare TGV.\nSource : tours-evenements.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-4.519874",
+          "48.387181"
+        ]
+      },
+      "properties": {
+        "zoom": "17.7",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Brest",
+        "departement": "Finistère",
+        "accroche": "Observez la naissance de l’Arena à Brest",
+        "theme": "Aménagement du territoire",
+        "text": "L’Arena de Brest est une salle de spectacle consacrée aux sports et aux loisirs pouvant accueillir jusqu'à 5 000 spectateurs. Son architecture moderne et futuriste est remarquable par sa toiture unique composée de cheminées de ventilation et d’éclairage évoquant la silhouette d'un paquebot.\nLa salle de spectacle ouvre ses portes en 2014 et joue un rôle essentiel dans le développement du quartier de la Rive Droite de Brest.\nSource : brestarena.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.029889",
+          "47.317192"
+        ]
+      },
+      "properties": {
+        "zoom": "17.9",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2011-2015",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Dijon",
+        "departement": "Côtes-d’Or",
+        "accroche": "Observez la naissance de la Cité Internationale de la Gastronomie et du Vin",
+        "theme": "Aménagement du territoire",
+        "text": "Ouverte en 2022, la Cité internationale de la gastronomie et du vin est un projet culturel et touristique majeur, visant à promouvoir l’art de vivre à la française. La Cité s'étend sur 6,5 ha et combine avec harmonie des bâtiments historiques rénovés avec des constructions plus modernes.\nLe saviez-vous ? Ce chantier ambitieux fait suite à la reconnnaissance internationale du Repas gastronomique des Français par l'Unesco en 2010.\nSource : dijon-metropole.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.804007",
+          "50.430250"
+        ]
+      },
+      "properties": {
+        "zoom": "16.7",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Lens",
+        "departement": "Pas-de-Calais",
+        "accroche": "Observez la construction du musée Louvre-Lens sur une ancienne mine de charbon",
+        "theme": "Aménagement du territoire",
+        "text": "Inauguré en 2021, le Louvre-Lens a pour premier objectif de proposer à tous l'accès aux collections nationales du Louvre. Le musée symbolise également la reconversion du bassin minier du Nord Pas-de-Calais puisqu'il a été construit sur une ancienne fosse de charbon.\nLe saviez-vous ? Le Louvre-Lens est devenu le deuxième musée le plus fréquenté en région après le Musée des Confluences à Lyon.\nSource : louvre.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.374270",
+          "45.469096"
+        ]
+      },
+      "properties": {
+        "zoom": "17.8",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-Priest-en-Jarez",
+        "departement": "Loire",
+        "accroche": "Observez la construction du musée d'Art moderne et contemporain de Saint-Étienne Métropole",
+        "theme": "Aménagement du territoire",
+        "text": "Le Musée d'art moderne et contemporain de Saint-Étienne Métropole (MAMC+) ouvre ses portes en 1987. Il est l’un des premiers musées d’art contemporain créé hors de Paris. Construit sur des terres cultivables, le musée dispose de volumes exceptionnels avec 3 000 m² de surfaces d’exposition sur une hauteur de 8 m sous plafond accueillant plus de 20 000 œuvres.\nLe saviez-vous ? La façade dessinée par l'architecte Didier Guichard est habillée d’un quadrillage de céramique noire en hommage au passé minier de la ville. Elle a inspiré l'actuel logo du musée.\nSource : mamc.saint-etienne.fr"
+      }
     }
   ]
 }

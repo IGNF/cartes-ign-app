@@ -55,6 +55,7 @@
     background-position: top left;
     font-family: "Open Sans Semibold";
     font-size: 13px;
+    min-height: 22px;
 }
 
 .divPOIFilterItems {
