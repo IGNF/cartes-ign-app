@@ -1,0 +1,82 @@
+[
+  {
+    "id": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune",
+    "layer": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune",
+    "attributes": ["nom", "population"]
+  },
+  {
+    "id": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement",
+    "layer": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement",
+    "attributes": ["nom"]
+  },
+  {
+    "id": "BDTOPO_V3:parc_ou_reserve",
+    "layer": "BDTOPO_V3:parc_ou_reserve",
+    "attributes": ["nature", "toponyme"],
+    "geom_name": "geometrie"
+  },
+  {
+    "id": "BDTOPO_V3:foret_publique",
+    "layer": "BDTOPO_V3:foret_publique",
+    "attributes": ["toponyme"],
+    "geom_name": "geometrie"
+  },
+  {
+    "id": "BDTOPO_V3:toponymie_lieux_nommes",
+    "layer": "BDTOPO_V3:toponymie_lieux_nommes",
+    "attributes": ["graphie_du_toponyme"],
+    "geom_name": "geometrie",
+    "around": 1,
+    "additional_cql": "AND nature_de_l_objet='Bois'"
+  },
+  {
+    "id": "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale",
+    "layer": "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale",
+    "attributes": ["essence"],
+    "around": 5,
+    "epsg": 2154
+  },
+  {
+    "id": "Essence intesection",
+    "layer": "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale",
+    "attributes": ["essence"],
+    "epsg": 2154
+  },
+  {
+    "id": "RPG.LATEST:parcelles_graphiques",
+    "layer": "RPG.LATEST:parcelles_graphiques",
+    "attributes": ["code_cultu"],
+    "around": 5
+  },
+  {
+    "id": "BDTOPO_V3:zone_d_activite_ou_d_interet",
+    "layer": "BDTOPO_V3:zone_d_activite_ou_d_interet",
+    "attributes": ["nature", "toponyme"],
+    "geom_name": "geometrie",
+    "around": 5,
+    "additional_cql": "AND categorie='Culture et loisirs' AND nature IN ('Abri de montagne', 'Construction', 'Ecomusée', 'Monument', 'Musée', 'Parc de loisirs', 'Parc zoologique', 'Refuge', 'Vestige archéologique')"
+  },
+  {
+    "id": "BDTOPO_V3:zone_d_habitation",
+    "layer": "BDTOPO_V3:zone_d_habitation",
+    "attributes": ["toponyme"],
+    "geom_name": "geometrie",
+    "around": 5,
+    "additional_cql": "AND nature IN ('Château')"
+  },
+  {
+    "id": "BDTOPO_V3:cours_d_eau",
+    "layer": "BDTOPO_V3:cours_d_eau",
+    "attributes": ["toponyme"],
+    "geom_name": "geometrie",
+    "around": 5
+  },
+  {
+    "id": "BDTOPO_V3:plan_d_eau",
+    "layer": "BDTOPO_V3:plan_d_eau",
+    "attributes": ["nature", "toponyme"],
+    "geom_name": "geometrie",
+    "around": 5,
+    "additional_cql": "AND nature IN ('Canal', 'Estuaire', 'Camping', 'Glacier, névé', 'Lac', 'Lagune', 'Mangrove', 'Marais', 'Mare')"
+  }
+]
