@@ -9,6 +9,8 @@ import MyAccountDOM from "./my-account-dom";
 import MyAccountLayers from "./my-account-styles";
 import utils from "../utils/unit-utils";
 import gisUtils from "../utils/gis-utils";
+import jsUtils from "../utils/js-utils";
+import domUtils from "../utils/dom-utils";
 import ActionSheet from "../action-sheet";
 import Location from "../services/location";
 import DOM from "../dom";
@@ -36,7 +38,6 @@ import CompareLandmarkOrange from "../../css/assets/compareLandmark/compare-land
 import CompareLandmarkGreen from "../../css/assets/compareLandmark/compare-landmark-green.png";
 import CompareLandmarkYellow from "../../css/assets/compareLandmark/compare-landmark-yellow.png";
 import { Capacitor } from "@capacitor/core";
-import jsUtils from "../utils/js-utils";
 
 /**
  * Interface sur la fenêtre du compte
@@ -144,7 +145,7 @@ class MyAccount {
     });
 
     // récupération des infos et rendu graphique
-    Promise.all([this.compute(), promiseCompareLandmarks, promiseLandmarks, promiseRoutes]).then(() => {
+    Promise.all([this.compute(), promiseCompareLandmarks, promiseLandmarks, promiseRoutes, Globals.offlineMaps.loadPromise]).then(() => {
       // Ajout d'identifiant unique aux routes
       this.routes.forEach((route) => {
         route.id = this.lastRouteId;
@@ -337,7 +338,7 @@ class MyAccount {
       return;
     }
 
-    var container = this.getContainer(this.accountName, this.routes, this.landmarks, this.compareLandmarks, this.offlineMaps);
+    var container = this.getContainer(this.accountName, this.routes, this.landmarks, this.compareLandmarks, Globals.offlineMaps.getOfflineMapsOrderedList());
     if (!container) {
       console.warn();
       return;
@@ -371,6 +372,15 @@ class MyAccount {
       forceFallback: true,
       onEnd : (evt) => {
         this.setCompareLandmarkPosition(evt.oldDraggableIndex, evt.newDraggableIndex);
+      }
+    });
+    Sortable.create(this.dom.offlineMapList, {
+      handle: ".handle-draggable-layer",
+      draggable: ".draggable-layer",
+      animation: 200,
+      forceFallback: true,
+      onEnd : (evt) => {
+        this.setOfflineMapPosition(parseInt(evt.item.id.split("_")[2]), evt.oldDraggableIndex, evt.newDraggableIndex);
       }
     });
   }
@@ -608,6 +618,13 @@ class MyAccount {
   }
 
   /**
+   * Met à jour l'affichage des cartes en ligne
+   */
+  updateOfflineMaps() {
+    this.__updateAccountOfflineMapsContainerDOMElement(Globals.offlineMaps.getOfflineMapsOrderedList());
+  }
+
+  /**
    * Supprime un itinéraire de l'epace utilisateur
    */
   deleteRoute(routeId) {
@@ -671,7 +688,7 @@ class MyAccount {
    * Supprime une carte téléchargée de l'epace utilisateur
    */
   deleteOfflineMap(offlineMapId) {
-   console.log("Delete offline map with id: " + offlineMapId);
+    Globals.offlineMaps.deleteOfflineMap(offlineMapId);
   }
 
   /**
@@ -708,6 +725,15 @@ class MyAccount {
     this.compareLandmarks.splice(oldIndex, 1);
     this.compareLandmarks.splice(newIndex, 0, compareLandmark);
     this.#updateSources();
+  }
+
+  /**
+   * Change l'ordre des cartes hors ligne
+   * @param {*} offlineMapId
+   * @param {*} newIndex
+   */
+  setOfflineMapPosition(offlineMapId, oldIndex, newIndex) {
+    Globals.offlineMaps.changeMapIndex(offlineMapId, oldIndex, newIndex);
   }
 
   /**
@@ -861,8 +887,30 @@ class MyAccount {
    * @param {*} offlineMap
    */
   renameOfflineMap(offlineMap) {
-    console.log("Open custom ActionSheet to rename:");
-    console.log(offlineMap);
+    const renameOfflineMapDom = domUtils.stringToHTML(`<div id="offlineMapsRenameDiv">
+    <h3>Renommer la carte</h3>
+    <div class="dsign-form-element">
+      <input type="text" id="offlineMapsRename-title" name="offlineMapsRename-title" class="landmark-input-text" placeholder=" " title="Titre">
+      <label class="dsign-form-label">Titre</label>
+    </div>
+    <div id="offlineMapsRenameSave" class="form-submit">Enregistrer</div>
+    </div>`);
+
+    renameOfflineMapDom.querySelector("#offlineMapsRenameSave").addEventListener("click", () => {
+      if (renameOfflineMapDom.querySelector("#offlineMapsRename-title").value) {
+        Globals.offlineMaps.changeOfflineMapName(offlineMap.id, renameOfflineMapDom.querySelector("#offlineMapsRename-title").value);
+        Toast.show({
+          text: "Votre carte a été rennomée",
+          duration: "long",
+          position: "bottom"
+        });
+      }
+      ActionSheet._closeElem.click();
+    });
+    ActionSheet.show({
+      style: "custom",
+      content: renameOfflineMapDom,
+    });
   }
 
   /**

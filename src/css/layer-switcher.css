@@ -1,15 +1,10 @@
-/* test pour transformer une carte en N&B :
-.maplibregl-canvas {
-  filter: grayscale(1);
-}
-*/
-
 #layer-switcher {
   position: relative;
   padding-top: 15px;
   min-height: 160px;
 }
 
+div[id^="offline-map-container_ID_"],
 div[id^="compare-landmark-container_ID_"],
 div[id^="landmark-container_ID_"],
 div[id^="route-container_ID_"],
@@ -28,6 +23,11 @@ div[id^="container_ID_"].invisible > div[id^=basic-tools_ID_] {
   padding-bottom: 20px;
 }
 
+.tools-layer-panel:only-child > .handle-draggable-layer {
+  display: none;
+}
+
+div[id^="offline-map-cross-picto_ID_"],
 div[id^="compare-landmark-cross-picto_ID_"],
 div[id^="landmark-cross-picto_ID_"],
 div[id^="route-cross-picto_ID_"],
@@ -39,6 +39,7 @@ div[id^="cross-picto_ID_"] {
   background: url("./assets/drag-and-drop.svg") center center no-repeat;
 }
 
+div[id^="offline-map-basic-tools_ID_"],
 div[id^="compare-landmark-basic-tools_ID_"],
 div[id^="landmark-basic-tools_ID_"],
 div[id^="route-basic-tools_ID_"],
@@ -49,6 +50,7 @@ div[id^="basic-tools_ID_"] {
   max-width: calc(100% - 70px);
   width: 100%;
 }
+div[id^="offline-map-basic-tools_ID_"],
 div[id^="compare-landmark-basic-tools_ID_"],
 div[id^="landmark-basic-tools_ID_"],
 div[id^="route-basic-tools_ID_"] {
@@ -73,6 +75,7 @@ div[id^="thumbnail_ID_"] {
   max-width: calc(100% - 60px);
 }
 
+span[id^="offline-map-title_ID_"],
 span[id^="compare-landmark-title_ID_"],
 span[id^="landmark-title_ID_"],
 span[id^="route-title_ID_"],
