@@ -116,6 +116,19 @@ const addControls = () => {
     // contrôle d'intéractivité de la carte
     Globals.mapInteractivity = new MapInteractivity(map, {});
 
+    // contrôle cartes hors ligne
+    Globals.offlineMaps = new OfflineMaps(map, {
+      // callback sur l'ouverture / fermeture du panneau de recherche
+      openSearchControlCbk : () => {
+        Globals.menu.close("myaccount");
+        Globals.menu.open("searchDownload");
+      },
+      closeSearchControlCbk : () => {
+        Globals.menu.close("searchDownload");
+        Globals.menu.open("offlineMaps");
+      }
+    });
+
     // compte utilisateur
     Globals.myaccount = new MyAccount(map, {});
 
@@ -133,18 +146,6 @@ const addControls = () => {
       closeSearchControlCbk : () => { Globals.menu.close("searchLandmark"); },
     });
     Globals.compareLandmark = new CompareLandmark(Globals.mapRLT1, Globals.mapRLT2, {});
-
-    Globals.offlineMaps = new OfflineMaps(map, {
-      // callback sur l'ouverture / fermeture du panneau de recherche
-      openSearchControlCbk : () => {
-        Globals.menu.close("myaccount");
-        Globals.menu.open("searchDownload");
-      },
-      closeSearchControlCbk : () => {
-        Globals.menu.close("searchDownload");
-        Globals.menu.open("offlineMaps");
-      }
-    });
 
     // contrôle filtres POI
     Globals.poi = new POI(map, {});

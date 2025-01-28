@@ -15,6 +15,7 @@ import Geocode from "./services/geocode";
 import Location from "./services/location";
 import gisUtils from "./utils/gis-utils";
 import DOM from "./dom";
+import { Toast } from "@capacitor/toast";
 
 /**
  * Average size of vector tiles (plan IGN) by zoom level in MB
@@ -39,7 +40,7 @@ const averageSizeByZoomLevel = {
   16: .016,
   17: .007,
   18: .006,
-}
+};
 
 /**
  * Contrôle pour le téléchargement et la gestion de cartes hors ligne
@@ -69,6 +70,11 @@ class OfflineMaps {
       this.dbPromise = openDB("tile-store", 1, {
         upgrade(db) {
           db.createObjectStore("tiles");
+        }
+      });
+      this.metaDBPromise = openDB("tile-metadata", 1, {
+        upgrade(db) {
+          db.createObjectStore("sets"); // Metadata for sets
         }
       });
     }
@@ -102,9 +108,11 @@ class OfflineMaps {
       cancelBtn : container.querySelector("#offlineMapsCancel"),
       nameScreen : container.querySelector("#offlineMapsWindowName"),
       confirmNameBtn : container.querySelector("#offlineMapsSave"),
+      nameTextInput : container.querySelector("#offlineMaps-title"),
     };
 
     // pour stopper la boucle for de téléchargement en cas d'annulation
+    this.downloadStarted = false;
     this.downloadCanceled = false;
     this.abortController = new AbortController();
 
@@ -122,8 +130,8 @@ class OfflineMaps {
     this.zoomLevels = [];
 
     this.currentOfflineMapID = 0;
-    this.offlineMapsList = [];
-    this.loadOfflineMapMetadata();
+    this.offlineMapsList = {};
+    this.loadPromise = this.loadOfflineMapMetadata();
 
     this.currentName = `Carte téléchargée ${this.currentOfflineMapID + 1}`;
 
@@ -144,6 +152,39 @@ class OfflineMaps {
   hide() {
     this.dom.selectOnMapScreen.classList.add("d-none");
     this.dom.startDownloadScreen.classList.add("d-none");
+  }
+
+  /**
+   * Gets the ordered list of maps metadata by index
+   */
+  getOfflineMapsOrderedList() {
+    const list = Object.values(this.offlineMapsList).sort( (map1, map2) => map1.index - map2.index);
+    return JSON.parse(JSON.stringify(list));
+  }
+
+  /**
+   * Change a map's index
+   */
+  async changeMapIndex(offlineMapID, oldIndex, newIndex) {
+    const offlineMapMetadata = await this.#getOfflineMapMetadata(offlineMapID);
+    offlineMapMetadata.index = newIndex;
+    this.offlineMapsList[offlineMapID] = offlineMapMetadata;
+    this.#saveOfflineMapMetadata(offlineMapMetadata, offlineMapID);
+    for (let key in this.offlineMapsList) {
+      if (parseInt(key) === offlineMapID) {
+        continue;
+      }
+      const mapMetadata = this.offlineMapsList[key];
+      if (mapMetadata.index >= Math.min(newIndex, oldIndex) && mapMetadata.index <= Math.max(newIndex, oldIndex)) {
+        if (oldIndex > newIndex) {
+          mapMetadata.index ++;
+        } else if (oldIndex < newIndex) {
+          mapMetadata.index --;
+        }
+        this.offlineMapsList[parseInt(key)] = mapMetadata;
+        await this.#saveOfflineMapMetadata(mapMetadata, parseInt(key));
+      }
+    }
   }
 
   /**
@@ -169,10 +210,18 @@ class OfflineMaps {
    * Confirms download and closes the menu
    */
   #confirmDownload() {
-    // TODO
+    if (this.dom.nameTextInput.value) {
+      this.changeOfflineMapName(this.currentOfflineMapID - 1, this.dom.nameTextInput.value);
+    }
+    this.dom.nameTextInput.value = "";
     this.dom.nameScreen.classList.add("d-none");
     this.unlockView();
     Globals.menu.close("offlineMaps");
+    Toast.show({
+      text: "Carte hors ligne enregistrée !",
+      duration: "long",
+      position: "bottom"
+    });
   }
 
   /**
@@ -208,6 +257,7 @@ class OfflineMaps {
     this.downloadCanceled = true;
     this.abortController.abort();
     this.abortController = new AbortController();
+    this.downloadStarted = false;
 
     this.deleteOfflineMap(this.currentOfflineMapID);
   }
@@ -246,18 +296,20 @@ class OfflineMaps {
   }
 
   /**
-   * Deletes offline map from id
-   * @param {Number} offlineMapID
-   */
-  deleteOfflineMap(offlineMapID) {
-    // TODO
-  }
-
-  /**
    * loads offline maps metadata from local files
    */
-  loadOfflineMapMetadata() {
-    // TODO
+  async loadOfflineMapMetadata() {
+    this.offlineMapsList = await this.#getAllOfflineMapsMetadata();
+    if (Object.keys(this.offlineMapsList).length) {
+      this.currentOfflineMapID = Math.max(...Object.keys(this.offlineMapsList).map(parseFloat)) + 1;
+      this.currentName = `Carte téléchargée ${this.currentOfflineMapID + 1}`;
+    }
+  }
+
+  async changeOfflineMapName(id, newname) {
+    const offlineMapMetadata = await this.#getOfflineMapMetadata(id);
+    offlineMapMetadata.name = newname;
+    this.#saveOfflineMapMetadata(offlineMapMetadata, id);
   }
 
   /**
@@ -346,8 +398,14 @@ class OfflineMaps {
    * @param {Number} totalTileNumber
    */
   async #downloadTiles(minLng, minLat, maxLng, maxLat, zoomLevels, totalTileNumber) {
+    if (this.downloadStarted) {
+      this.abortController.abort();
+      this.abortController = new AbortController();
+    }
+    this.downloadStarted = true;
     let currentTileNumber = 0;
     const tileList = [];
+    this.totalSize = 0;
     const startTime = new Date().getTime();
     for (const layer of Object.keys(this.urlTemplates)) {
       for (const zoom of zoomLevels) {
@@ -382,6 +440,152 @@ class OfflineMaps {
         }
       }
     }
+    this.downloadStarted = false;
+    if (!this.downloadCanceled) {
+      const metadata = {
+        id: this.currentOfflineMapID,
+        boundinBox: {minLng, minLat, maxLng, maxLat},
+        zoomLevels,
+        tileList,
+        name: this.currentName,
+        size: this.totalSize,
+        timestamp: new Date().getTime(),
+        index: -1,
+      };
+      await this.#saveOfflineMapMetadata(metadata, this.currentOfflineMapID);
+      for (let key in this.offlineMapsList) {
+        const mapMetadata = this.offlineMapsList[key];
+        mapMetadata.index++;
+        await this.#saveOfflineMapMetadata(mapMetadata, parseInt(key));
+      }
+      this.currentOfflineMapID++;
+      this.currentName = `Carte téléchargée ${this.currentOfflineMapID + 1}`;
+    }
+  }
+
+  /**
+   * Saves the metadata of the current tileset
+   */
+  async #saveOfflineMapMetadata(metadata, id) {
+    if (Capacitor.isNativePlatform()) {
+      // Save metadata as a JSON file in Capacitor FileSystem
+      const metadataString = JSON.stringify(metadata);
+      await Filesystem.writeFile({
+        path: `metadata/${id}.json`,
+        data: metadataString,
+        directory: Directory.Data,
+        encoding: Filesystem.Encoding.UTF8
+      });
+    } else {
+      // Save metadata to IndexedDB on web
+      const db = await this.metaDBPromise;
+      await db.put("sets", metadata, id);
+    }
+    this.offlineMapsList[id] = metadata;
+    Globals.myaccount.updateOfflineMaps();
+  }
+
+  /**
+   * Get the metadata of a tileset
+   */
+  async #getOfflineMapMetadata(id) {
+    if (Capacitor.isNativePlatform()) {
+      // Read metadata JSON file from Capacitor FileSystem
+      try {
+        const result = await Filesystem.readFile({
+          path: `metadata/${id}.json`,
+          directory: Directory.Data,
+          encoding: Filesystem.Encoding.UTF8
+        });
+        return JSON.parse(result.data);
+      } catch (error) {
+        console.error(`Failed to read metadata for offlineMap with id "${id}":`, error);
+        return null;
+      }
+    } else {
+      // Retrieve metadata from IndexedDB on web
+      const db = await this.metaDBPromise;
+      return await db.get("sets", id);
+    }
+  }
+
+  /**
+   * Gets the metadata of all tilesets
+   */
+  async #getAllOfflineMapsMetadata() {
+    const results = {};
+    if (Capacitor.isNativePlatform()) {
+      // Read metadata JSON file from Capacitor FileSystem
+      try {
+        const files = await Filesystem.readdir({
+          path: "metadata",
+          directory: Directory.Data,
+        });
+        for (let i = 0; i < files.length; i++) {
+          const id = parseInt(files[i].name.split(".")[0]);
+          results[id] = await this.#getOfflineMapMetadata(id);
+        }
+        return results;
+      } catch (error) {
+        console.error("Failed to read metadata for offlineMaps");
+        return null;
+      }
+    } else {
+      // Retrieve metadata from IndexedDB on web
+      const db = await this.metaDBPromise;
+      const allDbRecords = await db.getAll("sets");
+      for (let i = 0; i < allDbRecords.length; i++) {
+        const id = allDbRecords[i].id;
+        results[id] = await this.#getOfflineMapMetadata(id);
+      }
+      return results;
+    }
+  }
+
+  /**
+   * Deletes offline map from id
+   * @param {Number} offlineMapID
+   */
+  async deleteOfflineMap(offlineMapID) {
+    const toDelete = await this.#getOfflineMapMetadata(offlineMapID);
+    const allMaps = Object.values(await this.#getAllOfflineMapsMetadata());
+    const tileReferences = {};
+    for (let i = 0; i < allMaps.length; i++) {
+      const tileList = allMaps[i].tileList;
+      tileList.forEach( (tileName) => {
+        if ( !(tileName in tileReferences) ) {
+          tileReferences[tileName] = 1;
+        } else {
+          tileReferences[tileName]++;
+        }
+      });
+    }
+    if (window.Capacitor && window.Capacitor.isNativePlatform()) {
+      // Delete metadata JSON file in Capacitor FileSystem
+      try {
+        await Filesystem.deleteFile({
+          path: `metadata/${offlineMapID}.json`,
+          directory: Directory.Data
+        });
+      } catch (error) {
+        console.warn(`Failed to delete metadata for "${offlineMapID}":`, error);
+        return;
+      }
+    } else {
+      // Delete metadata from IndexedDB on web
+      const db = await this.metaDBPromise;
+      await db.delete("sets", offlineMapID);
+    }
+    for (let i = 0; i < toDelete.tileList.length; i++) {
+      if (tileReferences[toDelete.tileList[i]] === 1) {
+        await this.#deleteTile(toDelete.tileList[i]);
+      }
+    }
+    delete this.offlineMapsList[offlineMapID];
+    Object.values(this.offlineMapsList).forEach( (offlineMap) => {
+      offlineMap.index--;
+    });
+    Globals.myaccount.updateOfflineMaps();
   }
 
   /**
@@ -449,9 +653,7 @@ class OfflineMaps {
 
   /**
    * Stores vector tile as a file (mobile) or in indexed DB (web, for testing)
-   * @param {Number} zoom
-   * @param {Number} x
-   * @param {Number} y
+   * @param {String} tilepath
    * @param {string} data base64 string representing the data
    */
   async #storeVectorTile(tilePath, data) {
@@ -468,6 +670,25 @@ class OfflineMaps {
       // Use IndexedDB in web
       const db = await this.dbPromise;
       await db.put("tiles", data, tilePath);
+    }
+  }
+
+  /**
+   * Deletes vector tile
+   * @param {String} tilepath
+   */
+  async #deleteTile(tilePath) {
+    if (Capacitor.isNativePlatform()) {
+      // Use Capacitor FileSystem on mobile
+      const path = `tiles/${tilePath}.pbf`;
+      await Filesystem.deleteFile({
+        path: path,
+        directory: Directory.Data,
+      });
+    } else {
+      // Use IndexedDB in web
+      const db = await this.dbPromise;
+      await db.delete("tiles", tilePath);
     }
   }
 

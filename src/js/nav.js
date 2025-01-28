@@ -781,6 +781,7 @@ class MenuNavigation {
       Globals.currentScrollIndex = 0;
       this.updateScrollAnchors();
       DOM.$rech.value = "";
+      Globals.interactivityIndicator.enable();
       break;
     default:
       break;

@@ -138,7 +138,7 @@ let MyAccountDOM = {
     container.querySelector("#myAccountImportBtnRoutes").addEventListener("click", () => { this.importFile(); });
     container.querySelector("#myAccountImportBtnLandmarks").addEventListener("click", () => { this.importFile(); });
     container.querySelector("#myAccountDownloadMapBtn").addEventListener("click", () => { this.downloadMap(); });
-    this.dom.tabsHeaderWrapper = container.querySelector(".tabs-wrap-tabs")
+    this.dom.tabsHeaderWrapper = container.querySelector(".tabs-wrap-tabs");
     this.dom.routeTabHeader = container.querySelector("#myaccount-routes-tab");
     this.dom.routeTab = container.querySelector("#myaccount-routes");
     this.dom.routeNumber = container.querySelector("#myaccount-routes-number");
@@ -191,7 +191,7 @@ let MyAccountDOM = {
    * @private
    */
   __addAccountLandmarksContainerDOMElement(landmarks) {
-    var divList = this.dom.container = document.createElement("div");
+    var divList = document.createElement("div");
     divList.id = "myaccountLandmarksList";
     for (let i = 0; i < landmarks.length; i++) {
       divList.appendChild(this.__addLandmarkContainer(landmarks[i]));
@@ -220,7 +220,7 @@ let MyAccountDOM = {
    * @private
    */
   __addAccountCompareLandmarksContainerDOMElement(compareLandmarks) {
-    var divList = this.dom.container = document.createElement("div");
+    var divList = document.createElement("div");
     divList.id = "myaccountCompareLandmarksList";
     for (let i = 0; i < compareLandmarks.length; i++) {
       divList.appendChild(this.__addCompareLandmarkContainer(compareLandmarks[i]));
@@ -249,7 +249,7 @@ let MyAccountDOM = {
    * @private
    */
   __addAccountOfflineMapsContainerDOMElement(offlineMaps) {
-    var divList = this.dom.container = document.createElement("div");
+    var divList = document.createElement("div");
     divList.id = "myaccountOfflineMapsList";
     for (let i = 0; i < offlineMaps.length; i++) {
       divList.appendChild(this.__addOfflineMapContainer(offlineMaps[i]));
@@ -597,8 +597,8 @@ let MyAccountDOM = {
    * @private
    */
   __addOfflineMapContainer(offlineMap) {
-    var title = offlineMap.properties.name;
-    var offlineMapId = v.id;
+    var title = offlineMap.name;
+    var offlineMapId = offlineMap.id;
 
     // Template d'une carte téléchargée
     var tplContainer = `
@@ -608,6 +608,10 @@ let MyAccountDOM = {
           <label class="offlineMapSummaryIcon"></label>
           <div class="wrap-tools-layers">
             <span id="offline-map-title_ID_${offlineMapId}">${title}</span>
+            <div id="route-summary-div_ID_${offlineMapId}" class="tools-layer-summary">
+              <label class="offlineMapSummarySize">${Math.round(offlineMap.size * 100) / 100} Mo, </label>
+              <label class="offlineMapSummaryDate">téléchargée le ${(new Date(offlineMap.timestamp)).toLocaleDateString("fr-FR")}</label>
+            </div>
           </div>
         </div>
         <label id="offline-map-show-advanced-tools_ID_${offlineMapId}" title="Plus d'outils" class="tools-layer-advanced" role="button" tabindex="0"></label>
@@ -620,7 +624,7 @@ let MyAccountDOM = {
     // Event listener vide pour gestion du touch
     container.querySelector(".handle-draggable-layer").addEventListener("click", () => { });
 
-    container.querySelector(`#compare-landmark-show-advanced-tools_ID_${offlineMapId}`).addEventListener("click", () => {
+    container.querySelector(`#offline-map-show-advanced-tools_ID_${offlineMapId}`).addEventListener("click", () => {
       ActionSheet.show({
         options: [
           {
@@ -654,7 +658,8 @@ let MyAccountDOM = {
 
     // Au clic sur la carte : zoomer sur l'emprise
     container.querySelector(`#offline-map-basic-tools_ID_${offlineMapId}`).addEventListener("click", () => {
-      console.log("maplibre map: fly to offline location");
+      this.hide();
+      this.map.fitBounds([[offlineMap.boundinBox.minLng, offlineMap.boundinBox.minLat], [offlineMap.boundinBox.maxLng, offlineMap.boundinBox.maxLat]]);
     });
 
     if (!container) {

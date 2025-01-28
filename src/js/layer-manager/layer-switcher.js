@@ -722,7 +722,9 @@ class LayerSwitcher extends EventTarget {
       }
     }
     // Si le layer a enlever est le dernier fond de plan, on ne fait rien
-    if (LayersConfig.getLayerProps(id).base && nbBaseLayers === 1) {
+    // On n'affiche le message que si c'est l'utilisateur qui a fait l'action
+    // (si on est en mode "myaccount", c'est le téléchargeur de carte qui est à l'origine du clic)
+    if (LayersConfig.getLayerProps(id).base && nbBaseLayers === 1 && Globals.backButtonState !== "myaccount") {
       Toast.show({
         text: "Impossible d'enlever le seul fond de carte",
         duration: "short",

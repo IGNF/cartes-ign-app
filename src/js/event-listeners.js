@@ -298,7 +298,6 @@ function addListeners() {
           const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
           const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
           map.flyTo({zoom: zoom, center: center});
-          console.log((urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("color")));
           if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("color")) {
             const feature = {
               type: "Feature",

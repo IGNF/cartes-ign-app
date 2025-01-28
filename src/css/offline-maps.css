@@ -28,6 +28,7 @@
   line-height: normal;
 }
 
+#offlineMapsRenameDiv > .form-submit,
 #offlineMapsSave {
   appearance: unset; /* for ios */
   display: block;
@@ -121,6 +122,11 @@
   text-align: center;
   font-family: "Open Sans";
 }
+
+#offlineMapsRenameDiv > h3 {
+  text-align: center;
+}
+
 
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #whiteScreen.downloadOverlay {
