@@ -775,6 +775,39 @@ class MyAccount {
   }
 
   /**
+   * Ouvre l'interface de téléchargement autour de l'itinéraire
+   * @param {*} route
+   */
+  downloadRoute(route) {
+    let coordinates = [];
+    route.data.steps.forEach((step) => {
+      coordinates = coordinates.concat(step.geometry.coordinates);
+    });
+    const bounds = coordinates.reduce((bounds, coord) => {
+      return bounds.extend(coord);
+    }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+
+    const mapPadding = {};
+    if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      mapPadding.bottom = this.map.getContainer().offsetHeight / 2 - 85;
+      mapPadding.top = this.map.getContainer().offsetHeight / 2 - 85;
+      mapPadding.left = this.map.getContainer().offsetWidth / 2 - 85;
+      mapPadding.right = this.map.getContainer().offsetWidth / 2 - 85;
+    } else {
+      mapPadding.bottom = (3 * this.map.getContainer().offsetWidth / 4) - 85;
+      mapPadding.top = (3 * this.map.getContainer().offsetWidth / 4) - 85;
+      mapPadding.left = (this.map.getContainer().offsetHeight / 2) - 85;
+      mapPadding.right = (this.map.getContainer().offsetHeight / 2) - 85;
+    }
+    this.map.fitBounds(bounds, {
+      padding: mapPadding,
+    });
+    this.map.once("moveend", () => { this.map.setPadding({top: 0, right: 0, bottom: 0, left: 0}); });
+    this.hide();
+    Globals.menu.open("offlineMaps");
+  }
+
+  /**
    * Ouvre l'outil de tracé d'itinéraire pour modifier un itinéraire à partir de son ID
    * @param {Number} routeId
    */

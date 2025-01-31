@@ -164,6 +164,12 @@ div[id^="opacity-middle-div_ID_"] {
   background-image: url("./assets/layer-switcher/share-layer.svg");
 }
 
+.tools-layer-download {
+  background-image: url("./assets/layer-switcher/download-layer.svg");
+}
+
+
+.tools-layer-download,
 .tools-layer-color,
 .tools-layer-visibility,
 .tools-layer-info,
