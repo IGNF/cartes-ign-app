@@ -144,7 +144,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$bottomButtons.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
-      Globals.currentScrollIndex = 1;
+      Globals.currentScrollIndex = 2;
       DOM.$whiteScreen.classList.remove("d-none");
       DOM.$whiteScreen.classList.add("downloadOverlay");
       // Si ouver via "selectionner sur la carte"

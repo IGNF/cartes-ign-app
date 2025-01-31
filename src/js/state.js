@@ -187,6 +187,10 @@ const onBackKeyDown = () => {
   if (backState === "offlineMapsName") {
     return;
   }
+  if (backState === "offlineMapsFailed") {
+    Globals.offlineMaps.show();
+    return;
+  }
   if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenAccessibility"].includes(backState)) {
     const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
     $informationsScreenMenu.style.removeProperty("margin-left");
