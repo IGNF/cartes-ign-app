@@ -312,6 +312,11 @@ let MyAccountDOM = {
       ActionSheet.show({
         options: [
           {
+            class: "tools-layer-download",
+            text: "Télecharger le plan",
+            value: "download",
+          },
+          {
             class: "tools-layer-share",
             text: "Partager",
             value: "share",
@@ -365,6 +370,9 @@ let MyAccountDOM = {
         }
         if (value === "delete") {
           this.deleteRoute(routeId);
+        }
+        if (value === "download") {
+          this.downloadRoute(route);
         }
       });
     });
