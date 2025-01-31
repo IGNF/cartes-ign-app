@@ -28,6 +28,7 @@
   line-height: normal;
 }
 
+#offlineMapsWindowError > div > span[role="button"],
 #offlineMapsRenameDiv > .form-submit,
 #offlineMapsSave {
   appearance: unset; /* for ios */
@@ -47,6 +48,32 @@
   white-space: nowrap;
   width: fit-content;
   margin-top: 26px;
+}
+
+#offlineMapsWindowError > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#offlineMapsWindowError > div > span[role="button"] {
+  max-width: 45%;
+  margin: unset;
+  margin-top: 15px;
+  font-size: 14px ;
+  padding: 14px 17px;
+}
+
+#offlineMapsWindowError > div > span[role="button"]#offlineMapsFailLocation {
+  background-color: var(--light-green);
+  color: var(--darker-green);
+}
+
+#offlineMapsWindowError > div > span[role="button"]#offlineMapsFailRetry {
+  padding-left: 40px;
+  background-image: url("assets/download-white.svg");
+  background-repeat: no-repeat;
+  background-position: 15px center;
 }
 
 #offlineMapsWindowDownloading > div.info,

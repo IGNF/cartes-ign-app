@@ -109,6 +109,9 @@ class OfflineMaps {
       nameScreen : container.querySelector("#offlineMapsWindowName"),
       confirmNameBtn : container.querySelector("#offlineMapsSave"),
       nameTextInput : container.querySelector("#offlineMaps-title"),
+      failedWindow : container.querySelector("#offlineMapsWindowError"),
+      failedWindowChangeLocationBtn : container.querySelector("#offlineMapsFailLocation"),
+      failedWindowRetryBtn : container.querySelector("#offlineMapsFailRetry"),
     };
 
     // pour stopper la boucle for de téléchargement en cas d'annulation
@@ -143,6 +146,11 @@ class OfflineMaps {
    * Opens the interface to download a map
    */
   show() {
+    Globals.backButtonState = "offlineMaps";
+    this.unlockView();
+    DOM.$backTopLeftBtn.classList.remove("d-none");
+    DOM.$tabClose.classList.remove("d-none");
+    this.dom.failedWindow.classList.add("d-none");
     this.dom.selectOnMapScreen.classList.remove("d-none");
   }
 
@@ -204,6 +212,8 @@ class OfflineMaps {
     this.dom.startDownloadBtn.addEventListener("click", this.#startDownload.bind(this));
     this.dom.cancelBtn.addEventListener("click", this.#cancelDownload.bind(this));
     this.dom.confirmNameBtn.addEventListener("click", this.#confirmDownload.bind(this));
+    this.dom.failedWindowChangeLocationBtn.addEventListener("click", this.show.bind(this));
+    this.dom.failedWindowRetryBtn.addEventListener("click", this.#lockView.bind(this));
   }
 
   /**
@@ -231,6 +241,8 @@ class OfflineMaps {
     DOM.$backTopLeftBtn.classList.add("d-none");
     DOM.$tabClose.classList.add("d-none");
     Globals.backButtonState = "offlineMapsDownloading";
+    Globals.currentScrollIndex = 2;
+    Globals.menu.updateScrollAnchors();
 
     this.dom.startDownloadScreen.classList.add("d-none");
     this.dom.downloadingScreen.classList.remove("d-none");
@@ -267,9 +279,12 @@ class OfflineMaps {
    */
   #lockView() {
     this.dom.selectOnMapScreen.classList.add("d-none");
+    this.dom.failedWindow.classList.add("d-none");
     this.dom.startDownloadScreen.classList.remove("d-none");
     this.map.getContainer().style.pointerEvents = "none";
     Globals.backButtonState = "offlineMapsLocked";
+    Globals.currentScrollIndex = 2;
+    Globals.menu.updateScrollAnchors();
     this.#getOfflineMapsBbox();
     [this.totalTileNumber, this.estimatedSize] = this.#computeTileNumberAndTotalSize(this.minLng, this.minLat, this.maxLng, this.maxLat, this.zoomLevels);
     this.dom.estimatedWeight.innerText = this.estimatedSize;
@@ -293,6 +308,19 @@ class OfflineMaps {
     this.dom.downloadingScreen.classList.add("d-none");
     this.dom.nameScreen.classList.remove("d-none");
     Globals.backButtonState = "offlineMapsName";
+    Globals.currentScrollIndex = 2;
+    Globals.menu.updateScrollAnchors();
+  }
+
+  /**
+   * opens failed window
+   */
+  #openFailedWindow() {
+    this.dom.downloadingScreen.classList.add("d-none");
+    this.dom.failedWindow.classList.remove("d-none");
+    Globals.backButtonState = "offlineMapsFailed";
+    Globals.currentScrollIndex = 2;
+    Globals.menu.updateScrollAnchors();
   }
 
   /**
@@ -415,26 +443,33 @@ class OfflineMaps {
           for (let y = maxTile.y; y <= minTile.y && !this.downloadCanceled; y++) {
             currentTileNumber++;
             const url = this.urlTemplates[layer].replace("{z}", zoom).replace("{x}", x).replace("{y}", y);
-            const response = await fetch(url, {signal: this.abortController.signal});
-            if (response.ok) {
-              const blob = await response.blob();
-              const arrayBuffer = await blob.arrayBuffer();
-              const data = this.#arrayBufferToBase64(arrayBuffer);
-              const tilePath = `${layer}/${zoom}/${x}/${y}`;
-              await this.#storeVectorTile(tilePath, data);
-              this.totalSize += data.length / 1e6;
-              tileList.push(tilePath);
-              // DOM update
-              this.dom.currentWeight.innerText = Math.round(this.totalSize * 100) / 100;
-              this.dom.DLPercent.innerText = Math.round((10000 * currentTileNumber / (totalTileNumber * Object.keys(this.urlTemplates).length)) / 100);
-              const currentTime = new Date().getTime();
-              const currentSpeed = currentTileNumber / (currentTime - startTime);
-              const estimatedRemainingMs = (totalTileNumber / currentSpeed) - (currentTime - startTime);
-              const estimatedRemainingMin = Math.floor(estimatedRemainingMs / 60000);
-              const estimatedRemainingSec = Math.floor(estimatedRemainingMs / 1000) - estimatedRemainingMin * 60;
-              this.dom.ETAMin.innerText = estimatedRemainingMin;
-              this.dom.ETASec.innerText = estimatedRemainingSec;
-              this.dom.progress.style.width = `${Math.round((10000 * currentTileNumber / (totalTileNumber * Object.keys(this.urlTemplates).length)) / 100)}%`;
+            try {
+              const response = await fetch(url, {signal: this.abortController.signal});
+              if (response.ok) {
+                const blob = await response.blob();
+                const arrayBuffer = await blob.arrayBuffer();
+                const data = this.#arrayBufferToBase64(arrayBuffer);
+                const tilePath = `${layer}/${zoom}/${x}/${y}`;
+                await this.#storeVectorTile(tilePath, data);
+                this.totalSize += data.length / 1e6;
+                tileList.push(tilePath);
+                // DOM update
+                this.dom.currentWeight.innerText = Math.round(this.totalSize * 100) / 100;
+                this.dom.DLPercent.innerText = Math.round((10000 * currentTileNumber / (totalTileNumber * Object.keys(this.urlTemplates).length)) / 100);
+                const currentTime = new Date().getTime();
+                const currentSpeed = currentTileNumber / (currentTime - startTime);
+                const estimatedRemainingMs = (totalTileNumber / currentSpeed) - (currentTime - startTime);
+                const estimatedRemainingMin = Math.floor(estimatedRemainingMs / 60000);
+                const estimatedRemainingSec = Math.floor(estimatedRemainingMs / 1000) - estimatedRemainingMin * 60;
+                this.dom.ETAMin.innerText = estimatedRemainingMin;
+                this.dom.ETASec.innerText = estimatedRemainingSec;
+                this.dom.progress.style.width = `${Math.round((10000 * currentTileNumber / (totalTileNumber * Object.keys(this.urlTemplates).length)) / 100)}%`;
+              }
+            } catch (err) {
+              this.abortController.abort();
+              this.abortController = new AbortController();
+              this.downloadCanceled = true;
+              this.#openFailedWindow();
             }
           }
         }
