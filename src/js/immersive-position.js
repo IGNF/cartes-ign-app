@@ -6,7 +6,11 @@
 
 import queryConfig from "./data-layer/immersvie-position-config.json";
 import code_cultuCaption from "./data-layer/code_cultu-caption.json";
+import code_tfvCaption from "./data-layer/code_tfv-caption.json";
+
+import maplibregl from "maplibre-gl";
 import proj4 from "proj4";
+
 proj4.defs("EPSG:2154","+proj=lcc +lat_0=46.5 +lon_0=3 +lat_1=49 +lat_2=44 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
 
 /**
@@ -30,6 +34,9 @@ class ImmersivePosion extends EventTarget {
     this.lng = this.options.lng;
 
     this.data = {};
+    this.hasFeuillu = false;
+    this.hasConnifere = false;
+    this.hasNatural2000 = false;
   }
 
   /**
@@ -37,9 +44,27 @@ class ImmersivePosion extends EventTarget {
    */
   computeHtml() {
     let htmlTemplate = `
-      <p>Localisation</p>
-      <p>Vous êtes sur la commune de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][0] : "chargement..."} (${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][1] : "chargement..."} habitants), du département de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"][0] : "chargement..."}</p>
+      <p>&#x1F3D8;&#xFE0F; Vous êtes sur la commune de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][0] : "chargement..."}, qui compte ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][1] : "chargement..."} habitants, située dans le département de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"][0] : "chargement..."}</p>
     `;
+
+    if (this.data["BDTOPO_V3:parc_ou_reserve"] && this.data["BDTOPO_V3:parc_ou_reserve"].length) {
+      let parcHtml = "<p>";
+      for (let i = 0; i < this.data["BDTOPO_V3:parc_ou_reserve"].length; i++) {
+        let egalementStr = i === 0 ? "" : "également ";
+        if (["Parc naturel régional", "Parc national"].includes(this.data["BDTOPO_V3:parc_ou_reserve"][i][0])) {
+          parcHtml += `&#x1F3DE;&#xFE0F; Vous êtes ${egalementStr}situé au sein du ${this.data["BDTOPO_V3:parc_ou_reserve"][i][1]}. `;
+        } else if (["Réserve naturelle"].includes(this.data["BDTOPO_V3:parc_ou_reserve"][i][0])) {
+          parcHtml += `Vous êtes ${egalementStr}situé au sein de la ${this.data["BDTOPO_V3:parc_ou_reserve"][i][1]}. `;
+        } else if (this.data["BDTOPO_V3:parc_ou_reserve"][i][0] === "Site Natura 2000") {
+          let name = this.data["BDTOPO_V3:parc_ou_reserve"].length === 1 ? ` (${this.data["BDTOPO_V3:parc_ou_reserve"][i][1]})` : "";
+          parcHtml += `Vous êtes sur un site classé Natura 2000${name} où la faune et la flore sont protégés.`;
+        } else {
+          parcHtml += `Vous êtes ${egalementStr}situé au sein du/de la ${this.data["BDTOPO_V3:parc_ou_reserve"][i][0]} de ${this.data["BDTOPO_V3:parc_ou_reserve"][i][1]}. `;
+        }
+      }
+      parcHtml += "</p>";
+      htmlTemplate += parcHtml;
+    }
 
     if (this.data["BDTOPO_V3:foret_publique"] && this.data["BDTOPO_V3:foret_publique"].length) {
       let forestHTML;
@@ -55,65 +80,6 @@ class ImmersivePosion extends EventTarget {
       htmlTemplate += forestHTML;
     }
 
-    if (this.data["BDTOPO_V3:parc_ou_reserve"] && this.data["BDTOPO_V3:parc_ou_reserve"].length) {
-      let parcHtml = `
-        <p>Vous êtes situé au sein ${this.data["BDTOPO_V3:parc_ou_reserve"][0][0]} de ${this.data["BDTOPO_V3:parc_ou_reserve"][0][1]}.
-      `;
-      if (this.data["BDTOPO_V3:parc_ou_reserve"][0][0] === "Site Natura 2000") {
-        parcHtml += " Vous êtes sur un site classé Natura 2000 où la faune et la flore sont protégés.";
-      }
-      parcHtml += "</p>";
-      htmlTemplate += parcHtml;
-    }
-
-    htmlTemplate += "<p>Alentours</p>";
-
-    if (this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"] && this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"].length) {
-      let plantHtml;
-      if (this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"].length === 1) {
-        plantHtml = `
-          <p>Aux alentous, l'essence principale des bois et fôrets est ${this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"][0]}
-        `;
-      } else {
-        let essenceList = "";
-        for (let i = 0; i < this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"].length - 1; i++) {
-          essenceList += this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"][i] + ", ";
-        }
-        essenceList += " et " + this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"][this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"].length - 1];
-        plantHtml = `
-          <p>Aux alentous, les essences principales des bois et forêts sont ${essenceList}
-        `;
-      }
-      if (this.data["RPG.LATEST:parcelles_graphiques"] && this.data["RPG.LATEST:parcelles_graphiques"].length) {
-        let cultureList = "";
-        if (this.data["RPG.LATEST:parcelles_graphiques"].length === 1) {
-          cultureList = this.data["RPG.LATEST:parcelles_graphiques"][0];
-        } else {
-          for (let i = 0; i < this.data["RPG.LATEST:parcelles_graphiques"].length - 1; i++) {
-            cultureList += this.data["RPG.LATEST:parcelles_graphiques"][i] + ", ";
-          }
-          cultureList += " et " + this.data["RPG.LATEST:parcelles_graphiques"][this.data["RPG.LATEST:parcelles_graphiques"].length - 1];
-        }
-        plantHtml += ` et les cultures agricoles sont ${cultureList}`;
-      }
-      plantHtml += ".</p>";
-
-      htmlTemplate += plantHtml;
-
-    } else if (this.data["RPG.LATEST:parcelles_graphiques"] && this.data["RPG.LATEST:parcelles_graphiques"].length) {
-      let cultureList = "";
-      if (this.data["RPG.LATEST:parcelles_graphiques"].length === 1) {
-        cultureList = this.data["RPG.LATEST:parcelles_graphiques"][0];
-      } else {
-        for (let i = 0; i < this.data["RPG.LATEST:parcelles_graphiques"].length - 1; i++) {
-          cultureList += this.data["RPG.LATEST:parcelles_graphiques"][i] + ", ";
-        }
-        cultureList += " et " + this.data["RPG.LATEST:parcelles_graphiques"][this.data["RPG.LATEST:parcelles_graphiques"].length - 1];
-      }
-      const plantHtml = `Aux alentours, les cultures agricoles sont ${cultureList}.</p>`;
-      htmlTemplate += plantHtml;
-    }
-
     if (this.data["BDTOPO_V3:toponymie_lieux_nommes"] && this.data["BDTOPO_V3:toponymie_lieux_nommes"].length) {
       let boisList = this.data["BDTOPO_V3:toponymie_lieux_nommes"][0];
       for (let i = 1; i < this.data["BDTOPO_V3:toponymie_lieux_nommes"].length; i++) {
@@ -121,6 +87,48 @@ class ImmersivePosion extends EventTarget {
       }
       const boisHtml = `<p>Vous êtes à proximité des bois suivants : ${boisList}.</p>`;
       htmlTemplate += boisHtml;
+    }
+
+    if (this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"] && this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"].length) {
+      let plantHtml;
+      let feuilluStr = this.hasFeuillu ? "&#127795; " : "";
+      let connifereStr = this.hasConnifere ? "&#127794; " : "";
+      if (this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"].length === 1) {
+        plantHtml = `
+          <p>Aux alentours, l’essence des bois et forêts est principalement constituée de ${feuilluStr}${connifereStr} ${this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"][0]}.`;
+      } else {
+        let essenceList = this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"][0];
+        for (let i = 1; i < this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"].length - 1; i++) {
+          essenceList += ", " + this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"][i];
+        }
+        essenceList += " et " + this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"][this.data["LANDCOVER.FORESTINVENTORY.V2:formation_vegetale"].length - 1];
+        plantHtml = `
+          <p>Aux alentours, l’essence des bois et forêts est principalement constituée de ${feuilluStr}${connifereStr} ${essenceList}.`;
+      }
+      if (this.data["RPG.LATEST:parcelles_graphiques"] && this.data["RPG.LATEST:parcelles_graphiques"].length) {
+        let cultureList = this.data["RPG.LATEST:parcelles_graphiques"][0];
+        if (this.data["RPG.LATEST:parcelles_graphiques"].length > 1) {
+          for (let i = 1; i < this.data["RPG.LATEST:parcelles_graphiques"].length - 1; i++) {
+            cultureList += ", " + this.data["RPG.LATEST:parcelles_graphiques"][i];
+          }
+          cultureList += " et " + this.data["RPG.LATEST:parcelles_graphiques"][this.data["RPG.LATEST:parcelles_graphiques"].length - 1];
+        }
+        plantHtml += ` L'agriculture est dédiée à la production de cultures telles que ${cultureList}.`;
+      }
+      plantHtml += "</p>";
+
+      htmlTemplate += plantHtml;
+
+    } else if (this.data["RPG.LATEST:parcelles_graphiques"] && this.data["RPG.LATEST:parcelles_graphiques"].length) {
+      let cultureList = this.data["RPG.LATEST:parcelles_graphiques"][0];
+      if (this.data["RPG.LATEST:parcelles_graphiques"].length > 1) {
+        for (let i = 1; i < this.data["RPG.LATEST:parcelles_graphiques"].length - 1; i++) {
+          cultureList += ", " + this.data["RPG.LATEST:parcelles_graphiques"][i];
+        }
+        cultureList += " et " + this.data["RPG.LATEST:parcelles_graphiques"][this.data["RPG.LATEST:parcelles_graphiques"].length - 1];
+      }
+      const plantHtml = `Aux alentours, l'agriculture est dédiée à la production de cultures telles que ${cultureList}.</p>`;
+      htmlTemplate += plantHtml;
     }
 
     if (this.data["BDTOPO_V3:cours_d_eau"] && this.data["BDTOPO_V3:cours_d_eau"].length) {
@@ -134,7 +142,7 @@ class ImmersivePosion extends EventTarget {
           waterList += ", " + this.data["BDTOPO_V3:plan_d_eau"][i][1];
         }
       }
-      const waterHtml = `<p>Les cours d'eau environnants sont ${waterList}.</p>`;
+      const waterHtml = `<p>&#x1F30A; Les cours d'eau environnants sont ${waterList}.</p>`;
       htmlTemplate += waterHtml;
 
     } else if (this.data["BDTOPO_V3:plan_d_eau"] && this.data["BDTOPO_V3:plan_d_eau"].length) {
@@ -142,12 +150,12 @@ class ImmersivePosion extends EventTarget {
       for (let i = 1; i < this.data["BDTOPO_V3:plan_d_eau"].length; i++) {
         waterList += ", " + this.data["BDTOPO_V3:plan_d_eau"][i][1];
       }
-      const waterHtml = `<p>Les cours d'eau environnants sont ${waterList}.</p>`;
+      const waterHtml = `<p>&#x1F30A; Les cours d'eau environnants sont ${waterList}.</p>`;
       htmlTemplate += waterHtml;
     }
 
     if (this.data["BDTOPO_V3:zone_d_habitation"] && this.data["BDTOPO_V3:zone_d_habitation"].length) {
-      let otherList = this.data["BDTOPO_V3:zone_d_habitation"][0];
+      let otherList = "&#x1F3F0; " + this.data["BDTOPO_V3:zone_d_habitation"][0];
       for (let i = 1; i < this.data["BDTOPO_V3:zone_d_habitation"].length; i++) {
         otherList += ", " + this.data["BDTOPO_V3:zone_d_habitation"][i];
       }
@@ -156,15 +164,19 @@ class ImmersivePosion extends EventTarget {
           otherList += `, ${this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"][i][1]} (${this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"][i][0]})`;
         }
       }
-      const otherHtml = `<p>Non loin se trouvent également : ${otherList}.</p>`;
+      const otherHtml = `<p>&#x1F9D0; Non loin se trouvent également : ${otherList}.</p>`;
       htmlTemplate += otherHtml;
 
     } else if (this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"] && this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"].length) {
       let otherList = `${this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"][0][1]} (${this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"][0][0]})`;
       for (let i = 1; i < this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"].length; i++) {
-        otherList += `, ${this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"][i][1]} (${this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"][i][0]})`;
+        if (this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"][i][0] === "Construction") {
+          otherList += `, ${this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"][i][1]}`;
+        } else {
+          otherList += `, ${this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"][i][1]} (${this.data["BDTOPO_V3:zone_d_activite_ou_d_interet"][i][0]})`;
+        }
       }
-      const otherHtml = `<p>Non loin se trouvent également : ${otherList}.</p>`;
+      const otherHtml = `<p>&#x1F9D0; Non loin se trouvent également : ${otherList}.</p>`;
       htmlTemplate += otherHtml;
     }
 
@@ -191,6 +203,7 @@ class ImmersivePosion extends EventTarget {
       config.geom_name || "geom",
       config.additional_cql || "",
       config.epsg || 4326,
+      config.get_geom || false,
     );
 
     this.data[config.id] = result;
@@ -210,16 +223,89 @@ class ImmersivePosion extends EventTarget {
    */
   #filterData(layer, dataResults) {
     if (layer === "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale") {
-      dataResults = dataResults.filter( (essence) => essence !== "NC");
+      dataResults = dataResults.filter( (essence) => essence !== "NC" && essence !== "NR");
+    }
+    if (layer === "BDTOPO_V3:parc_ou_reserve") {
+      dataResults = dataResults.filter( (parc) => {
+        if ( !(["Site Natura 2000", "Parc naturel régional", "Parc national", "Réserve naturelle"].includes(parc[0])) ) {
+          return false;
+        }
+        if (parc[0] === "Site Natura 2000") {
+          if (this.hasNatural2000) {
+            return false;
+          }
+          this.hasNatural2000 = true;
+        }
+        return true;
+      }).sort((a, b) => {
+        if (a[0] === "Parc national") {
+          return -1;
+        }
+        if (b[0] === "Parc national") {
+          return 1;
+        }
+        if (b[0] === "Parc naturel régional" && a[0] !== "Parc national") {
+          return 1;
+        }
+        if (a[0] === "Parc naturel régional" && b[0] !== "Parc national") {
+          return -1;
+        }
+        if (a[0] === "Site Natura 2000") {
+          return 1;
+        }
+        if (b[0] === "Site Natura 2000") {
+          return -1;
+        }
+      });
     }
     if (layer === "BDTOPO_V3:zone_d_activite_ou_d_interet") {
-      dataResults = dataResults.filter( (zai) => zai[1] !== null);
+      dataResults = dataResults.filter( (zai) => zai[1] !== null).sort( (a, b) => {
+        const coordsA = new maplibregl.LngLat(...a[2].coordinates[0][0][0]);
+        const coordsB = new maplibregl.LngLat(...b[2].coordinates[0][0][0]);
+        const coordsRef = new maplibregl.LngLat(this.lng, this.lat);
+        return coordsRef.distanceTo(coordsA) - coordsRef.distanceTo(coordsB);
+      }).slice(0, 5);
+    }
+    if (layer === "BDTOPO_V3:plan_d_eau") {
+      dataResults = dataResults.filter( (plan) => plan[1] !== null);
     }
     if (layer === "RPG.LATEST:parcelles_graphiques") {
       dataResults = dataResults.map( (code_cultu) => code_cultuCaption[code_cultu]).filter((culture) => culture);
     }
+    if (layer === "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale") {
+      dataResults = dataResults.map( (code_tfv) => {
+        if (code_tfvCaption[code_tfv]) {
+          if (code_tfv[2] === "1") {
+            this.hasFeuillu = true;
+          }
+          if (code_tfv[2] === "2") {
+            this.hasConnifere = true;
+          }
+        }
+        return code_tfvCaption[code_tfv];
+      }).filter((essence) => essence);
+    }
     if (layer === "BDTOPO_V3:zone_d_habitation") {
-      dataResults = dataResults.filter( (name) => name);
+      dataResults = dataResults.filter( (feat) => feat[0]).sort( (a, b) => {
+        const coordsA = new maplibregl.LngLat(...a[1].coordinates[0][0][0]);
+        const coordsB = new maplibregl.LngLat(...b[1].coordinates[0][0][0]);
+        const coordsRef = new maplibregl.LngLat(this.lng, this.lat);
+        return coordsRef.distanceTo(coordsA) - coordsRef.distanceTo(coordsB);
+      }).map( feat => feat[0]).slice(0, 5);
+    }
+    if (layer === "BDTOPO_V3:cours_d_eau") {
+      dataResults = dataResults.filter( (cours) => {
+        if (cours.split(" ")[0] === "Bras") {
+          return false;
+        }
+        const splitted = cours.split(" ");
+        for (let word of splitted) {
+          if (word.match(/[0-9][0-9]/g)) {
+            return false;
+          }
+        }
+        return true;
+      });
     }
     return dataResults;
   }
@@ -234,7 +320,7 @@ class ImmersivePosion extends EventTarget {
    * @param {number} epsg epsg number of the layer's CRS, default 4326
    * @returns {Promise(Array)} results of each attributes (no duplicates)
    */
-  async #computeGenericGPFWFS(layer, attributes, around=0, geom_name="geom", additional_cql="", epsg=4326) {
+  async #computeGenericGPFWFS(layer, attributes, around=0, geom_name="geom", additional_cql="", epsg=4326, getGeom=false) {
     let coord1 = this.lat;
     let coord2 = this.lng;
     if (epsg !== 4326) {
@@ -249,7 +335,7 @@ class ImmersivePosion extends EventTarget {
     }
 
     const results = await fetch(
-      `https://data.geopf.fr/wfs/ows?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&typename=${layer}&outputFormat=json&count=10&CQL_FILTER=${cql_filter}`
+      `https://data.geopf.fr/wfs/ows?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&typename=${layer}&outputFormat=json&count=50&CQL_FILTER=${cql_filter}`
     );
     const json = await results.json();
 
@@ -259,9 +345,12 @@ class ImmersivePosion extends EventTarget {
       attributes.forEach((attribute) => {
         feature_attributes.push(feature.properties[attribute]);
       });
-      if (attributes.length === 1) {
+      if (getGeom) {
+        feature_attributes.push(feature.geometry);
+      }
+      if (attributes.length === 1 && feature_attributes[0] !== null && !getGeom) {
         results_attributes.push(feature_attributes[0]);
-      } else {
+      } else if (attributes.length > 1 || getGeom) {
         results_attributes.push(feature_attributes);
       }
     });

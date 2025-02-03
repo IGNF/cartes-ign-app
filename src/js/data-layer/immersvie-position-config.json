@@ -32,51 +32,53 @@
   {
     "id": "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale",
     "layer": "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale",
-    "attributes": ["essence"],
-    "around": 5,
+    "attributes": ["code_tfv"],
+    "around": 2,
     "epsg": 2154
   },
   {
     "id": "Essence intesection",
     "layer": "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale",
-    "attributes": ["essence"],
+    "attributes": ["code_tfv"],
     "epsg": 2154
   },
   {
     "id": "RPG.LATEST:parcelles_graphiques",
     "layer": "RPG.LATEST:parcelles_graphiques",
     "attributes": ["code_cultu"],
-    "around": 5
+    "around": 2
   },
   {
     "id": "BDTOPO_V3:zone_d_activite_ou_d_interet",
     "layer": "BDTOPO_V3:zone_d_activite_ou_d_interet",
     "attributes": ["nature", "toponyme"],
     "geom_name": "geometrie",
-    "around": 5,
-    "additional_cql": "AND categorie='Culture et loisirs' AND nature IN ('Abri de montagne', 'Construction', 'Ecomusée', 'Monument', 'Musée', 'Parc de loisirs', 'Parc zoologique', 'Refuge', 'Vestige archéologique')"
+    "around": 2,
+    "additional_cql": "AND categorie='Culture et loisirs' AND nature IN ('Abri de montagne', 'Construction', 'Ecomusée', 'Monument', 'Musée', 'Parc de loisirs', 'Parc zoologique', 'Refuge', 'Vestige archéologique')",
+    "get_geom": true
   },
   {
     "id": "BDTOPO_V3:zone_d_habitation",
     "layer": "BDTOPO_V3:zone_d_habitation",
     "attributes": ["toponyme"],
     "geom_name": "geometrie",
-    "around": 5,
-    "additional_cql": "AND nature IN ('Château')"
+    "around": 2,
+    "additional_cql": "AND nature IN ('Château')",
+    "get_geom": true
   },
   {
     "id": "BDTOPO_V3:cours_d_eau",
     "layer": "BDTOPO_V3:cours_d_eau",
     "attributes": ["toponyme"],
     "geom_name": "geometrie",
-    "around": 5
+    "around": 2
   },
   {
     "id": "BDTOPO_V3:plan_d_eau",
     "layer": "BDTOPO_V3:plan_d_eau",
     "attributes": ["nature", "toponyme"],
     "geom_name": "geometrie",
-    "around": 5,
-    "additional_cql": "AND nature IN ('Canal', 'Estuaire', 'Camping', 'Glacier, névé', 'Lac', 'Lagune', 'Mangrove', 'Marais', 'Mare')"
+    "around": 2,
+    "additional_cql": "AND nature IN ('Canal', 'Estuaire', 'Retenue', 'Glacier, névé', 'Lac', 'Lagune', 'Mangrove', 'Marais', 'Mare')"
   }
 ]
