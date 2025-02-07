@@ -64,6 +64,15 @@ const gfiRules = {
       ],
     }
   },
+  "IGNF_SITES-UNESCO$WMS": {
+    0: {
+      "title": "@nom",
+      "subtitle": "Sites du patrimoine mondial de l'UNESCO - Source : IGN",
+      "bodyAfter": [
+        ["<p class=\"monumentsHistoriquesContent\">{{description}}</p>"]
+      ],
+    }
+  },
   "PROTECTEDAREAS.ZPS$WMTS": {
     0: {
       "title": "@sitename",

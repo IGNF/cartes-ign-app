@@ -20,52 +20,6 @@ import ThematicLayers from "../data-layer/thematics-layer-config.json";
 import ConfigLayers from "../data-layer/layers-config.json";
 
 /**
- * Obtenir le zoom à partir de l'échelle
- * @param {*} scaleDenominator
- * @returns
- */
-const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
-  // par defaut, on utilise la projection WebMercator (EPSG:3857 = PM)
-  var resolutionsNatives = {
-    0 : 156543.033928041,
-    1 : 78271.51696402048,
-    2 : 39135.758482010235,
-    3 : 19567.87924100512,
-    4 : 9783.93962050256,
-    5 : 4891.96981025128,
-    6 : 2445.98490512564,
-    7 : 1222.99245256282,
-    8 : 611.49622628141,
-    9 : 305.7481131407048,
-    10 : 152.8740565703525,
-    11 : 76.43702828517624,
-    12 : 38.21851414258813,
-    13 : 19.10925707129406,
-    14 : 9.554628535647032,
-    15 : 4.777314267823516,
-    16 : 2.388657133911758,
-    17 : 1.194328566955879,
-    18 : 0.5971642834779395,
-    19 : 0.2985821417389697,
-    20 : 0.1492910708694849,
-    21 : 0.0746455354347424
-  };
-
-  var resolution = scaleDenominator * 0.00028;
-
-  for (var index in resolutionsNatives) {
-    if (Object.hasOwnProperty.call(resolutionsNatives, index)) {
-      if (resolutionsNatives[index] <= resolution) {
-        index = parseInt(index, 10);
-        return index;
-      }
-    }
-  }
-
-  return 0;
-};
-
-/**
  * Obtenir la liste des propriétés d'une couche
  * @param {*} id
  * @returns
@@ -84,19 +38,11 @@ const getLayerProps = (id) => {
     fallbackStyle = props.styles[1];
   }
   var format = props.format;
-  var minNativeZoom;
-  var maxNativeZoom;
-  if (props.globalConstraint) {
-    minNativeZoom = getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 0;
-    maxNativeZoom = getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 20;
-  }
-  else {
-    minNativeZoom = props.minNativeZoom || 0;
-    maxNativeZoom = props.maxNativeZoom || 20;
-  }
+  var minNativeZoom = props.minNativeZoom || 0;
+  var maxNativeZoom = props.maxNativeZoom || 20;
   var interactive = !(props.interactive === false);
   return {
-    layer: props.name,
+    layer: id.split("$")[0],
     base: getBaseLayers().includes(id), // couche de fonds ou autre
     title: props.title,
     desc: props.description,

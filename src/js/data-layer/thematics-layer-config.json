@@ -56,6 +56,7 @@
     {
         "name": "Tourisme et loisirs",
         "layers": [
+          "IGNF_SITES-UNESCO$WMS",
           "POI.MONUMENTS_BDD_WLD_WM$WMS",
           "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$WMS",
           "POI.MUSEUM$WMS",

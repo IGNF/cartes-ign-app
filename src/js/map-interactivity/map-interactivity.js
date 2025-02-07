@@ -321,7 +321,7 @@ class MapInteractivity {
       `&TILECOL=${layer[1].tiles.tile.x}&TILEROW=${layer[1].tiles.tile.y}&TILEMATRIX=${layer[1].computeZoom}&TILEMATRIXSET=PM` +
       `&FORMAT=${layer[1].format}` +
       `&STYLE=${layer[1].style}`;
-      if (layer[0].split(":").slice(-1)[0] === "WMS") {
+      if (layer[0].split("$")[1] === "WMS") {
         // https://wiki.openstreetmap.org/wiki/Zoom_levels
         const resolution = 40075016.686 * Math.cos(layer[1].clickCoords.lat * Math.PI/180) / Math.pow(2, layer[1].computeZoom + 8);
         const clickMercatorCoords = proj4(proj4.defs("EPSG:4326"), proj4.defs("EPSG:3857"), [layer[1].clickCoords.lng, layer[1].clickCoords.lat]);
@@ -357,7 +357,7 @@ class MapInteractivity {
             const ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0);
             let pixelData;
-            if (layer[0].split(":").slice(-1)[0] === "WMS") {
+            if (layer[0].split("$")[1] === "WMS") {
               pixelData = ctx.getImageData(50, 50, 1, 1).data;
             } else {
               pixelData = ctx.getImageData(layer[1].tiles.tilePixel.x, layer[1].tiles.tilePixel.y, 1, 1).data;
@@ -389,7 +389,7 @@ class MapInteractivity {
         `&TILECOL=${layer[1].tiles.tile.x}&TILEROW=${layer[1].tiles.tile.y}&TILEMATRIX=${layer[1].computeZoom}&TILEMATRIXSET=PM` +
         `&FORMAT=${layer[1].format}` +
         `&STYLE=${layer[1].style}&INFOFORMAT=application/json&I=${layer[1].tiles.tilePixel.x}&J=${layer[1].tiles.tilePixel.y}`;
-      if (layer[0].split(":").slice(-1)[0] === "WMS") {
+      if (layer[0].split("$")[1] === "WMS") {
         // https://wiki.openstreetmap.org/wiki/Zoom_levels
         const resolution = 40075016.686 * Math.cos(layer[1].clickCoords.lat * Math.PI/180) / Math.pow(2, layer[1].computeZoom + 8);
         const clickMercatorCoords = proj4(proj4.defs("EPSG:4326"), proj4.defs("EPSG:3857"), [layer[1].clickCoords.lng, layer[1].clickCoords.lat]);
