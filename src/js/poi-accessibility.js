@@ -12,11 +12,11 @@ class MapboxAccessibility {
   constructor(map, options) {
     this.map = map;
     this.layers = options.layers || [
-      "POI OSM isochrone$$$OSM.POI$GEOPORTAIL:GPP:TMS",
-      "POI OSM 14$$$OSM.POI$GEOPORTAIL:GPP:TMS",
-      "POI OSM 15$$$OSM.POI$GEOPORTAIL:GPP:TMS",
-      "POI OSM 16et17$$$OSM.POI$GEOPORTAIL:GPP:TMS",
-      "POI OSM 18et19$$$OSM.POI$GEOPORTAIL:GPP:TMS",
+      "POI OSM isochrone$$$OSM.POI$TMS",
+      "POI OSM 14$$$OSM.POI$TMS",
+      "POI OSM 15$$$OSM.POI$TMS",
+      "POI OSM 16et17$$$OSM.POI$TMS",
+      "POI OSM 18et19$$$OSM.POI$TMS",
     ];
     this.features = null;
     map.on("movestart", this._movestart);

@@ -5,81 +5,69 @@
             "default": true,
             "generic": true
         },
-        "keys": [
-            "appign"
-        ],
         "layers": []
     },
     {
         "name": "Administratif",
-        "keys": ["appign"],
         "layers": [
-            "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS"
+            "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS"
         ]
     },
     {
         "name": "Foncier",
-        "keys": ["appign"],
         "layers": [
-            "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$GEOPORTAIL:OGC:WMTS"
+            "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$WMTS"
         ]
     },
     {
         "name": "Agriculture",
-        "keys": ["appign"],
         "layers": [
-          "LANDUSE.AGRICULTURE2023$GEOPORTAIL:OGC:WMTS",
-          "Aire-Parcellaire$GEOPORTAIL:OGC:WMTS"
+          "LANDUSE.AGRICULTURE2023$WMTS",
+          "Aire-Parcellaire$WMTS"
         ]
     },
     {
         "name": "Forêt",
-        "keys": ["appign"],
         "layers": [
-            "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS",
-            "LANDCOVER.FORESTINVENTORY.V2$GEOPORTAIL:OGC:WMTS"
+            "FORETS.PUBLIQUES$WMTS",
+            "LANDCOVER.FORESTINVENTORY.V2$WMTS"
         ]
     },
     {
         "name": "Hydrographie, mer et littoral",
-        "keys": ["appign"],
         "layers": [
-            "ELEVATION.LEVEL0$GEOPORTAIL:OGC:WMTS",
-            "HYDROGRAPHY.HYDROGRAPHY$GEOPORTAIL:OGC:WMTS"
+            "ELEVATION.LEVEL0$WMTS",
+            "HYDROGRAPHY.HYDROGRAPHY$WMTS"
         ]
     },
     {
         "name": "Espaces protégés",
-        "keys": ["appign"],
         "layers": [
-          "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS",
-          "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS"
+          "PROTECTEDAREAS.SIC$WMTS",
+          "PROTECTEDAREAS.ZPS$WMTS"
         ]
     },
     {
         "name": "Risques naturels",
-        "keys": ["appign"],
         "layers": [
-          "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$GEOPORTAIL:OGC:WMTS"
+          "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$WMTS"
         ]
     },
     {
         "name": "Tourisme et loisirs",
-        "keys": ["appign"],
         "layers": [
-          "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS",
-          "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS",
-          "POI.MUSEUM$GEOPORTAIL:OGC:WMS",
-          "VILLAGESETAPE$GEOPORTAIL:OGC:WMS",
-          "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS"
+          "POI.MONUMENTS_BDD_WLD_WM$WMS",
+          "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$WMS",
+          "POI.MUSEUM$WMS",
+          "VILLAGESETAPE$WMS",
+          "TRANSPORTS.DRONES.RESTRICTIONS$WMTS"
         ]
     },
     {
         "name": "Transports",
-        "keys": ["appign"],
         "layers": [
-            "TRANSPORTNETWORKS.RAILWAYS$GEOPORTAIL:OGC:WMTS",
-            "TRANSPORTNETWORKS.ROADS$GEOPORTAIL:OGC:WMTS"
+            "TRANSPORTNETWORKS.RAILWAYS$WMTS",
+            "TRANSPORTNETWORKS.ROADS$WMTS"
         ]
     }
 ]

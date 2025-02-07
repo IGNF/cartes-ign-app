@@ -30,7 +30,7 @@ class POI {
   constructor(map, options) {
     this.options = options || {
       target: document.getElementById("poiWindow"),
-      id: "OSM.POI$GEOPORTAIL:GPP:TMS"
+      id: "OSM.POI$TMS"
     };
 
     this.opened = false;
@@ -42,7 +42,7 @@ class POI {
     this.sources = [];
 
     this.target = this.options.target || document.getElementById("poiWindow");
-    this.id = this.options.id || "OSM.POI$GEOPORTAIL:GPP:TMS";
+    this.id = this.options.id || "OSM.POI$TMS";
     this.style = {};
     this.sprite = {
       url: null,

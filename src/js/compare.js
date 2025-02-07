@@ -76,7 +76,7 @@ class Compare {
       for (let j = 0; j < rltLayers.length; j++) {
         var props = LayersConfig.getLayerProps(rltLayers[j]);
         if (rltLayers[j].split(".")[0] == "ORTHOIMAGERY") {
-          if (rltLayers[j] == "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS") {
+          if (rltLayers[j] == "ORTHOIMAGERY.ORTHOPHOTOS$WMTS") {
             props.title = "Photographies aériennes - aujourd'hui";
           }
           strRLTLayersPhotos += tplLayer({
@@ -349,8 +349,8 @@ class Compare {
     this.mapRLT2.setCenter(params.center);
     this.mapRLT1.setZoom(params.zoom);
     this.mapRLT2.setZoom(params.zoom);
-    document.getElementById(`mapRLT1-${params.layer1 + "$GEOPORTAIL:OGC:WMTS"}`).click();
-    document.getElementById(`mapRLT2-${params.layer2 + "$GEOPORTAIL:OGC:WMTS"}`).click();
+    document.getElementById(`mapRLT1-${params.layer1 + "$WMTS"}`).click();
+    document.getElementById(`mapRLT2-${params.layer2 + "$WMTS"}`).click();
     switch (params.mode) {
     case "vSlider":
       document.querySelector("#compareLeftRight").click();

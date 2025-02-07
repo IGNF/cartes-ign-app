@@ -243,7 +243,7 @@ function legend(features, zoom) {
   // PLAN IGN et BDTOPO
   let stylePLANIGN = [];
   if (source == "plan_ign" || source == "bdtopo") {
-    stylePLANIGN = globals.manager.layerSwitcher.layers["PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"].style;
+    stylePLANIGN = globals.manager.layerSwitcher.layers["PLAN.IGN.INTERACTIF$TMS"].style;
   }
 
   var FeaturesBDTOPO = features.filter(feat => feat.source == "bdtopo");

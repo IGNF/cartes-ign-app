@@ -14,7 +14,7 @@ try {
 }
 
 const gfiRules = {
-  "TRANSPORTS.DRONES.RESTRICTIONS$GEOPORTAIL:OGC:WMTS": {
+  "TRANSPORTS.DRONES.RESTRICTIONS$WMTS": {
     0: {
       "title": "@limite",
       "subtitle": "Restrictions UAS catégorie Ouverte et Aéromodélisme - Source : SIA",
@@ -23,7 +23,7 @@ const gfiRules = {
       ],
     }
   },
-  "VILLAGESETAPE$GEOPORTAIL:OGC:WMS": {
+  "VILLAGESETAPE$WMS": {
     0: {
       "title": "@toponyme",
       "subtitle": "Village étapes - Source : Fédération française des villages étapes",
@@ -32,7 +32,7 @@ const gfiRules = {
       ],
     }
   },
-  "POI.MUSEUM$GEOPORTAIL:OGC:WMS": {
+  "POI.MUSEUM$WMS": {
     0: {
       "title": "@toponyme",
       "subtitle": "Musées - Source : IGN",
@@ -41,7 +41,7 @@ const gfiRules = {
       ],
     }
   },
-  "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$GEOPORTAIL:OGC:WMS": {
+  "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$WMS": {
     0: {
       "title": "@name",
       "subtitle": "Parcs et Jardins - Source : Conservatoire des jardins et paysages",
@@ -53,7 +53,7 @@ const gfiRules = {
       ],
     }
   },
-  "POI.MONUMENTS_BDD_WLD_WM$GEOPORTAIL:OGC:WMS": {
+  "POI.MONUMENTS_BDD_WLD_WM$WMS": {
     0: {
       "title": "@name",
       "subtitle": "Monuments nationaux - Source : Centre des monuments nationaux",
@@ -64,7 +64,7 @@ const gfiRules = {
       ],
     }
   },
-  "PROTECTEDAREAS.ZPS$GEOPORTAIL:OGC:WMTS": {
+  "PROTECTEDAREAS.ZPS$WMTS": {
     0: {
       "title": "@sitename",
       "subtitle": "Sites NATURA 2000 au titre de la Directive Oiseaux - Source : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
@@ -73,7 +73,7 @@ const gfiRules = {
       ],
     }
   },
-  "PROTECTEDAREAS.PN$GEOPORTAIL:OGC:WMTS": {
+  "PROTECTEDAREAS.PN$WMTS": {
     0: {
       "title": "@nom",
       "subtitle": "Parcs nationaux - Source : Inventaire National du Patrimoine Naturel (INPN), Parcs Nationaux de France, Muséum national d’Histoire naturelle (MNHN)",
@@ -82,7 +82,7 @@ const gfiRules = {
       ],
     }
   },
-  "PROTECTEDAREAS.PNR$GEOPORTAIL:OGC:WMTS": {
+  "PROTECTEDAREAS.PNR$WMTS": {
     0: {
       "title": "@nom",
       "subtitle": "Parcs naturels régionaux - Source : Inventaire National du Patrimoine Naturel (INPN), Fédération des Parcs naturels régionaux de France, Muséum national d’Histoire naturelle (MNHN)",
@@ -91,7 +91,7 @@ const gfiRules = {
       ],
     }
   },
-  "PROTECTEDAREAS.RN$GEOPORTAIL:OGC:WMTS": {
+  "PROTECTEDAREAS.RN$WMTS": {
     0: {
       "title": "@nom",
       "subtitle": "Réserves naturelles nationales - Source : Inventaire National du Patrimoine Naturel (INPN), Réserves naturelles de France (RNF), Muséum national d’Histoire naturelle (MNHN)",
@@ -100,7 +100,7 @@ const gfiRules = {
       ],
     }
   },
-  "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$GEOPORTAIL:OGC:WMTS": {
+  "PROTECTEDSITES.MNHN.RESERVES-REGIONALES$WMTS": {
     0: {
       "title": "@nom",
       "subtitle": "Réserves naturelles régionales - Source : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
@@ -109,7 +109,7 @@ const gfiRules = {
       ],
     }
   },
-  "PROTECTEDAREAS.RNC$GEOPORTAIL:OGC:WMTS": {
+  "PROTECTEDAREAS.RNC$WMTS": {
     0: {
       "title": "@nom",
       "subtitle": "Réserves Naturelles de Corse - Source : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
@@ -118,7 +118,7 @@ const gfiRules = {
       ],
     }
   },
-  "PROTECTEDAREAS.SIC$GEOPORTAIL:OGC:WMTS": {
+  "PROTECTEDAREAS.SIC$WMTS": {
     0: {
       "title": "@sitename",
       "subtitle": "Sites Natura 2000 au titre de la Directive Habitats - Source : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
@@ -129,7 +129,7 @@ const gfiRules = {
       ],
     }
   },
-  "FORETS.PUBLIQUES$GEOPORTAIL:OGC:WMTS": {
+  "FORETS.PUBLIQUES$WMTS": {
     13: {
       "title": "@llib_frt",
       "subtitle": "Forêts publiques - Source : Office National des Forêts",
@@ -139,7 +139,7 @@ const gfiRules = {
       "subtitle": "Forêts publiques - Source : Office National des Forêts",
     }
   },
-  "LANDCOVER.FORESTINVENTORY.V2$GEOPORTAIL:OGC:WMTS": {
+  "LANDCOVER.FORESTINVENTORY.V2$WMTS": {
     0: {
       "title": "@tfv",
       "subtitle": "Carte forestière - Source : IGN",
@@ -149,7 +149,7 @@ const gfiRules = {
       ],
     }
   },
-  "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$GEOPORTAIL:OGC:WMTS":{
+  "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$WMTS":{
     0: {
       "title": "Parcelles Cadastrales",
       "subtitle": "PCI vecteur - Source : DGFIP",
@@ -161,7 +161,7 @@ const gfiRules = {
       ],
     }
   },
-  "LANDUSE.AGRICULTURE2023$GEOPORTAIL:OGC:WMTS": {
+  "LANDUSE.AGRICULTURE2023$WMTS": {
     0 :{
       "pretitle": "Culture : ",
       "title": "@nom_cultu",
@@ -169,7 +169,7 @@ const gfiRules = {
     }
   },
 
-  "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$GEOPORTAIL:OGC:WMTS": {
+  "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS": {
     12: {
       "title": "@nom",
       "subtitle": "Limites administratives mises à jour en continu - Source : IGN",

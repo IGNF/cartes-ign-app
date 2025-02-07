@@ -16,13 +16,12 @@ let layersDisplayed;
 if (!localStorage.getItem("lastLayersDisplayed")) {
   layersDisplayed = [
     {
-      id: "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS",
+      id: "PLAN.IGN.INTERACTIF$TMS",
       opacity: 100,
       visible: true,
       gray: false,
     }
-  ]
-  ;
+  ];
 } else {
   layersDisplayed = JSON.parse(localStorage.getItem("lastLayersDisplayed"));
 }
@@ -61,7 +60,7 @@ let position = null;
 
 // Global Compare Plugin
 let compare = null;
-let comparedLayers = ["ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$GEOPORTAIL:OGC:WMTS", "ORTHOIMAGERY.ORTHOPHOTOS$GEOPORTAIL:OGC:WMTS"];
+let comparedLayers = ["ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$WMTS", "ORTHOIMAGERY.ORTHOPHOTOS$WMTS"];
 
 // Global Menu navigation
 let menu = null;

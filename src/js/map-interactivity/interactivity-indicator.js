@@ -21,14 +21,14 @@ class InteractivityIndicator {
    */
   constructor(map, options) {
     this.options = options || {
-      id: "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"
+      id: "PLAN.IGN.INTERACTIF$TMS"
     };
 
     this.shown = null;
     this.hardDisabled = false;
 
     this.map = map;
-    this.id = this.options.id || "PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS"; // PII
+    this.id = this.options.id || "PLAN.IGN.INTERACTIF$TMS"; // PII
 
     this.#listen();
 

@@ -312,6 +312,16 @@ function app() {
       newLayersDisplayed.push(layer);
     }
   });
+  if (!newLayersDisplayed.length) {
+    newLayersDisplayed.push(
+      {
+        id: "PLAN.IGN.INTERACTIF$TMS",
+        opacity: 100,
+        visible: true,
+        gray: false,
+      }
+    );
+  }
   Globals.layersDisplayed = newLayersDisplayed;
   Globals.manager = new LayerManager({
     layers : Globals.layersDisplayed,

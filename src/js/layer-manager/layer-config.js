@@ -20,11 +20,6 @@ import ThematicLayers from "../data-layer/thematics-layer-config.json";
 import ConfigLayers from "../data-layer/layers-config.json";
 
 /**
- * Clef API (epi5gbeldn6mblrnq95ce0mc) pour toutes les couches (Oshimae)
- */
-const key = Object.keys(ConfigLayers.generalOptions.apiKeys)[0]; // une seule clef !
-
-/**
  * Obtenir le zoom à partir de l'échelle
  * @param {*} scaleDenominator
  * @returns
@@ -77,25 +72,27 @@ const getZoomLevelFromScaleDenominator = (scaleDenominator) => {
  */
 const getLayerProps = (id) => {
   var props = ConfigLayers.layers[id];
-  var isVector = (props.serviceParams.id === "GPP:TMS") ? true : false;
-  var style = (props.styles.length) ? props.styles.find((s) => { return s.current === true; }) : "normal";
-  if (!style) {
+  var isVector = id.split("$")[1] === "TMS" ? true : false;
+  var style;
+  if (isVector) {
     style = props.styles[0];
+  } else {
+    style = props.style || "normal";
   }
   var fallbackStyle = "";
   if (isVector) {
     fallbackStyle = props.styles[1];
   }
-  var format = props.formats.length ? props.formats.find((f) => { return f.current === true; }) : "";
-  if (!format) {
-    format = props.formats[0];
+  var format = props.format;
+  var minNativeZoom;
+  var maxNativeZoom;
+  if (props.globalConstraint) {
+    minNativeZoom = getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 0;
+    maxNativeZoom = getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 20;
   }
-  var minNativeZoom = getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 0;
-  var maxNativeZoom = getZoomLevelFromScaleDenominator(props.globalConstraint.maxScaleDenominator) || 21;
-  if (props.wmtsOptions) {
-    var zoomLevels = Object.keys(props.wmtsOptions.tileMatrixSetLimits);
-    minNativeZoom = Math.min(...zoomLevels);
-    maxNativeZoom = Math.max(...zoomLevels);
+  else {
+    minNativeZoom = props.minNativeZoom || 0;
+    maxNativeZoom = props.maxNativeZoom || 20;
   }
   var interactive = !(props.interactive === false);
   return {
@@ -106,10 +103,10 @@ const getLayerProps = (id) => {
     source: props.source || "",
     maj: props.maj || "",
     type: (isVector) ? "vector" : "raster",
-    style: (isVector) ? style.url : style.name || "normal",
-    fallbackStyle: (isVector) ? fallbackStyle.url : style.name || "normal",
-    format: format.name || "",
-    url: props.serviceParams.serverUrl[key],
+    style: (isVector) ? style : style || "normal",
+    fallbackStyle: (isVector) ? fallbackStyle : style || "normal",
+    format: format || "",
+    url: props.serverUrl,
     minNativeZoom: minNativeZoom,
     maxNativeZoom: maxNativeZoom,
     interactive: interactive,
@@ -181,16 +178,9 @@ const getThematicByLayerID = (id) => {
  * @param {*} id
  */
 const createSource = (id) => {
-  // ex. "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950$GEOPORTAIL:OGC:WMTS"
+  // ex. "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950$WMTS"
   var name = id.split("$")[0];
-  var params = id.split("$")[1].split(":");
-  if (params.length !== 3) {
-    throw new Error("LayerConfig : ID layer name is not conforme");
-  }
-
-  var register = params[0]; // GEOPORTAIL ou INSPIRE
-  var norme = params[1]; // OGC ou GPP
-  var service = params[2]; // WMTS, WMS ou TMS
+  var service = id.split("$")[1];
 
   var fxt;
   switch (service) {
@@ -208,7 +198,7 @@ const createSource = (id) => {
     fxt = createVectorSource;
     break;
   default:
-    throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${register} - ${norme} - ${service}`);
+    throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${service}`);
   }
   return fxt(id);
 };
