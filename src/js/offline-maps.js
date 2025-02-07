@@ -14,6 +14,7 @@ import Globals from "./globals";
 import Geocode from "./services/geocode";
 import Location from "./services/location";
 import gisUtils from "./utils/gis-utils";
+import PopupUtils from "./utils/popup-utils";
 import DOM from "./dom";
 import { Toast } from "@capacitor/toast";
 
@@ -112,6 +113,7 @@ class OfflineMaps {
       failedWindow : container.querySelector("#offlineMapsWindowError"),
       failedWindowChangeLocationBtn : container.querySelector("#offlineMapsFailLocation"),
       failedWindowRetryBtn : container.querySelector("#offlineMapsFailRetry"),
+      whyPlanIGNInfo : container.querySelector(".divPositionAdressOriginInfo"),
     };
 
     // pour stopper la boucle for de téléchargement en cas d'annulation
@@ -137,6 +139,10 @@ class OfflineMaps {
     this.loadPromise = this.loadOfflineMapMetadata();
 
     this.currentName = `Carte téléchargée ${this.currentOfflineMapID + 1}`;
+
+    this.planIgnInfoPopup = {
+      popup: null
+    };
 
     this.#listeners();
     return this;
@@ -214,6 +220,25 @@ class OfflineMaps {
     this.dom.confirmNameBtn.addEventListener("click", this.#confirmDownload.bind(this));
     this.dom.failedWindowChangeLocationBtn.addEventListener("click", this.show.bind(this));
     this.dom.failedWindowRetryBtn.addEventListener("click", this.#lockView.bind(this));
+    this.dom.whyPlanIGNInfo.addEventListener("click", this.#showWhyPlanOnlyInfoPopup.bind(this));
+  }
+
+  #showWhyPlanOnlyInfoPopup() {
+    PopupUtils.showPopup(
+      `
+      <div id="planIgnInfoPopup">
+          <div class="divPositionTitle">Pourquoi uniquement plan IGN ?</div>
+          <div class="divPopupClose" onclick="onClosePlanIgnInfoPopup(event)"></div>
+          <div class="divPopupContent">
+              L'adresse affichée est obtenue grâce au service de géocodage inverse. Ce service retourne, à partir d'un point sur la carte, l'adresse de la Base Adresse Nationale (BAN) la plus proche. Selon ce principe, une adresse affichée peut différer de l'adresse connue d'un lieu.
+          </div>
+      </div>
+      `,
+      this.map,
+      "planIgnInfoPopup",
+      "onClosePlanIgnInfoPopup",
+      this.planIgnInfoPopup,
+    );
   }
 
   /**
