@@ -288,7 +288,10 @@ class LayerSwitcher extends EventTarget {
     if (typeof id !== "undefined") {
       if (this.layers[id].type === "vector") {
         var pos = this.layers[id].position;
-        var beforeId = this.map.getStyle().layers[this.#getIndexLayer(pos)].id;
+        var beforeId = 0;
+        if (this.map.getStyle().layers.length) {
+          beforeId = this.map.getStyle().layers[this.#getIndexLayer(pos)].id;
+        }
         var max = (pos === Object.keys(this.layers).length - 1);
         if (!max) {
           // ne jamais déplacer le groupe avant le background tout blanc
