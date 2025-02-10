@@ -6,9 +6,11 @@
 
 import maplibregl from "maplibre-gl";
 import { Capacitor } from "@capacitor/core";
-import { Filesystem, Directory } from "@capacitor/filesystem";
+import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import { Network } from "@capacitor/network";
+import { KeepAwake } from "@capacitor-community/keep-awake";
 import { openDB } from "idb";
+import pLimit from "p-limit";
 
 import Globals from "./globals";
 import Geocode from "./services/geocode";
@@ -86,7 +88,7 @@ class OfflineMaps {
       {
         type: "vector",
         tiles: ["local://PLAN.IGN/{z}/{x}/{y}"],
-        maxzoom: 18,
+        maxzoom: 16,
       }
     );
 
@@ -428,6 +430,7 @@ class OfflineMaps {
         this.#setLayerSource(this.map, layer.id, "offline-plan-ign");
       }
     });
+    this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
   }
 
   /**
@@ -439,6 +442,7 @@ class OfflineMaps {
         this.#setLayerSource(this.map, layer.id, "plan_ign");
       }
     });
+    this.map.setGlyphs("https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf");
   }
 
   /**
@@ -455,71 +459,98 @@ class OfflineMaps {
       this.abortController.abort();
       this.abortController = new AbortController();
     }
+
+    KeepAwake.keepAwake();
     this.downloadStarted = true;
-    let currentTileNumber = 0;
-    const tileList = [];
     this.totalSize = 0;
+    const tileList = [];
     const startTime = new Date().getTime();
+    let currentTileNumber = 0;
+
+    const limit = pLimit(10); // Limit to 10 concurrent downloads
+    const tilePromises = [];
+
     for (const layer of Object.keys(this.urlTemplates)) {
       for (const zoom of zoomLevels) {
         const minTile = gisUtils.latlngToTilePixel(minLat, minLng, zoom)[0];
         const maxTile = gisUtils.latlngToTilePixel(maxLat, maxLng, zoom)[0];
+
         for (let x = minTile.x; x <= maxTile.x; x++) {
           for (let y = maxTile.y; y <= minTile.y && !this.downloadCanceled; y++) {
-            currentTileNumber++;
-            const url = this.urlTemplates[layer].replace("{z}", zoom).replace("{x}", x).replace("{y}", y);
-            try {
-              const response = await fetch(url, {signal: this.abortController.signal});
-              if (response.ok) {
-                const blob = await response.blob();
-                const arrayBuffer = await blob.arrayBuffer();
-                const data = this.#arrayBufferToBase64(arrayBuffer);
-                const tilePath = `${layer}/${zoom}/${x}/${y}`;
-                await this.#storeVectorTile(tilePath, data);
-                this.totalSize += data.length / 1e6;
-                tileList.push(tilePath);
-                // DOM update
-                this.dom.currentWeight.innerText = Math.round(this.totalSize * 100) / 100;
-                this.dom.DLPercent.innerText = Math.round((10000 * currentTileNumber / (totalTileNumber * Object.keys(this.urlTemplates).length)) / 100);
-                const currentTime = new Date().getTime();
-                const currentSpeed = currentTileNumber / (currentTime - startTime);
-                const estimatedRemainingMs = (totalTileNumber / currentSpeed) - (currentTime - startTime);
-                const estimatedRemainingMin = Math.floor(estimatedRemainingMs / 60000);
-                const estimatedRemainingSec = Math.floor(estimatedRemainingMs / 1000) - estimatedRemainingMin * 60;
-                this.dom.ETAMin.innerText = estimatedRemainingMin;
-                this.dom.ETASec.innerText = estimatedRemainingSec;
-                this.dom.progress.style.width = `${Math.round((10000 * currentTileNumber / (totalTileNumber * Object.keys(this.urlTemplates).length)) / 100)}%`;
-              }
-            } catch (err) {
-              this.abortController.abort();
-              this.abortController = new AbortController();
-              this.downloadCanceled = true;
-              this.#openFailedWindow();
-            }
+            const url = this.urlTemplates[layer]
+              .replace("{z}", zoom)
+              .replace("{x}", x)
+              .replace("{y}", y);
+
+            const tilePromise = limit(() => {
+              return fetch(url, { signal: this.abortController.signal })
+                .then(response => {
+                  if (!response.ok) throw new Error("Fetch failed");
+                  return response.blob();
+                })
+                .then(blob => blob.arrayBuffer())
+                .then(async arrayBuffer => {
+                  const data = this.#arrayBufferToBase64(arrayBuffer);
+                  const tilePath = `${layer}/${zoom}/${x}/${y}`;
+                  await this.#storeVectorTile(tilePath, data);
+                  currentTileNumber++;
+                  this.totalSize += data.length / 1000000;
+                  tileList.push(tilePath);
+                  // Update DOM for progress
+                  this.dom.currentWeight.innerText = (Math.round(this.totalSize * 100) / 100).toFixed(2);
+                  this.dom.DLPercent.innerText = Math.round((10000 * currentTileNumber / (totalTileNumber * Object.keys(this.urlTemplates).length)) / 100);
+                  const currentTime = new Date().getTime();
+                  const currentSpeed = currentTileNumber / (currentTime - startTime);
+                  const estimatedRemainingMs = (totalTileNumber / currentSpeed) - (currentTime - startTime);
+                  const estimatedRemainingMin = Math.floor(estimatedRemainingMs / 60000);
+                  const estimatedRemainingSec = Math.floor(estimatedRemainingMs / 1000) - estimatedRemainingMin * 60;
+                  this.dom.ETAMin.innerText = estimatedRemainingMin;
+                  this.dom.ETASec.innerText = estimatedRemainingSec;
+                  this.dom.progress.style.width = `${Math.round((10000 * currentTileNumber / (totalTileNumber * Object.keys(this.urlTemplates).length)) / 100)}%`;
+                })
+                .catch(err => {
+                  this.downloadCanceled = true;
+                  this.#openFailedWindow();
+                  KeepAwake.allowSleep();
+                  throw err;
+                });
+            });
+
+            tilePromises.push(tilePromise);
           }
         }
       }
     }
-    this.downloadStarted = false;
-    if (!this.downloadCanceled) {
-      const metadata = {
-        id: this.currentOfflineMapID,
-        boundinBox: {minLng, minLat, maxLng, maxLat},
-        zoomLevels,
-        tileList,
-        name: this.currentName,
-        size: this.totalSize,
-        timestamp: new Date().getTime(),
-        index: -1,
-      };
-      await this.#saveOfflineMapMetadata(metadata, this.currentOfflineMapID);
-      for (let key in this.offlineMapsList) {
-        const mapMetadata = this.offlineMapsList[key];
-        mapMetadata.index++;
-        await this.#saveOfflineMapMetadata(mapMetadata, parseInt(key));
+
+    try {
+      await Promise.all(tilePromises);
+      this.downloadStarted = false;
+
+      if (!this.downloadCanceled) {
+        const metadata = {
+          id: this.currentOfflineMapID,
+          boundingBox: { minLng, minLat, maxLng, maxLat },
+          zoomLevels,
+          tileList,
+          name: `Carte téléchargée ${this.currentOfflineMapID + 1}`,
+          size: this.totalSize,
+          timestamp: new Date().getTime(),
+          index: -1,
+        };
+
+        await this.#saveOfflineMapMetadata(metadata, this.currentOfflineMapID);
+        for (let key in this.offlineMapsList) {
+          const mapMetadata = this.offlineMapsList[key];
+          mapMetadata.index++;
+          await this.#saveOfflineMapMetadata(mapMetadata, parseInt(key));
+        }
+
+        this.currentOfflineMapID++;
+        KeepAwake.allowSleep();
       }
-      this.currentOfflineMapID++;
-      this.currentName = `Carte téléchargée ${this.currentOfflineMapID + 1}`;
+    } catch (error) {
+      console.error("Download failed:", error);
+      KeepAwake.allowSleep();
     }
   }
 
@@ -534,7 +565,8 @@ class OfflineMaps {
         path: `metadata/${id}.json`,
         data: metadataString,
         directory: Directory.Data,
-        encoding: Filesystem.Encoding.UTF8
+        encoding: Encoding.UTF8,
+        recursive: true,
       });
     } else {
       // Save metadata to IndexedDB on web
@@ -555,7 +587,7 @@ class OfflineMaps {
         const result = await Filesystem.readFile({
           path: `metadata/${id}.json`,
           directory: Directory.Data,
-          encoding: Filesystem.Encoding.UTF8
+          encoding: Encoding.UTF8
         });
         return JSON.parse(result.data);
       } catch (error) {
@@ -577,10 +609,10 @@ class OfflineMaps {
     if (Capacitor.isNativePlatform()) {
       // Read metadata JSON file from Capacitor FileSystem
       try {
-        const files = await Filesystem.readdir({
+        const files = (await Filesystem.readdir({
           path: "metadata",
           directory: Directory.Data,
-        });
+        })).files;
         for (let i = 0; i < files.length; i++) {
           const id = parseInt(files[i].name.split(".")[0]);
           results[id] = await this.#getOfflineMapMetadata(id);
@@ -588,7 +620,7 @@ class OfflineMaps {
         return results;
       } catch (error) {
         console.error("Failed to read metadata for offlineMaps");
-        return null;
+        return {};
       }
     } else {
       // Retrieve metadata from IndexedDB on web
@@ -680,19 +712,18 @@ class OfflineMaps {
         const result = await Filesystem.readFile({
           path: `tiles/${layer}/${zoom}/${x}/${y}.pbf`,
           directory: Directory.Data,
-          encoding: Filesystem.Encoding.UTF8
+          encoding: Encoding.UTF8
         });
         tileData = result.data;
       } else {
         const db = await this.dbPromise;
         tileData = await db.get("tiles", `${layer}/${zoom}/${x}/${y}`);
       }
-
       if (tileData) {
         return {
           data: this.#base64ToArrayBuffer(tileData),
         };
-      } else  {
+      } else {
         const response = await fetch(onlineTileUrl);
         if (!response.ok) {
           if (Globals.online) {
@@ -724,7 +755,8 @@ class OfflineMaps {
         path: path,
         data: data,
         directory: Directory.Data,
-        encoding: Filesystem.Encoding.UTF8
+        encoding: Encoding.UTF8,
+        recursive: true,
       });
     } else {
       // Use IndexedDB in web

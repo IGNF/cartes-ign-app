@@ -620,6 +620,10 @@ class LayerSwitcher extends EventTarget {
           }
           this.map.setSprite(data_1.sprite);
           this.map.setGlyphs(data_1.glyphs);
+          // Fallback for offline glyphs
+          if (!Globals.online) {
+            this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
+          }
           const data_2 = data_1;
           LayersGroup.addGroup(id, data_2.layers, layerIdBefore);
           this.layers[id].style = data_2.layers; // sauvegarde !

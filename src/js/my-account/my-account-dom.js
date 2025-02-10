@@ -117,18 +117,18 @@ let MyAccountDOM = {
     <div class="tabs-wrap">
       <div class="tabs-menu-btn" tabindex="10" title="Sélectionner un onglet"></div>
       <div class="tabs-wrap-tabs">
-      <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-routes-tab"/>
+      <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-routes-tab" checked="checked"/>
       <label class="tabs-label" for="myaccount-routes-tab">Itinéraires <span id="myaccount-routes-number">0</span></label>
-      <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-offline-maps-tab" checked="checked"/>
+      <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-offline-maps-tab"/>
       <label class="tabs-label" for="myaccount-offline-maps-tab">Cartes téléchargées <span id="myaccount-offline-maps-number">0</span></label>
-        <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-landmarks-tab"/>
-        <label class="tabs-label" for="myaccount-landmarks-tab">Points de repère <span id="myaccount-landmarks-number">0</span></label>
-        <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-compare-landmarks-tab"/>
-        <label class="tabs-label" for="myaccount-compare-landmarks-tab">Repères Comparer <span id="myaccount-compare-landmarks-number">0</span></label>
-      </div>
+      <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-landmarks-tab"/>
+      <label class="tabs-label" for="myaccount-landmarks-tab">Points de repère <span id="myaccount-landmarks-number">0</span></label>
+      <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-compare-landmarks-tab"/>
+      <label class="tabs-label" for="myaccount-compare-landmarks-tab">Repères Comparer <span id="myaccount-compare-landmarks-number">0</span></label>
+    </div>
       <div class="tabs-wrap-content">
-        <div class="tabs-content" id="myaccount-offline-maps"><div id="myAccountDownloadMapBtn">Télécharger une carte</div></div>
-        <div class="tabs-content" id="myaccount-routes"><div id="myAccountImportBtnRoutes">Importer</div></div>
+      <div class="tabs-content" id="myaccount-routes"><div id="myAccountImportBtnRoutes">Importer</div></div>
+      <div class="tabs-content" id="myaccount-offline-maps"><div id="myAccountDownloadMapBtn">Télécharger une carte</div></div>
         <div class="tabs-content" id="myaccount-landmarks"><div id="myAccountImportBtnLandmarks">Importer</div></div>
         <div class="tabs-content" id="myaccount-compare-landmarks"></div>
       </div>
@@ -660,14 +660,20 @@ let MyAccountDOM = {
         }
         if (value === "delete") {
           this.deleteOfflineMap(offlineMapId);
+          Toast.show({
+            text: "Suppression en cours...",
+            duration: "short",
+            position: "bottom"
+          });
         }
       });
     });
 
     // Au clic sur la carte : zoomer sur l'emprise
+
     container.querySelector(`#offline-map-basic-tools_ID_${offlineMapId}`).addEventListener("click", () => {
       this.hide();
-      this.map.fitBounds([[offlineMap.boundinBox.minLng, offlineMap.boundinBox.minLat], [offlineMap.boundinBox.maxLng, offlineMap.boundinBox.maxLat]]);
+      this.map.fitBounds([[offlineMap.boundingBox.minLng, offlineMap.boundingBox.minLat], [offlineMap.boundingBox.maxLng, offlineMap.boundingBox.maxLat]]);
     });
 
     if (!container) {

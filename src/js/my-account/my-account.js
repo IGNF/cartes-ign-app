@@ -215,14 +215,14 @@ class MyAccount {
         passive: true,
         options: [
           {
-            text: "Cartes téléchargées",
-            value: "offline-maps",
-            class: "actionSheetTabOptionOfflineMaps",
-          },
-          {
             text: "Itinéraires",
             value: "routes",
             class: "actionSheetTabOptionRoutes",
+          },
+          {
+            text: "Cartes téléchargées",
+            value: "offline-maps",
+            class: "actionSheetTabOptionOfflineMaps",
           },
           {
             text: "Points de repère",
@@ -525,7 +525,7 @@ class MyAccount {
    */
   downloadMap() {
     // Place le plan IGN au dessus de la pile des couches
-    const planIgnLayerBtn = document.getElementById("PLAN.IGN.INTERACTIF$GEOPORTAIL:GPP:TMS");
+    const planIgnLayerBtn = document.getElementById("PLAN.IGN.INTERACTIF$TMS");
     do {
       planIgnLayerBtn.click();
     } while (!planIgnLayerBtn.classList.contains("selectedLayer"));
