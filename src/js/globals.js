@@ -4,6 +4,8 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
+import { Network } from "@capacitor/network";
+
 /** global: map */
 let map = null;
 let mapRLT1 = null;
@@ -98,7 +100,7 @@ let landmark = null;
 let compareLandmark = null;
 
 // Global flag: is the device connected to the internet?
-let online = true;
+let online = (await Network.getStatus()).connected;
 
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
