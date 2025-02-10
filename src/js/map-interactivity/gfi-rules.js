@@ -49,7 +49,7 @@ const gfiRules = {
         ["{{cjp}}"]
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\"",  "alt=\"{{url}}\" target=\"_blank.POI\">", "Accéder à la fiche</a></p>"],
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\"",  "alt=\"{{url}}\" target=\"_blank\">", "Accéder à la fiche</a></p>"],
       ],
     }
   },
@@ -67,9 +67,13 @@ const gfiRules = {
   "IGNF_SITES-UNESCO$WMS": {
     0: {
       "title": "@nom",
+      "title2": "@sous_titre",
       "subtitle": "Sites du patrimoine mondial de l'UNESCO - Source : IGN",
       "bodyAfter": [
-        ["<p class=\"monumentsHistoriquesContent\">{{description}}</p>"]
+        ["<p class=\"unescoDate\"><img class=\"unescoimg\" src=\"https://data.geopf.fr/annexes/ressources/UNESCO/Unesco-Images-Redimentionnees/{{nom_image}}\">"],
+        ["Année d'inscription : {{date_inscription}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">{{description}}</p>"],
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{lien_unesco}}\">Accéder à la fiche UNESCO</a></p>"],
       ],
     }
   },
@@ -78,7 +82,7 @@ const gfiRules = {
       "title": "@sitename",
       "subtitle": "Sites NATURA 2000 au titre de la Directive Oiseaux - Source : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
       ],
     }
   },
@@ -87,7 +91,7 @@ const gfiRules = {
       "title": "@nom",
       "subtitle": "Parcs nationaux - Source : Inventaire National du Patrimoine Naturel (INPN), Parcs Nationaux de France, Muséum national d’Histoire naturelle (MNHN)",
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
       ],
     }
   },
@@ -96,7 +100,7 @@ const gfiRules = {
       "title": "@nom",
       "subtitle": "Parcs naturels régionaux - Source : Inventaire National du Patrimoine Naturel (INPN), Fédération des Parcs naturels régionaux de France, Muséum national d’Histoire naturelle (MNHN)",
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
       ],
     }
   },
@@ -105,7 +109,7 @@ const gfiRules = {
       "title": "@nom",
       "subtitle": "Réserves naturelles nationales - Source : Inventaire National du Patrimoine Naturel (INPN), Réserves naturelles de France (RNF), Muséum national d’Histoire naturelle (MNHN)",
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
       ],
     }
   },
@@ -114,7 +118,7 @@ const gfiRules = {
       "title": "@nom",
       "subtitle": "Réserves naturelles régionales - Source : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
       ],
     }
   },
@@ -123,7 +127,7 @@ const gfiRules = {
       "title": "@nom",
       "subtitle": "Réserves Naturelles de Corse - Source : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
       ],
     }
   },
@@ -134,7 +138,7 @@ const gfiRules = {
       "bodyBefore": [
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\">Accéder à la fiche</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
       ],
     }
   },
@@ -251,12 +255,30 @@ const gfiRules = {
     let template = rule[z];
     if (template["title"][0] === "@") {
       let str = featureProperties[template.title.split("@")[1]].replace("", "'");
-      result.title = str[0].toUpperCase() + str.slice(1);
+      if (str.length) {
+        result.title = str[0].toUpperCase() + str.slice(1);
+      } else {
+        result.title = "";
+      }
     } else {
       result.title = template.title;
     }
     if (template["pretitle"]) {
       result.title = template["pretitle"] + result.title;
+    }
+    if (template["title2"]) {
+      let str;
+      if (template["title2"][0] === "@") {
+        str = featureProperties[template.title2.split("@")[1]].replace("", "'");
+        if (str) {
+          str = str[0].toUpperCase() + str.slice(1);
+        }
+      } else {
+        str = template["title2"];
+      }
+      if (str) {
+        result.title += `<p class="positionTitle2">${str}</p>`;
+      }
     }
     if (template["subtitle"]) {
       result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`;

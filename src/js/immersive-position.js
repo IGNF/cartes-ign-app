@@ -57,7 +57,7 @@ class ImmersivePosion extends EventTarget {
           parcHtml += `Vous êtes ${egalementStr}situé au sein de la ${this.data["BDTOPO_V3:parc_ou_reserve"][i][1]}. `;
         } else if (this.data["BDTOPO_V3:parc_ou_reserve"][i][0] === "Site Natura 2000") {
           let name = this.data["BDTOPO_V3:parc_ou_reserve"].length === 1 ? ` (${this.data["BDTOPO_V3:parc_ou_reserve"][i][1]})` : "";
-          parcHtml += `Vous êtes sur un site classé Natura 2000${name} où la faune et la flore sont protégés.`;
+          parcHtml += `Vous êtes sur un site classé Natura 2000${name} où la faune et la flore sont protégées.`;
         } else {
           parcHtml += `Vous êtes ${egalementStr}situé au sein du/de la ${this.data["BDTOPO_V3:parc_ou_reserve"][i][0]} de ${this.data["BDTOPO_V3:parc_ou_reserve"][i][1]}. `;
         }

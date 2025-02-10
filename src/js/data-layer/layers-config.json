@@ -262,7 +262,7 @@
       "format": "image/png"
     },
     "IGNF_SITES-UNESCO$WMS": {
-      "title": "Sites du patrimoine mondial de l'UNESCO",
+      "title": "Patrimoine mondial de l'UNESCO",
       "description": "Sites du patrimoine mondial de l'UNESCO : Le patrimoine mondial est une appellation attribuée à des lieux ou des biens, situés à travers le monde, possédant une valeur universelle exceptionnelle. A ce titre, ils sont inscrits sur la Liste du patrimoine mondial afin d’être protégés pour que les générations futures puissent encore les apprécier à leur tour.",
       "source": "Institut national de l'information géographique et forestière",
       "maj": "Février 2025",

@@ -270,11 +270,23 @@
   margin-left: 10px;
 }
 
+.positionTitle2 {
+  font-family: "Open Sans Semibold";
+  font-size: 15px;
+  margin: 4px 0;
+}
+
 .positionSubTitle {
   font-family: "Open Sans";
   font-size: 13px;
   color: var(--mid-grey);
   margin: 0;
+}
+
+.unescoDate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .positionHtmlBefore {
