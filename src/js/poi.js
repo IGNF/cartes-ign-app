@@ -68,6 +68,9 @@ class POI {
   async load() {
     var props = LayersConfig.getLayerProps(this.id);
     var style = props.style; // url !
+    if (!Globals.online) {
+      style = props.fallbackStyle; // url !;
+    }
 
     return fetch(style)
       .then((response) => {
