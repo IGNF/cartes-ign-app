@@ -100,6 +100,12 @@ class Search {
         setTimeout(() => {
           Globals.menu.open("selectOnMapLandmark");
         }, 250);
+      } else if (Globals.backButtonState === "searchDownload") {
+        e.target.classList.add("autocompresultselected");
+        setTimeout(() => {
+          Globals.offlineMaps.resetCurrentName();
+          Globals.menu.open("offlineMaps");
+        }, 250);
       }
     }, true);
 
@@ -120,6 +126,11 @@ class Search {
         setTimeout(() => {
           this.hide();
           Globals.menu.open("landmark");
+        }, 250);
+      } else if (Globals.backButtonState === "searchDownload") {
+        setTimeout(() => {
+          this.hide();
+          Globals.menu.open("offlineMaps");
         }, 250);
       } else {
         setTimeout(() =>{
@@ -180,9 +191,9 @@ class Search {
      * Ajoute des suggestions en dessous de la barre de recherche en fonction de ce qui est tapé
      * à l'aide de look4
      */
-    Globals.controller.abort();
-    Globals.controller = new AbortController();
-    Globals.signal = Globals.controller.signal;
+    Globals.searchAbortController.abort();
+    Globals.searchAbortController = new AbortController();
+    Globals.searchAbortSignal = Globals.searchAbortController.signal;
     let location = DOM.$rech.value;
     let url = new URL("https://data.geopf.fr/geocodage/completion");
     let params = {
@@ -192,7 +203,7 @@ class Search {
     };
 
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-    let signal = Globals.signal;
+    let signal = Globals.searchAbortSignal;
     let responseprom = await fetch(url, {signal});
     let response = await responseprom.json();
     if (response.status !== "OK") {

@@ -78,6 +78,9 @@ class InteractivityIndicator {
     if (this.hardDisabled) {
       return;
     }
+    if (!Globals.online) {
+      return;
+    }
     if (this.pii && this.position && Math.floor(e.target.getZoom()) >= this.piiMinZoom) {
       this.active();
     } else {

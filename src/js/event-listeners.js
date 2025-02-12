@@ -50,15 +50,20 @@ function addListeners() {
           Geocode.search(DOM.$rech.value, coords, save);
           Globals.menu.open("directions");
         }, 250);
-      } else if(Globals.backButtonState === "searchIsochrone") {
+      } else if (Globals.backButtonState === "searchIsochrone") {
         setTimeout(() => {
           Geocode.search(DOM.$rech.value, coords, save);
           Globals.menu.open("isochrone");
         }, 250);
-      } else if(Globals.backButtonState === "searchLandmark") {
+      } else if (Globals.backButtonState === "searchLandmark") {
         setTimeout(() => {
           Geocode.search(DOM.$rech.value, coords, save);
           Globals.menu.open("landmark");
+        }, 250);
+      } else if (Globals.backButtonState === "searchDownload") {
+        Geocode.searchAndMoveTo(DOM.$rech.value, coords);
+        setTimeout(() => {
+          Globals.menu.open("offlineMaps");
         }, 250);
       } else {
         Geocode.searchAndMoveTo(DOM.$rech.value, coords, save);
@@ -293,7 +298,6 @@ function addListeners() {
           const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
           const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
           map.flyTo({zoom: zoom, center: center});
-          console.log((urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("color")));
           if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("color")) {
             const feature = {
               type: "Feature",

@@ -62,10 +62,12 @@
     "@xmldom/xmldom": "^0.8.10",
     "capacitor-native-settings": "^6.0.0",
     "chart.js": "^4.4.1",
+    "idb": "^8.0.1",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
     "maplibre-gl": "^4.3.2",
     "npm": "^10.5.0",
+    "p-limit": "^6.2.0",
     "proj4": "^2.10.0"
   },
   "devDependencies": {

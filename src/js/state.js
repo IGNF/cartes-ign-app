@@ -83,6 +83,13 @@ const onBackKeyDown = () => {
     Globals.menu.close("searchLandmark");
     return;
   }
+  if (backState === "searchDownload") {
+    const closesearch = new Event("closesearch");
+    window.dispatchEvent(closesearch);
+    Globals.menu.close("searchDownload");
+    Globals.menu.open("myaccount");
+    return;
+  }
   if (backState === "position") {
     Globals.position.hide();
     // réouverture de menu précédent
@@ -168,6 +175,20 @@ const onBackKeyDown = () => {
       Globals.menu.open(previousState);
       return;
     }
+    return;
+  }
+  if (backState === "offlineMapsLocked") {
+    Globals.offlineMaps.unlockView();
+    return;
+  }
+  if (backState === "offlineMapsDownloading") {
+    return;
+  }
+  if (backState === "offlineMapsName") {
+    return;
+  }
+  if (backState === "offlineMapsFailed") {
+    Globals.offlineMaps.show();
     return;
   }
   if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenAccessibility"].includes(backState)) {

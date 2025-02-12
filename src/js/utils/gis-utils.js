@@ -54,6 +54,28 @@ let gisUtils = {
     const equivalentDistance = horizontalDistance + 7.92 * verticalDistance;
     return equivalentDistance / speed;
   },
+
+  /**
+   * Fonction de transformation coordonnées vers pixels d'une tuile
+   * @param {*} lat
+   * @param {*} lng
+   * @param {*} zoom
+   * @returns
+  */
+  latlngToTilePixel(lat, lng, zoom) {
+    // https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
+    const fullXTile = (lng + 180) / 360 * Math.pow(2, zoom);
+    const fullYTile = (1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom);
+    const tile = {
+      x: Math.floor(fullXTile),
+      y: Math.floor(fullYTile),
+    };
+    const tilePixel = {
+      x: Math.floor((fullXTile - tile.x) * 256),
+      y: Math.floor((fullYTile - tile.y) * 256),
+    };
+    return [tile, tilePixel];
+  }
 };
 
 export default gisUtils;

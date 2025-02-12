@@ -106,6 +106,10 @@ class POI {
         }
         this.map.setSprite(data.sprite);
         this.map.setGlyphs(data.glyphs);
+        // Fallback for offline glyphs
+        if (!Globals.online) {
+          this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
+        }
         this.#loadSprite(data.sprite);
         return data;
       })

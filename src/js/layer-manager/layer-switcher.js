@@ -620,6 +620,10 @@ class LayerSwitcher extends EventTarget {
           }
           this.map.setSprite(data_1.sprite);
           this.map.setGlyphs(data_1.glyphs);
+          // Fallback for offline glyphs
+          if (!Globals.online) {
+            this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
+          }
           const data_2 = data_1;
           LayersGroup.addGroup(id, data_2.layers, layerIdBefore);
           this.layers[id].style = data_2.layers; // sauvegarde !
@@ -722,7 +726,9 @@ class LayerSwitcher extends EventTarget {
       }
     }
     // Si le layer a enlever est le dernier fond de plan, on ne fait rien
-    if (LayersConfig.getLayerProps(id).base && nbBaseLayers === 1) {
+    // On n'affiche le message que si c'est l'utilisateur qui a fait l'action
+    // (si on est en mode "myaccount", c'est le téléchargeur de carte qui est à l'origine du clic)
+    if (LayersConfig.getLayerProps(id).base && nbBaseLayers === 1 && Globals.backButtonState !== "myaccount") {
       Toast.show({
         text: "Impossible d'enlever le seul fond de carte",
         duration: "short",

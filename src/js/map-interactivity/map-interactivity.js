@@ -15,6 +15,7 @@ import Union from "@turf/union";
 import Buffer from "@turf/buffer";
 import proj4 from "proj4";
 import Legend from "./legend-plan-ign";
+import gisUtils from "../utils/gis-utils";
 
 /**
  * Interface sur l'interaction avec la carte
@@ -64,7 +65,7 @@ class MapInteractivity {
     this.handleUpdateHighlightedGeom = this.#updateHighlightedGeom.bind(this);
 
     // annulation de la reqête fetch
-    this.controller = new AbortController();
+    this.abortController = new AbortController();
 
     // requête en cours d'execution ?
     this.loading = false;
@@ -179,7 +180,7 @@ class MapInteractivity {
     });
 
     let layersForGFI = layerswithzoom.filter( layer => layer[1].interactive ).map((layer) => {
-      let arr = this.#latlngToTilePixel(ev.lngLat.lat, ev.lngLat.lng, layer[1].computeZoom);
+      let arr = gisUtils.latlngToTilePixel(ev.lngLat.lat, ev.lngLat.lng, layer[1].computeZoom);
       layer[1].tiles =  {tile: arr[0], tilePixel: arr[1]};
       layer[1].clickCoords = ev.lngLat;
       return layer;
@@ -267,28 +268,6 @@ class MapInteractivity {
       "type": "FeatureCollection",
       "features": union,
     });
-  }
-
-  /**
-   * Fonction de transformation coordonnées vers pixels d'une tuile
-   * @param {*} lat
-   * @param {*} lng
-   * @param {*} zoom
-   * @returns
-  */
-  #latlngToTilePixel(lat, lng, zoom) {
-    // https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
-    const fullXTile = (lng + 180) / 360 * Math.pow(2, zoom);
-    const fullYTile = (1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom);
-    const tile = {
-      x: Math.floor(fullXTile),
-      y: Math.floor(fullYTile),
-    };
-    const tilePixel = {
-      x: Math.floor((fullXTile - tile.x) * 256),
-      y: Math.floor((fullYTile - tile.y) * 256),
-    };
-    return [tile, tilePixel];
   }
 
   async #multipleGFI(layerArray) {
@@ -407,7 +386,7 @@ class MapInteractivity {
       }
       const response = fetch(
         gfiURL,
-        { signal: this.controller.signal }
+        { signal: this.abortController.signal }
       ).then((response => {return response.json();}), () => {
         throw new Error("GetFeatureInfo : HTTP error");
       }).then((res) => {
@@ -532,8 +511,8 @@ class MapInteractivity {
      */
   clear () {
     if (this.loading) {
-      this.controller.abort();
-      this.controller = new AbortController();
+      this.abortController.abort();
+      this.abortController = new AbortController();
       this.loading = false;
       DOM.$mapCenter.classList.remove("loading");
       DOM.$mapCenter.classList.add("d-none");

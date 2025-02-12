@@ -9,6 +9,8 @@ import MyAccountDOM from "./my-account-dom";
 import MyAccountLayers from "./my-account-styles";
 import utils from "../utils/unit-utils";
 import gisUtils from "../utils/gis-utils";
+import jsUtils from "../utils/js-utils";
+import domUtils from "../utils/dom-utils";
 import ActionSheet from "../action-sheet";
 import Location from "../services/location";
 import DOM from "../dom";
@@ -36,7 +38,6 @@ import CompareLandmarkOrange from "../../css/assets/compareLandmark/compare-land
 import CompareLandmarkGreen from "../../css/assets/compareLandmark/compare-landmark-green.png";
 import CompareLandmarkYellow from "../../css/assets/compareLandmark/compare-landmark-yellow.png";
 import { Capacitor } from "@capacitor/core";
-import jsUtils from "../utils/js-utils";
 
 /**
  * Interface sur la fenêtre du compte
@@ -80,6 +81,9 @@ class MyAccount {
     // points de repère
     this.landmarks = [];
     this.compareLandmarks = [];
+
+    // cartes téléchargées
+    this.offlineMaps = [];
 
     this.#addSourcesAndLayers();
 
@@ -141,7 +145,7 @@ class MyAccount {
     });
 
     // récupération des infos et rendu graphique
-    Promise.all([this.compute(), promiseCompareLandmarks, promiseLandmarks, promiseRoutes]).then(() => {
+    Promise.all([this.compute(), promiseCompareLandmarks, promiseLandmarks, promiseRoutes, Globals.offlineMaps.loadPromise]).then(() => {
       // Ajout d'identifiant unique aux routes
       this.routes.forEach((route) => {
         route.id = this.lastRouteId;
@@ -187,13 +191,23 @@ class MyAccount {
     this.dom.tabsMenuBtn.addEventListener("click", () => {
       const selectOption = (e) => {
         let option = e.detail.value;
-        if (option === "routes") {
-          this.dom.routeTabHeader.click();
+        let left = 0;
+        if (option === "offline-maps") {
+          this.dom.offlineMapTabHeader.click();
+          left = 117;
         } else if (option === "landmarks") {
           this.dom.landmarkTabHeader.click();
+          left = 300;
         } else if (option === "compare-landmarks") {
           this.dom.compareLandmarkTabHeader.click();
+          left = 500;
+        } else if (option === "routes") {
+          this.dom.routeTabHeader.click();
         }
+        this.dom.tabsHeaderWrapper.scrollTo({
+          left: left,
+          behavior: "smooth",
+        });
       };
       ActionSheet.addEventListener("optionSelect", selectOption);
       ActionSheet.show({
@@ -204,6 +218,11 @@ class MyAccount {
             text: "Itinéraires",
             value: "routes",
             class: "actionSheetTabOptionRoutes",
+          },
+          {
+            text: "Cartes téléchargées",
+            value: "offline-maps",
+            class: "actionSheetTabOptionOfflineMaps",
           },
           {
             text: "Points de repère",
@@ -319,7 +338,7 @@ class MyAccount {
       return;
     }
 
-    var container = this.getContainer(this.accountName, this.routes, this.landmarks, this.compareLandmarks);
+    var container = this.getContainer(this.accountName, this.routes, this.landmarks, this.compareLandmarks, Globals.offlineMaps.getOfflineMapsOrderedList());
     if (!container) {
       console.warn();
       return;
@@ -353,6 +372,15 @@ class MyAccount {
       forceFallback: true,
       onEnd : (evt) => {
         this.setCompareLandmarkPosition(evt.oldDraggableIndex, evt.newDraggableIndex);
+      }
+    });
+    Sortable.create(this.dom.offlineMapList, {
+      handle: ".handle-draggable-layer",
+      draggable: ".draggable-layer",
+      animation: 200,
+      forceFallback: true,
+      onEnd : (evt) => {
+        this.setOfflineMapPosition(parseInt(evt.item.id.split("_")[2]), evt.oldDraggableIndex, evt.newDraggableIndex);
       }
     });
   }
@@ -493,6 +521,18 @@ class MyAccount {
   }
 
   /**
+   * Lance l'interface de téléchargement de carte hors ligne
+   */
+  downloadMap() {
+    // Place le plan IGN au dessus de la pile des couches
+    const planIgnLayerBtn = document.getElementById("PLAN.IGN.INTERACTIF$TMS");
+    do {
+      planIgnLayerBtn.click();
+    } while (!planIgnLayerBtn.classList.contains("selectedLayer"));
+    Globals.offlineMaps.openSearchLocation();
+  }
+
+  /**
    * Ajout d'un itinéraire tracé à l'espace utilisateur
    * @param {*} drawRouteSaveOptions
    */
@@ -578,6 +618,13 @@ class MyAccount {
   }
 
   /**
+   * Met à jour l'affichage des cartes en ligne
+   */
+  updateOfflineMaps() {
+    this.__updateAccountOfflineMapsContainerDOMElement(Globals.offlineMaps.getOfflineMapsOrderedList());
+  }
+
+  /**
    * Supprime un itinéraire de l'epace utilisateur
    */
   deleteRoute(routeId) {
@@ -638,6 +685,13 @@ class MyAccount {
   }
 
   /**
+   * Supprime une carte téléchargée de l'epace utilisateur
+   */
+  deleteOfflineMap(offlineMapId) {
+    Globals.offlineMaps.deleteOfflineMap(offlineMapId);
+  }
+
+  /**
    * Change l'ordre des routes dans l'objet
    * @param {*} oldIndex
    * @param {*} newIndex
@@ -671,6 +725,15 @@ class MyAccount {
     this.compareLandmarks.splice(oldIndex, 1);
     this.compareLandmarks.splice(newIndex, 0, compareLandmark);
     this.#updateSources();
+  }
+
+  /**
+   * Change l'ordre des cartes hors ligne
+   * @param {*} offlineMapId
+   * @param {*} newIndex
+   */
+  setOfflineMapPosition(offlineMapId, oldIndex, newIndex) {
+    Globals.offlineMaps.changeMapIndex(offlineMapId, oldIndex, newIndex);
   }
 
   /**
@@ -709,6 +772,39 @@ class MyAccount {
     Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
     Globals.routeDraw.setName(route.name);
     Globals.routeDraw.setId(route.id);
+  }
+
+  /**
+   * Ouvre l'interface de téléchargement autour de l'itinéraire
+   * @param {*} route
+   */
+  downloadRoute(route) {
+    let coordinates = [];
+    route.data.steps.forEach((step) => {
+      coordinates = coordinates.concat(step.geometry.coordinates);
+    });
+    const bounds = coordinates.reduce((bounds, coord) => {
+      return bounds.extend(coord);
+    }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+
+    const mapPadding = {};
+    if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+      mapPadding.bottom = this.map.getContainer().offsetHeight / 2 - 85;
+      mapPadding.top = this.map.getContainer().offsetHeight / 2 - 85;
+      mapPadding.left = this.map.getContainer().offsetWidth / 2 - 85;
+      mapPadding.right = this.map.getContainer().offsetWidth / 2 - 85;
+    } else {
+      mapPadding.bottom = (3 * this.map.getContainer().offsetWidth / 4) - 85;
+      mapPadding.top = (3 * this.map.getContainer().offsetWidth / 4) - 85;
+      mapPadding.left = (this.map.getContainer().offsetHeight / 2) - 85;
+      mapPadding.right = (this.map.getContainer().offsetHeight / 2) - 85;
+    }
+    this.map.fitBounds(bounds, {
+      padding: mapPadding,
+    });
+    this.map.once("moveend", () => { this.map.setPadding({top: 0, right: 0, bottom: 0, left: 0}); });
+    this.hide();
+    Globals.menu.open("offlineMaps");
   }
 
   /**
@@ -782,9 +878,9 @@ class MyAccount {
   }
 
   /**
- * Ouvre l'outil de création de point de repère pour le modifer
- * @param {*} compareLandmark
- */
+   * Ouvre l'outil de création de point de repère pour le modifer
+   * @param {*} compareLandmark
+   */
   editCompareLandmark(compareLandmark) {
     if (Location.isTrackingActive()) {
       Location.disableTracking();
@@ -817,6 +913,37 @@ class MyAccount {
       mode: compareLandmark.properties.mode,
     });
     Globals.compareLandmark.setId(compareLandmark.id);
+  }
+
+  /**
+   * Ouvre la fenêtre de renommage de carte hors ligne
+   * @param {*} offlineMap
+   */
+  renameOfflineMap(offlineMap) {
+    const renameOfflineMapDom = domUtils.stringToHTML(`<div id="offlineMapsRenameDiv">
+    <h3>Renommer la carte</h3>
+    <div class="dsign-form-element">
+      <input type="text" id="offlineMapsRename-title" name="offlineMapsRename-title" class="landmark-input-text" placeholder=" " title="Titre" value="${offlineMap.name}">
+      <label class="dsign-form-label">Titre</label>
+    </div>
+    <div id="offlineMapsRenameSave" class="form-submit">Enregistrer</div>
+    </div>`);
+
+    renameOfflineMapDom.querySelector("#offlineMapsRenameSave").addEventListener("click", () => {
+      if (renameOfflineMapDom.querySelector("#offlineMapsRename-title").value) {
+        Globals.offlineMaps.changeOfflineMapName(offlineMap.id, renameOfflineMapDom.querySelector("#offlineMapsRename-title").value);
+        Toast.show({
+          text: "Votre carte a été rennomée",
+          duration: "long",
+          position: "bottom"
+        });
+      }
+      ActionSheet._closeElem.click();
+    });
+    ActionSheet.show({
+      style: "custom",
+      content: renameOfflineMapDom,
+    });
   }
 
   /**

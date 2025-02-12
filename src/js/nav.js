@@ -137,6 +137,27 @@ class MenuNavigation {
     // y'a t il des particularités sur l'ouverture du panneau demandé ?
     var isSpecific = false;
     switch (id) {
+    case "offlineMaps":
+      DOM.$search.classList.add("d-none");
+      DOM.$filterPoiBtn.classList.add("d-none");
+      DOM.$fullScreenBtn.classList.add("d-none");
+      DOM.$backTopLeftBtn.classList.remove("d-none");
+      DOM.$bottomButtons.classList.add("d-none");
+      Globals.interactivityIndicator.hardDisable();
+      Globals.currentScrollIndex = 2;
+      DOM.$whiteScreen.classList.remove("d-none");
+      DOM.$whiteScreen.classList.add("downloadOverlay");
+      // Si ouver via "selectionner sur la carte"
+      DOM.$rech.blur();
+      if (document.querySelector(".autocompresultselected")) {
+        document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
+      }
+      DOM.$backTopLeftBtn.classList.remove("searching");
+      document.body.classList.remove("searching");
+      DOM.$altMenuContainer.classList.add("d-none");
+      DOM.$searchresultsWindow.classList.add("d-none");
+      Globals.offlineMaps.show();
+      break;
     case "selectOnMapCompareLandmark":
       Globals.backButtonState = "selectOnMapCompareLandmark-" + previousBackState;
       document.querySelector("#mapRLT2").classList.add("d-none");
@@ -348,6 +369,7 @@ class MenuNavigation {
     case "searchDirections":
     case "searchIsochrone":
     case "searchLandmark":
+    case "searchDownload":
       DOM.$search.classList.remove("d-none");
       DOM.$selectOnMap.classList.remove("d-none");
       // falls through
@@ -392,7 +414,7 @@ class MenuNavigation {
     // on cache le menu de navigation
     this.hide();
 
-    if (!DOM.$whiteScreen.classList.contains("d-none")) {
+    if (!DOM.$whiteScreen.classList.contains("d-none") && !DOM.$whiteScreen.classList.contains("downloadOverlay")) {
       DOM.$tabContainer.classList.add("noHeight");
     }
 
@@ -417,6 +439,17 @@ class MenuNavigation {
     var isSpecific = false;
     var isFinished = false; // hack pour search !
     switch (id) {
+    case "offlineMaps":
+      DOM.$search.classList.remove("d-none");
+      DOM.$filterPoiBtn.classList.remove("d-none");
+      DOM.$fullScreenBtn.classList.remove("d-none");
+      DOM.$backTopLeftBtn.classList.add("d-none");
+      DOM.$bottomButtons.classList.remove("d-none");
+      Globals.interactivityIndicator.enable();
+      DOM.$whiteScreen.classList.add("d-none");
+      DOM.$whiteScreen.classList.remove("downloadOverlay");
+      Globals.offlineMaps.hide();
+      break;
     case "selectOnMapCompareLandmark":
       document.querySelector("#mapRLT2").classList.remove("d-none");
       DOM.$bottomButtons.classList.remove("d-none");
@@ -598,6 +631,7 @@ class MenuNavigation {
     case "searchDirections":
     case "searchIsochrone":
     case "searchLandmark":
+    case "searchDownload":
       DOM.$rech.blur();
       if (document.querySelector(".autocompresultselected")) {
         document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");
@@ -684,9 +718,9 @@ class MenuNavigation {
       Globals.backButtonState = "position"; // on revient sur le contrôle !
       return;
     }
-    Globals.controller.abort();
-    Globals.controller = new AbortController();
-    Globals.signal = Globals.controller.signal;
+    Globals.searchAbortController.abort();
+    Globals.searchAbortController = new AbortController();
+    Globals.searchAbortSignal = Globals.searchAbortController.signal;
     DOM.$resultDiv.hidden = true;
     DOM.$resultDiv.innerHTML = "";
     DOM.$searchresultsWindow.classList.add("d-none");
@@ -739,6 +773,15 @@ class MenuNavigation {
       Globals.currentScrollIndex = 2;
       this.updateScrollAnchors();
       DOM.$rech.value = "";
+      break;
+    case "searchDownload":
+      DOM.$search.classList.add("d-none");
+      DOM.$backTopLeftBtn.classList.remove("d-none");
+      Globals.backButtonState = "myaccount"; // on revient sur le contrôle !
+      Globals.currentScrollIndex = 0;
+      this.updateScrollAnchors();
+      DOM.$rech.value = "";
+      Globals.interactivityIndicator.enable();
       break;
     default:
       break;

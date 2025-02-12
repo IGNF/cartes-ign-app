@@ -45,8 +45,8 @@ let myPositionIconGrey;
 let searchResultIcon;
 
 // Pour l'annulation de fetch
-let controller = new AbortController();
-let signal = controller.signal;
+let searchAbortController = new AbortController();
+let searchAbortSignal = searchAbortController.signal;
 
 // Global Search plugin
 let search = null;
@@ -99,6 +99,9 @@ let signalementOSM = null;
 let landmark = null;
 let compareLandmark = null;
 
+// Global control offline maps
+let offlineMaps = null;
+
 // Global flag: is the device connected to the internet?
 let online = (await Network.getStatus()).connected;
 
@@ -129,8 +132,8 @@ export default {
   myPositionIcon,
   myPositionIconGrey,
   searchResultIcon,
-  controller,
-  signal,
+  searchAbortController,
+  searchAbortSignal,
   currentScrollIndex,
   maxScroll,
   anchors,
@@ -156,4 +159,5 @@ export default {
   osmPoiAccessibility,
   landmark,
   compareLandmark,
+  offlineMaps,
 };
