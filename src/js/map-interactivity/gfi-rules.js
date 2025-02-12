@@ -68,7 +68,7 @@ const gfiRules = {
     0: {
       "title": "@nom",
       "title2": "@sous_titre",
-      "subtitle": "Sites du patrimoine mondial de l'UNESCO - Source : IGN",
+      "subtitle": "Sites du patrimoine mondial de l'UNESCO - Sources : UNESCO, IGN",
       "bodyAfter": [
         ["<p class=\"unescoDate\"><img class=\"unescoimg\" src=\"https://data.geopf.fr/annexes/ressources/UNESCO/Unesco-Images-Redimentionnees/{{nom_image}}\">"],
         ["Année d'inscription : {{date_inscription}}</p>"],
