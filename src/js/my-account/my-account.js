@@ -1166,10 +1166,20 @@ ${props.text}`,
     });
     try {
       let formatName;
+      const existingFileNames = (await Filesystem.readdir({
+        path: "",
+        directory: Directory.Documents,
+      })).files.map(file => file.name);
       if (value === "json") {
         formatName = "JSON";
+        let fileName = `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`;
+        let number = 0;
+        while (existingFileNames.includes(fileName)) {
+          number++;
+          fileName = `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}_${number}.geojson`;
+        }
         await Filesystem.writeFile({
-          path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`,
+          path: fileName,
           data: JSON.stringify(this.#routeToGeojson(route)),
           directory: Directory.Documents,
           encoding: Encoding.UTF8,
@@ -1186,8 +1196,14 @@ ${props.text}`,
           }
         });
         const gpxString = new XMLSerializer().serializeToString(gpx);
+        let fileName = `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.gpx`;
+        let number = 0;
+        while (existingFileNames.includes(fileName)) {
+          number++;
+          fileName = `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}_${number}.gpx`;
+        }
         await Filesystem.writeFile({
-          path: `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.gpx`,
+          path: fileName,
           data: gpxString,
           directory: Directory.Documents,
           encoding: Encoding.UTF8,
@@ -1237,7 +1253,7 @@ ${props.text}`,
    * Exporte le point de repère sous forme d'un ficheir geojson
    * @param {*} route
    */
-  exportLandmark(landmark) {
+  async exportLandmark(landmark) {
     let documentsName = "Documents";
     if (Capacitor.getPlatform() === "ios") {
       documentsName = "Fichiers";
@@ -1250,28 +1266,39 @@ ${props.text}`,
         properties: landmark.properties,
       }));
     }
-    Filesystem.writeFile({
-      path: `${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`,
-      data: JSON.stringify({
-        type: "Feature",
-        geometry: landmark.geometry,
-        properties: landmark.properties,
-      }),
+    const existingFileNames = (await Filesystem.readdir({
+      path: "",
       directory: Directory.Documents,
-      encoding: Encoding.UTF8,
-    }).then(() => {
+    })).files.map(file => file.name);
+    try  {
+      let fileName = `${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`;
+      let number = 0;
+      while (existingFileNames.includes(fileName)) {
+        number++;
+        fileName = `${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}_${number}.geojson`;
+      }
+      await Filesystem.writeFile({
+        path: fileName,
+        data: JSON.stringify({
+          type: "Feature",
+          geometry: landmark.geometry,
+          properties: landmark.properties,
+        }),
+        directory: Directory.Documents,
+        encoding: Encoding.UTF8,
+      });
       Toast.show({
         text: `Fichier enregistré dans ${documentsName}.`,
         duration: "long",
         position: "bottom"
       });
-    }).catch( () => {
+    } catch {
       Toast.show({
         text: "Le point de repère n'a pas pu être savegardé.",
         duration: "long",
         position: "bottom"
       });
-    });
+    }
   }
 
   /**

@@ -124,6 +124,7 @@ class ComparePoi {
    * @returns
    */
   setData(comparePoi) {
+    this.dom.advancedBtn.classList.add("d-none");
     this.comparePoiId = -1;
     if (comparePoi.id !== null && comparePoi.id >= 0) {
       this.comparePoiId = comparePoi.id;
