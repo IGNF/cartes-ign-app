@@ -45,7 +45,10 @@ const addListeners = () => {
   });
 
   // Bouton Comparaison de carte
-  DOM.$sideBySideBtn.addEventListener("click", () => { Globals.menu.open("compare"); });
+  DOM.$sideBySideBtn.addEventListener("click", () => {
+    Globals.menu.open("compare");
+    DOM.$createCompareLandmarkBtn.classList.remove("d-none");
+  });
 
   // Bouton du gestionnaire de couches
   DOM.$layerManagerBtn.addEventListener("click", () => {

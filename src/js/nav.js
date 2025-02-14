@@ -262,7 +262,6 @@ class MenuNavigation {
       DOM.$compareMode.classList.remove("d-none");
       DOM.$sideBySideLeftLayer.classList.remove("d-none");
       DOM.$sideBySideRightLayer.classList.remove("d-none");
-      DOM.$createCompareLandmarkBtn.classList.remove("d-none");
       DOM.$tabContainer.classList.add("compare");
       DOM.$bottomButtons.classList.add("compare");
       DOM.$bottomButtons.classList.add("compareWidth");
