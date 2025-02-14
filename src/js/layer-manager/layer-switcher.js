@@ -629,7 +629,7 @@ class LayerSwitcher extends EventTarget {
           this.layers[id].style = data_2.layers; // sauvegarde !
         } catch (e) {
           if (fallback) {
-            fetchStyle(fallback, null);
+            await fetchStyle(fallback, null);
           } else {
             this.layers[id].error = true;
             throw new Error(e);
@@ -687,6 +687,10 @@ class LayerSwitcher extends EventTarget {
         this.#setColor(id, !layerOptions.gray);
       }
       this.#setVisibility(id, layerOptions.visible);
+      // Cas particulier : ajout de l'ombrage à plan IGN si la 3D est activée
+      if (id === "PLAN.IGN.INTERACTIF$TMS" && Globals.threeD && Globals.threeD.terrainOn) {
+        Globals.threeD.addHillShadeToPlanIgn();
+      }
       /**
        * Evenement "addlayer"
        * @event addlayer

@@ -21,6 +21,7 @@ const $selectOnMap = document.getElementById("selectOnMap");
 const $geolocateBtn = document.getElementById("geolocateBtn");
 const $backTopLeftBtn = document.getElementById("backTopLeftBtn");
 const $compassBtn = document.getElementById("compassBtn");
+const $threeDBtn = document.getElementById("threeDBtn");
 const $layerManagerBtn = document.getElementById("layerManagerBtn");
 const $sideBySideBtn = document.getElementById("sideBySideBtn");
 const $compareMode = document.getElementById("compareMode");
@@ -138,4 +139,5 @@ export default {
   $createCompareLandmarkBtn,
   $compareLandmarkWindow,
   $offlineMapsWindow,
+  $threeDBtn,
 };
