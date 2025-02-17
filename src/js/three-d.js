@@ -44,13 +44,12 @@ class ThreeD {
   }
 
   async #fetch3dBuildingsLayers() {
-    if (!Globals.map.getSource("bdtopo")) {
-      Globals.map.addSource("bdtopo", {
+    if (!Globals.map.getSource("plan_ign")) {
+      Globals.map.addSource("plan_ign", {
         "type": "vector",
-        "maxzoom": 19,
-        "minzoom": 15,
+        "maxzoom": 18,
         "tiles": [
-          "https://data.geopf.fr/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf"
+          "https://data.geopf.fr/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf"
         ]
       });
     }

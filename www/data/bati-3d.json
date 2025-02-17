@@ -8,11 +8,10 @@
   },
   "sources": {
     "bdtopo": {
-      "type": "vector",
-      "maxzoom": 19,
-      "minzoom": 15,
+      "type": "plan_ign",
+      "maxzoom": 18,
       "tiles": [
-        "https://data.geopf.fr/tms/1.0.0/BDTOPO/{z}/{x}/{y}.pbf"
+        "https://data.geopf.fr/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf"
       ]
     }
   },
@@ -22,147 +21,531 @@
   },
   "layers": [
     {
-      "id": "batiment_residentiel_vol",
+      "id": "cimetiere surfacique 1-vol",
       "type": "fill-extrusion",
-      "source": "bdtopo",
-      "source-layer": "batiment",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
       "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
       "filter": [
-        "==",
-        "usage_1",
-        "Résidentiel"
+        "in",
+        "symbo",
+        "CIMETIERE_SURF",
+        "CIMETIERE_MILI_SURF",
+        "NECROPOLE_NATIONALE"
       ],
       "paint": {
         "fill-extrusion-height": [
           "get", "hauteur"
         ],
-        "fill-extrusion-color": "#F1EBD9"
+        "fill-extrusion-color": "#F0F0F0",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Cimetière"
       }
     },
     {
-      "id": "batiment_annexe_vol",
+      "id": "bati surfacique mairie - Zoom 15,16,17,18-vol",
       "type": "fill-extrusion",
-      "source": "bdtopo",
-      "source-layer": "batiment",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
       "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
       "filter": [
-        "==",
-        "usage_1",
-        "Annexe"
+        "in",
+        "symbo",
+        "MAIRIE",
+        "MAIRIE_ANNEXE"
       ],
       "paint": {
         "fill-extrusion-height": [
           "get", "hauteur"
         ],
-        "fill-extrusion-color": "#F1EBD9"
+        "fill-extrusion-color": "#FFAEAE",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Mairie"
       }
     },
     {
-      "id": "batiment_agricole_vol",
+      "id": "bati surfacique fonctionnel industriel ou commercial - Zoom 16,17,18-vol",
       "type": "fill-extrusion",
-      "source": "bdtopo",
-      "source-layer": "batiment",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
       "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
       "filter": [
-        "==",
-        "usage_1",
-        "Agricole"
+        "in",
+        "symbo",
+        "BATI_COMMERCIAL",
+        "BATI_INDUSTRIEL",
+        "HANGAR",
+        "HANGAR_COMMERCIAL",
+        "HANGAR_INDUSTRIEL"
       ],
       "paint": {
         "fill-extrusion-height": [
           "get", "hauteur"
         ],
-        "fill-extrusion-color": "#E6E6E6"
+        "fill-extrusion-color": "#E6E6E6",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Bâtiment industriel ou commercial"
       }
     },
     {
-      "id": "batiment_commercial_et_services_vol",
+      "id": "bati surfacique fonctionnel public - Zoom 16,17,18-vol",
       "type": "fill-extrusion",
-      "source": "bdtopo",
-      "source-layer": "batiment",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
       "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
       "filter": [
-        "==",
-        "usage_1",
-        "Commercial et services"
+        "in",
+        "symbo",
+        "BATI_PUBLIC",
+        "HANGAR_PUBLIC"
       ],
       "paint": {
         "fill-extrusion-height": [
           "get", "hauteur"
         ],
-        "fill-extrusion-color": "#E3BFE2"
+        "fill-extrusion-color": "#E4DAF3",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Bâtiment public"
       }
     },
     {
-      "id": "batiment_industriel_vol",
+      "id": "bati surfacique fonctionnel sportif-vol",
       "type": "fill-extrusion",
-      "source": "bdtopo",
-      "source-layer": "batiment",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
       "minzoom": 16,
+      "metadata": {
+        "legend-group": "bati_surf_fonctionnel_sportif",
+        "legend-title": "Bâtiment sportif"
+      },
+      "layout": {
+        "visibility": "visible"
+      },
       "filter": [
         "==",
-        "usage_1",
-        "Industriel"
+        "symbo",
+        "BATI_SPORTIF"
       ],
       "paint": {
         "fill-extrusion-height": [
           "get", "hauteur"
         ],
-        "fill-extrusion-color": "#E6E6E6"
+        "fill-extrusion-color": "#DCE6E4",
+        "fill-extrusion-opacity": 0.7
       }
     },
     {
-      "id": "batiment_sportif_vol",
+      "id": "bati surfacique fonctionnel gare - Zoom 16,17,18-vol",
       "type": "fill-extrusion",
-      "source": "bdtopo",
-      "source-layer": "batiment",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
       "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
       "filter": [
         "==",
-        "usage_1",
-        "Sportif"
+        "symbo",
+        "BATI_GARE"
       ],
       "paint": {
         "fill-extrusion-height": [
           "get", "hauteur"
         ],
-        "fill-extrusion-color": "#DCE6E4"
+        "fill-extrusion-color": "#CBCDF5",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Gare ferroviaire"
       }
     },
     {
-      "id": "batiment_religieux_vol",
+      "id": "bati surfacique quelconque - Zoom 16,17,18-vol",
       "type": "fill-extrusion",
-      "source": "bdtopo",
-      "source-layer": "batiment",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
       "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
       "filter": [
         "==",
-        "usage_1",
-        "Religieux"
+        "symbo",
+        "BATI_QQUE"
       ],
       "paint": {
         "fill-extrusion-height": [
           "get", "hauteur"
         ],
-        "fill-extrusion-color": "#F7E1E1"
+        "fill-extrusion-color": "#F1EBD9",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Bâtiment résidentiel ou quelconque"
       }
     },
     {
-      "id": "batiment_indifferencie_vol",
+      "id": "bati hydro surfacique - Autre-vol",
       "type": "fill-extrusion",
-      "source": "bdtopo",
-      "source-layer": "batiment",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
       "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
       "filter": [
-        "==",
-        "usage_1",
-        "Indifférencié"
+        "in",
+        "symbo",
+        "ECLUSE_SURF",
+        "RESERVOIR_EAU_SURF"
       ],
       "paint": {
         "fill-extrusion-height": [
           "get", "hauteur"
         ],
-        "fill-extrusion-color": "#F1EBD9"
+        "fill-extrusion-color": "#ADCCD9",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Réservoir d'eau - Ecluse"
+      }
+    },
+    {
+      "id": "bati hydro surfacique - Pecherie-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "PECHERIE_SURF"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#BFE2F0",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Pêcherie"
+      }
+    },
+    {
+      "id": "bati hydro surfacique - Barrage-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "BARRAGE_SURF"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#FFFFFF",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Barrage"
+      }
+    },
+    {
+      "id": "bati hydro surfacique - Chateau d'eau-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "CHATEAU_EAU_SURF"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#1466B2",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Château d'eau"
+      }
+    },
+    {
+      "id": "bati infra surfacique - Silo-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "SILO_SURF"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#C7A9AA",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Silo"
+      }
+    },
+    {
+      "id": "bati infra surfacique - Reservoir indus-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "RESERVOIR_INDUS_SURF"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#8D9DAA",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Réservoir industriel"
+      }
+    },
+    {
+      "id": "bati infra surfacique - Serre-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "in",
+        "symbo",
+        "SERRE_SURF"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#CAD6D9",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Serre"
+      }
+    },
+    {
+      "id": "bati infra surfacique - poste electrique-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "in",
+        "symbo",
+        "POSTE_ELEC_SURF"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#7993B6",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-group": "poste_electrique",
+        "legend-title": "Poste électrique"
+      }
+    },
+    {
+      "id": "bati religieux surfacique - Zoom 15,16,17,18-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "in",
+        "symbo",
+        "CHAPELLE_SURF",
+        "EGLISE_SURF",
+        "CHRETIEN_SURF",
+        "SYNAGOGUE_SURF",
+        "MOSQUEE_SURF",
+        "AUTRE_CULTE_SURF",
+        "RELIGIEUX_QQUE"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#F7E1E1",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Bâtiment religieux"
+      }
+    },
+    {
+      "id": "bati remarquable surfacique-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "in",
+        "symbo",
+        "FORTIF_SURF",
+        "CHATEAU_SURF",
+        "TOUR_MOULIN_SURF",
+        "ARENE_THEATRE",
+        "ARC_TRIOMPHE_SURF",
+        "MONUMENT_SURF"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#9B9B9B",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Monument"
+      }
+    },
+    {
+      "id": "bati sportif surfacique fond-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "metadata": {
+        "legend-group": "bati_sportif_surfacique",
+        "legend-title": "Terrain de sport"
+      },
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "in",
+        "symbo",
+        "TENNIS_SURF",
+        "SPORT_INDIF_SURF",
+        "FOOT_SURF",
+        "MULTI_SPORT_SURF",
+        "PISTE_SPORT_SURF",
+        "NATATION_SURF"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#F1F5E7",
+        "fill-extrusion-opacity": 0.7
+      }
+    },
+    {
+      "id": "bati transport surfacique - piste-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "in",
+        "symbo",
+        "PISTE_DUR",
+        "PISTE_HERBE"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#DBDBDB",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Piste d'aérodrome"
+      }
+    },
+    {
+      "id": "bati transport surfacique - bati peage-vol",
+      "type": "fill-extrusion",
+      "source": "plan_ign",
+      "source-layer": "bati_surf",
+      "minzoom": 16,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "BATI_PEAGE"
+      ],
+      "paint": {
+        "fill-extrusion-height": [
+          "get", "hauteur"
+        ],
+        "fill-extrusion-color": "#DCDCDC",
+        "fill-extrusion-opacity": 0.7
+      },
+      "metadata": {
+        "legend-title": "Péage"
       }
     }
   ]
