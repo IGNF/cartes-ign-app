@@ -302,6 +302,15 @@ class LayerCatalogue extends EventTarget {
       });
       return;
     }
+    // Si on est hors ligne : impossible d'enlever Plan IGN
+    if (!Globals.online && layerName === "PLAN.IGN.INTERACTIF$TMS") {
+      Toast.show({
+        text: "Impossible d'enlever le Plan IGN en mode hors-ligne",
+        duration: "short",
+        position: "bottom"
+      });
+      return;
+    }
     var element = document.getElementById(layerName);
     element.classList.remove("selectedLayer");
 

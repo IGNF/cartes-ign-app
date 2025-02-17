@@ -1,5 +1,5 @@
 #whiteScreen.downloadOverlay {
-  background-color: rgba(0,0,0,.7);
+  background-color: rgba(0,0,0,.5);
   /* Carré de 200px de côté au centre */
   clip-path: polygon(
     0% 0%, 0% 100%, calc(50% - 100px) 100%, calc(50% - 100px) calc(50% - 100px),

@@ -303,6 +303,13 @@ class RouteDraw {
   }
 
   /**
+   * Ouvre l'interface de téléchargement à l'aide de la méthode de myAccount
+   */
+  downloadRoute() {
+    Globals.myaccount.downloadRouteFromID(this.routeId);
+  }
+
+  /**
    * Supprime l'itinéraire à l'aide de la méthode de myAccount
    */
   deleteRoute() {

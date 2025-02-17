@@ -197,6 +197,7 @@ function addListeners() {
       return;
     }
     Globals.online = newStatus;
+    const planIgnLayerBtn = document.getElementById("PLAN.IGN.INTERACTIF$TMS");
     if (newStatus) {
       PopupUtils.showOnlinePopup(`
       <div id="onlinePopup">
@@ -207,6 +208,9 @@ function addListeners() {
           </div>
       </div>
       `, map);
+      if (Capacitor.isNativePlatform()) {
+        this.map.setGlyphs("https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf");
+      }
     } else {
       PopupUtils.showOnlinePopup(`
       <div id="onlinePopup">
@@ -217,6 +221,13 @@ function addListeners() {
           </div>
       </div>
       `, map);
+      if (Capacitor.isNativePlatform()) {
+        this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
+      }
+      // Active Plan IGN
+      if (!planIgnLayerBtn.classList.contains("selectedLayer")) {
+        planIgnLayerBtn.click();
+      }
     }
   });
 

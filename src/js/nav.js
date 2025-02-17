@@ -147,7 +147,7 @@ class MenuNavigation {
       Globals.currentScrollIndex = 2;
       DOM.$whiteScreen.classList.remove("d-none");
       DOM.$whiteScreen.classList.add("downloadOverlay");
-      // Si ouver via "selectionner sur la carte"
+      // Si ouvert via "selectionner sur la carte"
       DOM.$rech.blur();
       if (document.querySelector(".autocompresultselected")) {
         document.querySelector(".autocompresultselected").classList.remove("autocompresultselected");

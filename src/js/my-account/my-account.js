@@ -775,6 +775,23 @@ class MyAccount {
   }
 
   /**
+   * Ouvre l'outil de tracé d'itinéraire pour modifier un itinéraire à partir de son ID
+   * @param {Number} routeId
+   */
+  editRouteFromID(routeId) {
+    try {
+      this.editRoute(this.#getRouteFromID(routeId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
+  }
+
+  /**
    * Ouvre l'interface de téléchargement autour de l'itinéraire
    * @param {*} route
    */
@@ -805,15 +822,16 @@ class MyAccount {
     this.map.once("moveend", () => { this.map.setPadding({top: 0, right: 0, bottom: 0, left: 0}); });
     this.hide();
     Globals.menu.open("offlineMaps");
+    Globals.offlineMaps.currentName = route.name;
   }
 
   /**
-   * Ouvre l'outil de tracé d'itinéraire pour modifier un itinéraire à partir de son ID
-   * @param {Number} routeId
-   */
-  editRouteFromID(routeId) {
+  * Partage l'itinéraire sous forme de fichier à partir de son ID
+  * @param {Number} routeId
+  */
+  downloadRouteFromID(routeId) {
     try {
-      this.editRoute(this.#getRouteFromID(routeId));
+      this.downloadRoute(this.#getRouteFromID(routeId));
     } catch (e) {
       console.warn(e);
       Toast.show({

@@ -680,6 +680,11 @@ let MyAccountDOM = {
     // Au clic sur la carte : zoomer sur l'emprise
 
     container.querySelector(`#offline-map-basic-tools_ID_${offlineMapId}`).addEventListener("click", () => {
+      // Place le plan IGN au dessus de la pile des couches
+      const planIgnLayerBtn = document.getElementById("PLAN.IGN.INTERACTIF$TMS");
+      do {
+        planIgnLayerBtn.click();
+      } while (!planIgnLayerBtn.classList.contains("selectedLayer"));
       this.hide();
       this.map.fitBounds([[offlineMap.boundingBox.minLng, offlineMap.boundingBox.minLat], [offlineMap.boundingBox.maxLng, offlineMap.boundingBox.maxLat]]);
     });

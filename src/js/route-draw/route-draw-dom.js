@@ -93,6 +93,11 @@ let RouteDrawDOM = {
             value: "share",
           },
           {
+            class: "tools-layer-download",
+            text: "Télecharger le plan",
+            value: "download",
+          },
+          {
             class: "tools-layer-export",
             text: "Exporter",
             value: "export",
@@ -123,6 +128,9 @@ let RouteDrawDOM = {
         }
         if (value === "delete") {
           this.deleteRoute();
+        }
+        if (value === "download") {
+          this.downloadRoute();
         }
       });
     });

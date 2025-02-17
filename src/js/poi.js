@@ -4,6 +4,8 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
+import { Capacitor } from "@capacitor/core";
+
 import LayersConfig from "./layer-manager/layer-config";
 import LayersGroup from "./layer-manager/layer-group";
 
@@ -107,7 +109,7 @@ class POI {
         this.map.setSprite(data.sprite);
         this.map.setGlyphs(data.glyphs);
         // Fallback for offline glyphs
-        if (!Globals.online) {
+        if (!Globals.online && Capacitor.isNativePlatform()) {
           this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
         }
         this.#loadSprite(data.sprite);

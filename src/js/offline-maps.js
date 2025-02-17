@@ -111,6 +111,7 @@ class OfflineMaps {
       progress : container.querySelector("#offlineMapsProgress"),
       cancelBtn : container.querySelector("#offlineMapsCancel"),
       nameScreen : container.querySelector("#offlineMapsWindowName"),
+      nameInput : container.querySelector("#offlineMaps-title"),
       confirmNameBtn : container.querySelector("#offlineMapsSave"),
       nameTextInput : container.querySelector("#offlineMaps-title"),
       failedWindow : container.querySelector("#offlineMapsWindowError"),
@@ -254,10 +255,10 @@ class OfflineMaps {
     PopupUtils.showPopup(
       `
       <div id="planIgnInfoPopup">
-          <div class="divPositionTitle">Pourquoi uniquement plan IGN ?</div>
+          <div class="divPositionTitle">Pourquoi uniquement Plan IGN ?</div>
           <div class="divPopupClose" onclick="onClosePlanIgnInfoPopup(event)"></div>
           <div class="divPopupContent">
-              L'adresse affichée est obtenue grâce au service de géocodage inverse. Ce service retourne, à partir d'un point sur la carte, l'adresse de la Base Adresse Nationale (BAN) la plus proche. Selon ce principe, une adresse affichée peut différer de l'adresse connue d'un lieu.
+            Certaines cartes SCAN - dont le SCAN 25 - ne sont pas libres de droits. Pour garantir la gratuité de l'application, le téléchargement pour une utilisation hors ligne est uniquement disponible à partir du Plan IGN.
           </div>
       </div>
       `,
@@ -284,6 +285,7 @@ class OfflineMaps {
       duration: "long",
       position: "bottom"
     });
+    Globals.menu.open("myaccount");
   }
 
   /**
@@ -332,6 +334,9 @@ class OfflineMaps {
    * Locks the map view before downloading
    */
   #lockView() {
+    if (this.map.getZoom() < 8) {
+      return;
+    }
     this.dom.selectOnMapScreen.classList.add("d-none");
     this.dom.failedWindow.classList.add("d-none");
     this.dom.startDownloadScreen.classList.remove("d-none");
@@ -361,6 +366,7 @@ class OfflineMaps {
   #openSuccessWindow() {
     this.dom.downloadingScreen.classList.add("d-none");
     this.dom.nameScreen.classList.remove("d-none");
+    this.dom.nameInput.value = this.currentName;
     Globals.backButtonState = "offlineMapsName";
     Globals.currentScrollIndex = 2;
     Globals.menu.updateScrollAnchors();
@@ -457,9 +463,6 @@ class OfflineMaps {
         this.#setLayerSource(this.map, layer.id, "offline-plan-ign");
       }
     });
-    if (Capacitor.isNativePlatform()) {
-      this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
-    }
   }
 
   /**
@@ -471,9 +474,6 @@ class OfflineMaps {
         this.#setLayerSource(this.map, layer.id, "plan_ign");
       }
     });
-    if (Capacitor.isNativePlatform()) {
-      this.map.setGlyphs("https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf");
-    }
   }
 
   /**

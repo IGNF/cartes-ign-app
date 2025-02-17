@@ -16,6 +16,7 @@ import ImageNotFound from "../../html/img/image-not-found.png";
 import DomUtils from "../utils/dom-utils";
 
 import { Toast } from "@capacitor/toast";
+import { Capacitor } from "@capacitor/core";
 
 /**
  * Gestionnaire de couches
@@ -621,7 +622,7 @@ class LayerSwitcher extends EventTarget {
           this.map.setSprite(data_1.sprite);
           this.map.setGlyphs(data_1.glyphs);
           // Fallback for offline glyphs
-          if (!Globals.online) {
+          if (!Globals.online && Capacitor.isNativePlatform()) {
             this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
           }
           const data_2 = data_1;
