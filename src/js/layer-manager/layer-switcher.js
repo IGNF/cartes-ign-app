@@ -625,6 +625,8 @@ class LayerSwitcher extends EventTarget {
             this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
           }
           const data_2 = data_1;
+          layerIndexBefore = this.map.getStyle().layers.findIndex((l) => l.source === "maplibre-gl-directions");
+          layerIdBefore = (layerIndexBefore !== -1) ? this.map.getStyle().layers[layerIndexBefore].id : null;
           LayersGroup.addGroup(id, data_2.layers, layerIdBefore);
           this.layers[id].style = data_2.layers; // sauvegarde !
         } catch (e) {
