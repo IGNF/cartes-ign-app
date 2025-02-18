@@ -58,8 +58,8 @@
 
 #offlineMapsTooLargeArea {
   margin-top: 15px;
-  color: var(--darker-green);
-  background-color: var(--light-green);
+  color: var(--dark-orange);
+  background-color: var(--light-orange);
   padding: 14px 48px 14px 10px;
   border-radius: 6px;
 }
