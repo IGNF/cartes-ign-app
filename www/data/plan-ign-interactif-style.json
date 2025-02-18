@@ -1462,6 +1462,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "hydro_reseau_sou",
+      "minzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -11082,7 +11083,7 @@
       "type": "circle",
       "source": "plan_ign",
       "source-layer": "bati_ponc",
-      "minzoom": 13,
+      "minzoom": 15,
       "layout": {
         "visibility": "visible"
       },
