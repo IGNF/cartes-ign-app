@@ -1077,8 +1077,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "6.919951",
-          "45.937857"
+          "6.976280",
+          "45.95214"
         ]
       },
       "properties": {
@@ -1086,32 +1086,11 @@
         "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
         "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
         "mode": "hSlider",
-        "commune": "Chamonix",
+        "commune": "Chamonix-Mont-Blanc",
         "departement": "Haute-Savoie",
         "accroche": "Observez la fonte du Glacier d'Argentière",
         "theme": "Environnement",
         "text": "Des mesures permettent d'établir que le glacier d'Argentière a perdu 1150 mètres depuis 1870. Sous l'effet du réchauffement climatique, on constate, ces dernières années, une accélération de la fonte des glaciers au niveau mondial."
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "6.919951",
-          "45.937857"
-        ]
-      },
-      "properties": {
-        "zoom": "14",
-        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
-        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
-        "mode": "hSlider",
-        "commune": "Chamonix",
-        "departement": "Haute-Savoie",
-        "accroche": "Observez la fonte du Glacier des Bossons",
-        "theme": "Environnement",
-        "text": "Le glacier des Bossons a reculé de 1200 mètres par rapport par rapport aux observations du début du siècle dernier. Sous l'effet du réchauffement climatique, on constate, ces dernières années, une accélération de la fonte des glaciers au niveau mondial."
       }
     },
     {
