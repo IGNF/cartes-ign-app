@@ -105,6 +105,27 @@ let offlineMaps = null;
 // Global flag: is the device connected to the internet?
 let online = (await Network.getStatus()).connected;
 
+if (!online) {
+  let hasPlanIGN = false;
+  for (let i = 0; i < layersDisplayed.length; i++) {
+    const layer = layersDisplayed[i];
+    if (layer.id === "PLAN.IGN.INTERACTIF$TMS") {
+      hasPlanIGN = true;
+      break;
+    }
+  }
+  if (!hasPlanIGN) {
+    layersDisplayed.unshift(
+      {
+        id: "PLAN.IGN.INTERACTIF$TMS",
+        opacity: 100,
+        visible: true,
+        gray: false,
+      }
+    );
+  }
+}
+
 // Scroll
 let maxScroll = (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight);
 let anchors = [0, maxScroll / 2.5, maxScroll];

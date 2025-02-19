@@ -44,7 +44,7 @@ class ImmersivePosion extends EventTarget {
    */
   computeHtml() {
     let htmlTemplate = `
-      <p>&#x1F3D8;&#xFE0F; Vous êtes sur la commune de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][0] : "chargement..."}, qui compte ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][1] : "chargement..."} habitants, située dans le département de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"][0] : "chargement..."}</p>
+      <p>&#x1F3E0; Vous êtes sur la commune de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][0] : "chargement..."}, qui compte ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][1] : "chargement..."} habitants, située dans le département de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"][0] : "chargement..."}</p>
     `;
 
     if (this.data["BDTOPO_V3:parc_ou_reserve"] && this.data["BDTOPO_V3:parc_ou_reserve"].length) {
@@ -228,6 +228,9 @@ class ImmersivePosion extends EventTarget {
     if (layer === "BDTOPO_V3:parc_ou_reserve") {
       dataResults = dataResults.filter( (parc) => {
         if ( !(["Site Natura 2000", "Parc naturel régional", "Parc national", "Réserve naturelle"].includes(parc[0])) ) {
+          return false;
+        }
+        if (["Périmètre de protection d'une réserve naturelle nationale", "Périmètre de protection d'une réserve naturelle régionale"].includes(parc[2])) {
           return false;
         }
         if (parc[0] === "Site Natura 2000") {

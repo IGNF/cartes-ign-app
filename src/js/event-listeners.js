@@ -209,7 +209,7 @@ function addListeners() {
       </div>
       `, map);
       if (Capacitor.isNativePlatform()) {
-        this.map.setGlyphs("https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf");
+        Globals.map.setGlyphs("https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf");
       }
     } else {
       PopupUtils.showOnlinePopup(`
@@ -222,7 +222,7 @@ function addListeners() {
       </div>
       `, map);
       if (Capacitor.isNativePlatform()) {
-        this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
+        Globals.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
       }
       // Active Plan IGN
       if (!planIgnLayerBtn.classList.contains("selectedLayer")) {

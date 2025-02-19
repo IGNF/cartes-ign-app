@@ -12,7 +12,7 @@
   {
     "id": "BDTOPO_V3:parc_ou_reserve",
     "layer": "BDTOPO_V3:parc_ou_reserve",
-    "attributes": ["nature", "toponyme"],
+    "attributes": ["nature", "toponyme", "nature_detaillee"],
     "geom_name": "geometrie"
   },
   {
