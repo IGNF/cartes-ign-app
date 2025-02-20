@@ -632,7 +632,7 @@ class LayerSwitcher extends EventTarget {
           this.layers[id].style = data_2.layers; // sauvegarde !
         } catch (e) {
           if (fallback) {
-            fetchStyle(fallback, null);
+            return fetchStyle(fallback, null);
           } else {
             this.layers[id].error = true;
             throw new Error(e);

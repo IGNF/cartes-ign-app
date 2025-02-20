@@ -115,7 +115,7 @@ if (!online) {
     }
   }
   if (!hasPlanIGN) {
-    layersDisplayed.unshift(
+    layersDisplayed.push(
       {
         id: "PLAN.IGN.INTERACTIF$TMS",
         opacity: 100,

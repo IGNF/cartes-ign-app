@@ -7,7 +7,6 @@
 import maplibregl from "maplibre-gl";
 import { Capacitor } from "@capacitor/core";
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
-import { Network } from "@capacitor/network";
 import { KeepAwake } from "@capacitor-community/keep-awake";
 import { openDB } from "idb";
 import pLimit from "p-limit";
@@ -92,9 +91,6 @@ class OfflineMaps {
       }
     );
 
-    if (!Globals.online) {
-      this.#setOfflineSource();
-    }
     const container = this.options.container || document.getElementById("offlineMapsWindow");
     this.dom = {
       selectOnMapScreen: container.querySelector("#offlineMapsWindowSelectOnMap"),
@@ -223,15 +219,6 @@ class OfflineMaps {
    * Listeners...
    */
   #listeners() {
-    Network.addListener("networkStatusChange", (status) => {
-      let newStatus = status.connected;
-      if (newStatus) {
-        this.#setOnlineSource();
-      } else {
-        this.#setOfflineSource();
-      }
-    });
-
     this.map.on("move", () => {
       if (this.map.getZoom() < 8) {
         this.dom.locationSelectBtn.classList.add("disabled");
@@ -457,7 +444,7 @@ class OfflineMaps {
   /**
    * Sets plan_ign layers to have the offline source
    */
-  #setOfflineSource() {
+  setOfflinePlanIgnSource() {
     this.map.getStyle().layers.forEach((layer) => {
       if (layer.source === "plan_ign") {
         this.#setLayerSource(this.map, layer.id, "offline-plan-ign");
@@ -468,7 +455,7 @@ class OfflineMaps {
   /**
    * Sets plan_ign layers to have the online source
    */
-  #setOnlineSource() {
+  setOnlinePlanIgnSource() {
     this.map.getStyle().layers.forEach((layer) => {
       if (layer.source === "offline-plan-ign") {
         this.#setLayerSource(this.map, layer.id, "plan_ign");

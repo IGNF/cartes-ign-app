@@ -211,6 +211,7 @@ function addListeners() {
       if (Capacitor.isNativePlatform()) {
         Globals.map.setGlyphs("https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf");
       }
+      Globals.offlineMaps.setOnlinePlanIgnSource();
     } else {
       PopupUtils.showOnlinePopup(`
       <div id="onlinePopup">
@@ -227,6 +228,7 @@ function addListeners() {
       // Active Plan IGN
       if (!planIgnLayerBtn.classList.contains("selectedLayer")) {
         planIgnLayerBtn.click();
+        setTimeout(() => Globals.offlineMaps.setOfflinePlanIgnSource(), 150);
       }
     }
   });
