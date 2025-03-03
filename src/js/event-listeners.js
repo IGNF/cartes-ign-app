@@ -227,8 +227,10 @@ function addListeners() {
       }
       // Active Plan IGN
       if (!planIgnLayerBtn.classList.contains("selectedLayer")) {
+        Globals.manager.addEventListener("addlayer", () => {
+          Globals.offlineMaps.setOfflinePlanIgnSource();
+        }, {once: true});
         planIgnLayerBtn.click();
-        setTimeout(() => Globals.offlineMaps.setOfflinePlanIgnSource(), 150);
       }
     }
   });

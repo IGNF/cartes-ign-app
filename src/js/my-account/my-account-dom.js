@@ -7,6 +7,7 @@
 import { Toast } from "@capacitor/toast";
 
 import ActionSheet from "../action-sheet";
+import Globals from "../globals";
 import utils from "../utils/unit-utils";
 import DomUtils from "../utils/dom-utils";
 
@@ -682,6 +683,11 @@ let MyAccountDOM = {
     container.querySelector(`#offline-map-basic-tools_ID_${offlineMapId}`).addEventListener("click", () => {
       // Place le plan IGN au dessus de la pile des couches
       const planIgnLayerBtn = document.getElementById("PLAN.IGN.INTERACTIF$TMS");
+      if (!Globals.online) {
+        Globals.manager.addEventListener("addlayer", () => {
+          Globals.offlineMaps.setOfflinePlanIgnSource();
+        }, {once: true});
+      }
       do {
         planIgnLayerBtn.click();
       } while (!planIgnLayerBtn.classList.contains("selectedLayer"));

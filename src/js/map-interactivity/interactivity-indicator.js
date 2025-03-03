@@ -98,6 +98,9 @@ class InteractivityIndicator {
     if (this.hardDisabled) {
       return;
     }
+    if (!Globals.online) {
+      return;
+    }
     var layer = e.detail.entries.pop();
     if (!layer) {
       return;

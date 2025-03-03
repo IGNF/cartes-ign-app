@@ -303,7 +303,8 @@ class LayerCatalogue extends EventTarget {
       return;
     }
     // Si on est hors ligne : impossible d'enlever Plan IGN
-    if (!Globals.online && layerName === "PLAN.IGN.INTERACTIF$TMS") {
+    // (si on est en mode "myaccount", c'est le téléchargeur de carte qui est à l'origine du clic)
+    if (!Globals.online && layerName === "PLAN.IGN.INTERACTIF$TMS" && Globals.backButtonState !== "myaccount") {
       Toast.show({
         text: "Impossible d'enlever le Plan IGN en mode hors-ligne",
         duration: "short",
