@@ -233,6 +233,7 @@ function addListeners() {
         }, {once: true});
         planIgnLayerBtn.click();
       }
+      Globals.interactivityIndicator.hardDisable();
     }
   });
 
