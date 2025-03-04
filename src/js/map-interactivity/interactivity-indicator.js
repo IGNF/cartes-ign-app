@@ -95,12 +95,7 @@ class InteractivityIndicator {
      * @private
      */
   onGetLastLayer(e) {
-    if (this.hardDisabled) {
-      return;
-    }
-    if (!Globals.online) {
-      return;
-    }
+
     var layer = e.detail.entries.pop();
     if (!layer) {
       return;
@@ -109,6 +104,12 @@ class InteractivityIndicator {
     if (layer[0] === this.id && layer[1].visibility) {
       this.pii = true;
       this.position = true;
+      if (this.hardDisabled) {
+        return;
+      }
+      if (!Globals.online) {
+        return;
+      }
       if (Math.floor(this.map.getZoom()) >= this.piiMinZoom) {
         this.active();
       } else {
@@ -209,6 +210,8 @@ class InteractivityIndicator {
    * Desactive l'indicateur d'activité jusqu'à nouvel ordre
    */
   hardDisable() {
+    console.warn("hard disabled");
+
     this.hardDisabled = true;
     this.disable();
   }
@@ -217,6 +220,7 @@ class InteractivityIndicator {
    * Réactive l'indicateur après désactivation forcée
    */
   enable() {
+    console.warn("hard enabled");
     this.hardDisabled = false;
     this.map.fire("zoom");
   }
