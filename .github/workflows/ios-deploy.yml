@@ -8,14 +8,9 @@ on:
 
 jobs:
   deploy:
-    runs-on: macos-13
+    runs-on: macos-15
 
     steps:
-      - name: Update XCode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '15.2'
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -87,7 +82,7 @@ jobs:
           cp $DPP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: Build app
-        run: cd ios/App && xcodebuild -workspace "App.xcworkspace" -scheme "App" clean archive -archivePath $GITHUB_WORKSPACE/ign.xcarchive -configuration "Release Production" DEVELOPMENT_TEAM=${{ secrets.APPSTORE_TEAM_ID }}
+        run: cd ios/App && xcodebuild -workspace "App.xcworkspace" -scheme "App" clean archive -archivePath $GITHUB_WORKSPACE/ign.xcarchive -configuration "Release Production" DEVELOPMENT_TEAM=${{ secrets.APPSTORE_TEAM_ID }} -destination generic/platform=iOS
 
       - name: export ipa
         env:
