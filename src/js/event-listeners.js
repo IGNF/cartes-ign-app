@@ -212,6 +212,7 @@ function addListeners() {
         Globals.map.setGlyphs("https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf");
       }
       Globals.offlineMaps.setOnlinePlanIgnSource();
+      Globals.interactivityIndicator.enable();
     } else {
       PopupUtils.showOnlinePopup(`
       <div id="onlinePopup">
