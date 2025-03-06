@@ -2,12 +2,14 @@
   {
     "id": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune",
     "layer": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune",
-    "attributes": ["nom", "population"]
+    "attributes": ["nom", "population"],
+    "geom_name": "geometrie"
   },
   {
     "id": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement",
     "layer": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement",
-    "attributes": ["nom"]
+    "attributes": ["nom"],
+    "geom_name": "geometrie"
   },
   {
     "id": "BDTOPO_V3:parc_ou_reserve",

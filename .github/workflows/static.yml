@@ -21,6 +21,14 @@ jobs:
       - run: |
           mkdir public
           cp src/js/data-layer/com_wiki.json public/com_wiki.json
+          cp src/js/data-layer/immersvie-position-config.json public/immersvie-position-config.json
+          cp src/js/data-layer/code_cultu-caption.json public/code_cultu-caption.json
+          cp src/js/data-layer/code_tfv-caption.json public/code_tfv-caption.json
+          cp src/js/data-layer/base-layer-config.json public/base-layer-config.json
+          cp src/js/data-layer/layers-config.json public/layers-config.json
+          cp src/js/data-layer/poi_rlt.json public/poi_rlt.json
+          cp src/js/data-layer/poi-osm-layer-config.json public/poi-osm-layer-config.json
+          cp src/js/data-layer/thematics-layer-config.json public/thematics-layer-config.json
           cp www/data/mixte.json public/mixte.json
           cp www/data/plan-ign-interactif-style.json public/plan-ign-interactif-style.json
           cp www/data/poi-osm-style.json public/poi-osm-style.json

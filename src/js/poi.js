@@ -14,6 +14,14 @@ import DomUtils from "./utils/dom-utils";
 import Globals from "./globals";
 import Location from "./services/location";
 
+let poiConfig;
+try {
+  const resp = await fetch("https://ignf.github.io/cartes-ign-app/poi-osm-layer-config.json");
+  poiConfig = await resp.json();
+} catch (e) {
+  poiConfig = PoiConfig;
+}
+
 
 /**
  * Contrôle sur le filtrage attributaire des POI osm
@@ -40,7 +48,7 @@ class POI {
     this.map = map;
 
     this.filters = null;
-    this.config = PoiConfig;
+    this.config = poiConfig;
     this.sources = [];
 
     this.target = this.options.target || document.getElementById("poiWindow");

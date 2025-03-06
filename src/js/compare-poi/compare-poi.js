@@ -21,6 +21,14 @@ import CompareLandmarkOrange from "../../css/assets/compareLandmark/compare-land
 import CompareLandmarkGreen from "../../css/assets/compareLandmark/compare-landmark-green.svg";
 import CompareLandmarkYellow from "../../css/assets/compareLandmark/compare-landmark-yellow.svg";
 
+let comparePoiData;
+try {
+  const resp = await fetch("https://ignf.github.io/cartes-ign-app/poi_rlt.json");
+  comparePoiData = await resp.json();
+} catch (e) {
+  comparePoiData = ComparePoiData;
+}
+
 /**
  * Contrôle sur les "POI Remonter le temps"
  * @description
@@ -94,7 +102,7 @@ class ComparePoi {
   #load() {
     this.map.addSource(this.configuration.source, {
       type: "geojson",
-      data: ComparePoiData,
+      data: comparePoiData,
     });
     this.map.loadImage(ComparePoiIcon).then((image) => {
       this.map.addImage("comparePoiIcon", image.data);
