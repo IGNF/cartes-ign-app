@@ -4,14 +4,36 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import queryConfig from "./data-layer/immersvie-position-config.json";
-import code_cultuCaption from "./data-layer/code_cultu-caption.json";
-import code_tfvCaption from "./data-layer/code_tfv-caption.json";
+import QueryConfig from "./data-layer/immersvie-position-config.json";
+import Code_cultuCaption from "./data-layer/code_cultu-caption.json";
+import Code_tfvCaption from "./data-layer/code_tfv-caption.json";
 
 import maplibregl from "maplibre-gl";
 import proj4 from "proj4";
 
 proj4.defs("EPSG:2154","+proj=lcc +lat_0=46.5 +lon_0=3 +lat_1=49 +lat_2=44 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
+
+let queryConfig;
+let code_cultuCaption;
+let code_tfvCaption;
+try {
+  const resp = await fetch("https://ignf.github.io/cartes-ign-app/immersvie-position-config.json");
+  queryConfig = await resp.json();
+} catch (e) {
+  queryConfig = QueryConfig;
+}
+try {
+  const resp = await fetch("https://ignf.github.io/cartes-ign-app/code_cultu-caption.json");
+  code_cultuCaption = await resp.json();
+} catch (e) {
+  code_cultuCaption = Code_cultuCaption;
+}
+try {
+  const resp = await fetch("https://ignf.github.io/cartes-ign-app/code_tfv-caption.json");
+  code_tfvCaption = await resp.json();
+} catch (e) {
+  code_tfvCaption = Code_tfvCaption;
+}
 
 /**
  * Gestion de la "position immersive" avec des requêtes faites aux données autour d'une position
@@ -44,7 +66,7 @@ class ImmersivePosion extends EventTarget {
    */
   computeHtml() {
     let htmlTemplate = `
-      <p>&#x1F3E0; Vous êtes sur la commune de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][0] : "chargement..."}, qui compte ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][1] : "chargement..."} habitants, située dans le département de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"][0] : "chargement..."}</p>
+      <p>&#x1F3E0; Vous êtes sur la commune de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][0] : "chargement..."}, qui compte ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? parseInt(this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][1]).toLocaleString() : "chargement..."} habitants, située dans le département de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"][0] : "chargement..."}</p>
     `;
 
     if (this.data["BDTOPO_V3:parc_ou_reserve"] && this.data["BDTOPO_V3:parc_ou_reserve"].length) {

@@ -19,13 +19,35 @@ import BaseLayers from "../data-layer/base-layer-config.json";
 import ThematicLayers from "../data-layer/thematics-layer-config.json";
 import ConfigLayers from "../data-layer/layers-config.json";
 
+let baseLayers;
+let thematicLayers;
+let configLayers;
+try {
+  const resp = await fetch("https://ignf.github.io/cartes-ign-app/base-layer-config.json");
+  baseLayers = await resp.json();
+} catch (e) {
+  baseLayers = BaseLayers;
+}
+try {
+  const resp = await fetch("https://ignf.github.io/cartes-ign-app/thematics-layer-config.json");
+  thematicLayers = await resp.json();
+} catch (e) {
+  thematicLayers = ThematicLayers;
+}
+try {
+  const resp = await fetch("https://ignf.github.io/cartes-ign-app/layers-config.json");
+  configLayers = await resp.json();
+} catch (e) {
+  configLayers = ConfigLayers;
+}
+
 /**
  * Obtenir la liste des propriétés d'une couche
  * @param {*} id
  * @returns
  */
 const getLayerProps = (id) => {
-  var props = ConfigLayers.layers[id];
+  var props = configLayers.layers[id];
   var isVector = id.split("$")[1] === "TMS" ? true : false;
   var style;
   if (isVector) {
@@ -64,7 +86,7 @@ const getLayerProps = (id) => {
  * @returns
  */
 const getBaseLayers = () => {
-  return BaseLayers["base-layers"];
+  return baseLayers["base-layers"];
 };
 
 /**
@@ -72,7 +94,7 @@ const getBaseLayers = () => {
  * @returns
  */
 const getRLTLayers = () => {
-  return BaseLayers["rlt-layers"];
+  return baseLayers["rlt-layers"];
 };
 
 /**
@@ -81,7 +103,7 @@ const getRLTLayers = () => {
  * @returns
  */
 const getThematicLayers = () => {
-  var arrays = ThematicLayers.map((o) => { return o.layers; });
+  var arrays = thematicLayers.map((o) => { return o.layers; });
   return arrays.flat();
 };
 
@@ -91,7 +113,7 @@ const getThematicLayers = () => {
  * @returns
  */
 const getThematics = () => {
-  return ThematicLayers.map((o) => { return o.name; });
+  return thematicLayers.map((o) => { return o.name; });
 };
 
 /**
@@ -102,7 +124,7 @@ const getThematics = () => {
  * @todo prévoir les couches vecteurs tuilées
  */
 const getLayersByThematic = (name) => {
-  var data = ThematicLayers.find((element) => { return element.name === name; });
+  var data = thematicLayers.find((element) => { return element.name === name; });
   if (data.settings && data.settings.generic) {
     return getThematicLayers();
   }
@@ -115,7 +137,7 @@ const getLayersByThematic = (name) => {
  * @returns
  */
 const getThematicByLayerID = (id) => {
-  var data = ThematicLayers.find((element) => { return element.layers.includes(id); });
+  var data = thematicLayers.find((element) => { return element.layers.includes(id); });
   return data.name;
 };
 
