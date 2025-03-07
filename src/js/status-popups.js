@@ -7,6 +7,10 @@
 import { Network } from "@capacitor/network";
 
 import PopupUtils from "./utils/popup-utils";
+import ActionSheet from "./action-sheet";
+import domUtils from "./utils/dom-utils";
+
+import OnboardingConfig from "./onboarding-config.json";
 
 function getNetworkPopup(map) {
   Network.getStatus().then((status) => {
@@ -73,7 +77,29 @@ function getEditoPopup (map) {
   });
 }
 
+function getOnboardingModal() {
+  if (
+    localStorage.getItem("lastOnboardId") !== null && localStorage.getItem("lastOnboardId") === `${OnboardingConfig.id}`
+    && localStorage.getItem("dontShowOnboardAgain") === "true"
+  ) {
+    return;
+  }
+
+  const onboardingDom = domUtils.stringToHTML(OnboardingConfig.html);
+  onboardingDom.querySelector("#onBoardingConfirm").addEventListener("click", () => {
+    ActionSheet._closeElem.click();
+  });
+  ActionSheet.show({
+    style: "custom",
+    content: onboardingDom,
+  });
+
+  localStorage.setItem("lastOnboardId", OnboardingConfig.id);
+  localStorage.setItem("dontShowOnboardAgain", "true");
+}
+
 export default {
   getNetworkPopup,
   getEditoPopup,
+  getOnboardingModal,
 };
