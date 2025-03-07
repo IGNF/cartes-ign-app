@@ -20,6 +20,7 @@ import InteractivityIndicator from "./map-interactivity/interactivity-indicator"
 import StatusPopups from "./status-popups";
 import DOM from "./dom";
 
+
 import { Capacitor } from "@capacitor/core";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { SplashScreen } from "@capacitor/splash-screen";
@@ -174,6 +175,7 @@ function app() {
       document.getElementById("geolocateBtn").click();
       localStorage.setItem("hasBeenLaunched", true);
     }
+    StatusPopups.getOnboardingModal();
   });
 
   // Définition des icones

@@ -118,6 +118,40 @@ input[type="submit"].disabled {
   cursor: not-allowed;
 }
 
+#onboardingDiv {
+  text-align: center;
+  width: 280px;
+  margin: auto;
+}
+
+.onboardingImage {
+  height: 140px;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 0;
+}
+
+#onboardingDiv > .form-submit {
+  appearance: unset; /* for ios */
+  display: block;
+  margin: auto;
+  border: none;
+  border-radius: 70px;
+  background-color: var(--dark-green);
+  padding: 14px 25px;
+  font-family: "Open Sans Semibold";
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  width: fit-content;
+  margin-top: 26px;
+  font-size: 14px;
+}
+
 .secondary-button {
   color: var(--darker-green);
   background-color: var(--light-green);
