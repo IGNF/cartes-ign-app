@@ -197,7 +197,7 @@ class MenuNavigation {
       break;
     case "comparePoi":
       DOM.$search.classList.add("d-none");
-      DOM.$fullScreenBtn.classList.add("higher");
+      DOM.$layerManagerBtn.classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.currentScrollIndex = 2;
@@ -284,7 +284,7 @@ class MenuNavigation {
       DOM.$tabClose.classList.add("d-none");
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("higher");
-      DOM.$fullScreenBtn.classList.add("higher");
+      DOM.$layerManagerBtn.classList.add("higher");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.remove("d-none");
@@ -309,7 +309,7 @@ class MenuNavigation {
       Globals.backButtonState = "layerManager-" + previousBackState;
       DOM.$layerManagerBtn.classList.add("active");
       DOM.$search.classList.add("d-none");
-      DOM.$fullScreenBtn.classList.add("higher");
+      DOM.$layerManagerBtn.classList.add("higher");
       DOM.$filterPoiBtn.classList.add("higher");
       DOM.$tabContainer.classList.remove("white");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -329,7 +329,7 @@ class MenuNavigation {
       Globals.interactivityIndicator.enable();
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("higher");
-      DOM.$fullScreenBtn.classList.add("higher");
+      DOM.$layerManagerBtn.classList.add("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$fullScreenBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -386,7 +386,7 @@ class MenuNavigation {
       Globals.backButtonState = "directions-" + previousBackState;
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("higher");
-      DOM.$fullScreenBtn.classList.add("higher");
+      DOM.$layerManagerBtn.classList.add("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$fullScreenBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -494,7 +494,7 @@ class MenuNavigation {
     case "comparePoi":
       Globals.comparePoi.clearSources();
       DOM.$search.classList.remove("d-none");
-      DOM.$fullScreenBtn.classList.remove("higher");
+      DOM.$layerManagerBtn.classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       break;
@@ -566,7 +566,7 @@ class MenuNavigation {
     case "routeDraw":
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("higher");
-      DOM.$fullScreenBtn.classList.remove("higher");
+      DOM.$layerManagerBtn.classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$fullScreenBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
@@ -581,7 +581,7 @@ class MenuNavigation {
     case "poi":
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("higher");
-      DOM.$fullScreenBtn.classList.remove("higher");
+      DOM.$layerManagerBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$fullScreenBtn.classList.remove("d-none");
@@ -590,7 +590,7 @@ class MenuNavigation {
       DOM.$search.classList.remove("d-none");
       DOM.$layerManagerBtn.classList.remove("active");
       DOM.$filterPoiBtn.classList.remove("higher");
-      DOM.$fullScreenBtn.classList.remove("higher");
+      DOM.$layerManagerBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       break;
     case "informations":
@@ -600,7 +600,7 @@ class MenuNavigation {
     case "position":
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("higher");
-      DOM.$fullScreenBtn.classList.remove("higher");
+      DOM.$layerManagerBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.mapInteractivity.clear();
       break;
@@ -662,7 +662,7 @@ class MenuNavigation {
     case "directions":
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("higher");
-      DOM.$fullScreenBtn.classList.remove("higher");
+      DOM.$layerManagerBtn.classList.remove("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$fullScreenBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
@@ -725,7 +725,6 @@ class MenuNavigation {
     DOM.$searchresultsWindow.classList.add("d-none");
     DOM.$layerManagerBtn.classList.remove("d-none");
     DOM.$filterPoiBtn.classList.remove("d-none");
-    DOM.$interactivityBtn.classList.remove("d-none");
     DOM.$geolocateBtn.classList.remove("d-none");
     switch (id) {
     case "informations":
@@ -780,7 +779,6 @@ class MenuNavigation {
       Globals.currentScrollIndex = 0;
       this.updateScrollAnchors();
       DOM.$rech.value = "";
-      Globals.interactivityIndicator.enable();
       break;
     default:
       break;

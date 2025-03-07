@@ -16,10 +16,20 @@
   justify-content: flex-end;
 }
 
+.maplibregl-ctrl-bottom-right {
+  bottom: 10px;
+  right: 15px;
+  width: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 #map:has(.maplibregl-ctrl-shrink) .maplibregl-ctrl-bottom-left {
   top: calc(100vh - var(--safe-area-inset-bottom) - 40px);
 }
 
+#bottomButtons > .maplibregl-ctrl-bottom-right,
 #bottomButtons > .maplibregl-ctrl-bottom-left {
   bottom: -3px;
 }

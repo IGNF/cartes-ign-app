@@ -39,8 +39,13 @@
 
 #layerManagerBtn {
   background-image: url("assets/map-buttons/layers.svg");
-  position: absolute;
-  bottom: 66px;
+  position: fixed;
+  top: calc(146px + var(--safe-area-inset-top));
+  transition: top 0.3s, opacity 0.5s;
+}
+
+#layerManagerBtn.higher {
+  top: calc(76px + var(--safe-area-inset-top));
 }
 
 #layerManagerBtn.active {
@@ -405,24 +410,17 @@
   line-height: normal;
 }
 
-.maplibregl-ctrl-top-right > .maplibregl-ctrl {
-  margin-top: calc(148px + var(--safe-area-inset-top));
+.maplibregl-ctrl-bottom-right > .maplibregl-ctrl {
   margin-right: 15px;
+  margin-bottom: 0;
   box-shadow: unset;
   background-color: unset;
-  transition: margin-top 0.3s, opacity 0.5s;
+  position: absolute;
+  bottom: 66px;
 }
 
-.maplibregl-ctrl-top-right > .maplibregl-ctrl.higher {
-  margin-top: calc(78px + var(--safe-area-inset-top));
-}
-
-.maplibregl-ctrl-top-right > .maplibregl-ctrl.highest {
-  margin-top: calc(10px + var(--safe-area-inset-top));
-}
-
-.maplibregl-ctrl-top-right > .maplibregl-ctrl:has(.maplibregl-ctrl-shrink) {
-  margin-top: calc(100vh - var(--safe-area-inset-bottom) - 20px - 48px);
+.maplibregl-ctrl-bottom-right > .maplibregl-ctrl:has(.maplibregl-ctrl-shrink) {
+  bottom: 10px;
 }
 
 button.maplibregl-ctrl-shrink,

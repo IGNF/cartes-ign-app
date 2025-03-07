@@ -97,17 +97,20 @@ const addControls = () => {
     }), "bottom-left");
 
     // contrôle fullscreen
-    map.addControl(new maplibregl.FullscreenControl(), "top-right");
-    DOM.$fullScreenBtn = document.querySelector(".maplibregl-ctrl-top-right > .maplibregl-ctrl");
+    map.addControl(new maplibregl.FullscreenControl(), "bottom-right");
+    DOM.$fullScreenBtn = document.querySelector(".maplibregl-ctrl-bottom-right > .maplibregl-ctrl");
+    const fullScreenBtnParent = document.querySelectorAll(".maplibregl-ctrl-bottom-right")[2];
     DOM.$fullScreenBtn.addEventListener("click", () => {
       setTimeout(() => {
         if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
           DOM.$map.appendChild(DOM.$interactivityBtn);
           DOM.$map.appendChild(DOM.$mapScale);
+          DOM.$map.appendChild(fullScreenBtnParent);
           Globals.interactivityIndicator.hardDisable();
         } else {
           DOM.$map.parentNode.parentNode.appendChild(DOM.$interactivityBtn);
           DOM.$bottomButtons.appendChild(DOM.$mapScale);
+          DOM.$bottomButtons.appendChild(fullScreenBtnParent);
           Globals.interactivityIndicator.enable();
         }
       }, 50);

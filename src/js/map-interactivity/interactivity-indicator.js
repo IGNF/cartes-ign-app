@@ -95,7 +95,6 @@ class InteractivityIndicator {
      * @private
      */
   onGetLastLayer(e) {
-
     var layer = e.detail.entries.pop();
     if (!layer) {
       return;
@@ -210,8 +209,6 @@ class InteractivityIndicator {
    * Desactive l'indicateur d'activité jusqu'à nouvel ordre
    */
   hardDisable() {
-    console.warn("hard disabled");
-
     this.hardDisabled = true;
     this.disable();
   }
@@ -220,7 +217,6 @@ class InteractivityIndicator {
    * Réactive l'indicateur après désactivation forcée
    */
   enable() {
-    console.warn("hard enabled");
     this.hardDisabled = false;
     this.map.fire("zoom");
   }

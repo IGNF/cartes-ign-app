@@ -248,9 +248,11 @@ function app() {
 
   // HACK: déplacement de l'échelle hors de la div map pour qu'elle bouge librement
   var mapLibreControls = document.querySelectorAll(".maplibregl-ctrl-bottom-left")[2];
+  var mapLibreFullscreenControl = document.querySelectorAll(".maplibregl-ctrl-bottom-right")[2];
   var parent = document.getElementById("bottomButtons");
   DOM.$mapScale = mapLibreControls;
   parent.appendChild(mapLibreControls);
+  parent.appendChild(mapLibreFullscreenControl);
 
   // Ajout des ecouteurs des boutons de la carte
   MapButtonsListeners.addListeners();
