@@ -268,6 +268,7 @@ function addListeners() {
     DOM.$bottomButtons.classList.remove("opacity0");
     DOM.$routeDrawEdit.classList.remove("opacity0");
     DOM.$filterPoiBtn.classList.remove("opacity0");
+    DOM.$layerManagerBtn.classList.remove("opacity0");
     if (DOM.$fullScreenBtn) {
       DOM.$fullScreenBtn.classList.remove("opacity0");
     }
@@ -276,6 +277,7 @@ function addListeners() {
       DOM.$bottomButtons.classList.add("opacity0");
       DOM.$routeDrawEdit.classList.add("opacity0");
       DOM.$filterPoiBtn.classList.add("opacity0");
+      DOM.$layerManagerBtn.classList.add("opacity0");
       if (DOM.$fullScreenBtn) {
         DOM.$fullScreenBtn.classList.add("opacity0");
       }

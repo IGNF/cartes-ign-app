@@ -48,6 +48,10 @@
   top: calc(76px + var(--safe-area-inset-top));
 }
 
+#layerManagerBtn.highest {
+  top: calc(10px + var(--safe-area-inset-top));
+}
+
 #layerManagerBtn.active {
   background-image: url("assets/map-buttons/layers-w.svg");
   background-color: var(--dark-green);
@@ -417,6 +421,7 @@
   background-color: unset;
   position: absolute;
   bottom: 66px;
+  transition: opacity 0.5s,
 }
 
 .maplibregl-ctrl-bottom-right > .maplibregl-ctrl:has(.maplibregl-ctrl-shrink) {
@@ -477,10 +482,6 @@ button.maplibregl-ctrl-shrink {
     right: calc(var(--safe-area-inset-right) + 15px);
   }
 
-  #layerManagerBtn {
-    right: 15px;
-  }
-
   #geolocateBtn {
     right: 15px;
   }
@@ -516,8 +517,9 @@ button.maplibregl-ctrl-shrink {
     position: fixed;
   }
 
-  .maplibregl-ctrl-top-right > .maplibregl-ctrl {
-    margin-top: calc(78px + var(--safe-area-inset-top));
+  #layerManagerBtn {
+    top: calc(76px + var(--safe-area-inset-top));
+    position: fixed;
   }
 
   #routeDrawEdit {

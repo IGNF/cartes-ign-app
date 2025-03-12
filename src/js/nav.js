@@ -140,6 +140,7 @@ class MenuNavigation {
     case "offlineMaps":
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
+      DOM.$layerManagerBtn.classList.add("d-none");
       DOM.$fullScreenBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$bottomButtons.classList.add("d-none");
@@ -180,6 +181,7 @@ class MenuNavigation {
       Globals.backButtonState = "landmark-" + previousBackState;
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
+      DOM.$layerManagerBtn.classList.add("highest");
       DOM.$fullScreenBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
@@ -192,6 +194,7 @@ class MenuNavigation {
       Globals.backButtonState = "signalementOSM-" + previousBackState;
       DOM.$positionWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
+      DOM.$layerManagerBtn.classList.add("highest");
       DOM.$fullScreenBtn.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
       break;
@@ -266,6 +269,7 @@ class MenuNavigation {
       DOM.$bottomButtons.classList.add("compare");
       DOM.$bottomButtons.classList.add("compareWidth");
       DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-left").classList.add("d-none");
+      DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-right").classList.add("d-none");
       Globals.compare.show();
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 0;
@@ -273,6 +277,7 @@ class MenuNavigation {
     case "routeDrawSave":
       DOM.$routeDrawWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
+      DOM.$layerManagerBtn.classList.add("highest");
       DOM.$fullScreenBtn.classList.add("d-none");
       Globals.routeDraw.dom.changeMode.classList.add("d-none");
       DOM.$routeDrawEdit.classList.add("d-none");
@@ -299,10 +304,9 @@ class MenuNavigation {
       Globals.backButtonState = "poi-" + previousBackState;
       Globals.routeDraw.deactivate();
       DOM.$search.classList.add("d-none");
-      DOM.$filterPoiBtn.classList.add("higher");
+      DOM.$layerManagerBtn.classList.add("highest");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
-      DOM.$fullScreenBtn.classList.add("d-none");
       Globals.currentScrollIndex = 2;
       break;
     case "layerManager":
@@ -341,7 +345,7 @@ class MenuNavigation {
       Globals.backButtonState = "isochrone-" + previousBackState;
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
-      DOM.$fullScreenBtn.classList.add("highest");
+      DOM.$layerManagerBtn.classList.add("highest");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 1;
@@ -441,6 +445,7 @@ class MenuNavigation {
     case "offlineMaps":
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      DOM.$layerManagerBtn.classList.remove("d-none");
       DOM.$fullScreenBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$bottomButtons.classList.remove("d-none");
@@ -475,6 +480,7 @@ class MenuNavigation {
     case "landmark":
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      DOM.$layerManagerBtn.classList.remove("highest");
       DOM.$fullScreenBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.landmark.clear();
@@ -484,6 +490,7 @@ class MenuNavigation {
     case "signalementOSM":
       DOM.$positionWindow.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      DOM.$layerManagerBtn.classList.remove("highest");
       DOM.$fullScreenBtn.classList.remove("d-none");
       Globals.interactivityIndicator.enable();
       Globals.signalement.clear();
@@ -545,8 +552,9 @@ class MenuNavigation {
       DOM.$createCompareLandmarkBtn.classList.add("d-none");
       DOM.$tabContainer.classList.remove("compare");
       DOM.$bottomButtons.classList.remove("compare");
-      DOM.$bottomButtons.classList.add("compareWidth");
+      DOM.$bottomButtons.classList.remove("compareWidth");
       DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-left").classList.remove("d-none");
+      DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-right").classList.remove("d-none");
       Globals.compare.hide();
       Globals.interactivityIndicator.enable();
       break;
@@ -555,6 +563,7 @@ class MenuNavigation {
       // Disparition de la croix
       DOM.$tabClose.classList.add("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
+      DOM.$layerManagerBtn.classList.remove("highest");
       DOM.$fullScreenBtn.classList.remove("d-none");
       DOM["$routeDrawWindow"].classList.remove("d-none");
       Globals.routeDraw.dom.changeMode.classList.remove("d-none");
@@ -581,10 +590,9 @@ class MenuNavigation {
     case "poi":
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("higher");
-      DOM.$layerManagerBtn.classList.remove("higher");
       DOM.$backTopLeftBtn.classList.add("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
-      DOM.$fullScreenBtn.classList.remove("d-none");
+      DOM.$layerManagerBtn.classList.remove("highest");
       break;
     case "layerManager":
       DOM.$search.classList.remove("d-none");
@@ -608,7 +616,7 @@ class MenuNavigation {
       // FIXME mettre en place une méthode sur la classe Searchs
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
-      DOM.$fullScreenBtn.classList.remove("highest");
+      DOM.$layerManagerBtn.classList.remove("highest");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.isochrone.clear();
       Globals.isochrone.clearForm();
