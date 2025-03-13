@@ -86,6 +86,7 @@ function app() {
     SplashScreen.hide();
     StatusPopups.getNetworkPopup(map);
     StatusPopups.getEditoPopup(map);
+    StatusPopups.getGpfStatusPopup(map);
     App.getLaunchUrl().then( (url) => {
       if (url && url.url) {
         if (url.url.split("://")[0] === "https") {
@@ -414,6 +415,7 @@ function app() {
       if (!Globals.mapLoaded) {
         SplashScreen.hide();
         StatusPopups.getEditoPopup(map);
+        StatusPopups.getGpfStatusPopup(map);
       }
     }, 2000);
   }, 4000);
