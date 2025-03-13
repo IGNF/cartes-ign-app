@@ -44,10 +44,18 @@
   transition: top 0.3s, opacity 0.5s;
 }
 
+/* when :has() support is more broad in mobile browsers
+TODO: remove all DOM.$layerManagerBtn.classList.add/remove("higher") in nav.js
+.app:has(#filterPoiBtn.higher) #layerManagerBtn {
+*/
 #layerManagerBtn.higher {
   top: calc(76px + var(--safe-area-inset-top));
 }
 
+/* when :has() support is more broad in mobile browsers
+TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
+.app:has(#filterPoiBtn.d-none) #layerManagerBtn {
+*/
 #layerManagerBtn.highest {
   top: calc(10px + var(--safe-area-inset-top));
 }
@@ -510,6 +518,9 @@ button.maplibregl-ctrl-shrink {
 
   #interactivityBtn {
     left: calc(85px + var(--safe-area-inset-left));
+  }
+  .app:has(#search.d-none) #interactivityBtn {
+    top: calc(10px + var(--safe-area-inset-top));
   }
 
   #filterPoiBtn {
