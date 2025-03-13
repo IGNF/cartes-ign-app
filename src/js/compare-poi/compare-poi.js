@@ -20,6 +20,7 @@ import CompareLandmarkPurple from "../../css/assets/compareLandmark/compare-land
 import CompareLandmarkOrange from "../../css/assets/compareLandmark/compare-landmark-orange.svg";
 import CompareLandmarkGreen from "../../css/assets/compareLandmark/compare-landmark-green.svg";
 import CompareLandmarkYellow from "../../css/assets/compareLandmark/compare-landmark-yellow.svg";
+import domUtils from "../utils/dom-utils";
 
 let comparePoiData;
 try {
@@ -170,7 +171,8 @@ class ComparePoi {
       }
     }
     this.iconHTML = `<img src="${icon}" height="23px"></img>`;
-    this.dom.title.innerHTML = `${this.iconHTML}${comparePoi.properties.accroche}`;
+    this.dom.title.innerText = `${comparePoi.properties.accroche}`;
+    this.dom.title.prepend(domUtils.stringToHTML(this.iconHTML));
     this.dom.location.innerText = "";
     if (comparePoi.properties.commune) {
       this.dom.location.innerText = comparePoi.properties.commune + ", " + comparePoi.properties.departement;

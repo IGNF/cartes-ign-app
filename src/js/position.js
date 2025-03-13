@@ -19,6 +19,7 @@ import PopupUtils from "./utils/popup-utils";
 
 import LoadingDark from "../css/assets/loading-darkgrey.svg";
 import ImmersivePosion from "./immersive-position";
+import domUtils from "./utils/dom-utils";
 
 /**
  * Permet d'afficher ma position sur la carte
@@ -130,7 +131,7 @@ class Position {
       this.name = `${latitude}, ${longitude}`;
     }
 
-    this.#setShareContent(latitude, longitude);
+    this.#setShareContent(latitude, longitude, "", type);
     // template litteral
     var htmlButtons = `
       <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
@@ -481,7 +482,7 @@ class Position {
     }
     Elevation.compute(position.coordinates).then( () => {
       this.elevation = Elevation.getElevation();
-      this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation.toLocaleString());
+      this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation.toLocaleString(), type);
       document.getElementById("positionAltitudeSpan").innerText = this.elevation.toLocaleString();
     }).catch( (err) => {
       if (err.name === "AbortError") {
@@ -492,7 +493,7 @@ class Position {
       }
       console.warn(`Error when fetching elevation: ${err}`);
       this.elevation = "?";
-      this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation);
+      this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation, type);
       document.getElementById("positionAltitudeSpan").innerText = this.elevation;
     });
 
@@ -504,7 +505,7 @@ class Position {
     }
   }
 
-  #setShareContent(latitude, longitude, altitude = "") {
+  #setShareContent(latitude, longitude, altitude = "", type = "") {
     const trueHeader = this.#getTrueHeader();
     var altitudeText = "";
     if (altitude !== "") {
@@ -518,7 +519,16 @@ ${this.name}
 Latitude : ${latitude}
 Longitude : ${longitude}${altitudeText}
 https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=${zoom}`;
+    if (type === "landmark") {
+      this.shareContent = `${trueHeader ? trueHeader : this.header}
+${this.name}
+Latitude : ${latitude}
+Longitude : ${longitude}${altitudeText}
+${domUtils.stringToHTML(this.additionalHtml.beforeButtons).innerText}
+https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=15&titre=${encodeURI(trueHeader ? trueHeader : this.header)}&description=${encodeURI(domUtils.stringToHTML(this.additionalHtml.beforeButtons).innerText)}`;
+    }
   }
+
 
   /* Transforme le HTML du header de la position en texte pour le partage */
   #getTrueHeader() {

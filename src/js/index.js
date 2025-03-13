@@ -76,6 +76,8 @@ function app() {
 
   // Ecouteur sur le chargement total des contrôles
   window.addEventListener("controlsloaded", async () => {
+    // Ajout d'autres ecouteurs
+    EventListeners.addListeners();
     SplashScreen.hide();
     App.getLaunchUrl().then( (url) => {
       if (url && url.url) {
@@ -119,7 +121,14 @@ function app() {
               });
             } else {
               map.once("moveend", () => {
-                Globals.position.compute({ lngLat: center }).then(() => {
+                const params = { lngLat: center };
+                if (urlParams.get("titre")) {
+                  params.text = urlParams.get("titre").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+                  if (urlParams.get("description")) {
+                    params.html = `<p>${urlParams.get("description").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}</p>`;
+                  }
+                }
+                Globals.position.compute(params).then(() => {
                   Globals.menu.open("position");
                 });
                 if (Globals.searchResultMarker != null) {
@@ -241,9 +250,6 @@ function app() {
     behavior: "smooth"
   });
   Globals.currentScrollIndex = 0;
-
-  // Ajout d'autres ecouteurs
-  EventListeners.addListeners();
 
   // Ajout des contrôles
   Controls.addControls();

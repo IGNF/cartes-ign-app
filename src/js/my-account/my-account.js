@@ -267,7 +267,7 @@ class MyAccount {
           display: inline-block;
           margin-right: 5px;
           transform: translate(0, -2px);"></label>
-        ${landmark.properties.title}
+        ${landmark.properties.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}
       </div>`;
       let intervalId = null;
       const deselectLandmarkCallback = () => {
@@ -279,7 +279,7 @@ class MyAccount {
       Globals.position.compute({
         lngLat: e.lngLat,
         text: title,
-        html: `<div class="positionHtmlBefore">${landmark.properties.description}</div>`,
+        html: `<div class="positionHtmlBefore">${landmark.properties.description.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}</div>`,
         html2: "",
         hideCallback: deselectLandmarkCallback,
         type: "landmark"
@@ -1102,7 +1102,7 @@ ${landmark.properties.locationName}
 Latitude : ${Math.round(landmark.geometry.coordinates[1] * 1e6) / 1e6}
 Longitude : ${Math.round(landmark.geometry.coordinates[0] * 1e6) / 1e6}
 ${landmark.properties.description}
-https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark.geometry.coordinates[1]}&z=15`,
+https://cartes-ign.ign.fr?lng=${landmark.geometry.coordinates[0]}&lat=${landmark.geometry.coordinates[1]}&z=15&titre=${encodeURI(landmark.properties.title)}&description=${encodeURI(landmark.properties.description)}`,
       dialogTitle: "Partager mon point de repère",
     });
   }

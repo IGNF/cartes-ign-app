@@ -92,8 +92,8 @@ class compareLandmark {
         compareMode = "fade";
       }
       this.data = {
-        title: this.dom.title.value,
-        description: this.dom.description.value,
+        title: this.dom.title.value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"),
+        description: this.dom.description.value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"),
         location: this.location,
         zoom: this.map1.getZoom(),
         color: color,

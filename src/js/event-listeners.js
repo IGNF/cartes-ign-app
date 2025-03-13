@@ -346,7 +346,14 @@ function addListeners() {
             });
           } else {
             map.once("moveend", () => {
-              Globals.position.compute({ lngLat: center }).then(() => {
+              const params = { lngLat: center };
+              if (urlParams.get("titre")) {
+                params.text = urlParams.get("titre").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+                if (urlParams.get("description")) {
+                  params.html = `<p>${urlParams.get("description").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}</p>`;
+                }
+              }
+              Globals.position.compute(params).then(() => {
                 Globals.menu.open("position");
               });
               if (Globals.searchResultMarker != null) {
