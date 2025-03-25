@@ -1203,7 +1203,7 @@ ${props.text}`,
           encoding: Encoding.UTF8,
         });
         // For testing purposes
-        if (Capacitor.getPlatform() === "web") {
+        if (!Capacitor.isNativePlatform()) {
           jsUtils.download(`${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`, JSON.stringify(this.#routeToGeojson(route)));
         }
       } else if (value === "gpx") {
@@ -1277,7 +1277,7 @@ ${props.text}`,
       documentsName = "Fichiers";
     }
     // For testing purposes
-    if (Capacitor.getPlatform() === "web") {
+    if (!Capacitor.isNativePlatform()) {
       jsUtils.download(`${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`, JSON.stringify({
         type: "Feature",
         geometry: landmark.geometry,
