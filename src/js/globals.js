@@ -102,6 +102,9 @@ let compareLandmark = null;
 // Global control offline maps
 let offlineMaps = null;
 
+// Global control immersive notifications
+let immersiveNotifications = null;
+
 // Global flag: is the device connected to the internet?
 let online = (await Network.getStatus()).connected;
 
@@ -181,4 +184,5 @@ export default {
   landmark,
   compareLandmark,
   offlineMaps,
+  immersiveNotifications,
 };
