@@ -26,6 +26,7 @@ import OfflineMaps from "./offline-maps";
 import DOM from "./dom";
 
 import LocationLayers from "./services/location-styles";
+import ImmersiveNotifications from "./immersive-notifications";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -131,6 +132,9 @@ const addControls = () => {
         Globals.menu.open("offlineMaps");
       }
     });
+
+    // contrôle "notifications immersives"
+    Globals.immersiveNotifications = new ImmersiveNotifications(true);
 
     // compte utilisateur
     Globals.myaccount = new MyAccount(map, {});
