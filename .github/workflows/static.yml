@@ -23,7 +23,8 @@ jobs:
       - run: |
           mkdir public
           cp src/js/data-layer/com_wiki.json public/com_wiki.json
-          cp src/js/data-layer/immersvie-position-config.json public/immersvie-position-config.json
+          cp src/js/data-layer/immersive-position-config.json public/immersive-position-config.json
+          cp src/js/data-layer/immersive-position-config.json public/immersvie-position-config.json
           cp src/js/data-layer/code_cultu-caption.json public/code_cultu-caption.json
           cp src/js/data-layer/code_tfv-caption.json public/code_tfv-caption.json
           cp src/js/data-layer/base-layer-config.json public/base-layer-config.json

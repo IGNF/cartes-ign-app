@@ -122,12 +122,12 @@ function addListeners() {
   };
 
   // Sauvegarde de l'état de l'application
-  App.addListener("pause", saveState);
+  App.addListener("appStateChange", saveState);
   document.addEventListener("pause", saveState);
   window.addEventListener("beforeunload", saveState);
 
   let keyboardWillHide = false;
-  if (Capacitor.getPlatform() !== "web") {
+  if (Capacitor.isNativePlatform()) {
     Keyboard.addListener("keyboardWillHide", () => {
       keyboardWillHide = true;
     });
@@ -238,7 +238,7 @@ function addListeners() {
   });
 
   App.addListener("resume", () => {
-    if (Capacitor.getPlatform() === "web") {
+    if (!Capacitor.isNativePlatform()) {
       return;
     }
     TextZoom.getPreferred().then(value => {
