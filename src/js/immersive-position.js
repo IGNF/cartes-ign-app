@@ -9,9 +9,8 @@ import Code_cultuCaption from "./data-layer/code_cultu-caption.json";
 import Code_tfvCaption from "./data-layer/code_tfv-caption.json";
 
 import maplibregl from "maplibre-gl";
-import proj4 from "proj4";
 
-proj4.defs("EPSG:2154","+proj=lcc +lat_0=46.5 +lon_0=3 +lat_1=49 +lat_2=44 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
+import requestUtils from "./utils/request-utils";
 
 let queryConfig;
 let code_cultuCaption;
@@ -346,40 +345,12 @@ class ImmersivePosion extends EventTarget {
    * @returns {Promise(Array)} results of each attributes (no duplicates)
    */
   async #computeGenericGPFWFS(layer, attributes, around=0, geom_name="geom", additional_cql="", epsg=4326, getGeom=false) {
-    let coord1 = this.lat;
-    let coord2 = this.lng;
-    if (epsg !== 4326) {
-      [coord1, coord2] = proj4(proj4.defs("EPSG:4326"), proj4.defs(`EPSG:${epsg}`), [this.lng, this.lat]);
-    }
-    let cql_filter = `INTERSECTS(${geom_name},Point(${coord1}%20${coord2}))`;
-    if (around > 0) {
-      cql_filter = `DWITHIN(${geom_name},Point(${coord1}%20${coord2}),${around},kilometers)`;
-    }
-    if (additional_cql) {
-      cql_filter += ` ${additional_cql}`;
-    }
-
-    const results = await fetch(
-      `https://data.geopf.fr/wfs/ows?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&typename=${layer}&outputFormat=json&count=50&CQL_FILTER=${cql_filter}`
+    const results_attributes = await requestUtils.requestWfs(
+      this.lat, this.lng, layer, attributes, around, geom_name, additional_cql, epsg, getGeom
     );
-    const json = await results.json();
-
-    const results_attributes = [];
-    json.features.forEach((feature) => {
-      const feature_attributes = [];
-      attributes.forEach((attribute) => {
-        feature_attributes.push(feature.properties[attribute]);
-      });
-      if (getGeom) {
-        feature_attributes.push(feature.geometry);
-      }
-      if (attributes.length === 1 && feature_attributes[0] !== null && !getGeom) {
-        results_attributes.push(feature_attributes[0]);
-      } else if (attributes.length > 1 || getGeom) {
-        results_attributes.push(feature_attributes);
-      }
-    });
-    return Array.from( new Set(this.#filterData(layer, results_attributes)) );
+    return Array.from(
+      new Set( this.#filterData(layer, results_attributes))
+    );
   }
 }
 
