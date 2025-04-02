@@ -266,6 +266,12 @@ const watchPositionCallback = (position) => {
     });
   }
   if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 150) ) {
+    target.dispatchEvent(
+      new CustomEvent("geolocationWatch", {
+        bubbles: true,
+        detail: position.coords,
+      })
+    );
     lastAccuracy = position.coords.accuracy;
     const point = {
       type: "Point",

@@ -352,6 +352,10 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   color: var(--dark-grey);
 }
 
+#routeDrawSnap {
+  background-image: url("assets/route-draw/arrow-left-darkgrey.svg");
+}
+
 #routeDrawEdit > .button#routeDrawSave {
   background-color: var(--dark-green);
   border: 1px solid var(--dark-green);
