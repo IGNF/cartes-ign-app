@@ -102,6 +102,9 @@ let compareLandmark = null;
 // Global control offline maps
 let offlineMaps = null;
 
+// Global control track record
+let trackRecord = null;
+
 // Global control immersive notifications
 let immersiveNotifications = null;
 
@@ -147,7 +150,7 @@ if (!localStorage.getItem("walkingSpeed")) {
 // Are new place notifications enabled?
 let newPlaceNotifEnabled;
 if (!localStorage.getItem("newPlaceNotifEnabled")) {
-  newPlaceNotifEnabled = 1;
+  newPlaceNotifEnabled = 0;
 } else {
   newPlaceNotifEnabled = parseFloat(localStorage.getItem("newPlaceNotifEnabled"));
 }
@@ -194,4 +197,5 @@ export default {
   offlineMaps,
   immersiveNotifications,
   newPlaceNotifEnabled,
+  trackRecord,
 };
