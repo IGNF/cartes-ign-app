@@ -27,6 +27,7 @@ import DOM from "./dom";
 
 import LocationLayers from "./services/location-styles";
 import ImmersiveNotifications from "./immersive-notifications";
+import TrackRecord from "./track-record/track-record";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -134,13 +135,16 @@ const addControls = () => {
     });
 
     // contrôle "notifications immersives"
-    Globals.immersiveNotifications = new ImmersiveNotifications(true);
+    Globals.immersiveNotifications = new ImmersiveNotifications();
 
     // compte utilisateur
     Globals.myaccount = new MyAccount(map, {});
 
     // contrôle tracé d'itinéraire
     Globals.routeDraw = new RouteDraw(map, {});
+
+    // contrôle enregistrement de trace
+    Globals.trackRecord = new TrackRecord(map, {});
 
     // signalement
     Globals.signalement = new Signalement(map, {});
