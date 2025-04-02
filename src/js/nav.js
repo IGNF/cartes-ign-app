@@ -81,6 +81,10 @@ class MenuNavigation {
       }
       Globals.routeDraw.show();
     });
+    // "Enregistrer ma trace"
+    document.getElementById("trackRecord").addEventListener("click", () => {
+      this.open("trackRecord");
+    });
     // "Compte"
     document.getElementById("myaccount").addEventListener("click",  () => { this.open("myaccount"); });
   }
