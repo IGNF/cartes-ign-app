@@ -2,13 +2,13 @@
   {
     "id": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune",
     "layer": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune",
-    "attributes": ["nom_officiel", "population"],
+    "attributes": ["nom", "population"],
     "geom_name": "geom"
   },
   {
     "id": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement",
     "layer": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement",
-    "attributes": ["nom_officiel"],
+    "attributes": ["nom"],
     "geom_name": "geom"
   },
   {
