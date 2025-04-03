@@ -75,6 +75,12 @@ let DirectionsDOM = {
           transport = self.dom.inputPedestrian.value;
         }
       }
+      // vélo ?
+      if (self.dom.inputBicycle) {
+        if (self.dom.inputBicycle.checked) {
+          transport = self.dom.inputBicycle.value;
+        }
+      }
 
       var computation = null;
       // fast ?
@@ -224,6 +230,27 @@ let DirectionsDOM = {
     labelCar.htmlFor = "directionsTransportVoiture";
     labelCar.title = "Véhicule";
     div.appendChild(labelCar);
+
+    var inputBicycle = this.dom.inputBicycle = document.createElement("input");
+    inputBicycle.id = "directionsTransportVelo";
+    inputBicycle.type = "radio";
+    inputBicycle.name = "Transport";
+    inputBicycle.value = "Velo";
+    inputBicycle.addEventListener("change", function (e) {
+      if (e.target.checked) {
+        self.obj.configuration.profile = "bicycle";
+      }
+    });
+    div.appendChild(inputBicycle);
+
+    var labelBicycle = document.createElement("label");
+    var spanBicycle = document.createElement("span");
+    labelBicycle.textContent = "À vélo";
+    labelBicycle.appendChild(spanBicycle);
+    labelBicycle.className = "lblDirectionsTransport";
+    labelBicycle.htmlFor = "directionsTransportVelo";
+    labelBicycle.title = "À vélo";
+    div.appendChild(labelBicycle);
 
     var slider = document.createElement("span");
     slider.className = "sliderDirections";
