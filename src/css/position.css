@@ -147,7 +147,7 @@
 }
 
 .lblPositionNearImg {
-  background-image: url("assets/isochrone-white.svg");
+  background-image: url("assets/isochrone-green.svg");
 }
 
 .lblPositionRouteImg {
@@ -159,29 +159,34 @@
 }
 
 .lblPositionLandmarkImg {
-  background-image: url("assets/landmark-white.svg");
+  background-image: url("assets/landmark-green.svg");
 }
 
 .lblPositionLandmarkEditImg {
-  background-image: url("assets/edit-white.svg");
+  background-image: url("assets/edit-green.svg");
 }
 
 .btnPositionButtons {
   display: flex;
   align-items: center;
   padding: 10px 14px;
-  color: white;
-  background-color: var(--dark-green);
+  color: var(--dark-green);
+  background-color: var(--false-white);
+  border: var(--dark-green) 1px solid;
   border-radius: 50px;
   margin-right: 12px;
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease-in-out;
   outline: none;
-  border: none;
   white-space: nowrap;
   font-family: "Open Sans Semibold";
   font-size: 12px;
+}
+
+#positionRoute {
+  color: white;
+  background-color: var(--dark-green);
 }
 
 /*
