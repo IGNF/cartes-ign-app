@@ -24,7 +24,8 @@ class DirectionsResults {
       distance : "",
       transport : "",
       computation : "",
-      instructions : [] // [ routes[0].legs ] : [distance, duration, [steps], summary]
+      instructions : [], // [ routes[0].legs ] : [distance, duration, [steps], summary]
+      wapoints: [],
     };
 
     // target
