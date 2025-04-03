@@ -41,17 +41,31 @@ let DirectionsResultsDOM = {
       data.distance,
       data.duration,
       data.transport,
-      data.computation
+      data.computation,
     ));
     // ajout du bouton détails
     noDetailsDiv.appendChild(this.__addResultsDetailsContainerDOMElement());
     container.appendChild(noDetailsDiv);
     // ajout des détails
     try {
-
       container.appendChild(this.__addResultsListDetailsContainerDOMElement(data.instructions, data.transport));
     } catch (err) {
       console.error(err);
+    }
+    // Ajout du lien Géovélo le cas échéant
+    if (data.transport === "Velo") {
+      var linkGeovelo = document.createElement("a");
+      linkGeovelo.classList.add("divPositionAdressOriginInfo", "geovelolink");
+      const start = data.waypoints.shift();
+      const end = data.waypoints.pop();
+      linkGeovelo.href = `https://www.geovelo.app/route?from=${start[0]},${start[1]}&to=${end[0]},${end[1]}`;
+      if (data.waypoints.length > 0) {
+        data.waypoints = data.waypoints.map( point => `${point[0]},${point[1]}`);
+        linkGeovelo.href += `&steps=${data.waypoints.join(";")}`;
+      }
+      linkGeovelo.target = "_blank";
+      linkGeovelo.textContent = "Lancer la navigation et plus, sur Géovélo";
+      container.appendChild(linkGeovelo);
     }
 
     return container;
@@ -109,7 +123,6 @@ let DirectionsResultsDOM = {
     labelComputation.className = "lblDirectionsSummaryComputation";
     labelComputation.textContent = computation;
     line2.appendChild(labelComputation);
-
     div.appendChild(line1);
     div.appendChild(line2);
 
