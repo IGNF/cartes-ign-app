@@ -43,7 +43,7 @@
   z-index: 2;
 }
 
-.divDirectionsTransport, .divDirectionsComputation {
+.divDirectionsComputation {
   display: flex;
   position: relative;
   justify-content: space-between;
@@ -59,7 +59,20 @@
   align-items: center;
 }
 
-.lblDirectionsTransport, .lblDirectionsComputation {
+.divDirectionsTransport {
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  margin: auto;
+  height: calc(50px + 1rem);
+  width: calc(100% - 46px);
+  padding: 8px;
+  border-radius: 100px;
+  margin: 0 15px 10px 15px;
+  align-items: center;
+}
+
+.lblDirectionsComputation {
   color: var(--mid-grey);
   display: flex;
   flex-direction: row-reverse;
@@ -76,9 +89,37 @@
   background-position: 12px 3px;
   font-family: "Open Sans Semibold";
   font-size: 14px;
+  flex-shrink: 0;
 }
 
-.divDirectionsTransport input[type="radio"]:checked + label, .divDirectionsComputation input[type="radio"]:checked + label {
+.lblDirectionsTransport {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  margin: 0;
+  justify-content: space-around;
+}
+
+.lblDirectionsTransport span {
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 100%;
+  background-color: var(--light-grey);
+  margin-bottom: 6px;
+}
+
+input:checked + .lblDirectionsTransport span {
+  background-color: var(--dark-green);
+}
+
+.divDirectionsTransport input[type="radio"]:checked + label {
+  color: var(--darker-green);
+}
+
+.divDirectionsComputation input[type="radio"]:checked + label {
   color: white;
 }
 
@@ -90,6 +131,10 @@
 .divDirectionsTransport input[id="directionsTransportPieton"]:checked ~ .sliderDirections,
 .divDirectionsComputation input[id="directionsComputationFastest"]:checked ~ .sliderComputation {
   transform: translateX(-5px);
+}
+
+.divDirectionsTransport input[id="directionsTransportVelo"]:checked ~ .sliderDirections {
+  transform: translateX(calc(200% - 15px));
 }
 
 .sliderDirections, .sliderComputation {
@@ -105,11 +150,6 @@
 
 #directionsTransportVoiture + label > span {
   background-image: url("assets/directions/voiture.svg");
-  display: inline-block;
-  width: 25px;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: 0px center;
 }
 
 #directionsTransportVoiture:checked + label > span {
@@ -118,15 +158,33 @@
 
 #directionsTransportPieton + label > span {
   background-image: url("assets/directions/pieton.svg");
-  display: inline-block;
-  width: 25px;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: 0px center;
 }
 
 #directionsTransportPieton:checked + label > span {
   background-image: url("assets/directions/pieton-s.svg");
+}
+
+#directionsTransportVelo + label > span {
+  background-image: url("assets/directions/velo.svg");
+}
+
+#directionsTransportVelo:checked + label > span {
+  background-image: url("assets/directions/velo-s.svg");
+}
+
+.divDirectionsTransport:has(#directionsTransportVelo:checked) ~ .divDirectionsComputation {
+  display: none;
+}
+
+.divDirectionsBikeForm {
+  display: none;
+  justify-content: center;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.divDirectionsTransport:has(#directionsTransportVelo:checked) ~ .divDirectionsBikeForm {
+  display: flex;
 }
 
 /*
@@ -265,24 +323,28 @@
   display: flex;
   margin: auto;
   padding: 10px;
-  font-family: "Open Sans";
+  font-family: "Open Sans Semibold";
   max-height: 60px;
   transition: max-height .2s ease-out;
+  width: fit-content;
+  justify-content: center;
 }
 
 #directionsLocationImg_step {
   display: flex;
-  width: 180px;
+  width: calc(17rem - 40px);
+  max-width: calc(100% - 56px);
   height: 40px;
   padding-left: 40px;
   align-items: center;
   background-image: url("assets/directions/location-step-add.svg");
   line-height: 40px;
   background-position-y: 9px;
-  color: var(--dark-grey);
   background-color: #fff0;
   transition: background-color 0.1s;
   border-radius: 8px;
+  color: var(--mid-grey);
+  transform: translateX(20px);
 }
 
 #directionsLocationImg_step.animated {

@@ -219,15 +219,15 @@
   display: flex;
   align-items: center;
   padding: 10px 14px;
-  color: white;
-  background-color: var(--dark-green);
+  color: var(--dark-green);
+  background-color: var(--false-white);
+  border: var(--dark-green) 1px solid;
   border-radius: 50px;
   margin-right: 12px;
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease-in-out;
   outline: none;
-  border: none;
   white-space: nowrap;
   font-family: "Open Sans Semibold";
   font-size: 12px;
@@ -261,6 +261,11 @@
 
 .btnPositionButtons.secondary.event > label {
   background-color: var(--event-main);
+}
+
+#positionRoute {
+  color: white;
+  background-color: var(--dark-green);
 }
 
 /*
