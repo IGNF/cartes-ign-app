@@ -76,6 +76,7 @@
   background-position: 12px 3px;
   font-family: "Open Sans Semibold";
   font-size: 14px;
+  flex-shrink: 0;
 }
 
 .divDirectionsTransport input[type="radio"]:checked + label, .divDirectionsComputation input[type="radio"]:checked + label {
@@ -90,6 +91,10 @@
 .divDirectionsTransport input[id="directionsTransportPieton"]:checked ~ .sliderDirections,
 .divDirectionsComputation input[id="directionsComputationFastest"]:checked ~ .sliderComputation {
   transform: translateX(-5px);
+}
+
+.divDirectionsTransport input[id="directionsTransportVelo"]:checked ~ .sliderDirections {
+  transform: translateX(calc(200% - 15px));
 }
 
 .sliderDirections, .sliderComputation {
