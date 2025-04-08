@@ -91,6 +91,7 @@ function app() {
             map.once("moveend", () => {
               StatusPopups.getNetworkPopup(map);
               StatusPopups.getEditoPopup(map);
+              StatusPopups.getGpfStatusPopup(map);
             });
             if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("color")) {
               const feature = {
@@ -311,6 +312,7 @@ function app() {
     map.once("moveend", () => {
       StatusPopups.getNetworkPopup(map);
       StatusPopups.getEditoPopup(map);
+      StatusPopups.getGpfStatusPopup(map);
     });
   }
 
@@ -352,6 +354,7 @@ function app() {
       map.once("moveend", () => {
         StatusPopups.getNetworkPopup(map);
         StatusPopups.getEditoPopup(map);
+        StatusPopups.getGpfStatusPopup(map);
       });
     });
   }
@@ -366,6 +369,7 @@ function app() {
       if (!Globals.mapLoaded) {
         SplashScreen.hide();
         StatusPopups.getEditoPopup(map);
+        StatusPopups.getGpfStatusPopup(map);
       }
     }, 2000);
   }, 4000);
