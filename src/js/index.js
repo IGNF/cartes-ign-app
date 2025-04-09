@@ -170,7 +170,7 @@ function app() {
         });
       });
     }, 500);
-    if (Capacitor.getPlatform() !== "web") {
+    if (Capacitor.isNativePlatform()) {
       TextZoom.getPreferred().then(value => {
         const newValue = Math.min(1.5, value.value);
         TextZoom.set({

@@ -21,15 +21,29 @@
     "id": "BDTOPO_V3:foret_publique",
     "layer": "BDTOPO_V3:foret_publique",
     "attributes": ["toponyme"],
-    "geom_name": "geometrie"
+    "geom_name": "geometrie",
+    "notification_uses_next": true
   },
   {
-    "id": "BDTOPO_V3:toponymie_lieux_nommes",
-    "layer": "BDTOPO_V3:toponymie_lieux_nommes",
-    "attributes": ["graphie_du_toponyme"],
+    "id": "Essence intesection",
+    "layer": "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale",
+    "attributes": ["code_tfv"],
+    "epsg": 2154,
+    "notification": false
+  },
+  {
+    "id": "BDTOPO_V3:cours_d_eau",
+    "layer": "BDTOPO_V3:cours_d_eau",
+    "attributes": ["toponyme"],
     "geom_name": "geometrie",
-    "around": 1,
-    "additional_cql": "AND nature_de_l_objet='Bois'"
+    "around": 2,
+    "get_geom": true
+  },
+  {
+    "id": "RPG.LATEST:parcelles_graphiques",
+    "layer": "RPG.LATEST:parcelles_graphiques",
+    "attributes": ["code_cultu"],
+    "around": 2
   },
   {
     "id": "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale",
@@ -39,16 +53,13 @@
     "epsg": 2154
   },
   {
-    "id": "Essence intesection",
-    "layer": "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale",
-    "attributes": ["code_tfv"],
-    "epsg": 2154
-  },
-  {
-    "id": "RPG.LATEST:parcelles_graphiques",
-    "layer": "RPG.LATEST:parcelles_graphiques",
-    "attributes": ["code_cultu"],
-    "around": 2
+    "id": "BDTOPO_V3:toponymie_lieux_nommes",
+    "layer": "BDTOPO_V3:toponymie_lieux_nommes",
+    "attributes": ["graphie_du_toponyme"],
+    "geom_name": "geometrie",
+    "around": 1,
+    "additional_cql": "AND nature_de_l_objet='Bois'",
+    "notification": false
   },
   {
     "id": "BDTOPO_V3:zone_d_activite_ou_d_interet",
@@ -57,7 +68,8 @@
     "geom_name": "geometrie",
     "around": 2,
     "additional_cql": "AND categorie='Culture et loisirs' AND nature IN ('Abri de montagne', 'Construction', 'Ecomusée', 'Monument', 'Musée', 'Parc de loisirs', 'Parc zoologique', 'Refuge', 'Vestige archéologique')",
-    "get_geom": true
+    "get_geom": true,
+    "notification_uses_next": true
   },
   {
     "id": "BDTOPO_V3:zone_d_habitation",
@@ -66,14 +78,8 @@
     "geom_name": "geometrie",
     "around": 2,
     "additional_cql": "AND nature IN ('Château')",
-    "get_geom": true
-  },
-  {
-    "id": "BDTOPO_V3:cours_d_eau",
-    "layer": "BDTOPO_V3:cours_d_eau",
-    "attributes": ["toponyme"],
-    "geom_name": "geometrie",
-    "around": 2
+    "get_geom": true,
+    "notification": false
   },
   {
     "id": "BDTOPO_V3:plan_d_eau",
@@ -81,6 +87,7 @@
     "attributes": ["nature", "toponyme"],
     "geom_name": "geometrie",
     "around": 2,
-    "additional_cql": "AND nature IN ('Canal', 'Estuaire', 'Retenue', 'Glacier, névé', 'Lac', 'Lagune', 'Mangrove', 'Marais', 'Mare')"
+    "additional_cql": "AND nature IN ('Canal', 'Estuaire', 'Retenue', 'Glacier, névé', 'Lac', 'Lagune', 'Mangrove', 'Marais', 'Mare')",
+    "notification": false
   }
 ]
