@@ -37,6 +37,7 @@ const $routeDrawCancel = document.getElementById("routeDrawCancel");
 const $routeDrawRestore = document.getElementById("routeDrawRestore");
 const $routeDrawDelete = document.getElementById("routeDrawDelete");
 const $routeDrawSave = document.getElementById("routeDrawSave");
+const $routeDrawSnap = document.getElementById("routeDrawSnap");
 const $fullScreenBtn = null;
 const $mapScale = null;
 
@@ -76,6 +77,7 @@ const $signalementOSMWindow = document.getElementById("signalementOSMWindow");
 const $landmarkWindow = document.getElementById("landmarkWindow");
 const $compareLandmarkWindow = document.getElementById("compareLandmarkWindow");
 const $offlineMapsWindow = document.getElementById("offlineMapsWindow");
+const $trackRecordWindow = document.getElementById("trackRecordWindow");
 
 export default {
   $search,
@@ -122,6 +124,7 @@ export default {
   $routeDrawRestore,
   $routeDrawDelete,
   $routeDrawSave,
+  $routeDrawSnap,
   $routeDrawSaveWindow,
   $mapCenter,
   $mapCenterMenu,
@@ -138,4 +141,5 @@ export default {
   $createCompareLandmarkBtn,
   $compareLandmarkWindow,
   $offlineMapsWindow,
+  $trackRecordWindow,
 };
