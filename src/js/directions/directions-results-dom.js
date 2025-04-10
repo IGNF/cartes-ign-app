@@ -41,7 +41,8 @@ let DirectionsResultsDOM = {
       data.distance,
       data.duration,
       data.transport,
-      data.computation
+      data.computation,
+      data.waypoints,
     ));
     // ajout du bouton détails
     noDetailsDiv.appendChild(this.__addResultsDetailsContainerDOMElement());
@@ -79,7 +80,7 @@ let DirectionsResultsDOM = {
      * @returns {DOMElement}
      * @private
      */
-  __addResultsSummaryContainerDOMElement (distance, duration, transport, computation) {
+  __addResultsSummaryContainerDOMElement (distance, duration, transport, computation, waypoints = []) {
     var div = document.createElement("div");
     div.id = "directionsSummary";
     div.className = "";
@@ -109,6 +110,19 @@ let DirectionsResultsDOM = {
     labelComputation.className = "lblDirectionsSummaryComputation";
     labelComputation.textContent = computation;
     line2.appendChild(labelComputation);
+    if (transport === "Velo") {
+      var linkGeovelo = document.createElement("a");
+      const start = waypoints.shift();
+      const end = waypoints.pop();
+      linkGeovelo.href = `https://www.geovelo.app/route?from=${start[0]},${start[1]}&to=${end[0]},${end[1]}`;
+      if (waypoints.length > 0) {
+        waypoints = waypoints.map( point => `${point[0]},${point[1]}`);
+        linkGeovelo.href += `&steps=${waypoints.join(";")}`;
+      }
+      linkGeovelo.target = "_blank";
+      linkGeovelo.textContent = "Navigation, détails et itinéraires alternatifs sur Géovélo";
+      line2.appendChild(linkGeovelo);
+    }
 
     div.appendChild(line1);
     div.appendChild(line2);
