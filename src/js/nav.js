@@ -152,6 +152,13 @@ class MenuNavigation {
     // y'a t il des particularités sur l'ouverture du panneau demandé ?
     var isSpecific = false;
     switch (id) {
+    case "routeFollow":
+      DOM.$search.classList.add("d-none");
+      DOM.$filterPoiBtn.classList.add("higher");
+      DOM.$layerManagerBtn.classList.add("higher");
+      DOM.$backTopLeftBtn.classList.remove("d-none");
+      Globals.currentScrollIndex = 2;
+      break;
     case "offlineMaps":
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
@@ -487,6 +494,13 @@ class MenuNavigation {
     var isSpecific = false;
     var isFinished = false; // hack pour search !
     switch (id) {
+    case "routeFollow":
+      Globals.routeFollow.disable();
+      DOM.$search.classList.remove("d-none");
+      DOM.$filterPoiBtn.classList.remove("higher");
+      DOM.$layerManagerBtn.classList.remove("higher");
+      DOM.$backTopLeftBtn.classList.add("d-none");
+      break;
     case "offlineMaps":
       DOM.$search.classList.remove("d-none");
       DOM.$filterPoiBtn.classList.remove("d-none");
