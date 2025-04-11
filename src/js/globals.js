@@ -105,6 +105,9 @@ let offlineMaps = null;
 // Global control immersive notifications
 let immersiveNotifications = null;
 
+// Global control route follow
+let routeFollow = null;
+
 // Global flag: is the device connected to the internet?
 let online = (await Network.getStatus()).connected;
 
@@ -147,7 +150,7 @@ if (!localStorage.getItem("walkingSpeed")) {
 // Are new place notifications enabled?
 let newPlaceNotifEnabled;
 if (!localStorage.getItem("newPlaceNotifEnabled")) {
-  newPlaceNotifEnabled = 1;
+  newPlaceNotifEnabled = 0;
 } else {
   newPlaceNotifEnabled = parseFloat(localStorage.getItem("newPlaceNotifEnabled"));
 }
@@ -194,4 +197,5 @@ export default {
   offlineMaps,
   immersiveNotifications,
   newPlaceNotifEnabled,
+  routeFollow,
 };
