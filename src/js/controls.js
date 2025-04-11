@@ -26,6 +26,8 @@ import OfflineMaps from "./offline-maps";
 import DOM from "./dom";
 
 import LocationLayers from "./services/location-styles";
+import ImmersiveNotifications from "./immersive-notifications";
+import RouteFollow from "./route-follow";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -132,6 +134,9 @@ const addControls = () => {
       }
     });
 
+    // contrôle "notifications immersives"
+    Globals.immersiveNotifications = new ImmersiveNotifications(true);
+
     // compte utilisateur
     Globals.myaccount = new MyAccount(map, {});
 
@@ -141,6 +146,9 @@ const addControls = () => {
     // signalement
     Globals.signalement = new Signalement(map, {});
     Globals.signalementOSM = new SignalementOSM(map, {});
+
+    // suivi d'itinéraire
+    Globals.routeFollow = new RouteFollow(map, {}, true);
 
     // points de repère
     Globals.landmark = new Landmark(map, {

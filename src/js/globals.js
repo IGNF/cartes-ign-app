@@ -102,6 +102,12 @@ let compareLandmark = null;
 // Global control offline maps
 let offlineMaps = null;
 
+// Global control immersive notifications
+let immersiveNotifications = null;
+
+// Global control route follow
+let routeFollow = null;
+
 // Global flag: is the device connected to the internet?
 let online = (await Network.getStatus()).connected;
 
@@ -139,6 +145,14 @@ if (!localStorage.getItem("walkingSpeed")) {
   walkingSpeed = 4 / 3.6;
 } else {
   walkingSpeed = parseFloat(localStorage.getItem("walkingSpeed")) / 3.6;
+}
+
+// Are new place notifications enabled?
+let newPlaceNotifEnabled;
+if (!localStorage.getItem("newPlaceNotifEnabled")) {
+  newPlaceNotifEnabled = 0;
+} else {
+  newPlaceNotifEnabled = parseFloat(localStorage.getItem("newPlaceNotifEnabled"));
 }
 
 export default {
@@ -181,4 +195,7 @@ export default {
   landmark,
   compareLandmark,
   offlineMaps,
+  immersiveNotifications,
+  newPlaceNotifEnabled,
+  routeFollow,
 };
