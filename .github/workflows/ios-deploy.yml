@@ -1,4 +1,6 @@
 name: iOS deploy
+permissions:
+  contents: read
 
 on:
   workflow_dispatch:

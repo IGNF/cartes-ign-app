@@ -16,9 +16,9 @@ const addEntry = (value) => {
   var splitedText = value.text.split(",");
   var city = "";
   if (splitedText.length > 1) {
-    city = splitedText[1].trim();
+    city = splitedText[1].trim().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
   }
-  el.innerHTML = `${splitedText[0]}<br/>
+  el.innerHTML = `${splitedText[0].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}<br/>
     <em class='autocompcity'>${city}</em>`;
   try {
     DOM.$resultsRechRecent.insertBefore(el, DOM.$resultsRechRecent.firstElementChild.nextSibling);

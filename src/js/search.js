@@ -268,10 +268,10 @@ class Search {
       }
 
       // DMS
-      toparse = toparse.replace("d", "°");
-      toparse = toparse.replace("m", "'");
-      toparse = toparse.replace("s", "\"");
-      toparse = toparse.replace("w", "o");
+      toparse = toparse.replace("/d/g", "°");
+      toparse = toparse.replace("/m/g", "'");
+      toparse = toparse.replace("/s/g", "\"");
+      toparse = toparse.replace("/w/g", "o");
       toparse = toparse.replace(/ +/g, "");
 
       var parts = toparse.match(/-?[0-9]+\.?[0-9]*[°'"]?/g);
@@ -291,9 +291,9 @@ class Search {
             coord[ind] *= -1;
           }
         } else if (part.match("'") !== null) {
-          coord[ind] += parseFloat(part.replace("'", "")) / 60;
+          coord[ind] += parseFloat(part.replace(/'/g, "")) / 60;
         } else if (part.match("\"") !== null) {
-          coord[ind] += parseFloat(part.replace("\"", "")) / 3600;
+          coord[ind] += parseFloat(part.replace(/"/g, "")) / 3600;
         }
       });
       var sens = true; //lat lon
