@@ -15,6 +15,8 @@ import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { App } from "@capacitor/app";
 import { NativeSettings, AndroidSettings, IOSSettings } from "capacitor-native-settings";
 import { KeepAwake } from "@capacitor-community/keep-awake";
+import { Preferences } from "@capacitor/preferences";
+
 let Geolocation;
 try {
   Geolocation = (await import("@capacitor/geolocation")).Geolocation;
@@ -272,7 +274,10 @@ const watchPositionCallback = (position) => {
     const circle = Buffer(point, position.coords.accuracy, {units: "meters"});
     Globals.map.getSource("location-precision").setData(circle);
     currentPosition = position;
-    localStorage.setItem("lastKnownPosition", JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}));
+    Preferences.set({
+      key: "lastKnownPosition",
+      value: JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}),
+    });
     var zoom = Globals.map.getZoom();
     if (firstLocation) {
       zoom = Math.max(Globals.map.getZoom(), 16.5);
@@ -390,8 +395,9 @@ const enablePosition = async() => {
   DOM.$geolocateBtn.classList.remove("locationLoading");
   location_active = true;
   tracking_active = true;
-  if (!currentPosition && localStorage.getItem("lastKnownPosition")) {
-    const lastPosition = JSON.parse(localStorage.getItem("lastKnownPosition"));
+  const lastKnownPosition = await Preferences.get( { key: "lastKnownPosition"} );
+  if (!currentPosition && lastKnownPosition.value) {
+    const lastPosition = JSON.parse(lastKnownPosition.value);
     moveTo({
       lat: lastPosition.lat,
       lon: lastPosition.lng
