@@ -251,7 +251,7 @@ class MapInteractivity {
         let featCollec = {
           "type": "FeatureCollection",
           "features": toFuse,
-        }
+        };
         union[0] = Union(Buffer(featCollec, 5, {units: "meters"}));
       }
       source = this.map.getSource(this.configuration.polygonsource);
@@ -260,7 +260,7 @@ class MapInteractivity {
         let featCollec = {
           "type": "FeatureCollection",
           "features": toFuse,
-        }
+        };
         union[0] = Union(featCollec, {properties: union[0].properties});
       }
       source = this.map.getSource(this.configuration.polygonsource);
