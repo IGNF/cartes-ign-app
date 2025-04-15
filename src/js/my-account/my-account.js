@@ -28,6 +28,7 @@ import { DOMParser } from "@xmldom/xmldom";
 import GeoJsonToGpx from "@dwayneparton/geojson-to-gpx";
 
 import LineSlice from "@turf/line-slice";
+import CleanCoords from "@turf/clean-coords";
 
 import LandmarkIconSaved from "../../css/assets/landmark/landmark-saved-map.png";
 import LandmarkIconFavourite from "../../css/assets/landmark/landmark-favourite-map.png";
@@ -1619,7 +1620,7 @@ ${props.text}`,
       for (let i = 0; i < points.length - 1; i++) {
         const startPoint = points[i];
         const endPoint = points[i + 1];
-        newSteps.push(LineSlice(startPoint, endPoint, step));
+        newSteps.push(LineSlice(startPoint, endPoint, CleanCoords(step)));
       }
       steps = newSteps;
     }
