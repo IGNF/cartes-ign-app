@@ -266,6 +266,12 @@ const watchPositionCallback = (position) => {
     });
   }
   if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 150) ) {
+    target.dispatchEvent(
+      new CustomEvent("geolocationWatch", {
+        bubbles: true,
+        detail: position.coords,
+      })
+    );
     lastAccuracy = position.coords.accuracy;
     const point = {
       type: "Point",
@@ -382,7 +388,7 @@ const enablePosition = async() => {
       return;
     }
   }
-  if (["denied", "prompt", "prompt-with-rationale"].includes(permissionStatus.location) && Capacitor.getPlatform() !== "web") {
+  if (["denied", "prompt", "prompt-with-rationale"].includes(permissionStatus.location) && Capacitor.isNativePlatform()) {
     permissionStatus = await Geolocation.requestPermissions(["location"]);
   }
   if (["denied", "prompt-with-rationale"].includes(permissionStatus.location)) {
