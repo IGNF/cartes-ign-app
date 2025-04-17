@@ -9,6 +9,8 @@ import LayersConfig from "./layer-config";
 import LayersAdditional from "./layer-additional";
 
 import ImageNotFound from "../../html/img/image-not-found.png";
+import ReliefBuildingsImage from "../../html/img/layers/3D.BUILDINGS.jpg";
+import ReliefTerrainImage from "../../html/img/layers/3D.TERRAIN.jpg";
 import DomUtils from "../utils/dom-utils";
 
 import { Toast } from "@capacitor/toast";
@@ -151,6 +153,105 @@ class LayerCatalogue extends EventTarget {
     }
 
     target.appendChild(container);
+  }
+
+  /**
+   * Ajout de 2 faux "Layers" 3D qui n'apparaissent pas dans le Layer Switcher et du bouton 3D pour les filtrer
+   * - Bâtiments 3D
+   * - Relief
+   */
+  add3DThematicLayers() {
+    var target = this.options.target || document.getElementById("layer-thematics");
+    if (!target) {
+      console.warn();
+      return;
+    }
+    var container = target.querySelector("#thematicLayers");
+
+    var buildings3DLayerHtml = `
+      <div class="layer thematicLayer" id="3D.BUILDINGS">
+        <div class="layerImg">
+          <img src="${ReliefBuildingsImage}" alt="Bâtiments 3D" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
+          <div class="layer-badge"></div>
+          <div class="layer-interactive-badge-false"></div>
+        </div>
+        <div class="layer-title-thematic">3D</div>
+        <div id="3d-buildings" class="layer-title">Bâtiments 3D</div>
+      </div>
+      `;
+    var buildings3DLayerElement = DomUtils.stringToHTML(buildings3DLayerHtml.trim());
+    buildings3DLayerElement.addEventListener("click", () => {
+      if (buildings3DLayerElement.classList.contains("selectedLayer")) {
+        Globals.threeD.remove3dBuildings();
+        buildings3DLayerElement.classList.remove("selectedLayer");
+      } else {
+        Globals.threeD.add3dBuildings();
+        buildings3DLayerElement.classList.add("selectedLayer");
+      }
+    });
+    container.appendChild(buildings3DLayerElement);
+
+    var terrainLayerHtml = `
+      <div class="layer thematicLayer" id="3D.TERRAIN">
+        <div class="layerImg">
+          <img src="${ReliefTerrainImage}" alt="Relief 3D" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
+          <div class="layer-badge"></div>
+          <div class="layer-interactive-badge-false"></div>
+        </div>
+        <div class="layer-title-thematic">3D</div>
+        <div id="3d-terrain" class="layer-title">Relief 3D</div>
+      </div>
+      `;
+    var terrainLayerElement = DomUtils.stringToHTML(terrainLayerHtml.trim());
+    terrainLayerElement.addEventListener("click", () => {
+      if (terrainLayerElement.classList.contains("selectedLayer")) {
+        Globals.threeD.remove3dTerrain();
+        terrainLayerElement.classList.remove("selectedLayer");
+      } else {
+        Globals.threeD.add3dTerrain();
+        terrainLayerElement.classList.add("selectedLayer");
+      }
+    });
+    container.appendChild(terrainLayerElement);
+
+    // Ajout de la pastille de filtre "3D"
+    var buttonsContainer = target.querySelector("#thematicButtons");
+    var buttonElement = DomUtils.stringToHTML(`
+      <button class="thematicButton" data-name="3D">
+        3D
+      </button>
+      `.trim());
+
+    buttonElement.addEventListener("click", (e) => {
+      var buttons = document.querySelectorAll(".thematicButton");
+      for (let h = 0; h < buttons.length; h++) {
+        const element = buttons[h];
+        element.classList.remove("thematic-button-active");
+      }
+      var layers = document.querySelectorAll(".thematicLayer");
+      for (let i = 0; i < layers.length; i++) {
+        const element = layers[i];
+        element.classList.add("layer-hidden");
+      }
+      var layersId = ["3D.BUILDINGS", "3D.TERRAIN"];
+      for (let j = 0; j < layersId.length; j++) {
+        const id = layersId[j];
+        var element = document.getElementById(id);
+        element.classList.remove("layer-hidden");
+      }
+      e.target.classList.add("thematic-button-active");
+    });
+    buttonsContainer.firstElementChild.after(buttonElement);
+
+    // Ajoute le réaffichage des boutons 3D au click sur la pastille "Tous"
+    buttonsContainer.querySelector("[data-name=Tous]").addEventListener("click", () => {
+      var layersId = ["3D.BUILDINGS", "3D.TERRAIN"];
+      for (let j = 0; j < layersId.length; j++) {
+        const id = layersId[j];
+        var element = document.getElementById(id);
+        element.classList.remove("layer-hidden");
+      }
+    });
   }
 
   /**
