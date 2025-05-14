@@ -52,7 +52,16 @@ const gfiRules = {
       result.title = template.title;
     }
     if (template["pretitle"]) {
-      result.title = template["pretitle"] + result.title;
+      let pretitle = template["pretitle"];
+      if (template["pretitle"][0] === "@") {
+        let str = featureProperties[template.pretitle.split("@")[1]].replace("", "'");
+        if (str.length) {
+          pretitle = str[0].toUpperCase() + str.slice(1);
+        } else {
+          pretitle = "";
+        }
+      }
+      result.title = pretitle + result.title;
     }
     if (template["title2"]) {
       let str;
@@ -68,6 +77,20 @@ const gfiRules = {
         result.title += `<p class="positionTitle2">${str}</p>`;
       }
     }
+    if (template["title3"]) {
+      let str;
+      if (template["title3"][0] === "@") {
+        str = featureProperties[template.title3.split("@")[1]].replace("", "'");
+        if (str) {
+          str = str[0].toUpperCase() + str.slice(1);
+        }
+      } else {
+        str = template["title3"];
+      }
+      if (str) {
+        result.title += `<p class="positionTitle3">${str}</p>`;
+      }
+    }
     if (template["subtitle"]) {
       result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`;
     }
@@ -80,6 +103,9 @@ const gfiRules = {
           let match = str.match("{{([^}]+)}}");
           while (match) {
             if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+              if (Array.isArray(featureProperties[match[1]])) {
+                featureProperties[match[1]] = featureProperties[match[1]].join(", ");
+              }
               str = str.replace(match[0], featureProperties[match[1]]);
               match = str.match("{{([^}]+)}}");
             } else {
@@ -108,6 +134,9 @@ const gfiRules = {
                   return "";
                 }
                 featureProperties[match[1]] = featureProperties[match[1]].charAt(0).toUpperCase() + featureProperties[match[1]].slice(1);
+              }
+              if (featureProperties[match[1]][0] === "[") {
+                featureProperties[match[1]] = JSON.parse(featureProperties[match[1]]).join(", ");
               }
               str = str.replace(match[0], featureProperties[match[1]]);
               match = str.match("{{([^}]+)}}");
