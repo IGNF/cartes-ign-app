@@ -6,6 +6,7 @@
 
 import Globals from "../globals";
 import DOM from "../dom";
+import LayersConfig from "../layer-manager/layer-config";
 import MapInteractivityLayers from "./map-interactivity-styles";
 import featurePropertyFilter from "./feature-property-filter";
 import gfiRules from "./gfi-rules";
@@ -164,6 +165,33 @@ class MapInteractivity {
     if (!Globals.interactivityIndicator.shown) {
       this.map.once("click", this.handleInfoOnMap);
       return;
+    }
+
+    if (features.length > 0) {
+      const tempLayers = LayersConfig.getTempLayers();
+      if ( tempLayers.map(layer => layer.id).includes(features[0].source)) {
+        const layerConfig = tempLayers.filter(layer => layer.id === features[0].source)[0];
+        const resp = gfiRules.parseGFI(layerConfig.gfiRules, {features: features}, this.map.getZoom());
+        let lngLat = ev.lngLat;
+        if (features[0].geometry.type === "Point") {
+          lngLat = {
+            lat: features[0].geometry.coordinates[1],
+            lng: features[0].geometry.coordinates[0]
+          };
+        }
+
+        Globals.position.compute({
+          lngLat: lngLat,
+          text: resp.title,
+          html: resp.html,
+          html2: resp.html2
+        }).then(() => {
+          Globals.menu.open("position");
+          this.map.once("click", this.handleInfoOnMap);
+        });
+        return;
+      }
+
     }
 
     // GFI au sens OGC

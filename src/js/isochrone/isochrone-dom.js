@@ -48,11 +48,15 @@ let IsochroneDOM = {
         if (values.visible) {
           checked = "checked";
         }
+        var chkClass = "inputIsochroneFilterItem";
+        if (values.tempLayer) {
+          chkClass = "inputIsochroneFilterItemTempLayer";
+        }
         return `
         <label class="lblIsochroneFilter chkContainer" title="${values.id}">
           ${values.name}
           <input
-            class="inputIsochroneFilterItem checkbox"
+            class="${chkClass} checkbox"
             type="checkbox"
             name="${values.id}"
             value="${values.id}"
@@ -72,7 +76,32 @@ let IsochroneDOM = {
         });
       }
 
-      strPoi = `
+      var strTempLayers = "";
+      if (opts.tempLayers && opts.tempLayers.length > 0) {
+        var strTempLayersItems = "";
+        for (let i = 0; i < opts.tempLayers.length; i++) {
+          var tempLayer = opts.tempLayers[i];
+          strTempLayersItems += tplPoiItem({
+            id : tempLayer.id,
+            name : tempLayer.name,
+            visible : true,
+            tempLayer : true,
+          });
+        }
+        strTempLayers = `
+        <div class="section">
+          <div class="divPOIDisplay">
+            <span class="filterTitle">Afficher les évènements</span>
+          </div>
+
+          <div class="divIsochronePOIFilter">
+            ${strTempLayersItems}
+          </div>
+        </div>
+        `;
+      }
+
+      strPoi = `${strTempLayers}
       <div class="section">
         <div class="divPOIDisplay">
           <span class="filterTitle">Afficher les centres d'intérêt</span>
@@ -284,6 +313,12 @@ let IsochroneDOM = {
       document.querySelectorAll(".inputIsochroneFilterItem").forEach( (el) => {
         poisToDisplay[el.value] = el.checked;
       });
+      var tempLayersToDisplay = [];
+      document.querySelectorAll(".inputIsochroneFilterItemTempLayer").forEach( (el) => {
+        if (el.checked) {
+          tempLayersToDisplay.push(el.value);
+        }
+      });
 
       if (!mode.value) {
         Toast.show({
@@ -310,6 +345,7 @@ let IsochroneDOM = {
         showOutline: showOutline,
         showPoisOutside: showPoisOutside,
         poisToDisplay: poisToDisplay,
+        tempLayersToDisplay: tempLayersToDisplay,
       });
 
       return false;
