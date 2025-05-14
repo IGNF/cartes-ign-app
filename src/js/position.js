@@ -506,12 +506,16 @@ class Position {
       console.warn(`Error when fetching elevation: ${err}`);
       this.elevation = "?";
       this.#setShareContent(this.coordinates.lat, this.coordinates.lon, this.elevation, type);
-      document.getElementById("positionAltitudeSpan").innerText = this.elevation;
+      if (document.getElementById("positionAltitudeSpan")) {
+        document.getElementById("positionAltitudeSpan").innerText = this.elevation;
+      }
     });
 
     if (type === "myposition" || type === "context") {
       this.immersivePosition.addEventListener("dataLoaded", () => {
-        document.getElementById("immersivePostionHtmlBefore").innerHTML = this.immersivePosition.computeHtml();
+        if (document.getElementById("immersivePostionHtmlBefore")) {
+          document.getElementById("immersivePostionHtmlBefore").innerHTML = this.immersivePosition.computeHtml();
+        }
       });
       this.immersivePosition.computeAll();
     }
