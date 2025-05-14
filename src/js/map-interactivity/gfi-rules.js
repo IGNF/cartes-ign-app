@@ -292,6 +292,9 @@ const gfiRules = {
           let match = str.match("{{([^}]+)}}");
           while (match) {
             if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+              if (Array.isArray(featureProperties[match[1]])) {
+                featureProperties[match[1]] = featureProperties[match[1]].join(", ");
+              }
               str = str.replace(match[0], featureProperties[match[1]]);
               match = str.match("{{([^}]+)}}");
             } else {
@@ -320,6 +323,9 @@ const gfiRules = {
                   return "";
                 }
                 featureProperties[match[1]] = featureProperties[match[1]].charAt(0).toUpperCase() + featureProperties[match[1]].slice(1);
+              }
+              if (featureProperties[match[1]][0] === "[") {
+                featureProperties[match[1]] = JSON.parse(featureProperties[match[1]]).join(", ");
               }
               str = str.replace(match[0], featureProperties[match[1]]);
               match = str.match("{{([^}]+)}}");
