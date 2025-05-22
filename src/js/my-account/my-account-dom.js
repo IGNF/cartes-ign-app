@@ -128,9 +128,39 @@ let MyAccountDOM = {
       <label class="tabs-label" for="myaccount-compare-landmarks-tab">Repères Comparer <span id="myaccount-compare-landmarks-number">0</span></label>
     </div>
       <div class="tabs-wrap-content">
-      <div class="tabs-content" id="myaccount-routes"><div id="myAccountImportBtnRoutes">Importer</div></div>
+      <div class="tabs-content" id="myaccount-routes">
+        <div id="myAccountImportBtnRoutes">Importer</div>
+        <div id="myaccount-routes-multiple-actions">
+          <label class="lblMultiSelect chkContainer" for="routeSelectAll" title="Sélectionner tout">
+            Sélectionner tout
+            <input id="routeSelectAll"
+                class="checkbox"
+                type="checkbox"
+                name="routeSelectAll"
+                value="routeSelectAll"
+                >
+            <span class="checkmark"></span>
+          </label>
+          <div id="myAccountActionsBtnRoutes">Actions multiples</div>
+        </div>
+      </div>
       <div class="tabs-content" id="myaccount-offline-maps"><div id="myAccountDownloadMapBtn">Télécharger une carte</div><div id="myAccountOfflineTotalSize">Espace total des cartes enregistrées : <span id="myAccountOfflineTotalSizeSpan">0</span> Mo</div></div>
-      <div class="tabs-content" id="myaccount-landmarks"><div id="myAccountImportBtnLandmarks">Importer</div></div>
+      <div class="tabs-content" id="myaccount-landmarks">
+        <div id="myAccountImportBtnLandmarks">Importer</div>
+        <div id="myaccount-landmarks-multiple-actions">
+          <label class="lblMultiSelect chkContainer" for="landmarkSelectAll" title="Sélectionner tout">
+            Sélectionner tout
+            <input id="landmarkSelectAll"
+                class="checkbox"
+                type="checkbox"
+                name="landmarkSelectAll"
+                value="landmarkSelectAll"
+                >
+            <span class="checkmark"></span>
+          </label>
+          <div id="myAccountActionsBtnLandmarks">Actions multiples</div>
+        </div>
+      </div>
       <div class="tabs-content" id="myaccount-compare-landmarks"></div>
       </div>
     </div>`;
@@ -155,6 +185,208 @@ let MyAccountDOM = {
     this.dom.offlineMapSizeSpan = container.querySelector("#myAccountOfflineTotalSizeSpan");
 
     this.dom.tabsMenuBtn = container.querySelector(".tabs-menu-btn");
+
+    container.querySelector("#myaccount-routes-multiple-actions .lblMultiSelect").addEventListener("click", () => {
+      const checkbox = container.querySelector("#myaccount-routes-multiple-actions .lblMultiSelect .checkbox");
+      const routeContainers = container.querySelectorAll("#myaccount-routes .tools-layer-panel");
+      if (checkbox.checked) {
+        routeContainers.forEach((routeContainer) => {
+          routeContainer.classList.add("multiple-selected");
+          routeContainer.querySelector(".lblMultiSelect .checkbox").checked = true;
+        });
+      } else {
+        routeContainers.forEach((routeContainer) => {
+          routeContainer.classList.remove("multiple-selected");
+          routeContainer.querySelector(".lblMultiSelect .checkbox").checked = false;
+        });
+      }
+    });
+
+    container.querySelector("#myaccount-landmarks-multiple-actions .lblMultiSelect").addEventListener("click", () => {
+      const checkbox = container.querySelector("#myaccount-landmarks-multiple-actions .lblMultiSelect .checkbox");
+      const landmarkContainers = container.querySelectorAll("#myaccount-landmarks .tools-layer-panel");
+      if (checkbox.checked) {
+        landmarkContainers.forEach((landmarkContainer) => {
+          landmarkContainer.classList.add("multiple-selected");
+          landmarkContainer.querySelector(".lblMultiSelect .checkbox").checked = true;
+        });
+      } else {
+        landmarkContainers.forEach((landmarkContainer) => {
+          landmarkContainer.classList.remove("multiple-selected");
+          landmarkContainer.querySelector(".lblMultiSelect .checkbox").checked = false;
+        });
+      }
+    });
+
+    container.querySelector("#myAccountActionsBtnLandmarks").addEventListener("click", () => {
+      ActionSheet.show({
+        options: [
+          {
+            class: "tools-layer-visibility",
+            text: "Masquer les repères sélectionnés",
+            value: "hide",
+          },
+          {
+            class: "tools-layer-visibility invisible",
+            text: "Afficher les repères sélectionnés",
+            value: "show",
+          },
+          {
+            class: "tools-layer-export",
+            text: "Exporter les repères sélectionnés",
+            value: "export",
+          },
+          {
+            class: "tools-layer-remove confirm-needed",
+            text: "Supprimer les repères sélectionnés",
+            value: "delete",
+            confirmCallback: () => {
+              Toast.show({
+                text: "Confirmez la suppression des repères",
+                duration: "short",
+                position: "bottom"
+              });
+            }
+          },
+        ],
+        timeToHide: 50,
+      }).then( (value) => {
+        if (value === "hide") {
+          const landmarkContainers = container.querySelectorAll("#myaccount-landmarks .tools-layer-panel");
+          landmarkContainers.forEach((landmarkContainer) => {
+            if (landmarkContainer.classList.contains("multiple-selected")) {
+              if (landmarkContainer.classList.contains("invisible")) {
+                return;
+              }
+              this.hideLandmarkFromID(parseInt(landmarkContainer.id.split("_")[2]));
+              landmarkContainer.classList.add("invisible");
+            }
+          });
+        }
+        if (value === "show") {
+          const landmarkContainers = container.querySelectorAll("#myaccount-landmarks .tools-layer-panel");
+          landmarkContainers.forEach((landmarkContainer) => {
+            if (landmarkContainer.classList.contains("multiple-selected")) {
+              if (!landmarkContainer.classList.contains("invisible")) {
+                return;
+              }
+              this.showLandmarkFromID(parseInt(landmarkContainer.id.split("_")[2]), false);
+              landmarkContainer.classList.remove("invisible");
+            }
+          });
+        }
+        if (value === "export") {
+          const landmarkContainers = container.querySelectorAll("#myaccount-landmarks .tools-layer-panel");
+          landmarkContainers.forEach((landmarkContainer) => {
+            if (landmarkContainer.classList.contains("multiple-selected")) {
+              this.exportLandmarkFromID(parseInt(landmarkContainer.id.split("_")[2]));
+            }
+          });
+        }
+        if (value === "delete") {
+          const landmarkContainers = container.querySelectorAll("#myaccount-landmarks .tools-layer-panel");
+          landmarkContainers.forEach((landmarkContainer) => {
+            if (landmarkContainer.classList.contains("multiple-selected")) {
+              this.deleteLandmark(parseInt(landmarkContainer.id.split("_")[2]));
+            }
+          });
+        }
+      });
+    });
+
+    container.querySelector("#myAccountActionsBtnRoutes").addEventListener("click", () => {
+      ActionSheet.show({
+        options: [
+          {
+            class: "tools-layer-visibility",
+            text: "Masquer les itinéraires sélectionnés",
+            value: "hide",
+          },
+          {
+            class: "tools-layer-visibility invisible",
+            text: "Afficher les itinéraires sélectionnés",
+            value: "show",
+          },
+          {
+            class: "tools-layer-export",
+            text: "Exporter les itinéraires sélectionnés",
+            value: "export",
+          },
+          {
+            class: "tools-layer-remove confirm-needed",
+            text: "Supprimer les itinéraires sélectionnés",
+            value: "delete",
+            confirmCallback: () => {
+              Toast.show({
+                text: "Confirmez la suppression des itinéraires",
+                duration: "short",
+                position: "bottom"
+              });
+            }
+          },
+        ],
+        timeToHide: 50,
+      }).then( (value) => {
+        if (value === "hide") {
+          const routeContainers = container.querySelectorAll("#myaccount-routes .tools-layer-panel");
+          routeContainers.forEach((routeContainer) => {
+            if (routeContainer.classList.contains("multiple-selected")) {
+              if (routeContainer.classList.contains("invisible")) {
+                return;
+              }
+              this.hideRouteFromID(parseInt(routeContainer.id.split("_")[2]));
+              routeContainer.classList.add("invisible");
+            }
+          });
+        }
+        if (value === "show") {
+          const routeContainers = container.querySelectorAll("#myaccount-routes .tools-layer-panel");
+          routeContainers.forEach((routeContainer) => {
+            if (routeContainer.classList.contains("multiple-selected")) {
+              if (!routeContainer.classList.contains("invisible")) {
+                return;
+              }
+              this.showRouteFromID(parseInt(routeContainer.id.split("_")[2]), false);
+              routeContainer.classList.remove("invisible");
+            }
+          });
+        }
+        if (value === "export") {
+          ActionSheet.show({
+            style: "buttons",
+            title: "Choisissez votre format d'export",
+            options: [
+              {
+                text: "JSON",
+                value: "json",
+                class: ""
+              },
+              {
+                text: "GPX",
+                value: "gpx",
+                class: ""
+              }
+            ]
+          }).then((format) => {
+            const routeContainers = container.querySelectorAll("#myaccount-routes .tools-layer-panel");
+            routeContainers.forEach((routeContainer) => {
+              if (routeContainer.classList.contains("multiple-selected")) {
+                this.exportRouteFromID(parseInt(routeContainer.id.split("_")[2]), format);
+              }
+            });
+          });
+        }
+        if (value === "delete") {
+          const routeContainers = container.querySelectorAll("#myaccount-routes .tools-layer-panel");
+          routeContainers.forEach((routeContainer) => {
+            if (routeContainer.classList.contains("multiple-selected")) {
+              this.deleteRoute(parseInt(routeContainer.id.split("_")[2]));
+            }
+          });
+        }
+      });
+    });
+
     return container;
   },
 
@@ -295,6 +527,15 @@ let MyAccountDOM = {
     var tplContainer = `
       <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="route-container_ID_${routeId}">
         <div class="handle-draggable-layer" id="route-cross-picto_ID_${routeId}"></div>
+        <label class="lblMultiSelect chkContainer" for="${routeId}-routeMultiSelect" title="Sélectionner">
+            <input id="${routeId}-routeMultiSelect"
+                class="checkbox"
+                type="checkbox"
+                name="${routeId}"
+                value="${routeId}"
+                >
+            <span class="checkmark"></span>
+        </label>
         <div id="route-basic-tools_ID_${routeId}">
           <label class="routeDrawSummaryTransport lblRouteDrawSummaryTransport${route.transport}"></label>
           <div class="wrap-tools-layers">
@@ -386,9 +627,45 @@ let MyAccountDOM = {
       });
     });
 
+    let longPressTriggered = false;
     // Au clic sur l'itinéraire = l'afficher
-    container.querySelector(`#route-basic-tools_ID_${routeId}`).addEventListener("click", () => {
+    container.querySelector(`#route-basic-tools_ID_${routeId}`).addEventListener("click", (e) => {
+      if (longPressTriggered) {
+        // Cancel click if it was a long press
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return;
+      }
       this.showRouteDetails(route);
+    });
+
+    // event appui long
+    let contextMenuTimeout = null;
+    const clearContextMenuTimeout = () => { clearTimeout(contextMenuTimeout); };
+    container.querySelector(`#route-basic-tools_ID_${routeId}`).addEventListener("pointerdown", () => {
+      longPressTriggered = false;
+      contextMenuTimeout = setTimeout(() => {
+        longPressTriggered = true;
+        container.classList.add("multiple-selected");
+        container.querySelector(".lblMultiSelect .checkbox").checked = true;
+      }, 500);
+      container.addEventListener("pointerup", (e) => {
+        clearContextMenuTimeout();
+        if (longPressTriggered) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }
+      });
+      container.addEventListener("pointermove", clearContextMenuTimeout);
+    });
+
+    container.querySelector(".lblMultiSelect").addEventListener("click", () => {
+      const checkbox = container.querySelector(".lblMultiSelect .checkbox");
+      if (checkbox.checked) {
+        container.classList.add("multiple-selected");
+      } else {
+        container.classList.remove("multiple-selected");
+      }
     });
 
     if (!container) {
@@ -413,6 +690,15 @@ let MyAccountDOM = {
     var tplContainer = `
       <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="landmark-container_ID_${landmarkId}">
         <div class="handle-draggable-layer" id="landmark-cross-picto_ID_${landmarkId}"></div>
+        <label class="lblMultiSelect chkContainer" for="${landmarkId}-landmarkMultiSelect" title="Sélectionner">
+            <input id="${landmarkId}-landmarkMultiSelect"
+                class="checkbox"
+                type="checkbox"
+                name="${landmarkId}"
+                value="${landmarkId}"
+                >
+            <span class="checkmark"></span>
+        </label>
         <div id="landmark-basic-tools_ID_${landmarkId}">
           <label class="landmarkSummaryIcon landmarkSummaryIcon${landmark.properties.icon}" style="background-color:${landmark.properties.color}"></label>
           <div class="wrap-tools-layers">
@@ -491,13 +777,49 @@ let MyAccountDOM = {
       });
     });
 
+    let longPressTriggered = false;
     // Au clic sur le PR = l'afficher
-    container.querySelector(`#landmark-basic-tools_ID_${landmarkId}`).addEventListener("click", () => {
+    container.querySelector(`#landmark-basic-tools_ID_${landmarkId}`).addEventListener("click", (e) => {
+      if (longPressTriggered) {
+        // Cancel click if it was a long press
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return;
+      }
       if (landmark.properties.visible) {
         this.toggleShowLandmark(landmark);
       }
       container.classList.remove("invisible");
       this.toggleShowLandmark(landmark);
+    });
+
+    // event appui long
+    let contextMenuTimeout = null;
+    const clearContextMenuTimeout = () => { clearTimeout(contextMenuTimeout); };
+    container.querySelector(`#landmark-basic-tools_ID_${landmarkId}`).addEventListener("pointerdown", () => {
+      longPressTriggered = false;
+      contextMenuTimeout = setTimeout(() => {
+        longPressTriggered = true;
+        container.classList.add("multiple-selected");
+        container.querySelector(".lblMultiSelect .checkbox").checked = true;
+      }, 500);
+      container.addEventListener("pointerup", (e) => {
+        clearContextMenuTimeout();
+        if (longPressTriggered) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }
+      });
+      container.addEventListener("pointermove", clearContextMenuTimeout);
+    });
+
+    container.querySelector(".lblMultiSelect").addEventListener("click", () => {
+      const checkbox = container.querySelector(".lblMultiSelect .checkbox");
+      if (checkbox.checked) {
+        container.classList.add("multiple-selected");
+      } else {
+        container.classList.remove("multiple-selected");
+      }
     });
 
     if (!container) {

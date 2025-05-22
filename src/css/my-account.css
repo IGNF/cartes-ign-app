@@ -492,3 +492,82 @@ div[id^=route-summary-div_ID_] {
   background-repeat: no-repeat;
   background-image: url(assets/offline-map.svg);
 }
+
+
+/* SELECTION MULTIPLE */
+.lblMultiSelect{
+  height: 25px;
+  width: 25px;
+  padding: 0;
+  margin-left: 15px;
+}
+
+#myaccount-landmarks-multiple-actions,
+#myaccount-routes-multiple-actions {
+  flex-direction: row;
+}
+
+#myaccount-landmarks-multiple-actions > .lblMultiSelect,
+#myaccount-routes-multiple-actions > .lblMultiSelect {
+  width: fit-content;
+  padding-left: 42px;
+  font-size: 15px;
+}
+
+#myAccountActionsBtnLandmarks,
+#myAccountActionsBtnRoutes {
+  background-image: url("./assets/options-layer.svg");
+  padding: 13px 20px 13px 30px;
+  background-repeat: no-repeat;
+  background-position: left;
+  border-radius: 100px;
+  background-color: var(--light-grey);
+  width: fit-content;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.tools-layer-panel.multiple-selected {
+  background-color: var(--light-green);
+}
+
+.tools-layer-panel.multiple-selected {
+  background-color: var(--light-green);
+}
+
+#myaccountLandmarksList > .tools-layer-panel > .lblMultiSelect,
+#myaccountRouteList > .tools-layer-panel > .lblMultiSelect {
+  display: none;
+}
+
+#myaccount-landmarks > #myaccount-landmarks-multiple-actions,
+#myaccount-routes > #myaccount-routes-multiple-actions {
+  display: none;
+}
+
+#myaccount-landmarks:has(.multiple-selected) > #myaccount-landmarks-multiple-actions,
+#myaccount-routes:has(.multiple-selected) > #myaccount-routes-multiple-actions {
+  display: flex;
+}
+
+#myaccount-landmarks:has(.multiple-selected) > #myAccountImportBtnLandmarks,
+#myaccount-routes:has(.multiple-selected) > #myAccountImportBtnRoutes {
+  display: none;
+}
+
+#myaccountLandmarksList:has(.multiple-selected) > .tools-layer-panel,
+#myaccountRouteList:has(.multiple-selected) > .tools-layer-panel {
+  justify-content: left;
+}
+
+#myaccountLandmarksList:has(.multiple-selected) > .tools-layer-panel > .handle-draggable-layer,
+#myaccountLandmarksList:has(.multiple-selected) > .tools-layer-panel > .tools-layer-advanced,
+#myaccountRouteList:has(.multiple-selected) > .tools-layer-panel > .handle-draggable-layer,
+#myaccountRouteList:has(.multiple-selected) > .tools-layer-panel > .tools-layer-advanced {
+  display: none;
+}
+
+#myaccountLandmarksList:has(.multiple-selected) > .tools-layer-panel > .lblMultiSelect,
+#myaccountRouteList:has(.multiple-selected) > .tools-layer-panel > .lblMultiSelect {
+  display: unset;
+}
