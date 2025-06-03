@@ -10,6 +10,7 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':aashu-dubey-capacitor-statusbar-safe-area')
+    implementation project(':capacitor-community-background-geolocation')
     implementation project(':capacitor-community-keep-awake')
     implementation project(':capacitor-app')
     implementation project(':capacitor-clipboard')
@@ -17,6 +18,7 @@ dependencies {
     implementation project(':capacitor-filesystem')
     implementation project(':capacitor-geolocation')
     implementation project(':capacitor-keyboard')
+    implementation project(':capacitor-local-notifications')
     implementation project(':capacitor-network')
     implementation project(':capacitor-preferences')
     implementation project(':capacitor-screen-orientation')

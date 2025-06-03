@@ -382,7 +382,7 @@ const enablePosition = async() => {
       return;
     }
   }
-  if (["denied", "prompt", "prompt-with-rationale"].includes(permissionStatus.location) && Capacitor.getPlatform() !== "web") {
+  if (["denied", "prompt", "prompt-with-rationale"].includes(permissionStatus.location) && Capacitor.isNativePlatform()) {
     permissionStatus = await Geolocation.requestPermissions(["location"]);
   }
   if (["denied", "prompt-with-rationale"].includes(permissionStatus.location)) {

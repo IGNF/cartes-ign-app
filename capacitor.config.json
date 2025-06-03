@@ -25,6 +25,9 @@
       "spinnerColor": "#000000",
       "splashFullScreen": false,
       "splashImmersive": false
+    },
+    "CapacitorHttp": {
+      "enabled": true
     }
   }
 }
