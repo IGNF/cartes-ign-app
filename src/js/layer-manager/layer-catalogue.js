@@ -9,6 +9,8 @@ import LayersConfig from "./layer-config";
 import LayersAdditional from "./layer-additional";
 
 import ImageNotFound from "../../html/img/image-not-found.png";
+import ReliefBuildingsImage from "../../html/img/layers/3D.BUILDINGS.jpg";
+import ReliefTerrainImage from "../../html/img/layers/3D.TERRAIN.jpg";
 import DomUtils from "../utils/dom-utils";
 
 import { Toast } from "@capacitor/toast";
@@ -132,6 +134,7 @@ class LayerCatalogue extends EventTarget {
         ${strBaseLayers}
         <div id="baseLayersAfter" tabindex="0" title="Faire défiler le menu"><div></div></div>
       </div>
+      <hr />
       <h4 id="thematicLayersLabel">Données thématiques</h4>
       <div class="subCatButton" id="thematicButtons">
         ${strThematicButtons}
@@ -151,6 +154,62 @@ class LayerCatalogue extends EventTarget {
     }
 
     target.appendChild(container);
+  }
+
+  /**
+   * Ajout de 2 faux "Layers" 3D qui n'apparaissent pas dans le Layer Switcher et du bouton 3D pour les filtrer
+   * - Bâtiments 3D
+   * - Relief
+   */
+  add3DThematicLayers() {
+    var target = this.options.target || document.getElementById("layer-thematics");
+    if (!target) {
+      console.warn();
+      return;
+    }
+    var container = document.createElement("div");
+    container.classList.add("small-layers");
+
+    var buildings3DLayerHtml = `
+      <div class="layer smallLayer" id="3D.BUILDINGS">
+        <div class="layerImg">
+          <img src="${ReliefBuildingsImage}" alt="Bâtiments 3D" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
+        </div>
+        <div id="3d-buildings" class="layer-title">Bâtiments 3D</div>
+      </div>
+      `;
+    var buildings3DLayerElement = DomUtils.stringToHTML(buildings3DLayerHtml.trim());
+    buildings3DLayerElement.addEventListener("click", () => {
+      if (buildings3DLayerElement.classList.contains("selectedLayer")) {
+        Globals.threeD.remove3dBuildings();
+        buildings3DLayerElement.classList.remove("selectedLayer");
+      } else {
+        Globals.threeD.add3dBuildings();
+        buildings3DLayerElement.classList.add("selectedLayer");
+      }
+    });
+    container.appendChild(buildings3DLayerElement);
+
+    var terrainLayerHtml = `
+      <div class="layer smallLayer" id="3D.TERRAIN">
+        <div class="layerImg">
+          <img src="${ReliefTerrainImage}" alt="Relief 3D" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
+        </div>
+        <div id="3d-terrain" class="layer-title">Relief 3D</div>
+      </div>
+      `;
+    var terrainLayerElement = DomUtils.stringToHTML(terrainLayerHtml.trim());
+    terrainLayerElement.addEventListener("click", () => {
+      if (terrainLayerElement.classList.contains("selectedLayer")) {
+        Globals.threeD.remove3dTerrain();
+        terrainLayerElement.classList.remove("selectedLayer");
+      } else {
+        Globals.threeD.add3dTerrain();
+        terrainLayerElement.classList.add("selectedLayer");
+      }
+    });
+    container.appendChild(terrainLayerElement);
+    target.querySelector(".layer-thematics").insertBefore(container, target.querySelector("#baseLayers").nextSibling);
   }
 
   /**

@@ -88,6 +88,15 @@ input, textarea, select {
   font-size: 15px;
 }
 
+hr {
+  border: none;
+  height: 1px;
+  width: 95%;
+  color: var(--grey-2);
+  background-color: var(--grey-2);
+  margin: 0;
+}
+
 #whiteScreen {
   width: 100vw;
   height: 100vh;

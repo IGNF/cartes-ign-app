@@ -126,15 +126,6 @@
   background-image: url(../html/img/navheader.svg);
 }
 
-.subnav hr {
-  border: none;
-  height: 1px;
-  width: 95%;
-  color: var(--grey-2);
-  background-color: var(--grey-2);
-  margin: 0;
-}
-
 .navbar.hoverable:focus-within .subnav,
 .navbar.hoverable:hover .subnav {
   transform: translate(100%);
