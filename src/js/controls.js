@@ -24,6 +24,7 @@ import MapboxAccessibility from "./poi-accessibility";
 import CompareLandmark from "./compare-landmark";
 import OfflineMaps from "./offline-maps";
 import DOM from "./dom";
+import LayerConfig from "./layer-manager/layer-config";
 
 import LocationLayers from "./services/location-styles";
 // TODO: activate
@@ -169,10 +170,14 @@ const addControls = () => {
       }).finally(() => {
         // INFO
         // le contrôle de calcul d'isochrone est en attente de l'initialisation des POI
+        const tempLayerList = LayerConfig.getTempLayers().filter((layer) => {
+          return layer.isochrone;
+        });
         Globals.isochrone = new Isochrone(map, {
         // callback sur l'ouverture / fermeture du panneau de recherche
           openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
-          closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); }
+          closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); },
+          tempLayers : tempLayerList,
         });
         // Poi RLT
         Globals.comparePoi = new ComparePoi(map, {});
