@@ -1162,27 +1162,30 @@ ${props.text}`,
    * Exporte l'itinéraire sous forme d'un fichier
    * @param {*} route
    */
-  async exportRoute(route) {
+  async exportRoute(route, format = null) {
     let documentsName = "Documents";
     if (Capacitor.getPlatform() === "ios") {
       documentsName = "Fichiers";
     }
-    const value = await ActionSheet.show({
-      style: "buttons",
-      title: "Choisissez votre format d'export",
-      options: [
-        {
-          text: "JSON",
-          value: "json",
-          class: ""
-        },
-        {
-          text: "GPX",
-          value: "gpx",
-          class: ""
-        }
-      ]
-    });
+    let value = format;
+    if (!value) {
+      value = await ActionSheet.show({
+        style: "buttons",
+        title: "Choisissez votre format d'export",
+        options: [
+          {
+            text: "JSON",
+            value: "json",
+            class: ""
+          },
+          {
+            text: "GPX",
+            value: "gpx",
+            class: ""
+          }
+        ]
+      });
+    }
     try {
       let formatName;
       const existingFileNames = (await Filesystem.readdir({
@@ -1255,9 +1258,9 @@ ${props.text}`,
   * Exporte l'itinéraire sous forme d'un fichier à partir de son ID
   * @param {Number} routeId
   */
-  exportRouteFromID(routeId) {
+  exportRouteFromID(routeId, format = null) {
     try {
-      this.exportRoute(this.#getRouteFromID(routeId));
+      this.exportRoute(this.#getRouteFromID(routeId), format);
     } catch (e) {
       console.warn(e);
       Toast.show({
@@ -1341,25 +1344,27 @@ ${props.text}`,
    * Affiche l'itinéraire s'il est caché, ou le cache s'il est affiché
    * @param {*} route
    */
-  toggleShowRoute(route) {
+  toggleShowRoute(route, fly = true) {
     if (route.visible) {
       route.visible = false;
     } else {
       route.visible = true;
-      this.hide();
-      let coordinates = [];
-      route.data.steps.forEach((step) => {
-        coordinates = coordinates.concat(step.geometry.coordinates);
-      });
-      const bounds = coordinates.reduce((bounds, coord) => {
-        return bounds.extend(coord);
-      }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
-      if (Location.isTrackingActive()) {
-        Location.disableTracking();
+      if (fly) {
+        this.hide();
+        let coordinates = [];
+        route.data.steps.forEach((step) => {
+          coordinates = coordinates.concat(step.geometry.coordinates);
+        });
+        const bounds = coordinates.reduce((bounds, coord) => {
+          return bounds.extend(coord);
+        }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+        if (Location.isTrackingActive()) {
+          Location.disableTracking();
+        }
+        this.map.fitBounds(bounds, {
+          padding: 100,
+        });
       }
-      this.map.fitBounds(bounds, {
-        padding: 100,
-      });
     }
     this.#updateSources();
   }
@@ -1368,10 +1373,30 @@ ${props.text}`,
   * Affiche l'itinéraire s'il est caché à partir de son ID
   * @param {Number} routeId
   */
-  showRouteFromID(routeId) {
+  showRouteFromID(routeId, fly = true) {
     try {
       const route = this.#getRouteFromID(routeId);
       if (!route.visible) {
+        this.toggleShowRoute(route, fly);
+      }
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
+  }
+
+  /**
+  * Cache l'itinéraire s'il est visible à partir de son ID
+  * @param {Number} routeId
+  */
+  hideRouteFromID(routeId) {
+    try {
+      const route = this.#getRouteFromID(routeId);
+      if (route.visible) {
         this.toggleShowRoute(route);
       }
     } catch (e) {
@@ -1382,25 +1407,56 @@ ${props.text}`,
         position: "bottom"
       });
     }
-
   }
 
   /**
    * Affiche le point de repère s'il est caché, ou le cache s'il est affiché
    * @param {*} landmark
    */
-  toggleShowLandmark(landmark) {
+  toggleShowLandmark(landmark, fly = true) {
     if (landmark.properties.visible) {
       landmark.properties.visible = false;
     } else {
       landmark.properties.visible = true;
-      this.hide();
-      if (Location.isTrackingActive()) {
-        Location.disableTracking();
+      if (fly) {
+        this.hide();
+        if (Location.isTrackingActive()) {
+          Location.disableTracking();
+        }
+        this.map.flyTo({center: landmark.geometry.coordinates, zoom: 14});
       }
-      this.map.flyTo({center: landmark.geometry.coordinates, zoom: 14});
     }
     this.#updateSources();
+  }
+
+  /**
+  * Affiche le repère s'il est caché à partir de son ID
+  * @param {Number} landmarkId
+  */
+  showLandmarkFromID(landmarkId, fly = true) {
+    try {
+      const landmark = this.#getLandmarkFromID(landmarkId);
+      if (!landmark.properties.visible) {
+        this.toggleShowLandmark(landmark, fly);
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  /**
+  * Cache le repère s'il est visible à partir de son ID
+  * @param {Number} landmarkId
+  */
+  hideLandmarkFromID(landmarkId) {
+    try {
+      const landmark = this.#getLandmarkFromID(landmarkId);
+      if (landmark.properties.visible) {
+        this.toggleShowLandmark(landmark);
+      }
+    } catch (e) {
+      console.warn(e);
+    }
   }
 
   /**
