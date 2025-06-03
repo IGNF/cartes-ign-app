@@ -119,6 +119,9 @@ class ThreeD {
     Globals.map.setTerrain({ source: "bil-terrain", exaggeration: 1.5 });
     this.addHillShadeToPlanIgn();
     this.terrainOn = true;
+    if (Globals.map.getPitch() < 20) {
+      Globals.map.flyTo({pitch: 45, zoom: Math.min(Globals.map.getZoom(), 14)});
+    }
   }
 
   addHillShadeToPlanIgn() {
@@ -150,6 +153,9 @@ class ThreeD {
     this.buildingsLayers.forEach((layer) => {
       Globals.map.addLayer(layer, layerIdBefore);
     });
+    if (Globals.map.getPitch() < 20) {
+      Globals.map.flyTo({pitch: 45});
+    }
   }
 
   remove3dBuildings() {

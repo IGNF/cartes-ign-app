@@ -91,7 +91,6 @@ const addListeners = () => {
       Globals.compareLandmark.location = [Globals.mapRLT1.getCenter().lng, Globals.mapRLT1.getCenter().lat];
     }
   });
-
 };
 
 export default {

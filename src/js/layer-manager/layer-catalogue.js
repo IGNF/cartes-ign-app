@@ -134,6 +134,7 @@ class LayerCatalogue extends EventTarget {
         ${strBaseLayers}
         <div id="baseLayersAfter" tabindex="0" title="Faire défiler le menu"><div></div></div>
       </div>
+      <hr />
       <h4 id="thematicLayersLabel">Données thématiques</h4>
       <div class="subCatButton" id="thematicButtons">
         ${strThematicButtons}
@@ -166,16 +167,14 @@ class LayerCatalogue extends EventTarget {
       console.warn();
       return;
     }
-    var container = target.querySelector("#thematicLayers");
+    var container = document.createElement("div");
+    container.classList.add("small-layers");
 
     var buildings3DLayerHtml = `
-      <div class="layer thematicLayer" id="3D.BUILDINGS">
+      <div class="layer smallLayer" id="3D.BUILDINGS">
         <div class="layerImg">
           <img src="${ReliefBuildingsImage}" alt="Bâtiments 3D" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
-          <div class="layer-badge"></div>
-          <div class="layer-interactive-badge-false"></div>
         </div>
-        <div class="layer-title-thematic">3D</div>
         <div id="3d-buildings" class="layer-title">Bâtiments 3D</div>
       </div>
       `;
@@ -192,13 +191,10 @@ class LayerCatalogue extends EventTarget {
     container.appendChild(buildings3DLayerElement);
 
     var terrainLayerHtml = `
-      <div class="layer thematicLayer" id="3D.TERRAIN">
+      <div class="layer smallLayer" id="3D.TERRAIN">
         <div class="layerImg">
           <img src="${ReliefTerrainImage}" alt="Relief 3D" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
-          <div class="layer-badge"></div>
-          <div class="layer-interactive-badge-false"></div>
         </div>
-        <div class="layer-title-thematic">3D</div>
         <div id="3d-terrain" class="layer-title">Relief 3D</div>
       </div>
       `;
@@ -213,45 +209,7 @@ class LayerCatalogue extends EventTarget {
       }
     });
     container.appendChild(terrainLayerElement);
-
-    // Ajout de la pastille de filtre "3D"
-    var buttonsContainer = target.querySelector("#thematicButtons");
-    var buttonElement = DomUtils.stringToHTML(`
-      <button class="thematicButton" data-name="3D">
-        3D
-      </button>
-      `.trim());
-
-    buttonElement.addEventListener("click", (e) => {
-      var buttons = document.querySelectorAll(".thematicButton");
-      for (let h = 0; h < buttons.length; h++) {
-        const element = buttons[h];
-        element.classList.remove("thematic-button-active");
-      }
-      var layers = document.querySelectorAll(".thematicLayer");
-      for (let i = 0; i < layers.length; i++) {
-        const element = layers[i];
-        element.classList.add("layer-hidden");
-      }
-      var layersId = ["3D.BUILDINGS", "3D.TERRAIN"];
-      for (let j = 0; j < layersId.length; j++) {
-        const id = layersId[j];
-        var element = document.getElementById(id);
-        element.classList.remove("layer-hidden");
-      }
-      e.target.classList.add("thematic-button-active");
-    });
-    buttonsContainer.firstElementChild.after(buttonElement);
-
-    // Ajoute le réaffichage des boutons 3D au click sur la pastille "Tous"
-    buttonsContainer.querySelector("[data-name=Tous]").addEventListener("click", () => {
-      var layersId = ["3D.BUILDINGS", "3D.TERRAIN"];
-      for (let j = 0; j < layersId.length; j++) {
-        const id = layersId[j];
-        var element = document.getElementById(id);
-        element.classList.remove("layer-hidden");
-      }
-    });
+    target.querySelector(".layer-thematics").insertBefore(container, target.querySelector("#baseLayers").nextSibling);
   }
 
   /**

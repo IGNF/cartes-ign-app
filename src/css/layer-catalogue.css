@@ -10,7 +10,7 @@
 }
 
 #layerManagerWindow #thematicLayersLabel {
-  margin: 8px 0 2px 0;
+  margin: 20px 0 8px 0;
 }
 
 #layer-thematics {
@@ -22,25 +22,32 @@
 }
 
 .subCatMenu .layer .layerImg img {
-  width: 100%;
+  width: calc(100% - 4px);
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  border-radius: 2px;
+  display: block;
 }
 
 .layerImg {
   width: 100%;
   position: relative;
   margin: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  border: solid 2px var(--false-white);
 }
 
+.layerImg img {
+  border-radius: 6px;
+  border: solid 2px var(--false-white);
+}
 
 .baseLayer .layerImg{
   width: 138px;
 }
 
-.subCatMenu .baseLayer .layerImg img{
-  width: 138px;
+.subCatMenu .baseLayer .layerImg img {
+  width: 134px;
   height: 92px;
 }
 
@@ -94,8 +101,8 @@
   position: absolute;
   width: 15px;
   height: 15px;
-  top: 4px;
-  left: 5px;
+  top: 8px;
+  left: 8px;
   background-repeat: no-repeat;
   background-image: url("assets/map-buttons/interactivity.svg");
   background-color: white;
@@ -105,10 +112,8 @@
   border-radius: 50%;
 }
 
-.selectedLayer img {
-  border: solid 2px white;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
-  box-sizing: border-box;
+.selectedLayer .layerImg {
+  border: solid 2px var(--dark-green);
 }
 
 #baseLayers .layer {
@@ -139,7 +144,7 @@
 }
 
 .subCatButton {
-  margin: 0 0 6px 0;
+  margin: 0 0 10px 0;
   position: relative;
   overflow-x: scroll;
   height: 55px;
@@ -221,4 +226,31 @@
 .thematic-button-active {
   color: var(--dark-green);
   border-color: var(--dark-green);
+}
+
+.small-layers {
+  display: flex;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  gap: 15px;
+}
+
+.smallLayer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.smallLayer .layerImg {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
+.smallLayer .layerImg img {
+  height: 36px;
+  width: 36px;
+  border-radius: 8px;
+  object-fit: cover;
 }
