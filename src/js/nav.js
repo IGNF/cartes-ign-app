@@ -410,6 +410,16 @@ class MenuNavigation {
         Globals.currentScrollIndex = 1;
       }
       break;
+    case "trackRecord":
+      DOM.$tabHeader.classList.add("d-none");
+      DOM.$tabContainer.classList.add("white");
+      DOM.$search.classList.add("d-none");
+      DOM.$filterPoiBtn.classList.add("higher");
+      DOM.$layerManagerBtn.classList.add("higher");
+      DOM.$fullScreenBtn.classList.add("d-none");
+      DOM.$trackRecordBtn.classList.add("d-none");
+      DOM.$backTopLeftBtn.classList.remove("d-none");
+      DOM.$tabHeader.classList.add("d-none");
     default:
       break;
     }
@@ -683,6 +693,26 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.directions.clear();
       Globals.interactivityIndicator.enable();
+    case "trackRecord":
+      DOM.$tabHeader.classList.remove("d-none");
+      DOM.$tabContainer.classList.remove("white");
+      DOM.$search.classList.remove("d-none");
+      DOM.$filterPoiBtn.classList.remove("higher");
+      DOM.$layerManagerBtn.classList.remove("higher");
+      DOM.$fullScreenBtn.classList.remove("d-none");
+      DOM.$backTopLeftBtn.classList.add("d-none");
+      Globals.trackRecord.dom.trackRecordContainer.classList.remove("d-none");
+      Globals.trackRecord.dom.finishRecordContainer.classList.add("d-none");
+      if (Globals.trackRecord.activeRecord) {
+        Globals.trackRecord.pauseRecording();
+        if (DOM.$trackRecordBtn.classList.contains("d-none")) {
+          DOM.$trackRecordBtn.classList.remove("d-none");
+        }
+      }
+      if (!Globals.trackRecord.activeRecord 
+        && !DOM.$trackRecordBtn.classList.contains("d-none")) {
+        DOM.$trackRecordBtn.classList.add("d-none");
+      }
       break;
     default:
       break;

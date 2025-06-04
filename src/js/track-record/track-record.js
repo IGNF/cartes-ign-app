@@ -9,6 +9,7 @@ import { Capacitor, registerPlugin } from "@capacitor/core";
 const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
 
 import Globals from "../globals";
+import DOM from "../dom";
 import Location from "../services/location";
 
 import TrackRecordLayers from "./track-record-styles";
@@ -41,10 +42,19 @@ class TrackRecord {
 
     this.dom = {
       startRecordBtn : container.querySelector(".startRecord"),
-      stopRecordBtn : container.querySelector(".stopRecord"),
+      whileRecordingBtn : container.querySelector(".whileRecording"),
+      pauseRecordBtn : container.querySelector(".pauseRecord"),
+      finishRecordBtn : container.querySelector(".finishRecord"),
+      closeRecordBtn : container.querySelector(".closeRecord"),
+      saveRecordBtn : container.querySelector(".saveRecord"),
+      backToRecordBtn : container.querySelector(".backToRecord"),
+      deleteRecordBtn : container.querySelector(".deleteRecord"),
+      trackRecordContainer : container.querySelector("#trackRecordContainer"),
+      finishRecordContainer : container.querySelector("#finishRecordContainer")
     };
 
     this.recording = false;
+    this.activeRecord = false;
     this.onNewLocationCallback = this.#onNewLocation.bind(this);
 
     this.currentFeature = {
@@ -73,7 +83,14 @@ class TrackRecord {
    */
   #listeners() {
     this.dom.startRecordBtn.addEventListener("click", this.#startRecording.bind(this));
-    this.dom.stopRecordBtn.addEventListener("click", this.#stopRecording.bind(this));
+    this.dom.whileRecordingBtn.addEventListener("click", this.pauseRecording.bind(this));
+    this.dom.pauseRecordBtn.addEventListener("click", this.#continueRecording.bind(this));
+    this.dom.finishRecordBtn.addEventListener("click", this.#finishRecording.bind(this));
+    this.dom.closeRecordBtn.addEventListener("click", this.#closeRecording.bind(this));
+    
+    this.dom.saveRecordBtn.addEventListener("click", this.#saveRecording.bind(this));
+    this.dom.backToRecordBtn.addEventListener("click", this.#backToRecording.bind(this));
+    this.dom.deleteRecordBtn.addEventListener("click", this.#deleteRecording.bind(this));
     App.addListener("appStateChange", (state) => {
       if (!state.isActive) {
         this.#startBgTracking();
@@ -91,11 +108,14 @@ class TrackRecord {
       return;
     }
     this.recording = true;
+    this.activeRecord = true;
     if (!Location.isLocationActive()) {
       document.getElementById("geolocateBtn").click();
     }
     this.dom.startRecordBtn.classList.add("d-none");
-    this.dom.stopRecordBtn.classList.remove("d-none");
+    this.dom.closeRecordBtn.classList.add("d-none");
+    this.dom.whileRecordingBtn.classList.remove("d-none");
+    this.dom.finishRecordBtn.classList.remove("d-none");
     Location.target.addEventListener("geolocationWatch", this.onNewLocationCallback);
 
     // REMOVEME: testing
@@ -106,22 +126,93 @@ class TrackRecord {
   }
 
   /**
-   * Stop track recording
+   * Pause track recording
    */
-  #stopRecording() {
+  pauseRecording() {
     if (!this.recording) {
       return;
     }
     this.recording = false;
-    this.dom.stopRecordBtn.classList.add("d-none");
-    this.dom.startRecordBtn.classList.remove("d-none");
+    this.dom.whileRecordingBtn.classList.add("d-none");
+    this.dom.pauseRecordBtn.classList.remove("d-none");
     Location.target.removeEventListener("geolocationWatch", this.onNewLocationCallback);
+
     // REMOVEME: testing
     if (!Capacitor.isNativePlatform()) {
       this.map.off("moveend", this.onNewLocationCallback);
     }
     // END removeme
+  }
+
+    /**
+   * Continue track recording
+   */
+  #continueRecording() {
+    if (this.recording) {
+      return;
+    }
+    this.recording = true;
+    this.dom.whileRecordingBtn.classList.remove("d-none");
+    this.dom.pauseRecordBtn.classList.add("d-none");
+
+    Location.target.addEventListener("geolocationWatch", this.onNewLocationCallback);
+
+    // REMOVEME: testing
+    if (!Capacitor.isNativePlatform()) {
+      this.map.on("moveend", this.onNewLocationCallback);
+    }
+  }
+
+    /**
+  * Pause track recording
+  */
+  #backToRecording() {
+    this.dom.trackRecordContainer.classList.remove("d-none");
+    this.dom.finishRecordContainer.classList.add("d-none");
+    DOM.$tabHeader.classList.add("d-none");
+  }
+
+
+  /**
+   * Stop track recording
+   */
+  #finishRecording() {
+    if (!this.activeRecord || this.currentPoints.features.length < 1) {
+      return;
+    }
+    this.pauseRecording();
+  
+    this.recording = false;
+  
+    this.dom.trackRecordContainer.classList.add("d-none");
+    this.dom.finishRecordContainer.classList.remove("d-none");
+    DOM.$tabHeader.classList.remove("d-none");
+  }
+
+    /**
+   * Close track recording menu
+   */
+  #closeRecording() {
+    if (this.recording) {
+      this.recording = false;
+      this.dom.whileRecordingBtn.classList.add("d-none");
+      this.dom.pauseRecordBtn.classList.remove("d-none");
+    }
+    document.getElementById("backTopLeftBtn").click();
+  }
+
+    /**closeRecord
+  * Save track
+  */ 
+  #saveRecording() {
     Globals.myaccount.addTrack(this.currentFeature);
+    this.dom.whileRecordingBtn.classList.add("d-none");
+    this.dom.finishRecordBtn.classList.add("d-none");
+    this.dom.pauseRecordBtn.classList.add("d-none");
+    this.dom.startRecordBtn.classList.remove("d-none");
+    this.dom.closeRecordBtn.classList.remove("d-none");
+    this.recording = false;
+    this.activeRecord = false;
     this.currentFeature = {
       type: "Feature",
       geometry: {
@@ -135,6 +226,30 @@ class TrackRecord {
       features: [],
     };
     this.#updateSources();
+    this.#closeRecording();
+  }
+
+  #deleteRecording() {
+    this.dom.whileRecordingBtn.classList.add("d-none");
+    this.dom.finishRecordBtn.classList.add("d-none");
+    this.dom.pauseRecordBtn.classList.add("d-none");
+    this.dom.startRecordBtn.classList.remove("d-none");
+    this.dom.closeRecordBtn.classList.remove("d-none");
+    this.activeRecord = false;
+    this.currentFeature = {
+      type: "Feature",
+      geometry: {
+        type: "LineString",
+        coordinates: [],
+      },
+      properties: {},
+    };
+    this.currentPoints = {
+      type: "FeatureCollection",
+      features: [],
+    };
+    this.#updateSources();
+    this.#closeRecording();
   }
 
   #onNewLocation(e) {
