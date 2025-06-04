@@ -21,6 +21,7 @@ const $selectOnMap = document.getElementById("selectOnMap");
 const $geolocateBtn = document.getElementById("geolocateBtn");
 const $backTopLeftBtn = document.getElementById("backTopLeftBtn");
 const $compassBtn = document.getElementById("compassBtn");
+const $trackRecordBtn = document.getElementById("trackRecordBtn");
 const $layerManagerBtn = document.getElementById("layerManagerBtn");
 const $sideBySideBtn = document.getElementById("sideBySideBtn");
 const $compareMode = document.getElementById("compareMode");
@@ -60,6 +61,7 @@ const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule"
 
 const $tabClose = document.getElementById("tabClose");
 const $tabContainer = document.getElementById("tabContainer");
+const $tabHeader = document.getElementById("tabHeader");
 
 const $searchresultsWindow = document.getElementById("searchresultsWindow");
 const $layerManagerWindow = document.getElementById("layerManagerWindow");
@@ -96,7 +98,9 @@ export default {
   $chkPrintCoordsOnContext,
   $chkPrintCoordsReticule,
   $compassBtn,
+  $trackRecordBtn,
   $tabContainer,
+  $tabHeader,
   $searchresultsWindow,
   $layerManagerWindow,
   $layerManagerBtn,

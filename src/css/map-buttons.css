@@ -211,6 +211,14 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   bottom: 132px;
 }
 
+#trackRecordBtn {
+  background-color: var(--dark-green);
+  background-image: url("assets/map-buttons/recording.svg");
+  position: absolute;
+  bottom: 132px;
+  outline: 1px solid var(--dark-green);
+}
+
 #filterPoiBtn {
   background-image: url("assets/map-buttons/filtrer.svg");
   position: fixed;
@@ -499,6 +507,10 @@ button.maplibregl-ctrl-shrink {
   }
 
   #compassBtn {
+    right: 15px;
+  }
+
+  #trackRecordBtn {
     right: 15px;
   }
 
