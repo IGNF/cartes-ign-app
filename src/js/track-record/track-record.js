@@ -187,6 +187,8 @@ class TrackRecord {
     this.dom.trackRecordContainer.classList.add("d-none");
     this.dom.finishRecordContainer.classList.remove("d-none");
     DOM.$tabHeader.classList.remove("d-none");
+    Globals.currentScrollIndex = 2;
+    Globals.menu.updateScrollAnchors();
   }
 
   /**
