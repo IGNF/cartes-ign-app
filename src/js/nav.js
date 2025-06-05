@@ -112,6 +112,7 @@ class MenuNavigation {
   open(id, scrollIndex = -1, previousBackState = Globals.backButtonState) {
     // Apparition de la croix (cas général)
     DOM.$tabClose.classList.remove("d-none");
+    DOM.$tabHeader.classList.remove("d-none");
     if (["isochrone", "directions"].includes(id)) {
       if (!Globals.online) {
         this.#offlineWarning();
@@ -420,6 +421,7 @@ class MenuNavigation {
       DOM.$trackRecordBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$tabHeader.classList.add("d-none");
+      break;
     default:
       break;
     }
@@ -693,6 +695,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.directions.clear();
       Globals.interactivityIndicator.enable();
+      break;
     case "trackRecord":
       DOM.$tabHeader.classList.remove("d-none");
       DOM.$tabContainer.classList.remove("white");

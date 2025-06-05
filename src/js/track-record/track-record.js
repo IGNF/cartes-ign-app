@@ -144,7 +144,7 @@ class TrackRecord {
     // END removeme
   }
 
-    /**
+  /**
    * Continue track recording
    */
   #continueRecording() {
@@ -163,7 +163,7 @@ class TrackRecord {
     }
   }
 
-    /**
+  /**
   * Pause track recording
   */
   #backToRecording() {
@@ -189,7 +189,7 @@ class TrackRecord {
     DOM.$tabHeader.classList.remove("d-none");
   }
 
-    /**
+  /**
    * Close track recording menu
    */
   #closeRecording() {
@@ -201,7 +201,7 @@ class TrackRecord {
     document.getElementById("backTopLeftBtn").click();
   }
 
-    /**closeRecord
+  /**closeRecord
   * Save track
   */ 
   #saveRecording() {
