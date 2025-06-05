@@ -706,14 +706,18 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.trackRecord.dom.trackRecordContainer.classList.remove("d-none");
       Globals.trackRecord.dom.finishRecordContainer.classList.add("d-none");
-      if (Globals.trackRecord.activeRecord) {
-        Globals.trackRecord.pauseRecording();
-        if (DOM.$trackRecordBtn.classList.contains("d-none")) {
-          DOM.$trackRecordBtn.classList.remove("d-none");
+      if (Globals.trackRecord.recording || Globals.trackRecord.activeRecord) {
+        DOM.$trackRecordBtn.classList.remove("d-none");
+        if (Globals.trackRecord.recording) {
+          DOM.$trackRecordBtn.classList.remove("pause");
+          DOM.$trackRecordBtn.classList.add("recording");
+        }
+        else {
+          DOM.$trackRecordBtn.classList.remove("recording");
+          DOM.$trackRecordBtn.classList.add("pause");
         }
       }
-      if (!Globals.trackRecord.activeRecord 
-        && !DOM.$trackRecordBtn.classList.contains("d-none")) {
+      else {
         DOM.$trackRecordBtn.classList.add("d-none");
       }
       break;
