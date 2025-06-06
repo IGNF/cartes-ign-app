@@ -23,6 +23,7 @@ import Landmark from "./landmark";
 import MapboxAccessibility from "./poi-accessibility";
 import CompareLandmark from "./compare-landmark";
 import OfflineMaps from "./offline-maps";
+import TrackRecord from "./track-record/track-record";
 import DOM from "./dom";
 
 import LocationLayers from "./services/location-styles";
@@ -143,6 +144,9 @@ const addControls = () => {
 
     // contrôle tracé d'itinéraire
     Globals.routeDraw = new RouteDraw(map, {});
+
+    // contrôle enregistrement de trace
+    Globals.trackRecord = new TrackRecord(map, {});
 
     // signalement
     Globals.signalement = new Signalement(map, {});

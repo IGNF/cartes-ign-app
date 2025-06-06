@@ -21,6 +21,7 @@ const $selectOnMap = document.getElementById("selectOnMap");
 const $geolocateBtn = document.getElementById("geolocateBtn");
 const $backTopLeftBtn = document.getElementById("backTopLeftBtn");
 const $compassBtn = document.getElementById("compassBtn");
+const $trackRecordBtn = document.getElementById("trackRecordBtn");
 const $layerManagerBtn = document.getElementById("layerManagerBtn");
 const $sideBySideBtn = document.getElementById("sideBySideBtn");
 const $compareMode = document.getElementById("compareMode");
@@ -37,6 +38,7 @@ const $routeDrawCancel = document.getElementById("routeDrawCancel");
 const $routeDrawRestore = document.getElementById("routeDrawRestore");
 const $routeDrawDelete = document.getElementById("routeDrawDelete");
 const $routeDrawSave = document.getElementById("routeDrawSave");
+const $routeDrawSnap = document.getElementById("routeDrawSnap");
 const $fullScreenBtn = null;
 const $mapScale = null;
 
@@ -59,6 +61,7 @@ const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule"
 
 const $tabClose = document.getElementById("tabClose");
 const $tabContainer = document.getElementById("tabContainer");
+const $tabHeader = document.getElementById("tabHeader");
 
 const $searchresultsWindow = document.getElementById("searchresultsWindow");
 const $layerManagerWindow = document.getElementById("layerManagerWindow");
@@ -76,6 +79,7 @@ const $signalementOSMWindow = document.getElementById("signalementOSMWindow");
 const $landmarkWindow = document.getElementById("landmarkWindow");
 const $compareLandmarkWindow = document.getElementById("compareLandmarkWindow");
 const $offlineMapsWindow = document.getElementById("offlineMapsWindow");
+const $trackRecordWindow = document.getElementById("trackRecordWindow");
 
 export default {
   $search,
@@ -94,7 +98,9 @@ export default {
   $chkPrintCoordsOnContext,
   $chkPrintCoordsReticule,
   $compassBtn,
+  $trackRecordBtn,
   $tabContainer,
+  $tabHeader,
   $searchresultsWindow,
   $layerManagerWindow,
   $layerManagerBtn,
@@ -122,6 +128,7 @@ export default {
   $routeDrawRestore,
   $routeDrawDelete,
   $routeDrawSave,
+  $routeDrawSnap,
   $routeDrawSaveWindow,
   $mapCenter,
   $mapCenterMenu,
@@ -138,4 +145,5 @@ export default {
   $createCompareLandmarkBtn,
   $compareLandmarkWindow,
   $offlineMapsWindow,
+  $trackRecordWindow,
 };
