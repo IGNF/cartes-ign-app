@@ -12,6 +12,8 @@ import Globals from "../globals";
 import DOM from "../dom";
 import Location from "../services/location";
 
+import ActionSheet from "../action-sheet";
+
 import TrackRecordLayers from "./track-record-styles";
 
 /**
@@ -46,11 +48,7 @@ class TrackRecord {
       pauseRecordBtn : container.querySelector(".pauseRecord"),
       finishRecordBtn : container.querySelector(".finishRecord"),
       closeRecordBtn : container.querySelector(".closeRecord"),
-      saveRecordBtn : container.querySelector(".saveRecord"),
-      backToRecordBtn : container.querySelector(".backToRecord"),
-      deleteRecordBtn : container.querySelector(".deleteRecord"),
       trackRecordContainer : container.querySelector("#trackRecordContainer"),
-      finishRecordContainer : container.querySelector("#finishRecordContainer")
     };
 
     this.recording = false;
@@ -87,10 +85,6 @@ class TrackRecord {
     this.dom.pauseRecordBtn.addEventListener("click", this.#continueRecording.bind(this));
     this.dom.finishRecordBtn.addEventListener("click", this.#finishRecording.bind(this));
     this.dom.closeRecordBtn.addEventListener("click", this.#closeRecording.bind(this));
-    
-    this.dom.saveRecordBtn.addEventListener("click", this.#saveRecording.bind(this));
-    this.dom.backToRecordBtn.addEventListener("click", this.#backToRecording.bind(this));
-    this.dom.deleteRecordBtn.addEventListener("click", this.#deleteRecording.bind(this));
     App.addListener("appStateChange", (state) => {
       if (!state.isActive) {
         this.#startBgTracking();
@@ -168,7 +162,6 @@ class TrackRecord {
   */
   #backToRecording() {
     this.dom.trackRecordContainer.classList.remove("d-none");
-    this.dom.finishRecordContainer.classList.add("d-none");
     DOM.$tabHeader.classList.add("d-none");
   }
 
@@ -185,10 +178,47 @@ class TrackRecord {
     this.recording = false;
   
     this.dom.trackRecordContainer.classList.add("d-none");
-    this.dom.finishRecordContainer.classList.remove("d-none");
     DOM.$tabHeader.classList.remove("d-none");
     Globals.currentScrollIndex = 2;
     Globals.menu.updateScrollAnchors();
+
+    ActionSheet.show({
+      title: "Vous avez terminé votre enregistrement",
+      wrapperCustomClass : "centerHorizontally",
+      options: [
+        {
+          class: "finish-track-subtitle",
+          text: "Vous souhaitez",
+          value: "subtitle",
+        },
+        {
+          class: "trackRecordBtn backToRecord primary",
+          text: "Reprendre l’enregistrement",
+          value: "backToRecord",
+        },
+        {
+          class: "trackRecordBtn saveRecord secondary",
+          text: "Terminer et enregistrer",
+          value: "saveRecord",
+        },
+        {
+          class: "trackRecordBtn deleteRecord terciary",
+          text: "Supprimer l’enregistrement",
+          value: "deleteRecord",
+        }
+      ],
+      timeToHide: 50,
+    }).then( (value) => {
+      if (value === "backToRecord") {
+        this.#backToRecording();
+      }
+      if (value === "saveRecord") {
+        this.#saveRecording();
+      }
+      if (value === "deleteRecord") {
+        this.#deleteRecording();
+      }
+    });
   }
 
   /**
