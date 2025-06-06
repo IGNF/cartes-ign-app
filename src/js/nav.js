@@ -705,7 +705,6 @@ class MenuNavigation {
       DOM.$fullScreenBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.trackRecord.dom.trackRecordContainer.classList.remove("d-none");
-      Globals.trackRecord.dom.finishRecordContainer.classList.add("d-none");
       if (Globals.trackRecord.recording || Globals.trackRecord.activeRecord) {
         DOM.$trackRecordBtn.classList.remove("d-none");
         if (Globals.trackRecord.recording) {

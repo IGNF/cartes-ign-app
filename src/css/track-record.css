@@ -18,7 +18,7 @@
   margin-bottom: 10px;
 }
 
-#trackRecordWindow button {
+.trackRecordBtn {
   font-family: "Open Sans Semibold";
   font-size: 14px;
   padding: 12px 28px;
@@ -33,25 +33,28 @@
   height: 48px;
 }
 
-#finishRecordContainer button {
-  margin-bottom: 10px;
+.actionSheet-list.centerHorizontally {
+  align-items: center;
+}
+
+.actionSheet-list > .trackRecordBtn {
   width: 245px;
 }
 
-#trackRecordWindow .primary {
+.trackRecordBtn.primary {
   border-color: var(--dark-green);
   color: white;
   background-color: var(--dark-green);
-  border-width: 1px;
+  border: solid 1px;
 }
 
-#trackRecordWindow .secondary {
+.trackRecordBtn.secondary {
   border-color: var(--dark-green);
   color:  var(--dark-green);
   background-color: white;
-  border-width: 1px;
+  border: solid 1px;
 }
-#trackRecordWindow .terciary {
+.trackRecordBtn.terciary {
   border-style: none;
 }
 
