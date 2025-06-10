@@ -84,13 +84,14 @@ class LayerManager extends EventTarget {
         opacity: 100,
         visible: true,
         gray: false,
+        isTempLayer : e.detail.isTempLayer,
       }).then(() => {});
     });
     this.layerCatalogue.addEventListener("addlayeroptions", async (e) => {
       await this.layerSwitcher.addLayer(e.detail).then(() => {});
     });
     this.layerCatalogue.addEventListener("removelayer", (e) => {
-      this.layerSwitcher.removeLayer(e.detail.id);
+      this.layerSwitcher.removeLayer(e.detail.id, e.detail.isTempLayer);
     });
 
     this.layerSwitcher.addEventListener("addlayer", (e) => {
@@ -113,6 +114,7 @@ class LayerManager extends EventTarget {
         opacity: e.detail.options.opacity,
         visible: e.detail.options.visibility,
         gray: e.detail.options.gray,
+        isTempLayer: LayersConfig.getTempLayers().map((layer) => layer.id).includes(e.detail.id),
       };
       for(let i = 0; i < Globals.layersDisplayed.length; i++) {
         if (Globals.layersDisplayed[i] === e.detail.id) {
