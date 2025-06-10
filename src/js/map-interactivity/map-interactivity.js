@@ -102,6 +102,11 @@ class MapInteractivity {
       }
     ];
     let features = this.map.queryRenderedFeatures(bbox);
+    // On retire les features issues des boîtes à chaussures
+    features = features.filter( (feature) => {
+      const splittedLayerName = feature.layer.id.split("-");
+      return splittedLayerName[splittedLayerName.length - 1] !== "vol";
+    });
     // On clique sur une feature tuile vectorielle
     let featureHTML = null;
     if (features.length > 0 && features[0].source === "location-precision"){

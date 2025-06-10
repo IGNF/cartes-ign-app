@@ -690,6 +690,10 @@ class LayerSwitcher extends EventTarget {
         this.#setColor(id, !layerOptions.gray);
       }
       this.#setVisibility(id, layerOptions.visible);
+      // Cas particulier : ajout de l'ombrage à plan IGN si la 3D est activée
+      if (id === "PLAN.IGN.INTERACTIF$TMS" && Globals.threeD && Globals.threeD.terrainOn) {
+        Globals.threeD.addHillShadeToPlanIgn();
+      }
       /**
        * Evenement "addlayer"
        * @event addlayer
