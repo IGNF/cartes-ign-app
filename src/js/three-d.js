@@ -39,6 +39,7 @@ class ThreeD {
 
     this.buildingsLayers = [];
     this.terrainOn = false;
+    this.buildingsOn = false;
 
     return this;
   }
@@ -156,12 +157,17 @@ class ThreeD {
     if (Globals.map.getPitch() < 20) {
       Globals.map.flyTo({pitch: 45});
     }
+    this.buildingsOn = true;
   }
 
   remove3dBuildings() {
     this.buildingsLayers.forEach((layer) => {
       Globals.map.removeLayer(layer.id);
     });
+    this.buildingsOn = false;
+    if (!this.terrainOn) {
+      Globals.map.flyTo({pitch: 0});
+    }
   }
 
   remove3dTerrain() {
@@ -170,6 +176,9 @@ class ThreeD {
       Globals.map.removeLayer(hillsLayer.id);
     }
     this.terrainOn = false;
+    if (!this.buildingsOn) {
+      Globals.map.flyTo({pitch: 0});
+    }
   }
 }
 
