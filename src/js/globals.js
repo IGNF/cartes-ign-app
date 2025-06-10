@@ -150,7 +150,7 @@ if (!localStorage.getItem("walkingSpeed")) {
 // Are new place notifications enabled?
 let newPlaceNotifEnabled;
 if (!localStorage.getItem("newPlaceNotifEnabled")) {
-  newPlaceNotifEnabled = 0;
+  newPlaceNotifEnabled = 1;
 } else {
   newPlaceNotifEnabled = parseFloat(localStorage.getItem("newPlaceNotifEnabled"));
 }
