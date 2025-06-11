@@ -54,8 +54,15 @@ class ThreeD {
         ]
       });
     }
-    const response = await fetch("data/bati-3d.json");
-    const data = await response.json();
+    let data;
+    try {
+      const response = await fetch("https://ignf.github.io/cartes-ign-app/bati-3d.json");
+      data = await response.json();
+    } catch (err) {
+      const response = await fetch("data/bati-3d.json");
+      data = await response.json();
+    }
+
     this.buildingsLayers = data.layers;
   }
 
