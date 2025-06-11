@@ -286,6 +286,7 @@ class MenuNavigation {
       DOM.$fullScreenBtn.classList.add("d-none");
       Globals.routeDraw.dom.changeMode.classList.add("d-none");
       DOM.$routeDrawEdit.classList.add("d-none");
+      DOM.$routeDrawSave.classList.add("d-none");
       DOM.$bottomButtons.classList.remove("routeDraw");
       Globals.currentScrollIndex = 1;
       break;
@@ -298,6 +299,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.remove("d-none");
+        DOM.$routeDrawSave.classList.remove("d-none");
         DOM.$bottomButtons.classList.add("routeDraw");
         Globals.routeDraw.activate();
       }
@@ -324,6 +326,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.add("d-none");
+        DOM.$routeDrawSave.classList.add("d-none");
         DOM.$bottomButtons.classList.remove("routeDraw");
       }
       Globals.currentScrollIndex = 1;
@@ -587,6 +590,7 @@ class MenuNavigation {
       DOM["$routeDrawWindow"].classList.remove("d-none");
       Globals.routeDraw.dom.changeMode.classList.remove("d-none");
       DOM.$routeDrawEdit.classList.remove("d-none");
+      DOM.$routeDrawSave.classList.remove("d-none");
       DOM.$bottomButtons.classList.add("routeDraw");
       isSpecific = true;
       isFinished = true;
@@ -600,6 +604,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.add("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.add("d-none");
+        DOM.$routeDrawSave.classList.add("d-none");
         DOM.$bottomButtons.classList.remove("routeDraw");
       }
       DOM.$tabContainer.classList.remove("white");
