@@ -504,7 +504,7 @@ class MyAccount {
         if (!imported.data.name) {
           imported.data.name = imported.features[0].properties.name || defaultName;
         }
-        this.addRoute(this.#geojsonToRoute(imported));
+        this.addRoute(this.geojsonToRoute(imported));
         Toast.show({
           duration: "long",
           text: `Itinéraire "${imported.data.name}" ajouté à 'Enregistrés' et à la carte`,
@@ -538,7 +538,7 @@ class MyAccount {
    * @param {*} trackGeojson
    */
   addTrack(trackGeojson) {
-    this.addRoute(this.#geojsonToRoute(trackGeojson));
+    this.addRoute(this.geojsonToRoute(trackGeojson));
   }
 
   /**
@@ -1525,11 +1525,12 @@ ${props.text}`,
    * @param {*} route
    * @returns
    */
-  #geojsonToRoute(routeJson) {
+  geojsonToRoute(routeJson) {
     if (routeJson.type === "Feature") {
       routeJson = {
         type: "FeatureCollection",
         features: [routeJson],
+        data : routeJson.data || {}
       };
     }
     routeJson.features.forEach(feature => {
