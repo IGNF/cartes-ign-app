@@ -35,9 +35,11 @@ jobs:
           cp www/data/mixte.json public/mixte.json
           cp www/data/plan-ign-interactif-style.json public/plan-ign-interactif-style.json
           cp www/data/poi-osm-style.json public/poi-osm-style.json
+          cp www/data/bati-3d.json public/bati-3d.json
           sed -i 's/\"sprite\": \"data/\"sprite\": \"https:\/\/ignf.github.io\/cartes-ign-app\/data/g' public/mixte.json
           sed -i 's/\"sprite\": \"data/\"sprite\": \"https:\/\/ignf.github.io\/cartes-ign-app\/data/g' public/plan-ign-interactif-style.json
           sed -i 's/\"sprite\": \"data/\"sprite\": \"https:\/\/ignf.github.io\/cartes-ign-app\/data/g' public/poi-osm-style.json
+          sed -i 's/\"sprite\": \"data/\"sprite\": \"https:\/\/ignf.github.io\/cartes-ign-app\/data/g' public/bati-3d.json
           mkdir public/data
           cp www/data/poi-osm-sprite.png public/data/poi-osm-sprite.png
           cp www/data/poi-osm-sprite.json public/data/poi-osm-sprite.json
