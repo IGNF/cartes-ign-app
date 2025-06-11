@@ -67,7 +67,7 @@ class TrackRecord {
     };
 
     this.routeToSave = this.currentFeature;
-    this.trackName = "Mon itinéraire"
+    this.trackName = "Mon itinéraire";
     this.currentPoints = {
       type: "FeatureCollection",
       features: [],
@@ -165,7 +165,7 @@ class TrackRecord {
   * Pause track recording
   */
   #backToRecording() {
-    this.#continueRecording()
+    this.#continueRecording();
     this.dom.trackRecordContainer.classList.remove("d-none");
     DOM.$tabHeader.classList.add("d-none");
   }
@@ -254,13 +254,13 @@ class TrackRecord {
       </div>
       <div id="nameTrackSave" class="form-submit trackRecordBtn primary">Enregistrer</div>
       </div>`);
-      const routeSummary = RouteDrawDOM.__addResultsSummaryContainerDOMElement("pedestrian")
-      routeSummary.querySelector("#routeDrawMode").classList.add('d-none');
-      nameTrackDom.querySelector("#trackResumeRoute").appendChild(routeSummary);
+    const routeSummary = RouteDrawDOM.__addResultsSummaryContainerDOMElement("pedestrian");
+    routeSummary.querySelector("#routeDrawMode").classList.add("d-none");
+    nameTrackDom.querySelector("#trackResumeRoute").appendChild(routeSummary);
 
-      let route = Globals.myaccount.geojsonToRoute(this.currentFeature);
-      Globals.routeDraw.setTransport(route.transport);
-      Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)))
+    let route = Globals.myaccount.geojsonToRoute(this.currentFeature);
+    Globals.routeDraw.setTransport(route.transport);
+    Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)))
       .then(() => {
         var labelDuration = routeSummary.querySelector(".routeDrawSummaryDuration");
         labelDuration.textContent = utils.convertSecondsToTime(Globals.routeDraw.data.duration);
@@ -276,10 +276,10 @@ class TrackRecord {
         }
       });
 
-      // Actionsheet Button Event
-      nameTrackDom.querySelector("#nameTrackSave").addEventListener("click", () => {
+    // Actionsheet Button Event
+    nameTrackDom.querySelector("#nameTrackSave").addEventListener("click", () => {
       ActionSheet._closeElem.click();
-    })
+    });
     ActionSheet.show({
       style: "custom",
       content: nameTrackDom,
@@ -295,7 +295,7 @@ class TrackRecord {
   */ 
   saveRecording() {
     if (this.activeRecord) {   
-      this.currentFeature.data = {name : this.trackName}
+      this.currentFeature.data = {name : this.trackName};
       this.routeToSave = this.currentFeature;
       Globals.myaccount.addTrack(this.routeToSave);
       this.dom.whileRecordingBtn.classList.add("d-none");
@@ -316,7 +316,7 @@ class TrackRecord {
       this.currentPoints = {
         type: "FeatureCollection",
         features: [],
-      }
+      };
       this.#updateSources();
       this.#closeRecording();
       Globals.routeDraw.clear();

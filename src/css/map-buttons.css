@@ -371,10 +371,12 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   background-image: url("assets/route-draw/arrow-left-darkgrey.svg");
 }
 
-#routeDrawEdit > .button#routeDrawSave {
+.button#routeDrawSave {
   background-color: var(--dark-green);
   border: 1px solid var(--dark-green);
   background-image: url("assets/route-draw/save.svg");
+  position: fixed;
+  top: calc(76px + var(--safe-area-inset-top));
 }
 
 #routeDrawEdit > .button > span {
