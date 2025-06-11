@@ -297,7 +297,7 @@ class TrackRecord {
     if (this.activeRecord) {   
       this.currentFeature.data = {name : this.trackName};
       this.routeToSave = this.currentFeature;
-      Globals.myaccount.addTrack(this.routeToSave);
+      let id = Globals.myaccount.addTrack(this.routeToSave);
       this.dom.whileRecordingBtn.classList.add("d-none");
       this.dom.finishRecordBtn.classList.add("d-none");
       this.dom.pauseRecordBtn.classList.add("d-none");
@@ -320,6 +320,7 @@ class TrackRecord {
       this.#updateSources();
       this.#closeRecording();
       Globals.routeDraw.clear();
+      Globals.myaccount.editRouteFromID(id);
       ActionSheet.removeEventListener("closeSheet", this.saveRecording.bind(this));
     }
   }

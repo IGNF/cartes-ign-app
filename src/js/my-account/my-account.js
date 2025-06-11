@@ -538,7 +538,7 @@ class MyAccount {
    * @param {*} trackGeojson
    */
   addTrack(trackGeojson) {
-    this.addRoute(this.geojsonToRoute(trackGeojson));
+    return this.addRoute(this.geojsonToRoute(trackGeojson));
   }
 
   /**
@@ -580,6 +580,7 @@ class MyAccount {
         });
       }, 100);
     });
+    return drawRouteSaveOptions.id;
   }
 
   /**
