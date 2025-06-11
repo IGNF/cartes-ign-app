@@ -10,8 +10,10 @@ const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
 
 import Globals from "../globals";
 import DOM from "../dom";
+import domUtils from "../utils/dom-utils";
+import utils from "../utils/unit-utils";
 import Location from "../services/location";
-
+import RouteDrawDOM from "../route-draw/route-draw-dom";
 import ActionSheet from "../action-sheet";
 
 import TrackRecordLayers from "./track-record-styles";
@@ -64,6 +66,8 @@ class TrackRecord {
       properties: {},
     };
 
+    this.routeToSave = this.currentFeature;
+    this.trackName = "Mon itinéraire"
     this.currentPoints = {
       type: "FeatureCollection",
       features: [],
@@ -161,6 +165,7 @@ class TrackRecord {
   * Pause track recording
   */
   #backToRecording() {
+    this.#continueRecording()
     this.dom.trackRecordContainer.classList.remove("d-none");
     DOM.$tabHeader.classList.add("d-none");
   }
@@ -213,7 +218,7 @@ class TrackRecord {
         this.#backToRecording();
       }
       if (value === "saveRecord") {
-        this.#saveRecording();
+        this.#saveRecordingDOM();
       }
       if (value === "deleteRecord") {
         this.#deleteRecording();
@@ -233,34 +238,95 @@ class TrackRecord {
     document.getElementById("backTopLeftBtn").click();
   }
 
-  /**closeRecord
+  /**saveRecordingDOM
   * Save track
   */ 
-  #saveRecording() {
-    Globals.myaccount.addTrack(this.currentFeature);
-    this.dom.whileRecordingBtn.classList.add("d-none");
-    this.dom.finishRecordBtn.classList.add("d-none");
-    this.dom.pauseRecordBtn.classList.add("d-none");
-    this.dom.startRecordBtn.classList.remove("d-none");
-    this.dom.closeRecordBtn.classList.remove("d-none");
-    this.recording = false;
-    this.activeRecord = false;
-    this.currentFeature = {
-      type: "Feature",
-      geometry: {
-        type: "LineString",
-        coordinates: [],
-      },
-      properties: {},
-    };
-    this.currentPoints = {
-      type: "FeatureCollection",
-      features: [],
-    };
-    this.#updateSources();
-    this.#closeRecording();
+  async #saveRecordingDOM() {
+    const nameTrackDom = domUtils.stringToHTML(`<div id="nameTrack">
+      <h3>Enregistrer l'itinéraire</h3>
+      <div class="dsign-form-element">
+        <input type="text" id="nameTrack-title" name="nameTrack-title" class="landmark-input-text" placeholder=" " title="Titre" value="${this.trackName}">
+      </div>
+      <div class="trackResume">
+        Recap de votre parcours
+        <div id="trackResumeRoute">
+        </div>
+      </div>
+      <div id="nameTrackSave" class="form-submit trackRecordBtn primary">Enregistrer</div>
+      </div>`);
+      const routeSummary = RouteDrawDOM.__addResultsSummaryContainerDOMElement("pedestrian")
+      routeSummary.querySelector("#routeDrawMode").classList.add('d-none');
+      nameTrackDom.querySelector("#trackResumeRoute").appendChild(routeSummary);
+
+      let route = Globals.myaccount.geojsonToRoute(this.currentFeature);
+      Globals.routeDraw.setTransport(route.transport);
+      Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)))
+      .then(() => {
+        var labelDuration = routeSummary.querySelector(".routeDrawSummaryDuration");
+        labelDuration.textContent = utils.convertSecondsToTime(Globals.routeDraw.data.duration);
+        var labelDistance = routeSummary.querySelector(".routeDrawSummaryDistance");
+        labelDistance.textContent = utils.convertDistance(Globals.routeDraw.data.distance);
+
+        if (!Globals.routeDraw.elevationLoading) {
+          var labelDPlus = routeSummary.querySelector(".routeDrawSummaryDPlus");
+          labelDPlus.textContent = `${Globals.routeDraw.data.elevationData.dplus} m`;
+    
+          var labelDMinus = routeSummary.querySelector(".routeDrawSummaryDMinus");
+          labelDMinus.textContent = `- ${Globals.routeDraw.data.elevationData.dminus} m`;
+        }
+      });
+
+      // Actionsheet Button Event
+      nameTrackDom.querySelector("#nameTrackSave").addEventListener("click", () => {
+      ActionSheet._closeElem.click();
+    })
+    ActionSheet.show({
+      style: "custom",
+      content: nameTrackDom,
+    });
+
+    nameTrackDom.querySelector("#nameTrack-title").addEventListener("change", (e) => {
+      this.trackName = e.target.value;
+    });
+    ActionSheet.addEventListener("closeSheet", this.saveRecording.bind(this));
+  }
+  /**saveRecording
+  * Save track
+  */ 
+  saveRecording() {
+    if (this.activeRecord) {   
+      this.currentFeature.data = {name : this.trackName}
+      this.routeToSave = this.currentFeature;
+      Globals.myaccount.addTrack(this.routeToSave);
+      this.dom.whileRecordingBtn.classList.add("d-none");
+      this.dom.finishRecordBtn.classList.add("d-none");
+      this.dom.pauseRecordBtn.classList.add("d-none");
+      this.dom.startRecordBtn.classList.remove("d-none");
+      this.dom.closeRecordBtn.classList.remove("d-none");
+      this.recording = false;
+      this.activeRecord = false;
+      this.currentFeature = {
+        type: "Feature",
+        geometry: {
+          type: "LineString",
+          coordinates: [],
+        },
+        properties: {}
+      };
+      this.currentPoints = {
+        type: "FeatureCollection",
+        features: [],
+      }
+      this.#updateSources();
+      this.#closeRecording();
+      Globals.routeDraw.clear();
+      ActionSheet.removeEventListener("closeSheet", this.saveRecording.bind(this));
+    }
   }
 
+  /**deleteRecording
+  * delete track
+  */ 
   #deleteRecording() {
     this.dom.whileRecordingBtn.classList.add("d-none");
     this.dom.finishRecordBtn.classList.add("d-none");
