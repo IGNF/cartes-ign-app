@@ -37,8 +37,13 @@
   align-items: center;
 }
 
-.actionSheet-list > .trackRecordBtn {
+.actionSheet-list > .trackRecordBtn, #nameTrackSave{
   width: 245px;
+}
+
+#nameTrackSave{
+  width: 146px;
+  margin: 0 auto;
 }
 
 .trackRecordBtn.primary {
@@ -84,3 +89,15 @@
     margin-left: 10px;
   }
 
+  .trackResume {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  #nameTrack > h3 {
+    text-align: center;
+  }
+
+  .trackResume {
+    font-size: larger;
+  }

@@ -75,7 +75,9 @@ class ActionSheet extends EventTarget {
   _createGenericOptionsHtml(options, wrapperClass, elementClass) {
     const div = document.createElement("div");
     div.classList.add(wrapperClass);
-    div.classList.add(this._wrapperCustomClass);
+    if (this._wrapperCustomClass) {
+      div.classList.add(this._wrapperCustomClass);
+    }
     for (let i = 0; i < options.length; i++) {
       const option = options[i];
       const elem = document.createElement("div");
