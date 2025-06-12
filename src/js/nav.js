@@ -81,6 +81,10 @@ class MenuNavigation {
       }
       Globals.routeDraw.show();
     });
+    // "Enregistrer ma trace"
+    document.getElementById("trackRecord").addEventListener("click", () => {
+      this.open("trackRecord");
+    });
     // "Compte"
     document.getElementById("myaccount").addEventListener("click",  () => { this.open("myaccount"); });
   }
@@ -108,6 +112,7 @@ class MenuNavigation {
   open(id, scrollIndex = -1, previousBackState = Globals.backButtonState) {
     // Apparition de la croix (cas général)
     DOM.$tabClose.classList.remove("d-none");
+    DOM.$tabHeader.classList.remove("d-none");
     if (["isochrone", "directions"].includes(id)) {
       if (!Globals.online) {
         this.#offlineWarning();
@@ -281,6 +286,7 @@ class MenuNavigation {
       DOM.$fullScreenBtn.classList.add("d-none");
       Globals.routeDraw.dom.changeMode.classList.add("d-none");
       DOM.$routeDrawEdit.classList.add("d-none");
+      DOM.$routeDrawSave.classList.add("d-none");
       DOM.$bottomButtons.classList.remove("routeDraw");
       Globals.currentScrollIndex = 1;
       break;
@@ -293,6 +299,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.remove("d-none");
+        DOM.$routeDrawSave.classList.remove("d-none");
         DOM.$bottomButtons.classList.add("routeDraw");
         Globals.routeDraw.activate();
       }
@@ -319,6 +326,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.add("d-none");
+        DOM.$routeDrawSave.classList.add("d-none");
         DOM.$bottomButtons.classList.remove("routeDraw");
       }
       Globals.currentScrollIndex = 1;
@@ -405,6 +413,17 @@ class MenuNavigation {
       if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
         Globals.currentScrollIndex = 1;
       }
+      break;
+    case "trackRecord":
+      DOM.$tabHeader.classList.add("d-none");
+      DOM.$tabContainer.classList.add("white");
+      DOM.$search.classList.add("d-none");
+      DOM.$filterPoiBtn.classList.add("higher");
+      DOM.$layerManagerBtn.classList.add("higher");
+      DOM.$fullScreenBtn.classList.add("d-none");
+      DOM.$trackRecordBtn.classList.add("d-none");
+      DOM.$backTopLeftBtn.classList.remove("d-none");
+      DOM.$tabHeader.classList.add("d-none");
       break;
     default:
       break;
@@ -568,6 +587,7 @@ class MenuNavigation {
       DOM["$routeDrawWindow"].classList.remove("d-none");
       Globals.routeDraw.dom.changeMode.classList.remove("d-none");
       DOM.$routeDrawEdit.classList.remove("d-none");
+      DOM.$routeDrawSave.classList.remove("d-none");
       DOM.$bottomButtons.classList.add("routeDraw");
       isSpecific = true;
       isFinished = true;
@@ -581,6 +601,7 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.add("d-none");
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.add("d-none");
+        DOM.$routeDrawSave.classList.add("d-none");
         DOM.$bottomButtons.classList.remove("routeDraw");
       }
       DOM.$tabContainer.classList.remove("white");
@@ -676,6 +697,30 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.directions.clear();
       Globals.interactivityIndicator.enable();
+      break;
+    case "trackRecord":
+      DOM.$tabHeader.classList.remove("d-none");
+      DOM.$tabContainer.classList.remove("white");
+      DOM.$search.classList.remove("d-none");
+      DOM.$filterPoiBtn.classList.remove("higher");
+      DOM.$layerManagerBtn.classList.remove("higher");
+      DOM.$fullScreenBtn.classList.remove("d-none");
+      DOM.$backTopLeftBtn.classList.add("d-none");
+      Globals.trackRecord.dom.trackRecordContainer.classList.remove("d-none");
+      if (Globals.trackRecord.recording || Globals.trackRecord.activeRecord) {
+        DOM.$trackRecordBtn.classList.remove("d-none");
+        if (Globals.trackRecord.recording) {
+          DOM.$trackRecordBtn.classList.remove("pause");
+          DOM.$trackRecordBtn.classList.add("recording");
+        }
+        else {
+          DOM.$trackRecordBtn.classList.remove("recording");
+          DOM.$trackRecordBtn.classList.add("pause");
+        }
+      }
+      else {
+        DOM.$trackRecordBtn.classList.add("d-none");
+      }
       break;
     default:
       break;

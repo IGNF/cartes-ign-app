@@ -211,6 +211,25 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   bottom: 132px;
 }
 
+#trackRecordBtn {
+  background-color: var(--dark-green);
+  position: absolute;
+  bottom: 132px;
+  outline: 1px solid var(--dark-green);
+}
+
+#compassBtn:not(.d-none) + #trackRecordBtn {
+  bottom: 198px;
+}
+
+#trackRecordBtn.recording {
+  background-image: url("assets/map-buttons/recording.svg");
+}
+
+#trackRecordBtn.pause {
+  background-image: url("assets/map-buttons/pause.svg");
+}
+
 #filterPoiBtn {
   background-image: url("assets/map-buttons/filtrer.svg");
   position: fixed;
@@ -219,9 +238,7 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 25px;
   background-position: 13px center;
-  width: 5.385rem;
   transition: top 0.3s, opacity 0.5s;
   font-size: 14px;
 }
@@ -352,10 +369,16 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   color: var(--dark-grey);
 }
 
-#routeDrawEdit > .button#routeDrawSave {
+#routeDrawSnap {
+  background-image: url("assets/route-draw/arrow-left-darkgrey.svg");
+}
+
+.button#routeDrawSave {
   background-color: var(--dark-green);
   border: 1px solid var(--dark-green);
   background-image: url("assets/route-draw/save.svg");
+  position: fixed;
+  top: calc(142px + var(--safe-area-inset-top));
 }
 
 #routeDrawEdit > .button > span {
@@ -495,6 +518,10 @@ button.maplibregl-ctrl-shrink {
   }
 
   #compassBtn {
+    right: 15px;
+  }
+
+  #trackRecordBtn {
     right: 15px;
   }
 

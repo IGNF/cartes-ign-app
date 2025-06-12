@@ -198,6 +198,10 @@
   background-image: url(../html/img/tracer.svg);
 }
 
+#trackRecord > .nav-picto {
+  background-image: url(../html/img/tracker.svg);
+}
+
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #navContainer {
     flex-direction: column;
