@@ -16,6 +16,8 @@ import Location from "../services/location";
 import RouteDrawDOM from "../route-draw/route-draw-dom";
 import ActionSheet from "../action-sheet";
 
+import turfLength from "@turf/length";
+
 import TrackRecordLayers from "./track-record-styles";
 
 /**
@@ -64,7 +66,19 @@ class TrackRecord {
         coordinates: [],
       },
       properties: {},
+      data: {
+        elevationData: {
+          elevationData: [],
+          coordinates: [],
+          dplus: 0,
+          dminus: 0,
+          unit: "m",
+        },
+      },
     };
+
+    this.duration = 0;
+    this.startTime = null;
 
     this.routeToSave = this.currentFeature;
     this.trackName = "Mon itinéraire";
@@ -107,6 +121,7 @@ class TrackRecord {
     }
     this.recording = true;
     this.activeRecord = true;
+    this.startTime = new Date().getTime();
     if (!Location.isLocationActive()) {
       document.getElementById("geolocateBtn").click();
     }
@@ -149,6 +164,7 @@ class TrackRecord {
     if (this.recording) {
       return;
     }
+    this.startTime = new Date().getTime();
     this.recording = true;
     this.dom.whileRecordingBtn.classList.remove("d-none");
     this.dom.pauseRecordBtn.classList.add("d-none");
@@ -179,9 +195,9 @@ class TrackRecord {
       return;
     }
     this.pauseRecording();
-  
+
     this.recording = false;
-  
+
     this.dom.trackRecordContainer.classList.add("d-none");
     DOM.$tabHeader.classList.remove("d-none");
     Globals.currentScrollIndex = 2;
@@ -240,7 +256,7 @@ class TrackRecord {
 
   /**saveRecordingDOM
   * Save track
-  */ 
+  */
   async #saveRecordingDOM() {
     const nameTrackDom = domUtils.stringToHTML(`<div id="nameTrack">
       <h3>Enregistrer l'itinéraire</h3>
@@ -258,23 +274,16 @@ class TrackRecord {
     routeSummary.querySelector("#routeDrawMode").classList.add("d-none");
     nameTrackDom.querySelector("#trackResumeRoute").appendChild(routeSummary);
 
-    let route = Globals.myaccount.geojsonToRoute(this.currentFeature);
-    Globals.routeDraw.setTransport(route.transport);
-    Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)))
-      .then(() => {
-        var labelDuration = routeSummary.querySelector(".routeDrawSummaryDuration");
-        labelDuration.textContent = utils.convertSecondsToTime(Globals.routeDraw.data.duration);
-        var labelDistance = routeSummary.querySelector(".routeDrawSummaryDistance");
-        labelDistance.textContent = utils.convertDistance(Globals.routeDraw.data.distance);
+    var labelDuration = routeSummary.querySelector(".routeDrawSummaryDuration");
+    labelDuration.textContent = utils.convertSecondsToTime(Math.round(this.duration / 1000));
+    var labelDistance = routeSummary.querySelector(".routeDrawSummaryDistance");
+    labelDistance.textContent = utils.convertDistance(turfLength(this.currentFeature, {units: "meters"}));
 
-        if (!Globals.routeDraw.elevationLoading) {
-          var labelDPlus = routeSummary.querySelector(".routeDrawSummaryDPlus");
-          labelDPlus.textContent = `${Globals.routeDraw.data.elevationData.dplus} m`;
-    
-          var labelDMinus = routeSummary.querySelector(".routeDrawSummaryDMinus");
-          labelDMinus.textContent = `- ${Globals.routeDraw.data.elevationData.dminus} m`;
-        }
-      });
+    var labelDPlus = routeSummary.querySelector(".routeDrawSummaryDPlus");
+    labelDPlus.textContent = `${this.currentFeature.data.elevationData.dplus} m`;
+
+    var labelDMinus = routeSummary.querySelector(".routeDrawSummaryDMinus");
+    labelDMinus.textContent = `- ${this.currentFeature.data.elevationData.dminus} m`;
 
     // Actionsheet Button Event
     nameTrackDom.querySelector("#nameTrackSave").addEventListener("click", () => {
@@ -292,10 +301,12 @@ class TrackRecord {
   }
   /**saveRecording
   * Save track
-  */ 
+  */
   saveRecording() {
-    if (this.activeRecord) {   
-      this.currentFeature.data = {name : this.trackName};
+    if (this.activeRecord) {
+      this.currentFeature.data.name = this.trackName;
+      this.currentFeature.data.distance = turfLength(this.currentFeature, {units: "meters"});
+      this.currentFeature.data.duration = Math.round(this.duration / 1000);
       this.routeToSave = this.currentFeature;
       let id = Globals.myaccount.addTrack(this.routeToSave);
       this.dom.whileRecordingBtn.classList.add("d-none");
@@ -311,7 +322,16 @@ class TrackRecord {
           type: "LineString",
           coordinates: [],
         },
-        properties: {}
+        properties: {},
+        data: {
+          elevationData: {
+            elevationData: [],
+            coordinates: [],
+            dplus: 0,
+            dminus: 0,
+            unit: "m",
+          },
+        },
       };
       this.currentPoints = {
         type: "FeatureCollection",
@@ -327,7 +347,7 @@ class TrackRecord {
 
   /**deleteRecording
   * delete track
-  */ 
+  */
   #deleteRecording() {
     this.dom.whileRecordingBtn.classList.add("d-none");
     this.dom.finishRecordBtn.classList.add("d-none");
@@ -342,6 +362,15 @@ class TrackRecord {
         coordinates: [],
       },
       properties: {},
+      data: {
+        elevationData: {
+          elevationData: [],
+          coordinates: [],
+          dplus: 0,
+          dminus: 0,
+          unit: "m",
+        },
+      },
     };
     this.currentPoints = {
       type: "FeatureCollection",
@@ -356,7 +385,8 @@ class TrackRecord {
     if (!e.detail) {
       e.detail = {
         longitude: this.map.getCenter().lng,
-        latitude:this.map.getCenter().lat,
+        latitude: this.map.getCenter().lat,
+        altitude: Math.round(Math.random() * 1000), // Simulated altitude
       };
     }
     // END removeme
@@ -370,7 +400,21 @@ class TrackRecord {
         order: this.currentPoints.length === 0 ? "departure" : "",
       },
     });
+    this.duration += (new Date()).getTime() - this.startTime;
+    this.startTime = new Date().getTime();
     this.currentFeature.geometry.coordinates.push([e.detail.longitude, e.detail.latitude, e.detail.altitude || 0, (new Date()).toISOString()]);
+    this.currentFeature.data.elevationData.elevationData.push({x: turfLength(this.currentFeature), y: e.detail.altitude || 0});
+    this.currentFeature.data.elevationData.coordinates.push([e.detail.longitude, e.detail.latitude]);
+    if (this.currentPoints.features.length > 1) {
+      const lastZ = this.currentFeature.data.elevationData.elevationData[this.currentFeature.data.elevationData.elevationData.length - 2].y;
+      if (e.detail.altitude !== undefined && e.detail.altitude !== null) {
+        if (lastZ < e.detail.altitude) {
+          this.currentFeature.data.elevationData.dplus += e.detail.altitude - lastZ;
+        } else {
+          this.currentFeature.data.elevationData.dminus += lastZ - e.detail.altitude;
+        }
+      }
+    }
     this.#updateSources();
   }
 
