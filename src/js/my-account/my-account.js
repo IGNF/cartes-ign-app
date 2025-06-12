@@ -884,6 +884,23 @@ class MyAccount {
   }
 
   /**
+  * Ouvre l'outil de tracé d'itinéraire en mode consultation pour afficher les caractéristiques techniques à partir de son ID
+  * @param {Number} routeId
+  */
+  showRouteDetailsFromID(routeId) {
+    try {
+      this.showRouteDetails(this.#getRouteFromID(routeId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
+  }
+
+  /**
    * Ouvre l'outil de création de point de repère pour le modifer
    * @param {*} landmark
    */

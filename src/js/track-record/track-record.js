@@ -198,10 +198,8 @@ class TrackRecord {
 
     this.recording = false;
 
-    this.dom.trackRecordContainer.classList.add("d-none");
-    DOM.$tabHeader.classList.remove("d-none");
-    Globals.currentScrollIndex = 2;
-    Globals.menu.updateScrollAnchors();
+    let bindedBackToRecording = this.#backToRecording.bind(this);
+    ActionSheet.addEventListener("closeSheet", bindedBackToRecording);
 
     ActionSheet.show({
       title: "Vous avez terminé votre enregistrement",
@@ -239,6 +237,7 @@ class TrackRecord {
       if (value === "deleteRecord") {
         this.#deleteRecording();
       }
+      ActionSheet.removeEventListener("closeSheet", bindedBackToRecording);
     });
   }
 
@@ -251,7 +250,15 @@ class TrackRecord {
       this.dom.whileRecordingBtn.classList.add("d-none");
       this.dom.pauseRecordBtn.classList.remove("d-none");
     }
+    Location.target.removeEventListener("geolocationWatch", this.onNewLocationCallback);
+
+    // REMOVEME: testing
+    if (!Capacitor.isNativePlatform()) {
+      this.map.off("moveend", this.onNewLocationCallback);
+    }
+    // END removeme
     document.getElementById("backTopLeftBtn").click();
+
   }
 
   /**saveRecordingDOM
@@ -260,11 +267,9 @@ class TrackRecord {
   async #saveRecordingDOM() {
     const nameTrackDom = domUtils.stringToHTML(`<div id="nameTrack">
       <h3>Enregistrer l'itinéraire</h3>
-      <div class="dsign-form-element">
-        <input type="text" id="nameTrack-title" name="nameTrack-title" class="landmark-input-text" placeholder=" " title="Titre" value="${this.trackName}">
-      </div>
+      <input type="text" id="nameTrack-title" name="nameTrack-title" class="track-input-text" placeholder=" " title="Titre" value="${this.trackName}">
       <div class="trackResume">
-        Recap de votre parcours
+        <span>Récap de votre parcours</span>
         <div id="trackResumeRoute">
         </div>
       </div>
@@ -289,15 +294,20 @@ class TrackRecord {
     nameTrackDom.querySelector("#nameTrackSave").addEventListener("click", () => {
       ActionSheet._closeElem.click();
     });
+
+    let bindedSaveRecording = this.saveRecording.bind(this);
+    ActionSheet.addEventListener("closeSheet", bindedSaveRecording);
     ActionSheet.show({
       style: "custom",
       content: nameTrackDom,
+    }).then(() => {
+      // After the ActionSheet is closed, we can remove the event listener
+      ActionSheet.removeEventListener("closeSheet", bindedSaveRecording);
     });
 
     nameTrackDom.querySelector("#nameTrack-title").addEventListener("change", (e) => {
       this.trackName = e.target.value;
     });
-    ActionSheet.addEventListener("closeSheet", this.saveRecording.bind(this));
   }
   /**saveRecording
   * Save track
@@ -340,7 +350,7 @@ class TrackRecord {
       this.#updateSources();
       this.#closeRecording();
       Globals.routeDraw.clear();
-      Globals.myaccount.editRouteFromID(id);
+      Globals.myaccount.showRouteDetailsFromID(id);
       ActionSheet.removeEventListener("closeSheet", this.saveRecording.bind(this));
     }
   }

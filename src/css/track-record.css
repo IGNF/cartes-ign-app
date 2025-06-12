@@ -31,6 +31,7 @@
 #trackRecordContainer button {
   width: 158px;
   height: 48px;
+  align-items: center;
 }
 
 .actionSheet-list.centerHorizontally {
@@ -69,6 +70,7 @@
     width: 13px;
     background-size: cover;
     flex-shrink: 0;
+    margin-right: 6px;
   }
 
 .whileRecordingPicto, .pauseRecordPicto {
@@ -78,26 +80,45 @@
     flex-shrink: 0;
   }
 
-  .whileRecordingPicto {
-    background-image: url(../html/img/recording.svg);
-  }
-  .pauseRecordPicto {
-    background-image: url(../html/img/pause.svg);
-  }
+.whileRecordingPicto {
+  background-image: url(../html/img/recording.svg);
+}
+.pauseRecordPicto {
+  background-image: url(../html/img/pause.svg);
+}
 
-  .btn-label {
-    margin-left: 10px;
-  }
+.btn-label {
+  margin-left: 3px;
+  line-height: 30px;
+}
 
-  .trackResume {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
+.trackResume {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
-  #nameTrack > h3 {
-    text-align: center;
-  }
+.trackResume > span {
+  font-size: 15px;
+  font-family: 'Fira Sans Semibold';
+  display: block;
+  margin-bottom: 18px;
+}
 
-  .trackResume {
-    font-size: larger;
-  }
+#nameTrack > h3 {
+  text-align: center;
+}
+
+.trackResume {
+  font-size: larger;
+}
+
+.track-input-text {
+  font-family: "Open Sans";
+  border-radius: 8px;
+  outline: none;
+  box-shadow: 0px 0px 0px 0px;
+  border: 1px solid var(--grey-2);
+  padding: 9px 8px;
+  width: 100%;
+  box-sizing: border-box;
+}

@@ -218,6 +218,10 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   outline: 1px solid var(--dark-green);
 }
 
+#compassBtn:not(.d-none) + #trackRecordBtn {
+  bottom: 198px;
+}
+
 #trackRecordBtn.recording {
   background-image: url("assets/map-buttons/recording.svg");
 }
@@ -234,9 +238,7 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 25px;
   background-position: 13px center;
-  width: 5.385rem;
   transition: top 0.3s, opacity 0.5s;
   font-size: 14px;
 }
@@ -376,7 +378,7 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   border: 1px solid var(--dark-green);
   background-image: url("assets/route-draw/save.svg");
   position: fixed;
-  top: calc(76px + var(--safe-area-inset-top));
+  top: calc(142px + var(--safe-area-inset-top));
 }
 
 #routeDrawEdit > .button > span {
