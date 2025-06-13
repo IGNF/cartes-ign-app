@@ -108,5 +108,5 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-    <uses-feature android:name="android.hardware.location.gps" tools:node="removeAll"/>
+    <uses-feature android:name="android.hardware.location.gps" tools:node="remove"/>
 </manifest>
