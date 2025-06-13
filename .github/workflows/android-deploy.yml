@@ -59,6 +59,13 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
         env:
           BUILD_TOOLS_VERSION: "34.0.0"
+          
+      - name: Upload application
+        uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: ${{ steps.sign_apk.outputs.signedReleaseFile }}
+          retention-days: 3
 
 
       - name: Deploy to PlayStore
