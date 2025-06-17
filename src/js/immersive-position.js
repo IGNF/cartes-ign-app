@@ -155,9 +155,9 @@ class ImmersivePosion extends EventTarget {
     }
 
     if (this.data["BDTOPO_V3:cours_d_eau"] && this.data["BDTOPO_V3:cours_d_eau"].length) {
-      let waterList = this.data["BDTOPO_V3:cours_d_eau"][0];
+      let waterList = this.data["BDTOPO_V3:cours_d_eau"][0][0];
       for (let i = 1; i < this.data["BDTOPO_V3:cours_d_eau"].length; i++) {
-        waterList += ", " + this.data["BDTOPO_V3:cours_d_eau"][i];
+        waterList += ", " + this.data["BDTOPO_V3:cours_d_eau"][i][0];
       }
 
       if (this.data["BDTOPO_V3:plan_d_eau"] && this.data["BDTOPO_V3:plan_d_eau"].length) {
@@ -332,8 +332,23 @@ class ImmersivePosion extends EventTarget {
         }
         return true;
       }).sort( (a, b) => {
-        const distanceA = PointToLineDistance([this.lng, this.lat], CleanCoords(a[1]));
-        const distanceB = PointToLineDistance([this.lng, this.lat], CleanCoords(b[1]));
+        let featureA = a[1];
+        if (featureA.type === "MultiLineString") {
+          featureA = {
+            type: "LineString",
+            coordinates: featureA.coordinates[0]
+          };
+        }
+        let featureB = b[1];
+        if (featureB.type === "MultiLineString") {
+          featureB = {
+            type: "LineString",
+            coordinates: featureB.coordinates[0]
+          };
+        }
+
+        const distanceA = PointToLineDistance([this.lng, this.lat], CleanCoords(featureA));
+        const distanceB = PointToLineDistance([this.lng, this.lat], CleanCoords(featureB));
         return distanceA - distanceB;
       });
     }
