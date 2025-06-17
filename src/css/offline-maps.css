@@ -8,7 +8,7 @@
     100% 100%, 100% 0%
   );
   z-index: 2998;
-  height: calc(100vh - 52px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
+  height: calc(100vh - 57px - max(var(--safe-area-inset-bottom), 20px));
   pointer-events: none;
 }
 

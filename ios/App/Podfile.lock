@@ -1,49 +1,68 @@
 PODS:
-  - AashuDubeyCapacitorStatusbarSafeArea (3.0.0):
+  - AashuDubeyCapacitorStatusbarSafeArea (4.0.0):
     - Capacitor
-  - Capacitor (6.0.0):
+  - Capacitor (7.1.0):
     - CapacitorCordova
-  - CapacitorApp (6.0.0):
+  - CapacitorApp (7.0.1):
     - Capacitor
-  - CapacitorCordova (6.0.0)
-  - CapacitorDevice (6.0.0):
+  - CapacitorClipboard (7.0.1):
     - Capacitor
-  - CapacitorFilesystem (6.0.0):
+  - CapacitorCommunityBackgroundGeolocation (0.0.1):
     - Capacitor
-  - CapacitorGeolocation (6.0.0):
+  - CapacitorCommunityKeepAwake (7.0.0):
     - Capacitor
-  - CapacitorKeyboard (6.0.0):
+  - CapacitorCordova (7.1.0)
+  - CapacitorDevice (7.0.1):
     - Capacitor
-  - CapacitorNativeSettings (6.0.0):
+  - CapacitorFilesystem (7.1.1):
     - Capacitor
-  - CapacitorNetwork (6.0.0):
+    - IONFilesystemLib (~> 1.0)
+  - CapacitorGeolocation (7.1.2):
     - Capacitor
-  - CapacitorScreenOrientation (6.0.0):
+    - IONGeolocationLib (~> 1.0)
+  - CapacitorKeyboard (7.0.1):
     - Capacitor
-  - CapacitorShare (6.0.0):
+  - CapacitorLocalNotifications (7.0.1):
     - Capacitor
-  - CapacitorSplashScreen (6.0.0):
+  - CapacitorNativeSettings (7.0.1):
     - Capacitor
-  - CapacitorStatusBar (6.0.0):
+  - CapacitorNetwork (7.0.1):
     - Capacitor
-  - CapacitorTextZoom (6.0.0):
+  - CapacitorPreferences (7.0.1):
     - Capacitor
-  - CapacitorToast (6.0.0):
+  - CapacitorScreenOrientation (7.0.1):
     - Capacitor
-  - CapawesomeCapacitorFilePicker (6.0.0):
+  - CapacitorShare (7.0.1):
     - Capacitor
+  - CapacitorSplashScreen (7.0.1):
+    - Capacitor
+  - CapacitorStatusBar (7.0.1):
+    - Capacitor
+  - CapacitorTextZoom (7.0.1):
+    - Capacitor
+  - CapacitorToast (7.0.1):
+    - Capacitor
+  - CapawesomeCapacitorFilePicker (7.1.0):
+    - Capacitor
+  - IONFilesystemLib (1.0.0)
+  - IONGeolocationLib (1.0.0)
 
 DEPENDENCIES:
   - "AashuDubeyCapacitorStatusbarSafeArea (from `../../node_modules/@aashu-dubey/capacitor-statusbar-safe-area`)"
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
+  - "CapacitorClipboard (from `../../node_modules/@capacitor/clipboard`)"
+  - "CapacitorCommunityBackgroundGeolocation (from `../../node_modules/@capacitor-community/background-geolocation`)"
+  - "CapacitorCommunityKeepAwake (from `../../node_modules/@capacitor-community/keep-awake`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
   - "CapacitorGeolocation (from `../../node_modules/@capacitor/geolocation`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
+  - "CapacitorLocalNotifications (from `../../node_modules/@capacitor/local-notifications`)"
   - CapacitorNativeSettings (from `../../node_modules/capacitor-native-settings`)
   - "CapacitorNetwork (from `../../node_modules/@capacitor/network`)"
+  - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
   - "CapacitorScreenOrientation (from `../../node_modules/@capacitor/screen-orientation`)"
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
@@ -52,6 +71,11 @@ DEPENDENCIES:
   - "CapacitorToast (from `../../node_modules/@capacitor/toast`)"
   - "CapawesomeCapacitorFilePicker (from `../../node_modules/@capawesome/capacitor-file-picker`)"
 
+SPEC REPOS:
+  trunk:
+    - IONFilesystemLib
+    - IONGeolocationLib
+
 EXTERNAL SOURCES:
   AashuDubeyCapacitorStatusbarSafeArea:
     :path: "../../node_modules/@aashu-dubey/capacitor-statusbar-safe-area"
@@ -59,6 +83,12 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorApp:
     :path: "../../node_modules/@capacitor/app"
+  CapacitorClipboard:
+    :path: "../../node_modules/@capacitor/clipboard"
+  CapacitorCommunityBackgroundGeolocation:
+    :path: "../../node_modules/@capacitor-community/background-geolocation"
+  CapacitorCommunityKeepAwake:
+    :path: "../../node_modules/@capacitor-community/keep-awake"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorDevice:
@@ -69,10 +99,14 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/geolocation"
   CapacitorKeyboard:
     :path: "../../node_modules/@capacitor/keyboard"
+  CapacitorLocalNotifications:
+    :path: "../../node_modules/@capacitor/local-notifications"
   CapacitorNativeSettings:
     :path: "../../node_modules/capacitor-native-settings"
   CapacitorNetwork:
     :path: "../../node_modules/@capacitor/network"
+  CapacitorPreferences:
+    :path: "../../node_modules/@capacitor/preferences"
   CapacitorScreenOrientation:
     :path: "../../node_modules/@capacitor/screen-orientation"
   CapacitorShare:
@@ -89,24 +123,31 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capawesome/capacitor-file-picker"
 
 SPEC CHECKSUMS:
-  AashuDubeyCapacitorStatusbarSafeArea: b32e282503c277e7e6bd2b030feef16658476b5b
-  Capacitor: 559d073c4ca6c27f8e7002c807eea94c3ba435a9
-  CapacitorApp: 9d53aec7101f7b030a950c5bdc4df8612576b279
-  CapacitorCordova: 8c4bfdf69368512e85b1d8b724dd7546abeb30af
-  CapacitorDevice: f8fd88f9edd1261c55a109f32015b09bbbfdc4a0
-  CapacitorFilesystem: 60e59ba274c234a979e7a3be2552feaadcee4263
-  CapacitorGeolocation: 1f12bbe372b65116e851bd8e3a94cf0ef9bacebb
-  CapacitorKeyboard: deacbd09d8d1029c3681197fb05d206b721d5f73
-  CapacitorNativeSettings: ab24b68c6e6e7391c6ade889d2a83aaceed0fc36
-  CapacitorNetwork: f15a94c16a33cba7c47a17814cb6bcfe3ea34ded
-  CapacitorScreenOrientation: d78ce2b710bfcd1c32d3a090d32b6686c1c95e4f
-  CapacitorShare: a771200d3b924a5d7ad9d9fecbac517e4c0aa74f
-  CapacitorSplashScreen: 5431ab8d19c1c6e95777d53bfaa7a36a6c3d94c7
-  CapacitorStatusBar: 2e4369f99166125435641b1908d05f561eaba6f6
-  CapacitorTextZoom: 696722e5c479b364f2429584f11ad386d609bd1a
-  CapacitorToast: ba573a7bc5dfd622e78d5be126a84ee221da4180
-  CapawesomeCapacitorFilePicker: 983e8d272d200897cf1c12cf9a62439fa2fb2c35
+  AashuDubeyCapacitorStatusbarSafeArea: b5ff02dd993548c3f9c08e3e7fe09153c71ff69b
+  Capacitor: 68ff8eabbcce387e69767c13b5fbcc1c5399eabc
+  CapacitorApp: d63334c052278caf5d81585d80b21905c6f93f39
+  CapacitorClipboard: b98aead5dc7ec595547fc2c5d75bacd2ae3338bc
+  CapacitorCommunityBackgroundGeolocation: 6f26f4290377dbd1d6dec21e62cb66f008f61ec7
+  CapacitorCommunityKeepAwake: 00dfd8fa3cca0df003c9a3e2cd7bee678aeec68b
+  CapacitorCordova: 866217f32c1d25b326c568a10ea3ed0c36b13e29
+  CapacitorDevice: fe3f190e1d718f4607bdc6b73993433d1c84f409
+  CapacitorFilesystem: 3acaa1d2b909a9dd904581a86f21782886e6bb38
+  CapacitorGeolocation: 8c86a3afea574c84447c17905da96f2356ad913e
+  CapacitorKeyboard: 969647d0ca2e5c737d7300088e2517aa832434e2
+  CapacitorLocalNotifications: 4ea60b9347eac60b37cb4daaf62d12060bb00972
+  CapacitorNativeSettings: 03d126571fc0e12f89ffeb1516788bf371b528bc
+  CapacitorNetwork: 07ec4c69c1bb696f41c23e00d31bda1bbb221bba
+  CapacitorPreferences: cbf154e5e5519b7f5ab33817a334dda1e98387f9
+  CapacitorScreenOrientation: 6590ca2800f2ddab521fae2580808fc7e66dfa1c
+  CapacitorShare: 58d6c2da63b093e8693287b2d36db92435538435
+  CapacitorSplashScreen: 19cd3573e57507e02d6f34597a8c421e00931487
+  CapacitorStatusBar: 275cbf2f4dfc00388f519ef80c7ec22edda342c9
+  CapacitorTextZoom: 58cec0b04777e26d17241d4db86fd4a65b554a67
+  CapacitorToast: c0f64abc0fae75c54e504db9be180a7f5f7d7476
+  CapawesomeCapacitorFilePicker: 06e91098972470ff836451b6a5b165643ed90859
+  IONFilesystemLib: ceacae793975039530458eabab0c495c70515a0d
+  IONGeolocationLib: 81f33f88d025846946de2cf63b0c7628e7c6bc9d
 
-PODFILE CHECKSUM: 45f2516610a7861872f461597a0b2998b0239460
+PODFILE CHECKSUM: 2e8a893999642b8a381ec82270e37f222904f01a
 
 COCOAPODS: 1.15.2

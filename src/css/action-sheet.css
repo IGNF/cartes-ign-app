@@ -22,7 +22,7 @@ action-sheet {
   flex-direction: column;
   z-index: 1;
   box-sizing: border-box;
-  padding: 0 6% 44px 6%;
+  padding: 0 6% calc(var(--safe-area-inset-bottom) + 24px) 6%;
 }
 
 .actionSheet-title {

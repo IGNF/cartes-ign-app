@@ -286,9 +286,8 @@ function addListeners() {
     /* Gestion de l'état ScrolledMax du panneau */
     const insetTop = Math.round(parseFloat(getComputedStyle(document.body).getPropertyValue("--safe-area-inset-top").slice(0, -2)));
     const insetBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-bottom").slice(0, -2));
-    const navHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-bar-height").slice(0, -2));
 
-    if (window.scrollY >= window.innerHeight - 72 - Math.max(insetBottom - 10 - navHeight, 20) - insetTop) {
+    if (window.scrollY >= window.innerHeight - 72 - Math.max(insetBottom, 20) - insetTop) {
       DOM.$tabContainer.classList.add("scrolledMax");
       document.getElementById("tabHandle").addEventListener("click", handleScrollDown);
     } else {

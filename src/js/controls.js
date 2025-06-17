@@ -100,23 +100,21 @@ const addControls = () => {
     }), "bottom-left");
 
     // contrôle fullscreen
-    map.addControl(new maplibregl.FullscreenControl(), "bottom-right");
+    const fullScreenCtrl = new maplibregl.FullscreenControl();
+    map.addControl(fullScreenCtrl, "bottom-right");
     DOM.$fullScreenBtn = document.querySelector(".maplibregl-ctrl-bottom-right > .maplibregl-ctrl");
     const fullScreenBtnParent = document.querySelectorAll(".maplibregl-ctrl-bottom-right")[2];
-    DOM.$fullScreenBtn.addEventListener("click", () => {
-      setTimeout(() => {
-        if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
-          DOM.$map.appendChild(DOM.$interactivityBtn);
-          DOM.$map.appendChild(DOM.$mapScale);
-          DOM.$map.appendChild(fullScreenBtnParent);
-          Globals.interactivityIndicator.hardDisable();
-        } else {
-          DOM.$map.parentNode.parentNode.appendChild(DOM.$interactivityBtn);
-          DOM.$bottomButtons.appendChild(DOM.$mapScale);
-          DOM.$bottomButtons.appendChild(fullScreenBtnParent);
-          Globals.interactivityIndicator.enable();
-        }
-      }, 50);
+    fullScreenCtrl.on("fullscreenstart", () => {
+      DOM.$map.appendChild(DOM.$interactivityBtn);
+      DOM.$map.appendChild(DOM.$mapScale);
+      DOM.$map.appendChild(fullScreenBtnParent);
+      Globals.interactivityIndicator.hardDisable();
+    });
+    fullScreenCtrl.on("fullscreenend", () => {
+      DOM.$map.parentNode.parentNode.appendChild(DOM.$interactivityBtn);
+      DOM.$bottomButtons.appendChild(DOM.$mapScale);
+      DOM.$bottomButtons.appendChild(fullScreenBtnParent);
+      Globals.interactivityIndicator.enable();
     });
 
     // contrôle d'intéractivité de la carte

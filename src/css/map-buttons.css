@@ -24,13 +24,13 @@
 
 #bottomButtons {
   position: absolute;
-  bottom: calc(72px + 25px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
+  bottom: calc(72px + 30px + max(var(--safe-area-inset-bottom), 20px));
   width: 100vw;
   transition: opacity 0.5s;
 }
 
 #bottomButtons.routeDraw {
-  bottom: calc(72px + 112px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
+  bottom: calc(72px + 117px + max(var(--safe-area-inset-bottom), 20px));
 }
 
 #bottomButtons.compare {
@@ -300,7 +300,7 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   justify-content: space-between;
   z-index: 3001;
   position: absolute;
-  bottom: calc(72px + 15px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
+  bottom: calc(72px + 20px + max(var(--safe-area-inset-bottom), 20px));
   width: calc(100vw - 30px);
   height: calc(82px + 1em - 13px);
   padding: 10px 26px;
@@ -377,7 +377,7 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   background-position: center;
   position: fixed;
   left: calc(50vw - 25px);
-  top: calc((100vh - 52px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px))/2 - 50px);
+  top: calc((100vh - 57px - max(var(--safe-area-inset-bottom), 20px))/2 - 50px);
   pointer-events: none;
   z-index: 1;
 }
@@ -392,9 +392,9 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   display: flex;
   position: absolute;
   box-sizing: border-box;
-  top: calc(100% - 72px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
+  top: calc(100% - 77px - max(var(--safe-area-inset-bottom), 20px));
   width: 100%;
-  height: calc(72px + max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
+  height: calc(75px + max(var(--safe-area-inset-bottom), 20px));
   font-size: 12px;
   background-color: white;
   padding: 10px 30px 8px 15px;
@@ -500,7 +500,7 @@ button.maplibregl-ctrl-shrink {
 
   #bottomButtons {
     position: fixed;
-    bottom: max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px);
+    bottom: calc(5px + max(var(--safe-area-inset-bottom), 20px));
     width: calc(100vw - 75px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
     right: var(--safe-area-inset-right);
     z-index: 2500;

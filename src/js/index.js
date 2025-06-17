@@ -22,10 +22,9 @@ import DOM from "./dom";
 
 
 import { Capacitor } from "@capacitor/core";
-import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { SplashScreen } from "@capacitor/splash-screen";
 import { StatusBar, Style } from "@capacitor/status-bar";
-import { SafeArea, SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
+import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { TextZoom } from "@capacitor/text-zoom";
 import { Device } from "@capacitor/device";
 import { App } from "@capacitor/app";
@@ -153,22 +152,8 @@ function app() {
           StatusBar.setOverlaysWebView({ overlay: true });
         }
         StatusBar.setStyle({ style: Style.Light });
+        StatusBar.getInfo().then(console.log);
       }
-      SafeArea.getStatusBarHeight().then(({ height }) => {
-        let difference;
-        ScreenOrientation.orientation().then((orientation) => {
-          if (orientation.type.split("-")[0] === "landscape") {
-            difference = screen.width - window.innerWidth;
-          } else {
-            difference = screen.height - window.innerHeight - height;
-            if (difference < 0) {
-              difference += 50;
-            }
-          }
-          difference = Math.max(difference, 0);
-          document.documentElement.style.setProperty("--nav-bar-height", difference + "px");
-        });
-      });
     }, 500);
     if (Capacitor.isNativePlatform()) {
       TextZoom.getPreferred().then(value => {

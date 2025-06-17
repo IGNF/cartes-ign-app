@@ -36,7 +36,7 @@
 
 #mapRLT2 .maplibregl-control-container > .maplibregl-ctrl-bottom-left,
 #mapRLT1 .maplibregl-control-container > .maplibregl-ctrl-bottom-left {
-  bottom: 10px;
+  bottom: calc(var(--safe-area-inset-bottom) + 10px);
 }
 
 .maplibregl-ctrl-scale {
@@ -53,7 +53,7 @@
 
 /* Map */
 .map {
-  height: calc(100vh - 52px - max(calc(var(--safe-area-inset-bottom) - 10px - var(--nav-bar-height)), 20px));
+  height: calc(100vh - 57px - max(var(--safe-area-inset-bottom), 20px));
   width: 100vw;
   flex-grow: 1;
   position: fixed;

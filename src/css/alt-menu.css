@@ -93,7 +93,7 @@
 }
 
 .informationsContent > div {
-  padding: 0 10px;
+  padding: 0 10px var(--safe-area-inset-bottom) 10px;
 }
 
 .informationsContent h3 {
