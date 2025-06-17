@@ -3,7 +3,7 @@
     "id": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune",
     "layer": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune",
     "attributes": ["nom", "population"],
-    "geom_name": "geom"
+    "geom_name": "geometrie"
   },
   {
     "id": "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement",
