@@ -7,6 +7,7 @@
 import { App } from "@capacitor/app";
 import { Capacitor, registerPlugin } from "@capacitor/core";
 const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
+import { LocalNotifications } from "@capacitor/local-notifications";
 
 import Globals from "../globals";
 import DOM from "../dom";
@@ -59,6 +60,8 @@ class TrackRecord {
     this.activeRecord = false;
     this.onNewLocationCallback = this.#onNewLocation.bind(this);
 
+    this.isBackground = false;
+
     this.currentFeature = {
       type: "Feature",
       geometry: {
@@ -105,9 +108,9 @@ class TrackRecord {
     this.dom.closeRecordBtn.addEventListener("click", this.#closeRecording.bind(this));
     App.addListener("appStateChange", (state) => {
       if (!state.isActive) {
-        this.#startBgTracking();
+        this.isBackground = true;
       } else {
-        this.#stopBgTracking();
+        this.isBackground = false;
       }
     });
   }
@@ -119,6 +122,8 @@ class TrackRecord {
     if (this.recording) {
       return;
     }
+    this.requestNotificationPermission();
+    this.#startBgTracking();
     this.recording = true;
     this.activeRecord = true;
     this.startTime = new Date().getTime();
@@ -149,6 +154,7 @@ class TrackRecord {
     this.dom.whileRecordingBtn.classList.add("d-none");
     this.dom.pauseRecordBtn.classList.remove("d-none");
     Location.target.removeEventListener("geolocationWatch", this.onNewLocationCallback);
+    this.#stopBgTracking();
 
     // REMOVEME: testing
     if (!Capacitor.isNativePlatform()) {
@@ -170,6 +176,7 @@ class TrackRecord {
     this.dom.pauseRecordBtn.classList.add("d-none");
 
     Location.target.addEventListener("geolocationWatch", this.onNewLocationCallback);
+    this.#startBgTracking();
 
     // REMOVEME: testing
     if (!Capacitor.isNativePlatform()) {
@@ -211,14 +218,14 @@ class TrackRecord {
           value: "subtitle",
         },
         {
-          class: "trackRecordBtn backToRecord primary",
-          text: "Reprendre l’enregistrement",
-          value: "backToRecord",
-        },
-        {
-          class: "trackRecordBtn saveRecord secondary",
+          class: "trackRecordBtn saveRecord primary",
           text: "Terminer et enregistrer",
           value: "saveRecord",
+        },
+        {
+          class: "trackRecordBtn backToRecord secondary",
+          text: "Reprendre l’enregistrement",
+          value: "backToRecord",
         },
         {
           class: "trackRecordBtn deleteRecord terciary",
@@ -235,7 +242,7 @@ class TrackRecord {
         this.#saveRecordingDOM();
       }
       if (value === "deleteRecord") {
-        this.#deleteRecording();
+        this.#confirmDeleteRecording();
       }
       ActionSheet.removeEventListener("closeSheet", bindedBackToRecording);
     });
@@ -251,6 +258,7 @@ class TrackRecord {
       this.dom.pauseRecordBtn.classList.remove("d-none");
     }
     Location.target.removeEventListener("geolocationWatch", this.onNewLocationCallback);
+    this.#stopBgTracking();
 
     // REMOVEME: testing
     if (!Capacitor.isNativePlatform()) {
@@ -292,17 +300,18 @@ class TrackRecord {
 
     // Actionsheet Button Event
     nameTrackDom.querySelector("#nameTrackSave").addEventListener("click", () => {
-      ActionSheet._closeElem.click();
+      this.saveRecording();
+      ActionSheet.hide();
     });
 
-    let bindedSaveRecording = this.saveRecording.bind(this);
-    ActionSheet.addEventListener("closeSheet", bindedSaveRecording);
+    let bindedFinishRecording = this.#finishRecording.bind(this);
+    ActionSheet.addEventListener("closeSheet", bindedFinishRecording);
     ActionSheet.show({
       style: "custom",
       content: nameTrackDom,
     }).then(() => {
       // After the ActionSheet is closed, we can remove the event listener
-      ActionSheet.removeEventListener("closeSheet", bindedSaveRecording);
+      ActionSheet.removeEventListener("closeSheet", bindedFinishRecording);
     });
 
     nameTrackDom.querySelector("#nameTrack-title").addEventListener("change", (e) => {
@@ -353,6 +362,45 @@ class TrackRecord {
       Globals.myaccount.showRouteDetailsFromID(id);
       ActionSheet.removeEventListener("closeSheet", this.saveRecording.bind(this));
     }
+  }
+
+  /**
+   * Affiche une action sheet pour confirmer la suppression de l'enregistrement
+   */
+  #confirmDeleteRecording() {
+    let bindedBackToRecording = this.#backToRecording.bind(this);
+    ActionSheet.addEventListener("closeSheet", bindedBackToRecording);
+
+    ActionSheet.show({
+      title: "Supprimer votre enregistrement ?",
+      wrapperCustomClass : "centerHorizontally",
+      options: [
+        {
+          class: "finish-track-subtitle",
+          text: "Vos données vont être supprimées. Souhaitez-vous continuer ?",
+          value: "subtitle",
+        },
+        {
+          class: "trackRecordBtn saveRecord primary",
+          text: "Supprimer",
+          value: "confirmDelete",
+        },
+        {
+          class: "trackRecordBtn backToRecord secondary",
+          text: "Annuler",
+          value: "cancelDelete",
+        }
+      ],
+      timeToHide: 50,
+    }).then( (value) => {
+      if (value === "confirmDelete") {
+        this.#deleteRecording();
+      }
+      if (value === "cancelDelete") {
+        this.#backToRecording();
+      }
+      ActionSheet.removeEventListener("closeSheet", bindedBackToRecording);
+    });
   }
 
   /**deleteRecording
@@ -450,6 +498,9 @@ class TrackRecord {
           console.error("Geolocation error:", error);
           return;
         }
+        if (!this.isBackground) {
+          return;
+        }
         this.#onNewLocation({
           detail: position,
         });
@@ -516,6 +567,22 @@ class TrackRecord {
 
     var pointsource = this.map.getSource(this.configuration.pointsource);
     pointsource.setData(this.currentPoints);
+  }
+
+  /**
+   * Check and requests if needed the permission to send notifications
+  */
+  async requestNotificationPermission() {
+    this.permissionStatus = await LocalNotifications.checkPermissions();
+
+    if (["denied", "prompt", "prompt-with-rationale"].includes(this.permissionStatus.display)) {
+      this.permissionStatus = await LocalNotifications.requestPermissions();
+      if (!["denied", "prompt-with-rationale"].includes(this.permissionStatus.display)) {
+        console.debug("Notification permission granted");
+      } else {
+        console.warn("Notification permission not granted");
+      }
+    }
   }
 
 }

@@ -186,13 +186,13 @@
     width: 45%;
     margin-right: 9%;
   }
-  #resultsRech {
+  #resultsRech, #resultsRechRecent {
     display: flex;
     flex-direction: column;
     overflow: hidden;
     flex-wrap: wrap;
   }
-  .autocompresult {
+  .autocompresult, .recentresult {
     width: 100%;
   }
 }

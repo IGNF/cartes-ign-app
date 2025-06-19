@@ -46,7 +46,7 @@ let RouteDrawSaveDOM = {
    */
   __addRouteSaveContainerDOMElement (name) {
     var div = this.dom.container = document.createElement("div");
-    div.id = "routeDrawSave";
+    div.id = "routeDrawSaveContainer";
     div.className = "";
 
     var header = document.createElement("p");

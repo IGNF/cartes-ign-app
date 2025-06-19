@@ -1071,14 +1071,18 @@ class RouteDraw {
    */
   #routeSnap() {
     this.#saveState();
+    const promises = [];
     for (let index = 0; index < this.data.steps.length; index++) {
       const step = this.data.steps[index];
       step.properties.mode = 1;
-      this.#computeStep(index, 1);
+      promises.push(this.#computeStep(index, 1));
     }
-    this.#updateElevation();
-    this.#updateSources();
-    this.__updateRouteInfo(this.data);
+    Promise.all(promises).then(() => {
+      this.#updateElevation();
+      this.#updateSources();
+      this.__updateRouteInfo(this.data);
+      this.#saveState();
+    });
   }
 
   /**

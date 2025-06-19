@@ -373,7 +373,7 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   background-image: url("assets/route-draw/arrow-left-darkgrey.svg");
 }
 
-.button#routeDrawSave {
+#routeDrawSave {
   background-color: var(--dark-green);
   border: 1px solid var(--dark-green);
   background-image: url("assets/route-draw/save.svg");
@@ -415,7 +415,7 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   display: flex;
   position: absolute;
   box-sizing: border-box;
-  top: calc(100% - 77px - max(var(--safe-area-inset-bottom), 20px));
+  top: calc(100% - 75px - max(var(--safe-area-inset-bottom), 20px));
   width: 100%;
   height: calc(75px + max(var(--safe-area-inset-bottom), 20px));
   font-size: 12px;
@@ -560,6 +560,11 @@ button.maplibregl-ctrl-shrink {
     position: fixed;
   }
 
+  #routeDrawSave {
+    top: calc(10px + var(--safe-area-inset-top));
+    transform: translateX(-66px);
+  }
+
   #routeDrawEdit {
     position: fixed;
     flex-direction: row;
@@ -572,11 +577,6 @@ button.maplibregl-ctrl-shrink {
 
   #routeDrawEdit > .button {
     margin-bottom: 12px;
-  }
-
-  #routeDrawEdit > .button > span {
-    position: relative;
-    bottom: -44px;
   }
 
   #mapCenter {

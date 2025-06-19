@@ -277,6 +277,7 @@ class MenuNavigation {
       DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-right").classList.add("d-none");
       Globals.compare.show();
       Globals.interactivityIndicator.hardDisable();
+      DOM.$trackRecordBtn.classList.add("d-none");
       Globals.currentScrollIndex = 0;
       break;
     case "routeDrawSave":
@@ -579,6 +580,7 @@ class MenuNavigation {
       if (Globals.threeD.terrainOn || Globals.threeD.buildingsOn) {
         Globals.map.setPitch(45);
       }
+      DOM.$trackRecordBtn.classList.remove("d-none");
       break;
     case "routeDrawSave":
       // Réouverture de routeDraw sans utilisr this.open("routeDraw")

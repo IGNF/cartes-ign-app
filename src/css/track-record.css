@@ -47,6 +47,12 @@
   margin: 0 auto;
 }
 
+.finish-track-subtitle {
+  pointer-events: none;
+  text-align: center;
+  max-width: 300px;
+}
+
 .trackRecordBtn.primary {
   border-color: var(--dark-green);
   color: white;
@@ -60,8 +66,14 @@
   background-color: white;
   border: solid 1px;
 }
+
 .trackRecordBtn.terciary {
   border-style: none;
+}
+
+.deleteRecord {
+  color: var(--orange);
+  padding-top: 0;
 }
 
 .startRecordPicto {
@@ -121,4 +133,10 @@
   padding: 9px 8px;
   width: 100%;
   box-sizing: border-box;
+}
+
+@media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
+  #trackRecordWindow {
+    padding-bottom: calc(19px + var(--safe-area-inset-bottom));
+  }
 }

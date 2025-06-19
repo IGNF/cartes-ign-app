@@ -143,27 +143,33 @@
 }
 
 .lblPositionShareImg {
-  background-image: url("assets/share.svg");
+  -webkit-mask: url("assets/share.svg") center;
+  mask: url("assets/share.svg") center;
 }
 
 .lblPositionNearImg {
-  background-image: url("assets/isochrone-white.svg");
+  -webkit-mask: url("assets/isochrone-white.svg") center;
+  mask: url("assets/isochrone-white.svg") center;
 }
 
 .lblPositionRouteImg {
-  background-image: url("assets/syrendre-white.svg");
+  -webkit-mask: url("assets/syrendre-white.svg") center;
+  mask: url("assets/syrendre-white.svg") center;
 }
 
 .lblPositionSignalImg {
-  background-image: url("assets/signal.svg");
+  -webkit-mask: url("assets/signal.svg") center;
+  mask: url("assets/signal.svg") center;
 }
 
 .lblPositionLandmarkImg {
-  background-image: url("assets/landmark-white.svg");
+  -webkit-mask: url("assets/landmark-white.svg") center;
+  mask: url("assets/landmark-white.svg") center;
 }
 
 .lblPositionLandmarkEditImg {
-  background-image: url("assets/edit-white.svg");
+  -webkit-mask: url("assets/edit-white.svg") center;
+  mask: url("assets/edit-white.svg") center;
 }
 
 .btnPositionButtons {
@@ -182,6 +188,23 @@
   white-space: nowrap;
   font-family: "Open Sans Semibold";
   font-size: 12px;
+}
+
+.btnPositionButtons.secondary {
+  color: var(--dark-green);
+  background-color: #fff0;
+  border: 1px solid var(--dark-green);
+  box-sizing: border-box;
+}
+
+.btnPositionButtons > label {
+  background-color: white;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.btnPositionButtons.secondary > label {
+  background-color: var(--dark-green);
 }
 
 /*

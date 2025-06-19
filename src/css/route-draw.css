@@ -22,7 +22,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   row-gap: 15px;
 }
 
