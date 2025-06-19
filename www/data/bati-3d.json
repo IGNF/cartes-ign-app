@@ -21,38 +21,11 @@
   },
   "layers": [
     {
-      "id": "cimetiere surfacique 1-vol",
-      "type": "fill-extrusion",
-      "source": "plan_ign",
-      "source-layer": "bati_surf",
-      "minzoom": 16,
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": [
-        "in",
-        "symbo",
-        "CIMETIERE_SURF",
-        "CIMETIERE_MILI_SURF",
-        "NECROPOLE_NATIONALE"
-      ],
-      "paint": {
-        "fill-extrusion-height": [
-          "get", "hauteur"
-        ],
-        "fill-extrusion-color": "#F0F0F0",
-        "fill-extrusion-opacity": 0.7
-      },
-      "metadata": {
-        "legend-title": "Cimetière"
-      }
-    },
-    {
       "id": "bati surfacique mairie - Zoom 15,16,17,18-vol",
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -78,7 +51,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -107,7 +80,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -133,7 +106,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "metadata": {
         "legend-group": "bati_surf_fonctionnel_sportif",
         "legend-title": "Bâtiment sportif"
@@ -159,7 +132,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -184,7 +157,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -209,15 +182,14 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
       "filter": [
         "in",
         "symbo",
-        "ECLUSE_SURF",
-        "RESERVOIR_EAU_SURF"
+        "ECLUSE_SURF"
       ],
       "paint": {
         "fill-extrusion-height": [
@@ -235,7 +207,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -260,7 +232,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -285,7 +257,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -310,7 +282,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -335,7 +307,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -360,7 +332,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -385,7 +357,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -411,7 +383,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -442,7 +414,7 @@
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -468,67 +440,11 @@
       }
     },
     {
-      "id": "bati sportif surfacique fond-vol",
-      "type": "fill-extrusion",
-      "source": "plan_ign",
-      "source-layer": "bati_surf",
-      "metadata": {
-        "legend-group": "bati_sportif_surfacique",
-        "legend-title": "Terrain de sport"
-      },
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": [
-        "in",
-        "symbo",
-        "TENNIS_SURF",
-        "SPORT_INDIF_SURF",
-        "FOOT_SURF",
-        "MULTI_SPORT_SURF",
-        "PISTE_SPORT_SURF",
-        "NATATION_SURF"
-      ],
-      "paint": {
-        "fill-extrusion-height": [
-          "get", "hauteur"
-        ],
-        "fill-extrusion-color": "#F1F5E7",
-        "fill-extrusion-opacity": 0.7
-      }
-    },
-    {
-      "id": "bati transport surfacique - piste-vol",
-      "type": "fill-extrusion",
-      "source": "plan_ign",
-      "source-layer": "bati_surf",
-      "minzoom": 16,
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": [
-        "in",
-        "symbo",
-        "PISTE_DUR",
-        "PISTE_HERBE"
-      ],
-      "paint": {
-        "fill-extrusion-height": [
-          "get", "hauteur"
-        ],
-        "fill-extrusion-color": "#DBDBDB",
-        "fill-extrusion-opacity": 0.7
-      },
-      "metadata": {
-        "legend-title": "Piste d'aérodrome"
-      }
-    },
-    {
       "id": "bati transport surfacique - bati peage-vol",
       "type": "fill-extrusion",
       "source": "plan_ign",
       "source-layer": "bati_surf",
-      "minzoom": 16,
+      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
