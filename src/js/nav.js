@@ -557,6 +557,9 @@ class MenuNavigation {
       DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-right").classList.remove("d-none");
       Globals.compare.hide();
       Globals.interactivityIndicator.enable();
+      if (Globals.threeD.terrainOn || Globals.threeD.buildingsOn) {
+        Globals.map.setPitch(45);
+      }
       break;
     case "routeDrawSave":
       // Réouverture de routeDraw sans utilisr this.open("routeDraw")
