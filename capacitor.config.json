@@ -1,6 +1,6 @@
 {
   "appId": "fr.ign.geoportail",
-  "appName": "geoportail-app",
+  "appName": "cartes-ign-app",
   "webDir": "www",
   "server": {
     "androidScheme": "https"
