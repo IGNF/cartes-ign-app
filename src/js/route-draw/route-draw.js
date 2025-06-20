@@ -116,6 +116,7 @@ class RouteDraw {
     this.handleRestoreChange = this.#restoreChange.bind(this);
     this.handleToggleDelete = this.toggleDelete.bind(this);
     this.handleRouteSave = this.#onRouteSave.bind(this);
+    this.handleRouteSnap = this.#routeSnap.bind(this);
 
     // historique pour l'annulation et la restauration
     this.dataHistory = [];
@@ -368,6 +369,7 @@ class RouteDraw {
     DOM.$routeDrawRestore.addEventListener("click", this.handleRestoreChange);
     DOM.$routeDrawDelete.addEventListener("click", this.handleToggleDelete);
     DOM.$routeDrawSave.addEventListener("click", this.handleRouteSave);
+    DOM.$routeDrawSnap.addEventListener("click", this.handleRouteSnap);
   }
 
   /**
@@ -382,6 +384,7 @@ class RouteDraw {
     DOM.$routeDrawRestore.removeEventListener("click", this.handleRestoreChange);
     DOM.$routeDrawDelete.removeEventListener("click", this.handleToggleDelete);
     DOM.$routeDrawSave.removeEventListener("click", this.handleRouteSave);
+    DOM.$routeDrawSnap.removeEventListener("click", this.handleRouteSnap);
   }
 
   /**
@@ -1061,6 +1064,25 @@ class RouteDraw {
     this.map.off("click", this.handleAddWayPoint);
     this.map.on("click", RouteDrawLayers["point"].id, this.handleDeletePoint);
     DOM.$routeDrawDelete.classList.remove("inactive");
+  }
+
+  /**
+   * recale l'itinéraire sur le graphe
+   */
+  #routeSnap() {
+    this.#saveState();
+    const promises = [];
+    for (let index = 0; index < this.data.steps.length; index++) {
+      const step = this.data.steps[index];
+      step.properties.mode = 1;
+      promises.push(this.#computeStep(index, 1));
+    }
+    Promise.all(promises).then(() => {
+      this.#updateElevation();
+      this.#updateSources();
+      this.__updateRouteInfo(this.data);
+      this.#saveState();
+    });
   }
 
   /**

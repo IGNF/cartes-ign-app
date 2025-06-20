@@ -91,6 +91,9 @@ const addListeners = () => {
       Globals.compareLandmark.location = [Globals.mapRLT1.getCenter().lng, Globals.mapRLT1.getCenter().lat];
     }
   });
+
+  // Bouton de retour à l'enregistrement de la trace active
+  DOM.$trackRecordBtn.addEventListener("click", () => { Globals.menu.open("trackRecord"); });
 };
 
 export default {

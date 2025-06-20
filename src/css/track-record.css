@@ -1,0 +1,142 @@
+#trackRecordContainer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+#finishRecordContainer {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#trackRecordWindow .thin {
+  font-weight: thin;
+  margin-bottom: 10px;
+}
+
+.trackRecordBtn {
+  font-family: "Open Sans Semibold";
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 100px;
+  display : flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#trackRecordContainer button {
+  width: 158px;
+  height: 48px;
+  align-items: center;
+}
+
+.actionSheet-list.centerHorizontally {
+  align-items: center;
+}
+
+.actionSheet-list > .trackRecordBtn, #nameTrackSave{
+  width: 245px;
+}
+
+#nameTrackSave{
+  width: 146px;
+  margin: 0 auto;
+}
+
+.finish-track-subtitle {
+  pointer-events: none;
+  text-align: center;
+  max-width: 300px;
+}
+
+.trackRecordBtn.primary {
+  border-color: var(--dark-green);
+  color: white;
+  background-color: var(--dark-green);
+  border: solid 1px;
+}
+
+.trackRecordBtn.secondary {
+  border-color: var(--dark-green);
+  color:  var(--dark-green);
+  background-color: white;
+  border: solid 1px;
+}
+
+.trackRecordBtn.terciary {
+  border-style: none;
+}
+
+.deleteRecord {
+  color: var(--orange);
+  padding-top: 0;
+}
+
+.startRecordPicto {
+    background-image: url(../html/img/player.svg);
+    height: 16px;
+    width: 13px;
+    background-size: cover;
+    flex-shrink: 0;
+    margin-right: 6px;
+  }
+
+.whileRecordingPicto, .pauseRecordPicto {
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    flex-shrink: 0;
+  }
+
+.whileRecordingPicto {
+  background-image: url(../html/img/recording.svg);
+}
+.pauseRecordPicto {
+  background-image: url(../html/img/pause.svg);
+}
+
+.btn-label {
+  margin-left: 3px;
+  line-height: 30px;
+}
+
+.trackResume {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.trackResume > span {
+  font-size: 15px;
+  font-family: 'Fira Sans Semibold';
+  display: block;
+  margin-bottom: 18px;
+}
+
+#nameTrack > h3 {
+  text-align: center;
+}
+
+.trackResume {
+  font-size: larger;
+}
+
+.track-input-text {
+  font-family: "Open Sans";
+  border-radius: 8px;
+  outline: none;
+  box-shadow: 0px 0px 0px 0px;
+  border: 1px solid var(--grey-2);
+  padding: 9px 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
+  #trackRecordWindow {
+    padding-bottom: calc(19px + var(--safe-area-inset-bottom));
+  }
+}

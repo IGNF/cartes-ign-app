@@ -22,19 +22,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   row-gap: 15px;
 }
 
 #routeDrawMode {
   background-color: var(--dark-green);
-  color: white;
   font-family: "Open Sans Semibold";
   font-size: 14px;
   width: fit-content;
   padding: 12px 28px;
   border-radius: 100px;
   flex-shrink: 0;
+  border-color: var(--dark-green);
+  color: var(--dark-green);
+  background-color: white;
+  border: solid 1px;
 }
 
 #routeDrawModeActionSheet > div:not(:first-child) {
@@ -274,7 +277,6 @@
   border: 1px solid var(--grey-2);
   padding: 9px 8px;
   flex-grow: 1;
-
 }
 
 #routeDrawSaveNameInput::placeholder {

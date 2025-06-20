@@ -135,18 +135,18 @@ class Position {
     // template litteral
     var htmlButtons = `
       <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
-      <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
-      <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
-      <button id="positionLandmark" class="btnPositionButtons"><label class="lblPositionImg lblPositionLandmarkImg"></label>Enregistrer</button>
-      <button id="positionSignal" class="btnPositionButtons"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
+      <button id="positionNear" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+      <button id="positionShare" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+      <button id="positionLandmark" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionLandmarkImg"></label>Enregistrer</button>
+      <button id="positionSignal" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
       `;
 
     if (type === "myposition") {
       htmlButtons = `
         <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
-        <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
-        <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
-        <button id="positionLandmark" class="btnPositionButtons"><label class="lblPositionImg lblPositionLandmarkImg"></label>Point de repère</button>
+        <button id="positionNear" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+        <button id="positionRoute" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+        <button id="positionLandmark" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionLandmarkImg"></label>Point de repère</button>
       `;
     }
 
@@ -155,9 +155,9 @@ class Position {
     if (type === "landmark") {
       htmlButtons = `
         <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
-        <button id="positionNear" class="btnPositionButtons"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
-        <button id="positionShare" class="btnPositionButtons"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
-        <button id="positionSignal" class="btnPositionButtons"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
+        <button id="positionNear" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+        <button id="positionShare" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+        <button id="positionSignal" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
       `;
       htmlAdvanced = `
         <label id="position-landmark-show-advanced-tools" title="Plus d'outils" class="tools-layer-advanced" role="button" tabindex="0"></label>

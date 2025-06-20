@@ -49,7 +49,7 @@
   <key>NSLocationWhenInUseUsageDescription</key>
   <string>Votre position est nécessaire pour vous positionner sur la carte et calculer des itinéraires et isochrones à partir de votre position</string>
   <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-  <string>Votre position en arrière-plan est nécessaire pour réaliser de l'enregistrement de trace lorsque le téléphone est vérouillé ou lorsque vous ovrez d'autres applications.</string>
+  <string>La position en arrière-plan est nécessaire pour enregistrer la trace avec l'application fermée ou le téléphone vérouillé.</string>
   <key>UIBackgroundModes</key>
   <array>
     <string>location</string>

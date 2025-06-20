@@ -102,6 +102,9 @@ let compareLandmark = null;
 // Global control offline maps
 let offlineMaps = null;
 
+// Global control track record
+let trackRecord = null;
+
 // Global control immersive notifications
 let immersiveNotifications = null;
 
@@ -198,4 +201,5 @@ export default {
   immersiveNotifications,
   newPlaceNotifEnabled,
   threeD,
+  trackRecord,
 };

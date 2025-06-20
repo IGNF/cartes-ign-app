@@ -7,7 +7,8 @@
   },
   "android": {
     "overrideUserAgent": "IGN-app-android",
-    "flavor": "google"
+    "flavor": "google",
+    "useLegacyBridge": true
   },
   "ios": {
     "overrideUserAgent": "IGN-app-ios",

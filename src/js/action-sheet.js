@@ -75,6 +75,9 @@ class ActionSheet extends EventTarget {
   _createGenericOptionsHtml(options, wrapperClass, elementClass) {
     const div = document.createElement("div");
     div.classList.add(wrapperClass);
+    if (this._wrapperCustomClass) {
+      div.classList.add(this._wrapperCustomClass);
+    }
     for (let i = 0; i < options.length; i++) {
       const option = options[i];
       const elem = document.createElement("div");
@@ -143,6 +146,7 @@ class ActionSheet extends EventTarget {
     this._shown = true;
     this.settings = settings || {
       style: "list", // can be "buttons", "list", "custom"
+      wrapperCustomClass : "", // custom container class 
       options: [], // {class: "", text: "", value: "", confirmCallback: null}
       title: "",
       content: "", // dom element if "custom" style
@@ -151,6 +155,7 @@ class ActionSheet extends EventTarget {
     };
 
     this._title = this.settings.title || "";
+    this._wrapperCustomClass = this.settings.wrapperCustomClass || "";
     this._options = this.settings.options || [];
     this._style = this.settings.style || "list";
     this._content = this.settings.content || "";

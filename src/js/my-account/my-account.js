@@ -497,14 +497,14 @@ class MyAccount {
         });
       }
       // Mode Route
-      if (imported.type === "FeatureCollection") {
+      if (imported.type === "FeatureCollection" || (imported.type === "Feature" && imported.geometry.type === "LineString")) {
         if (!imported.data) {
           imported.data = {};
         }
         if (!imported.data.name) {
           imported.data.name = imported.features[0].properties.name || defaultName;
         }
-        this.addRoute(this.#geojsonToRoute(imported));
+        this.addRoute(this.geojsonToRoute(imported));
         Toast.show({
           duration: "long",
           text: `Itinéraire "${imported.data.name}" ajouté à 'Enregistrés' et à la carte`,
@@ -534,6 +534,14 @@ class MyAccount {
   }
 
   /**
+   * Ajout d'un itinéraire enregistré par trace GPS
+   * @param {*} trackGeojson
+   */
+  addTrack(trackGeojson) {
+    return this.addRoute(this.geojsonToRoute(trackGeojson));
+  }
+
+  /**
    * Ajout d'un itinéraire tracé à l'espace utilisateur
    * @param {*} drawRouteSaveOptions
    */
@@ -557,8 +565,8 @@ class MyAccount {
       coordinates = coordinates.concat(step.geometry.coordinates);
     });
     const bounds = coordinates.reduce((bounds, coord) => {
-      return bounds.extend(coord);
-    }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+      return bounds.extend([coord[0], coord[1]]);
+    }, new maplibregl.LngLatBounds([coordinates[0][0], coordinates[0][1]], [coordinates[0][0], coordinates[0][1]]));
     if (Location.isTrackingActive()) {
       Location.disableTracking();
     }
@@ -572,6 +580,7 @@ class MyAccount {
         });
       }, 100);
     });
+    return drawRouteSaveOptions.id;
   }
 
   /**
@@ -759,8 +768,8 @@ class MyAccount {
       coordinates = coordinates.concat(step.geometry.coordinates);
     });
     const bounds = coordinates.reduce((bounds, coord) => {
-      return bounds.extend(coord);
-    }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+      return bounds.extend([coord[0], coord[1]]);
+    }, new maplibregl.LngLatBounds([coordinates[0][0], coordinates[0][1]], [coordinates[0][0], coordinates[0][1]]));
     if (Location.isTrackingActive()) {
       Location.disableTracking();
     }
@@ -802,8 +811,8 @@ class MyAccount {
       coordinates = coordinates.concat(step.geometry.coordinates);
     });
     const bounds = coordinates.reduce((bounds, coord) => {
-      return bounds.extend(coord);
-    }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+      return bounds.extend([coord[0], coord[1]]);
+    }, new maplibregl.LngLatBounds([coordinates[0][0], coordinates[0][1]], [coordinates[0][0], coordinates[0][1]]));
 
     const mapPadding = {};
     if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
@@ -858,8 +867,8 @@ class MyAccount {
       coordinates = coordinates.concat(step.geometry.coordinates);
     });
     const bounds = coordinates.reduce((bounds, coord) => {
-      return bounds.extend(coord);
-    }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+      return bounds.extend([coord[0], coord[1]]);
+    }, new maplibregl.LngLatBounds([coordinates[0][0], coordinates[0][1]], [coordinates[0][0], coordinates[0][1]]));
     if (Location.isTrackingActive()) {
       Location.disableTracking();
     }
@@ -872,6 +881,23 @@ class MyAccount {
     Globals.routeDraw.setName(route.name);
     Globals.routeDraw.setId(route.id);
     Globals.routeDraw.showDetails();
+  }
+
+  /**
+  * Ouvre l'outil de tracé d'itinéraire en mode consultation pour afficher les caractéristiques techniques à partir de son ID
+  * @param {Number} routeId
+  */
+  showRouteDetailsFromID(routeId) {
+    try {
+      this.showRouteDetails(this.#getRouteFromID(routeId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**
@@ -1205,7 +1231,7 @@ ${props.text}`,
         });
         // For testing purposes
         if (!Capacitor.isNativePlatform()) {
-          jsUtils.download(`${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`, JSON.stringify(this.#routeToGeojson(route)));
+          jsUtils.download(fileName, JSON.stringify(this.#routeToGeojson(route)));
         }
       } else if (value === "gpx") {
         formatName = "GPX";
@@ -1227,6 +1253,10 @@ ${props.text}`,
           directory: Directory.Documents,
           encoding: Encoding.UTF8,
         });
+        // For testing purposes
+        if (!Capacitor.isNativePlatform()) {
+          jsUtils.download(fileName, gpxString);
+        }
       } else {
         Toast.show({
           text: "Annulation de l'export",
@@ -1352,8 +1382,8 @@ ${props.text}`,
         coordinates = coordinates.concat(step.geometry.coordinates);
       });
       const bounds = coordinates.reduce((bounds, coord) => {
-        return bounds.extend(coord);
-      }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
+        return bounds.extend([coord[0], coord[1]]);
+      }, new maplibregl.LngLatBounds([coordinates[0][0], coordinates[0][1]], [coordinates[0][0], coordinates[0][1]]));
       if (Location.isTrackingActive()) {
         Location.disableTracking();
       }
@@ -1513,7 +1543,14 @@ ${props.text}`,
    * @param {*} route
    * @returns
    */
-  #geojsonToRoute(routeJson) {
+  geojsonToRoute(routeJson) {
+    if (routeJson.type === "Feature") {
+      routeJson = {
+        type: "FeatureCollection",
+        features: [routeJson],
+        data : routeJson.data || {}
+      };
+    }
     routeJson.features.forEach(feature => {
       if (feature.geometry.type === "MultiLineString") {
         feature.geometry.coordinates.forEach(linestringCoords => {
@@ -1536,7 +1573,7 @@ ${props.text}`,
     steps.forEach((step) => {
       step.properties.id = stepId;
       stepId--;
-      step.properties.mode = 1;
+      step.properties.mode = 0;
     });
     for(let i = 0; i < points.length; i++) {
       const point = points[i];
@@ -1572,6 +1609,7 @@ ${props.text}`,
         const feature = steps[i];
         const lastIndex = feature.geometry.coordinates.length - 1;
         let pointIndexStep = 1;
+        // Maximum 50 points pour ne pas avoir un affichage qui plante
         if (feature.geometry.coordinates.length > 50) {
           pointIndexStep = lastIndex / 50;
         }
@@ -1628,7 +1666,7 @@ ${props.text}`,
       routeJson.data = {};
     }
     return {
-      name: routeJson.data.name,
+      name: routeJson.data.name || "itinéraire",
       transport: routeJson.data.transport || "pedestrian",
       visible: true,
       data: {
