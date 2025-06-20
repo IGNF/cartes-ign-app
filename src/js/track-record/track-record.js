@@ -123,7 +123,6 @@ class TrackRecord {
       return;
     }
     this.requestNotificationPermission();
-    this.#startBgTracking();
     this.recording = true;
     this.activeRecord = true;
     this.startTime = new Date().getTime();
@@ -134,7 +133,7 @@ class TrackRecord {
     this.dom.closeRecordBtn.classList.add("d-none");
     this.dom.whileRecordingBtn.classList.remove("d-none");
     this.dom.finishRecordBtn.classList.remove("d-none");
-    Location.target.addEventListener("geolocationWatch", this.onNewLocationCallback);
+    this.#startBgTracking();
 
     // REMOVEME: testing
     if (!Capacitor.isNativePlatform()) {
@@ -153,7 +152,6 @@ class TrackRecord {
     this.recording = false;
     this.dom.whileRecordingBtn.classList.add("d-none");
     this.dom.pauseRecordBtn.classList.remove("d-none");
-    Location.target.removeEventListener("geolocationWatch", this.onNewLocationCallback);
     this.#stopBgTracking();
 
     // REMOVEME: testing
@@ -175,7 +173,6 @@ class TrackRecord {
     this.dom.whileRecordingBtn.classList.remove("d-none");
     this.dom.pauseRecordBtn.classList.add("d-none");
 
-    Location.target.addEventListener("geolocationWatch", this.onNewLocationCallback);
     this.#startBgTracking();
 
     // REMOVEME: testing
@@ -257,7 +254,6 @@ class TrackRecord {
       this.dom.whileRecordingBtn.classList.add("d-none");
       this.dom.pauseRecordBtn.classList.remove("d-none");
     }
-    Location.target.removeEventListener("geolocationWatch", this.onNewLocationCallback);
     this.#stopBgTracking();
 
     // REMOVEME: testing
@@ -496,9 +492,6 @@ class TrackRecord {
       async (position, error) => {
         if (error) {
           console.error("Geolocation error:", error);
-          return;
-        }
-        if (!this.isBackground) {
           return;
         }
         this.#onNewLocation({
