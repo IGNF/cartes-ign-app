@@ -18,5 +18,5 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        title: ${{ github.ref }}
-        tag: ${{ github.ref }}
+        title: ${{ github.ref_name }}
+        tag: ${{ github.ref_name }}
