@@ -425,6 +425,7 @@ class MenuNavigation {
       DOM.$trackRecordBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$tabHeader.classList.add("d-none");
+      Globals.currentScrollIndex = 2;
       break;
     default:
       break;
