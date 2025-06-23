@@ -18,6 +18,7 @@ import MapLibreGL from "maplibre-gl";
 import { Toast } from "@capacitor/toast";
 
 import turfLength from "@turf/length";
+import pThrottle from "p-throttle";
 
 import RouteDepartureIcon from "../../css/assets/route-draw/departure-marker.png";
 import RouteDestinationIcon from "../../css/assets/route-draw/destination-marker.png";
@@ -153,6 +154,11 @@ class RouteDraw {
 
     // requête en cours d'execution ?
     this.loading = false;
+
+    this.throttle = pThrottle({
+      limit: 4,
+      interval: 1000
+    });
 
     return this;
   }
@@ -767,15 +773,16 @@ class RouteDraw {
   async #computeStep(index, mode = this.mode, computeElevation = true) {
     const firstPoint = this.data.points[index];
     const lastPoint = this.data.points[index + 1];
+    let distance, duration, stepCoords;
     // saisie libre
     if (mode === 0) {
-      var distance = new MapLibreGL.LngLat(
+      distance = new MapLibreGL.LngLat(
         lastPoint.geometry.coordinates[0], lastPoint.geometry.coordinates[1]
       ).distanceTo(
         new MapLibreGL.LngLat(firstPoint.geometry.coordinates[0], firstPoint.geometry.coordinates[1])
       );
-      var duration = distance / (4 / 3.6); // 4 km/h divisé par 3.6 pour m/s
-      var stepCoords = [
+      duration = distance / (4 / 3.6); // 4 km/h divisé par 3.6 pour m/s
+      stepCoords = [
         firstPoint.geometry.coordinates,
         lastPoint.geometry.coordinates
       ];
@@ -814,7 +821,7 @@ class RouteDraw {
           new MapLibreGL.LngLat(json.geometry.coordinates[0][0], json.geometry.coordinates[0][1])
         );
         const duration = distance / (4 / 3.6); // 4 km/h divisé par 3.6 pour m/s
-        const stepCoords = [
+        stepCoords = [
           oldFirstPoint.geometry.coordinates,
           json.geometry.coordinates[0]
         ];
@@ -1071,17 +1078,21 @@ class RouteDraw {
    */
   #routeSnap() {
     this.#saveState();
+    DOM.$routeDrawSnap.classList.add("loading");
     const promises = [];
     for (let index = 0; index < this.data.steps.length; index++) {
       const step = this.data.steps[index];
       step.properties.mode = 1;
-      promises.push(this.#computeStep(index, 1));
+      const throttled = this.throttle( async (idx) => this.#computeStep(idx, 1) );
+      const promise = throttled(index);
+      promises.push(promise);
     }
     Promise.all(promises).then(() => {
       this.#updateElevation();
       this.#updateSources();
       this.__updateRouteInfo(this.data);
       this.#saveState();
+      DOM.$routeDrawSnap.classList.remove("loading");
     });
   }
 

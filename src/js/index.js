@@ -152,7 +152,6 @@ function app() {
           StatusBar.setOverlaysWebView({ overlay: true });
         }
         StatusBar.setStyle({ style: Style.Light });
-        StatusBar.getInfo().then(console.log);
       }
     }, 500);
     if (Capacitor.isNativePlatform()) {

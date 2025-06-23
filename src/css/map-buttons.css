@@ -373,6 +373,10 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
   background-image: url("assets/route-draw/arrow-left-darkgrey.svg");
 }
 
+#routeDrawSnap.loading {
+  background-image: url("assets/loading-green.svg");
+}
+
 #routeDrawSave {
   background-color: var(--dark-green);
   border: 1px solid var(--dark-green);

@@ -61,8 +61,8 @@
     "@turf/clean-coords": "^7.2.0",
     "@turf/length": "^7.2.0",
     "@turf/line-slice": "^7.2.0",
-    "@turf/union": "^7.2.0",
     "@turf/point-to-line-distance": "^7.2.0",
+    "@turf/union": "^7.2.0",
     "@xmldom/xmldom": "^0.8.10",
     "capacitor-native-settings": "^7.0.1",
     "chart.js": "^4.4.1",
@@ -72,6 +72,7 @@
     "maplibre-gl": "^5.3.1",
     "npm": "^10.5.0",
     "p-limit": "^6.2.0",
+    "p-throttle": "^7.0.0",
     "proj4": "^2.10.0"
   },
   "devDependencies": {
