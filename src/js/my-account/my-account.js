@@ -821,10 +821,12 @@ class MyAccount {
       mapPadding.left = this.map.getContainer().offsetWidth / 2 - 85;
       mapPadding.right = this.map.getContainer().offsetWidth / 2 - 85;
     } else {
-      mapPadding.bottom = (3 * this.map.getContainer().offsetWidth / 4) - 85;
-      mapPadding.top = (3 * this.map.getContainer().offsetWidth / 4) - 85;
-      mapPadding.left = (this.map.getContainer().offsetHeight / 2) - 85;
-      mapPadding.right = (this.map.getContainer().offsetHeight / 2) - 85;
+      const paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
+                  Math.min(window.innerHeight, window.innerWidth / 2) + 42;
+      mapPadding.bottom = this.map.getContainer().offsetHeight / 2 - 85;
+      mapPadding.top = this.map.getContainer().offsetHeight / 2 - 85;
+      mapPadding.right = (this.map.getContainer().offsetWidth - paddingLeft) / 2 - 85;
+      mapPadding.left = (this.map.getContainer().offsetWidth + paddingLeft) / 2 - 85;
     }
     this.map.fitBounds(bounds, {
       padding: mapPadding,

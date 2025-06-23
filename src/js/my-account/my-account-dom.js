@@ -322,7 +322,7 @@ let MyAccountDOM = {
         options: [
           {
             class: "tools-layer-download",
-            text: "Télecharger le plan",
+            text: "Télécharger le plan",
             value: "download",
           },
           {
