@@ -374,7 +374,7 @@ class RouteDraw {
     DOM.$routeDrawCancel.addEventListener("click", this.handleCancelChange);
     DOM.$routeDrawRestore.addEventListener("click", this.handleRestoreChange);
     DOM.$routeDrawDelete.addEventListener("click", this.handleToggleDelete);
-    DOM.$routeDrawSave.addEventListener("click", this.handleRouteSave);
+    DOM.$routeDrawSaveBtn.addEventListener("click", this.handleRouteSave);
     DOM.$routeDrawSnap.addEventListener("click", this.handleRouteSnap);
   }
 
@@ -389,7 +389,7 @@ class RouteDraw {
     DOM.$routeDrawCancel.removeEventListener("click", this.handleCancelChange);
     DOM.$routeDrawRestore.removeEventListener("click", this.handleRestoreChange);
     DOM.$routeDrawDelete.removeEventListener("click", this.handleToggleDelete);
-    DOM.$routeDrawSave.removeEventListener("click", this.handleRouteSave);
+    DOM.$routeDrawSaveBtn.removeEventListener("click", this.handleRouteSave);
     DOM.$routeDrawSnap.removeEventListener("click", this.handleRouteSnap);
   }
 

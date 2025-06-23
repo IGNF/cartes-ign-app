@@ -37,7 +37,7 @@ const $routeDrawEdit = document.getElementById("routeDrawEdit");
 const $routeDrawCancel = document.getElementById("routeDrawCancel");
 const $routeDrawRestore = document.getElementById("routeDrawRestore");
 const $routeDrawDelete = document.getElementById("routeDrawDelete");
-const $routeDrawSave = document.getElementById("routeDrawSave");
+const $routeDrawSaveBtn = document.getElementById("routeDrawSaveBtn");
 const $routeDrawSnap = document.getElementById("routeDrawSnap");
 const $fullScreenBtn = null;
 const $mapScale = null;
@@ -127,7 +127,7 @@ export default {
   $routeDrawCancel,
   $routeDrawRestore,
   $routeDrawDelete,
-  $routeDrawSave,
+  $routeDrawSaveBtn,
   $routeDrawSnap,
   $routeDrawSaveWindow,
   $mapCenter,
