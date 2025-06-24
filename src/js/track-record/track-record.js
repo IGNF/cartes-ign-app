@@ -477,7 +477,7 @@ class TrackRecord {
         backgroundMessage: "Le suivi de position est activé pour l'enregistrement de la trace",
         backgroundTitle: "Cartes IGN : enregistrement de trace GPS",
         requestPermissions: true,
-        distanceFilter: 10,
+        distanceFilter: 25,
       },
       async (position, error) => {
         if (error) {
@@ -518,9 +518,7 @@ class TrackRecord {
       }
     });
 
-    TrackRecordLayers["line-casing"].source = this.configuration.linesource;
     TrackRecordLayers["line"].source = this.configuration.linesource;
-    this.map.addLayer(TrackRecordLayers["line-casing"]);
     this.map.addLayer(TrackRecordLayers["line"]);
 
     this.map.addSource(this.configuration.pointsource, {
@@ -528,14 +526,8 @@ class TrackRecord {
       "data": this.currentPoints,
     });
 
-    TrackRecordLayers["point-casing"].source = this.configuration.pointsource;
     TrackRecordLayers["point"].source = this.configuration.pointsource;
-    TrackRecordLayers["point-departure"].source = this.configuration.pointsource;
-    TrackRecordLayers["point-destination"].source = this.configuration.pointsource;
-    this.map.addLayer(TrackRecordLayers["point-casing"]);
     this.map.addLayer(TrackRecordLayers["point"]);
-    this.map.addLayer(TrackRecordLayers["point-departure"]);
-    this.map.addLayer(TrackRecordLayers["point-destination"]);
   }
 
   /**
