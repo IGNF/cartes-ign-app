@@ -70,6 +70,7 @@ class TrackRecord {
         elevationData: {
           elevationData: [],
           coordinates: [],
+          profileLngLats: [],
           dplus: 0,
           dminus: 0,
           unit: "m",
@@ -279,9 +280,11 @@ class TrackRecord {
     labelDistance.textContent = utils.convertDistance(turfLength(this.currentFeature, {units: "meters"}));
 
     var labelDPlus = routeSummary.querySelector(".routeDrawSummaryDPlus");
+    this.currentFeature.data.elevationData.dplus = Math.round(100 * this.currentFeature.data.elevationData.dplus) / 100;
     labelDPlus.textContent = `${this.currentFeature.data.elevationData.dplus} m`;
 
     var labelDMinus = routeSummary.querySelector(".routeDrawSummaryDMinus");
+    this.currentFeature.data.elevationData.dminus = Math.round(100 * this.currentFeature.data.elevationData.dminus) / 100;
     labelDMinus.textContent = `- ${this.currentFeature.data.elevationData.dminus} m`;
 
     // Actionsheet Button Event
@@ -332,6 +335,7 @@ class TrackRecord {
           elevationData: {
             elevationData: [],
             coordinates: [],
+            profileLngLats: [],
             dplus: 0,
             dminus: 0,
             unit: "m",
@@ -410,6 +414,7 @@ class TrackRecord {
         elevationData: {
           elevationData: [],
           coordinates: [],
+          profileLngLats: [],
           dplus: 0,
           dminus: 0,
           unit: "m",
@@ -449,6 +454,7 @@ class TrackRecord {
     this.currentFeature.geometry.coordinates.push([e.detail.longitude, e.detail.latitude, e.detail.altitude || 0, (new Date()).toISOString()]);
     this.currentFeature.data.elevationData.elevationData.push({x: turfLength(this.currentFeature), y: e.detail.altitude || 0});
     this.currentFeature.data.elevationData.coordinates.push([e.detail.longitude, e.detail.latitude]);
+    this.currentFeature.data.elevationData.profileLngLats.push([e.detail.longitude, e.detail.latitude]);
     if (this.currentPoints.features.length > 1) {
       const lastZ = this.currentFeature.data.elevationData.elevationData[this.currentFeature.data.elevationData.elevationData.length - 2].y;
       if (e.detail.altitude !== undefined && e.detail.altitude !== null) {
