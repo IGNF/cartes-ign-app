@@ -254,3 +254,18 @@
   border-radius: 8px;
   object-fit: cover;
 }
+
+.smallLayer .layer-title {
+  display: flex;
+  flex-direction: column;
+}
+
+span.beta {
+  color: var(--darker-green);
+  background-color: var(--light-green);
+  width: fit-content;
+  padding: 4px 7px;
+  border-radius: 25px;
+  font-size: 9px;
+  font-family: "Open Sans Bold";
+}

@@ -175,7 +175,7 @@ class LayerCatalogue extends EventTarget {
         <div class="layerImg">
           <img src="${ReliefBuildingsImage}" alt="Bâtiments 3D" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
         </div>
-        <div id="3d-buildings" class="layer-title">Bâtiments 3D</div>
+        <div id="3d-buildings" class="layer-title"><span>Bâtiments 3D</span><span class="beta">BÊTA</span></div>
       </div>
       `;
     var buildings3DLayerElement = DomUtils.stringToHTML(buildings3DLayerHtml.trim());
@@ -195,7 +195,7 @@ class LayerCatalogue extends EventTarget {
         <div class="layerImg">
           <img src="${ReliefTerrainImage}" alt="Relief 3D" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
         </div>
-        <div id="3d-terrain" class="layer-title">Relief 3D</div>
+        <div id="3d-terrain" class="layer-title"><span>Relief 3D</span><span class="beta">BÊTA</span></div>
       </div>
       `;
     var terrainLayerElement = DomUtils.stringToHTML(terrainLayerHtml.trim());

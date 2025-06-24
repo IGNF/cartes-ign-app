@@ -370,7 +370,7 @@ TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
 }
 
 #routeDrawSnap {
-  background-image: url("assets/route-draw/arrow-left-darkgrey.svg");
+  background-image: url("assets/route-draw/snap.svg");
 }
 
 #routeDrawSnap.loading {
