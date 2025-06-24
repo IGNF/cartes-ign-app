@@ -29,6 +29,7 @@ import GeoJsonToGpx from "@dwayneparton/geojson-to-gpx";
 
 import LineSlice from "@turf/line-slice";
 import CleanCoords from "@turf/clean-coords";
+import turfLength from "@turf/length";
 
 import LandmarkIconSaved from "../../css/assets/landmark/landmark-saved-map.png";
 import LandmarkIconFavourite from "../../css/assets/landmark/landmark-favourite-map.png";
@@ -1640,14 +1641,28 @@ ${props.text}`,
             pointId--;
           }
           if (integerJ !== lastIndex) {
-            newSteps.push({
+            const newCoordinates = feature.geometry.coordinates.slice(integerJ, Math.floor(Math.round((j + pointIndexStep) * 100) / 100) + 1);
+            const newFeature = {
               type: "Feature",
               geometry: {
                 type: "LineString",
-                coordinates: feature.geometry.coordinates.slice(integerJ, Math.floor(Math.round((j + pointIndexStep) * 100) / 100) + 1),
-              },
-              properties: {...feature.properties, id: pointId},
-            });
+                coordinates: newCoordinates,
+              }
+            };
+
+            let duration = null;
+            if (newCoordinates[0].length >= 4 && newCoordinates[newCoordinates.length - 1].length >= 4) {
+              duration = Date.parse(newCoordinates[newCoordinates.length - 1][3]) - Date.parse(newCoordinates[0][3]);
+              duration = Math.round(duration / 1000); // Convert to seconds
+            }
+            const properties = {...feature.properties, id: pointId};
+            if (duration !== null) {
+              properties.duration = duration;
+            }
+            properties.distance = turfLength(feature);
+
+            newFeature.properties = properties;
+            newSteps.push(newFeature);
           }
         }
       }

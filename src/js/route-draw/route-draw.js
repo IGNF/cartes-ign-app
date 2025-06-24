@@ -1078,12 +1078,13 @@ class RouteDraw {
    */
   #routeSnap() {
     this.#saveState();
+    this.deactivate();
     DOM.$routeDrawSnap.classList.add("loading");
     const promises = [];
     for (let index = 0; index < this.data.steps.length; index++) {
       const step = this.data.steps[index];
       step.properties.mode = 1;
-      const throttled = this.throttle( async (idx) => this.#computeStep(idx, 1) );
+      const throttled = this.throttle( async (idx) => this.#computeStep(idx, 1, false) );
       const promise = throttled(index);
       promises.push(promise);
     }
@@ -1093,6 +1094,7 @@ class RouteDraw {
       this.__updateRouteInfo(this.data);
       this.#saveState();
       DOM.$routeDrawSnap.classList.remove("loading");
+      this.#listeners();
     });
   }
 
