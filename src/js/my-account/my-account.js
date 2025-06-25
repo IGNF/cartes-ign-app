@@ -463,7 +463,16 @@ class MyAccount {
         imported = JSON.parse(rawData);
       }
       // Mode Landmark
-      if (imported.type === "Feature" && imported.geometry.type === "Point") {
+      if (
+        (imported.type === "FeatureCollection" && imported.features.length === 1 && imported.features[0].geometry.type === "Point") ||
+        (imported.type === "Feature" && imported.geometry.type === "Point")
+      ) {
+        if (imported.type === "FeatureCollection") {
+          imported = imported.features[0];
+        }
+        if (imported.properties.name) {
+          imported.properties.title = imported.properties.name;
+        }
         if (!imported.properties) {
           imported.properties = {};
         }
@@ -496,9 +505,8 @@ class MyAccount {
           text: `Point de repère "${imported.properties.title}" ajouté à 'Enregistrés' et à la carte`,
           position: "bottom",
         });
-      }
-      // Mode Route
-      if (imported.type === "FeatureCollection" || (imported.type === "Feature" && imported.geometry.type === "LineString")) {
+      } else if (imported.type === "FeatureCollection" || (imported.type === "Feature" && imported.geometry.type === "LineString")) {
+        // Mode Route
         if (!imported.data) {
           imported.data = {};
         }
