@@ -141,6 +141,13 @@ class TrackRecord {
       return;
     }
     this.recording = false;
+    this.map.getSource("track-record-current-line").setData({
+      "type": "geojson",
+      "data": {
+        "type": "FeatureCollection",
+        "features": []
+      },
+    });
     this.dom.whileRecordingBtn.classList.add("d-none");
     this.dom.pauseRecordBtn.classList.remove("d-none");
     this.#stopBgTracking();
@@ -192,6 +199,13 @@ class TrackRecord {
     this.pauseRecording();
 
     this.recording = false;
+    this.map.getSource("track-record-current-line").setData({
+      "type": "geojson",
+      "data": {
+        "type": "FeatureCollection",
+        "features": []
+      },
+    });
 
     let bindedBackToRecording = this.#backToRecording.bind(this);
     ActionSheet.addEventListener("closeSheet", bindedBackToRecording);
@@ -242,6 +256,13 @@ class TrackRecord {
   #closeRecording() {
     if (this.recording) {
       this.recording = false;
+      this.map.getSource("track-record-current-line").setData({
+        "type": "geojson",
+        "data": {
+          "type": "FeatureCollection",
+          "features": []
+        },
+      });
       this.dom.whileRecordingBtn.classList.add("d-none");
       this.dom.pauseRecordBtn.classList.remove("d-none");
     }
@@ -534,6 +555,17 @@ class TrackRecord {
 
     TrackRecordLayers["point"].source = this.configuration.pointsource;
     this.map.addLayer(TrackRecordLayers["point"]);
+
+    // Ajout de la source pour le pointillé vers position actuelle
+    this.map.addSource("track-record-current-line", {
+      "type": "geojson",
+      "data": {
+        "type": "FeatureCollection",
+        "features": []
+      },
+    });
+    TrackRecordLayers["currentLine"].source = "track-record-current-line";
+    this.map.addLayer(TrackRecordLayers["currentLine"]);
   }
 
   /**

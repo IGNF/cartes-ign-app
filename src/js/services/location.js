@@ -177,7 +177,6 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
     coords.lat = Math.round(coords.lat * 1e6) / 1e6;
     coords.lon = Math.round(coords.lon * 1e6) / 1e6;
     animationId = requestAnimationFrame(() => animateMarker(coords));
-    // Globals.myPositionMarker.setLngLat([coords.lon, coords.lat]);
   } else {
     // on reconstruit le marker
     if (Globals.myPositionMarker !== null) {
@@ -280,6 +279,23 @@ const watchPositionCallback = (position) => {
     const circle = Buffer(point, position.coords.accuracy, {units: "meters"});
     Globals.map.getSource("location-precision").setData(circle);
     currentPosition = position;
+    if (Globals.trackRecord && Globals.trackRecord.recording) {
+      const trackRecordFeatureLength = Globals.trackRecord.currentFeature.geometry.coordinates.length;
+      const line = {
+        type: "Feature",
+        geometry: {
+          type: "LineString",
+          coordinates: [
+            [position.coords.longitude, position.coords.latitude],
+            [
+              Globals.trackRecord.currentFeature.geometry.coordinates[trackRecordFeatureLength - 1][0],
+              Globals.trackRecord.currentFeature.geometry.coordinates[trackRecordFeatureLength - 1][1]
+            ],
+          ],
+        },
+      };
+      Globals.map.getSource("track-record-current-line").setData(line);
+    }
     Preferences.set({
       key: "lastKnownPosition",
       value: JSON.stringify({lat: currentPosition.coords.latitude, lng: currentPosition.coords.longitude}),
