@@ -140,6 +140,7 @@ input[type="submit"].disabled {
   margin-top: 0;
 }
 
+#threeDPopup > .form-submit,
 #onboardingDiv > .form-submit {
   appearance: unset; /* for ios */
   display: block;

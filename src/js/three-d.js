@@ -7,6 +7,8 @@
 import Globals from "./globals";
 import maplibregl from "maplibre-gl";
 
+import PopupUtils from "./utils/popup-utils";
+
 const hillsLayer = {
   id: "hills",
   type: "hillshade",
@@ -40,6 +42,10 @@ class ThreeD {
     this.buildingsLayers = [];
     this.terrainOn = false;
     this.buildingsOn = false;
+
+    this.popup = {
+      popup: null
+    };
 
     return this;
   }
@@ -126,10 +132,18 @@ class ThreeD {
     // Set terrain using the custom source
     Globals.map.setTerrain({ source: "bil-terrain", exaggeration: 1.5 });
     this.addHillShadeToPlanIgn();
-    this.terrainOn = true;
+    if (!this.buildingsOn) {
+      this.showPopup();
+    }
     if (Globals.map.getPitch() < 20) {
       Globals.map.flyTo({pitch: 45, zoom: Math.min(Globals.map.getZoom(), 14)});
+      if (!this.buildingsOn) {
+        Globals.map.once("moveend", () => {
+          this.showPopup();
+        });
+      }
     }
+    this.terrainOn = true;
   }
 
   addHillShadeToPlanIgn() {
@@ -161,8 +175,16 @@ class ThreeD {
     this.buildingsLayers.forEach((layer) => {
       Globals.map.addLayer(layer, layerIdBefore);
     });
+    if (!this.terrainOn) {
+      this.showPopup();
+    }
     if (Globals.map.getPitch() < 20) {
       Globals.map.flyTo({pitch: 45});
+      if (!this.terrainOn) {
+        Globals.map.once("moveend", () => {
+          this.showPopup();
+        });
+      }
     }
     this.buildingsOn = true;
   }
@@ -186,6 +208,32 @@ class ThreeD {
     if (!this.buildingsOn) {
       Globals.map.flyTo({pitch: 0});
     }
+  }
+
+  showPopup() {
+    if (localStorage.getItem("dontShowThreeDPopupAgain") === "true") {
+      return;
+    }
+    PopupUtils.showPopup(
+      `
+      <div id="threeDPopup">
+          <div class="divPositionTitle">Profitez des vues 3D en toute conscience !</div>
+          <div class="divPopupClose" onclick="onClosethreeDPopup(event)"></div>
+          <div class="divPopupContent">
+          Les vues 3D sont immersives mais elles demandent un peu d’effort à votre téléphone. Sur certains appareils, cela peut faire baisser la batterie plus vite ou rendre l’affichage moins fluide.
+          </div>
+          <div id="threeDConfirm" class="form-submit">J'ai compris</div>
+      </div>
+      `,
+      this.map,
+      "threeDPopup",
+      "onClosethreeDPopup",
+      this.popup
+    );
+    document.querySelector("#threeDConfirm").addEventListener("click", () => {
+      localStorage.setItem("dontShowThreeDPopupAgain", "true");
+      window.onClosethreeDPopup();
+    });
   }
 }
 

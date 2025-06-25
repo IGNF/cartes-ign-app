@@ -243,7 +243,7 @@ class InteractivityIndicator {
       this.map,
       "interactivityPopup",
       "onCloseinteractivityPopup",
-      this.addressInfoPopup
+      this.popup
     );
   }
 
