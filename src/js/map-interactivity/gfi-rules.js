@@ -184,21 +184,28 @@ const gfiRules = {
 
   "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS": {
     12: {
-      "title": "@nom",
+      "title": "@nom_officiel",
       "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
-        ["Commune :", "{{nom}}"],
-        ["Code INSEE :", "{{insee_com}}"],
+        ["Commune :", "{{nom_officiel}}"],
+        ["Code INSEE :", "{{code_insee}}"],
         ["Statut :", "{{statut}}"],
-        ["Département :", "{{insee_dep}}"],
+        ["Département :", "{{code_insee_du_departement}}"],
         ["Population : {{population}} habitants"],
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=COM-{{insee_com}}\">Accéder à la fiche INSEE</a></p>", "<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{fiche_wikipedia}}\">Accéder à la fiche Wikipédia</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=COM-{{code_insee}}\">Accéder à la fiche INSEE</a></p>", "<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{fiche_wikipedia}}\">Accéder à la fiche Wikipédia</a></p>"]
+      ],
+    },
+    11: {
+      "title": "@nom_officiel",
+      "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
+      "bodyBefore": [
+        ["Nature : Canton"],
       ],
     },
     10: {
-      "title": "@nom",
+      "title": "@nom_officiel",
       "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
         ["Nature :", "{{nature}}"],
@@ -208,30 +215,30 @@ const gfiRules = {
       ],
     },
     9: {
-      "title": "@nom",
+      "title": "@nom_officiel",
       "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
-        ["Arrondissement Départemental :", "{{nom}}"],
+        ["Arrondissement Départemental :", "{{nom_officiel}}"],
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=ARR-{{insee_dep}}{{insee_arr}}\">Accéder à la fiche INSEE</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=ARR-{{code_insee_du_departement}}{{code_insee}}\">Accéder à la fiche INSEE</a></p>"]
       ],
     },
     7: {
-      "title": "@nom",
+      "title": "@nom_officiel",
       "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyBefore": [
-        ["Code INSEE :", "{{insee_dep}}"],
+        ["Code INSEE :", "{{code_insee}}"],
       ],
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=DEP-{{insee_dep}}\">Accéder à la fiche INSEE</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=DEP-{{code_insee}}\">Accéder à la fiche INSEE</a></p>"]
       ],
     },
     0: {
-      "title": "@nom",
+      "title": "@nom_officiel",
       "subtitle": "Limites administratives mises à jour en continu - Source : IGN",
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=REG-{{insee_reg}}\">Accéder à la fiche INSEE</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"https://www.insee.fr/fr/statistiques/2011101?geo=REG-{{code_insee}}\">Accéder à la fiche INSEE</a></p>"]
       ],
     },
   },

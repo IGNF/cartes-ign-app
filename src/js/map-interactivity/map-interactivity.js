@@ -410,7 +410,7 @@ class MapInteractivity {
             geometry: res.features[0].geometry,
           };
         }
-      });
+      }).catch(console.error);
       return response;
     });
 
