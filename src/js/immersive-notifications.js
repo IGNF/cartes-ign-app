@@ -15,9 +15,9 @@ import Location from "./services/location";
 
 import requestUtils from "./utils/request-utils";
 
-import QueryConfig from "./data-layer/immersive-position-config.json";
-import Code_cultuCaption from "./data-layer/code_cultu-caption.json";
-import Code_tfvCaption from "./data-layer/code_tfv-caption.json";
+import QueryConfig from "../../config/immersive-position-config.json";
+import Code_cultuCaption from "../../config/code_cultu-caption.json";
+import Code_tfvCaption from "../../config/code_tfv-caption.json";
 
 import maplibregl from "maplibre-gl";
 import PointToLineDistance from "@turf/point-to-line-distance";

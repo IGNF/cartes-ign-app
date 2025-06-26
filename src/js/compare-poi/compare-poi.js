@@ -12,7 +12,7 @@ import ActionSheet from "../action-sheet";
 
 import { Toast } from "@capacitor/toast";
 
-import ComparePoiData from "../data-layer/poi_rlt.json";
+import ComparePoiData from "../../../config/poi_rlt.json";
 import ComparePoiIcon from "../../css/assets/comparePoi.png";
 import ComparePoiIconSvg from "../../css/assets/comparePoi.svg";
 import CompareLandmarkBlue from "../../css/assets/compareLandmark/compare-landmark-blue.svg";

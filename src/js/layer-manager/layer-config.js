@@ -15,9 +15,9 @@
  * La liste des couches de fonds et thématiques est definie dans un fichier de configuration.
  * @todo prévoir le multi couche pour les couches vecteurs tuilés
  */
-import BaseLayers from "../data-layer/base-layer-config.json";
-import ThematicLayers from "../data-layer/thematics-layer-config.json";
-import ConfigLayers from "../data-layer/layers-config.json";
+import BaseLayers from "../../../config/base-layer-config.json";
+import ThematicLayers from "../../../config/thematics-layer-config.json";
+import ConfigLayers from "../../../config/layers-config.json";
 
 let baseLayers;
 let thematicLayers;

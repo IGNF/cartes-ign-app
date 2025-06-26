@@ -4,8 +4,8 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import InseeCommWiki from "../data-layer/com_wiki.json";
-import GfiRules from "../data-layer/gfi-rules.json";
+import InseeCommWiki from "../../../config/com_wiki.json";
+import GfiRules from "../../../config/gfi-rules.json";
 let inseeCommWiki;
 try {
   const resp = await fetch("https://ignf.github.io/cartes-ign-app/com_wiki.json");
@@ -16,7 +16,7 @@ try {
 
 let gfiRulesProps;
 try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/com_wiki.json");
+  const resp = await fetch("https://ignf.github.io/cartes-ign-app/gfi-rules.json");
   gfiRulesProps = await resp.json();
 } catch (e) {
   gfiRulesProps = GfiRules;

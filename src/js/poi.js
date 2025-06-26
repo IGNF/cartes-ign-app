@@ -9,7 +9,7 @@ import { Capacitor } from "@capacitor/core";
 import LayersConfig from "./layer-manager/layer-config";
 import LayersGroup from "./layer-manager/layer-group";
 
-import PoiConfig from "./data-layer/poi-osm-layer-config.json";
+import PoiConfig from "../../config/poi-osm-layer-config.json";
 import DomUtils from "./utils/dom-utils";
 import Globals from "./globals";
 import Location from "./services/location";
