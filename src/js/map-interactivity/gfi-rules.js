@@ -113,10 +113,10 @@ const gfiRules = {
               match = str.match("{{([^}]+)}}");
             } else {
               if (match[1] === "fiche_wikipedia") {
-                if (!featureProperties["insee_com"]) {
+                if (!featureProperties["code_insee"]) {
                   return "";
                 }
-                featureProperties[match[1]] = inseeCommWiki[featureProperties["insee_com"]];
+                featureProperties[match[1]] = inseeCommWiki[featureProperties["code_insee"]];
                 if (!featureProperties[match[1]]) {
                   return "";
                 }
