@@ -1,1 +1,1 @@
-This app is only available in french. Plese switch the locale to fr-FR to access the detailed description.
+This app is only available in French. Please switch the locale to fr-FR to access the detailed description.
