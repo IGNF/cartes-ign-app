@@ -18,6 +18,8 @@ import MapLibreGL from "maplibre-gl";
 import { Toast } from "@capacitor/toast";
 
 import turfLength from "@turf/length";
+import lineSlice from "@turf/line-slice";
+import cleanCoords from "@turf/clean-coords";
 import pThrottle from "p-throttle";
 
 import RouteDepartureIcon from "../../css/assets/route-draw/departure-marker.png";
@@ -50,7 +52,11 @@ class RouteDraw {
       pointsource: "route-draw-point",
       api: "https://data.geopf.fr/navigation/itineraire?resource=bdtopo-osrm&getSteps=false&timeUnit=second&optimization=shortest&",
       template: (values) => {
-        return `start=${values.start.lng},${values.start.lat}&end=${values.end.lng},${values.end.lat}&profile=${values.profile}`;
+        let intermediates = "";
+        if (values.intermediates) {
+          intermediates = `&intermediates=${values.intermediates.map((point) => `${point.lng},${point.lat}`).join("|")}`;
+        }
+        return `start=${values.start.lng},${values.start.lat}&end=${values.end.lng},${values.end.lat}&profile=${values.profile}${intermediates}`;
       }
     };
 
@@ -795,12 +801,13 @@ class RouteDraw {
           profile: this.transport,
         });
       this.loading = true;
+      let json;
       try {
         var response = await fetch(url, { signal: this.abortController.signal });
         if (!response.ok) {
           throw Error;
         }
-        var json = await response.json();
+        json = await response.json();
       } catch (err) {
         this.loading = false;
         // TODO "Erreur lors de l'ajout du point"
@@ -880,6 +887,92 @@ class RouteDraw {
     if (computeElevation) {
       this.#updateElevation();
     }
+    if (Globals.backButtonState === "routeDraw") {
+      this.__updateRouteInfo(this.data);
+    }
+  }
+
+  /**
+   * Recalcule plusieurs étapes à la fois à l'aides des intermediates de l'API
+   * @param {*} indexStart index de la première étape à recalculer
+   * @param {*} indexEnd index de la detière étape à recalculer
+   */
+  async #computeMultipleSteps(indexStart, indexEnd) {
+    const points = this.data.points.slice(indexStart, indexEnd + 2);
+    var url = this.configuration.api +
+    this.configuration.template({
+      start: { lng: points[0].geometry.coordinates[0], lat: points[0].geometry.coordinates[1] },
+      end: { lng: points[indexEnd - indexStart + 1].geometry.coordinates[0], lat: points[indexEnd - indexStart + 1].geometry.coordinates[1] },
+      profile: this.transport,
+      intermediates: points.slice(1, -1).map((point) => {
+        return { lng: point.geometry.coordinates[0], lat: point.geometry.coordinates[1] };
+      }),
+    });
+    let json;
+    try {
+      var response = await fetch(url, { signal: this.abortController.signal });
+      if (!response.ok) {
+        throw Error;
+      }
+      json = await response.json();
+    } catch (err) {
+      // TODO "Erreur lors de l'ajout du point"
+      return;
+    }
+    const globalGeometry = cleanCoords(json.geometry);
+    const newWaypoints = json.portions.map((portion) => {
+      return portion.start.split(",").map((coord) => parseFloat(coord));
+    });
+    newWaypoints.push(json.portions.slice(-1)[0].end.split(",").map((coord) => parseFloat(coord)));
+    console.log(newWaypoints);
+    for (let i = 0; i < json.portions.length; i++) {
+      let step = {
+        type: "Feature",
+        geometry: {
+          type: "LineString",
+          coordinates: lineSlice(newWaypoints[i], newWaypoints[i + 1], globalGeometry).geometry.coordinates,
+        },
+        properties: {
+          start_name: points[0].properties.name,
+          end_name: points[indexEnd - indexStart].properties.name,
+          duration: this.data.steps[indexStart + i].properties.duration,
+          distance: json.portions[i].distance,
+          id: this.nextStepId,
+          mode: 1,
+        }
+      };
+      this.nextStepId++;
+      this.data.steps[indexStart + i] = step;
+      let point = {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: newWaypoints[i]
+        },
+        properties: {
+          name: this.data.points[indexStart + i].properties.name,
+          id: this.data.points[indexStart + i].properties.id,
+          order: this.data.points[indexStart + i].properties.order,
+        }
+      };
+      this.data.points[indexStart + i] = point;
+    }
+
+    let point = {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: newWaypoints[indexEnd - indexStart + 1]
+      },
+      properties: {
+        name: this.data.points[indexEnd + 1].properties.name,
+        id: this.data.points[indexEnd + 1].properties.id,
+        order: this.data.points[indexEnd + 1].properties.order,
+      }
+    };
+    this.data.points[indexEnd + 1] = point;
+
+    this.#updateSources();
     if (Globals.backButtonState === "routeDraw") {
       this.__updateRouteInfo(this.data);
     }
@@ -1079,12 +1172,11 @@ class RouteDraw {
   #routeSnap() {
     this.#saveState();
     this.deactivate();
+    this.loading = true;
     DOM.$routeDrawSnap.classList.add("loading");
     const promises = [];
-    for (let index = 0; index < this.data.steps.length; index++) {
-      const step = this.data.steps[index];
-      step.properties.mode = 1;
-      const throttled = this.throttle( async (idx) => this.#computeStep(idx, 1, false) );
+    for (let index = 0; index < this.data.steps.length; index += 10) {
+      const throttled = this.throttle( async (index) => this.#computeMultipleSteps(index, Math.min(index + 10, this.data.steps.length - 1)));
       const promise = throttled(index);
       promises.push(promise);
     }
@@ -1094,6 +1186,7 @@ class RouteDraw {
       this.__updateRouteInfo(this.data);
       this.#saveState();
       DOM.$routeDrawSnap.classList.remove("loading");
+      this.loading = false;
       this.#listeners();
     });
   }

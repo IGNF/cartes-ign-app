@@ -142,11 +142,8 @@ class TrackRecord {
     }
     this.recording = false;
     this.map.getSource("track-record-current-line").setData({
-      "type": "geojson",
-      "data": {
-        "type": "FeatureCollection",
-        "features": []
-      },
+      "type": "FeatureCollection",
+      "features": []
     });
     this.dom.whileRecordingBtn.classList.add("d-none");
     this.dom.pauseRecordBtn.classList.remove("d-none");
@@ -200,11 +197,8 @@ class TrackRecord {
 
     this.recording = false;
     this.map.getSource("track-record-current-line").setData({
-      "type": "geojson",
-      "data": {
-        "type": "FeatureCollection",
-        "features": []
-      },
+      "type": "FeatureCollection",
+      "features": []
     });
 
     let bindedBackToRecording = this.#backToRecording.bind(this);
@@ -257,11 +251,8 @@ class TrackRecord {
     if (this.recording) {
       this.recording = false;
       this.map.getSource("track-record-current-line").setData({
-        "type": "geojson",
-        "data": {
-          "type": "FeatureCollection",
-          "features": []
-        },
+        "type": "FeatureCollection",
+        "features": []
       });
       this.dom.whileRecordingBtn.classList.add("d-none");
       this.dom.pauseRecordBtn.classList.remove("d-none");
