@@ -1188,6 +1188,10 @@ class RouteDraw {
       DOM.$routeDrawSnap.classList.remove("loading");
       this.loading = false;
       this.#listeners();
+    }).catch((err) => {
+      console.warn(err);
+      DOM.$routeDrawSnap.classList.remove("loading");
+      this.loading = false;
     });
   }
 
