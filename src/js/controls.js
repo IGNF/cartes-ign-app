@@ -28,8 +28,8 @@ import DOM from "./dom";
 import ThreeD from "./three-d";
 
 import LocationLayers from "./services/location-styles";
-// TODO: activate
-// import ImmersiveNotifications from "./immersive-notifications";
+
+import ImmersiveNotifications from "./immersive-notifications";
 
 /**
  * Ajout des contrôle à la fin du chargement de la carte
@@ -134,9 +134,8 @@ const addControls = () => {
       }
     });
 
-    // TODO: activate
-    // // contrôle "notifications immersives"
-    // Globals.immersiveNotifications = new ImmersiveNotifications(true);
+    // contrôle "notifications immersives"
+    Globals.immersiveNotifications = new ImmersiveNotifications(true);
 
     // compte utilisateur
     Globals.myaccount = new MyAccount(map, {});
