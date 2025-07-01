@@ -23,10 +23,10 @@
 }
 
 .subCategoryRLTLayer .layer .layerImg img {
-  width: 100%;
+  width: calc(100% - 4px);
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  border-radius: 2px;
+  display: block;
 }
 
 .rltLayer {

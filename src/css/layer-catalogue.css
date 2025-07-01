@@ -42,10 +42,6 @@
   border: solid 2px var(--false-white);
 }
 
-.baseLayer .layerImg{
-  width: 138px;
-}
-
 .subCatMenu .baseLayer .layerImg img {
   width: 134px;
   height: 92px;
