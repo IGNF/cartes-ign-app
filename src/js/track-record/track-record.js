@@ -131,6 +131,10 @@ class TrackRecord {
       this.map.on("moveend", this.onNewLocationCallback);
     }
     // END removeme
+
+    if (!Location.isLocationActive()) {
+      this.pauseRecording();
+    }
   }
 
   /**
@@ -190,12 +194,15 @@ class TrackRecord {
    * Stop track recording
    */
   #finishRecording() {
-    if (!this.activeRecord || this.currentPoints.features.length < 1) {
+    if (!this.activeRecord) {
+      return;
+    }
+    if (this.currentPoints.features.length < 1) {
+      this.#deleteRecording();
       return;
     }
     this.pauseRecording();
 
-    this.recording = false;
     this.map.getSource("track-record-current-line").setData({
       "type": "FeatureCollection",
       "features": []
