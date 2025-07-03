@@ -581,7 +581,9 @@ class MenuNavigation {
       if (Globals.threeD.terrainOn || Globals.threeD.buildingsOn) {
         Globals.map.setPitch(45);
       }
-      DOM.$trackRecordBtn.classList.remove("d-none");
+      if (Globals.trackRecord.activeRecord) {
+        DOM.$trackRecordBtn.classList.remove("d-none");
+      }
       break;
     case "routeDrawSave":
       // Réouverture de routeDraw sans utilisr this.open("routeDraw")
