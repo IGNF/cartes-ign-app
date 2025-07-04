@@ -13,6 +13,16 @@
         "license-header"
     ],
     "rules": {
+        "no-console": [
+            "warn",
+            {
+              "allow": [
+                "warn",
+                "error",
+                "debug"
+              ]
+            }
+        ],
         "indent": [
             "error",
             2

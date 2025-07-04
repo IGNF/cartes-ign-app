@@ -142,11 +142,12 @@ let RouteDrawDOM = {
 
   /**
    * ajoute le container le résumé du parcours
-   * @param {*} transport
+   * @param {*}
+   * @param {Boolean} isCopy - si c'est une copie du résumé (pour le track-record)
    * @returns {DOMElement}
    * @private
    */
-  __addResultsSummaryContainerDOMElement (transport) {
+  __addResultsSummaryContainerDOMElement (transport, isCopy = false) {
     var wrapper = document.createElement("div");
     wrapper.id = "routeDrawSummaryWrapper";
     var div = document.createElement("div");
@@ -185,24 +186,27 @@ let RouteDrawDOM = {
     div.appendChild(line2);
     wrapper.appendChild(div);
 
-    var mode = this.dom.changeMode = document.createElement("div");
-    mode.id = "routeDrawMode";
-    mode.class = "d-none";
-    mode.innerText = "Saisie guidée";
+    if (!isCopy) {
+      var mode = document.createElement("div");
+      mode.id = "routeDrawMode";
+      mode.class = "d-none";
+      mode.innerText = "Saisie guidée";
 
-    mode.addEventListener("click", () => {
-      if (this.data.steps.length > 0) {
-        if (this.transport === "car") {
-          this.__informChangeTransportImpossible();
-          return;
+      mode.addEventListener("click", () => {
+        if (this.data.steps.length > 0) {
+          if (this.transport === "car") {
+            this.__informChangeTransportImpossible();
+            return;
+          }
         }
-      }
-      ActionSheet.show({
-        style: "custom",
-        content: this.dom.modeSelectDom,
+        ActionSheet.show({
+          style: "custom",
+          content: this.dom.modeSelectDom,
+        });
       });
-    });
-    wrapper.appendChild(mode);
+      this.dom.changeMode = mode;
+      wrapper.appendChild(mode);
+    }
 
     return wrapper;
   },

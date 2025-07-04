@@ -124,6 +124,16 @@ class TrackRecord {
     this.dom.closeRecordBtn.classList.add("d-none");
     this.dom.whileRecordingBtn.classList.remove("d-none");
     this.dom.finishRecordBtn.classList.remove("d-none");
+    const firstLocation = Location.getCurrentPosition();
+    if (firstLocation) {
+      this.#onNewLocation({
+        detail : {
+          longitude: firstLocation.coords.longitude,
+          latitude: firstLocation.coords.latitude,
+          altitude: firstLocation.coords.altitude || 0, // altitude can be null
+        }
+      });
+    }
     this.#startBgTracking();
 
     // REMOVEME: testing
@@ -131,10 +141,6 @@ class TrackRecord {
       this.map.on("moveend", this.onNewLocationCallback);
     }
     // END removeme
-
-    if (!Location.isLocationActive()) {
-      this.pauseRecording();
-    }
   }
 
   /**
@@ -289,8 +295,7 @@ class TrackRecord {
       </div>
       <div id="nameTrackSave" class="form-submit trackRecordBtn primary">Enregistrer</div>
       </div>`);
-    const routeSummary = RouteDrawDOM.__addResultsSummaryContainerDOMElement("pedestrian");
-    routeSummary.querySelector("#routeDrawMode").classList.add("d-none");
+    const routeSummary = RouteDrawDOM.__addResultsSummaryContainerDOMElement("pedestrian", true);
     nameTrackDom.querySelector("#trackResumeRoute").appendChild(routeSummary);
 
     var labelDuration = routeSummary.querySelector(".routeDrawSummaryDuration");
@@ -367,7 +372,6 @@ class TrackRecord {
       };
       this.#updateSources();
       this.#closeRecording();
-      Globals.routeDraw.clear();
       Globals.myaccount.showRouteDetailsFromID(id);
       ActionSheet.removeEventListener("closeSheet", this.saveRecording.bind(this));
     }

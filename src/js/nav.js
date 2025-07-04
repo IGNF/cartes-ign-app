@@ -277,7 +277,9 @@ class MenuNavigation {
       DOM.$bottomButtons.querySelector(".maplibregl-ctrl-bottom-right").classList.add("d-none");
       Globals.compare.show();
       Globals.interactivityIndicator.hardDisable();
-      DOM.$trackRecordBtn.classList.add("d-none");
+      if (Globals.trackRecord.activeRecord) {
+        DOM.$trackRecordBtn.classList.add("d-none");
+      }
       Globals.currentScrollIndex = 0;
       break;
     case "routeDrawSave":
@@ -307,6 +309,9 @@ class MenuNavigation {
       DOM.$tabContainer.classList.add("white");
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 1;
+      if (Globals.trackRecord.activeRecord) {
+        DOM.$trackRecordBtn.classList.add("d-none");
+      }
       break;
     case "poi":
       Globals.backButtonState = "poi-" + previousBackState;
@@ -615,6 +620,9 @@ class MenuNavigation {
       DOM.$tabContainer.classList.remove("white");
       Globals.routeDraw.clear();
       Globals.interactivityIndicator.enable();
+      if (Globals.trackRecord.activeRecord) {
+        DOM.$trackRecordBtn.classList.remove("d-none");
+      }
       break;
     case "poi":
       DOM.$search.classList.remove("d-none");

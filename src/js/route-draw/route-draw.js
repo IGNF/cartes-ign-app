@@ -924,7 +924,6 @@ class RouteDraw {
       return portion.start.split(",").map((coord) => parseFloat(coord));
     });
     newWaypoints.push(json.portions.slice(-1)[0].end.split(",").map((coord) => parseFloat(coord)));
-    console.log(newWaypoints);
     for (let i = 0; i < json.portions.length; i++) {
       let step = {
         type: "Feature",
@@ -1276,6 +1275,7 @@ class RouteDraw {
   showDetails() {
     this.readonly = true;
     this.deactivate();
+
     this.dom.changeMode.classList.add("d-none");
     this.dom.titlewrapper.classList.remove("d-none");
     Globals.menu.open("routeDraw");

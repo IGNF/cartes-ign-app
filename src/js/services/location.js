@@ -281,20 +281,22 @@ const watchPositionCallback = (position) => {
     currentPosition = position;
     if (Globals.trackRecord && Globals.trackRecord.recording) {
       const trackRecordFeatureLength = Globals.trackRecord.currentFeature.geometry.coordinates.length;
-      const line = {
-        type: "Feature",
-        geometry: {
-          type: "LineString",
-          coordinates: [
-            [position.coords.longitude, position.coords.latitude],
-            [
-              Globals.trackRecord.currentFeature.geometry.coordinates[trackRecordFeatureLength - 1][0],
-              Globals.trackRecord.currentFeature.geometry.coordinates[trackRecordFeatureLength - 1][1]
+      if (trackRecordFeatureLength > 0) {
+        const line = {
+          type: "Feature",
+          geometry: {
+            type: "LineString",
+            coordinates: [
+              [position.coords.longitude, position.coords.latitude],
+              [
+                Globals.trackRecord.currentFeature.geometry.coordinates[trackRecordFeatureLength - 1][0],
+                Globals.trackRecord.currentFeature.geometry.coordinates[trackRecordFeatureLength - 1][1]
+              ],
             ],
-          ],
-        },
-      };
-      Globals.map.getSource("track-record-current-line").setData(line);
+          },
+        };
+        Globals.map.getSource("track-record-current-line").setData(line);
+      }
     }
     Preferences.set({
       key: "lastKnownPosition",
