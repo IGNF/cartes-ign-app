@@ -203,11 +203,11 @@ class TrackRecord {
     if (!this.activeRecord) {
       return;
     }
+    this.pauseRecording();
     if (this.currentPoints.features.length < 1) {
       this.#deleteRecording();
       return;
     }
-    this.pauseRecording();
 
     this.map.getSource("track-record-current-line").setData({
       "type": "FeatureCollection",
