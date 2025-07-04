@@ -204,7 +204,7 @@ class TrackRecord {
       return;
     }
     this.pauseRecording();
-    if (this.currentPoints.features.length < 1) {
+    if (this.currentPoints.features.length < 2) {
       this.#deleteRecording();
       return;
     }
