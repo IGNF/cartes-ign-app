@@ -137,11 +137,6 @@ class ThreeD {
     }
     if (Globals.map.getPitch() < 20) {
       Globals.map.flyTo({pitch: 45, zoom: Math.min(Globals.map.getZoom(), 14)});
-      if (!this.buildingsOn) {
-        Globals.map.once("moveend", () => {
-          this.showPopup();
-        });
-      }
     }
     this.terrainOn = true;
   }
@@ -180,11 +175,6 @@ class ThreeD {
     }
     if (Globals.map.getPitch() < 20) {
       Globals.map.flyTo({pitch: 45});
-      if (!this.terrainOn) {
-        Globals.map.once("moveend", () => {
-          this.showPopup();
-        });
-      }
     }
     this.buildingsOn = true;
   }

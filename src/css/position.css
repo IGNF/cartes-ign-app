@@ -257,6 +257,7 @@
 .maplibregl-popup {
   position: fixed;
   z-index: 9999;
+  transform: var(--popup-transform) !important;
 }
 
 .divPopupClose {

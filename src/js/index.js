@@ -87,10 +87,8 @@ function app() {
             const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
             map.setCenter(center);
             map.setZoom(zoom);
-            map.once("moveend", () => {
-              StatusPopups.getNetworkPopup(map);
-              StatusPopups.getEditoPopup(map);
-            });
+            StatusPopups.getNetworkPopup(map);
+            StatusPopups.getEditoPopup(map);
             if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("color")) {
               const feature = {
                 type: "Feature",
@@ -292,10 +290,6 @@ function app() {
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
     map.setCenter([localStorage.getItem("lastMapLng"), localStorage.getItem("lastMapLat")]);
     map.setZoom(localStorage.getItem("lastMapZoom") || map.getZoom());
-    map.once("moveend", () => {
-      StatusPopups.getNetworkPopup(map);
-      StatusPopups.getEditoPopup(map);
-    });
   }
 
   // Chargement des couches par defaut dans le localStorage
@@ -333,18 +327,12 @@ function app() {
   if (Capacitor.getPlatform() === "ios") {
     map.once("load", () => {
       Globals.map.resize();
-      map.once("moveend", () => {
-        StatusPopups.getNetworkPopup(map);
-        StatusPopups.getEditoPopup(map);
-      });
     });
   }
   setTimeout(() => {
     if (!Globals.mapLoaded) {
       map.flyTo(map.getCenter());
-      map.once("moveend", () => {
-        StatusPopups.getNetworkPopup(map);
-      });
+      StatusPopups.getNetworkPopup(map);
     }
     setTimeout(() => {
       if (!Globals.mapLoaded) {

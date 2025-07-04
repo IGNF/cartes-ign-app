@@ -36,7 +36,7 @@ function showPopup(content, map, className, closeMethodName, object) {
     offset: popupOffsets,
     className: className,
     closeOnClick: true,
-    closeOnMove: true,
+    closeOnMove: false,
     closeButton: false
   })
     .setLngLat(center)
@@ -46,6 +46,7 @@ function showPopup(content, map, className, closeMethodName, object) {
   // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
   var popupEl = document.querySelectorAll(`.${className}`)[0];
   document.body.appendChild(popupEl);
+  document.documentElement.style.setProperty("--popup-transform", popupEl.style.transform);
 }
 
 function showOnlinePopup(content, map) {
