@@ -113,7 +113,9 @@ class TrackRecord {
     if (this.recording) {
       return;
     }
-    this.requestNotificationPermission();
+    if (Capacitor.getPlatform() === "android") {
+      this.requestNotificationPermission();
+    }
     this.recording = true;
     this.activeRecord = true;
     this.startTime = new Date().getTime();
