@@ -265,7 +265,7 @@ const watchPositionCallback = (position) => {
     });
   }
   // même si la précision est insuffisante, en cas d'enregistrement de trace, on met à jour la position
-  if (location_active && position && (position.coords.accuracy <= Math.max(lastAccuracy, 150) || (Globals.trackRecord && Globals.trackRecord.recording)) ) {
+  if (location_active && position && position.coords.accuracy <= Math.max(lastAccuracy, 150) ) {
     target.dispatchEvent(
       new CustomEvent("geolocationWatch", {
         bubbles: true,
