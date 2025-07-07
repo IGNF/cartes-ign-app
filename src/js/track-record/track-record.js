@@ -270,7 +270,7 @@ class TrackRecord {
         "features": []
       });
       this.dom.whileRecordingBtn.classList.add("d-none");
-      this.dom.pauseRecordBtn.classList.remove("d-none");
+      this.dom.pauseRecordBtn.classList.add("d-none");
     }
     this.#stopBgTracking();
 
@@ -316,7 +316,14 @@ class TrackRecord {
     // Actionsheet Button Event
     nameTrackDom.querySelector("#nameTrackSave").addEventListener("click", () => {
       this.saveRecording();
-      ActionSheet.hide();
+      ActionSheet.dispatchEvent(
+        new CustomEvent("optionSelect", {
+          bubbles: true,
+          detail: {
+            value: "nameTrackSave"
+          }
+        })
+      );
     });
 
     let bindedFinishRecording = this.#finishRecording.bind(this);
