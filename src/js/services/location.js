@@ -266,7 +266,20 @@ const watchPositionCallback = (position, err) => {
       }, watchPositionCallback).then( (watchId) => {
         watch_id = watchId;
       });
+    } else {
+      DOM.$geolocateBtn.classList.remove("locationFixe");
+      DOM.$geolocateBtn.classList.remove("locationDisabled");
+      clean();
+      currentPosition = null;
+      location_active = false;
+      tracking_active = false;
+      Toast.show({
+        text: "Impossible de récupérer la géolocalisation. Est-elle activée ?",
+        duration: "long",
+        position: "bottom"
+      });
     }
+    return;
   }
   if (firstLocation) {
     // FIXME: STYLE: passer par une classe et style CSS
