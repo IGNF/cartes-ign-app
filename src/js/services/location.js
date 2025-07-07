@@ -254,7 +254,20 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
 /**
  * Callback du suivi de position
  */
-const watchPositionCallback = (position) => {
+const watchPositionCallback = (position, err) => {
+  if (err) {
+    console.warn(err);
+    Geolocation.clearWatch({id: watch_id});
+    if (err.code === "OS-PLUG-GLOC-0002") {
+      Geolocation.watchPosition({
+        maximumAge: 1000,
+        timeout: 10000,
+        enableHighAccuracy: true
+      }, watchPositionCallback).then( (watchId) => {
+        watch_id = watchId;
+      });
+    }
+  }
   if (firstLocation) {
     // FIXME: STYLE: passer par une classe et style CSS
     DOM.$geolocateBtn.classList.add("locationFixe");
@@ -343,7 +356,7 @@ const trackLocation = () => {
           console.warn(err);
           DOM.$geolocateBtn.classList.remove("locationFixe");
           DOM.$geolocateBtn.classList.remove("locationDisabled");
-          Geolocation.clearWatch({id: watch_id});
+          navigator.geolocation.clearWatch(watch_id);
           clean();
           currentPosition = null;
           location_active = false;
