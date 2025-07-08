@@ -299,6 +299,7 @@ class Position {
               landmarkDesc.value = tempDomElem.innerText;
               document.body.removeChild(tempDomElem);
             }
+            document.getElementById("landmarkWindow").querySelector(".landmark-submit").classList.remove("disabled");
           }
         }
       });
