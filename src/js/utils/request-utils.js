@@ -25,9 +25,9 @@ async function requestWfs(lat, lng, layer, attributes, around=0, geom_name="geom
   if (epsg !== 4326) {
     [coord1, coord2] = proj4(proj4.defs("EPSG:4326"), proj4.defs(`EPSG:${epsg}`), [lng, lat]);
   }
-  let cql_filter = `INTERSECTS(${geom_name},Point(${coord1}%20${coord2}))`;
+  let cql_filter = `INTERSECTS(${geom_name},Point(${coord1} ${coord2}))`;
   if (around > 0) {
-    cql_filter = `DWITHIN(${geom_name},Point(${coord1}%20${coord2}),${around},kilometers)`;
+    cql_filter = `DWITHIN(${geom_name},Point(${coord1} ${coord2}),${around},kilometers)`;
   }
   if (additional_cql) {
     cql_filter += ` ${additional_cql}`;
