@@ -289,6 +289,17 @@ class Position {
           let target = document.getElementById("landmarkLocation");
           target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
           target.value = this.name;
+          if (type !== "myposition" && this.#getTrueHeader() !== "Repère placé") {
+            let landmarkTitle = document.getElementById("landmark-title");
+            landmarkTitle.value = this.#getTrueHeader().split("\n")[0];
+            if (this.additionalHtml.beforeButtons) {
+              let landmarkDesc = document.getElementById("landmark-description");
+              let tempDomElem = domUtils.stringToHTML(this.additionalHtml.beforeButtons);
+              document.body.appendChild(tempDomElem);
+              landmarkDesc.value = tempDomElem.innerText;
+              document.body.removeChild(tempDomElem);
+            }
+          }
         }
       });
     }
@@ -423,7 +434,7 @@ class Position {
    */
   async compute(options = {}) {
     const lngLat = options.lngLat || false;
-    const text = options.text ||  "Repère placé";
+    const text = options.text || "Repère placé";
     let html = options.html || "";
     const html2 = options.html2 || "";
     const hideCallback = options.hideCallback || null;
