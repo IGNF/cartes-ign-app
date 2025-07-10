@@ -6,6 +6,7 @@
 
 import Globals from "./globals";
 import DOM from "./dom";
+import { Capacitor } from "@capacitor/core";
 
 import { Toast } from "@capacitor/toast";
 
@@ -431,6 +432,9 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$tabHeader.classList.add("d-none");
       Globals.currentScrollIndex = 2;
+      if (!Globals.trackRecord.bgHasBeenLaunched && Capacitor.getPlatform() === "android") {
+        Globals.trackRecord.bgLocationWarning();
+      }
       break;
     default:
       break;
