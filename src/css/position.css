@@ -300,6 +300,12 @@
   margin: 4px 0;
 }
 
+.positionTitle3 {
+  font-family: "Open Sans Semibold";
+  font-size: 14px;
+  margin: 4px 0;
+}
+
 .positionSubTitle {
   font-family: "Open Sans";
   font-size: 13px;
@@ -310,6 +316,13 @@
 .unescoDate {
   display: flex;
   align-items: center;
+  gap: 10px;
+}
+
+.unescoDate > p {
+  display: flex;
+  align-items: right;
+  flex-direction: column;
   gap: 10px;
 }
 
