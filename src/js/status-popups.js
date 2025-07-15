@@ -77,25 +77,46 @@ function getEditoPopup (map) {
   });
 }
 
-function getOnboardingModal() {
+function getOnboardingModal(id = null, html = null) {
   if (
-    localStorage.getItem("lastOnboardId") !== null && localStorage.getItem("lastOnboardId") === `${OnboardingConfig.id}`
+    id === null && localStorage.getItem("lastOnboardId") !== null && localStorage.getItem("lastOnboardId") === `${OnboardingConfig.id}`
     && localStorage.getItem("dontShowOnboardAgain") === "true"
   ) {
     return;
   }
 
-  const onboardingDom = domUtils.stringToHTML(OnboardingConfig.html);
-  onboardingDom.querySelector("#onBoardingConfirm").addEventListener("click", () => {
-    ActionSheet._closeElem.click();
-  });
-  ActionSheet.show({
-    style: "custom",
-    content: onboardingDom,
-  });
+  if (
+    id && localStorage.getItem("lastOnboardEventId") !== null && localStorage.getItem("lastOnboardEventId") === id
+    && localStorage.getItem("dontShowOnboardEventAgain") === "true")
+  {
+    return;
+  }
 
-  localStorage.setItem("lastOnboardId", OnboardingConfig.id);
-  localStorage.setItem("dontShowOnboardAgain", "true");
+  if (id && html) {
+    const onboardingDom = domUtils.stringToHTML(html);
+    onboardingDom.querySelector("#onBoardingConfirm").addEventListener("click", () => {
+      ActionSheet._closeElem.click();
+    });
+    ActionSheet.show({
+      style: "custom",
+      content: onboardingDom,
+    });
+
+    localStorage.setItem("lastOnboardEventId", id);
+    localStorage.setItem("dontShowOnboardEventAgain", "true");
+  } else {
+    const onboardingDom = domUtils.stringToHTML(OnboardingConfig.html);
+    onboardingDom.querySelector("#onBoardingConfirm").addEventListener("click", () => {
+      ActionSheet._closeElem.click();
+    });
+    ActionSheet.show({
+      style: "custom",
+      content: onboardingDom,
+    });
+
+    localStorage.setItem("lastOnboardId", OnboardingConfig.id);
+    localStorage.setItem("dontShowOnboardAgain", "true");
+  }
 }
 
 export default {

@@ -172,7 +172,12 @@ function app() {
       document.getElementById("geolocateBtn").click();
       localStorage.setItem("hasBeenLaunched", true);
     }
-    StatusPopups.getOnboardingModal();
+    if (LayersConfig.getTempLayers().length > 0) {
+      const layer = LayersConfig.getTempLayers()[0];
+      StatusPopups.getOnboardingModal(layer.id, layer.onBoardingCfg.html);
+    } else {
+      StatusPopups.getOnboardingModal();
+    }
 
     // Pour charger un fichier partagé depuis une autre app au démarrage de l'appli
     if (Capacitor.getPlatform() === "android") {
@@ -190,10 +195,15 @@ function app() {
       eventButton.style.backgroundImage = `url(${layer.mainScreenBtn.iconUrl})`;
       eventButton.addEventListener("click", () => {
         if (!Globals.map.getLayer(`${layer.id}$$$${layer.id}`)) {
-          document.querySelector(`#${layer.id}`).click();
+          Globals.map.flyTo({zoom: 4, center: [2.0, 47.33]});
         }
-        Globals.map.flyTo({zoom: 4, center: [2.0, 47.33]});
+        document.querySelector(`#${layer.id}`).click();
       });
+      if (layer.colors) {
+        document.documentElement.style.setProperty("--event-main", layer.colors.main);
+        document.documentElement.style.setProperty("--event-light", layer.colors.light);
+        document.documentElement.style.setProperty("--event-dark", layer.colors.dark);
+      }
     }
   });
 

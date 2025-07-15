@@ -108,11 +108,12 @@ class MapInteractivity {
       const splittedLayerName = feature.layer.id.split("-");
       return splittedLayerName[splittedLayerName.length - 1] !== "vol";
     });
+    // On retire les features issues des isochrones et de la précision
+    features = features.filter( (feature) => {
+      return !["isochrone", "location-precision"].includes(feature.source);
+    });
     // On clique sur une feature tuile vectorielle
     let featureHTML = null;
-    if (features.length > 0 && features[0].source === "location-precision"){
-      features.shift();
-    }
     if (features.length > 0 && (features[0].source === "comparepoi" || features[0].source === "my-account-landmark" || features[0].source === "my-account-compare-landmark")){
       this.map.once("click", this.handleInfoOnMap);
       return;
@@ -169,7 +170,7 @@ class MapInteractivity {
 
     if (features.length > 0) {
       const tempLayers = LayersConfig.getTempLayers();
-      if ( tempLayers.map(layer => layer.id).includes(features[0].source)) {
+      if ( tempLayers.map(layer => layer.id).includes(features[0].source) ) {
         const layerConfig = tempLayers.filter(layer => layer.id === features[0].source)[0];
         const resp = gfiRules.parseGFI(layerConfig.gfiRules, {features: features}, this.map.getZoom());
         let lngLat = ev.lngLat;
@@ -184,7 +185,8 @@ class MapInteractivity {
           lngLat: lngLat,
           text: resp.title,
           html: resp.html,
-          html2: resp.html2
+          html2: resp.html2,
+          isEvent: true,
         }).then(() => {
           Globals.menu.open("position");
           this.map.once("click", this.handleInfoOnMap);
@@ -197,6 +199,10 @@ class MapInteractivity {
     // GFI au sens OGC
     // on ne fait pas de GFI sur les bases layers
     let currentLayers = Globals.manager.layerSwitcher.getLayersOrder().reverse();
+    const tempLayers = LayersConfig.getTempLayers();
+    currentLayers = currentLayers.filter(layer => {
+      return layer[1].interactive && !layer[1].base && !tempLayers.map(layer => layer.id).includes(layer[0]);
+    });
     let layerswithzoom = currentLayers.map((layer) => {
       let computeZoom = Math.round(this.map.getZoom()) + 1;
       if (computeZoom > layer[1].maxNativeZoom) {
@@ -212,7 +218,7 @@ class MapInteractivity {
       }
     });
 
-    let layersForGFI = layerswithzoom.filter( layer => layer[1].interactive ).map((layer) => {
+    let layersForGFI = layerswithzoom.map((layer) => {
       let arr = gisUtils.latlngToTilePixel(ev.lngLat.lat, ev.lngLat.lng, layer[1].computeZoom);
       layer[1].tiles =  {tile: arr[0], tilePixel: arr[1]};
       layer[1].clickCoords = ev.lngLat;

@@ -44,12 +44,12 @@ const gfiRules = {
     if (template["title"][0] === "@") {
       let str = featureProperties[template.title.split("@")[1]].replace("", "'");
       if (str.length) {
-        result.title = str[0].toUpperCase() + str.slice(1);
+        result.title = str[0].toUpperCase() + str.slice(1) + "</p>";
       } else {
-        result.title = "";
+        result.title = "</p>";
       }
     } else {
-      result.title = template.title;
+      result.title = template.title + "</p>";
     }
     if (template["pretitle"]) {
       let pretitle = template["pretitle"];
@@ -63,10 +63,14 @@ const gfiRules = {
       }
       result.title = pretitle + result.title;
     }
+    result.title = `<p class="positionTitle">${result.title}`;
     if (template["title2"]) {
-      let str;
+      let str = "";
       if (template["title2"][0] === "@") {
-        str = featureProperties[template.title2.split("@")[1]].replace("", "'");
+        if (template["title2type"] && template["title2type"] === "date") {
+          str += "<span class=\"positionTitleDateicon\"></span>";
+        }
+        str += featureProperties[template.title2.split("@")[1]].replace("", "'");
         if (str) {
           str = str[0].toUpperCase() + str.slice(1);
         }
@@ -74,7 +78,7 @@ const gfiRules = {
         str = template["title2"];
       }
       if (str) {
-        result.title += `<p class="positionTitle2">${str}</p>`;
+        result.title += `<p class="positionTitle2">${str}`;
       }
     }
     if (template["title3"]) {
@@ -88,8 +92,11 @@ const gfiRules = {
         str = template["title3"];
       }
       if (str) {
-        result.title += `<p class="positionTitle3">${str}</p>`;
+        result.title += `<span class="positionTitle3">&nbsp;- ${str}</span>`;
       }
+    }
+    if (template["title2"]) {
+      result.title += "</p>";
     }
     if (template["subtitle"]) {
       result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`;

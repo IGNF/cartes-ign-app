@@ -10,6 +10,23 @@
   padding: 15px;
 }
 
+.section:has(+ .section.event) {
+  border-bottom: none;
+}
+
+.section.event {
+  background-color: var(--event-light);
+  border-bottom: none;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.section.event + .section {
+  border-top: 1px solid var(--grey-2);
+}
+
 .unit {
   padding: 5px;
   position: absolute;
@@ -298,6 +315,29 @@ input#isochroneValueDistanceInput[type=number]
   font-family: "Fira Sans Medium";
   font-size: 17px;
   margin-bottom: 0px;
+}
+
+.filterSubTitle {
+  display: block;
+  text-align: left;
+  width: 100%;
+  font-family: "Open Sans Semibold";
+  font-size: 14px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.filterTitleImg {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  background-size: cover;
+  flex-shrink: 0;
+  border: 3px solid white;
+  box-sizing: border-box;
+  margin-right: 14px;
+  align-self: baseline;
 }
 
 .divIsochronePOIFilter {

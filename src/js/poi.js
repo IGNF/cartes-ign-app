@@ -214,6 +214,10 @@ class POI {
       rltChecked = "";
     }
 
+    if (LayersConfig.getTempLayers().length > 0) {
+      rltChecked = "";
+    }
+
     var tpltContainer = `
             <div class="divPOIContainer">
                 <div class="divPOIDisplay">

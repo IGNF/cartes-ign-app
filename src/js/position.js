@@ -93,9 +93,10 @@ class Position {
   /**
    * rendu du menu
    * @param {string} type type de position default, myposition ou landmark
+   * @param {boolean} isEvent si c'est un événement (pour le style)
    * @private
    */
-  #render(type) {
+  #render(type, isEvent = false) {
     var target = this.target || document.getElementById("positionWindow");
     if (!target) {
       console.warn();
@@ -110,6 +111,10 @@ class Position {
     var longitude = this.coordinates.lon;
     var altitudeHtml = `<img src="${LoadingDark}" height="8px" title="Chargement de l'altitude en cours...">`;
     var templateAddress;
+    var eventClass = "";
+    if (isEvent) {
+      eventClass = " event";
+    }
 
     // adresse disponible
     if (address.city && address.street) {
@@ -134,11 +139,11 @@ class Position {
     this.#setShareContent(latitude, longitude, "", type);
     // template litteral
     var htmlButtons = `
-      <button id="positionRoute" class="btnPositionButtons"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
-      <button id="positionNear" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
-      <button id="positionShare" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
-      <button id="positionLandmark" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionLandmarkImg"></label>Enregistrer</button>
-      <button id="positionSignal" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
+      <button id="positionRoute" class="btnPositionButtons${eventClass}"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+      <button id="positionNear" class="btnPositionButtons secondary${eventClass}"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+      <button id="positionShare" class="btnPositionButtons secondary${eventClass}"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+      <button id="positionLandmark" class="btnPositionButtons secondary${eventClass}"><label class="lblPositionImg lblPositionLandmarkImg"></label>Enregistrer</button>
+      <button id="positionSignal" class="btnPositionButtons secondary${eventClass}"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
       `;
 
     if (type === "myposition") {
@@ -168,9 +173,9 @@ class Position {
     var strContainer = `
       <div id="${id.main}">
           <div class="divPositionTitleWrapper"><div class="divPositionTitle">${this.header}</div>${htmlAdvanced}</div>
-          <div class="divPositionAdressOriginInfo">Adresse la plus proche du point sélectionné</div>
+          <div class="divPositionAdressOriginInfo${eventClass}">Adresse la plus proche du point sélectionné</div>
           <div class="divPositionAddress">
-              <label class="lblPositionImgAddress"></label>
+              <label class="lblPositionImgAddress${eventClass}"></label>
               <div class="divPositionSectionAddress fontLight">
                 ${templateAddress}
                 <div class="divPositionCoord fontLight">
@@ -440,6 +445,7 @@ class Position {
     const html2 = options.html2 || "";
     const hideCallback = options.hideCallback || null;
     const type = options.type || "default";
+    const isEvent = options.isEvent || false;
     this.clear();
     if (this.hideCallback) {
       this.hideCallback();
@@ -485,7 +491,7 @@ class Position {
       city: ""
     };
 
-    this.#render(type);
+    this.#render(type, isEvent);
     if (hideCallback) {
       this.hideCallback = hideCallback;
     }

@@ -106,11 +106,6 @@ class LayerCatalogue extends EventTarget {
     var thematicButtons = LayersConfig.getThematics();
     var tempLayers = LayersConfig.getTempLayers();
     if (tempLayers.length > 0) {
-      strThematicButtons += `
-      <button class="thematicButton" data-name="Évènements">
-        Évènements
-      </button>
-      `;
       for(let k = 0; k < tempLayers.length; k++) {
         var tempLayer = tempLayers[k];
         strThematicLayers += tplLayer({
@@ -132,6 +127,13 @@ class LayerCatalogue extends EventTarget {
         ${name}
       </button>
       `;
+      if (tempLayers.length > 0 && l == 0) {
+        strThematicButtons += `
+        <button class="thematicButton" data-name="Évènements">
+          Événements
+        </button>
+        `;
+      }
     }
 
     var thematicLayers = LayersConfig.getThematicLayers();

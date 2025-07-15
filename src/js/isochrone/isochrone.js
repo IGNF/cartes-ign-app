@@ -361,18 +361,17 @@ class Isochrone {
 
     if (this.tempLayers && this.tempLayers.length > 0) {
       settings.tempLayersToDisplay.forEach((id) => {
-        if (!this.map.getLayer(`${id}$$$${id}`)) {
+        if (this.map.getLayer(`${id}$$$${id}`)) {
           document.querySelector(`#${id}`).click();
-          const addLayerCallback = (e) => {
-            if (e.detail.id === id) {
-              this.map.setFilter(`${id}$$$${id}`, ["within", this.polygon]);
-              Globals.manager.removeEventListener("addlayer", addLayerCallback);
-            }
-          };
-          Globals.manager.addEventListener("addlayer", addLayerCallback);
-        } else {
-          this.map.setFilter(`${id}$$$${id}`, ["within", this.polygon]);
         }
+        document.querySelector(`#${id}`).click();
+        const addLayerCallback = (e) => {
+          if (e.detail.id === id) {
+            this.map.setFilter(`${id}$$$${id}`, ["within", this.polygon]);
+            Globals.manager.removeEventListener("addlayer", addLayerCallback);
+          }
+        };
+        Globals.manager.addEventListener("addlayer", addLayerCallback);
       });
     }
 

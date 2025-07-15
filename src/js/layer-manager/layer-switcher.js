@@ -447,7 +447,7 @@ class LayerSwitcher extends EventTarget {
           this.#setVisibility(id, !this.layers[id].visibility);
         }
         if (value === "remove") {
-          this.removeLayer(id);
+          this.removeLayer(id, this.layers[id].isTempLayer);
         }
         if (value === "info") {
           var text = document.getElementById("informationsText");
@@ -696,6 +696,7 @@ class LayerSwitcher extends EventTarget {
       format: props.format,
       layerType: props.layerType ? props.layerType : props.type,
       layerDef: props.layerDef ? props.layerDef : {},
+      isTempLayer: layerOptions.isTempLayer || false,
     };
     this.#addLayerContainer(id);
     try {

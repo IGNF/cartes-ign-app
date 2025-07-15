@@ -72,28 +72,30 @@ class ImmersivePosion extends EventTarget {
   }
 
   /**
-   * Computes html string from availmable data
+   * Computes html string from available data
    */
   computeHtml() {
-    let htmlTemplate = `
-      <p>&#x1F3E0; Vous êtes sur la commune de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][0] : "chargement..."}, qui compte ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? parseInt(this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][1]).toLocaleString() : "chargement..."} habitants, située dans le département de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"][0] : "chargement..."}</p>
-    `;
+    let htmlTemplate = "";
 
     if (LayersConfig.getTempLayers().length > 0) {
-      let eventsHtml = "<p> Les événements suivants sont à proximité : <br/>";
+      let eventsHtml = "<div class=\"event\">";
       let hasOneEvent = false;
       for (let i = 0; i < LayersConfig.getTempLayers().length; i++) {
         const layer = LayersConfig.getTempLayers()[i];
         if (this.data[layer.id]) {
           hasOneEvent = true;
-          eventsHtml += `&#x1F4C5; ${layer.name} : ${this.data[layer.id]}`;
+          eventsHtml += `<p class="eventImmersiveHeader"><span class="eventImmersiveImg" style="background-image:url(${layer.mainScreenBtn.iconUrl}"></span> ${layer.name}&nbsp;:</p>${this.data[layer.id]}`;
         }
       }
-      eventsHtml += "</p>";
+      eventsHtml += "</div>";
       if (hasOneEvent) {
         htmlTemplate += eventsHtml;
       }
     }
+
+    htmlTemplate += `
+      <p>&#x1F3E0; Vous êtes sur la commune de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][0] : "chargement..."}, qui compte ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? parseInt(this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][1]).toLocaleString() : "chargement..."} habitants, située dans le département de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"][0] : "chargement..."}</p>
+    `;
 
     if (this.data["BDTOPO_V3:parc_ou_reserve"] && this.data["BDTOPO_V3:parc_ou_reserve"].length) {
       let parcHtml = "<p>";
@@ -257,11 +259,17 @@ class ImmersivePosion extends EventTarget {
         }).then( (data) => {
           const refCircle = circle([this.lng, this.lat], 3);
           const points = pointsWithinPolygon(data, refCircle);
+          points.features = points.features.sort( (a, b) => {
+            const coordsA = new maplibregl.LngLat(...a.geometry.coordinates);
+            const coordsB = new maplibregl.LngLat(...b.geometry.coordinates);
+            const coordsRef = new maplibregl.LngLat(this.lng, this.lat);
+            return coordsRef.distanceTo(coordsA) - coordsRef.distanceTo(coordsB);
+          }).slice(0, 12);
           const results = [];
           points.features.forEach( (feature) => {
-            results.push(feature.properties.title);
+            results.push("<span class=\"eventPuce\"></span>" + feature.properties.title);
           });
-          this.data[layer.id] = results.join(", ");
+          this.data[layer.id] = results.join("<br />");
           this.dispatchEvent(
             new CustomEvent("dataLoaded", {
               bubbles: true,
