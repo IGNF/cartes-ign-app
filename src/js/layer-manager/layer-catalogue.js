@@ -348,6 +348,7 @@ class LayerCatalogue extends EventTarget {
     var element = document.getElementById(layerOptions.id);
     element.classList.add("selectedLayer");
 
+    layerOptions.isLayerOptions = true; // pour différencier de l'event addLayer
     /**
      * Evenement "addlayer"
      * @event addlayeroptions

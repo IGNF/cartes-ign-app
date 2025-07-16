@@ -194,9 +194,6 @@ function app() {
       eventButton.title = layer.mainScreenBtn.title;
       eventButton.style.backgroundImage = `url(${layer.mainScreenBtn.iconUrl})`;
       eventButton.addEventListener("click", () => {
-        if (!Globals.map.getLayer(`${layer.id}$$$${layer.id}`)) {
-          Globals.map.flyTo({zoom: 4, center: [2.0, 47.33]});
-        }
         document.querySelector(`#${layer.id}`).click();
       });
       if (layer.colors) {

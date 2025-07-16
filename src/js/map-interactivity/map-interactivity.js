@@ -163,10 +163,6 @@ class MapInteractivity {
         return;
       }
     }
-    if (!Globals.interactivityIndicator.shown) {
-      this.map.once("click", this.handleInfoOnMap);
-      return;
-    }
 
     if (features.length > 0) {
       const tempLayers = LayersConfig.getTempLayers();
@@ -180,7 +176,6 @@ class MapInteractivity {
             lng: features[0].geometry.coordinates[0]
           };
         }
-
         Globals.position.compute({
           lngLat: lngLat,
           text: resp.title,
@@ -193,7 +188,11 @@ class MapInteractivity {
         });
         return;
       }
+    }
 
+    if (!Globals.interactivityIndicator.shown) {
+      this.map.once("click", this.handleInfoOnMap);
+      return;
     }
 
     // GFI au sens OGC

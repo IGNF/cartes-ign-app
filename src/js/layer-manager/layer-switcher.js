@@ -728,6 +728,32 @@ class LayerSwitcher extends EventTarget {
           }
         })
       );
+
+      // Déplacement du base layer juste au-dessus d'un autre base layer pour garder visible les couches de données
+      if (!layerOptions.isLayerOptions && props.base) {
+        let highestBaseLayer = {position: -1};
+        let highestBaseLayerId = null;
+        for (const key in this.layers) {
+          if (key === id) {
+            continue;
+          }
+          if (this.layers[key].base) {
+            if (this.layers[key].position > highestBaseLayer.position) {
+              highestBaseLayer = this.layers[key];
+              highestBaseLayerId = key;
+            }
+          }
+        }
+        if (highestBaseLayerId !== null) {
+          const maxPosition = Object.keys(this.layers).length - 1;
+          const index = this.#getIndex(id);
+          const container = document.getElementById("container_ID_" + index);
+          const idexOther = this.#getIndex(highestBaseLayerId);
+          const otherContainer = document.getElementById("container_ID_" + idexOther);
+          document.getElementById("lst-layer-switcher").insertBefore(container, otherContainer);
+          this.#setPosition(id, maxPosition - (highestBaseLayer.position + 1), maxPosition - this.layers[id].position);
+        }
+      }
     } catch (e) {
       this.layers[id].error = true;
       throw e;

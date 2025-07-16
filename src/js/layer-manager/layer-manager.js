@@ -232,7 +232,6 @@ class LayerManager extends EventTarget {
 
   /**
      * Chargement de plusieurs couches
-     * @todo transmettre des options de la couches (ex. opacité)
      */
   #loadLayers() {
     // 1. le layer manager demande l'ajout de couches (liste) via le layer catalogue (méthode catalogue.addLayer)
@@ -256,7 +255,7 @@ class LayerManager extends EventTarget {
         } else {
           layer = this.options.layers[i];
         }
-        this.layerCatalogue.addLayerOptions(layer); // TODO transmettre des options de la couches (ex. opacité)
+        this.layerCatalogue.addLayerOptions(layer);
       }
     }
   }
