@@ -162,6 +162,10 @@ input[type="submit"].disabled {
   font-size: 14px;
 }
 
+#onboardingDiv > .form-submit.event {
+  background-color: var(--event-main);
+}
+
 .secondary-button {
   color: var(--darker-green);
   background-color: var(--light-green);
@@ -272,6 +276,10 @@ textarea:focus + .dsign-form-label {
 
 .toggleInput:checked + .toggleSlider {
   background-color: var(--dark-green);
+}
+
+.toggleInput:checked + .toggleSlider.event {
+  background-color: var(--event-main);
 }
 
 .toggleInput:disabled + .toggleSlider {

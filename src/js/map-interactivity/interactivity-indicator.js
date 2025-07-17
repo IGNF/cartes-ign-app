@@ -95,6 +95,9 @@ class InteractivityIndicator {
      * @private
      */
   onGetLastLayer(e) {
+    if (this.hardDisabled) {
+      return;
+    }
     var layer = e.detail.entries.pop();
     if (!layer) {
       return;

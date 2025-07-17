@@ -27,6 +27,7 @@ import TrackRecord from "./track-record/track-record";
 import DOM from "./dom";
 import ThreeD from "./three-d";
 
+import LayerConfig from "./layer-manager/layer-config";
 import LocationLayers from "./services/location-styles";
 // TODO: activate
 // import ImmersiveNotifications from "./immersive-notifications";
@@ -176,10 +177,14 @@ const addControls = () => {
       }).finally(() => {
         // INFO
         // le contrôle de calcul d'isochrone est en attente de l'initialisation des POI
+        const tempLayerList = LayerConfig.getTempLayers().filter((layer) => {
+          return layer.isochrone;
+        });
         Globals.isochrone = new Isochrone(map, {
         // callback sur l'ouverture / fermeture du panneau de recherche
           openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
-          closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); }
+          closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); },
+          tempLayers : tempLayerList,
         });
         // Poi RLT
         Globals.comparePoi = new ComparePoi(map, {});

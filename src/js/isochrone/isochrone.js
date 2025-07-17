@@ -38,7 +38,8 @@ class Isochrone {
       style: {},
       // callback
       openSearchControlCbk: null,
-      closeSearchControlCbk: null
+      closeSearchControlCbk: null,
+      tempLayers: null,
     };
 
     // configuration
@@ -67,6 +68,8 @@ class Isochrone {
 
     // target
     this.target = this.options.target;
+
+    this.tempLayers = this.options.tempLayers || null;
 
     // carte
     this.map = map;
@@ -151,6 +154,10 @@ class Isochrone {
     if (this.poi) {
       options = {};
       options.thematics = this.poi.config;
+    }
+
+    if (this.tempLayers && this.tempLayers.length > 0) {
+      options.tempLayers = this.tempLayers;
     }
 
     var container = this.getContainer(options);
@@ -352,6 +359,22 @@ class Isochrone {
       });
     }
 
+    if (this.tempLayers && this.tempLayers.length > 0) {
+      settings.tempLayersToDisplay.forEach((id) => {
+        if (this.map.getLayer(`${id}$$$${id}`)) {
+          document.querySelector(`#${id}`).click();
+        }
+        document.querySelector(`#${id}`).click();
+        const addLayerCallback = (e) => {
+          if (e.detail.id === id) {
+            this.map.setFilter(`${id}$$$${id}`, ["within", this.polygon]);
+            Globals.manager.removeEventListener("addlayer", addLayerCallback);
+          }
+        };
+        Globals.manager.addEventListener("addlayer", addLayerCallback);
+      });
+    }
+
     Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
       .setLngLat(this.center)
       .addTo(this.map);
@@ -445,6 +468,13 @@ class Isochrone {
     if (this.filter) {
       this.poi.ids.forEach( (id) => {
         this.map.setFilter(id, this.previousFilters[id]);
+      });
+    }
+    if (this.tempLayers && this.tempLayers.length > 0) {
+      this.tempLayers.forEach((layer) => {
+        if (this.map.getLayer(`${layer.id}$$$${layer.id}`)) {
+          this.map.setFilter(`${layer.id}$$$${layer.id}`, null);
+        }
       });
     }
     this.filter = null;

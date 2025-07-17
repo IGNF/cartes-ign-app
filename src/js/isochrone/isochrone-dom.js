@@ -48,11 +48,15 @@ let IsochroneDOM = {
         if (values.visible) {
           checked = "checked";
         }
+        var chkClass = "inputIsochroneFilterItem";
+        if (values.tempLayer) {
+          chkClass = "inputIsochroneFilterItemTempLayer";
+        }
         return `
         <label class="lblIsochroneFilter chkContainer" title="${values.id}">
           ${values.name}
           <input
-            class="inputIsochroneFilterItem checkbox"
+            class="${chkClass} checkbox"
             type="checkbox"
             name="${values.id}"
             value="${values.id}"
@@ -72,7 +76,48 @@ let IsochroneDOM = {
         });
       }
 
-      strPoi = `
+      var strTempLayers = "";
+      if (opts.tempLayers && opts.tempLayers.length > 1) {
+        var strTempLayersItems = "";
+        for (let i = 0; i < opts.tempLayers.length; i++) {
+          var tempLayer = opts.tempLayers[i];
+          strTempLayersItems += tplPoiItem({
+            id : tempLayer.id,
+            name : tempLayer.name,
+            visible : true,
+            tempLayer : true,
+          });
+        }
+        strTempLayers = `
+        <div class="section event">
+          <div class="divPOIDisplay">
+            <span class="filterTitle">Afficher les évènements</span>
+          </div>
+
+          <div class="divIsochronePOIFilter">
+            ${strTempLayersItems}
+          </div>
+        </div>
+        `;
+      } else if (opts.tempLayers && opts.tempLayers.length === 1) {
+        strTempLayers = `
+        <div class="section event">
+          <div class="divPOIDisplay">
+            <span class="filterTitleImg" style="background-image:url(${opts.tempLayers[0].mainScreenBtn.iconUrl}"></span>
+            <div class="filterTitle">
+              <span>Afficher les évènements</span>
+              <span class="filterSubTitle">${opts.tempLayers[0].name}</span>
+            </div>
+            <label class="toggleSwitch">
+              <input id="displayPOI-isochrone-${opts.tempLayers[0].id}" value="${opts.tempLayers[0].id}" class="toggleInput inputIsochroneFilterItemTempLayer" type="checkbox" checked>
+              <span class="toggleSlider event"></span>
+            </label>
+          </div>
+        </div>
+        `;
+      }
+
+      strPoi = `${strTempLayers}
       <div class="section">
         <div class="divPOIDisplay">
           <span class="filterTitle">Afficher les centres d'intérêt</span>
@@ -284,6 +329,12 @@ let IsochroneDOM = {
       document.querySelectorAll(".inputIsochroneFilterItem").forEach( (el) => {
         poisToDisplay[el.value] = el.checked;
       });
+      var tempLayersToDisplay = [];
+      document.querySelectorAll(".inputIsochroneFilterItemTempLayer").forEach( (el) => {
+        if (el.checked) {
+          tempLayersToDisplay.push(el.value);
+        }
+      });
 
       if (!mode.value) {
         Toast.show({
@@ -310,6 +361,7 @@ let IsochroneDOM = {
         showOutline: showOutline,
         showPoisOutside: showPoisOutside,
         poisToDisplay: poisToDisplay,
+        tempLayersToDisplay: tempLayersToDisplay,
       });
 
       return false;
@@ -332,13 +384,21 @@ let IsochroneDOM = {
       if (toggleChecked) {
         this.dom.showLimitsChk.disabled = false;
       } else {
-        this.dom.showLimitsChk.checked = true;
-        this.dom.showLimitsChk.disabled = true;
-        Toast.show({
-          text: "Aucun centre d’intérêt n'est sélectionné. La zone de contour est obligatoire.",
-          duration: "long",
-          position: "bottom"
+        let allUnchecked = true;
+        document.querySelectorAll(".inputIsochroneFilterItemTempLayer").forEach((el) => {
+          if (el.checked) {
+            allUnchecked = false;
+          }
         });
+        if (allUnchecked) {
+          this.dom.showLimitsChk.checked = true;
+          this.dom.showLimitsChk.disabled = true;
+          Toast.show({
+            text: "Aucun centre d’intérêt n'est sélectionné. La zone de contour est obligatoire.",
+            duration: "long",
+            position: "bottom"
+          });
+        }
       }
       document.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
         if (toggleChecked) {
@@ -348,11 +408,19 @@ let IsochroneDOM = {
         }
       });
     });
-    this.dom.form.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
+    const checkboxHandler = (el) => {
       el.addEventListener("change", () => {
         let allUnchecked = true;
         let allChecked = true;
         document.querySelectorAll(".inputIsochroneFilterItem").forEach((el) => {
+          if (el.checked) {
+            allUnchecked = false;
+            this.dom.showLimitsChk.disabled = false;
+          } else {
+            allChecked = false;
+          }
+        });
+        document.querySelectorAll(".inputIsochroneFilterItemTempLayer").forEach((el) => {
           if (el.checked) {
             allUnchecked = false;
             this.dom.showLimitsChk.disabled = false;
@@ -374,7 +442,9 @@ let IsochroneDOM = {
           });
         }
       });
-    });
+    };
+    this.dom.form.querySelectorAll(".inputIsochroneFilterItem").forEach(checkboxHandler);
+    this.dom.form.querySelectorAll(".inputIsochroneFilterItemTempLayer").forEach(checkboxHandler);
     this.dom.clearLocation.addEventListener("click", () => {
       this.dom.location.value = "";
       this.dom.location.dataset.coordinates = "";

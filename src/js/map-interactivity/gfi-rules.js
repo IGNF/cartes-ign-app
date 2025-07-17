@@ -44,20 +44,33 @@ const gfiRules = {
     if (template["title"][0] === "@") {
       let str = featureProperties[template.title.split("@")[1]].replace("", "'");
       if (str.length) {
-        result.title = str[0].toUpperCase() + str.slice(1);
+        result.title = str[0].toUpperCase() + str.slice(1) + "</p>";
       } else {
-        result.title = "";
+        result.title = "</p>";
       }
     } else {
-      result.title = template.title;
+      result.title = template.title + "</p>";
     }
     if (template["pretitle"]) {
-      result.title = template["pretitle"] + result.title;
+      let pretitle = template["pretitle"];
+      if (template["pretitle"][0] === "@") {
+        let str = featureProperties[template.pretitle.split("@")[1]].replace("", "'");
+        if (str.length) {
+          pretitle = str[0].toUpperCase() + str.slice(1);
+        } else {
+          pretitle = "";
+        }
+      }
+      result.title = pretitle + result.title;
     }
+    result.title = `<p class="positionTitle">${result.title}`;
     if (template["title2"]) {
-      let str;
+      let str = "";
       if (template["title2"][0] === "@") {
-        str = featureProperties[template.title2.split("@")[1]].replace("", "'");
+        if (template["title2type"] && template["title2type"] === "date") {
+          str += "<span class=\"positionTitleDateicon\"></span>";
+        }
+        str += featureProperties[template.title2.split("@")[1]].replace("", "'");
         if (str) {
           str = str[0].toUpperCase() + str.slice(1);
         }
@@ -65,8 +78,25 @@ const gfiRules = {
         str = template["title2"];
       }
       if (str) {
-        result.title += `<p class="positionTitle2">${str}</p>`;
+        result.title += `<p class="positionTitle2">${str}`;
       }
+    }
+    if (template["title3"]) {
+      let str;
+      if (template["title3"][0] === "@") {
+        str = featureProperties[template.title3.split("@")[1]].replace("", "'");
+        if (str) {
+          str = str[0].toUpperCase() + str.slice(1);
+        }
+      } else {
+        str = template["title3"];
+      }
+      if (str) {
+        result.title += `<span class="positionTitle3">&nbsp;- ${str}</span>`;
+      }
+    }
+    if (template["title2"]) {
+      result.title += "</p>";
     }
     if (template["subtitle"]) {
       result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`;
@@ -80,6 +110,9 @@ const gfiRules = {
           let match = str.match("{{([^}]+)}}");
           while (match) {
             if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+              if (Array.isArray(featureProperties[match[1]])) {
+                featureProperties[match[1]] = featureProperties[match[1]].join(", ");
+              }
               str = str.replace(match[0], featureProperties[match[1]]);
               match = str.match("{{([^}]+)}}");
             } else {
@@ -108,6 +141,9 @@ const gfiRules = {
                   return "";
                 }
                 featureProperties[match[1]] = featureProperties[match[1]].charAt(0).toUpperCase() + featureProperties[match[1]].slice(1);
+              }
+              if (featureProperties[match[1]][0] === "[") {
+                featureProperties[match[1]] = JSON.parse(featureProperties[match[1]]).join(", ");
               }
               str = str.replace(match[0], featureProperties[match[1]]);
               match = str.match("{{([^}]+)}}");

@@ -326,7 +326,7 @@ class LayerSwitcher extends EventTarget {
     var type = this.layers[id].type;
     if (type === "raster") {
       this.map.setPaintProperty(id, "raster-opacity", value / 100);
-    } else if (type === "vector") {
+    } else if (type === "vector" || type === "geojson") {
       LayersGroup.addOpacity(id, value / 100);
     } else {
       throw new Error(`Type not yet implemented or unknow : ${type}`);
@@ -354,7 +354,7 @@ class LayerSwitcher extends EventTarget {
     var type = this.layers[id].type;
     if (type === "raster") {
       this.map.setLayoutProperty(id, "visibility", (value) ? "visible" : "none");
-    } else if (type === "vector") {
+    } else if (type === "vector" || type === "geojson") {
       LayersGroup.addVisibility(id, value);
     } else {
       throw new Error(`Type not yet implemented or unknow : ${type}`);
@@ -447,7 +447,7 @@ class LayerSwitcher extends EventTarget {
           this.#setVisibility(id, !this.layers[id].visibility);
         }
         if (value === "remove") {
-          this.removeLayer(id);
+          this.removeLayer(id, this.layers[id].isTempLayer);
         }
         if (value === "info") {
           var text = document.getElementById("informationsText");
@@ -572,11 +572,20 @@ class LayerSwitcher extends EventTarget {
         source : id,
         type : "raster"
       });
-    } else if (type === "vector") {
+    } else if (type === "vector" && this.layers[id].style) {
       style = this.layers[id].style; // url !
       fallback = this.layers[id].fallbackStyle; // url !;
+    } else if (type === "vector") {
+      // PMtiles (temporary layer)
+      style.push(this.layers[id].layerDef);
+    } else if (type === "geojson") {
+      style.push({
+        id : id,
+        source : id,
+        type : this.layers[id].layerType,
+        layout : this.layers[id].layerDef.layout,
+      });
     } else {
-      // ex. geojson
       this.layers[id].error = true;
       throw new Error(`Type not yet implemented or unknown : ${type}`);
     }
@@ -587,7 +596,7 @@ class LayerSwitcher extends EventTarget {
     var layerIdBefore = (layerIndexBefore !== -1) ? this.map.getStyle().layers[layerIndexBefore].id : null;
 
     if (Array.isArray(style)) {
-      // Raster
+      // Raster ou geojson
       promise = new Promise((resolve) => {
         LayersGroup.addGroup(id, style, layerIdBefore);
         resolve();
@@ -661,11 +670,16 @@ class LayerSwitcher extends EventTarget {
    */
   async addLayer(layerOptions) {
     const id = layerOptions.id;
-    var props = LayersConfig.getLayerProps(id);
+    var props;
+    if (layerOptions.isTempLayer) {
+      props = LayersConfig.getTempLayerProps(id);
+    } else {
+      props = LayersConfig.getLayerProps(id);
+    }
     this.index++;
     this.layers[id] = {
       title: props.title,
-      quickLookUrl: LayersAdditional.getQuickLookUrl(id.split("$")[0]),
+      quickLookUrl: props.quickLookUrl ? props.quickLookUrl : LayersAdditional.getQuickLookUrl(id.split("$")[0]),
       style: props.style,
       fallbackStyle: props.fallbackStyle,
       type: props.type,
@@ -679,7 +693,10 @@ class LayerSwitcher extends EventTarget {
       maxNativeZoom: props.maxNativeZoom,
       minNativeZoom: props.minNativeZoom,
       interactive: props.interactive,
-      format: props.format
+      format: props.format,
+      layerType: props.layerType ? props.layerType : props.type,
+      layerDef: props.layerDef ? props.layerDef : {},
+      isTempLayer: layerOptions.isTempLayer || false,
     };
     this.#addLayerContainer(id);
     try {
@@ -711,6 +728,32 @@ class LayerSwitcher extends EventTarget {
           }
         })
       );
+
+      // Déplacement du base layer juste au-dessus d'un autre base layer pour garder visible les couches de données
+      if (!layerOptions.isLayerOptions && props.base) {
+        let highestBaseLayer = {position: -1};
+        let highestBaseLayerId = null;
+        for (const key in this.layers) {
+          if (key === id) {
+            continue;
+          }
+          if (this.layers[key].base) {
+            if (this.layers[key].position > highestBaseLayer.position) {
+              highestBaseLayer = this.layers[key];
+              highestBaseLayerId = key;
+            }
+          }
+        }
+        if (highestBaseLayerId !== null) {
+          const maxPosition = Object.keys(this.layers).length - 1;
+          const index = this.#getIndex(id);
+          const container = document.getElementById("container_ID_" + index);
+          const idexOther = this.#getIndex(highestBaseLayerId);
+          const otherContainer = document.getElementById("container_ID_" + idexOther);
+          document.getElementById("lst-layer-switcher").insertBefore(container, otherContainer);
+          this.#setPosition(id, maxPosition - (highestBaseLayer.position + 1), maxPosition - this.layers[id].position);
+        }
+      }
     } catch (e) {
       this.layers[id].error = true;
       throw e;
@@ -723,7 +766,7 @@ class LayerSwitcher extends EventTarget {
      * @fires removelayer
      * @public
      */
-  removeLayer(id) {
+  removeLayer(id, isTempLayer = false) {
     // Comptage du nombre de fonds de plan affichés
     let nbBaseLayers = 0;
     // eslint-disable-next-line no-unused-vars
@@ -735,7 +778,7 @@ class LayerSwitcher extends EventTarget {
     // Si le layer a enlever est le dernier fond de plan, on ne fait rien
     // On n'affiche le message que si c'est l'utilisateur qui a fait l'action
     // (si on est en mode "myaccount", c'est le téléchargeur de carte qui est à l'origine du clic)
-    if (LayersConfig.getLayerProps(id).base && nbBaseLayers === 1 && Globals.backButtonState !== "myaccount") {
+    if (!isTempLayer && LayersConfig.getLayerProps(id).base && nbBaseLayers === 1 && Globals.backButtonState !== "myaccount") {
       Toast.show({
         text: "Impossible d'enlever le seul fond de carte",
         duration: "short",

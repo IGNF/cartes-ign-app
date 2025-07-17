@@ -22,6 +22,7 @@ import ConfigLayers from "../../../config/layers-config.json";
 let baseLayers;
 let thematicLayers;
 let configLayers;
+let tempLayers = [];
 try {
   const resp = await fetch("https://ignf.github.io/cartes-ign-app/base-layer-config.json");
   baseLayers = await resp.json();
@@ -39,6 +40,23 @@ try {
   configLayers = await resp.json();
 } catch (e) {
   configLayers = ConfigLayers;
+}
+try {
+  const resp = await fetch("https://ignf.github.io/cartes-ign-temp-layers/temp_layers_config.json");
+  tempLayers = await resp.json();
+  tempLayers = tempLayers.filter((layer) => {
+    if (Date.now() < Date.parse(layer.dateEnd) && Date.now() > Date.parse(layer.dateStart)) {
+      return true;
+    }
+    return false;
+  });
+  thematicLayers.push({
+    name: "Évènements",
+    layers: tempLayers.map((layer) => layer.id),
+  });
+
+} catch (e) {
+  console.warn("Could not load temp layers config: ", e);
 }
 
 /**
@@ -82,6 +100,34 @@ const getLayerProps = (id) => {
 };
 
 /**
+ * Obtenir la liste des propriétés d'une couche temporaire
+ * @param {*} id
+ * @returns
+ */
+const getTempLayerProps = (id) => {
+  var props = JSON.parse(JSON.stringify(tempLayers)).filter(elem => elem.id === id)[0];
+  return {
+    layer: props.id,
+    base: false, // couche de fonds ou autre
+    title: props.name,
+    desc: props.description,
+    source: props.source || "",
+    maj: props.maj || "",
+    type: props.layerSourceType,
+    style: "",
+    fallbackStyle: "",
+    format: "",
+    url: props.layerUrl,
+    minNativeZoom: 0,
+    maxNativeZoom: 20,
+    interactive: true,
+    quickLookUrl: props.quickLookUrl,
+    layerType: props.layerType,
+    layerDef: props.layer,
+  };
+};
+
+/**
  * Liste des couches de fonds
  * @returns
  */
@@ -103,8 +149,16 @@ const getRLTLayers = () => {
  * @returns
  */
 const getThematicLayers = () => {
-  var arrays = thematicLayers.map((o) => { return o.layers; });
+  var arrays = thematicLayers.filter(o => o.name !== "Évènements").map((o) => { return o.layers; });
   return arrays.flat();
+};
+
+/**
+ * Liste des couches temporaires
+ * @returns
+ */
+const getTempLayers = () => {
+  return JSON.parse(JSON.stringify(tempLayers));
 };
 
 /**
@@ -126,7 +180,7 @@ const getThematics = () => {
 const getLayersByThematic = (name) => {
   var data = thematicLayers.find((element) => { return element.name === name; });
   if (data.settings && data.settings.generic) {
-    return getThematicLayers();
+    return getThematicLayers().concat(getTempLayers().map((layer) => layer.id));
   }
   return data.layers;
 };
@@ -169,6 +223,31 @@ const createSource = (id) => {
     throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${service}`);
   }
   return fxt(id);
+};
+
+/**
+ * Creer les propriétés d'une couche (source) pour la librairie MapLibre
+ * @param {*} layer
+ */
+const createTempSource = (layer) => {
+  var name = layer.id;
+  var type = layer.layerSourceType;
+
+  var fxt;
+  switch (type) {
+  case "raster":
+    fxt = createTempRasterSource;
+    break;
+  case "vector":
+    fxt = createTempVectorSource;
+    break;
+  case "geojson":
+    fxt = createTempGeojsonSource;
+    break;
+  default:
+    throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${type}`);
+  }
+  return fxt(layer);
 };
 
 /**
@@ -216,6 +295,44 @@ const createVectorSource = (id) => {
 };
 
 /**
+ * Creer les propriétés d'une couche de type Vector pour la librairie MapLibre
+ * @param {*} layer
+ */
+const createTempVectorSource = (layer) => {
+  // PM tiles uniquement pour les temp layers @see https://docs.protomaps.com/pmtiles/maplibre#installation
+  return {
+    type: "vector",
+    url: layer.layerUrl,
+  };
+};
+
+/**
+ * Creer les propriétés d'une couche de type geojson pour la librairie MapLibre
+ * @param {*} layer
+ */
+const createTempGeojsonSource = (layer) => {
+  return {
+    type: "geojson",
+    data: layer.layerUrl,
+    maxzoom: layer.maxNativeZoom || 20,
+  };
+};
+
+/**
+ * Creer les propriétés d'une couche de type geojson pour la librairie MapLibre
+ * @param {*} layer
+ */
+const createTempRasterSource = (layer) => {
+  return {
+    type: "raster",
+    tiles: [layer.layerUrl],
+    tileSize: layer.tileSize || 256,
+    maxzoom: layer.maxNativeZoom || 20,
+    minzoom: layer.minNativeZoom || 0,
+  };
+};
+
+/**
  * Creer les propriétés d'une couche de type Raster pour la librairie MapLibre
  * @param {*} id
  */
@@ -249,6 +366,8 @@ export default {
   getRLTLayers,
   getThematicLayers,
   getThematics,
+  getTempLayers,
+  getTempLayerProps,
   getLayersByThematic,
   getThematicByLayerID,
   baseLayerSources: Object.fromEntries(
@@ -259,5 +378,8 @@ export default {
   ),
   thematicLayerSources: Object.fromEntries(
     getThematicLayers().map( (id) => [id, createSource(id)] )
-  )
+  ),
+  tempLayerSources: Object.fromEntries(
+    getTempLayers().map( (layer) => [layer.id, createTempSource(layer)] )
+  ),
 };

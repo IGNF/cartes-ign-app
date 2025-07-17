@@ -44,20 +44,32 @@
   transition: top 0.3s, opacity 0.5s;
 }
 
-/* when :has() support is more broad in mobile browsers
-TODO: remove all DOM.$layerManagerBtn.classList.add/remove("higher") in nav.js
-.app:has(#filterPoiBtn.higher) #layerManagerBtn {
-*/
-#layerManagerBtn.higher {
+#eventMapBtn {
+  background-image: url("assets/map-buttons/layers.svg");
+  background-size: cover;
+  position: fixed;
+  top: calc(212px + var(--safe-area-inset-top));
+  transition: top 0.3s, opacity 0.5s;
+}
+
+.app:has(#filterPoiBtn.higher) #layerManagerBtn  {
   top: calc(76px + var(--safe-area-inset-top));
 }
 
-/* when :has() support is more broad in mobile browsers
-TODO: remove all DOM.$layerManagerBtn.classList.add/remove("highest") in nav.js
+.app:has(#filterPoiBtn.higher) #eventMapBtn {
+  top: calc(142px + var(--safe-area-inset-top));
+}
+
 .app:has(#filterPoiBtn.d-none) #layerManagerBtn {
-*/
-#layerManagerBtn.highest {
   top: calc(10px + var(--safe-area-inset-top));
+}
+
+.app:has(#filterPoiBtn.d-none) #eventMapBtn {
+  top: calc(76px + var(--safe-area-inset-top));
+}
+
+.app:has(.mapRLT:not(.d-none)) #eventMapBtn {
+  display: none;
 }
 
 #layerManagerBtn.active {

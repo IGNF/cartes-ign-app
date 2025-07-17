@@ -8,11 +8,20 @@ import QueryConfig from "../../config/immersive-position-config.json";
 import Code_cultuCaption from "../../config/code_cultu-caption.json";
 import Code_tfvCaption from "../../config/code_tfv-caption.json";
 
+import LayersConfig from "./layer-manager/layer-config";
+
+
 import maplibregl from "maplibre-gl";
+import proj4 from "proj4";
+
 import PointToLineDistance from "@turf/point-to-line-distance";
 import CleanCoords from "@turf/clean-coords";
 
 import requestUtils from "./utils/request-utils";
+import { circle } from "@turf/circle";
+import { pointsWithinPolygon } from "@turf/points-within-polygon";
+
+proj4.defs("EPSG:2154","+proj=lcc +lat_0=46.5 +lon_0=3 +lat_1=49 +lat_2=44 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
 
 let queryConfig;
 let code_cultuCaption;
@@ -63,10 +72,28 @@ class ImmersivePosion extends EventTarget {
   }
 
   /**
-   * Computes html string from availmable data
+   * Computes html string from available data
    */
   computeHtml() {
-    let htmlTemplate = `
+    let htmlTemplate = "";
+
+    if (LayersConfig.getTempLayers().length > 0) {
+      let eventsHtml = "<div class=\"event\">";
+      let hasOneEvent = false;
+      for (let i = 0; i < LayersConfig.getTempLayers().length; i++) {
+        const layer = LayersConfig.getTempLayers()[i];
+        if (this.data[layer.id]) {
+          hasOneEvent = true;
+          eventsHtml += `<p class="eventImmersiveHeader"><span class="eventImmersiveImg" style="background-image:url(${layer.mainScreenBtn.iconUrl}"></span> ${layer.name}&nbsp;:</p>${this.data[layer.id]}`;
+        }
+      }
+      eventsHtml += "</div>";
+      if (hasOneEvent) {
+        htmlTemplate += eventsHtml;
+      }
+    }
+
+    htmlTemplate += `
       <p>&#x1F3E0; Vous êtes sur la commune de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][0] : "chargement..."}, qui compte ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? parseInt(this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][1]).toLocaleString() : "chargement..."} habitants, située dans le département de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"][0] : "chargement..."}</p>
     `;
 
@@ -210,9 +237,49 @@ class ImmersivePosion extends EventTarget {
    * Computes all data queries
    */
   computeAll() {
+    // Regular WFS layers
     queryConfig.forEach( (config) => {
       this.#computeFromConfig(config);
     });
+
+    // Temporary event layers
+    if (LayersConfig.getTempLayers().length > 0) {
+      for (let i = 0; i < LayersConfig.getTempLayers().length; i++) {
+        const layer = LayersConfig.getTempLayers()[i];
+        let url = layer.layerUrl;
+        if (layer.layerUrl.includes("pmtiles://")) {
+          url = layer.layerUrl.replace("pmtiles://", "").replace(".pmtiles", ".geojson");
+        }
+        fetch(url).then( (response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Network response was not ok.");
+          }
+        }).then( (data) => {
+          const refCircle = circle([this.lng, this.lat], 3);
+          const points = pointsWithinPolygon(data, refCircle);
+          points.features = points.features.sort( (a, b) => {
+            const coordsA = new maplibregl.LngLat(...a.geometry.coordinates);
+            const coordsB = new maplibregl.LngLat(...b.geometry.coordinates);
+            const coordsRef = new maplibregl.LngLat(this.lng, this.lat);
+            return coordsRef.distanceTo(coordsA) - coordsRef.distanceTo(coordsB);
+          }).slice(0, 12);
+          const results = [];
+          points.features.forEach( (feature) => {
+            results.push("<span class=\"eventPuce\"></span>" + feature.properties.title);
+          });
+          this.data[layer.id] = results.join("<br />");
+          this.dispatchEvent(
+            new CustomEvent("dataLoaded", {
+              bubbles: true,
+            })
+          );
+        }).catch( (error) => {
+          console.warn("Error fetching data:", error);
+        });
+      }
+    }
   }
 
   /**

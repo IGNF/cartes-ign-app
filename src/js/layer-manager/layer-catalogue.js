@@ -18,6 +18,7 @@ import { Toast } from "@capacitor/toast";
 /**
  * Gestion des couches thématiques et fonds de carte
  * @fires addlayer
+ * @fires addlayeroptions
  * @fires removelayer
  * @description
  *      → manager
@@ -101,7 +102,24 @@ class LayerCatalogue extends EventTarget {
     }
 
     var strThematicButtons = "";
+    var strThematicLayers = "";
     var thematicButtons = LayersConfig.getThematics();
+    var tempLayers = LayersConfig.getTempLayers();
+    if (tempLayers.length > 0) {
+      for(let k = 0; k < tempLayers.length; k++) {
+        var tempLayer = tempLayers[k];
+        strThematicLayers += tplLayer({
+          type : "thematicLayer tempLayer layer-hidden", // liste cachée par defaut !
+          layerID : tempLayer.id,
+          layerName : tempLayer.name,
+          layerQuickLook : tempLayer.quickLookUrl,
+          layerTitle : tempLayer.name,
+          layerThematic : "Évènements",
+          interactive: true,
+        });
+      }
+    }
+
     for (let l = 0; l < thematicButtons.length; l++) {
       const name = thematicButtons[l];
       strThematicButtons += `
@@ -109,9 +127,15 @@ class LayerCatalogue extends EventTarget {
         ${name}
       </button>
       `;
+      if (tempLayers.length > 0 && l == 0) {
+        strThematicButtons += `
+        <button class="thematicButton" data-name="Évènements">
+          Événements
+        </button>
+        `;
+      }
     }
 
-    var strThematicLayers = "";
     var thematicLayers = LayersConfig.getThematicLayers();
     for(let k = 0; k < thematicLayers.length; k++) {
       props = LayersConfig.getLayerProps(thematicLayers[k]);
@@ -229,10 +253,14 @@ class LayerCatalogue extends EventTarget {
     // clic sur une couche thematique
     document.querySelectorAll(".thematicLayer").forEach((el) => {
       el.addEventListener("click", () => {
+        let isTempLayer = false;
+        if (el.classList.contains("tempLayer")) {
+          isTempLayer = true;
+        }
         if (el.classList.contains("selectedLayer")) {
-          this.removeLayer(el.id);
+          this.removeLayer(el.id, isTempLayer);
         } else {
-          this.addLayer(el.id);
+          this.addLayer(el.id, isTempLayer);
         }
       });
     });
@@ -278,10 +306,11 @@ class LayerCatalogue extends EventTarget {
   /**
    * Ajout de la couche de fonds ou de données sur la carte
    * @param {*} layerName
+   * @param {boolean} isTempLayer - true si la couche est temporaire
    * @fires addlayer
    * @public
    */
-  addLayer(layerName) {
+  addLayer(layerName, isTempLayer = false) {
     if (!layerName) {
       return;
     }
@@ -299,7 +328,8 @@ class LayerCatalogue extends EventTarget {
       new CustomEvent("addlayer", {
         bubbles: true,
         detail: {
-          id : layerName
+          id : layerName,
+          isTempLayer : isTempLayer,
         }
       })
     );
@@ -308,23 +338,23 @@ class LayerCatalogue extends EventTarget {
   /**
    * Ajout de la couche de fonds ou de données sur la carte avec paramètres d'opacité, visibilité et n&b
    * @param {*} layerOptions
-   * @fires addlayer
+   * @fires addlayeroptions
    * @public
    */
   addLayerOptions(layerOptions) {
     if (!layerOptions.id) {
       return;
     }
-
     var element = document.getElementById(layerOptions.id);
     element.classList.add("selectedLayer");
 
+    layerOptions.isLayerOptions = true; // pour différencier de l'event addLayer
     /**
-       * Evenement "addlayer"
-       * @event addlayer
-       * @type {*}
-       * @property {*} id -
-       */
+     * Evenement "addlayer"
+     * @event addlayeroptions
+     * @type {*}
+     * @property {*} id -
+     */
     this.dispatchEvent(
       new CustomEvent("addlayeroptions", {
         bubbles: true,
@@ -339,7 +369,7 @@ class LayerCatalogue extends EventTarget {
    * @fires removelayer
    * @public
    */
-  removeLayer(layerName) {
+  removeLayer(layerName, isTempLayer = false) {
     if (!layerName) {
       return;
     }
@@ -353,7 +383,7 @@ class LayerCatalogue extends EventTarget {
     // Si le layer a enlever est le dernier fond de plan, on ne fait rien
     // On n'affiche le message que si c'est l'utilisateur qui a fait l'action
     // (si on est en mode "myaccount", c'est le téléchargeur de carte qui est à l'origine du clic)
-    if (LayersConfig.getLayerProps(layerName).base && nbBaseLayers === 1 && Globals.backButtonState !== "myaccount") {
+    if (!isTempLayer && LayersConfig.getLayerProps(layerName).base && nbBaseLayers === 1 && Globals.backButtonState !== "myaccount") {
       Toast.show({
         text: "Impossible d'enlever le seul fond de carte",
         duration: "short",
@@ -384,7 +414,8 @@ class LayerCatalogue extends EventTarget {
       new CustomEvent("removelayer", {
         bubbles: true,
         detail: {
-          id : layerName
+          id : layerName,
+          isTempLayer : isTempLayer,
         }
       })
     );
