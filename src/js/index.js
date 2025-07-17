@@ -167,6 +167,14 @@ function app() {
       localStorage.setItem("hasBeenLaunched", true);
     }
     StatusPopups.getOnboardingModal();
+
+    // Pour charger un fichier partagé depuis une autre app au démarrage de l'appli
+    if (Capacitor.getPlatform() === "android") {
+      if (window.AndroidInterface && window.AndroidInterface.getSharedFileUrl) {
+        window.dispatchEvent(new CustomEvent("sendIntentReceived", {detail: {url: window.AndroidInterface.getSharedFileUrl()}}));
+      }
+    }
+
   });
 
   // Définition des icones

@@ -327,6 +327,13 @@ class MyAccount {
     App.addListener("appUrlOpen", (data) => {
       this.#importFileFromUrl(data.url);
     });
+
+    // Partage depuis une autre app (android)
+    if (Capacitor.getPlatform() === "android") {
+      window.addEventListener("sendIntentReceived", (e) => {
+        this.#importFileFromUrl(e.detail.url);
+      });
+    }
   }
 
   /**
