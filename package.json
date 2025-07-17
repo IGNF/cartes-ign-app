@@ -1,7 +1,7 @@
 {
   "name": "cartes-ign-app",
   "displayName": "Cartes IGN",
-  "version": "3.3.18",
+  "version": "3.3.19",
   "description": "Découvrez la France autrement et observez l’évolution du territoire",
   "main": "index.js",
   "engines": {
@@ -65,7 +65,6 @@
     "@turf/points-within-polygon": "^7.2.0",
     "@turf/union": "^7.2.0",
     "@turf/point-to-line-distance": "^7.2.0",
-    "@turf/union": "^7.2.0",
     "@xmldom/xmldom": "^0.8.10",
     "capacitor-native-settings": "^7.0.1",
     "chart.js": "^4.4.1",
