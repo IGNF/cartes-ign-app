@@ -172,9 +172,21 @@ function app() {
       document.getElementById("geolocateBtn").click();
       localStorage.setItem("hasBeenLaunched", true);
     }
-    if (LayersConfig.getTempLayers().length > 0) {
-      const layer = LayersConfig.getTempLayers()[0];
-      StatusPopups.getOnboardingModal(layer.id, layer.onBoardingCfg.html);
+    const tempLayers = LayersConfig.getTempLayers();
+    if (tempLayers.length > 0) {
+      const layers = tempLayers;
+      let tempOnboarding = false;
+      for (let i = 0; i < layers.length; i++) {
+        const layer = layers[i];
+        if (layer.onBoardingCfg) {
+          StatusPopups.getOnboardingModal(layer.id, layer.onBoardingCfg.html);
+          tempOnboarding = true;
+          break;
+        }
+      }
+      if (!tempOnboarding) {
+        StatusPopups.getOnboardingModal();
+      }
     } else {
       StatusPopups.getOnboardingModal();
     }
@@ -187,8 +199,14 @@ function app() {
     }
 
     // Mise en place du bouton évènements
-    if (LayersConfig.getTempLayers().length > 0) {
-      const layer = LayersConfig.getTempLayers()[0];
+    if (tempLayers.length > 0) {
+      let layer;
+      for (let i = 0; i < tempLayers.length; i++) {
+        layer = tempLayers[i];
+        if (layer.mainScreenBtn) {
+          break;
+        }
+      }
       const eventButton = document.getElementById("eventMapBtn");
       eventButton.classList.remove("d-none");
       eventButton.title = layer.mainScreenBtn.title;

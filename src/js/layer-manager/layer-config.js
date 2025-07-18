@@ -19,6 +19,8 @@ import BaseLayers from "../../../config/base-layer-config.json";
 import ThematicLayers from "../../../config/thematics-layer-config.json";
 import ConfigLayers from "../../../config/layers-config.json";
 
+import { Capacitor } from "@capacitor/core";
+
 let baseLayers;
 let thematicLayers;
 let configLayers;
@@ -45,6 +47,9 @@ try {
   const resp = await fetch("https://ignf.github.io/cartes-ign-temp-layers/temp_layers_config.json");
   tempLayers = await resp.json();
   tempLayers = tempLayers.filter((layer) => {
+    if (!layer.isProdReady && Capacitor.getPlatform() !== "web") {
+      return false;
+    }
     if (Date.now() < Date.parse(layer.dateEnd) && Date.now() > Date.parse(layer.dateStart)) {
       return true;
     }
