@@ -45,8 +45,6 @@ public class MainActivity extends BridgeActivity {
             Uri fileUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
             if (fileUri != null) {
                 String fileUrl = fileUri.toString();
-                // Avoid duplicate handling
-                if (fileUrl.equals(lastHandledUri)) return;
                 lastHandledUri = fileUrl;
                 if (bridge != null) {
                     bridge.getActivity().setIntent(new Intent());

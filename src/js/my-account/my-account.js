@@ -180,6 +180,7 @@ class MyAccount {
       });
     });
 
+    this.lauchUrl = null;
     this.#importFileIfAppOpenedFromFile();
 
     return this;
@@ -325,7 +326,10 @@ class MyAccount {
     });
 
     App.addListener("appUrlOpen", (data) => {
-      this.#importFileFromUrl(data.url);
+      // Sometimes this get called after App.getLaunchUrl(). This prevents loading a file twice.
+      if (data.url !== this.lauchUrl) {
+        this.#importFileFromUrl(data.url);
+      }
     });
 
     // Partage depuis une autre app (android)
@@ -410,6 +414,7 @@ class MyAccount {
     const url = await App.getLaunchUrl();
     if (url) {
       this.#importFileFromUrl(url.url);
+      this.lauchUrl = url.url;
     }
   }
 
