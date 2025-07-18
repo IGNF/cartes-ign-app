@@ -845,7 +845,7 @@ class MenuNavigation {
       DOM.$tabContainer.style.display = "flex";
     }
     Globals.maxScroll = Math.min(
-      document.scrollingElement.clientHeight - 72,
+      document.scrollingElement.clientHeight - 154,
       document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight
     );
     Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];

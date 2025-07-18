@@ -37,7 +37,7 @@
 .divPositionAdressOriginInfo {
   color: var(--darker-green);
   background-color: var(--light-green);
-  padding: 14px 10px;
+  padding: 14px 44px 14px 10px;
   border-radius: 6px;
   position: relative;
 }
@@ -566,7 +566,8 @@
 }
 
 .foldable {
-  max-height: 72px;
+  max-height: 5.4em;
+  line-height: 1.35em;
   overflow: hidden;
   text-overflow: ellipsis;
   transition: max-height 0.3s ease-in-out;
@@ -581,6 +582,8 @@
   right: 0;
   bottom: 0;
   background-color: var(--false-white);
+  width: 4em;
+  padding-left: 3px;
 }
 
 .foldableInput:checked + .foldable {
