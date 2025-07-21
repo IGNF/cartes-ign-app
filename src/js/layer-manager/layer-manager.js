@@ -71,13 +71,15 @@ class LayerManager extends EventTarget {
 
     this.#render();
     this.#listeners();
-    this.#loadLayers();
   }
 
   /**
      * Ecouteurs
      */
   #listeners() {
+    Globals.map.once("load", () => {
+      this.#loadLayers();
+    });
     this.layerCatalogue.addEventListener("addlayer", async (e) => {
       await this.layerSwitcher.addLayer({
         id: e.detail.id,
