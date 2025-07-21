@@ -844,8 +844,9 @@ class MenuNavigation {
     if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && Globals.currentScrollIndex !== 0) {
       DOM.$tabContainer.style.display = "flex";
     }
+    const insetTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-top").slice(0, -2));
     Globals.maxScroll = Math.min(
-      document.scrollingElement.clientHeight - 154,
+      document.scrollingElement.clientHeight - 72 - insetTop,
       document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight
     );
     Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
