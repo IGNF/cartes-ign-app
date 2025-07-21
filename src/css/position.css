@@ -566,8 +566,8 @@
 }
 
 .foldable {
-  max-height: 5.4em;
-  line-height: 1.35em;
+  max-height: calc(13px * var(--text-zoom) * 5.4);
+  line-height: calc(13px * var(--text-zoom) * 1.35);
   overflow: hidden;
   text-overflow: ellipsis;
   transition: max-height 0.3s ease-in-out;
