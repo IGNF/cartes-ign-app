@@ -4,12 +4,7 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import QueryConfig from "../../config/immersive-position-config.json";
-import Code_cultuCaption from "../../config/code_cultu-caption.json";
-import Code_tfvCaption from "../../config/code_tfv-caption.json";
-
 import LayersConfig from "./layer-manager/layer-config";
-
 
 import maplibregl from "maplibre-gl";
 import proj4 from "proj4";
@@ -21,29 +16,9 @@ import requestUtils from "./utils/request-utils";
 import { circle } from "@turf/circle";
 import { pointsWithinPolygon } from "@turf/points-within-polygon";
 
-proj4.defs("EPSG:2154","+proj=lcc +lat_0=46.5 +lon_0=3 +lat_1=49 +lat_2=44 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
+import { config } from "./utils/config-utils";
 
-let queryConfig;
-let code_cultuCaption;
-let code_tfvCaption;
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/immersive-position-config.json");
-  queryConfig = await resp.json();
-} catch (e) {
-  queryConfig = QueryConfig;
-}
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/code_cultu-caption.json");
-  code_cultuCaption = await resp.json();
-} catch (e) {
-  code_cultuCaption = Code_cultuCaption;
-}
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/code_tfv-caption.json");
-  code_tfvCaption = await resp.json();
-} catch (e) {
-  code_tfvCaption = Code_tfvCaption;
-}
+proj4.defs("EPSG:2154","+proj=lcc +lat_0=46.5 +lon_0=3 +lat_1=49 +lat_2=44 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
 
 /**
  * Gestion de la "position immersive" avec des requêtes faites aux données autour d'une position
@@ -238,7 +213,7 @@ class ImmersivePosion extends EventTarget {
    */
   computeAll() {
     // Regular WFS layers
-    queryConfig.forEach( (config) => {
+    config.queryConfig.forEach( (config) => {
       this.#computeFromConfig(config);
     });
 
@@ -363,11 +338,11 @@ class ImmersivePosion extends EventTarget {
       dataResults = dataResults.filter( (plan) => plan[1] !== null);
     }
     if (layer === "RPG.LATEST:parcelles_graphiques") {
-      dataResults = dataResults.map( (code_cultu) => code_cultuCaption[code_cultu]).filter((culture) => culture);
+      dataResults = dataResults.map( (code_cultu) => config.code_cultuCaption[code_cultu]).filter((culture) => culture);
     }
     if (layer === "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale") {
       dataResults = dataResults.map( (code_tfv) => {
-        if (code_tfvCaption[code_tfv]) {
+        if (config.code_tfvCaption[code_tfv]) {
           if (code_tfv[2] === "1") {
             this.hasFeuillu = true;
           }
@@ -375,7 +350,7 @@ class ImmersivePosion extends EventTarget {
             this.hasConnifere = true;
           }
         }
-        return code_tfvCaption[code_tfv];
+        return config.code_tfvCaption[code_tfv];
       }).filter((essence) => essence);
     }
     if (layer === "BDTOPO_V3:zone_d_habitation") {

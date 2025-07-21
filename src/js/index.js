@@ -20,7 +20,6 @@ import InteractivityIndicator from "./map-interactivity/interactivity-indicator"
 import StatusPopups from "./status-popups";
 import DOM from "./dom";
 
-
 import { Capacitor } from "@capacitor/core";
 import { SplashScreen } from "@capacitor/splash-screen";
 import { StatusBar, Style } from "@capacitor/status-bar";
@@ -45,7 +44,7 @@ defineCustomElements(window);
 /**
  * Fonction définissant l'application
  */
-function app() {
+async function app() {
   // REMOVEME : rétrocompatibilité des itinéraires / PR / PR comparer : migration du localStorage vers Preferences
   if (localStorage.getItem("savedRoutes")) {
     Preferences.set({

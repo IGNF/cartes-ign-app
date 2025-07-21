@@ -9,18 +9,11 @@ import { Capacitor } from "@capacitor/core";
 import LayersConfig from "./layer-manager/layer-config";
 import LayersGroup from "./layer-manager/layer-group";
 
-import PoiConfig from "../../config/poi-osm-layer-config.json";
+import { config } from "./utils/config-utils";
 import DomUtils from "./utils/dom-utils";
 import Globals from "./globals";
 import Location from "./services/location";
 
-let poiConfig;
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/poi-osm-layer-config.json");
-  poiConfig = await resp.json();
-} catch (e) {
-  poiConfig = PoiConfig;
-}
 
 
 /**
@@ -48,7 +41,7 @@ class POI {
     this.map = map;
 
     this.filters = null;
-    this.config = poiConfig;
+    this.config = config.poiConfig;
     this.sources = [];
 
     this.target = this.options.target || document.getElementById("poiWindow");

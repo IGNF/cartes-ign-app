@@ -15,54 +15,8 @@
  * La liste des couches de fonds et thématiques est definie dans un fichier de configuration.
  * @todo prévoir le multi couche pour les couches vecteurs tuilés
  */
-import BaseLayers from "../../../config/base-layer-config.json";
-import ThematicLayers from "../../../config/thematics-layer-config.json";
-import ConfigLayers from "../../../config/layers-config.json";
 
-import { Capacitor } from "@capacitor/core";
-
-let baseLayers;
-let thematicLayers;
-let configLayers;
-let tempLayers = [];
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/base-layer-config.json");
-  baseLayers = await resp.json();
-} catch (e) {
-  baseLayers = BaseLayers;
-}
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/thematics-layer-config.json");
-  thematicLayers = await resp.json();
-} catch (e) {
-  thematicLayers = ThematicLayers;
-}
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/layers-config.json");
-  configLayers = await resp.json();
-} catch (e) {
-  configLayers = ConfigLayers;
-}
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-temp-layers/temp_layers_config.json");
-  tempLayers = await resp.json();
-  tempLayers = tempLayers.filter((layer) => {
-    if (!layer.isProdReady && Capacitor.getPlatform() !== "web") {
-      return false;
-    }
-    if (Date.now() < Date.parse(layer.dateEnd) && Date.now() > Date.parse(layer.dateStart)) {
-      return true;
-    }
-    return false;
-  });
-  thematicLayers.push({
-    name: "Évènements",
-    layers: tempLayers.map((layer) => layer.id),
-  });
-
-} catch (e) {
-  console.warn("Could not load temp layers config: ", e);
-}
+import { config } from "../utils/config-utils";
 
 /**
  * Obtenir la liste des propriétés d'une couche
@@ -70,7 +24,7 @@ try {
  * @returns
  */
 const getLayerProps = (id) => {
-  var props = configLayers.layers[id];
+  var props = config.configLayers.layers[id];
   var isVector = id.split("$")[1] === "TMS" ? true : false;
   var style;
   if (isVector) {
@@ -110,7 +64,7 @@ const getLayerProps = (id) => {
  * @returns
  */
 const getTempLayerProps = (id) => {
-  var props = JSON.parse(JSON.stringify(tempLayers)).filter(elem => elem.id === id)[0];
+  var props = JSON.parse(JSON.stringify(config.tempLayers)).filter(elem => elem.id === id)[0];
   return {
     layer: props.id,
     base: false, // couche de fonds ou autre
@@ -137,7 +91,7 @@ const getTempLayerProps = (id) => {
  * @returns
  */
 const getBaseLayers = () => {
-  return baseLayers["base-layers"];
+  return config.baseLayers["base-layers"];
 };
 
 /**
@@ -145,7 +99,7 @@ const getBaseLayers = () => {
  * @returns
  */
 const getRLTLayers = () => {
-  return baseLayers["rlt-layers"];
+  return config.baseLayers["rlt-layers"];
 };
 
 /**
@@ -154,7 +108,7 @@ const getRLTLayers = () => {
  * @returns
  */
 const getThematicLayers = () => {
-  var arrays = thematicLayers.filter(o => o.name !== "Évènements").map((o) => { return o.layers; });
+  var arrays = config.thematicLayers.filter(o => o.name !== "Évènements").map((o) => { return o.layers; });
   return arrays.flat();
 };
 
@@ -163,7 +117,7 @@ const getThematicLayers = () => {
  * @returns
  */
 const getTempLayers = () => {
-  return JSON.parse(JSON.stringify(tempLayers));
+  return JSON.parse(JSON.stringify(config.tempLayers));
 };
 
 /**
@@ -172,7 +126,7 @@ const getTempLayers = () => {
  * @returns
  */
 const getThematics = () => {
-  return thematicLayers.map((o) => { return o.name; });
+  return config.thematicLayers.map((o) => { return o.name; });
 };
 
 /**
@@ -183,7 +137,7 @@ const getThematics = () => {
  * @todo prévoir les couches vecteurs tuilées
  */
 const getLayersByThematic = (name) => {
-  var data = thematicLayers.find((element) => { return element.name === name; });
+  var data = config.thematicLayers.find((element) => { return element.name === name; });
   if (data.settings && data.settings.generic) {
     return getThematicLayers().concat(getTempLayers().map((layer) => layer.id));
   }
@@ -196,7 +150,7 @@ const getLayersByThematic = (name) => {
  * @returns
  */
 const getThematicByLayerID = (id) => {
-  var data = thematicLayers.find((element) => { return element.layers.includes(id); });
+  var data = config.thematicLayers.find((element) => { return element.layers.includes(id); });
   return data.name;
 };
 

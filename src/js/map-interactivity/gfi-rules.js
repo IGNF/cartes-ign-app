@@ -4,26 +4,10 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import InseeCommWiki from "../../../config/com_wiki.json";
-import GfiRules from "../../../config/gfi-rules.json";
-let inseeCommWiki;
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/com_wiki.json");
-  inseeCommWiki = await resp.json();
-} catch (e) {
-  inseeCommWiki = InseeCommWiki;
-}
-
-let gfiRulesProps;
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/gfi-rules.json");
-  gfiRulesProps = await resp.json();
-} catch (e) {
-  gfiRulesProps = GfiRules;
-}
+import { config } from "../utils/config-utils";
 
 const gfiRules = {
-  ...gfiRulesProps,
+  ...config.gfiRulesProps,
   /**
      * Parse le GFI
      * @param {*} rule règle de parsing de GFI issue de ce fichier
@@ -152,7 +136,7 @@ const gfiRules = {
                 if (!featureProperties["code_insee"]) {
                   return "";
                 }
-                featureProperties[match[1]] = inseeCommWiki[featureProperties["code_insee"]];
+                featureProperties[match[1]] = config.inseeCommWiki[featureProperties["code_insee"]];
                 if (!featureProperties[match[1]]) {
                   return "";
                 }

@@ -12,7 +12,6 @@ import ActionSheet from "../action-sheet";
 
 import { Toast } from "@capacitor/toast";
 
-import ComparePoiData from "../../../config/poi_rlt.json";
 import ComparePoiIcon from "../../css/assets/comparePoi.png";
 import ComparePoiIconSvg from "../../css/assets/comparePoi.svg";
 import CompareLandmarkBlue from "../../css/assets/compareLandmark/compare-landmark-blue.svg";
@@ -22,13 +21,7 @@ import CompareLandmarkGreen from "../../css/assets/compareLandmark/compare-landm
 import CompareLandmarkYellow from "../../css/assets/compareLandmark/compare-landmark-yellow.svg";
 import domUtils from "../utils/dom-utils";
 
-let comparePoiData;
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/poi_rlt.json");
-  comparePoiData = await resp.json();
-} catch (e) {
-  comparePoiData = ComparePoiData;
-}
+import { config } from "../utils/config-utils";
 
 /**
  * Contrôle sur les "POI Remonter le temps"
@@ -103,7 +96,7 @@ class ComparePoi {
   #load() {
     this.map.addSource(this.configuration.source, {
       type: "geojson",
-      data: comparePoiData,
+      data: config.comparePoiData,
     });
     this.map.loadImage(ComparePoiIcon).then((image) => {
       this.map.addImage("comparePoiIcon", image.data);

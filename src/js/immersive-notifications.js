@@ -15,35 +15,11 @@ import Location from "./services/location";
 
 import requestUtils from "./utils/request-utils";
 
-import QueryConfig from "../../config/immersive-position-config.json";
-import Code_cultuCaption from "../../config/code_cultu-caption.json";
-import Code_tfvCaption from "../../config/code_tfv-caption.json";
-
 import maplibregl from "maplibre-gl";
 import PointToLineDistance from "@turf/point-to-line-distance";
 import CleanCoords from "@turf/clean-coords";
 
-let queryConfig;
-let code_cultuCaption;
-let code_tfvCaption;
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/immersive-position-config.json");
-  queryConfig = await resp.json();
-} catch (e) {
-  queryConfig = QueryConfig;
-}
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/code_cultu-caption.json");
-  code_cultuCaption = await resp.json();
-} catch (e) {
-  code_cultuCaption = Code_cultuCaption;
-}
-try {
-  const resp = await fetch("https://ignf.github.io/cartes-ign-app/code_tfv-caption.json");
-  code_tfvCaption = await resp.json();
-} catch (e) {
-  code_tfvCaption = Code_tfvCaption;
-}
+import { config } from "./utils/config-utils";
 
 /**
  * Gestion des "notifications immersives" avec des requêtes faites aux données autour de la géolocalisation
@@ -196,12 +172,12 @@ class ImmersiveNotifications {
    * Computes all data queries
    */
   async #computeAll() {
-    for (let i = 0; i < queryConfig.length; i++) {
-      const config = queryConfig[i];
+    for (let i = 0; i < config.queryConfig.length; i++) {
+      const config = config.queryConfig[i];
       if (config.notification !== false) {
         let configNext = null;
         if (config.notification_uses_next) {
-          configNext = queryConfig[i + 1];
+          configNext = config.queryConfig[i + 1];
         }
         const notifWasSent = await this.#computeFromConfig(config, configNext);
         if (notifWasSent) {
@@ -466,7 +442,7 @@ class ImmersiveNotifications {
       dataResults = dataResults.filter( (plan) => plan[1] !== null);
     }
     if (layer === "RPG.LATEST:parcelles_graphiques") {
-      dataResults = dataResults.map( (code_cultu) => code_cultuCaption[code_cultu]).filter((culture) => culture);
+      dataResults = dataResults.map( (code_cultu) => config.code_cultuCaption[code_cultu]).filter((culture) => culture);
       const counts = {};
       dataResults.forEach( (culture) => {
         if (counts[culture]) {
@@ -480,7 +456,7 @@ class ImmersiveNotifications {
     if (layer === "LANDCOVER.FORESTINVENTORY.V2:formation_vegetale") {
       dataResults = dataResults.map( (code_tfv) => {
         let essenceEmoji = "";
-        if (code_tfvCaption[code_tfv]) {
+        if (config.code_tfvCaption[code_tfv]) {
           if (code_tfv[2] === "1") {
             essenceEmoji = " 🌳";
           }
@@ -488,7 +464,7 @@ class ImmersiveNotifications {
             essenceEmoji = " 🌲";
           }
         }
-        return code_tfvCaption[code_tfv] + essenceEmoji;
+        return config.code_tfvCaption[code_tfv] + essenceEmoji;
       }).filter((essence) => essence);
       const counts = {};
       dataResults.forEach( (essence) => {
