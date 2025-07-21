@@ -845,13 +845,13 @@ class MenuNavigation {
       DOM.$tabContainer.style.display = "flex";
     }
     const insetTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-top").slice(0, -2));
+    const insetBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-bottom").slice(0, -2));
     Globals.maxScroll = Math.min(
-      document.scrollingElement.clientHeight - 72 - insetTop,
+      document.scrollingElement.clientHeight - 149 - insetTop - Math.max(insetBottom, 20),
       document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight
     );
     Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
     if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-      const insetBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-bottom").slice(0, -2));
 
       Globals.anchors = [0, document.scrollingElement.clientHeight - 72 - Math.max(insetBottom, 20), Globals.maxScroll];
     }
