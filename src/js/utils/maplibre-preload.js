@@ -1,208 +1,402 @@
+/* eslint-disable license-header/header */
 /**
- * Copyright (c) Institut national de l'information géographique et forestière
- *
- * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
+ * Copyright (c) 2025 Abel Vázquez Montoro
+ * @see https://github.com/AbelVM/maplibre-preload
+ * Some modififactions made by @IGNF:
+ * > const sourceType = sourceId.split("$").slice(-1)[0];
+ * > if (sourceType !== "WMTS" && sourceId !== "plan_ign") continue;
  */
 
-// cached-map-extensions.js
-import * as tilebelt from "@mapbox/tilebelt";
-import { bounds } from "@mapbox/geo-viewport";
-import ErrorStackParser from "error-stack-parser";
-import Point from "@mapbox/point-geometry";
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-async-promise-executor */
+/* eslint-disable no-func-assign */
+/* eslint-disable no-unused-vars */
 
-export class CachedMapExtensions {
-  constructor(maplibreglMap) {
-    this.map = maplibreglMap;
-    this.precache_worker = undefined;
+class MaplibrePreload {
 
-    // Attach the context function
-    this.map._context = this._context.bind(this.map);
-    this.map._precache = this._precache.bind(this.map);
-  }
-
-  // --- Méthodes à attacher ---
-  attachAll() {
-    this.map.cachedPanTo = this.cachedPanTo.bind(this.map);
-    this.map.cachedZoomTo = this.cachedZoomTo.bind(this.map);
-    this.map.cachedJumpTo = this.cachedJumpTo.bind(this.map);
-    this.map.cachedEaseTo = this.cachedEaseTo.bind(this.map);
-    this.map.cachedFitBounds = this.cachedFitBounds.bind(this.map);
-    this.map.cachedFlyTo = this.cachedFlyTo.bind(this.map);
-  }
-
-  cachedPanTo(lnglat, options) {
-    const o = Object.assign({}, options, { type: "pan", center: lnglat }, this._context.call(this, options));
-    this._precache(o);
-    if (!!options.run) return this.panTo(point, options);
-  }
-
-  cachedZoomTo(zoom, options) {
-    const o = Object.assign({}, options, { type: "zoom", zoom: zoom }, this._context.call(this, options));
-    this._precache(o);
-    if (!!options.run) return this.zoomTo(zoom, options);
-  }
-
-  cachedJumpTo(options) {
-    const o = Object.assign({}, options, { type: "jump" }, this._context.call(this, options));
-    this._precache(o);
-    if (!!options.run) return this.jumpTo(o);
-  }
-
-  cachedEaseTo(options) {
-    const o = Object.assign({}, options, { type: "ease" }, this._context.call(this, options));
-    this._precache(o);
-    if (!!options.run) return this.easeTo(o);
-  }
-
-  cachedFitBounds(options) {
-    const o = Object.assign({}, options, { type: "fitBounds" }, this._context.call(this, options));
-    this._precache(o);
-    if (!!options.run) return this.fitBounds(o);
-  }
-
-  cachedFlyTo(options) {
-    options.type = "fly";
-    const o = Object.assign({}, options, { type: "fly" }, this._context.call(this, options));
-    this._precache(o);
-    if (!!options.run) return this.flyTo(o);
-  }
-
-  _context(options) {
-    const _sources = Object.entries(this.getStyle().sources)
-      .filter(s => ["vector", "raster"].includes(s[1].type) && (s[1].url || s[1].tiles))
-      .map(s => this.getSource(s[0]).tiles[0]);
-
-    const _dimensions = [this.getCanvas().width, this.getCanvas().height];
-    const _tilesize = this.transform.tileSize;
-    const sc = this.getCenter();
-    let zmin = Math.min(this.getZoom(), options.zoom);
-
-    if (options.type == "fly") {
-      const offsetAsPoint = Point.convert(options.offset || [0, 0]);
-      const pointAtOffset = this.transform.centerPoint.add(offsetAsPoint);
-      const locationAtOffset = this.transform.pointLocation(pointAtOffset);
-      const center = new this.constructor.LngLat(...options.center);
-      this._normalizeCenter(center);
-      const from = this.transform.project(locationAtOffset);
-      const delta = this.transform.project(center).sub(from);
-      const rho = options.curve || 1.42;
-      const u1 = delta.mag();
-      const wmax = 2 * rho * rho * u1;
-      const zd = this.getZoom() + this.transform.scaleZoom(1 / wmax);
-      zmin = Math.floor(Math.max(Math.min(zmin + zd, options.minZoom || zmin + zd), 0));
-    }
-
-    return {
-      sources: _sources,
-      dimensions: _dimensions,
-      tilesize: _tilesize,
-      startCenter: [sc.lng, sc.lat],
-      startZoom: this.getZoom(),
-      zmin: zmin
-    };
-  }
-
-  _precache(o) {
-    if (typeof window !== "undefined" && this.precache_worker == undefined) {
-      const _imported = ErrorStackParser.parse(new Error("not an actual error!"))[0].fileName;
-      const target = `
-        importScripts('${_imported}');
-        let controller;
-        let signal;
-        onmessage = function (o){
-          if (controller !== undefined && controller.signal !== undefined && !controller.signal.aborted){
-            controller.abort();               
-          }
-          if (o.data.abort){
-            postMessage({t: Date.now(), e: true});
-            return;
-          }
-          controller = new AbortController();
-          signal = controller.signal;     
-          let _func = ${precache_function.toString()};
-          _func.apply(null, [o.data]);
-        }`;
-      const mission = URL.createObjectURL(new Blob([target], { type: "text/javascript" }));
-      this.precache_worker = new Worker(mission);
-      this.precache_worker.onmessage = e => {
-        this.precache_worker.time1 = e.data.t;
-        if (!!o.debug) console.log(`Precaching time: ${this.precache_worker.time1 - this.precache_worker.time0}ms`);
-      };
-    }
-
-    delete this.precache_worker.time1;
-    this.once("moveend", e => {
-      if (this.precache_worker.time1 == undefined) {
-        this.precache_worker.postMessage({ abort: true });
-        if (!!o.debug) console.log("🔶 Movement has finished before preloading");
-      } else {
-        if (!!o.debug) console.log(`🔚 Movement ends ${(this.precache_worker.time1) ? Date.now() - this.precache_worker.time1 : undefined} ms after precaching`);
+  constructor(map, options = {}) {
+    this.map = map;
+    this.progressCallback = options.progressCallback || null;
+    this.burstLimit = options.burstLimit || 200;
+    this.async = (options.hasOwnProperty("async") && !options.async) ? false : true;
+    this.useTile = (options.hasOwnProperty("useTile") && !options.useTile) ? false : true;
+    this.controller = {};
+    this._patchMoveMethods();
+    this.map._captureTileClass= e => {
+      if (e.tile && e.tile.tileID) {
+        e.target.Tile = e.tile.constructor;
+        e.target.OverscaledTileID = e.tile.tileID.constructor;
+        e.target.off("sourcedata", e.target._captureTileClass);
       }
-    });
-
-    this.precache_worker.time0 = Date.now();
-    this.precache_worker.postMessage(o);
+    };
+    if (this.useTile) this.map.on("sourcedata", this.map._captureTileClass);
   }
+
+
+  _patchMoveMethods() {
+    const methods = ["flyTo", "panTo", "easeTo", "zoomTo"];
+    methods.forEach(method => {
+      const original = this.map[method].bind(this.map);
+      this.map[method] = async (options) => {
+        Object.keys(this.controller).forEach(a => {
+          this.controller[a].abort("cancelling due to new movement");
+          delete this.controller[a];
+        });
+        if (this.async) {
+          await this._preloadTilesForMove(method, options);
+        } else {
+          this._preloadTilesForMove(method, options);
+        }
+        return original(options);
+      };
+    });
+  }
+
+  async _preloadTilesForMove(method, options) {
+    if (options.hasOwnProperty("animate") && !options.animate) return true;
+    this.duration = options.duration || 1000;
+    this.padding = options.padding || 0;
+    this.fps = options.fps || 60;
+    this.rho = options.curve || 1.42;
+    const
+      start = {
+        "center": this.map.getCenter(),
+        "zoom": this.map.getZoom(),
+        "bearing": this.map.getBearing(),
+        "pitch": this.map.getPitch()
+      },
+      tc = options.center || start.center,
+      endCenter = (tc.lng) ? tc : { "lng": tc[0], "lat": tc[1] },
+      end = {
+        "center": endCenter,
+        "zoom": options.zoom !== undefined ? options.zoom : start.zoom,
+        "bearing": options.bearing !== undefined ? options.bearing : start.bearing,
+        "pitch": options.pitch !== undefined ? options.pitch : start.pitch
+      };
+
+    let samples;
+    if (method === "flyTo") {
+      samples = this._sampleFlyToPath(start, end, options);
+    } else if (method === "panTo") {
+      samples = this._samplePanToPath(start, end, options);
+    } else if (method === "easeTo") {
+      samples = this._sampleEaseToPath(start, end, options);
+    } else if (method === "zoomTo") {
+      samples = this._sampleZoomToPath(start, end, options);
+    } else {
+      samples = [end];
+    }
+
+    const endRequests = {};
+    const perSource = this._getVisibleTilesPerSource(end, 0);
+    for (const [sourceId, tiles] of Object.entries(perSource)) {
+      if (!endRequests[sourceId]) endRequests[sourceId] = new Set();
+      tiles.forEach(t => endRequests[sourceId].add(t));
+    }
+    await this._preloadTilesInternal(endRequests);
+
+    const tileRequests = {};
+    for (const s of samples) {
+      let
+        f = 0,
+        size = 0,
+        perSource = this._getVisibleTilesPerSource(s);
+      for (const [sourceId, tiles] of Object.entries(perSource)) {
+        size = Math.max(size, tiles.length);
+      }
+      while (size > 1.1 * this.burstLimit) {
+        f++;
+        size = 0;
+        perSource = this._getVisibleTilesPerSource(s, f / 20);
+        for (const [sourceId, tiles] of Object.entries(perSource)) {
+          size = Math.max(size, tiles.length);
+        }
+      }
+      for (const [sourceId, tiles] of Object.entries(perSource)) {
+        if (!tileRequests[sourceId]) tileRequests[sourceId] = new Set();
+        tiles.forEach(t => tileRequests[sourceId].add(t));
+      }
+    }
+
+    await this._preloadTilesInternal(tileRequests);
+  }
+
+  _sampleFlyToPath(start, end, options) {
+    return this._flyToFrames(options);
+  }
+
+  _samplePanToPath(start, end, options) {
+    const
+      totalFrames = Math.ceil((this.duration / 1000) * this.fps),
+      samples = [end];
+    for (let i = 1; i < totalFrames; i++) {
+      const t = i / totalFrames;
+      samples.push({
+        "center": this._interpolateLngLatLinear(start.center, end.center, t),
+        "zoom": start.zoom,
+        "bearing": start.bearing,
+        "pitch": start.pitch
+      });
+    }
+    return samples;
+  }
+
+  _sampleEaseToPath(start, end, options) {
+    const
+      totalFrames = Math.ceil((this.duration / 1000) * this.fps),
+      samples = [end];
+    for (let i = 1; i < totalFrames; i++) {
+      const t = i / totalFrames;
+      samples.push({
+        "center": this._interpolateLngLatLinear(start.center, end.center, t),
+        "zoom": this._interpolateLinear(start.zoom, end.zoom, t),
+        "bearing": this._interpolateLinear(start.bearing, end.bearing, t),
+        "pitch": this._interpolateLinear(start.pitch, end.pitch, t)
+      });
+    }
+    return samples;
+  }
+
+  _sampleZoomToPath(start, end, options) {
+    const
+      totalFrames = Math.ceil((this.duration / 1000) * this.fps),
+      samples = [end];
+    for (let i = 1; i < totalFrames; i++) {
+      const t = i / totalFrames;
+      samples.push({
+        "center": start.center,
+        "zoom": this._interpolateLinear(start.zoom, end.zoom, t),
+        "bearing": start.bearing,
+        "pitch": start.pitch
+      });
+    }
+    return samples;
+  }
+
+  _getVisibleTilesPerSource({ center, zoom, bearing, pitch }, factor = 0) {
+    const perSource = {};
+    for (const sourceId in this.map.style.sourceCaches) {
+      const sourceType = sourceId.split("$").slice(-1)[0];
+      if (sourceType !== "WMTS" && sourceId !== "plan_ign") continue;
+      const sourceCache = this.map.style.sourceCaches[sourceId];
+
+      if (!sourceCache.used) continue;
+
+      perSource[sourceId] = this._getVisibleTileRange(this.map.getSource(sourceId), { center, zoom, bearing, pitch }, factor).map(t => `${t[0]}|${t[1]}|${t[2]}`);
+    }
+    return perSource;
+  }
+
+  _getVisibleTileRange(source, { center, zoom, bearing, pitch }, factor) {
+
+    function lngLatToTile(lng, lat, zoom) {
+      const z2 = Math.pow(2, zoom);
+      const x = z2 * ((lng + 180) / 360);
+      const y = z2 * (1 - (Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)) / Math.PI)) / 2;
+      return [x, y];
+    }
+
+    const
+      tr = this.map.transform,
+      width = tr.width,
+      height = tr.height,
+      pitchLimit = pitch / 150,
+      corner_points = [
+        [width * factor, height * (factor + pitchLimit)],
+        [width * (1 - factor), height * (factor + pitchLimit)],
+        [width * (1 - factor), height * (1 - factor)],
+        [width * factor, height * (1 - factor)]
+      ],
+      corner_lnglat = corner_points.map(p => this.map.transform.screenPointToLocation({ x: p[0], y: p[1] })),
+      tileCoords = corner_lnglat.map(c => lngLatToTile(c.lng, c.lat, Math.floor(zoom))),
+      xs = tileCoords.map(([x, _]) => x),
+      ys = tileCoords.map(([_, y]) => y),
+      minX = Math.floor(Math.min(...xs)),
+      maxX = Math.ceil(Math.max(...xs)),
+      minY = Math.floor(Math.min(...ys)),
+      maxY = Math.ceil(Math.max(...ys)),
+      tiles = [];
+
+    for (let x = minX; x < maxX; x++) {
+      for (let y = minY; y < maxY; y++) {
+        if (source.scheme != "xyz") y = Math.pow(2, zoom) - y - 1;
+        tiles.push([Math.floor(zoom), x, y]);
+      }
+    }
+
+    return tiles;
+  }
+
+  async _preloadTilesInternal(tileRequests) {
+
+    if(this.useTile){
+      const tileArray = [];
+      for (const [sourceId, tileSet] of Object.entries(tileRequests)) {
+        const
+          source = this.map.getSource(sourceId),
+          tileSize = source.tileSize;
+        for (const t of [...tileSet]) {
+          const
+            [z, x, y] = t.split("|"),
+            tileID = new this.map.OverscaledTileID(z, 0, z, x, y),
+            tile = new this.map.Tile(tileID, tileSize);
+          tileArray.push(source.loadTile(tile));
+        }
+      }
+      return Promise.allSettled(tileArray);
+    }else{
+      return new Promise(async (resolve, reject) => {
+        const
+          uuid = this._uuid(),
+          timeoutId = setTimeout(() => {
+            this.controller[uuid].abort("timeout");
+            cleanup();
+            resolve();
+          }, this.duration * 5),
+          cleanup = () => {
+            delete this.controller[uuid];
+            clearTimeout(timeoutId);
+          },
+          fetchArray = [];
+        let
+          loaded = 0,
+          failed = 0;
+        this.controller[uuid] = new AbortController();
+
+        for (const [sourceId, tileSet] of Object.entries(tileRequests)) {
+          const source = this.map.getSource(sourceId);
+          for (const tile of [...tileSet]) {
+            const
+              [z, x, y] = tile.split("|"),
+              url = source.tiles[0].replace("{z}", z).replace("{x}", x).replace("{y}", y);
+            try {
+              fetchArray.push(fetch(url, { "signal": this.controller[uuid].signal }));
+            } catch (e) {
+              console.warn(e);
+            }
+
+          }
+        }
+        try {
+          const response = await Promise.allSettled(fetchArray);
+          response.forEach(r => {
+            if (!r.ok) {
+              failed++;
+            } else {
+              loaded++;
+            }
+            if (this.progressCallback) {
+              this.progressCallback({ loaded, total: fetchArray.length, failed });
+            }
+          });
+          cleanup();
+          resolve();
+        } catch (e) {
+          console.warn(e);
+          cleanup();
+          resolve();
+        }
+      });
+    }
+  }
+
+  _flyToFrames(options) {
+    // ported from https://github.com/maplibre/maplibre-gl-js/blob/b7cf56df3605c4ce6f68df216ea1c6d69790c385/src/ui/camera.ts_L1379
+    const
+      totalFrames = Math.ceil((this.duration / 1000) * this.fps),
+      tr = this.map._getTransformForUpdate(),
+      startCenter = tr.center,
+      startZoom = tr.zoom,
+      startBearing = tr.bearing,
+      startPitch = tr.pitch,
+      startRoll = tr.roll,
+      startPadding = tr.padding,
+      center = (options.center.lng) ? options.center : { lng: options.center[0], lat: options.center[1] },
+      bearing = "bearing" in options ? this.map._normalizeBearing(options.bearing, startBearing) : startBearing,
+      pitch = "pitch" in options ? + options.pitch : startPitch,
+      roll = "roll" in options ? this.map._normalizeBearing(options.roll, startRoll) : startRoll,
+      padding = "padding" in options ? options.padding : startPadding,
+      flyToHandler = this.map.cameraHelper.handleFlyTo(tr, {
+        bearing,
+        pitch,
+        roll,
+        padding,
+        locationAtOffset: tr.center,
+        offsetAsPoint: { "x": 0, "y": 0 },
+        center: options.center,
+        minZoom: options.minZoom || 0,
+        zoom: options.zoom,
+      }),
+      w0 = Math.max(tr.width, tr.height),
+      w1 = w0 / flyToHandler.scaleOfZoom,
+      u1 = flyToHandler.pixelPathLength;
+    let rho = options.curve || 1.42;
+    if (typeof flyToHandler.scaleOfMinZoom === "number") {
+      const wMax = w0 / flyToHandler.scaleOfMinZoom;
+      rho = Math.sqrt(wMax / u1 * 2);
+    }
+    const rho2 = rho * rho;
+    function zoomOutFactor(descent) {
+      const b = (w1 * w1 - w0 * w0 + (descent ? -1 : 1) * rho2 * rho2 * u1 * u1) / (2 * (descent ? w1 : w0) * rho2 * u1);
+      return Math.log(Math.sqrt(b * b + 1) - b);
+    }
+    function sinh(n) { return (Math.exp(n) - Math.exp(-n)) / 2; }
+    function cosh(n) { return (Math.exp(n) + Math.exp(-n)) / 2; }
+    function tanh(n) { return sinh(n) / cosh(n); }
+    const r0 = zoomOutFactor(false);
+    function w(s) { return (cosh(r0) / cosh(r0 + rho * s)); }
+    function u(s) { return w0 * ((cosh(r0) * tanh(r0 + rho * s) - sinh(r0)) / rho2) / u1; }
+    let S = (zoomOutFactor(true) - r0) / rho;
+    if (Math.abs(u1) < 0.000002 || !isFinite(S)) {
+      const k = w1 < w0 ? -1 : 1;
+      S = Math.abs(Math.log(w1 / w0)) / rho;
+      u = () => 0;
+      w = (s) => Math.exp(k * rho * s);
+    }
+    const frames = [];
+    for (let i = 0; i <= totalFrames; i++) {
+      const k = i / totalFrames;
+      const s = k * S;
+      const scale = 1 / w(s);
+      frames.push({
+        "center": this._interpolateLngLatLinear(startCenter, center, k),
+        "zoom": startZoom + Math.log2(scale),
+        "bearing": bearing + (bearing - startBearing) * k,
+        "pitch": pitch + (pitch - startPitch) * k
+      });
+    }
+    frames.push({
+      "center": center,
+      "zoom": options.zoom,
+      "bearing": bearing,
+      "pitch": pitch
+    });
+    return frames;
+
+  }
+
+  _interpolateLinear(a, b, t) { return a + (b - a) * t; }
+
+  _interpolateLngLatLinear(a, b, t) {
+    return { lng: this._interpolateLinear(a.lng, b.lng, t), lat: this._interpolateLinear(a.lat, b.lat, t) };
+  }
+
+  _uuid() {
+    const
+      lut = [],
+      d0 = Math.random() * 0xffffffff | 0,
+      d1 = Math.random() * 0xffffffff | 0,
+      d2 = Math.random() * 0xffffffff | 0,
+      d3 = Math.random() * 0xffffffff | 0;
+    for (var i = 0; i < 256; i++) {
+      lut[i] = (i < 16 ? "0" : "") + (i).toString(16);
+    }
+    return lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] + "-" +
+            lut[d1 & 0xff] + lut[d1 >> 8 & 0xff] + "-" + lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 & 0xff] + "-" +
+            lut[d2 & 0x3f | 0x80] + lut[d2 >> 8 & 0xff] + "-" + lut[d2 >> 16 & 0xff] + lut[d2 >> 24 & 0xff] +
+            lut[d3 & 0xff] + lut[d3 >> 8 & 0xff] + lut[d3 >> 16 & 0xff] + lut[d3 >> 24 & 0xff];
+  }
+
 }
 
-// Fonctions globales à exporter si utilisées ailleurs
-export const precache_function = (o) => {
-  const finalbbox = bounds(o.center, o.zoom, o.dimensions, o.tilesize);
-
-  const bboxtiles = (bbox, zoom) => {
-    const sw = tilebelt.pointToTile(bbox[0], bbox[1], zoom);
-    const ne = tilebelt.pointToTile(bbox[2], bbox[3], zoom);
-    const result = [];
-    for (let x = sw[0] - 1; x < ne[0] + 2; x++) {
-      for (let y = ne[1] - 1; y < sw[1] + 2; y++) {
-        result.push([x, y, zoom]);
-      }
-    }
-    return result;
-  };
-
-  const diagonaltiles = (p1, p2, zoom) => {
-    const [x0, y0] = tilebelt.pointToTile(p1[0], p1[1], zoom);
-    const [x1, y1] = tilebelt.pointToTile(p2[0], p2[1], zoom);
-    const [dx, dy] = [Math.abs(x1 - x0), Math.abs(y1 - y0)];
-    const [sx, sy] = [x0 < x1 ? 1 : -1, y0 < y1 ? 1 : -1];
-    let err = (dx > dy ? dx : -dy) / 2;
-    let [x, y] = [x0, y0];
-    let tt = [];
-    while (x !== x1 || y !== y1) {
-      tt.push([x, y, zoom], ...tilebelt.getSiblings([x, y, zoom]));
-      let e2 = err;
-      if (e2 > -dx) { err -= dy; x += sx; }
-      if (e2 < dy) { err += dx; y += sy; }
-    }
-    tt.push([x1, y1, zoom], ...tilebelt.getSiblings([x1, y1, zoom]));
-    return [...new Set(tt)];
-  };
-
-  let tz;
-  let tiles = [...diagonaltiles(o.startCenter, o.center, o.zmin)];
-  if (o.type == "fly") {
-    tiles.push(...diagonaltiles(o.startCenter, o.center, o.zmin - 1), ...diagonaltiles(o.startCenter, o.center, o.zmin + 1));
-  }
-
-  for (let z = o.zoom; z > o.zmin - 1; z--) {
-    const tt = bboxtiles(finalbbox, z);
-    tiles.push(...tt);
-    tz = tt.length;
-  }
-
-  tiles = [...new Set(tiles)];
-  const urls = tiles.map(t => o.sources.map(s =>
-    s.replace("{x}", t[0]).replace("{y}", t[1]).replace("{z}", t[2])
-  )).flat();
-
-  Promise.all(urls.map(u => fetch(u, { signal })))
-    .then(d => {
-      if (!!o.debug) console.log(`Estimated gain: ${Math.round(900 * tz / 6)}ms`);
-      if (!!o.debug) console.log(`Prefetched ${urls.length} tiles at zoom levels [${o.zmin} - ${o.zoom}]`);
-      postMessage({ t: Date.now(), e: false });
-    })
-    .catch(e => {
-      if (!!o.debug && e.name !== "AbortError") console.log("🔴 Precache error");
-    });
-};
+export { MaplibrePreload };

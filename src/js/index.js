@@ -5,7 +5,7 @@
  */
 
 import maplibregl from "maplibre-gl";
-import { CachedMapExtensions } from "./utils/maplibre-preload";
+import { MaplibrePreload } from "./utils/maplibre-preload";
 
 import Globals from "./globals";
 
@@ -275,10 +275,7 @@ function app() {
   // disable map rotation using touch rotation gesture
   mapRLT2.touchZoomRotate.disableRotation();
 
-  const enhancer = new CachedMapExtensions(map);
-  enhancer.attachAll();
-
-  console.warn("maplibregl Map object", map);
+  new MaplibrePreload(map, {async: false});
 
   // Enregistrement de la carte
   Globals.map = map;
