@@ -5,6 +5,7 @@
  */
 
 import maplibregl from "maplibre-gl";
+import { MaplibrePreload } from "./utils/maplibre-preload";
 
 import Globals from "./globals";
 
@@ -273,6 +274,8 @@ function app() {
   mapRLT2.dragRotate.disable();
   // disable map rotation using touch rotation gesture
   mapRLT2.touchZoomRotate.disableRotation();
+
+  new MaplibrePreload(map, {async: false});
 
   // Enregistrement de la carte
   Globals.map = map;
