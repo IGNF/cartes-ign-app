@@ -384,10 +384,9 @@ class MaplibrePreload {
   _uuid() {
     const
       lut = [],
-      d0 = Math.random() * 0xffffffff | 0,
-      d1 = Math.random() * 0xffffffff | 0,
-      d2 = Math.random() * 0xffffffff | 0,
-      d3 = Math.random() * 0xffffffff | 0;
+      buffer = new Uint32Array(4);
+    window.crypto.getRandomValues(buffer);
+    const [d0, d1, d2, d3] = buffer;
     for (var i = 0; i < 256; i++) {
       lut[i] = (i < 16 ? "0" : "") + (i).toString(16);
     }
