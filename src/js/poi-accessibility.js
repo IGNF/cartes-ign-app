@@ -4,6 +4,11 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
+/**
+ * Copyright (c) 2018, Mapbox
+ * @see https://github.com/mapbox/mapbox-gl-accessibility/tree/publisher-production
+ */
+
 import debounce from "lodash/debounce";
 
 import Legend from "./map-interactivity/legend-plan-ign";

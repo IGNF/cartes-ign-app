@@ -575,6 +575,13 @@
   margin: 0;
 }
 
+.foldable p, .foldable h1, .foldable h2, .foldable h3, .foldable h4 {
+  margin: 0;
+  line-height: calc(13px * var(--text-zoom) * 1.35);
+  font-size: 13px;
+  font-family: "Open Sans";
+}
+
 .foldableInput + .foldable::after {
   content: "...";
   display: inline-block;

@@ -559,6 +559,12 @@ https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=15&titre=${encodeUR
       trueHeader = DomUtils.stringToHTML(this.header.trim()).innerText.trim();
     } else if (this.header.includes("divLegendDescription")) {
       trueHeader = DomUtils.stringToHTML(this.header.trim()).querySelector(".divLegendDescription").innerHTML.trim().replace("<br>", "\n");
+    } else if (this.header.includes("positionTitle")) {
+      const headerDiv = DomUtils.stringToHTML("<div>" + this.header + "</div>");
+      trueHeader = "";
+      for (const paragraph of headerDiv.querySelectorAll("p")) {
+        trueHeader += paragraph.innerText + "\n";
+      }
     }
     if (trueHeader.includes("positionSubTitle")) {
       trueHeader = trueHeader.trim().replace("<p class=\"positionSubTitle\">", "\n").replace("</p>", "\n");

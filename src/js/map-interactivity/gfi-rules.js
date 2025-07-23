@@ -5,6 +5,7 @@
  */
 
 import { config } from "../utils/config-utils";
+import { marked } from "marked";
 
 const gfiRules = {
   ...config.gfiRulesProps,
@@ -117,7 +118,15 @@ const gfiRules = {
       template.bodyAfter.forEach( (bodyElement) => {
         let notFound = false;
         let p = bodyElement.map((str) => {
-          let match = str.match("{{([^}]+)}}");
+          // match markdown first
+          let match = str.match("{{{([^}]+)}}}");
+          while (match) {
+            if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+              str = str.replace(match[0], marked(featureProperties[match[1]]));
+              match = str.match("{{{([^}]+)}}}");
+            }
+          }
+          match = str.match("{{([^}]+)}}");
           while (match) {
             if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
               if (match[1] === "identifiant_gestionnaire") {
