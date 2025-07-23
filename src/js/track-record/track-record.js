@@ -19,7 +19,6 @@ import ActionSheet from "../action-sheet";
 import turfLength from "@turf/length";
 
 import TrackRecordLayers from "./track-record-styles";
-import popupUtils from "../utils/popup-utils";
 
 /**
  * Interface sur le tracé d'itinéraire
@@ -92,9 +91,6 @@ class TrackRecord {
     this.positionWatcherId = null;
 
     this.bgHasBeenLaunched = false;
-    this.bgLocationWarningPopup = {
-      popup: null,
-    };
 
     this.#addSourcesAndLayers();
     this.#listeners();
@@ -613,29 +609,6 @@ class TrackRecord {
         console.warn("Notification permission not granted");
       }
     }
-  }
-
-  bgLocationWarning() {
-    let androdidAddendum = "";
-    if (Capacitor.getPlatform() === "android") {
-      androdidAddendum = "<br><br>Si vous souhaitez désactiver le suivi de position en arrière-plan, vous pouvez fermer la notification de suivi de position dans la barre de notification de votre téléphone une fois l'enregistrement lancé.";
-    }
-    popupUtils.showPopup(
-      `
-      <div id="bgLocationWarningPopup">
-          <div class="divPositionTitle">Utilisation de la position en arrière-plan</div>
-          <div class="divPopupClose" onclick="onClosebgLocationWarningPopup(event)"></div>
-          <div class="divPopupContent">
-              La fonctionnalité d'enregistrement de trace GPS nécessite l'utilisation de la position en arrière-plan. Cette donnée est collectée par l'application mais n'est pas envoyée à un serveur. Elle est uniquement utilisée pour l'enregistrement de votre trace GPS et pour vous permettre de la retrouver dans l'application.${androdidAddendum}
-          </div>
-      </div>
-      `,
-      this.map,
-      "bgLocationWarningPopup",
-      "onClosebgLocationWarningPopup",
-      this.bgLocationWarningPopup
-    );
-    this.bgHasBeenLaunched = true;
   }
 
 }
