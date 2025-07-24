@@ -85,6 +85,8 @@ function app() {
     // Ajout d'autres ecouteurs
     EventListeners.addListeners();
     SplashScreen.hide();
+    StatusPopups.getNetworkPopup(map);
+    StatusPopups.getEditoPopup(map);
     App.getLaunchUrl().then( (url) => {
       if (url && url.url) {
         if (url.url.split("://")[0] === "https") {
@@ -94,8 +96,6 @@ function app() {
             const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
             map.setCenter(center);
             map.setZoom(zoom);
-            StatusPopups.getNetworkPopup(map);
-            StatusPopups.getEditoPopup(map);
             if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("color")) {
               const feature = {
                 type: "Feature",
