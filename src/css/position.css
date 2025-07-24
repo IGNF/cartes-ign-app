@@ -420,6 +420,28 @@
   margin: 0;
 }
 
+.positionSubTitle a {
+  color: var(--mid-grey);
+}
+
+.positionSubTitle a.event {
+  color: var(--event-dark);
+}
+
+.positionSubTitle a::after {
+  content: "";
+  display: inline-block;
+  background-image: url("assets/external-link.svg");
+  width: 1.5em;
+  height: 1em;
+  background-size: 1.2em;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 0.8em;
+  background-position: bottom;
+}
+
+
 .unescoDate {
   display: flex;
   align-items: center;

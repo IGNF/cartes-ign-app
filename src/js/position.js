@@ -313,6 +313,7 @@ class Position {
     if (type !== "myposition") {
       shadowContainer.getElementById("positionSignal").addEventListener("click", () => {
         const coordinates = this.coordinates;
+        Globals.isochrone.clear();
         // ouverture du panneau Signalement
         if (this.options.openSignalCbk) {
           if (type === "osm") {
