@@ -46,7 +46,7 @@ function showPopup(content, map, className, closeMethodName, object) {
   // HACK: déplacement de la popup à la racine du body pour qu'elle puisse d'afficher au dessus de tout
   var popupEl = document.querySelectorAll(`.${className}`)[0];
   document.body.appendChild(popupEl);
-  document.documentElement.style.setProperty("--popup-transform", popupEl.style.transform);
+  document.documentElement.style.setProperty("--popup-transform", "translate(-50%, -50%) translate(50vw, 50vh)");
 }
 
 function showOnlinePopup(content, map) {
