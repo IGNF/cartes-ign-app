@@ -2,7 +2,7 @@
   "name": "cartes-ign-app",
   "displayName": "Cartes IGN",
   "version": "3.3.28",
-  "description": "Découvrez la France autrement et observez l’évolution du territoire",
+  "description": "Découvrez la France autrement et observez l’évolution du territoire",
   "main": "index.js",
   "engines": {
     "node": ">=v14.19.0"
