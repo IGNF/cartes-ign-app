@@ -82,6 +82,26 @@
       ]
     }
   },
+  "PROTECTEDAREAS.ZPS$WMTS": {
+    "0": {
+      "title": "@sitename",
+      "subtitle": "Sites NATURA 2000 au titre de la Directive Oiseaux - Source : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
+      ]
+    }
+  },
+  "PROTECTEDAREAS.SIC$WMTS": {
+    "0": {
+      "title": "@sitename",
+      "subtitle": "Sites Natura 2000 au titre de la Directive Habitats - Source : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
+      "bodyBefore": [
+      ],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
+      ]
+    }
+  },
   "PROTECTEDAREAS.PN$WMTS": {
     "0": {
       "title": "@nom",
