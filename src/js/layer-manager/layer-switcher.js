@@ -451,7 +451,12 @@ class LayerSwitcher extends EventTarget {
         }
         if (value === "info") {
           var text = document.getElementById("informationsText");
-          var p = LayersConfig.getLayerProps(id);
+          var p;
+          if (this.layers[id].isTempLayer) {
+            p = LayersConfig.getTempLayerProps(id);
+          } else {
+            p = LayersConfig.getLayerProps(id);
+          }
           text.innerHTML = `
           <p>${p.desc}</p>
           <p><span class="layerInfoSource">Source :</span> ${p.source}</p>

@@ -207,13 +207,15 @@ function app() {
           break;
         }
       }
-      const eventButton = document.getElementById("eventMapBtn");
-      eventButton.classList.remove("d-none");
-      eventButton.title = layer.mainScreenBtn.title;
-      eventButton.style.backgroundImage = `url(${layer.mainScreenBtn.iconUrl})`;
-      eventButton.addEventListener("click", () => {
-        document.querySelector(`#${layer.id}`).click();
-      });
+      if (layer.mainScreenBtn) {
+        const eventButton = document.getElementById("eventMapBtn");
+        eventButton.classList.remove("d-none");
+        eventButton.title = layer.mainScreenBtn.title;
+        eventButton.style.backgroundImage = `url(${layer.mainScreenBtn.iconUrl})`;
+        eventButton.addEventListener("click", () => {
+          document.querySelector(`#${layer.id}`).click();
+        });
+      }
       if (layer.colors) {
         document.documentElement.style.setProperty("--event-main", layer.colors.main);
         document.documentElement.style.setProperty("--event-light", layer.colors.light);
