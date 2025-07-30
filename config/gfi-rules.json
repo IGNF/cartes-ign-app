@@ -62,12 +62,23 @@
       ]
     }
   },
-  "PROTECTEDAREAS.ZPS$WMTS": {
+  "Patrinat_ZPS$WMTS": {
     "0": {
-      "title": "@sitename",
+      "title": "@nom_site",
       "subtitle": "Sites NATURA 2000 au titre de la Directive Oiseaux - Source : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url_fiche}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
+      ]
+    }
+  },
+  "Patrinat_SIC$WMTS": {
+    "0": {
+      "title": "@nom_site",
+      "subtitle": "Sites Natura 2000 au titre de la Directive Habitats - Source : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
+      "bodyBefore": [
+      ],
+      "bodyAfter": [
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url_fiche}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
       ]
     }
   },
@@ -111,17 +122,6 @@
     "0": {
       "title": "@nom",
       "subtitle": "Réserves Naturelles de Corse - Source : Inventaire National du Patrimoine Naturel (INPN), Muséum national d’Histoire naturelle (MNHN)",
-      "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
-      ]
-    }
-  },
-  "PROTECTEDAREAS.SIC$WMTS": {
-    "0": {
-      "title": "@sitename",
-      "subtitle": "Sites Natura 2000 au titre de la Directive Habitats - Source : Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
-      "bodyBefore": [
-      ],
       "bodyAfter": [
         ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Accéder à la fiche</a></p>"]
       ]

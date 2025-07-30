@@ -171,7 +171,7 @@
       "maxNativeZoom": 18,
       "format": "image/jpeg"
     },
-    "PROTECTEDAREAS.SIC$WMTS": {
+    "Patrinat_SIC$WMTS": {
       "title": "Sites Natura 2000 - Directive Habitats",
       "description": "Le réseau Natura 2000 s’inscrit au cœur de la politique de conservation de la nature de l’Union européenne et est un élément clé de l’objectif visant à enrayer l’érosion de la biodiversité.",
       "source": "Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
@@ -179,10 +179,10 @@
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
-      "style": "PROTECTEDAREAS.SIC",
+      "style": "normal",
       "format": "image/png"
     },
-    "PROTECTEDAREAS.ZPS$WMTS": {
+    "Patrinat_ZPS$WMTS": {
       "title": "Sites Natura 2000 - Directive Oiseaux",
       "description": "Zones mises en place dans le cadre de la Directive Oiseaux de 1979 visant à désigner des territoires permettant d’assurer le bon état de conservation d’espèces d’oiseaux menacées, vulnérables ou rares.",
       "source": "Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
@@ -190,7 +190,7 @@
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
-      "style": "PROTECTEDAREAS.ZPS",
+      "style": "normal",
       "format": "image/png"
     },
     "TRANSPORTNETWORKS.RAILWAYS$WMTS": {
