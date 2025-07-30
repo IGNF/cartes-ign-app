@@ -83,7 +83,7 @@ class LayerManager extends EventTarget {
     this.layerCatalogue.addEventListener("addlayer", async (e) => {
       await this.layerSwitcher.addLayer({
         id: e.detail.id,
-        opacity: 100,
+        opacity: e.detail.defaultOpacity || 100,
         visible: true,
         gray: false,
         isTempLayer : e.detail.isTempLayer,

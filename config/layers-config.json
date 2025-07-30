@@ -9,7 +9,8 @@
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 0,
       "maxNativeZoom": 18,
-      "format": "image/png"
+      "format": "image/png",
+      "defaultOpacity": 75
     },
     "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$WMTS": {
       "title": "Parcelles cadastrales",
@@ -41,7 +42,8 @@
       "minNativeZoom": 3,
       "maxNativeZoom": 16,
       "style": "FORETS PUBLIQUES ONF",
-      "format": "image/png"
+      "format": "image/png",
+      "defaultOpacity": 85
     },
     "LANDCOVER.FORESTINVENTORY.V2$WMTS": {
       "title": "Carte forestière",
@@ -51,7 +53,8 @@
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
-      "format": "image/png"
+      "format": "image/png",
+      "defaultOpacity": 75
     },
     "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40$WMTS": {
       "title": "Carte de l'état-major (1820-1866)",
@@ -90,7 +93,8 @@
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 0,
       "maxNativeZoom": 17,
-      "format": "image/png"
+      "format": "image/png",
+      "defaultOpacity": 75
     },
     "HYDROGRAPHY.HYDROGRAPHY$WMTS": {
       "title": "Réseau hydrographique",
@@ -111,7 +115,8 @@
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
-      "format": "image/png"
+      "format": "image/png",
+      "defaultOpacity": 75
     },
     "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS": {
       "title": "Limites administratives mises à jour en continu",
@@ -180,7 +185,8 @@
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
       "style": "PROTECTEDAREAS.SIC",
-      "format": "image/png"
+      "format": "image/png",
+      "defaultOpacity": 75
     },
     "PROTECTEDAREAS.ZPS$WMTS": {
       "title": "Sites Natura 2000 - Directive Oiseaux",
@@ -191,7 +197,8 @@
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
       "style": "PROTECTEDAREAS.ZPS",
-      "format": "image/png"
+      "format": "image/png",
+      "defaultOpacity": 75
     },
     "TRANSPORTNETWORKS.RAILWAYS$WMTS": {
       "title": "Réseau ferroviaire",

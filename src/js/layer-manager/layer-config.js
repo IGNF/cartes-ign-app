@@ -40,6 +40,10 @@ const getLayerProps = (id) => {
   var minNativeZoom = props.minNativeZoom || 0;
   var maxNativeZoom = props.maxNativeZoom || 20;
   var interactive = !(props.interactive === false);
+  var defaultOpacity = props.defaultOpacity || 100;
+  var quickLookUrl = props.quickLookUrl || "data/img/layers/" + id.split("$")[0] + ".jpg";
+  var legendUrl = props.legendUrl || "data/img/legends/" + id.split("$")[0] + ".png";
+
   return {
     layer: id.split("$")[0],
     base: getBaseLayers().includes(id), // couche de fonds ou autre
@@ -55,6 +59,9 @@ const getLayerProps = (id) => {
     minNativeZoom: minNativeZoom,
     maxNativeZoom: maxNativeZoom,
     interactive: interactive,
+    defaultOpacity: defaultOpacity,
+    quickLookUrl: quickLookUrl,
+    legendUrl: legendUrl,
   };
 };
 

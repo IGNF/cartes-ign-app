@@ -10,7 +10,6 @@ import syncMaps from "@mapbox/mapbox-gl-sync-move";
 import Globals from "./globals";
 import DOM from "./dom";
 import LayersConfig from "./layer-manager/layer-config";
-import LayersAdditional from "./layer-manager/layer-additional";
 
 import { Capacitor } from "@capacitor/core";
 
@@ -83,7 +82,7 @@ class Compare {
             type: "rltLayer",
             layerID: rltLayers[j],
             layerName: props.layer,
-            layerQuickLook: LayersAdditional.getQuickLookUrl(props.layer),
+            layerQuickLook: props.quickLookUrl || ImageNotFound,
             layerTitle: props.title,
             layerThematic: ""
           });
@@ -92,7 +91,7 @@ class Compare {
             type: "rltLayer",
             layerID: rltLayers[j],
             layerName: props.layer,
-            layerQuickLook: LayersAdditional.getQuickLookUrl(props.layer),
+            layerQuickLook: props.quickLookUrl || ImageNotFound,
             layerTitle: props.title,
             layerThematic: ""
           });

@@ -7,12 +7,12 @@
 import Globals from "../globals";
 import LayersConfig from "./layer-config";
 import LayersGroup from "./layer-group";
-import LayersAdditional from "./layer-additional";
 import ActionSheet from "../action-sheet";
 
 import Sortable from "sortablejs";
 
 import ImageNotFound from "../../html/img/image-not-found.png";
+import LegendNotFound from "../../html/img/legend-not-found.png";
 import DomUtils from "../utils/dom-utils";
 
 import { Toast } from "@capacitor/toast";
@@ -458,7 +458,7 @@ class LayerSwitcher extends EventTarget {
           <p><span class="layerInfoMaj">Mise à jour :</span> ${p.maj}</p>
           `;
           var img = document.getElementById("informationsImg");
-          img.src = LayersAdditional.getLegend(id.split("$")[0]);
+          img.src = this.layers[id].legendUrl || LegendNotFound;
           Globals.menu.open("informations");
         }
         if (value === "greyscale") {
@@ -679,7 +679,8 @@ class LayerSwitcher extends EventTarget {
     this.index++;
     this.layers[id] = {
       title: props.title,
-      quickLookUrl: props.quickLookUrl ? props.quickLookUrl : LayersAdditional.getQuickLookUrl(id.split("$")[0]),
+      quickLookUrl: props.quickLookUrl ? props.quickLookUrl : ImageNotFound,
+      legendUrl: props.legendUrl ? props.legendUrl : LegendNotFound,
       style: props.style,
       fallbackStyle: props.fallbackStyle,
       type: props.type,

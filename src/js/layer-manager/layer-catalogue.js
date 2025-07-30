@@ -6,11 +6,10 @@
 
 import Globals from "../globals";
 import LayersConfig from "./layer-config";
-import LayersAdditional from "./layer-additional";
 
 import ImageNotFound from "../../html/img/image-not-found.png";
-import ReliefBuildingsImage from "../../html/img/layers/3D.BUILDINGS.jpg";
-import ReliefTerrainImage from "../../html/img/layers/3D.TERRAIN.jpg";
+import ReliefBuildingsImage from "../../html/img/3D.BUILDINGS.jpg";
+import ReliefTerrainImage from "../../html/img/3D.TERRAIN.jpg";
 import DomUtils from "../utils/dom-utils";
 
 import { Toast } from "@capacitor/toast";
@@ -72,8 +71,9 @@ class LayerCatalogue extends EventTarget {
     }
 
     const tplLayer = (opts) => {
+      const defaultOpacity = opts.defaultOpacity || 100;
       return `
-      <div class="layer ${opts.type}" id="${opts.layerID}">
+      <div class="layer ${opts.type}" id="${opts.layerID}" data-defaultopacity="${defaultOpacity}">
         <div class="layerImg">
           <img src="${opts.layerQuickLook}" alt="${opts.layerTitle}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
           <div class="layer-badge"></div>
@@ -94,10 +94,11 @@ class LayerCatalogue extends EventTarget {
         type : "baseLayer",
         layerID : baseLayers[i],
         layerName : props.layer,
-        layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
+        layerQuickLook : props.quickLookUrl || ImageNotFound,
         layerTitle : props.title,
         layerThematic : "",
         interactive: props.interactive,
+        defaultOpacity: props.defaultOpacity || 100,
       });
     }
 
@@ -116,6 +117,7 @@ class LayerCatalogue extends EventTarget {
           layerTitle : tempLayer.name,
           layerThematic : "Évènements",
           interactive: true,
+          defaultOpacity: tempLayer.defaultOpacity || 100,
         });
       }
     }
@@ -144,10 +146,11 @@ class LayerCatalogue extends EventTarget {
         type : "thematicLayer layer-hidden", // liste cachée par defaut !
         layerID : thematicLayers[k],
         layerName : props.layer,
-        layerQuickLook : LayersAdditional.getQuickLookUrl(props.layer),
+        layerQuickLook : props.quickLookUrl || ImageNotFound,
         layerTitle : props.title,
         layerThematic : thematic,
         interactive: props.interactive,
+        defaultOpacity: props.defaultOpacity || 100,
       });
     }
 
@@ -317,6 +320,7 @@ class LayerCatalogue extends EventTarget {
 
     var element = document.getElementById(layerName);
     element.classList.add("selectedLayer");
+    const defaultOpacity = parseFloat(element.dataset.defaultopacity) || 100;
 
     /**
      * Evenement "addlayer"
@@ -330,6 +334,7 @@ class LayerCatalogue extends EventTarget {
         detail: {
           id : layerName,
           isTempLayer : isTempLayer,
+          defaultOpacity: defaultOpacity,
         }
       })
     );
