@@ -26,7 +26,7 @@
               <category android:name="android.intent.category.BROWSABLE" />
               <data android:scheme="https" android:host="cartes-ign.ign.fr" />
             </intent-filter>
-            <!-- Pour l'ouvertutre des fichiers en local -->
+            <!-- Pour l'ouverture des fichiers en local -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -68,6 +68,13 @@
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kml" />
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.kml" />
                 <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.kml" />
+            </intent-filter>
+            <!-- Pour l'ouverture des geo: URIs -->
+            <intent-filter>
+              <action android:name="android.intent.action.VIEW" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <category android:name="android.intent.category.BROWSABLE" />
+              <data android:scheme="geo" />
             </intent-filter>
             <!-- Pour les pièces jointes -->
             <intent-filter>
