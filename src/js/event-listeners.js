@@ -302,7 +302,8 @@ function addListeners() {
   // Partage par liens
   App.addListener("appUrlOpen", (e) => {
     if (e.url) {
-      if (e.url.split("://")[0] === "https") {
+      const [urlScheme, urlHostAndParams] = e.url.split(":");
+      if (urlScheme === "https") {
         const urlParams = new URLSearchParams(e.url.split("?")[1]);
         if (urlParams.get("lng") && urlParams.get("lat")) {
           while (Globals.backButtonState.split("-")[0] !== "default") {
@@ -359,6 +360,17 @@ function addListeners() {
                 .addTo(map);
             });
           }
+        }
+      } else if (urlScheme === "geo") {
+        const [urlHost, urlParamsString] = urlHostAndParams.split("?");
+        const urlParams = new URLSearchParams(urlParamsString);
+        let [lat, lng] = (urlParams.get("q") || "").split(",").map(parseFloat);
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+          [lat, lng] = urlHost.split(",").map(parseFloat);
+        }
+        if (Number.isFinite(lat) && Number.isFinite(lng)) {
+          const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
+          map.flyTo({zoom: zoom, center: { lng, lat }});
         }
       }
     }
