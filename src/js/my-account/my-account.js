@@ -485,6 +485,9 @@ class MyAccount {
         if (imported.properties.name) {
           imported.properties.title = imported.properties.name;
         }
+        if (imported.properties.desc) {
+          imported.properties.description = imported.properties.desc;
+        }
         if (!imported.properties) {
           imported.properties = {};
         }
