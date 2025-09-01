@@ -528,7 +528,7 @@ class MyAccount {
         if (!imported.data.name) {
           imported.data.name = imported.features[0].properties.name || defaultName;
         }
-        this.addRoute(this.geojsonToRoute(imported));
+        this.addRoute(this.geojsonToRoute(imported, "gpx"));
         Toast.show({
           duration: "long",
           text: `Itinéraire "${imported.data.name}" ajouté à 'Enregistrés' et à la carte`,
@@ -1567,9 +1567,10 @@ ${props.text}`,
   /**
    * Convertit une route au format geojson en route telle qu'enregistrée dans le compte
    * @param {*} route
+   * @param {*} sourceType
    * @returns
    */
-  geojsonToRoute(routeJson) {
+  geojsonToRoute(routeJson, sourceType = null) {
     if (routeJson.type === "Feature") {
       routeJson = {
         type: "FeatureCollection",
@@ -1594,7 +1595,10 @@ ${props.text}`,
     });
     routeJson.features = routeJson.features.filter(feature => ["LineString", "Point"].includes(feature.geometry.type));
     let steps = routeJson.features.filter(feature => feature.geometry.type === "LineString");
-    const points = routeJson.features.filter(feature => feature.geometry.type === "Point");
+    let points = [];
+    if (sourceType !== "gpx") {
+      points = routeJson.features.filter(feature => feature.geometry.type === "Point");
+    }
     let stepId, pointId = -1;
     steps.forEach((step) => {
       step.properties.id = stepId;
