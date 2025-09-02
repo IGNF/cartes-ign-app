@@ -531,27 +531,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          "4.720807",
-          "44.327410"
-        ]
-      },
-      "properties": {
-        "zoom": "14",
-        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
-        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
-        "mode": "vSlider",
-        "commune": "Pierrelatte",
-        "departement": "Drôme",
-        "accroche": "Observez la construction du site nucléaire du Tricastin",
-        "theme": "Aménagement du territoire",
-        "text": "Le site nucléaire de Tricastin se compose d'une centrale nucléaire dotée de quatre réacteurs mis en service en 1980-1981, et d'un centre d'enrichissement de l'uranium. Le site s'étend sur 650 hectares répartis sur quatre communes : Saint-Paul-Trois-Châteaux et Pierrelatte dans la Drôme, Bollène et Lapalud dans le Vaucluse.<br/>Source : ville-saintpaultroischateaux.fr"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           "2.230096",
           "48.675649"
         ]
