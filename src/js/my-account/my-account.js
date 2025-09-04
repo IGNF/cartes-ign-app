@@ -503,8 +503,13 @@ class MyAccount {
         if (!imported.properties.icon) {
           imported.properties.icon = "landmark-icon-saved";
         }
+        const lon = imported.geometry.coordinates[0].toFixed(5);
+        const lat = imported.geometry.coordinates[1].toFixed(5);
         if (!imported.properties.locationName) {
-          imported.properties.locationName = "";
+          imported.properties.locationName = lon + ", " + lat;
+        }
+        if (!imported.properties.location) {
+          imported.properties.location = "[" + lon + "," + lat + "]";
         }
         imported.properties.visible = true;
         imported.properties.radiusRatio = 0;
