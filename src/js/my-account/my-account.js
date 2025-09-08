@@ -458,6 +458,7 @@ class MyAccount {
     try {
       let imported;
       let gpxName = "";
+      let gpxDesc = "";
       // UTF-8 decoding https://stackoverflow.com/a/64752311
       const rawData = decodeURIComponent(atob(data).split("").map(function(c) {
         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
@@ -470,6 +471,10 @@ class MyAccount {
         const metadataName = Array.from(gpxDom.getElementsByTagName("name")).find(tag => tag.parentNode.tagName == "metadata");
         if (metadataName) {
           gpxName = metadataName.textContent;
+        }
+        const metadataDesc = Array.from(gpxDom.getElementsByTagName("desc")).find(tag => tag.parentNode.tagName == "metadata");
+        if (metadataDesc) {
+          gpxDesc = metadataDesc.textContent;
         }
         imported = gpx(gpxDom);
         if (imported.features.length === 0) {
@@ -488,11 +493,14 @@ class MyAccount {
         if (imported.type === "FeatureCollection") {
           imported = imported.features[0];
         }
+        if (gpxName) {
+          imported.properties.title = gpxName;
+        }
         if (imported.properties.name) {
           imported.properties.title = imported.properties.name;
         }
-        if (gpxName) {
-          imported.properties.title = gpxName;
+        if (gpxDesc) {
+          imported.properties.description = gpxDesc;
         }
         if (imported.properties.desc) {
           imported.properties.description = imported.properties.desc;
