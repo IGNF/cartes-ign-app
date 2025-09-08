@@ -20,6 +20,7 @@ import InseeCommWiki from "../../../config/com_wiki.json";
 import GfiRulesProps from "../../../config/gfi-rules.json";
 
 import { Capacitor } from "@capacitor/core";
+import { Device } from "@capacitor/device";
 
 const config = {
   baseLayers: null,
@@ -106,6 +107,15 @@ async function loadConfigs() {
     }
   });
 
+  // Disable tempLayers on iOS < 16 (not working because of preflight OPTIONS request)
+  const info = await Device.getInfo();
+  if (info.platform === 'ios') {
+    // info.osVersion is usually like "15.6.1" or "16.0"
+    const version = parseFloat(info.osVersion);
+    if (version < 16.0) {
+      config.tempLayers = [];
+    }
+  }
   // Filter temp layers
   config.tempLayers = config.tempLayers.filter((layer) => {
     if (!layer.isProdReady && Capacitor.getPlatform() !== "web") {
