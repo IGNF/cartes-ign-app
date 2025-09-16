@@ -18,6 +18,21 @@ import proj4 from "proj4";
 import Legend from "./legend-plan-ign";
 import gisUtils from "../utils/gis-utils";
 
+// REMOVEME
+// Polyfill pour Promise.allSettled
+Promise.allSettled = Promise.allSettled || ((promises) => Promise.all(
+  promises.map(p => p
+    .then(value => ({
+      status: "fulfilled",
+      value
+    }))
+    .catch(reason => ({
+      status: "rejected",
+      reason
+    }))
+  )
+));
+
 /**
  * Interface sur l'interaction avec la carte
  * @module MapInteractivity

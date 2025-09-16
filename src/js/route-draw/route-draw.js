@@ -20,7 +20,14 @@ import { Toast } from "@capacitor/toast";
 import turfLength from "@turf/length";
 import lineSlice from "@turf/line-slice";
 import cleanCoords from "@turf/clean-coords";
-import pThrottle from "p-throttle";
+// REMOVEME
+// pthrottle polyfill
+let pThrottle = (fn) => fn;
+if (typeof FinalizationRegistry !== "undefined") {
+  pThrottle = require("p-throttle").default;
+} else {
+  console.warn("FinalizationRegistry not supported, throttling disabled");
+}
 
 import RouteDepartureIcon from "../../css/assets/route-draw/departure-marker.png";
 import RouteDestinationIcon from "../../css/assets/route-draw/destination-marker.png";

@@ -19,6 +19,21 @@ import PopupUtils from "./utils/popup-utils";
 import DOM from "./dom";
 import { Toast } from "@capacitor/toast";
 
+// REMOVEME
+// Polyfill pour Promise.allSettled
+Promise.allSettled = Promise.allSettled || ((promises) => Promise.all(
+  promises.map(p => p
+    .then(value => ({
+      status: "fulfilled",
+      value
+    }))
+    .catch(reason => ({
+      status: "rejected",
+      reason
+    }))
+  )
+));
+
 /**
  * Average size of vector tiles (plan IGN) by zoom level in MB
  */

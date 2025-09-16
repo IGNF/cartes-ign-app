@@ -22,6 +22,21 @@ import GfiRulesProps from "../../../config/gfi-rules.json";
 import { Capacitor } from "@capacitor/core";
 import { Device } from "@capacitor/device";
 
+// REMOVEME
+// Polyfill pour Promise.allSettled
+Promise.allSettled = Promise.allSettled || ((promises) => Promise.all(
+  promises.map(p => p
+    .then(value => ({
+      status: "fulfilled",
+      value
+    }))
+    .catch(reason => ({
+      status: "rejected",
+      reason
+    }))
+  )
+));
+
 const config = {
   baseLayers: null,
   thematicLayers: null,
@@ -109,10 +124,18 @@ async function loadConfigs() {
 
   // Disable tempLayers on iOS < 16 (not working because of preflight OPTIONS request)
   const info = await Device.getInfo();
-  if (info.platform === 'ios') {
+  if (info.platform === "ios") {
     // info.osVersion is usually like "15.6.1" or "16.0"
     const version = parseFloat(info.osVersion);
     if (version < 16.0) {
+      config.tempLayers = [];
+    }
+  }
+  // Disable tempLayers on android webview < 99 (not working because of preflight OPTIONS request)
+  // @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Range#browser_compatibility
+  if (info.platform === "android") {
+    const webViewVersion = parseInt(info.webViewVersion.split(".")[0]);
+    if (webViewVersion < 99) {
       config.tempLayers = [];
     }
   }
