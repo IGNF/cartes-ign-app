@@ -93,6 +93,11 @@ let RouteDrawDOM = {
             value: "share",
           },
           {
+            class: "tools-layer-visibility",
+            text: "Masquer",
+            value: "hide",
+          },
+          {
             class: "tools-layer-download",
             text: "Télécharger le plan",
             value: "download",
@@ -119,6 +124,9 @@ let RouteDrawDOM = {
       }).then( (value) => {
         if (value === "share") {
           this.shareRoute();
+        }
+        if (value === "hide") {
+          this.hideRoute();
         }
         if (value === "edit") {
           this.openEdition();

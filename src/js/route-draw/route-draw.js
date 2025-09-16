@@ -316,6 +316,14 @@ class RouteDraw {
   }
 
   /**
+   * Cache l'itinéraire à l'aide de la méthode de myAccount
+   */
+  hideRoute() {
+    Globals.myaccount.hideRouteFromID(this.routeId);
+    this.hide(true);
+  }
+
+  /**
    * Exporte l'itinéraire à l'aide de la méthode de myAccount
    */
   exportRoute() {
@@ -1293,9 +1301,9 @@ class RouteDraw {
    * ferme le menu des résultats du calcul
    * @public
    */
-  hide() {
+  hide(hideRoute = false) {
     const routeId = this.routeId;
-    if (routeId !== null) {
+    if (routeId !== null && !hideRoute) {
       Globals.myaccount.showRouteFromID(routeId);
     }
     Globals.menu.close("routeDraw");

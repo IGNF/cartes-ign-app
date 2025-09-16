@@ -1463,7 +1463,26 @@ ${props.text}`,
         position: "bottom"
       });
     }
+  }
 
+  /**
+  * Cache l'itinéraire s'il est affiché à partir de son ID
+  * @param {Number} routeId
+  */
+  hideRouteFromID(routeId) {
+    try {
+      const route = this.#getRouteFromID(routeId);
+      if (route.visible) {
+        this.toggleShowRoute(route);
+      }
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**
