@@ -36,10 +36,10 @@ jobs:
       - name: Sync
         run: npx cap sync
       ## Use this if build mobileprovision too big in base64 for GH secrets
-      # - name: Decrypt build mobileprovision
-      #   run: ios/decrypt_provision.sh
-      #   env:
-      #     BUILD_PROVISION_PASSPHRASE: ${{ secrets.BUILD_PROVISION_PASSPHRASE }}
+      - name: Decrypt build mobileprovision
+        run: ios/decrypt_provision.sh
+        env:
+          BUILD_PROVISION_PASSPHRASE: ${{ secrets.BUILD_PROVISION_PASSPHRASE }}
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -49,7 +49,7 @@ jobs:
           P12_PASSWORD_DISTR: ${{ secrets.P12_PASSWORD_DISTR }}
           DEPLOY_PROVISION_PROFILE_BASE64: ${{ secrets.DEPLOY_PROVISION_PROFILE_BASE64 }}
           ## Comment this if build mobileprovision too big in base64 for GH secrets
-          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+          # BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           # create variables
@@ -64,9 +64,9 @@ jobs:
           echo -n "$DISTRIBUTION_CERTIFICATE_P12" | base64 --decode -o $CERTIFICATE_DISTR_PATH
           echo -n "$DEPLOY_PROVISION_PROFILE_BASE64" | base64 --decode -o $DPP_PATH
           ## Comment this if build mobileprovision too big in base64 for GH secrets
-          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+          # echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
           ## And use this instead
-          # mv $HOME/secrets/build.mobileprovision $PP_PATH
+          mv $HOME/secrets/build.mobileprovision $PP_PATH
 
           # create temporary keychain
           security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
