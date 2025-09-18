@@ -141,6 +141,14 @@ async function loadConfigs() {
   }
   // Filter temp layers
   config.tempLayers = config.tempLayers.filter((layer) => {
+    // REMOVEME
+    if (layer.id === "jep2025") {
+      return false;
+    }
+    if (layer.id === "jna2025") {
+      return true;
+    }
+    // END REMOVEME
     if (!layer.isProdReady && Capacitor.getPlatform() !== "web") {
       return false;
     }
