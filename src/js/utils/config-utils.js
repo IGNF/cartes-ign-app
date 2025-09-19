@@ -148,6 +148,9 @@ async function loadConfigs() {
     if (layer.id === "jna2025") {
       return true;
     }
+    if (layer.id === "fig2025") {
+      return true;
+    }
     // END REMOVEME
     if (!layer.isProdReady && Capacitor.getPlatform() !== "web") {
       return false;
