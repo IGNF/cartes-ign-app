@@ -49,6 +49,7 @@ const config = {
   comparePoiData: null,
   inseeCommWiki: null,
   gfiRulesProps: null,
+  newsfeed : [],
   hasLoaded: false,
 };
 
@@ -97,6 +98,10 @@ const urls = {
     url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json",
     fallback: GfiRulesProps,
   },
+  newsfeed : {
+    url: "https://ignf.github.io/cartes-ign-temp-layers/newsfeed/newsfeed_config.json",
+    fallback: [], // default empty list if not available
+  }
 };
 
 async function loadConfigs() {
@@ -156,6 +161,11 @@ async function loadConfigs() {
       name: "Évènements",
       layers: config.tempLayers.map((layer) => layer.id),
     });
+  }
+
+  if (config.newsfeed.length > 0) {
+    document.querySelector("#newsfeed").classList.remove("d-none");
+    document.querySelector("#newsfeed_hr").classList.remove("d-none");
   }
   config.hasLoaded = true;
 }

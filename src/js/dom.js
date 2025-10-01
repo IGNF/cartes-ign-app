@@ -57,6 +57,8 @@ const $informationsWindow = document.getElementById("informationsWindow");
 const $informationsText = document.getElementById("informationsText");
 const $informationsImg = document.getElementById("informationsImg");
 
+const $newsfeedWindow = document.getElementById("newsfeedWindow");
+
 const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
 const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule");
 
@@ -148,4 +150,5 @@ export default {
   $offlineMapsWindow,
   $trackRecordWindow,
   $eventMapBtn,
+  $newsfeedWindow,
 };
