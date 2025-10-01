@@ -4,6 +4,8 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
+import Globals from "./globals";
+
 import { config } from "./utils/config-utils";
 
 /**
@@ -13,9 +15,15 @@ import { config } from "./utils/config-utils";
 class NewsFeed {
 
   _target = document.querySelector("#newsfeedWindow .newsfeedContent");
+  _overlay = document.getElementsByTagName("img-overlay")[0];
 
   constructor() {
     this.generated = false;
+    this._overlay.querySelector("#imgOverlayClose").addEventListener("click", () => {
+      this._overlay.classList.add("d-none");
+      Globals.backButtonState = "newsfeed";
+    });
+
     return this;
   }
 
@@ -31,9 +39,16 @@ class NewsFeed {
 
       const imgElem = document.createElement("img");
       imgElem.classList.add("newsfeedItemImg");
-      imgElem.setAttribute("alt", news.title);
+      imgElem.setAttribute("title", news.title);
       imgElem.setAttribute("src", news.image);
       newsElem.appendChild(imgElem);
+
+      imgElem.addEventListener("click", () => {
+        Globals.backButtonState = "imageOverlay";
+        this._overlay.querySelector("#imgOverlayImage").src = news.image;
+        this._overlay.querySelector("#imgOverlayImage").title = news.title;
+        this._overlay.classList.remove("d-none");
+      });
 
       const textContainer = document.createElement("div");
       textContainer.classList.add("newsfeedItemTextContainer");
