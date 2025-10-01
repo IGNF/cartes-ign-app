@@ -37,6 +37,10 @@ const onBackKeyDown = () => {
     Globals.menu.close("newsfeed");
     return;
   }
+  if (backState === "imageOverlay") {
+    document.getElementById("imgOverlayClose").click();
+    return;
+  }
 
   if (backState === "layerManager") {
     Globals.menu.close("layerManager");

@@ -138,4 +138,8 @@
     width: calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right));
     left: calc(var(--safe-area-inset-left))
   }
+  .newsfeedContent {
+    width: 100vh;
+    margin: auto;
+  }
 }
