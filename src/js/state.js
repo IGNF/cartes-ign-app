@@ -33,6 +33,11 @@ const onBackKeyDown = () => {
     Globals.menu.open("myaccount");
     return;
   }
+  if (backState === "newsfeed") {
+    Globals.menu.close("newsfeed");
+    return;
+  }
+
   if (backState === "layerManager") {
     Globals.menu.close("layerManager");
     if (previousState !== "default") {

@@ -64,10 +64,12 @@
   text-decoration: underline;
 }
 
+.newsfeedItemLink,
 .informationsItemsLink > a {
   color: var(--dark-grey);
 }
 
+.newsfeedItemLink::after,
 .informationsItemsLink > a::after {
   content: "";
   display: inline-block;
@@ -111,6 +113,24 @@
   border-bottom: 1px solid var(--grey-2);
   padding: 20px 0 20px 60px;
 }
+
+.newsfeedItemImg {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.newsfeedItemContent {
+  font-family: "Open Sans";
+  font-size: 12px;
+}
+
+.newsfeedItem {
+  margin: 20px 0;
+}
+
 
 /* mode paysage et écrans larges */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
