@@ -45,8 +45,12 @@ class NewsFeed {
 
       imgElem.addEventListener("click", () => {
         Globals.backButtonState = "imageOverlay";
-        this._overlay.querySelector("#imgOverlayImage").src = news.image;
-        this._overlay.querySelector("#imgOverlayImage").title = news.title;
+        const overlayimage = this._overlay.querySelector("#imgOverlayImage");
+        overlayimage.src = news.image;
+        overlayimage.title = news.title;
+        overlayimage.addEventListener("click", () => {
+          overlayimage.classList.toggle("zoomed");
+        });
         this._overlay.classList.remove("d-none");
       });
 
