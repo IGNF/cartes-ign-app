@@ -6,6 +6,7 @@ img-overlay {
   position: fixed;
   top: 0;
   z-index: 3001;
+  background-color: #0008;
 }
 
 #imgOverlayContent {
@@ -20,6 +21,7 @@ img-overlay {
   height: calc(20px + 42px + var(--safe-area-inset-top));
   width: 100%;
   background-color: #0008;
+  z-index: 1;
 }
 
 #imgOverlayClose {
@@ -38,14 +40,36 @@ img-overlay {
   background-color: #fff;
 }
 
+
 #imgOverlayImage {
-  width: 200vw;
+  position: relative;
+  width: 100vw;
   overflow: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#imgOverlayImage.zoomed {
+  height: 100vh;
+  width: unset;
+  top: 0;
+  transform: unset;
 }
 
 /* mode paysage et écrans larges */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #imgOverlayImage {
+    width: unset;
+    height: 100vh;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #imgOverlayImage.zoomed {
+    height: unset;
     width: 100vw;
+    left: 0;
+    transform: unset;
   }
 }
