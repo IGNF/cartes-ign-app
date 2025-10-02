@@ -257,6 +257,10 @@ function addListeners() {
   };
 
   window.addEventListener("scroll", () => {
+    // Pas de gestion du scroll sur les menus alternatifs scrollables
+    if (["newsfeed", "imageOverlay", "informationsScreenLegal"].includes(Globals.backButtonState.split("-")[0])) {
+      return;
+    }
     /* Gestion de la disparition des boutons au scroll */
     DOM.$bottomButtons.classList.remove("opacity0");
     DOM.$routeDrawEdit.classList.remove("opacity0");
