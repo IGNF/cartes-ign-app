@@ -53,8 +53,8 @@
     "epsg": 2154
   },
   {
-    "id": "BDTOPO_V3:toponymie_lieux_nommes",
-    "layer": "BDTOPO_V3:toponymie_lieux_nommes",
+    "id": "BDTOPO_V3:toponymie",
+    "layer": "BDTOPO_V3:toponymie",
     "attributes": ["graphie_du_toponyme"],
     "geom_name": "geometrie",
     "around": 1,
