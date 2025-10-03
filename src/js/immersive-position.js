@@ -59,7 +59,7 @@ class ImmersivePosion extends EventTarget {
         const layer = LayersConfig.getTempLayers()[i];
         if (this.data[layer.id]) {
           hasOneEvent = true;
-          eventsHtml += `<p class="eventImmersiveHeader"><span class="eventImmersiveImg" style="background-image:url(${layer.mainScreenBtn.iconUrl}"></span> ${layer.name}&nbsp;:</p>${this.data[layer.id]}`;
+          eventsHtml += `<p class="eventImmersiveHeader"><span class="eventImmersiveImg" style="background-image:url(${layer.quickLookUrl}"></span> ${layer.name}&nbsp;:</p>${this.data[layer.id]}`;
         }
       }
       eventsHtml += "</div>";
@@ -221,6 +221,9 @@ class ImmersivePosion extends EventTarget {
     if (LayersConfig.getTempLayers().length > 0) {
       for (let i = 0; i < LayersConfig.getTempLayers().length; i++) {
         const layer = LayersConfig.getTempLayers()[i];
+        if (layer.dontShowInImmersive) {
+          continue;
+        }
         let url = layer.layerUrl;
         if (layer.layerUrl.includes("pmtiles://")) {
           url = layer.layerUrl.replace("pmtiles://", "").replace(".pmtiles", ".geojson");
