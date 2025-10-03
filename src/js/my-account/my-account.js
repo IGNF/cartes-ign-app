@@ -1644,7 +1644,18 @@ ${props.text}`,
       points = routeJson.features.filter(feature => feature.geometry.type === "Point");
     }
     let stepId, pointId = -1;
+    // Nettoyage de steps : suppression des décimales au dessus de 6, suppression de l'altitude, suppression des propriétés de coordonnées
     steps.forEach((step) => {
+      for (let i = 0; i < step.geometry.coordinates.length; i++) {
+        step.geometry.coordinates[i] = step.geometry.coordinates[i].map((value => Math.round(value * 1e6) / 1e6));
+        while (step.geometry.coordinates[i].length >= 3) {
+          step.geometry.coordinates[i].pop();
+        }
+        if (step.properties.coordinateProperties) {
+          delete step.properties.coordinateProperties;
+        }
+      }
+
       step.properties.id = stepId;
       stepId--;
       step.properties.mode = 0;

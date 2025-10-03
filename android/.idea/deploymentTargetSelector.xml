@@ -2,15 +2,12 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="Unnamed">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-02-10T13:14:15.256982400Z">
+        <DropdownSelection timestamp="2025-09-16T14:35:07.350572900Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=37171FDJG005XB" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\amaur\.android\avd\huawei_honor_6C_pro_API_29.avd" />
             </handle>
           </Target>
         </DropdownSelection>
