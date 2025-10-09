@@ -487,60 +487,65 @@ class MyAccount {
       }
       // Mode Landmark
       if (
-        (imported.type === "FeatureCollection" && imported.features.length === 1 && imported.features[0].geometry.type === "Point") ||
-        (imported.type === "Feature" && imported.geometry.type === "Point")
+        (imported.type === "Feature" && imported.geometry.type === "Point") ||
+        (imported.type === "FeatureCollection" && imported.features.every(f => f.geometry.type === "Point"))
       ) {
-        if (imported.type === "FeatureCollection") {
-          imported = imported.features[0];
+        let features;
+        if (imported.type === "Feature") {
+          features = [imported];
+        } else if (imported.type === "FeatureCollection") {
+          features = imported.features;
         }
-        if (gpxName) {
-          imported.properties.title = gpxName;
-        }
-        if (imported.properties.name) {
-          imported.properties.title = imported.properties.name;
-        }
-        if (gpxDesc) {
-          imported.properties.description = gpxDesc;
-        }
-        if (imported.properties.desc) {
-          imported.properties.description = imported.properties.desc;
-        }
-        if (!imported.properties) {
-          imported.properties = {};
-        }
-        if (!imported.properties.title) {
-          imported.properties.title = defaultName;
-        }
-        if (!imported.properties.description) {
-          imported.properties.description = "";
-        }
-        if (!imported.properties.color) {
-          imported.properties.color = "#3993F3";
-        }
-        if (!imported.properties.icon) {
-          imported.properties.icon = "landmark-icon-saved";
-        }
-        const lon = imported.geometry.coordinates[0].toFixed(5);
-        const lat = imported.geometry.coordinates[1].toFixed(5);
-        if (!imported.properties.locationName) {
-          imported.properties.locationName = lon + ", " + lat;
-        }
-        if (!imported.properties.location) {
-          imported.properties.location = "[" + lon + "," + lat + "]";
-        }
-        imported.properties.visible = true;
-        imported.properties.radiusRatio = 0;
-        imported.id = -1;
-        this.addLandmark(imported);
-        document.getElementById("myaccount-landmarks-tab").click();
-        if (Location.isTrackingActive()) {
-          Location.disableTracking();
-        }
-        this.map.flyTo({center: imported.geometry.coordinates});
-        Toast.show({
-          duration: "long",
-          text: `Point de repère "${imported.properties.title}" ajouté à 'Enregistrés' et à la carte`,
-          position: "bottom",
+        features.forEach((feature) => {
+          if (gpxName) {
+            feature.properties.title = gpxName;
+          }
+          if (feature.properties.name.trim()) {
+            feature.properties.title = feature.properties.name;
+          }
+          if (gpxDesc) {
+            feature.properties.description = gpxDesc;
+          }
+          if (feature.properties.desc) {
+            feature.properties.description = feature.properties.desc;
+          }
+          if (!feature.properties) {
+            feature.properties = {};
+          }
+          if (!feature.properties.title) {
+            feature.properties.title = defaultName;
+          }
+          if (!feature.properties.description) {
+            feature.properties.description = "";
+          }
+          if (!feature.properties.color) {
+            feature.properties.color = "#3993F3";
+          }
+          if (!feature.properties.icon) {
+            feature.properties.icon = "landmark-icon-saved";
+          }
+          const lon = feature.geometry.coordinates[0].toFixed(5);
+          const lat = feature.geometry.coordinates[1].toFixed(5);
+          if (!feature.properties.locationName) {
+            feature.properties.locationName = lon + ", " + lat;
+          }
+          if (!feature.properties.location) {
+            feature.properties.location = "[" + lon + "," + lat + "]";
+          }
+          feature.properties.visible = true;
+          feature.properties.radiusRatio = 0;
+          feature.id = -1;
+          this.addLandmark(feature);
+          document.getElementById("myaccount-landmarks-tab").click();
+          if (Location.isTrackingActive()) {
+            Location.disableTracking();
+          }
+          this.map.flyTo({center: feature.geometry.coordinates});
+          Toast.show({
+            duration: "long",
+            text: `Point de repère "${feature.properties.title}" ajouté à 'Enregistrés' et à la carte`,
+            position: "bottom",
+          });
         });
       } else if (imported.type === "FeatureCollection" || (imported.type === "Feature" && imported.geometry.type === "LineString")) {
         // Mode Route
