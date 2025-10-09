@@ -756,8 +756,14 @@ class LayerSwitcher extends EventTarget {
           const container = document.getElementById("container_ID_" + index);
           const idexOther = this.#getIndex(highestBaseLayerId);
           const otherContainer = document.getElementById("container_ID_" + idexOther);
-          document.getElementById("lst-layer-switcher").insertBefore(container, otherContainer);
-          this.#setPosition(id, maxPosition - (highestBaseLayer.position + 1), maxPosition - this.layers[id].position);
+          // En mode offline : on ne met pas plan IGN au-dessus du plus haut fond de plan, mais juste en dessous
+          if (!Globals.online && id === "PLAN.IGN.INTERACTIF$TMS") {
+            document.getElementById("lst-layer-switcher").insertBefore(container, otherContainer.nextSibling);
+            this.#setPosition(id, maxPosition - (highestBaseLayer.position), maxPosition - this.layers[id].position);
+          } else {
+            document.getElementById("lst-layer-switcher").insertBefore(container, otherContainer);
+            this.#setPosition(id, maxPosition - (highestBaseLayer.position + 1), maxPosition - this.layers[id].position);
+          }
         }
       }
     } catch (e) {
@@ -787,6 +793,16 @@ class LayerSwitcher extends EventTarget {
     if (!isTempLayer && LayersConfig.getLayerProps(id).base && nbBaseLayers === 1 && Globals.backButtonState !== "myaccount") {
       Toast.show({
         text: "Impossible d'enlever le seul fond de carte",
+        duration: "short",
+        position: "bottom"
+      });
+      return;
+    }
+    // Si on est hors ligne : impossible d'enlever Plan IGN
+    // (si on est en mode "myaccount", c'est le téléchargeur de carte qui est à l'origine du clic)
+    if (!Globals.online && id === "PLAN.IGN.INTERACTIF$TMS" && Globals.backButtonState !== "myaccount") {
+      Toast.show({
+        text: "Impossible d'enlever le Plan IGN en mode hors-ligne",
         duration: "short",
         position: "bottom"
       });

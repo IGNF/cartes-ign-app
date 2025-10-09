@@ -579,6 +579,14 @@ class MyAccount {
    * Lance l'interface de téléchargement de carte hors ligne
    */
   downloadMap() {
+    if (!Globals.online) {
+      Toast.show({
+        text: "Fonctionnalité indisponible en mode hors ligne.",
+        duration: "long",
+        position: "bottom"
+      });
+      return;
+    }
     // Place le plan IGN au dessus de la pile des couches
     const planIgnLayerBtn = document.getElementById("PLAN.IGN.INTERACTIF$TMS");
     do {
