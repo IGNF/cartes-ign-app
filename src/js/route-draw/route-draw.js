@@ -20,14 +20,7 @@ import { Toast } from "@capacitor/toast";
 import turfLength from "@turf/length";
 import lineSlice from "@turf/line-slice";
 import cleanCoords from "@turf/clean-coords";
-// REMOVEME
-// pthrottle polyfill
-let pThrottle = (fn) => fn;
-if (typeof FinalizationRegistry !== "undefined") {
-  pThrottle = require("p-throttle").default;
-} else {
-  console.warn("FinalizationRegistry not supported, throttling disabled");
-}
+import pThrottle from "p-throttle";
 
 import RouteDepartureIcon from "../../css/assets/route-draw/departure-marker.png";
 import RouteDestinationIcon from "../../css/assets/route-draw/destination-marker.png";
@@ -57,7 +50,7 @@ class RouteDraw {
     this.configuration = this.options.configuration || {
       linesource: "route-draw-line",
       pointsource: "route-draw-point",
-      api: "https://data.geopf.fr/navigation/itineraire?resource=bdtopo-osrm&getSteps=false&timeUnit=second&optimization=shortest&",
+      api: "https://data.geopf.fr/navigation/itineraire?resource=bdtopo-valhalla&getSteps=false&timeUnit=second&optimization=shortest&",
       template: (values) => {
         let intermediates = "";
         if (values.intermediates) {
