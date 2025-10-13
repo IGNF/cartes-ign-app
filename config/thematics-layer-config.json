@@ -22,7 +22,7 @@
     {
         "name": "Agriculture",
         "layers": [
-          "LANDUSE.AGRICULTURE2023$WMTS",
+          "LANDUSE.AGRICULTURE.LATEST$WMTS",
           "Aire-Parcellaire$WMTS"
         ]
     },
@@ -43,8 +43,8 @@
     {
         "name": "Espaces protégés",
         "layers": [
-          "PROTECTEDAREAS.SIC$WMTS",
-          "PROTECTEDAREAS.ZPS$WMTS"
+          "Patrinat_SIC$WMTS",
+          "Patrinat_ZPS$WMTS"
         ]
     },
     {

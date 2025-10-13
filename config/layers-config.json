@@ -107,16 +107,18 @@
       "maxNativeZoom": 18,
       "format": "image/png"
     },
-    "LANDUSE.AGRICULTURE2023$WMTS": {
-      "title": "Registre parcellaire graphique 2023",
-      "description": "Registre parcellaire graphique : zones de cultures déclarées par les exploitants en 2023",
+    "LANDUSE.AGRICULTURE.LATEST$WMTS": {
+      "title": "Registre parcellaire graphique 2024",
+      "description": "Registre parcellaire graphique : zones de cultures déclarées par les exploitants en 2024",
       "source": "Agence de services et de paiement (ASP)",
-      "maj": "Déclarations 2023",
+      "maj": "Déclarations 2024",
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
       "format": "image/png",
-      "defaultOpacity": 75
+      "defaultOpacity": 75,
+      "quickLookUrl": "data/img/layers/LANDUSE.AGRICULTURE2023.jpg",
+      "legendUrl": "data/img/legends/LANDUSE.AGRICULTURE2023.png"
     },
     "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS": {
       "title": "Limites administratives mises à jour en continu",
@@ -176,27 +178,29 @@
       "maxNativeZoom": 18,
       "format": "image/jpeg"
     },
-    "PROTECTEDAREAS.SIC$WMTS": {
+    "Patrinat_SIC$WMTS": {
       "title": "Sites Natura 2000 - Directive Habitats",
       "description": "Le réseau Natura 2000 s’inscrit au cœur de la politique de conservation de la nature de l’Union européenne et est un élément clé de l’objectif visant à enrayer l’érosion de la biodiversité.",
       "source": "Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
-      "maj": "Juillet 2023",
+      "maj": "Juillet 2025",
       "serverUrl": "https://data.geopf.fr/wmts",
+      "legendUrl": "data/img/legends/PROTECTEDAREAS.SIC.png",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
-      "style": "PROTECTEDAREAS.SIC",
+      "style": "normal",
       "format": "image/png",
       "defaultOpacity": 75
     },
-    "PROTECTEDAREAS.ZPS$WMTS": {
+    "Patrinat_ZPS$WMTS": {
       "title": "Sites Natura 2000 - Directive Oiseaux",
       "description": "Zones mises en place dans le cadre de la Directive Oiseaux de 1979 visant à désigner des territoires permettant d’assurer le bon état de conservation d’espèces d’oiseaux menacées, vulnérables ou rares.",
       "source": "Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
-      "maj": "Juillet 2023",
+      "maj": "Juillet 2025",
       "serverUrl": "https://data.geopf.fr/wmts",
+      "legendUrl": "data/img/legends/PROTECTEDAREAS.ZPS.png",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
-      "style": "PROTECTEDAREAS.ZPS",
+      "style": "normal",
       "format": "image/png",
       "defaultOpacity": 75
     },
