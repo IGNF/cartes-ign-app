@@ -143,6 +143,18 @@ function app() {
                   .addTo(map);
               });
             }
+          } else if (urlParams.get("newsid")) {
+            if (!document.querySelector("#newsfeed").classList.contains("d-none")) {
+              Globals.menu.open("newsfeed");
+              const element = document.getElementById("newsfeedItem-" + urlParams.get("newsid"));
+              if (element) {
+                setTimeout( () => {
+                  element.scrollIntoView(false, {
+                    behavior: "smooth",
+                  });
+                }, 100);
+              }
+            }
           }
         }
       }

@@ -6,7 +6,10 @@
 
 import Globals from "./globals";
 
+import { Share } from "@capacitor/share";
+
 import { config } from "./utils/config-utils";
+import fileUtils from "./utils/file-utils";
 
 /**
  * Générateur de fil d'actualités
@@ -35,6 +38,7 @@ class NewsFeed {
     config.newsfeed.forEach( (news) => {
       const newsElem = document.createElement("div");
       newsElem.classList.add("newsfeedItem");
+      newsElem.id = "newsfeedItem-" + news.id;
       newsElem.setAttribute("tabindex", "0");
 
       const imgElem = document.createElement("img");
@@ -73,6 +77,28 @@ class NewsFeed {
       linkElem.setAttribute("target", "_blank");
       linkElem.innerText = "En savoir plus";
       textContainer.appendChild(linkElem);
+
+      const shareElem = document.createElement("div");
+      shareElem.classList.add("newsfeedShareBtn");
+      shareElem.title = "Partager";
+      shareElem.addEventListener("click", () => {
+        let cachedFileUri;
+        fileUtils.cacheImageFromUrl(news.image).then( (uri) => {
+          cachedFileUri = uri;
+          Share.share({
+            title: `${news.title}`,
+            text: `Ouvre la carte « ${news.title} » dans l'application Cartes IGN : https://cartes-ign.ign.fr?newsid=${news.id}`,
+            url: uri,
+            dialogTitle: "Partager la carte",
+          }).finally( () => {
+            if (cachedFileUri) {
+              fileUtils.deleteCachedFile(cachedFileUri);
+            }
+          });
+
+        });
+      });
+      textContainer.appendChild(shareElem);
 
       newsElem.appendChild(textContainer);
 
