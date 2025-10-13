@@ -1671,7 +1671,7 @@ ${props.text}`,
 
       step.properties.id = stepId;
       stepId--;
-      step.properties.mode = 0;
+      step.properties.mode = 1;
     });
     for(let i = 0; i < points.length; i++) {
       const point = points[i];

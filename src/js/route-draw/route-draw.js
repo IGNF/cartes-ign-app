@@ -50,7 +50,7 @@ class RouteDraw {
     this.configuration = this.options.configuration || {
       linesource: "route-draw-line",
       pointsource: "route-draw-point",
-      api: "https://data.geopf.fr/navigation/itineraire?resource=bdtopo-valhalla&getSteps=false&timeUnit=second&optimization=shortest&",
+      api: "https://data.geopf.fr/navigation/itineraire?resource=bdtopo-osrm&getSteps=false&timeUnit=second&optimization=shortest&",
       template: (values) => {
         let intermediates = "";
         if (values.intermediates) {
