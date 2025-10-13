@@ -131,6 +131,14 @@
   margin: 20px 0;
 }
 
+.newsfeedShareBtn {
+  height: 28px;
+  width: 28px;
+  -webkit-mask: url("assets/share.svg") center;
+  mask: url("assets/share.svg") center;
+  background-color: var(--dark-grey);
+  float: inline-end;
+}
 
 /* mode paysage et écrans larges */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
