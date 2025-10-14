@@ -107,11 +107,11 @@
       "maxNativeZoom": 18,
       "format": "image/png"
     },
-    "LANDUSE.AGRICULTURE.LATEST$WMTS": {
-      "title": "Registre parcellaire graphique 2024",
-      "description": "Registre parcellaire graphique : zones de cultures déclarées par les exploitants en 2024",
+    "LANDUSE.AGRICULTURE2023$WMTS": {
+      "title": "Registre parcellaire graphique 2023",
+      "description": "Registre parcellaire graphique : zones de cultures déclarées par les exploitants en 2023",
       "source": "Agence de services et de paiement (ASP)",
-      "maj": "Déclarations 2024",
+      "maj": "Déclarations 2023",
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,

@@ -50,6 +50,7 @@
     }
   },
   "IGNF_SITES-UNESCO$WMS": {
+
     "0": {
       "title": "@nom",
       "title2": "@sous_titre",
@@ -179,7 +180,7 @@
       ]
     }
   },
-  "LANDUSE.AGRICULTURE.LATEST$WMTS": {
+  "LANDUSE.AGRICULTURE2023$WMTS": {
     "0" :{
       "pretitle": "Culture : ",
       "title": "@nom_cultu",
