@@ -179,7 +179,7 @@
       ]
     }
   },
-  "LANDUSE.AGRICULTURE2023$WMTS": {
+  "LANDUSE.AGRICULTURE.LATEST$WMTS": {
     "0" :{
       "pretitle": "Culture : ",
       "title": "@nom_cultu",
