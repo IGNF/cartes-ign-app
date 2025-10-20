@@ -5,8 +5,9 @@ img-overlay {
   background-color: rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
-  z-index: 3001;
-  background-color: #0008;
+  z-index: 3005;
+  background-color: #000;
+  touch-action: none;
 }
 
 #imgOverlayContent {
@@ -18,28 +19,35 @@ img-overlay {
 
 #imgOverlayHeader {
   position: fixed;
-  height: calc(20px + 42px + var(--safe-area-inset-top));
+  height: calc(25px + 42px + var(--safe-area-inset-top));
   width: 100%;
-  background-color: #0008;
   z-index: 1;
 }
 
 #imgOverlayClose {
-  width: 35px;
-  height: 35px;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background-color: var(--black);
+  border-radius: 24px;
+}
+
+#imgOverlayClose::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
   -webkit-mask: url(./assets/close.svg) center;
   mask: url(./assets/close.svg) center;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: 35px;
   mask-size: 35px;
-  flex-shrink: 0;
-  position: absolute;
-  right: 4px;
-  top: 12px;
-  background-color: #fff;
 }
-
 
 #imgOverlayImage {
   position: relative;
