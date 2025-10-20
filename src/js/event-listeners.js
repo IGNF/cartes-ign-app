@@ -177,6 +177,10 @@ function addListeners() {
         }, 50);
       }
     }
+    // Pas de gestion du scroll sur les menus alternatifs scrollables
+    if (["newsfeed", "imageOverlay", "informationsScreenLegal"].includes(Globals.backButtonState.split("-")[0])) {
+      return;
+    }
     Globals.menu.updateScrollAnchors();
   };
 

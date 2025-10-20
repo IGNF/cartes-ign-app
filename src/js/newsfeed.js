@@ -61,23 +61,12 @@ class NewsFeed {
       const textContainer = document.createElement("div");
       textContainer.classList.add("newsfeedItemTextContainer");
 
+      const titleContainer = document.createElement("div");
+      titleContainer.classList.add("newsfeedItemTitleContainer");
       const titleElem = document.createElement("p");
       titleElem.classList.add("newsfeedItemTitle");
       titleElem.innerText = news.title;
-      textContainer.appendChild(titleElem);
-
-      const contentElem = document.createElement("p");
-      contentElem.classList.add("newsfeedItemContent");
-      contentElem.innerText = news.content;
-      textContainer.appendChild(contentElem);
-
-      const linkElem = document.createElement("a");
-      linkElem.classList.add("newsfeedItemLink");
-      linkElem.setAttribute("href", news.link);
-      linkElem.setAttribute("target", "_blank");
-      linkElem.innerText = "En savoir plus";
-      textContainer.appendChild(linkElem);
-
+      titleContainer.appendChild(titleElem);
       const shareElem = document.createElement("div");
       shareElem.classList.add("newsfeedShareBtn");
       shareElem.title = "Partager";
@@ -98,7 +87,41 @@ class NewsFeed {
 
         });
       });
-      textContainer.appendChild(shareElem);
+      titleContainer.appendChild(shareElem);
+
+      textContainer.appendChild(titleContainer);
+
+      const dateElem = document.createElement("p");
+      dateElem.classList.add("newsfeedItemDate");
+      dateElem.innerText = new Date(Date.parse(news.date)).toLocaleString("fr-FR", { year: "numeric", month: "long", day: "numeric" });
+      textContainer.appendChild(dateElem);
+
+      const foldableInput = document.createElement("input");
+      foldableInput.id = "foldableInput" + news.id;
+      foldableInput.type = "checkbox";
+      foldableInput.classList.add("d-none", "foldableInput");
+      textContainer.appendChild(foldableInput);
+
+      const contentWrapper = document.createElement("div");
+      contentWrapper.classList.add("foldable", "newsfeedItemContentWrapper");
+      const contentElem = document.createElement("p");
+      contentElem.classList.add("newsfeedItemContent");
+      contentElem.innerText = news.content;
+      contentWrapper.appendChild(contentElem);
+
+      const linkElem = document.createElement("a");
+      linkElem.classList.add("newsfeedItemLink");
+      linkElem.setAttribute("href", news.link);
+      linkElem.setAttribute("target", "_blank");
+      linkElem.innerText = "Lire l'article sur le site de l'IGN";
+      contentWrapper.appendChild(linkElem);
+      textContainer.appendChild(contentWrapper);
+
+      const foldableLabel = document.createElement("label");
+      foldableLabel.classList.add("foldableLabel");
+      foldableLabel.setAttribute("for", "foldableInput" + news.id);
+      foldableLabel.innerHTML = "&nbsp;Voir&nbsp;";
+      textContainer.appendChild(foldableLabel);
 
       newsElem.appendChild(textContainer);
 
