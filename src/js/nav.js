@@ -366,7 +366,14 @@ class MenuNavigation {
       if (!NewsFeed.generated) {
         NewsFeed.generate();
       }
-    // falls through
+      DOM.$tabContainer.classList.add("noHeight");
+      document.body.classList.add("scrollable");
+      DOM.$whiteScreen.classList.remove("d-none");
+      DOM.$search.classList.add("d-none");
+      DOM.$backTopLeftBtn.classList.remove("d-none");
+      DOM.$altMenuContainer.classList.remove("d-none");
+      Globals.currentScrollIndex = 0;
+      break;
     case "myaccount":
     case "informationsScreen":
       DOM.$tabContainer.classList.add("noHeight");

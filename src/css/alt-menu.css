@@ -88,6 +88,14 @@
   font-family: "Fira Sans Semibold";
 }
 
+.subHeaderText {
+  color: var(--dark-grey);
+  text-align: center;
+  margin: 5px 10px;
+  font-size: 13px;
+  font-family: "Open Sans";
+}
+
 .informationsContent {
   font-size: 13px;
   margin-top: -72px;
