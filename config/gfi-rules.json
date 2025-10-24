@@ -22,7 +22,7 @@
       "title": "@toponyme",
       "subtitle": "Musées - Source : IGN",
       "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=http://www.culture.gouv.fr/public/mistral/museo_fr?ACTION=CHERCHER&FIELD_98=REF&VALUE_98={{identifiant_gestionnaire}} target=\"_blank\">Accéder à la fiche Muséofile</a></p>"]
+        ["<p class=\"positionWeb positionInfo\"><a href=https://pop.culture.gouv.fr/notice/museo/{{identifiant_gestionnaire}} target=\"_blank\">Accéder à la fiche Muséofile</a></p>"]
       ]
     }
   },
