@@ -741,12 +741,16 @@ class OfflineMaps {
     try {
       let tileData;
       if (Capacitor.isNativePlatform()) {
-        const result = await Filesystem.readFile({
-          path: `tiles/${layer}/${zoom}/${x}/${y}.pbf`,
-          directory: Directory.Data,
-          encoding: Encoding.UTF8
-        });
-        tileData = result.data;
+        try {
+          const result = await Filesystem.readFile({
+            path: `tiles/${layer}/${zoom}/${x}/${y}.pbf`,
+            directory: Directory.Data,
+            encoding: Encoding.UTF8
+          });
+          tileData = result.data;
+        } catch (error) {
+          console.debug(`[OFFLINE-MAPS] No local file for tile ${layer}/${zoom}/${x}/${y}`);
+        }
       } else {
         const db = await this.dbPromise;
         tileData = await db.get("tiles", `${layer}/${zoom}/${x}/${y}`);
