@@ -112,6 +112,8 @@ class Directions {
         payload
       };
     };
+
+    const self = this;
     // REMOVEME: override buildRequest method
     this.obj.fetch = async function({ method, url, payload }) {
       const response = (await (method === "get"
@@ -133,19 +135,20 @@ class Directions {
         duration: response.duration,
         distance: response.distance,
       };
+      const pointFields = Array.from(self.dom.container.querySelectorAll(".inputDirectionsLocations"));
 
       for (let i = 0; i < response.portions.length; i++) {
         const portion = response.portions[i];
         if (formatedResponse.waypoints.length === 0) {
           formatedResponse.waypoints.push({
             hint: "-1",
-            name: "-1",
+            name: pointFields[0].value,
             location: [parseFloat(portion.start.split(",")[0]), parseFloat(portion.start.split(",")[1])],
           });
         }
         formatedResponse.waypoints.push({
           hint: "" + i,
-          name: "" + i,
+          name: pointFields[i + 1].value,
           location: [parseFloat(portion.end.split(",")[0]), parseFloat(portion.end.split(",")[1])],
         });
         route.legs.push({
@@ -213,6 +216,7 @@ class Directions {
       console.warn();
       return;
     }
+    this.options.target = target;
 
     var container = this.getContainer();
     if (!container) {
@@ -332,7 +336,10 @@ class Directions {
           distance : e.data.routes[0].distance || "",
           transport : this.settings.transport,
           computation : this.settings.computation.message,
-          instructions : e.data.routes[0].legs
+          instructions : e.data.routes[0].legs,
+          geometry : e.data.routes[0].geometry,
+          waypoints : e.data.waypoints,
+          elevation : this.elevation,
         });
         this.results.show();
         let routeCoordinates = [];

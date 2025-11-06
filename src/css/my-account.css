@@ -422,6 +422,10 @@ div[id^=route-summary-div_ID_] {
   background-position: -2px;
 }
 
+.lblRouteDrawSummaryTransportcar + div .routeDrawSummaryDPlus {
+  display: none;
+}
+
 .wrap-tools-layers .routeDrawSummaryDistance {
   background-image: url("assets/route-draw/arrow-leftright.svg");
 }

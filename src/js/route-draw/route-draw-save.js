@@ -93,8 +93,8 @@ class RouteDrawSave {
      * affiche le menu des résultats du calcul
      * @public
      */
-  show () {
-    Globals.menu.open("routeDrawSave");
+  show (showedFrom = "routeDraw") {
+    Globals.menu.open(`${showedFrom}Save`, -1, Globals.backButtonState, "routeDrawSave");
   }
 
   /**
