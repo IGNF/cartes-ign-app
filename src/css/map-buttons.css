@@ -389,7 +389,7 @@
   background-image: url("assets/loading-green.svg");
 }
 
-#routeDrawSaveBtn {
+.routeSaveBtn {
   background-color: var(--dark-green);
   border: 1px solid var(--dark-green);
   background-image: url("assets/route-draw/save.svg");
@@ -580,7 +580,7 @@ button.maplibregl-ctrl-shrink {
     top: calc(142px + var(--safe-area-inset-top));
   }
 
-  #routeDrawSaveBtn {
+  .routeSaveBtn {
     top: calc(10px + var(--safe-area-inset-top));
     transform: translateX(-66px);
   }
