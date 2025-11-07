@@ -27,7 +27,6 @@ import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { TextZoom } from "@capacitor/text-zoom";
 import { Device } from "@capacitor/device";
 import { App } from "@capacitor/app";
-import { Preferences } from "@capacitor/preferences";
 import { Toast } from "@capacitor/toast";
 
 import { Protocol } from "pmtiles";
@@ -46,35 +45,6 @@ defineCustomElements(window);
  * Fonction définissant l'application
  */
 function app() {
-  // REMOVEME : rétrocompatibilité des itinéraires / PR / PR comparer : migration du localStorage vers Preferences
-  if (localStorage.getItem("savedRoutes")) {
-    Preferences.set({
-      key: "savedRoutes",
-      value: localStorage.getItem("savedRoutes"),
-    }).then( () => {
-      localStorage.removeItem("savedRoutes");
-    });
-  }
-
-  if (localStorage.getItem("savedLandmarks")) {
-    Preferences.set({
-      key: "savedLandmarks",
-      value: localStorage.getItem("savedLandmarks"),
-    }).then( () => {
-      localStorage.removeItem("savedLandmarks");
-    });
-  }
-
-  if (localStorage.getItem("savedCompareLandmarks")) {
-    Preferences.set({
-      key: "savedCompareLandmarks",
-      value: localStorage.getItem("savedCompareLandmarks"),
-    }).then( () => {
-      localStorage.removeItem("savedCompareLandmarks");
-    });
-  }
-  // END REMOVEME
-
   // Ajout du protocole PM Tiles
   let protocol = new Protocol();
   maplibregl.addProtocol("pmtiles", protocol.tile);

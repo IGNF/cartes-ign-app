@@ -14,6 +14,7 @@ import domUtils from "../utils/dom-utils";
 import ActionSheet from "../action-sheet";
 import Location from "../services/location";
 import DOM from "../dom";
+import fileStorage from "../utils/file-storage";
 
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
@@ -94,12 +95,31 @@ class MyAccount {
     this.lastLandmarkId = 0;
     this.lastCompareLandmarkId = 0;
 
+    // chargement des enregistrements stockés en local
+    let fileStoragePromise = fileStorage.list().then( (files) => {
+      files.forEach( (file) => {
+        if (file.id.startsWith("route-")) {
+          this.routes.push(file.data);
+        } else if (file.id.startsWith("landmark-")) {
+          this.landmarks.push(file.data);
+        } else if (file.id.startsWith("comparelandmark-")) {
+          this.compareLandmarks.push(file.data);
+        }
+      });
+      this.#updateSources();
+    });
+
+    // REMOVEME : rétrocompatibilité des entités enregistrées : migration de préférences à fichier local (post-3.3.35)
     // récupération des itinéraires enregistrés en local
     let promiseRoutes = Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
       if (resp.value) {
         var localRoutes = JSON.parse(resp.value);
         this.routes = this.routes.concat(localRoutes.filter( route => !route.type));
         this.#updateSources();
+        localRoutes.forEach( (route) => {
+          fileStorage.save(route, `route-${route.id}`);
+        });
+        Preferences.remove({ key: "savedRoutes" });
       }
     });
 
@@ -109,6 +129,10 @@ class MyAccount {
         var localLandmarks = JSON.parse(resp.value);
         this.landmarks = this.landmarks.concat(localLandmarks);
         this.#updateSources();
+        localLandmarks.forEach( (landmark) => {
+          fileStorage.save(landmark, `landmark-${landmark.id}`);
+        });
+        Preferences.remove({ key: "savedLandmarks" });
       }
     });
 
@@ -118,8 +142,13 @@ class MyAccount {
         var localCompareLandmarks = JSON.parse(resp.value);
         this.compareLandmarks = this.compareLandmarks.concat(localCompareLandmarks);
         this.#updateSources();
+        localCompareLandmarks.forEach( (compareLandmark) => {
+          fileStorage.save(compareLandmark, `comparelandmark-${compareLandmark.id}`);
+        });
+        Preferences.remove({ key: "savedCompareLandmarks" });
       }
     });
+    // END REMOVEME
 
     this.map.loadImage(LandmarkIconSaved).then((image) => {
       this.map.addImage("landmark-icon-saved", image.data);
@@ -147,7 +176,8 @@ class MyAccount {
     });
 
     // récupération des infos et rendu graphique
-    Promise.all([this.compute(), promiseCompareLandmarks, promiseLandmarks, promiseRoutes, Globals.offlineMaps.loadPromise]).then(() => {
+    // REMOVE promiseCompareLandmarks, promiseLandmarks, promiseRoutes
+    Promise.all([this.compute(), fileStoragePromise, promiseCompareLandmarks, promiseLandmarks, promiseRoutes, Globals.offlineMaps.loadPromise]).then(() => {
       // Ajout d'identifiant unique aux routes
       this.routes.forEach((route) => {
         route.id = this.lastRouteId;
@@ -166,18 +196,6 @@ class MyAccount {
       this.render();
       this.#listeners();
       this.#updateSources();
-      Preferences.set({
-        key: "savedRoutes",
-        value: JSON.stringify(this.routes),
-      });
-      Preferences.set({
-        key: "savedLandmarks",
-        value: JSON.stringify(this.landmarks),
-      });
-      Preferences.set({
-        key: "savedCompareLandmarks",
-        value: JSON.stringify(this.compareLandmarks),
-      });
     });
 
     this.lauchUrl = null;
@@ -623,6 +641,7 @@ class MyAccount {
       this.lastRouteId++;
       this.routes.unshift(drawRouteSaveOptions);
     }
+    fileStorage.save(drawRouteSaveOptions, `route-${drawRouteSaveOptions.id}`);
     this.__updateAccountRoutesContainerDOMElement(this.routes);
     this.#updateSources();
     let coordinates = [];
@@ -661,11 +680,12 @@ class MyAccount {
         }
       }
     } else {
-      const newlandmark = JSON.parse(JSON.stringify(landmarkGeojson));
-      newlandmark.id = this.lastLandmarkId;
+      landmarkGeojson = JSON.parse(JSON.stringify(landmarkGeojson));
+      landmarkGeojson.id = this.lastLandmarkId;
       this.lastLandmarkId++;
-      this.landmarks.unshift(newlandmark);
+      this.landmarks.unshift(landmarkGeojson);
     }
+    fileStorage.save(landmarkGeojson, `landmark-${landmarkGeojson.id}`);
     this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
     this.#updateSources();
   }
@@ -683,11 +703,12 @@ class MyAccount {
         }
       }
     } else {
-      const newlandmark = JSON.parse(JSON.stringify(compareLandmarkGeojson));
-      newlandmark.id = this.lastCompareLandmarkId;
+      compareLandmarkGeojson = JSON.parse(JSON.stringify(compareLandmarkGeojson));
+      compareLandmarkGeojson.id = this.lastCompareLandmarkId;
       this.lastCompareLandmarkId++;
-      this.compareLandmarks.unshift(newlandmark);
+      this.compareLandmarks.unshift(compareLandmarkGeojson);
     }
+    fileStorage.save(compareLandmarkGeojson, `comparelandmark-${compareLandmarkGeojson.id}`);
     this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
     this.#updateSources();
   }
@@ -709,11 +730,8 @@ class MyAccount {
         continue;
       }
       this.routes.splice(i, 1);
+      fileStorage.delete(`route-${routeId}`);
       this.__updateAccountRoutesContainerDOMElement(this.routes);
-      Preferences.set({
-        key: "savedRoutes",
-        value: JSON.stringify(this.routes),
-      });
       this.#updateSources();
       break;
     }
@@ -729,11 +747,8 @@ class MyAccount {
         continue;
       }
       this.landmarks.splice(i, 1);
+      fileStorage.delete(`landmark-${landmarkId}`);
       this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
-      Preferences.set({
-        key: "savedLandmarks",
-        value: JSON.stringify(this.landmarks),
-      });
       this.#updateSources();
       break;
     }
@@ -749,11 +764,8 @@ class MyAccount {
         continue;
       }
       this.compareLandmarks.splice(i, 1);
+      fileStorage.delete(`comparelandmark-${compareLandmarkId}`);
       this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
-      Preferences.set({
-        key: "savedCompareLandmarks",
-        value: JSON.stringify(this.compareLandmarks),
-      });
       this.#updateSources();
       break;
     }
@@ -1870,19 +1882,6 @@ ${props.text}`,
     compareLandmarksource.setData({
       type: "FeatureCollection",
       features: this.compareLandmarks,
-    });
-
-    Preferences.set({
-      key: "savedRoutes",
-      value: JSON.stringify(this.routes),
-    });
-    Preferences.set({
-      key: "savedLandmarks",
-      value: JSON.stringify(this.landmarks),
-    });
-    Preferences.set({
-      key: "savedCompareLandmarks",
-      value: JSON.stringify(this.compareLandmarks),
     });
   }
 
