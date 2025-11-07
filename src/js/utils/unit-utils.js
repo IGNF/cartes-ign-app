@@ -36,7 +36,7 @@ let utils = {
    * @returns {String} time in hours/minutes/seconds
    * @private
    */
-  convertSecondsToTime (duration) {
+  convertSecondsToTime (duration, secondsWanted=false) {
     var time = "";
 
     duration = Math.round(duration);
@@ -44,20 +44,20 @@ let utils = {
 
     var divisor4minutes = duration % (60 * 60);
     var minutes = Math.floor(divisor4minutes / 60);
-    // if (!minutes) {
-    //     minutes = "00";
-    // }
 
-    // var divisor4seconds = divisor4minutes % 60;
-    // var seconds = Math.ceil(divisor4seconds);
-    // if (!seconds) {
-    //     seconds = "00";
-    // }
+    var divisor4seconds = divisor4minutes % 60;
+    var seconds = Math.ceil(divisor4seconds);
+    if (!seconds) {
+      seconds = "00";
+    }
 
     if (hours) {
       time = hours + "h ";
     }
     time += minutes + " min";
+    if (secondsWanted) {
+      time += " " + seconds + " s";
+    }
     return time;
   }
 
