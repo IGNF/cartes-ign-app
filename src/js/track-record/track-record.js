@@ -53,6 +53,9 @@ class TrackRecord {
       finishRecordBtn : container.querySelector(".finishRecord"),
       closeRecordBtn : container.querySelector(".closeRecord"),
       trackRecordContainer : container.querySelector("#trackRecordContainer"),
+      timer : container.querySelector(".trackRecordTimer"),
+      distance : container.querySelector(".trackRecordDistance"),
+      dplus : container.querySelector(".trackRecordDplus"),
     };
 
     this.recording = false;
@@ -500,6 +503,9 @@ class TrackRecord {
       }
     }
     this.#updateSources();
+    this.dom.timer.textContent = utils.convertSecondsToTime(Math.round(this.duration / 1000), true);
+    this.dom.distance.textContent = utils.convertDistance(turfLength(this.currentFeature, {units: "meters"}));
+    this.dom.dplus.textContent = `${Math.round(100 * this.currentFeature.data.elevationData.dplus) / 100} m`;
   }
 
   /**
