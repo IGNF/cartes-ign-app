@@ -84,7 +84,6 @@ class TrackRecord {
     this.duration = 0;
     this.startTime = null;
 
-    this.routeToSave = this.currentFeature;
     this.trackName = "Mon itinéraire";
     this.currentPoints = {
       type: "FeatureCollection",
@@ -353,8 +352,7 @@ class TrackRecord {
       this.currentFeature.data.name = this.trackName;
       this.currentFeature.data.distance = turfLength(this.currentFeature, {units: "meters"});
       this.currentFeature.data.duration = Math.round(this.duration / 1000);
-      this.routeToSave = this.currentFeature;
-      let id = Globals.myaccount.addTrack(this.routeToSave);
+      let id = Globals.myaccount.addTrack(this.currentFeature);
       this.dom.whileRecordingBtn.classList.add("d-none");
       this.dom.finishRecordBtn.classList.add("d-none");
       this.dom.pauseRecordBtn.classList.add("d-none");
@@ -384,6 +382,11 @@ class TrackRecord {
         type: "FeatureCollection",
         features: [],
       };
+      this.duration = 0;
+      this.startTime = null;
+      this.dom.timer.textContent = utils.convertSecondsToTime(0);
+      this.dom.distance.textContent = utils.convertDistance(0);
+      this.dom.dplus.textContent = "0 m";
       this.#updateSources();
       this.#closeRecording();
       Globals.myaccount.showRouteDetailsFromID(id);
@@ -462,6 +465,11 @@ class TrackRecord {
       type: "FeatureCollection",
       features: [],
     };
+    this.duration = 0;
+    this.startTime = null;
+    this.dom.timer.textContent = utils.convertSecondsToTime(0);
+    this.dom.distance.textContent = utils.convertDistance(0);
+    this.dom.dplus.textContent = "0 m";
     this.#updateSources();
     this.#closeRecording();
   }
