@@ -344,8 +344,8 @@ class Position {
       // Récupération de l'id du landmark
       let landmarkId = -1;
       [...shadowContainer.getElementById("landmarkPositionTitle").classList].forEach((cl) => {
-        if (cl.split("-")[0] === "landmarkPosition") {
-          landmarkId = parseInt(cl.split("-")[1]);
+        if (cl.startsWith("landmarkPosition-")) {
+          landmarkId = cl.replace("landmarkPosition-", "");
         }
       });
       shadowContainer.getElementById("position-landmark-show-advanced-tools").addEventListener("click", () => {

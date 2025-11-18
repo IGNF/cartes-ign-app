@@ -27,6 +27,7 @@ import Sortable from "sortablejs";
 import { kml, gpx } from "@tmcw/togeojson";
 import { DOMParser } from "@xmldom/xmldom";
 import GeoJsonToGpx from "@dwayneparton/geojson-to-gpx";
+import { v4 as uuidv4 } from "uuid";
 
 import LineSlice from "@turf/line-slice";
 import CleanCoords from "@turf/clean-coords";
@@ -80,44 +81,27 @@ class MyAccount {
 
     // itinéraires
     this.routes = [];
+    this.routesOrder = [];
 
     // points de repère
     this.landmarks = [];
+    this.landmarksOrder = [];
     this.compareLandmarks = [];
+    this.compareLandmarksOrder = [];
 
     // cartes téléchargées
     this.offlineMaps = [];
 
     this.#addSourcesAndLayers();
 
-    // Identifiant unique pour les itinéraires
-    this.lastRouteId = 0;
-    this.lastLandmarkId = 0;
-    this.lastCompareLandmarkId = 0;
-
-    // chargement des enregistrements stockés en local
-    let fileStoragePromise = fileStorage.list().then( (files) => {
-      files.forEach( (file) => {
-        if (file.id.startsWith("route-")) {
-          this.routes.push(file.data);
-        } else if (file.id.startsWith("landmark-")) {
-          this.landmarks.push(file.data);
-        } else if (file.id.startsWith("comparelandmark-")) {
-          this.compareLandmarks.push(file.data);
-        }
-      });
-      this.#updateSources();
-    });
-
     // REMOVEME : rétrocompatibilité des entités enregistrées : migration de préférences à fichier local (post-3.3.35)
     // récupération des itinéraires enregistrés en local
     let promiseRoutes = Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
       if (resp.value) {
         var localRoutes = JSON.parse(resp.value);
-        this.routes = this.routes.concat(localRoutes.filter( route => !route.type));
-        this.#updateSources();
         localRoutes.forEach( (route) => {
           fileStorage.save(route, `route-${route.id}`);
+          this.routesOrder.push(route.id);
         });
         Preferences.remove({ key: "savedRoutes" });
       }
@@ -127,10 +111,9 @@ class MyAccount {
     let promiseLandmarks = Preferences.get( { key: "savedLandmarks"} ).then( (resp) => {
       if (resp.value) {
         var localLandmarks = JSON.parse(resp.value);
-        this.landmarks = this.landmarks.concat(localLandmarks);
-        this.#updateSources();
         localLandmarks.forEach( (landmark) => {
           fileStorage.save(landmark, `landmark-${landmark.id}`);
+          this.landmarksOrder.push(landmark.id);
         });
         Preferences.remove({ key: "savedLandmarks" });
       }
@@ -140,13 +123,53 @@ class MyAccount {
     let promiseCompareLandmarks = Preferences.get( { key: "savedCompareLandmarks"} ).then( (resp) => {
       if (resp.value) {
         var localCompareLandmarks = JSON.parse(resp.value);
-        this.compareLandmarks = this.compareLandmarks.concat(localCompareLandmarks);
-        this.#updateSources();
         localCompareLandmarks.forEach( (compareLandmark) => {
           fileStorage.save(compareLandmark, `comparelandmark-${compareLandmark.id}`);
+          this.compareLandmarksOrder.push(compareLandmark.id);
         });
         Preferences.remove({ key: "savedCompareLandmarks" });
       }
+    });
+    // END REMOVEME
+
+    let fileStoragePromise;
+    let routeOrderStoragePromise;
+    let landmarkOrderStoragePromise;
+    let compareLandmarkOrderStoragePromise;
+
+    // REMOVEME
+    Promise.all([promiseCompareLandmarks, promiseLandmarks, promiseRoutes]).then( () => {
+    // END REMOVEME
+      // chargement des enregistrements stockés en local
+      fileStoragePromise = fileStorage.list().then( (files) => {
+        files.forEach( (file) => {
+          if (file.id.startsWith("route-")) {
+            this.routes.push(file.data);
+          } else if (file.id.startsWith("landmark-")) {
+            this.landmarks.push(file.data);
+          } else if (file.id.startsWith("comparelandmark-")) {
+            this.compareLandmarks.push(file.data);
+          }
+        });
+      });
+
+      // chargement de l'ordre des routes, landmarks et compareLandmarks
+      routeOrderStoragePromise = Preferences.get( { key: "myaccount_routes_order"} ).then( (resp) => {
+        if (resp.value) {
+          this.routesOrder = JSON.parse(resp.value);
+        }
+      });
+      landmarkOrderStoragePromise = Preferences.get( { key: "myaccount_landmarks_order"} ).then( (resp) => {
+        if (resp.value) {
+          this.landmarksOrder = JSON.parse(resp.value);
+        }
+      });
+      compareLandmarkOrderStoragePromise = Preferences.get( { key: "myaccount_comparelandmarks_order"} ).then( (resp) => {
+        if (resp.value) {
+          this.compareLandmarksOrder = JSON.parse(resp.value);
+        }
+      });
+    // REMOVEME
     });
     // END REMOVEME
 
@@ -176,23 +199,16 @@ class MyAccount {
     });
 
     // récupération des infos et rendu graphique
-    // REMOVE promiseCompareLandmarks, promiseLandmarks, promiseRoutes
-    Promise.all([this.compute(), fileStoragePromise, promiseCompareLandmarks, promiseLandmarks, promiseRoutes, Globals.offlineMaps.loadPromise]).then(() => {
-      // Ajout d'identifiant unique aux routes
-      this.routes.forEach((route) => {
-        route.id = this.lastRouteId;
-        this.lastRouteId++;
-      });
-      // Ajout d'identifiant unique aux landmarks
-      this.landmarks.forEach((landmark) => {
-        landmark.id = this.lastLandmarkId;
-        this.lastLandmarkId++;
-      });
-      // Ajout d'identifiant unique aux compareLandmarks
-      this.compareLandmarks.forEach((compareLandmark) => {
-        compareLandmark.id = this.lastCompareLandmarkId;
-        this.lastCompareLandmarkId++;
-      });
+    Promise.all([
+      this.compute(), fileStoragePromise,
+      routeOrderStoragePromise, landmarkOrderStoragePromise, compareLandmarkOrderStoragePromise,
+      Globals.offlineMaps.loadPromise,
+    ]).then(() => {
+      // Mise en ordre des routes, landmarks et compareLandmarks
+      jsUtils.sortArrayByAnotherArray(this.routes, this.routesOrder, "id");
+      jsUtils.sortArrayByAnotherArray(this.landmarks, this.landmarksOrder, "id");
+      jsUtils.sortArrayByAnotherArray(this.compareLandmarks, this.compareLandmarksOrder, "id");
+
       this.render();
       this.#listeners();
       this.#updateSources();
@@ -278,7 +294,7 @@ class MyAccount {
       const landmarkMap = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]})[0];
       const landmark = {
         type: "Feature",
-        id: landmarkMap.id,
+        id: landmarkMap.properties.id,
         geometry: landmarkMap.geometry,
         properties: landmarkMap.properties,
       };
@@ -629,17 +645,17 @@ class MyAccount {
    * @param {*} drawRouteSaveOptions
    */
   addRoute(drawRouteSaveOptions) {
-    if (typeof drawRouteSaveOptions.id !== "undefined" && drawRouteSaveOptions.id >= 0) {
+    if (typeof drawRouteSaveOptions.id === "undefined" || drawRouteSaveOptions.id < 0) {
+      drawRouteSaveOptions.id = uuidv4();
+      this.routes.unshift(drawRouteSaveOptions);
+      this.routesOrder.unshift(drawRouteSaveOptions.id);
+    } else {
       for (let i = 0; i < this.routes.length; i++) {
         if (this.routes[i].id === drawRouteSaveOptions.id){
           this.routes[i] = drawRouteSaveOptions;
           break;
         }
       }
-    } else {
-      drawRouteSaveOptions.id = this.lastRouteId;
-      this.lastRouteId++;
-      this.routes.unshift(drawRouteSaveOptions);
     }
     fileStorage.save(drawRouteSaveOptions, `route-${drawRouteSaveOptions.id}`);
     this.__updateAccountRoutesContainerDOMElement(this.routes);
@@ -672,18 +688,18 @@ class MyAccount {
    * @param {*} landmarkGeojson
    */
   addLandmark(landmarkGeojson) {
-    if (typeof landmarkGeojson.id !== "undefined" && landmarkGeojson.id >= 0) {
+    if (typeof landmarkGeojson.id === "undefined" || landmarkGeojson.id < 0) {
+      landmarkGeojson = JSON.parse(JSON.stringify(landmarkGeojson));
+      landmarkGeojson.id = uuidv4();
+      this.landmarks.unshift(landmarkGeojson);
+      this.landmarksOrder.unshift(landmarkGeojson.id);
+    } else {
       for (let i = 0; i < this.landmarks.length; i++) {
         if (this.landmarks[i].id === landmarkGeojson.id){
           this.landmarks[i] = JSON.parse(JSON.stringify(landmarkGeojson));
           break;
         }
       }
-    } else {
-      landmarkGeojson = JSON.parse(JSON.stringify(landmarkGeojson));
-      landmarkGeojson.id = this.lastLandmarkId;
-      this.lastLandmarkId++;
-      this.landmarks.unshift(landmarkGeojson);
     }
     fileStorage.save(landmarkGeojson, `landmark-${landmarkGeojson.id}`);
     this.__updateAccountLandmarksContainerDOMElement(this.landmarks);
@@ -695,18 +711,18 @@ class MyAccount {
    * @param {*} compareLandmarkGeojson
    */
   addCompareLandmark(compareLandmarkGeojson) {
-    if (typeof compareLandmarkGeojson.id !== "undefined" && compareLandmarkGeojson.id >= 0) {
+    if (typeof compareLandmarkGeojson.id === "undefined" || compareLandmarkGeojson.id < 0) {
+      compareLandmarkGeojson = JSON.parse(JSON.stringify(compareLandmarkGeojson));
+      compareLandmarkGeojson.id = uuidv4();
+      this.compareLandmarks.unshift(compareLandmarkGeojson);
+      this.compareLandmarksOrder.unshift(compareLandmarkGeojson.id);
+    } else {
       for (let i = 0; i < this.compareLandmarks.length; i++) {
         if (this.compareLandmarks[i].id === compareLandmarkGeojson.id){
           this.compareLandmarks[i] = JSON.parse(JSON.stringify(compareLandmarkGeojson));
           break;
         }
       }
-    } else {
-      compareLandmarkGeojson = JSON.parse(JSON.stringify(compareLandmarkGeojson));
-      compareLandmarkGeojson.id = this.lastCompareLandmarkId;
-      this.lastCompareLandmarkId++;
-      this.compareLandmarks.unshift(compareLandmarkGeojson);
     }
     fileStorage.save(compareLandmarkGeojson, `comparelandmark-${compareLandmarkGeojson.id}`);
     this.__updateAccountCompareLandmarksContainerDOMElement(this.compareLandmarks);
@@ -787,6 +803,7 @@ class MyAccount {
     const route = this.routes[oldIndex];
     this.routes.splice(oldIndex, 1);
     this.routes.splice(newIndex, 0, route);
+    this.#updateRoutesOrder();
     this.#updateSources();
   }
 
@@ -799,6 +816,7 @@ class MyAccount {
     const landmark = this.landmarks[oldIndex];
     this.landmarks.splice(oldIndex, 1);
     this.landmarks.splice(newIndex, 0, landmark);
+    this.#updateLandmarksOrder();
     this.#updateSources();
   }
 
@@ -811,6 +829,7 @@ class MyAccount {
     const compareLandmark = this.compareLandmarks[oldIndex];
     this.compareLandmarks.splice(oldIndex, 1);
     this.compareLandmarks.splice(newIndex, 0, compareLandmark);
+    this.#updateCompareLandmarksOrder();
     this.#updateSources();
   }
 
@@ -821,6 +840,36 @@ class MyAccount {
    */
   setOfflineMapPosition(offlineMapId, oldIndex, newIndex) {
     Globals.offlineMaps.changeMapIndex(offlineMapId, oldIndex, newIndex);
+  }
+
+  /**
+   * Met à jour l'ordre d'affichage des routes
+   */
+  #updateRoutesOrder() {
+    this.routesOrder = [];
+    this.routes.forEach((route) => {
+      this.routesOrder.push(route.id);
+    });
+  }
+
+  /**
+   * Met à jour l'ordre d'affichage des points de repère
+   */
+  #updateLandmarksOrder() {
+    this.landmarksOrder = [];
+    this.landmarks.forEach((landmark) => {
+      this.landmarksOrder.push(landmark.id);
+    });
+  }
+
+  /**
+   * Met à jour l'ordre d'affichage des points de repère Comparer
+   */
+  #updateCompareLandmarksOrder() {
+    this.compareLandmarksOrder = [];
+    this.compareLandmarks.forEach((compareLandmark) => {
+      this.compareLandmarksOrder.push(compareLandmark.id);
+    });
   }
 
   /**
@@ -1525,8 +1574,8 @@ ${props.text}`,
       throw new Error("Null route ID");
     }
     let route;
-    for (let i = 0; i < Globals.myaccount.routes.length; i++) {
-      route = Globals.myaccount.routes[i];
+    for (let i = 0; i < this.routes.length; i++) {
+      route = this.routes[i];
       if (route.id === routeId) {
         break;
       }
@@ -1548,8 +1597,8 @@ ${props.text}`,
       throw new Error("Null landmark ID");
     }
     let landmark;
-    for (let i = 0; i < Globals.myaccount.landmarks.length; i++) {
-      landmark = Globals.myaccount.landmarks[i];
+    for (let i = 0; i < this.landmarks.length; i++) {
+      landmark = this.landmarks[i];
       if (landmark.id === landmarkId) {
         break;
       }
@@ -1571,8 +1620,8 @@ ${props.text}`,
       throw new Error("Null compareLandmark ID");
     }
     let compareLandmark;
-    for (let i = 0; i < Globals.myaccount.compareLandmarks.length; i++) {
-      compareLandmark = Globals.myaccount.compareLandmarks[i];
+    for (let i = 0; i < this.compareLandmarks.length; i++) {
+      compareLandmark = this.compareLandmarks[i];
       if (compareLandmark.id === compareLandmarkId) {
         break;
       }
@@ -1861,27 +1910,53 @@ ${props.text}`,
    * met à jour les sources de données pour l'affichage
    */
   #updateSources() {
-    var linesource = this.map.getSource(this.configuration.linesource);
+    const linesource = this.map.getSource(this.configuration.linesource);
     linesource.setData({
       type: "FeatureCollection",
       features: this.#getRouteLines(),
     });
-    var pointsource = this.map.getSource(this.configuration.pointsource);
+    const pointsource = this.map.getSource(this.configuration.pointsource);
     pointsource.setData({
       type: "FeatureCollection",
       features: this.#getRoutePoints(),
     });
 
-    var landmarksource = this.map.getSource(this.configuration.landmarksource);
-    landmarksource.setData({
-      type: "FeatureCollection",
-      features: this.landmarks,
+    const landmarksource = this.map.getSource(this.configuration.landmarksource);
+    const landmarksWithIds = [];
+    this.landmarks.forEach((landmark) => {
+      const landmarkCopy = JSON.parse(JSON.stringify(landmark));
+      landmarkCopy.properties.id = landmarkCopy.id;
+      landmarksWithIds.push(landmarkCopy);
     });
 
-    var compareLandmarksource = this.map.getSource(this.configuration.compareLandmarksource);
+    landmarksource.setData({
+      type: "FeatureCollection",
+      features: landmarksWithIds,
+    });
+
+    const compareLandmarksource = this.map.getSource(this.configuration.compareLandmarksource);
+    const compareLandmarksWithIds = [];
+    this.compareLandmarks.forEach((compareLandmark) => {
+      const compareLandmarkCopy = JSON.parse(JSON.stringify(compareLandmark));
+      compareLandmarkCopy.properties.id = compareLandmarkCopy.id;
+      compareLandmarksWithIds.push(compareLandmarkCopy);
+    });
     compareLandmarksource.setData({
       type: "FeatureCollection",
-      features: this.compareLandmarks,
+      features: compareLandmarksWithIds,
+    });
+
+    Preferences.set({
+      key: "myaccount_routes_order",
+      value: JSON.stringify(this.routesOrder),
+    });
+    Preferences.set({
+      key: "myaccount_landmarks_order",
+      value: JSON.stringify(this.landmarksOrder),
+    });
+    Preferences.set({
+      key: "myaccount_comparelandmarks_order",
+      value: JSON.stringify(this.compareLandmarksOrder),
     });
   }
 

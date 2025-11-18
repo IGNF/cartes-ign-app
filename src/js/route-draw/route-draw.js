@@ -424,7 +424,7 @@ class RouteDraw {
       name = this.name;
     }
     let id = -1;
-    if (this.routeId !== null && this.routeId >= 0) {
+    if (this.routeId !== null && (this.routeId >= 0 || typeof this.routeId === "string")) {
       id = this.routeId;
     }
     this.routeDrawSave = new RouteDrawSave(null, {
