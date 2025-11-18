@@ -91,6 +91,7 @@ class TrackRecord {
     };
 
     this.positionWatcherId = null;
+    this.timerIntervalId = null;
 
     this.bgHasBeenLaunched = false;
 
@@ -157,6 +158,7 @@ class TrackRecord {
       return;
     }
     this.recording = false;
+    this.duration += new Date().getTime() - this.startTime;
     this.map.getSource("track-record-current-line").setData({
       "type": "FeatureCollection",
       "features": []
@@ -384,6 +386,7 @@ class TrackRecord {
       };
       this.duration = 0;
       this.startTime = null;
+      clearInterval(this.timerIntervalId);
       this.dom.timer.textContent = utils.convertSecondsToTime(0);
       this.dom.distance.textContent = utils.convertDistance(0);
       this.dom.dplus.textContent = "0 m";
@@ -467,6 +470,7 @@ class TrackRecord {
     };
     this.duration = 0;
     this.startTime = null;
+    clearInterval(this.timerIntervalId);
     this.dom.timer.textContent = utils.convertSecondsToTime(0);
     this.dom.distance.textContent = utils.convertDistance(0);
     this.dom.dplus.textContent = "0 m";
@@ -494,7 +498,7 @@ class TrackRecord {
         order: this.currentPoints.length === 0 ? "departure" : "",
       },
     });
-    this.duration += (new Date()).getTime() - this.startTime;
+    this.duration += new Date().getTime() - this.startTime;
     this.startTime = new Date().getTime();
     this.currentFeature.geometry.coordinates.push([e.detail.longitude, e.detail.latitude, e.detail.altitude || 0, (new Date()).toISOString()]);
     this.currentFeature.data.elevationData.elevationData.push({x: turfLength(this.currentFeature), y: e.detail.altitude || 0});
@@ -520,6 +524,10 @@ class TrackRecord {
    * Starts background location tracking
    */
   async #startBgTracking() {
+    this.timerIntervalId = setInterval( () => {
+      const now = new Date().getTime();
+      this.dom.timer.textContent = utils.convertSecondsToTime(Math.round((this.duration + now - this.startTime) / 1000), true);
+    }, 1000);
     if (this.positionWatcherId !== null) {
       return;
     }
@@ -550,6 +558,7 @@ class TrackRecord {
    * Stops background location tracking for notifications
    */
   async #stopBgTracking() {
+    clearInterval(this.timerIntervalId);
     if (this.positionWatcherId === null) {
       return;
     }
