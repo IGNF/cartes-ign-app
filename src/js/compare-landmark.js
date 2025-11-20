@@ -133,7 +133,7 @@ class compareLandmark {
    */
   #generateGeoJson() {
     let id = -1;
-    if (this.compareLandmarkId !== null && this.compareLandmarkId >= 0) {
+    if (this.compareLandmarkId !== null && (this.compareLandmarkId >= 0 || typeof this.compareLandmarkId === "string")) {
       id = this.compareLandmarkId;
     }
     return {

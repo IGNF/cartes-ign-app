@@ -83,7 +83,9 @@ class OfflineMaps {
       "PLAN.IGN": "https://data.geopf.fr/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf",
     };
 
-    if (!Capacitor.isNativePlatform()) {
+    this.isNative = Capacitor.isNativePlatform();
+
+    if (!this.isNative) {
       this.dbPromise = openDB("tile-store", 1, {
         upgrade(db) {
           db.createObjectStore("tiles");
@@ -590,7 +592,7 @@ class OfflineMaps {
    * Saves the metadata of the current tileset
    */
   async #saveOfflineMapMetadata(metadata, id) {
-    if (Capacitor.isNativePlatform()) {
+    if (this.isNative) {
       // Save metadata as a JSON file in Capacitor FileSystem
       const metadataString = JSON.stringify(metadata);
       await Filesystem.writeFile({
@@ -613,7 +615,7 @@ class OfflineMaps {
    * Get the metadata of a tileset
    */
   async #getOfflineMapMetadata(id) {
-    if (Capacitor.isNativePlatform()) {
+    if (this.isNative) {
       // Read metadata JSON file from Capacitor FileSystem
       try {
         const result = await Filesystem.readFile({
@@ -638,7 +640,7 @@ class OfflineMaps {
    */
   async #getAllOfflineMapsMetadata() {
     const results = {};
-    if (Capacitor.isNativePlatform()) {
+    if (this.isNative) {
       // Read metadata JSON file from Capacitor FileSystem
       try {
         const files = (await Filesystem.readdir({
@@ -684,7 +686,7 @@ class OfflineMaps {
         }
       });
     }
-    if (window.Capacitor && window.Capacitor.isNativePlatform()) {
+    if (this.isNative) {
       // Delete metadata JSON file in Capacitor FileSystem
       try {
         await Filesystem.deleteFile({
@@ -740,7 +742,7 @@ class OfflineMaps {
 
     try {
       let tileData;
-      if (Capacitor.isNativePlatform()) {
+      if (this.isNative) {
         try {
           const result = await Filesystem.readFile({
             path: `tiles/${layer}/${zoom}/${x}/${y}.pbf`,
@@ -784,7 +786,7 @@ class OfflineMaps {
    * @param {string} data base64 string representing the data
    */
   async #storeVectorTile(tilePath, data) {
-    if (Capacitor.isNativePlatform()) {
+    if (this.isNative) {
       // Use Capacitor FileSystem on mobile
       const path = `tiles/${tilePath}.pbf`;
       await Filesystem.writeFile({
@@ -806,7 +808,7 @@ class OfflineMaps {
    * @param {String} tilepath
    */
   async #deleteTile(tilePath) {
-    if (Capacitor.isNativePlatform()) {
+    if (this.isNative) {
       // Use Capacitor FileSystem on mobile
       const path = `tiles/${tilePath}.pbf`;
       await Filesystem.deleteFile({
