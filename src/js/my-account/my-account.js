@@ -500,7 +500,7 @@ class MyAccount {
           if (gpxName) {
             feature.properties.title = gpxName;
           }
-          if (feature.properties.name.trim()) {
+          if (feature.properties.name && feature.properties.name.trim()) {
             feature.properties.title = feature.properties.name;
           }
           if (gpxDesc) {
