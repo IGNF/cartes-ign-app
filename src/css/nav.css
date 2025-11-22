@@ -190,6 +190,10 @@
   background-image: url(../html/img/landmark.svg);
 }
 
+#newsfeed > .nav-picto {
+  background-image: url(../html/img/map.svg);
+}
+
 #directions > .nav-picto {
   background-image: url(../html/img/syrendre.svg);
 }
