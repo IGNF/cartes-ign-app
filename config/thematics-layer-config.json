@@ -22,7 +22,7 @@
     {
         "name": "Agriculture",
         "layers": [
-          "LANDUSE.AGRICULTURE2023$WMTS",
+          "LANDUSE.AGRICULTURE.LATEST$WMTS",
           "Aire-Parcellaire$WMTS"
         ]
     },

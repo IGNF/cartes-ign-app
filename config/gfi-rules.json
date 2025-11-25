@@ -180,11 +180,11 @@
       ]
     }
   },
-  "LANDUSE.AGRICULTURE2023$WMTS": {
+  "LANDUSE.AGRICULTURE.LATEST$WMTS": {
     "0" :{
       "pretitle": "Culture : ",
-      "title": "@nom_cultu",
-      "subtitle": "Registre parcellaire graphique 2023 - Source : Agence de services et de paiements (ASP)"
+      "title": "@libelle",
+      "subtitle": "Registre parcellaire graphique 2024 - Source : Agence de services et de paiements (ASP)"
     }
   },
 
