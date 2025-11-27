@@ -6,7 +6,11 @@
 
 import { Filesystem, Directory } from "@capacitor/filesystem";
 
-// Helper: Download image and save to cache
+/**
+ * Downloads an image and saves it to cache
+ * @param {string} imageUrl
+ * @returns {Promise<string>} The URI of the cached file
+ */
 async function cacheImageFromUrl(imageUrl) {
   const response = await fetch(imageUrl);
   const blob = await response.blob();
@@ -27,7 +31,11 @@ async function cacheImageFromUrl(imageUrl) {
   return savedFile.uri;
 }
 
-// Helper: Delete cached image
+/**
+ *  Deletes a cached file from its URI
+ * @param {string} fileUri
+ * @returns {Promise<void>}
+ */
 async function deleteCachedFile(fileUri) {
   try {
     const fileName = fileUri.split("/").pop();

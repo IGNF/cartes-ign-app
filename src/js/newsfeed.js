@@ -10,6 +10,7 @@ import { Share } from "@capacitor/share";
 
 import { config } from "./utils/config-utils";
 import fileUtils from "./utils/file-utils";
+import DomUtils from "./utils/dom-utils";
 
 /**
  * Générateur de fil d'actualités
@@ -43,22 +44,61 @@ class NewsFeed {
       newsElem.id = "newsfeedItem-" + news.id;
       newsElem.setAttribute("tabindex", "0");
 
-      const imgElem = document.createElement("img");
-      imgElem.classList.add("newsfeedItemImg");
-      imgElem.setAttribute("title", news.title);
-      imgElem.setAttribute("src", news.image);
-      newsElem.appendChild(imgElem);
+      if (news.images) {
+        const imageContainer = document.createElement("div");
+        imageContainer.classList.add("newsfeedItemImageContainer");
+        newsElem.appendChild(imageContainer);
+        if (news.images.length > 1) {
+          imageContainer.classList.add("carrousel");
+          const beforeElem = document.createElement("div");
+          beforeElem.classList.add("newsFeedImagesBefore");
+          imageContainer.appendChild(beforeElem);
+          beforeElem.appendChild(document.createElement("div"));
+          beforeElem.addEventListener("click", (event) => {DomUtils.horizontalParentScrollLeft(event, 0.85);});
+        }
+        news.images.forEach( (imageSrc) => {
+          const imgElem = document.createElement("img");
+          imgElem.classList.add("newsfeedItemImg");
+          imgElem.setAttribute("title", news.title);
+          imgElem.setAttribute("src", imageSrc);
+          imageContainer.appendChild(imgElem);
 
-      imgElem.addEventListener("click", () => {
-        Globals.backButtonState = "imageOverlay";
-        const overlayimage = this._overlay.querySelector("#imgOverlayImage");
-        overlayimage.src = news.image;
-        overlayimage.title = news.title;
-        overlayimage.addEventListener("click", () => {
-          overlayimage.classList.toggle("zoomed");
+          imgElem.addEventListener("click", () => {
+            Globals.backButtonState = "imageOverlay";
+            const overlayimage = this._overlay.querySelector("#imgOverlayImage");
+            overlayimage.src = imageSrc;
+            overlayimage.title = news.title;
+            overlayimage.addEventListener("click", () => {
+              overlayimage.classList.toggle("zoomed");
+            });
+            const overlayShareBtn = this._overlay.querySelector("#imgOverlayShareBtn");
+            overlayShareBtn.onclick = () => {
+              let cachedFileUri;
+              fileUtils.cacheImageFromUrl(imageSrc).then( (uri) => {
+                cachedFileUri = uri;
+                Share.share({
+                  title: `${news.title}`,
+                  text: `Ouvre la carte « ${news.title} » dans l'application Cartes IGN : https://cartes-ign.ign.fr?newsid=${news.id}`,
+                  url: uri,
+                  dialogTitle: "Partager l'image",
+                }).finally( () => {
+                  if (cachedFileUri) {
+                    fileUtils.deleteCachedFile(cachedFileUri);
+                  }
+                });
+              });
+            };
+            this._overlay.classList.remove("d-none");
+          });
         });
-        this._overlay.classList.remove("d-none");
-      });
+        if (news.images.length > 1) {
+          const afterElem = document.createElement("div");
+          afterElem.classList.add("newsFeedImagesAfter");
+          imageContainer.appendChild(afterElem);
+          afterElem.appendChild(document.createElement("div"));
+          afterElem.addEventListener("click", (event) => {DomUtils.horizontalParentScroll(event, 0.85);});
+        }
+      }
 
       const textContainer = document.createElement("div");
       textContainer.classList.add("newsfeedItemTextContainer");
@@ -74,7 +114,7 @@ class NewsFeed {
       shareElem.title = "Partager";
       shareElem.addEventListener("click", () => {
         let cachedFileUri;
-        fileUtils.cacheImageFromUrl(news.image).then( (uri) => {
+        fileUtils.cacheImageFromUrl(news.images[0]).then( (uri) => {
           cachedFileUri = uri;
           Share.share({
             title: `${news.title}`,
