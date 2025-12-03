@@ -53,9 +53,9 @@ class TrackRecord {
       finishRecordBtn : container.querySelector(".finishRecord"),
       closeRecordBtn : container.querySelector(".closeRecord"),
       trackRecordContainer : container.querySelector("#trackRecordContainer"),
-      timer : container.querySelector(".trackRecordTimer"),
-      distance : container.querySelector(".trackRecordDistance"),
-      dplus : container.querySelector(".trackRecordDplus"),
+      timer : DOM.$trackRecordInfos.querySelector(".trackRecordTimer"),
+      distance : DOM.$trackRecordInfos.querySelector(".trackRecordDistance"),
+      dplus : DOM.$trackRecordInfos.querySelector(".trackRecordDplus"),
     };
 
     this.recording = false;
@@ -387,8 +387,8 @@ class TrackRecord {
       this.duration = 0;
       this.startTime = null;
       clearInterval(this.timerIntervalId);
-      this.dom.timer.textContent = utils.convertSecondsToTime(0);
-      this.dom.distance.textContent = utils.convertDistance(0);
+      this.dom.timer.textContent = utils.convertSecondsToTime(0, true, "HH:MM:SS");
+      this.dom.distance.textContent = "0 m";
       this.dom.dplus.textContent = "0 m";
       this.#updateSources();
       this.#closeRecording();
@@ -471,7 +471,7 @@ class TrackRecord {
     this.duration = 0;
     this.startTime = null;
     clearInterval(this.timerIntervalId);
-    this.dom.timer.textContent = utils.convertSecondsToTime(0);
+    this.dom.timer.textContent = utils.convertSecondsToTime(0, true, "HH:MM:SS");
     this.dom.distance.textContent = utils.convertDistance(0);
     this.dom.dplus.textContent = "0 m";
     this.#updateSources();
@@ -515,8 +515,8 @@ class TrackRecord {
       }
     }
     this.#updateSources();
-    this.dom.timer.textContent = utils.convertSecondsToTime(Math.round(this.duration / 1000), true);
-    this.dom.distance.textContent = utils.convertDistance(turfLength(this.currentFeature, {units: "meters"}));
+    this.dom.timer.textContent = utils.convertSecondsToTime(Math.round(this.duration / 1000), true, "HH:MM:SS");
+    this.dom.distance.textContent = utils.convertDistance(turfLength(this.currentFeature, {units: "meters"}), 2);
     this.dom.dplus.textContent = `${Math.round(100 * this.currentFeature.data.elevationData.dplus) / 100} m`;
   }
 
@@ -526,7 +526,7 @@ class TrackRecord {
   async #startBgTracking() {
     this.timerIntervalId = setInterval( () => {
       const now = new Date().getTime();
-      this.dom.timer.textContent = utils.convertSecondsToTime(Math.round((this.duration + now - this.startTime) / 1000), true);
+      this.dom.timer.textContent = utils.convertSecondsToTime(Math.round((this.duration + now - this.startTime) / 1000), true, "HH:MM:SS");
     }, 1000);
     if (this.positionWatcherId !== null) {
       return;

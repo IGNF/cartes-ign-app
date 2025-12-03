@@ -14,17 +14,18 @@ let utils = {
    * @returns {String} distance in km
    * @private
    */
-  convertDistance (distance) {
+  convertDistance (distance, precision=1) {
     var d = "";
+    const factor = 10 ** precision;
+    var distanceKm = Math.round((factor * distance / 1000)) / factor;
 
-    var distanceKm = Math.round(10 * distance / 1000) / 10;
     if (distanceKm < 1) {
       d = Math.round(distance) + " m"; // arrondi !
     } else {
       if (distanceKm > 100) {
         distanceKm = Math.round(distanceKm);
       }
-      d = distanceKm + " km";
+      d = distanceKm.toLocaleString() + " km";
     }
 
     return d;
@@ -36,8 +37,9 @@ let utils = {
    * @returns {String} time in hours/minutes/seconds
    * @private
    */
-  convertSecondsToTime (duration, secondsWanted=false) {
+  convertSecondsToTime (duration, secondsWanted=false, format="HH h MM min SS s") {
     var time = "";
+    var timeDots = "";
 
     duration = Math.round(duration);
     var hours = Math.floor(duration / (60 * 60));
@@ -48,15 +50,21 @@ let utils = {
     var divisor4seconds = divisor4minutes % 60;
     var seconds = Math.ceil(divisor4seconds);
     if (!seconds) {
-      seconds = "00";
+      seconds = 0;
     }
 
     if (hours) {
       time = hours + "h ";
+      timeDots = (hours < 10 ? "0" + hours : hours) + ":";
     }
     time += minutes + " min";
+    timeDots += (minutes < 10 ? "0" + minutes : minutes);
     if (secondsWanted) {
       time += " " + seconds + " s";
+      timeDots += ":" + (seconds < 10 ? "0" + seconds : seconds);
+    }
+    if (format === "HH:MM:SS") {
+      return timeDots;
     }
     return time;
   }

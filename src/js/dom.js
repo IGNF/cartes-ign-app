@@ -42,6 +42,7 @@ const $routeDrawSnap = document.getElementById("routeDrawSnap");
 const $eventMapBtn = document.getElementById("eventMapBtn");
 const $fullScreenBtn = null;
 const $mapScale = null;
+const $trackRecordInfos = document.getElementById("trackRecordInfos");
 
 const $mapCenter = document.getElementById("mapCenter");
 const $mapCenterMenu = document.getElementById("mapCenterMenu");
@@ -148,4 +149,5 @@ export default {
   $offlineMapsWindow,
   $trackRecordWindow,
   $eventMapBtn,
+  $trackRecordInfos,
 };
