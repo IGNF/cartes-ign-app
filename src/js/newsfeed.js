@@ -202,7 +202,7 @@ class NewsFeed {
       titleContainer.classList.add("newsfeedItemTitleContainer");
       const titleElem = document.createElement("p");
       titleElem.classList.add("newsfeedItemTitle");
-      titleElem.innerText = news.title;
+      titleElem.innerText = news.date;
       titleContainer.appendChild(titleElem);
       const shareElem = document.createElement("div");
       shareElem.classList.add("newsfeedShareBtn");
@@ -228,12 +228,6 @@ class NewsFeed {
 
       textContainer.appendChild(titleContainer);
 
-      const dateElem = document.createElement("p");
-      dateElem.classList.add("newsfeedItemDate");
-      const dateString = new Date(Date.parse(news.date)).toLocaleString("fr-FR", { year: "numeric", month: "long" });
-      dateElem.innerText = dateString.charAt(0).toUpperCase() + dateString.slice(1);
-      textContainer.appendChild(dateElem);
-
       if (news.content) {
         const foldableInput = document.createElement("input");
         foldableInput.id = "foldableInput" + news.id;
@@ -257,6 +251,9 @@ class NewsFeed {
         linkElem.setAttribute("href", news.link);
         linkElem.setAttribute("target", "_blank");
         linkElem.innerText = "Lire l'article sur le site de l'IGN";
+        if (news.isLinkYoutube) {
+          linkElem.innerText = "Voir la vidéo sur YouTube";
+        }
         contentWrapper.appendChild(linkElem);
       }
       textContainer.appendChild(contentWrapper);
