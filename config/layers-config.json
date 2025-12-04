@@ -187,7 +187,6 @@
       "legendUrl": "data/img/legends/PROTECTEDAREAS.SIC.png",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
-      "style": "normal",
       "format": "image/png",
       "defaultOpacity": 75
     },
@@ -200,7 +199,6 @@
       "legendUrl": "data/img/legends/PROTECTEDAREAS.ZPS.png",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
-      "style": "normal",
       "format": "image/png",
       "defaultOpacity": 75
     },
@@ -280,6 +278,19 @@
       "serverUrl": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&",
       "style": "default-style-IGNF_SITES-UNESCO",
       "format": "image/png"
+    },
+    "TRACES.RANDO.HIVERNALE$WMTS": {
+      "title": "Traces de randonnée hivernale",
+      "description": "La Fondation Petzl soutient des projets d’intérêt général en lien avec la montagne et le monde vertical. Elle s’est donnée pour mission la prévention des accidents de montagne et d’avalanche.\nDans ce cadre, elle a entrepris, en partenariat avec Skitourenguru.ch, la numérisation des principales traces de randonnée hivernales sur les massifs montagneux français afin d’optimiser leur tracé en vue de réduire le risque d’avalanche et de glissade dangereuse dans les passages délicats.\nPour télécharger une trace sous format GPX et préparer vos courses, utilisez les applications Skitourenguru et Yéti.\nPour signaler une erreur dans un tracé ou suggérer une modification, contactez-nous sur randohiver@fondation-petzl.org\n! Attention !\nLa pratique de la randonnée hivernale en montagne sauvage est une activité à risque. La planification et la conduite de vos activités de sports d’hiver demeurent sous votre entière responsabilité.",
+      "source": "Fondation Petzl",
+      "maj": "Décembre 2025",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 16,
+      "format": "image/png",
+      "quickLookUrl": "https://www.geoportail.gouv.fr/depot/layers/TRACES.RANDO.HIVERNALE/vignettes/TRACES-quickView.png",
+      "legendUrl": "https://www.geoportail.gouv.fr/depot/layers/TRACES.RANDO.HIVERNALE/legende/TRACES.RANDO.HIVERNALE-legend.png"
     },
 
     "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR$WMTS": {
