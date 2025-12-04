@@ -891,7 +891,7 @@ class RouteDraw {
     }
     this.#updateSources();
     this.data.distance = this.data.steps.reduce((totalDistance, step) => totalDistance + step.properties.distance, 0);
-    this.data.duration = this.data.steps.reduce((totalDistance, step) => totalDistance + step.properties.duration, 0);
+    this.data.duration = this.data.steps.reduce((totalDuration, step) => totalDuration + step.properties.duration, 0);
     if (computeElevation) {
       this.#updateElevation();
     }
@@ -1010,7 +1010,9 @@ class RouteDraw {
       if (this.dataHistory[this.currentHistoryPosition]) {
         this.dataHistory[this.currentHistoryPosition].elevationData = JSON.parse(JSON.stringify(this.data.elevationData));
       }
-      this.data.duration = GisUtils.getHikeTimeScarfsRule(this.data.distance, this.data.elevationData.dplus, Globals.walkingSpeed);
+      if (!this.data.isTrack) {
+        this.data.duration = GisUtils.getHikeTimeScarfsRule(this.data.distance, this.data.elevationData.dplus, Globals.walkingSpeed);
+      }
       this.__updateRouteInfo(this.data);
       // Si mode lecture seule mais que l'alti est recalculée (non sauvegardé de base), on la rajoute dans les données enregistrées
       if (this.readonly) {
