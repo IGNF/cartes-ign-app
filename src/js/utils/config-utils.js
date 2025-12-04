@@ -55,47 +55,47 @@ const config = {
 
 const urls = {
   baseLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/base-layer-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/base-layer-config.json--",
     fallback: BaseLayers,
   },
   thematicLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/thematics-layer-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/thematics-layer-config.json--",
     fallback: ThematicLayers,
   },
   configLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/layers-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/layers-config.json--",
     fallback: ConfigLayers,
   },
   tempLayers: {
-    url: "https://ignf.github.io/cartes-ign-temp-layers/temp_layers_config.json",
+    url: "https://ignf.github.io/cartes-ign-temp-layers/temp_layers_config.json--",
     fallback: [], // default empty list if not available
   },
   queryConfig: {
-    url: "https://ignf.github.io/cartes-ign-app/immersive-position-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/immersive-position-config.json--",
     fallback: QueryConfig,
   },
   code_cultuCaption: {
-    url: "https://ignf.github.io/cartes-ign-app/code_cultu-caption.json",
+    url: "https://ignf.github.io/cartes-ign-app/code_cultu-caption.json--",
     fallback: Code_cultuCaption,
   },
   code_tfvCaption: {
-    url: "https://ignf.github.io/cartes-ign-app/code_tfv-caption.json",
+    url: "https://ignf.github.io/cartes-ign-app/code_tfv-caption.json--",
     fallback: Code_tfvCaption,
   },
   poiConfig: {
-    url: "https://ignf.github.io/cartes-ign-app/poi-osm-layer-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/poi-osm-layer-config.json--",
     fallback: PoiConfig,
   },
   comparePoiData: {
-    url: "https://ignf.github.io/cartes-ign-app/poi_rlt.json",
+    url: "https://ignf.github.io/cartes-ign-app/poi_rlt.json--",
     fallback: ComparePoiData,
   },
   inseeCommWiki: {
-    url: "https://ignf.github.io/cartes-ign-app/com_wiki.json",
+    url: "https://ignf.github.io/cartes-ign-app/com_wiki.json--",
     fallback: InseeCommWiki,
   },
   gfiRulesProps: {
-    url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json",
+    url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json--",
     fallback: GfiRulesProps,
   },
   newsfeed : {
