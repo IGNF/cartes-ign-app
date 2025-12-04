@@ -1741,7 +1741,8 @@ ${props.text}`,
               properties.duration = duration;
             }
             properties.distance = turfLength(newFeature, {units: "meters"});
-            if (!properties.duration && feature.data.duration) {
+            // Récupération de la durée si import depuis enregistrement de trace Cartes IGN au format JSON
+            if (!properties.duration && feature.data && feature.data.duration) {
               properties.duration = feature.data.duration * properties.distance / turfLength(feature, {units: "meters"}) ;
             }
 
