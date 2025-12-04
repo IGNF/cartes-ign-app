@@ -8,6 +8,13 @@
         "layers": []
     },
     {
+        "name": "Données saisonnières",
+        "layers": [
+          "TRACES.RANDO.HIVERNALE$WMTS",
+          "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$WMTS"
+        ]
+    },
+    {
         "name": "Administratif",
         "layers": [
             "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS"
