@@ -1,4 +1,3 @@
-
 .newsfeedContent {
   margin: 0 10px;
 }
@@ -71,6 +70,7 @@
 .newsfeedItemTitleContainer {
   display: grid;
   grid-template-columns: auto 44px;
+  margin-bottom: 10px;
 }
 
 .newsfeedItemTitle {
@@ -104,6 +104,17 @@
   font-size: 13px;
   color: var(--darkish-grey);
   margin: 0 0 10px 0;
+}
+
+.newsfeedItemSubtitle {
+  font-family: "Open Sans";
+  font-size: 13px;
+  color: var(--dark-grey);
+  margin: 5px 0 10px 0;
+}
+
+.foldable .newsfeedItemAuthor {
+  margin-top: 0.8em;
 }
 
 .foldable.newsfeedItemContentWrapper {

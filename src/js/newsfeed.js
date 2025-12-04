@@ -200,10 +200,13 @@ class NewsFeed {
 
       const titleContainer = document.createElement("div");
       titleContainer.classList.add("newsfeedItemTitleContainer");
+      const titleWrapper = document.createElement("div");
+      titleWrapper.classList.add("newsfeedItemTitleWrapper");
+      titleContainer.appendChild(titleWrapper);
       const titleElem = document.createElement("p");
       titleElem.classList.add("newsfeedItemTitle");
       titleElem.innerText = news.date;
-      titleContainer.appendChild(titleElem);
+      titleWrapper.appendChild(titleElem);
       const shareElem = document.createElement("div");
       shareElem.classList.add("newsfeedShareBtn");
       shareElem.title = "Partager";
@@ -228,6 +231,13 @@ class NewsFeed {
 
       textContainer.appendChild(titleContainer);
 
+      if (news.subtitle) {
+        const subtitleElem = document.createElement("p");
+        subtitleElem.classList.add("newsfeedItemSubtitle");
+        subtitleElem.innerText = news.subtitle;
+        titleWrapper.appendChild(subtitleElem);
+      }
+
       if (news.content) {
         const foldableInput = document.createElement("input");
         foldableInput.id = "foldableInput" + news.id;
@@ -243,6 +253,12 @@ class NewsFeed {
         contentElem.classList.add("newsfeedItemContent");
         contentElem.innerText = news.content;
         contentWrapper.appendChild(contentElem);
+      }
+      if (news.author) {
+        const authorElem = document.createElement("p");
+        authorElem.classList.add("newsfeedItemAuthor");
+        authorElem.innerText = news.author;
+        contentWrapper.appendChild(authorElem);
       }
 
       if (news.link) {
