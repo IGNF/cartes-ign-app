@@ -198,6 +198,7 @@ class ElevationLineControl {
       beforeDatasetsDraw: (chart, _, opts) => {
         const {ctx} = chart;
         const {top, bottom, left, right} = chart.chartArea;
+        if (!chart.crosshair) return;
         const {x, y, draw} = chart.crosshair;
         if (!draw) return;
 
