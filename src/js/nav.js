@@ -7,6 +7,8 @@
 import Globals from "./globals";
 import DOM from "./dom";
 
+import NewsFeed from "./newsfeed";
+
 import { Toast } from "@capacitor/toast";
 
 import Location from "./services/location";
@@ -68,6 +70,11 @@ class MenuNavigation {
     // "Créer un point de repère"
     document.getElementById("landmark").addEventListener("click", () => {
       this.open("landmark");
+    });
+    // "Fil d'actualités"
+    // "Créer un point de repère"
+    document.getElementById("newsfeed").addEventListener("click", () => {
+      this.open("newsfeed");
     });
     // "S'y rendre"
     document.getElementById("directions").addEventListener("click", () => {
@@ -354,6 +361,18 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       Globals.interactivityIndicator.hardDisable();
       Globals.currentScrollIndex = 1;
+      break;
+    case "newsfeed":
+      if (!NewsFeed.generated) {
+        NewsFeed.generate();
+      }
+      DOM.$tabContainer.classList.add("noHeight");
+      document.body.classList.add("scrollable");
+      DOM.$whiteScreen.classList.remove("d-none");
+      DOM.$search.classList.add("d-none");
+      DOM.$backTopLeftBtn.classList.remove("d-none");
+      DOM.$altMenuContainer.classList.remove("d-none");
+      Globals.currentScrollIndex = 0;
       break;
     case "myaccount":
     case "informationsScreen":
@@ -679,6 +698,7 @@ class MenuNavigation {
       break;
     case "myaccount":
     case "informationsScreen":
+    case "newsfeed":
       DOM.$whiteScreen.classList.remove("falseWhite");
       document.body.classList.remove("scrollable");
       DOM.$whiteScreen.classList.add("d-none");

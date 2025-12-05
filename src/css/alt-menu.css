@@ -68,6 +68,7 @@
   color: var(--dark-grey);
 }
 
+.newsfeedItemLink::after,
 .informationsItemsLink > a::after {
   content: "";
   display: inline-block;
@@ -85,6 +86,14 @@
   margin-top: 0;
   font-size: 17px;
   font-family: "Fira Sans Semibold";
+}
+
+.subHeaderText {
+  color: var(--dark-grey);
+  text-align: center;
+  margin: 5px 10px;
+  font-size: 13px;
+  font-family: "Open Sans";
 }
 
 .informationsContent {
