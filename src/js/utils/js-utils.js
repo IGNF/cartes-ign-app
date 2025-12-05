@@ -31,6 +31,14 @@ let jsUtils = {
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
+  },
+
+  sortArrayByAnotherArray(arrToSort, arrReference, property) {
+    arrToSort.sort( (a, b) => {
+      let indexA = arrReference.findIndex( item => item === a[property] );
+      let indexB = arrReference.findIndex( item => item === b[property] );
+      return indexA - indexB;
+    });
   }
 };
 
