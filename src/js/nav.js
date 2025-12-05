@@ -116,7 +116,7 @@ class MenuNavigation {
      * Ouvre le panneau avec le contenu du composant (tab)
      * @param {*} id
      */
-  open(id, scrollIndex = -1, previousBackState = Globals.backButtonState) {
+  open(id, scrollIndex = -1, previousBackState = Globals.backButtonState, windowId = null) {
     // Apparition de la croix (cas général)
     DOM.$tabClose.classList.remove("d-none");
     DOM.$tabHeader.classList.remove("d-none");
@@ -137,9 +137,12 @@ class MenuNavigation {
 
     // on met à jour l'état du panneau demandé
     Globals.backButtonState = id;
+    if (!windowId) {
+      windowId = id;
+    }
 
     // on ajoute le panneau demandé
-    element = DOM["$" + id + "Window"];
+    element = DOM["$" + windowId + "Window"];
     if (element) {
       element.classList.remove("d-none");
     }
@@ -287,12 +290,14 @@ class MenuNavigation {
       Globals.currentScrollIndex = 0;
       break;
     case "routeDrawSave":
+    case "directionsSave":
       DOM.$routeDrawWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$fullScreenBtn.classList.add("d-none");
       Globals.routeDraw.dom.changeMode.classList.add("d-none");
       DOM.$routeDrawEdit.classList.add("d-none");
       DOM.$routeDrawSaveBtn.classList.add("d-none");
+      DOM.$directionsSaveBtn.classList.add("d-none");
       DOM.$bottomButtons.classList.remove("routeDraw");
       Globals.currentScrollIndex = 1;
       break;
@@ -389,6 +394,7 @@ class MenuNavigation {
       DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$tabContainer.classList.add("white");
+      DOM.$directionsSaveBtn.classList.remove("d-none");
       Globals.interactivityIndicator.enable();
       DOM.$tabContainer.classList.remove("noHeight");
       Globals.currentScrollIndex = 2;
@@ -468,8 +474,11 @@ class MenuNavigation {
      * Ferme le panneau du composant (tab)
      * @param {*} id
      */
-  close(id) {
-    var element = DOM["$" + id + "Window"];
+  close(id, windowId = null) {
+    if (!windowId) {
+      windowId = id;
+    }
+    var element = DOM["$" + windowId + "Window"];
     if (element) {
       element.classList.add("d-none");
     }
@@ -597,6 +606,21 @@ class MenuNavigation {
         DOM.$trackRecordBtn.classList.remove("d-none");
       }
       break;
+    case "directionsSave":
+      // Réouverture de directionsResult sans utilisr this.open("directionsResults")
+      // Disparition de la croix
+      DOM["$directionsResultsWindow"].classList.remove("d-none");
+      DOM.$search.classList.add("d-none");
+      DOM.$backTopLeftBtn.classList.remove("d-none");
+      DOM.$filterPoiBtn.classList.remove("d-none");
+      DOM.$tabContainer.classList.add("white");
+      DOM.$directionsSaveBtn.classList.remove("d-none");
+      Globals.interactivityIndicator.enable();
+      DOM.$tabContainer.classList.remove("noHeight");
+      Globals.currentScrollIndex = 2;
+      isSpecific = true;
+      isFinished = true;
+      break;
     case "routeDrawSave":
       // Réouverture de routeDraw sans utilisr this.open("routeDraw")
       // Disparition de la croix
@@ -692,6 +716,7 @@ class MenuNavigation {
       // falls through
     case "directionsResults":
       DOM.$tabContainer.classList.remove("white");
+      DOM.$directionsSaveBtn.classList.add("d-none");
       Globals.interactivityIndicator.hardDisable();
       isSpecific = true;
       isFinished = true;
@@ -782,6 +807,10 @@ class MenuNavigation {
     }
     if (id === "routeDrawSave") {
       Globals.backButtonState = "routeDraw"; // on revient sur le contrôle !
+      return;
+    }
+    if (id === "directionsSave") {
+      Globals.backButtonState = "directionsResults"; // on revient sur le contrôle !
       return;
     }
     if (["signalement", "signalementOSM"].includes(id)) {

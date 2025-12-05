@@ -64,6 +64,10 @@ const onBackKeyDown = () => {
     Globals.menu.close("searchDirections");
     return;
   }
+  if (backState === "directionsSave") {
+    Globals.menu.close("directionsSave", "routeDrawSave");
+    return;
+  }
   if (backState === "isochrone") {
     Globals.menu.close("isochrone");
     if (previousState !== "default") {
