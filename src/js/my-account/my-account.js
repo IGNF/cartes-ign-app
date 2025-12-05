@@ -600,7 +600,7 @@ class MyAccount {
    * @param {*} trackGeojson
    */
   addTrack(trackGeojson) {
-    return this.addRoute(this.geojsonToRoute(trackGeojson));
+    return this.addRoute(this.geojsonToRoute(trackGeojson, "geojson", true));
   }
 
   /**
@@ -1610,7 +1610,7 @@ ${props.text}`,
    * @param {*} sourceType
    * @returns
    */
-  geojsonToRoute(routeJson, sourceType = null) {
+  geojsonToRoute(routeJson, sourceType = null, isTrack = false) {
     if (routeJson.type === "Feature") {
       routeJson = {
         type: "FeatureCollection",
@@ -1655,6 +1655,9 @@ ${props.text}`,
       step.properties.id = stepId;
       stepId--;
       step.properties.mode = 1;
+      if (isTrack) {
+        step.properties.mode = 0;
+      }
     });
     for(let i = 0; i < points.length; i++) {
       const point = points[i];
@@ -1737,7 +1740,11 @@ ${props.text}`,
             if (duration !== null) {
               properties.duration = duration;
             }
-            properties.distance = turfLength(feature);
+            properties.distance = turfLength(newFeature, {units: "meters"});
+            // Récupération de la durée si import depuis enregistrement de trace Cartes IGN au format JSON
+            if (!properties.duration && feature.data && feature.data.duration) {
+              properties.duration = feature.data.duration * properties.distance / turfLength(feature, {units: "meters"}) ;
+            }
 
             newFeature.properties = properties;
             newSteps.push(newFeature);
@@ -1753,7 +1760,9 @@ ${props.text}`,
       for (let i = 0; i < points.length - 1; i++) {
         const startPoint = points[i];
         const endPoint = points[i + 1];
-        newSteps.push(LineSlice(startPoint, endPoint, CleanCoords(step)));
+        const newFeature = LineSlice(startPoint, endPoint, CleanCoords(step));
+        newFeature.properties.distance = turfLength(newFeature, {units: "meters"});
+        newSteps.push(newFeature);
       }
       steps = newSteps;
     }
@@ -1776,7 +1785,8 @@ ${props.text}`,
         },
         steps: steps,
         points: points,
-      }
+        isTrack: isTrack,
+      },
     };
   }
 

@@ -135,6 +135,35 @@
   box-sizing: border-box;
 }
 
+.trackRecordTimer,
+.trackRecordDistance,
+.trackRecordDplus {
+  color: var(--dark-grey);
+  font-size: 17px;
+  padding-right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 38px;
+  background-repeat: no-repeat;
+  background-position: 2px;
+}
+
+.trackRecordDistance {
+  background-size: 20px;
+  background-image: url("assets/route-draw/arrow-leftright.svg");
+}
+
+.trackRecordTimer {
+  background-size: 30px;
+  background-image: url("assets/route-draw/clock.svg");
+}
+
+.trackRecordDplus {
+  background-size: 34px;
+  background-image: url("assets/route-draw/arrow-topright.svg");
+}
+
 @media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
   #trackRecordWindow {
     padding-bottom: calc(19px + var(--safe-area-inset-bottom));

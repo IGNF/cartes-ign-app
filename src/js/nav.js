@@ -438,6 +438,8 @@ class MenuNavigation {
       DOM.$trackRecordBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$tabHeader.classList.add("d-none");
+      DOM.$bottomButtons.classList.add("routeDraw");
+      DOM.$trackRecordInfos.classList.remove("d-none");
       Globals.currentScrollIndex = 2;
       break;
     default:
@@ -721,6 +723,8 @@ class MenuNavigation {
       DOM.$fullScreenBtn.classList.remove("d-none");
       DOM.$backTopLeftBtn.classList.add("d-none");
       Globals.trackRecord.dom.trackRecordContainer.classList.remove("d-none");
+      DOM.$bottomButtons.classList.remove("routeDraw");
+      DOM.$trackRecordInfos.classList.add("d-none");
       if (Globals.trackRecord.recording || Globals.trackRecord.activeRecord) {
         DOM.$trackRecordBtn.classList.remove("d-none");
         if (Globals.trackRecord.recording) {
