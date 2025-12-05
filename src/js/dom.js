@@ -43,6 +43,7 @@ const $directionsSaveBtn = document.getElementById("directionsSaveBtn");
 const $eventMapBtn = document.getElementById("eventMapBtn");
 const $fullScreenBtn = null;
 const $mapScale = null;
+const $trackRecordInfos = document.getElementById("trackRecordInfos");
 
 const $mapCenter = document.getElementById("mapCenter");
 const $mapCenterMenu = document.getElementById("mapCenterMenu");
@@ -57,6 +58,8 @@ const $altMenuContainer = document.getElementById("altMenuContainer");
 const $informationsWindow = document.getElementById("informationsWindow");
 const $informationsText = document.getElementById("informationsText");
 const $informationsImg = document.getElementById("informationsImg");
+
+const $newsfeedWindow = document.getElementById("newsfeedWindow");
 
 const $chkPrintCoordsOnContext = document.getElementById("chkPrintCoordsOnContext");
 const $chkPrintCoordsReticule = document.getElementById("chkPrintCoordsReticule");
@@ -150,4 +153,6 @@ export default {
   $trackRecordWindow,
   $eventMapBtn,
   $directionsSaveBtn,
+  $newsfeedWindow,
+  $trackRecordInfos,
 };

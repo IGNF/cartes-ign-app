@@ -49,7 +49,7 @@ let domUtils = {
     }
   },
 
-  horizontalParentScroll: (event) => {
+  horizontalParentScroll: (event, scrollRatio = 0.8) => {
     var maxScrollLeft = event.target.parentElement.scrollWidth - event.target.parentElement.clientWidth;
     if (event.target.parentElement.scrollLeft >= maxScrollLeft - 10) {
       event.target.parentElement.scrollTo({
@@ -59,9 +59,27 @@ let domUtils = {
       });
       return;
     }
-    var scrollToValue = Math.min(event.target.parentElement.offsetWidth * 0.8, maxScrollLeft - event.target.parentElement.scrollLeft);
+    var scrollByValue = Math.min(event.target.parentElement.offsetWidth * scrollRatio, maxScrollLeft - event.target.parentElement.scrollLeft);
     event.target.parentElement.scrollBy({
-      left: scrollToValue,
+      left: scrollByValue,
+      top: 0,
+      behavior : "smooth",
+    });
+  },
+
+  horizontalParentScrollLeft: (event, scrollRatio = 0.8) => {
+    var maxScrollLeft = event.target.parentElement.scrollWidth - event.target.parentElement.clientWidth;
+    if (event.target.parentElement.scrollLeft <= 10) {
+      event.target.parentElement.scrollTo({
+        left: maxScrollLeft,
+        top: 0,
+        behavior : "smooth",
+      });
+      return;
+    }
+    var scrollByValue = Math.min(event.target.parentElement.offsetWidth * scrollRatio, event.target.parentElement.scrollLeft);
+    event.target.parentElement.scrollBy({
+      left: scrollByValue * -1,
       top: 0,
       behavior : "smooth",
     });

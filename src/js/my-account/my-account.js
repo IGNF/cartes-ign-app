@@ -500,7 +500,7 @@ class MyAccount {
           if (gpxName) {
             feature.properties.title = gpxName;
           }
-          if (feature.properties.name.trim()) {
+          if (feature.properties.name && feature.properties.name.trim()) {
             feature.properties.title = feature.properties.name;
           }
           if (gpxDesc) {
@@ -600,7 +600,7 @@ class MyAccount {
    * @param {*} trackGeojson
    */
   addTrack(trackGeojson) {
-    return this.addRoute(this.geojsonToRoute(trackGeojson));
+    return this.addRoute(this.geojsonToRoute(trackGeojson, "geojson", true));
   }
 
   /**
@@ -1252,7 +1252,15 @@ ${props.text}`,
    * Exporte l'itinéraire sous forme d'un fichier
    * @param {*} route
    */
-  async exportRoute(route) {
+  /**
+   * Exporte une donnée (itinéraire ou point de repère) sous forme d'un fichier
+   * @private
+   * @param {Object} data - L'objet à exporter en geojson (route ou landmark)
+   * @param {String} dataName - Le nom de la donnée (utilisé pour le nom du fichier)
+   * @param {String} errorMessage - Message d'erreur en cas d'échec
+   * @param {Function} shareFunc - Fonction de partage en cas d'erreur
+   */
+  async #exportData(data, dataName, errorMessage, shareFunc) {
     let documentsName = "Documents";
     if (Capacitor.getPlatform() === "ios") {
       documentsName = "Fichiers";
@@ -1281,35 +1289,36 @@ ${props.text}`,
       })).files.map(file => file.name);
       if (value === "json") {
         formatName = "JSON";
-        let fileName = `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`;
+        let fileName = `${dataName.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`;
         let number = 0;
         while (existingFileNames.includes(fileName)) {
           number++;
-          fileName = `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}_${number}.geojson`;
+          fileName = `${dataName.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}_${number}.geojson`;
         }
+        const jsonString = JSON.stringify(data);
         await Filesystem.writeFile({
           path: fileName,
-          data: JSON.stringify(this.#routeToGeojson(route)),
+          data: jsonString,
           directory: Directory.Documents,
           encoding: Encoding.UTF8,
         });
         // For testing purposes
         if (!Capacitor.isNativePlatform()) {
-          jsUtils.download(fileName, JSON.stringify(this.#routeToGeojson(route)));
+          jsUtils.download(fileName, jsonString);
         }
       } else if (value === "gpx") {
         formatName = "GPX";
-        const gpx = GeoJsonToGpx(this.#routeToGeojson(route, "gpx"), {
+        const gpx = GeoJsonToGpx(data, {
           metadata: {
-            name: route.name,
+            name: dataName,
           }
         });
         const gpxString = new XMLSerializer().serializeToString(gpx);
-        let fileName = `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.gpx`;
+        let fileName = `${dataName.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.gpx`;
         let number = 0;
         while (existingFileNames.includes(fileName)) {
           number++;
-          fileName = `${route.name.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}_${number}.gpx`;
+          fileName = `${dataName.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}_${number}.gpx`;
         }
         await Filesystem.writeFile({
           path: fileName,
@@ -1337,12 +1346,21 @@ ${props.text}`,
     } catch (err) {
       console.error(err);
       Toast.show({
-        text: "L'itinéraire n'a pas pu être savegardé. Partage...",
+        text: errorMessage,
         duration: "long",
         position: "bottom"
       });
-      this.shareRoute(route);
+      shareFunc();
     }
+  }
+
+  async exportRoute(route) {
+    await this.#exportData(
+      this.#routeToGeojson(route, "gpx"),
+      route.name,
+      "L'itinéraire n'a pas pu être sauvegardé. Partage...",
+      () => this.shareRoute(route)
+    );
   }
 
   /**
@@ -1363,55 +1381,20 @@ ${props.text}`,
   }
 
   /**
-   * Exporte le point de repère sous forme d'un ficheir geojson
-   * @param {*} route
+   * Exporte le point de repère sous forme d'un fichier geojson
+   * @param {Object} landmark - Le point de repère à exporter
    */
   async exportLandmark(landmark) {
-    let documentsName = "Documents";
-    if (Capacitor.getPlatform() === "ios") {
-      documentsName = "Fichiers";
-    }
-    // For testing purposes
-    if (!Capacitor.isNativePlatform()) {
-      jsUtils.download(`${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`, JSON.stringify({
+    await this.#exportData(
+      {
         type: "Feature",
         geometry: landmark.geometry,
         properties: landmark.properties,
-      }));
-    }
-    const existingFileNames = (await Filesystem.readdir({
-      path: "",
-      directory: Directory.Documents,
-    })).files.map(file => file.name);
-    try  {
-      let fileName = `${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}.geojson`;
-      let number = 0;
-      while (existingFileNames.includes(fileName)) {
-        number++;
-        fileName = `${landmark.properties.title.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "_")}_${number}.geojson`;
-      }
-      await Filesystem.writeFile({
-        path: fileName,
-        data: JSON.stringify({
-          type: "Feature",
-          geometry: landmark.geometry,
-          properties: landmark.properties,
-        }),
-        directory: Directory.Documents,
-        encoding: Encoding.UTF8,
-      });
-      Toast.show({
-        text: `Fichier enregistré dans ${documentsName}.`,
-        duration: "long",
-        position: "bottom"
-      });
-    } catch {
-      Toast.show({
-        text: "Le point de repère n'a pas pu être savegardé.",
-        duration: "long",
-        position: "bottom"
-      });
-    }
+      },
+      landmark.properties.title,
+      "Le point de repère n'a pas pu être sauvegardé. Partage...",
+      () => this.shareLandmark(landmark)
+    );
   }
 
   /**
@@ -1627,7 +1610,7 @@ ${props.text}`,
    * @param {*} sourceType
    * @returns
    */
-  geojsonToRoute(routeJson, sourceType = null) {
+  geojsonToRoute(routeJson, sourceType = null, isTrack = false) {
     if (routeJson.type === "Feature") {
       routeJson = {
         type: "FeatureCollection",
@@ -1672,6 +1655,9 @@ ${props.text}`,
       step.properties.id = stepId;
       stepId--;
       step.properties.mode = 1;
+      if (isTrack) {
+        step.properties.mode = 0;
+      }
     });
     for(let i = 0; i < points.length; i++) {
       const point = points[i];
@@ -1754,7 +1740,11 @@ ${props.text}`,
             if (duration !== null) {
               properties.duration = duration;
             }
-            properties.distance = turfLength(feature);
+            properties.distance = turfLength(newFeature, {units: "meters"});
+            // Récupération de la durée si import depuis enregistrement de trace Cartes IGN au format JSON
+            if (!properties.duration && feature.data && feature.data.duration) {
+              properties.duration = feature.data.duration * properties.distance / turfLength(feature, {units: "meters"}) ;
+            }
 
             newFeature.properties = properties;
             newSteps.push(newFeature);
@@ -1770,7 +1760,9 @@ ${props.text}`,
       for (let i = 0; i < points.length - 1; i++) {
         const startPoint = points[i];
         const endPoint = points[i + 1];
-        newSteps.push(LineSlice(startPoint, endPoint, CleanCoords(step)));
+        const newFeature = LineSlice(startPoint, endPoint, CleanCoords(step));
+        newFeature.properties.distance = turfLength(newFeature, {units: "meters"});
+        newSteps.push(newFeature);
       }
       steps = newSteps;
     }
@@ -1793,7 +1785,8 @@ ${props.text}`,
         },
         steps: steps,
         points: points,
-      }
+        isTrack: isTrack,
+      },
     };
   }
 

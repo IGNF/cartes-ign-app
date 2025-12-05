@@ -33,6 +33,15 @@ const onBackKeyDown = () => {
     Globals.menu.open("myaccount");
     return;
   }
+  if (backState === "newsfeed") {
+    Globals.menu.close("newsfeed");
+    return;
+  }
+  if (backState === "imageOverlay") {
+    document.getElementById("imgOverlayClose").click();
+    return;
+  }
+
   if (backState === "layerManager") {
     Globals.menu.close("layerManager");
     if (previousState !== "default") {
@@ -195,7 +204,7 @@ const onBackKeyDown = () => {
     Globals.offlineMaps.show();
     return;
   }
-  if (["informationsScreenLegal", "informationsScreenPrivacy", "informationsScreenAccessibility"].includes(backState)) {
+  if (["informationsScreenLegal"].includes(backState)) {
     const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
     $informationsScreenMenu.style.removeProperty("margin-left");
     setTimeout(() => {

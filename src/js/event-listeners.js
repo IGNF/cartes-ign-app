@@ -10,6 +10,7 @@ import DOM from "./dom";
 import Globals from "./globals";
 import State from "./state";
 import PopupUtils from "./utils/popup-utils";
+import { config } from "./utils/config-utils";
 
 import { Capacitor } from "@capacitor/core";
 // https://github.com/ionic-team/capacitor/issues/2840
@@ -176,6 +177,10 @@ function addListeners() {
         }, 50);
       }
     }
+    // Pas de gestion du scroll sur les menus alternatifs scrollables
+    if (["newsfeed", "imageOverlay", "informationsScreenLegal"].includes(Globals.backButtonState.split("-")[0])) {
+      return;
+    }
     Globals.menu.updateScrollAnchors();
   };
 
@@ -257,6 +262,10 @@ function addListeners() {
   };
 
   window.addEventListener("scroll", () => {
+    // Pas de gestion du scroll sur les menus alternatifs scrollables
+    if (["newsfeed", "imageOverlay", "informationsScreenLegal"].includes(Globals.backButtonState.split("-")[0])) {
+      return;
+    }
     /* Gestion de la disparition des boutons au scroll */
     DOM.$bottomButtons.classList.remove("opacity0");
     DOM.$routeDrawEdit.classList.remove("opacity0");
@@ -359,6 +368,16 @@ function addListeners() {
                 .setLngLat(center)
                 .addTo(map);
             });
+          }
+        } else if (urlParams.get("newsid") && config.newsfeed.length > 0) {
+          Globals.menu.open("newsfeed");
+          const element = document.getElementById("newsfeedItem-" + urlParams.get("newsid"));
+          if (element) {
+            setTimeout( () => {
+              element.scrollIntoView(false, {
+                behavior: "smooth",
+              });
+            }, 100);
           }
         }
       } else if (urlScheme === "geo") {
