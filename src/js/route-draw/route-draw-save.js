@@ -31,28 +31,43 @@ class RouteDrawSave {
     this.target = target;
 
     this.id = this.options.id || -1;
+    this.showedFrom = null;
 
     // rendu graphique
     this.render();
 
-    this.#listeners();
+    this.bindedOnRouteSave = this.#onRouteSave.bind(this);
 
     return this;
   }
 
   /**
-     * ajout d'ecouteurs pour la saisie interactive
-     */
+   * ajout d'ecouteurs pour la saisie interactive
+   */
   #listeners() {
-    document.getElementById("routeDrawSaveNameInputSubmit").addEventListener("click", () => {
-      this.saveToAccount();
-      this.hide();
+    document.getElementById("routeDrawSaveNameInputSubmit").addEventListener("click", this.bindedOnRouteSave);
+  }
+
+  #removeListeners() {
+    document.getElementById("routeDrawSaveNameInputSubmit").removeEventListener("click", this.bindedOnRouteSave);
+  }
+
+  /**
+   * gestion du clic sur le bouton d'enregistrement
+   */
+  #onRouteSave() {
+    this.saveToAccount();
+    this.hide();
+    if (this.showedFrom === "routeDraw") {
       Globals.routeDraw.hide();
-      Toast.show({
-        text: "Itinéraire enregistré dans 'Enregistrés'",
-        duration: "long",
-        position: "top"
-      });
+    } else if (this.showedFrom === "directions") {
+      Globals.directions.results.hide();
+      Globals.menu.close("directions");
+    }
+    Toast.show({
+      text: "Itinéraire enregistré dans 'Enregistrés'",
+      duration: "long",
+      position: "top"
     });
   }
 
@@ -94,7 +109,9 @@ class RouteDrawSave {
      * @public
      */
   show (showedFrom = "routeDraw") {
+    this.showedFrom = showedFrom;
     Globals.menu.open(`${showedFrom}Save`, -1, Globals.backButtonState, "routeDrawSave");
+    this.#listeners();
   }
 
   /**
@@ -102,7 +119,8 @@ class RouteDrawSave {
      * @public
      */
   hide () {
-    Globals.menu.close("routeDrawSave");
+    Globals.menu.close(`${this.showedFrom}Save`);
+    this.#removeListeners();
   }
 }
 

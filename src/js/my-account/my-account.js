@@ -558,7 +558,7 @@ class MyAccount {
         if (!imported.data.name) {
           imported.data.name = imported.features[0].properties.name || defaultName;
         }
-        this.addRoute(this.geojsonToRoute(imported, "gpx"));
+        this.addRoute(this.geojsonToRoute(imported, extension));
         Toast.show({
           duration: "long",
           text: `Itinéraire "${imported.data.name}" ajouté à 'Enregistrés' et à la carte`,

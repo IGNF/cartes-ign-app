@@ -135,7 +135,7 @@ class Directions {
         duration: response.duration,
         distance: response.distance,
       };
-      const pointFields = Array.from(self.dom.container.querySelectorAll(".inputDirectionsLocations"));
+      const pointFields = Array.from(self.dom.container.querySelectorAll(".inputDirectionsLocations")).filter(input => input.value.trim() !== "");
 
       for (let i = 0; i < response.portions.length; i++) {
         const portion = response.portions[i];
