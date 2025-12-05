@@ -496,7 +496,7 @@ class MyAccount {
         } else if (imported.type === "FeatureCollection") {
           features = imported.features;
         }
-        features.forEach((feature) => {
+        features.forEach((feature, index) => {
           if (gpxName) {
             feature.properties.title = gpxName;
           }
@@ -514,6 +514,9 @@ class MyAccount {
           }
           if (!feature.properties.title) {
             feature.properties.title = defaultName;
+            if (features.length > 1) {
+              feature.properties.title += ` (${index + 1})`;
+            }
           }
           if (!feature.properties.description) {
             feature.properties.description = "";
