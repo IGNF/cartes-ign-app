@@ -377,7 +377,7 @@ function addListeners() {
               element.scrollIntoView(false, {
                 behavior: "smooth",
               });
-            }, 100);
+            }, 2000);
           }
         }
       } else if (urlScheme === "geo") {

@@ -205,8 +205,12 @@ class NewsFeed {
       titleContainer.appendChild(titleWrapper);
       const titleElem = document.createElement("p");
       titleElem.classList.add("newsfeedItemTitle");
-      titleElem.innerText = news.date;
+      titleElem.innerText = news.title;
       titleWrapper.appendChild(titleElem);
+      const dateElem = document.createElement("p");
+      dateElem.classList.add("newsfeedItemDate");
+      dateElem.innerText = news.date;
+      titleWrapper.appendChild(dateElem);
       const shareElem = document.createElement("div");
       shareElem.classList.add("newsfeedShareBtn");
       shareElem.title = "Partager";
@@ -235,7 +239,7 @@ class NewsFeed {
         const subtitleElem = document.createElement("p");
         subtitleElem.classList.add("newsfeedItemSubtitle");
         subtitleElem.innerText = news.subtitle;
-        titleWrapper.appendChild(subtitleElem);
+        textContainer.appendChild(subtitleElem);
       }
 
       if (news.content) {

@@ -20,7 +20,6 @@ import InteractivityIndicator from "./map-interactivity/interactivity-indicator"
 import StatusPopups from "./status-popups";
 import DOM from "./dom";
 
-
 import { Capacitor } from "@capacitor/core";
 import { SplashScreen } from "@capacitor/splash-screen";
 import { StatusBar, Style } from "@capacitor/status-bar";
@@ -32,6 +31,7 @@ import { Preferences } from "@capacitor/preferences";
 import { Toast } from "@capacitor/toast";
 
 import { Protocol } from "pmtiles";
+import PinchZoom from "pinch-zoom-js";
 
 // import CSS
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
@@ -152,7 +152,7 @@ function app() {
                   element.scrollIntoView(false, {
                     behavior: "smooth",
                   });
-                }, 100);
+                }, 2000);
               }
             }
           }
@@ -417,6 +417,9 @@ function app() {
       }
     }, 2000);
   }, 4000);
+
+  // Pich zoom sur img overlay
+  new PinchZoom(document.getElementById("imgOverlayImage"));
 }
 
 app();
