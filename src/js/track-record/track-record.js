@@ -166,6 +166,16 @@ class TrackRecord {
     this.dom.whileRecordingBtn.classList.add("d-none");
     this.dom.pauseRecordBtn.classList.remove("d-none");
     this.#stopBgTracking();
+    const lastLocation = Location.getCurrentPosition();
+    if (lastLocation) {
+      this.#onNewLocation({
+        detail : {
+          longitude: lastLocation.coords.longitude,
+          latitude: lastLocation.coords.latitude,
+          altitude: lastLocation.coords.altitude || 0, // altitude can be null
+        }
+      });
+    }
 
     // REMOVEME: testing
     if (!Capacitor.isNativePlatform()) {
