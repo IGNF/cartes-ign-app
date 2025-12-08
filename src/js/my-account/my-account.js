@@ -1473,6 +1473,7 @@ ${props.text}`,
       const route = this.#getRouteFromID(routeId);
       if (route.visible) {
         this.toggleShowRoute(route);
+        this.dom.container.querySelector(`#route-container_ID_${route.id}`).classList.add("invisible");
       }
     } catch (e) {
       console.warn(e);
