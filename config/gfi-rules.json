@@ -1,4 +1,15 @@
 {
+  "TRACES.RANDO.HIVERNALE$WMTS": {
+    "0": {
+      "title": "@nom_de_la_trace",
+      "subtitle": "Trace de randonnée hivernale (à ski, à raquette) - Source : Fondation Petzl",
+      "bodyAfter": [
+        ["<p><b>! Attention !</b><br /><b>La pratique de la randonnée hivernale en montagne sauvage est une activité à risque. La planification et la conduite de vos activités de sports d'hiver demeurent sous votre entière responsabilité.</b></p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Les traces oranges proposées par la Fondation Petzl, en partenariat avec Skitourenguru.ch, sont intégrées au fur et à mesure du cycle de production de la carte numérique au 1:25000 de l'IGN (SCAN 25®). Durant cette phase transitoire, les anciennes traces bleues, encore visibles sur le SCAN 25®, et celles proposées par la Fondation Petzl peuvent coexister. Pour préparer vos randonnées hivernales, nous vous conseillons de privilégier les traces oranges de la Fondation Petzl récemment mises à jour.</p>"],
+        ["<p class=\"positionWeb positionInfo\"><a href=\"https://www.petzl.com/fondation/s/securite-avalanches-yeti-skitourenguru?language=fr\" target=\"_blank\">Plus d'informations</a></p>"]
+      ]
+    }
+  },
   "TRANSPORTS.DRONES.RESTRICTIONS$WMTS": {
     "0": {
       "title": "@limite",
@@ -50,7 +61,6 @@
     }
   },
   "IGNF_SITES-UNESCO$WMS": {
-
     "0": {
       "title": "@nom",
       "title2": "@sous_titre",

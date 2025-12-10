@@ -281,10 +281,10 @@
     },
     "TRACES.RANDO.HIVERNALE$WMTS": {
       "title": "Traces de randonnée hivernale",
-      "description": "La Fondation Petzl soutient des projets d’intérêt général en lien avec la montagne et le monde vertical. Elle s’est donnée pour mission la prévention des accidents de montagne et d’avalanche.\nDans ce cadre, elle a entrepris, en partenariat avec Skitourenguru.ch, la numérisation des principales traces de randonnée hivernales sur les massifs montagneux français afin d’optimiser leur tracé en vue de réduire le risque d’avalanche et de glissade dangereuse dans les passages délicats.\nPour télécharger une trace sous format GPX et préparer vos courses, utilisez les applications Skitourenguru et Yéti.\nPour signaler une erreur dans un tracé ou suggérer une modification, contactez-nous sur randohiver@fondation-petzl.org\n! Attention !\nLa pratique de la randonnée hivernale en montagne sauvage est une activité à risque. La planification et la conduite de vos activités de sports d’hiver demeurent sous votre entière responsabilité.",
+      "description": "Actuellement, seules les données relatives aux traces de randonnées hivernales dans les Alpes sont disponibles. Les données des autres massifs seront publiées ultérieurement.<br /><br />La Fondation Petzl soutient des projets d’intérêt général en lien avec la montagne et le monde vertical. Elle s’est donnée pour mission la prévention des accidents de montagne et d’avalanche.<br />Dans ce cadre, elle a entrepris, en partenariat avec Skitourenguru.ch, la numérisation des principales traces de randonnée hivernales sur les massifs montagneux français afin d’optimiser leur tracé en vue de réduire le risque d’avalanche et de glissade dangereuse dans les passages délicats.<br />Pour télécharger une trace sous format GPX et préparer vos courses, utilisez les applications Skitourenguru et Yéti.<br />Pour signaler une erreur dans un tracé ou suggérer une modification, contactez-nous sur randohiver@fondation-petzl.org<br />! Attention !<br />La pratique de la randonnée hivernale en montagne sauvage est une activité à risque. La planification et la conduite de vos activités de sports d’hiver demeurent sous votre entière responsabilité.",
       "source": "Fondation Petzl",
-      "maj": "Décembre 2025",
-      "interactive": false,
+      "maj": "Novembre 2024",
+      "interactive": true,
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
