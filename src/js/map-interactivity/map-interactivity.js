@@ -488,6 +488,9 @@ class MapInteractivity {
       source = this.map.getSource(this.configuration.polygonsource);
     }
     this.#convertCoords(gfiGeom.coordinates);
+    if (gfiGeom.type === "LineString" || gfiGeom.type === "MultiLineString") {
+      gfiGeom = Buffer(gfiGeom, 5, {units: "meters"});
+    }
     source.setData(gfiGeom);
   }
 
