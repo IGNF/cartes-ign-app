@@ -1,0 +1,81 @@
+[
+    {
+        "name": "Tous",
+        "settings": {
+            "default": true,
+            "generic": true
+        },
+        "layers": []
+    },
+    {
+        "name": "Données saisonnières",
+        "layers": [
+          "TRACES.RANDO.HIVERNALE$WMTS",
+          "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$WMTS"
+        ]
+    },
+    {
+        "name": "Administratif",
+        "layers": [
+            "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS"
+        ]
+    },
+    {
+        "name": "Foncier",
+        "layers": [
+            "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$WMTS"
+        ]
+    },
+    {
+        "name": "Agriculture",
+        "layers": [
+          "LANDUSE.AGRICULTURE.LATEST$WMTS",
+          "Aire-Parcellaire$WMTS"
+        ]
+    },
+    {
+        "name": "Forêt",
+        "layers": [
+            "FORETS.PUBLIQUES$WMTS",
+            "LANDCOVER.FORESTINVENTORY.V2$WMTS"
+        ]
+    },
+    {
+        "name": "Hydrographie, mer et littoral",
+        "layers": [
+            "ELEVATION.LEVEL0$WMTS",
+            "HYDROGRAPHY.HYDROGRAPHY$WMTS"
+        ]
+    },
+    {
+        "name": "Espaces protégés",
+        "layers": [
+          "Patrinat_SIC$WMTS",
+          "Patrinat_ZPS$WMTS"
+        ]
+    },
+    {
+        "name": "Risques naturels",
+        "layers": [
+          "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$WMTS"
+        ]
+    },
+    {
+        "name": "Tourisme et loisirs",
+        "layers": [
+          "IGNF_SITES-UNESCO$WMS",
+          "POI.MONUMENTS_BDD_WLD_WM$WMS",
+          "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$WMS",
+          "POI.MUSEUM$WMS",
+          "VILLAGESETAPE$WMS",
+          "TRANSPORTS.DRONES.RESTRICTIONS$WMTS"
+        ]
+    },
+    {
+        "name": "Transports",
+        "layers": [
+            "TRANSPORTNETWORKS.RAILWAYS$WMTS",
+            "TRANSPORTNETWORKS.ROADS$WMTS"
+        ]
+    }
+]
