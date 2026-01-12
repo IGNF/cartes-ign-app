@@ -245,7 +245,9 @@ class MapInteractivity {
         DOM.$mapCenter.classList.remove("loading");
         DOM.$mapCenter.classList.add("d-none");
         try {
-          this.#highlightGFI(resp.geometry);
+          if (resp && resp.geometry) {
+            this.#highlightGFI(resp.geometry);
+          }
         } catch (e) {
           console.warn(e);
         }

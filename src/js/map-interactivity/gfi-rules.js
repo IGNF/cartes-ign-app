@@ -16,6 +16,9 @@ const gfiRules = {
      * @returns {Object} {title: ..., html: ...} pour l'affichage
      */
   parseGFI: (rule, gfi, zoom) => {
+    if (gfi.features.length == 0) {
+      return;
+    }
     const result = {
       geometry: gfi.features[0].geometry,
     };
