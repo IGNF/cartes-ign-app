@@ -60,6 +60,10 @@ newsfeedWindow
   max-height: min(500px, 70vh);
 }
 
+.newsFeedImageSlidesTrack {
+  text-align: center;
+}
+
 .newsfeedItemContent {
   font-family: "Open Sans";
   font-size: 13px;
