@@ -51,6 +51,7 @@
       "source": "IGN",
       "maj": "Avril 2022",
       "serverUrl": "https://data.geopf.fr/wmts",
+      "style": "LANDCOVER.FORESTINVENTORY.V2",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
       "format": "image/png",
@@ -230,6 +231,7 @@
       "source": "Service de l’information aéronautique (SIA)",
       "maj": "Juillet 2025",
       "serverUrl": "https://data.geopf.fr/wmts",
+      "style": "TRANSPORTS.DRONES.RESTRICTIONS",
       "minNativeZoom": 3,
       "maxNativeZoom": 15,
       "format": "image/png"
