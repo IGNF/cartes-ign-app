@@ -116,6 +116,7 @@
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
+      "style": "LANDUSE.AGRICULTURE",
       "format": "image/png",
       "defaultOpacity": 75,
       "quickLookUrl": "data/img/layers/LANDUSE.AGRICULTURE2023.jpg",
@@ -290,6 +291,7 @@
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
+      "style": "TRACES.RANDO.HIVERNALE",
       "format": "image/png",
       "quickLookUrl": "https://www.geoportail.gouv.fr/depot/layers/TRACES.RANDO.HIVERNALE/vignettes/TRACES-quickView.png",
       "legendUrl": "https://www.geoportail.gouv.fr/depot/layers/TRACES.RANDO.HIVERNALE/legende/TRACES.RANDO.HIVERNALE-legend.png"
