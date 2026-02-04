@@ -51,7 +51,6 @@
       "source": "IGN",
       "maj": "Avril 2022",
       "serverUrl": "https://data.geopf.fr/wmts",
-      "style": "LANDCOVER.FORESTINVENTORY.V2",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
       "format": "image/png",
@@ -116,7 +115,6 @@
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
-      "style": "LANDUSE.AGRICULTURE",
       "format": "image/png",
       "defaultOpacity": 75,
       "quickLookUrl": "data/img/layers/LANDUSE.AGRICULTURE2023.jpg",
@@ -232,7 +230,6 @@
       "source": "Service de l’information aéronautique (SIA)",
       "maj": "Juillet 2025",
       "serverUrl": "https://data.geopf.fr/wmts",
-      "style": "TRANSPORTS.DRONES.RESTRICTIONS",
       "minNativeZoom": 3,
       "maxNativeZoom": 15,
       "format": "image/png"
@@ -291,7 +288,6 @@
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 16,
-      "style": "TRACES.RANDO.HIVERNALE",
       "format": "image/png",
       "quickLookUrl": "https://www.geoportail.gouv.fr/depot/layers/TRACES.RANDO.HIVERNALE/vignettes/TRACES-quickView.png",
       "legendUrl": "https://www.geoportail.gouv.fr/depot/layers/TRACES.RANDO.HIVERNALE/legende/TRACES.RANDO.HIVERNALE-legend.png"
