@@ -128,7 +128,7 @@ class ComparePoi {
   setData(comparePoi) {
     this.dom.advancedBtn.classList.add("d-none");
     this.comparePoiId = -1;
-    if (comparePoi.id !== null && comparePoi.id >= 0) {
+    if (comparePoi.id !== null && (comparePoi.id >= 0 || typeof comparePoi.id === "string")) {
       this.comparePoiId = comparePoi.id;
     }
     this.compareConfig = {
@@ -207,6 +207,7 @@ class ComparePoi {
       const comparePoi = this.map.queryRenderedFeatures(e.point, {layers: layers})[0];
       comparePoi.properties.opacity = 0.6;
       comparePoi.properties.radiusRatio = 0;
+      comparePoi.id = comparePoi.properties.id;
       const source = this.map.getSource("selected-compare-poi");
       source.setData({
         "type": "FeatureCollection",

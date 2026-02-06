@@ -130,7 +130,7 @@ class Landmark {
    */
   #generateGeoJson() {
     let id = -1;
-    if (this.landmarkId !== null && this.landmarkId >= 0) {
+    if (this.landmarkId !== null && (this.landmarkId >= 0 || typeof this.landmarkId === "string")) {
       id = this.landmarkId;
     }
     return {
