@@ -163,7 +163,7 @@ class RouteDraw {
 
     this.throttle = pThrottle({
       limit: 4,
-      interval: 1000
+      interval: 1200
     });
 
     return this;

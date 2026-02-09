@@ -4,10 +4,18 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
+import pThrottle from "p-throttle";
+
 import { Capacitor } from "@capacitor/core";
 
 /** resultats du service */
 let results;
+
+/** rate-limiting */
+const throttle = pThrottle({
+  limit: 4,
+  interval: 1200
+});
 
 /** gestion annulation du fetch */
 let abortController = new AbortController();
@@ -58,8 +66,13 @@ const compute = async (coordinateList) => {
       resource: "ign_rge_alti_wld",
     };
 
+    const throttled = throttle(async (url, options) => {
+      const response = await fetch(url, options);
+      return response.json();
+    });
+
     promiseList.push(
-      fetch(url, {
+      throttled(url, {
         method: "POST",
         signal: abortController.signal,
         body: JSON.stringify(params),
@@ -67,7 +80,7 @@ const compute = async (coordinateList) => {
           "accept": "application/json",
           "Content-Type": "application/json",
         },
-      }).then( (resp) => resp.json())
+      })
     );
   });
 
