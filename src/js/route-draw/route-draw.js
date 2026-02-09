@@ -251,6 +251,11 @@ class RouteDraw {
     }
     this.#saveState();
     DOM.$routeDrawCancel.classList.add("inactive");
+    if (this.data.isTrack) {
+      this.changeMode(0);
+    } else {
+      this.changeMode(1);
+    }
     this.__updateRouteInfo(this.data);
     this.#updateSources();
   }
@@ -606,19 +611,17 @@ class RouteDraw {
     this.#updateSources();
     var promises = [];
     if (index > 0) {
-      const mode = this.data.steps[index - 1] ? this.data.steps[index - 1].properties.mode : this.mode;
-      const computeBefore = this.#computeStep(index - 1, mode, false);
+      const computeBefore = this.#computeStep(index - 1, this.mode, false);
       promises.push(computeBefore);
-      if (this.mode === 1 && this.data.steps[index - 1].properties.mode === 0 && index > 1) {
-        computeBefore.then(() => promises.push(this.#computeStep(index - 2, this.data.steps[index - 2].properties.mode, false)));
+      if (this.mode === 1 && index > 1) {
+        computeBefore.then(() => promises.push(this.#computeStep(index - 2, 0, false)));
       }
     }
     if (index < this.data.points.length - 1) {
-      const mode = this.data.steps[index] ? this.data.steps[index].properties.mode : this.mode;
-      const computeAfter = this.#computeStep(index, mode, false);
+      const computeAfter = this.#computeStep(index, this.mode, false);
       promises.push(computeAfter);
-      if (this.mode === 1 && index < this.data.points.length - 2 && this.data.steps[index].properties.mode === 0) {
-        computeAfter.then(() => promises.push(this.#computeStep(index + 1, this.data.steps[index + 1].properties.mode, false)));
+      if (this.mode === 1 && index < this.data.points.length - 2) {
+        computeAfter.then(() => promises.push(this.#computeStep(index + 1, 0, false)));
       }
     }
     Promise.all(promises).then(() => {

@@ -119,7 +119,7 @@ class MyAccount {
       this.map.addImage("compare-landmark-yellow", image.data);
     });
 
-    // REMOVEME : rétrocompatibilité des entités enregistrées : migration de préférences à fichier local (post-3.3.35)
+    // REMOVEME : rétrocompatibilité des entités enregistrées : migration de préférences à fichier local (post-3.4.5)
     // récupération des itinéraires enregistrés en local
     let promiseRoutes = Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
       if (resp.value) {
