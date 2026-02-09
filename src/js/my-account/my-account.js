@@ -94,6 +94,31 @@ class MyAccount {
 
     this.#addSourcesAndLayers();
 
+    this.map.loadImage(LandmarkIconSaved).then((image) => {
+      this.map.addImage("landmark-icon-saved", image.data);
+    });
+    this.map.loadImage(LandmarkIconFavourite).then((image) => {
+      this.map.addImage("landmark-icon-favourite", image.data);
+    });
+    this.map.loadImage(LandmarkIconTovisit).then((image) => {
+      this.map.addImage("landmark-icon-tovisit", image.data);
+    });
+    this.map.loadImage(CompareLandmarkBlue).then((image) => {
+      this.map.addImage("compare-landmark-blue", image.data);
+    });
+    this.map.loadImage(CompareLandmarkPurple).then((image) => {
+      this.map.addImage("compare-landmark-purple", image.data);
+    });
+    this.map.loadImage(CompareLandmarkOrange).then((image) => {
+      this.map.addImage("compare-landmark-orange", image.data);
+    });
+    this.map.loadImage(CompareLandmarkGreen).then((image) => {
+      this.map.addImage("compare-landmark-green", image.data);
+    });
+    this.map.loadImage(CompareLandmarkYellow).then((image) => {
+      this.map.addImage("compare-landmark-yellow", image.data);
+    });
+
     // REMOVEME : rétrocompatibilité des entités enregistrées : migration de préférences à fichier local (post-3.3.35)
     // récupération des itinéraires enregistrés en local
     let promiseRoutes = Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
@@ -138,7 +163,7 @@ class MyAccount {
     let compareLandmarkOrderStoragePromise;
 
     // REMOVEME
-    Promise.all([promiseCompareLandmarks, promiseLandmarks, promiseRoutes]).then( () => {
+    Promise.allSettled([promiseCompareLandmarks, promiseLandmarks, promiseRoutes]).then( () => {
     // END REMOVEME
       // chargement des enregistrements stockés en local
       fileStoragePromise = fileStorage.list().then( (files) => {
@@ -170,49 +195,26 @@ class MyAccount {
         }
       });
     // REMOVEME
+    }).then(() => {
+    // END REMOVEME
+      // récupération des infos et rendu graphique
+      Promise.allSettled([
+        this.compute(), fileStoragePromise,
+        routeOrderStoragePromise, landmarkOrderStoragePromise, compareLandmarkOrderStoragePromise,
+        Globals.offlineMaps.loadPromise,
+      ]).then(() => {
+      // Mise en ordre des routes, landmarks et compareLandmarks
+        jsUtils.sortArrayByAnotherArray(this.routes, this.routesOrder, "id");
+        jsUtils.sortArrayByAnotherArray(this.landmarks, this.landmarksOrder, "id");
+        jsUtils.sortArrayByAnotherArray(this.compareLandmarks, this.compareLandmarksOrder, "id");
+
+        this.render();
+        this.#listeners();
+        this.#updateSources();
+      });
+    // REMOVEME
     });
     // END REMOVEME
-
-    this.map.loadImage(LandmarkIconSaved).then((image) => {
-      this.map.addImage("landmark-icon-saved", image.data);
-    });
-    this.map.loadImage(LandmarkIconFavourite).then((image) => {
-      this.map.addImage("landmark-icon-favourite", image.data);
-    });
-    this.map.loadImage(LandmarkIconTovisit).then((image) => {
-      this.map.addImage("landmark-icon-tovisit", image.data);
-    });
-    this.map.loadImage(CompareLandmarkBlue).then((image) => {
-      this.map.addImage("compare-landmark-blue", image.data);
-    });
-    this.map.loadImage(CompareLandmarkPurple).then((image) => {
-      this.map.addImage("compare-landmark-purple", image.data);
-    });
-    this.map.loadImage(CompareLandmarkOrange).then((image) => {
-      this.map.addImage("compare-landmark-orange", image.data);
-    });
-    this.map.loadImage(CompareLandmarkGreen).then((image) => {
-      this.map.addImage("compare-landmark-green", image.data);
-    });
-    this.map.loadImage(CompareLandmarkYellow).then((image) => {
-      this.map.addImage("compare-landmark-yellow", image.data);
-    });
-
-    // récupération des infos et rendu graphique
-    Promise.all([
-      this.compute(), fileStoragePromise,
-      routeOrderStoragePromise, landmarkOrderStoragePromise, compareLandmarkOrderStoragePromise,
-      Globals.offlineMaps.loadPromise,
-    ]).then(() => {
-      // Mise en ordre des routes, landmarks et compareLandmarks
-      jsUtils.sortArrayByAnotherArray(this.routes, this.routesOrder, "id");
-      jsUtils.sortArrayByAnotherArray(this.landmarks, this.landmarksOrder, "id");
-      jsUtils.sortArrayByAnotherArray(this.compareLandmarks, this.compareLandmarksOrder, "id");
-
-      this.render();
-      this.#listeners();
-      this.#updateSources();
-    });
 
     this.lauchUrl = null;
     this.#importFileIfAppOpenedFromFile();
@@ -369,7 +371,9 @@ class MyAccount {
     // Partage depuis une autre app (android)
     if (Capacitor.getPlatform() === "android") {
       window.addEventListener("sendIntentReceived", (e) => {
-        this.#importFileFromUrl(e.detail.url);
+        if (e.detail.url) {
+          this.#importFileFromUrl(e.detail.url);
+        }
       });
     }
   }
@@ -803,7 +807,6 @@ class MyAccount {
     const route = this.routes[oldIndex];
     this.routes.splice(oldIndex, 1);
     this.routes.splice(newIndex, 0, route);
-    this.#updateRoutesOrder();
     this.#updateSources();
   }
 
@@ -816,7 +819,6 @@ class MyAccount {
     const landmark = this.landmarks[oldIndex];
     this.landmarks.splice(oldIndex, 1);
     this.landmarks.splice(newIndex, 0, landmark);
-    this.#updateLandmarksOrder();
     this.#updateSources();
   }
 
@@ -829,7 +831,6 @@ class MyAccount {
     const compareLandmark = this.compareLandmarks[oldIndex];
     this.compareLandmarks.splice(oldIndex, 1);
     this.compareLandmarks.splice(newIndex, 0, compareLandmark);
-    this.#updateCompareLandmarksOrder();
     this.#updateSources();
   }
 
@@ -1946,6 +1947,9 @@ ${props.text}`,
       features: compareLandmarksWithIds,
     });
 
+    this.#updateRoutesOrder();
+    this.#updateLandmarksOrder();
+    this.#updateCompareLandmarksOrder();
     Preferences.set({
       key: "myaccount_routes_order",
       value: JSON.stringify(this.routesOrder),
