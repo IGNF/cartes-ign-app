@@ -1,4 +1,25 @@
 {
+  "DATATOURISME.FMA$PMTILES": {
+    "0": {
+      "title": "@title",
+      "title2": "@dateRange",
+      "title2type": "date",
+      "subtitle": "<a href=\"https://www.datatourisme.fr/\" target=\"_blank\" style=\"color: var(--darker-green);\">Datatourisme</a> (Fêtes et manifestations) - Source&nbsp;: Datatourisme, ADN Tourisme",
+      "bodyAfter": [
+        ["<div class=\"unescoDate\"><p><img class=\"unescoimg\" alt=\"{{lieu}}\" src=\"{{image_url}}\" width=\"150px\">"],
+        ["<span class=\"monumentsHistoriquesImageAuthor\">Crédit de l'image&nbsp;: {{imageCredits}}</span></p></div>"],
+        ["<input type=\"checkbox\" class=\"d-none foldableInput\" id=\"foldableInputJEP\">"],
+        ["<div class=\"monumentsHistoriquesContent foldable\">{{{description}}}</div>"],
+        ["<label class=\"foldableLabel\" for=\"foldableInputJEP\">&nbsp;Voir&nbsp;</label>"],
+        ["<hr />"],
+        ["<p class=\"monumentsHistoriquesContent\"><b>Accès principal&nbsp;:</b><br /> {{address}}</p>"],
+        ["<hr />"],
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{registrationWeb}}\">Réserver en ligne</a></p>"],
+        ["<p class=\"positionTelephone positionInfo\"><a target=\"_blank\" href=\"tel:{{registrationPhone}}\">Réserver par téléphone</a></p>"],
+        ["<p class=\"positionEmail positionInfo\"><a target=\"_blank\" href=\"mailto:{{registrationEmail}}\">Réserver par courriel</a></p>"]
+      ]
+    }
+  },
   "TRACES.RANDO.HIVERNALE$WMTS": {
     "0": {
       "title": "@nom_de_la_trace",

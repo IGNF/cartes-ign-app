@@ -325,6 +325,16 @@
       "format": "image/png"
     },
 
+    "DATATOURISME.FMA$PMTILES": {
+      "hidden": true,
+      "serverUrl": "pmtiles://https://ignf.github.io/cartes-ign-temp-layers/datatourisme/data.pmtiles",
+      "title": "Datatourisme - Fêtes et manifestations",
+      "description": "Datatourisme - Fêtes et manifestations : Localisation des événements touristiques en France métropolitaine et dans les départements et régions d’Outre-Mer (DROM). Les données sont issues de la plateforme Datatourisme, qui agrège les données de nombreux acteurs du tourisme en France. Les données sont mises à jour régulièrement par les producteurs de données.",
+      "source": "Datatourisme, ADN Tourisme",
+      "format": "application/vnd.pmtiles",
+      "styles": ["https://ignf.github.io/cartes-ign-app/datatourisme.json", "data/datatourisme.json"]
+    },
+
     "PLAN.IGN.INTERACTIF$TMS": {
       "hidden": true,
       "serverUrl": "https://data.geopf.fr/tms/1.0.0/",
