@@ -25,7 +25,10 @@ import { config } from "../utils/config-utils";
  */
 const getLayerProps = (id) => {
   var props = config.configLayers.layers[id];
-  var isVector = id.split("$")[1] === "TMS" ? true : false;
+  var isVector = false;
+  if (id.split("$")[1] === "TMS" || id.split("$")[1] === "PMTILES") {
+    isVector = true;
+  }
   var style;
   if (isVector) {
     style = props.styles[0];
@@ -185,6 +188,9 @@ const createSource = (id) => {
     // dans le fichier de style.
     fxt = createVectorSource;
     break;
+  case "PMTILES":
+    fxt = createVectorPMTilesSource;
+    break;
   default:
     throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${service}`);
   }
@@ -257,6 +263,18 @@ const createVectorSource = (id) => {
     tiles: [url],
     maxzoom: props.maxNativeZoom,
     minzoom: props.minNativeZoom,
+  };
+};
+
+/**
+ * Creer les propriétés d'une couche de type Vector au format PMTiles pour la librairie MapLibre
+ * @param {*} id
+ */
+const createVectorPMTilesSource = (id) => {
+  var props = getLayerProps(id);
+  return {
+    type: "vector",
+    url: props.url,
   };
 };
 

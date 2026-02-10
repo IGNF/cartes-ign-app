@@ -181,9 +181,16 @@ class MapInteractivity {
 
     if (features.length > 0) {
       const tempLayers = LayersConfig.getTempLayers();
-      if ( tempLayers.map(layer => layer.id).includes(features[0].source) ) {
-        const layerConfig = tempLayers.filter(layer => layer.id === features[0].source)[0];
-        const resp = gfiRules.parseGFI(layerConfig.gfiRules, {features: features}, this.map.getZoom());
+      const isPMTiles = features[0].layer.id.includes("$PMTILES");
+      if ( isPMTiles || tempLayers.map(layer => layer.id).includes(features[0].source) ) {
+        let rules;
+        if (isPMTiles) {
+          rules = gfiRules[features[0].layer.id.split("$$$")[1]];
+        } else {
+          const layerConfig = tempLayers.filter(layer => layer.id === features[0].source)[0];
+          rules = layerConfig.gfiRules;
+        }
+        const resp = gfiRules.parseGFI(rules, {features: features}, this.map.getZoom());
         let lngLat = ev.lngLat;
         if (features[0].geometry.type === "Point") {
           lngLat = {
@@ -196,7 +203,7 @@ class MapInteractivity {
           text: resp.title,
           html: resp.html,
           html2: resp.html2,
-          isEvent: true,
+          isEvent: !isPMTiles,
         }).then(() => {
           Globals.menu.open("position");
           this.map.once("click", this.handleInfoOnMap);
