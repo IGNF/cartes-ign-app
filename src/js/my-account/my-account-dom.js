@@ -578,7 +578,7 @@ let MyAccountDOM = {
           } else {
             container.classList.remove("invisible");
           }
-          this.toggleShowLandmark(compareLandmark);
+          this.toggleShowLandmark(compareLandmark, true);
         }
         if (value === "share") {
           this.shareCompareLandmark(compareLandmark);
@@ -595,10 +595,10 @@ let MyAccountDOM = {
     // Au clic sur le PR = l'afficher
     container.querySelector(`#compare-landmark-basic-tools_ID_${landmarkId}`).addEventListener("click", () => {
       if (compareLandmark.properties.visible) {
-        this.toggleShowLandmark(compareLandmark);
+        this.toggleShowLandmark(compareLandmark, true);
       }
       container.classList.remove("invisible");
-      this.toggleShowLandmark(compareLandmark);
+      this.toggleShowLandmark(compareLandmark, true);
     });
 
     if (!container) {

@@ -1510,6 +1510,7 @@ ${props.text}`,
         padding: 100,
       });
     }
+    fileStorage.save(route, `route-${route.id}`);
     this.#updateSources();
   }
 
@@ -1558,7 +1559,7 @@ ${props.text}`,
    * Affiche le point de repère s'il est caché, ou le cache s'il est affiché
    * @param {*} landmark
    */
-  toggleShowLandmark(landmark) {
+  toggleShowLandmark(landmark, isCompareLandmark = false) {
     if (landmark.properties.visible) {
       landmark.properties.visible = false;
     } else {
@@ -1568,6 +1569,11 @@ ${props.text}`,
         Location.disableTracking();
       }
       this.map.flyTo({center: landmark.geometry.coordinates, zoom: 14});
+    }
+    if (isCompareLandmark) {
+      fileStorage.save(landmark, `comparelandmark-${landmark.id}`);
+    } else {
+      fileStorage.save(landmark, `landmark-${landmark.id}`);
     }
     this.#updateSources();
   }
@@ -1936,7 +1942,6 @@ ${props.text}`,
       landmarkCopy.properties.id = landmarkCopy.id;
       landmarksWithIds.push(landmarkCopy);
     });
-
     landmarksource.setData({
       type: "FeatureCollection",
       features: landmarksWithIds,
