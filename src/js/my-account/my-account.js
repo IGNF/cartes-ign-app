@@ -538,6 +538,21 @@ class MyAccount {
           features = imported.features;
         }
         features.forEach((feature, index) => {
+          if (feature.properties.layer1 && feature.properties.layer2 && feature.properties.mode) {
+            feature.id = -1;
+            this.addCompareLandmark(feature);
+            document.getElementById("myaccount-compare-landmarks-tab").click();
+            if (Location.isTrackingActive()) {
+              Location.disableTracking();
+            }
+            this.map.flyTo({center: feature.geometry.coordinates});
+            Toast.show({
+              duration: "long",
+              text: `Point de repère Comparer "${feature.properties.accroche}" ajouté à 'Enregistrés' et à la carte`,
+              position: "bottom",
+            });
+            return;
+          }
           if (gpxName) {
             feature.properties.title = gpxName;
           }
