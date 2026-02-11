@@ -26,6 +26,9 @@ let RouteDrawDOM = {
     details: null,
     detailsList: null,
     changeMode: null,
+    toggleFree: null,
+    toggleGuided: null,
+    routeDrawVehicleSelect: null,
     modeSelectDom: null,
   },
 
@@ -303,49 +306,21 @@ let RouteDrawDOM = {
     `;
     div.innerHTML = modeSelectHTML;
 
-    var toggleGuided = div.querySelector("#routeDrawModeGuided");
-    var toggleFree = div.querySelector("#routeDrawModeFree");
-    var routeDrawVehicleSelect = div.querySelector("#routeDrawVehicleSelect");
-    toggleGuided.addEventListener("change", () => {
-      if (toggleGuided.checked) {
+    this.dom.toggleGuided = div.querySelector("#routeDrawModeGuided");
+    this.dom.toggleFree = div.querySelector("#routeDrawModeFree");
+    this.dom.routeDrawVehicleSelect = div.querySelector("#routeDrawVehicleSelect");
+    this.dom.toggleGuided.addEventListener("change", () => {
+      if (this.dom.toggleGuided.checked) {
         this.changeMode(1);
-        toggleFree.checked = false;
-        routeDrawVehicleSelect.classList.remove("hidden");
-        Toast.show({
-          text: "Mode saisie guidée activé",
-          duration: "short",
-          position: "bottom"
-        });
       } else {
         this.changeMode(0);
-        toggleFree.checked = true;
-        routeDrawVehicleSelect.classList.add("hidden");
-        Toast.show({
-          text: "Mode saisie libre (piéton) activé",
-          duration: "short",
-          position: "bottom"
-        });
       }
     });
-    toggleFree.addEventListener("change", () => {
-      if (toggleFree.checked) {
+    this.dom.toggleFree.addEventListener("change", () => {
+      if (this.dom.toggleFree.checked) {
         this.changeMode(0);
-        toggleGuided.checked = false;
-        routeDrawVehicleSelect.classList.add("hidden");
-        Toast.show({
-          text: "Mode saisie libre (piéton) activé",
-          duration: "short",
-          position: "bottom"
-        });
       } else {
         this.changeMode(1);
-        toggleGuided.checked = true;
-        routeDrawVehicleSelect.classList.remove("hidden");
-        Toast.show({
-          text: "Mode saisie guidée activé",
-          duration: "short",
-          position: "bottom"
-        });
       }
     });
 
@@ -385,7 +360,7 @@ let RouteDrawDOM = {
         });
       }
     });
-    routeDrawVehicleSelect.addEventListener("click", () => {
+    this.dom.routeDrawVehicleSelect.addEventListener("click", () => {
       if (this.data.steps.length > 0) {
         this.__informChangeTransportImpossible();
       }

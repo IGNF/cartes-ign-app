@@ -252,9 +252,9 @@ class RouteDraw {
     this.#saveState();
     DOM.$routeDrawCancel.classList.add("inactive");
     if (this.data.isTrack) {
-      this.changeMode(0);
+      this.changeMode(0, true);
     } else {
-      this.changeMode(1);
+      this.changeMode(1, true);
     }
     this.__updateRouteInfo(this.data);
     this.#updateSources();
@@ -1184,6 +1184,7 @@ class RouteDraw {
   #routeSnap() {
     this.#saveState();
     this.deactivate();
+    this.changeMode(1);
     this.loading = true;
     DOM.$routeDrawSnap.classList.add("loading");
     const promises = [];
@@ -1195,6 +1196,7 @@ class RouteDraw {
     Promise.all(promises).then(() => {
       this.#updateElevation();
       this.#updateSources();
+      this.data.isTrack = false;
       this.__updateRouteInfo(this.data);
       this.#saveState();
       DOM.$routeDrawSnap.classList.remove("loading");
@@ -1211,14 +1213,33 @@ class RouteDraw {
    * toggle entre saisie libre et guidée
    * @public
    */
-  changeMode(mode) {
+  changeMode(mode, silent = false) {
     if (mode == 1) {
       this.mode = 1;
       this.dom.changeMode.innerText = "Saisie guidée";
+      this.dom.toggleFree.checked = false;
+      this.dom.toggleGuided.checked = true;
+      this.dom.routeDrawVehicleSelect.classList.remove("hidden");
+      if (!silent) {
+        Toast.show({
+          text: "Mode saisie guidée activé",
+          duration: "short",
+          position: "bottom"
+        });
+      }
       return;
     }
     this.mode = 0;
+    this.dom.toggleFree.checked = true;
+    this.dom.toggleGuided.checked = false;
     this.dom.changeMode.innerText = "Saisie libre";
+    if (!silent) {
+      Toast.show({
+        text: "Mode saisie libre (piéton) activé",
+        duration: "short",
+        position: "bottom"
+      });
+    }
   }
 
   /**

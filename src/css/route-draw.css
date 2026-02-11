@@ -78,7 +78,10 @@
   overflow: hidden;
 }
 
-#routeDrawVehicleSelect.hidden {
+#routeDrawModeActionSheet:has(#routeDrawModeGuided:not(:checked)) #routeDrawVehicleSelect {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
   margin-top: 0;
 }
 
