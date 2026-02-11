@@ -216,7 +216,7 @@ class MyAccount {
     });
     // END REMOVEME
 
-    this.lauchUrl = null;
+    this.launchUrl = null;
     this.#importFileIfAppOpenedFromFile();
 
     return this;
@@ -363,7 +363,7 @@ class MyAccount {
 
     App.addListener("appUrlOpen", (data) => {
       // Sometimes this get called after App.getLaunchUrl(). This prevents loading a file twice.
-      if (data.url !== this.lauchUrl) {
+      if (data.url !== this.launchUrl) {
         this.#importFileFromUrl(data.url);
       }
     });
@@ -451,8 +451,11 @@ class MyAccount {
   async #importFileIfAppOpenedFromFile() {
     const url = await App.getLaunchUrl();
     if (url) {
+      this.launchUrl = url.url;
       this.#importFileFromUrl(url.url);
-      this.lauchUrl = url.url;
+      setTimeout(() => {
+        this.launchUrl = null;
+      }, 5000);
     }
   }
 
@@ -662,7 +665,11 @@ class MyAccount {
       }
     }
     fileStorage.save(drawRouteSaveOptions, `route-${drawRouteSaveOptions.id}`);
-    this.__updateAccountRoutesContainerDOMElement(this.routes);
+    try {
+      this.__updateAccountRoutesContainerDOMElement(this.routes);
+    } catch (e) {
+      console.warn(e);
+    }
     this.#updateSources();
     let coordinates = [];
     drawRouteSaveOptions.data.steps.forEach((step) => {
