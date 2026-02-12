@@ -32,6 +32,8 @@ import LocationLayers from "./services/location-styles";
 // TODO: activate
 // import ImmersiveNotifications from "./immersive-notifications";
 
+import RouteFollow from "./route-follow";
+
 /**
  * Ajout des contrôle à la fin du chargement de la carte
  * @see maplibregl.ScaleControl
@@ -151,6 +153,9 @@ const addControls = () => {
     // signalement
     Globals.signalement = new Signalement(map, {});
     Globals.signalementOSM = new SignalementOSM(map, {});
+
+    // suivi d'itinéraire
+    Globals.routeFollow = new RouteFollow(map, {}, true);
 
     // points de repère
     Globals.landmark = new Landmark(map, {

@@ -955,6 +955,14 @@ class MyAccount {
    * @param {*} route
    */
   downloadRoute(route) {
+    if (!Globals.online) {
+      Toast.show({
+        text: "Fonctionnalité indisponible en mode hors ligne.",
+        duration: "long",
+        position: "bottom"
+      });
+      return;
+    }
     let coordinates = [];
     route.data.steps.forEach((step) => {
       coordinates = coordinates.concat(step.geometry.coordinates);
@@ -1041,6 +1049,54 @@ class MyAccount {
   showRouteDetailsFromID(routeId) {
     try {
       this.showRouteDetails(this.#getRouteFromID(routeId));
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
+  }
+
+  /**
+   * Ouvre le suivi d'itinéraire
+   * @param {*} route
+   */
+  followRoute(route) {
+    let steps = JSON.parse(JSON.stringify(route.data.steps));
+    const coords = [];
+    steps.forEach( (step) => {
+      coords.push(step.geometry.coordinates);
+    });
+    const dissolvedCoords = gisUtils.geoJsonMultiLineStringCoordsToSingleLineStringCoords(coords);
+
+    const routeLine = {
+      type: "Feature",
+      geometry: {
+        type: "LineString",
+        coordinates: dissolvedCoords,
+      },
+      properties: {
+        distance: route.data.distance,
+        duration: route.data.duration,
+      },
+    };
+    Globals.routeFollow.setData({
+      routeLine: routeLine,
+      elevations: route.data.elevationData.elevationData,
+    });
+    this.hide();
+    Globals.routeFollow.show();
+  }
+
+  /**
+   * Ouvre le suivi d'itinéraire à partir de son ID
+   * @param {Number} routeId
+   */
+  followRouteFromID(routeId) {
+    try {
+      this.followRoute(this.#getRouteFromID(routeId));
     } catch (e) {
       console.warn(e);
       Toast.show({

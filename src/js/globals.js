@@ -111,6 +111,9 @@ let immersiveNotifications = null;
 // Global control 3d
 let threeD = null;
 
+// Global control route follow
+let routeFollow = null;
+
 // Global flag: is the device connected to the internet?
 let online = (await Network.getStatus()).connected;
 
@@ -202,4 +205,5 @@ export default {
   newPlaceNotifEnabled,
   threeD,
   trackRecord,
+  routeFollow,
 };
