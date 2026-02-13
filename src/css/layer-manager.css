@@ -39,7 +39,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid var(--grey-2);
-  font-family: "Fira Sans SemiBold";
+  font-family: "Fira Sans Semibold";
   font-size: 15px;
   position: sticky;
   top: calc(39px + var(--safe-area-inset-top));
