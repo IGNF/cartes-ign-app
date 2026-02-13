@@ -209,16 +209,15 @@ class MyAccount {
         jsUtils.sortArrayByAnotherArray(this.compareLandmarks, this.compareLandmarksOrder, "id");
 
         this.render();
-        this.#listeners();
-        this.#updateSources();
+        this.launchUrl = null;
+        this.#importFileIfAppOpenedFromFile().then(() => {
+          this.#listeners();
+          this.#updateSources();
+        });
       });
     // REMOVEME
     });
     // END REMOVEME
-
-    this.launchUrl = null;
-    this.#importFileIfAppOpenedFromFile();
-
     return this;
   }
 
