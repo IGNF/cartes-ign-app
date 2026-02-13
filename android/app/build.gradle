@@ -7,8 +7,8 @@ android {
         applicationId "fr.ign.geoportail"
         minSdk rootProject.ext.minSdkVersion
         targetSdk rootProject.ext.targetSdkVersion
-        versionCode 30406
-        versionName "3.4.6"
+        versionCode 30407
+        versionName "3.4.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -24,7 +24,7 @@ android {
         }
         fdroid {
             dimension "default"
-        versionName "3.4.6"
+        versionName "3.4.7"
         }
     }
 
