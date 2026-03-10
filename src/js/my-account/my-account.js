@@ -767,7 +767,7 @@ class MyAccount {
   deleteRoute(routeId) {
     for (let i = 0; i < this.routes.length; i++) {
       let route = this.routes[i];
-      if (route.id !== routeId) {
+      if ("" + route.id !== "" + routeId) {
         continue;
       }
       this.routes.splice(i, 1);
@@ -784,7 +784,7 @@ class MyAccount {
   deleteLandmark(landmarkId) {
     for (let i = 0; i < this.landmarks.length; i++) {
       let landmark = this.landmarks[i];
-      if (landmark.id !== landmarkId) {
+      if ("" + landmark.id !== "" + landmarkId) {
         continue;
       }
       this.landmarks.splice(i, 1);
@@ -801,7 +801,7 @@ class MyAccount {
   deleteCompareLandmark(compareLandmarkId) {
     for (let i = 0; i < this.compareLandmarks.length; i++) {
       let compareLandmark = this.compareLandmarks[i];
-      if (compareLandmark.id !== compareLandmarkId) {
+      if ("" + compareLandmark.id !== "" + compareLandmarkId) {
         continue;
       }
       this.compareLandmarks.splice(i, 1);
@@ -1604,11 +1604,11 @@ ${props.text}`,
     let route;
     for (let i = 0; i < this.routes.length; i++) {
       route = this.routes[i];
-      if (route.id === routeId) {
+      if ("" + route.id === "" + routeId) {
         break;
       }
     }
-    if (route.id === routeId) {
+    if ("" + route.id === "" + routeId) {
       return route;
     } else {
       throw new Error("Unknown route ID");
@@ -1627,11 +1627,11 @@ ${props.text}`,
     let landmark;
     for (let i = 0; i < this.landmarks.length; i++) {
       landmark = this.landmarks[i];
-      if (landmark.id === landmarkId) {
+      if ("" + landmark.id === "" + landmarkId) {
         break;
       }
     }
-    if (landmark.id === landmarkId) {
+    if ("" + landmark.id === "" + landmarkId) {
       return landmark;
     } else {
       throw new Error("Unknown landmark ID");
@@ -1650,11 +1650,11 @@ ${props.text}`,
     let compareLandmark;
     for (let i = 0; i < this.compareLandmarks.length; i++) {
       compareLandmark = this.compareLandmarks[i];
-      if (compareLandmark.id === compareLandmarkId) {
+      if ("" + compareLandmark.id === "" + compareLandmarkId) {
         break;
       }
     }
-    if (compareLandmark.id === compareLandmarkId) {
+    if ("" + compareLandmark.id === "" + compareLandmarkId) {
       return compareLandmark;
     } else {
       throw new Error("Unknown compareLandmark ID");
