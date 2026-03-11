@@ -130,6 +130,7 @@ class FileStorage {
   async delete(id) {
     if (!this.isNative) {
       await Preferences.remove({ key: `${this.folder}_${id}` });
+      return;
     }
     try {
       await Filesystem.deleteFile({
