@@ -613,15 +613,15 @@ class RouteDraw {
     if (index > 0) {
       const computeBefore = this.#computeStep(index - 1, this.mode, false);
       promises.push(computeBefore);
-      if (this.mode === 1 && index > 1) {
-        computeBefore.then(() => promises.push(this.#computeStep(index - 2, 0, false)));
+      if (this.mode === 1 && this.data.steps[index - 1].properties.mode === 0 && index < this.data.points.length - 2) {
+        computeBefore.then(() => promises.push(this.#computeStep(index - 2, this.data.steps[index - 2].properties.mode, false)));
       }
     }
     if (index < this.data.points.length - 1) {
       const computeAfter = this.#computeStep(index, this.mode, false);
       promises.push(computeAfter);
-      if (this.mode === 1 && index < this.data.points.length - 2) {
-        computeAfter.then(() => promises.push(this.#computeStep(index + 1, 0, false)));
+      if (this.mode === 1 && this.data.steps[index].properties.mode === 0 && index < this.data.points.length - 2) {
+        computeAfter.then(() => promises.push(this.#computeStep(index + 1, this.data.steps[index + 1].properties.mode, false)));
       }
     }
     Promise.all(promises).then(() => {
@@ -864,6 +864,20 @@ class RouteDraw {
       }
       lastPoint.geometry.coordinates = json.geometry.coordinates.slice(-1)[0];
       firstPoint.geometry.coordinates = json.geometry.coordinates[0];
+      if (index !== 0) {
+        // if first point is not the last point of previous step geometry, add first point to previous geometry coords
+        const prevStep = this.data.steps[index - 1];
+        if (prevStep.geometry.coordinates[prevStep.geometry.coordinates.length - 1].toString() !== firstPoint.geometry.coordinates.toString()) {
+          prevStep.geometry.coordinates.push(firstPoint.geometry.coordinates);
+        }
+      }
+      if (index < this.data.steps.length - 1) {
+        // if last point is not the first point of next step geometry, add last point to next geometry coords
+        const nextStep = this.data.steps[index + 1];
+        if (nextStep.geometry.coordinates[0].toString() !== lastPoint.geometry.coordinates.toString()) {
+          nextStep.geometry.coordinates.unshift(lastPoint.geometry.coordinates);
+        }
+      }
       stepCoords = json.geometry.coordinates;
       distance = json.distance;
       duration = json.duration;
