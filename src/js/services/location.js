@@ -506,11 +506,11 @@ const locationOnOff = async () => {
       duration: "short",
       position: "bottom"
     });
+    KeepAwake.keepAwake();
   } else {
     DOM.$geolocateBtn.classList.remove("locationFollow");
     tracking_active = false;
     navigation_active = false;
-    KeepAwake.allowSleep();
     Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
     Globals.map.flyTo({
       pitch: 0,
@@ -524,6 +524,7 @@ const locationOnOff = async () => {
       duration: "short",
       position: "bottom"
     });
+    KeepAwake.allowSleep();
   }
 };
 
