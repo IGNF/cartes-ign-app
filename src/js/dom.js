@@ -85,6 +85,7 @@ const $landmarkWindow = document.getElementById("landmarkWindow");
 const $compareLandmarkWindow = document.getElementById("compareLandmarkWindow");
 const $offlineMapsWindow = document.getElementById("offlineMapsWindow");
 const $trackRecordWindow = document.getElementById("trackRecordWindow");
+const $routeFollowWindow = document.getElementById("routeFollowWindow");
 
 export default {
   $search,
@@ -155,4 +156,5 @@ export default {
   $directionsSaveBtn,
   $newsfeedWindow,
   $trackRecordInfos,
+  $routeFollowWindow,
 };
