@@ -570,6 +570,23 @@
   margin-top: 3px;
 }
 
+.monumentsHistoriquesImageAuthor a {
+  color: var(--mid-grey);
+}
+
+.monumentsHistoriquesImageAuthor a::after {
+  content: "";
+  display: inline-block;
+  background-image: url("assets/external-link.svg");
+  width: 1.5em;
+  height: 1em;
+  background-size: 1.2em;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 0.8em;
+  background-position: bottom;
+}
+
 .monumentsHistoriquesContent {
   font-family: "Open Sans";
 }
@@ -658,4 +675,10 @@
 .positionInfo::before {
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+}
+
+.panoramaxPoiImg {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
 }
