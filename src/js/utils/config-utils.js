@@ -99,7 +99,7 @@ const urls = {
     fallback: GfiRulesProps,
   },
   newsfeed : {
-    url: "https://ignf.github.io/cartes-ign-temp-layers/newsfeed/newsfeed_config.json",
+    url: "https://data.geopf.fr/annexes/cartes_ign_app/newsfeed/newsfeed_config.json",
     fallback: [], // default empty list if not available
   }
 };
