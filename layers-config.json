@@ -1,0 +1,359 @@
+{
+  "layers": {
+    "Aire-Parcellaire$WMTS": {
+      "title": "Délimitation parcellaire AOC viticole",
+      "interactive": false,
+      "description": "Représentation des délimitations parcellaires des appellations d’origine contrôlée (AOC) viticoles sur la France métropolitaine.<br />Attention : ces données sont proposées à titre informatif.<br /> Les délimitations parcellaires officielles sont consultables sur les plans déposés en mairie ou auprès des services de l’INAO.",
+      "source": "Institut national de l’origine et de la qualité (INAO)",
+      "maj": "Novembre 2020",
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 0,
+      "maxNativeZoom": 18,
+      "format": "image/png",
+      "defaultOpacity": 75
+    },
+    "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$WMTS": {
+      "title": "Parcelles cadastrales",
+      "description": "Représentation du plan cadastral informatisé (PCI) vecteur de la DGFiP. <br />Cette donnée n’a pas fait l’objet de corrections géométriques. Un décalage par rapport à d’autres données (photographies aériennes en particulier) peut apparaître.<br />Certaines communes peuvent ne pas être encore couvertes.",
+      "source": "Direction générale des Finances publiques (DGFiP), IGN",
+      "maj": "Mise à jour trimestrielle",
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 0,
+      "maxNativeZoom": 19,
+      "format": "image/png"
+    },
+    "ELEVATION.LEVEL0$WMTS": {
+      "title": "Trait de côte HISTOLITT®",
+      "description": "Formalisation de la limite entre le domaine terrestre et le domaine marin.",
+      "source": "Service hydrographique et océanographique de la marine (SHOM), IGN",
+      "maj": "Juin 2012",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 18,
+      "format": "image/png"
+    },
+    "FORETS.PUBLIQUES$WMTS": {
+      "title": "Forêts publiques",
+      "description": "Localisation des forêts publiques domaniales et non domaniales (communales, sectionales, départementales et d’établissements publics) gérées par l’Office national des forêts (ONF).",
+      "source": "Office National des Forêts (ONF)",
+      "maj": "Juillet 2021",
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 3,
+      "maxNativeZoom": 16,
+      "style": "FORETS PUBLIQUES ONF",
+      "format": "image/png",
+      "defaultOpacity": 85
+    },
+    "LANDCOVER.FORESTINVENTORY.V2$WMTS": {
+      "title": "Carte forestière",
+      "description": "Localisation de 32 types de formations végétales sur le territoire.",
+      "source": "IGN",
+      "maj": "Avril 2022",
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 16,
+      "format": "image/png",
+      "defaultOpacity": 75
+    },
+    "GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40$WMTS": {
+      "title": "Carte de l'état-major (1820-1866)",
+      "description": "Carte française en couleurs du XIXè siècle en couleurs superposable aux cartes et données modernes.",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 15,
+      "format": "image/jpeg"
+    },
+    "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950$WMTS": {
+      "title": "SCAN50 Historique de 1950",
+      "description": "SCAN50 produit par l'IGN en 1950",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 3,
+      "maxNativeZoom": 15,
+      "style": "SCAN50_1950",
+      "format": "image/jpeg"
+    },
+    "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2$WMTS": {
+      "title": "Plan IGN",
+      "description": "Cartographie multi-échelles sur le territoire national, issue des bases de données vecteur de l’IGN, mis à jour régulièrement et réalisée selon un processus entièrement automatisé.",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 0,
+      "maxNativeZoom": 19,
+      "format": "image/png"
+    },
+    "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$WMTS": {
+      "title": "Carte des pentes",
+      "description": "Représentation des classes de pentes supérieures à 30°, 35°, 40°, et 45° obtenues par traitement automatique du modèle numérique de terrain RGE ALTI de l’IGN au pas de 1m. La représentation des pentes n’engage pas la responsabilité de l’IGN.",
+      "source": "IGN",
+      "maj": "Mars 2020",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 0,
+      "maxNativeZoom": 17,
+      "format": "image/png",
+      "defaultOpacity": 75
+    },
+    "HYDROGRAPHY.HYDROGRAPHY$WMTS": {
+      "title": "Réseau hydrographique",
+      "description": "Affichage des lacs, réservoirs, rivières et cours d’eau en France.",
+      "source": "IGN",
+      "maj": "Mise à jour trimestrielle",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 18,
+      "format": "image/png"
+    },
+    "LANDUSE.AGRICULTURE.LATEST$WMTS": {
+      "title": "Registre parcellaire graphique 2024",
+      "description": "Registre parcellaire graphique : zones de cultures déclarées par les exploitants en 2024",
+      "source": "Agence de services et de paiement (ASP)",
+      "maj": "Déclarations 2024",
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 16,
+      "format": "image/png",
+      "defaultOpacity": 75,
+      "quickLookUrl": "data/img/layers/LANDUSE.AGRICULTURE2023.jpg",
+      "legendUrl": "data/img/legends/LANDUSE.AGRICULTURE2023.png"
+    },
+    "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS": {
+      "title": "Limites administratives mises à jour en continu",
+      "description": "Limites administratives des collectivités territoriales, mises à jour en continu.<br />Régions, départements, cantons, communes, arrondissements (pour Paris, Lyon et Marseille) et établissements publics de coopération intercommunale (EPCI).",
+      "source": "IGN",
+      "maj": "Mise à jour mensuelle",
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 16,
+      "format": "image/png"
+    },
+    "ORTHOIMAGERY.ORTHOPHOTOS$WMTS": {
+      "title": "Photographies aériennes",
+      "description": "Prises de vues satellitaires ou aériennes des territoires",
+      "source": "IGN et partenaires",
+      "maj": "2025 <br /><a href=\"https://www.geoportail.gouv.fr/depot/fiches/photographies-aeriennes-RVB/geoportail_dates_des_prises_de_vues_aeriennes-RVB.pdf\" target=\"_blank\">Détail des dates de mises à jour par département</a>",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 0,
+      "maxNativeZoom": 20,
+      "format": "image/jpeg"
+    },
+    "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965$WMTS": {
+      "title": "Photographies aériennes historiques 1950-1965",
+      "description": "Couverture en photographies aériennes de la France des années 50, telle qu'elle se présentait avant les grands aménagements des années 60. Cette couverture a été réalisée à partir des photographies aériennes historiques numérisées par l'IGN. Elle est disponible sur la France métropolitaine, les départements et régions d'Outre-Mer (la Guyane n'est que partiellement couverte) et les collectivités d'Outre-Mer sauf la Polynésie française. Les photographies sont orthorectifiées, c'est-à-dire corrigées des déformations dues à la prise de vue et au relief du terrain, et assemblées pour fournir une visualisation continue superposable avec le Référentiel à Grande Echelle (RGE®) ou les cartes.",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 0,
+      "maxNativeZoom": 18,
+      "format": "image/png"
+    },
+    "ORTHOIMAGERY.ORTHOPHOTOS.1980-1995$WMTS": {
+      "title": "Ortho Historique 1980-1995",
+      "description": "Couverture en photographies aériennes de la France des années 11980 à 1995. Cette couverture a été réalisée à partir des photographies aériennes historiques numérisées par l'IGN. Elle est disponible sur la France métropolitaine, les départements et régions d'Outre-Mer (la Guyane n'est que partiellement couverte) et les collectivités d'Outre-Mer sauf la Polynésie française. Les photographies sont orthorectifiées, c'est-à-dire corrigées des déformations dues à la prise de vue et au relief du terrain, et assemblées pour fournir une visualisation continue superposable avec le Référentiel à Grande Echelle (RGE®) ou les cartes.",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 3,
+      "maxNativeZoom": 18,
+      "style": "BDORTHOHISTORIQUE",
+      "format": "image/png"
+    },
+    "ORTHOIMAGERY.ORTHOPHOTOS2000-2005$WMTS": {
+      "title": "Photographies aériennes 2000-2005",
+      "description": "Prises de vues aériennes des territoires pour les années 2000 à 2005",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 18,
+      "format": "image/jpeg"
+    },
+    "ORTHOIMAGERY.ORTHOPHOTOS2006-2010$WMTS": {
+      "title": "Photographies aériennes 2006-2010",
+      "description": "Prises de vues aériennes des territoires disponibles à la fin des années 2006 à 2010",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 18,
+      "format": "image/jpeg"
+    },
+    "Patrinat_SIC$WMTS": {
+      "title": "Sites Natura 2000 - Directive Habitats",
+      "description": "Le réseau Natura 2000 s’inscrit au cœur de la politique de conservation de la nature de l’Union européenne et est un élément clé de l’objectif visant à enrayer l’érosion de la biodiversité.",
+      "source": "Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
+      "maj": "Juillet 2025",
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "legendUrl": "data/img/legends/PROTECTEDAREAS.SIC.png",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 16,
+      "format": "image/png",
+      "defaultOpacity": 75
+    },
+    "Patrinat_ZPS$WMTS": {
+      "title": "Sites Natura 2000 - Directive Oiseaux",
+      "description": "Zones mises en place dans le cadre de la Directive Oiseaux de 1979 visant à désigner des territoires permettant d’assurer le bon état de conservation d’espèces d’oiseaux menacées, vulnérables ou rares.",
+      "source": "Inventaire National du Patrimoine Naturel (INPN), Ministère de la Transition écologique, Muséum national d’Histoire naturelle (MNHN)",
+      "maj": "Juillet 2025",
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "legendUrl": "data/img/legends/PROTECTEDAREAS.ZPS.png",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 16,
+      "format": "image/png",
+      "defaultOpacity": 75
+    },
+    "TRANSPORTNETWORKS.RAILWAYS$WMTS": {
+      "title": "Réseau ferroviaire",
+      "description": "Carte du réseau ferroviaire en France métropolitaine.",
+      "source": "IGN",
+      "maj": "Mise à jour trimestrielle",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 18,
+      "format": "image/png"
+    },
+    "TRANSPORTNETWORKS.ROADS$WMTS": {
+      "title": "Routes",
+      "description": "Affichage du réseau routier français et européen.",
+      "source": "IGN",
+      "maj": "Mise à jour trimestrielle",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 18,
+      "format": "image/png"
+    },
+    "TRANSPORTS.DRONES.RESTRICTIONS$WMTS": {
+      "title": "Restrictions UAS catégorie Ouverte et Aéromodélisme",
+      "description": "Représentation des zones soumises à interdictions ou à restrictions pour l’usage, dans la catégorie Ouverte, ou par des associations d’aéromodélisme (en dehors des sites d’aéromodélisme publiés), d’aéronefs sans équipage à bord (drones ou aéromodèles), sur le territoire métropolitain.<br />Cette carte intègre partiellement les interdictions s’appuyant sur des données publiées hors de l’AIP (Aeronautical Information Publication) et ne couvre pas les interdictions temporaires. Cette carte est basée sur la version en vigueur à compter du 31 décembre 2020, de l’arrêté « Espace » du 3 décembre 2020. Les zones de restriction apparaissant sur la carte correspondent donc uniquement aux limitations indiquées dans l'arrêté Espace.",
+      "source": "Service de l’information aéronautique (SIA)",
+      "maj": "Juillet 2025",
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 3,
+      "maxNativeZoom": 15,
+      "format": "image/png"
+    },
+    "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$WMS": {
+      "title": "Parcs et Jardins",
+      "description": "Localisation des jardins sélectionnés par le Conservatoire des jardins et paysages pour favoriser leur connaissance auprès du public.",
+      "source": "Conservatoire des jardins et paysages",
+      "maj": "Avril 2017",
+      "serverUrl": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&",
+      "style": "default-style-CJP-PARCS-JARDINS_BDD-POI_WLD_WM",
+      "format": "image/png"
+    },
+    "POI.MONUMENTS_BDD_WLD_WM$WMS": {
+      "title": "Monuments nationaux",
+      "description": "Localisation des sites gérés par le Centre des monuments nationaux.",
+      "source": "Centre des monuments nationaux",
+      "maj": "Avril 2017",
+      "serverUrl": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&",
+      "style": "default-style-POI.MONUMENTS_BDD_WLD_WM",
+      "format": "image/png"
+    },
+    "POI.MUSEUM$WMS": {
+      "title": "Musées",
+      "description": "Localisation des musées.",
+      "source": "IGN",
+      "maj": "Avril 2024",
+      "serverUrl": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&",
+      "style": "default-style-POI.MUSEUM",
+      "format": "image/png"
+    },
+    "VILLAGESETAPE$WMS": {
+      "title": "Villages étapes",
+      "description": "Localisation des Villages étapes. Alternatives aux aires de services, les communes labellisées offrent une pause alliant commerces, équipements et convivialité.<br />Les communes labellisées Villages étapes sont des communes de moins de 5 000 habitants et sont situées à moins de 5 km d'un grand axe routier national.<br />Label national créé en 1995.",
+      "source": "Fédération française des villages étapes",
+      "maj": "Septembre 2025",
+      "serverUrl": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&",
+      "style": "default-style-VILLAGESETAPE",
+      "format": "image/png"
+    },
+    "IGNF_SITES-UNESCO$WMS": {
+      "title": "Patrimoine mondial de l'UNESCO",
+      "description": "Sites du patrimoine mondial de l'UNESCO : Le patrimoine mondial est une appellation attribuée à des lieux ou des biens, situés à travers le monde, possédant une valeur universelle exceptionnelle. A ce titre, ils sont inscrits sur la Liste du patrimoine mondial afin d’être protégés pour que les générations futures puissent encore les apprécier à leur tour.",
+      "source": "UNESCO, Institut national de l'information géographique et forestière",
+      "maj": "Février 2025",
+      "serverUrl": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&",
+      "style": "default-style-IGNF_SITES-UNESCO",
+      "format": "image/png"
+    },
+    "TRACES.RANDO.HIVERNALE$WMTS": {
+      "title": "Traces de randonnée hivernale",
+      "description": "Actuellement, seules les données relatives aux traces de randonnées hivernales dans les Alpes sont disponibles. Les données des autres massifs seront publiées ultérieurement.<br /><br />La Fondation Petzl soutient des projets d’intérêt général en lien avec la montagne et le monde vertical. Elle s’est donnée pour mission la prévention des accidents de montagne et d’avalanche.<br />Dans ce cadre, elle a entrepris, en partenariat avec Skitourenguru.ch, la numérisation des principales traces de randonnée hivernales sur les massifs montagneux français afin d’optimiser leur tracé en vue de réduire le risque d’avalanche et de glissade dangereuse dans les passages délicats.<br />Pour télécharger une trace sous format GPX et préparer vos courses, utilisez les applications Skitourenguru et Yéti.<br />Pour signaler une erreur dans un tracé ou suggérer une modification, contactez-nous sur randohiver@fondation-petzl.org<br />! Attention !<br />La pratique de la randonnée hivernale en montagne sauvage est une activité à risque. La planification et la conduite de vos activités de sports d’hiver demeurent sous votre entière responsabilité.",
+      "source": "Fondation Petzl",
+      "maj": "Décembre 2025",
+      "interactive": true,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 16,
+      "format": "image/png",
+      "quickLookUrl": "https://www.geoportail.gouv.fr/depot/layers/TRACES.RANDO.HIVERNALE/vignettes/TRACES-quickView.png",
+      "legendUrl": "https://www.geoportail.gouv.fr/depot/layers/TRACES.RANDO.HIVERNALE/legende/TRACES.RANDO.HIVERNALE-legend.png"
+    },
+
+    "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR$WMTS": {
+      "title": "Carte TOPO 25",
+      "description": "La carte topographique représente avec précision le relief, symbolisé par des courbes de niveaux, ainsi que les détails du terrain : routes, sentiers, constructions, bois, arbres isolé, rivières, sources… </br>Cette carte présente également des parcours et des informations pour la randonnée fournies par la Fédération Française de la Randonnée Pédestre (FFRandonnée) et le Club Vosgien.",
+      "source": "IGN, Gouvernement de la Nouvelle-Calédonie",
+      "maj": "Mars 2025",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/private/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 16,
+      "format": "image/jpeg"
+    },
+    "GEOGRAPHICALGRIDSYSTEMS.MAPS$WMTS": {
+      "title": "Cartes IGN",
+      "description": "Cinq types de cartes adaptées aux échelles d’affichage : cartes à grande échelle, cartes topographiques, cartes de tourisme, cartes administratives et routières, cartes à petite échelle.",
+      "source": "IGN, Gouvernement de la Nouvelle-Calédonie",
+      "maj": "Mise à jour mensuelle<br /><a href=\"https://www.geoportail.gouv.fr/depot/fiches/cartesIGN/composition_donnee_cartes_ign_classiques.pdf\" target=\"_blank\">Détail des dates de mises à jour par territoire</a>",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/private/wmts",
+      "minNativeZoom": 0,
+      "maxNativeZoom": 18,
+      "format": "image/jpeg"
+    },
+    "BNF-IGNF_GEOGRAPHICALGRIDSYSTEMS.CASSINI$WMTS": {
+      "title": "XVIIIe siècle (Carte de Cassini)",
+      "description": "Planches numérisées colorisées de la carte de Cassini détenue par la BNF",
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/wmts",
+      "minNativeZoom": 6,
+      "maxNativeZoom": 14,
+      "format": "image/png"
+    },
+
+    "PLAN.IGN.INTERACTIF$TMS": {
+      "hidden": true,
+      "serverUrl": "https://data.geopf.fr/tms/1.0.0/",
+      "title": "Plan IGN",
+      "description": "Plan vectoriel interactif. En cliquant sur le plan, les informations de légende et les données issues de la BD Topo s'affichent.",
+      "source": "IGN",
+      "maj": "Mise à jour mensuelle",
+      "format": "application/x-protobuf",
+      "styles": ["https://ignf.github.io/cartes-ign-app/plan-ign-interactif-style.json", "data/plan-ign-interactif-style.json"]
+    },
+    "PLAN.IGN.MIXTE$TMS": {
+      "hidden": true,
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/tms/1.0.0/",
+      "title": "Plan aérien",
+      "description": "Plan IGN mixte",
+      "source": "IGN",
+      "maj": "Mise à jour mensuelle",
+      "format": "application/x-protobuf",
+      "styles": [ "https://ignf.github.io/cartes-ign-app/mixte.json", "data/mixte.json"]
+    },
+    "OSM.POI$TMS": {
+      "hidden": true,
+      "serverUrl": "https://data.geopf.fr/tms/1.0.0/",
+      "title": "POI OSM interactif",
+      "description": "POI OSM interactif",
+      "source": "Open Street Map",
+      "format": "application/x-protobuf",
+      "styles": ["https://ignf.github.io/cartes-ign-app/poi-osm-style.json", "data/poi-osm-style.json"]
+    }
+  }
+}
