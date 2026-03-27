@@ -133,7 +133,7 @@ class TrackRecord {
     this.dom.finishRecordBtn.classList.remove("d-none");
     const firstLocation = Location.getCurrentPosition();
     if (firstLocation) {
-      this.#onNewLocation({
+      this.onNewLocationCallback({
         detail : {
           longitude: firstLocation.coords.longitude,
           latitude: firstLocation.coords.latitude,
@@ -143,11 +143,10 @@ class TrackRecord {
     }
     this.#startBgTracking();
 
-    // REMOVEME: testing
+    // For browser testing
     if (!Capacitor.isNativePlatform()) {
       this.map.on("moveend", this.onNewLocationCallback);
     }
-    // END removeme
   }
 
   /**
@@ -168,7 +167,7 @@ class TrackRecord {
     this.#stopBgTracking();
     const lastLocation = Location.getCurrentPosition();
     if (lastLocation) {
-      this.#onNewLocation({
+      this.onNewLocationCallback({
         detail : {
           longitude: lastLocation.coords.longitude,
           latitude: lastLocation.coords.latitude,
@@ -177,11 +176,10 @@ class TrackRecord {
       });
     }
 
-    // REMOVEME: testing
+    // For browser testing
     if (!Capacitor.isNativePlatform()) {
       this.map.off("moveend", this.onNewLocationCallback);
     }
-    // END removeme
   }
 
   /**
@@ -364,6 +362,12 @@ class TrackRecord {
       this.currentFeature.data.name = this.trackName;
       this.currentFeature.data.distance = turfLength(this.currentFeature, {units: "meters"});
       this.currentFeature.data.duration = Math.round(this.duration / 1000);
+      if (turfLength(this.currentFeature) > 2) {
+        this.currentFeature.data.elevationData.unit = "km";
+        this.currentFeature.data.elevationData.elevationData.forEach((elevation) => {
+          elevation.x = elevation.x / 1000;
+        });
+      }
       let id = Globals.myaccount.addTrack(this.currentFeature);
       this.dom.whileRecordingBtn.classList.add("d-none");
       this.dom.finishRecordBtn.classList.add("d-none");
@@ -489,7 +493,7 @@ class TrackRecord {
   }
 
   #onNewLocation(e) {
-    // REMOVEME: testing
+    // For browser testing
     if (!e.detail) {
       e.detail = {
         longitude: this.map.getCenter().lng,
@@ -497,7 +501,6 @@ class TrackRecord {
         altitude: Math.round(Math.random() * 1000), // Simulated altitude
       };
     }
-    // END removeme
     this.currentPoints.features.push({
       type: "Feature",
       geometry: {
@@ -511,7 +514,8 @@ class TrackRecord {
     this.duration += new Date().getTime() - this.startTime;
     this.startTime = new Date().getTime();
     this.currentFeature.geometry.coordinates.push([e.detail.longitude, e.detail.latitude, e.detail.altitude || 0, (new Date()).toISOString()]);
-    this.currentFeature.data.elevationData.elevationData.push({x: turfLength(this.currentFeature), y: e.detail.altitude || 0});
+    const currentDistance = turfLength(this.currentFeature, {units: "meters"});
+    this.currentFeature.data.elevationData.elevationData.push({x: currentDistance, y: e.detail.altitude || 0});
     this.currentFeature.data.elevationData.coordinates.push([e.detail.longitude, e.detail.latitude]);
     this.currentFeature.data.elevationData.profileLngLats.push([e.detail.longitude, e.detail.latitude]);
     if (this.currentPoints.features.length > 1) {
@@ -526,7 +530,7 @@ class TrackRecord {
     }
     this.#updateSources();
     this.dom.timer.textContent = utils.convertSecondsToTime(Math.round(this.duration / 1000), true, "HH:MM:SS");
-    this.dom.distance.textContent = utils.convertDistance(turfLength(this.currentFeature, {units: "meters"}), 2);
+    this.dom.distance.textContent = utils.convertDistance(currentDistance, 2);
     this.dom.dplus.textContent = `${Math.round(100 * this.currentFeature.data.elevationData.dplus) / 100} m`;
   }
 
