@@ -468,6 +468,8 @@ class Position {
     if (type === "myposition" || type === "context") {
       this.immersivePosition = new ImmersivePosion({lat: this.coordinates.lat, lng: this.coordinates.lon});
       html = `<div id="immersivePostionHtmlBefore">${this.immersivePosition.computeHtml()}</div>`;
+      const BAMiframe = `<iframe frameBorder="0" src="https://pnx-si.github.io/BAM-widget/#/?filtersOnList=true&buffer=500&x=${this.coordinates.lon}&y=${this.coordinates.lat}&connector=GBIF&mode=gallery&nbTaxonPerLine=5&showFilters=false&lang=fr&widgetType=list&switchModeAvailable=false&primaryColor=aaa&GBIF_ENDPOINT=https://api.gbif.org/v1&LIMIT=300&NB_PAGES=10&soundSource=wikidata&imageSource=wikidata" type="" style="width: 100%; height: 600px"></iframe>`;
+      html += BAMiframe;
     }
 
     this.header = position.text;
