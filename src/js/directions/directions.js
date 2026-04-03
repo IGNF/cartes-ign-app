@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import { decode } from "@placemarkio/polyline";
+import { decode, encode } from "@placemarkio/polyline";
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
 import maplibregl from "maplibre-gl";
 import DirectionsDOM from "./directions-dom";
@@ -77,7 +77,7 @@ class Directions {
       layers: DirectionsLayers.layers,
       dragThreshold: 10,
       refreshOnMove: false,
-      bearings: false
+      bearings: false,
     };
 
     // paramètres du calcul
@@ -97,10 +97,47 @@ class Directions {
       let url;
       let method = "get";
       let payload = "";
-      if (configuration.profile == "pedestrian") {
+      let headers = {};
+      let body = "";
+      this.configuration.requestOptions.geometries = "polyline5";
+      if (configuration.profile === "pedestrian") {
         configuration.optimization = "shortest";
       }
-      url = `${configuration.api}?resource=bdtopo-valhalla&profile=${configuration.profile}&optimization=${configuration.optimization}&start=${waypointsCoordinates.shift()}&end=${waypointsCoordinates.pop()}&intermediates=${waypointsCoordinates.join("|")}&geometryFormat=polyline`;
+      // API Géovélo
+      if (configuration.profile === "bicycle") {
+        this.configuration.requestOptions.geometries = "polyline6";
+        method = "post";
+        url = "https://backend.geovelo.fr/api/v2/computedroutes?geometry=true&single_result=true&bike_stations=false";
+        const bikeDetails = {};
+        if (this.electricBike) {
+          bikeDetails.eBike = true;
+        }
+        headers["Content-Type"] = "application/json";
+        headers["Api-Key"] = process.env.geovelo_key;
+        let waypointIdx = 0;
+        const waypoints = waypointsCoordinates.map((coords) => {
+          let title = `Point intermédiaire ${waypointIdx}`;
+          if (waypointIdx === 0) {
+            title = "Départ";
+          }
+          if (waypointIdx === waypointsCoordinates.length - 1) {
+            title = "Arrivée";
+          }
+          waypointIdx++;
+          return {
+            title: title,
+            latitude: coords[1],
+            longitude: coords[0],
+          };
+        });
+        body = JSON.stringify({
+          waypoints: waypoints,
+          bikeDetails: bikeDetails,
+        });
+      // API GPF
+      } else {
+        url = `${configuration.api}?resource=bdtopo-valhalla&profile=${configuration.profile}&optimization=${configuration.optimization}&start=${waypointsCoordinates.shift()}&end=${waypointsCoordinates.pop()}&intermediates=${waypointsCoordinates.join("|")}&geometryFormat=polyline`;
+      }
 
       if (waypointsBearings) {
         console.debug(waypointsBearings);
@@ -109,16 +146,19 @@ class Directions {
       return {
         method,
         url,
-        payload
+        payload,
+        headers,
+        body,
       };
     };
 
-    const self = this;
-    // REMOVEME: override buildRequest method
-    this.obj.fetch = async function({ method, url, payload }) {
+    this.obj.fetch = async function({ method, url, payload, headers, body }) {
+      if (payload) {
+        console.warn(payload);
+      }
       const response = (await (method === "get"
         ? await fetch(`${url}`, { signal: this.abortController?.signal })
-        : console.debug(payload)
+        : await fetch(`${url}`, { signal: this.abortController?.signal, method: method, headers: headers, body: body })
       ).json());
 
       const formatedResponse = {
@@ -127,63 +167,92 @@ class Directions {
         waypoints: [],
       };
 
-      const route = {
-        geometry: response.geometry,
-        legs: [],
-        weight_name: "routability",
-        weight: this.configuration.optimization === "fastest" ? response.duration : response.distance,
-        duration: response.duration,
-        distance: response.distance,
-      };
-      const pointFields = Array.from(self.dom.container.querySelectorAll(".inputDirectionsLocations")).filter(input => input.value.trim() !== "");
+      // API GPF
+      if (response.geometry) {
+        const route = {
+          geometry: response.geometry,
+          legs: [],
+          weight_name: "routability",
+          weight: this.configuration.optimization === "fastest" ? response.duration : response.distance,
+          duration: response.duration,
+          distance: response.distance,
+        };
+        const pointFields = Array.from(self.dom.container.querySelectorAll(".inputDirectionsLocations")).filter(input => input.value.trim() !== "");
 
-      for (let i = 0; i < response.portions.length; i++) {
-        const portion = response.portions[i];
-        if (formatedResponse.waypoints.length === 0) {
+        for (let i = 0; i < response.portions.length; i++) {
+          const portion = response.portions[i];
+          if (formatedResponse.waypoints.length === 0) {
+            formatedResponse.waypoints.push({
+              hint: "-1",
+              name: pointFields[0].value,
+              location: [parseFloat(portion.start.split(",")[0]), parseFloat(portion.start.split(",")[1])],
+            });
+          }
           formatedResponse.waypoints.push({
-            hint: "-1",
-            name: pointFields[0].value,
-            location: [parseFloat(portion.start.split(",")[0]), parseFloat(portion.start.split(",")[1])],
+            hint: "" + i,
+            name: pointFields[i + 1].value,
+            location: [parseFloat(portion.end.split(",")[0]), parseFloat(portion.end.split(",")[1])],
           });
-        }
-        formatedResponse.waypoints.push({
-          hint: "" + i,
-          name: pointFields[i + 1].value,
-          location: [parseFloat(portion.end.split(",")[0]), parseFloat(portion.end.split(",")[1])],
-        });
-        route.legs.push({
-          steps: [],
-          summary: "" + i,
-          weight: this.configuration.optimization === "fastest" ? portion.duration : portion.distance,
-          duration: portion.duration,
-          distance: portion.distance,
-        });
-        for (let j = 0; j < portion.steps.length; j++) {
-          const step = portion.steps[j];
-          route.legs[i].steps.push({
-            geometry: step.geometry,
-            maneuver: {
-              bearing_after: 0,
-              bearing_before: 0,
-              location: [0, 0],
-              modifier: step.instruction.modifier,
-              type: step.instruction.type,
-            },
-            mode: this.configuration.profile,
-            driving_side: "right",
-            name: step.attributes.name.nom_1_droite,
-            intersections: [],
-            weight: this.configuration.optimization === "fastest" ? step.duration : step.distance,
-            duration: step.duration,
-            distance: step.distance,
+          route.legs.push({
+            steps: [],
+            summary: "" + i,
+            weight: this.configuration.optimization === "fastest" ? portion.duration : portion.distance,
+            duration: portion.duration,
+            distance: portion.distance,
           });
+          for (let j = 0; j < portion.steps.length; j++) {
+            const step = portion.steps[j];
+            route.legs[i].steps.push({
+              geometry: step.geometry,
+              maneuver: {
+                bearing_after: 0,
+                bearing_before: 0,
+                location: [0, 0],
+                modifier: step.instruction.modifier,
+                type: step.instruction.type,
+              },
+              mode: this.configuration.profile,
+              driving_side: "right",
+              name: step.attributes.name.nom_1_droite,
+              intersections: [],
+              weight: this.configuration.optimization === "fastest" ? step.duration : step.distance,
+              duration: step.duration,
+              distance: step.distance,
+            });
+          }
         }
+        formatedResponse.routes.push(route);
+      // API Geovelo
+      } else if (response[0].sections) {
+        const routeCoords = decode(response[0].sections[0].geometry, 6);
+
+        const newGeom = encode([
+          [response[0].waypoints[0].longitude, response[0].waypoints[0].latitude],
+          ...routeCoords,
+          [response[0].waypoints.slice(-1)[0].longitude, response[0].waypoints.slice(-1)[0].latitude],
+        ], 6);
+
+        const route = {
+          geometry: newGeom,
+          legs: [{ steps: [] }],
+          weight_name: "routability",
+          weight: this.configuration.optimization === "fastest" ? response.duration : response.distance,
+          duration: response[0].duration,
+          distance: response[0].distances.total,
+        };
+        response[0].waypoints.forEach( (waypoint) => {
+          formatedResponse.waypoints.push({
+            hint: waypoint.title,
+            name: waypoint.title,
+            location: [waypoint.longitude, waypoint.latitude],
+          });
+        });
+
+        formatedResponse.routes.push(route);
       }
-      formatedResponse.routes.push(route);
 
       return formatedResponse;
     };
-    // END REMOVEME
 
     // INFO sans interaction par défaut !
     // > choix d'activer via la méthode publique...
@@ -198,9 +267,6 @@ class Directions {
     // Source et layers de preview
     this.#addPreviewSourcesAndLayers();
     this.previewPoints = [];
-
-    // fonction d'event avec bind
-    this.handleAddWayPoint = this.#onAddWayPoint.bind(this);
 
     // event interactif
     this.#listeners();
@@ -260,6 +326,9 @@ class Directions {
       case "Voiture":
         this.configuration.profile = "car";
         break;
+      case "Velo":
+        this.configuration.profile = "bicycle";
+        break;
       default:
         break;
       }
@@ -280,11 +349,15 @@ class Directions {
       default:
         break;
       }
+      if (settings.transport === "Velo") {
+        message = "Itinéraire calculé via Géovélo.";
+      }
       settings.computation = {
         code : code,
         message : message
       };
     }
+    this.obj.electricBike = settings.electricBike;
     this.settings = settings;
     if (settings.locations && settings.locations.length) {
       try {
@@ -295,9 +368,9 @@ class Directions {
           if (settings.locations[index]) {
             point = JSON.parse(settings.locations[index]);
             points.push(point);
-            this.obj.addWaypoint(point);
           }
         }
+        this.obj.waypoints = points;
       } catch (e) {
         // catching des exceptions JSON
         console.error(e);
@@ -310,7 +383,6 @@ class Directions {
    * ajout d'ecouteurs pour la saisie interactive
    */
   #listeners() {
-    this.obj.on("addwaypoint", this.handleAddWayPoint);
     // events
     this.obj.on("fetchroutesstart", () => {
       this.__setComputeButtonLoading();
@@ -331,19 +403,27 @@ class Directions {
       //  }
       if (e.data.code === "Ok") {
         this.#removePreview();
-        this.results = new DirectionsResults(this.map, null, {
-          duration : e.data.routes[0].duration || "",
-          distance : e.data.routes[0].distance || "",
-          transport : this.settings.transport,
-          computation : this.settings.computation.message,
-          instructions : e.data.routes[0].legs,
-          geometry : e.data.routes[0].geometry,
-          waypoints : e.data.waypoints,
-          elevation : this.elevation,
-        });
+        try {
+          this.results = new DirectionsResults(this.map, null, {
+            duration : e.data.routes[0].duration || "",
+            distance : e.data.routes[0].distance || "",
+            transport : this.settings.transport,
+            computation : this.settings.computation.message,
+            instructions : e.data.routes[0].legs,
+            geometry : e.data.routes[0].geometry,
+            waypoints : e.data.waypoints,
+            elevation : this.elevation,
+          });
+        } catch (error) {
+          console.error(error);
+        }
         this.results.show();
         let routeCoordinates = [];
-        decode(e.data.routes[0].geometry).forEach( (lnglat) => {
+        let precision = 5;
+        if (this.settings.transport === "Velo") {
+          precision = 6;
+        }
+        decode(e.data.routes[0].geometry, precision).forEach( (lnglat) => {
           routeCoordinates.push([lnglat[0], lnglat[1]]);
         });
         var padding;
@@ -371,59 +451,12 @@ class Directions {
           this.elevation.loadingDomInDocument = false;
           this.elevation.setCoordinates(routeCoordinates);
           this.elevation.compute(e.data.routes[0].distance).then( () => {
-            const newDuration = GisUtils.getHikeTimeScarfsRule(this.results.options.distance, this.elevation.dplus, Globals.walkingSpeed);
-            this.results.updateDuration(newDuration);
+            if (this.configuration.profile === "pedestrian") {
+              const newDuration = GisUtils.getHikeTimeScarfsRule(this.results.options.distance, this.elevation.dplus, Globals.walkingSpeed);
+              this.results.updateDuration(newDuration);
+            }
           });
         }
-      }
-    });
-  }
-
-  /**
-   * ecouteur lors de l'ajout d'un point avec addWayPoint()
-   * @see https://maplibre.org/maplibre-gl-directions/api/interfaces/MapLibreGlDirectionsWaypointEventData.html
-   * @param {*} e
-   * @returns
-   */
-  #onAddWayPoint(e) {
-    var index = e.data.index;
-    if (!e.originalEvent) {
-      return;
-    }
-    var coordinates = e.originalEvent.lngLat;
-    Reverse.compute({
-      lon : coordinates.lng,
-      lat : coordinates.lat
-    }).then(() => {
-    }).catch(() => {
-    }).finally(() => {
-      var target = null;
-      var coords = Reverse.getCoordinates() || {lon : coordinates.lng, lat : coordinates.lat};
-      var address = Reverse.getAddress() || coords.lon.toFixed(6) + ", " + coords.lat.toFixed(6);
-      var strAddress = address;
-      if (typeof address !== "string") {
-        strAddress = "";
-        strAddress += (address.number !== "") ? address.number + " " : "";
-        strAddress += (address.street !== "") ? address.street + ", " : "";
-        strAddress += address.city + ", " + address.postcode;
-      }
-      // start
-      if (index === 0) {
-        target = document.getElementById("directionsLocation_start");
-      }
-      // end
-      if (index === 1) {
-        target = document.getElementById("directionsLocation_end");
-      }
-      // step
-      if (index > 1) {
-        target = document.getElementById("directionsLocation_step_" + (index - 1));
-        target.parentNode.parentNode.classList.remove("hidden");
-      }
-      // on ajoute les resultats dans le contrôle
-      if (target) {
-        target.dataset.coordinates = "[" + coords.lon + "," + coords.lat + "]";
-        target.value = strAddress;
       }
     });
   }
@@ -473,7 +506,6 @@ class Directions {
    */
   clear () {
     this.obj.clear();
-    this.obj.off("addwaypoint", this.handleAddWayPoint);
     var locations = document.querySelectorAll(".inputDirectionsLocations");
     for (let index = 0; index < locations.length; index++) {
       const element = locations[index];
