@@ -77,6 +77,61 @@ function getEditoPopup (map) {
   });
 }
 
+function getGpfStatusPopup (map) {
+  fetch("https://ignf.github.io/cartes-ign-services-uptime/cartes-ign-status-TEST.json?v=0").then(res => res.json()).then( (res) => {
+    let msgDiv = null;
+    let serviceList = null;
+    for (const [key, value] of Object.entries(res)) {
+      if (value.up) {
+        continue;
+      }
+      if (!msgDiv) {
+        msgDiv = document.createElement("div");
+        const titleDiv = document.createElement("div");
+        titleDiv.classList.add("divPositionTitle");
+        titleDiv.innerText = "Fonctionnalités indisponibles";
+        msgDiv.appendChild(titleDiv);
+
+        const contentDiv = document.createElement("div");
+        contentDiv.classList.add("divPopupContent");
+        msgDiv.appendChild(contentDiv);
+
+        const intro = document.createElement("p");
+        intro.innerText = "Du fait d'une indisponibilité de la plateforme sur laquelle l'application se base, les fonctionnalités suivantes peuvent rencontrer des problèmes ou être indisponibles :";
+        contentDiv.appendChild(intro);
+
+        serviceList = document.createElement("ul");
+        contentDiv.appendChild(serviceList);
+      }
+      const li = document.createElement("li");
+      const date = new Date(0);
+      date.setUTCSeconds(value.since);
+      let sinceText = "";
+      if (value.since !== 0) {
+        sinceText = `(depuis le ${date.toLocaleString("fr-FR", {month: "numeric", day: "numeric", hour: "2-digit", minute:"2-digit"})})`;
+      }
+      const element = `
+        <span class="gpfServiceName">${key}</span> ${sinceText}
+      `;
+      li.innerHTML = element;
+      serviceList.appendChild(li);
+    }
+    if (msgDiv) {
+      PopupUtils.showGpfStatusPopup(`
+      <div id="editoPopup">
+        <div class="divPopupClose" onclick="onClosegpfStatusPopup(event)"></div>
+        <div>${msgDiv.innerHTML}</div>
+      </div>
+      `
+      , map);
+    }
+
+  }).catch((err) => {
+    console.warn("Could not load gpf status");
+    console.warn(err);
+  });
+}
+
 function getOnboardingModal(id = null, html = null) {
   if (
     id === null && localStorage.getItem("lastOnboardId") !== null && localStorage.getItem("lastOnboardId") === `${OnboardingConfig.id}`
@@ -123,4 +178,5 @@ export default {
   getNetworkPopup,
   getEditoPopup,
   getOnboardingModal,
+  getGpfStatusPopup,
 };
