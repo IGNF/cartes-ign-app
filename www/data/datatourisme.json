@@ -20,7 +20,7 @@
       "source": "datatourisme",
       "source-layer": "datatourisme",
       "layout": {
-        "icon-image": "Phare",
+        "icon-image": "datatourisme-fma",
         "icon-allow-overlap": ["step", ["zoom"], false, 14, true],
         "icon-size": [
           "interpolate",
