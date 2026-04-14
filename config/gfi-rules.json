@@ -18,6 +18,7 @@
         ["<p class=\"monumentsHistoriquesContent\"><b>Public concerné&nbsp;:</b><br /> {{clientTarget}}</p>"],
         ["<hr />"],
         ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{registrationWeb}}\">Réserver en ligne</a></p>"],
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{registrationFacebook}}\">Page Facebook</a></p>"],
         ["<p class=\"positionTelephone positionInfo\"><a target=\"_blank\" href=\"tel:{{registrationPhone}}\">Réserver par téléphone</a></p>"],
         ["<p class=\"positionEmail positionInfo\"><a target=\"_blank\" href=\"mailto:{{registrationEmail}}\">Réserver par courriel</a></p>"]
       ]

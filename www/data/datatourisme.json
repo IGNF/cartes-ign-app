@@ -20,7 +20,7 @@
       "source": "datatourisme",
       "source-layer": "datatourisme",
       "layout": {
-        "icon-image": "Phare",
+        "icon-image": "datatourisme-fma",
         "icon-allow-overlap": ["step", ["zoom"], false, 14, true],
         "icon-size": [
           "interpolate",
@@ -28,20 +28,20 @@
           ["zoom"],
           0,
           ["case",
-            ["boolean", ["get", "highlight"], false], 2,
-            1.5],
+            ["boolean", ["get", "highlight"], false], 0.6,
+            0.45],
           9,
           ["case",
-            ["boolean", ["get", "highlight"], false], 2,
-            1.5],
+            ["boolean", ["get", "highlight"], false], 0.6,
+            0.45],
           15,
           ["case",
-            ["boolean", ["get", "highlight"], false], 3.5,
-            2.5],
+            ["boolean", ["get", "highlight"], false], 1.15,
+            0.75],
           19,
           ["case",
-            ["boolean", ["get", "highlight"], false], 4.5,
-            3]
+            ["boolean", ["get", "highlight"], false], 1.5,
+            0.9]
         ],
         "icon-anchor": "bottom"
       }
