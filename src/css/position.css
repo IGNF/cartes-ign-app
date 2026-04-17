@@ -26,6 +26,10 @@
   font-family: "Fira Sans Semibold";
 }
 
+.divPositionTitle:has(.filterTitleImg) {
+  display: flex;
+}
+
 #position-landmark-advanced-tools {
   font-family: "Open Sans Semibold";
   font-size: 12px;
@@ -36,7 +40,7 @@
  */
 .divPositionAdressOriginInfo {
   color: var(--darker-green);
-  background-color: var(--light-green);
+  background-color: var(--light-grey);
   padding: 14px 44px 14px 10px;
   border-radius: 6px;
   position: relative;
@@ -75,13 +79,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 10px 0;
+  margin: 16px 0;
 }
 
 .lblPositionImgAddress {
   width: 28px;
   height: 28px;
-  background-color: var(--light-green);
+  background-color: var(--light-grey);
   border-radius: 100%;
   margin-right: 8px;
   align-self: flex-start;
@@ -98,7 +102,7 @@
   mask-size: 28px;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  background-color: var(--darker-green);
+  background-color: var(--dark-grey);
 }
 
 .lblPositionImgAddress.event {
@@ -178,9 +182,8 @@
 }
 
 .lblPositionImg {
-  height: 25px;
-  width: 25px;
-  background-size: 25px;
+  height: 15px;
+  width: 15px;
   background-repeat: no-repeat;
   margin-right: 6px;
 }
@@ -188,37 +191,49 @@
 .lblPositionShareImg {
   -webkit-mask: url("assets/share.svg") center;
   mask: url("assets/share.svg") center;
+  -webkit-mask-size: 20px;
+  mask-size: 20px;
 }
 
 .lblPositionNearImg {
   -webkit-mask: url("assets/isochrone-white.svg") center;
   mask: url("assets/isochrone-white.svg") center;
+  -webkit-mask-size: 20px;
+  mask-size: 20px;
 }
 
 .lblPositionRouteImg {
   -webkit-mask: url("assets/syrendre-white.svg") center;
   mask: url("assets/syrendre-white.svg") center;
+  -webkit-mask-size: 20px;
+  mask-size: 20px;
 }
 
 .lblPositionSignalImg {
   -webkit-mask: url("assets/signal.svg") center;
   mask: url("assets/signal.svg") center;
+  -webkit-mask-size: 20px;
+  mask-size: 20px;
 }
 
 .lblPositionLandmarkImg {
   -webkit-mask: url("assets/landmark-white.svg") center;
   mask: url("assets/landmark-white.svg") center;
+  -webkit-mask-size: 20px;
+  mask-size: 20px;
 }
 
 .lblPositionLandmarkEditImg {
   -webkit-mask: url("assets/edit-white.svg") center;
   mask: url("assets/edit-white.svg") center;
+  -webkit-mask-size: 20px;
+  mask-size: 20px;
 }
 
 .btnPositionButtons {
   display: flex;
   align-items: center;
-  padding: 10px 14px;
+  padding: 8px 14px;
   color: white;
   background-color: var(--dark-green);
   border-radius: 50px;
@@ -230,7 +245,7 @@
   border: none;
   white-space: nowrap;
   font-family: "Open Sans Semibold";
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .btnPositionButtons.event {
@@ -418,10 +433,12 @@
   font-size: 13px;
   color: var(--mid-grey);
   margin: 0;
+  font-weight: 600;
 }
 
 .positionSubTitle a {
   color: var(--mid-grey);
+  text-underline-offset: 25%;
 }
 
 .positionSubTitle a.event {
@@ -431,16 +448,47 @@
 .positionSubTitle a::after {
   content: "";
   display: inline-block;
-  background-image: url("assets/external-link.svg");
+  background-color: var(--darker-green);
+  -webkit-mask: url(assets/external-link.svg) center;
+  mask: url(assets/external-link.svg) center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   width: 1.5em;
-  height: 1em;
+  height: calc(1em + 4px);
   background-size: 1.2em;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 0.8em;
   background-position: bottom;
+  transform: translateY(3px);
 }
 
+.positionHtmlEvent {
+  background-image: url("assets/date.svg");
+  background-repeat: no-repeat;
+  background-position: left 15px top 18px;
+  background-color: white;
+  padding: 18px 10px 16px 46px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.positionHtmlEvent a {
+  color: var(--darker-green);
+  text-underline-offset: 25%;
+}
+
+.htmlEventDate {
+  font-family: "Fira Sans Semibold";
+  font-size: 14px;
+}
+
+.positionHtmlEvent p {
+  margin: 0;
+}
 
 .unescoDate {
   display: flex;
@@ -468,6 +516,17 @@
   border-radius: 6px;
 }
 
+.positionHtmlAfter a {
+  color: var(--darker-green);
+  text-underline-offset: 25%;
+}
+
+.positionInfoFlex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
 .positionInfo {
   font-family: "Open Sans Semibold";
   padding-left: 5px;
@@ -479,8 +538,12 @@
   align-items: center;
   background-position: 10px center;
   color: var(--darker-green);
-  background-color: var(--light-green);
+  background-color: var(--light-grey);
   border-radius: 100px;
+}
+
+.positionInfoFlex .positionInfo {
+  margin: 0;
 }
 
 .positionInfo.event {
@@ -528,6 +591,11 @@
 .positionWeb::before {
   -webkit-mask: url("assets/web.svg") center left;
   mask: url("assets/web.svg") center left;
+}
+
+.positionWeb.positionFacebook::before {
+  -webkit-mask: url("assets/fb.svg") center left;
+  mask: url("assets/fb.svg") center left;
 }
 
 .positionWeb::after {
