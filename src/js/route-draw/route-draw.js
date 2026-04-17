@@ -22,9 +22,6 @@ import lineSlice from "@turf/line-slice";
 import cleanCoords from "@turf/clean-coords";
 import pThrottle from "p-throttle";
 
-import RouteDepartureIcon from "../../css/assets/route-draw/departure-marker.png";
-import RouteDestinationIcon from "../../css/assets/route-draw/destination-marker.png";
-
 /**
  * Interface sur le tracé d'itinéraire
  * @module RouteDraw
@@ -104,13 +101,6 @@ class RouteDraw {
     // Profil Altimétrique
     this.elevation = new ElevationLineControl({ target: document.getElementById("routedraw-elevationline") });
     this.elevation.addSourcesAndLayers();
-
-    this.map.loadImage(RouteDepartureIcon).then((image) => {
-      this.map.addImage("routeDepartureIcon", image.data);
-    });
-    this.map.loadImage(RouteDestinationIcon).then((image) => {
-      this.map.addImage("routeDestinationIcon", image.data);
-    });
 
     // fonction d'event avec bind
     this.handleAddWayPoint = this.#onAddWayPoint.bind(this);

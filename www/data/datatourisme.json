@@ -1,0 +1,50 @@
+{
+  "version": 8,
+  "name": "Datatourisme - Fêtes et manifestations",
+  "glyphs": "https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf",
+  "sprite": "data/poi-osm-sprite",
+  "sources": {
+    "datatourisme": {
+      "type": "vector",
+      "url": "pmtiles://https://data.geopf.fr/chunk/telechargement/download/DATATOURISME.FMA/archive/data.pmtiles"
+    }
+  },
+  "transition": {
+    "duration": 300,
+    "delay": 0
+  },
+  "layers": [
+    {
+      "id": "datatourisme",
+      "type": "symbol",
+      "source": "datatourisme",
+      "source-layer": "datatourisme",
+      "layout": {
+        "icon-image": "datatourisme-fma",
+        "icon-allow-overlap": ["step", ["zoom"], false, 14, true],
+        "icon-size": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          0,
+          ["case",
+            ["boolean", ["get", "highlight"], false], 0.6,
+            0.45],
+          9,
+          ["case",
+            ["boolean", ["get", "highlight"], false], 0.6,
+            0.45],
+          15,
+          ["case",
+            ["boolean", ["get", "highlight"], false], 1.15,
+            0.75],
+          19,
+          ["case",
+            ["boolean", ["get", "highlight"], false], 1.5,
+            0.9]
+        ],
+        "icon-anchor": "bottom"
+      }
+    }
+  ]
+}

@@ -173,6 +173,7 @@ class Position {
     var strContainer = `
       <div id="${id.main}">
           <div class="divPositionTitleWrapper"><div class="divPositionTitle">${this.header}</div>${htmlAdvanced}</div>
+          ${this.additionalHtml.eventHtml}
           <div class="divPositionAdressOriginInfo${eventClass}">Adresse la plus proche du point sélectionné</div>
           <div class="divPositionAddress">
               <label class="lblPositionImgAddress${eventClass}"></label>
@@ -435,6 +436,7 @@ class Position {
    * @param {string} options.text texte d'en-tête de la position
    * @param {string} options.html html situé avant les boutons d'action
    * @param {string} options.html2 html situé après les boutons d'action
+   * @param {string} options.htmlEvent html spécifique pour les événements (ex. icône de l'événement à côté du titre)
    * @param {Function} options.hideCallback fonction de callback pour la fermeture de la position (pour les animations)
    * @param {string} options.type type de position : default, context, myposition ou landmark
    * @public
@@ -444,6 +446,7 @@ class Position {
     const text = options.text || "Repère placé";
     let html = options.html || "";
     const html2 = options.html2 || "";
+    const htmlEvent = options.htmlEvent || "";
     const hideCallback = options.hideCallback || null;
     const type = options.type || "default";
     const isEvent = options.isEvent || false;
@@ -484,6 +487,7 @@ class Position {
     }
     this.additionalHtml.beforeButtons = html;
     this.additionalHtml.afterButtons = html2;
+    this.additionalHtml.eventHtml = htmlEvent;
 
     this.address = Reverse.getAddress() || {
       number: "",
