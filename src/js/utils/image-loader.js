@@ -44,21 +44,3 @@ export async function loadImagesFromFolder(map, requireContext, options = {}) {
 
   await Promise.all(promises);
 }
-
-/**
- * Loads specific images and adds them to the map sprite
- * @param {maplibregl.Map} map - The map instance
- * @param {Object} imageImports - Object with image names as keys and import paths as values
- * @returns {Promise<void>} - Resolves when all images are loaded
- */
-export async function loadSpecificImages(map, imageImports) {
-  const promises = Object.entries(imageImports).map(([imageName, imageUrl]) => {
-    return map.loadImage(imageUrl).then((image) => {
-      map.addImage(imageName, image.data);
-    }).catch((err) => {
-      console.warn(`Failed to load image "${imageName}":`, err);
-    });
-  });
-
-  await Promise.all(promises);
-}
