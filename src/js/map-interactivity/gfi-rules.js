@@ -39,18 +39,6 @@ const gfiRules = {
     } else {
       result.title = template.title + "</p>";
     }
-    if (template["pretitle"]) {
-      let pretitle = template["pretitle"];
-      if (template["pretitle"][0] === "@") {
-        let str = featureProperties[template.pretitle.split("@")[1]].replace("", "'");
-        if (str.length) {
-          pretitle = str[0].toUpperCase() + str.slice(1);
-        } else {
-          pretitle = "";
-        }
-      }
-      result.title = pretitle + result.title;
-    }
     result.title = `<p class="positionTitle">${result.title}`;
     if (template["title2"]) {
       let str = "";
@@ -88,6 +76,18 @@ const gfiRules = {
     }
     if (template["subtitle"]) {
       result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`;
+    }
+    if (template["pretitle"]) {
+      let pretitle = template["pretitle"];
+      if (template["pretitle"][0] === "@") {
+        let str = featureProperties[template.pretitle.split("@")[1]].replace("", "'");
+        if (str.length) {
+          pretitle = str[0].toUpperCase() + str.slice(1);
+        } else {
+          pretitle = "";
+        }
+      }
+      result.title = pretitle + `<div class="positionTitleWrapper">${result.title}</div>`;
     }
     let bodyBefore = "";
     if (template.bodyBefore) {
@@ -168,8 +168,36 @@ const gfiRules = {
       bodyAfter += "</div>";
     }
 
+    let htmlEvent = "";
+    if (template.htmlEvent) {
+      htmlEvent += "<div class='positionHtmlEvent'>";
+      template.htmlEvent.forEach( (bodyElement) => {
+        let notFound = false;
+        let p = bodyElement.map((str) => {
+          let match = str.match("{{([^}]+)}}");
+          while (match) {
+            if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+              if (Array.isArray(featureProperties[match[1]])) {
+                featureProperties[match[1]] = featureProperties[match[1]].join(", ");
+              }
+              str = str.replace(match[0], featureProperties[match[1]]);
+              match = str.match("{{([^}]+)}}");
+            } else {
+              notFound = true;
+              return "";
+            }
+          }
+          return str;
+        });
+        if (p && !notFound)
+          htmlEvent += `${p.join(" ")}`;
+      });
+      htmlEvent += "</div>";
+    }
+
     result.html = bodyBefore;
     result.html2 = bodyAfter;
+    result.htmlEvent = htmlEvent;
     return result;
   }
 };
