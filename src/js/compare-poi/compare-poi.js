@@ -12,7 +12,6 @@ import ActionSheet from "../action-sheet";
 
 import { Toast } from "@capacitor/toast";
 
-import ComparePoiIcon from "../../css/assets/comparePoi.png";
 import ComparePoiIconSvg from "../../css/assets/comparePoi.svg";
 import CompareLandmarkBlue from "../../css/assets/compareLandmark/compare-landmark-blue.svg";
 import CompareLandmarkPurple from "../../css/assets/compareLandmark/compare-landmark-purple.svg";
@@ -97,9 +96,6 @@ class ComparePoi {
     this.map.addSource(this.configuration.source, {
       type: "geojson",
       data: config.comparePoiData,
-    });
-    this.map.loadImage(ComparePoiIcon).then((image) => {
-      this.map.addImage("comparePoiIcon", image.data);
     });
   }
 
