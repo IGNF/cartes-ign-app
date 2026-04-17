@@ -32,7 +32,7 @@ import { Toast } from "@capacitor/toast";
 import { Protocol } from "pmtiles";
 import PinchZoom from "pinch-zoom-js";
 
-import { loadImagesFromFolder, loadSpecificImages } from "./utils/image-loader";
+import { loadImagesFromFolder } from "./utils/image-loader";
 
 // import CSS
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
