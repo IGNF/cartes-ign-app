@@ -22,7 +22,7 @@
 
 .divPositionTitle {
   text-align: left;
-  font-size: 17px;
+  font-size: 20px;
   font-family: "Fira Sans Semibold";
 }
 
@@ -228,6 +228,20 @@
   mask: url("assets/edit-white.svg") center;
   -webkit-mask-size: 20px;
   mask-size: 20px;
+}
+
+.lblPositionSaveImg {
+  -webkit-mask: url("assets/route-draw/save.svg") center;
+  mask: url("assets/route-draw/save.svg") center;
+  -webkit-mask-size: 24px;
+  mask-size: 24px;
+}
+
+.lblPositionExportImg {
+  -webkit-mask: url("assets/export.svg") center;
+  mask: url("assets/export.svg") center;
+  -webkit-mask-size: 33px;
+  mask-size: 33px;
 }
 
 .btnPositionButtons {
@@ -678,11 +692,15 @@
 .foldable {
   max-height: calc(13px * var(--text-zoom) * 5.4);
   line-height: calc(13px * var(--text-zoom) * 1.35);
-  overflow: hidden;
+  overflow: clip;
   text-overflow: ellipsis;
   transition: max-height 0.3s ease-in-out;
   position: relative;
   margin: 0;
+}
+
+.foldable.instructions {
+  max-height: calc(13px * var(--text-zoom) * 10.8);
 }
 
 .foldable p, .foldable h1, .foldable h2, .foldable h3, .foldable h4 {
@@ -690,6 +708,7 @@
   line-height: calc(13px * var(--text-zoom) * 1.35);
   font-size: 13px;
   font-family: "Open Sans";
+  pointer-events: none;
 }
 
 .foldableInput + .foldable::after {
@@ -726,6 +745,11 @@
   display: inline-block;
 }
 
+.foldableInput ~ .foldableLabel.instructions::after {
+  content: "toutes les instructions";
+  display: inline-block;
+}
+
 .foldableInput:checked ~ .foldableLabel::after {
   content: "moins";
   display: inline-block;
@@ -746,4 +770,239 @@
 .positionInfo::before {
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+}
+
+.geotrekSubtitleInfos {
+  color: var(--black);
+}
+
+.geotrekSubtitleInfos span::before {
+  display: inline-block;
+  content: "";
+  width: 18px;
+  height: 18px;
+  background-color: var(--black);
+  transform: translateY(4px);
+}
+
+.geotrekSubtitleInfos .pratiquePédestre::before {
+  -webkit-mask: url("assets/route-draw/pieton-darkgrey.svg") bottom;
+  mask: url("assets/route-draw/pieton-darkgrey.svg") bottom;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 18px;
+  mask-size: 18px;
+}
+
+.geotrekSubtitleInfos .niveau::before {
+  border-radius: 100%;
+  width: 8px;
+  height: 8px;
+  margin: 5px;
+}
+
+.geotrekSubtitleInfos .niveauTresfacile::before {
+  background-color: var(--bleu-clair);
+}
+
+.geotrekSubtitleInfos .niveauFacile::before {
+  background-color: var(--vert-clair);
+}
+
+.geotrekSubtitleInfos .niveauDifficile::before {
+  background-color: var(--jaune);
+}
+
+.geotrekSubtitleInfos .niveauTresdifficile::before {
+  background-color: var(--orange);
+}
+
+
+.routeInfos {
+  display: flex;
+  flex-direction: row;
+  margin: 16px 0;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.routeInfos .routeInfo {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  gap: 6px;
+  padding-right: 16px;
+  border-right: 1px solid var(--light-grey);
+}
+
+.routeInfos .routeInfo .routeInfoValue {
+  font-family: "Fira Sans Semibold";
+}
+
+.routeInfos .routeInfo:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.routeInfos .routeInfoValue.arrowDown,
+.routeInfos .routeInfoValue.arrowUp {
+  padding-left: 18px;
+  position: relative;
+}
+
+.routeInfos .routeInfoValue.arrowDown::before,
+.routeInfos .routeInfoValue.arrowUp::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  background-color: var(--black);
+  height: 15px;
+  width: 15px;
+  left: 0;
+  top: 1px;
+}
+
+.routeInfos .routeInfoValue.arrowDown::before {
+  -webkit-mask: url("assets/route-draw/arrow-bottomright.svg") center;
+  mask: url("assets/route-draw/arrow-bottomright.svg") center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 25px;
+  mask-size: 25px;
+}
+
+.routeInfos .routeInfoValue.arrowUp::before {
+  -webkit-mask: url("assets/route-draw/arrow-topright.svg") center;
+  mask: url("assets/route-draw/arrow-topright.svg") center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 25px;
+  mask-size: 25px;
+}
+
+
+.routeInfos .routeInfo .routeInfoLabel {
+  font-family: "Open Sans Semibold";
+  color: var(--mid-grey);
+  font-size: 12px;
+}
+
+.monumentsHistoriquesContent.geotrek.title {
+  font-family: "Fira Sans Semibold";
+  font-size: 15px;
+}
+
+.geotrek.instructions ol {
+  margin-top: 15px;
+  counter-reset: item;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.geotrek.instructions ol li {
+  display: block;
+  margin-bottom: 1em;
+  margin-left: 16px;
+  border-left: 1px solid var(--dark-green);
+  padding-left: 30px;
+}
+
+.geotrek.instructions ol li::before {
+  display: flex;
+  position: absolute;
+  content: counter(item);
+  counter-increment: item;
+  width: 32px;
+  height: 32px;
+  margin-left: -47px;
+  background-color: var(--false-white);
+  border-radius: 100%;
+  border: 1px solid var(--dark-green);
+  color: var(--dark-green);
+  font-family: "Open Sans Semibold";
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+}
+
+.geotrek.instructions ol li img {
+  border-radius: unset;
+}
+
+.geotrek.instructions ol li,
+.geotrek.instructions ol li p,
+.geotrek.instructions ol li p span {
+  color: var(--dark-grey) !important;
+}
+
+.geotrek.profileTitle {
+  margin-left: 16px;
+  margin-bottom: 20px;
+}
+
+.geotrek.profileInfos {
+  background-color: white;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.geotrek.profileInfos .routeInfos {
+  padding-top: 4px;
+  padding-left: 20px;
+}
+
+#geotrek-profile {
+  margin-bottom: 15px;
+}
+
+.geotrek .recommandationsTitle {
+  padding-left: 30px;
+  position: relative;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.geotrek .recommandationsTitle::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: -3px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--black);
+  -webkit-mask: url("assets/attention.svg") center;
+  mask: url("assets/attention.svg") center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.geotrek .recommandations {
+  padding: 24px 16px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.geotrek:has(.recommandations:empty) {
+  display: none;
+}
+
+@media not (min-width: 400px), not (min-aspect-ratio: 1/1) {
+  #positionContainer:has(.geotrek) {
+    max-height: calc(100vh - 350px);
+    overflow-y: scroll;
+    overflow-x: clip;
+  }
+  #positionContainer:has(.geotrek) .divPositionTitleWrapper {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 2000;
+    background-color: var(--false-white);
+    padding-bottom: 15px;
+  }
+
+  #positionContainer:has(.geotrek) .positionHtmlBeforeAddress {
+    margin-top: -15px;
+  }
 }

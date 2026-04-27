@@ -355,8 +355,8 @@ Distance du départ : ${distanceText} ${this.unit}`;
       lastZ = elevation.z;
     });
 
-    this.dplus = Math.round(100 * this.dplus) / 100;
-    this.dminus = Math.round(100 * this.dminus) / 100;
+    this.dplus = Math.round(this.dplus);
+    this.dminus = Math.round(this.dminus);
 
     if (totalDistance) {
       // Ratio entre la distance totale réelle de l'itinéraire et la distance calculée (différente à cause du sampling)
@@ -380,6 +380,7 @@ Distance du départ : ${distanceText} ${this.unit}`;
    * @private
    */
   #setLoading() {
+    this.target.classList.remove("d-none");
     if (!this.loadingDomInDocument) {
       this.target.after(this.loadingDom);
       this.loadingDomInDocument = true;

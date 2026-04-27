@@ -1,5 +1,3 @@
-newsfeedWindow
-
 .newsfeedContent {
   margin: 0 10px;
 }
@@ -39,12 +37,15 @@ newsfeedWindow
 .newsFeedImagesBefore > div,
 .newsFeedImagesAfter > div {
   pointer-events: none;
+  background-color: var(--dark-grey);
   height: 20px;
   width: 100%;
-  background-image: url("assets/arrow-right.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 20px;
+  -webkit-mask: url(./assets/arrow-right.svg) center;
+  mask: url(./assets/arrow-right.svg) center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 20px;
+  mask-size: 20px;
   transition: transform 0.2s ease-out;
 }
 
@@ -60,8 +61,27 @@ newsfeedWindow
   max-height: min(500px, 70vh);
 }
 
+.newsfeedItemImageCredits {
+  font-family: "Open Sans";
+  font-size: 11px;
+  color: var(--darkish-grey);
+  margin: 5px 0 10px 0;
+  font-style: italic;
+}
+
 .newsFeedImageSlidesTrack {
   text-align: center;
+}
+
+.newsfeedItemSlide {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .newsfeedItemContent {
@@ -145,13 +165,13 @@ newsfeedWindow
 .newsfeedItemImageContainer.carousel {
   width: 100%;
   margin: 20px auto;
-  overflow: hidden;
+  overflow: clip;
   position: relative;
   user-select: none;
 }
 
 .newsfeedItemImageContainer.carousel .newsFeedImageSlidesContainer {
-  overflow: hidden;
+  overflow: clip;
 }
 
 .newsfeedItemImageContainer.carousel .newsFeedImageSlidesTrack {
@@ -189,6 +209,81 @@ newsfeedWindow
 
 .newsFeedImageDotsContainer button.active {
   background: var(--darker-green);
+}
+
+/* Carrousel d'images - hauteur fixe */
+.newsfeedItemImageContainer.carousel.fixedHeight {
+  margin: 0;
+  height: 100%;
+}
+
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImagesAfter,
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImagesBefore {
+  background: rgba(9, 22, 37, 0.30);
+}
+
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImagesAfter > div,
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImagesBefore > div {
+  background-color: white;
+}
+
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImageSlidesContainer {
+  height: calc(100% - 24px);
+}
+
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImageSlidesTrack {
+  height: 100%;
+}
+
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImageSlidesTrack .newsfeedItemSlide {
+  height: 100%;
+}
+
+.newsfeedItemImageContainer.carousel.noMargins .newsFeedImageSlidesTrack .newsfeedItemSlide {
+  width: fit-content;
+  margin: 0 6px;
+  max-width: calc(100% - 12px);
+}
+
+.newsfeedItemImageContainer.carousel.noMargins.singleImage .newsFeedImageSlidesTrack .newsfeedItemSlide {
+  width: 100%;
+  margin: 0;
+}
+
+.newsfeedItemImageContainer.carousel.squareWidth .newsFeedImageSlidesTrack .newsfeedItemSlide {
+  width: var(--width);
+}
+
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImageSlidesTrack .newsfeedItemSlide img {
+  height: auto;
+  border-radius: 8px;
+  width: auto;
+  max-width: calc(100% - 36px);
+}
+
+.newsfeedItemImageContainer.carousel.squareWidth .newsFeedImageSlidesTrack .newsfeedItemSlide img {
+  width: var(--width);
+  height: var(--width);
+  object-fit: cover;
+  max-width: unset;
+}
+
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImageSlidesTrack .newsfeedItemSlide.withCredits img {
+  max-height: calc(100% - 24px);
+  margin-bottom: 0;
+}
+
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImageSlidesTrack .newsfeedItemSlide .newsfeedItemImageCredits {
+  margin-top: 0;
+}
+
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImageDotsContainer {
+  margin-top: 6px;
+}
+
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImagesBefore,
+.newsfeedItemImageContainer.carousel.fixedHeight .newsFeedImagesAfter {
+  top: calc(50% - 24px);
 }
 
 

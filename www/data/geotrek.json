@@ -1,0 +1,64 @@
+{
+  "version": 8,
+  "name": "Randos des écrins",
+  "glyphs": "https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf",
+  "sprite": "data/poi-osm-sprite",
+  "sources": {
+    "geotrek": {
+      "type": "vector",
+      "url": "pmtiles://https://data.geopf.fr/chunk/telechargement/download/HIKING.GEOTREK/archive/data.pmtiles"
+    }
+  },
+  "transition": {
+    "duration": 300,
+    "delay": 0
+  },
+  "layers": [
+    {
+      "id": "geotrek-composite-pill",
+      "type": "symbol",
+      "source": "geotrek",
+      "source-layer": "geotrek",
+      "layout": {
+        "icon-image": "pill",
+        "icon-text-fit": "width",
+        "text-field": [
+          "format",
+          ["image", [
+            "match",
+            ["get", "pratique"],
+            "Pédestre", "pedestre",
+            "VTT", "vtt",
+            "Équestre", "equestre",
+            "pedestre"
+          ]],
+
+          "   ",
+          ["get", "kilometers"],
+          "   ",
+
+          ["image", [
+            "concat",
+            "dot-",
+            [
+              "match",
+              ["get", "difficulte"],
+              "Tresfacile", "Tresfacile",
+              "Facile", "Facile",
+              "Moyen", "Moyen",
+              "Difficile", "Difficile",
+              "Tresdifficile", "Tresdifficile",
+              "default"
+            ]
+          ]]
+        ],
+        "text-size": 14,
+        "text-font": ["Source Sans Pro Semibold"],
+        "icon-allow-overlap": true
+      },
+      "paint": {
+        "text-color": "black"
+      }
+    }
+  ]
+}

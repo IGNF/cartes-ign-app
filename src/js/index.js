@@ -342,9 +342,8 @@ function app() {
   });
 
   // Load all images from a folder using require.context
-  // Example: Load all images from the compareLandmark folder
-  const compareLandmarkContext = require.context("../map-assets/", false, /\.(png)$/);
-  loadImagesFromFolder(map, compareLandmarkContext).catch((err) => {
+  const mapAssetsCtx = require.context("../map-assets/", false, /\.(png|json)$/);
+  loadImagesFromFolder(map, mapAssetsCtx).catch((err) => {
     console.warn("Error loading compare landmark images:", err);
   });
 

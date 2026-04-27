@@ -62,6 +62,7 @@
     "@turf/clean-coords": "^7.2.0",
     "@turf/length": "^7.2.0",
     "@turf/line-slice": "^7.2.0",
+    "@turf/nearest-point-on-line": "^7.2.0",
     "@turf/point-to-line-distance": "^7.2.0",
     "@turf/points-within-polygon": "^7.2.0",
     "@turf/union": "^7.2.0",

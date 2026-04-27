@@ -32,9 +32,26 @@ export async function loadImagesFromFolder(map, requireContext, options = {}) {
     const imageName = imageNamePrefix ? `${imageNamePrefix}-${filename}` : filename;
     const imageUrl = requireContext(key);
 
+    // Look for a matching JSON file
+    const jsonKey = key.replace(/\.[^.]+$/, ".json");
+    let imageOptions = {};
+    if (keys.includes(jsonKey)) {
+      try {
+        const jsonModule = requireContext(jsonKey);
+
+        // Handle different bundler outputs
+        imageOptions =
+          jsonModule?.default ??
+          jsonModule ??
+          {};
+      } catch (err) {
+        console.warn(`Failed to load options for "${imageName}":`, err);
+      }
+    }
+
     // Load and add the image to the map
     const promise = map.loadImage(imageUrl).then((image) => {
-      map.addImage(imageName, image.data);
+      map.addImage(imageName, image.data, imageOptions);
     }).catch((err) => {
       console.warn(`Failed to load image "${imageName}":`, err);
     });

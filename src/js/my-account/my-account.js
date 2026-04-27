@@ -260,6 +260,9 @@ class MyAccount {
         return;
       }
       const landmarkMap = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]})[0];
+      if (!landmarkMap.properties.visible) {
+        return;
+      }
       const landmark = {
         type: "Feature",
         id: landmarkMap.properties.id,
@@ -1706,6 +1709,9 @@ ${props.text}`,
         step.geometry.coordinates[i] = step.geometry.coordinates[i].map((value => Math.round(value * 1e6) / 1e6));
         while (step.geometry.coordinates[i].length >= 3) {
           step.geometry.coordinates[i].pop();
+        }
+        if (!step.properties) {
+          step.properties = {};
         }
         if (step.properties.coordinateProperties) {
           delete step.properties.coordinateProperties;

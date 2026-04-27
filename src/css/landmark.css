@@ -95,11 +95,11 @@
 }
 
 #landmark-color-green + .landmarkColorInputLabel {
-  background-color: #90C149;
+  background-color: var(--vert-clair);
 }
 
 #landmark-color-yellow + .landmarkColorInputLabel {
-  background-color: #EFC931;
+  background-color: var(--jaune);
 }
 
 .landmarkColorInput:checked + .landmarkColorInputLabel::after {
@@ -123,11 +123,11 @@
 }
 
 #landmark-color-green:checked + .landmarkColorInputLabel::after{
-  border: 2px solid #90C149;
+  border: 2px solid var(--vert-clair);
 }
 
 #landmark-color-yellow:checked + .landmarkColorInputLabel::after{
-  border: 2px solid #EFC931;
+  border: 2px solid var(--jaune);
 }
 
 .landmarkIconInputLabel {
