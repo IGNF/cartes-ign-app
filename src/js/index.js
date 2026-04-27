@@ -195,6 +195,13 @@ function app() {
         eventButton.title = layer.mainScreenBtn.title;
         eventButton.style.backgroundImage = `url(${layer.mainScreenBtn.iconUrl})`;
         eventButton.addEventListener("click", () => {
+          if (!Globals.map.getLayer(`${layer.id}$$$${layer.id}`)) {
+            Globals.map.once("idle", () => {
+              if (Globals.map.queryRenderedFeatures({layers: [`${layer.id}$$$${layer.id}`]}).length === 0) {
+                Globals.map.flyTo({zoom: 4, center: [2.0, 47.33]});
+              }
+            })
+          }
           document.querySelector(`#${layer.id}`).click();
         });
       }
