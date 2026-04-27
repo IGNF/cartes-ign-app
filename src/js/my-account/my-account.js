@@ -1707,6 +1707,9 @@ ${props.text}`,
         while (step.geometry.coordinates[i].length >= 3) {
           step.geometry.coordinates[i].pop();
         }
+        if (!step.properties) {
+          step.properties = {};
+        }
         if (step.properties.coordinateProperties) {
           delete step.properties.coordinateProperties;
         }

@@ -31,6 +31,26 @@
       ]
     }
   },
+  "HIKING.GEOTREK$PMTILES": {
+    "0": {
+      "title": "@nom_itineraire",
+      "subtitle": "Rando du parc des écrins",
+      "bodyAfter": [
+        ["<p class=\"monumentsHistoriquesContent\">Niveau : {{difficulte}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Durée : ~~duration(duree)~~</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Distance : ~~tokilometers(longueur)~~</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Dénivelé positif : {{denivele_positif}} m</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Dénivelé négatif : {{denivele_negatif}} m</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Type d'itinéraire : {{type_itineraire}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Lieu de départ : {{depart}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Lieu d'arrivée : {{arrivee}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Recommandations : {{recommandations}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">{{presentation_courte}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">{{instructions}}</p>"],
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Plus d'informations</a></p>"]
+      ]
+    }
+  },
   "TRACES.RANDO.HIVERNALE$WMTS": {
     "0": {
       "title": "@nom_de_la_trace",

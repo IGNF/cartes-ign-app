@@ -96,6 +96,7 @@ class MapInteractivity {
   }
 
   #getInfoOnMap(ev) {
+    this.map.setFilter("geotrek$$$HIKING.GEOTREK$PMTILES", null);
     if (Globals.backButtonState.split("-").includes("routeDraw") || Globals.backButtonState.includes("selectOnMap")) {
       this.map.once("click", this.handleInfoOnMap);
       return;
@@ -182,9 +183,10 @@ class MapInteractivity {
     if (features.length > 0) {
       const tempLayers = LayersConfig.getTempLayers();
       const isRegularPMTiles = features[0].layer.id.includes("$PMTILES");
-      if ( isRegularPMTiles || tempLayers.map(layer => layer.id).includes(features[0].source) ) {
+      const isRegularGeoJson = features[0].layer.id.includes("$GEOJSON");
+      if ( isRegularPMTiles || isRegularGeoJson || tempLayers.map(layer => layer.id).includes(features[0].source) ) {
         let rules;
-        if (isRegularPMTiles) {
+        if (isRegularPMTiles || isRegularGeoJson) {
           rules = gfiRules[features[0].layer.id.split("$$$")[1]];
         } else {
           const layerConfig = tempLayers.filter(layer => layer.id === features[0].source)[0];
@@ -198,13 +200,36 @@ class MapInteractivity {
             lng: features[0].geometry.coordinates[0]
           };
         }
+        let hideCallback = null;
+        let type = "default";
+        if (features[0].layer.id === "geotrek$$$HIKING.GEOTREK$PMTILES") {
+          const selectedId = features[0].properties.uuid;
+          this.map.setFilter("geotrek$$$HIKING.GEOTREK$PMTILES", [
+            "==",
+            ["get", "uuid"],
+            selectedId
+          ]);
+          hideCallback = () => {
+            this.map.setFilter("geotrek$$$HIKING.GEOTREK$PMTILES", null);
+            this.map.getSource("geotrek-steps").setData({
+              type: "FeatureCollection",
+              features: [],
+            });
+          };
+          type = "geotrek";
+        } else {
+          this.#highlightGFI(features[0].geometry, false);
+        }
         Globals.position.compute({
           lngLat: lngLat,
           text: resp.title,
           html: resp.html,
           html2: resp.html2,
           htmlEvent: resp.htmlEvent,
-          isEvent: !isRegularPMTiles,
+          isEvent: !(isRegularPMTiles || isRegularGeoJson),
+          hideCallback: hideCallback,
+          type: type,
+          feature: features[0],
         }).then(() => {
           Globals.menu.open("position");
           this.map.once("click", this.handleInfoOnMap);
@@ -223,7 +248,7 @@ class MapInteractivity {
     let currentLayers = Globals.manager.layerSwitcher.getLayersOrder().reverse();
     const tempLayers = LayersConfig.getTempLayers();
     currentLayers = currentLayers.filter(layer => {
-      return layer[1].interactive && !layer[1].base && !tempLayers.map(layer => layer.id).includes(layer[0]) && !layer[0].includes("$PMTILES");
+      return layer[1].interactive && !layer[1].base && !tempLayers.map(layer => layer.id).includes(layer[0]) && !layer[0].includes("$PMTILES") && !layer[0].includes("$GEOJSON");
     });
     let layerswithzoom = currentLayers.map((layer) => {
       let computeZoom = Math.round(this.map.getZoom()) + 1;
@@ -291,7 +316,7 @@ class MapInteractivity {
       });
   }
 
-  // Met à jour la gémétrie highlightée au moment de la séléction et du déplacement de la carte.
+  // Met à jour la géométrie highlightée au moment de la séléction et du déplacement de la carte.
   #updateHighlightedGeom() {
     let source;
     const mapFeatures = this.map.queryRenderedFeatures();
@@ -486,7 +511,7 @@ class MapInteractivity {
    * Ajoute à la carte la géométrie de la feature cliquée dans un GFI
    * @param {*} gfiGeom
    */
-  #highlightGFI(gfiGeom) {
+  #highlightGFI(gfiGeom, convertCoords = true) {
     this.#clearSources();
     let source;
 
@@ -497,7 +522,9 @@ class MapInteractivity {
     } else {
       source = this.map.getSource(this.configuration.polygonsource);
     }
-    this.#convertCoords(gfiGeom.coordinates);
+    if (convertCoords) {
+      this.#convertCoords(gfiGeom.coordinates);
+    }
     if (gfiGeom.type === "LineString" || gfiGeom.type === "MultiLineString") {
       gfiGeom = Buffer(gfiGeom, 5, {units: "meters"});
     }

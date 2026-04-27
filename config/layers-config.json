@@ -1,5 +1,15 @@
 {
   "layers": {
+    "HIKING.GEOTREK$PMTILES": {
+      "title": "Randos des écrins",
+      "interactive": true,
+      "description": "Randos du PNE",
+      "source": "Communauté Geotrek",
+      "maj": "hebdomadaire",
+      "serverUrl": "pmtiles://https://data.geopf.fr/chunk/telechargement/download/HIKING.GEOTREK/archive/data.pmtiles",
+      "format": "application/vnd.pmtiles",
+      "styles": ["https://ignf.github.io/cartes-ign-app/geotrek.json", "data/geotrek.json"]
+    },
     "Aire-Parcellaire$WMTS": {
       "title": "Délimitation parcellaire AOC viticole",
       "interactive": false,
@@ -27,7 +37,6 @@
       "description": "Formalisation de la limite entre le domaine terrestre et le domaine marin.",
       "source": "Service hydrographique et océanographique de la marine (SHOM), IGN",
       "maj": "Juin 2012",
-      "interactive": false,
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 6,
       "maxNativeZoom": 18,

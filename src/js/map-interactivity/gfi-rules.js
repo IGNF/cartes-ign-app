@@ -7,6 +7,22 @@
 import { config } from "../utils/config-utils";
 import { marked } from "marked";
 
+function duration(hours) {
+  const total = Math.round(hours * 60);
+  const h = Math.floor(total / 60);
+  const m = total % 60;
+  return `${h} h ${m} min`;
+}
+
+function tokilometers(value) {
+  return `${(Math.round(value / 100) * 100 / 1000).toLocaleString("fr")} km`;
+}
+
+const helpers = {
+  duration,
+  tokilometers
+};
+
 const gfiRules = {
   ...config.gfiRulesProps,
   /**
@@ -132,6 +148,31 @@ const gfiRules = {
               match = str.match("{{{([^}]+)}}}");
             }
           }
+          // then match operations
+          match = str.match(/~~(.*?)~~/);
+          while (match) {
+            const expr = match[1].trim();
+            let result = "";
+            try {
+              // Match helper(arg)
+              const fnMatch = expr.match(/^([a-zA-Z0-9_]+)\((.*?)\)$/);
+              if (fnMatch) {
+                const fnName = fnMatch[1];
+                const argName = fnMatch[2].trim();
+                if (
+                  Object.prototype.hasOwnProperty.call(helpers, fnName) &&
+                    Object.prototype.hasOwnProperty.call(featureProperties, argName)
+                ) {
+                  result = helpers[fnName](featureProperties[argName]);
+                }
+              }
+            } catch (e) {
+              console.error(e);
+            }
+            str = str.replace(match[0], result);
+            match = str.match(/~~(.*?)~~/);
+          }
+          // finally match raw properties
           match = str.match("{{([^}]+)}}");
           while (match) {
             if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {

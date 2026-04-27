@@ -26,7 +26,7 @@ import { config } from "../utils/config-utils";
 const getLayerProps = (id) => {
   var props = config.configLayers.layers[id];
   var isVector = false;
-  if (id.split("$")[1] === "TMS" || id.split("$")[1] === "PMTILES") {
+  if (id.split("$")[1] === "TMS" || id.split("$")[1] === "PMTILES" || id.split("$")[1] === "GEOJSON") {
     isVector = true;
   }
   var style;
@@ -191,6 +191,9 @@ const createSource = (id) => {
   case "PMTILES":
     fxt = createVectorPMTilesSource;
     break;
+  case "GEOJSON":
+    fxt = createGeojsonSource;
+    break;
   default:
     throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${service}`);
   }
@@ -275,6 +278,21 @@ const createVectorPMTilesSource = (id) => {
   return {
     type: "vector",
     url: props.url,
+    data: props.url,
+    maxzoom: props.maxNativeZoom || 20,
+  };
+};
+
+/**
+ * Creer les propriétés d'une couche de type geojson pour la librairie MapLibre
+ * @param {*} id
+ */
+const createGeojsonSource = (id) => {
+  var props = getLayerProps(id);
+  return {
+    type: "geojson",
+    data: props.url,
+    maxzoom: props.maxNativeZoom || 20,
   };
 };
 

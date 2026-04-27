@@ -1,0 +1,43 @@
+{
+  "version": 8,
+  "name": "Randos des écrins",
+  "glyphs": "https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf",
+  "sprite": "data/poi-osm-sprite",
+  "sources": {
+    "geotrek": {
+      "type": "vector",
+      "url": "pmtiles://https://data.geopf.fr/chunk/telechargement/download/HIKING.GEOTREK/archive/data.pmtiles"
+    }
+  },
+  "transition": {
+    "duration": 300,
+    "delay": 0
+  },
+  "layers": [
+    {
+      "id": "geotrek",
+      "type": "line",
+      "source": "geotrek",
+      "source-layer": "geotrek",
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#811a7e",
+        "line-opacity": 1,
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          0,
+          3,
+          5,
+          3,
+          18,
+          25
+        ]
+      }
+    }
+  ]
+}
