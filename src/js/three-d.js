@@ -5,14 +5,13 @@
  */
 
 import Globals from "./globals";
-import maplibregl from "maplibre-gl";
 
 import PopupUtils from "./utils/popup-utils";
 
 const hillsLayer = {
   id: "hills",
   type: "hillshade",
-  source: "bil-terrain",
+  source: "terrain",
   layout: {visibility: "visible"},
   paint: {"hillshade-shadow-color": "#473B24"},
   metadata: {group: "PLAN.IGN.INTERACTIF$TMS"},
@@ -72,65 +71,21 @@ class ThreeD {
     this.buildingsLayers = data.layers;
   }
 
-  // Function to fetch and parse x-bil tile data
-  async #fetchAndParseXBil(url) {
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    const dataView = new DataView(arrayBuffer);
-    const width = Math.sqrt(dataView.byteLength / 4); // Assuming square tiles
-    const height = width;
-    const elevations = new Float32Array(width * height);
-    for (let i = 0; i < width * height; i++) {
-      elevations[i] = dataView.getFloat32(i * 4, true);
-      if (elevations[i] < -10 || elevations[i] > 4900) {
-        elevations[i] = 0;
-      }
-    }
-    return { elevations, width, height };
-  }
-
   add3dTerrain() {
-    if (!Globals.map.getSource("bil-terrain")) {
-      Globals.map.addSource("bil-terrain", {
+    if (!Globals.map.getSource("terrain")) {
+      Globals.map.addSource("terrain", {
         type: "raster-dem",
         tiles: [
-          `dem://data.geopf.fr/private/wms-r/wms?apikey=${process.env.GPF_key}&bbox={bbox-epsg-3857}&format=image/x-bil;bits=32&service=WMS&version=1.3.0&request=GetMap&crs=EPSG:3857&width=256&height=256&styles=normal&layers=ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES.LINEAR`
+          `https://data.geopf.fr/private/wms-r/wms?apikey=${process.env.GPF_key}&bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.3.0&request=GetMap&crs=EPSG:3857&width=256&height=256&styles=terrainrgb0&layers=ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES.LINEAR`
         ],
         minzoom: 6,
         maxzoom: 14,
         tileSize: 256
       });
-
-      maplibregl.addProtocol("dem", async (params) => {
-        try {
-          const { elevations, width, height } = await this.#fetchAndParseXBil(`https://${params.url.split("://")[1]}`);
-          const data = new Uint8ClampedArray(width * height * 4);
-          for (let i = 0; i < elevations.length; i++) {
-            let elevation = Math.round(elevations[i] * 10) / 10;
-            // reverse https://docs.mapbox.com/data/tilesets/reference/mapbox-terrain-dem-v1/#elevation-data
-            const baseElevationValue = 10 * (elevation + 10000);
-            const red = Math.floor(baseElevationValue / (256 * 256)) % 256;
-            const green = Math.floor((baseElevationValue - red * 256 * 256) / 256) % 256;
-            const blue = baseElevationValue - red * 256 * 256 - green * 256;
-            data[4 * i] = red;
-            data[4 * i + 1] = green;
-            data[4 * i + 2] = blue;
-            data[4 * i + 3] = 255;
-          }
-          const imageData = new ImageData(data, width, height);
-          const imageBitmap = await createImageBitmap(imageData);
-          return {
-            data: imageBitmap
-          };
-        } catch (error) {
-          console.error(error);
-          throw error;
-        }
-      });
     }
 
     // Set terrain using the custom source
-    Globals.map.setTerrain({ source: "bil-terrain", exaggeration: 1.5 });
+    Globals.map.setTerrain({ source: "terrain", exaggeration: 1.5 });
     this.addHillShadeToPlanIgn();
     if (!this.buildingsOn) {
       this.showPopup();
