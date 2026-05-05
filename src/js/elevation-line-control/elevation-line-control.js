@@ -336,6 +336,9 @@ Distance du départ : ${distanceText} ${this.unit}`;
     this.unit = "m";
     responseElevation.elevations.forEach( (elevation) => {
       let currentLngLat = new maplibregl.LngLat(elevation.lon, elevation.lat);
+      if (elevation.z <= -100) {
+        elevation.z = 0;
+      }
       if (lastLngLat != null) {
         currentDistance += currentLngLat.distanceTo(lastLngLat);
         if (elevation.z > lastZ) {
@@ -345,9 +348,6 @@ Distance du départ : ${distanceText} ${this.unit}`;
         }
       }
       let elevationValue = elevation.z;
-      if (elevationValue == -99999) {
-        elevationValue = 0;
-      }
       let currentDataPoint = {x: currentDistance, y: elevationValue};
       this.elevationData.push(currentDataPoint);
       this.profileLngLats.push([currentLngLat.lng, currentLngLat.lat]);
