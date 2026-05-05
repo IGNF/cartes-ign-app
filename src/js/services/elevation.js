@@ -81,7 +81,7 @@ const getElevation = () => {
   if (!results.elevations) {
     return 0;
   }
-  if (results.elevations[0] == -99999) {
+  if (results.elevations[0] <= -100) {
     return 0;
   }
   return results.elevations[0];

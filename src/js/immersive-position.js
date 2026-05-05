@@ -67,10 +67,14 @@ class ImmersivePosion extends EventTarget {
         htmlTemplate += eventsHtml;
       }
     }
-
-    htmlTemplate += `
+    try {
+      htmlTemplate += `
       <p>&#x1F3E0; Vous êtes sur la commune de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][0] : "chargement..."}, qui compte ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"] ? parseInt(this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune"][0][1]).toLocaleString() : "chargement..."} habitants, située dans le département de ${this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"] ? this.data["LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:departement"][0] : "chargement..."}</p>
-    `;
+      `;
+    }
+    catch {
+      htmlTemplate += "";
+    }
 
     if (this.data["BDTOPO_V3:parc_ou_reserve"] && this.data["BDTOPO_V3:parc_ou_reserve"].length) {
       let parcHtml = "<p>";
