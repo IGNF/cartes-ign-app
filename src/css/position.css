@@ -371,6 +371,7 @@
   color: var(--dark-grey);
   border-radius: 15px;
   padding: 0;
+  border: 1px solid #DDE1E6;
 }
 
 .maplibregl-popup-content > div > div:nth-child(2).divPopupContent {
