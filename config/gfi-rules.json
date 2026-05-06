@@ -1,4 +1,36 @@
 {
+  "DATATOURISME.FMA$PMTILES": {
+    "0": {
+      "pretitle": "<span class=\"filterTitleImg\" style=\"background-image:url(data/img/layers/DATATOURISME.FMA.jpg);background-position:center\"></span>",
+      "title": "@title",
+      "subtitle": "<a href=\"https://www.datatourisme.fr/\" target=\"_blank\" style=\"color: var(--darker-green);\">Datatourisme</a><br/>Fêtes et manifestations - Source&nbsp;: Datatourisme, ADN Tourisme",
+      "htmlEvent": [
+        ["<p class=\"htmlEventDate\">{{dateRange}}"],
+        ["- {{clientTarget}}"],
+        ["</p>"],
+        ["<p class=\"htmlEventCreator\">{{creatorHtml}}</p>"]
+      ],
+      "bodyAfter": [
+        ["<div class=\"unescoDate\"><p><img class=\"unescoimg\" alt=\"{{title}}\" src=\"{{image_url}}\" width=\"150px\">"],
+        ["<span class=\"monumentsHistoriquesImageAuthor\">Crédit de l'image&nbsp;: {{imageCredits}}</span></p></div>"],
+        ["<input type=\"checkbox\" class=\"d-none foldableInput\" id=\"foldableInputJEP\">"],
+        ["<div class=\"monumentsHistoriquesContent foldable\">{{{description}}}</div>"],
+        ["<label class=\"foldableLabel\" for=\"foldableInputJEP\">&nbsp;Voir&nbsp;</label>"],
+        ["<hr />"],
+        ["<p class=\"monumentsHistoriquesContent\"><b>Accès principal&nbsp;:</b><br /> {{address}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">{{reducedMobilityAccess}}</p>"],
+        ["<hr />"],
+        ["<p class=\"monumentsHistoriquesContent\"><b>Contacts&nbsp;:</b></p>"],
+        ["<p>{{creatorHtml}}</p>"],
+        ["<div class=\"positionInfoFlex\">"],
+        ["<p class=\"positionTelephone positionInfo\"><a target=\"_blank\" href=\"tel:{{registrationPhone}}\">Téléphone</a></p>"],
+        ["<p class=\"positionEmail positionInfo\"><a target=\"_blank\" href=\"mailto:{{registrationEmail}}\">Courriel</a></p>"],
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{registrationWeb}}\">Site web</a></p>"],
+        ["<p class=\"positionWeb positionFacebook positionInfo\"><a target=\"_blank\" href=\"{{registrationFacebook}}\">Facebook</a></p>"],
+        ["</div>"]
+      ]
+    }
+  },
   "TRACES.RANDO.HIVERNALE$WMTS": {
     "0": {
       "title": "@nom_de_la_trace",

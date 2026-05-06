@@ -32,6 +32,8 @@ import { Toast } from "@capacitor/toast";
 import { Protocol } from "pmtiles";
 import PinchZoom from "pinch-zoom-js";
 
+import { loadImagesFromFolder } from "./utils/image-loader";
+
 // import CSS
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -338,6 +340,14 @@ function app() {
       "features": []
     },
   });
+
+  // Load all images from a folder using require.context
+  // Example: Load all images from the compareLandmark folder
+  const compareLandmarkContext = require.context("../map-assets/", false, /\.(png)$/);
+  loadImagesFromFolder(map, compareLandmarkContext).catch((err) => {
+    console.warn("Error loading compare landmark images:", err);
+  });
+
 
   // Chargement de la position précédente
   if (localStorage.getItem("lastMapLat") && localStorage.getItem("lastMapLng") && localStorage.getItem("lastMapZoom")) {
