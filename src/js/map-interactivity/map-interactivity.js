@@ -127,6 +127,8 @@ class MapInteractivity {
     features = features.filter( (feature) => {
       return !["isochrone", "location-precision"].includes(feature.source);
     });
+    console.log(features);
+
     // On clique sur une feature tuile vectorielle
     let featureHTML = null;
     if (features.length > 0 && (features[0].source === "comparepoi" || features[0].source === "my-account-landmark" || features[0].source === "my-account-compare-landmark")){
