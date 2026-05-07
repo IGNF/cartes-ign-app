@@ -321,6 +321,26 @@
       }
     },
     {
+      "id": "ocs - vegetation - cocoteraie",
+      "type": "fill",
+      "source": "plan_ign",
+      "source-layer": "ocs_vegetation_surf",
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "COCOTERAIE"
+      ],
+      "paint": {
+        "fill-color": "#CEDD93"
+      },
+      "metadata": {
+        "legend-title": "Cocoteraie"
+      }
+    },
+    {
       "id": "hydro surfacique - Estran",
       "type": "fill",
       "source": "plan_ign",
@@ -1457,6 +1477,46 @@
         "legend-title": "Zone d'eau temporaire"
       }
     },
+    {
+			"id": "hydro surfacique Lagon",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "hydro_surf",
+			"layout": {
+				"visibility": "visible"
+			},
+      "filter": [
+        "==",
+        "symbo",
+        "LAGON"
+      ],
+			"paint": {
+				"fill-color": "#8EEBF2"
+			},
+      "metadata": {
+        "legend-title": "Lagon"
+      }
+		},
+    {
+			"id": "ocs - Recif Corail",
+			"type": "fill",
+			"source": "plan_ign",
+			"source-layer": "ocs_nature_sol_surf",
+			"layout": {
+				"visibility": "visible"
+			},
+      "filter": [
+        "==",
+        "symbo",
+        "RECIF_CORAIL"
+      ],
+			"paint": {
+				"fill-color": "#B3E0F5"
+			},
+      "metadata": {
+        "legend-title": "Récif de corail"
+      }
+		},
     {
       "id": "réseau hydro  - cours d'eau souterrain",
       "type": "line",
@@ -7180,6 +7240,7 @@
 			"source": "plan_ign",
 			"source-layer": "routier_liaison",
 			"minzoom": 12,
+			"maxzoom": 18,
 			"layout": {
 				"visibility": "visible",
         "line-cap": "round",
