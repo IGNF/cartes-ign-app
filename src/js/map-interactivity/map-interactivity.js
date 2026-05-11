@@ -127,7 +127,6 @@ class MapInteractivity {
     features = features.filter( (feature) => {
       return !["isochrone", "location-precision"].includes(feature.source);
     });
-    console.log(features);
 
     // On clique sur une feature tuile vectorielle
     let featureHTML = null;
