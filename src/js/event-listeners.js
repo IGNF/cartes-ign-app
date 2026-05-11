@@ -275,6 +275,9 @@ function addListeners() {
     if (DOM.$fullScreenBtn) {
       DOM.$fullScreenBtn.classList.remove("opacity0");
     }
+    if (document.getElementById("eventMapBtn")) {
+      document.getElementById("eventMapBtn").classList.remove("opacity0");
+    }
     const thresh = window.innerHeight / 2;
     if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && window.scrollY > thresh) {
       DOM.$bottomButtons.classList.add("opacity0");
@@ -284,6 +287,9 @@ function addListeners() {
       DOM.$routeDrawSaveBtn.classList.add("opacity0");
       if (DOM.$fullScreenBtn) {
         DOM.$fullScreenBtn.classList.add("opacity0");
+      }
+      if (document.getElementById("eventMapBtn")) {
+        document.getElementById("eventMapBtn").classList.add("opacity0");
       }
     }
 
