@@ -33,14 +33,6 @@ import LineSlice from "@turf/line-slice";
 import CleanCoords from "@turf/clean-coords";
 import turfLength from "@turf/length";
 
-import LandmarkIconSaved from "../../css/assets/landmark/landmark-saved-map.png";
-import LandmarkIconFavourite from "../../css/assets/landmark/landmark-favourite-map.png";
-import LandmarkIconTovisit from "../../css/assets/landmark/landmark-tovisit-map.png";
-import CompareLandmarkBlue from "../../css/assets/compareLandmark/compare-landmark-blue.png";
-import CompareLandmarkPurple from "../../css/assets/compareLandmark/compare-landmark-purple.png";
-import CompareLandmarkOrange from "../../css/assets/compareLandmark/compare-landmark-orange.png";
-import CompareLandmarkGreen from "../../css/assets/compareLandmark/compare-landmark-green.png";
-import CompareLandmarkYellow from "../../css/assets/compareLandmark/compare-landmark-yellow.png";
 import { Capacitor } from "@capacitor/core";
 
 /**
@@ -93,31 +85,6 @@ class MyAccount {
     this.offlineMaps = [];
 
     this.#addSourcesAndLayers();
-
-    this.map.loadImage(LandmarkIconSaved).then((image) => {
-      this.map.addImage("landmark-icon-saved", image.data);
-    });
-    this.map.loadImage(LandmarkIconFavourite).then((image) => {
-      this.map.addImage("landmark-icon-favourite", image.data);
-    });
-    this.map.loadImage(LandmarkIconTovisit).then((image) => {
-      this.map.addImage("landmark-icon-tovisit", image.data);
-    });
-    this.map.loadImage(CompareLandmarkBlue).then((image) => {
-      this.map.addImage("compare-landmark-blue", image.data);
-    });
-    this.map.loadImage(CompareLandmarkPurple).then((image) => {
-      this.map.addImage("compare-landmark-purple", image.data);
-    });
-    this.map.loadImage(CompareLandmarkOrange).then((image) => {
-      this.map.addImage("compare-landmark-orange", image.data);
-    });
-    this.map.loadImage(CompareLandmarkGreen).then((image) => {
-      this.map.addImage("compare-landmark-green", image.data);
-    });
-    this.map.loadImage(CompareLandmarkYellow).then((image) => {
-      this.map.addImage("compare-landmark-yellow", image.data);
-    });
 
     // REMOVEME : rétrocompatibilité des entités enregistrées : migration de préférences à fichier local (post-3.4.5)
     // récupération des itinéraires enregistrés en local
@@ -1739,6 +1706,9 @@ ${props.text}`,
         step.geometry.coordinates[i] = step.geometry.coordinates[i].map((value => Math.round(value * 1e6) / 1e6));
         while (step.geometry.coordinates[i].length >= 3) {
           step.geometry.coordinates[i].pop();
+        }
+        if (!step.properties) {
+          step.properties = {};
         }
         if (step.properties.coordinateProperties) {
           delete step.properties.coordinateProperties;

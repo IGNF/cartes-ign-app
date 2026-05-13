@@ -56,12 +56,14 @@
     {
         "name": "Tourisme et loisirs",
         "layers": [
+          "DATATOURISME.FMA$PMTILES",
           "IGNF_SITES-UNESCO$WMS",
           "POI.MONUMENTS_BDD_WLD_WM$WMS",
           "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$WMS",
           "POI.MUSEUM$WMS",
           "VILLAGESETAPE$WMS",
-          "TRANSPORTS.DRONES.RESTRICTIONS$WMTS"
+          "TRANSPORTS.DRONES.RESTRICTIONS$WMTS",
+          "HIKING.GEOTREK$PMTILES"
         ]
     },
     {

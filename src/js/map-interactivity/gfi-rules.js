@@ -7,6 +7,22 @@
 import { config } from "../utils/config-utils";
 import { marked } from "marked";
 
+function duration(hours) {
+  const total = Math.round(hours * 60);
+  const h = Math.floor(total / 60);
+  const m = total % 60;
+  return `${h} h ${m} min`;
+}
+
+function tokilometers(value) {
+  return `${(Math.round(value / 100) * 100 / 1000).toLocaleString("fr")} km`;
+}
+
+const helpers = {
+  duration,
+  tokilometers
+};
+
 const gfiRules = {
   ...config.gfiRulesProps,
   /**
@@ -39,17 +55,8 @@ const gfiRules = {
     } else {
       result.title = template.title + "</p>";
     }
-    if (template["pretitle"]) {
-      let pretitle = template["pretitle"];
-      if (template["pretitle"][0] === "@") {
-        let str = featureProperties[template.pretitle.split("@")[1]].replace("", "'");
-        if (str.length) {
-          pretitle = str[0].toUpperCase() + str.slice(1);
-        } else {
-          pretitle = "";
-        }
-      }
-      result.title = pretitle + result.title;
+    if (template["titlePrefix"]) {
+      result.title = `${template["titlePrefix"]}${result.title}`;
     }
     result.title = `<p class="positionTitle">${result.title}`;
     if (template["title2"]) {
@@ -88,6 +95,18 @@ const gfiRules = {
     }
     if (template["subtitle"]) {
       result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`;
+    }
+    if (template["pretitle"]) {
+      let pretitle = template["pretitle"];
+      if (template["pretitle"][0] === "@") {
+        let str = featureProperties[template.pretitle.split("@")[1]].replace("", "'");
+        if (str.length) {
+          pretitle = str[0].toUpperCase() + str.slice(1);
+        } else {
+          pretitle = "";
+        }
+      }
+      result.title = pretitle + `<div class="positionTitleWrapper">${result.title}</div>`;
     }
     let bodyBefore = "";
     if (template.bodyBefore) {
@@ -129,6 +148,31 @@ const gfiRules = {
               match = str.match("{{{([^}]+)}}}");
             }
           }
+          // then match operations
+          match = str.match(/~~(.*?)~~/);
+          while (match) {
+            const expr = match[1].trim();
+            let result = "";
+            try {
+              // Match helper(arg)
+              const fnMatch = expr.match(/^([a-zA-Z0-9_]+)\((.*?)\)$/);
+              if (fnMatch) {
+                const fnName = fnMatch[1];
+                const argName = fnMatch[2].trim();
+                if (
+                  Object.prototype.hasOwnProperty.call(helpers, fnName) &&
+                    Object.prototype.hasOwnProperty.call(featureProperties, argName)
+                ) {
+                  result = helpers[fnName](featureProperties[argName]);
+                }
+              }
+            } catch (e) {
+              console.error(e);
+            }
+            str = str.replace(match[0], result);
+            match = str.match(/~~(.*?)~~/);
+          }
+          // finally match raw properties
           match = str.match("{{([^}]+)}}");
           while (match) {
             if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
@@ -168,8 +212,36 @@ const gfiRules = {
       bodyAfter += "</div>";
     }
 
+    let htmlEvent = "";
+    if (template.htmlEvent) {
+      htmlEvent += "<div class='positionHtmlEvent'>";
+      template.htmlEvent.forEach( (bodyElement) => {
+        let notFound = false;
+        let p = bodyElement.map((str) => {
+          let match = str.match("{{([^}]+)}}");
+          while (match) {
+            if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+              if (Array.isArray(featureProperties[match[1]])) {
+                featureProperties[match[1]] = featureProperties[match[1]].join(", ");
+              }
+              str = str.replace(match[0], featureProperties[match[1]]);
+              match = str.match("{{([^}]+)}}");
+            } else {
+              notFound = true;
+              return "";
+            }
+          }
+          return str;
+        });
+        if (p && !notFound)
+          htmlEvent += `${p.join(" ")}`;
+      });
+      htmlEvent += "</div>";
+    }
+
     result.html = bodyBefore;
     result.html2 = bodyAfter;
+    result.htmlEvent = htmlEvent;
     return result;
   }
 };

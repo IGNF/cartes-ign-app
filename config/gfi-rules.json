@@ -1,4 +1,56 @@
 {
+  "DATATOURISME.FMA$PMTILES": {
+    "0": {
+      "pretitle": "<span class=\"filterTitleImg\" style=\"background-image:url(data/img/layers/DATATOURISME.FMA.jpg);background-position:center\"></span>",
+      "title": "@title",
+      "subtitle": "<a href=\"https://www.datatourisme.fr/\" target=\"_blank\" style=\"color: var(--darker-green);\">Datatourisme</a><br/>Fêtes et manifestations - Source&nbsp;: Datatourisme, ADN Tourisme",
+      "htmlEvent": [
+        ["<p class=\"htmlEventDate\">{{dateRange}}"],
+        ["- {{clientTarget}}"],
+        ["</p>"],
+        ["<p class=\"htmlEventCreator\">{{creatorHtml}}</p>"]
+      ],
+      "bodyAfter": [
+        ["<div class=\"unescoDate\"><p><img class=\"unescoimg\" alt=\"{{title}}\" src=\"{{image_url}}\" width=\"150px\">"],
+        ["<span class=\"monumentsHistoriquesImageAuthor\">Crédit de l'image&nbsp;: {{imageCredits}}</span></p></div>"],
+        ["<input type=\"checkbox\" class=\"d-none foldableInput\" id=\"foldableInputJEP\">"],
+        ["<div class=\"monumentsHistoriquesContent foldable\">{{{description}}}</div>"],
+        ["<label class=\"foldableLabel\" for=\"foldableInputJEP\">&nbsp;Voir&nbsp;</label>"],
+        ["<hr />"],
+        ["<p class=\"monumentsHistoriquesContent\"><b>Accès principal&nbsp;:</b><br /> {{address}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">{{reducedMobilityAccess}}</p>"],
+        ["<hr />"],
+        ["<p class=\"monumentsHistoriquesContent\"><b>Contacts&nbsp;:</b></p>"],
+        ["<p>{{creatorHtml}}</p>"],
+        ["<div class=\"positionInfoFlex\">"],
+        ["<p class=\"positionTelephone positionInfo\"><a target=\"_blank\" href=\"tel:{{registrationPhone}}\">Téléphone</a></p>"],
+        ["<p class=\"positionEmail positionInfo\"><a target=\"_blank\" href=\"mailto:{{registrationEmail}}\">Courriel</a></p>"],
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{registrationWeb}}\">Site web</a></p>"],
+        ["<p class=\"positionWeb positionFacebook positionInfo\"><a target=\"_blank\" href=\"{{registrationFacebook}}\">Facebook</a></p>"],
+        ["</div>"]
+      ]
+    }
+  },
+  "HIKING.GEOTREK$PMTILES": {
+    "0": {
+      "title": "@nom_itineraire",
+      "subtitle": "Rando du parc des écrins",
+      "bodyAfter": [
+        ["<p class=\"monumentsHistoriquesContent\">Niveau : {{difficulte}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Durée : ~~duration(duree)~~</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Distance : ~~tokilometers(longueur)~~</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Dénivelé positif : {{denivele_positif}} m</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Dénivelé négatif : {{denivele_negatif}} m</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Type d'itinéraire : {{type_itineraire}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Lieu de départ : {{depart}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Lieu d'arrivée : {{arrivee}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Recommandations : {{recommandations}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">{{presentation_courte}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">{{instructions}}</p>"],
+        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\" target=\"_blank\">Plus d'informations</a></p>"]
+      ]
+    }
+  },
   "TRACES.RANDO.HIVERNALE$WMTS": {
     "0": {
       "title": "@nom_de_la_trace",
@@ -192,7 +244,7 @@
   },
   "LANDUSE.AGRICULTURE.LATEST$WMTS": {
     "0" :{
-      "pretitle": "Culture : ",
+      "titlePrefix": "Culture : ",
       "title": "@libelle",
       "subtitle": "Registre parcellaire graphique 2024 - Source : Agence de services et de paiements (ASP)"
     }
