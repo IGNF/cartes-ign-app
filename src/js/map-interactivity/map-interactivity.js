@@ -182,10 +182,11 @@ class MapInteractivity {
 
     if (features.length > 0) {
       const tempLayers = LayersConfig.getTempLayers();
+      const isRegularTMS = features[0].layer.id.includes("$TMS");
       const isRegularPMTiles = features[0].layer.id.includes("$PMTILES");
-      if ( isRegularPMTiles || tempLayers.map(layer => layer.id).includes(features[0].source) ) {
+      if ( isRegularTMS || isRegularPMTiles || tempLayers.map(layer => layer.id).includes(features[0].source) ) {
         let rules;
-        if (isRegularPMTiles) {
+        if (isRegularTMS || isRegularPMTiles) {
           rules = gfiRules[features[0].layer.id.split("$$$")[1]];
         } else {
           const layerConfig = tempLayers.filter(layer => layer.id === features[0].source)[0];
@@ -205,7 +206,7 @@ class MapInteractivity {
           html: resp.html,
           html2: resp.html2,
           htmlEvent: resp.htmlEvent,
-          isEvent: !isRegularPMTiles,
+          isEvent: !(isRegularTMS || isRegularPMTiles),
         }).then(() => {
           Globals.menu.open("position");
           this.map.once("click", this.handleInfoOnMap);

@@ -279,6 +279,14 @@
       "style": "default-style-IGNF_SITES-UNESCO",
       "format": "image/png"
     },
+    "ITINERAIRES-RANDO-TMS$TMS": {
+      "serverUrl": "https://data.geopf.fr/private/tms/1.0.0/",
+      "title": "Itinéraires balisés",
+      "description": "Itinéraires balisés",
+      "source": "FFRandonnée, Club Vosgien",
+      "format": "application/x-protobuf",
+      "styles": ["https://ignf.github.io/cartes-ign-app/sentiers-balises.json", "data/sentiers-balises.json"]
+    },
 
     "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR$WMTS": {
       "title": "Carte TOPO 25",

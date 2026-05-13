@@ -1,4 +1,15 @@
 {
+  "ITINERAIRES-RANDO-TMS$TMS": {
+    "0": {
+      "title": "@toponyme",
+      "subtitle": "Sentiers balisés - Sources&nbsp;: FFRandonnée, Club Vosgien",
+      "bodyAfter": [
+        ["<p class=\"monumentsHistoriquesContent\">Type : {{nature}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Source : {{table_source}}</p>"],
+        ["<p class=\"monumentsHistoriquesContent\">Chemin de Compostelle : {{compostelle}}</p>"]
+      ]
+    }
+  },
   "DATATOURISME.FMA$PMTILES": {
     "0": {
       "pretitle": "<span class=\"filterTitleImg\" style=\"background-image:url(data/img/layers/DATATOURISME.FMA.jpg);background-position:center\"></span>",

@@ -59,11 +59,11 @@ const urls = {
     fallback: BaseLayers,
   },
   thematicLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/thematics-layer-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/thematics-layer-config.json--",
     fallback: ThematicLayers,
   },
   configLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/layers-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/layers-config.json--",
     fallback: ConfigLayers,
   },
   tempLayers: {
@@ -95,7 +95,7 @@ const urls = {
     fallback: InseeCommWiki,
   },
   gfiRulesProps: {
-    url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json",
+    url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json--",
     fallback: GfiRulesProps,
   },
   newsfeed : {
@@ -149,6 +149,7 @@ async function loadConfigs() {
     if (!layer.isProdReady && Capacitor.getPlatform() !== "web") {
       return false;
     }
+
     if (Date.now() < Date.parse(layer.dateEnd) && Date.now() > Date.parse(layer.dateStart)) {
       return true;
     }

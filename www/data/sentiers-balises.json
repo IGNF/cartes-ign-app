@@ -1,0 +1,899 @@
+{
+  "version": 8,
+  "name": "ITINERAIRES-RANDO-TMS",
+  "sprite": "data/poi-osm-sprite",
+  "sources": {
+    "itineraires_rando_tms": {
+      "type": "vector",
+      "tiles": [
+        "https://data.geopf.fr/private/tms/1.0.0/ITINERAIRES-RANDO-TMS/{z}/{x}/{y}.pbf?apikey={{GPF_key}}"
+      ],
+      "minzoom": 0,
+      "maxzoom": 22
+    }
+  },
+  "layers": [
+    {
+	  "id": "ffr_gr_symbol_GR",
+	  "type": "symbol",
+	  "source": "itineraires_rando_tms",
+	  "source-layer": "tout_itineraire",
+	  "minzoom": 7,
+	  "filter": [
+		"all",
+		["==", ["get", "table_source"], "ffr"],
+		["==", ["get", "nature"], "GR"]
+	  ],
+	  "layout": {
+		"visibility": "visible",
+		"symbol-placement": "line",
+		"symbol-spacing": 200,
+		"icon-image": "gr",
+		"icon-size": {"stops": [[7, 0.8], [18, 1.6]] },
+		"icon-ignore-placement": false,
+		"text-ignore-placement": false,
+		"icon-rotation-alignment": "viewport",
+		"icon-rotate": 0,
+		"icon-pitch-alignment": "viewport",
+		"icon-padding": 2
+	  }
+	},
+    {
+	  "id": "ffr_grp_symbol_GRP",
+	  "type": "symbol",
+	  "source": "itineraires_rando_tms",
+	  "source-layer": "tout_itineraire",
+	  "minzoom": 9,
+	  "filter": [
+		"all",
+		["==", ["get", "table_source"], "ffr"],
+		["==", ["get", "nature"], "GRP"]
+	  ],
+	  "layout": {
+		"visibility": "visible",
+		"symbol-placement": "line",
+		"symbol-spacing": 200,
+		"icon-image": "grp",
+		"icon-size": {"stops": [[8, 0.8], [18, 1.6]] },
+		"icon-ignore-placement": false,
+		"text-ignore-placement": false,
+		"icon-rotation-alignment": "viewport",
+		"icon-rotate": 0,
+		"icon-pitch-alignment": "viewport",
+		"icon-padding": 2
+	  }
+	},
+    {
+	  "id": "ffr_pr_symbol_PR",
+	  "type": "symbol",
+	  "source": "itineraires_rando_tms",
+	  "source-layer": "tout_itineraire",
+	  "minzoom": 10,
+	  "filter": [
+		"all",
+		["==", ["get", "table_source"], "ffr"],
+		["==", ["get", "nature"], "PR"]
+	  ],
+	  "layout": {
+		"visibility": "visible",
+		"symbol-placement": "line",
+		"symbol-spacing": 200,
+		"icon-image": "pr",
+		"icon-size": {"stops": [[8, 0.8], [18, 1.6]] },
+		"icon-ignore-placement": false,
+		"text-ignore-placement": false,
+		"icon-rotation-alignment": "viewport",
+		"icon-rotate": 0,
+		"icon-pitch-alignment": "viewport",
+		"icon-padding": 2
+	  }
+	},
+    {
+      "id": "cv_picto_anneau_bleu",
+	  "type": "symbol",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Anneau bleu"]],
+	  "layout": {
+		"visibility": "visible",
+		"symbol-placement": "line",
+		"symbol-spacing": 100,
+		"icon-image": "anneau_bleu",
+		"icon-size": {"stops": [[12, 1.2], [18, 2]] },
+		"icon-ignore-placement": false,
+		"text-ignore-placement": false,
+		"icon-rotation-alignment": "viewport",
+		"icon-rotate": 0,
+		"icon-pitch-alignment": "viewport",
+		"icon-padding": 2
+	  }
+    },
+    {
+      "id": "cv_picto_anneau_jaune",
+	  "type": "symbol",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Anneau jaune"]],
+	  "layout": {
+		"visibility": "visible",
+		"symbol-placement": "line",
+		"symbol-spacing": 100,
+		"icon-image": "anneau_jaune",
+		"icon-size": {"stops": [[12, 1.2], [18, 2]] },
+		"icon-ignore-placement": false,
+		"text-ignore-placement": false,
+		"icon-rotation-alignment": "viewport",
+		"icon-rotate": 0,
+		"icon-pitch-alignment": "viewport",
+		"icon-padding": 2
+	  }
+    },
+    {
+      "id": "cv_picto_anneau_vert",
+	  "type": "symbol",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Anneau vert"]],
+	  "layout": {
+		"visibility": "visible",
+		"symbol-placement": "line",
+		"symbol-spacing": 100,
+		"icon-image": "anneau_vert",
+		"icon-size": {"stops": [[12, 1.2], [18, 2]] },
+		"icon-ignore-placement": false,
+		"text-ignore-placement": false,
+		"icon-rotation-alignment": "viewport",
+		"icon-rotate": 0,
+		"icon-pitch-alignment": "viewport",
+		"icon-padding": 2
+	  }
+    },
+    {
+      "id": "cv_picto_anneau_rouge",
+	  "type": "symbol",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Anneau rouge"]],
+	  "layout": {
+		"visibility": "visible",
+		"symbol-placement": "line",
+		"symbol-spacing": 100,
+		"icon-image": "anneau_rouge",
+		"icon-size": {"stops": [[12, 1.2], [18, 2]] },
+		"icon-ignore-placement": false,
+		"text-ignore-placement": false,
+		"icon-rotation-alignment": "viewport",
+		"icon-rotate": 0,
+		"icon-pitch-alignment": "viewport",
+		"icon-padding": 2
+	  }
+		},{
+	"id": "cv_picto_croix_bleu",
+	"type": "symbol",
+	"source": "itineraires_rando_tms",
+	"source-layer": "tout_itineraire",
+	"minzoom": 12,
+	"filter": ["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Croix bleu"]],
+	"layout": {"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"croix_bleu","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id": "cv_picto_croix_jaune",
+	"type": "symbol",
+	"source": "itineraires_rando_tms",
+	"source-layer": "tout_itineraire",
+	"minzoom": 12,
+	"filter": ["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Croix jaune"]],
+	"layout": {"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"croix_jaune","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id": "cv_picto_croix_vert",
+	"type": "symbol",
+	"source": "itineraires_rando_tms",
+	"source-layer": "tout_itineraire",
+	"minzoom": 12,
+	"filter": ["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Croix vert"]],
+	"layout": {"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"croix_vert","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id": "cv_picto_croix_rouge",
+	"type": "symbol",
+	"source": "itineraires_rando_tms",
+	"source-layer": "tout_itineraire",
+	"minzoom": 12,
+	"filter": ["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Croix rouge"]],
+	"layout": {"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"croix_rouge","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_disque_bleu","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Disque bleu"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"disque_bleu","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_disque_jaune","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Disque jaune"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"disque_jaune","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_disque_vert","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Disque vert"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"disque_vert","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_disque_rouge","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Disque rouge"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"disque_rouge","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_losange_bleu","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Losange bleu"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"losange_bleu","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_losange_jaune","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Losange jaune"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"losange_jaune","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_losange_vert","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Losange vert"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"losange_vert","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_losange_rouge","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Losange rouge"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"losange_rouge","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_triangle_bleu","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Triangle bleu"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"triangle_bleu","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_triangle_jaune","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Triangle jaune"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"triangle_jaune","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_triangle_vert","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Triangle vert"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"triangle_vert","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_triangle_rouge","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Triangle rouge"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"triangle_rouge","icon-size":{"stops":[[12,1.2],[18,2]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_rectangle_bleu","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Rectangle bleu"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"rectancle_bleu","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_rectangle_jaune","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Rectangle jaune"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"rectancle_jaune","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_rectangle_vert","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Rectangle vert"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"rectancle_vert","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_rectangle_rouge","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Rectangle rouge"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"rectancle_rouge","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_rectangle_bicolore_bleu","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Rectangle bicolore bleu"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"rectancle_bicolore_bleu","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_rectangle_bicolore_jaune","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Rectangle bicolore jaune"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"rectancle_bicolore_blanc","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_rectangle_bicolore_vert","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Rectangle bicolore vert"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"rectancle_bicolore_vert","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_rectangle_bicolore_rouge","type":"symbol","source":"itineraires_rando_tms","source-layer":"tout_itineraire","minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Rectangle bicolore rouge"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"rectancle_bicolore_rouge","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_chevaleret_bleu",
+	"type":"symbol",
+	"source":"itineraires_rando_tms",
+	"source-layer":"tout_itineraire",
+	"minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Chevalet bleu"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"chevaleret_bleu","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_chevaleret_jaune",
+	"type":"symbol",
+	"source":"itineraires_rando_tms",
+	"source-layer":"tout_itineraire",
+	"minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Chevalet jaune"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"chevaleret_jaune","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_chevaleret_vert",
+	"type":"symbol",
+	"source":"itineraires_rando_tms",
+	"source-layer":"tout_itineraire",
+	"minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Chevalet vert"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"chevaleret_vert","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+	{
+	"id":"cv_picto_chevaleret_rouge",
+	"type":"symbol",
+	"source":"itineraires_rando_tms",
+	"source-layer":"tout_itineraire",
+	"minzoom":12,
+	"filter":["all",["==",["get","table_source"],"cv"],["==",["get","nature"],"Chevalet rouge"]],
+	"layout":{"visibility":"visible","symbol-placement":"line","symbol-spacing":100,"icon-image":"chevaleret_rouge","icon-size":{"stops":[[12,1],[18,1.8]]},"icon-ignore-placement":false,"text-ignore-placement":false,"icon-rotation-alignment":"viewport","icon-rotate":0,"icon-pitch-alignment":"viewport","icon-padding":2}
+	},
+    {
+      "id": "ffr_gr_continu",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 7,
+      "filter": ["all", ["==", ["get", "table_source"], "ffr"], ["==",  ["get", "nature"], "GR"]],
+      "layout": { "line-join": "round", "line-cap": "round"},
+      "paint": {
+		  "line-color": "#d100dc",
+		  "line-width": {
+				"stops": [[7, 1.5], [18, 1.9]]
+			}
+		}
+    },
+	{
+	  "id": "ffr_gr_toponyme",
+	  "type": "symbol",
+	  "source": "itineraires_rando_tms",
+	  "source-layer": "tout_itineraire",
+	  "minzoom": 7,
+	  "filter": [
+		"all",
+		["==", ["get", "table_source"], "ffr"],
+		["==", ["get", "nature"], "GR"],
+		["<", ["length", ["coalesce", ["to-string", ["get", "toponyme"]], ""]], 35]
+	  ],
+	  "layout": {
+		"symbol-placement": "line-center",
+		"text-field": ["get", "toponyme"],
+		"text-size": { "stops": [[8, 11], [18, 17]] },
+		"text-font": ["Source Sans Pro Bold Italic"],
+		"symbol-spacing": {"stops": [[8, 300], [18, 200]]},
+
+        "text-max-angle": 45,
+		"text-letter-spacing": -0.05,
+		"text-anchor": "center",
+		"icon-allow-overlap": false,
+		"text-allow-overlap": false,
+		"icon-ignore-placement": false,
+		"text-ignore-placement": false,
+		"text-padding": 2,
+		"text-keep-upright": true
+	  },
+	  "paint": {
+		"text-color": "#d100dc",
+		"text-halo-color": "#ffffff",
+		"text-halo-width": 1.5,
+		"text-halo-blur": 0.2
+	  }
+	},
+    {
+      "id": "ffr_grp_pointille",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 9,
+      "filter": ["all", ["==", ["get", "table_source"], "ffr"], ["==", ["get", "nature"], "GRP"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[9, 1.4], [18, 1.7]]
+			}, "line-dasharray": [5, 2] }
+    },
+	{
+	  "id": "ffr_grp_toponyme",
+	  "type": "symbol",
+	  "source": "itineraires_rando_tms",
+	  "source-layer": "tout_itineraire",
+	  "minzoom": 9,
+	  "filter": [
+		"all",
+		["==", ["get", "table_source"], "ffr"],
+		["==", ["get", "nature"], "GRP"],
+		["<", ["length", ["coalesce", ["to-string", ["get", "toponyme"]], ""]], 35]
+	  ],
+	  "layout": {
+		"symbol-placement": "line-center",
+		"text-field": ["get", "toponyme"],
+		"text-size": { "stops": [[9, 11], [18, 17]] },
+		"text-font": ["Source Sans Pro Semibold Italic"],
+		"symbol-spacing": {"stops": [[9, 400], [18, 300]]},
+
+        "text-max-angle": 45,
+		"text-letter-spacing": -0.05,
+		"text-anchor": "center",
+		"text-allow-overlap": false,
+		"text-ignore-placement": false,
+		"text-padding": 2,
+		"text-keep-upright": true
+	  },
+	  "paint": {
+		"text-color": "#d100dc",
+		"text-halo-color": "#ffffff",
+		"text-halo-width": 1.2,
+		"text-halo-blur": 0.1
+	  }
+	},
+    {
+      "id": "ffr_pr_pointille",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 10,
+      "filter": ["all", ["==", ["get", "table_source"], "ffr"], ["==", ["get", "nature"], "PR"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[10, 1.35], [18, 1.6]]
+			}, "line-dasharray": [5, 2] }
+    },
+	{
+	  "id": "ffr_pr_toponyme",
+	  "type": "symbol",
+	  "source": "itineraires_rando_tms",
+	  "source-layer": "tout_itineraire",
+	  "minzoom": 10,
+	  "filter": [
+		"all",
+		["==", ["get", "table_source"], "ffr"],
+		["==", ["get", "nature"], "PR"],
+		["<", ["length", ["coalesce", ["to-string", ["get", "toponyme"]], ""]], 35]
+	  ],
+	  "layout": {
+		"symbol-placement": "line-center",
+		"text-field": ["get", "toponyme"],
+		"text-size": { "stops": [[10, 10.5], [18, 16.5]] },
+		"text-font": ["Source Sans Pro Semibold Italic"],
+		"symbol-spacing": {"stops": [[10, 400], [18, 300]]},
+
+        "text-max-angle": 45,
+		"text-letter-spacing": -0.05,
+		"text-anchor": "center",
+		"text-allow-overlap": false,
+		"text-ignore-placement": false,
+		"text-padding": 2,
+		"text-keep-upright": true
+	  },
+	  "paint": {
+		"text-color": "#d100dc",
+		"text-halo-color": "#ffffff",
+		"text-halo-width": 1.2,
+		"text-halo-blur": 0.1
+	  }
+	},
+    {
+      "id": "cv_balisage_anneau_bleu",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Anneau bleu"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_chevalet_vert",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Chevalet vert"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_losange_bleu",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Losange bleu"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_disque_rouge",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Disque rouge"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_croix_verte",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+	  "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Croix verte"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_disque_vert",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Disque vert"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_rectangle_bicolore_vert",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Rectangle bicolore vert"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_rectangle_bicolore_bleu",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Rectangle bicolore bleu"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_chevalet_rouge",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Chevalet rouge"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_rectangle_bicolore_rouge",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Rectangle bicolore rouge"]
+      ],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_chevalet_bleu",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Chevalet bleu"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_losange_rouge",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Losange rouge"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_chevalet_jaune",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Chevalet jaune"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_rectangle_bicolore_jaune",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Rectangle bicolore jaune"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_anneau_vert",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Anneau vert"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_anneau_rouge",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Anneau rouge"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_losange_jaune",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Losange jaune"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_triangle_vert",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Triangle vert"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_disque_bleu",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Disque bleu"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_rectangle_bleu",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Rectangle bleu"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_disque_jaune",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Disque jaune"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_triangle_jaune",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Triangle jaune"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_rectangle_rouge",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Rectangle rouge"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_croix_bleue",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Croix bleue"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_rectangle_vert",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Rectangle vert"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_croix_rouge",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Croix rouge"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_anneau_jaune",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Anneau jaune"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_losange_vert",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Losange vert"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_croix_jaune",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Croix jaune"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_triangle_rouge",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Triangle rouge"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_rectangle_jaune",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Rectangle jaune"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "cv_balisage_triangle_bleu",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["all", ["==", ["get", "table_source"], "cv"], ["==", ["get", "nature"], "Triangle bleu"]],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.35], [18, 1.5]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "autre",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["==", ["get", "table_source"], "autre"],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#d100dc", "line-width": {
+				"stops": [[12, 1.20], [18, 1.4]]
+			}, "line-dasharray": [5, 3] }
+    },
+    {
+      "id": "tr_rte",
+      "type": "line",
+      "source": "itineraires_rando_tms",
+      "source-layer": "tout_itineraire",
+      "minzoom": 12,
+      "filter": ["==", ["get", "table_source"], "tr_rte"],
+      "layout": { "line-join": "round", "line-cap": "round" },
+      "paint": { "line-color": "#ff00c5", "line-width": {
+				"stops": [[12, 1.20], [18, 1.4]]
+			}, "line-dasharray": [5, 3] }
+    }
+  ]
+}
