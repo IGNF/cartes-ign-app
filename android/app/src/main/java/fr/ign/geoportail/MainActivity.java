@@ -30,7 +30,7 @@ public class MainActivity extends BridgeActivity {
         webview.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
 
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.addJavascriptInterface(this, "AndroidInterface");
+        webview.addJavascriptInterface(new AndroidInterface(), "AndroidInterface");
 
         handleShareIntent(getIntent());
     }
@@ -58,8 +58,10 @@ public class MainActivity extends BridgeActivity {
         }
     }
 
-    @android.webkit.JavascriptInterface
-    public String getSharedFileUrl() {
-        return lastHandledUri;
+    private final class AndroidInterface {
+        @android.webkit.JavascriptInterface
+        public String getSharedFileUrl() {
+            return lastHandledUri;
+        }
     }
 }
