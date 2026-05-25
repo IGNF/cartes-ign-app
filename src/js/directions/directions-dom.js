@@ -21,6 +21,7 @@ let DirectionsDOM = {
     inputDeparture: null,
     inputArrival: null,
     buttonCompute: null,
+    electricBike: null,
   },
 
   /**
@@ -37,6 +38,8 @@ let DirectionsDOM = {
     container.appendChild(this.__addComputeContainerLocationsDOMElement());
     // ajout du mode de calcul
     container.appendChild(this.__addComputeContainerComputationDOMElement());
+    // ajout du formulaire vélo
+    container.appendChild(this.__addComputeContainerBikeFormDOMElement());
     // ajout du bouton submit
     container.appendChild(this.__addComputeButtonDOMElement());
     return container;
@@ -75,6 +78,12 @@ let DirectionsDOM = {
           transport = self.dom.inputPedestrian.value;
         }
       }
+      // vélo ?
+      if (self.dom.inputBicycle) {
+        if (self.dom.inputBicycle.checked) {
+          transport = self.dom.inputBicycle.value;
+        }
+      }
 
       var computation = null;
       // fast ?
@@ -87,6 +96,13 @@ let DirectionsDOM = {
       if (self.dom.inputShortest) {
         if (self.dom.inputShortest.checked) {
           computation = self.dom.inputShortest.value;
+        }
+      }
+
+      var electricBike = false;
+      if (self.dom.electricBike) {
+        if (self.dom.electricBike.checked) {
+          electricBike = true;
         }
       }
 
@@ -120,7 +136,8 @@ let DirectionsDOM = {
       self.compute({
         transport: transport,
         computation: computation,
-        locations: locations
+        locations: locations,
+        electricBike: electricBike,
       });
 
       return false;
@@ -225,15 +242,57 @@ let DirectionsDOM = {
     labelCar.title = "Véhicule";
     div.appendChild(labelCar);
 
-    var slider = document.createElement("span");
-    slider.className = "sliderDirections";
-    div.appendChild(slider);
+    var inputBicycle = this.dom.inputBicycle = document.createElement("input");
+    inputBicycle.id = "directionsTransportVelo";
+    inputBicycle.type = "radio";
+    inputBicycle.name = "Transport";
+    inputBicycle.value = "Velo";
+    inputBicycle.addEventListener("change", function (e) {
+      if (e.target.checked) {
+        self.obj.configuration.profile = "bicycle";
+      }
+    });
+    div.appendChild(inputBicycle);
 
+    var labelBicycle = document.createElement("label");
+    var spanBicycle = document.createElement("span");
+    labelBicycle.textContent = "À vélo";
+    labelBicycle.appendChild(spanBicycle);
+    labelBicycle.className = "lblDirectionsTransport";
+    labelBicycle.htmlFor = "directionsTransportVelo";
+    labelBicycle.title = "À vélo";
+    div.appendChild(labelBicycle);
     return div;
   },
 
   /**
    * ajoute le container sur le mode de calcul
+   * @returns {DOMElement}
+   * @private
+   */
+  __addComputeContainerBikeFormDOMElement() {
+    var div = document.createElement("div");
+    div.className = "divDirectionsBikeForm";
+    var labelElectric = document.createElement("label");
+    labelElectric.classList.add("toggleSwitch");
+    var electricInput = this.dom.electricBike = document.createElement("input");
+    electricInput.classList.add("toggleInput");
+    electricInput.type = "checkbox";
+    var electricSpan = document.createElement("span");
+    electricSpan.classList.add("toggleSlider");
+    labelElectric.appendChild(electricInput);
+    labelElectric.appendChild(electricSpan);
+    div.appendChild(labelElectric);
+
+    var textSpan = document.createElement("span");
+    textSpan.innerText = "Vélo à assistance électrique ?";
+    div.appendChild(textSpan);
+
+    return div;
+  },
+
+  /**
+   * ajoute le container sur les options vélo
    * @returns {DOMElement}
    * @private
    */
