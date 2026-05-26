@@ -32,6 +32,11 @@ const featurePropertyFilter = (feature) => {
     let web =  getProperty(feature, "web");
     let telephone = getProperty(feature, "telephone");
     let horaire = getProperty(feature, "horaire");
+    let panoramax = getProperty(feature, "panoramax");
+    if (panoramax) {
+      result.after += `<p class="panoramaxPoiImg"><img class="unescoimg" src="https://api.panoramax.xyz/api/pictures/${panoramax}/thumb.jpg" width="200px">`;
+      result.after += "<span class=\"monumentsHistoriquesImageAuthor\">Image issue du projet <a href=\"https://panoramax.fr\" target=\"_blank\">Panoramax</a></span></p>";
+    }
     if (horaire) {
       try {
         result.after += `<p class="positionHours positionInfo">Horaire : ${parseOsmOpeningHours(horaire)}</p>`;
