@@ -182,9 +182,16 @@ class MapInteractivity {
 
     if (features.length > 0) {
       const tempLayers = LayersConfig.getTempLayers();
-      if ( tempLayers.map(layer => layer.id).includes(features[0].source) ) {
-        const layerConfig = tempLayers.filter(layer => layer.id === features[0].source)[0];
-        const resp = gfiRules.parseGFI(layerConfig.gfiRules, {features: features}, this.map.getZoom());
+      const isRegularPMTiles = features[0].layer.id.includes("$PMTILES");
+      if ( isRegularPMTiles || tempLayers.map(layer => layer.id).includes(features[0].source) ) {
+        let rules;
+        if (isRegularPMTiles) {
+          rules = gfiRules[features[0].layer.id.split("$$$")[1]];
+        } else {
+          const layerConfig = tempLayers.filter(layer => layer.id === features[0].source)[0];
+          rules = layerConfig.gfiRules;
+        }
+        const resp = gfiRules.parseGFI(rules, {features: features}, this.map.getZoom());
         let lngLat = ev.lngLat;
         if (features[0].geometry.type === "Point") {
           lngLat = {
@@ -197,7 +204,8 @@ class MapInteractivity {
           text: resp.title,
           html: resp.html,
           html2: resp.html2,
-          isEvent: true,
+          htmlEvent: resp.htmlEvent,
+          isEvent: !isRegularPMTiles,
         }).then(() => {
           Globals.menu.open("position");
           this.map.once("click", this.handleInfoOnMap);
@@ -216,7 +224,7 @@ class MapInteractivity {
     let currentLayers = Globals.manager.layerSwitcher.getLayersOrder().reverse();
     const tempLayers = LayersConfig.getTempLayers();
     currentLayers = currentLayers.filter(layer => {
-      return layer[1].interactive && !layer[1].base && !tempLayers.map(layer => layer.id).includes(layer[0]);
+      return layer[1].interactive && !layer[1].base && !tempLayers.map(layer => layer.id).includes(layer[0]) && !layer[0].includes("$PMTILES");
     });
     let layerswithzoom = currentLayers.map((layer) => {
       let computeZoom = Math.round(this.map.getZoom()) + 1;
