@@ -52,6 +52,9 @@ let IsochroneDOM = {
         if (values.tempLayer) {
           chkClass = "inputIsochroneFilterItemTempLayer";
         }
+        if (values.isochroneLayer) {
+          chkClass = "inputIsochroneFilterItemLayer";
+        }
         return `
         <label class="lblIsochroneFilter chkContainer" title="${values.id}">
           ${values.name}
@@ -117,7 +120,26 @@ let IsochroneDOM = {
         `;
       }
 
-      strPoi = `${strTempLayers}
+      var strIsochroneLayers = "";
+      if (opts.isochroneLayers && opts.isochroneLayers.length === 1) {
+        strIsochroneLayers = `
+        <div class="section event colorValue" style="--colorValue: ${opts.isochroneLayers[0].colorLight};">
+          <div class="divPOIDisplay">
+            <span class="filterTitleImg" style="background-image:url(${opts.isochroneLayers[0].isochroneIconUrl})"></span>
+            <div class="filterTitle">
+              <span>Afficher les évènements</span>
+              <span class="filterSubTitle">${opts.isochroneLayers[0].name}</span>
+            </div>
+            <label class="toggleSwitch">
+              <input id="displayPOI-isochrone-${opts.isochroneLayers[0].layerId}" value="${opts.isochroneLayers[0].layerInLayerId}$$$${opts.isochroneLayers[0].layerId}" class="toggleInput inputIsochroneFilterItemLayer" type="checkbox" checked>
+              <span class="toggleSlider colorValue" style="--colorValue: ${opts.isochroneLayers[0].colorDark};"></span>
+            </label>
+          </div>
+        </div>
+        `;
+      }
+
+      strPoi = `${strTempLayers}${strIsochroneLayers}
       <div class="section">
         <div class="divPOIDisplay">
           <span class="filterTitle">Afficher les centres d'intérêt</span>
@@ -335,6 +357,12 @@ let IsochroneDOM = {
           tempLayersToDisplay.push(el.value);
         }
       });
+      var layersToDisplay = [];
+      document.querySelectorAll(".inputIsochroneFilterItemLayer").forEach( (el) => {
+        if (el.checked) {
+          layersToDisplay.push(el.value);
+        }
+      });
 
       if (!mode.value) {
         Toast.show({
@@ -362,6 +390,7 @@ let IsochroneDOM = {
         showPoisOutside: showPoisOutside,
         poisToDisplay: poisToDisplay,
         tempLayersToDisplay: tempLayersToDisplay,
+        layersToDisplay: layersToDisplay,
       });
 
       return false;
@@ -386,6 +415,11 @@ let IsochroneDOM = {
       } else {
         let allUnchecked = true;
         document.querySelectorAll(".inputIsochroneFilterItemTempLayer").forEach((el) => {
+          if (el.checked) {
+            allUnchecked = false;
+          }
+        });
+        document.querySelectorAll(".inputIsochroneFilterItemLayer").forEach((el) => {
           if (el.checked) {
             allUnchecked = false;
           }
@@ -428,6 +462,14 @@ let IsochroneDOM = {
             allChecked = false;
           }
         });
+        document.querySelectorAll(".inputIsochroneFilterItemLayer").forEach((el) => {
+          if (el.checked) {
+            allUnchecked = false;
+            this.dom.showLimitsChk.disabled = false;
+          } else {
+            allChecked = false;
+          }
+        });
         if (allChecked) {
           this.dom.poiToggle.checked = true;
         }
@@ -445,6 +487,7 @@ let IsochroneDOM = {
     };
     this.dom.form.querySelectorAll(".inputIsochroneFilterItem").forEach(checkboxHandler);
     this.dom.form.querySelectorAll(".inputIsochroneFilterItemTempLayer").forEach(checkboxHandler);
+    this.dom.form.querySelectorAll(".inputIsochroneFilterItemLayer").forEach(checkboxHandler);
     this.dom.clearLocation.addEventListener("click", () => {
       this.dom.location.value = "";
       this.dom.location.dataset.coordinates = "";

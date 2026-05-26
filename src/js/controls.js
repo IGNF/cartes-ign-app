@@ -26,6 +26,7 @@ import OfflineMaps from "./offline-maps";
 import TrackRecord from "./track-record/track-record";
 import DOM from "./dom";
 import ThreeD from "./three-d";
+import { config } from "./utils/config-utils";
 
 import LayerConfig from "./layer-manager/layer-config";
 import LocationLayers from "./services/location-styles";
@@ -185,6 +186,7 @@ const addControls = () => {
           openSearchControlCbk : () => { Globals.menu.open("searchIsochrone"); },
           closeSearchControlCbk : () => { Globals.menu.close("searchIsochrone"); },
           tempLayers : tempLayerList,
+          isochroneLayers : config.isochroneLayers,
         });
         // Poi RLT
         Globals.comparePoi = new ComparePoi(map, {});

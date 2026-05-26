@@ -40,6 +40,7 @@ class Isochrone {
       openSearchControlCbk: null,
       closeSearchControlCbk: null,
       tempLayers: null,
+      isochroneLayers: null,
     };
 
     // configuration
@@ -70,6 +71,7 @@ class Isochrone {
     this.target = this.options.target;
 
     this.tempLayers = this.options.tempLayers || null;
+    this.isochroneLayers = this.options.isochroneLayers || null;
 
     // carte
     this.map = map;
@@ -158,6 +160,10 @@ class Isochrone {
 
     if (this.tempLayers && this.tempLayers.length > 0) {
       options.tempLayers = this.tempLayers;
+    }
+
+    if (this.isochroneLayers && this.isochroneLayers.length > 0) {
+      options.isochroneLayers = this.isochroneLayers;
     }
 
     var container = this.getContainer(options);
@@ -362,12 +368,28 @@ class Isochrone {
     if (this.tempLayers && this.tempLayers.length > 0) {
       settings.tempLayersToDisplay.forEach((id) => {
         if (this.map.getLayer(`${id}$$$${id}`)) {
-          document.querySelector(`#${id}`).click();
+          document.getElementById(id).click();
         }
-        document.querySelector(`#${id}`).click();
+        document.getElementById(id).click();
         const addLayerCallback = (e) => {
           if (e.detail.id === id) {
             this.map.setFilter(`${id}$$$${id}`, ["within", this.polygon]);
+            Globals.manager.removeEventListener("addlayer", addLayerCallback);
+          }
+        };
+        Globals.manager.addEventListener("addlayer", addLayerCallback);
+      });
+    }
+
+    if (this.isochroneLayers && this.isochroneLayers.length > 0) {
+      settings.layersToDisplay.forEach((id) => {
+        if (this.map.getLayer(id)) {
+          document.getElementById(id.split("$$$")[1]).click();
+        }
+        document.getElementById(id.split("$$$")[1]).click();
+        const addLayerCallback = (e) => {
+          if (e.detail.id === id.split("$$$")[1]) {
+            this.map.setFilter(id, ["within", this.polygon]);
             Globals.manager.removeEventListener("addlayer", addLayerCallback);
           }
         };
@@ -474,6 +496,13 @@ class Isochrone {
       this.tempLayers.forEach((layer) => {
         if (this.map.getLayer(`${layer.id}$$$${layer.id}`)) {
           this.map.setFilter(`${layer.id}$$$${layer.id}`, null);
+        }
+      });
+    }
+    if (this.isochroneLayers && this.isochroneLayers.length > 0) {
+      this.isochroneLayers.forEach((layer) => {
+        if (this.map.getLayer(`${layer.layerInLayerId}$$$${layer.layerId}`)) {
+          this.map.setFilter(`${layer.layerInLayerId}$$$${layer.layerId}`, null);
         }
       });
     }
