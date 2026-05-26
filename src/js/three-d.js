@@ -80,7 +80,12 @@ class ThreeD {
         ],
         minzoom: 6,
         maxzoom: 14,
-        tileSize: 256
+        tileSize: 256,
+        encoding: "custom",
+        redFactor: 6553.6,
+        greenFactor: 25.6,
+        blueFactor: 0.1,
+        baseShift: 0.0,
       });
     }
 
