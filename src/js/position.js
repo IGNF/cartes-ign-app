@@ -173,6 +173,13 @@ class Position {
         <button id="positionExport" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionExportImg"></label>Exporter</button>
       `;
     }
+    if (type === "sentiers-balises") {
+      htmlButtons = `
+        <button id="positionRoute" class="btnPositionButtons${eventClass}"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+        <button id="positionNear" class="btnPositionButtons secondary${eventClass}"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+        <button id="positionSignal" class="btnPositionButtons secondary${eventClass}"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
+        `;
+    }
 
     var htmlAdvanced = "";
     // Si c'est un landmark
@@ -231,21 +238,7 @@ class Position {
     }
 
     // ajout des listeners principaux :
-    if (type === "geotrek" && this.geotrekRoute) {
-      shadowContainer.getElementById("positionShare").addEventListener("click", () => {
-        Toast.show({
-          text: "Partage de l'itinéraire...",
-          duration: "short",
-          position: "bottom"
-        });
-        Share.share({
-          title: `${this.geotrekRoute.nom_itineraire}`,
-          text: `${this.geotrekRoute.presentation_courte}`,
-          dialogTitle: "Partager l'itinéraire",
-          url: this.geotrekRoute.gpx,
-        });
-      });
-    } else {
+    if (shadowContainer.getElementById("positionShare")) {
       shadowContainer.getElementById("positionShare").addEventListener("click", () => {
         Share.share({
           title: `Partager ${this.#getTrueHeader()}}`,
@@ -253,6 +246,8 @@ class Position {
           dialogTitle: "Partager la position",
         });
       });
+    }
+    if (shadowContainer.getElementById("positionNear")) {
       shadowContainer.getElementById("positionNear").addEventListener("click", async () => {
         let coordinates = this.coordinates;
         if (type === "myposition") {
@@ -277,6 +272,8 @@ class Position {
           target.value = this.name;
         }
       });
+    }
+    if (shadowContainer.getElementById("positionRoute")) {
       shadowContainer.getElementById("positionRoute").addEventListener("click", async () => {
         let coordinates = this.coordinates;
         if (type === "myposition") {
@@ -347,7 +344,7 @@ class Position {
         });
       });
     }
-    if (type !== "landmark" && type !== "geotrek") {
+    if (shadowContainer.getElementById("positionLandmark")) {
       shadowContainer.getElementById("positionLandmark").addEventListener("click", async () => {
         let coordinates = this.coordinates;
         if (type === "myposition") {
@@ -385,8 +382,7 @@ class Position {
         }
       });
     }
-
-    if (type !== "myposition" && type !== "geotrek") {
+    if (shadowContainer.getElementById("positionSignal")) {
       shadowContainer.getElementById("positionSignal").addEventListener("click", () => {
         const coordinates = this.coordinates;
         Globals.isochrone.clear();

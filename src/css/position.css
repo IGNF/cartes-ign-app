@@ -707,6 +707,28 @@
   font-style: normal;
 }
 
+.monumentsHistoriquesContent.compostellefalse {
+  display: none;
+}
+
+.pictoSentier {
+  float: left;
+  margin-right: 1em;
+}
+
+.pictoSentier.pictoIGN {
+  display: none;
+}
+
+.monumentsHistoriquesContent b.natureSentier {
+  display: inline;
+  margin-bottom: 0;
+}
+
+.monumentsHistoriquesContent b.natureSentier.natureIGN {
+  display: none;
+}
+
 .foldable {
   max-height: calc(13px * var(--text-zoom) * 5.4);
   line-height: calc(13px * var(--text-zoom) * 1.35);

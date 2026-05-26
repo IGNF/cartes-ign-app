@@ -215,7 +215,6 @@ class MapInteractivity {
         }
         let hideCallback = null;
         let type = "default";
-
         if (features[0].layer.id.split("$$$")[1] === "HIKING.GEOTREK$TMS") {
           hideCallback = () => {
             if (this.map.getSource("geotrek-steps")) {
@@ -245,6 +244,22 @@ class MapInteractivity {
             this.map.setLayoutProperty("geotrek-composite-pill$$$HIKING.GEOTREK$TMS", "visibility", "visible");
           };
           type = "geotrek";
+        } else if (features[0].layer.id.split("$$$")[1] === "ITINERAIRES-RANDO-TMS$TMS") {
+          const filtered_features = features.filter((feature) => {
+            return feature.layer.id.split("$$$")[1] === "ITINERAIRES-RANDO-TMS$TMS" && feature.properties.toponyme !== features[0].properties.toponyme;
+          });
+          const unique_filtered_features = [];
+          const toponymeSet = new Set();
+          filtered_features.forEach(feature => {
+            if (!toponymeSet.has(feature.properties.toponyme)) {
+              toponymeSet.add(feature.properties.toponyme);
+              unique_filtered_features.push(feature);
+            }
+          });
+          if (unique_filtered_features.length > 0) {
+            resp.html2 += `<p>À cet endroit passe${unique_filtered_features.length > 1 ? "nt" : ""} aussi : ${unique_filtered_features.map(f => f.properties.toponyme).join(", ")}</p>`;
+          }
+          type = "sentiers-balises";
         } else {
           this.#highlightGFI(features[0].geometry, false);
         }
