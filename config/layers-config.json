@@ -324,7 +324,6 @@
 
 
     "PLAN.IGN.INTERACTIF$TMS": {
-      "hidden": true,
       "serverUrl": "https://data.geopf.fr/tms/1.0.0/",
       "title": "Plan IGN",
       "description": "Plan vectoriel interactif. En cliquant sur le plan, les informations de légende et les données issues de la BD Topo s'affichent.",
@@ -334,7 +333,6 @@
       "styles": ["https://ignf.github.io/cartes-ign-app/plan-ign-interactif-style.json", "data/plan-ign-interactif-style.json"]
     },
     "PLAN.IGN.MIXTE$TMS": {
-      "hidden": true,
       "interactive": false,
       "serverUrl": "https://data.geopf.fr/tms/1.0.0/",
       "title": "Plan aérien",
@@ -344,8 +342,17 @@
       "format": "application/x-protobuf",
       "styles": [ "https://ignf.github.io/cartes-ign-app/mixte.json", "data/mixte.json"]
     },
+    "PLANIGN.LIDAR.SURSOL.2$TMS": {
+      "interactive": false,
+      "serverUrl": "https://data.geopf.fr/private/wmts",
+      "title": "Plan IGN LIDAR Sursol",
+      "description": "Plan IGN LIDAR Sursol",
+      "source": "IGN",
+      "maj": "Mise à jour mensuelle",
+      "format": "application/x-protobuf",
+      "styles": [ "https://ignf.github.io/cartes-ign-app/plan-lidar.json", "data/plan-lidar.json"]
+    },
     "OSM.POI$TMS": {
-      "hidden": true,
       "serverUrl": "https://data.geopf.fr/tms/1.0.0/",
       "title": "POI OSM interactif",
       "description": "POI OSM interactif",
