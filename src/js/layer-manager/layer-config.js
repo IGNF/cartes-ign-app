@@ -192,7 +192,8 @@ const createSource = (id) => {
     fxt = createVectorPMTilesSource;
     break;
   default:
-    throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${service}`);
+    console.error(`LayerConfig : ID layer service (${name}) is not conforme : ${service}`);
+    return null;
   }
   return fxt(id);
 };
@@ -217,7 +218,8 @@ const createTempSource = (layer) => {
     fxt = createTempGeojsonSource;
     break;
   default:
-    throw new Error(`LayerConfig : ID layer service (${name}) is not conforme : ${type}`);
+    console.error(`LayerConfig : ID layer service (${name}) is not conforme : ${type}`);
+    return null;
   }
   return fxt(layer);
 };
@@ -355,15 +357,15 @@ export default {
   getLayersByThematic,
   getThematicByLayerID,
   baseLayerSources: Object.fromEntries(
-    getBaseLayers().map( (id) => [id, createSource(id)] )
+    getBaseLayers().map( (id) => [id, createSource(id)] ).filter(([, source]) => source !== null)
   ),
   rltLayerSources: Object.fromEntries(
-    getRLTLayers().map( (id) => [id, createSource(id)] )
+    getRLTLayers().map( (id) => [id, createSource(id)] ).filter(([, source]) => source !== null)
   ),
   thematicLayerSources: Object.fromEntries(
-    getThematicLayers().map( (id) => [id, createSource(id)] )
+    getThematicLayers().map( (id) => [id, createSource(id)] ).filter(([, source]) => source !== null)
   ),
   tempLayerSources: Object.fromEntries(
-    getTempLayers().map( (layer) => [layer.id, createTempSource(layer)] )
+    getTempLayers().map( (layer) => [layer.id, createTempSource(layer)] ).filter(([, source]) => source !== null)
   ),
 };
