@@ -610,7 +610,7 @@ class RouteDraw {
     if (index < this.data.points.length - 1) {
       const computeAfter = this.#computeStep(index, this.mode, false);
       promises.push(computeAfter);
-      if (this.mode === 1 && this.data.steps[index].properties.mode === 0 && index < this.data.points.length - 2) {
+      if (this.mode === 1 && this.data.steps[index] && this.data.steps[index].properties.mode === 0 && index < this.data.points.length - 2) {
         computeAfter.then(() => promises.push(this.#computeStep(index + 1, this.data.steps[index + 1].properties.mode, false)));
       }
     }
@@ -1014,11 +1014,12 @@ class RouteDraw {
     }
     this.data.elevationData = this.elevation.getData();
     if (Globals.backButtonState === "routeDraw") {
-      if (this.dataHistory[this.currentHistoryPosition]) {
-        this.dataHistory[this.currentHistoryPosition].elevationData = JSON.parse(JSON.stringify(this.data.elevationData));
-      }
       if (!this.data.isTrack) {
         this.data.duration = GisUtils.getHikeTimeScarfsRule(this.data.distance, this.data.elevationData.dplus, Globals.walkingSpeed);
+      }
+      if (this.dataHistory[this.currentHistoryPosition]) {
+        this.dataHistory[this.currentHistoryPosition].elevationData = JSON.parse(JSON.stringify(this.data.elevationData));
+        this.dataHistory[this.currentHistoryPosition].duration = this.data.duration;
       }
       this.__updateRouteInfo(this.data);
       // Si mode lecture seule mais que l'alti est recalculée (non sauvegardé de base), on la rajoute dans les données enregistrées
