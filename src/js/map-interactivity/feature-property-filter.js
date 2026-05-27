@@ -255,6 +255,9 @@ const featurePropertyFilter = (feature) => {
     }
     if(date_d_apparition) {
       let match = date_d_apparition.match("([0-9]+)/");
+      if (!match) {
+        match = date_d_apparition.match("([0-9]+)-");
+      }
       let year = match[1] ? match[1] : "";
       result.before += `Année de construction : ${year}<br/>`;
     }

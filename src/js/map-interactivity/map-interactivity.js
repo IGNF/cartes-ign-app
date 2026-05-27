@@ -180,10 +180,10 @@ class MapInteractivity {
       }
     }
 
+    const tempLayers = LayersConfig.getTempLayers();
     if (features.length > 0) {
-      const tempLayers = LayersConfig.getTempLayers();
-      const isRegularTMS = features[0].layer.id.includes("$TMS");
-      const isRegularPMTiles = features[0].layer.id.includes("$TMS");
+      const isRegularTMS = features[0].layer.id.includes("$TMS") && !["bdtopo", "poi_osm", "plan_ign"].includes(features[0].layer.source);
+      const isRegularPMTiles = features[0].layer.id.includes("$PMTILES");
       if ( isRegularTMS || isRegularPMTiles || tempLayers.map(layer => layer.id).includes(features[0].source) ) {
         let rules;
         if (isRegularTMS || isRegularPMTiles) {
@@ -223,7 +223,6 @@ class MapInteractivity {
     // GFI au sens OGC
     // on ne fait pas de GFI sur les bases layers
     let currentLayers = Globals.manager.layerSwitcher.getLayersOrder().reverse();
-    const tempLayers = LayersConfig.getTempLayers();
     currentLayers = currentLayers.filter(layer => {
       return layer[1].interactive && !layer[1].base && !tempLayers.map(layer => layer.id).includes(layer[0]) && !layer[0].includes("$PMTILES");
     });
