@@ -146,6 +146,9 @@ async function loadConfigs() {
   }
   // Filter temp layers
   config.tempLayers = config.tempLayers.filter((layer) => {
+    if (layer.id === "rdvjardins2026") {
+      return false;
+    }
     if (!layer.isProdReady && Capacitor.getPlatform() !== "web") {
       return false;
     }
