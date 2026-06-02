@@ -11,8 +11,10 @@ import ImageNotFound from "../../html/img/image-not-found.png";
 import ReliefBuildingsImage from "../../html/img/3D.BUILDINGS.jpg";
 import ReliefTerrainImage from "../../html/img/3D.TERRAIN.jpg";
 import DomUtils from "../utils/dom-utils";
+import { config } from "../utils/config-utils";
 
 import { Toast } from "@capacitor/toast";
+import popupUtils from "../utils/popup-utils";
 
 /**
  * Gestion des couches thématiques et fonds de carte
@@ -55,6 +57,10 @@ class LayerCatalogue extends EventTarget {
 
     // options ?
     this.map = Globals.map;
+
+    this.popup = {
+      popup: null,
+    },
 
     this.#render();
     this.#listeners();
@@ -316,6 +322,42 @@ class LayerCatalogue extends EventTarget {
   addLayer(layerName, isTempLayer = false) {
     if (!layerName) {
       return;
+    }
+    if (config.layerPopups[layerName] && config.layerPopups[layerName].popupContent &&
+        (!localStorage.getItem(`dontShow${config.layerPopups[layerName].popupID}Again`) ||
+        localStorage.getItem(`dontShow${config.layerPopups[layerName].popupID}Again`) === "false"
+        )) {
+      window.onChkLayerChange = (event) => {
+        if (event.target.checked) {
+          localStorage.setItem(`dontShow${config.layerPopups[layerName].popupID}Again`, "true");
+        } else {
+          localStorage.setItem(`dontShow${config.layerPopups[layerName].popupID}Again`, "false");
+        }
+      };
+      const dontShowCheckBox = `
+      <p style="margin-bottom: 0px"><label class="chkContainer" for="dontShow${config.layerPopups[layerName].popupID}Again" title="Ne plus afficher ce message">
+      Ne plus afficher ce message
+      <input id="dontShow${config.layerPopups[layerName].popupID}Again"
+          class="checkbox"
+          type="checkbox"
+          onchange="onChkLayerChange(event)"
+      >
+      <span class="checkmark"></span>
+      </label></p>
+      `;
+      const validatePopup = `<p style='text-align:center'>
+        <span onclick="onCloseLayerPopup(event)" style='font-family:Open Sans Semibold;
+          padding: 10px 20px;background: var(--dark-green);color: white;text-decoration: none;
+          border-radius: 2in;display: inline-block;margin: 15px 0;'>
+      C'est noté !</span></p>`;
+      popupUtils.showPopup(`
+        <div id="layerPopup">
+          <div class="divPopupClose" onclick="onCloseLayerPopup(event)"></div>
+          ${config.layerPopups[layerName].popupContent}
+          ${dontShowCheckBox}
+          ${validatePopup}
+        </div>
+        `, Globals.map, "layerPopup", "onCloseLayerPopup", this.popup);
     }
 
     var element = document.getElementById(layerName);

@@ -19,6 +19,8 @@ import ComparePoiData from "../../../config/poi_rlt.json";
 import InseeCommWiki from "../../../config/com_wiki.json";
 import GfiRulesProps from "../../../config/gfi-rules.json";
 
+import LayerPopups from "../../../config/layer-popups.json";
+
 import { Capacitor } from "@capacitor/core";
 import { Device } from "@capacitor/device";
 
@@ -49,6 +51,7 @@ const config = {
   comparePoiData: null,
   inseeCommWiki: null,
   gfiRulesProps: null,
+  layerPopups: null,
   newsfeed : [],
   hasLoaded: false,
 };
@@ -97,6 +100,10 @@ const urls = {
   gfiRulesProps: {
     url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json",
     fallback: GfiRulesProps,
+  },
+  layerPopups: {
+    url: "https://ignf.github.io/cartes-ign-app/layer-popups.json",
+    fallback: LayerPopups,
   },
   newsfeed : {
     url: "https://cartes-ign.ign.fr/newsfeed/newsfeed_config.json",
