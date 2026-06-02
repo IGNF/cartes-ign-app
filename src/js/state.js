@@ -20,6 +20,10 @@ const onBackKeyDown = () => {
   const backState = Globals.backButtonState.split("-")[0];
   /* comportements custom */
   if (backState == "default") {
+    if (Globals.trackRecord.activeRecord) {
+      App.minimizeApp();
+      return;
+    }
     App.exitApp();
     return;
   }
