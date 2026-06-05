@@ -135,13 +135,6 @@ class LayerCatalogue extends EventTarget {
         ${name}
       </button>
       `;
-      if (tempLayers.length > 0 && l == 0) {
-        strThematicButtons += `
-        <button class="thematicButton" data-name="Évènements">
-          Événements
-        </button>
-        `;
-      }
     }
 
     var thematicLayers = LayersConfig.getThematicLayers();
@@ -282,23 +275,29 @@ class LayerCatalogue extends EventTarget {
       // - recherche des couches du theme demandé
       // - supprime la classe 'hidden' des ID des couches demandées
       el.addEventListener("click", (e) => {
-        var buttons = document.querySelectorAll(".thematicButton");
-        for (let h = 0; h < buttons.length; h++) {
-          const element = buttons[h];
-          element.classList.remove("thematic-button-active");
+        if (!e.target.classList.contains("thematic-button-active")) {
+          var buttons = document.querySelectorAll(".thematicButton");
+          for (let h = 0; h < buttons.length; h++) {
+            const element = buttons[h];
+            element.classList.remove("thematic-button-active");
+          }
+          var layers = document.querySelectorAll(".thematicLayer");
+          for (let i = 0; i < layers.length; i++) {
+            const element = layers[i];
+            element.classList.add("layer-hidden");
+          }
+          var layersId = LayersConfig.getLayersByThematic(e.target.dataset.name);
+          for (let j = 0; j < layersId.length; j++) {
+            const id = layersId[j];
+            var element = document.getElementById(id);
+            element.classList.remove("layer-hidden");
+          }
+          e.target.classList.add("thematic-button-active");
+        } else {
+          if (e.target.getAttribute("data-name") !== "Tous") {
+            document.querySelector(".thematicButton[data-name='Tous']").click();
+          }
         }
-        var layers = document.querySelectorAll(".thematicLayer");
-        for (let i = 0; i < layers.length; i++) {
-          const element = layers[i];
-          element.classList.add("layer-hidden");
-        }
-        var layersId = LayersConfig.getLayersByThematic(e.target.dataset.name);
-        for (let j = 0; j < layersId.length; j++) {
-          const id = layersId[j];
-          var element = document.getElementById(id);
-          element.classList.remove("layer-hidden");
-        }
-        e.target.classList.add("thematic-button-active");
       });
       if (el.getAttribute("data-name") == "Tous") {
         el.click();

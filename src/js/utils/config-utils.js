@@ -164,7 +164,7 @@ async function loadConfigs() {
 
   // Add temp layers to thematicLayers
   if (config.tempLayers.length > 0) {
-    config.thematicLayers.push({
+    config.thematicLayers.unshift({
       name: "Évènements",
       layers: config.tempLayers.map((layer) => layer.id),
     });
