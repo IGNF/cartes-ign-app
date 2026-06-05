@@ -234,15 +234,6 @@
       "maxNativeZoom": 15,
       "format": "image/png"
     },
-    "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$WMS": {
-      "title": "Parcs et Jardins",
-      "description": "Localisation des jardins sélectionnés par le Conservatoire des jardins et paysages pour favoriser leur connaissance auprès du public.",
-      "source": "Conservatoire des jardins et paysages",
-      "maj": "Avril 2017",
-      "serverUrl": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&",
-      "style": "default-style-CJP-PARCS-JARDINS_BDD-POI_WLD_WM",
-      "format": "image/png"
-    },
     "POI.MONUMENTS_BDD_WLD_WM$WMS": {
       "title": "Monuments nationaux",
       "description": "Localisation des sites gérés par le Centre des monuments nationaux.",
@@ -265,7 +256,7 @@
       "title": "Villages étapes",
       "description": "Localisation des Villages étapes. Alternatives aux aires de services, les communes labellisées offrent une pause alliant commerces, équipements et convivialité.<br />Les communes labellisées Villages étapes sont des communes de moins de 5 000 habitants et sont situées à moins de 5 km d'un grand axe routier national.<br />Label national créé en 1995.",
       "source": "Fédération française des villages étapes",
-      "maj": "Septembre 2025",
+      "maj": "Juin 2026",
       "serverUrl": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&",
       "style": "default-style-VILLAGESETAPE",
       "format": "image/png"

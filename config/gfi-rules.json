@@ -72,18 +72,6 @@
       ]
     }
   },
-  "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$WMS": {
-    "0": {
-      "title": "@name",
-      "subtitle": "Parcs et Jardins - Source : Conservatoire des jardins et paysages",
-      "bodyBefore": [
-        ["{{cjp}}"]
-      ],
-      "bodyAfter": [
-        ["<p class=\"positionWeb positionInfo\"><a href=\"{{url}}\"",  "alt=\"{{url}}\" target=\"_blank\">", "Accéder à la fiche</a></p>"]
-      ]
-    }
-  },
   "POI.MONUMENTS_BDD_WLD_WM$WMS": {
     "0": {
       "title": "@name",
