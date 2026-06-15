@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import BaseLayers from "../../../config/base-layer-config.json";
+import BaseLayers from "../../../config/base-layer-config-new.json";
 import ThematicLayers from "../../../config/thematics-layer-config-new.json";
 import ConfigLayers from "../../../config/layers-config.json";
 
@@ -59,7 +59,7 @@ const config = {
 
 const urls = {
   baseLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/base-layer-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/base-layer-config-new.json",
     fallback: BaseLayers,
   },
   thematicLayers: {
