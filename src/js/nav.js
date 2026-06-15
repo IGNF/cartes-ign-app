@@ -901,7 +901,6 @@ class MenuNavigation {
     );
     Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
     if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-
       Globals.anchors = [0, document.scrollingElement.clientHeight - 72 - Math.max(insetBottom, 20), Globals.maxScroll];
     }
     this.#scrollTo(Globals.anchors[Globals.currentScrollIndex]);

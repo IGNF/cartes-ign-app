@@ -70,7 +70,7 @@ body:has(#map.d-none) #mapCenter:has(~ #tabContainer > #compareLandmarkWindow #c
   width: 36px;
   height: 36px;
   border-radius: 100%;
-  border: 2px solid #7EB9F7;
+  border: 2px solid var(--bleu-clair);
   box-sizing: border-box;
   top: -4px;
   left: -4px;
@@ -81,7 +81,7 @@ body:has(#map.d-none) #mapCenter:has(~ #tabContainer > #compareLandmarkWindow #c
 }
 
 #compareLandmark-color-orange:checked + .compareLandmarkColorInputLabel::after{
-  border: 2px solid #F18345;
+  border: 2px solid var(--orange);
 }
 
 #compareLandmark-color-green:checked + .compareLandmarkColorInputLabel::after{
@@ -89,5 +89,5 @@ body:has(#map.d-none) #mapCenter:has(~ #tabContainer > #compareLandmarkWindow #c
 }
 
 #compareLandmark-color-yellow:checked + .compareLandmarkColorInputLabel::after{
-  border: 2px solid #EFC931;
+  border: 2px solid var(--jaune);
 }

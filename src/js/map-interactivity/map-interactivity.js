@@ -127,10 +127,22 @@ class MapInteractivity {
     features = features.filter( (feature) => {
       return !["isochrone", "location-precision"].includes(feature.source);
     });
-
+    // On retire les features issues des itinéraires my-account qui ne sont pas visibles
+    features = features.filter( (feature) => {
+      if (["my-account-line", "my-account-point"].includes(feature.source)) {
+        if (!feature.properties.visible) {
+          return false;
+        }
+      }
+      return true;
+    });
     // On clique sur une feature tuile vectorielle
     let featureHTML = null;
-    if (features.length > 0 && (features[0].source === "comparepoi" || features[0].source === "my-account-landmark" || features[0].source === "my-account-compare-landmark")){
+    if (features.length > 0 &&
+      (features[0].source === "comparepoi"
+        || (features[0].source === "my-account-landmark" && features[0].properties.visible)
+        || (features[0].source === "my-account-compare-landmark" && features[0].properties.visible)
+      )){
       this.map.once("click", this.handleInfoOnMap);
       return;
     }
@@ -170,6 +182,7 @@ class MapInteractivity {
           text: Legend.legend(features, Math.floor(this.map.getZoom())),
           html: featureHTML.before,
           html2: featureHTML.after,
+          htmlBeforeAddress: featureHTML.htmlBeforeAddress,
           hideCallback: deselectPoiCallback,
           type: "osm",
         }).then(() => {
@@ -179,14 +192,14 @@ class MapInteractivity {
         return;
       }
     }
-
     const tempLayers = LayersConfig.getTempLayers();
     if (features.length > 0) {
       const isRegularTMS = features[0].layer.id.includes("$TMS") && !["bdtopo", "poi_osm", "plan_ign"].includes(features[0].layer.source);
       const isRegularPMTiles = features[0].layer.id.includes("$PMTILES");
-      if ( isRegularTMS || isRegularPMTiles || tempLayers.map(layer => layer.id).includes(features[0].source) ) {
+      const isRegularGeoJson = features[0].layer.id.includes("$GEOJSON");
+      if ( isRegularTMS || isRegularPMTiles || isRegularGeoJson || tempLayers.map(layer => layer.id).includes(features[0].source) ) {
         let rules;
-        if (isRegularTMS || isRegularPMTiles) {
+        if (isRegularTMS || isRegularPMTiles || isRegularGeoJson) {
           rules = gfiRules[features[0].layer.id.split("$$$")[1]];
         } else {
           const layerConfig = tempLayers.filter(layer => layer.id === features[0].source)[0];
@@ -200,15 +213,58 @@ class MapInteractivity {
             lng: features[0].geometry.coordinates[0]
           };
         }
+        let hideCallback = null;
+        let type = "default";
+
+        if (features[0].layer.id.split("$$$")[1] === "HIKING.GEOTREK$TMS") {
+          hideCallback = () => {
+            if (this.map.getSource("geotrek-steps")) {
+              this.map.getSource("geotrek-steps").setData({
+                type: "FeatureCollection",
+                features: [],
+              });
+            }
+            if (this.map.getSource("geotrek-geom")) {
+              this.map.getSource("geotrek-geom").setData({
+                type: "FeatureCollection",
+                features: [],
+              });
+            }
+            if (this.map.getSource("geotrek-start")) {
+              this.map.getSource("geotrek-start").setData({
+                type: "FeatureCollection",
+                features: [],
+              });
+            }
+            if (this.map.getSource("geotrek-end")) {
+              this.map.getSource("geotrek-end").setData({
+                type: "FeatureCollection",
+                features: [],
+              });
+            }
+            this.map.setLayoutProperty("geotrek-composite-pill$$$HIKING.GEOTREK$TMS", "visibility", "visible");
+          };
+          type = "geotrek";
+        } else {
+          this.#highlightGFI(features[0].geometry, false);
+        }
         Globals.position.compute({
           lngLat: lngLat,
           text: resp.title,
           html: resp.html,
           html2: resp.html2,
+          htmlBeforeAddress: resp.htmlBeforeAddress,
           htmlEvent: resp.htmlEvent,
-          isEvent: !(isRegularTMS || isRegularPMTiles),
+          isEvent: !(isRegularTMS || isRegularPMTiles || isRegularGeoJson),
+          hideCallback: hideCallback,
+          type: type,
+          feature: features[0],
         }).then(() => {
           Globals.menu.open("position");
+          if (type == "geotrek") {
+            Globals.currentScrollIndex = 1;
+            Globals.menu.updateScrollAnchors();
+          }
           this.map.once("click", this.handleInfoOnMap);
         });
         return;
@@ -224,7 +280,7 @@ class MapInteractivity {
     // on ne fait pas de GFI sur les bases layers
     let currentLayers = Globals.manager.layerSwitcher.getLayersOrder().reverse();
     currentLayers = currentLayers.filter(layer => {
-      return layer[1].interactive && !layer[1].base && !tempLayers.map(layer => layer.id).includes(layer[0]) && !layer[0].includes("$PMTILES");
+      return layer[1].interactive && !layer[1].base && !tempLayers.map(layer => layer.id).includes(layer[0]) && !layer[0].includes("$TMS") && !layer[0].includes("$PMTILES") && !layer[0].includes("$GEOJSON");
     });
     let layerswithzoom = currentLayers.map((layer) => {
       let computeZoom = Math.round(this.map.getZoom()) + 1;
@@ -264,7 +320,8 @@ class MapInteractivity {
           lngLat: ev.lngLat,
           text: resp.title,
           html: resp.html,
-          html2: resp.html2
+          html2: resp.html2,
+          htmlBeforeAddress: resp.htmlBeforeAddress,
         });
         Globals.menu.open("position");
         this.map.once("click", this.handleInfoOnMap);
@@ -279,7 +336,8 @@ class MapInteractivity {
             lngLat: ev.lngLat,
             text: Legend.legend(features, Math.floor(this.map.getZoom())),
             html: featureHTML.before,
-            html2: featureHTML.after
+            html2: featureHTML.after,
+            htmlBeforeAddress: featureHTML.htmlBeforeAddress,
           });
           Globals.menu.open("position");
           this.selectedCleabs = features[0].properties.cleabs;
@@ -292,7 +350,7 @@ class MapInteractivity {
       });
   }
 
-  // Met à jour la gémétrie highlightée au moment de la séléction et du déplacement de la carte.
+  // Met à jour la géométrie highlightée au moment de la séléction et du déplacement de la carte.
   #updateHighlightedGeom() {
     let source;
     const mapFeatures = this.map.queryRenderedFeatures();
@@ -487,7 +545,7 @@ class MapInteractivity {
    * Ajoute à la carte la géométrie de la feature cliquée dans un GFI
    * @param {*} gfiGeom
    */
-  #highlightGFI(gfiGeom) {
+  #highlightGFI(gfiGeom, convertCoords = true) {
     this.#clearSources();
     let source;
 
@@ -498,7 +556,9 @@ class MapInteractivity {
     } else {
       source = this.map.getSource(this.configuration.polygonsource);
     }
-    this.#convertCoords(gfiGeom.coordinates);
+    if (convertCoords) {
+      this.#convertCoords(gfiGeom.coordinates);
+    }
     if (gfiGeom.type === "LineString" || gfiGeom.type === "MultiLineString") {
       gfiGeom = Buffer(gfiGeom, 5, {units: "meters"});
     }

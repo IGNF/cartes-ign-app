@@ -10,9 +10,14 @@ import Elevation from "./services/elevation";
 import Location from "./services/location";
 import Globals from "./globals";
 import DomUtils from "./utils/dom-utils";
+import ImageCarousel from "./utils/image-carousel";
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
 import { Clipboard } from "@capacitor/clipboard";
+import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
+import { Capacitor } from "@capacitor/core";
+import maplibregl from "maplibre-gl";
+import NearestPointOnLine from "@turf/nearest-point-on-line";
 
 import ActionSheet from "./action-sheet";
 import PopupUtils from "./utils/popup-utils";
@@ -20,6 +25,8 @@ import PopupUtils from "./utils/popup-utils";
 import LoadingDark from "../css/assets/loading-darkgrey.svg";
 import ImmersivePosion from "./immersive-position";
 import domUtils from "./utils/dom-utils";
+import jsUtils from "./utils/js-utils";
+import ElevationLineControl from "./elevation-line-control/elevation-line-control";
 
 /**
  * Permet d'afficher ma position sur la carte
@@ -86,6 +93,10 @@ class Position {
     };
 
     this.immersivePosition = null;
+
+    // Pour le cas Geotrek : informations sur un itinéraire
+    this.geotrekRoute = null;
+    this.elevationProfile = null;
 
     return this;
   }
@@ -155,6 +166,14 @@ class Position {
       `;
     }
 
+    if (type === "geotrek" && this.geotrekRoute) {
+      htmlButtons = `
+        <button id="positionSave" class="btnPositionButtons"><label class="lblPositionImg lblPositionSaveImg"></label>Enregistrer</button>
+        <button id="positionShare" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionShareImg"></label>Partager</button>
+        <button id="positionExport" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionExportImg"></label>Exporter</button>
+      `;
+    }
+
     var htmlAdvanced = "";
     // Si c'est un landmark
     if (type === "landmark") {
@@ -174,6 +193,7 @@ class Position {
       <div id="${id.main}">
           <div class="divPositionTitleWrapper"><div class="divPositionTitle">${this.header}</div>${htmlAdvanced}</div>
           ${this.additionalHtml.eventHtml}
+          ${this.additionalHtml.beforeAddress}
           <div class="divPositionAdressOriginInfo${eventClass}">Adresse la plus proche du point sélectionné</div>
           <div class="divPositionAddress">
               <label class="lblPositionImgAddress${eventClass}"></label>
@@ -211,68 +231,123 @@ class Position {
     }
 
     // ajout des listeners principaux :
-    shadowContainer.getElementById("positionShare").addEventListener("click", () => {
-      Share.share({
-        title: `Partager ${this.#getTrueHeader()}}`,
-        text: this.shareContent,
-        dialogTitle: "Partager la position",
+    if (type === "geotrek" && this.geotrekRoute) {
+      shadowContainer.getElementById("positionShare").addEventListener("click", () => {
+        Toast.show({
+          text: "Partage de l'itinéraire...",
+          duration: "short",
+          position: "bottom"
+        });
+        Share.share({
+          title: `${this.geotrekRoute.nom_itineraire}`,
+          text: `${this.geotrekRoute.presentation_courte}`,
+          dialogTitle: "Partager l'itinéraire",
+          url: this.geotrekRoute.gpx,
+        });
       });
-    });
-    shadowContainer.getElementById("positionNear").addEventListener("click", async () => {
-      let coordinates = this.coordinates;
-      if (type === "myposition") {
-        let position = await Location.getLocation();
-        coordinates = position.coordinates;
-      }
-      // fermeture du panneau actuel
-      if (this.options.closePositionCbk) {
-        if (this.hideCallback) {
-          this.hideCallback();
-          this.hideCallback = null;
-        }
-        Globals.isochrone.clear();
-        this.options.closePositionCbk();
-        this.opened = false;
-      }
-      // ouverture du panneau Isochrone
-      if (this.options.openIsochroneCbk) {
-        this.options.openIsochroneCbk();
-        let target = Globals.isochrone.dom.location;
-        target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
-        target.value = this.name;
-      }
-    });
-    shadowContainer.getElementById("positionRoute").addEventListener("click", async () => {
-      let coordinates = this.coordinates;
-      if (type === "myposition") {
-        let position = await Location.getLocation();
-        coordinates = position.coordinates;
-      }
-      // fermeture du panneau actuel
-      if (this.options.closePositionCbk) {
-        if (this.hideCallback) {
-          this.hideCallback();
-          this.hideCallback = null;
-        }
-        Globals.isochrone.clear();
-        this.options.closePositionCbk();
-        this.opened = false;
-      }
-      // ouverture du panneau Itinéraire
-      if (this.options.openDirectionsCbk) {
-        this.options.openDirectionsCbk();
-        let target = Globals.directions.dom.inputArrival;
+    } else {
+      shadowContainer.getElementById("positionShare").addEventListener("click", () => {
+        Share.share({
+          title: `Partager ${this.#getTrueHeader()}}`,
+          text: this.shareContent,
+          dialogTitle: "Partager la position",
+        });
+      });
+      shadowContainer.getElementById("positionNear").addEventListener("click", async () => {
+        let coordinates = this.coordinates;
         if (type === "myposition") {
-          target = Globals.directions.dom.inputDeparture;
+          let position = await Location.getLocation();
+          coordinates = position.coordinates;
         }
-        target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
-        target.value = this.name;
-        if (Globals.directions.dom.inputArrival.value && Globals.directions.dom.inputDeparture.value) {
-          Globals.directions.dom.buttonCompute.classList.remove("disabled");
+        // fermeture du panneau actuel
+        if (this.options.closePositionCbk) {
+          if (this.hideCallback) {
+            this.hideCallback();
+            this.hideCallback = null;
+          }
+          Globals.isochrone.clear();
+          this.options.closePositionCbk();
+          this.opened = false;
         }
-      }
-    });
-    if (type !== "landmark") {
+        // ouverture du panneau Isochrone
+        if (this.options.openIsochroneCbk) {
+          this.options.openIsochroneCbk();
+          let target = Globals.isochrone.dom.location;
+          target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
+          target.value = this.name;
+        }
+      });
+      shadowContainer.getElementById("positionRoute").addEventListener("click", async () => {
+        let coordinates = this.coordinates;
+        if (type === "myposition") {
+          let position = await Location.getLocation();
+          coordinates = position.coordinates;
+        }
+        // fermeture du panneau actuel
+        if (this.options.closePositionCbk) {
+          if (this.hideCallback) {
+            this.hideCallback();
+            this.hideCallback = null;
+          }
+          Globals.isochrone.clear();
+          this.options.closePositionCbk();
+          this.opened = false;
+        }
+        // ouverture du panneau Itinéraire
+        if (this.options.openDirectionsCbk) {
+          this.options.openDirectionsCbk();
+          let target = Globals.directions.dom.inputArrival;
+          if (type === "myposition") {
+            target = Globals.directions.dom.inputDeparture;
+          }
+          target.dataset.coordinates = "[" + coordinates.lon + "," + coordinates.lat + "]";
+          target.value = this.name;
+          if (Globals.directions.dom.inputArrival.value && Globals.directions.dom.inputDeparture.value) {
+            Globals.directions.dom.buttonCompute.classList.remove("disabled");
+          }
+        }
+      });
+    }
+    if (type === "geotrek" && this.geotrekRoute) {
+      shadowContainer.getElementById("positionSave").addEventListener("click", async () => {
+        const accountRoute = Globals.myaccount.geojsonToRoute({
+          type: "Feature",
+          geometry: JSON.parse(this.geotrekRoute.geometry),
+          data: {
+            name: this.geotrekRoute.nom_itineraire,
+            distance: this.geotrekRoute.longueur,
+            duration: parseFloat(this.geotrekRoute.duree) * 3600,
+            elevationData: this.elevationProfile.getData(),
+          }
+        });
+        Globals.myaccount.addRoute(accountRoute);
+        Toast.show({
+          text: "Itinéraire ajouté aux enregistrements",
+          duration: "long",
+          position: "bottom"
+        });
+      });
+      shadowContainer.getElementById("positionExport").addEventListener("click", async () => {
+        Toast.show({
+          text: "Exportation de l'itinéraire...",
+          duration: "short",
+          position: "bottom"
+        });
+        fetch(this.geotrekRoute.gpx).then( (resp) => resp.text()).then( (gpxString) => {
+          Filesystem.writeFile({
+            path: this.geotrekRoute.gpx.split("/").splice(-1),
+            data: gpxString,
+            directory: Directory.Documents,
+            encoding: Encoding.UTF8,
+          });
+          // For testing purposes
+          if (!Capacitor.isNativePlatform()) {
+            jsUtils.download(this.geotrekRoute.gpx.split("/").splice(-1), gpxString);
+          }
+        });
+      });
+    }
+    if (type !== "landmark" && type !== "geotrek") {
       shadowContainer.getElementById("positionLandmark").addEventListener("click", async () => {
         let coordinates = this.coordinates;
         if (type === "myposition") {
@@ -311,7 +386,7 @@ class Position {
       });
     }
 
-    if (type !== "myposition") {
+    if (type !== "myposition" && type !== "geotrek") {
       shadowContainer.getElementById("positionSignal").addEventListener("click", () => {
         const coordinates = this.coordinates;
         Globals.isochrone.clear();
@@ -424,6 +499,39 @@ class Position {
       this.container.remove();
     }
     this.container = document.getElementById(id.main);
+    if (type === "geotrek" && this.geotrekRoute) {
+      const list_urls = [];
+      const list_credits = [];
+      if (this.geotrekRoute.medias && this.geotrekRoute.medias !== "[]" && document.getElementById("geotrek-carousel")) {
+        JSON.parse(this.geotrekRoute.medias).forEach( (media) => {
+          if (media.type_media === "image") {
+            list_urls.push(media.url);
+            list_credits.push(media.auteur);
+          }
+        });
+        new ImageCarousel(document.getElementById("geotrek-carousel"), list_urls, {
+          imageTitle: this.geotrekRoute.nom_itineraire,
+          imageCredits: list_credits,
+          fixedHeight: 220,
+          squareWidth: 196,
+          backButtonState: "position",
+          shareActivated: false,
+          noMargins: true,
+        });
+      }
+      if (document.getElementById("geotrek-profile")) {
+        this.elevationProfile = new ElevationLineControl({target: document.getElementById("geotrek-profile")});
+        this.elevationProfile.setCoordinates(JSON.parse(this.geotrekRoute.geometry).coordinates);
+        this.elevationProfile.compute(this.geotrekRoute.longueur).then(() => {
+          Array.from(document.getElementsByClassName("geotrek-elevation-positive")).forEach((el) => {
+            el.innerText = this.elevationProfile.dplus.toLocaleString("fr-FR");
+          });
+          Array.from(document.getElementsByClassName("geotrek-elevation-negative")).forEach((el) => {
+            el.innerText = this.elevationProfile.dminus.toLocaleString("fr-FR");
+          });
+        });
+      }
+    }
 
     // mise à jour du statut de la fenêtre
     this.opened = true;
@@ -436,9 +544,11 @@ class Position {
    * @param {string} options.text texte d'en-tête de la position
    * @param {string} options.html html situé avant les boutons d'action
    * @param {string} options.html2 html situé après les boutons d'action
+   * @param {string} options.htmlBeforeAddress html situé avant l'adresse
    * @param {string} options.htmlEvent html spécifique pour les événements (ex. icône de l'événement à côté du titre)
    * @param {Function} options.hideCallback fonction de callback pour la fermeture de la position (pour les animations)
    * @param {string} options.type type de position : default, context, myposition ou landmark
+   * @param {Object} options.feature
    * @public
    */
   async compute(options = {}) {
@@ -447,9 +557,11 @@ class Position {
     let html = options.html || "";
     const html2 = options.html2 || "";
     const htmlEvent = options.htmlEvent || "";
+    const htmlBeforeAddress = options.htmlBeforeAddress || "";
     const hideCallback = options.hideCallback || null;
     const type = options.type || "default";
     const isEvent = options.isEvent || false;
+    const feature = options.feature || null;
     this.clear();
     if (this.hideCallback) {
       this.hideCallback();
@@ -488,6 +600,7 @@ class Position {
     this.additionalHtml.beforeButtons = html;
     this.additionalHtml.afterButtons = html2;
     this.additionalHtml.eventHtml = htmlEvent;
+    this.additionalHtml.beforeAddress = htmlBeforeAddress;
 
     this.address = Reverse.getAddress() || {
       number: "",
@@ -495,6 +608,225 @@ class Position {
       postcode: "",
       city: ""
     };
+
+    if (type === "geotrek") {
+      if (!this.map.getSource("geotrek-geom")) {
+        this.map.addSource("geotrek-geom", {
+          "type": "geojson",
+          "data": {
+            "type": "FeatureCollection",
+            "features": []
+          },
+        });
+        this.map.addSource("geotrek-start", {
+          "type": "geojson",
+          "data": {
+            "type": "FeatureCollection",
+            "features": []
+          },
+        });
+        this.map.addSource("geotrek-end", {
+          "type": "geojson",
+          "data": {
+            "type": "FeatureCollection",
+            "features": []
+          },
+        });
+        this.map.addLayer({
+          id: "geotrek-geom-casing",
+          type: "line",
+          source: "geotrek-geom",
+          paint: {
+            "line-width": 8,
+            "line-color": "white",
+          },
+          layout: {
+            "line-cap": "round",
+            "line-join": "round"
+          },
+        });
+        this.map.addLayer({
+          id: "geotrek-geom",
+          type: "line",
+          source: "geotrek-geom",
+          paint: {
+            "line-width": 5,
+            "line-color": "#3993F3",
+          },
+          layout: {
+            "line-cap": "round",
+            "line-join": "round"
+          },
+        });
+        this.map.addLayer({
+          "id": "geotrek-start",
+          "type": "symbol",
+          "source": "geotrek-start",
+          "layout": {
+            "icon-image": "pill-black",
+            "icon-text-fit": "width",
+            "text-field": [
+              "format",
+              ["image", [
+                "match",
+                ["get", "pratique"],
+                "Pédestre", "pedestre-white",
+                "VTT", "vtt-white",
+                "Équestre", "equestre-white",
+                "pedestre-white"
+              ]],
+
+              "   ",
+              ["get", "kilometers"],
+              "   ",
+
+              ["image", [
+                "concat",
+                "dot-",
+                [
+                  "match",
+                  ["get", "difficulte"],
+                  "Tresfacile", "Tresfacile",
+                  "Facile", "Facile",
+                  "Difficile", "Difficile",
+                  "Tresdifficile", "Tresdifficile",
+                  "default"
+                ]
+              ]]
+            ],
+            "text-size": 14,
+            "text-font": ["Source Sans Pro Semibold"],
+          },
+          "paint": {
+            "text-color": "white",
+            "icon-translate": [0, -20],
+            "text-translate": [0, -24],
+          }
+        });
+        this.map.addLayer({
+          "id": "geotrek-end",
+          "type": "symbol",
+          "source": "geotrek-end",
+          "layout": {
+            "icon-image": "pill-black",
+            "icon-text-fit": "width",
+            "text-field": "Arrivée",
+            "text-size": 14,
+            "text-font": ["Source Sans Pro Semibold"],
+          },
+          "paint": {
+            "text-color": "white",
+            "icon-translate": [0, -20],
+            "text-translate": [0, -24],
+          }
+        });
+      }
+      this.map.getSource("geotrek-start").setData(feature);
+      if (!["boucle", "aller-retour"].includes(feature.properties.type_itineraire.toLowerCase())) {
+        this.map.getSource("geotrek-end").setData({
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: JSON.parse(feature.properties.geometry).coordinates.splice(-1)[0]
+          }
+        });
+      }
+      const geojsonRoute = {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            geometry: JSON.parse(feature.properties.geometry),
+          }
+        ]
+      };
+      this.map.getSource("geotrek-geom").setData(geojsonRoute);
+      this.map.setLayoutProperty("geotrek-composite-pill$$$HIKING.GEOTREK$TMS", "visibility", "none");
+
+      let padding;
+      // gestion du mode paysage / écran large
+      if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
+        var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
+                    Math.min(window.innerHeight, window.innerWidth/2) + 42;
+        padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
+      } else {
+        padding = {top: 80, right: 20, bottom: this.map.getContainer().offsetHeight / 2 - 85, left: 20};
+      }
+      const coords = JSON.parse(feature.properties.geometry).coordinates;
+      const bounds = coords.reduce((bounds, coord) => {
+        return bounds.extend(coord);
+      }, new maplibregl.LngLatBounds(coords[0], coords[0]));
+      if (Location.isTrackingActive()) {
+        Location.disableTracking();
+      }
+      this.map.fitBounds(bounds, {
+        padding: padding,
+      });
+      // Ajouts des points d'étape
+      if (feature.properties.points_reference) {
+        if (!this.map.getSource("geotrek-steps")) {
+          this.map.addSource("geotrek-steps", {
+            "type": "geojson",
+            "data": {
+              "type": "FeatureCollection",
+              "features": []
+            },
+          });
+          this.map.addLayer({
+            id: "geotrek-steps-circles",
+            type: "circle",
+            source: "geotrek-steps",
+            minzoom: 11,
+            paint: {
+              "circle-radius": 15,
+              "circle-color": "white",
+              "circle-stroke-width": 2,
+              "circle-stroke-color": "#B8BCC1",
+            },
+            layout: {
+              "circle-sort-key": ["-", ["get", "index"]]
+            }
+          }, "geotrek-start");
+
+          this.map.addLayer({
+            id: "geotrek-steps-labels",
+            type: "symbol",
+            source: "geotrek-steps",
+            minzoom: 11,
+            layout: {
+              "symbol-sort-key": ["get", "index"],
+              "text-field": ["get", "index"],
+              "text-size": 12,
+              "text-font": ["Source Sans Pro Semibold"]
+            },
+            paint: {
+              "text-color": "black"
+            }
+          }, "geotrek-start");
+        }
+
+        const multipoint = JSON.parse(feature.properties.points_reference);
+        const features = multipoint.coordinates.map((coords, i) => {
+          const point = NearestPointOnLine(JSON.parse(feature.properties.geometry), {type: "Point", coordinates: coords});
+          return {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: point.geometry.coordinates
+            },
+            properties: {
+              index: (i + 1)
+            }
+          };
+        });
+        const geojson = {
+          type: "FeatureCollection",
+          features
+        };
+        this.map.getSource("geotrek-steps").setData(geojson);
+      }
+      this.geotrekRoute = feature.properties;
+    }
 
     this.#render(type, isEvent);
     if (hideCallback) {

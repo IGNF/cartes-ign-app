@@ -5,7 +5,7 @@
  */
 
 import BaseLayers from "../../../config/base-layer-config.json";
-import ThematicLayers from "../../../config/thematics-layer-config.json";
+import ThematicLayers from "../../../config/thematics-layer-config-new.json";
 import ConfigLayers from "../../../config/layers-config.json";
 
 import QueryConfig from "../../../config/immersive-position-config.json";
@@ -62,7 +62,7 @@ const urls = {
     fallback: BaseLayers,
   },
   thematicLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/thematics-layer-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/thematics-layer-config-new.json",
     fallback: ThematicLayers,
   },
   configLayers: {

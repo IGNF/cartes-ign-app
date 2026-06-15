@@ -6,6 +6,131 @@
 
 import { config } from "../utils/config-utils";
 import { marked } from "marked";
+import DomUtils from "../utils/dom-utils";
+
+function duration(hours) {
+  const total = Math.round(hours * 60);
+  const h = Math.floor(total / 60);
+  const m = total % 60;
+  if (h === 0) {
+    return `${m}&nbsp;min`;
+  }
+  if (m === 0) {
+    return `${h}&nbsp;h`;
+  }
+  return `${h}h${m}`;
+}
+
+function tokilometers(value) {
+  return `${(Math.round(value / 100) * 100 / 1000).toLocaleString("fr")} km`;
+}
+
+function sentierSource(source) {
+  if (source === "ffr") {
+    return "Fédération Française de Randonnée";
+  } else if (source === "cv") {
+    return "Club Vosgien";
+  } else {
+    return "IGN";
+  }
+}
+
+const helpers = {
+  duration,
+  tokilometers,
+  sentierSource,
+};
+
+/**
+ * Process a template string by replacing placeholders with values
+ * @param {string} str - The template string to process
+ * @param {Object} featureProperties - Feature properties to substitute
+ * @param {Object} options - Processing options
+ * @param {boolean} options.includeMarkdown - Process {{{ }}} markdown placeholders (default: true)
+ * @param {boolean} options.includeHelpers - Process ~~ ~~ helper function placeholders (default: true)
+ * @param {Object} options.specialHandlers - Special property handlers {propName: handler function}
+ * @returns {string|null} Processed string, or null if required property not found
+ */
+function processTemplateString(str, featureProperties, options = {}) {
+  const {
+    includeMarkdown = true,
+    includeHelpers = true,
+    specialHandlers = {}
+  } = options;
+
+  // Match markdown first: {{{ content }}}
+  if (includeMarkdown) {
+    let match = str.match("{{{([^}]+)}}}");
+    while (match) {
+      if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+        str = str.replace(match[0], marked(featureProperties[match[1]]));
+        match = str.match("{{{([^}]+)}}}");
+      } else {
+        break;
+      }
+    }
+  }
+
+  // Then match operations: ~~ expression ~~
+  if (includeHelpers) {
+    let match = str.match(/~~(.*?)~~/);
+    while (match) {
+      const expr = match[1].trim();
+      let result = "";
+      try {
+        // Match helper(arg)
+        const fnMatch = expr.match(/^([a-zA-Z0-9_]+)\((.*?)\)$/);
+        if (fnMatch) {
+          const fnName = fnMatch[1];
+          const argName = fnMatch[2].trim();
+          if (
+            Object.prototype.hasOwnProperty.call(helpers, fnName) &&
+            Object.prototype.hasOwnProperty.call(featureProperties, argName)
+          ) {
+            result = helpers[fnName](featureProperties[argName]);
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+      str = str.replace(match[0], result);
+      match = str.match(/~~(.*?)~~/);
+    }
+  }
+
+  // Finally match raw properties: {{ property }}
+  let match = str.match("{{([^}]+)}}");
+  while (match) {
+    const propName = match[1];
+
+    // Apply special handler if available
+    if (specialHandlers[propName]) {
+      const result = specialHandlers[propName](featureProperties[propName]);
+      if (result === null) {
+        str = str.replace(match[0], "");
+      } else {
+        str = str.replace(match[0], result);
+      }
+    } else if (Object.prototype.hasOwnProperty.call(featureProperties, propName)) {
+      let propValue = featureProperties[propName];
+
+      // Parse JSON arrays if value starts with "["
+      if (typeof propValue === "string" && propValue[0] === "[") {
+        propValue = JSON.parse(propValue).join(", ");
+      } else if (Array.isArray(propValue)) {
+        propValue = propValue.join(", ");
+      }
+
+      str = str.replace(match[0], propValue);
+    } else {
+      str = str.replace(match[0], "");
+    }
+
+    match = str.match("{{([^}]+)}}");
+  }
+
+  return str;
+}
 
 const gfiRules = {
   ...config.gfiRulesProps,
@@ -30,11 +155,15 @@ const gfiRules = {
     );
     let template = rule[`${z}`];
     if (template["title"][0] === "@") {
-      let str = featureProperties[template.title.split("@")[1]].replace("", "'");
-      if (str.length) {
-        result.title = str[0].toUpperCase() + str.slice(1) + "</p>";
-      } else {
+      if (!featureProperties[template.title.split("@")[1]]) {
         result.title = "</p>";
+      } else {
+        let str = featureProperties[template.title.split("@")[1]].replace("", "'");
+        if (str.length) {
+          result.title = str[0].toUpperCase() + str.slice(1) + "</p>";
+        } else {
+          result.title = "</p>";
+        }
       }
     } else {
       result.title = template.title + "</p>";
@@ -78,7 +207,10 @@ const gfiRules = {
       result.title += "</p>";
     }
     if (template["subtitle"]) {
-      result.title += `<p class="positionSubTitle">${template["subtitle"]}</p>`;
+      const processedSubtitle = processTemplateString(template["subtitle"], featureProperties);
+      if (processedSubtitle !== null) {
+        result.title += `<p class="positionSubTitle">${processedSubtitle}</p>`;
+      }
     }
     if (template["pretitle"]) {
       let pretitle = template["pretitle"];
@@ -95,78 +227,70 @@ const gfiRules = {
     let bodyBefore = "";
     if (template.bodyBefore) {
       bodyBefore += "<div class='positionHtmlBefore'>";
-      template.bodyBefore.forEach( (bodyElement) => {
+      template.bodyBefore.forEach((bodyElement) => {
         let notFound = false;
         let p = bodyElement.map((str) => {
-          let match = str.match("{{([^}]+)}}");
-          while (match) {
-            if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
-              if (Array.isArray(featureProperties[match[1]])) {
-                featureProperties[match[1]] = featureProperties[match[1]].join(", ");
-              }
-              str = str.replace(match[0], featureProperties[match[1]]);
-              match = str.match("{{([^}]+)}}");
-            } else {
-              notFound = true;
-              return "";
-            }
+          const result = processTemplateString(str, featureProperties);
+          if (result === null) {
+            notFound = true;
+            return "";
           }
-          return str;
+          return result;
         });
-        if (p && !notFound)
+        if (p && !notFound) {
           bodyBefore += `${p.join(" ")}<br/>`;
+        }
       });
       bodyBefore += "</div>";
     }
     let bodyAfter = "";
     if (template.bodyAfter) {
       bodyAfter += "<div class='positionHtmlAfter'>";
-      template.bodyAfter.forEach( (bodyElement) => {
+      const specialHandlers = {
+        identifiant_gestionnaire: (value) => {
+          if (!value) {
+            return null;
+          }
+          return value.charAt(0).toUpperCase() + value.slice(1);
+        },
+        fiche_wikipedia: () => {
+          if (!featureProperties["code_insee"]) {
+            return null;
+          }
+          const wikiValue = config.inseeCommWiki[featureProperties["code_insee"]];
+          if (!wikiValue) {
+            return null;
+          }
+          return wikiValue;
+        },
+        presentation_courte: (value) => {
+          try {
+            return DomUtils.stringToHTML(value.trim()).innerText.trim();
+          } catch {
+            return value;
+          }
+        },
+        presentation: (value) => {
+          try {
+            return DomUtils.stringToHTML(value.trim()).innerText.trim();
+          } catch {
+            return value;
+          }
+        },
+      };
+      template.bodyAfter.forEach((bodyElement) => {
         let notFound = false;
         let p = bodyElement.map((str) => {
-          // match markdown first
-          let match = str.match("{{{([^}]+)}}}");
-          while (match) {
-            if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
-              str = str.replace(match[0], marked(featureProperties[match[1]]));
-              match = str.match("{{{([^}]+)}}}");
-            }
+          const result = processTemplateString(str, featureProperties, { specialHandlers });
+          if (result === null) {
+            notFound = true;
+            return "";
           }
-          match = str.match("{{([^}]+)}}");
-          while (match) {
-            if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
-              if (match[1] === "identifiant_gestionnaire") {
-                if (!featureProperties[match[1]]) {
-                  return "";
-                }
-                featureProperties[match[1]] = featureProperties[match[1]].charAt(0).toUpperCase() + featureProperties[match[1]].slice(1);
-              }
-              if (featureProperties[match[1]][0] === "[") {
-                featureProperties[match[1]] = JSON.parse(featureProperties[match[1]]).join(", ");
-              }
-              str = str.replace(match[0], featureProperties[match[1]]);
-              match = str.match("{{([^}]+)}}");
-            } else {
-              if (match[1] === "fiche_wikipedia") {
-                if (!featureProperties["code_insee"]) {
-                  return "";
-                }
-                featureProperties[match[1]] = config.inseeCommWiki[featureProperties["code_insee"]];
-                if (!featureProperties[match[1]]) {
-                  return "";
-                }
-                str = str.replace(match[0], featureProperties[match[1]]);
-                match = str.match("{{([^}]+)}}");
-              } else {
-                notFound = true;
-                return "";
-              }
-            }
-          }
-          return str;
+          return result;
         });
-        if (p && !notFound)
+        if (p && !notFound) {
           bodyAfter += `${p.join(" ")}`;
+        }
       });
       bodyAfter += "</div>";
     }
@@ -177,20 +301,12 @@ const gfiRules = {
       template.htmlEvent.forEach( (bodyElement) => {
         let notFound = false;
         let p = bodyElement.map((str) => {
-          let match = str.match("{{([^}]+)}}");
-          while (match) {
-            if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
-              if (Array.isArray(featureProperties[match[1]])) {
-                featureProperties[match[1]] = featureProperties[match[1]].join(", ");
-              }
-              str = str.replace(match[0], featureProperties[match[1]]);
-              match = str.match("{{([^}]+)}}");
-            } else {
-              notFound = true;
-              return "";
-            }
+          const result = processTemplateString(str, featureProperties);
+          if (result === null) {
+            notFound = true;
+            return "";
           }
-          return str;
+          return result;
         });
         if (p && !notFound)
           htmlEvent += `${p.join(" ")}`;
@@ -198,9 +314,29 @@ const gfiRules = {
       htmlEvent += "</div>";
     }
 
+    let htmlBeforeAddress = "";
+    if (template.htmlBeforeAddress) {
+      htmlBeforeAddress += "<div class='positionHtmlBeforeAddress'>";
+      template.htmlBeforeAddress.forEach( (bodyElement) => {
+        let notFound = false;
+        let p = bodyElement.map((str) => {
+          const result = processTemplateString(str, featureProperties);
+          if (result === null) {
+            notFound = true;
+            return "";
+          }
+          return result;
+        });
+        if (p && !notFound)
+          htmlBeforeAddress += `${p.join(" ")}`;
+      });
+      htmlBeforeAddress += "</div>";
+    }
+
     result.html = bodyBefore;
     result.html2 = bodyAfter;
     result.htmlEvent = htmlEvent;
+    result.htmlBeforeAddress = htmlBeforeAddress;
     return result;
   }
 };
