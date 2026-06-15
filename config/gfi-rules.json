@@ -1,4 +1,15 @@
 {
+  "ITINERAIRES-RANDO-TMS$TMS": {
+    "0": {
+      "pretitle": "<span class=\"filterTitleImg noBorder autoSize source{{sources}}\" style=\"background-image:url('data/img/pathMarks/{{nature}}.png');background-position:center\"></span>",
+      "title": "@toponyme",
+      "subtitle": "Sentiers de randonnée balisés - Source&nbsp;: {{sources}}",
+      "bodyAfter": [
+        ["<p class=\"monumentsHistoriquesContent compostelle{{compostelle}} whiteSection flexH smallPadding\"><img src=\"data/img/pathMarks/compostelle.jpg\" alt=\"Chemin de Compostelle\" width=\"32px\"> Chemin de Compostelle</p>"],
+        ["<div class=\"monumentsHistoriquesContent whiteSection\"><p><img class=\"pictoSentier picto{{sources}}\" src=\"data/img/pathMarks/{{nature}}.png\" alt=\"{{nature}}\" height=\"15px\" /><b class=\"natureSentier nature{{sources}}\">{{nature}}</b></p><p>{{legende}}</p></div>"]
+      ]
+    }
+  },
   "DATATOURISME.FMA$TMS": {
     "0": {
       "pretitle": "<span class=\"filterTitleImg\" style=\"background-image:url(data/img/layers/DATATOURISME.FMA.jpg);background-position:center\"></span>",
@@ -37,7 +48,7 @@
   "HIKING.GEOTREK$TMS": {
     "0": {
       "title": "@nom_itineraire",
-      "subtitle": "<span class=\"geotrekSubtitleInfos\"><span class=\"pratique{{pratique}}\">{{pratique}}</span> - <span class=\"niveau niveau{{difficulte}}\">{{difficulte}}</span></span> - Source : {{producteur}}",
+      "subtitle": "<span class=\"geotrekSubtitleInfos\"><span class=\"pratique{{pratique}}\">{{pratique}}</span> - <span class=\"niveau niveau{{difficulte_norm}}\">{{difficulte}}</span></span> - Source : {{producteur}}",
       "htmlBeforeAddress": [
         ["<div id='geotrek-carousel'></div>"],
         ["<div class=\"routeInfos\">"],

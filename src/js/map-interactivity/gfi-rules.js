@@ -8,39 +8,6 @@ import { config } from "../utils/config-utils";
 import { marked } from "marked";
 import DomUtils from "../utils/dom-utils";
 
-function duration(hours) {
-  const total = Math.round(hours * 60);
-  const h = Math.floor(total / 60);
-  const m = total % 60;
-  if (h === 0) {
-    return `${m}&nbsp;min`;
-  }
-  if (m === 0) {
-    return `${h}&nbsp;h`;
-  }
-  return `${h}h${m}`;
-}
-
-function tokilometers(value) {
-  return `${(Math.round(value / 100) * 100 / 1000).toLocaleString("fr")} km`;
-}
-
-function sentierSource(source) {
-  if (source === "ffr") {
-    return "Fédération Française de Randonnée";
-  } else if (source === "cv") {
-    return "Club Vosgien";
-  } else {
-    return "IGN";
-  }
-}
-
-const helpers = {
-  duration,
-  tokilometers,
-  sentierSource,
-};
-
 /**
  * Process a template string by replacing placeholders with values
  * @param {string} str - The template string to process
@@ -132,6 +99,39 @@ function processTemplateString(str, featureProperties, options = {}) {
   return str;
 }
 
+function duration(hours) {
+  const total = Math.round(hours * 60);
+  const h = Math.floor(total / 60);
+  const m = total % 60;
+  if (h === 0) {
+    return `${m}&nbsp;min`;
+  }
+  if (m === 0) {
+    return `${h}&nbsp;h`;
+  }
+  return `${h}h${m}`;
+}
+
+function tokilometers(value) {
+  return `${(Math.round(value / 100) * 100 / 1000).toLocaleString("fr")} km`;
+}
+
+function sentierSource(source) {
+  if (source === "ffr") {
+    return "Fédération Française de Randonnée";
+  } else if (source === "cv") {
+    return "Club Vosgien";
+  } else {
+    return "IGN";
+  }
+}
+
+const helpers = {
+  duration,
+  tokilometers,
+  sentierSource,
+};
+
 const gfiRules = {
   ...config.gfiRulesProps,
   /**
@@ -220,6 +220,17 @@ const gfiRules = {
           pretitle = str[0].toUpperCase() + str.slice(1);
         } else {
           pretitle = "";
+        }
+      } else {
+        let match = pretitle.match("{{([^}]+)}}");
+        while (match) {
+          if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+            if (Array.isArray(featureProperties[match[1]])) {
+              featureProperties[match[1]] = featureProperties[match[1]].join(", ");
+            }
+            pretitle = pretitle.replace(match[0], featureProperties[match[1]]);
+            match = pretitle.match("{{([^}]+)}}");
+          }
         }
       }
       result.title = pretitle + `<div class="positionTitleWrapper">${result.title}</div>`;

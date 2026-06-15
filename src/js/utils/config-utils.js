@@ -67,7 +67,7 @@ const urls = {
     fallback: ThematicLayers,
   },
   configLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/layers-config.json--",
+    url: "https://ignf.github.io/cartes-ign-app/layers-config.json",
     fallback: ConfigLayers,
   },
   tempLayers: {
@@ -99,7 +99,7 @@ const urls = {
     fallback: InseeCommWiki,
   },
   gfiRulesProps: {
-    url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json--",
+    url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json",
     fallback: GfiRulesProps,
   },
   layerPopups: {

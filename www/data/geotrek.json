@@ -28,7 +28,7 @@
             "match",
             ["get", "pratique"],
             "Pédestre", "pedestre",
-            "VTT", "vtt",
+            "Cyclo", "cyclo",
             "Équestre", "equestre",
             "pedestre"
           ]],
@@ -42,7 +42,7 @@
             "dot-",
             [
               "match",
-              ["get", "difficulte"],
+              ["get", "difficulte_norm"],
               "Tresfacile", "Tresfacile",
               "Facile", "Facile",
               "Moyen", "Moyen",

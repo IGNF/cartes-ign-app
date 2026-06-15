@@ -62,6 +62,12 @@ img-overlay {
   left: 50%;
   bottom: max(var(--safe-area-inset-bottom), 50px);
   transform: translateX(20%);
+  background-color: #0000;
+  transition: background-color ease-in-out 0.2s;
+}
+
+#imgOverlayPreviousBtn.highlight,
+#imgOverlayNextBtn.highlight {
   background-color: var(--dark-grey);
 }
 
@@ -100,4 +106,12 @@ img-overlay {
   mask-repeat: no-repeat;
   -webkit-mask-size: 30px;
   mask-size: 30px;
+}
+
+#imgOverlayCredits {
+  position: absolute;
+  bottom: calc(max(var(--safe-area-inset-bottom), 50px) + 75px);
+  width: 100%;
+  text-align: center;
+  color: var(--grey);
 }
