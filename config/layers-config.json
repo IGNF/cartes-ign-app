@@ -1,19 +1,9 @@
 {
   "layers": {
-    "HIKING.GEOTREK$TMS": {
-      "title": "Randos des écrins",
-      "interactive": true,
-      "description": "Randos du PNE",
-      "source": "Communauté Geotrek",
-      "maj": "hebdomadaire",
-      "serverUrl": "pmtiles://https://data.geopf.fr/chunk/telechargement/download/HIKING.GEOTREK/archive/data.pmtiles",
-      "format": "application/vnd.pmtiles",
-      "styles": ["https://ignf.github.io/cartes-ign-app/geotrek.json", "data/geotrek.json"]
-    },
     "Aire-Parcellaire$WMTS": {
       "title": "Délimitation parcellaire AOC viticole",
       "interactive": false,
-      "description": "Représentation des délimitations parcellaires des appellations d’origine contrôlée (AOC) viticoles sur la France métropolitaine.<br />Attention : ces données sont proposées à titre informatif.<br /> Les délimitations parcellaires officielles sont consultables sur les plans déposés en mairie ou auprès des services de l’INAO.",
+      "description": "Représentation des délimitations parcellaires des appellations d’origine contrôlée (AOC) viticoles sur la France métropolitaine.<br>Attention : ces données sont proposées à titre informatif.<br> Les délimitations parcellaires officielles sont consultables sur les plans déposés en mairie ou auprès des services de l’INAO.",
       "source": "Institut national de l’origine et de la qualité (INAO)",
       "maj": "Novembre 2020",
       "serverUrl": "https://data.geopf.fr/wmts",
@@ -24,7 +14,7 @@
     },
     "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$WMTS": {
       "title": "Parcelles cadastrales",
-      "description": "Représentation du plan cadastral informatisé (PCI) vecteur de la DGFiP. <br />Cette donnée n’a pas fait l’objet de corrections géométriques. Un décalage par rapport à d’autres données (photographies aériennes en particulier) peut apparaître.<br />Certaines communes peuvent ne pas être encore couvertes.",
+      "description": "Représentation du plan cadastral informatisé (PCI) vecteur de la DGFiP. <br>Cette donnée n’a pas fait l’objet de corrections géométriques. Un décalage par rapport à d’autres données (photographies aériennes en particulier) peut apparaître.<br>Certaines communes peuvent ne pas être encore couvertes.",
       "source": "Direction générale des Finances publiques (DGFiP), IGN",
       "maj": "Mise à jour trimestrielle",
       "serverUrl": "https://data.geopf.fr/wmts",
@@ -131,8 +121,8 @@
       "legendUrl": "data/img/legends/LANDUSE.AGRICULTURE2023.png"
     },
     "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS": {
-      "title": "Limites administratives mises à jour en continu",
-      "description": "Limites administratives des collectivités territoriales, mises à jour en continu.<br />Régions, départements, cantons, communes, arrondissements (pour Paris, Lyon et Marseille) et établissements publics de coopération intercommunale (EPCI).",
+      "title": "Limites administratives",
+      "description": "Limites administratives des collectivités territoriales, mises à jour en continu.<br>Régions, départements, cantons, communes, arrondissements (pour Paris, Lyon et Marseille) et établissements publics de coopération intercommunale (EPCI).",
       "source": "IGN",
       "maj": "Mise à jour mensuelle",
       "serverUrl": "https://data.geopf.fr/wmts",
@@ -144,7 +134,7 @@
       "title": "Photographies aériennes",
       "description": "Prises de vues satellitaires ou aériennes des territoires",
       "source": "IGN et partenaires",
-      "maj": "2025 <br /><a href=\"https://www.geoportail.gouv.fr/depot/fiches/photographies-aeriennes-RVB/geoportail_dates_des_prises_de_vues_aeriennes-RVB.pdf\" target=\"_blank\">Détail des dates de mises à jour par département</a>",
+      "maj": "2025 <br><a href=\"https://www.geoportail.gouv.fr/depot/fiches/photographies-aeriennes-RVB/geoportail_dates_des_prises_de_vues_aeriennes-RVB.pdf\" target=\"_blank\">Détail des dates de mises à jour par département</a>",
       "interactive": false,
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 0,
@@ -236,7 +226,7 @@
     },
     "TRANSPORTS.DRONES.RESTRICTIONS$WMTS": {
       "title": "Restrictions UAS catégorie Ouverte et Aéromodélisme",
-      "description": "Représentation des zones soumises à interdictions ou à restrictions pour l’usage, dans la catégorie Ouverte, ou par des associations d’aéromodélisme (en dehors des sites d’aéromodélisme publiés), d’aéronefs sans équipage à bord (drones ou aéromodèles), sur le territoire métropolitain.<br />Cette carte intègre partiellement les interdictions s’appuyant sur des données publiées hors de l’AIP (Aeronautical Information Publication) et ne couvre pas les interdictions temporaires. Cette carte est basée sur la version en vigueur à compter du 31 décembre 2020, de l’arrêté « Espace » du 3 décembre 2020. Les zones de restriction apparaissant sur la carte correspondent donc uniquement aux limitations indiquées dans l'arrêté Espace.",
+      "description": "Représentation des zones soumises à interdictions ou à restrictions pour l’usage, dans la catégorie Ouverte, ou par des associations d’aéromodélisme (en dehors des sites d’aéromodélisme publiés), d’aéronefs sans équipage à bord (drones ou aéromodèles), sur le territoire métropolitain.<br>Cette carte intègre partiellement les interdictions s’appuyant sur des données publiées hors de l’AIP (Aeronautical Information Publication) et ne couvre pas les interdictions temporaires. Cette carte est basée sur la version en vigueur à compter du 31 décembre 2020, de l’arrêté « Espace » du 3 décembre 2020. Les zones de restriction apparaissant sur la carte correspondent donc uniquement aux limitations indiquées dans l'arrêté Espace.",
       "source": "Service de l’information aéronautique (SIA)",
       "maj": "Juillet 2025",
       "serverUrl": "https://data.geopf.fr/wmts",
@@ -264,7 +254,7 @@
     },
     "VILLAGESETAPE$WMS": {
       "title": "Villages étapes",
-      "description": "Localisation des Villages étapes. Alternatives aux aires de services, les communes labellisées offrent une pause alliant commerces, équipements et convivialité.<br />Les communes labellisées Villages étapes sont des communes de moins de 5 000 habitants et sont situées à moins de 5 km d'un grand axe routier national.<br />Label national créé en 1995.",
+      "description": "Localisation des Villages étapes. Alternatives aux aires de services, les communes labellisées offrent une pause alliant commerces, équipements et convivialité.<br>Les communes labellisées Villages étapes sont des communes de moins de 5 000 habitants et sont situées à moins de 5 km d'un grand axe routier national.<br>Label national créé en 1995.",
       "source": "Fédération française des villages étapes",
       "maj": "Juin 2026",
       "serverUrl": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&",
@@ -281,13 +271,32 @@
       "format": "image/png"
     },
     "DATATOURISME.FMA$TMS": {
-      "hidden": true,
+      "interactive": true,
       "serverUrl": "pmtiles://https://data.geopf.fr/chunk/telechargement/download/DATATOURISME.FMA/archive/data.pmtiles",
-      "title": "Datatourisme - Fêtes et manifestations",
-      "description": "Datatourisme - Fêtes et manifestations : Localisation des événements touristiques en France métropolitaine et dans les départements et régions d’Outre-Mer (DROM). Les données sont issues de la plateforme Datatourisme, qui agrège les données de nombreux acteurs du tourisme en France. Les données sont mises à jour régulièrement par les producteurs de données.",
-      "source": "Datatourisme, ADN Tourisme",
+      "title": "Animations locales",
+      "description": "Les animations locales rassemblent une grande diversité d’événements : spectacles, expositions, festivals, concerts, marchés, brocantes et vide-greniers, carnavals, fêtes traditionnelles, jeux-concours, etc.<br>Elles sont alimentées par les professionnels du tourisme.<br>Les données sont mises à jour en continu : chaque événement est visible deux mois avant sa date de début et disparaît une fois terminé.",
+      "source": "Datatourisme (ADN Tourisme)",
       "format": "application/vnd.pmtiles",
       "styles": ["https://ignf.github.io/cartes-ign-app/datatourisme.json", "data/datatourisme.json"]
+    },
+    "ITINERAIRES-RANDO-TMS$TMS": {
+      "serverUrl": "https://data.geopf.fr/private/tms/1.0.0/",
+      "interactive": true,
+      "title": "Sentiers balisés",
+      "description": "Les sentiers et chemins représentés correspondent à des itinéraires balisés, équipés de repères visuels facilitant l’orientation et garantissant un suivi du parcours en toute sécurité.<br>Ceux levés par l’IGN sont issus d’aménagements locaux effectués dans le cadre d’aménagements inscrits dans des plans locaux ou départementaux de randonnée pédestre.<br>Seuls les itinéraires destinés à la pratique pédestre sont représentés.",
+      "source": "FFRandonnée, Club vosgien, IGN et acteurs locaux",
+      "format": "application/x-protobuf",
+      "styles": ["https://ignf.github.io/cartes-ign-app/sentiers-balises.json", "data/sentiers-balises.json"]
+    },
+    "HIKING.GEOTREK$TMS": {
+      "title": "Idées rando",
+      "interactive": true,
+      "description": "Randonnées proposées par des partenaires de référence (parcs nationaux et régionaux, collectivités territoriales, offices de tourisme, etc.).<br>Sont représentés des itinéraires dédiés aux activités pédestres, cyclistes et équestres.<br>Leur répartition sur le territoire est variable, car elle dépend des partenariats établis avec ces acteurs.",
+      "source": "Parcs nationaux et régionaux, collectivités, acteurs du tourisme, etc.",
+      "maj": "hebdomadaire",
+      "serverUrl": "pmtiles://https://data.geopf.fr/chunk/telechargement/download/HIKING.GEOTREK/archive/data.pmtiles",
+      "format": "application/vnd.pmtiles",
+      "styles": ["https://ignf.github.io/cartes-ign-app/geotrek.json", "data/geotrek.json"]
     },
 
     "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR$WMTS": {
@@ -305,7 +314,7 @@
       "title": "Cartes IGN",
       "description": "Cinq types de cartes adaptées aux échelles d’affichage : cartes à grande échelle, cartes topographiques, cartes de tourisme, cartes administratives et routières, cartes à petite échelle.",
       "source": "IGN, Gouvernement de la Nouvelle-Calédonie",
-      "maj": "Mise à jour mensuelle<br /><a href=\"https://www.geoportail.gouv.fr/depot/fiches/cartesIGN/composition_donnee_cartes_ign_classiques.pdf\" target=\"_blank\">Détail des dates de mises à jour par territoire</a>",
+      "maj": "Mise à jour mensuelle<br><a href=\"https://www.geoportail.gouv.fr/depot/fiches/cartesIGN/composition_donnee_cartes_ign_classiques.pdf\" target=\"_blank\">Détail des dates de mises à jour par territoire</a>",
       "interactive": false,
       "serverUrl": "https://data.geopf.fr/private/wmts",
       "minNativeZoom": 0,
@@ -345,8 +354,8 @@
     "PLANIGN.LIDAR.SURSOL.2$TMS": {
       "interactive": false,
       "serverUrl": "https://data.geopf.fr/private/wmts",
-      "title": "Plan IGN LIDAR Sursol",
-      "description": "Plan IGN LIDAR Sursol",
+      "title": "Plan IGN HD",
+      "description": "Le plan IGN HD cartographie les paysages de façon très détaillée. Il utilise des données précises comme le LiDAR HD ou les données COSIA pour la représentation de l'occupation du sol. Cette version met surtout en valeur ce qui est au-dessus du sol, comme la végétation, les bâtiments et leurs ombres.",
       "source": "IGN",
       "maj": "Mise à jour mensuelle",
       "format": "application/x-protobuf",

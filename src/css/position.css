@@ -566,9 +566,17 @@
   border-radius: 6px;
 }
 
+.positionHtmlAfter img.pictoSentier {
+  border-radius: 0;
+}
+
 .positionHtmlAfter a {
   color: var(--darker-green);
   text-underline-offset: 25%;
+}
+
+.positionHtmlAfter + div {
+  margin-top: 15px;
 }
 
 .positionInfoFlex {
@@ -707,6 +715,56 @@
   font-style: normal;
 }
 
+.monumentsHistoriquesContent.compostellefalse {
+  display: none;
+}
+
+.otherRoutes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 15px;
+  row-gap: 8px;
+}
+
+.otherRoute {
+  margin: 0;
+}
+
+.whiteSection {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px 16px;
+}
+
+.whiteSection.smallPadding {
+  padding: 12px;
+}
+
+.whiteSection p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.pictoSentier {
+  float: left;
+  margin-right: 1em;
+}
+
+.pictoSentier.pictoIGN {
+  display: none;
+}
+
+.monumentsHistoriquesContent b.natureSentier {
+  display: inline;
+  margin-bottom: 0;
+}
+
+.monumentsHistoriquesContent b.natureSentier.natureIGN {
+  display: none;
+}
+
 .foldable {
   max-height: calc(13px * var(--text-zoom) * 5.4);
   line-height: calc(13px * var(--text-zoom) * 1.35);
@@ -768,6 +826,24 @@
   display: inline-block;
 }
 
+.directionSign {
+  display: block;
+  background-image: url(assets/sign.svg);
+  width: 26px;
+  height: 26px;
+  align-self: flex-start;
+  flex-shrink: 0;
+  margin-bottom: 5px;
+}
+
+.directionSign + p {
+  margin: 0;
+  height: 28px;
+  line-height: 28px;
+  margin-bottom: 5px;
+  width: calc(100% - 50px);
+}
+
 .foldableInput:checked ~ .foldableLabel::after {
   content: "moins";
   display: inline-block;
@@ -812,6 +888,25 @@
   mask-size: 18px;
 }
 
+.geotrekSubtitleInfos .pratiqueÉquestre::before {
+  -webkit-mask: url("assets/equestre.svg") bottom;
+  mask: url("assets/equestre.svg") bottom;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 18px;
+  mask-size: 18px;
+}
+
+.geotrekSubtitleInfos .pratiqueCyclo::before {
+  -webkit-mask: url("assets/cyclo.svg") bottom;
+  mask: url("assets/cyclo.svg") bottom;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 18px;
+  mask-size: 18px;
+  margin-right: 4px;
+}
+
 .geotrekSubtitleInfos .niveau::before {
   border-radius: 100%;
   width: 8px;
@@ -839,9 +934,16 @@
 .routeInfos {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   margin: 16px 0;
   gap: 16px;
   flex-wrap: wrap;
+}
+
+.routeInfos .verticalSeparator {
+  width: 1px;
+  background-color: var(--light-grey);
+  flex-shrink: 0;
 }
 
 .routeInfos .routeInfo {
@@ -849,8 +951,6 @@
   flex-direction: column;
   font-size: 15px;
   gap: 6px;
-  padding-right: 16px;
-  border-right: 1px solid var(--light-grey);
 }
 
 .routeInfos .routeInfo .routeInfoValue {
@@ -898,6 +998,12 @@
   mask-size: 25px;
 }
 
+.flexH {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 15px;
+}
 
 .routeInfos .routeInfo .routeInfoLabel {
   font-family: "Open Sans Semibold";
@@ -920,9 +1026,10 @@
 .geotrek.instructions ol li {
   display: block;
   margin-bottom: 1em;
-  margin-left: 16px;
-  border-left: 1px solid var(--dark-green);
-  padding-left: 30px;
+  margin-left: 14px;
+  padding-left: 22px;
+  border-left: 1px solid var(--darker-green);
+  min-height: 3em;
 }
 
 .geotrek.instructions ol li::before {
@@ -930,13 +1037,13 @@
   position: absolute;
   content: counter(item);
   counter-increment: item;
-  width: 32px;
-  height: 32px;
-  margin-left: -47px;
+  width: 26px;
+  height: 26px;
+  margin-left: -36px;
   background-color: var(--false-white);
   border-radius: 100%;
-  border: 1px solid var(--dark-green);
-  color: var(--dark-green);
+  border: 1px solid var(--darker-green);
+  color: var(--darker-green);
   font-family: "Open Sans Semibold";
   font-size: 14px;
   justify-content: center;
@@ -1006,11 +1113,21 @@
 }
 
 @media not (min-width: 400px), not (min-aspect-ratio: 1/1) {
+  #positionContainer:has(.sentierBalise),
   #positionContainer:has(.geotrek) {
-    max-height: calc(100vh - 350px);
-    overflow-y: scroll;
+    max-height: calc(100vh - 100vw);
+    overflow-y: hidden;
     overflow-x: clip;
+    min-height: 50vh;
+    overscroll-behavior: auto;
   }
+
+  #positionContainer.tabScrolledMax:has(.sentierBalise),
+  #positionContainer.tabScrolledMax:has(.geotrek) {
+    overflow-y: scroll;
+  }
+
+  #positionContainer:has(.sentierBalise) .divPositionTitleWrapper,
   #positionContainer:has(.geotrek) .divPositionTitleWrapper {
     position: sticky;
     top: 0;
@@ -1020,6 +1137,7 @@
     padding-bottom: 15px;
   }
 
+  #positionContainer:has(.sentierBalise) .positionHtmlBeforeAddress,
   #positionContainer:has(.geotrek) .positionHtmlBeforeAddress {
     margin-top: -15px;
   }

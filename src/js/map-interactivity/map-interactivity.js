@@ -75,6 +75,8 @@ class MapInteractivity {
     // cleabs et type de géométrie de la donnée séléctionnée dans plan ign interactif
     this.selectedCleabs = null;
     this.selectedFeatureType = null;
+    this.selectedSource = null;
+    this.selectedToponyme = null;
 
     // fonction d'event avec bind
     this.handleInfoOnMap = this.#getInfoOnMap.bind(this);
@@ -215,7 +217,6 @@ class MapInteractivity {
         }
         let hideCallback = null;
         let type = "default";
-
         if (features[0].layer.id.split("$$$")[1] === "HIKING.GEOTREK$TMS") {
           hideCallback = () => {
             if (this.map.getSource("geotrek-steps")) {
@@ -245,6 +246,39 @@ class MapInteractivity {
             this.map.setLayoutProperty("geotrek-composite-pill$$$HIKING.GEOTREK$TMS", "visibility", "visible");
           };
           type = "geotrek";
+        } else if (features[0].layer.id.split("$$$")[1] === "ITINERAIRES-RANDO-TMS$TMS") {
+          const filtered_features = features.filter((feature) => {
+            return feature.layer.id.split("$$$")[1] === "ITINERAIRES-RANDO-TMS$TMS" && feature.properties.toponyme !== features[0].properties.toponyme;
+          });
+          const unique_filtered_features = [];
+          const toponymeSet = new Set();
+          filtered_features.forEach(feature => {
+            if (!toponymeSet.has(feature.properties.toponyme)) {
+              toponymeSet.add(feature.properties.toponyme);
+              unique_filtered_features.push(feature);
+            }
+          });
+          if (unique_filtered_features.length > 0) {
+            resp.html2 += `<div class="otherRoutes">
+              <div class="directionSign"></div>
+              <p class="monumentsHistoriquesContent">
+                <b>À cet endroit passe${unique_filtered_features.length > 1 ? "nt" : ""} aussi</b>
+              </p>
+              <p class="whiteSection smallPadding otherRoute">
+                ${unique_filtered_features.map(f => f.properties.toponyme).join("</p><p class=\"whiteSection smallPadding otherRoute\">")}
+              <p>
+            </div>`;
+          }
+          type = "sentiers-balises";
+          this.selectedSource = "itineraires_rando_tms";
+          this.selectedToponyme = features[0].properties.toponyme;
+          this.selectedFeatureType = features[0].geometry.type;
+          this.#highlightGFI(features[0].geometry, false);
+          this.#updateHighlightedGeom();
+          this.map.on("move", this.handleUpdateHighlightedGeom);
+        } else if (features[0].layer.id.split("$$$")[1] === "DATATOURISME.FMA$TMS") {
+          type = "datatourisme";
+          this.#highlightGFI(features[0].geometry, false);
         } else {
           this.#highlightGFI(features[0].geometry, false);
         }
@@ -261,7 +295,7 @@ class MapInteractivity {
           feature: features[0],
         }).then(() => {
           Globals.menu.open("position");
-          if (type == "geotrek") {
+          if (type === "geotrek" || type === "sentiers-balises") {
             Globals.currentScrollIndex = 1;
             Globals.menu.updateScrollAnchors();
           }
@@ -341,6 +375,7 @@ class MapInteractivity {
           });
           Globals.menu.open("position");
           this.selectedCleabs = features[0].properties.cleabs;
+          this.selectedSource = "bdtopo";
           this.selectedFeatureType = features[0].geometry.type;
           this.#updateHighlightedGeom();
           this.map.on("move", this.handleUpdateHighlightedGeom);
@@ -356,7 +391,10 @@ class MapInteractivity {
     const mapFeatures = this.map.queryRenderedFeatures();
     let toFuse = [];
     mapFeatures.forEach(feat => {
-      if (feat.source === "bdtopo" && feat.properties.cleabs === this.selectedCleabs) {
+      if (this.selectedSource === "bdtopo" && feat.source === "bdtopo" && feat.properties.cleabs === this.selectedCleabs) {
+        toFuse.push(feat);
+      }
+      if (this.selectedSource === "itineraires_rando_tms" && feat.source === "itineraires_rando_tms" && feat.properties.toponyme === this.selectedToponyme) {
         toFuse.push(feat);
       }
     });

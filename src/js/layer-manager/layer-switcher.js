@@ -623,7 +623,12 @@ class LayerSwitcher extends EventTarget {
               // on ne peut pas ajouter la même source !
               if (!this.map.getStyle().sources[key]) {
                 if (source.type === "vector" || source.type === "raster") {
-                  source.tiles = source.tiles.map((tile) => tile.replace(/{{GPF_key}}/g, process.env.GPF_key));
+                  if (source.tiles) {
+                    source.tiles = source.tiles.map((tile) => tile.replace(/{{GPF_key}}/g, process.env.GPF_key));
+                  }
+                  if (source.url) {
+                    source.url = source.url.replace(/{{GPF_key}}/g, process.env.GPF_key);
+                  }
                 }
                 this.map.addSource(key, source);
               }

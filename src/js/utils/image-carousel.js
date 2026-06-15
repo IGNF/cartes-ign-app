@@ -22,6 +22,7 @@ class ImageCarousel {
    * @param {string} options.imageTitle - Title attribute for images
    * @param {string[]} options.imageCredits - Array of credit strings (one per image)
    * @param {number} options.fixedHeight - Fixed height for the carousel
+   * @param {number} options.squareWidth - Square width
    * @param {string} options.backButtonState - Back button state when overlay is open (defaults to "imageOverlay")
    * @param {string} options.newsId - News ID for sharing links
    * @param {string} options.shareActivated - is share btn present on overlay
@@ -49,6 +50,7 @@ class ImageCarousel {
     this.backButtonState = options.backButtonState || "imageOverlay";
     this.newsId = options.newsId || null;
     this.shareActivated = options.shareActivated === undefined ? true : options.shareActivated;
+    this.creditsInCarousel = options.creditsInCarousel === undefined ? false : options.creditsInCarousel;
 
     if (this.fixedHeight) {
       this.container.style.height = `${this.fixedHeight}px`;
@@ -90,6 +92,7 @@ class ImageCarousel {
     }
     if (this.isSingleImage) {
       imageContainer.classList.add("singleImage");
+      imageContainer.classList.remove("squareWidth");
     }
 
     // Slides container
@@ -124,7 +127,7 @@ class ImageCarousel {
       slideWrapper.appendChild(imgElem);
 
       // Add credits if provided
-      if (this.imageCredits[index] && this.imageCredits[index] !== "") {
+      if (this.imageCredits[index] && this.imageCredits[index] !== "" && this.creditsInCarousel) {
         const creditsElem = document.createElement("p");
         creditsElem.classList.add("newsfeedItemImageCredits");
         creditsElem.innerText = `Crédits : ${this.imageCredits[index]}`;
@@ -147,7 +150,7 @@ class ImageCarousel {
         if (this.onImageClick) {
           this.onImageClick(imageSrc, index);
         } else {
-          this._handleImageClick(imageSrc, this.imageTitle, this.newsId);
+          this._handleImageClick(imageSrc, this.imageTitle, this.newsId, this.imageCredits[index]);
         }
       });
     });
@@ -384,11 +387,22 @@ class ImageCarousel {
   }
 
   /**
+   * Get current image credits
+   * @returns {string}
+   */
+  getCurrentImageCredits() {
+    if (this.imageCredits.length === 0) {
+      return "";
+    }
+    return this.imageCredits[this.current];
+  }
+
+  /**
    * Handle image click - open overlay with default behavior
    * @private
    */
-  _handleImageClick(imageSrc, title, newsId) {
-    this._updateOverlayImage(imageSrc, title, newsId);
+  _handleImageClick(imageSrc, title, newsId, imageCredits) {
+    this._updateOverlayImage(imageSrc, title, newsId, imageCredits);
     this._openOverlay();
   }
 
@@ -396,12 +410,17 @@ class ImageCarousel {
    * Update overlay image and handlers
    * @private
    */
-  _updateOverlayImage(imageSrc, title, newsId) {
+  _updateOverlayImage(imageSrc, title, newsId, credits="") {
     const overlayImage = this._overlay.querySelector("#imgOverlayImage");
     if (!overlayImage) return;
 
     overlayImage.src = imageSrc;
     overlayImage.title = title;
+    if (credits !== "") {
+      this._overlay.querySelector("#imgOverlayCredits").innerText = "Crédits photo : " + credits;
+    } else {
+      this._overlay.querySelector("#imgOverlayCredits").innerText = "";
+    }
 
     if (!this.isSingleImage) {
       this._overlay.querySelector("#imgOverlayPreviousBtn").classList.remove("d-none");
@@ -468,8 +487,10 @@ class ImageCarousel {
       const newPrevBtn = prevBtn.cloneNode(true);
       prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
       newPrevBtn.addEventListener("click", () => {
+        newPrevBtn.classList.add("highlight");
         this.previous();
-        this._updateOverlayImage(this.getCurrentImage(), this.imageTitle, this.newsId);
+        this._updateOverlayImage(this.getCurrentImage(), this.imageTitle, this.newsId, this.getCurrentImageCredits());
+        setTimeout(() => newPrevBtn.classList.remove("highlight"), 200);
       });
     }
 
@@ -479,8 +500,10 @@ class ImageCarousel {
       const newNextBtn = nextBtn.cloneNode(true);
       nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
       newNextBtn.addEventListener("click", () => {
+        newNextBtn.classList.add("highlight");
         this.next();
-        this._updateOverlayImage(this.getCurrentImage(), this.imageTitle, this.newsId);
+        this._updateOverlayImage(this.getCurrentImage(), this.imageTitle, this.newsId, this.getCurrentImageCredits());
+        setTimeout(() => newNextBtn.classList.remove("highlight"), 200);
       });
     }
   }

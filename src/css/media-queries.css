@@ -33,4 +33,22 @@
   #routeDrawWindow {
     margin-top: 10px;
   }
+
+  #imgOverlayPreviousBtn,
+  #imgOverlayNextBtn {
+    right: calc(12px + var(--safe-area-inset-right));
+    left: unset;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  #imgOverlayPreviousBtn {
+    right: unset;
+    left: calc(12px + var(--safe-area-inset-left));
+  }
+
+  #imgOverlayCredits {
+    bottom: max(var(--safe-area-inset-bottom), 50px);
+    background-color: #0008;
+  }
 }

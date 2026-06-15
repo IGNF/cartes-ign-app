@@ -5,12 +5,12 @@
  */
 
 // TODO utiliser l'ecouteur sur l'event "target"
-import Reverse from "./services/reverse";
-import Elevation from "./services/elevation";
-import Location from "./services/location";
-import Globals from "./globals";
-import DomUtils from "./utils/dom-utils";
-import ImageCarousel from "./utils/image-carousel";
+import Reverse from "../services/reverse";
+import Elevation from "../services/elevation";
+import Location from "../services/location";
+import Globals from "../globals";
+import DomUtils from "../utils/dom-utils";
+import ImageCarousel from "../utils/image-carousel";
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
 import { Clipboard } from "@capacitor/clipboard";
@@ -19,14 +19,15 @@ import { Capacitor } from "@capacitor/core";
 import maplibregl from "maplibre-gl";
 import NearestPointOnLine from "@turf/nearest-point-on-line";
 
-import ActionSheet from "./action-sheet";
-import PopupUtils from "./utils/popup-utils";
+import ActionSheet from "../action-sheet";
+import PopupUtils from "../utils/popup-utils";
+import PositionLayers from "./position-styles";
 
-import LoadingDark from "../css/assets/loading-darkgrey.svg";
-import ImmersivePosion from "./immersive-position";
-import domUtils from "./utils/dom-utils";
-import jsUtils from "./utils/js-utils";
-import ElevationLineControl from "./elevation-line-control/elevation-line-control";
+import LoadingDark from "../../css/assets/loading-darkgrey.svg";
+import ImmersivePosion from "../immersive-position";
+import domUtils from "../utils/dom-utils";
+import jsUtils from "../utils/js-utils";
+import ElevationLineControl from "../elevation-line-control/elevation-line-control";
 
 /**
  * Permet d'afficher ma position sur la carte
@@ -94,9 +95,12 @@ class Position {
 
     this.immersivePosition = null;
 
+    this.datatourismeId = null;
     // Pour le cas Geotrek : informations sur un itinéraire
     this.geotrekRoute = null;
     this.elevationProfile = null;
+
+    this.#addSourcesAndLayers();
 
     return this;
   }
@@ -173,6 +177,13 @@ class Position {
         <button id="positionExport" class="btnPositionButtons secondary"><label class="lblPositionImg lblPositionExportImg"></label>Exporter</button>
       `;
     }
+    if (type === "sentiers-balises") {
+      htmlButtons = `
+        <button id="positionRoute" class="btnPositionButtons${eventClass}"><label class="lblPositionImg lblPositionRouteImg"></label>S'y rendre</button>
+        <button id="positionNear" class="btnPositionButtons secondary${eventClass}"><label class="lblPositionImg lblPositionNearImg"></label>À proximité</button>
+        <button id="positionSignal" class="btnPositionButtons secondary${eventClass}"><label class="lblPositionImg lblPositionSignalImg"></label>Signaler</button>
+        `;
+    }
 
     var htmlAdvanced = "";
     // Si c'est un landmark
@@ -231,21 +242,7 @@ class Position {
     }
 
     // ajout des listeners principaux :
-    if (type === "geotrek" && this.geotrekRoute) {
-      shadowContainer.getElementById("positionShare").addEventListener("click", () => {
-        Toast.show({
-          text: "Partage de l'itinéraire...",
-          duration: "short",
-          position: "bottom"
-        });
-        Share.share({
-          title: `${this.geotrekRoute.nom_itineraire}`,
-          text: `${this.geotrekRoute.presentation_courte}`,
-          dialogTitle: "Partager l'itinéraire",
-          url: this.geotrekRoute.gpx,
-        });
-      });
-    } else {
+    if (shadowContainer.getElementById("positionShare")) {
       shadowContainer.getElementById("positionShare").addEventListener("click", () => {
         Share.share({
           title: `Partager ${this.#getTrueHeader()}}`,
@@ -253,6 +250,8 @@ class Position {
           dialogTitle: "Partager la position",
         });
       });
+    }
+    if (shadowContainer.getElementById("positionNear")) {
       shadowContainer.getElementById("positionNear").addEventListener("click", async () => {
         let coordinates = this.coordinates;
         if (type === "myposition") {
@@ -277,6 +276,8 @@ class Position {
           target.value = this.name;
         }
       });
+    }
+    if (shadowContainer.getElementById("positionRoute")) {
       shadowContainer.getElementById("positionRoute").addEventListener("click", async () => {
         let coordinates = this.coordinates;
         if (type === "myposition") {
@@ -347,7 +348,7 @@ class Position {
         });
       });
     }
-    if (type !== "landmark" && type !== "geotrek") {
+    if (shadowContainer.getElementById("positionLandmark")) {
       shadowContainer.getElementById("positionLandmark").addEventListener("click", async () => {
         let coordinates = this.coordinates;
         if (type === "myposition") {
@@ -385,11 +386,17 @@ class Position {
         }
       });
     }
-
-    if (type !== "myposition" && type !== "geotrek") {
+    if (shadowContainer.getElementById("positionSignal")) {
       shadowContainer.getElementById("positionSignal").addEventListener("click", () => {
         const coordinates = this.coordinates;
         Globals.isochrone.clear();
+        if (type === "datatourisme") {
+          const link = document.createElement("a");
+          link.href = "https://www.datatourisme.fr/signaler/?uri=" + this.datatourismeId;
+          link.target = "_blank";
+          link.click();
+          return;
+        }
         // ouverture du panneau Signalement
         if (this.options.openSignalCbk) {
           if (type === "osm") {
@@ -506,7 +513,7 @@ class Position {
         JSON.parse(this.geotrekRoute.medias).forEach( (media) => {
           if (media.type_media === "image") {
             list_urls.push(media.url);
-            list_credits.push(media.auteur);
+            list_credits.push(media.auteur || "");
           }
         });
         new ImageCarousel(document.getElementById("geotrek-carousel"), list_urls, {
@@ -608,119 +615,10 @@ class Position {
       postcode: "",
       city: ""
     };
-
+    if (type === "datatourisme") {
+      this.datatourismeId = feature.properties.uri;
+    }
     if (type === "geotrek") {
-      if (!this.map.getSource("geotrek-geom")) {
-        this.map.addSource("geotrek-geom", {
-          "type": "geojson",
-          "data": {
-            "type": "FeatureCollection",
-            "features": []
-          },
-        });
-        this.map.addSource("geotrek-start", {
-          "type": "geojson",
-          "data": {
-            "type": "FeatureCollection",
-            "features": []
-          },
-        });
-        this.map.addSource("geotrek-end", {
-          "type": "geojson",
-          "data": {
-            "type": "FeatureCollection",
-            "features": []
-          },
-        });
-        this.map.addLayer({
-          id: "geotrek-geom-casing",
-          type: "line",
-          source: "geotrek-geom",
-          paint: {
-            "line-width": 8,
-            "line-color": "white",
-          },
-          layout: {
-            "line-cap": "round",
-            "line-join": "round"
-          },
-        });
-        this.map.addLayer({
-          id: "geotrek-geom",
-          type: "line",
-          source: "geotrek-geom",
-          paint: {
-            "line-width": 5,
-            "line-color": "#3993F3",
-          },
-          layout: {
-            "line-cap": "round",
-            "line-join": "round"
-          },
-        });
-        this.map.addLayer({
-          "id": "geotrek-start",
-          "type": "symbol",
-          "source": "geotrek-start",
-          "layout": {
-            "icon-image": "pill-black",
-            "icon-text-fit": "width",
-            "text-field": [
-              "format",
-              ["image", [
-                "match",
-                ["get", "pratique"],
-                "Pédestre", "pedestre-white",
-                "VTT", "vtt-white",
-                "Équestre", "equestre-white",
-                "pedestre-white"
-              ]],
-
-              "   ",
-              ["get", "kilometers"],
-              "   ",
-
-              ["image", [
-                "concat",
-                "dot-",
-                [
-                  "match",
-                  ["get", "difficulte"],
-                  "Tresfacile", "Tresfacile",
-                  "Facile", "Facile",
-                  "Difficile", "Difficile",
-                  "Tresdifficile", "Tresdifficile",
-                  "default"
-                ]
-              ]]
-            ],
-            "text-size": 14,
-            "text-font": ["Source Sans Pro Semibold"],
-          },
-          "paint": {
-            "text-color": "white",
-            "icon-translate": [0, -20],
-            "text-translate": [0, -24],
-          }
-        });
-        this.map.addLayer({
-          "id": "geotrek-end",
-          "type": "symbol",
-          "source": "geotrek-end",
-          "layout": {
-            "icon-image": "pill-black",
-            "icon-text-fit": "width",
-            "text-field": "Arrivée",
-            "text-size": 14,
-            "text-font": ["Source Sans Pro Semibold"],
-          },
-          "paint": {
-            "text-color": "white",
-            "icon-translate": [0, -20],
-            "text-translate": [0, -24],
-          }
-        });
-      }
       this.map.getSource("geotrek-start").setData(feature);
       if (!["boucle", "aller-retour"].includes(feature.properties.type_itineraire.toLowerCase())) {
         this.map.getSource("geotrek-end").setData({
@@ -750,7 +648,7 @@ class Position {
                     Math.min(window.innerHeight, window.innerWidth/2) + 42;
         padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
       } else {
-        padding = {top: 80, right: 20, bottom: this.map.getContainer().offsetHeight / 2 - 85, left: 20};
+        padding = {top: 80, right: 20, bottom: Math.max(window.innerHeight - window.innerWidth - 150, window.innerWidth/2 + 160), left: 20};
       }
       const coords = JSON.parse(feature.properties.geometry).coordinates;
       const bounds = coords.reduce((bounds, coord) => {
@@ -764,47 +662,6 @@ class Position {
       });
       // Ajouts des points d'étape
       if (feature.properties.points_reference) {
-        if (!this.map.getSource("geotrek-steps")) {
-          this.map.addSource("geotrek-steps", {
-            "type": "geojson",
-            "data": {
-              "type": "FeatureCollection",
-              "features": []
-            },
-          });
-          this.map.addLayer({
-            id: "geotrek-steps-circles",
-            type: "circle",
-            source: "geotrek-steps",
-            minzoom: 11,
-            paint: {
-              "circle-radius": 15,
-              "circle-color": "white",
-              "circle-stroke-width": 2,
-              "circle-stroke-color": "#B8BCC1",
-            },
-            layout: {
-              "circle-sort-key": ["-", ["get", "index"]]
-            }
-          }, "geotrek-start");
-
-          this.map.addLayer({
-            id: "geotrek-steps-labels",
-            type: "symbol",
-            source: "geotrek-steps",
-            minzoom: 11,
-            layout: {
-              "symbol-sort-key": ["get", "index"],
-              "text-field": ["get", "index"],
-              "text-size": 12,
-              "text-font": ["Source Sans Pro Semibold"]
-            },
-            paint: {
-              "text-color": "black"
-            }
-          }, "geotrek-start");
-        }
-
         const multipoint = JSON.parse(feature.properties.points_reference);
         const features = multipoint.coordinates.map((coords, i) => {
           const point = NearestPointOnLine(JSON.parse(feature.properties.geometry), {type: "Point", coordinates: coords});
@@ -886,6 +743,59 @@ Longitude : ${longitude}${altitudeText}
 ${domUtils.stringToHTML(this.additionalHtml.beforeButtons).innerText}
 https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=15&titre=${encodeURI(trueHeader ? trueHeader : this.header)}&description=${encodeURI(domUtils.stringToHTML(this.additionalHtml.beforeButtons).innerText)}`;
     }
+  }
+
+
+  /**
+  * ajoute la source et le layer à la carte pour affichage des donées spécifiques (geotrek et sentiers balisés)
+  */
+  #addSourcesAndLayers() {
+    if (!this.map.getSource("geotrek-geom")) {
+      this.map.addSource("geotrek-geom", {
+        "type": "geojson",
+        "data": {
+          "type": "FeatureCollection",
+          "features": []
+        },
+      });
+      this.map.addSource("geotrek-start", {
+        "type": "geojson",
+        "data": {
+          "type": "FeatureCollection",
+          "features": []
+        },
+      });
+      this.map.addSource("geotrek-end", {
+        "type": "geojson",
+        "data": {
+          "type": "FeatureCollection",
+          "features": []
+        },
+      });
+    }
+    if (!this.map.getSource("geotrek-steps")) {
+      this.map.addSource("geotrek-steps", {
+        "type": "geojson",
+        "data": {
+          "type": "FeatureCollection",
+          "features": []
+        },
+      });
+    }
+    if (!this.map.getSource("sentiers-balises-highlight")) {
+      this.map.addSource("sentiers-balises-highlight", {
+        "type": "geojson",
+        "data": {
+          "type": "FeatureCollection",
+          "features": []
+        },
+      });
+    }
+
+    for (const layerId in PositionLayers) {
+      this.map.addLayer(PositionLayers[layerId]);
+    }
+
   }
 
 

@@ -344,6 +344,20 @@ input#isochroneValueDistanceInput[type=number]
   align-self: baseline;
 }
 
+.filterTitleImg.noBorder {
+  border-radius: 0;
+  border: unset;
+}
+
+.filterTitleImg.autoSize {
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.filterTitleImg.sourceIGN {
+  display: none;
+}
+
 .divIsochronePOIFilter {
   display: flex;
   flex-direction: column;

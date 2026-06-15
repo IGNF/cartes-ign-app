@@ -1,12 +1,23 @@
 {
+  "ITINERAIRES-RANDO-TMS$TMS": {
+    "0": {
+      "pretitle": "<span class=\"filterTitleImg noBorder autoSize source{{sources}}\" style=\"background-image:url('data/img/pathMarks/{{nature}}.png');background-position:center\"></span>",
+      "title": "@toponyme",
+      "subtitle": "Sentiers de randonnée balisés - Source&nbsp;: {{sources}}",
+      "bodyAfter": [
+        ["<p class=\"monumentsHistoriquesContent compostelle{{compostelle}} whiteSection flexH smallPadding\"><img src=\"data/img/pathMarks/compostelle.jpg\" alt=\"Chemin de Compostelle\" width=\"32px\"> Chemin de Compostelle</p>"],
+        ["<div class=\"monumentsHistoriquesContent sentierBalise whiteSection\"><p><img class=\"pictoSentier picto{{sources}}\" src=\"data/img/pathMarks/{{nature}}.png\" alt=\"{{nature}}\" height=\"15px\" /><b class=\"natureSentier nature{{sources}}\">{{nature}}</b></p><p>{{legende}}</p></div>"]
+      ]
+    }
+  },
   "DATATOURISME.FMA$TMS": {
     "0": {
       "pretitle": "<span class=\"filterTitleImg\" style=\"background-image:url(data/img/layers/DATATOURISME.FMA.jpg);background-position:center\"></span>",
       "title": "@title",
-      "subtitle": "<a href=\"https://www.datatourisme.fr/\" target=\"_blank\" style=\"color: var(--darker-green);\">Datatourisme</a><br>Fêtes et manifestations - Source&nbsp;: Datatourisme, ADN Tourisme",
+      "subtitle": "Animations locales - Source&nbsp;: <a href=\"https://www.datatourisme.fr/\" target=\"_blank\" style=\"color: var(--darker-green);\">Datatourisme</a>, ADN Tourisme",
       "htmlEvent": [
         ["<p class=\"htmlEventDate\">{{dateRange}}"],
-        ["- {{clientTarget}}"],
+        [" - {{clientTarget}}"],
         ["</p>"],
         ["<p class=\"htmlEventCreator\">{{creatorHtml}}</p>"]
       ],
@@ -37,13 +48,13 @@
   "HIKING.GEOTREK$TMS": {
     "0": {
       "title": "@nom_itineraire",
-      "subtitle": "<span class=\"geotrekSubtitleInfos\"><span class=\"pratique{{pratique}}\">{{pratique}}</span> - <span class=\"niveau niveau{{difficulte}}\">{{difficulte}}</span></span> - Source : {{producteur}}",
+      "subtitle": "<span class=\"geotrekSubtitleInfos\"><span class=\"pratique{{pratique_norm}}\">{{pratique}}</span> - <span class=\"niveau niveau{{difficulte_norm}}\">{{difficulte}}</span></span> - Source : {{producteur}}",
       "htmlBeforeAddress": [
         ["<div id='geotrek-carousel'></div>"],
         ["<div class=\"routeInfos\">"],
-        ["<div class=\"routeInfo\"><span class=\"routeInfoValue\">~~duration(duree)~~</span><span class=\"routeInfoLabel\">Durée</span></div>"],
-        ["<div class=\"routeInfo\"><span class=\"routeInfoValue\">~~tokilometers(longueur)~~</span><span class=\"routeInfoLabel\">Distance</span></div>"],
-        ["<div class=\"routeInfo\"><span class=\"routeInfoValue\">+<span class=\"geotrek-elevation-positive\">{{denivele_positif}}</span>&nbsp;m</span><span class=\"routeInfoLabel\">Dénivelé</span></div>"],
+        ["<div class=\"routeInfo\"><span class=\"routeInfoValue\">~~duration(duree)~~</span><span class=\"routeInfoLabel\">Durée</span></div><div class=\"verticalSeparator\"></div>"],
+        ["<div class=\"routeInfo\"><span class=\"routeInfoValue\">~~tokilometers(longueur)~~</span><span class=\"routeInfoLabel\">Distance</span></div><div class=\"verticalSeparator\"></div>"],
+        ["<div class=\"routeInfo\"><span class=\"routeInfoValue\">+<span class=\"geotrek-elevation-positive\">{{denivele_positif}}</span>&nbsp;m</span><span class=\"routeInfoLabel\">Dénivelé</span></div><div class=\"verticalSeparator\"></div>"],
         ["<div class=\"routeInfo\"><span class=\"routeInfoValue\">{{type_itineraire}}</span><span class=\"routeInfoLabel\">Type</span></div>"],
         ["</div>"]
       ],

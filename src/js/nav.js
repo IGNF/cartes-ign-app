@@ -899,7 +899,8 @@ class MenuNavigation {
       document.scrollingElement.clientHeight - 149 - insetTop - Math.max(insetBottom, 20),
       document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight
     );
-    Globals.anchors = [0, Globals.maxScroll / 2.5, Globals.maxScroll];
+    const squareAnchor = document.documentElement.clientWidth - 75 - Math.max(20, insetBottom);
+    Globals.anchors = [0, squareAnchor, Globals.maxScroll];
     if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
       Globals.anchors = [0, document.scrollingElement.clientHeight - 72 - Math.max(insetBottom, 20), Globals.maxScroll];
     }

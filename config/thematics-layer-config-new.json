@@ -8,15 +8,37 @@
         "layers": []
     },
     {
-        "name": "Administratif",
+        "name": "Administratif et foncier",
         "layers": [
-            "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS"
+            "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST$WMTS",
+            "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$WMTS"
         ]
     },
     {
-        "name": "Foncier",
+        "name": "Tourisme et loisirs",
         "layers": [
-            "CADASTRALPARCELS.PARCELLAIRE_EXPRESS$WMTS"
+          "DATATOURISME.FMA$TMS",
+          "ITINERAIRES-RANDO-TMS$TMS",
+          "HIKING.GEOTREK$TMS",
+          "IGNF_SITES-UNESCO$WMS",
+          "POI.MONUMENTS_BDD_WLD_WM$WMS",
+          "POI.MUSEUM$WMS",
+          "VILLAGESETAPE$WMS",
+          "TRANSPORTS.DRONES.RESTRICTIONS$WMTS"
+        ]
+    },
+    {
+        "name": "Forêts",
+        "layers": [
+            "FORETS.PUBLIQUES$WMTS",
+            "LANDCOVER.FORESTINVENTORY.V2$WMTS"
+        ]
+    },
+    {
+        "name": "Transports",
+        "layers": [
+            "TRANSPORTNETWORKS.RAILWAYS$WMTS",
+            "TRANSPORTNETWORKS.ROADS$WMTS"
         ]
     },
     {
@@ -27,17 +49,10 @@
         ]
     },
     {
-        "name": "Forêt",
+        "name": "Hydrographie et littoral",
         "layers": [
-            "FORETS.PUBLIQUES$WMTS",
-            "LANDCOVER.FORESTINVENTORY.V2$WMTS"
-        ]
-    },
-    {
-        "name": "Hydrographie, mer et littoral",
-        "layers": [
-            "ELEVATION.LEVEL0$WMTS",
-            "HYDROGRAPHY.HYDROGRAPHY$WMTS"
+          "HYDROGRAPHY.HYDROGRAPHY$WMTS",
+            "ELEVATION.LEVEL0$WMTS"
         ]
     },
     {
@@ -51,26 +66,6 @@
         "name": "Risques naturels",
         "layers": [
           "GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN$WMTS"
-        ]
-    },
-    {
-        "name": "Tourisme et loisirs",
-        "layers": [
-          "DATATOURISME.FMA$TMS",
-          "HIKING.GEOTREK$TMS",
-          "IGNF_SITES-UNESCO$WMS",
-          "POI.MONUMENTS_BDD_WLD_WM$WMS",
-          "CJP-PARCS-JARDINS_BDD-POI_WLD_WM$WMS",
-          "POI.MUSEUM$WMS",
-          "VILLAGESETAPE$WMS",
-          "TRANSPORTS.DRONES.RESTRICTIONS$WMTS"
-        ]
-    },
-    {
-        "name": "Transports",
-        "layers": [
-            "TRANSPORTNETWORKS.RAILWAYS$WMTS",
-            "TRANSPORTNETWORKS.ROADS$WMTS"
         ]
     }
 ]

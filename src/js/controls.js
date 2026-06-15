@@ -9,7 +9,7 @@ import maplibregl from "maplibre-gl";
 import Globals from "./globals";
 import Directions from "./directions/directions";
 import Isochrone from "./isochrone/isochrone";
-import Position from "./position";
+import Position from "./position/position";
 import Search from "./search";
 import Compare from "./compare";
 import POI from "./poi";

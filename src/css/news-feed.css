@@ -261,6 +261,14 @@
   max-width: calc(100% - 36px);
 }
 
+.newsfeedItemImageContainer.carousel.fixedHeight.singleImage .newsFeedImageSlidesTrack .newsfeedItemSlide img {
+  height: 100%;
+  border-radius: 8px;
+  width: 100%;
+  object-fit: cover;
+  max-width: unset;
+}
+
 .newsfeedItemImageContainer.carousel.squareWidth .newsFeedImageSlidesTrack .newsfeedItemSlide img {
   width: var(--width);
   height: var(--width);

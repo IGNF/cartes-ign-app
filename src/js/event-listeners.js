@@ -184,10 +184,45 @@ function addListeners() {
     Globals.menu.updateScrollAnchors();
   };
 
+  const reloadPMTileSources = () => {
+    const map = Globals.map;
+    const sourceIds = [];
+    const sources = map.getStyle().sources;
+
+    for (const id in sources) {
+
+      if (sources[id].url?.startsWith("pmtiles://")) {
+        sourceIds.push(id);
+      }
+    }
+    sourceIds.forEach((id) => reloadSource(id));
+  };
+
+  const reloadSource = (sourceId) => {
+    const map = Globals.map;
+    const sourceDef = map.getStyle().sources[sourceId];
+    const layer = map.getStyle().layers.filter(
+      l => l.source === sourceId
+    )[0];
+    if (!layer) {
+      return;
+    }
+    const oldLayers = map.getStyle().layers;
+    const layerIndex = oldLayers.findIndex(l => l.id === layer.id);
+    const layerDef = oldLayers[layerIndex];
+    const before = oldLayers[layerIndex + 1] && oldLayers[layerIndex + 1].id;
+
+    map.removeLayer(layer.id);
+    map.removeSource(sourceId);
+    map.addSource(sourceId, sourceDef);
+    map.addLayer(layerDef, before);
+  };
+
   // Screen dimentions change
   window.addEventListener("resize", handleresize);
   window.addEventListener("orientationchange", handleresize);
   App.addListener("resume", handleresize);
+  App.addListener("resume", reloadPMTileSources);
 
   Network.addListener("networkStatusChange", (status) => {
     let newStatus = status.connected;
@@ -312,7 +347,52 @@ function addListeners() {
       directionsListDetails.style.flexBasis = `${resultHeight}px`;
     }
 
+    const positionContainer = document.getElementById("positionContainer");
+    if (positionContainer) {
+      const html = document.documentElement;
+      const atBottom =
+        html.scrollHeight -
+        html.clientHeight -
+        window.scrollY <= 1;
+
+      if (atBottom) {
+        positionContainer.classList.add("tabScrolledMax");
+      } else {
+        positionContainer.classList.remove("tabScrolledMax");
+      }
+    }
   });
+
+  // Overscroll dans le tab
+  let lastY = null;
+  window.addEventListener("touchstart", e => {
+    lastY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener("touchmove", e => {
+    if (lastY === null) return;
+
+    const y = e.touches[0].clientY;
+    const delta = lastY - y;
+
+    const html = document.documentElement;
+
+    const atBottom =
+      html.scrollHeight -
+      html.clientHeight -
+      window.scrollY <= 1;
+
+    if (atBottom && delta > 0) {
+      e.preventDefault();
+      const positionContainer = document.getElementById("positionContainer");
+      if (positionContainer) {
+        positionContainer.classList.add("tabScrolledMax");
+        positionContainer.scrollTop += delta;
+      }
+    }
+
+    lastY = y;
+  }, { passive: false });
 
   // Partage par liens
   App.addListener("appUrlOpen", (e) => {
