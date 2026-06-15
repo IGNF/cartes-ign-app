@@ -855,7 +855,7 @@ class Position {
             "line-cap": "round",
             "line-join": "round"
           },
-          });
+        });
       }
       const geojsonRoute = {
         type: "FeatureCollection",
