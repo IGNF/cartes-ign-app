@@ -221,6 +221,17 @@ const gfiRules = {
         } else {
           pretitle = "";
         }
+      } else {
+        let match = pretitle.match("{{([^}]+)}}");
+        while (match) {
+          if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
+            if (Array.isArray(featureProperties[match[1]])) {
+              featureProperties[match[1]] = featureProperties[match[1]].join(", ");
+            }
+            pretitle = pretitle.replace(match[0], featureProperties[match[1]]);
+            match = pretitle.match("{{([^}]+)}}");
+          }
+        }
       }
       result.title = pretitle + `<div class="positionTitleWrapper">${result.title}</div>`;
     }

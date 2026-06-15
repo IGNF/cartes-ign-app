@@ -566,9 +566,17 @@
   border-radius: 6px;
 }
 
+.positionHtmlAfter img.pictoSentier {
+  border-radius: 0;
+}
+
 .positionHtmlAfter a {
   color: var(--darker-green);
   text-underline-offset: 25%;
+}
+
+.positionHtmlAfter + div {
+  margin-top: 15px;
 }
 
 .positionInfoFlex {
@@ -711,6 +719,28 @@
   display: none;
 }
 
+.flexH {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.whiteSection {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px 16px;
+}
+
+.whiteSection.smallPadding {
+  padding: 12px;
+}
+
+.whiteSection p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
 .pictoSentier {
   float: left;
   margin-right: 1em;
@@ -788,6 +818,14 @@
 .foldableInput ~ .foldableLabel.instructions::after {
   content: "toutes les instructions";
   display: inline-block;
+}
+
+.directionSign {
+  display: block;
+  background-image: url(assets/sign.svg);
+  width: 26px;
+  height: 26px;
+  align-self: flex-start;
 }
 
 .foldableInput:checked ~ .foldableLabel::after {

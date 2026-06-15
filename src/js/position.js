@@ -823,6 +823,51 @@ class Position {
       }
       this.geotrekRoute = feature.properties;
     }
+    if (type === "sentiers-balises") {
+      if (!this.map.getSource("sentiers-balises-highlight")) {
+        this.map.addSource("sentiers-balises-highlight", {
+          "type": "geojson",
+          "data": {
+            "type": "FeatureCollection",
+            "features": []
+          },
+        });
+        this.map.addLayer({
+          id: "sentiers-balises-highlight",
+          type: "line",
+          source: "sentiers-balises-highlight",
+          paint: {
+            "line-width": {
+              "stops": [
+                [
+                  5,
+                  1.5
+                ],
+                [
+                  18,
+                  1.9
+                ]
+              ]
+            },
+            "line-color": "#00FFB6",
+          },
+          layout: {
+            "line-cap": "round",
+            "line-join": "round"
+          },
+          });
+      }
+      const geojsonRoute = {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            geometry: feature.geometry,
+          }
+        ]
+      };
+      this.map.getSource("sentiers-balises-highlight").setData(geojsonRoute);
+    }
 
     this.#render(type, isEvent);
     if (hideCallback) {

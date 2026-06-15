@@ -3345,7 +3345,7 @@
         "visibility": "visible",
         "symbol-placement": "line",
         "symbol-spacing": 100,
-        "icon-image": "rectancle_bleu",
+        "icon-image": "rectangle_bleu",
         "icon-size": {
           "stops": [
             [
@@ -3395,7 +3395,7 @@
         "visibility": "visible",
         "symbol-placement": "line",
         "symbol-spacing": 100,
-        "icon-image": "rectancle_jaune",
+        "icon-image": "rectangle_jaune",
         "icon-size": {
           "stops": [
             [
@@ -3445,7 +3445,7 @@
         "visibility": "visible",
         "symbol-placement": "line",
         "symbol-spacing": 100,
-        "icon-image": "rectancle_vert",
+        "icon-image": "rectangle_vert",
         "icon-size": {
           "stops": [
             [
@@ -3495,7 +3495,7 @@
         "visibility": "visible",
         "symbol-placement": "line",
         "symbol-spacing": 100,
-        "icon-image": "rectancle_rouge",
+        "icon-image": "rectangle_rouge",
         "icon-size": {
           "stops": [
             [
@@ -3545,7 +3545,7 @@
         "visibility": "visible",
         "symbol-placement": "line",
         "symbol-spacing": 100,
-        "icon-image": "rectancle_bicolore_bleu",
+        "icon-image": "rectangle_bicolore_bleu",
         "icon-size": {
           "stops": [
             [
@@ -3595,7 +3595,7 @@
         "visibility": "visible",
         "symbol-placement": "line",
         "symbol-spacing": 100,
-        "icon-image": "rectancle_bicolore_blanc",
+        "icon-image": "rectangle_bicolore_blanc",
         "icon-size": {
           "stops": [
             [
@@ -3645,7 +3645,7 @@
         "visibility": "visible",
         "symbol-placement": "line",
         "symbol-spacing": 100,
-        "icon-image": "rectancle_bicolore_vert",
+        "icon-image": "rectangle_bicolore_vert",
         "icon-size": {
           "stops": [
             [
@@ -3695,7 +3695,7 @@
         "visibility": "visible",
         "symbol-placement": "line",
         "symbol-spacing": 100,
-        "icon-image": "rectancle_bicolore_rouge",
+        "icon-image": "rectangle_bicolore_rouge",
         "icon-size": {
           "stops": [
             [

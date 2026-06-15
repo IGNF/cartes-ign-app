@@ -257,8 +257,21 @@ class MapInteractivity {
             }
           });
           if (unique_filtered_features.length > 0) {
-            resp.html2 += `<p>À cet endroit passe${unique_filtered_features.length > 1 ? "nt" : ""} aussi : ${unique_filtered_features.map(f => f.properties.toponyme).join(", ")}</p>`;
+            resp.html2 += `<div class="whiteSection smallPadding flexH">
+              <div class="directionSign"></div>
+              <p class="monumentsHistoriquesContent">
+                À cet endroit passe${unique_filtered_features.length > 1 ? "nt" : ""} aussi : ${unique_filtered_features.map(f => f.properties.toponyme).join(", ")}
+              </p>
+            </div>`;
           }
+          hideCallback = () => {
+            if (this.map.getSource("sentiers-balises-highlight")) {
+              this.map.getSource("sentiers-balises-highlight").setData({
+                type: "FeatureCollection",
+                features: [],
+              });
+            }
+          };
           type = "sentiers-balises";
         } else {
           this.#highlightGFI(features[0].geometry, false);

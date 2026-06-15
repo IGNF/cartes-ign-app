@@ -1,11 +1,12 @@
 {
   "ITINERAIRES-RANDO-TMS$TMS": {
     "0": {
+      "pretitle": "<span class=\"filterTitleImg noBorder autoSize source{{sources}}\" style=\"background-image:url('data/img/pathMarks/{{nature}}.png');background-position:center\"></span>",
       "title": "@toponyme",
       "subtitle": "Sentiers de randonnée balisés - Source&nbsp;: {{sources}}",
       "bodyAfter": [
-        ["<p class=\"monumentsHistoriquesContent compostelle{{compostelle}}\"><img src=\"data/img/pathMarks/compostelle.jpg\" alt=\"Chemin de Compostelle\" width=\"30px\"></p>"],
-        ["<p class=\"monumentsHistoriquesContent\"><img class=\"pictoSentier picto{{sources}}\" src=\"data/img/pathMarks/{{nature}}.png\" alt=\"{{nature}}\" width=\"50px\" /><b class=\"natureSentier nature{{sources}}\">{{nature}}&nbsp;:</b> {{legende}}</p>"]
+        ["<p class=\"monumentsHistoriquesContent compostelle{{compostelle}} whiteSection flexH smallPadding\"><img src=\"data/img/pathMarks/compostelle.jpg\" alt=\"Chemin de Compostelle\" width=\"32px\"> Chemin de Compostelle</p>"],
+        ["<div class=\"monumentsHistoriquesContent whiteSection\"><p><img class=\"pictoSentier picto{{sources}}\" src=\"data/img/pathMarks/{{nature}}.png\" alt=\"{{nature}}\" height=\"15px\" /><b class=\"natureSentier nature{{sources}}\">{{nature}}</b></p><p>{{legende}}</p></div>"]
       ]
     }
   },
