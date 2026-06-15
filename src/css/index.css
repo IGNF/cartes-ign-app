@@ -282,6 +282,10 @@ textarea:focus + .dsign-form-label {
   background-color: var(--event-main);
 }
 
+.toggleInput:checked + .toggleSlider.colorValue {
+  background-color: var(--colorValue);
+}
+
 .toggleInput:disabled + .toggleSlider {
   background-color: var(--grey-2);
 }

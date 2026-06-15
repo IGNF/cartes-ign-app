@@ -20,6 +20,7 @@ import InseeCommWiki from "../../../config/com_wiki.json";
 import GfiRulesProps from "../../../config/gfi-rules.json";
 
 import LayerPopups from "../../../config/layer-popups.json";
+import IsochroneLayers from "../../../config/isochrone-layers.json";
 
 import { Capacitor } from "@capacitor/core";
 import { Device } from "@capacitor/device";
@@ -66,7 +67,7 @@ const urls = {
     fallback: ThematicLayers,
   },
   configLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/layers-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/layers-config.json--",
     fallback: ConfigLayers,
   },
   tempLayers: {
@@ -98,17 +99,21 @@ const urls = {
     fallback: InseeCommWiki,
   },
   gfiRulesProps: {
-    url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json",
+    url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json--",
     fallback: GfiRulesProps,
   },
   layerPopups: {
     url: "https://ignf.github.io/cartes-ign-app/layer-popups.json",
     fallback: LayerPopups,
   },
-  newsfeed : {
+  isochroneLayers: {
+    url: "https://ignf.github.io/cartes-ign-app/isochrone-layers.json",
+    fallback: IsochroneLayers,
+  },
+  newsfeed: {
     url: "https://cartes-ign.ign.fr/newsfeed/newsfeed_config.json",
     fallback: [], // default empty list if not available
-  }
+  },
 };
 
 async function loadConfigs() {
@@ -174,6 +179,15 @@ async function loadConfigs() {
     document.querySelector("#newsfeed").classList.remove("d-none");
     document.querySelector("#newsfeed_hr").classList.remove("d-none");
   }
+
+  // Filter isochrone layers
+  config.isochroneLayers = config.isochroneLayers.filter((layer) => {
+    if (Date.now() < Date.parse(layer.dateEnd) && Date.now() > Date.parse(layer.dateStart)) {
+      return true;
+    }
+    return false;
+  });
+
   config.hasLoaded = true;
 }
 

@@ -513,6 +513,24 @@
   transform: translateY(3px);
 }
 
+.positionHtmlEvent a[href^="tel:"]::after {
+  -webkit-mask: url(assets/telephone.svg) center;
+  mask: url(assets/telephone.svg) center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 25px;
+  mask-size: 25px;
+}
+
+.positionHtmlEvent a[href^="mailto:"]::after {
+  -webkit-mask: url(assets/email.svg) center;
+  mask: url(assets/email.svg) center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 13px;
+  mask-size: 13px;
+}
+
 .htmlEventDate {
   font-family: "Fira Sans Semibold";
   font-size: 14px;

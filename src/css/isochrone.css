@@ -27,6 +27,10 @@
   border-top: 1px solid var(--grey-2);
 }
 
+.section.event.colorValue {
+  background-color: var(--colorValue);
+}
+
 .unit {
   padding: 5px;
   position: absolute;
