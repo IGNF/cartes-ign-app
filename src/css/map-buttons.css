@@ -38,10 +38,12 @@
 }
 
 #layerManagerBtn {
+  --backgroundColor: white;
   background-image: url("assets/map-buttons/layers.svg");
   position: fixed;
   top: calc(146px + var(--safe-area-inset-top));
   transition: top 0.3s, opacity 0.5s;
+  background-color: var(--backgroundColor);
 }
 
 #eventMapBtn {
@@ -76,6 +78,19 @@
   background-image: url("assets/map-buttons/layers-w.svg");
   background-color: var(--dark-green);
   border: 1px solid var(--dark-green);
+}
+
+#layerManagerBtn.notif::after {
+  display: block;
+  content: "";
+  height: 11px;
+  width: 11px;
+  background-color: #6B7FFF;
+  border: 3px solid white;
+  border-radius: 100%;
+  position: absolute;
+  top: 0px;
+  right: -6px;
 }
 
 #geolocateBtn {
@@ -250,7 +265,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-position: 13px center;
   transition: top 0.3s, opacity 0.5s;
   font-size: 14px;
 }

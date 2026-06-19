@@ -163,9 +163,11 @@ function app() {
       for (let i = 0; i < layers.length; i++) {
         const layer = layers[i];
         if (layer.onBoardingCfg) {
-          StatusPopups.getOnboardingModal(layer.id, layer.onBoardingCfg.html);
-          tempOnboarding = true;
-          break;
+          const result = StatusPopups.getOnboardingModal(layer.id, layer.onBoardingCfg.html);
+          if (result === 1) {
+            tempOnboarding = true;
+            break;
+          }
         }
       }
       if (!tempOnboarding) {

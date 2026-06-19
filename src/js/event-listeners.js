@@ -201,6 +201,11 @@ function addListeners() {
   const reloadSource = (sourceId) => {
     const map = Globals.map;
     const sourceDef = map.getStyle().sources[sourceId];
+    sourceDef.url = sourceDef.url.replace(
+      /nocachetoken=\d+/,
+      `nocachetoken=${Date.now()}`
+    );
+
     const layer = map.getStyle().layers.filter(
       l => l.source === sourceId
     )[0];

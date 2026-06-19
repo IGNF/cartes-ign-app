@@ -9,6 +9,7 @@ import { Network } from "@capacitor/network";
 import PopupUtils from "./utils/popup-utils";
 import ActionSheet from "./action-sheet";
 import domUtils from "./utils/dom-utils";
+import Globals from "./globals";
 
 import OnboardingConfig from "./onboarding-config.json";
 
@@ -82,14 +83,14 @@ function getOnboardingModal(id = null, html = null) {
     id === null && localStorage.getItem("lastOnboardId") !== null && localStorage.getItem("lastOnboardId") === `${OnboardingConfig.id}`
     && localStorage.getItem("dontShowOnboardAgain") === "true"
   ) {
-    return;
+    return 0;
   }
 
   if (
     id && localStorage.getItem("lastOnboardEventId") !== null && localStorage.getItem("lastOnboardEventId") === id
     && localStorage.getItem("dontShowOnboardEventAgain") === "true")
   {
-    return;
+    return 0;
   }
 
   if (id && html) {
@@ -109,6 +110,15 @@ function getOnboardingModal(id = null, html = null) {
     onboardingDom.querySelector("#onBoardingConfirm").addEventListener("click", () => {
       ActionSheet._closeElem.click();
     });
+    const action = onboardingDom.querySelector("#onBoardingConfirmAction");
+    if (action) {
+      action.addEventListener("click", () => {
+        ActionSheet._closeElem.click();
+        document.getElementById(action.dataset.action).click();
+        Globals.currentScrollIndex = 2;
+        Globals.menu.updateScrollAnchors();
+      });
+    }
     ActionSheet.show({
       style: "custom",
       content: onboardingDom,
@@ -117,6 +127,7 @@ function getOnboardingModal(id = null, html = null) {
     localStorage.setItem("lastOnboardId", OnboardingConfig.id);
     localStorage.setItem("dontShowOnboardAgain", "true");
   }
+  return 1;
 }
 
 export default {

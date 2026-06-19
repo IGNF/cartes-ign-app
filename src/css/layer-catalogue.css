@@ -48,7 +48,6 @@
   height: 92px;
 }
 
-.layer-title-thematic,
 .layer-title {
   font-family: "Open Sans Semibold";
   font-size: 12px;
@@ -58,8 +57,46 @@
   text-align: left
 }
 
+.layer-tags {
+  margin-top: 4px;
+  display: flex;
+  max-width: 100%;
+  gap: 4px;
+}
+
+.tagSmall {
+  height: 15px;
+  width: 15px;
+  flex-shrink: 0;
+  border-radius: 100%;
+  background-size: 11px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.baseLayer .layer-tags {
+  display: none;
+}
+
 .layer-title-thematic {
   color: var(--dark-green);
+  font-family: "Open Sans Bold";
+  font-size: 9px;
+  text-transform: uppercase;
+  line-height: 11px;
+  color: var(--mid-grey);
+  text-overflow: ellipsis;
+  background-color: var(--light-grey);
+  padding: 4px 6px;
+  border-radius: 100px;
+  width: fit-content;
+  max-width: calc(100% - 12px);
+  flex-shrink: 1;
+  max-height: 10px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: clip;
+  min-width: 0;
 }
 
 #layerManagerWindow #thematicLayers {
@@ -84,14 +121,19 @@
 
 .selectedLayer .layer-badge {
   position: absolute;
-  width: 18px;
-  height: 18px;
-  bottom: 14px;
-  right: 10px;
+  width: 16px;
+  height: 16px;
+  bottom: 6px;
+  right: 6px;
   background-repeat: no-repeat;
   background-image: url("assets/selected-layer.svg");
-  border: 2px solid white;
+  background-size: 16px;
+  border: 1px solid white;
   border-radius: 50%;
+}
+
+.layer-interactive-badge-false {
+  display: none;
 }
 
 .layer-interactive-badge-true {
@@ -99,7 +141,7 @@
   width: 15px;
   height: 15px;
   top: 8px;
-  left: 8px;
+  left: 6px;
   background-repeat: no-repeat;
   background-image: url("assets/map-buttons/interactivity.svg");
   background-color: white;
@@ -107,6 +149,23 @@
   background-position: center;
   border: 2px solid white;
   border-radius: 50%;
+}
+
+.layer-new-badge-false {
+  display: none;
+}
+
+.layer-new-badge-true {
+  position: absolute;
+  top: 8px;
+  right: 6px;
+  color: white;
+  background-color: #6B7FFF;
+  font-family: 'Open Sans Bold';
+  font-size: 8px;
+  width: fit-content;
+  padding: 6px;
+  border-radius: 100px;
 }
 
 .selectedLayer .layerImg {
@@ -206,23 +265,31 @@
 }
 
 .thematicButton {
-  display: block;
-  border: 1px solid var(--dark-grey);
+  display: flex;
+  border: 1px solid var(--grey-2);
   color: var(--dark-grey);
-  background-color: #fff0;
   border-radius: 50px;
-  padding: 10px;
+  padding: 12px 14px;
   cursor: pointer;
   text-align: center;
   white-space: nowrap;
-  margin-right: 10px;
-  font-family: "Open Sans Bold";
-  font-size: 11px;
+  margin-right: 6px;
+  font-family: "Open Sans Semibold";
+  font-size: 12px;
+  height: 33px;
+  align-items: center;
+  background-color: var(--light-grey);
+}
+
+.thematicButton.seasonalTag {
+  padding-left: 30px;
+  background-repeat: no-repeat;
+  background-position: 9px center;
 }
 
 .thematic-button-active {
-  color: var(--dark-green);
-  border-color: var(--dark-green);
+  color: var(--darker-green);
+  border: 2px solid var(--darker-green);
 }
 
 .small-layers {
@@ -236,11 +303,14 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  background-color: var(--light-grey);
+  padding: 10px 16px 10px 12px;
+  border-radius: 8px;
 }
 
 .smallLayer .layerImg {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
   border-radius: 8px;
 }
@@ -250,6 +320,7 @@
   width: 36px;
   border-radius: 8px;
   object-fit: cover;
+  border: unset;
 }
 
 .smallLayer .layer-title {

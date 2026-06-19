@@ -77,6 +77,7 @@ class MapInteractivity {
     this.selectedFeatureType = null;
     this.selectedSource = null;
     this.selectedToponyme = null;
+    this.selectedNature = null;
 
     // fonction d'event avec bind
     this.handleInfoOnMap = this.#getInfoOnMap.bind(this);
@@ -272,10 +273,11 @@ class MapInteractivity {
           type = "sentiers-balises";
           this.selectedSource = "itineraires_rando_tms";
           this.selectedToponyme = features[0].properties.toponyme;
+          this.selectedNature = features[0].properties.nature;
           this.selectedFeatureType = features[0].geometry.type;
           this.#highlightGFI(features[0].geometry, false);
           this.#updateHighlightedGeom();
-          this.map.on("move", this.handleUpdateHighlightedGeom);
+          this.map.on("moveend", this.handleUpdateHighlightedGeom);
         } else if (features[0].layer.id.split("$$$")[1] === "DATATOURISME.FMA$TMS") {
           type = "datatourisme";
           this.#highlightGFI(features[0].geometry, false);
@@ -378,7 +380,7 @@ class MapInteractivity {
           this.selectedSource = "bdtopo";
           this.selectedFeatureType = features[0].geometry.type;
           this.#updateHighlightedGeom();
-          this.map.on("move", this.handleUpdateHighlightedGeom);
+          this.map.on("moveend", this.handleUpdateHighlightedGeom);
         }
         this.map.once("click", this.handleInfoOnMap);
         return;
@@ -394,8 +396,10 @@ class MapInteractivity {
       if (this.selectedSource === "bdtopo" && feat.source === "bdtopo" && feat.properties.cleabs === this.selectedCleabs) {
         toFuse.push(feat);
       }
-      if (this.selectedSource === "itineraires_rando_tms" && feat.source === "itineraires_rando_tms" && feat.properties.toponyme === this.selectedToponyme) {
-        toFuse.push(feat);
+      if (this.selectedSource === "itineraires_rando_tms" && feat.source === "itineraires_rando_tms") {
+        if (feat.properties.toponyme === this.selectedToponyme && feat.properties.nature === this.selectedNature) {
+          toFuse.push(feat);
+        }
       }
     });
     if (toFuse.length == 0) {
@@ -660,7 +664,7 @@ class MapInteractivity {
    * Supprime les donnés dans les sources
    */
   #clearSources() {
-    this.map.off("move", this.handleUpdateHighlightedGeom);
+    this.map.off("moveend", this.handleUpdateHighlightedGeom);
     this.map.getSource(this.configuration.pointsource).setData({
       "type": "FeatureCollection",
       "features": []

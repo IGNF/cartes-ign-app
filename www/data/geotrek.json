@@ -6,7 +6,7 @@
   "sources": {
     "geotrek": {
       "type": "vector",
-      "url": "pmtiles://https://data.geopf.fr/chunk/telechargement/download/HIKING.GEOTREK/archive/data.pmtiles?nocache=true"
+      "url": "pmtiles://https://data.geopf.fr/chunk/telechargement/download/HIKING.GEOTREK/archive/data.pmtiles"
     }
   },
   "transition": {

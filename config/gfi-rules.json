@@ -12,7 +12,7 @@
   },
   "DATATOURISME.FMA$TMS": {
     "0": {
-      "pretitle": "<span class=\"filterTitleImg\" style=\"background-image:url(data/img/layers/DATATOURISME.FMA.jpg);background-position:center\"></span>",
+      "pretitle": "<span class=\"filterTitleImg\" style=\"background-image:url(data/img/DATATOURISME.FMA.jpg);background-position:center\"></span>",
       "title": "@title",
       "subtitle": "Animations locales - Source&nbsp;: <a href=\"https://www.datatourisme.fr/\" target=\"_blank\" style=\"color: var(--darker-green);\">Datatourisme</a>, ADN Tourisme",
       "htmlEvent": [
@@ -35,11 +35,11 @@
         ["<div class=\"positionInfoFlex\">"],
         ["<p>{{contactAdditionalInfo}}</p>"],
         ["<p class=\"positionTelephone positionInfo\"><a target=\"_blank\" href=\"tel:{{registrationPhone}}\">Téléphone</a></p>"],
-        ["<p class=\"positionEmail positionInfo\"><a target=\"_blank\" href=\"mailto:{{registrationEmail}}\">Courriel</a></p>"],
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"mailto:{{registrationEmail}}\">Contacter</a></p>"],
         ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{registrationWeb}}\">Site web</a></p>"],
         ["<p class=\"positionWeb positionFacebook positionInfo\"><a target=\"_blank\" href=\"{{registrationFacebook}}\">Facebook</a></p>"],
         ["<p class=\"positionTelephone positionInfo\"><a target=\"_blank\" href=\"tel:{{creatorPhone}}\">Téléphone</a></p>"],
-        ["<p class=\"positionEmail positionInfo\"><a target=\"_blank\" href=\"mailto:{{creatorEmail}}\">Courriel</a></p>"],
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"mailto:{{creatorEmail}}\">Contacter</a></p>"],
         ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{creatorUrl}}\">Site web</a></p>"],
         ["</div>"]
       ]
@@ -68,7 +68,7 @@
         ["<div><p class=\"monumentsHistoriquesContent geotrek\"><b>Instructions</b></p><input type=\"checkbox\" class=\"d-none foldableInput\" id=\"foldableInputGeotrekInstr\"><div class=\"monumentsHistoriquesContent geotrek foldable instructions\">{{instructions}}</div><label class=\"foldableLabel instructions\" for=\"foldableInputGeotrekInstr\">&nbsp;Voir&nbsp;</label></div>"],
         ["<hr>"],
         ["<div>"],
-        ["<p class=\"monumentsHistoriquesContent geotrek profileTitle\"><b>Profil altimétrique</b></p><div class=\"geotrek profileInfos\"><div class=\"routeInfos\"><div class=\"routeInfo\"><span class=\"routeInfoValue arrowUp\">+<span class=\"geotrek-elevation-positive\">{{denivele_positif}}</span>&nbsp;m</span><span class=\"routeInfoLabel\">Dénivelé positif</span></div><div class=\"routeInfo\"><span class=\"routeInfoValue arrowDown\">-<span class=\"geotrek-elevation-negative\">{{denivele_negatif}}</span>&nbsp;m</span><span class=\"routeInfoLabel\">Dénivelé négatif</span></div></div>"],
+        ["<p class=\"monumentsHistoriquesContent geotrek profileTitle\"><b>Profil altimétrique</b></p><div class=\"geotrek profileInfos\"><div class=\"routeInfos\"><div class=\"routeInfo\"><span class=\"routeInfoValue arrowUp\">+<span class=\"geotrek-elevation-positive\">{{denivele_positif}}</span>&nbsp;m</span><span class=\"routeInfoLabel\">Dénivelé positif</span></div><div class=\"verticalSeparator\"></div><div class=\"routeInfo\"><span class=\"routeInfoValue arrowDown\">-<span class=\"geotrek-elevation-negative\">{{denivele_negatif}}</span>&nbsp;m</span><span class=\"routeInfoLabel\">Dénivelé négatif</span></div></div>"],
         ["<canvas id='geotrek-profile' class='d-none'></canvas>"],
         ["</div>"],
         ["</div>"],

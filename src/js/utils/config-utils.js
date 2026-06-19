@@ -21,6 +21,7 @@ import GfiRulesProps from "../../../config/gfi-rules.json";
 
 import LayerPopups from "../../../config/layer-popups.json";
 import IsochroneLayers from "../../../config/isochrone-layers.json";
+import LayerTags from "../../../config/layer-tags.json";
 
 import { Capacitor } from "@capacitor/core";
 import { Device } from "@capacitor/device";
@@ -67,7 +68,7 @@ const urls = {
     fallback: ThematicLayers,
   },
   configLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/layers-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/layers-config.json--",
     fallback: ConfigLayers,
   },
   tempLayers: {
@@ -109,6 +110,10 @@ const urls = {
   isochroneLayers: {
     url: "https://ignf.github.io/cartes-ign-app/isochrone-layers.json",
     fallback: IsochroneLayers,
+  },
+  layerTags: {
+    url: "https://ignf.github.io/cartes-ign-app/layer-tags.json",
+    fallback: LayerTags,
   },
   newsfeed: {
     url: "https://cartes-ign.ign.fr/newsfeed/newsfeed_config.json",
@@ -166,6 +171,29 @@ async function loadConfigs() {
     }
     return false;
   });
+
+  // Add seasonal tags to thematicLayers
+  const tags = Object.keys(config.layerTags);
+  let color = "";
+  if (tags.length > 0) {
+    tags.forEach((tag) => {
+      config.thematicLayers.unshift({
+        name: config.layerTags[tag].name,
+        layers: config.layerTags[tag].layers,
+      });
+      color = config.layerTags[tag].tagColor;
+    });
+  }
+
+  if (color) {
+    if (
+      !localStorage.getItem("layerManagerSeasonClicked") ||
+      localStorage.getItem("layerManagerSeasonClicked") && localStorage.getItem("layerManagerSeasonClicked") !== color
+    ) {
+      document.getElementById("layerManagerBtn").style.setProperty("--backgroundColor", color);
+      document.getElementById("layerManagerBtn").classList.add("notif");
+    }
+  }
 
   // Add temp layers to thematicLayers
   if (config.tempLayers.length > 0) {

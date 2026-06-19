@@ -162,6 +162,14 @@ input[type="submit"].disabled {
   font-size: 14px;
 }
 
+#onboardingDiv > .form-submit.form-submit-secondary {
+  margin-top: 16px;
+  padding-top: 0;
+  background-color: unset;
+  color: var(--darker-green);
+
+}
+
 #onboardingDiv > .form-submit.event {
   background-color: var(--event-main);
 }

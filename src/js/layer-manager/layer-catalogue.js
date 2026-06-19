@@ -76,6 +76,14 @@ class LayerCatalogue extends EventTarget {
       return;
     }
 
+    const tplTags = (tagsConfig) => {
+      let result = "";
+      tagsConfig.forEach((tag) => {
+        result += `<div class="tagSmall" style="background-color:${tag.tagColor};background-image:url(${tag.tagIcon});"></div>`;
+      });
+      return result;
+    };
+
     const tplLayer = (opts) => {
       const defaultOpacity = opts.defaultOpacity || 100;
       return `
@@ -84,8 +92,9 @@ class LayerCatalogue extends EventTarget {
           <img src="${opts.layerQuickLook}" alt="${opts.layerTitle}" onerror="this.onerror=null;this.src='${ImageNotFound}'" />
           <div class="layer-badge"></div>
           <div class="layer-interactive-badge-${opts.interactive}" ></div>
+          <div class="layer-new-badge-${opts.isNew}" >NOUVEAU</div>
         </div>
-        <div class="layer-title-thematic">${opts.layerThematic}</div>
+        <div class="layer-tags">${tplTags(opts.tagsConfig)}<div class="layer-title-thematic">${opts.layerThematic}</div></div>
         <div id="${opts.layerName}" class="layer-title">${opts.layerTitle}</div>
       </div>
       `;
@@ -105,12 +114,16 @@ class LayerCatalogue extends EventTarget {
         layerThematic : "",
         interactive: props.interactive,
         defaultOpacity: props.defaultOpacity || 100,
+        isNew: props.isNew,
+        tagsConfig: props.tagConfigs,
       });
     }
 
     var strThematicButtons = "";
     var strThematicLayers = "";
     var thematicButtons = LayersConfig.getThematics();
+    thematicButtons = thematicButtons.filter(item => item !== "Tous");
+    thematicButtons.unshift("Tous");
     var tempLayers = LayersConfig.getTempLayers();
     if (tempLayers.length > 0) {
       for(let k = 0; k < tempLayers.length; k++) {
@@ -124,14 +137,25 @@ class LayerCatalogue extends EventTarget {
           layerThematic : "Évènements",
           interactive: true,
           defaultOpacity: tempLayer.defaultOpacity || 100,
+          isNew: props.isNew,
+          tagsConfig: props.tagConfigs,
         });
       }
     }
 
     for (let l = 0; l < thematicButtons.length; l++) {
       const name = thematicButtons[l];
+      let additionalStyle = "";
+      let additionalClass = "";
+      for (const tag in config.layerTags) {
+        if (config.layerTags[tag].name === name) {
+          additionalStyle = `style="color=${config.layerTags[tag].textColor};background-color:${config.layerTags[tag].tagColor};background-image:url(${config.layerTags[tag].tagIcon});"`;
+          additionalClass = "seasonalTag";
+          break;
+        }
+      }
       strThematicButtons += `
-      <button class="thematicButton" data-name="${name}">
+      <button class="thematicButton ${additionalClass}" ${additionalStyle} data-name="${name}">
         ${name}
       </button>
       `;
@@ -150,6 +174,8 @@ class LayerCatalogue extends EventTarget {
         layerThematic : thematic,
         interactive: props.interactive,
         defaultOpacity: props.defaultOpacity || 100,
+        isNew: props.isNew,
+        tagsConfig: props.tagConfigs,
       });
     }
 

@@ -628,6 +628,13 @@ class LayerSwitcher extends EventTarget {
                   }
                   if (source.url) {
                     source.url = source.url.replace(/{{GPF_key}}/g, process.env.GPF_key);
+                    if (source.url.includes("pmtiles://")) {
+                      if (source.url.includes("?")) {
+                        source.url = source.url + "&nocachetoken=" + Date.now();
+                      } else {
+                        source.url = source.url + "?nocachetoken=" + Date.now();
+                      }
+                    }
                   }
                 }
                 this.map.addSource(key, source);

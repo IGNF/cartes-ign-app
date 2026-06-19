@@ -4,8 +4,8 @@
     "layerInLayerId": "datatourisme",
     "dateStart": "2026-05-20T00:00:00Z",
     "dateEnd": "2026-09-01T00:00:00Z",
-    "name": "Datatourisme - Fêtes et manifestations",
-    "isochroneIconUrl": "data/img/layers/DATATOURISME.FMA.jpg",
+    "name": "Animations locales",
+    "isochroneIconUrl": "data/img/DATATOURISME.FMA.jpg",
     "colorDark": "#224239",
     "colorLight": "#D1F0E8"
   }

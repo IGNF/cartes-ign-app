@@ -19,6 +19,27 @@
 import { config } from "../utils/config-utils";
 
 /**
+ * Obtenir la configuration des tags associés à une couche
+ * @param {*} id
+ * @returns
+ */
+const getTagConfigs = (id) => {
+  const result = [];
+  for (const tagConfig in config.layerTags) {
+    const conf = config.layerTags[tagConfig];
+    if (conf.layers.includes(id)) {
+      result.push({
+        "name": conf.name,
+        "textColor": conf.textColor,
+        "tagColor": conf.tagColor,
+        "tagIcon": conf.tagIcon,
+      });
+    }
+  }
+  return result;
+};
+
+/**
  * Obtenir la liste des propriétés d'une couche
  * @param {*} id
  * @returns
@@ -43,6 +64,8 @@ const getLayerProps = (id) => {
   var minNativeZoom = props.minNativeZoom || 0;
   var maxNativeZoom = props.maxNativeZoom || 20;
   var interactive = !(props.interactive === false);
+  var isNew = (props.new === true);
+  var tagConfigs = getTagConfigs(id);
   var defaultOpacity = props.defaultOpacity || 100;
   var quickLookUrl = props.quickLookUrl || "data/img/layers/" + id.split("$")[0] + ".jpg";
   var legendUrl = props.legendUrl || "data/img/legends/" + id.split("$")[0] + ".png";
@@ -62,9 +85,11 @@ const getLayerProps = (id) => {
     minNativeZoom: minNativeZoom,
     maxNativeZoom: maxNativeZoom,
     interactive: interactive,
+    isNew: isNew,
     defaultOpacity: defaultOpacity,
     quickLookUrl: quickLookUrl,
     legendUrl: legendUrl,
+    tagConfigs: tagConfigs,
   };
 };
 
@@ -90,9 +115,11 @@ const getTempLayerProps = (id) => {
     minNativeZoom: 0,
     maxNativeZoom: 20,
     interactive: true,
+    isNew: true,
     quickLookUrl: props.quickLookUrl,
     layerType: props.layerType,
     layerDef: props.layer,
+    tagConfigs: getTagConfigs(id),
   };
 };
 
@@ -160,7 +187,12 @@ const getLayersByThematic = (name) => {
  * @returns
  */
 const getThematicByLayerID = (id) => {
-  var data = config.thematicLayers.find((element) => { return element.layers.includes(id); });
+  const seasonTags = [];
+  for (const tag in config.layerTags) {
+    seasonTags.push(config.layerTags[tag].name);
+  }
+  const filteredThematics = config.thematicLayers.filter((element) => !seasonTags.includes(element.name));
+  var data = filteredThematics.find((element) => { return element.layers.includes(id); });
   return data.name;
 };
 

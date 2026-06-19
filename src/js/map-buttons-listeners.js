@@ -57,6 +57,11 @@ const addListeners = () => {
     } else {
       Globals.menu.open("layerManager");
     }
+    if (DOM.$layerManagerBtn.style.getPropertyValue("--backgroundColor") && DOM.$layerManagerBtn.style.getPropertyValue("--backgroundColor") !== "white") {
+      localStorage.setItem("layerManagerSeasonClicked", DOM.$layerManagerBtn.style.getPropertyValue("--backgroundColor"));
+      DOM.$layerManagerBtn.style.setProperty("--backgroundColor", "white");
+      DOM.$layerManagerBtn.classList.remove("notif");
+    }
   });
 
   // Bouton des filtres POI

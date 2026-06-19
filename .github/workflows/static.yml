@@ -37,6 +37,7 @@ jobs:
           cp config/gfi-rules.json public/gfi-rules.json
           cp config/layer-popups.json public/layer-popups.json
           cp config/isochrone-layers.json public/isochrone-layers.json
+          cp config/layer-tags.json public/layer-tags.json
           cp www/data/mixte.json public/mixte.json
           cp www/data/plan-ign-interactif-style.json public/plan-ign-interactif-style.json
           cp www/data/poi-osm-style.json public/poi-osm-style.json
