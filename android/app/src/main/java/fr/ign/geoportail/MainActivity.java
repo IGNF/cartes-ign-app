@@ -49,12 +49,10 @@ public class MainActivity extends BridgeActivity {
                 lastHandledUri = fileUrl;
                 if (bridge != null) {
                     bridge.getActivity().setIntent(new Intent());
-                    JSONObject detail = new JSONObject();
-                    detail.put("url", fileUrl);
-                    String js = String.format(
-                        "window.dispatchEvent(new CustomEvent('sendIntentReceived', {detail: %s}))",
-                        detail.toString()
-                    );
+                    String escapedUrl = JSONObject.quote(fileUrl);
+                    String js =
+                        "window.dispatchEvent(new CustomEvent('sendIntentReceived', {detail: {url: "
+                        + escapedUrl + "}}))";
                     bridge.eval(js, new ValueCallback<String>() {
                         @Override
                         public void onReceiveValue(String s) {
