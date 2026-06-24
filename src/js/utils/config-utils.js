@@ -68,7 +68,7 @@ const urls = {
     fallback: ThematicLayers,
   },
   configLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/layers-config.json--",
+    url: "https://ignf.github.io/cartes-ign-app/layers-config.json",
     fallback: ConfigLayers,
   },
   tempLayers: {

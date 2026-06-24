@@ -86,6 +86,14 @@ class LayerCatalogue extends EventTarget {
 
     const tplLayer = (opts) => {
       const defaultOpacity = opts.defaultOpacity || 100;
+      let betaTag = "";
+      let betaTitle = "";
+      if (opts.beta) {
+        betaTag = "<span class=\"beta\">BÊTA</span>";
+        if (opts.type === "baseLayer") {
+          betaTitle = betaTag;
+        }
+      }
       return `
       <div class="layer ${opts.type}" id="${opts.layerID}" data-defaultopacity="${defaultOpacity}">
         <div class="layerImg">
@@ -94,8 +102,8 @@ class LayerCatalogue extends EventTarget {
           <div class="layer-interactive-badge-${opts.interactive}" ></div>
           <div class="layer-new-badge-${opts.isNew}" >NOUVEAU</div>
         </div>
-        <div class="layer-tags">${tplTags(opts.tagsConfig)}<div class="layer-title-thematic">${opts.layerThematic}</div></div>
-        <div id="${opts.layerName}" class="layer-title">${opts.layerTitle}</div>
+        <div class="layer-tags">${tplTags(opts.tagsConfig)}${betaTag}<div class="layer-title-thematic">${opts.layerThematic}</div></div>
+        <div id="${opts.layerName}" class="layer-title">${opts.layerTitle}${betaTitle}</div>
       </div>
       `;
     };
@@ -115,6 +123,7 @@ class LayerCatalogue extends EventTarget {
         interactive: props.interactive,
         defaultOpacity: props.defaultOpacity || 100,
         isNew: props.isNew,
+        beta: props.beta,
         tagsConfig: props.tagConfigs,
       });
     }
@@ -138,6 +147,7 @@ class LayerCatalogue extends EventTarget {
           interactive: true,
           defaultOpacity: tempLayer.defaultOpacity || 100,
           isNew: props.isNew,
+          beta: props.beta,
           tagsConfig: props.tagConfigs,
         });
       }
@@ -175,6 +185,7 @@ class LayerCatalogue extends EventTarget {
         interactive: props.interactive,
         defaultOpacity: props.defaultOpacity || 100,
         isNew: props.isNew,
+        beta: props.beta,
         tagsConfig: props.tagConfigs,
       });
     }

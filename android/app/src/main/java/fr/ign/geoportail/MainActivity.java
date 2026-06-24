@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.webkit.ValueCallback;
 import com.getcapacitor.BridgeActivity;
+import org.json.JSONObject;
 
 public class MainActivity extends BridgeActivity {
     private String lastHandledUri = null;

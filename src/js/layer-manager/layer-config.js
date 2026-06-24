@@ -64,6 +64,7 @@ const getLayerProps = (id) => {
   var minNativeZoom = props.minNativeZoom || 0;
   var maxNativeZoom = props.maxNativeZoom || 20;
   var interactive = !(props.interactive === false);
+  var beta = (props.beta === true);
   var isNew = (props.new === true);
   var tagConfigs = getTagConfigs(id);
   var defaultOpacity = props.defaultOpacity || 100;
@@ -86,6 +87,7 @@ const getLayerProps = (id) => {
     maxNativeZoom: maxNativeZoom,
     interactive: interactive,
     isNew: isNew,
+    beta: beta,
     defaultOpacity: defaultOpacity,
     quickLookUrl: quickLookUrl,
     legendUrl: legendUrl,
@@ -116,6 +118,7 @@ const getTempLayerProps = (id) => {
     maxNativeZoom: 20,
     interactive: true,
     isNew: true,
+    beta: false,
     quickLookUrl: props.quickLookUrl,
     layerType: props.layerType,
     layerDef: props.layer,

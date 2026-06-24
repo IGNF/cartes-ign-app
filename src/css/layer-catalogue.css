@@ -54,7 +54,9 @@
   font-style: normal;
   line-height: normal;
   display: flex;
-  text-align: left
+  text-align: left;
+  align-items: center;
+  gap: 5px;
 }
 
 .layer-tags {
@@ -62,6 +64,11 @@
   display: flex;
   max-width: 100%;
   gap: 4px;
+}
+
+.layer-tags span.beta {
+  padding: 4px 6px;
+  line-height: 11px;
 }
 
 .tagSmall {
@@ -326,6 +333,7 @@
 .smallLayer .layer-title {
   display: flex;
   flex-direction: column;
+  align-items: start;
 }
 
 span.beta {

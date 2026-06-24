@@ -278,7 +278,8 @@
       "description": "Les animations locales rassemblent une grande diversité d’événements : spectacles, expositions, festivals, concerts, marchés, brocantes et vide-greniers, carnavals, fêtes traditionnelles, jeux-concours, etc.<br>Elles sont alimentées par les professionnels du tourisme.<br>Les données sont mises à jour en continu : chaque événement est visible deux mois avant sa date de début et disparaît une fois terminé.",
       "source": "Datatourisme (ADN Tourisme)",
       "format": "application/vnd.pmtiles",
-      "styles": ["https://ignf.github.io/cartes-ign-app/datatourisme.json", "data/datatourisme.json"]
+      "styles": ["https://ignf.github.io/cartes-ign-app/datatourisme.json", "data/datatourisme.json"],
+      "maj": "Juin 2026, mise à jour quotidienne"
     },
     "ITINERAIRES-RANDO-TMS$TMS": {
       "new": true,
@@ -288,7 +289,8 @@
       "description": "Les sentiers et chemins représentés correspondent à des itinéraires balisés, équipés de repères visuels facilitant l’orientation et garantissant un suivi du parcours en toute sécurité.<br>Ceux levés par l’IGN sont issus d’aménagements locaux réalisés dans le cadre de plans locaux de randonnée ou de plans départementaux de randonnée pédestre.<br>Seuls les itinéraires destinés à la pratique pédestre sont représentés.",
       "source": "FFRandonnée, Club vosgien, IGN et acteurs locaux",
       "format": "application/x-protobuf",
-      "styles": ["https://ignf.github.io/cartes-ign-app/sentiers-balises.json", "data/sentiers-balises.json"]
+      "styles": ["https://ignf.github.io/cartes-ign-app/sentiers-balises.json", "data/sentiers-balises.json"],
+      "maj": "Juin 2026, mise à jour mensuelle"
     },
     "HIKING.GEOTREK$TMS": {
       "new": true,
@@ -296,7 +298,7 @@
       "interactive": true,
       "description": "Randonnées proposées par des partenaires de référence (parcs nationaux et régionaux, collectivités territoriales, offices de tourisme, etc.).<br>Sont représentés des itinéraires dédiés aux activités pédestres, cyclistes et équestres.<br>Leur répartition sur le territoire est variable, car elle dépend des partenariats établis avec ces acteurs.",
       "source": "Parcs nationaux et régionaux, collectivités, acteurs du tourisme, etc.",
-      "maj": "hebdomadaire",
+      "maj": "Juin 2026, mise à jour hebdomadaire",
       "serverUrl": "pmtiles://https://data.geopf.fr/chunk/telechargement/download/HIKING.GEOTREK/archive/data.pmtiles",
       "format": "application/vnd.pmtiles",
       "styles": ["https://ignf.github.io/cartes-ign-app/geotrek.json", "data/geotrek.json"]
@@ -357,6 +359,7 @@
     "PLANIGN.LIDAR.SURSOL.2$TMS": {
       "new": true,
       "interactive": false,
+      "beta": true,
       "serverUrl": "https://data.geopf.fr/private/wmts",
       "title": "Plan IGN HD",
       "description": "Le plan IGN HD cartographie les paysages de façon très détaillée. Il utilise des données précises comme le LiDAR HD ou les données COSIA pour la représentation de l'occupation du sol. Cette version met surtout en valeur ce qui est au-dessus du sol, comme la végétation, les bâtiments et leurs ombres.",

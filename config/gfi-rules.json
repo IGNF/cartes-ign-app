@@ -35,11 +35,11 @@
         ["<div class=\"positionInfoFlex\">"],
         ["<p>{{contactAdditionalInfo}}</p>"],
         ["<p class=\"positionTelephone positionInfo\"><a target=\"_blank\" href=\"tel:{{registrationPhone}}\">Téléphone</a></p>"],
-        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"mailto:{{registrationEmail}}\">Contacter</a></p>"],
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{registrationEmail}}\">Contacter</a></p>"],
         ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{registrationWeb}}\">Site web</a></p>"],
         ["<p class=\"positionWeb positionFacebook positionInfo\"><a target=\"_blank\" href=\"{{registrationFacebook}}\">Facebook</a></p>"],
         ["<p class=\"positionTelephone positionInfo\"><a target=\"_blank\" href=\"tel:{{creatorPhone}}\">Téléphone</a></p>"],
-        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"mailto:{{creatorEmail}}\">Contacter</a></p>"],
+        ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{creatorEmail}}\">Contacter</a></p>"],
         ["<p class=\"positionWeb positionInfo\"><a target=\"_blank\" href=\"{{creatorUrl}}\">Site web</a></p>"],
         ["</div>"]
       ]
