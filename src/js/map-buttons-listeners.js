@@ -8,6 +8,7 @@ import DOM from "./dom";
 import Globals from "./globals";
 import Location from "./services/location";
 import Reverse from "./services/reverse";
+import HapticFeedback from "./services/haptic-feedback";
 import State from "./state";
 import { Capacitor } from "@capacitor/core";
 
@@ -27,6 +28,7 @@ const addListeners = () => {
     clearLongPressTimer();
     longPressTimerId = setTimeout(() => {
       suppressClickUntil = Date.now() + 600;
+      HapticFeedback.impactMedium();
       Location.disableLocationListeningCompletely();
       clearLongPressTimer();
     }, longPressDelay);
@@ -120,7 +122,10 @@ const addListeners = () => {
   });
 
   // Bouton de retour à l'enregistrement de la trace active
-  DOM.$trackRecordBtn.addEventListener("click", () => { Globals.menu.open("trackRecord"); });
+  DOM.$trackRecordBtn.addEventListener("click", (event) => {
+    HapticFeedback.impactMedium(event);
+    Globals.menu.open("trackRecord");
+  });
 };
 
 export default {
