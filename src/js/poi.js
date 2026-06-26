@@ -201,14 +201,10 @@ class POI {
       });
     }
 
-    let rltChecked = "checked";
+    let rltChecked = "";
     // Chargement de la valeut de la checkbox POI RLT
-    if (localStorage.getItem("poirltChecked") && localStorage.getItem("poirltChecked") !== "checked") {
-      rltChecked = "";
-    }
-
-    if (LayersConfig.getTempLayers().length > 0) {
-      rltChecked = "";
+    if (localStorage.getItem("poirltChecked") && localStorage.getItem("poirltChecked") === "checked") {
+      rltChecked = "checked";
     }
 
     var tpltContainer = `

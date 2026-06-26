@@ -1113,7 +1113,6 @@
 }
 
 @media not (min-width: 400px), not (min-aspect-ratio: 1/1) {
-  #positionContainer:has(.sentierBalise),
   #positionContainer:has(.geotrek) {
     max-height: calc(100vh - 100vw);
     overflow-y: hidden;
@@ -1122,12 +1121,10 @@
     overscroll-behavior: auto;
   }
 
-  #positionContainer.tabScrolledMax:has(.sentierBalise),
   #positionContainer.tabScrolledMax:has(.geotrek) {
     overflow-y: scroll;
   }
 
-  #positionContainer:has(.sentierBalise) .divPositionTitleWrapper,
   #positionContainer:has(.geotrek) .divPositionTitleWrapper {
     position: sticky;
     top: 0;
@@ -1137,7 +1134,6 @@
     padding-bottom: 15px;
   }
 
-  #positionContainer:has(.sentierBalise) .positionHtmlBeforeAddress,
   #positionContainer:has(.geotrek) .positionHtmlBeforeAddress {
     margin-top: -15px;
   }

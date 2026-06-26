@@ -407,7 +407,7 @@ function app() {
   }, 4000);
 
   // Pich zoom sur img overlay
-  new PinchZoom(document.getElementById("imgOverlayImage"));
+  new PinchZoom(document.getElementById("imgOverlayImage"), {"draggableUnzoomed": false});
 }
 
 app();

@@ -91,11 +91,6 @@ function addListeners() {
     Globals.backButtonState = "informationsScreenLegal";
   });
 
-  // Rotation du marqueur de position (android)
-  if (Capacitor.getPlatform() !== "ios") {
-    window.addEventListener("deviceorientationabsolute", Location.getOrientation, true);
-  }
-
   // Action du backbutton
   document.addEventListener("backbutton", State.onBackKeyDown, false);
   DOM.$tabClose.addEventListener("click", State.onBackKeyDown, false);
@@ -116,7 +111,10 @@ function addListeners() {
   };
 
   // Sauvegarde de l'état de l'application
-  App.addListener("appStateChange", saveState);
+  App.addListener("appStateChange", (state) => {
+    saveState();
+    Location.handleAppStateChange(state);
+  });
   document.addEventListener("pause", saveState);
   window.addEventListener("beforeunload", saveState);
 
@@ -318,7 +316,11 @@ function addListeners() {
     if (document.getElementById("eventMapBtn")) {
       document.getElementById("eventMapBtn").classList.remove("opacity0");
     }
-    const thresh = window.innerHeight / 2;
+    let thresh = window.innerHeight / 2;
+    const hasGeotrek = document.querySelector("#positionWindow:not(.d-none) .geotrek");
+    if (hasGeotrek) {
+      thresh = window.innerHeight / 4;
+    }
     if (!window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches && window.scrollY > thresh) {
       DOM.$bottomButtons.classList.add("opacity0");
       DOM.$routeDrawEdit.classList.add("opacity0");
