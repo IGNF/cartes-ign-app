@@ -1790,7 +1790,18 @@
       ],
       "layout": {
         "line-join": "round",
-        "line-cap": "round"
+        "line-cap": "round",
+        "line-sort-key": [
+          "coalesce",
+          [
+            "to-number",
+            [
+              "get",
+              "id"
+            ]
+          ],
+          0
+        ]
       },
       "paint": {
         "line-color": "#ffffff",
@@ -1835,7 +1846,18 @@
       ],
       "layout": {
         "line-join": "round",
-        "line-cap": "round"
+        "line-cap": "round",
+        "line-sort-key": [
+          "coalesce",
+          [
+            "to-number",
+            [
+              "get",
+              "id"
+            ]
+          ],
+          0
+        ]
       },
       "paint": {
         "line-color": "#d100dc",
@@ -1884,7 +1906,18 @@
       ],
       "layout": {
         "line-join": "round",
-        "line-cap": "round"
+        "line-cap": "round",
+        "line-sort-key": [
+          "coalesce",
+          [
+            "to-number",
+            [
+              "get",
+              "id"
+            ]
+          ],
+          0
+        ]
       },
       "paint": {
         "line-color": "#ffffff",
@@ -1929,7 +1962,18 @@
       ],
       "layout": {
         "line-join": "round",
-        "line-cap": "round"
+        "line-cap": "round",
+        "line-sort-key": [
+          "coalesce",
+          [
+            "to-number",
+            [
+              "get",
+              "id"
+            ]
+          ],
+          0
+        ]
       },
       "paint": {
         "line-color": "#d100dc",
@@ -1978,7 +2022,18 @@
       ],
       "layout": {
         "line-join": "round",
-        "line-cap": "round"
+        "line-cap": "round",
+        "line-sort-key": [
+          "coalesce",
+          [
+            "to-number",
+            [
+              "get",
+              "id"
+            ]
+          ],
+          0
+        ]
       },
       "paint": {
         "line-color": "#ffffff",
@@ -2023,7 +2078,18 @@
       ],
       "layout": {
         "line-join": "round",
-        "line-cap": "round"
+        "line-cap": "round",
+        "line-sort-key": [
+          "coalesce",
+          [
+            "to-number",
+            [
+              "get",
+              "id"
+            ]
+          ],
+          0
+        ]
       },
       "paint": {
         "line-color": "#d100dc",
@@ -2123,7 +2189,22 @@
         "text-allow-overlap": false,
         "text-ignore-placement": false,
         "text-padding": 2,
-        "text-keep-upright": true
+        "text-keep-upright": true,
+        "symbol-sort-key": [
+          "*",
+          -1,
+          [
+            "coalesce",
+            [
+              "to-number",
+              [
+                "get",
+                "id"
+              ]
+            ],
+            0
+          ]
+        ]
       },
       "paint": {
         "text-color": "#d100dc",
@@ -2214,7 +2295,22 @@
         "text-allow-overlap": false,
         "text-ignore-placement": false,
         "text-padding": 2,
-        "text-keep-upright": true
+        "text-keep-upright": true,
+        "symbol-sort-key": [
+          "*",
+          -1,
+          [
+            "coalesce",
+            [
+              "to-number",
+              [
+                "get",
+                "id"
+              ]
+            ],
+            0
+          ]
+        ]
       },
       "paint": {
         "text-color": "#d100dc",
@@ -2307,7 +2403,22 @@
         "icon-ignore-placement": false,
         "text-ignore-placement": false,
         "text-padding": 2,
-        "text-keep-upright": true
+        "text-keep-upright": true,
+        "symbol-sort-key": [
+          "*",
+          -1,
+          [
+            "coalesce",
+            [
+              "to-number",
+              [
+                "get",
+                "id"
+              ]
+            ],
+            0
+          ]
+        ]
       },
       "paint": {
         "text-color": "#d100dc",

@@ -443,6 +443,7 @@ div[id^=route-summary-div_ID_] {
   border-radius: 100%;
   background-size: 25px;
   background-position: center;
+  flex-shrink: 0;
 }
 
 .landmarkSummaryIconlandmark-icon-favourite {

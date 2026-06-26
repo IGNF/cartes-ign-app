@@ -76,8 +76,13 @@ let tracking_active = false;
 // Suivi de la carte avec boussole
 let navigation_active = false;
 
-let watch_id;
+let watch_id = null;
+let watchProvider = null;
 let currentPosition = null;
+
+let appIsActive = true;
+let orientationListenerEnabled = false;
+let orientationPermissionGranted = Capacitor.getPlatform() !== "ios";
 
 let animationId = null;
 
@@ -94,6 +99,97 @@ let popup = {
 
 let lastAccuracy;
 let firstLocation;
+
+const LOW_ACCURACY_WATCH_OPTIONS = {
+  maximumAge: 5000,
+  timeout: 15000,
+  enableHighAccuracy: false,
+};
+
+const HIGH_ACCURACY_WATCH_OPTIONS = {
+  maximumAge: 1000,
+  timeout: 10000,
+  enableHighAccuracy: true,
+};
+
+const getLocationWatchOptions = () => {
+  if (navigation_active) {
+    return HIGH_ACCURACY_WATCH_OPTIONS;
+  }
+  return LOW_ACCURACY_WATCH_OPTIONS;
+};
+
+const getOrientationEventName = () => {
+  return Capacitor.getPlatform() === "ios" ? "deviceorientation" : "deviceorientationabsolute";
+};
+
+const disableOrientationListener = () => {
+  if (!orientationListenerEnabled) {
+    return;
+  }
+  window.removeEventListener(getOrientationEventName(), getOrientation, Capacitor.getPlatform() !== "ios");
+  orientationListenerEnabled = false;
+};
+
+const enableOrientationListener = () => {
+  if (!appIsActive || orientationListenerEnabled) {
+    return;
+  }
+  if (Capacitor.getPlatform() === "ios" && !orientationPermissionGranted) {
+    return;
+  }
+  window.addEventListener(getOrientationEventName(), getOrientation, Capacitor.getPlatform() !== "ios");
+  orientationListenerEnabled = true;
+};
+
+const clearLocationWatch = () => {
+  if (watch_id === null || watch_id === undefined) {
+    return;
+  }
+  if (watchProvider === "navigator") {
+    navigator.geolocation.clearWatch(watch_id);
+  } else {
+    Geolocation.clearWatch({id: watch_id});
+  }
+  watch_id = null;
+  watchProvider = null;
+};
+
+const startLocationWatch = () => {
+  const watchOptions = getLocationWatchOptions();
+  clearLocationWatch();
+  // Android frequency problem for geolocation https://www.reddit.com/r/ionic/comments/zfg9xn/capacitor_geolocation_works_great_on_the_web_and/
+  if (Capacitor.getPlatform() === "android") {
+    watchProvider = "navigator";
+    watch_id = navigator.geolocation.watchPosition(watchPositionCallback, (err) => {
+      console.warn(err);
+      DOM.$geolocateBtn.classList.remove("locationFixe");
+      DOM.$geolocateBtn.classList.remove("locationDisabled");
+      clearLocationWatch();
+      clean();
+      currentPosition = null;
+      location_active = false;
+      tracking_active = false;
+      Toast.show({
+        text: "Impossible de récupérer la géolocalisation. Est-elle activée ?",
+        duration: "long",
+        position: "bottom"
+      });
+    }, watchOptions);
+  } else {
+    watchProvider = "capacitor";
+    Geolocation.watchPosition(watchOptions, watchPositionCallback).then( (watchId) => {
+      watch_id = watchId;
+    });
+  }
+};
+
+const restartLocationWatchForMode = () => {
+  if (!location_active) {
+    return;
+  }
+  startLocationWatch();
+};
 
 // Est-ce que le marqueur de "Ma Position" a un écouteur d'évènement ?
 let hasEventListener = false;
@@ -257,15 +353,9 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
 const watchPositionCallback = (position, err) => {
   if (err) {
     console.warn(err);
-    Geolocation.clearWatch({id: watch_id});
+    clearLocationWatch();
     if (err.code === "OS-PLUG-GLOC-0002") {
-      Geolocation.watchPosition({
-        maximumAge: 1000,
-        timeout: 10000,
-        enableHighAccuracy: true
-      }, watchPositionCallback).then( (watchId) => {
-        watch_id = watchId;
-      });
+      startLocationWatch();
     } else {
       DOM.$geolocateBtn.classList.remove("locationFixe");
       DOM.$geolocateBtn.classList.remove("locationDisabled");
@@ -363,36 +453,7 @@ const trackLocation = () => {
   Geolocation.checkPermissions().then((status) => {
     if (status.location !== "denied") {
       firstLocation = true;
-      // Android frequency problem for geolocation https://www.reddit.com/r/ionic/comments/zfg9xn/capacitor_geolocation_works_great_on_the_web_and/
-      if (Capacitor.getPlatform() === "android") {
-        watch_id = navigator.geolocation.watchPosition(watchPositionCallback, (err) => {
-          console.warn(err);
-          DOM.$geolocateBtn.classList.remove("locationFixe");
-          DOM.$geolocateBtn.classList.remove("locationDisabled");
-          navigator.geolocation.clearWatch(watch_id);
-          clean();
-          currentPosition = null;
-          location_active = false;
-          tracking_active = false;
-          Toast.show({
-            text: "Impossible de récupérer la géolocalisation. Est-elle activée ?",
-            duration: "long",
-            position: "bottom"
-          });
-        }, {
-          maximumAge: 1000,
-          timeout: 10000,
-          enableHighAccuracy: true
-        });
-      } else {
-        Geolocation.watchPosition({
-          maximumAge: 1000,
-          timeout: 10000,
-          enableHighAccuracy: true
-        }, watchPositionCallback).then( (watchId) => {
-          watch_id = watchId;
-        });
-      }
+      startLocationWatch();
     } else {
       // Location services denied
       DOM.$geolocateBtn.classList.remove("locationFixe");
@@ -465,6 +526,7 @@ const enablePosition = async() => {
 const locationOnOff = async () => {
   if (!location_active) {
     enablePosition();
+    enableOrientationListener();
   } else if (!tracking_active) {
     if (currentPosition === null) {
       return;
@@ -484,6 +546,8 @@ const locationOnOff = async () => {
       duration: "short",
       position: "bottom"
     });
+    enableOrientationListener();
+    restartLocationWatchForMode();
     KeepAwake.keepAwake();
   } else if (!navigation_active) {
     if (currentPosition === null) {
@@ -501,6 +565,8 @@ const locationOnOff = async () => {
     });
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
+    enableOrientationListener();
+    restartLocationWatchForMode();
     Toast.show({
       text: "Mode navigation activé",
       duration: "short",
@@ -511,6 +577,7 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.classList.remove("locationFollow");
     tracking_active = false;
     navigation_active = false;
+    restartLocationWatchForMode();
     Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
     Globals.map.flyTo({
       pitch: 0,
@@ -616,6 +683,7 @@ const disableTracking = () => {
   if (navigation_active) {
     navigation_active = false;
   }
+  restartLocationWatchForMode();
   Globals.map.touchZoomRotate.enable();
   Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
   Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
@@ -625,6 +693,8 @@ const disableNavigation = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.classList.add("locationFixe");
   DOM.$geolocateBtn.classList.remove("locationFollow");
   navigation_active = false;
+
+  restartLocationWatchForMode();
   Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
   Globals.map.flyTo({
     bearing: bearing,
@@ -634,6 +704,36 @@ const disableNavigation = (bearing = Globals.map.getBearing()) => {
   if (bearing === 0) {
     DOM.$compassBtn.classList.add("d-none");
   }
+};
+
+const disableLocationListeningCompletely = () => {
+  location_active = false;
+  tracking_active = false;
+  navigation_active = false;
+
+  clearLocationWatch();
+  disableOrientationListener();
+
+  Globals.map.touchZoomRotate.enable();
+  Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
+  Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
+  Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
+  Globals.map.flyTo({
+    pitch: 0,
+    duration: 200,
+  });
+
+  DOM.$geolocateBtn.classList.remove("locationFixe");
+  DOM.$geolocateBtn.classList.remove("locationFollow");
+  DOM.$geolocateBtn.classList.remove("locationLoading");
+
+  KeepAwake.allowSleep();
+  clean();
+  Toast.show({
+    text: "Suivi de position et orientation désactivés",
+    duration: "short",
+    position: "bottom"
+  });
 };
 
 let listenResumeAfterLocation = false;
@@ -721,6 +821,35 @@ const getCurrentPosition = () => {
   return currentPosition;
 };
 
+const requestOrientationPermission = async () => {
+  if (Capacitor.getPlatform() !== "ios") {
+    orientationPermissionGranted = true;
+    return true;
+  }
+  if (typeof DeviceOrientationEvent === "undefined" || typeof DeviceOrientationEvent.requestPermission !== "function") {
+    orientationPermissionGranted = true;
+    return true;
+  }
+  try {
+    const permissionState = await DeviceOrientationEvent.requestPermission();
+    orientationPermissionGranted = permissionState === "granted";
+    return orientationPermissionGranted;
+  } catch (err) {
+    console.error(err);
+    orientationPermissionGranted = false;
+    return false;
+  }
+};
+
+const handleAppStateChange = (state) => {
+  appIsActive = state.isActive;
+  if (!appIsActive) {
+    disableOrientationListener();
+    return;
+  }
+  enableOrientationListener();
+};
+
 // Event handlers for rotation and zoom when tracking active
 const locationOnTouchStartHandler = (e) => {
   if (e.touches.length === 2) {
@@ -783,4 +912,7 @@ export default {
   getLocation,
   disableTracking,
   disableNavigation,
+  disableLocationListeningCompletely,
+  requestOrientationPermission,
+  handleAppStateChange,
 };
