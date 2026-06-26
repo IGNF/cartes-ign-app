@@ -72,6 +72,7 @@ class Isochrone {
 
     this.tempLayers = this.options.tempLayers || null;
     this.isochroneLayers = this.options.isochroneLayers || null;
+    this.addedLayers = null;
 
     // carte
     this.map = map;
@@ -382,11 +383,17 @@ class Isochrone {
     }
 
     if (this.isochroneLayers && this.isochroneLayers.length > 0) {
+      this.addedLayers = [];
       settings.layersToDisplay.forEach((id) => {
+        let isAdded = true;
         if (this.map.getLayer(id)) {
           document.getElementById(id.split("$$$")[1]).click();
+          isAdded = false;
         }
         document.getElementById(id.split("$$$")[1]).click();
+        if (isAdded) {
+          this.addedLayers.push(id);
+        }
         const addLayerCallback = (e) => {
           if (e.detail.id === id.split("$$$")[1]) {
             this.map.setFilter(id, ["within", this.polygon]);
@@ -504,6 +511,9 @@ class Isochrone {
         if (this.map.getLayer(`${layer.layerInLayerId}$$$${layer.layerId}`)) {
           this.map.setFilter(`${layer.layerInLayerId}$$$${layer.layerId}`, null);
         }
+      });
+      this.addedLayers.forEach((id) => {
+        document.getElementById(id.split("$$$")[1]).click();
       });
     }
     this.filter = null;

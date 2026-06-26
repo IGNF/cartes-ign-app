@@ -1,18 +1,19 @@
 {
   "version": 8,
-  "name": "PLAN IGN",
+  "name": "PLAN IGN HD",
   "glyphs": "https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf",
   "sprite": "data/poi-osm-sprite",
   "sources": {
     "plan_ign": {
       "type": "vector",
       "tiles": ["https://data.geopf.fr/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf"],
-      "maxzoom": 18
+      "maxzoom": 18,
+      "minzoom": 0
     },
     "PLAN.LIDAR.SURSOL$WMTS": {
       "type": "raster",
       "tiles": [
-        "https://data.geopf.fr/private/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=PLANIGN.LIDAR.SURSOL.2&apikey={{GPF_key}}&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
+        "https://data.geopf.fr/private/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=IGNF_PLAN-IGN-HD&apikey={{GPF_key}}&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
       ],
       "tileSize": 256,
       "maxzoom": 20,

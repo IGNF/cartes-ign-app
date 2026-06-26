@@ -11,6 +11,7 @@ import MapInteractivityLayers from "./map-interactivity-styles";
 import featurePropertyFilter from "./feature-property-filter";
 import gfiRules from "./gfi-rules";
 import colorFromSymbo from "./color-from-symbo";
+import throttle from "lodash/throttle";
 
 import Union from "@turf/union";
 import Buffer from "@turf/buffer";
@@ -81,7 +82,10 @@ class MapInteractivity {
 
     // fonction d'event avec bind
     this.handleInfoOnMap = this.#getInfoOnMap.bind(this);
-    this.handleUpdateHighlightedGeom = this.#updateHighlightedGeom.bind(this);
+    this.handleUpdateHighlightedGeom = throttle(this.#updateHighlightedGeom.bind(this), 200, {
+      leading: true,
+      trailing: true,
+    });
 
     // annulation de la reqête fetch
     this.abortController = new AbortController();
@@ -163,18 +167,28 @@ class MapInteractivity {
           "type": "FeatureCollection",
           "features": [features[0]]
         });
-        let intervalId = setInterval(() => {
-          if (features[0].properties.radiusRatio >= 1) {
-            clearInterval(intervalId);
+        let animationFrameId = null;
+        const animationDuration = 180;
+        let animationStartTime = null;
+        const animateSelection = (timestamp) => {
+          if (animationStartTime === null) {
+            animationStartTime = timestamp;
           }
-          features[0].properties.radiusRatio += 0.1;
+          const progress = Math.min((timestamp - animationStartTime) / animationDuration, 1);
+          features[0].properties.radiusRatio = progress;
           source.setData({
             "type": "FeatureCollection",
             "features": [features[0]]
           });
-        }, 20);
+          if (progress < 1) {
+            animationFrameId = requestAnimationFrame(animateSelection);
+          }
+        };
+        animationFrameId = requestAnimationFrame(animateSelection);
         const deselectPoiCallback = () => {
-          clearInterval(intervalId);
+          if (animationFrameId !== null) {
+            cancelAnimationFrame(animationFrameId);
+          }
           source.setData({
             "type": "FeatureCollection",
             "features": []
@@ -247,9 +261,9 @@ class MapInteractivity {
             this.map.setLayoutProperty("geotrek-composite-pill$$$HIKING.GEOTREK$TMS", "visibility", "visible");
           };
           type = "geotrek";
-        } else if (features[0].layer.id.split("$$$")[1] === "ITINERAIRES-RANDO-TMS$TMS") {
+        } else if (features[0].layer.id.split("$$$")[1] === "IGNF_SENTIERS-RANDONNEE-BALISES$TMS") {
           const filtered_features = features.filter((feature) => {
-            return feature.layer.id.split("$$$")[1] === "ITINERAIRES-RANDO-TMS$TMS" && feature.properties.toponyme !== features[0].properties.toponyme;
+            return feature.layer.id.split("$$$")[1] === "IGNF_SENTIERS-RANDONNEE-BALISES$TMS" && feature.properties.toponyme !== features[0].properties.toponyme;
           });
           const unique_filtered_features = [];
           const toponymeSet = new Set();
@@ -277,6 +291,7 @@ class MapInteractivity {
           this.selectedFeatureType = features[0].geometry.type;
           this.#highlightGFI(features[0].geometry, false);
           this.#updateHighlightedGeom();
+          this.map.off("moveend", this.handleUpdateHighlightedGeom);
           this.map.on("moveend", this.handleUpdateHighlightedGeom);
         } else if (features[0].layer.id.split("$$$")[1] === "DATATOURISME.FMA$TMS") {
           type = "datatourisme";
@@ -380,6 +395,7 @@ class MapInteractivity {
           this.selectedSource = "bdtopo";
           this.selectedFeatureType = features[0].geometry.type;
           this.#updateHighlightedGeom();
+          this.map.off("moveend", this.handleUpdateHighlightedGeom);
           this.map.on("moveend", this.handleUpdateHighlightedGeom);
         }
         this.map.once("click", this.handleInfoOnMap);
@@ -665,6 +681,9 @@ class MapInteractivity {
    */
   #clearSources() {
     this.map.off("moveend", this.handleUpdateHighlightedGeom);
+    if (this.handleUpdateHighlightedGeom.cancel) {
+      this.handleUpdateHighlightedGeom.cancel();
+    }
     this.map.getSource(this.configuration.pointsource).setData({
       "type": "FeatureCollection",
       "features": []

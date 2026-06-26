@@ -18,7 +18,7 @@
         "name": "Tourisme et loisirs",
         "layers": [
           "DATATOURISME.FMA$TMS",
-          "ITINERAIRES-RANDO-TMS$TMS",
+          "IGNF_SENTIERS-RANDONNEE-BALISES$TMS",
           "HIKING.GEOTREK$TMS",
           "IGNF_SITES-UNESCO$WMS",
           "POI.MONUMENTS_BDD_WLD_WM$WMS",

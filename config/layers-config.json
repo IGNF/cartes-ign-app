@@ -281,7 +281,7 @@
       "styles": ["https://ignf.github.io/cartes-ign-app/datatourisme.json", "data/datatourisme.json"],
       "maj": "Juin 2026, mise à jour quotidienne"
     },
-    "ITINERAIRES-RANDO-TMS$TMS": {
+    "IGNF_SENTIERS-RANDONNEE-BALISES$TMS": {
       "new": true,
       "serverUrl": "https://data.geopf.fr/private/tms/1.0.0/",
       "interactive": true,

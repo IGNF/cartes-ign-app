@@ -12,21 +12,43 @@ import State from "./state";
 import { Capacitor } from "@capacitor/core";
 
 const addListeners = () => {
+  const longPressDelay = 700;
+  let longPressTimerId = null;
+  let suppressClickUntil = 0;
+
+  const clearLongPressTimer = () => {
+    if (longPressTimerId !== null) {
+      clearTimeout(longPressTimerId);
+      longPressTimerId = null;
+    }
+  };
+
+  const startLongPress = () => {
+    clearLongPressTimer();
+    longPressTimerId = setTimeout(() => {
+      suppressClickUntil = Date.now() + 600;
+      Location.disableLocationListeningCompletely();
+      clearLongPressTimer();
+    }, longPressDelay);
+  };
 
   // Bouton Geolocalisation
-  DOM.$geolocateBtn.addEventListener("click", () => { Location.locationOnOff(); });
+  DOM.$geolocateBtn.addEventListener("click", () => {
+    if (Date.now() < suppressClickUntil) {
+      return;
+    }
+    Location.locationOnOff();
+  });
+  DOM.$geolocateBtn.addEventListener("mousedown", startLongPress);
+  DOM.$geolocateBtn.addEventListener("touchstart", startLongPress, {passive: true});
+  DOM.$geolocateBtn.addEventListener("mouseup", clearLongPressTimer);
+  DOM.$geolocateBtn.addEventListener("mouseleave", clearLongPressTimer);
+  DOM.$geolocateBtn.addEventListener("touchend", clearLongPressTimer);
+  DOM.$geolocateBtn.addEventListener("touchcancel", clearLongPressTimer);
   // HACK: ios
   if (Capacitor.getPlatform() === "ios") {
     DOM.$geolocateBtn.addEventListener("click", () => {
-      if (typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function") {
-        DeviceOrientationEvent.requestPermission()
-          .then(permissionState => {
-            if (permissionState === "granted") {
-              window.addEventListener("deviceorientation", Location.getOrientation);
-            }
-          })
-          .catch(console.error);
-      }
+      Location.requestOrientationPermission();
     });
   }
 
