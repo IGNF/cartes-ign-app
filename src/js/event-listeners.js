@@ -5,6 +5,7 @@
  */
 
 import Geocode from "./services/geocode";
+import HapticFeedback from "./services/haptic-feedback";
 import Location from "./services/location";
 import DOM from "./dom";
 import Globals from "./globals";
@@ -27,6 +28,8 @@ import { handleIncomingUrl } from "./utils/url-intent-handler";
  * @todo terminer le nettoyage avec les ecouteurs pour les classes layerManager & MyAccount
  */
 function addListeners() {
+
+  HapticFeedback.bindGlobalTapFeedback();
 
   const map = Globals.map;
 

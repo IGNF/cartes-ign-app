@@ -12,6 +12,7 @@ import featurePropertyFilter from "./feature-property-filter";
 import gfiRules from "./gfi-rules";
 import colorFromSymbo from "./color-from-symbo";
 import throttle from "lodash/throttle";
+import HapticFeedback from "../services/haptic-feedback";
 
 import Union from "@turf/union";
 import Buffer from "@turf/buffer";
@@ -203,6 +204,7 @@ class MapInteractivity {
           hideCallback: deselectPoiCallback,
           type: "osm",
         }).then(() => {
+          HapticFeedback.impactLight();
           Globals.menu.open("position");
         });
         this.map.once("click", this.handleInfoOnMap);
@@ -311,6 +313,7 @@ class MapInteractivity {
           type: type,
           feature: features[0],
         }).then(() => {
+          HapticFeedback.impactLight();
           Globals.menu.open("position");
           if (type === "geotrek" || type === "sentiers-balises") {
             Globals.currentScrollIndex = 1;
@@ -375,6 +378,7 @@ class MapInteractivity {
           htmlBeforeAddress: resp.htmlBeforeAddress,
         });
         Globals.menu.open("position");
+        HapticFeedback.impactLight();
         this.map.once("click", this.handleInfoOnMap);
         return;
       }).catch(async () => {
@@ -390,6 +394,7 @@ class MapInteractivity {
             html2: featureHTML.after,
             htmlBeforeAddress: featureHTML.htmlBeforeAddress,
           });
+          HapticFeedback.impactLight();
           Globals.menu.open("position");
           this.selectedCleabs = features[0].properties.cleabs;
           this.selectedSource = "bdtopo";
