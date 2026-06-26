@@ -13,6 +13,9 @@ let popup = {
 let editoPopup = {
   popup: null
 };
+let gpfStatusPopup = {
+  popup: null
+};
 
 function showPopup(content, map, className, closeMethodName, object) {
   // on supprime la popup
@@ -53,13 +56,17 @@ function showOnlinePopup(content, map) {
   showPopup(content, map, "onlinePopup", "onCloseonlinePopup", popup);
 }
 
-
 function showEditoPopup(content, map) {
   showPopup(content, map, "editoPopup", "onCloseeditoPopup", editoPopup);
+}
+
+function showGpfStatusPopup(content, map) {
+  showPopup(content, map, "gpfStatusPopup", "onClosegpfStatusPopup", gpfStatusPopup);
 }
 
 export default {
   showOnlinePopup,
   showEditoPopup,
   showPopup,
+  showGpfStatusPopup,
 };
