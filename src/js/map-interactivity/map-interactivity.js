@@ -495,7 +495,7 @@ class MapInteractivity {
         "&CRS=EPSG:3857" +
         `&BBOX=${bottomLeft[0]},${bottomLeft[1]},${topRight[0]},${topRight[1]}` +
         "&WIDTH=101&HEIGHT=101" +
-        "&FORMAT=image/png";
+        "&FORMAT=image/png&TRANSPARENT=true";
       }
 
       const response = fetch(tileUrl).then((result) => {

@@ -72,7 +72,7 @@ class Isochrone {
 
     this.tempLayers = this.options.tempLayers || null;
     this.isochroneLayers = this.options.isochroneLayers || null;
-    this.addedLayers = null;
+    this.addedLayers = [];
 
     // carte
     this.map = map;

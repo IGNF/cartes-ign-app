@@ -34,6 +34,21 @@ const layers = {
     },
   },
 
+  "geotrek-geom-direction": {
+    id: "geotrek-geom-direction",
+    type: "symbol",
+    source: "geotrek-geom",
+    "layout": {
+      "visibility": "visible",
+      "symbol-placement": "line",
+      "symbol-spacing": 70,
+      "icon-image": "route_direction"
+    },
+    paint: {
+      "text-color": "black"
+    }
+  },
+
   "geotrek-steps-circles": {
     id: "geotrek-steps-circles",
     type: "circle",

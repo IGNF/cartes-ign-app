@@ -95,6 +95,8 @@ class Position {
 
     this.immersivePosition = null;
 
+    this.featureLayer = null;
+
     this.datatourismeId = null;
     // Pour le cas Geotrek : informations sur un itinéraire
     this.geotrekRoute = null;
@@ -569,6 +571,11 @@ class Position {
     const type = options.type || "default";
     const isEvent = options.isEvent || false;
     const feature = options.feature || null;
+    if (feature) {
+      this.featureLayer = feature.layer.id;
+    } else {
+      this.featureLayer = null;
+    }
     this.clear();
     if (this.hideCallback) {
       this.hideCallback();
@@ -730,11 +737,15 @@ Altitude : ${altitude} m`;
     }
 
     const zoom = Math.round(this.map.getZoom() * 100) / 100;
+    let layerStr = "";
+    if (type === "datatourisme" || type === "geotrek") {
+      layerStr = `&layer=${this.featureLayer}`;
+    }
     this.shareContent = `${trueHeader ? trueHeader : this.header}
 ${this.name}
 Latitude : ${latitude}
 Longitude : ${longitude}${altitudeText}
-https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=${zoom}`;
+https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=${zoom}${layerStr}`;
     if (type === "landmark") {
       this.shareContent = `${trueHeader ? trueHeader : this.header}
 ${this.name}
