@@ -350,21 +350,21 @@
       "interactive": false,
       "serverUrl": "https://data.geopf.fr/tms/1.0.0/",
       "title": "Plan aérien",
-      "description": "Plan IGN mixte",
+      "description": "Plan IGN en superposition avec les photographies aériennes. Il permet de visualiser le territoire avec un rendu réaliste.",
       "source": "IGN",
       "maj": "Mise à jour mensuelle",
       "format": "application/x-protobuf",
       "styles": [ "https://ignf.github.io/cartes-ign-app/mixte.json", "data/mixte.json"]
     },
-    "PLANIGN.LIDAR.SURSOL.2$TMS": {
+    "PLAN.LIDAR.SURSOL$TMS": {
       "new": true,
       "interactive": false,
       "beta": true,
       "serverUrl": "https://data.geopf.fr/private/wmts",
       "title": "Plan IGN HD",
-      "description": "Le plan IGN HD cartographie les paysages de façon très détaillée. Il utilise des données précises comme le LiDAR HD ou les données COSIA pour la représentation de l'occupation du sol. Cette version met surtout en valeur ce qui est au-dessus du sol, comme la végétation, les bâtiments et leurs ombres.",
+      "description": "Le plan IGN HD cartographie les paysages de façon très détaillée. Il utilise des données précises comme le LiDAR HD ou les données COSIA pour la représentation de l'occupation du sol. Cette version met surtout en valeur ce qui est au-dessus du sol, comme la végétation, les bâtiments et leurs ombres. Pour plus d’informations sur le LiDAR HD : <a href='https://www.ign.fr/institut/programme-lidar-hd-vers-une-nouvelle-cartographie-3d-du-territoire' target='_blank'>Cartographie 3D France entière par LiDAR - Institut - IGN</a>",
       "source": "IGN",
-      "maj": "Mise à jour mensuelle",
+      "maj": "Juin 2026",
       "format": "application/x-protobuf",
       "styles": [ "https://ignf.github.io/cartes-ign-app/plan-lidar.json", "data/plan-lidar.json"]
     },

@@ -453,6 +453,7 @@
 .positionSubTitle a {
   color: var(--mid-grey);
   text-underline-offset: 25%;
+  white-space: nowrap;
 }
 
 .positionSubTitle a.event {

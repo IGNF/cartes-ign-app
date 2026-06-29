@@ -268,18 +268,29 @@ class ImageCarousel {
     const x = e.touches ? e.touches[0].clientX : e.clientX;
     const dx = x - this.startX;
 
-    const containerWidth = parseFloat(
-      window.getComputedStyle(this.container.firstChild).width.replace("px", "")
-    );
-    const slideWidth = this.slideWidths[this.current] || 0;
-    const slideOffset = this.slideOffsets[this.current] || 0;
+    const total = this.imageSources.length;
 
-    // Calculate base translation for current slide
+    // Calculate base translation for current slide (must match goToSlide logic)
     let baseTranslateX;
-    if (slideWidth < containerWidth) {
-      baseTranslateX = -(slideOffset + (slideWidth - containerWidth) / 2);
+    if (this.current === 0) {
+      // First slide: left-aligned
+      baseTranslateX = 0;
+    } else if (this.current === total - 1) {
+      // Last slide: right-aligned
+      baseTranslateX = -(this.track.scrollWidth - this.track.offsetWidth);
     } else {
-      baseTranslateX = -slideOffset;
+      // Middle slides: use centering logic
+      const containerWidth = parseFloat(
+        window.getComputedStyle(this.container.firstChild).width.replace("px", "")
+      );
+      const slideWidth = this.slideWidths[this.current] || 0;
+      const slideOffset = this.slideOffsets[this.current] || 0;
+
+      if (slideWidth < containerWidth) {
+        baseTranslateX = -(slideOffset + (slideWidth - containerWidth) / 2);
+      } else {
+        baseTranslateX = -slideOffset;
+      }
     }
 
     this.track.style.transform = `translateX(${dx + baseTranslateX}px)`;
@@ -506,6 +517,77 @@ class ImageCarousel {
         setTimeout(() => newNextBtn.classList.remove("highlight"), 200);
       });
     }
+
+    // Setup swipe gestures on overlay - only if multiple images
+    this._setupOverlaySwipe();
+  }
+
+  /**
+   * Setup swipe gesture handlers for the overlay
+   * @private
+   */
+  _setupOverlaySwipe() {
+    if (this.isSingleImage) return;
+
+    const overlayImage = this._overlay.querySelector("#imgOverlayImage");
+    if (!overlayImage) return;
+
+    // Remove existing swipe listeners if they exist
+    if (this._overlayTouchStartHandler) {
+      overlayImage.removeEventListener("touchstart", this._overlayTouchStartHandler);
+    }
+    if (this._overlayTouchEndHandler) {
+      overlayImage.removeEventListener("touchend", this._overlayTouchEndHandler);
+    }
+
+    let startX = 0;
+    let startY = 0;
+    let startTime = 0;
+
+    this._overlayTouchStartHandler = (e) => {
+      // Only track single finger touches for swipe
+      if (e.touches.length === 1) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        startTime = Date.now();
+      } else {
+        // Multi-touch (pinch zoom) - reset to prevent swipe
+        startTime = 0;
+      }
+    };
+
+    this._overlayTouchEndHandler = (e) => {
+      // Don't trigger swipe if it wasn't a single touch or if startTime was reset
+      if (startTime === 0) return;
+
+      const endTime = Date.now();
+      const duration = endTime - startTime;
+
+      // Only trigger swipe for quick gestures (less than 300ms)
+      if (duration > 300) return;
+
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const dx = endX - startX;
+      const dy = endY - startY;
+
+      // Only trigger swipe if horizontal movement is greater than vertical (to avoid conflicts with scrolling)
+      // and if the swipe distance exceeds the threshold
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+        if (dx > 0) {
+          // Swipe right - go to previous
+          this.previous();
+          this._updateOverlayImage(this.getCurrentImage(), this.imageTitle, this.newsId, this.getCurrentImageCredits());
+        } else {
+          // Swipe left - go to next
+          this.next();
+          this._updateOverlayImage(this.getCurrentImage(), this.imageTitle, this.newsId, this.getCurrentImageCredits());
+        }
+      }
+    };
+
+    overlayImage.addEventListener("touchstart", this._overlayTouchStartHandler, { passive: true });
+    overlayImage.addEventListener("touchend", this._overlayTouchEndHandler, { passive: true });
   }
 
   /**

@@ -765,6 +765,7 @@ class LayerSwitcher extends EventTarget {
             }
           }
         }
+
         if (highestBaseLayerId !== null) {
           const maxPosition = Object.keys(this.layers).length - 1;
           const index = this.#getIndex(id);
@@ -779,6 +780,12 @@ class LayerSwitcher extends EventTarget {
             document.getElementById("lst-layer-switcher").insertBefore(container, otherContainer);
             this.#setPosition(id, maxPosition - (highestBaseLayer.position + 1), maxPosition - this.layers[id].position);
           }
+        } else {
+          const maxPosition = Object.keys(this.layers).length - 1;
+          const index = this.#getIndex(id);
+          const container = document.getElementById("container_ID_" + index);
+          document.getElementById("lst-layer-switcher").appendChild(container);
+          this.#setPosition(id, maxPosition, maxPosition - this.layers[id].position);
         }
       }
     } catch (e) {

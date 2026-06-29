@@ -20,8 +20,7 @@ import { Network } from "@capacitor/network";
 import { TextZoom } from "@capacitor/text-zoom";
 import { App } from "@capacitor/app";
 import { Keyboard } from "@capacitor/keyboard";
-import { Toast } from "@capacitor/toast";
-import maplibregl from "maplibre-gl";
+import { handleIncomingUrl } from "./utils/url-intent-handler";
 
 /**
  * Ecouteurs generiques
@@ -403,89 +402,17 @@ function addListeners() {
 
   // Partage par liens
   App.addListener("appUrlOpen", (e) => {
-    if (e.url) {
-      const [urlScheme, urlHostAndParams] = e.url.split(":");
-      if (urlScheme === "https") {
-        const urlParams = new URLSearchParams(e.url.split("?")[1]);
-        if (urlParams.get("lng") && urlParams.get("lat")) {
-          while (Globals.backButtonState.split("-")[0] !== "default") {
-            State.onBackKeyDown();
-          }
-          const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
-          const center = { lng: parseFloat(urlParams.get("lng")), lat: parseFloat(urlParams.get("lat")) };
-          map.flyTo({zoom: zoom, center: center});
-          if (urlParams.get("l1") && urlParams.get("l2") && urlParams.get("m") && urlParams.get("title") && urlParams.get("color")) {
-            const feature = {
-              type: "Feature",
-              id: -1,
-              geometry: {
-                type: "Point",
-                coordinates: [center.lng, center.lat],
-              },
-              properties: {
-                accroche: urlParams.get("title").replace(/%20/g, " "),
-                theme: urlParams.get("title").replace(/%20/g, " "),
-                text: urlParams.get("text").replace(/%20/g, " "),
-                zoom: zoom,
-                color: urlParams.get("color"),
-                icon: `compare-landmark-${urlParams.get("color")}`,
-                layer1: urlParams.get("l1"),
-                layer2: urlParams.get("l2"),
-                mode: urlParams.get("m"),
-                visible: true,
-              }
-            };
-            Globals.myaccount.addCompareLandmark(feature);
-            Toast.show({
-              duration: "long",
-              text: `Point de repère Comparer "${urlParams.get("title").replace(/%20/g, " ")}" ajouté à 'Enregistrés' et à la carte`,
-              position: "bottom",
-            });
-          } else {
-            map.once("moveend", () => {
-              const params = { lngLat: center };
-              if (urlParams.get("titre")) {
-                params.text = urlParams.get("titre").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-                if (urlParams.get("description")) {
-                  params.html = `<p>${urlParams.get("description").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}</p>`;
-                }
-              }
-              Globals.position.compute(params).then(() => {
-                Globals.menu.open("position");
-              });
-              if (Globals.searchResultMarker != null) {
-                Globals.searchResultMarker.remove();
-                Globals.searchResultMarker = null;
-              }
-              Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
-                .setLngLat(center)
-                .addTo(map);
-            });
-          }
-        } else if (urlParams.get("newsid") && config.newsfeed.length > 0) {
-          Globals.menu.open("newsfeed");
-          const element = document.getElementById("newsfeedItem-" + urlParams.get("newsid"));
-          if (element) {
-            setTimeout( () => {
-              element.scrollIntoView(false, {
-                behavior: "smooth",
-              });
-            }, 2000);
-          }
+    handleIncomingUrl({
+      url: e.url,
+      map,
+      resetState: () => {
+        while (Globals.backButtonState.split("-")[0] !== "default") {
+          State.onBackKeyDown();
         }
-      } else if (urlScheme === "geo") {
-        const [urlHost, urlParamsString] = urlHostAndParams.split("?");
-        const urlParams = new URLSearchParams(urlParamsString);
-        let [lat, lng] = (urlParams.get("q") || "").split(",").map(parseFloat);
-        if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
-          [lat, lng] = urlHost.split(",").map(parseFloat);
-        }
-        if (Number.isFinite(lat) && Number.isFinite(lng)) {
-          const zoom = parseFloat(urlParams.get("z")) || map.getZoom();
-          map.flyTo({zoom: zoom, center: { lng, lat }});
-        }
-      }
-    }
+      },
+      canOpenNewsfeed: () => config.newsfeed.length > 0,
+      allowGeo: true,
+    });
   });
 }
 

@@ -24,7 +24,6 @@ function processTemplateString(str, featureProperties, options = {}) {
     includeHelpers = true,
     specialHandlers = {}
   } = options;
-
   // Match markdown first: {{{ content }}}
   if (includeMarkdown) {
     let match = str.match("{{{([^}]+)}}}");
@@ -71,10 +70,10 @@ function processTemplateString(str, featureProperties, options = {}) {
     const propName = match[1];
 
     // Apply special handler if available
-    if (Object.prototype.hasOwnProperty.call(featureProperties, propName) && specialHandlers[propName]) {
-      const result = specialHandlers[propName](featureProperties[propName]);
+    if (specialHandlers[propName]) {
+      const result = specialHandlers[propName](featureProperties);
       if (result === null) {
-        str = str.replace(match[0], "");
+        str = "";
       } else {
         str = str.replace(match[0], result);
       }
@@ -258,13 +257,14 @@ const gfiRules = {
     if (template.bodyAfter) {
       bodyAfter += "<div class='positionHtmlAfter'>";
       const specialHandlers = {
-        identifiant_gestionnaire: (value) => {
+        identifiant_gestionnaire: (featureProperties) => {
+          const value = featureProperties["identifiant_gestionnaire"];
           if (!value) {
             return null;
           }
           return value.charAt(0).toUpperCase() + value.slice(1);
         },
-        fiche_wikipedia: () => {
+        fiche_wikipedia: (featureProperties) => {
           if (!featureProperties["code_insee"]) {
             return null;
           }
@@ -274,14 +274,22 @@ const gfiRules = {
           }
           return wikiValue;
         },
-        presentation_courte: (value) => {
+        presentation_courte: (featureProperties) => {
+          const value = featureProperties["presentation_courte"];
+          if (!value) {
+            return null;
+          }
           try {
             return DomUtils.stringToHTML(value.trim()).innerText.trim();
           } catch {
             return value;
           }
         },
-        presentation: (value) => {
+        presentation: (featureProperties) => {
+          const value = featureProperties["presentation"];
+          if (!value) {
+            return null;
+          }
           try {
             return DomUtils.stringToHTML(value.trim()).innerText.trim();
           } catch {

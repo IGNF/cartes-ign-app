@@ -52,7 +52,7 @@
         "name": "Hydrographie et littoral",
         "layers": [
           "HYDROGRAPHY.HYDROGRAPHY$WMTS",
-            "ELEVATION.LEVEL0$WMTS"
+          "ELEVATION.LEVEL0$WMTS"
         ]
     },
     {

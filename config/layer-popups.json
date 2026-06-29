@@ -1,7 +1,7 @@
 {
   "PLANIGN.LIDAR.SURSOL.2$TMS": {
     "popupID": "lidarUncomplete",
-    "popupContent": "<div class='divPopupContent'>Le fond de plan «&nbsp;Plan IGN HD&nbsp;» ne couvre pas encore tout le territoire.<br>Les données sont enrichies en continu : si une zone est absente, elle le sera bientôt.<br>Pensez à explorer d’autres régions !</div>"
+    "popupContent": "<div class='divPopupContent'>Le fond de plan «&nbsp;Plan IGN HD&nbsp;» ne couvre pas encore tout le territoire.<br>Les données seront enrichies ultérieurement.<br>Pensez à explorer d’autres régions !</div>"
   },
   "HIKING.GEOTREK$TMS": {
     "popupID": "getrekUncomplete",
