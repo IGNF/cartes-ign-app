@@ -38,6 +38,8 @@ class ImmersiveNotifications {
     this.positionWatcherId = null;
     this.locationBg = null;
 
+    this.isBackground = false;
+
     this.lastNotificationId = 0;
 
     this.requestNotificationPermission().then( () => {
@@ -66,12 +68,13 @@ class ImmersiveNotifications {
    */
   listen() {
     this.intervalId = setInterval(this.#sendNotifications.bind(this), this.test ? 10000 : 120000);
+    this.#startBgTracking();
 
     App.addListener("appStateChange", (state) => {
       if (!state.isActive) {
-        this.#startBgTracking();
+        this.isBackground = true;
       } else {
-        this.#stopBgTracking();
+        this.isBackground = false;
       }
     });
   }
@@ -102,6 +105,10 @@ class ImmersiveNotifications {
         distanceFilter: 1000,
       },
       async (position, error) => {
+        if (!this.isBackground) {
+          return;
+        }
+
         if (error) {
           console.error("Geolocation error:", error);
           return;
@@ -121,7 +128,7 @@ class ImmersiveNotifications {
   /**
    * Stops background location tracking for notifications
    */
-  async #stopBgTracking() {
+  async stopBgTracking() {
     if (["denied", "prompt-with-rationale"].includes(this.permissionStatus.display)) {
       return;
     }
