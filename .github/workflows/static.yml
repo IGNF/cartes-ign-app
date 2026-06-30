@@ -45,6 +45,7 @@ jobs:
           cp www/data/geotrek.json public/geotrek.json
           cp www/data/datatourisme.json public/datatourisme.json
           cp www/data/sentiers-balises.json public/sentiers-balises.json
+          cp www/data/plan-lidar.json public/plan-lidar.json
           sed -i 's/\"sprite\": \"data/\"sprite\": \"https:\/\/ignf.github.io\/cartes-ign-app\/data/g' public/mixte.json
           sed -i 's/\"sprite\": \"data/\"sprite\": \"https:\/\/ignf.github.io\/cartes-ign-app\/data/g' public/plan-ign-interactif-style.json
           sed -i 's/\"sprite\": \"data/\"sprite\": \"https:\/\/ignf.github.io\/cartes-ign-app\/data/g' public/poi-osm-style.json
