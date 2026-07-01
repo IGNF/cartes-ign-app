@@ -1316,7 +1316,7 @@ ${props.text}`,
    * @param {String} errorMessage - Message d'erreur en cas d'échec
    * @param {Function} shareFunc - Fonction de partage en cas d'erreur
    */
-  async #exportData(data, dataName, errorMessage, shareFunc) {
+  async exportData(data, dataName, errorMessage, shareFunc) {
     let documentsName = "Documents";
     if (Capacitor.getPlatform() === "ios") {
       documentsName = "Fichiers";
@@ -1411,7 +1411,7 @@ ${props.text}`,
   }
 
   async exportRoute(route) {
-    await this.#exportData(
+    await this.exportData(
       this.#routeToGeojson(route, "gpx"),
       route.name,
       "L'itinéraire n'a pas pu être sauvegardé. Partage...",
@@ -1441,7 +1441,7 @@ ${props.text}`,
    * @param {Object} landmark - Le point de repère à exporter
    */
   async exportLandmark(landmark) {
-    await this.#exportData(
+    await this.exportData(
       {
         type: "Feature",
         geometry: landmark.geometry,

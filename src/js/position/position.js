@@ -14,8 +14,6 @@ import ImageCarousel from "../utils/image-carousel";
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
 import { Clipboard } from "@capacitor/clipboard";
-import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
-import { Capacitor } from "@capacitor/core";
 import maplibregl from "maplibre-gl";
 import NearestPointOnLine from "@turf/nearest-point-on-line";
 
@@ -26,7 +24,6 @@ import PositionLayers from "./position-styles";
 import LoadingDark from "../../css/assets/loading-darkgrey.svg";
 import ImmersivePosion from "../immersive-position";
 import domUtils from "../utils/dom-utils";
-import jsUtils from "../utils/js-utils";
 import ElevationLineControl from "../elevation-line-control/elevation-line-control";
 
 /**
@@ -312,18 +309,19 @@ class Position {
       });
     }
     if (type === "geotrek" && this.geotrekRoute) {
+      const accountFeature = {
+        type: "Feature",
+        geometry: JSON.parse(this.geotrekRoute.geometry),
+        data: {
+          name: this.geotrekRoute.nom_itineraire,
+          distance: this.geotrekRoute.longueur,
+          duration: parseFloat(this.geotrekRoute.duree) * 3600,
+          elevationData: {},
+        }
+      };
       shadowContainer.getElementById("positionSave").addEventListener("click", async () => {
-        const accountRoute = Globals.myaccount.geojsonToRoute({
-          type: "Feature",
-          geometry: JSON.parse(this.geotrekRoute.geometry),
-          data: {
-            name: this.geotrekRoute.nom_itineraire,
-            distance: this.geotrekRoute.longueur,
-            duration: parseFloat(this.geotrekRoute.duree) * 3600,
-            elevationData: this.elevationProfile.getData(),
-          }
-        });
-        Globals.myaccount.addRoute(accountRoute);
+        accountFeature.data.elevationData = this.elevationProfile.getData();
+        Globals.myaccount.addRoute(Globals.myaccount.geojsonToRoute(accountFeature));
         Toast.show({
           text: "Itinéraire ajouté aux enregistrements",
           duration: "long",
@@ -331,23 +329,18 @@ class Position {
         });
       });
       shadowContainer.getElementById("positionExport").addEventListener("click", async () => {
-        Toast.show({
-          text: "Exportation de l'itinéraire...",
-          duration: "short",
-          position: "bottom"
-        });
-        fetch(this.geotrekRoute.gpx).then( (resp) => resp.text()).then( (gpxString) => {
-          Filesystem.writeFile({
-            path: this.geotrekRoute.gpx.split("/").splice(-1),
-            data: gpxString,
-            directory: Directory.Documents,
-            encoding: Encoding.UTF8,
+        accountFeature.data.elevationData = this.elevationProfile.getData();
+        Globals.myaccount.exportData(
+          accountFeature,
+          this.geotrekRoute.nom_itineraire,
+          "L'itinéraire n'a pas pu être sauvegardé. Partage...",
+          () => {
+            Share.share({
+              title: `Partager ${this.#getTrueHeader()}}`,
+              text: this.shareContent,
+              dialogTitle: "Partager la position",
+            });
           });
-          // For testing purposes
-          if (!Capacitor.isNativePlatform()) {
-            jsUtils.download(this.geotrekRoute.gpx.split("/").splice(-1), gpxString);
-          }
-        });
       });
     }
     if (shadowContainer.getElementById("positionLandmark")) {
