@@ -246,6 +246,7 @@ function addListeners() {
       if (Capacitor.isNativePlatform()) {
         Globals.map.setGlyphs("https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf");
       }
+      reloadPMTileSources();
       Globals.offlineMaps.setOnlinePlanIgnSource();
       Globals.interactivityIndicator.enable();
     } else {
