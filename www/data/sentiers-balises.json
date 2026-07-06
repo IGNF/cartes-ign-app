@@ -6,7 +6,7 @@
     "itineraires_rando_tms": {
       "type": "vector",
       "tiles": [
-        "https://data.geopf.fr/private/tms/1.0.0/IGNF_SENTIERS-RANDONNEE-BALISES/{z}/{x}/{y}.pbf?apikey={{GPF_key}}&nocache=true"
+        "https://data.geopf.fr/private/tms/1.0.0/IGNF_SENTIERS-RANDONNEE-BALISES/{z}/{x}/{y}.pbf?apikey={{GPF_key}}"
       ],
       "minzoom": 0,
       "maxzoom": 22
