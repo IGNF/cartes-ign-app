@@ -390,9 +390,9 @@ function addListeners() {
       window.scrollY <= 1;
 
     if (atBottom && delta > 0) {
-      e.preventDefault();
       const positionContainer = document.getElementById("positionContainer");
-      if (positionContainer) {
+      if (positionContainer && positionContainer.offsetParent !== null) {
+        e.preventDefault();
         positionContainer.classList.add("tabScrolledMax");
         positionContainer.scrollTop += delta;
       }
