@@ -119,6 +119,7 @@
   flex-direction: row;
   justify-content: flex-start;
   overflow-x: scroll;
+  overscroll-behavior: unset;
   scrollbar-width: none;  /* Firefox */
 }
 
@@ -210,6 +211,7 @@
   margin: 0 0 10px 0;
   position: relative;
   overflow-x: scroll;
+  overscroll-behavior: unset;
   height: 55px;
   display: flex;
   flex-direction: row;
