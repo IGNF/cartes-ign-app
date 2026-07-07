@@ -88,6 +88,9 @@ let animationId = null;
 
 let isMapPanning = false;
 
+let lastOrientationTime = 0;
+const ORIENTATION_THROTTLE_MS = 100;
+
 let mapBearing = 0;
 let positionBearing = 0;
 
@@ -604,6 +607,11 @@ const locationOnOff = async () => {
  * @param {*} event
  */
 const getOrientation = async (event) => {
+  const now = Date.now();
+  if (now - lastOrientationTime < ORIENTATION_THROTTLE_MS) {
+    return;
+  }
+  lastOrientationTime = now;
   let bearing;
   // if iOS
   if (event.webkitCompassHeading) {
@@ -626,7 +634,7 @@ const getOrientation = async (event) => {
   mapBearing = tempMapBearing;
   if (navigation_active) {
     if (!isMapPanning) {
-      Globals.map.easeTo({bearing: -mapBearing, duration: 100});
+      Globals.map.easeTo({bearing: -mapBearing, duration: 500});
     }
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
