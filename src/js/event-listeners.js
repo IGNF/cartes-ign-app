@@ -36,12 +36,14 @@ function addListeners() {
     /* Résultats autocompletion ou recherche récente */
     let coords = null;
     let save = true;
+    let isOsm;
     if (evt.target.classList.contains("autocompresult") || evt.target.classList.contains("recentresult")) {
       geocode = true;
       save = !evt.target.classList.contains("recentresult");
       evt.target.classList.add("autocompresultselected");
       DOM.$rech.value = evt.target.getAttribute("fulltext");
       coords = JSON.parse(evt.target.dataset.coordinates);
+      isOsm = evt.target.classList.contains("poiOsm");
     }
     // si recherches recentes ou autocompletion, on realise un geocodage
     if (geocode) {
@@ -66,7 +68,7 @@ function addListeners() {
           Globals.menu.open("offlineMaps");
         }, 250);
       } else {
-        Geocode.searchAndMoveTo(DOM.$rech.value, coords, save);
+        Geocode.searchAndMoveTo(DOM.$rech.value, coords, save, isOsm);
         setTimeout(() => Globals.menu.close("search"), 250);
       }
     }
