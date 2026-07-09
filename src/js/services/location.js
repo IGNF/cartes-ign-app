@@ -115,11 +115,13 @@ const HIGH_ACCURACY_WATCH_OPTIONS = {
   enableHighAccuracy: true,
 };
 
+let shouldUseLowAccuracy = false;
+
 const getLocationWatchOptions = () => {
-  if (navigation_active || firstLocation || currentPosition === null) {
-    return HIGH_ACCURACY_WATCH_OPTIONS;
+  if (shouldUseLowAccuracy) {
+    return LOW_ACCURACY_WATCH_OPTIONS;
   }
-  return LOW_ACCURACY_WATCH_OPTIONS;
+  return HIGH_ACCURACY_WATCH_OPTIONS;
 };
 
 const getOrientationEventName = () => {
@@ -554,7 +556,6 @@ const locationOnOff = async () => {
       position: "bottom"
     });
     enableOrientationListener();
-    restartLocationWatchForMode();
     KeepAwake.keepAwake();
   } else if (!navigation_active) {
     if (currentPosition === null) {
@@ -573,7 +574,6 @@ const locationOnOff = async () => {
     DOM.$compassBtn.classList.remove("d-none");
     DOM.$compassBtn.style.transform = "rotate(" + mapBearing + "deg)";
     enableOrientationListener();
-    restartLocationWatchForMode();
     Toast.show({
       text: "Mode navigation activé",
       duration: "short",
@@ -584,7 +584,6 @@ const locationOnOff = async () => {
     DOM.$geolocateBtn.classList.remove("locationFollow");
     tracking_active = false;
     navigation_active = false;
-    restartLocationWatchForMode();
     Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
     Globals.map.flyTo({
       pitch: 0,
@@ -695,7 +694,6 @@ const disableTracking = () => {
   if (navigation_active) {
     navigation_active = false;
   }
-  restartLocationWatchForMode();
   Globals.map.touchZoomRotate.enable();
   Globals.map.getCanvasContainer().removeEventListener("touchstart", locationOnTouchStartHandler);
   Globals.map.getCanvasContainer().removeEventListener("touchmove", locationOnTouchMoveHandler);
@@ -706,7 +704,6 @@ const disableNavigation = (bearing = Globals.map.getBearing()) => {
   DOM.$geolocateBtn.classList.remove("locationFollow");
   navigation_active = false;
 
-  restartLocationWatchForMode();
   Globals.map.setPadding({top: 0, right: 0, bottom: 0, left: 0});
   Globals.map.flyTo({
     bearing: bearing,
@@ -928,4 +925,5 @@ export default {
   disableLocationListeningCompletely,
   requestOrientationPermission,
   handleAppStateChange,
+  restartLocationWatchForMode,
 };
