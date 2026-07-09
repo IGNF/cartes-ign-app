@@ -180,10 +180,22 @@
 }
 
 .newsfeedItemImageContainer.carousel .newsFeedImageSlidesTrack img {
+  position: relative;
   width: 100%;
   height: auto;
   object-fit: contain;
   flex-shrink: 0;
+  background: var(--light-grey);
+  color: transparent;
+}
+
+/* Placeholder pour les images si cassees */
+.newsfeedItemImageContainer.carousel .newsFeedImageSlidesTrack img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--light-grey);
+  color: transparent;
 }
 
 /* DOTS */

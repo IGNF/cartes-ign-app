@@ -19,7 +19,7 @@ class ImageCarousel {
    * @param {string[]} imageSources - Array of image URLs
    * @param {Object} options - Optional configuration
    * @param {Function} options.onImageClick - Callback when an image is clicked (deprecated, overlay is now default)
-   * @param {string} options.imageTitle - Title attribute for images
+   * @param {string} options.imageTitle - Title/alt attributes for images
    * @param {string[]} options.imageCredits - Array of credit strings (one per image)
    * @param {number} options.fixedHeight - Fixed height for the carousel
    * @param {number} options.squareWidth - Square width
@@ -123,6 +123,7 @@ class ImageCarousel {
       const imgElem = document.createElement("img");
       imgElem.classList.add("newsfeedItemImg");
       imgElem.setAttribute("title", this.imageTitle);
+      imgElem.setAttribute("alt", this.imageTitle);
       imgElem.setAttribute("src", imageSrc);
       slideWrapper.appendChild(imgElem);
 
@@ -427,6 +428,7 @@ class ImageCarousel {
 
     overlayImage.src = imageSrc;
     overlayImage.title = title;
+    overlayImage.alt = title;
     if (credits !== "") {
       this._overlay.querySelector("#imgOverlayCredits").innerText = "Crédits photo : " + credits;
     } else {
