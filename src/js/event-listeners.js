@@ -370,37 +370,6 @@ function addListeners() {
     }
   });
 
-  // Overscroll dans le tab
-  let lastY = null;
-  window.addEventListener("touchstart", e => {
-    lastY = e.touches[0].clientY;
-  }, { passive: true });
-
-  window.addEventListener("touchmove", e => {
-    if (lastY === null) return;
-
-    const y = e.touches[0].clientY;
-    const delta = lastY - y;
-
-    const html = document.documentElement;
-
-    const atBottom =
-      html.scrollHeight -
-      html.clientHeight -
-      window.scrollY <= 1;
-
-    if (atBottom && delta > 0) {
-      const positionContainer = document.getElementById("positionContainer");
-      if (positionContainer && positionContainer.offsetParent !== null) {
-        e.preventDefault();
-        positionContainer.classList.add("tabScrolledMax");
-        positionContainer.scrollTop += delta;
-      }
-    }
-
-    lastY = y;
-  }, { passive: false });
-
   // Partage par liens
   App.addListener("appUrlOpen", (e) => {
     handleIncomingUrl({
