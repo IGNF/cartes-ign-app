@@ -61,10 +61,12 @@ let jsUtils = {
       `padding-${side}`,
       `var(--safe-area-inset-${side}, env(safe-area-inset-${side}, 0px))`
     );
-    document.body.appendChild(probe);
+
+    const parent = document.body ?? document.documentElement;
+    parent.appendChild(probe);
 
     const computedInset = parseFloat(getComputedStyle(probe).getPropertyValue(`padding-${side}`));
-    document.body.removeChild(probe);
+    parent.removeChild(probe);
     return Number.isFinite(computedInset) ? computedInset : 0;
   }
 };
