@@ -42,7 +42,7 @@
   font-family: "Fira Sans SemiBold";
   font-size: 15px;
   position: sticky;
-  top: calc(39px + var(--safe-area-inset-top));
+  top: calc(39px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
 }
 
 .layer-tabs-label-text {

@@ -39,6 +39,33 @@ let jsUtils = {
       let indexB = arrReference.findIndex( item => item === b[property] );
       return indexA - indexB;
     });
+  },
+
+  getSafeAreaInset(side) {
+    if (!["top", "bottom", "left", "right"].includes(side)) {
+      return 0;
+    }
+
+    const rootStyles = getComputedStyle(document.documentElement);
+    const inset = parseFloat(rootStyles.getPropertyValue(`--safe-area-inset-${side}`).trim());
+    if (Number.isFinite(inset)) {
+      return inset;
+    }
+
+    // Match CSS fallback: var(--safe-area-inset-*, env(safe-area-inset-*, 0px)).
+    const probe = document.createElement("div");
+    probe.style.position = "fixed";
+    probe.style.visibility = "hidden";
+    probe.style.pointerEvents = "none";
+    probe.style.setProperty(
+      `padding-${side}`,
+      `var(--safe-area-inset-${side}, env(safe-area-inset-${side}, 0px))`
+    );
+    document.body.appendChild(probe);
+
+    const computedInset = parseFloat(getComputedStyle(probe).getPropertyValue(`padding-${side}`));
+    document.body.removeChild(probe);
+    return Number.isFinite(computedInset) ? computedInset : 0;
   }
 };
 

@@ -15,8 +15,8 @@
 
 #backTopLeftBtn {
   position: fixed;
-  top: calc(10px + var(--safe-area-inset-top));
-  left: calc(15px + var(--safe-area-inset-left));
+  top: calc(10px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
+  left: calc(15px + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)));
   background-image: url("assets/map-buttons/back.svg");
   z-index: 3003;
   padding: 0;
@@ -24,24 +24,24 @@
 
 #bottomButtons {
   position: absolute;
-  bottom: calc(72px + 30px + max(var(--safe-area-inset-bottom), 20px));
+  bottom: calc(72px + 30px + max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 20px));
   width: 100vw;
   transition: opacity 0.5s;
 }
 
 #bottomButtons.routeDraw {
-  bottom: calc(72px + 117px + max(var(--safe-area-inset-bottom), 20px));
+  bottom: calc(72px + 117px + max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 20px));
 }
 
 #bottomButtons.compare {
-  bottom: calc(42px + var(--safe-area-inset-bottom));
+  bottom: calc(42px + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
 }
 
 #layerManagerBtn {
   --backgroundColor: white;
   background-image: url("assets/map-buttons/layers.svg");
   position: fixed;
-  top: calc(146px + var(--safe-area-inset-top));
+  top: calc(146px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
   transition: top 0.3s, opacity 0.5s;
   background-color: var(--backgroundColor);
 }
@@ -50,24 +50,24 @@
   background-image: url("assets/map-buttons/layers.svg");
   background-size: cover;
   position: fixed;
-  top: calc(212px + var(--safe-area-inset-top));
+  top: calc(212px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
   transition: top 0.3s, opacity 0.5s;
 }
 
 .app:has(#filterPoiBtn.higher) #layerManagerBtn  {
-  top: calc(76px + var(--safe-area-inset-top));
+  top: calc(76px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
 }
 
 .app:has(#filterPoiBtn.higher) #eventMapBtn {
-  top: calc(142px + var(--safe-area-inset-top));
+  top: calc(142px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
 }
 
 .app:has(#filterPoiBtn.d-none) #layerManagerBtn {
-  top: calc(10px + var(--safe-area-inset-top));
+  top: calc(10px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
 }
 
 .app:has(#filterPoiBtn.d-none) #eventMapBtn {
-  top: calc(76px + var(--safe-area-inset-top));
+  top: calc(76px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
 }
 
 .app:has(.mapRLT:not(.d-none)) #eventMapBtn {
@@ -172,8 +172,8 @@
 
 #compareMode {
   position: fixed;
-  top: calc(10px + var(--safe-area-inset-top));
-  right: calc(15px + var(--safe-area-inset-left));
+  top: calc(10px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
+  right: calc(15px + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)));
   width: 150px;
   height: 50px;
   display: flex;
@@ -207,7 +207,7 @@
 }
 
 #sideBySideFadeSlider {
-  width: calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
+  width: calc(100vw - 144px - var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) - var(--safe-area-inset-right, env(safe-area-inset-right, 0px)));
   position: absolute;
   z-index: 2;
   height: 42px;
@@ -260,7 +260,7 @@
 #filterPoiBtn {
   background-image: url("assets/map-buttons/filtrer.svg");
   position: fixed;
-  top: calc(80px + var(--safe-area-inset-top));
+  top: calc(80px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
   font-family: "Open Sans Semibold";
   display: flex;
   align-items: center;
@@ -270,14 +270,14 @@
 }
 
 #filterPoiBtn.higher {
-  top: calc(10px + var(--safe-area-inset-top));
+  top: calc(10px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
 }
 
 #interactivityBtn {
   z-index: 2997;
   position: fixed;
   left: 5px;
-  top: calc(70px + var(--safe-area-inset-top));
+  top: calc(70px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
 }
 
 #interactivityBtn, #createCompareLandmarkBtn {
@@ -322,7 +322,7 @@
 }
 
 #map:has(.maplibregl-ctrl-shrink) > #interactivityBtn {
-  top: calc(10px + var(--safe-area-inset-top));
+  top: calc(10px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
 }
 
 #interactivityInside {
@@ -344,7 +344,7 @@
   justify-content: space-between;
   z-index: 3001;
   position: absolute;
-  bottom: calc(72px + 20px + max(var(--safe-area-inset-bottom), 20px));
+  bottom: calc(72px + 20px + max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 20px));
   width: calc(100vw - 30px);
   height: calc(82px + 1em - 13px);
   padding: 10px 26px;
@@ -409,7 +409,7 @@
   border: 1px solid var(--dark-green);
   background-image: url("assets/route-draw/save.svg");
   position: fixed;
-  top: calc(142px + var(--safe-area-inset-top));
+  top: calc(142px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
 }
 
 #routeDrawEdit > .button > span {
@@ -431,7 +431,7 @@
   background-position: center;
   position: fixed;
   left: calc(50vw - 25px);
-  top: calc((100vh - 57px - max(var(--safe-area-inset-bottom), 20px))/2 - 50px);
+  top: calc((100vh - 57px - max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 20px))/2 - 50px);
   pointer-events: none;
   z-index: 1;
 }
@@ -446,9 +446,9 @@
   display: flex;
   position: absolute;
   box-sizing: border-box;
-  top: calc(100% - 75px - max(var(--safe-area-inset-bottom), 20px));
+  top: calc(100% - 75px - max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 20px));
   width: 100%;
-  height: calc(75px + max(var(--safe-area-inset-bottom), 20px));
+  height: calc(75px + max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 20px));
   font-size: 12px;
   background-color: white;
   padding: 10px 30px 8px 15px;
@@ -534,7 +534,7 @@ button.maplibregl-ctrl-shrink {
     box-shadow: unset;
     height: 44px;
     width: 24px;
-    top: calc(12px + var(--safe-area-inset-top));
+    top: calc(12px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
     left: 15px;
     border: 1px solid white;
   }
@@ -542,7 +542,7 @@ button.maplibregl-ctrl-shrink {
 
 @media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
   .button {
-    right: calc(var(--safe-area-inset-right) + 15px);
+    right: calc(var(--safe-area-inset-right, env(safe-area-inset-right, 0px)) + 15px);
   }
 
   #geolocateBtn {
@@ -559,55 +559,55 @@ button.maplibregl-ctrl-shrink {
 
   #bottomButtons {
     position: fixed;
-    bottom: calc(5px + max(var(--safe-area-inset-bottom), 20px));
-    width: calc(100vw - 75px - var(--safe-area-inset-left) - var(--safe-area-inset-right));
-    right: var(--safe-area-inset-right);
+    bottom: calc(5px + max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 20px));
+    width: calc(100vw - 75px - var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) - var(--safe-area-inset-right, env(safe-area-inset-right, 0px)));
+    right: var(--safe-area-inset-right, env(safe-area-inset-right, 0px));
     z-index: 2500;
   }
 
   #bottomButtons.routeDraw {
-    left: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
+    left: min(50vw, calc(100vh + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px));
     width: auto;
-    bottom: calc(112px + var(--safe-area-inset-bottom));
+    bottom: calc(112px + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
   }
 
   #bottomButtons.compareWidth {
-    width: calc(100vw - var(--safe-area-inset-left) - var(--safe-area-inset-right));
+    width: calc(100vw - var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) - var(--safe-area-inset-right, env(safe-area-inset-right, 0px)));
   }
 
   #interactivityBtn {
-    left: calc(85px + var(--safe-area-inset-left));
+    left: calc(85px + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)));
   }
   .app:has(#search.d-none) #interactivityBtn {
-    top: calc(10px + var(--safe-area-inset-top));
+    top: calc(10px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
   }
 
   #filterPoiBtn {
-    top: calc(10px + var(--safe-area-inset-top));
+    top: calc(10px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
     position: fixed;
   }
 
   #layerManagerBtn {
-    top: calc(76px + var(--safe-area-inset-top));
+    top: calc(76px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
     position: fixed;
   }
 
   #eventMapBtn {
-    top: calc(142px + var(--safe-area-inset-top));
+    top: calc(142px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
   }
 
   .routeSaveBtn {
-    top: calc(10px + var(--safe-area-inset-top));
+    top: calc(10px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
     transform: translateX(-66px);
   }
 
   #routeDrawEdit {
     position: fixed;
     flex-direction: row;
-    bottom: calc(15px + var(--safe-area-inset-bottom));
-    width: calc(100vw - calc(min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px))) - 30px);
+    bottom: calc(15px + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
+    width: calc(100vw - calc(min(50vw, calc(100vh + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px))) - 30px);
     height: 82px;
-    left: calc(min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px)) + 15px);
+    left: calc(min(50vw, calc(100vh + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px)) + 15px);
     transform: unset;
   }
 
@@ -621,19 +621,19 @@ button.maplibregl-ctrl-shrink {
   }
 
   #mapCenterMenu {
-    padding-left: calc(var(--safe-area-inset-left) + 8px);
-    width: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
+    padding-left: calc(var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 8px);
+    width: min(50vw, calc(100vh + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px));
     border-top-right-radius: 8px;
   }
 
   #sideBySideLeftLayer.compareLayers {
-    left: calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 15px);
+    left: calc(min(50vw, 100vh + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px) + 15px);
   }
 
   #sideBySideFadeSlider.compareLayers {
-    left: calc(min(50vw, 100vh + var(--safe-area-inset-left) + 42px) + 78px);
+    left: calc(min(50vw, 100vh + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px) + 78px);
     transform: unset;
-    width: calc(100vw - 144px - var(--safe-area-inset-left) - var(--safe-area-inset-right) - min(50vw, 100vh + var(--safe-area-inset-left) + 42px) - 15px);
+    width: calc(100vw - 144px - var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) - var(--safe-area-inset-right, env(safe-area-inset-right, 0px)) - min(50vw, 100vh + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px) - 15px);
   }
 
 }

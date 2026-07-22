@@ -51,7 +51,7 @@
 /* Bottom menu */
 #tabContainer {
   position: absolute;
-  top: calc(100% - 72px - max(var(--safe-area-inset-bottom), 20px));
+  top: calc(100% - 72px - max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 20px));
   height: fit-content;
   width: 100%;
   background-color: var(--false-white);
@@ -86,7 +86,7 @@
   width: 100%;
   height: 55px;
   position: sticky;
-  top: var(--safe-area-inset-top);
+  top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
   background-color: inherit;
 }
 
@@ -101,7 +101,7 @@
 .scrolledMax::before {
   content: "";
   display: block;
-  padding-top: var(--safe-area-inset-top);
+  padding-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
   background-color: inherit;
   width: inherit;
   z-index: 3000;

@@ -9,7 +9,6 @@ android {
 
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
-    implementation project(':aashu-dubey-capacitor-statusbar-safe-area')
     implementation project(':capacitor-community-background-geolocation')
     implementation project(':capacitor-community-keep-awake')
     implementation project(':capacitor-app')
@@ -24,7 +23,6 @@ dependencies {
     implementation project(':capacitor-screen-orientation')
     implementation project(':capacitor-share')
     implementation project(':capacitor-splash-screen')
-    implementation project(':capacitor-status-bar')
     implementation project(':capacitor-text-zoom')
     implementation project(':capacitor-toast')
     implementation project(':capawesome-capacitor-file-picker')

@@ -7,18 +7,18 @@
 /* mode paysage et écrans larges */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #tabContainer {
-    width: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
+    width: min(50vw, calc(100vh + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px));
     left: 0;
     border-top-left-radius: 0px;
     z-index: 2997;
-    padding: 0 15px 15px calc(var(--safe-area-inset-left) + 42px);
+    padding: 0 15px 15px calc(var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px);
     transition: top 0.3s;
     display: none;
   }
 
   #sheetContent {
-    width: min(50vw, calc(100vh + var(--safe-area-inset-left) + 42px));
-    padding: 0 15px 15px calc(var(--safe-area-inset-left) + 42px);
+    width: min(50vw, calc(100vh + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px));
+    padding: 0 15px 15px calc(var(--safe-area-inset-left, env(safe-area-inset-left, 0px)) + 42px);
     left: 0;
     border-top-left-radius: 0px;
   }
@@ -36,7 +36,7 @@
 
   #imgOverlayPreviousBtn,
   #imgOverlayNextBtn {
-    right: calc(12px + var(--safe-area-inset-right));
+    right: calc(12px + var(--safe-area-inset-right, env(safe-area-inset-right, 0px)));
     left: unset;
     top: 50%;
     transform: translateY(-50%);
@@ -44,11 +44,11 @@
 
   #imgOverlayPreviousBtn {
     right: unset;
-    left: calc(12px + var(--safe-area-inset-left));
+    left: calc(12px + var(--safe-area-inset-left, env(safe-area-inset-left, 0px)));
   }
 
   #imgOverlayCredits {
-    bottom: max(var(--safe-area-inset-bottom), 50px);
+    bottom: max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 50px);
     background-color: #0008;
   }
 }

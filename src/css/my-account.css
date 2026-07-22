@@ -3,7 +3,7 @@
   width: 100%;
   color: var(--dark-grey);
   margin-top: -72px;
-  height: calc(100vh - var(--safe-area-inset-top) - var(--safe-area-inset-bottom));
+  height: calc(100vh - var(--safe-area-inset-top, env(safe-area-inset-top, 0px)) - var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
 }
 
 #otherMenus {

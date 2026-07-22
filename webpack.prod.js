@@ -35,6 +35,8 @@ module.exports = {
     rules: [
       {
         test: /\.(?:js|mjs|cjs)$/,
+        include: path.resolve(__dirname, "src"),
+        exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {

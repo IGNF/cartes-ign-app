@@ -29,7 +29,6 @@
   "author": "IGN",
   "license": "GPLv3",
   "dependencies": {
-    "@aashu-dubey/capacitor-statusbar-safe-area": "^4.0.0",
     "@capacitor-community/background-geolocation": "1.2.22",
     "@capacitor-community/keep-awake": "^8.0.1",
     "@capacitor/android": "^8.0.0",
@@ -47,7 +46,6 @@
     "@capacitor/screen-orientation": "^8.0.0",
     "@capacitor/share": "^8.0.0",
     "@capacitor/splash-screen": "^8.0.0",
-    "@capacitor/status-bar": "^8.0.0",
     "@capacitor/text-zoom": "^8.0.0",
     "@capacitor/toast": "^8.0.0",
     "@capawesome/capacitor-file-picker": "^8.0.3",
