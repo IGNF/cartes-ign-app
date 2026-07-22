@@ -10,6 +10,7 @@ import Elevation from "../services/elevation";
 import Location from "../services/location";
 import Globals from "../globals";
 import DomUtils from "../utils/dom-utils";
+import jsUtils from "../utils/js-utils";
 import ImageCarousel from "../utils/image-carousel";
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
@@ -644,7 +645,7 @@ class Position {
       let padding;
       // gestion du mode paysage / écran large
       if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-        var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
+        var paddingLeft = jsUtils.getSafeAreaInset("left") +
                     Math.min(window.innerHeight, window.innerWidth/2) + 42;
         padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
       } else {

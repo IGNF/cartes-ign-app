@@ -19,7 +19,7 @@ img-overlay {
 
 #imgOverlayHeader {
   position: fixed;
-  height: calc(25px + 42px + var(--safe-area-inset-top));
+  height: calc(25px + 42px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
   width: 100%;
   z-index: 1;
 }
@@ -32,8 +32,8 @@ img-overlay {
   height: 48px;
   flex-shrink: 0;
   position: absolute;
-  right: calc(12px + var(--safe-area-inset-right));
-  top: calc(12px + var(--safe-area-inset-top));
+  right: calc(12px + var(--safe-area-inset-right, env(safe-area-inset-right, 0px)));
+  top: calc(12px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
   background-color: var(--black);
   border-radius: 24px;
 }
@@ -60,7 +60,7 @@ img-overlay {
   top: unset;
   right: unset;
   left: 50%;
-  bottom: max(var(--safe-area-inset-bottom), 50px);
+  bottom: max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 50px);
   transform: translateX(20%);
   background-color: #0000;
   transition: background-color ease-in-out 0.2s;
@@ -96,7 +96,7 @@ img-overlay {
 
 #imgOverlayShareBtn {
   top: unset;
-  bottom: calc(12px + var(--safe-area-inset-bottom));
+  bottom: calc(12px + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
 }
 
 #imgOverlayShareBtn::after {
@@ -110,7 +110,7 @@ img-overlay {
 
 #imgOverlayCredits {
   position: absolute;
-  bottom: calc(max(var(--safe-area-inset-bottom), 50px) + 75px);
+  bottom: calc(max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 50px) + 75px);
   width: calc(100% - 30px);
   text-align: center;
   color: var(--grey);

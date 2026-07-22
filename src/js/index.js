@@ -20,13 +20,10 @@ import InteractivityIndicator from "./map-interactivity/interactivity-indicator"
 import StatusPopups from "./status-popups";
 import DOM from "./dom";
 
-import { Capacitor } from "@capacitor/core";
+import { Capacitor, SystemBars, SystemBarsStyle } from "@capacitor/core";
 import { App } from "@capacitor/app";
 import { SplashScreen } from "@capacitor/splash-screen";
-import { StatusBar, Style } from "@capacitor/status-bar";
-import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { TextZoom } from "@capacitor/text-zoom";
-import { Device } from "@capacitor/device";
 
 import { Protocol } from "pmtiles";
 import PinchZoom from "pinch-zoom-js";
@@ -70,16 +67,8 @@ function app() {
         canOpenNewsfeed: () => !document.querySelector("#newsfeed").classList.contains("d-none"),
       });
     });
-    // INFO: BUG https://github.com/ionic-team/capacitor-plugins/issues/1160
     setTimeout( async () => {
-      SafeAreaController.injectCSSVariables();
-      if (Capacitor.isPluginAvailable("StatusBar")) {
-        const info = await Device.getInfo();
-        if (!(info.platform === "android" && info.androidSDKVersion < 29)) {
-          StatusBar.setOverlaysWebView({ overlay: true });
-        }
-        StatusBar.setStyle({ style: Style.Light });
-      }
+      SystemBars.setStyle({ style: SystemBarsStyle.Light });
     }, 500);
     if (Capacitor.isNativePlatform()) {
       TextZoom.getPreferred().then(value => {

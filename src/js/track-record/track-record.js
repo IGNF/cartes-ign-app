@@ -4,8 +4,8 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import { Capacitor, registerPlugin } from "@capacitor/core";
-const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
+import { Capacitor } from "@capacitor/core";
+import { BackgroundGeolocation } from "@capgo/background-geolocation";
 import { LocalNotifications } from "@capacitor/local-notifications";
 
 import Globals from "../globals";
@@ -90,7 +90,7 @@ class TrackRecord {
       features: [],
     };
 
-    this.positionWatcherId = null;
+    this.isBgTrackingActive = false;
     this.timerIntervalId = null;
 
     this.bgHasBeenLaunched = false;
@@ -542,13 +542,13 @@ class TrackRecord {
       const now = new Date().getTime();
       this.dom.timer.textContent = utils.convertSecondsToTime(Math.round((this.duration + now - this.startTime) / 1000), true, "HH:MM:SS");
     }, 1000);
-    if (this.positionWatcherId !== null) {
+    if (this.isBgTrackingActive) {
       return;
     }
     if (!Capacitor.isNativePlatform()) {
       return;
     }
-    this.positionWatcherId = await BackgroundGeolocation.addWatcher(
+    await BackgroundGeolocation.start(
       {
         backgroundMessage: "Le suivi de position est activé pour l'enregistrement de la trace",
         backgroundTitle: "Cartes IGN : enregistrement de trace GPS",
@@ -565,6 +565,7 @@ class TrackRecord {
         });
       }
     );
+    this.isBgTrackingActive = true;
 
   }
 
@@ -573,14 +574,18 @@ class TrackRecord {
    */
   async #stopBgTracking() {
     clearInterval(this.timerIntervalId);
-    if (this.positionWatcherId === null) {
+    if (!this.isBgTrackingActive) {
       return;
     }
     if (!Capacitor.isNativePlatform()) {
       return;
     }
-    await BackgroundGeolocation.removeWatcher({ id: this.positionWatcherId });
-    this.positionWatcherId = null;
+    try {
+      await BackgroundGeolocation.stop();
+      this.isBgTrackingActive = false;
+    } catch (err) {
+      console.error("BackgroundGeolocation.stop failed:", err);
+    }
   }
 
   /**

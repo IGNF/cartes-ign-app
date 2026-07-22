@@ -166,6 +166,6 @@
 
 @media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
   #trackRecordWindow {
-    padding-bottom: calc(19px + var(--safe-area-inset-bottom));
+    padding-bottom: calc(19px + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)));
   }
 }

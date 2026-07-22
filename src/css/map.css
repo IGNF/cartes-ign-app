@@ -26,7 +26,7 @@
 }
 
 #map:has(.maplibregl-ctrl-shrink) .maplibregl-ctrl-bottom-left {
-  top: calc(100vh - var(--safe-area-inset-bottom) - 40px);
+  top: calc(100vh - var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)) - 40px);
 }
 
 #bottomButtons > .maplibregl-ctrl-bottom-right,
@@ -36,7 +36,7 @@
 
 #mapRLT2 .maplibregl-control-container > .maplibregl-ctrl-bottom-left,
 #mapRLT1 .maplibregl-control-container > .maplibregl-ctrl-bottom-left {
-  bottom: calc(var(--safe-area-inset-bottom) + 10px);
+  bottom: calc(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)) + 10px);
 }
 
 .maplibregl-ctrl-scale {
@@ -53,7 +53,7 @@
 
 /* Map */
 .map {
-  height: calc(100vh - 57px - max(var(--safe-area-inset-bottom), 20px));
+  height: calc(100vh - 57px - max(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)), 20px));
   width: 100vw;
   flex-grow: 1;
   position: fixed;

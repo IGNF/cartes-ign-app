@@ -14,6 +14,7 @@ import directionsSortableCallback from "./directions-sortable-callback";
 import Globals from "../globals";
 
 import GisUtils from "../utils/gis-utils";
+import jsUtils from "../utils/js-utils";
 
 // dependance : abonnement au event du module
 import Geocode from "../services/geocode";
@@ -349,7 +350,7 @@ class Directions {
         var padding;
         // gestion du mode paysage / écran large
         if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-          var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
+          var paddingLeft = jsUtils.getSafeAreaInset("left") +
                       Math.min(window.innerHeight, window.innerWidth/2) + 42;
           padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
         } else {
@@ -574,7 +575,7 @@ class Directions {
       if (self.previewPoints.length > 1) {
         let padding;
         if (window.matchMedia("screen and (min-aspect-ratio: 1/1) and (min-width:400px)").matches) {
-          var paddingLeft = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-left").slice(0, -2)) +
+          var paddingLeft = jsUtils.getSafeAreaInset("left") +
                       Math.min(window.innerHeight, window.innerWidth/2) + 42;
           padding = {top: 20, right: 20, bottom: 20, left: paddingLeft};
         } else {

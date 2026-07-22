@@ -120,7 +120,7 @@
   display: none;
   position: relative;
   flex-direction: column;
-  max-height: calc(100vh - 155px - var(--safe-area-inset-top));
+  max-height: calc(100vh - 155px - var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
   overflow-y: scroll;
   border-top: 1px solid var(--grey-2);
   font-family: "Open Sans";

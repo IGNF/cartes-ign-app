@@ -11,10 +11,10 @@ import Globals from "./globals";
 import State from "./state";
 import PopupUtils from "./utils/popup-utils";
 import { config } from "./utils/config-utils";
+import jsUtils from "./utils/js-utils";
 
 import { Capacitor } from "@capacitor/core";
 // https://github.com/ionic-team/capacitor/issues/2840
-import { SafeAreaController } from "@aashu-dubey/capacitor-statusbar-safe-area";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { Network } from "@capacitor/network";
 import { TextZoom } from "@capacitor/text-zoom";
@@ -132,15 +132,13 @@ function addListeners() {
   }
 
   const handleresize = () => {
-    SafeAreaController.addSafeAreaVariables().then( () => {
-      ScreenOrientation.orientation().then((orientation) => {
-        if (orientation.type === "landscape-secondary") {
-          document.documentElement.style.setProperty("--safe-area-inset-left", "0px");
-        }
-        if (orientation.type === "landscape-primary") {
-          document.documentElement.style.setProperty("--safe-area-inset-right", "0px");
-        }
-      });
+    ScreenOrientation.orientation().then((orientation) => {
+      if (orientation.type === "landscape-secondary") {
+        document.documentElement.style.setProperty("--safe-area-inset-left", "0px");
+      }
+      if (orientation.type === "landscape-primary") {
+        document.documentElement.style.setProperty("--safe-area-inset-right", "0px");
+      }
     });
 
     if (Globals.backButtonState !== "default") {
@@ -336,8 +334,8 @@ function addListeners() {
     }
 
     /* Gestion de l'état ScrolledMax du panneau */
-    const insetTop = Math.round(parseFloat(getComputedStyle(document.body).getPropertyValue("--safe-area-inset-top").slice(0, -2)));
-    const insetBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-bottom").slice(0, -2));
+    const insetTop = Math.round(jsUtils.getSafeAreaInset("top"));
+    const insetBottom = jsUtils.getSafeAreaInset("bottom");
 
     if (window.scrollY >= window.innerHeight - 72 - Math.max(insetBottom, 20) - insetTop) {
       DOM.$tabContainer.classList.add("scrolledMax");
