@@ -601,7 +601,7 @@ class ImageCarousel {
       // Setup button handlers for this instance before opening
       this._setupOverlayHandlers();
       this._overlay.classList.remove("d-none");
-      Globals.backButtonState = "imageOverlay";
+      Globals.setBackButtonState("imageOverlay");
     }
   }
 
@@ -612,7 +612,7 @@ class ImageCarousel {
   _closeOverlay() {
     if (this._overlay) {
       this._overlay.classList.add("d-none");
-      Globals.backButtonState = this.backButtonState || "newsfeed";
+      Globals.setBackButtonState(this.backButtonState || "newsfeed");
 
     }
   }

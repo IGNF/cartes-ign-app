@@ -502,7 +502,7 @@ class LayerSwitcher extends EventTarget {
     // Template d'une couche
     var tplContainer = `
       <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="container_ID_${index}">
-        <div class="handle-draggable-layer" id="cross-picto_ID_${index}"></div>
+        <div class="handle-draggable-layer" title="Déplacer la couche" id="cross-picto_ID_${index}"></div>
         <div id="basic-tools_ID_${index}">
           <div id="thumbnail_ID_${index}">
             <img class="tools-layer-quickLookUrl" src="${quickLookUrl}"/>

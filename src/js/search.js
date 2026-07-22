@@ -376,7 +376,7 @@ class Search {
    * @public
    */
   computeAutocompResultHTML(autocompresult) {
-    return `<p class="autocompresult" fulltext="${autocompresult.fulltext}" data-coordinates='{"lon":${autocompresult.lng},"lat":${autocompresult.lat}}'>
+    return `<p class="autocompresult" fulltext="${autocompresult.fulltext}" data-matomo-label="adresseRecherche" data-coordinates='{"lon":${autocompresult.lng},"lat":${autocompresult.lat}}'>
     ${autocompresult.firsttext}<br/>
     <em class='autocompcity'>${autocompresult.city}</em></p>
     ` ;
