@@ -580,8 +580,12 @@ class TrackRecord {
     if (!Capacitor.isNativePlatform()) {
       return;
     }
-    await BackgroundGeolocation.stop();
-    this.isBgTrackingActive = false;
+    try {
+      await BackgroundGeolocation.stop();
+      this.isBgTrackingActive = false;
+    } catch (err) {
+      console.error("BackgroundGeolocation.stop failed:", err);
+    }
   }
 
   /**
