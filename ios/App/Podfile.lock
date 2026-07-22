@@ -5,8 +5,6 @@ PODS:
     - Capacitor
   - CapacitorClipboard (8.0.1):
     - Capacitor
-  - CapacitorCommunityBackgroundGeolocation (0.0.1):
-    - Capacitor
   - CapacitorCommunityKeepAwake (8.0.1):
     - Capacitor
   - CapacitorCordova (8.4.2)
@@ -40,6 +38,8 @@ PODS:
     - Capacitor
   - CapawesomeCapacitorFilePicker (8.0.3):
     - Capacitor
+  - CapgoBackgroundGeolocation (8.3.1):
+    - Capacitor
   - IONFilesystemLib (1.1.2)
   - IONGeolocationLib (2.1.0)
 
@@ -47,7 +47,6 @@ DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorClipboard (from `../../node_modules/@capacitor/clipboard`)"
-  - "CapacitorCommunityBackgroundGeolocation (from `../../node_modules/@capacitor-community/background-geolocation`)"
   - "CapacitorCommunityKeepAwake (from `../../node_modules/@capacitor-community/keep-awake`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
@@ -64,6 +63,7 @@ DEPENDENCIES:
   - "CapacitorTextZoom (from `../../node_modules/@capacitor/text-zoom`)"
   - "CapacitorToast (from `../../node_modules/@capacitor/toast`)"
   - "CapawesomeCapacitorFilePicker (from `../../node_modules/@capawesome/capacitor-file-picker`)"
+  - "CapgoBackgroundGeolocation (from `../../node_modules/@capgo/background-geolocation`)"
 
 SPEC REPOS:
   trunk:
@@ -77,8 +77,6 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/app"
   CapacitorClipboard:
     :path: "../../node_modules/@capacitor/clipboard"
-  CapacitorCommunityBackgroundGeolocation:
-    :path: "../../node_modules/@capacitor-community/background-geolocation"
   CapacitorCommunityKeepAwake:
     :path: "../../node_modules/@capacitor-community/keep-awake"
   CapacitorCordova:
@@ -111,12 +109,13 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/toast"
   CapawesomeCapacitorFilePicker:
     :path: "../../node_modules/@capawesome/capacitor-file-picker"
+  CapgoBackgroundGeolocation:
+    :path: "../../node_modules/@capgo/background-geolocation"
 
 SPEC CHECKSUMS:
   Capacitor: 7a1ef4c3b846b5f32437a2b3e11803c1c702a6c5
   CapacitorApp: 9fd99482b6536ddf1a54721ce678145fc7fa3418
   CapacitorClipboard: 1ba60616f1b2d3df52417000217ec810216bbbaf
-  CapacitorCommunityBackgroundGeolocation: 6f26f4290377dbd1d6dec21e62cb66f008f61ec7
   CapacitorCommunityKeepAwake: 4eaeafc83573f2520fac18e136254ef34694f75b
   CapacitorCordova: 345eacdc4c8282415446aea4acd8c77d82480bd4
   CapacitorDevice: e5599fa82274e59220170995826a16095ad20c40
@@ -133,9 +132,10 @@ SPEC CHECKSUMS:
   CapacitorTextZoom: afbf3d1cb61547480e60b4d06979bc239afee747
   CapacitorToast: 0432f40d66143ab56a322095e09740aa2c9a88a5
   CapawesomeCapacitorFilePicker: 74011c2483da4a31bb8907a57ada786b0ddd942a
+  CapgoBackgroundGeolocation: 6d3b2a162acfd4d37db1318fd8324dbaddb55677
   IONFilesystemLib: 21a63377696b2d8fab5632ecfb7d2ac67bddb68a
   IONGeolocationLib: 6a7b6f76063fb1b01cfb14fae7d0f526e3c9b271
 
-PODFILE CHECKSUM: 80f14630bf22ebbe5a77ab2ab8853b162c50eb30
+PODFILE CHECKSUM: 620eacce2e2171659d55ffc62eac06e9e7b9b2f6
 
 COCOAPODS: 1.16.2

@@ -29,7 +29,6 @@
   "author": "IGN",
   "license": "GPLv3",
   "dependencies": {
-    "@capacitor-community/background-geolocation": "1.2.22",
     "@capacitor-community/keep-awake": "^8.0.1",
     "@capacitor/android": "^8.0.0",
     "@capacitor/app": "^8.0.0",
@@ -49,6 +48,7 @@
     "@capacitor/text-zoom": "^8.0.0",
     "@capacitor/toast": "^8.0.0",
     "@capawesome/capacitor-file-picker": "^8.0.3",
+    "@capgo/background-geolocation": "^8.3.1",
     "@dwayneparton/geojson-to-gpx": "^0.2.0",
     "@ionic/pwa-elements": "^3.3.0",
     "@mapbox/mapbox-gl-sync-move": "^0.3.1",

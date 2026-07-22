@@ -5,8 +5,8 @@
  */
 
 import { App } from "@capacitor/app";
-import { Capacitor, registerPlugin } from "@capacitor/core";
-const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
+import { Capacitor } from "@capacitor/core";
+import { BackgroundGeolocation } from "@capgo/background-geolocation";
 import { LocalNotifications } from "@capacitor/local-notifications";
 import { Toast } from "@capacitor/toast";
 
@@ -35,7 +35,7 @@ class ImmersiveNotifications {
     this.intervalId = null;
     this.currentData = {};
 
-    this.positionWatcherId = null;
+    this.isBgTrackingActive = false;
     this.locationBg = null;
 
     this.lastNotificationId = 0;
@@ -83,7 +83,7 @@ class ImmersiveNotifications {
     if (["denied", "prompt-with-rationale"].includes(this.permissionStatus.display)) {
       return;
     }
-    if (this.positionWatcherId !== null) {
+    if (this.isBgTrackingActive) {
       return;
     }
     if (!Capacitor.isNativePlatform()) {
@@ -94,7 +94,7 @@ class ImmersiveNotifications {
       return;
     }
 
-    this.positionWatcherId = await BackgroundGeolocation.addWatcher(
+    await BackgroundGeolocation.start(
       {
         backgroundMessage: "Le suivi de position est activé pour envoyer des notification lorque vous arrivez dans un nouveau lieu",
         backgroundTitle: "Cartes IGN : notifications d'arrivée dans un lieu",
@@ -116,6 +116,7 @@ class ImmersiveNotifications {
 
       }
     );
+    this.isBgTrackingActive = true;
   }
 
   /**
@@ -125,15 +126,15 @@ class ImmersiveNotifications {
     if (["denied", "prompt-with-rationale"].includes(this.permissionStatus.display)) {
       return;
     }
-    if (this.positionWatcherId === null) {
+    if (!this.isBgTrackingActive) {
       return;
     }
     if (!Capacitor.isNativePlatform()) {
       return;
     }
 
-    await BackgroundGeolocation.removeWatcher({ id: this.positionWatcherId });
-    this.positionWatcherId = null;
+    await BackgroundGeolocation.stop();
+    this.isBgTrackingActive = false;
     this.locationBg = null;
   }
 
@@ -157,10 +158,10 @@ class ImmersiveNotifications {
       this.lng = Globals.map.getCenter().lng;
     }
 
-    if (this.positionWatcherId === null && Location.getCurrentPosition()) {
+    if (!this.isBgTrackingActive && Location.getCurrentPosition()) {
       this.lat = Location.getCurrentPosition().coords.latitude;
       this.lng = Location.getCurrentPosition().coords.longitude;
-    } else if (this.positionWatcherId !== null && this.locationBg) {
+    } else if (this.isBgTrackingActive && this.locationBg) {
       this.lat = this.locationBg.lat;
       this.lng = this.locationBg.lng;
     }
