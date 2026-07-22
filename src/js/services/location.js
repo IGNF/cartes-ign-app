@@ -163,6 +163,7 @@ const clearLocationWatch = () => {
 const startLocationWatch = () => {
   const watchOptions = getLocationWatchOptions();
   clearLocationWatch();
+  // TODO: update for android with interval parameter instead of using web API
   // Android frequency problem for geolocation https://www.reddit.com/r/ionic/comments/zfg9xn/capacitor_geolocation_works_great_on_the_web_and/
   if (Capacitor.getPlatform() === "android") {
     watchProvider = "navigator";
