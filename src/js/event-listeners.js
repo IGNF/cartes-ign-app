@@ -22,6 +22,41 @@ import { App } from "@capacitor/app";
 import { Keyboard } from "@capacitor/keyboard";
 import { handleIncomingUrl } from "./utils/url-intent-handler";
 
+const getClickedButtonElement = (target) => {
+  if (!(target instanceof Element)) {
+    return null;
+  }
+  return target.closest("button, input[type='button'], input[type='submit'], [role='button'], .button");
+};
+
+const getButtonTrackingLabel = (buttonElement) => {
+  const label = buttonElement.dataset.matomoLabel
+    || buttonElement.getAttribute("aria-label")
+    || buttonElement.id
+    || buttonElement.name
+    || buttonElement.textContent;
+
+  if (!label) {
+    return "unknown";
+  }
+
+  return label.replace(/\s+/g, " ").trim().slice(0, 120);
+};
+
+const trackButtonClick = (evt) => {
+  const buttonElement = getClickedButtonElement(evt.target);
+  if (!buttonElement) {
+    return;
+  }
+
+  const buttonLabel = getButtonTrackingLabel(buttonElement);
+  const backButtonState = Globals.backButtonState || "unknown";
+
+  const paq = window._paq || [];
+  window._paq = paq;
+  paq.push(["trackEvent", "UI", "Button click", `${backButtonState}:${buttonLabel}`]);
+};
+
 /**
  * Ecouteurs generiques
  * @todo terminer le nettoyage avec les ecouteurs pour les classes layerManager & MyAccount
@@ -31,6 +66,7 @@ function addListeners() {
   const map = Globals.map;
 
   /* event listeners pour élément non existants au démarrage */
+  document.querySelector("body").addEventListener("click", trackButtonClick, true);
   document.querySelector("body").addEventListener("click", (evt) => {
     var geocode = false;
     /* Résultats autocompletion ou recherche récente */
@@ -87,7 +123,7 @@ function addListeners() {
   document.getElementById("informationsItemsLegal").addEventListener("click", () => {
     document.getElementById("informationsContentLegal").classList.remove("d-none");
     $informationsScreenMenu.style.marginLeft = "-100%";
-    Globals.backButtonState = "informationsScreenLegal";
+    Globals.setBackButtonState("informationsScreenLegal");
   });
 
   // Action du backbutton
@@ -95,7 +131,7 @@ function addListeners() {
   DOM.$tabClose.addEventListener("click", State.onBackKeyDown, false);
 
   const saveState = () => {
-    if (Globals.backButtonState.split("-")[0] === "position") {
+    if (Globals.backButtonState.split("-")[0].split("%")[0] === "position") {
       DOM.$backTopLeftBtn.click();
     }
     localStorage.setItem("lastMapLat", map.getCenter().lat);

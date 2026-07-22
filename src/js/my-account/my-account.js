@@ -326,8 +326,7 @@ class MyAccount {
           }
           this.#updateSources();
         }, 20);
-
-        Globals.position.show();
+        Globals.menu.open("position%pr");
       });
     });
     this.map.on("click", MyAccountLayers["line-casing"].id, (e) => {

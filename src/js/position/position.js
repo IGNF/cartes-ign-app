@@ -846,17 +846,6 @@ https://cartes-ign.ign.fr?lng=${longitude}&lat=${latitude}&z=15&titre=${encodeUR
   }
 
   /**
-   * affiche le menu
-   * @public
-   */
-  show() {
-    if (this.options.openPositionCbk) {
-      this.options.openPositionCbk();
-      this.opened = true;
-    }
-  }
-
-  /**
    * ferme le menu
    * @public
    */
