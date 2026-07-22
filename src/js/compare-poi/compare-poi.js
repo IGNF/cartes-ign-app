@@ -193,7 +193,7 @@ class ComparePoi {
       if (["routeDraw", "routeDrawSave"].includes(Globals.backButtonState)) {
         return;
       }
-      if (Globals.backButtonState.split("-")[0] === "position") {
+      if (Globals.backButtonState.split("-")[0].split("%")[0] === "position") {
         DOM.$backTopLeftBtn.click();
       }
       const layers = [this.configuration.customSource];
@@ -272,7 +272,7 @@ class ComparePoi {
   #onClickCompareButton() {
     this.clearSources();
     Globals.menu.open("compare");
-    Globals.backButtonState = "comparePoiActivated";
+    Globals.setBackButtonState("comparePoiActivated");
     this.dom.button.classList.add("d-none");
     this.dom.text.classList.remove("d-none");
     this.dom.title.innerHTML = `${this.iconHTML}${this.theme}`;

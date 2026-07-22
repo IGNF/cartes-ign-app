@@ -62,7 +62,7 @@ class MenuNavigation {
     document.getElementById("position").addEventListener("click", () => {
       Globals.position.compute({ type: "myposition" })
         .then(() => {
-          this.open("position");
+          this.open("position%ousuisje");
         });
     });
     // "A proximité"
@@ -138,9 +138,9 @@ class MenuNavigation {
     }
 
     // on met à jour l'état du panneau demandé
-    Globals.backButtonState = id;
+    Globals.setBackButtonState(id);
     if (!windowId) {
-      windowId = id;
+      windowId = id.split("%")[0];
     }
 
     // on ajoute le panneau demandé
@@ -153,7 +153,8 @@ class MenuNavigation {
 
     // y'a t il des particularités sur l'ouverture du panneau demandé ?
     var isSpecific = false;
-    switch (id) {
+    // split sur "%" pour le cas de position qui peut avoir des détails après "%"
+    switch (id.split("%")[0]) {
     case "offlineMaps":
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
@@ -177,7 +178,7 @@ class MenuNavigation {
       Globals.offlineMaps.show();
       break;
     case "selectOnMapCompareLandmark":
-      Globals.backButtonState = "selectOnMapCompareLandmark-" + previousBackState;
+      Globals.setBackButtonState("selectOnMapCompareLandmark-" + previousBackState, false);
       document.querySelector("#mapRLT2").classList.add("d-none");
       document.getElementById("mapRLT1").style.removeProperty("opacity");
       DOM.$bottomButtons.classList.add("d-none");
@@ -188,14 +189,14 @@ class MenuNavigation {
       DOM.$mapCenterMenu.classList.remove("d-none");
       break;
     case "compareLandmark":
-      Globals.backButtonState = "compareLandmark";
+      Globals.setBackButtonState("compareLandmark");
       DOM.$createCompareLandmarkBtn.classList.add("d-none");
       DOM.$tabContainer.classList.remove("compare");
       DOM.$bottomButtons.classList.remove("compare");
       Globals.currentScrollIndex = 2;
       break;
     case "landmark":
-      Globals.backButtonState = "landmark-" + previousBackState;
+      Globals.setBackButtonState("landmark-" + previousBackState, false);
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$fullScreenBtn.classList.add("d-none");
@@ -204,10 +205,10 @@ class MenuNavigation {
       Globals.currentScrollIndex = 1;
       break;
     case "signalement":
-      Globals.backButtonState = "signalement-" + previousBackState;
+      Globals.setBackButtonState("signalement-" + previousBackState, false);
       // falls through
     case "signalementOSM":
-      Globals.backButtonState = "signalementOSM-" + previousBackState;
+      Globals.setBackButtonState("signalementOSM-" + previousBackState, false);
       DOM.$positionWindow.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$fullScreenBtn.classList.add("d-none");
@@ -241,7 +242,7 @@ class MenuNavigation {
       this.updateScrollAnchors();
       break;
     case "compareLayers1":
-      Globals.backButtonState = "compareLayers1-" + previousBackState;
+      Globals.setBackButtonState("compareLayers1-" + previousBackState, false);
       DOM.$compareLayers2Window.classList.add("d-none");
       DOM.$compareLayers1Window.classList.remove("d-none");
       DOM.$tabContainer.classList.remove("compare");
@@ -256,7 +257,7 @@ class MenuNavigation {
       }
       break;
     case "compareLayers2":
-      Globals.backButtonState = "compareLayers2-" + previousBackState;
+      Globals.setBackButtonState("compareLayers2-" + previousBackState, false);
       DOM.$compareLayers1Window.classList.add("d-none");
       DOM.$compareLayers2Window.classList.remove("d-none");
       DOM.$tabContainer.classList.remove("compare");
@@ -323,7 +324,7 @@ class MenuNavigation {
       }
       break;
     case "poi":
-      Globals.backButtonState = "poi-" + previousBackState;
+      Globals.setBackButtonState("poi-" + previousBackState, false);
       Globals.routeDraw.deactivate();
       DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -331,7 +332,7 @@ class MenuNavigation {
       Globals.currentScrollIndex = 2;
       break;
     case "layerManager":
-      Globals.backButtonState = "layerManager-" + previousBackState;
+      Globals.setBackButtonState("layerManager-" + previousBackState, false);
       DOM.$layerManagerBtn.classList.add("active");
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("higher");
@@ -348,8 +349,9 @@ class MenuNavigation {
       Globals.currentScrollIndex = 1;
       break;
     case "position":
-      if (previousBackState.split("-")[0] !== "position") {
-        Globals.backButtonState = "position-" + previousBackState;
+      if (previousBackState.split("-")[0].split("%")[0] !== "position") {
+        const positionState = id.split("-")[0];
+        Globals.setBackButtonState(positionState + "-" + previousBackState, false);
       }
       Globals.interactivityIndicator.enable();
       DOM.$search.classList.add("d-none");
@@ -362,7 +364,7 @@ class MenuNavigation {
     case "isochrone":
       // FIXME mettre en place une méthode sur la classe Search
       // ex. Globals.search.hide()
-      Globals.backButtonState = "isochrone-" + previousBackState;
+      Globals.setBackButtonState("isochrone-" + previousBackState, false);
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
@@ -419,7 +421,7 @@ class MenuNavigation {
       Globals.currentScrollIndex = 0;
       break;
     case "directions":
-      Globals.backButtonState = "directions-" + previousBackState;
+      Globals.setBackButtonState("directions-" + previousBackState, false);
       DOM.$search.classList.add("d-none");
       DOM.$filterPoiBtn.classList.add("higher");
       DOM.$filterPoiBtn.classList.remove("d-none");
@@ -804,7 +806,7 @@ class MenuNavigation {
     this.show();
 
     // on met à jour l'état du panneau : vers le menu de navigation
-    Globals.backButtonState = "default";
+    Globals.setBackButtonState("default");
     DOM.$tabContainer.classList.remove("noHeight");
   }
 
@@ -820,19 +822,19 @@ class MenuNavigation {
      */
   #close(id) {
     if (["compareLayers1", "compareLayers2", "compareLandmark", "selectOnMapCompareLandmark"].includes(id)) {
-      Globals.backButtonState = "compare"; // on revient sur le contrôle !
+      Globals.setBackButtonState("compare"); // on revient sur le contrôle !
       return;
     }
     if (id === "routeDrawSave") {
-      Globals.backButtonState = "routeDraw"; // on revient sur le contrôle !
+      Globals.setBackButtonState("routeDraw"); // on revient sur le contrôle !
       return;
     }
     if (id === "directionsSave") {
-      Globals.backButtonState = "directionsResults"; // on revient sur le contrôle !
+      Globals.setBackButtonState("directionsResults"); // on revient sur le contrôle !
       return;
     }
     if (["signalement", "signalementOSM"].includes(id)) {
-      Globals.backButtonState = "position"; // on revient sur le contrôle !
+      Globals.setBackButtonState("position"); // on revient sur le contrôle !
       return;
     }
     Globals.searchAbortController.abort();
@@ -847,7 +849,7 @@ class MenuNavigation {
     switch (id) {
     case "informations":
       DOM.$layerManagerWindow.classList.remove("d-none");
-      Globals.backButtonState = "layerManager"; // on revient sur le contrôle !
+      Globals.setBackButtonState("layerManager"); // on revient sur le contrôle !
       this.#midScroll();
       break;
     case "search":
@@ -856,7 +858,7 @@ class MenuNavigation {
       break;
     case "directionsResults":
       DOM.$directionsWindow.classList.remove("d-none");
-      Globals.backButtonState = "directions"; // on revient sur le contrôle !
+      Globals.setBackButtonState("directions"); // on revient sur le contrôle !
       this.#midScroll();
       break;
     case "searchLandmark":
@@ -865,7 +867,7 @@ class MenuNavigation {
       DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$landmarkWindow.classList.remove("d-none");
-      Globals.backButtonState = "landmark"; // on revient sur le contrôle !
+      Globals.setBackButtonState("landmark"); // on revient sur le contrôle !
       Globals.currentScrollIndex = 1;
       this.updateScrollAnchors();
       DOM.$rech.value = "";
@@ -876,7 +878,7 @@ class MenuNavigation {
       DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$isochroneWindow.classList.remove("d-none");
-      Globals.backButtonState = "isochrone"; // on revient sur le contrôle !
+      Globals.setBackButtonState("isochrone"); // on revient sur le contrôle !
       Globals.currentScrollIndex = 1;
       this.updateScrollAnchors();
       break;
@@ -885,7 +887,7 @@ class MenuNavigation {
       DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$directionsWindow.classList.remove("d-none");
-      Globals.backButtonState = "directions"; // on revient sur le contrôle !
+      Globals.setBackButtonState("directions"); // on revient sur le contrôle !
       Globals.currentScrollIndex = 2;
       this.updateScrollAnchors();
       DOM.$rech.value = "";
@@ -893,7 +895,7 @@ class MenuNavigation {
     case "searchDownload":
       DOM.$search.classList.add("d-none");
       DOM.$backTopLeftBtn.classList.remove("d-none");
-      Globals.backButtonState = "myaccount"; // on revient sur le contrôle !
+      Globals.setBackButtonState("myaccount"); // on revient sur le contrôle !
       Globals.currentScrollIndex = 0;
       this.updateScrollAnchors();
       DOM.$rech.value = "";

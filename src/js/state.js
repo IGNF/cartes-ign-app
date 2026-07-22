@@ -15,9 +15,11 @@ import { App } from "@capacitor/app";
  */
 const onBackKeyDown = () => {
   // Handle the back button
-  const previousState = Globals.backButtonState.split("-")[1] || "default";
-  const previousStates = Globals.backButtonState.split("-");
-  const backState = Globals.backButtonState.split("-")[0];
+  const stateParts = Globals.backButtonState.split("-");
+  const currentState = stateParts[0] || "default";
+  const previousState = stateParts[1] || "default";
+  const previousStates = stateParts.slice(1);
+  const backState = currentState.split("%")[0];
   /* comportements custom */
   if (backState == "default") {
     if (Globals.trackRecord.activeRecord) {
@@ -218,7 +220,7 @@ const onBackKeyDown = () => {
         behavior: "smooth",
       });
     }, 500);
-    Globals.backButtonState = "informationsScreen";
+    Globals.setBackButtonState("informationsScreen");
     return;
   }
   /* comportement par défaut */
