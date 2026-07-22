@@ -69,7 +69,7 @@ const handleMapPositionAction = (urlParams, map, center) => {
         }
       }
       Globals.position.compute(params).then(() => {
-        Globals.menu.open("position");
+        Globals.menu.open("position%lien");
       });
       if (Globals.searchResultMarker != null) {
         Globals.searchResultMarker.remove();

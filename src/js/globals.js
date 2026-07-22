@@ -158,7 +158,7 @@ if (!localStorage.getItem("newPlaceNotifEnabled")) {
   newPlaceNotifEnabled = parseFloat(localStorage.getItem("newPlaceNotifEnabled"));
 }
 
-export default {
+const Globals = {
   map,
   mapRLT1,
   mapRLT2,
@@ -203,3 +203,85 @@ export default {
   threeD,
   trackRecord,
 };
+
+const BACK_BUTTON_STATE_TITLES_FR = {
+  default: "Accueil",
+  myaccount: "Mon compte",
+  informationsScreen: "Informations",
+  informationsScreenLegal: "Mentions legales",
+  newsfeed: "Fil d'actualites",
+  imageOverlay: "Image",
+  layerManager: "Gestionnaire de couches",
+  directions: "S'y rendre",
+  directionsResults: "Resultats d'itineraire",
+  directionsSave: "Enregistrer l'itineraire",
+  search: "Recherche",
+  searchDirections: "Recherche depuis l'itineraire",
+  searchIsochrone: "Recherche depuis l'isochrone",
+  searchLandmark: "Recherche depuis création de point de repère",
+  searchDownload: "Recherche depuis le telechargement de carte",
+  isochrone: "A proximite",
+  landmark: "Créer un point de repere",
+  position: "Clic sur couche : ",
+  "position%ousuisje": "Où suis-je ?",
+  "position%marker": "Marqueur de position",
+  "position%pr": "Point de repère",
+  "position%contexte": "Position depuis appui long",
+  "position%poi": "Clic sur POI OSM",
+  "position%planinteractif": "Clic sur plan interactif",
+  "position%ficheobjet": "Position depuis fiche objet",
+  "position%lien": "Position depuis lien",
+  poi: "Points d'interet",
+  compare: "Comparer",
+  compareLayers1: "Comparer couche gauche",
+  compareLayers2: "Comparer couche droite",
+  compareLandmark: "POI comparer personnalisé",
+  comparePoi: "POI comparer",
+  comparePoiActivated: "Comparaison activee",
+  selectOnMapDirections: "Selection sur la carte pour l'itineraire",
+  selectOnMapIsochrone: "Selection sur la carte pour l'isohrone",
+  selectOnMapLandmark: "Selection sur la carte pour le repere",
+  selectOnMapCompareLandmark: "Selection sur la carte pour POI comparer personnalisé",
+  signalement: "Signalement",
+  signalementOSM: "Signalement OSM",
+  routeDraw: "Tracer un itineraire",
+  routeDrawSave: "Enregistrer le tracé",
+  trackRecord: "Enregistrer ma trace",
+  offlineMaps: "Cartes hors ligne",
+  offlineMapsLocked: "Cartes hors ligne - zone verrouillee",
+  offlineMapsDownloading: "Cartes hors ligne - telechargement",
+  offlineMapsName: "Cartes hors ligne - nommage",
+  offlineMapsFailed: "Cartes hors ligne - echec",
+};
+
+const getBackButtonTitle = (state) => {
+  const baseState = state.split("-")[0];
+  const rootState = baseState.split("%")[0];
+  const additionalState = state.split("%")[1] || "";
+  return BACK_BUTTON_STATE_TITLES_FR[state]
+    || BACK_BUTTON_STATE_TITLES_FR[baseState]
+    || BACK_BUTTON_STATE_TITLES_FR[rootState] + ": " + additionalState
+    || state;
+};
+
+const trackBackButtonStateChange = (state) => {
+  const paq = window._paq || [];
+  window._paq = paq;
+  paq.push(["setCustomUrl", "/" + state]);
+  paq.push(["setDocumentTitle", getBackButtonTitle(state)]);
+  paq.push(["trackPageView"]);
+};
+
+const setBackButtonState = (state, track = true) => {
+  if (Globals.backButtonState === state) {
+    return;
+  }
+  Globals.backButtonState = state;
+  if (track) {
+    trackBackButtonStateChange(state);
+  }
+};
+
+Globals.setBackButtonState = setBackButtonState;
+
+export default Globals;
