@@ -133,9 +133,13 @@ class ImmersiveNotifications {
       return;
     }
 
-    await BackgroundGeolocation.stop();
-    this.isBgTrackingActive = false;
-    this.locationBg = null;
+    try {
+      await BackgroundGeolocation.stop();
+      this.isBgTrackingActive = false;
+      this.locationBg = null;
+    } catch (err) {
+      console.error("BackgroundGeolocation.stop failed:", err);
+    }
   }
 
   /**
