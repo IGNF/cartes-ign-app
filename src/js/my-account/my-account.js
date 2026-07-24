@@ -15,6 +15,7 @@ import ActionSheet from "../action-sheet";
 import Location from "../services/location";
 import DOM from "../dom";
 import fileStorage from "../utils/file-storage";
+import CompareLandmark from "../compare-landmark";
 
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
@@ -1065,6 +1066,13 @@ class MyAccount {
       layer2: compareLandmark.properties.layer2,
       center: compareLandmark.geometry.coordinates,
     });
+    // Ensure CompareLandmark control is initialized
+    if (!Globals.compareLandmark) {
+      if (!Globals.mapRLT1 || !Globals.mapRLT2) {
+        Globals.initComparisonMaps();
+      }
+      Globals.compareLandmark = new CompareLandmark(Globals.mapRLT1, Globals.mapRLT2, {});
+    }
     Globals.compareLandmark.show();
     Globals.compareLandmark.setData({
       title: compareLandmark.properties.accroche,

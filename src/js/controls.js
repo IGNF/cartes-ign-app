@@ -21,7 +21,6 @@ import Signalement from "./signalement";
 import SignalementOSM from "./signalement-osm";
 import Landmark from "./landmark";
 import MapboxAccessibility from "./poi-accessibility";
-import CompareLandmark from "./compare-landmark";
 import OfflineMaps from "./offline-maps";
 import TrackRecord from "./track-record/track-record";
 import DOM from "./dom";
@@ -92,15 +91,7 @@ const addControls = () => {
       unit: "metric"
     }), "bottom-left");
 
-    Globals.mapRLT1.addControl(new maplibregl.ScaleControl({
-      maxWidth: 150,
-      unit: "metric"
-    }), "bottom-left");
 
-    Globals.mapRLT2.addControl(new maplibregl.ScaleControl({
-      maxWidth: 150,
-      unit: "metric"
-    }), "bottom-left");
 
     // contrôle fullscreen
     const fullScreenCtrl = new maplibregl.FullscreenControl();
@@ -159,7 +150,8 @@ const addControls = () => {
       openSearchControlCbk : () => { Globals.menu.open("searchLandmark"); },
       closeSearchControlCbk : () => { Globals.menu.close("searchLandmark"); },
     });
-    Globals.compareLandmark = new CompareLandmark(Globals.mapRLT1, Globals.mapRLT2, {});
+    // CompareLandmark will be lazily initialized when comparison maps are activated
+    Globals.compareLandmark = null;
 
     // 3d
     Globals.threeD = new ThreeD(map, {});

@@ -31,6 +31,75 @@ import PinchZoom from "pinch-zoom-js";
 import { loadImagesFromFolder } from "./utils/image-loader";
 import { handleIncomingUrl } from "./utils/url-intent-handler";
 
+/**
+ * Factory function to lazily initialize comparison maps
+ * Only called when user activates comparison mode
+ */
+function initComparisonMaps() {
+  if (Globals.mapRLT1 && Globals.mapRLT2) {
+    return; // Already initialized
+  }
+
+  // Secondary maps for RLT
+  const mapRLT1 = new maplibregl.Map({
+    container: "mapRLT1",
+    zoom: 5,
+    center: [2.0, 47.33],
+    attributionControl: false,
+    maxZoom: 21,
+    locale: "fr",
+    maxPitch: 0,
+    touchPitch: false,
+  });
+  // disable map rotation using right click + drag
+  mapRLT1.dragRotate.disable();
+  // disable map rotation using touch rotation gesture
+  mapRLT1.touchZoomRotate.disableRotation();
+
+  const mapRLT2 = new maplibregl.Map({
+    container: "mapRLT2",
+    zoom: 5,
+    center: [2.0, 47.33],
+    attributionControl: false,
+    maxZoom: 21,
+    locale: "fr",
+    maxPitch: 0,
+    touchPitch: false,
+  });
+  // disable map rotation using right click + drag
+  mapRLT2.dragRotate.disable();
+  // disable map rotation using touch rotation gesture
+  mapRLT2.touchZoomRotate.disableRotation();
+
+  // Store in globals
+  Globals.mapRLT1 = mapRLT1;
+  Globals.mapRLT2 = mapRLT2;
+
+  Globals.mapRLT1.addControl(new maplibregl.ScaleControl({
+    maxWidth: 150,
+    unit: "metric"
+  }), "bottom-left");
+
+  Globals.mapRLT2.addControl(new maplibregl.ScaleControl({
+    maxWidth: 150,
+    unit: "metric"
+  }), "bottom-left");
+
+  // Add RLT layer sources to comparison maps
+  for (let layer in LayersConfig.rltLayerSources) {
+    const source = LayersConfig.rltLayerSources[layer];
+    if (source.type !== "vector") {
+      mapRLT1.addSource(layer, source);
+      mapRLT2.addSource(layer, source);
+    }
+  }
+
+  console.debug("[Comparison Maps] Initialized lazily");
+}
+
+// Export for use in Compare class
+Globals.initComparisonMaps = initComparisonMaps;
+
 // import CSS
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -167,40 +236,11 @@ function app() {
     crossSourceCollisions: false,
   });
 
-  // Secondary maps for RLT
-  const mapRLT1 = new maplibregl.Map({
-    container: "mapRLT1",
-    zoom: 5,
-    center: [2.0, 47.33],
-    attributionControl: false,
-    maxZoom: 21,
-    locale: "fr",
-    maxPitch: 0,
-    touchPitch: false,
-  });
-  // disable map rotation using right click + drag
-  mapRLT1.dragRotate.disable();
-  // disable map rotation using touch rotation gesture
-  mapRLT1.touchZoomRotate.disableRotation();
-  const mapRLT2 = new maplibregl.Map({
-    container: "mapRLT2",
-    zoom: 5,
-    center: [2.0, 47.33],
-    attributionControl: false,
-    maxZoom: 21,
-    locale: "fr",
-    maxPitch: 0,
-    touchPitch: false,
-  });
-  // disable map rotation using right click + drag
-  mapRLT2.dragRotate.disable();
-  // disable map rotation using touch rotation gesture
-  mapRLT2.touchZoomRotate.disableRotation();
-
   // Enregistrement de la carte
   Globals.map = map;
-  Globals.mapRLT1 = mapRLT1;
-  Globals.mapRLT2 = mapRLT2;
+  // Comparison maps will be initialized lazily when Compare mode is activated
+  Globals.mapRLT1 = null;
+  Globals.mapRLT2 = null;
 
   window.scroll({
     top: 0,
@@ -213,8 +253,8 @@ function app() {
   Controls.addControls();
 
   // HACK: déplacement de l'échelle hors de la div map pour qu'elle bouge librement
-  var mapLibreControls = document.querySelectorAll(".maplibregl-ctrl-bottom-left")[2];
-  var mapLibreFullscreenControl = document.querySelectorAll(".maplibregl-ctrl-bottom-right")[2];
+  var mapLibreControls = document.querySelectorAll(".maplibregl-ctrl-bottom-left")[0];
+  var mapLibreFullscreenControl = document.querySelectorAll(".maplibregl-ctrl-bottom-right")[0];
   var parent = document.getElementById("bottomButtons");
   DOM.$mapScale = mapLibreControls;
   parent.appendChild(mapLibreControls);
@@ -239,13 +279,7 @@ function app() {
       map.addSource(layer, source);
     }
   }
-  for (let layer in LayersConfig.rltLayerSources) {
-    source = LayersConfig.rltLayerSources[layer];
-    if (source.type !== "vector") {
-      mapRLT1.addSource(layer, source);
-      mapRLT2.addSource(layer, source);
-    }
-  }
+  // RLT layer sources will be added when comparison maps are initialized
   for (let layer in LayersConfig.thematicLayerSources) {
     source = LayersConfig.thematicLayerSources[layer];
     if (source.type !== "vector") {

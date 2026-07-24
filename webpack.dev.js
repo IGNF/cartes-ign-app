@@ -28,7 +28,7 @@ module.exports = {
       template: "src/html/index.html"
     }),
     new PreloadWebpackPlugin({
-      rel: "preload",
+      rel: "prefetch",
       as: "image",
       include: "allAssets",
       fileWhitelist: [/\.(png|jpe?g|gif|svg)$/],

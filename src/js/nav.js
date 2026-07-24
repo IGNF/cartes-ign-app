@@ -9,6 +9,7 @@ import DOM from "./dom";
 
 import NewsFeed from "./newsfeed";
 import jsUtils from "./utils/js-utils";
+import CompareLandmark from "./compare-landmark";
 
 import { Toast } from "@capacitor/toast";
 
@@ -501,6 +502,10 @@ class MenuNavigation {
       Globals.offlineMaps.hide();
       break;
     case "selectOnMapCompareLandmark":
+      // Ensure comparison maps are initialized
+      if (!Globals.mapRLT1 || !Globals.mapRLT2) {
+        Globals.initComparisonMaps();
+      }
       document.querySelector("#mapRLT2").classList.remove("d-none");
       DOM.$bottomButtons.classList.remove("d-none");
       DOM.$tabContainer.classList.add("compare");
@@ -514,6 +519,13 @@ class MenuNavigation {
       isFinished = true;
       break;
     case "compareLandmark":
+      // Ensure CompareLandmark control is initialized
+      if (!Globals.compareLandmark) {
+        if (!Globals.mapRLT1 || !Globals.mapRLT2) {
+          Globals.initComparisonMaps();
+        }
+        Globals.compareLandmark = new CompareLandmark(Globals.mapRLT1, Globals.mapRLT2, {});
+      }
       DOM.$createCompareLandmarkBtn.classList.remove("d-none");
       Globals.compareLandmark.clear();
       DOM.$tabContainer.classList.add("compare");
