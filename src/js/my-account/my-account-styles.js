@@ -54,6 +54,22 @@ const layers = {
       ],
     }
   },
+  "line-direction": {
+    id: "my-account-line-direction",
+    type: "symbol",
+    source: "",
+    layout: {
+      "visibility": "visible",
+      "symbol-placement": "line",
+      "symbol-spacing": 70,
+      "icon-image": "route_direction",
+      "icon-allow-overlap": true,
+    },
+    paint: {
+      "text-color": "black",
+      "icon-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0]
+    }
+  },
   "point-casing": {
     id: "my-account-point-casing",
     type: "circle",

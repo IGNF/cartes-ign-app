@@ -2006,8 +2006,10 @@ ${props.text}`,
 
     MyAccountLayers["line-casing"].source = this.configuration.linesource;
     MyAccountLayers["line"].source = this.configuration.linesource;
+    MyAccountLayers["line-direction"].source = this.configuration.linesource;
     this.map.addLayer(MyAccountLayers["line-casing"]);
     this.map.addLayer(MyAccountLayers["line"]);
+    this.map.addLayer(MyAccountLayers["line-direction"]);
 
     this.map.addSource(this.configuration.pointsource, {
       "type": "geojson",

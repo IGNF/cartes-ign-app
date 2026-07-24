@@ -84,6 +84,23 @@ const layers = [
     },
     filter: ["!=", ["get", "type"], "SNAPLINE"],
   },
+  // TODO: trouver un moyen de l'afficher
+  // {
+  //   id: "maplibre-gl-directions-routeline-direction",
+  //   type: "symbol",
+  //   source: "maplibre-gl-directions",
+  //   layout: {
+  //     "visibility": "visible",
+  //     "symbol-placement": "line",
+  //     "symbol-spacing": 70,
+  //     "icon-image": "route_direction",
+  //     "icon-allow-overlap": true,
+  //   },
+  //   paint: {
+  //     "text-color": "black",
+  //     "icon-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0]
+  //   }
+  // },
   {
     id: "maplibre-gl-directions-point-casing",
     type: "circle",

@@ -42,6 +42,7 @@ const layers = {
       "visibility": "visible",
       "symbol-placement": "line",
       "symbol-spacing": 70,
+      "icon-allow-overlap": true,
       "icon-image": "route_direction"
     },
     paint: {

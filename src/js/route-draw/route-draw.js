@@ -1049,9 +1049,11 @@ class RouteDraw {
 
     RouteDrawLayers["line-casing"].source = this.configuration.linesource;
     RouteDrawLayers["line"].source = this.configuration.linesource;
+    RouteDrawLayers["line-direction"].source = this.configuration.linesource;
     RouteDrawLayers["line-dashed"].source = this.configuration.linesource;
     this.map.addLayer(RouteDrawLayers["line-casing"]);
     this.map.addLayer(RouteDrawLayers["line"]);
+    this.map.addLayer(RouteDrawLayers["line-direction"]);
     this.map.addLayer(RouteDrawLayers["line-dashed"]);
 
     this.map.addSource(this.configuration.pointsource, {
