@@ -208,7 +208,7 @@ const BACK_BUTTON_STATE_TITLES_FR = {
   default: "Accueil",
   myaccount: "Mon compte",
   informationsScreen: "Informations",
-  informationsScreenLegal: "Mentions legales",
+  informationsScreenLegal: "Mentions légales",
   newsfeed: "Fil d'actualites",
   imageOverlay: "Image",
   layerManager: "Gestionnaire de couches",
@@ -268,7 +268,7 @@ const getBackButtonTitle = (state) => {
 const trackBackButtonStateChange = (state) => {
   const paq = window._paq || [];
   window._paq = paq;
-  paq.push(["setCustomUrl", "/" + state]);
+  paq.push(["setCustomUrl", "/" + encodeURIComponent(state)]);
   paq.push(["setDocumentTitle", getBackButtonTitle(state)]);
   paq.push(["trackPageView"]);
 };
