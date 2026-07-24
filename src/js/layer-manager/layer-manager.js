@@ -204,7 +204,7 @@ class LayerManager extends EventTarget {
     }
     const paq = window._paq || [];
     window._paq = paq;
-    paq.push(["trackEvent", "Layer", layerId, "Add", 1]);
+    paq.push(["trackEvent", "Layer", "Add", layerId]);
   }
 
   /**
