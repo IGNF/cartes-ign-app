@@ -29,18 +29,19 @@ const getClickedButtonElement = (target) => {
   return target.closest("button, input[type='button'], input[type='submit'], [role='button'], .button");
 };
 
-const getButtonTrackingLabel = (buttonElement) => {
-  const label = buttonElement.dataset.matomoLabel
-    || buttonElement.getAttribute("aria-label")
+const getButtonTrackingKey = (buttonElement) => {
+  const key = buttonElement.dataset.matomoId
     || buttonElement.id
     || buttonElement.name
+    || buttonElement.dataset.matomoLabel
+    || buttonElement.getAttribute("aria-label")
     || buttonElement.textContent;
 
-  if (!label) {
+  if (!key) {
     return "unknown";
   }
 
-  return label.replace(/\s+/g, " ").trim().slice(0, 120);
+  return key.replace(/\s+/g, " ").trim().slice(0, 120);
 };
 
 const trackButtonClick = (evt) => {
@@ -49,12 +50,12 @@ const trackButtonClick = (evt) => {
     return;
   }
 
-  const buttonLabel = getButtonTrackingLabel(buttonElement);
+  const buttonKey = getButtonTrackingKey(buttonElement);
   const backButtonState = Globals.backButtonState || "unknown";
 
   const paq = window._paq || [];
   window._paq = paq;
-  paq.push(["trackEvent", "UI", "Button click", `${backButtonState}:${buttonLabel}`]);
+  paq.push(["trackEvent", "UI", buttonKey, backButtonState, 1]);
 };
 
 /**
