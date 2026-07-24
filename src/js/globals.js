@@ -239,7 +239,7 @@ const BACK_BUTTON_STATE_TITLES_FR = {
   comparePoi: "POI comparer",
   comparePoiActivated: "Comparaison activee",
   selectOnMapDirections: "Selection sur la carte pour l'itineraire",
-  selectOnMapIsochrone: "Selection sur la carte pour l'isohrone",
+  selectOnMapIsochrone: "Selection sur la carte pour l'isochrone",
   selectOnMapLandmark: "Selection sur la carte pour le repere",
   selectOnMapCompareLandmark: "Selection sur la carte pour POI comparer personnalisé",
   signalement: "Signalement",
@@ -256,12 +256,13 @@ const BACK_BUTTON_STATE_TITLES_FR = {
 
 const getBackButtonTitle = (state) => {
   const baseState = state.split("-")[0];
-  const rootState = baseState.split("%")[0];
-  const additionalState = state.split("%")[1] || "";
+  const [rootState, additionalState = ""] = baseState.split("%");
+
   return BACK_BUTTON_STATE_TITLES_FR[state]
     || BACK_BUTTON_STATE_TITLES_FR[baseState]
-    || BACK_BUTTON_STATE_TITLES_FR[rootState] + ": " + additionalState
-    || state;
+    || (BACK_BUTTON_STATE_TITLES_FR[rootState]
+      ? `${BACK_BUTTON_STATE_TITLES_FR[rootState].replace(/[:\s]*$/, "")}${additionalState ? ": " + additionalState : ""}`
+      : state);
 };
 
 const trackBackButtonStateChange = (state) => {
