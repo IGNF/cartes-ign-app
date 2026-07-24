@@ -16,8 +16,8 @@ import PoiConfig from "../../../config/poi-osm-layer-config.json";
 
 import ComparePoiData from "../../../config/poi_rlt.json";
 
-import InseeCommWiki from "../../../config/com_wiki.json";
 import GfiRulesProps from "../../../config/gfi-rules.json";
+import { getCommuneWikiData } from "../services/commune-wiki-service";
 
 import LayerPopups from "../../../config/layer-popups.json";
 import IsochroneLayers from "../../../config/isochrone-layers.json";
@@ -97,7 +97,7 @@ const urls = {
   },
   inseeCommWiki: {
     url: "https://ignf.github.io/cartes-ign-app/com_wiki.json",
-    fallback: InseeCommWiki,
+    fallbackLoader: getCommuneWikiData,
   },
   gfiRulesProps: {
     url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json",
@@ -135,14 +135,20 @@ async function loadConfigs() {
   );
 
   // Extract results with fallback if needed
-  keys.forEach((key, i) => {
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
     if (results[i].status === "fulfilled") {
       config[key] = results[i].value;
     } else {
       console.warn(`Could not load ${key} from server, using fallback.`);
-      config[key] = urls[key].fallback;
+      if (urls[key].fallbackLoader) {
+        // Lazy load the fallback if a loader function is provided
+        config[key] = await urls[key].fallbackLoader();
+      } else {
+        config[key] = urls[key].fallback;
+      }
     }
-  });
+  }
 
   // Disable tempLayers on iOS < 16 (not working because of preflight OPTIONS request)
   const info = await Device.getInfo();

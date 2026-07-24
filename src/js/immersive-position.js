@@ -7,7 +7,6 @@
 import LayersConfig from "./layer-manager/layer-config";
 
 import maplibregl from "maplibre-gl";
-import proj4 from "proj4";
 
 import PointToLineDistance from "@turf/point-to-line-distance";
 import CleanCoords from "@turf/clean-coords";
@@ -17,8 +16,6 @@ import { circle } from "@turf/circle";
 import { pointsWithinPolygon } from "@turf/points-within-polygon";
 
 import { config } from "./utils/config-utils";
-
-proj4.defs("EPSG:2154","+proj=lcc +lat_0=46.5 +lon_0=3 +lat_1=49 +lat_2=44 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs");
 
 /**
  * Gestion de la "position immersive" avec des requêtes faites aux données autour d'une position

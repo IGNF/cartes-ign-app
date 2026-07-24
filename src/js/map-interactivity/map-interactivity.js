@@ -15,9 +15,24 @@ import throttle from "lodash/throttle";
 
 import Union from "@turf/union";
 import Buffer from "@turf/buffer";
-import proj4 from "proj4";
 import Legend from "./legend-plan-ign";
 import gisUtils from "../utils/gis-utils";
+
+let proj4Instance = null;
+
+/**
+ * Lazy loader for proj4 - only loads when coordinate transformation is needed
+ */
+async function getProj4() {
+  if (proj4Instance) {
+    return proj4Instance;
+  }
+
+  const proj4Module = await import("proj4");
+  proj4Instance = proj4Module.default;
+
+  return proj4Instance;
+}
 
 // REMOVEME
 // Polyfill pour Promise.allSettled
@@ -102,7 +117,7 @@ class MapInteractivity {
     this.map.once("click", this.handleInfoOnMap);
   }
 
-  #getInfoOnMap(ev) {
+  async #getInfoOnMap(ev) {
     if (Globals.backButtonState.split("-").includes("routeDraw") || Globals.backButtonState.includes("selectOnMap")) {
       this.map.once("click", this.handleInfoOnMap);
       return;
@@ -289,15 +304,15 @@ class MapInteractivity {
           this.selectedToponyme = features[0].properties.toponyme;
           this.selectedNature = features[0].properties.nature;
           this.selectedFeatureType = features[0].geometry.type;
-          this.#highlightGFI(features[0].geometry, false);
+          await this.#highlightGFI(features[0].geometry, false);
           this.#updateHighlightedGeom();
           this.map.off("moveend", this.handleUpdateHighlightedGeom);
           this.map.on("moveend", this.handleUpdateHighlightedGeom);
         } else if (features[0].layer.id.split("$$$")[1] === "DATATOURISME.FMA$TMS") {
           type = "datatourisme";
-          this.#highlightGFI(features[0].geometry, false);
+          await this.#highlightGFI(features[0].geometry, false);
         } else {
-          this.#highlightGFI(features[0].geometry, false);
+          await this.#highlightGFI(features[0].geometry, false);
         }
         Globals.position.compute({
           lngLat: lngLat,
@@ -362,7 +377,7 @@ class MapInteractivity {
         DOM.$mapCenter.classList.add("d-none");
         try {
           if (resp && resp.geometry) {
-            this.#highlightGFI(resp.geometry);
+            await this.#highlightGFI(resp.geometry);
           }
         } catch (e) {
           console.warn(e);
@@ -470,7 +485,7 @@ class MapInteractivity {
 
     // check si le pixel de la couche est transparent, si oui, l'enlever de GFI Array (pas de GFI)
     const layersToRemove = [];
-    let pixelValuePromiseArray = GFIArray.map((layer) => {
+    let pixelValuePromiseArray = GFIArray.map(async (layer) => {
       // Les entités dans ces couches sont transparentes, et donc pixels transparents à ne pas ignorer
       if (["CADASTRALPARCELS.PARCELLAIRE_EXPRESS", "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST"].includes(layer[0].split("$")[0])) {
         return;
@@ -484,6 +499,7 @@ class MapInteractivity {
       if (layer[0].split("$")[1] === "WMS") {
         // https://wiki.openstreetmap.org/wiki/Zoom_levels
         const resolution = 40075016.686 * Math.cos(layer[1].clickCoords.lat * Math.PI/180) / Math.pow(2, layer[1].computeZoom + 8);
+        const proj4 = await getProj4();
         const clickMercatorCoords = proj4(proj4.defs("EPSG:4326"), proj4.defs("EPSG:3857"), [layer[1].clickCoords.lng, layer[1].clickCoords.lat]);
         // https://gis.stackexchange.com/questions/79201/lat-long-values-in-a-wms-getfeatureinfo-request
         const bottomLeft = [clickMercatorCoords[0] - 50 * resolution, clickMercatorCoords[1] - 50 * resolution];
@@ -542,7 +558,7 @@ class MapInteractivity {
     GFIArray = GFIArray.filter(layer => !layersToRemove.includes(layer));
     // END: check des pixels transparents
 
-    let promisesArray = GFIArray.map((layer) => {
+    let promisesArray = GFIArray.map(async (layer) => {
       let gfiURL = "https://data.geopf.fr/wmts?" +
         "SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetFeatureInfo&" +
         `LAYER=${layer[0].split("$")[0]}` +
@@ -552,6 +568,7 @@ class MapInteractivity {
       if (layer[0].split("$")[1] === "WMS") {
         // https://wiki.openstreetmap.org/wiki/Zoom_levels
         const resolution = 40075016.686 * Math.cos(layer[1].clickCoords.lat * Math.PI/180) / Math.pow(2, layer[1].computeZoom + 8);
+        const proj4 = await getProj4();
         const clickMercatorCoords = proj4(proj4.defs("EPSG:4326"), proj4.defs("EPSG:3857"), [layer[1].clickCoords.lng, layer[1].clickCoords.lat]);
         // https://gis.stackexchange.com/questions/79201/lat-long-values-in-a-wms-getfeatureinfo-request
         const bottomLeft = [clickMercatorCoords[0] - 50 * resolution, clickMercatorCoords[1] - 50 * resolution];
@@ -603,7 +620,7 @@ class MapInteractivity {
    * Ajoute à la carte la géométrie de la feature cliquée dans un GFI
    * @param {*} gfiGeom
    */
-  #highlightGFI(gfiGeom, convertCoords = true) {
+  async #highlightGFI(gfiGeom, convertCoords = true) {
     this.#clearSources();
     let source;
 
@@ -615,7 +632,7 @@ class MapInteractivity {
       source = this.map.getSource(this.configuration.polygonsource);
     }
     if (convertCoords) {
-      this.#convertCoords(gfiGeom.coordinates);
+      await this.#convertCoords(gfiGeom.coordinates);
     }
     if (gfiGeom.type === "LineString" || gfiGeom.type === "MultiLineString") {
       gfiGeom = Buffer(gfiGeom, 5, {units: "meters"});
@@ -627,11 +644,14 @@ class MapInteractivity {
    * Convertit les coordonnées d'une feature GFI de webmarcator à WGS 84 de manière recursive
    * @param {*} array geometry.coordinates
    */
-  #convertCoords(array) {
+  async #convertCoords(array) {
     if (typeof array[0] !== "number") {
-      array.forEach(elem => this.#convertCoords(elem));
+      for (const elem of array) {
+        await this.#convertCoords(elem);
+      }
       return;
     }
+    const proj4 = await getProj4();
     const convertedCoords = proj4(proj4.defs("EPSG:3857"), proj4.defs("EPSG:4326"), array);
     array[0] = convertedCoords[0];
     array[1] = convertedCoords[1];
