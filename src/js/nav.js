@@ -350,8 +350,7 @@ class MenuNavigation {
       break;
     case "position":
       if (previousBackState.split("-")[0].split("%")[0] !== "position") {
-        const positionState = id.split("-")[0];
-        Globals.setBackButtonState(positionState + "-" + previousBackState, false);
+        Globals.setBackButtonState("position-" + previousBackState, false);
       }
       Globals.interactivityIndicator.enable();
       DOM.$search.classList.add("d-none");
