@@ -66,7 +66,6 @@ const layers = {
       "icon-allow-overlap": true,
     },
     paint: {
-      "text-color": "black",
       "icon-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0]
     }
   },

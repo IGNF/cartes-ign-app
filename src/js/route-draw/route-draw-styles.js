@@ -75,7 +75,7 @@ const layers = {
       "icon-allow-overlap": true,
     },
     paint: {
-      "text-color": "black",
+      "icon-opacity": ["case", ["boolean", ["get", "invisible"], false], 0, 1],
     }
   },
   "line-dashed": {
