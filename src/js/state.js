@@ -18,7 +18,6 @@ const onBackKeyDown = () => {
   const stateParts = Globals.backButtonState.split("-");
   const currentState = stateParts[0] || "default";
   const previousState = stateParts[1] || "default";
-  const previousStates = stateParts.slice(1);
   const backState = currentState.split("%")[0];
   /* comportements custom */
   if (backState == "default") {
