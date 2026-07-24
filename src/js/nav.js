@@ -206,7 +206,11 @@ class MenuNavigation {
       break;
     case "signalement":
       Globals.setBackButtonState("signalement-" + previousBackState, false);
-      // falls through
+      DOM.$positionWindow.classList.add("d-none");
+      DOM.$filterPoiBtn.classList.add("d-none");
+      DOM.$fullScreenBtn.classList.add("d-none");
+      Globals.interactivityIndicator.hardDisable();
+      break;
     case "signalementOSM":
       Globals.setBackButtonState("signalementOSM-" + previousBackState, false);
       DOM.$positionWindow.classList.add("d-none");
