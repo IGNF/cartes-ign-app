@@ -87,6 +87,21 @@ class MyAccount {
 
     this.#addSourcesAndLayers();
 
+    // Defer loading and rendering of stored data to after map is interactive
+    // This avoids blocking the UI during cold start
+    setTimeout(() => {
+      this.#loadAndRenderData();
+    }, 3000);
+
+    return this;
+  }
+
+  /**
+   * Load stored data and render MyAccount interface
+   * This is deferred to after map is interactive to avoid cold start blocking
+   * @private
+   */
+  #loadAndRenderData() {
     // REMOVEME : rétrocompatibilité des entités enregistrées : migration de préférences à fichier local (post-3.4.5)
     // récupération des itinéraires enregistrés en local
     let promiseRoutes = Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
@@ -186,7 +201,6 @@ class MyAccount {
     // REMOVEME
     });
     // END REMOVEME
-    return this;
   }
 
   /**
