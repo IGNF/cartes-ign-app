@@ -97,6 +97,11 @@ class MapInteractivity {
 
     // fonction d'event avec bind
     this.handleInfoOnMap = this.#getInfoOnMap.bind(this);
+    this.handleInfoOnMapSafe = (ev) => {
+      this.handleInfoOnMap(ev).catch((error) => {
+        console.error("Map click handler failed", error);
+      });
+    };
     this.handleUpdateHighlightedGeom = throttle(this.#updateHighlightedGeom.bind(this), 200, {
       leading: true,
       trailing: true,
@@ -114,16 +119,16 @@ class MapInteractivity {
   }
 
   #listeners() {
-    this.map.once("click", this.handleInfoOnMap);
+    this.map.once("click", this.handleInfoOnMapSafe);
   }
 
   async #getInfoOnMap(ev) {
     if (Globals.backButtonState.split("-").includes("routeDraw") || Globals.backButtonState.includes("selectOnMap")) {
-      this.map.once("click", this.handleInfoOnMap);
+      this.map.once("click", this.handleInfoOnMapSafe);
       return;
     }
     if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
-      this.map.once("click", this.handleInfoOnMap);
+      this.map.once("click", this.handleInfoOnMapSafe);
       return;
     }
     if (Globals.backButtonState.split("-")[0] === "position") {
@@ -165,7 +170,7 @@ class MapInteractivity {
         || (features[0].source === "my-account-landmark" && features[0].properties.visible)
         || (features[0].source === "my-account-compare-landmark" && features[0].properties.visible)
       )){
-      this.map.once("click", this.handleInfoOnMap);
+      this.map.once("click", this.handleInfoOnMapSafe);
       return;
     }
     if (Globals.comparePoi.opened) {
@@ -220,7 +225,7 @@ class MapInteractivity {
         }).then(() => {
           Globals.menu.open("position");
         });
-        this.map.once("click", this.handleInfoOnMap);
+        this.map.once("click", this.handleInfoOnMapSafe);
         return;
       }
     }
@@ -331,14 +336,14 @@ class MapInteractivity {
             Globals.currentScrollIndex = 1;
             Globals.menu.updateScrollAnchors();
           }
-          this.map.once("click", this.handleInfoOnMap);
+          this.map.once("click", this.handleInfoOnMapSafe);
         });
         return;
       }
     }
 
     if (!Globals.interactivityIndicator.shown) {
-      this.map.once("click", this.handleInfoOnMap);
+      this.map.once("click", this.handleInfoOnMapSafe);
       return;
     }
 
@@ -390,7 +395,7 @@ class MapInteractivity {
           htmlBeforeAddress: resp.htmlBeforeAddress,
         });
         Globals.menu.open("position");
-        this.map.once("click", this.handleInfoOnMap);
+        this.map.once("click", this.handleInfoOnMapSafe);
         return;
       }).catch(async () => {
         this.loading = false;
@@ -413,7 +418,7 @@ class MapInteractivity {
           this.map.off("moveend", this.handleUpdateHighlightedGeom);
           this.map.on("moveend", this.handleUpdateHighlightedGeom);
         }
-        this.map.once("click", this.handleInfoOnMap);
+        this.map.once("click", this.handleInfoOnMapSafe);
         return;
       });
   }

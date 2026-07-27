@@ -21,6 +21,9 @@ function loadChart() {
         Tooltip
       );
       return Chart;
+    }).catch((err) => {
+      chartPromise = null;
+      throw err;
     });
   }
   return chartPromise;
