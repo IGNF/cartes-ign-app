@@ -207,7 +207,7 @@ class ComparePoi {
       const source = this.map.getSource("selected-compare-poi");
       source.setData({
         "type": "FeatureCollection",
-        "features": [comparePoi]
+        "features": [JSON.parse(JSON.stringify(comparePoi))]
       });
       this.animationIntervalId = setInterval(() => {
         if (comparePoi.properties.radiusRatio >= 1) {
@@ -216,7 +216,7 @@ class ComparePoi {
         comparePoi.properties.radiusRatio += 0.1;
         source.setData({
           "type": "FeatureCollection",
-          "features": [comparePoi]
+          "features": [JSON.parse(JSON.stringify(comparePoi))]
         });
       }, 20);
       this.setData(comparePoi);

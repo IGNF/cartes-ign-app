@@ -81,6 +81,24 @@ const layers = {
     }
   },
 
+  "geotrek-end": {
+    "id": "geotrek-end",
+    "type": "symbol",
+    "source": "geotrek-end",
+    "layout": {
+      "icon-image": "pill-black",
+      "icon-text-fit": "width",
+      "text-field": "Arrivée",
+      "text-size": 14,
+      "text-font": ["Source Sans Pro Semibold"],
+    },
+    "paint": {
+      "text-color": "white",
+      "icon-translate": [0, -20],
+      "text-translate": [0, -24],
+    }
+  },
+
   "geotrek-start": {
     "id": "geotrek-start",
     "type": "symbol",
@@ -108,33 +126,16 @@ const layers = {
           "dot-",
           [
             "match",
-            ["get", "difficulte"],
+            ["get", "difficulte_norm"],
             "Tresfacile", "Tresfacile",
             "Facile", "Facile",
+            "Moyen", "Moyen",
             "Difficile", "Difficile",
             "Tresdifficile", "Tresdifficile",
             "default"
           ]
         ]]
       ],
-      "text-size": 14,
-      "text-font": ["Source Sans Pro Semibold"],
-    },
-    "paint": {
-      "text-color": "white",
-      "icon-translate": [0, -20],
-      "text-translate": [0, -24],
-    }
-  },
-
-  "geotrek-end": {
-    "id": "geotrek-end",
-    "type": "symbol",
-    "source": "geotrek-end",
-    "layout": {
-      "icon-image": "pill-black",
-      "icon-text-fit": "width",
-      "text-field": "Arrivée",
       "text-size": 14,
       "text-font": ["Source Sans Pro Semibold"],
     },

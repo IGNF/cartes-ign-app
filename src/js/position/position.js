@@ -620,7 +620,10 @@ class Position {
       this.datatourismeId = feature.properties.uri;
     }
     if (type === "geotrek") {
-      this.map.getSource("geotrek-start").setData(feature);
+      this.map.getSource("geotrek-start").setData({
+        type: "FeatureCollection",
+        features: [JSON.parse(JSON.stringify(feature))],
+      });
       if (!["boucle", "aller-retour"].includes(feature.properties.type_itineraire.toLowerCase())) {
         this.map.getSource("geotrek-end").setData({
           type: "Feature",

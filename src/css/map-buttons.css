@@ -406,7 +406,7 @@
 
 .routeSaveBtn {
   background-color: var(--dark-green);
-  border: 1px solid var(--dark-green);
+  border: 3px solid var(--dark-green);
   background-image: url("assets/route-draw/save.svg");
   position: fixed;
   top: calc(142px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
