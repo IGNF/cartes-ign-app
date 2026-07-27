@@ -100,6 +100,7 @@ class MapInteractivity {
     this.handleInfoOnMapSafe = (ev) => {
       this.handleInfoOnMap(ev).catch((error) => {
         console.error("Map click handler failed", error);
+        this.map.once("click", this.handleInfoOnMapSafe);
       });
     };
     this.handleUpdateHighlightedGeom = throttle(this.#updateHighlightedGeom.bind(this), 200, {
