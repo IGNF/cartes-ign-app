@@ -307,7 +307,7 @@ class ImmersiveNotifications {
    * @returns {String} text of the notification
    */
   #textTemplate(layer, result, nextResult = "") {
-    let textResult = "";
+    let textResult;
     let text;
     switch (layer) {
     case "LIMITES_ADMINISTRATIVES_EXPRESS.LATEST:commune":
@@ -371,7 +371,7 @@ class ImmersiveNotifications {
    * @returns {String} text of the notification
    */
   #textTemplateQuit(layer) {
-    let notifText = "";
+    let notifText;
     const data = JSON.parse(this.currentData[layer]);
     switch (layer) {
     case "BDTOPO_V3:parc_ou_reserve":

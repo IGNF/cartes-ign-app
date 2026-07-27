@@ -566,7 +566,7 @@ class LayerSwitcher extends EventTarget {
      * @returns
      */
   #addLayerMap(id) {
-    var promise = null;
+    var promise;
 
     var type = this.layers[id].type;
     var style = [];
@@ -664,7 +664,7 @@ class LayerSwitcher extends EventTarget {
             return fetchStyle(fallback, null);
           } else {
             this.layers[id].error = true;
-            throw new Error(e);
+            throw new Error("Failed to load layer style", { cause: e });
           }
         }
       };
