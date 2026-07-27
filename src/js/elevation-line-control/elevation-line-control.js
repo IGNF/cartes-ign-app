@@ -80,7 +80,7 @@ class ElevationLineControl {
    * @param {*} data
    * @public
    */
-  async setData(data) {
+  setData(data) {
     this.coordinates = data.coordinates;
     this.elevationData = data.elevationData;
     this.profileLngLats = data.profileLngLats;
@@ -89,7 +89,9 @@ class ElevationLineControl {
     this.dminus = data.dminus;
 
     this.unit = data.unit;
-    await this.render();
+    this.render().catch((err) => {
+      console.error("Error rendering elevation line control:", err);
+    });
   }
 
   /**
