@@ -44,9 +44,6 @@ export default [
         "always"
       ],
       "license-header/header": ["error", "./license-header.js"],
-      "no-unassigned-vars": "off",
-      "no-useless-assignment": "off",
-      "preserve-caught-error": "off",
       "no-unused-vars": ["error", { "caughtErrors": "none" }]
     }
   }
