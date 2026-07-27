@@ -128,7 +128,7 @@ const onBackKeyDown = () => {
   }
   if (backState === "compareLayers1") {
     Globals.menu.close("compareLayers1");
-    if (previousStates.includes("compareLandmark")) {
+    if (stateParts.includes("compareLandmark")) {
       Globals.menu.open("compareLandmark");
       return;
     }
@@ -136,7 +136,7 @@ const onBackKeyDown = () => {
   }
   if (backState === "compareLayers2") {
     Globals.menu.close("compareLayers2");
-    if (previousStates.includes("compareLandmark")) {
+    if (stateParts.includes("compareLandmark")) {
       Globals.menu.open("compareLandmark");
       return;
     }
