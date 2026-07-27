@@ -86,7 +86,7 @@ class MyAccount {
     this.offlineMaps = [];
 
     this.#addSourcesAndLayers();
-
+    this.render();
     // Defer loading and rendering of stored data to after map is interactive
     // This avoids blocking the UI during cold start
     setTimeout(() => {
@@ -152,11 +152,17 @@ class MyAccount {
       fileStoragePromise = fileStorage.list().then( (files) => {
         files.forEach( (file) => {
           if (file.id.startsWith("route-")) {
-            this.routes.push(file.data);
+            if (!this.routes.some(r => String(r.id) === String(file.data.id))) {
+              this.routes.push(file.data);
+            }
           } else if (file.id.startsWith("landmark-")) {
-            this.landmarks.push(file.data);
+            if (!this.landmarks.some(l => String(l.id) === String(file.data.id))) {
+              this.landmarks.push(file.data);
+            }
           } else if (file.id.startsWith("comparelandmark-")) {
-            this.compareLandmarks.push(file.data);
+            if (!this.compareLandmarks.some(cl => String(cl.id) === String(file.data.id))) {
+              this.compareLandmarks.push(file.data);
+            }
           }
         });
       });

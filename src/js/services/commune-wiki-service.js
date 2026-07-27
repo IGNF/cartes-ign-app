@@ -22,11 +22,12 @@ export async function getCommuneWikiData() {
   }
 
   loadingPromise = import("../../../config/com_wiki.json")
-    .then(module => {
+    .then( (module) => {
       communeWikiData = module.default;
       return communeWikiData;
     })
-    .catch(err => {
+    .catch( (err) => {
+      loadingPromise = null;
       console.error("Failed to load commune wiki data:", err);
       return {};
     });
