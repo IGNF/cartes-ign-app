@@ -643,15 +643,18 @@ class MapInteractivity {
   /**
    * Convertit les coordonnées d'une feature GFI de webmarcator à WGS 84 de manière recursive
    * @param {*} array geometry.coordinates
+   * @param {*} proj4 proj4 instance (loaded once and passed through recursion)
    */
-  async #convertCoords(array) {
+  async #convertCoords(array, proj4 = null) {
+    if (proj4 === null) {
+      proj4 = await getProj4();
+    }
     if (typeof array[0] !== "number") {
       for (const elem of array) {
-        await this.#convertCoords(elem);
+        await this.#convertCoords(elem, proj4);
       }
       return;
     }
-    const proj4 = await getProj4();
     const convertedCoords = proj4(proj4.defs("EPSG:3857"), proj4.defs("EPSG:4326"), array);
     array[0] = convertedCoords[0];
     array[1] = convertedCoords[1];

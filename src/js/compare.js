@@ -349,9 +349,9 @@ class Compare {
     // Ensure maps are initialized
     if (!Globals.mapRLT1 || !Globals.mapRLT2) {
       Globals.initComparisonMaps();
-      this.mapRLT1 = Globals.mapRLT1;
-      this.mapRLT2 = Globals.mapRLT2;
     }
+    this.mapRLT1 = Globals.mapRLT1;
+    this.mapRLT2 = Globals.mapRLT2;
 
     this.mapRLT1.setCenter(params.center);
     this.mapRLT2.setCenter(params.center);
@@ -386,10 +386,10 @@ class Compare {
     // Lazily initialize comparison maps on first use
     if (!Globals.mapRLT1 || !Globals.mapRLT2) {
       Globals.initComparisonMaps();
-      // Update references after lazy initialization
-      this.mapRLT1 = Globals.mapRLT1;
-      this.mapRLT2 = Globals.mapRLT2;
     }
+    // Update references after lazy initialization
+    this.mapRLT1 = Globals.mapRLT1;
+    this.mapRLT2 = Globals.mapRLT2;
 
     // Lazily initialize CompareLandmark control on first use
     if (!Globals.compareLandmark) {
