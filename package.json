@@ -65,6 +65,7 @@
     "@turf/points-within-polygon": "^7.3.5",
     "@turf/union": "^7.3.5",
     "@xmldom/xmldom": "^0.9.10",
+    "brace-expansion": "^5.0.8",
     "capacitor-native-settings": "^8.1.0",
     "chart.js": "^4.5.1",
     "idb": "^8.0.3",
