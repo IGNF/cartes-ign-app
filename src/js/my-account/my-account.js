@@ -84,10 +84,8 @@ class MyAccount {
 
     // cartes téléchargées
     this.offlineMaps = [];
-    this.externalListenersRegistered = false;
 
     this.#addSourcesAndLayers();
-    this.#registerExternalListeners();
     this.render();
     // Defer loading and rendering of stored data to after map is interactive
     // This avoids blocking the UI during cold start
@@ -209,33 +207,6 @@ class MyAccount {
     // REMOVEME
     });
     // END REMOVEME
-  }
-
-  /**
-   * Ajoute les écouteurs d'évènements non liés au DOM afin de capter tôt les deep-links / partages
-   * @private
-   */
-  #registerExternalListeners() {
-    if (this.externalListenersRegistered) {
-      return;
-    }
-    this.externalListenersRegistered = true;
-
-    App.addListener("appUrlOpen", (data) => {
-      // Sometimes this get called after App.getLaunchUrl(). This prevents loading a file twice.
-      if (data.url !== this.launchUrl) {
-        this.#importFileFromUrl(data.url);
-      }
-    });
-
-    // Partage depuis une autre app (android)
-    if (Capacitor.getPlatform() === "android") {
-      window.addEventListener("sendIntentReceived", (e) => {
-        if (e.detail.url) {
-          this.#importFileFromUrl(e.detail.url);
-        }
-      });
-    }
   }
 
   /**
@@ -380,6 +351,21 @@ class MyAccount {
       }
     });
 
+    App.addListener("appUrlOpen", (data) => {
+      // Sometimes this get called after App.getLaunchUrl(). This prevents loading a file twice.
+      if (data.url !== this.launchUrl) {
+        this.#importFileFromUrl(data.url);
+      }
+    });
+
+    // Partage depuis une autre app (android)
+    if (Capacitor.getPlatform() === "android") {
+      window.addEventListener("sendIntentReceived", (e) => {
+        if (e.detail.url) {
+          this.#importFileFromUrl(e.detail.url);
+        }
+      });
+    }
   }
 
   /**
