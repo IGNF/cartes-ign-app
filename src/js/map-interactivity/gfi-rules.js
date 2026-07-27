@@ -147,7 +147,7 @@ const gfiRules = {
       geometry: gfi.features[0].geometry,
     };
     const featureProperties = gfi.features[0].properties;
-    let z = 0;
+    let z;
     z = Object.keys(rule).map(x => parseInt(x)).sort().reduce((prev, curr) => {
       return  (curr <= parseInt(zoom) && prev <= curr ? curr : prev);
     }

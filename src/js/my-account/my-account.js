@@ -469,6 +469,7 @@ class MyAccount {
       let imported;
       let gpxName = "";
       let gpxDesc = "";
+      const xmlMimeType = "application/xml";
       // UTF-8 decoding https://stackoverflow.com/a/64752311
       const rawData = decodeURIComponent(atob(data).split("").map(function(c) {
         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
@@ -477,7 +478,7 @@ class MyAccount {
         extension = "gpx";
       }
       if (extension === "gpx") {
-        const gpxDom = new DOMParser().parseFromString(rawData);
+        const gpxDom = new DOMParser().parseFromString(rawData, xmlMimeType);
         const metadataName = Array.from(gpxDom.getElementsByTagName("name")).find(tag => tag.parentNode.tagName == "metadata");
         if (metadataName) {
           gpxName = metadataName.textContent;
@@ -491,7 +492,7 @@ class MyAccount {
           imported = kml(gpxDom);
         }
       } else if (extension === "kml") {
-        imported = kml(new DOMParser().parseFromString(rawData));
+        imported = kml(new DOMParser().parseFromString(rawData, xmlMimeType));
       } else {
         imported = JSON.parse(rawData);
       }

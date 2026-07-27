@@ -15,7 +15,7 @@ let utils = {
    * @private
    */
   convertDistance (distance, precision=1) {
-    var d = "";
+    var d;
     const factor = 10 ** precision;
     var distanceKm = Math.round((factor * distance / 1000)) / factor;
 

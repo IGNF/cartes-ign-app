@@ -218,8 +218,8 @@ function legend(features, zoom) {
 
   const source = features.length > 0 ? features[0].source : "";
   let legend = "";
-  let svg = "";
-  var layername = "";
+  let svg;
+  var layername;
 
   // Légende pour POI
   if (source == "poi_osm") {
@@ -307,7 +307,7 @@ function legend(features, zoom) {
    * sont utilisés pour générer le svg de légende.
    *
    */
-  var featuresForLegend = [];
+  var featuresForLegend;
   featuresForLegend = stylePLANIGN.filter((elem) => {
     if (elem.id == FeaturesPLANIGN[0].layer.id) {
       return elem;

@@ -40,7 +40,7 @@ try {
             location: "denied",
           };
         } else if (e.code === 2) {
-          throw new Error("Location services disabled");
+          throw new Error("Location services disabled", { cause: e });
         } else {
           return {
             location: "granted",
@@ -651,7 +651,7 @@ const getOrientation = async (event) => {
  * @fire geolocation
  */
 const getLocation = async () => {
-  var results = null;
+  var results;
   var position = currentPosition;
   if (currentPosition === null) {
     await enablePosition();
