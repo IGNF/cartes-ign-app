@@ -5,7 +5,7 @@
   "description": "Découvrez la France autrement et observez l’évolution du territoire",
   "main": "index.js",
   "engines": {
-    "node": ">=22.15.0"
+    "node": "^22.18.0 || >=24.11.0"
   },
   "scripts": {
     "build": "webpack --config webpack.prod.js",
