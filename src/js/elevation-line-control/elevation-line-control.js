@@ -8,20 +8,22 @@
  * Lazy loader for chart.js - only loads when elevation visualization is needed
  * Returns the Chart constructor
  */
-async function loadChart() {
-  const { Chart, ScatterController, LineElement, PointElement, LinearScale, Filler, Tooltip } = await import("chart.js");
-
-  // Register the necessary components
-  Chart.register(
-    ScatterController,
-    LineElement,
-    PointElement,
-    LinearScale,
-    Filler,
-    Tooltip
-  );
-
-  return Chart;
+let chartPromise = null;
+function loadChart() {
+  if (!chartPromise) {
+    chartPromise = import("chart.js").then(({ Chart, ScatterController, LineElement, PointElement, LinearScale, Filler, Tooltip }) => {
+      Chart.register(
+        ScatterController,
+        LineElement,
+        PointElement,
+        LinearScale,
+        Filler,
+        Tooltip
+      );
+      return Chart;
+    });
+  }
+  return chartPromise;
 }
 
 import maplibregl from "maplibre-gl";

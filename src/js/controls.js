@@ -91,13 +91,11 @@ const addControls = () => {
       unit: "metric"
     }), "bottom-left");
 
-
-
     // contrôle fullscreen
     const fullScreenCtrl = new maplibregl.FullscreenControl();
     map.addControl(fullScreenCtrl, "bottom-right");
     DOM.$fullScreenBtn = document.querySelector(".maplibregl-ctrl-bottom-right > .maplibregl-ctrl");
-    const fullScreenBtnParent = document.querySelectorAll(".maplibregl-ctrl-bottom-right")[2];
+    const fullScreenBtnParent = document.querySelectorAll(".maplibregl-ctrl-bottom-right")[0];
     fullScreenCtrl.on("fullscreenstart", () => {
       DOM.$map.appendChild(DOM.$interactivityBtn);
       DOM.$map.appendChild(DOM.$mapScale);

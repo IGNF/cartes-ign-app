@@ -506,6 +506,11 @@ class MenuNavigation {
       if (!Globals.mapRLT1 || !Globals.mapRLT2) {
         Globals.initComparisonMaps();
       }
+      // Ensure compare maps are initialized in the control
+      if (Globals.compare) {
+        Globals.compare.mapRLT1 = Globals.mapRLT1;
+        Globals.compare.mapRLT2 = Globals.mapRLT2;
+      }
       document.querySelector("#mapRLT2").classList.remove("d-none");
       DOM.$bottomButtons.classList.remove("d-none");
       DOM.$tabContainer.classList.add("compare");
