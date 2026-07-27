@@ -40,9 +40,9 @@ let lastTextInSearch = "";
 let myPositionMarker = null;
 let searchResultMarker = null;
 
-let myPositionIcon;
-let myPositionIconGrey;
-let searchResultIcon;
+let myPositionIcon = null;
+let myPositionIconGrey = null;
+let searchResultIcon = null;
 
 // Pour l'annulation de fetch
 let searchAbortController = new AbortController();

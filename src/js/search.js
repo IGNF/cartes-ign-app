@@ -213,7 +213,7 @@ class Search {
     for (let i = 0 ; i < response.results.length; i++) {
       let elem = response.results[i];
       let splitedText = this.computeLocationFullText(elem).split(",");
-      let city = "";
+      let city;
       if (splitedText.length > 1){
         city = splitedText[1].trim();
       } else {
@@ -345,7 +345,7 @@ class Search {
       return { lat: lat, lon: lon };
     };
 
-    var coord = {};
+    var coord;
     coord = tryparse(toparse);
 
     if (coord.lat === undefined || coord.lon === undefined) {

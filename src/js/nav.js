@@ -148,7 +148,7 @@ class MenuNavigation {
       element.classList.remove("d-none");
     }
 
-    let target = null;
+    let target;
 
     // y'a t il des particularités sur l'ouverture du panneau demandé ?
     var isSpecific = false;

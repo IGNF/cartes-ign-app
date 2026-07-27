@@ -242,7 +242,7 @@ const addGray = (id) => {
     }
     originalLayerColors[layer.id] = {};
     if (layer.metadata && layer.metadata.group === id) {
-      var value = null;
+      var value;
       if (layer.type === "symbol")  {
         value = Globals.map.getPaintProperty(layer.id, "icon-color");
         if (value) {
