@@ -115,7 +115,10 @@ const addListeners = () => {
     } else if (Globals.backButtonState.split("-")[0] === "selectOnMapCompareLandmark") {
       Globals.menu.close("selectOnMapCompareLandmark");
       Globals.menu.open("compareLandmark");
-      Globals.compareLandmark.location = [Globals.mapRLT1.getCenter().lng, Globals.mapRLT1.getCenter().lat];
+      // Set location on compareLandmark - will be initialized by menu.open()
+      if (Globals.compareLandmark) {
+        Globals.compareLandmark.location = [Globals.mapRLT1.getCenter().lng, Globals.mapRLT1.getCenter().lat];
+      }
     }
   });
 

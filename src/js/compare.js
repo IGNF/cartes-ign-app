@@ -10,6 +10,7 @@ import syncMaps from "@mapbox/mapbox-gl-sync-move";
 import Globals from "./globals";
 import DOM from "./dom";
 import LayersConfig from "./layer-manager/layer-config";
+import CompareLandmark from "./compare-landmark";
 
 import { Capacitor } from "@capacitor/core";
 
@@ -31,8 +32,9 @@ class Compare {
     this.prevDataLayerDisplayed = "";
     this.container = "#cartoContainer";
     this.map = Globals.map;
-    this.mapRLT1 = Globals.mapRLT1;
-    this.mapRLT2 = Globals.mapRLT2;
+    // Comparison maps will be lazily initialized on show()
+    this.mapRLT1 = null;
+    this.mapRLT2 = null;
 
     this.fadeSliderInput = document.getElementById("sideBySideFadeSlider-range-input");
 
@@ -344,6 +346,13 @@ class Compare {
    * @param {*} params {zoom: mode: layer1: layer2: center: }
    */
   setParams(params) {
+    // Ensure maps are initialized
+    if (!Globals.mapRLT1 || !Globals.mapRLT2) {
+      Globals.initComparisonMaps();
+    }
+    this.mapRLT1 = Globals.mapRLT1;
+    this.mapRLT2 = Globals.mapRLT2;
+
     this.mapRLT1.setCenter(params.center);
     this.mapRLT2.setCenter(params.center);
     this.mapRLT1.setZoom(params.zoom);
@@ -373,12 +382,33 @@ class Compare {
     if (this.actived) {
       return;
     }
+
+    // Lazily initialize comparison maps on first use
+    if (!Globals.mapRLT1 || !Globals.mapRLT2) {
+      Globals.initComparisonMaps();
+    }
+    // Update references after lazy initialization
+    this.mapRLT1 = Globals.mapRLT1;
+    this.mapRLT2 = Globals.mapRLT2;
+
+    // Lazily initialize CompareLandmark control on first use
+    if (!Globals.compareLandmark) {
+      Globals.compareLandmark = new CompareLandmark(Globals.mapRLT1, Globals.mapRLT2, {});
+      console.debug("[CompareLandmark] Initialized lazily");
+    }
+
     DOM.$compassBtn.click();
     this.actived = true;
     this.mode = "leftright";
     document.querySelector("#map").classList.add("d-none");
     document.querySelector("#mapRLT1").classList.remove("d-none");
     document.querySelector("#mapRLT2").classList.remove("d-none");
+
+    // Trigger resize to recalculate map dimensions after containers become visible
+    // This is essential for lazy-loaded maps that were created while hidden
+    this.mapRLT1.resize();
+    this.mapRLT2.resize();
+
     // HACK: Nécessaire pour iOS qui ne met pas à jour la taille de l'écran au lancement...
     if (Capacitor.getPlatform() === "ios") {
       setTimeout(() => this.mapRLT1.resize(), 50);

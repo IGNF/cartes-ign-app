@@ -4,24 +4,30 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import {
-  Chart as ChartJS,
-  ScatterController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Filler,
-  Tooltip
-} from "chart.js";
-
-ChartJS.register(
-  ScatterController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Filler,
-  Tooltip
-);
+/**
+ * Lazy loader for chart.js - only loads when elevation visualization is needed
+ * Returns the Chart constructor
+ */
+let chartPromise = null;
+function loadChart() {
+  if (!chartPromise) {
+    chartPromise = import("chart.js").then(({ Chart, ScatterController, LineElement, PointElement, LinearScale, Filler, Tooltip }) => {
+      Chart.register(
+        ScatterController,
+        LineElement,
+        PointElement,
+        LinearScale,
+        Filler,
+        Tooltip
+      );
+      return Chart;
+    }).catch((err) => {
+      chartPromise = null;
+      throw err;
+    });
+  }
+  return chartPromise;
+}
 
 import maplibregl from "maplibre-gl";
 import ElevationLine from "../services/elevation-line";
@@ -83,7 +89,9 @@ class ElevationLineControl {
     this.dminus = data.dminus;
 
     this.unit = data.unit;
-    this.render();
+    this.render().catch((err) => {
+      console.error("Error rendering elevation line control:", err);
+    });
   }
 
   /**
@@ -106,7 +114,7 @@ class ElevationLineControl {
    * creation de l'interface
    * @public
    */
-  render() {
+  async render() {
     this.#unsetLoading();
     if (this.chart != null) {
       this.clear();
@@ -116,6 +124,9 @@ class ElevationLineControl {
       console.warn();
       return;
     }
+
+    // Load chart.js only when elevation profile is actually rendered
+    const ChartJS = await loadChart();
 
     const chartData = {
       datasets: [{
@@ -372,7 +383,7 @@ Distance du départ : ${distanceText} ${this.unit}`;
         elevation.x = elevation.x / 1000;
       });
     }
-    this.render();
+    await this.render();
   }
 
   /**

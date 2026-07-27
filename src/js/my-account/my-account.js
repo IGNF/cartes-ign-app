@@ -15,6 +15,7 @@ import ActionSheet from "../action-sheet";
 import Location from "../services/location";
 import DOM from "../dom";
 import fileStorage from "../utils/file-storage";
+import CompareLandmark from "../compare-landmark";
 
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
@@ -85,7 +86,22 @@ class MyAccount {
     this.offlineMaps = [];
 
     this.#addSourcesAndLayers();
+    this.render();
+    // Defer loading and rendering of stored data to after map is interactive
+    // This avoids blocking the UI during cold start
+    setTimeout(() => {
+      this.#loadAndRenderData();
+    }, 3000);
 
+    return this;
+  }
+
+  /**
+   * Load stored data and render MyAccount interface
+   * This is deferred to after map is interactive to avoid cold start blocking
+   * @private
+   */
+  #loadAndRenderData() {
     // REMOVEME : rétrocompatibilité des entités enregistrées : migration de préférences à fichier local (post-3.4.5)
     // récupération des itinéraires enregistrés en local
     let promiseRoutes = Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
@@ -136,11 +152,17 @@ class MyAccount {
       fileStoragePromise = fileStorage.list().then( (files) => {
         files.forEach( (file) => {
           if (file.id.startsWith("route-")) {
-            this.routes.push(file.data);
+            if (!this.routes.some(r => String(r.id) === String(file.data.id))) {
+              this.routes.push(file.data);
+            }
           } else if (file.id.startsWith("landmark-")) {
-            this.landmarks.push(file.data);
+            if (!this.landmarks.some(l => String(l.id) === String(file.data.id))) {
+              this.landmarks.push(file.data);
+            }
           } else if (file.id.startsWith("comparelandmark-")) {
-            this.compareLandmarks.push(file.data);
+            if (!this.compareLandmarks.some(cl => String(cl.id) === String(file.data.id))) {
+              this.compareLandmarks.push(file.data);
+            }
           }
         });
       });
@@ -185,7 +207,6 @@ class MyAccount {
     // REMOVEME
     });
     // END REMOVEME
-    return this;
   }
 
   /**
@@ -1066,6 +1087,13 @@ class MyAccount {
       layer2: compareLandmark.properties.layer2,
       center: compareLandmark.geometry.coordinates,
     });
+    // Ensure CompareLandmark control is initialized
+    if (!Globals.compareLandmark) {
+      if (!Globals.mapRLT1 || !Globals.mapRLT2) {
+        Globals.initComparisonMaps();
+      }
+      Globals.compareLandmark = new CompareLandmark(Globals.mapRLT1, Globals.mapRLT2, {});
+    }
     Globals.compareLandmark.show();
     Globals.compareLandmark.setData({
       title: compareLandmark.properties.accroche,
