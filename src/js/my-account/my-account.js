@@ -658,7 +658,9 @@ class MyAccount {
    * @param {*} drawRouteSaveOptions
    */
   addRoute(drawRouteSaveOptions) {
-    drawRouteSaveOptions.data.showOrientation = gisUtils.hasRouteLoop(drawRouteSaveOptions);
+    if (typeof drawRouteSaveOptions.data.showOrientation === "undefined") {
+      drawRouteSaveOptions.data.showOrientation = gisUtils.hasRouteLoop(drawRouteSaveOptions);
+    }
     if (typeof drawRouteSaveOptions.id === "undefined" || drawRouteSaveOptions.id < 0) {
       drawRouteSaveOptions.id = uuidv4();
       this.routes.unshift(drawRouteSaveOptions);
@@ -1516,7 +1518,7 @@ ${props.text}`,
 
   /**
    * Affiche les flèches d'orientation de l'itinéraire si non présentes, ou les cache sinon
-   * @param {*} route
+   * @param {Number} routeId
    */
   toggleShowRouteOrientationFromID(routeId) {
     try {

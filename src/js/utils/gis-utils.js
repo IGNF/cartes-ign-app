@@ -80,8 +80,8 @@ let gisUtils = {
   },
 
   /**
-   * Détecte si un itinéraire (au format drawRouteSaveOptions) contient une boucle, i.e. si la géométrie passe plusieurs fois par le même point.
-   * @param {Object} drawRouteSaveOptions
+   * Détecte si un itinéraire (au format drawRouteSaveOptions) contient une boucle, i.e. si la géométrie se chevauche
+   * @param {Object} route au format drawRouteSaveOptions
    * @returns {boolean} true si l'itinéraire contient une boucle, false sinon
    */
   hasRouteLoop(route) {
