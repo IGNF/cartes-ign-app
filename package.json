@@ -98,6 +98,7 @@
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.7",
     "mini-css-extract-plugin": "^2.10.2",
+    "postcss-safe-parser": "^7.0.1",
     "sass": "^1.101.7",
     "sass-loader": "^17.0.0",
     "sortablejs": "^1.15.7",
