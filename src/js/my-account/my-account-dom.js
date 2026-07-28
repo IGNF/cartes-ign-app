@@ -318,6 +318,7 @@ let MyAccountDOM = {
 
     container.querySelector(`#route-show-advanced-tools_ID_${routeId}`).addEventListener("click", () => {
       const invisibleClass = route.visible ? "" : " invisible";
+      const invisibleArrowsClass = route.data.showOrientation ? "" : " invisible";
       ActionSheet.show({
         options: [
           {
@@ -334,6 +335,11 @@ let MyAccountDOM = {
             class: `tools-layer-visibility${invisibleClass}`,
             text: route.visible ? "Masquer de la carte" : "Afficher sur la carte",
             value: "visibility",
+          },
+          {
+            class: `tools-layer-visibility${invisibleArrowsClass}`,
+            text: route.data.showOrientation ? "Masquer les flèches" : "Afficher les flèches",
+            value: "showArrows",
           },
           {
             class: "tools-layer-edit",
@@ -367,6 +373,9 @@ let MyAccountDOM = {
             container.classList.remove("invisible");
           }
           this.toggleShowRoute(route);
+        }
+        if (value === "showArrows") {
+          this.toggleShowRouteOrientation(route);
         }
         if (value === "share") {
           this.shareRoute(route);

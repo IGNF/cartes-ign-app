@@ -4,6 +4,8 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
+import { lineOverlap } from "@turf/line-overlap";
+
 /**
  * Fonctions utilitaires
  */
@@ -75,7 +77,31 @@ let gisUtils = {
       y: Math.floor((fullYTile - tile.y) * 256),
     };
     return [tile, tilePixel];
-  }
+  },
+
+  /**
+   * Détecte si un itinéraire (au format drawRouteSaveOptions) contient une boucle, i.e. si la géométrie se chevauche
+   * @param {Object} route au format drawRouteSaveOptions
+   * @returns {boolean} true si l'itinéraire contient une boucle, false sinon
+   */
+  hasRouteLoop(route) {
+    if (!route || !route.data || !route.data.steps) {
+      return false;
+    }
+    for (let i = 0; i < route.data.steps.length; i++) {
+      const step = route.data.steps[i];
+      for (let j = i + 1; j < route.data.steps.length; j++) {
+        const step2 = route.data.steps[j];
+        if (step.properties.id !== step2.properties.id) {
+          const overlap = lineOverlap(step.geometry, step2.geometry);
+          if (overlap.features.length > 0) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  },
 };
 
 export default gisUtils;

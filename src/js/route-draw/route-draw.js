@@ -312,6 +312,13 @@ class RouteDraw {
   }
 
   /**
+   * Affiche ou cache les flèches d'orientation de l'itinéraire à l'aide de la méthode de myAccount
+   */
+  toggleShowOrientation() {
+    Globals.myaccount.toggleShowRouteOrientationFromID(this.routeId);
+  }
+
+  /**
    * Exporte l'itinéraire à l'aide de la méthode de myAccount
    */
   exportRoute() {

@@ -83,6 +83,7 @@ let RouteDrawDOM = {
     labelAdvancedTools.tabIndex = "0";
 
     labelAdvancedTools.addEventListener("click", () => {
+      const invisibleArrowsClass = this.data.showOrientation ? "" : " invisible";
       ActionSheet.show({
         options: [
           {
@@ -99,6 +100,11 @@ let RouteDrawDOM = {
             class: "tools-layer-visibility",
             text: "Masquer",
             value: "hide",
+          },
+          {
+            class: `tools-layer-visibility${invisibleArrowsClass}`,
+            text: this.data.showOrientation ? "Masquer les flèches" : "Afficher les flèches",
+            value: "toggleShowOrientation",
           },
           {
             class: "tools-layer-download",
@@ -130,6 +136,9 @@ let RouteDrawDOM = {
         }
         if (value === "hide") {
           this.hideRoute();
+        }
+        if (value === "toggleShowOrientation") {
+          this.toggleShowOrientation();
         }
         if (value === "edit") {
           this.openEdition();

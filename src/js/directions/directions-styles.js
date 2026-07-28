@@ -84,6 +84,7 @@ const layers = [
     },
     filter: ["!=", ["get", "type"], "SNAPLINE"],
   },
+  // TODO: ajouter un layer "symbol" pour afficher les flèches de direction quand ce sera supporté par maplibre-gl-directions.
   {
     id: "maplibre-gl-directions-point-casing",
     type: "circle",
