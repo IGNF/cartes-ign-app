@@ -88,6 +88,7 @@
   position: sticky;
   top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
   background-color: inherit;
+  flex-shrink: 0;
 }
 
 #tabHeader:not(:has(~ div:not(.d-none))) {

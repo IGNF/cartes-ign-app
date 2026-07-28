@@ -13,6 +13,7 @@ action-sheet {
   transform: translateY(100%);
   transition: transform 0.5s ease-in-out;
   height: fit-content;
+  max-height: 100vh;
   width: 100%;
   background-color: white;
   border-top-right-radius: 20px;
@@ -23,6 +24,10 @@ action-sheet {
   z-index: 1;
   box-sizing: border-box;
   padding: 0 6% calc(var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)) + 24px) 6%;
+}
+
+#sheetOptions {
+  overflow: scroll;
 }
 
 .actionSheet-title {
