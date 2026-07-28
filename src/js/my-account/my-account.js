@@ -658,6 +658,7 @@ class MyAccount {
    * @param {*} drawRouteSaveOptions
    */
   addRoute(drawRouteSaveOptions) {
+    drawRouteSaveOptions.data.showOrientation = gisUtils.hasRouteLoop(drawRouteSaveOptions);
     if (typeof drawRouteSaveOptions.id === "undefined" || drawRouteSaveOptions.id < 0) {
       drawRouteSaveOptions.id = uuidv4();
       this.routes.unshift(drawRouteSaveOptions);
@@ -1500,6 +1501,38 @@ ${props.text}`,
   }
 
   /**
+   * Affiche les flèches d'orientation de l'itinéraire si non présentes, ou les cache sinon
+   * @param {*} route
+   */
+  toggleShowRouteOrientation(route) {
+    if (route.data.showOrientation) {
+      route.data.showOrientation = false;
+    } else {
+      route.data.showOrientation = true;
+    }
+    fileStorage.save(route, `route-${route.id}`);
+    this.#updateSources();
+  }
+
+  /**
+   * Affiche les flèches d'orientation de l'itinéraire si non présentes, ou les cache sinon
+   * @param {*} route
+   */
+  toggleShowRouteOrientationFromID(routeId) {
+    try {
+      const route = this.#getRouteFromID(routeId);
+      this.toggleShowRouteOrientation(route);
+    } catch (e) {
+      console.warn(e);
+      Toast.show({
+        text: "L'itinéraire n'a pas pu être ouvert.",
+        duration: "short",
+        position: "bottom"
+      });
+    }
+  }
+
+  /**
    * Affiche l'itinéraire s'il est caché, ou le cache s'il est affiché
    * @param {*} route
    */
@@ -1906,6 +1939,7 @@ ${props.text}`,
           name: route.name,
           visible: visible,
           id: route.id,
+          showOrientation: route.data.showOrientation ? true : false,
         }
       };
       route.data.steps.forEach((step) => {

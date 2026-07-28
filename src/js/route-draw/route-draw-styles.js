@@ -63,21 +63,6 @@ const layers = {
     },
     filter: ["!", ["boolean", ["get", "fictif"], false]],
   },
-  "line-direction": {
-    id: "route-draw-line-direction",
-    type: "symbol",
-    source: "",
-    layout: {
-      "visibility": "visible",
-      "symbol-placement": "line",
-      "symbol-spacing": 70,
-      "icon-image": "route_direction",
-      "icon-allow-overlap": true,
-    },
-    paint: {
-      "icon-opacity": ["case", ["boolean", ["get", "invisible"], false], 0, 1],
-    }
-  },
   "line-dashed": {
     id: "route-draw-line-dashed",
     type: "line",

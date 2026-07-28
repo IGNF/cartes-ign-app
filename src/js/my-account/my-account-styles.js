@@ -61,12 +61,20 @@ const layers = {
     layout: {
       "visibility": "visible",
       "symbol-placement": "line",
-      "symbol-spacing": 70,
+      "symbol-spacing": 140,
       "icon-image": "route_direction",
       "icon-allow-overlap": true,
     },
     paint: {
-      "icon-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0]
+      "icon-opacity": [
+        "case",
+        ["all",
+          ["boolean", ["get", "visible"], false],
+          ["boolean", ["get", "showOrientation"], false]
+        ],
+        1,
+        0
+      ]
     }
   },
   "point-casing": {
