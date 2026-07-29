@@ -15,6 +15,12 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        WebView webview = getBridge().getWebView();
+        webview.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.addJavascriptInterface(new AndroidInterface(), "AndroidInterface");
+
         handleShareIntent(getIntent());
     }
 
@@ -27,12 +33,6 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onStart() {
         super.onStart();
-        WebView webview = getBridge().getWebView();
-        webview.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
-
-        webview.getSettings().setJavaScriptEnabled(true);
-        webview.addJavascriptInterface(new AndroidInterface(), "AndroidInterface");
-
         handleShareIntent(getIntent());
     }
 
