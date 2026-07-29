@@ -5,7 +5,6 @@
  */
 
 import { Capacitor } from "@capacitor/core";
-import { BackgroundGeolocation } from "@capgo/background-geolocation";
 import { LocalNotifications } from "@capacitor/local-notifications";
 
 import Globals from "../globals";
@@ -15,10 +14,115 @@ import utils from "../utils/unit-utils";
 import Location from "../services/location";
 import RouteDrawDOM from "../route-draw/route-draw-dom";
 import ActionSheet from "../action-sheet";
+import PopupUtils from "../utils/popup-utils";
 
 import turfLength from "@turf/length";
 
 import TrackRecordLayers from "./track-record-styles";
+
+let BackgroundGeolocation;
+try {
+  BackgroundGeolocation = (await import("@capgo/background-geolocation")).BackgroundGeolocation;
+} catch (e) {
+  let fallbackWatchId = null;
+  let lastCoords = null;
+  let hasSeenPopup = false;
+  let bgLocationFossPopup = null;
+
+  const distanceMeters = (from, to) => {
+    const segment = {
+      type: "Feature",
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [from.longitude, from.latitude],
+          [to.longitude, to.latitude],
+        ],
+      },
+    };
+    return turfLength(segment, {units: "meters"});
+  };
+
+  BackgroundGeolocation = {
+    start: async (options, callback) => {
+      if (typeof navigator === "undefined" || !navigator.geolocation) {
+        if (callback) {
+          callback(null, new Error("Geolocation API is not available"));
+        }
+        return;
+      }
+
+      if (!hasSeenPopup) {
+        PopupUtils.showPopup(
+          `
+          <div id="bgLocationFossPopup">
+              <div class="divPositionTitle">Position en arrière-plan incompatible avec la version F-Droid</div>
+              <div class="divPopupClose" onclick="onCloseBgLocationFossPopup(event)"></div>
+              <div class="divPopupContent">
+                  La version F-Droid de l'application ne permet pas d'enregistrer votre position en arrière-plan. Pour enregistrer un itinéraire, vous devez laisser l'application ouverte et visible à l'écran. Cela est dû à l'inclusion d'un module Google propriétaire dans la dépendance permettant l'enregistrement de la position en arrière-plan.
+              </div>
+          </div>
+          `,
+          Globals.map,
+          "bgLocationFossPopup",
+          "onCloseBgLocationFossPopup",
+          bgLocationFossPopup,
+        );
+        hasSeenPopup = true;
+      }
+
+      const distanceFilter = Number(options?.distanceFilter || 0);
+
+      if (fallbackWatchId !== null) {
+        navigator.geolocation.clearWatch(fallbackWatchId);
+        fallbackWatchId = null;
+      }
+
+      fallbackWatchId = navigator.geolocation.watchPosition(
+        (position) => {
+          const currentCoords = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          };
+
+          if (lastCoords && distanceFilter > 0 && distanceMeters(lastCoords, currentCoords) < distanceFilter) {
+            return;
+          }
+
+          lastCoords = currentCoords;
+          if (callback) {
+            callback({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              altitude: position.coords.altitude,
+              accuracy: position.coords.accuracy,
+              speed: position.coords.speed,
+              heading: position.coords.heading,
+              timestamp: position.timestamp,
+            }, null);
+          }
+        },
+        (error) => {
+          if (callback) {
+            callback(null, error);
+          }
+        },
+        {
+          maximumAge: 1000,
+          timeout: 15000,
+          enableHighAccuracy: true,
+        }
+      );
+    },
+    stop: async () => {
+      if (fallbackWatchId !== null && typeof navigator !== "undefined" && navigator.geolocation) {
+        navigator.geolocation.clearWatch(fallbackWatchId);
+      }
+      fallbackWatchId = null;
+      lastCoords = null;
+    },
+  };
+}
 
 /**
  * Interface sur le tracé d'itinéraire
