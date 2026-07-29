@@ -23,7 +23,8 @@
       ],
       "bodyAfter": [
         ["<div class=\"unescoDate\"><p><img class=\"unescoimg\" alt=\"{{title}}\" src=\"{{image_url}}\" width=\"150px\">"],
-        ["<span class=\"monumentsHistoriquesImageAuthor\">Crédit de l'image&nbsp;: {{imageCredits}}</span></p></div>"],
+        ["<span class=\"monumentsHistoriquesImageAuthor\">Crédit de l'image&nbsp;: {{imageCredits}}</span>"],
+        ["<span style=\"display:none;\" class=\"{{image_url}}\"></span></p></div>"],
         ["<input type=\"checkbox\" class=\"d-none foldableInput\" id=\"foldableInputDatatourisme\">"],
         ["<div class=\"monumentsHistoriquesContent foldable\">{{{description}}}</div>"],
         ["<label class=\"foldableLabel\" for=\"foldableInputDatatourisme\">&nbsp;Voir&nbsp;</label>"],
