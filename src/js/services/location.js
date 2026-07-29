@@ -58,6 +58,7 @@ try {
     clearWatch: (idObject) => {
       navigator.geolocation.clearWatch(idObject.id);
     },
+    isCustom: true,
   };
 }
 import { Capacitor } from "@capacitor/core";
@@ -163,9 +164,8 @@ const clearLocationWatch = () => {
 const startLocationWatch = () => {
   const watchOptions = getLocationWatchOptions();
   clearLocationWatch();
-  // TODO: update for android with interval parameter instead of using web API
-  // Android frequency problem for geolocation https://www.reddit.com/r/ionic/comments/zfg9xn/capacitor_geolocation_works_great_on_the_web_and/
-  if (Capacitor.getPlatform() === "android") {
+  // Foss implementation of Geolocation
+  if (Capacitor.getPlatform() === "android" && Geolocation.isCustom) {
     watchProvider = "navigator";
     watch_id = navigator.geolocation.watchPosition(watchPositionCallback, (err) => {
       console.warn(err);
@@ -656,7 +656,7 @@ const getLocation = async () => {
   if (currentPosition === null) {
     await enablePosition();
     // Récupération rapide de la position si elle n'est pas connue
-    if (Capacitor.getPlatform() === "android") {
+    if (Capacitor.getPlatform() === "android" && Geolocation.isCustom) {
       position = await new Promise( (resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject, {
           maximumAge: 0,
