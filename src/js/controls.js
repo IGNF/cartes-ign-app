@@ -66,13 +66,12 @@ const addControls = () => {
     Globals.position = new Position(map, {
       tracking : true, // activation du tracking !
       // callback sur l'ouverture / fermeture du panneau
-      openPositionCbk : () => { Globals.menu.open("position"); },
       closePositionCbk : () => { Globals.menu.close("position"); },
-      openIsochroneCbk : () => { Globals.menu.open("isochrone", -1, "position"); },
-      openDirectionsCbk : () => { Globals.menu.open("directions", -1, "position"); },
-      openSignalCbk : () => { Globals.menu.open("signalement", -1, "position"); },
-      openSignalOSMCbk : () => { Globals.menu.open("signalementOSM", -1, "position"); },
-      openLandmarkCbk : () => { Globals.menu.open("landmark", -1, "position"); },
+      openIsochroneCbk : () => { Globals.menu.open("isochrone", -1, Globals.backButtonState); },
+      openDirectionsCbk : () => { Globals.menu.open("directions", -1, Globals.backButtonState); },
+      openSignalCbk : () => { Globals.menu.open("signalement", -1, Globals.backButtonState); },
+      openSignalOSMCbk : () => { Globals.menu.open("signalementOSM", -1, Globals.backButtonState); },
+      openLandmarkCbk : () => { Globals.menu.open("landmark", -1, Globals.backButtonState); },
     });
 
     // contrôle Recherche
