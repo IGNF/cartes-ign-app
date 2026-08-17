@@ -939,7 +939,7 @@
   justify-content: space-around;
   margin: 16px 0;
   gap: 16px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .routeInfos .verticalSeparator {
