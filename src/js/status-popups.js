@@ -72,6 +72,7 @@ function getEditoPopup (map) {
     `
     , map);
     localStorage.setItem("lastEditoPopupId", res.id);
+    localStorage.setItem("dontShowEditoAgain", "false");
   }).catch((err) => {
     console.warn("Could not load edito message");
     console.warn(err);
