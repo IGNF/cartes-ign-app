@@ -58,6 +58,7 @@ const removeGroup = (id) => {
   var layers = Globals.map.getStyle().layers;
   for (var i = 0; i < layers.length; i++) {
     if (layers[i].metadata && layers[i].metadata.group === id) {
+      delete originalLayerOpacity[layers[i].id];
       Globals.map.removeLayer(layers[i].id);
     }
   }
@@ -126,12 +127,13 @@ const addOpacity = (id, value) => {
         Globals.map.setPaintProperty(layer.id, "icon-opacity", value);
         Globals.map.setPaintProperty(layer.id, "text-opacity", value);
       } else {
-        if (!originalLayerOpacity[layer.id]) {
+        if (!(layer.id in originalLayerOpacity)) {
           originalLayerOpacity[layer.id] = Globals.map.getPaintProperty(layer.id, `${layer.type}-opacity`);
         }
         // TODO: gérer quand l'opacity est sous forme de stops
-        if (typeof originalLayerOpacity[layer.id] === "number") {
-          Globals.map.setPaintProperty(layer.id, `${layer.type}-opacity`, value * originalLayerOpacity[layer.id]);
+        const origOpacity = originalLayerOpacity[layer.id] ?? 1;
+        if (typeof origOpacity === "number") {
+          Globals.map.setPaintProperty(layer.id, `${layer.type}-opacity`, value * origOpacity);
         } else {
           Globals.map.setPaintProperty(layer.id, `${layer.type}-opacity`, value);
         }
