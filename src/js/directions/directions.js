@@ -330,21 +330,21 @@ class Directions {
       //    geometry,
       //    legs[]
       //  }
-      if (e.data.code === "Ok") {
+      if (e.data.directions && e.data.directions.code === "Ok") {
         this.#removePreview();
         this.results = new DirectionsResults(this.map, null, {
-          duration : e.data.routes[0].duration || "",
-          distance : e.data.routes[0].distance || "",
+          duration : e.data.directions.routes[0].duration || "",
+          distance : e.data.directions.routes[0].distance || "",
           transport : this.settings.transport,
           computation : this.settings.computation.message,
-          instructions : e.data.routes[0].legs,
-          geometry : e.data.routes[0].geometry,
-          waypoints : e.data.waypoints,
+          instructions : e.data.directions.routes[0].legs,
+          geometry : e.data.directions.routes[0].geometry,
+          waypoints : e.data.directions.waypoints,
           elevation : this.elevation,
         });
         this.results.show();
         let routeCoordinates = [];
-        decode(e.data.routes[0].geometry).forEach( (lnglat) => {
+        decode(e.data.directions.routes[0].geometry).forEach( (lnglat) => {
           routeCoordinates.push([lnglat[0], lnglat[1]]);
         });
         var padding;
@@ -371,7 +371,7 @@ class Directions {
           this.elevation.target = document.getElementById("directions-elevationline");
           this.elevation.loadingDomInDocument = false;
           this.elevation.setCoordinates(routeCoordinates);
-          this.elevation.compute(e.data.routes[0].distance).then( () => {
+          this.elevation.compute(e.data.directions.routes[0].distance).then( () => {
             const newDuration = GisUtils.getHikeTimeScarfsRule(this.results.options.distance, this.elevation.dplus, Globals.walkingSpeed);
             this.results.updateDuration(newDuration);
           });
@@ -388,10 +388,11 @@ class Directions {
    */
   #onAddWayPoint(e) {
     var index = e.data.index;
-    if (!e.originalEvent) {
-      return;
-    }
-    var coordinates = e.originalEvent.lngLat;
+    console.log(e)
+    var coordinates = {
+      lng: e.data.coordinates[0],
+      lat: e.data.coordinates[1]
+    };
     Reverse.compute({
       lon : coordinates.lng,
       lat : coordinates.lat
