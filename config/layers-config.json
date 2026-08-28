@@ -228,7 +228,7 @@
       "title": "Restrictions UAS catégorie Ouverte et Aéromodélisme",
       "description": "Représentation des zones soumises à interdictions ou à restrictions pour l’usage, dans la catégorie Ouverte, ou par des associations d’aéromodélisme (en dehors des sites d’aéromodélisme publiés), d’aéronefs sans équipage à bord (drones ou aéromodèles), sur le territoire métropolitain.<br>Cette carte intègre partiellement les interdictions s’appuyant sur des données publiées hors de l’AIP (Aeronautical Information Publication) et ne couvre pas les interdictions temporaires. Cette carte est basée sur la version en vigueur à compter du 31 décembre 2020, de l’arrêté « Espace » du 3 décembre 2020. Les zones de restriction apparaissant sur la carte correspondent donc uniquement aux limitations indiquées dans l'arrêté Espace.",
       "source": "Service de l’information aéronautique (SIA)",
-      "maj": "Juillet 2025",
+      "maj": "Juillet 2026",
       "serverUrl": "https://data.geopf.fr/wmts",
       "minNativeZoom": 3,
       "maxNativeZoom": 15,
