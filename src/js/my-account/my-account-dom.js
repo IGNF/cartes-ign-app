@@ -327,6 +327,11 @@ let MyAccountDOM = {
             value: "download",
           },
           {
+            class: "tools-layer-follow",
+            text: "Suivre",
+            value: "follow",
+          },
+          {
             class: "tools-layer-share",
             text: "Partager",
             value: "share",
@@ -391,6 +396,9 @@ let MyAccountDOM = {
         }
         if (value === "download") {
           this.downloadRoute(route);
+        }
+        if (value === "follow") {
+          this.followRoute(route);
         }
       });
     });
