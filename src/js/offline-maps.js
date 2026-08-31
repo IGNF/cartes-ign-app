@@ -492,8 +492,8 @@ class OfflineMaps {
   async #downloadTiles(minLng, minLat, maxLng, maxLat, zoomLevels, totalTileNumber) {
     if (this.downloadStarted) {
       this.abortController.abort();
-      this.abortController = new AbortController();
     }
+    this.abortController = new AbortController();
 
     KeepAwake.keepAwake();
     this.downloadStarted = true;
@@ -517,13 +517,25 @@ class OfflineMaps {
               .replace("{y}", y);
 
             const tilePromise = this.limit(() => {
-              return fetch(url, { signal: this.abortController.signal })
-                .then(response => {
-                  if (!response.ok) throw new Error("Fetch failed");
-                  return response.blob();
-                })
-                .then(blob => blob.arrayBuffer())
+              const fetchWithRetry = async (retries) => {
+                const isRetry = retries < 2;
+                const response = await fetch(url, { signal: this.abortController.signal, cache: isRetry ? "reload" : "default" });
+                if (!response.ok) {
+                  if (response.status === 404 && retries > 0) {
+                    return fetchWithRetry(retries - 1);
+                  }
+                  if (response.status === 404) {
+                    return null;
+                  }
+                  throw new Error("Fetch failed");
+                }
+                return response;
+              };
+              return fetchWithRetry(2)
+                .then(response => response ? response.blob() : null)
+                .then(blob => blob ? blob.arrayBuffer() : null)
                 .then(async arrayBuffer => {
+                  if (!arrayBuffer) return;
                   const data = this.#arrayBufferToBase64(arrayBuffer);
                   const tilePath = `${layer}/${zoom}/${x}/${y}`;
                   await this.#storeVectorTile(tilePath, data);
@@ -545,6 +557,7 @@ class OfflineMaps {
                 .catch(err => {
                   if (!this.downloadCanceled) {
                     this.downloadCanceled = true;
+                    this.abortController.abort();
                     this.#openFailedWindow();
                   }
                   KeepAwake.allowSleep();
