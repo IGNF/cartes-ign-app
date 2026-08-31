@@ -388,7 +388,6 @@ class Directions {
    */
   #onAddWayPoint(e) {
     var index = e.data.index;
-    console.log(e)
     var coordinates = {
       lng: e.data.coordinates[0],
       lat: e.data.coordinates[1]
