@@ -110,29 +110,12 @@ class LayerManager extends EventTarget {
           detail: e.detail
         })
       );
-      let layerInLayerDisplayed = false;
-      const layerOptions = {
-        id: e.detail.id,
-        opacity: e.detail.options.opacity,
-        visible: e.detail.options.visibility,
-        gray: e.detail.options.gray,
-        isTempLayer: LayersConfig.getTempLayers().map((layer) => layer.id).includes(e.detail.id),
-      };
-      for(let i = 0; i < Globals.layersDisplayed.length; i++) {
-        if (Globals.layersDisplayed[i] === e.detail.id) {
-          Globals.layersDisplayed[i] = layerOptions;
-          layerInLayerDisplayed = true;
-        }
-        if (Globals.layersDisplayed[i].id === e.detail.id) {
-          layerInLayerDisplayed = true;
-        }
-      }
-      if (!layerInLayerDisplayed) {
-        Globals.layersDisplayed.push(layerOptions);
-      }
+      this.#syncLayersDisplayed(e.detail.entries);
       var element = document.getElementById(e.detail.id);
-      element.classList.add("selectedLayer");
-      this.#updateLayersCounter(e.type);
+      if (element) {
+        element.classList.add("selectedLayer");
+      }
+      this.#updateLayersCounter();
     });
     this.layerSwitcher.addEventListener("removelayer", (e) => {
       /**
@@ -147,22 +130,12 @@ class LayerManager extends EventTarget {
           detail: e.detail
         })
       );
-      let index = -1;
-      for(let i = 0; i < Globals.layersDisplayed.length; i++) {
-        if (Globals.layersDisplayed[i].id === e.detail.id) {
-          index = i;
-          break;
-        }
-      }
-      if (index >= 0) {
-        Globals.layersDisplayed.splice(index, 1);
-      }
+      this.#syncLayersDisplayed(e.detail.entries);
       var element = document.getElementById(e.detail.id);
-      element.classList.remove("selectedLayer");
-      if (e.detail.error) {
-        return;
+      if (element) {
+        element.classList.remove("selectedLayer");
       }
-      this.#updateLayersCounter(e.type);
+      this.#updateLayersCounter();
     });
     this.layerSwitcher.addEventListener("movelayer", (e) => {
       /**
@@ -178,7 +151,7 @@ class LayerManager extends EventTarget {
           detail: e.detail
         })
       );
-      Globals.layersDisplayed.splice(e.detail.positions.new, 0, Globals.layersDisplayed.splice(e.detail.positions.old, 1)[0]);
+      this.#syncLayersDisplayed(e.detail.entries);
     });
     this.layerSwitcher.addEventListener("layervisibility", (e) => {
       /**
@@ -194,7 +167,22 @@ class LayerManager extends EventTarget {
           detail: e.detail
         })
       );
+      this.#syncLayersDisplayed(e.detail.entries);
     });
+  }
+
+  /**
+     * Synchronise les couches persistées avec l'état réel du gestionnaire.
+     */
+  #syncLayersDisplayed(entries = this.layerSwitcher.getLayersOrder()) {
+    const tempLayerIds = LayersConfig.getTempLayers().map((layer) => layer.id);
+    Globals.layersDisplayed = entries.map(([id, options]) => ({
+      id: id,
+      opacity: options.opacity,
+      visible: options.visibility,
+      gray: options.gray,
+      isTempLayer: options.isTempLayer || tempLayerIds.includes(id),
+    }));
   }
 
   /**
@@ -264,19 +252,13 @@ class LayerManager extends EventTarget {
 
   /**
      * Mise à jour du comtpeur de couches sur le gestionnaire de couches
-     * @param {*} type
      */
-  #updateLayersCounter(type) {
-    // cf. l'abonnement à l'ajout / suppression de couche
+  #updateLayersCounter() {
     var counter = document.getElementById("layer-switcher-number");
-    var value = parseInt(counter.textContent, 10);
-    if (type === "addlayer") {
-      value++;
+    if (!counter) {
+      return;
     }
-    if (type === "removelayer") {
-      value--;
-    }
-    counter.textContent = value;
+    counter.textContent = Object.keys(this.layerSwitcher.layers).length;
   }
 
   /**
@@ -284,9 +266,15 @@ class LayerManager extends EventTarget {
      */
   #getLayersAvailableCounter() {
     var counter = document.getElementById("layer-thematics-number");
-    var value = LayersConfig.getBaseLayers().length +
-                    LayersConfig.getThematicLayers().length;
-    counter.textContent = value;
+    if (!counter) {
+      return;
+    }
+    const layerIds = new Set([
+      ...LayersConfig.getBaseLayers(),
+      ...LayersConfig.getThematicLayers(),
+      ...LayersConfig.getTempLayers().map((layer) => layer.id),
+    ]);
+    counter.textContent = layerIds.size;
   }
 }
 

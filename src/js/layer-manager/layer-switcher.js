@@ -87,6 +87,7 @@ class LayerSwitcher extends EventTarget {
        * }
        */
     this.layers = {};
+    this.pendingLayerIds = new Set();
 
     this.#render();
 
@@ -690,6 +691,10 @@ class LayerSwitcher extends EventTarget {
    */
   async addLayer(layerOptions) {
     const id = layerOptions.id;
+    if (!id || this.layers[id] || this.pendingLayerIds.has(id)) {
+      return;
+    }
+    this.pendingLayerIds.add(id);
     var props;
     if (layerOptions.isTempLayer) {
       props = LayersConfig.getTempLayerProps(id);
@@ -722,6 +727,9 @@ class LayerSwitcher extends EventTarget {
     this.#addLayerContainer(id);
     try {
       await this.#addLayerMap(id);
+      if (!this.layers[id]) {
+        return;
+      }
       this.#updatePosition(id);
       this.#setOpacity(id, layerOptions.opacity);
       if (layerOptions.gray) {
@@ -789,8 +797,12 @@ class LayerSwitcher extends EventTarget {
         }
       }
     } catch (e) {
-      this.layers[id].error = true;
+      if (this.layers[id]) {
+        this.layers[id].error = true;
+      }
       throw e;
+    } finally {
+      this.pendingLayerIds.delete(id);
     }
   }
 
@@ -801,6 +813,9 @@ class LayerSwitcher extends EventTarget {
      * @public
      */
   removeLayer(id, isTempLayer = false) {
+    if (!id || !this.layers[id] || this.pendingLayerIds.has(id)) {
+      return;
+    }
     // Comptage du nombre de fonds de plan affichés
     let nbBaseLayers = 0;
     // eslint-disable-next-line no-unused-vars
