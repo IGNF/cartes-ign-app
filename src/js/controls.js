@@ -91,22 +91,43 @@ const addControls = () => {
       unit: "metric"
     }), "bottom-left");
 
-    // contrôle fullscreen
-    const fullScreenCtrl = new maplibregl.FullscreenControl();
-    map.addControl(fullScreenCtrl, "bottom-right");
-    DOM.$fullScreenBtn = document.querySelector(".maplibregl-ctrl-bottom-right > .maplibregl-ctrl");
-    const fullScreenBtnParent = document.querySelectorAll(".maplibregl-ctrl-bottom-right")[0];
-    fullScreenCtrl.on("fullscreenstart", () => {
-      DOM.$map.appendChild(DOM.$interactivityBtn);
-      DOM.$map.appendChild(DOM.$mapScale);
-      DOM.$map.appendChild(fullScreenBtnParent);
-      Globals.interactivityIndicator.hardDisable();
-    });
-    fullScreenCtrl.on("fullscreenend", () => {
-      DOM.$map.parentNode.parentNode.appendChild(DOM.$interactivityBtn);
-      DOM.$bottomButtons.appendChild(DOM.$mapScale);
-      DOM.$bottomButtons.appendChild(fullScreenBtnParent);
-      Globals.interactivityIndicator.enable();
+    // contrôle fullscreen CSS (l'API fullscreen native casse l'affichage edge-to-edge sur iOS)
+    const fullScreenBtnParent = document.createElement("div");
+    fullScreenBtnParent.className = "maplibregl-ctrl-bottom-right";
+    const fullScreenCtrl = document.createElement("div");
+    fullScreenCtrl.className = "maplibregl-ctrl";
+    const fullScreenBtn = document.createElement("button");
+    fullScreenBtn.type = "button";
+    fullScreenBtn.className = "maplibregl-ctrl-fullscreen";
+    fullScreenBtn.title = "Plein écran";
+    fullScreenBtn.setAttribute("aria-label", "Plein écran");
+    fullScreenCtrl.appendChild(fullScreenBtn);
+    fullScreenBtnParent.appendChild(fullScreenCtrl);
+    DOM.$bottomButtons.appendChild(fullScreenBtnParent);
+    DOM.$fullScreenBtn = fullScreenCtrl;
+
+    fullScreenBtn.addEventListener("click", () => {
+      const isFullscreen = DOM.$map.classList.toggle("css-fullscreen");
+      fullScreenBtn.classList.toggle("maplibregl-ctrl-shrink", isFullscreen);
+      fullScreenBtn.classList.toggle("maplibregl-ctrl-fullscreen", !isFullscreen);
+      fullScreenBtn.title = isFullscreen ? "Quitter le plein écran" : "Plein écran";
+      fullScreenBtn.setAttribute("aria-label", fullScreenBtn.title);
+      if (isFullscreen) {
+        Globals.backButtonState = `fullscreen-${Globals.backButtonState}`;
+        DOM.$map.appendChild(DOM.$interactivityBtn);
+        DOM.$map.appendChild(DOM.$mapScale);
+        DOM.$map.appendChild(fullScreenBtnParent);
+        Globals.interactivityIndicator.hardDisable();
+      } else {
+        if (Globals.backButtonState.startsWith("fullscreen-")) {
+          Globals.backButtonState = Globals.backButtonState.substring("fullscreen-".length);
+        }
+        DOM.$map.parentNode.parentNode.appendChild(DOM.$interactivityBtn);
+        DOM.$bottomButtons.appendChild(DOM.$mapScale);
+        DOM.$bottomButtons.appendChild(fullScreenBtnParent);
+        Globals.interactivityIndicator.enable();
+      }
+      map.resize();
     });
 
     // contrôle d'intéractivité de la carte
