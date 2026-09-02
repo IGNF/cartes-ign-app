@@ -49,6 +49,15 @@ class ThreeD {
     return this;
   }
 
+  #trackAddedLayerUsage(layerId) {
+    if (!layerId) {
+      return;
+    }
+    const paq = window._paq || [];
+    window._paq = paq;
+    paq.push(["trackEvent", "Layer", "Add", layerId]);
+  }
+
   async #fetch3dBuildingsLayers() {
     if (!Globals.map.getSource("plan_ign")) {
       Globals.map.addSource("plan_ign", {
@@ -99,6 +108,7 @@ class ThreeD {
       Globals.map.flyTo({pitch: 45, zoom: Math.min(Globals.map.getZoom(), 14)});
     }
     this.terrainOn = true;
+    this.#trackAddedLayerUsage("Relief 3D");
   }
 
   addHillShadeToPlanIgn() {
@@ -137,6 +147,7 @@ class ThreeD {
       Globals.map.flyTo({pitch: 45});
     }
     this.buildingsOn = true;
+    this.#trackAddedLayerUsage("Bâti 3D");
   }
 
   remove3dBuildings() {

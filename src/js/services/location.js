@@ -307,7 +307,7 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
         // Ecouteur uniquement en mode défaut, position, informations, couches ou filtres POI
         if (
           Globals.backButtonState !== "default" &&
-          Globals.backButtonState.split("-")[0] !== "position" &&
+          Globals.backButtonState.split("-")[0].split("%")[0] !== "position" &&
           Globals.backButtonState !== "informations" &&
           Globals.backButtonState !== "layerManager" &&
           Globals.backButtonState !== "poi"
@@ -318,7 +318,7 @@ const moveTo = (coords, zoom = Globals.map.getZoom(), panTo = true, gps = true) 
           lngLat: Globals.myPositionMarker.getLngLat(),
           text: "Ma position",
           type: "myposition"
-        }).then(() => Globals.menu.open("position"));
+        }).then(() => Globals.menu.open("position%marker"));
       });
     }
   }
