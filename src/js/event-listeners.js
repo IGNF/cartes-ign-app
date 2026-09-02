@@ -31,7 +31,11 @@ function addListeners() {
   const map = Globals.map;
 
   /* event listeners pour élément non existants au démarrage */
+  ["pointerdown", "touchstart", "wheel", "keydown"].forEach((eventName) => {
+    document.addEventListener(eventName, State.resetExitConfirmation, true);
+  });
   document.querySelector("body").addEventListener("click", (evt) => {
+    State.resetExitConfirmation();
     var geocode = false;
     /* Résultats autocompletion ou recherche récente */
     let coords = null;
@@ -67,7 +71,10 @@ function addListeners() {
         }, 250);
       } else {
         Geocode.searchAndMoveTo(DOM.$rech.value, coords, save);
-        setTimeout(() => Globals.menu.close("search"), 250);
+        setTimeout(() => {
+          Globals.menu.close("search");
+          Globals.backButtonState = "locationSearched";
+        }, 250);
       }
     }
   }, true);
