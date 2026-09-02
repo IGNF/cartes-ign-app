@@ -679,7 +679,10 @@ class RouteDraw {
 
     // Pas d'autre étape s'il n'y a qu'un point (premier point)
     if (this.data.points.length < 2) {
-      if (Globals.backButtonState === "routeDraw") {
+      if (
+        Globals.backButtonState === "routeDraw"
+        || Globals.backButtonState === "fullscreen-routeDraw"
+      ) {
         this.#listeners();
       }
       // Enregistrement de l'état dans l'historique
@@ -691,7 +694,10 @@ class RouteDraw {
     // Enregistrement de l'état dans l'historique
     this.#saveState();
     // Affichage et réactivation de l'intéractivité si on est toujours dans le tracé d'itinéraire
-    if (Globals.backButtonState === "routeDraw") {
+    if (
+      Globals.backButtonState === "routeDraw"
+      || Globals.backButtonState === "fullscreen-routeDraw"
+    ) {
       this.#listeners();
     }
   }
@@ -731,7 +737,10 @@ class RouteDraw {
       this.#updateElevation();
       this.data.duration -= removedStep[0].properties.duration;
       this.data.distance -= removedStep[0].properties.distance;
-      if (Globals.backButtonState === "routeDraw") {
+      if (
+        Globals.backButtonState === "routeDraw"
+        || Globals.backButtonState === "fullscreen-routeDraw"
+      ) {
         this.__updateRouteInfo(this.data);
       }
       this.#updateSources();
@@ -740,7 +749,10 @@ class RouteDraw {
       this.#updateElevation();
       this.data.duration -= removedStep[0].properties.duration;
       this.data.distance -= removedStep[0].properties.distance;
-      if (Globals.backButtonState === "routeDraw") {
+      if (
+        Globals.backButtonState === "routeDraw"
+        || Globals.backButtonState === "fullscreen-routeDraw"
+      ) {
         this.__updateRouteInfo(this.data);
       }
       this.#updateSources();
@@ -909,7 +921,10 @@ class RouteDraw {
     if (computeElevation) {
       this.#updateElevation();
     }
-    if (Globals.backButtonState === "routeDraw") {
+    if (
+      Globals.backButtonState === "routeDraw"
+      || Globals.backButtonState === "fullscreen-routeDraw"
+    ) {
       this.__updateRouteInfo(this.data);
     }
   }
@@ -994,7 +1009,10 @@ class RouteDraw {
     this.data.points[indexEnd + 1] = point;
 
     this.#updateSources();
-    if (Globals.backButtonState === "routeDraw") {
+    if (
+      Globals.backButtonState === "routeDraw"
+      || Globals.backButtonState === "fullscreen-routeDraw"
+    ) {
       this.__updateRouteInfo(this.data);
     }
   }
@@ -1020,7 +1038,10 @@ class RouteDraw {
       }
     }
     this.data.elevationData = this.elevation.getData();
-    if (Globals.backButtonState === "routeDraw") {
+    if (
+      Globals.backButtonState === "routeDraw"
+      || Globals.backButtonState === "fullscreen-routeDraw"
+    ) {
       if (!this.data.isTrack) {
         this.data.duration = GisUtils.getHikeTimeScarfsRule(this.data.distance, this.data.elevationData.dplus, Globals.walkingSpeed);
       }
@@ -1107,7 +1128,10 @@ class RouteDraw {
    * enregistre l'état précédent dans l'historique et réinitialise les annulations
    */
   #saveState() {
-    if (Globals.backButtonState === "routeDraw") {
+    if (
+      Globals.backButtonState === "routeDraw"
+      || Globals.backButtonState === "fullscreen-routeDraw"
+    ) {
       DOM.$routeDrawCancel.classList.remove("inactive");
     }
     DOM.$routeDrawRestore.classList.add("inactive");

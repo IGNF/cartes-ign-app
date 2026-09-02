@@ -19,6 +19,10 @@ const onBackKeyDown = () => {
   const previousStates = Globals.backButtonState.split("-");
   const backState = Globals.backButtonState.split("-")[0];
   /* comportements custom */
+  if (backState === "fullscreen") {
+    DOM.$fullScreenBtn.querySelector("button").click();
+    return;
+  }
   if (backState == "default") {
     if (Globals.trackRecord.activeRecord) {
       App.minimizeApp();

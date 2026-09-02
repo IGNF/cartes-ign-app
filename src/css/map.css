@@ -59,6 +59,14 @@
   position: fixed;
 }
 
+#map.css-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20000;
+}
+
 .mapRLT {
   height: 100vh;
 }
