@@ -36,6 +36,9 @@ function addListeners() {
   });
   document.querySelector("body").addEventListener("click", (evt) => {
     State.resetExitConfirmation();
+    if (!evt.target.closest("#tabClose, #backTopLeftBtn")) {
+      State.resetSearchResult();
+    }
     var geocode = false;
     /* Résultats autocompletion ou recherche récente */
     let coords = null;
@@ -73,7 +76,7 @@ function addListeners() {
         Geocode.searchAndMoveTo(DOM.$rech.value, coords, save);
         setTimeout(() => {
           Globals.menu.close("search");
-          Globals.backButtonState = "locationSearched";
+          State.setSearchResultActive();
         }, 250);
       }
     }
