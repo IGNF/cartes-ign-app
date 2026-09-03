@@ -88,28 +88,6 @@ const layers = {
     },
     filter: ["boolean", ["get", "fictif"], false],
   },
-  "line-direction": {
-    id: "route-draw-line-direction",
-    type: "symbol",
-    source: "",
-    layout: {
-      "visibility": "visible",
-      "symbol-placement": "line",
-      "symbol-spacing": 140,
-      "icon-image": "route_direction",
-      "icon-allow-overlap": true,
-    },
-    paint: {
-      "icon-opacity": [
-        "case",
-        ["all",
-          ["boolean", ["get", "showOrientation"], false]
-        ],
-        1,
-        0
-      ]
-    }
-  },
   "point-casing": {
     id: "route-draw-point-casing",
     type: "circle",
@@ -177,6 +155,28 @@ const layers = {
       ],
       "circle-color": "#ffffff",
     },
+  },
+  "line-direction": {
+    id: "route-draw-line-direction",
+    type: "symbol",
+    source: "",
+    layout: {
+      "visibility": "visible",
+      "symbol-placement": "line",
+      "symbol-spacing": 140,
+      "icon-image": "route_direction",
+      "icon-allow-overlap": true,
+    },
+    paint: {
+      "icon-opacity": [
+        "case",
+        ["all",
+          ["boolean", ["get", "showOrientation"], false]
+        ],
+        1,
+        0
+      ]
+    }
   },
   "point-departure": {
     id: "route-draw-point-departure",

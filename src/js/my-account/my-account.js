@@ -1921,22 +1921,21 @@ ${props.text}`,
   }
 
   /**
-   * Récupère toutes les lignes des itinéraires sous forme de liste de features à géométrie multilinestring
-   * @returns list of multilinestring features, each feature representing one route
+   * Récupère toutes les lignes des itinéraires sous forme de liste de features géométriques
+   * affichées comme une seule LineString pour éviter les flèches sur chaque petit segment.
+   * @returns list of line features, each feature representing one route
    */
   #getRouteLines() {
-    const allMultiLineFeatures = [];
+    const allRouteLineFeatures = [];
     this.routes.forEach((route) => {
       let visible = false;
       if (route.visible) {
         visible = true;
       }
-      const multilineRouteFeature = {
+      const displayGeometry = gisUtils.getRouteDisplayGeometry(route, 5);
+      const routeLineFeature = {
         type: "Feature",
-        geometry: {
-          type: "MultiLineString",
-          coordinates: []
-        },
+        geometry: displayGeometry,
         properties: {
           name: route.name,
           visible: visible,
@@ -1944,12 +1943,9 @@ ${props.text}`,
           showOrientation: route.data.showOrientation ? true : false,
         }
       };
-      route.data.steps.forEach((step) => {
-        multilineRouteFeature.geometry.coordinates.push(step.geometry.coordinates);
-      });
-      allMultiLineFeatures.push(multilineRouteFeature);
+      allRouteLineFeatures.push(routeLineFeature);
     });
-    return allMultiLineFeatures;
+    return allRouteLineFeatures;
   }
 
   /**
@@ -2045,7 +2041,6 @@ ${props.text}`,
     MyAccountLayers["line-direction"].source = this.configuration.linesource;
     this.map.addLayer(MyAccountLayers["line-casing"]);
     this.map.addLayer(MyAccountLayers["line"]);
-    this.map.addLayer(MyAccountLayers["line-direction"]);
 
     this.map.addSource(this.configuration.pointsource, {
       "type": "geojson",
@@ -2061,6 +2056,8 @@ ${props.text}`,
     MyAccountLayers["point-destination"].source = this.configuration.pointsource;
     this.map.addLayer(MyAccountLayers["point-casing"]);
     this.map.addLayer(MyAccountLayers["point"]);
+    // Ajout après les points pour moins gêner la visualisation des flèches
+    this.map.addLayer(MyAccountLayers["line-direction"]);
     this.map.addLayer(MyAccountLayers["point-departure"]);
     this.map.addLayer(MyAccountLayers["point-destination"]);
 
