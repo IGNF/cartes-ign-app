@@ -306,7 +306,7 @@ class MyAccount {
         this.#updateSources();
       };
       Globals.position.compute({
-        lngLat: e.lngLat,
+        lngLat: {lng: landmark.geometry.coordinates[0], lat: landmark.geometry.coordinates[1]},
         text: title,
         html: `<div class="positionHtmlBefore">${landmark.properties.description.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}</div>`,
         html2: "",
