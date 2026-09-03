@@ -54,6 +54,10 @@
   transition: top 0.3s, opacity 0.5s;
 }
 
+#eventMapBtn.active {
+  box-shadow: 0 0 0 3px var(--dark-green), 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
 .app:has(#filterPoiBtn.higher) #layerManagerBtn  {
   top: calc(76px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
 }

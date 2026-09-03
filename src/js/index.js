@@ -205,6 +205,13 @@ function app() {
           }
           document.querySelector(`#${layer.id}`).click();
         });
+        const syncEventButtonState = () => {
+          const layerElement = document.getElementById(layer.id);
+          eventButton.classList.toggle("active", !!layerElement && layerElement.classList.contains("selectedLayer"));
+        };
+        syncEventButtonState();
+        Globals.manager.addEventListener("addlayer", syncEventButtonState);
+        Globals.manager.addEventListener("removelayer", syncEventButtonState);
       }
       if (layer.colors) {
         document.documentElement.style.setProperty("--event-main", layer.colors.main);
