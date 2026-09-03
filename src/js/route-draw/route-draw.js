@@ -1112,16 +1112,11 @@ class RouteDraw {
     linesource.setData({
       type: "FeatureCollection",
       features: this.data.steps.map((step) => {
-        return {
-          ...step,
-          properties: {
-            ...step.properties,
-            showOrientation: this.data.showOrientation,
-          }
-        };
+          const stepcopy = JSON.parse(JSON.stringify(step));
+          stepcopy.properties.showOrientation = this.data.showOrientation;
+          return stepcopy;
       }),
     });
-
     this.#updatePointSource();
   }
 
