@@ -471,6 +471,68 @@ let DirectionsDOM = {
     div.appendChild(divAddStep);
 
     return div;
+  },
+
+  /**
+   * réinitialise l'état DOM des points (ordre, hidden, boutons suppression)
+   */
+  __resetLocationsDOM() {
+    var list = document.getElementById("divDirectionsLocationsList");
+    if (!list) {
+      return;
+    }
+
+    ["start", "1", "2", "3", "4", "5", "end"].forEach((suffix) => {
+      var item = document.getElementById("divDirectionsLocationsItem_" + suffix);
+      if (item) {
+        list.appendChild(item);
+      }
+    });
+
+    var divAddStep = document.querySelector(".divDirectionsLocationsAddStep");
+    if (divAddStep) {
+      divAddStep.classList.remove("hidden");
+    }
+
+    var removeStep = function(index) {
+      var item = document.getElementById("divDirectionsLocationsItem_" + index);
+      if (item) {
+        item.classList.add("hidden");
+      }
+      var input = document.getElementById("directionsLocation_step_" + index);
+      if (input) {
+        input.value = "";
+        input.dataset.coordinates = "";
+      }
+      if (divAddStep) {
+        divAddStep.classList.remove("hidden");
+      }
+    };
+
+    ["start", "end", "1", "2", "3", "4", "5"].forEach((suffix) => {
+      var item = document.getElementById("divDirectionsLocationsItem_" + suffix);
+      if (!item) {
+        return;
+      }
+      if (suffix === "start" || suffix === "end") {
+        item.classList.remove("hidden");
+      } else {
+        item.classList.add("hidden");
+      }
+      item.querySelectorAll(".lblDirectionsLocationsRemoveImg").forEach((btn) => btn.remove());
+    });
+
+    for (let i = 1; i <= 5; i++) {
+      var stepItem = document.getElementById("divDirectionsLocationsItem_" + i);
+      if (!stepItem) {
+        continue;
+      }
+      var labelRemoveMiddle = document.createElement("label");
+      labelRemoveMiddle.id = "directionsLocationRemoveImg_step_" + i;
+      labelRemoveMiddle.className = "lblDirectionsLocations lblDirectionsLocationsRemoveImg";
+      labelRemoveMiddle.addEventListener("click", () => removeStep(i));
+      stepItem.appendChild(labelRemoveMiddle);
+    }
   }
 };
 
