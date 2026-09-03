@@ -7,6 +7,22 @@
 import Globals from "./globals";
 import DOM from "./dom";
 import { App } from "@capacitor/app";
+import { Toast } from "@capacitor/toast";
+
+let exitConfirmationPending = false;
+let searchResultActive = false;
+
+const resetExitConfirmation = () => {
+  exitConfirmationPending = false;
+};
+
+const resetSearchResult = () => {
+  searchResultActive = false;
+};
+
+const setSearchResultActive = () => {
+  searchResultActive = true;
+};
 
 /**
  * Back Button
@@ -19,11 +35,32 @@ const onBackKeyDown = () => {
   const previousStates = Globals.backButtonState.split("-");
   const backState = Globals.backButtonState.split("-")[0];
   /* comportements custom */
+  if (searchResultActive && backState === "default") {
+    searchResultActive = false;
+    DOM.$rech.value = "";
+    DOM.$resultDiv.hidden = true;
+    DOM.$resultDiv.innerHTML = "";
+    if (Globals.searchResultMarker != null) {
+      Globals.searchResultMarker.remove();
+      Globals.searchResultMarker = null;
+    }
+    return;
+  }
   if (backState === "fullscreen") {
     DOM.$fullScreenBtn.querySelector("button").click();
     return;
   }
   if (backState == "default") {
+    if (!exitConfirmationPending) {
+      exitConfirmationPending = true;
+      Toast.show({
+        text: "Confirmez pour quitter l'application.",
+        duration: "long",
+        position: "bottom"
+      });
+      return;
+    }
+    resetExitConfirmation();
     if (Globals.trackRecord.activeRecord) {
       App.minimizeApp();
       return;
@@ -31,6 +68,7 @@ const onBackKeyDown = () => {
     App.exitApp();
     return;
   }
+  resetExitConfirmation();
   if (backState === "myaccount") {
     DOM.$whiteScreen.style.removeProperty("animation");
     Globals.myaccount.hide();
@@ -230,5 +268,8 @@ const onBackKeyDown = () => {
 };
 
 export default {
-  onBackKeyDown
+  onBackKeyDown,
+  resetExitConfirmation,
+  resetSearchResult,
+  setSearchResultActive
 };
