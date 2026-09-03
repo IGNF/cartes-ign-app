@@ -195,14 +195,24 @@ function app() {
         eventButton.classList.remove("d-none");
         eventButton.title = layer.mainScreenBtn.title;
         eventButton.style.backgroundImage = `url(${layer.mainScreenBtn.iconUrl})`;
+        const eventMapLayerId = `${layer.id}$$$${layer.id}`;
+        let eventButtonPending = false;
         eventButton.addEventListener("click", () => {
-          if (!Globals.map.getLayer(`${layer.id}$$$${layer.id}`)) {
-            Globals.map.once("idle", () => {
-              if (Globals.map.queryRenderedFeatures({layers: [`${layer.id}$$$${layer.id}`]}).length === 0) {
-                Globals.map.flyTo({zoom: 4, center: [2.0, 47.33]});
-              }
-            });
+          // Le bouton reste inactif tant que la carte n'a pas fini d'appliquer le changement de couche
+          if (eventButtonPending) {
+            return;
           }
+          eventButtonPending = true;
+          eventButton.setAttribute("aria-disabled", "true");
+          const wasDisplayed = !!Globals.map.getLayer(eventMapLayerId);
+          Globals.map.once("idle", () => {
+            if (!wasDisplayed && Globals.map.getLayer(eventMapLayerId) &&
+              Globals.map.queryRenderedFeatures({ layers: [eventMapLayerId] }).length === 0) {
+              Globals.map.flyTo({ zoom: 4, center: [2.0, 47.33] });
+            }
+            eventButtonPending = false;
+            eventButton.removeAttribute("aria-disabled");
+          });
           document.querySelector(`#${layer.id}`).click();
         });
         const syncEventButtonState = () => {
