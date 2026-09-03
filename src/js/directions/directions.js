@@ -87,6 +87,9 @@ class Directions {
     // résultats du calcul
     this.results = null;
 
+    // compteur d'events addwaypoint à ignorer lors d'un compute programmatique
+    this.skipAddWaypointEvents = 0;
+
     // carte
     this.map = map;
 
@@ -296,8 +299,14 @@ class Directions {
           if (settings.locations[index]) {
             point = JSON.parse(settings.locations[index]);
             points.push(point);
-            this.obj.addWaypoint(point);
           }
+        }
+
+        // Pendant un compute via formulaire, on ne veut pas que addwaypoint
+        // réécrive les champs et permute étape/arrivée.
+        this.skipAddWaypointEvents = points.length;
+        for (let index = 0; index < points.length; index++) {
+          this.obj.addWaypoint(points[index]);
         }
       } catch (e) {
         // catching des exceptions JSON
@@ -387,6 +396,11 @@ class Directions {
    * @returns
    */
   #onAddWayPoint(e) {
+    if (this.skipAddWaypointEvents > 0) {
+      this.skipAddWaypointEvents--;
+      return;
+    }
+
     var index = e.data.index;
     var coordinates = {
       lng: e.data.coordinates[0],
