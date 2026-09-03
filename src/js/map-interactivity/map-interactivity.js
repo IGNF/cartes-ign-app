@@ -197,7 +197,7 @@ class MapInteractivity {
         features[0].properties.color = colorFromSymbo[features[0].properties.symbo];
         source.setData({
           "type": "FeatureCollection",
-          "features": [JSON.parse(JSON.stringify(features[0]))]
+          "features": [structuredClone(features[0])]
         });
         let animationFrameId = null;
         const animationDuration = 180;
@@ -210,7 +210,7 @@ class MapInteractivity {
           features[0].properties.radiusRatio = progress;
           source.setData({
             "type": "FeatureCollection",
-            "features": [JSON.parse(JSON.stringify(features[0]))]
+            "features": [structuredClone(features[0])]
           });
           if (progress < 1) {
             animationFrameId = requestAnimationFrame(animateSelection);
@@ -462,7 +462,7 @@ class MapInteractivity {
       if (toFuse.length > 1) {
         let featCollec = {
           "type": "FeatureCollection",
-          "features": JSON.parse(JSON.stringify(toFuse)),
+          "features": structuredClone(toFuse),
         };
         union[0] = Union(Buffer(featCollec, 5, {units: "meters"}));
       }
@@ -471,7 +471,7 @@ class MapInteractivity {
       if (toFuse.length > 1) {
         let featCollec = {
           "type": "FeatureCollection",
-          "features": JSON.parse(JSON.stringify(toFuse)),
+          "features": structuredClone(toFuse),
         };
         union[0] = Union(featCollec, {properties: union[0].properties});
       }
@@ -479,7 +479,7 @@ class MapInteractivity {
     }
     source.setData({
       "type": "FeatureCollection",
-      "features": JSON.parse(JSON.stringify(union)),
+      "features": structuredClone(union),
     });
   }
 

@@ -197,7 +197,7 @@ class OfflineMaps {
    */
   getOfflineMapsOrderedList() {
     const list = Object.values(this.offlineMapsList).sort( (map1, map2) => map1.index - map2.index);
-    return JSON.parse(JSON.stringify(list));
+    return structuredClone(list);
   }
 
   /**

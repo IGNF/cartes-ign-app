@@ -115,7 +115,7 @@ class DirectionsResults {
       transport = "car";
     }
     this.routeDrawSave = new RouteDrawSave(null, {
-      data: JSON.parse(JSON.stringify(this.#directionsDataToRouteDrawData(this.options))),
+      data: structuredClone(this.#directionsDataToRouteDrawData(this.options)),
       transport: transport,
       name: "",
       id: -1,
