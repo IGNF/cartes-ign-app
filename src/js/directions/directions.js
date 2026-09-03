@@ -482,7 +482,7 @@ class Directions {
       element.dataset.coordinates = "";
     }
     this.#removePreview();
-    document.querySelectorAll(".lblDirectionsLocationsRemoveImg").forEach( (elem) => elem.click());
+    this.__resetLocationsDOM();
     this.__unsetComputeButtonLoading();
     this.dom.buttonCompute.classList.add("disabled");
   }
