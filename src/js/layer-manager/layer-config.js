@@ -101,7 +101,7 @@ const getLayerProps = (id) => {
  * @returns
  */
 const getTempLayerProps = (id) => {
-  var props = JSON.parse(JSON.stringify(config.tempLayers)).filter(elem => elem.id === id)[0];
+  var props = structuredClone(config.tempLayers).filter(elem => elem.id === id)[0];
   return {
     layer: props.id,
     base: false, // couche de fonds ou autre
@@ -157,7 +157,7 @@ const getThematicLayers = () => {
  * @returns
  */
 const getTempLayers = () => {
-  return JSON.parse(JSON.stringify(config.tempLayers));
+  return structuredClone(config.tempLayers);
 };
 
 /**

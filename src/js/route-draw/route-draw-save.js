@@ -81,7 +81,7 @@ class RouteDrawSave {
     }
     this.options.name = name;
     this.options.visible = true;
-    Globals.myaccount.addRoute(JSON.parse(JSON.stringify(this.options)));
+    Globals.myaccount.addRoute(structuredClone(this.options));
   }
 
   /**

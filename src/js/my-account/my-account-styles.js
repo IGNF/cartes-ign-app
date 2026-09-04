@@ -54,29 +54,6 @@ const layers = {
       ],
     }
   },
-  "line-direction": {
-    id: "my-account-line-direction",
-    type: "symbol",
-    source: "",
-    layout: {
-      "visibility": "visible",
-      "symbol-placement": "line",
-      "symbol-spacing": 140,
-      "icon-image": "route_direction",
-      "icon-allow-overlap": true,
-    },
-    paint: {
-      "icon-opacity": [
-        "case",
-        ["all",
-          ["boolean", ["get", "visible"], false],
-          ["boolean", ["get", "showOrientation"], false]
-        ],
-        1,
-        0
-      ]
-    }
-  },
   "point-casing": {
     id: "my-account-point-casing",
     type: "circle",
@@ -140,6 +117,29 @@ const layers = {
       ],
       "circle-color": "white",
       "circle-opacity": ["case", ["boolean", ["get", "visible"], false], 1, 0],
+    }
+  },
+  "line-direction": {
+    id: "my-account-line-direction",
+    type: "symbol",
+    source: "",
+    layout: {
+      "visibility": "visible",
+      "symbol-placement": "line",
+      "symbol-spacing": 140,
+      "icon-image": "route_direction",
+      "icon-allow-overlap": true,
+    },
+    paint: {
+      "icon-opacity": [
+        "case",
+        ["all",
+          ["boolean", ["get", "visible"], false],
+          ["boolean", ["get", "showOrientation"], false]
+        ],
+        1,
+        0
+      ]
     }
   },
   "point-departure": {

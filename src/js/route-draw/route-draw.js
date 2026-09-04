@@ -164,7 +164,7 @@ class RouteDraw {
    * @public
    */
   activate() {
-    this.dataHistory.unshift(JSON.parse(JSON.stringify(this.data)));
+    this.dataHistory.unshift(structuredClone(this.data));
     this.dom.titlewrapper.classList.add("d-none");
     this.dom.changeMode.classList.remove("d-none");
     this.#listeners();
@@ -316,6 +316,8 @@ class RouteDraw {
    */
   toggleShowOrientation() {
     Globals.myaccount.toggleShowRouteOrientationFromID(this.routeId);
+    this.data.showOrientation = !this.data.showOrientation;
+    this.#updateSources();
   }
 
   /**
@@ -359,7 +361,7 @@ class RouteDraw {
       }
       let savedPoints;
       if (this.data.points.length === 1) {
-        savedPoints = JSON.parse(JSON.stringify(this.data.points));
+        savedPoints = structuredClone(this.data.points);
       }
       this.clear();
       if (savedPoints) {
@@ -430,7 +432,7 @@ class RouteDraw {
       id = this.routeId;
     }
     this.routeDrawSave = new RouteDrawSave(null, {
-      data: JSON.parse(JSON.stringify(this.data)),
+      data: structuredClone(this.data),
       transport: this.transport,
       name: name,
       id: id,
@@ -471,7 +473,7 @@ class RouteDraw {
     };
     this.nextPointId++;
     if (this.movedPointIndex < this.data.steps.length) {
-      const newStep = JSON.parse(JSON.stringify(this.data.steps[this.movedPointIndex]));
+      const newStep = structuredClone(this.data.steps[this.movedPointIndex]);
       newStep.properties.id = this.nextStepId;
       newStep.properties.invisible = true;
       this.nextStepId++;
@@ -840,7 +842,7 @@ class RouteDraw {
         firstPoint.geometry.coordinates[0] !== json.geometry.coordinates[0][0] &&
         firstPoint.geometry.coordinates[1] !== json.geometry.coordinates[0][1])
       {
-        const oldFirstPoint = JSON.parse(JSON.stringify(firstPoint));
+        const oldFirstPoint = structuredClone(firstPoint);
         this.data.points.splice(index, 0, oldFirstPoint);
         const distance = new MapLibreGL.LngLat(
           oldFirstPoint.geometry.coordinates[0], oldFirstPoint.geometry.coordinates[1]
@@ -1046,14 +1048,14 @@ class RouteDraw {
         this.data.duration = GisUtils.getHikeTimeScarfsRule(this.data.distance, this.data.elevationData.dplus, Globals.walkingSpeed);
       }
       if (this.dataHistory[this.currentHistoryPosition]) {
-        this.dataHistory[this.currentHistoryPosition].elevationData = JSON.parse(JSON.stringify(this.data.elevationData));
+        this.dataHistory[this.currentHistoryPosition].elevationData = structuredClone(this.data.elevationData);
         this.dataHistory[this.currentHistoryPosition].duration = this.data.duration;
       }
       this.__updateRouteInfo(this.data);
       // Si mode lecture seule mais que l'alti est recalculée (non sauvegardé de base), on la rajoute dans les données enregistrées
       if (this.readonly) {
         this.routeDrawSave = new RouteDrawSave(null, {
-          data: JSON.parse(JSON.stringify(this.data)),
+          data: structuredClone(this.data),
           transport: this.transport,
           name: this.name,
           id: this.routeId,
@@ -1078,9 +1080,11 @@ class RouteDraw {
     RouteDrawLayers["line-casing"].source = this.configuration.linesource;
     RouteDrawLayers["line"].source = this.configuration.linesource;
     RouteDrawLayers["line-dashed"].source = this.configuration.linesource;
+    RouteDrawLayers["line-direction"].source = this.configuration.linesource;
     this.map.addLayer(RouteDrawLayers["line-casing"]);
     this.map.addLayer(RouteDrawLayers["line"]);
     this.map.addLayer(RouteDrawLayers["line-dashed"]);
+    this.map.addLayer(RouteDrawLayers["line-direction"]);
 
     this.map.addSource(this.configuration.pointsource, {
       "type": "geojson",
@@ -1107,9 +1111,12 @@ class RouteDraw {
     var linesource = this.map.getSource(this.configuration.linesource);
     linesource.setData({
       type: "FeatureCollection",
-      features: this.data.steps,
+      features: this.data.steps.map((step) => {
+        const stepcopy = structuredClone(step);
+        stepcopy.properties.showOrientation = this.data.showOrientation;
+        return stepcopy;
+      }),
     });
-
     this.#updatePointSource();
   }
 
@@ -1136,7 +1143,7 @@ class RouteDraw {
     }
     DOM.$routeDrawRestore.classList.add("inactive");
     this.dataHistory = this.dataHistory.splice(this.currentHistoryPosition, this.dataHistory.length);
-    this.dataHistory.unshift(JSON.parse(JSON.stringify(this.data)));
+    this.dataHistory.unshift(structuredClone(this.data));
     this.currentHistoryPosition = 0;
   }
 
@@ -1149,7 +1156,7 @@ class RouteDraw {
     }
     this.currentHistoryPosition++;
     DOM.$routeDrawRestore.classList.remove("inactive");
-    this.data = JSON.parse(JSON.stringify(this.dataHistory[this.currentHistoryPosition]));
+    this.data = structuredClone(this.dataHistory[this.currentHistoryPosition]);
     if (this.data.elevationData.elevationData && this.data.elevationData.elevationData.length > 1) {
       this.elevation.setData(this.data.elevationData);
     } else {
@@ -1171,7 +1178,7 @@ class RouteDraw {
     }
     this.currentHistoryPosition--;
     DOM.$routeDrawCancel.classList.remove("inactive");
-    this.data = JSON.parse(JSON.stringify(this.dataHistory[this.currentHistoryPosition]));
+    this.data = structuredClone(this.dataHistory[this.currentHistoryPosition]);
     if (this.data.elevationData.elevationData) {
       if (this.data.elevationData.elevationData.length > 1) {
         this.elevation.setData(this.data.elevationData);

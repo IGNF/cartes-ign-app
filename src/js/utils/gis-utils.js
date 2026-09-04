@@ -50,6 +50,64 @@ let gisUtils = {
     return dissolvedCoords;
   },
 
+  getCoordinateDistance(coordA, coordB) {
+    if (!Array.isArray(coordA) || !Array.isArray(coordB) || coordA.length < 2 || coordB.length < 2) {
+      return Infinity;
+    }
+
+    const toRadians = (degrees) => degrees * Math.PI / 180;
+    const lon1 = coordA[0];
+    const lat1 = coordA[1];
+    const lon2 = coordB[0];
+    const lat2 = coordB[1];
+    const earthRadius = 6371000;
+    const deltaLat = toRadians(lat2 - lat1);
+    const deltaLon = toRadians(lon2 - lon1);
+    const sinLat = Math.sin(deltaLat / 2);
+    const sinLon = Math.sin(deltaLon / 2);
+    const a = sinLat * sinLat + Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * sinLon * sinLon;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return earthRadius * c;
+  },
+
+  getRouteDisplayGeometry(route, toleranceMeters = 5) {
+    if (!route || !route.data || !Array.isArray(route.data.steps) || route.data.steps.length === 0) {
+      return {
+        type: "LineString",
+        coordinates: [],
+      };
+    }
+
+    const mergedCoordinates = [];
+
+    route.data.steps.forEach((step) => {
+      if (!step || !step.geometry || !Array.isArray(step.geometry.coordinates) || step.geometry.coordinates.length === 0) {
+        return;
+      }
+
+      const stepCoordinates = step.geometry.coordinates.map((coord) => [...coord]);
+
+      if (mergedCoordinates.length > 0) {
+        const previousCoord = mergedCoordinates[mergedCoordinates.length - 1];
+        const nextCoord = stepCoordinates[0];
+        const distance = this.getCoordinateDistance(previousCoord, nextCoord);
+
+        if (distance <= toleranceMeters) {
+          stepCoordinates.shift();
+        } else if (distance <= toleranceMeters * 3) {
+          stepCoordinates[0] = previousCoord.length >= 2 ? [previousCoord[0], previousCoord[1], ...(previousCoord.slice(2))] : [...previousCoord];
+        }
+      }
+
+      mergedCoordinates.push(...stepCoordinates);
+    });
+
+    return {
+      type: "LineString",
+      coordinates: mergedCoordinates,
+    };
+  },
+
   // https://en.wikipedia.org/wiki/Naismith's_rule#Scarf's_equivalence_between_distance_and_climb
   // all parameters in standard units (meters and m/s, result in seconds)
   getHikeTimeScarfsRule(horizontalDistance, verticalDistance, speed) {

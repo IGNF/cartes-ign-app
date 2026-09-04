@@ -709,14 +709,14 @@ class MyAccount {
    */
   addLandmark(landmarkGeojson) {
     if (typeof landmarkGeojson.id === "undefined" || landmarkGeojson.id < 0) {
-      landmarkGeojson = JSON.parse(JSON.stringify(landmarkGeojson));
+      landmarkGeojson = structuredClone(landmarkGeojson);
       landmarkGeojson.id = uuidv4();
       this.landmarks.unshift(landmarkGeojson);
       this.landmarksOrder.unshift(landmarkGeojson.id);
     } else {
       for (let i = 0; i < this.landmarks.length; i++) {
         if (this.landmarks[i].id === landmarkGeojson.id){
-          this.landmarks[i] = JSON.parse(JSON.stringify(landmarkGeojson));
+          this.landmarks[i] = structuredClone(landmarkGeojson);
           break;
         }
       }
@@ -732,14 +732,14 @@ class MyAccount {
    */
   addCompareLandmark(compareLandmarkGeojson) {
     if (typeof compareLandmarkGeojson.id === "undefined" || compareLandmarkGeojson.id < 0) {
-      compareLandmarkGeojson = JSON.parse(JSON.stringify(compareLandmarkGeojson));
+      compareLandmarkGeojson = structuredClone(compareLandmarkGeojson);
       compareLandmarkGeojson.id = uuidv4();
       this.compareLandmarks.unshift(compareLandmarkGeojson);
       this.compareLandmarksOrder.unshift(compareLandmarkGeojson.id);
     } else {
       for (let i = 0; i < this.compareLandmarks.length; i++) {
         if (this.compareLandmarks[i].id === compareLandmarkGeojson.id){
-          this.compareLandmarks[i] = JSON.parse(JSON.stringify(compareLandmarkGeojson));
+          this.compareLandmarks[i] = structuredClone(compareLandmarkGeojson);
           break;
         }
       }
@@ -922,7 +922,7 @@ class MyAccount {
     this.hide();
     Globals.routeDraw.show();
     Globals.routeDraw.setTransport(route.transport);
-    Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
+    Globals.routeDraw.setData(structuredClone(route.data));
     Globals.routeDraw.setName(route.name);
     Globals.routeDraw.setId(route.id);
   }
@@ -1022,7 +1022,7 @@ class MyAccount {
     });
     this.hide();
     Globals.routeDraw.setTransport(route.transport);
-    Globals.routeDraw.setData(JSON.parse(JSON.stringify(route.data)));
+    Globals.routeDraw.setData(structuredClone(route.data));
     Globals.routeDraw.setName(route.name);
     Globals.routeDraw.setId(route.id);
     Globals.routeDraw.showDetails();
@@ -1701,7 +1701,7 @@ ${props.text}`,
    * @returns
    */
   #routeToGeojson(route, linesStyle="default") {
-    let steps = JSON.parse(JSON.stringify(route.data.steps));
+    let steps = structuredClone(route.data.steps);
     if (linesStyle === "gpx") {
       const coords = [];
       steps.forEach( (step) => {
@@ -1921,22 +1921,21 @@ ${props.text}`,
   }
 
   /**
-   * Récupère toutes les lignes des itinéraires sous forme de liste de features à géométrie multilinestring
-   * @returns list of multilinestring features, each feature representing one route
+   * Récupère toutes les lignes des itinéraires sous forme de liste de features géométriques
+   * affichées comme une seule LineString pour éviter les flèches sur chaque petit segment.
+   * @returns list of line features, each feature representing one route
    */
   #getRouteLines() {
-    const allMultiLineFeatures = [];
+    const allRouteLineFeatures = [];
     this.routes.forEach((route) => {
       let visible = false;
       if (route.visible) {
         visible = true;
       }
-      const multilineRouteFeature = {
+      const displayGeometry = gisUtils.getRouteDisplayGeometry(route, 5);
+      const routeLineFeature = {
         type: "Feature",
-        geometry: {
-          type: "MultiLineString",
-          coordinates: []
-        },
+        geometry: displayGeometry,
         properties: {
           name: route.name,
           visible: visible,
@@ -1944,12 +1943,9 @@ ${props.text}`,
           showOrientation: route.data.showOrientation ? true : false,
         }
       };
-      route.data.steps.forEach((step) => {
-        multilineRouteFeature.geometry.coordinates.push(step.geometry.coordinates);
-      });
-      allMultiLineFeatures.push(multilineRouteFeature);
+      allRouteLineFeatures.push(routeLineFeature);
     });
-    return allMultiLineFeatures;
+    return allRouteLineFeatures;
   }
 
   /**
@@ -1964,7 +1960,7 @@ ${props.text}`,
         visible = true;
       }
       route.data.points.forEach((point) => {
-        const newPoint = JSON.parse(JSON.stringify(point));
+        const newPoint = structuredClone(point);
         newPoint.properties.visible = visible;
         allPointFeatures.push(newPoint);
       });
@@ -1990,7 +1986,7 @@ ${props.text}`,
     const landmarksource = this.map.getSource(this.configuration.landmarksource);
     const landmarksWithIds = [];
     this.landmarks.forEach((landmark) => {
-      const landmarkCopy = JSON.parse(JSON.stringify(landmark));
+      const landmarkCopy = structuredClone(landmark);
       landmarkCopy.properties.id = landmarkCopy.id;
       landmarksWithIds.push(landmarkCopy);
     });
@@ -2002,7 +1998,7 @@ ${props.text}`,
     const compareLandmarksource = this.map.getSource(this.configuration.compareLandmarksource);
     const compareLandmarksWithIds = [];
     this.compareLandmarks.forEach((compareLandmark) => {
-      const compareLandmarkCopy = JSON.parse(JSON.stringify(compareLandmark));
+      const compareLandmarkCopy = structuredClone(compareLandmark);
       compareLandmarkCopy.properties.id = compareLandmarkCopy.id;
       compareLandmarksWithIds.push(compareLandmarkCopy);
     });
@@ -2045,7 +2041,6 @@ ${props.text}`,
     MyAccountLayers["line-direction"].source = this.configuration.linesource;
     this.map.addLayer(MyAccountLayers["line-casing"]);
     this.map.addLayer(MyAccountLayers["line"]);
-    this.map.addLayer(MyAccountLayers["line-direction"]);
 
     this.map.addSource(this.configuration.pointsource, {
       "type": "geojson",
@@ -2061,6 +2056,8 @@ ${props.text}`,
     MyAccountLayers["point-destination"].source = this.configuration.pointsource;
     this.map.addLayer(MyAccountLayers["point-casing"]);
     this.map.addLayer(MyAccountLayers["point"]);
+    // Ajout après les points pour moins gêner la visualisation des flèches
+    this.map.addLayer(MyAccountLayers["line-direction"]);
     this.map.addLayer(MyAccountLayers["point-departure"]);
     this.map.addLayer(MyAccountLayers["point-destination"]);
 
