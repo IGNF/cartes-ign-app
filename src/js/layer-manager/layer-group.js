@@ -271,18 +271,46 @@ const addGray = (id) => {
           originalLayerColors[layer.id]["icon-image"] = value;
           Globals.map.setLayoutProperty(layer.id, "icon-image", value + "__bw");
         }
+        // Pour pouvoir mettre en noir et blanc les images composites via text-field (geotrek)
         value = Globals.map.getLayoutProperty(layer.id, "text-field");
         if (value) {
           let wasCopied = false;
           value.forEach( (elem) => {
             if (elem[0] === "image") {
+              // Copie des valeurs originales pour pouvoir les restaurer en enlevant le n&b
               if (!wasCopied) {
                 originalLayerColors[layer.id]["text-field"] = structuredClone(value);
                 wasCopied = true;
               }
-              // Cas de base, match simple
+              /* Cas de base, match simple
+              dans geotrek, correspond à
+                ["image", [
+                  "match",
+                  ["get", "pratique_norm"],
+                  "Pédestre", "pedestre",
+                  "Cyclo", "cyclo",
+                  "Équestre", "equestre",
+                  "pedestre"
+                ]]
+              */
               let newElem = elem[1];
-              // Cas concat + match
+              /* Cas concat + match
+              dans geotrek, correspond à
+                ["image", [
+                  "concat",
+                  "dot-",
+                  [
+                    "match",
+                    ["get", "difficulte_norm"],
+                    "Tresfacile", "Tresfacile",
+                    "Facile", "Facile",
+                    "Moyen", "Moyen",
+                    "Difficile", "Difficile",
+                    "Tresdifficile", "Tresdifficile",
+                    "default"
+                  ]
+                ]]
+              */
               if (Array.isArray(elem[1][2])) {
                 newElem = elem[1][2];
               }
