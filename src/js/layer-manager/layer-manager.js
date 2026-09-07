@@ -110,7 +110,7 @@ class LayerManager extends EventTarget {
           detail: e.detail
         })
       );
-      this.#syncLayersDisplayed(e.detail.entries);
+      this.#upsertLayerDisplayed(e.detail.id, e.detail.options);
       var element = document.getElementById(e.detail.id);
       if (element) {
         element.classList.add("selectedLayer");
@@ -130,7 +130,7 @@ class LayerManager extends EventTarget {
           detail: e.detail
         })
       );
-      this.#syncLayersDisplayed(e.detail.entries);
+      this.#removeLayerDisplayed(e.detail.id);
       var element = document.getElementById(e.detail.id);
       if (element) {
         element.classList.remove("selectedLayer");
@@ -175,14 +175,50 @@ class LayerManager extends EventTarget {
      * Synchronise les couches persistées avec l'état réel du gestionnaire.
      */
   #syncLayersDisplayed(entries = this.layerSwitcher.getLayersOrder()) {
+    if (!entries.length) {
+      return;
+    }
     const tempLayerIds = LayersConfig.getTempLayers().map((layer) => layer.id);
-    Globals.layersDisplayed = entries.map(([id, options]) => ({
+    const currentLayers = new Map(
+      Globals.layersDisplayed
+        .filter((layer) => layer && typeof layer.id === "string")
+        .map((layer) => [layer.id, layer])
+    );
+    const synchronizedLayers = entries.map(([id, options]) => {
+      const existingLayer = currentLayers.get(id);
+      return {
+        id: id,
+        opacity: options.opacity,
+        visible: options.visibility,
+        gray: options.gray,
+        isTempLayer: options.isTempLayer || tempLayerIds.includes(id),
+        ...(existingLayer && {isTempLayer: existingLayer.isTempLayer}),
+      };
+    });
+    const synchronizedIds = new Set(synchronizedLayers.map((layer) => layer.id));
+    Globals.layersDisplayed = synchronizedLayers.concat(
+      [...currentLayers.values()].filter((layer) => !synchronizedIds.has(layer.id))
+    );
+  }
+
+  #upsertLayerDisplayed(id, options) {
+    const layer = {
       id: id,
       opacity: options.opacity,
       visible: options.visibility,
       gray: options.gray,
-      isTempLayer: options.isTempLayer || tempLayerIds.includes(id),
-    }));
+      isTempLayer: options.isTempLayer,
+    };
+    const index = Globals.layersDisplayed.findIndex((displayedLayer) => displayedLayer?.id === id);
+    if (index >= 0) {
+      Globals.layersDisplayed[index] = layer;
+    } else {
+      Globals.layersDisplayed.push(layer);
+    }
+  }
+
+  #removeLayerDisplayed(id) {
+    Globals.layersDisplayed = Globals.layersDisplayed.filter((layer) => layer && layer.id !== id);
   }
 
   /**
