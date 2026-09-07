@@ -107,6 +107,7 @@ import "../css/app.scss";
 
 // Affichage des éléments PWA en mode WE (Toast et ActionSheet)
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
+import domUtils from "./utils/dom-utils";
 defineCustomElements(window);
 
 /**
@@ -317,6 +318,10 @@ function app() {
     const imageUrl = LayersConfig.getTempLayers().filter((config) => config.id === layer)[0].iconUrl;
     map.loadImage(imageUrl).then((image) => {
       map.addImage(layer, image.data);
+      domUtils.convertToGreyscaleCanvas(image.data).then( (data) => {
+        map.addImage(layer + "__bw", data);
+      });
+
     });
   }
 
