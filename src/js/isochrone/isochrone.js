@@ -136,7 +136,7 @@ class Isochrone {
     var ids = instance.layers.map((o) => { return o.id; });
 
     // creation des filtres
-    var filters = structuredClone(instance.filters); // clone
+    var filters = JSON.parse(JSON.stringify(instance.filters)); // clone
     return {
       id: source,
       config: config,

@@ -111,7 +111,7 @@ class compareLandmark {
         return;
       }
       const compareLandmarkJson = this.#generateGeoJson();
-      Globals.myaccount.addCompareLandmark(structuredClone(compareLandmarkJson));
+      Globals.myaccount.addCompareLandmark(JSON.parse(JSON.stringify(compareLandmarkJson)));
       Toast.show({
         text: "Point de repère enregistré dans 'Enregistrés'",
         duration: "long",

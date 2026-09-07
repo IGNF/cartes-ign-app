@@ -622,7 +622,7 @@ class Position {
     if (type === "geotrek") {
       this.map.getSource("geotrek-start").setData({
         type: "FeatureCollection",
-        features: [structuredClone(feature)],
+        features: [JSON.parse(JSON.stringify(feature))],
       });
       if (!["boucle", "aller-retour"].includes(feature.properties.type_itineraire.toLowerCase())) {
         this.map.getSource("geotrek-end").setData({

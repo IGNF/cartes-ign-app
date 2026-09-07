@@ -108,7 +108,7 @@ class Landmark {
         return;
       }
       const landmarkJson = this.#generateGeoJson();
-      Globals.myaccount.addLandmark(structuredClone(landmarkJson));
+      Globals.myaccount.addLandmark(JSON.parse(JSON.stringify(landmarkJson)));
       Toast.show({
         text: "Point de repère enregistré dans 'Enregistrés'",
         duration: "long",
