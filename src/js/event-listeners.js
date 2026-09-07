@@ -193,9 +193,7 @@ function addListeners() {
     const map = Globals.map;
     const sourceIds = [];
     const sources = map.getStyle().sources;
-
     for (const id in sources) {
-
       if (sources[id].url?.startsWith("pmtiles://")) {
         sourceIds.push(id);
       }

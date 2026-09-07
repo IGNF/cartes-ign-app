@@ -305,6 +305,13 @@ function app() {
   }
   for (let layer in LayersConfig.tempLayerSources) {
     source = LayersConfig.tempLayerSources[layer];
+    if (source.url.includes("pmtiles://")) {
+      if (source.url.includes("?")) {
+        source.url = source.url + "&nocachetoken=" + Date.now();
+      } else {
+        source.url = source.url + "?nocachetoken=" + Date.now();
+      }
+    }
     map.addSource(layer, source);
 
     const imageUrl = LayersConfig.getTempLayers().filter((config) => config.id === layer)[0].iconUrl;
