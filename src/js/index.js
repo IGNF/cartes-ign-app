@@ -107,6 +107,7 @@ import "../css/app.scss";
 
 // Affichage des éléments PWA en mode WE (Toast et ActionSheet)
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
+import domUtils from "./utils/dom-utils";
 defineCustomElements(window);
 
 /**
@@ -315,8 +316,14 @@ function app() {
     map.addSource(layer, source);
 
     const imageUrl = LayersConfig.getTempLayers().filter((config) => config.id === layer)[0].iconUrl;
+    // Chargement de l'image d'évènement temporaire
     map.loadImage(imageUrl).then((image) => {
       map.addImage(layer, image.data);
+      // L'image d'évènement temporaire est ensuite chargée en noir et blanc pour le passage en noir et blanc via le layserSwitcher
+      domUtils.convertToGreyscaleCanvas(image.data).then( (data) => {
+        map.addImage(layer + "__bw", data);
+      });
+
     });
   }
 

@@ -271,6 +271,58 @@ const addGray = (id) => {
           originalLayerColors[layer.id]["icon-image"] = value;
           Globals.map.setLayoutProperty(layer.id, "icon-image", value + "__bw");
         }
+        // Pour pouvoir mettre en noir et blanc les images composites via text-field (geotrek)
+        value = Globals.map.getLayoutProperty(layer.id, "text-field");
+        if (value) {
+          let wasCopied = false;
+          value.forEach( (elem) => {
+            if (elem[0] === "image") {
+              // Copie des valeurs originales pour pouvoir les restaurer en enlevant le n&b
+              if (!wasCopied) {
+                originalLayerColors[layer.id]["text-field"] = structuredClone(value);
+                wasCopied = true;
+              }
+              /* Cas de base, match simple
+              dans geotrek, correspond à
+                ["image", [
+                  "match",
+                  ["get", "pratique_norm"],
+                  "Pédestre", "pedestre",
+                  "Cyclo", "cyclo",
+                  "Équestre", "equestre",
+                  "pedestre"
+                ]]
+              */
+              let newElem = elem[1];
+              /* Cas concat + match
+              dans geotrek, correspond à
+                ["image", [
+                  "concat",
+                  "dot-",
+                  [
+                    "match",
+                    ["get", "difficulte_norm"],
+                    "Tresfacile", "Tresfacile",
+                    "Facile", "Facile",
+                    "Moyen", "Moyen",
+                    "Difficile", "Difficile",
+                    "Tresdifficile", "Tresdifficile",
+                    "default"
+                  ]
+                ]]
+              */
+              if (Array.isArray(elem[1][2])) {
+                newElem = elem[1][2];
+              }
+              for (let i = 3; i < newElem.length; i++) {
+                if (i === elem.length - 1 || i % 2 === 1) {
+                  newElem[i] += "__bw";
+                }
+              }
+            }
+          });
+          Globals.map.setLayoutProperty(layer.id, "text-field", value);
+        }
       } else {
         value = Globals.map.getPaintProperty(layer.id, `${layer.type}-color`);
         if (value) {
@@ -321,7 +373,7 @@ const addColor = (id) => {
     if (layer.type !== "raster") {
       if (layer.metadata && layer.metadata.group === id) {
         Object.entries(originalLayerColors[layer.id]).forEach((entry) => {
-          if (entry[0] === "icon-image") {
+          if (entry[0] === "icon-image" || entry[0] === "text-field") {
             Globals.map.setLayoutProperty(layer.id, entry[0], entry[1]);
           } else {
             Globals.map.setPaintProperty(layer.id, entry[0], entry[1]);

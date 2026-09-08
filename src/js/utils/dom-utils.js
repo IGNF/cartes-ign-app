@@ -83,6 +83,21 @@ let domUtils = {
       top: 0,
       behavior : "smooth",
     });
+  },
+
+  convertToGreyscaleCanvas: async (imageBitmap) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = imageBitmap.width;
+    canvas.height = imageBitmap.height;
+    const ctx = canvas.getContext("2d");
+
+    // Apply the native CSS filter to the canvas context
+    ctx.filter = "grayscale(100%)";
+    ctx.drawImage(imageBitmap, 0, 0);
+
+    // Optional: Convert back to a new greyscale ImageBitmap
+    const grayscaleBitmap = await createImageBitmap(canvas);
+    return grayscaleBitmap;
   }
 
 };
