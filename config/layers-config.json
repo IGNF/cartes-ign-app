@@ -256,7 +256,7 @@
       "title": "Villages étapes",
       "description": "Localisation des Villages étapes. Alternatives aux aires de services, les communes labellisées offrent une pause alliant commerces, équipements et convivialité.<br>Les communes labellisées Villages étapes sont des communes de moins de 5 000 habitants et sont situées à moins de 5 km d'un grand axe routier national.<br>Label national créé en 1995.",
       "source": "Fédération française des villages étapes",
-      "maj": "Juin 2026",
+      "maj": "Septembre 2026",
       "serverUrl": "https://data.geopf.fr/wms-v/ows?SERVICE=WMS&",
       "style": "default-style-VILLAGESETAPE",
       "format": "image/png"
