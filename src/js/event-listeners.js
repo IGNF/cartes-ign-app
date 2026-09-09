@@ -26,11 +26,43 @@ const getClickedButtonElement = (target) => {
   if (!(target instanceof Element)) {
     return null;
   }
-  return target.closest("button, input[type='button'], input[type='submit'], [role='button'], .button");
+  const querySelectors = [
+    "button:not(.mapboxgl-accessibility-marker)",
+    "input[type='button']",
+    "input[type='submit']",
+    "[role='button']",
+    ".button",
+    ".navitem",
+    ".layer-tabs-label",
+    ".tabs-label",
+    ".divPOIDisplay",
+    ".chkContainer",
+    "#displayPOIGoBackTime",
+    ".divIsochroneDisplayOption",
+    "#myGeoLocation",
+    "#selectOnMap",
+    ".recentresult",
+    ".autocompresult",
+    ".newsfeedShareBtn",
+    "#routeDrawMode",
+    "#routeDrawSaveNameInputSubmit",
+    ".form-submit:not(.disabled)",
+    ".routeDrawVehicleSelect .radio-wrapper",
+    "#myAccountImportBtnRoutes",
+    "#myAccountImportBtnLandmarks",
+    "#myAccountDownloadMapBtn",
+    ".trackRecordBtn",
+    ".actionSheet-list-option",
+    ".positionInfo",
+    ".handle-draggable-layer",
+    ".tabs-menu-btn",
+  ];
+  return target.closest(querySelectors.join(", "));
 };
 
 const getButtonTrackingLabel = (buttonElement) => {
   const label = buttonElement.dataset.matomoLabel
+    || buttonElement.getAttribute("title")
     || buttonElement.getAttribute("aria-label")
     || buttonElement.id
     || buttonElement.name
@@ -69,7 +101,7 @@ function addListeners() {
   ["pointerdown", "touchstart", "wheel", "keydown"].forEach((eventName) => {
     document.addEventListener(eventName, State.resetExitConfirmation, true);
   });
-  document.querySelector("body").addEventListener("click", trackButtonClick, true);
+  document.querySelector("body").addEventListener("pointerdown", trackButtonClick, true);
   document.querySelector("body").addEventListener("click", (evt) => {
     State.resetExitConfirmation();
     if (!evt.target.closest("#tabClose, #backTopLeftBtn")) {
