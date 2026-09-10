@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import { lineOverlap } from "@turf/line-overlap";
+import { lineIntersect } from "@turf/line-intersect";
 
 /**
  * Fonctions utilitaires
@@ -151,8 +151,18 @@ let gisUtils = {
       for (let j = i + 1; j < route.data.steps.length; j++) {
         const step2 = route.data.steps[j];
         if (step.properties.id !== step2.properties.id) {
-          const overlap = lineOverlap(step.geometry, step2.geometry);
-          if (overlap.features.length > 0) {
+          const intersections = lineIntersect(step.geometry, step2.geometry);
+          const expectedAdjacentIntersection = j === i + 1
+            ? step.geometry.coordinates[step.geometry.coordinates.length - 1]
+            : null;
+          const hasUnexpectedIntersection = intersections.features.some((intersection) => {
+            const coordinates = intersection.geometry.coordinates;
+            return !expectedAdjacentIntersection
+              || coordinates[0] !== expectedAdjacentIntersection[0]
+              || coordinates[1] !== expectedAdjacentIntersection[1];
+          });
+
+          if (hasUnexpectedIntersection) {
             return true;
           }
         }

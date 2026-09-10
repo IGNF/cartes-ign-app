@@ -140,6 +140,7 @@ class DirectionsResults {
       elevationData = {
         elevationData: options.elevation.elevationData,
         coordinates: options.elevation.profileLngLats,
+        profileLngLats: options.elevation.profileLngLats,
         dplus: options.elevation.dplus,
         dminus: options.elevation.dminus,
         unit: options.elevation.unit,

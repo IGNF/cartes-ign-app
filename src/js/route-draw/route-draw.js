@@ -1239,7 +1239,6 @@ class RouteDraw {
     Promise.all(promises).then(() => {
       this.#updateElevation();
       this.#updateSources();
-      this.data.isTrack = false;
       this.__updateRouteInfo(this.data);
       this.#saveState();
       DOM.$routeDrawSnap.classList.remove("loading");

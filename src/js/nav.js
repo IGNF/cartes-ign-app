@@ -300,6 +300,9 @@ class MenuNavigation {
       DOM.$routeDrawEdit.classList.add("d-none");
       DOM.$routeDrawSaveBtn.classList.add("d-none");
       DOM.$directionsSaveBtn.classList.add("d-none");
+      if (document.getElementById("eventMapBtn")) {
+        document.getElementById("eventMapBtn").classList.remove("d-none");
+      }
       DOM.$bottomButtons.classList.remove("routeDraw");
       Globals.currentScrollIndex = 1;
       break;
@@ -312,6 +315,9 @@ class MenuNavigation {
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.remove("d-none");
         DOM.$routeDrawSaveBtn.classList.remove("d-none");
+        if (document.getElementById("eventMapBtn")) {
+          document.getElementById("eventMapBtn").classList.add("d-none");
+        }
         DOM.$bottomButtons.classList.add("routeDraw");
         Globals.routeDraw.activate();
       }
@@ -397,6 +403,9 @@ class MenuNavigation {
       DOM.$backTopLeftBtn.classList.remove("d-none");
       DOM.$tabContainer.classList.add("white");
       DOM.$directionsSaveBtn.classList.remove("d-none");
+      if (document.getElementById("eventMapBtn")) {
+        document.getElementById("eventMapBtn").classList.add("d-none");
+      }
       Globals.interactivityIndicator.enable();
       DOM.$tabContainer.classList.remove("noHeight");
       Globals.currentScrollIndex = 2;
@@ -633,6 +642,9 @@ class MenuNavigation {
       DOM.$filterPoiBtn.classList.remove("d-none");
       DOM.$tabContainer.classList.add("white");
       DOM.$directionsSaveBtn.classList.remove("d-none");
+      if (document.getElementById("eventMapBtn")) {
+        document.getElementById("eventMapBtn").classList.add("d-none");
+      }
       Globals.interactivityIndicator.enable();
       DOM.$tabContainer.classList.remove("noHeight");
       Globals.currentScrollIndex = 2;
@@ -662,6 +674,9 @@ class MenuNavigation {
       if (!Globals.routeDraw.readonly) {
         DOM.$routeDrawEdit.classList.add("d-none");
         DOM.$routeDrawSaveBtn.classList.add("d-none");
+        if (document.getElementById("eventMapBtn")) {
+          document.getElementById("eventMapBtn").classList.remove("d-none");
+        }
         DOM.$bottomButtons.classList.remove("routeDraw");
       }
       DOM.$tabContainer.classList.remove("white");
@@ -735,6 +750,9 @@ class MenuNavigation {
     case "directionsResults":
       DOM.$tabContainer.classList.remove("white");
       DOM.$directionsSaveBtn.classList.add("d-none");
+      if (document.getElementById("eventMapBtn")) {
+        document.getElementById("eventMapBtn").classList.remove("d-none");
+      }
       Globals.interactivityIndicator.hardDisable();
       isSpecific = true;
       isFinished = true;

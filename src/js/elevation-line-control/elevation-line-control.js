@@ -83,6 +83,9 @@ class ElevationLineControl {
   setData(data) {
     this.coordinates = data.coordinates;
     this.elevationData = data.elevationData;
+    if (!data.profileLngLats) {
+      data.profileLngLats = data.coordinates;
+    }
     this.profileLngLats = data.profileLngLats;
 
     this.dplus = data.dplus;

@@ -1005,7 +1005,6 @@ class MyAccount {
     if (route.visible) {
       route.visible = false;
       this.#updateSources();
-      document.getElementById(`route-container_ID_${route.id}`).classList.add("invisible");
     }
     let coordinates = [];
     route.data.steps.forEach((step) => {
