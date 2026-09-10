@@ -6,6 +6,53 @@
 
 // styles personnalisés
 const layers = {
+  "line-casing": {
+    id: "track-record-line-casing",
+    type: "line",
+    source: "",
+    layout: {
+      "line-cap": "round",
+      "line-join": "round",
+    },
+    paint: {
+      "line-color": "white",
+      "line-opacity": [
+        "case",
+        ["boolean", ["get", "invisible"], false], 0,
+        1],
+      "line-width": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        3,
+        5,
+        3,
+        18,
+        6,
+      ],
+    },
+    filter: ["!", ["boolean", ["get", "fictif"], false]],
+  },
+  "point-casing": {
+    id: "track-record-point-casing",
+    type: "circle",
+    source: "",
+    paint: {
+      "circle-radius": [
+        "interpolate",
+        ["exponential", 1.5],
+        ["zoom"],
+        0,
+        3.5,
+        5,
+        3.5,
+        18,
+        5,
+      ],
+      "circle-color": "white",
+    },
+  },
   "line": {
     id: "track-record-line",
     type: "line",

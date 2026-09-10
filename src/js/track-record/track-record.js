@@ -704,15 +704,20 @@ class TrackRecord {
       }
     });
 
+    TrackRecordLayers["line-casing"].source = this.configuration.linesource;
     TrackRecordLayers["line"].source = this.configuration.linesource;
-    this.map.addLayer(TrackRecordLayers["line"]);
+
 
     this.map.addSource(this.configuration.pointsource, {
       "type": "geojson",
       "data": this.currentPoints,
     });
 
+    TrackRecordLayers["point-casing"].source = this.configuration.pointsource;
     TrackRecordLayers["point"].source = this.configuration.pointsource;
+    this.map.addLayer(TrackRecordLayers["point-casing"]);
+    this.map.addLayer(TrackRecordLayers["line-casing"]);
+    this.map.addLayer(TrackRecordLayers["line"]);
     this.map.addLayer(TrackRecordLayers["point"]);
 
     // Ajout de la source pour le pointillé vers position actuelle
