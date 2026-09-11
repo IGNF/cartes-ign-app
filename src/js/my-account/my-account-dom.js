@@ -119,13 +119,13 @@ let MyAccountDOM = {
       <div class="tabs-menu-btn" tabindex="10" title="Sélectionner un onglet"></div>
       <div class="tabs-wrap-tabs">
       <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-routes-tab" checked="checked"/>
-      <label class="tabs-label" for="myaccount-routes-tab">Itinéraires <span id="myaccount-routes-number">0</span></label>
+      <label class="tabs-label" data-matomo-label="Itinéraires" for="myaccount-routes-tab">Itinéraires <span id="myaccount-routes-number">0</span></label>
       <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-offline-maps-tab"/>
-      <label class="tabs-label" for="myaccount-offline-maps-tab">Cartes téléchargées <span id="myaccount-offline-maps-number">0</span></label>
+      <label class="tabs-label" data-matomo-label="Cartes téléchargées" for="myaccount-offline-maps-tab">Cartes téléchargées <span id="myaccount-offline-maps-number">0</span></label>
       <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-landmarks-tab"/>
-      <label class="tabs-label" for="myaccount-landmarks-tab">Points de repère <span id="myaccount-landmarks-number">0</span></label>
+      <label class="tabs-label" data-matomo-label="Points de repère" for="myaccount-landmarks-tab">Points de repère <span id="myaccount-landmarks-number">0</span></label>
       <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-compare-landmarks-tab"/>
-      <label class="tabs-label" for="myaccount-compare-landmarks-tab">Repères Comparer <span id="myaccount-compare-landmarks-number">0</span></label>
+      <label class="tabs-label" data-matomo-label="Repères Comparer" for="myaccount-compare-landmarks-tab">Repères Comparer <span id="myaccount-compare-landmarks-number">0</span></label>
     </div>
       <div class="tabs-wrap-content">
       <div class="tabs-content" id="myaccount-routes"><div id="myAccountImportBtnRoutes">Importer</div></div>

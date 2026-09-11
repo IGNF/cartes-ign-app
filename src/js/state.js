@@ -31,9 +31,10 @@ const setSearchResultActive = () => {
  */
 const onBackKeyDown = () => {
   // Handle the back button
-  const previousState = Globals.backButtonState.split("-")[1] || "default";
-  const previousStates = Globals.backButtonState.split("-");
-  const backState = Globals.backButtonState.split("-")[0];
+  const stateParts = Globals.backButtonState.split("-");
+  const currentState = stateParts[0] || "default";
+  const previousState = stateParts[1] || "default";
+  const backState = currentState.split("%")[0];
   /* comportements custom */
   if (searchResultActive && backState === "default") {
     searchResultActive = false;
@@ -169,7 +170,7 @@ const onBackKeyDown = () => {
   }
   if (backState === "compareLayers1") {
     Globals.menu.close("compareLayers1");
-    if (previousStates.includes("compareLandmark")) {
+    if (stateParts.includes("compareLandmark")) {
       Globals.menu.open("compareLandmark");
       return;
     }
@@ -177,7 +178,7 @@ const onBackKeyDown = () => {
   }
   if (backState === "compareLayers2") {
     Globals.menu.close("compareLayers2");
-    if (previousStates.includes("compareLandmark")) {
+    if (stateParts.includes("compareLandmark")) {
       Globals.menu.open("compareLandmark");
       return;
     }
@@ -260,7 +261,7 @@ const onBackKeyDown = () => {
         behavior: "smooth",
       });
     }, 500);
-    Globals.backButtonState = "informationsScreen";
+    Globals.setBackButtonState("informationsScreen");
     return;
   }
   /* comportement par défaut */

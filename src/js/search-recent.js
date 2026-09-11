@@ -12,6 +12,7 @@ const addEntry = (value) => {
   var el = document.createElement("p");
   el.className = className;
   el.setAttribute("fulltext", value.text);
+  el.dataset.matomoLabel = "recentRecherche";
   el.dataset.coordinates = "{\"lon\":" + value.coordinates.lon + ",\"lat\":" + value.coordinates.lat + "}";
   var splitedText = value.text.split(",");
   var city = "";

@@ -88,6 +88,7 @@ class LayerManager extends EventTarget {
         gray: false,
         isTempLayer : e.detail.isTempLayer,
       }).then(() => {});
+      this.#trackAddedLayerUsage(e.detail.id);
     });
     this.layerCatalogue.addEventListener("addlayeroptions", async (e) => {
       await this.layerSwitcher.addLayer(e.detail).then(() => {});
@@ -169,6 +170,15 @@ class LayerManager extends EventTarget {
       );
       this.#syncLayersDisplayed(e.detail.entries);
     });
+  }
+
+  #trackAddedLayerUsage(layerId) {
+    if (!layerId) {
+      return;
+    }
+    const paq = window._paq || [];
+    window._paq = paq;
+    paq.push(["trackEvent", "Layer", "Add", layerId]);
   }
 
   /**
