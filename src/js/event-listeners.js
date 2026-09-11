@@ -53,9 +53,11 @@ const getClickedButtonElement = (target) => {
     "#myAccountDownloadMapBtn",
     ".trackRecordBtn",
     ".actionSheet-list-option",
+    ".actionSheet-buttons-button",
     ".positionInfo",
     ".handle-draggable-layer",
     ".tabs-menu-btn",
+    ".informationsItemsLink",
   ];
   return target.closest(querySelectors.join(", "));
 };
