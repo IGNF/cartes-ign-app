@@ -1590,8 +1590,10 @@ ${props.text}`,
       const route = this.#getRouteFromID(routeId);
       if (route.visible) {
         this.toggleShowRoute(route);
-        this.dom.container.querySelector(`#route-container_ID_${route.id}`).classList.add("invisible");
       }
+      this.dom.container.querySelector(`#route-container_ID_${route.id}`).classList.add("invisible");
+      fileStorage.save(route, `route-${route.id}`);
+      this.#updateSources();
     } catch (e) {
       console.warn(e);
       Toast.show({
