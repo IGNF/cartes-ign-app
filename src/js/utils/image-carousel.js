@@ -30,6 +30,8 @@ class ImageCarousel {
 
   _overlay = document.getElementsByTagName("img-overlay")[0];
 
+  static _overlaySwipeHandlers = null;
+
   constructor(container, imageSources = [], options = {}) {
     if (!container) {
       throw new Error("Container element is required");
@@ -529,18 +531,19 @@ class ImageCarousel {
    * @private
    */
   _setupOverlaySwipe() {
-    if (this.isSingleImage) return;
-
     const overlayImage = this._overlay.querySelector("#imgOverlayImage");
     if (!overlayImage) return;
 
-    // Remove existing swipe listeners if they exist
-    if (this._overlayTouchStartHandler) {
-      overlayImage.removeEventListener("touchstart", this._overlayTouchStartHandler);
+    // Remove the swipe listeners of the carousel that used the overlay before this one.
+    // The overlay is shared, so they are held on the class rather than on the instance, and
+    // they have to go even when the carousel about to open holds a single image.
+    if (ImageCarousel._overlaySwipeHandlers) {
+      overlayImage.removeEventListener("touchstart", ImageCarousel._overlaySwipeHandlers.touchStart);
+      overlayImage.removeEventListener("touchend", ImageCarousel._overlaySwipeHandlers.touchEnd);
+      ImageCarousel._overlaySwipeHandlers = null;
     }
-    if (this._overlayTouchEndHandler) {
-      overlayImage.removeEventListener("touchend", this._overlayTouchEndHandler);
-    }
+
+    if (this.isSingleImage) return;
 
     let startX = 0;
     let startY = 0;
@@ -590,6 +593,11 @@ class ImageCarousel {
 
     overlayImage.addEventListener("touchstart", this._overlayTouchStartHandler, { passive: true });
     overlayImage.addEventListener("touchend", this._overlayTouchEndHandler, { passive: true });
+
+    ImageCarousel._overlaySwipeHandlers = {
+      touchStart: this._overlayTouchStartHandler,
+      touchEnd: this._overlayTouchEndHandler,
+    };
   }
 
   /**
