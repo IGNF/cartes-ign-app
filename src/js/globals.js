@@ -206,12 +206,12 @@ const Globals = {
 
 const BACK_BUTTON_STATE_TITLES_FR = {
   default: "Accueil",
-  myaccount: "Mon compte",
+  myaccount: "Enregistrés",
   informationsScreen: "Informations",
   informationsScreenLegal: "Mentions légales",
-  newsfeed: "Fil d'actualites",
-  imageOverlay: "Image",
-  layerManager: "Gestionnaire de couches",
+  newsfeed: "Cartes thématiques",
+  imageOverlay: "Image en plein écran",
+  layerManager: "Cartes et données",
   directions: "S'y rendre",
   directionsResults: "Resultats d'itineraire",
   directionsSave: "Enregistrer l'itineraire",
@@ -220,16 +220,15 @@ const BACK_BUTTON_STATE_TITLES_FR = {
   searchIsochrone: "Recherche depuis l'isochrone",
   searchLandmark: "Recherche depuis création de point de repère",
   searchDownload: "Recherche depuis le telechargement de carte",
-  isochrone: "A proximite",
+  isochrone: "À proximité",
   landmark: "Créer un point de repere",
   position: "Clic sur couche : ",
   "position%ousuisje": "Où suis-je ?",
   "position%marker": "Marqueur de position",
-  "position%pr": "Point de repère",
-  "position%contexte": "Position depuis appui long",
+  "position%pr": "Clic sur Point de repère",
+  "position%contexte": "Clic long",
   "position%poi": "Clic sur POI OSM",
   "position%planinteractif": "Clic sur plan interactif",
-  "position%ficheobjet": "Position depuis fiche objet",
   "position%lien": "Position depuis lien",
   poi: "Points d'interet",
   compare: "Comparer",
@@ -237,7 +236,7 @@ const BACK_BUTTON_STATE_TITLES_FR = {
   compareLayers2: "Comparer couche droite",
   compareLandmark: "POI comparer personnalisé",
   comparePoi: "POI comparer",
-  comparePoiActivated: "Comparaison activee",
+  comparePoiActivated: "POI comparer activé",
   selectOnMapDirections: "Selection sur la carte pour l'itineraire",
   selectOnMapIsochrone: "Selection sur la carte pour l'isochrone",
   selectOnMapLandmark: "Selection sur la carte pour le repere",
@@ -284,5 +283,6 @@ const setBackButtonState = (state, track = true) => {
 };
 
 Globals.setBackButtonState = setBackButtonState;
+Globals.getBackButtonTitle = getBackButtonTitle;
 
 export default Globals;

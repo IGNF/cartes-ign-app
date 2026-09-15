@@ -67,9 +67,9 @@ const getButtonTrackingLabel = (buttonElement) => {
   const label = buttonElement.dataset.matomoLabel
     || buttonElement.getAttribute("title")
     || buttonElement.getAttribute("aria-label")
-    || buttonElement.id
+    || buttonElement.textContent
     || buttonElement.name
-    || buttonElement.textContent;
+    || buttonElement.id;
 
   if (!label) {
     return "unknown";
@@ -85,7 +85,7 @@ const trackButtonClick = (evt) => {
   }
 
   const buttonLabel = getButtonTrackingLabel(buttonElement);
-  const backButtonState = Globals.backButtonState || "unknown";
+  const backButtonState = Globals.getBackButtonTitle(Globals.backButtonState);
 
   const paq = window._paq || [];
   window._paq = paq;
