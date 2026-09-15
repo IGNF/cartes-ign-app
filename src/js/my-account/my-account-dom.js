@@ -119,13 +119,13 @@ let MyAccountDOM = {
       <div class="tabs-menu-btn" tabindex="10" title="Sélectionner un onglet"></div>
       <div class="tabs-wrap-tabs">
       <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-routes-tab" checked="checked"/>
-      <label class="tabs-label" for="myaccount-routes-tab">Itinéraires <span id="myaccount-routes-number">0</span></label>
+      <label class="tabs-label" data-matomo-label="Itinéraires" for="myaccount-routes-tab">Itinéraires <span id="myaccount-routes-number">0</span></label>
       <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-offline-maps-tab"/>
-      <label class="tabs-label" for="myaccount-offline-maps-tab">Cartes téléchargées <span id="myaccount-offline-maps-number">0</span></label>
+      <label class="tabs-label" data-matomo-label="Cartes téléchargées" for="myaccount-offline-maps-tab">Cartes téléchargées <span id="myaccount-offline-maps-number">0</span></label>
       <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-landmarks-tab"/>
-      <label class="tabs-label" for="myaccount-landmarks-tab">Points de repère <span id="myaccount-landmarks-number">0</span></label>
+      <label class="tabs-label" data-matomo-label="Points de repère" for="myaccount-landmarks-tab">Points de repère <span id="myaccount-landmarks-number">0</span></label>
       <input class="tabs-input" name="myaccount-tabs" type="radio" id="myaccount-compare-landmarks-tab"/>
-      <label class="tabs-label" for="myaccount-compare-landmarks-tab">Repères Comparer <span id="myaccount-compare-landmarks-number">0</span></label>
+      <label class="tabs-label" data-matomo-label="Repères Comparer" for="myaccount-compare-landmarks-tab">Repères Comparer <span id="myaccount-compare-landmarks-number">0</span></label>
     </div>
       <div class="tabs-wrap-content">
       <div class="tabs-content" id="myaccount-routes"><div id="myAccountImportBtnRoutes">Importer</div></div>
@@ -294,7 +294,7 @@ let MyAccountDOM = {
     // Template d'une route
     var tplContainer = `
       <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="route-container_ID_${routeId}">
-        <div class="handle-draggable-layer" id="route-cross-picto_ID_${routeId}"></div>
+        <div class="handle-draggable-layer" title="Déplacer l'itinéraire" id="route-cross-picto_ID_${routeId}"></div>
         <div id="route-basic-tools_ID_${routeId}">
           <label class="routeDrawSummaryTransport lblRouteDrawSummaryTransport${route.transport}"></label>
           <div class="wrap-tools-layers">
@@ -421,7 +421,7 @@ let MyAccountDOM = {
     // Template d'un PR
     var tplContainer = `
       <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="landmark-container_ID_${landmarkId}">
-        <div class="handle-draggable-layer" id="landmark-cross-picto_ID_${landmarkId}"></div>
+        <div class="handle-draggable-layer" title="Déplacer le point de repère" id="landmark-cross-picto_ID_${landmarkId}"></div>
         <div id="landmark-basic-tools_ID_${landmarkId}">
           <label class="landmarkSummaryIcon landmarkSummaryIcon${landmark.properties.icon}" style="background-color:${landmark.properties.color}"></label>
           <div class="wrap-tools-layers">
@@ -530,7 +530,7 @@ let MyAccountDOM = {
     // Template d'un repère comparer
     var tplContainer = `
       <div class="tools-layer-panel draggable-layer ${invisibleClass}" id="compare-landmark-container_ID_${landmarkId}">
-        <div class="handle-draggable-layer" id="compare-landmark-cross-picto_ID_${landmarkId}"></div>
+        <div class="handle-draggable-layer" title="Déplacer le point de repère comparer" id="compare-landmark-cross-picto_ID_${landmarkId}"></div>
         <div id="compare-landmark-basic-tools_ID_${landmarkId}">
           <label class="compareLandmarkSummaryIcon compareLandmarkSummaryIcon${compareLandmark.properties.color}"></label>
           <div class="wrap-tools-layers">
@@ -629,7 +629,7 @@ let MyAccountDOM = {
     // Template d'une carte téléchargée
     var tplContainer = `
       <div class="tools-layer-panel draggable-layer" id="offline-map-container_ID_${offlineMapId}">
-        <div class="handle-draggable-layer" id="offline-map-cross-picto_ID_${offlineMapId}"></div>
+        <div class="handle-draggable-layer" title="Déplacer la carte téléchargée" id="offline-map-cross-picto_ID_${offlineMapId}"></div>
         <div id="offline-map-basic-tools_ID_${offlineMapId}">
           <label class="offlineMapSummaryIcon"></label>
           <div class="wrap-tools-layers">

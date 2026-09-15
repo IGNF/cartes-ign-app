@@ -172,7 +172,7 @@ class OfflineMaps {
    * Opens the interface to download a map
    */
   show() {
-    Globals.backButtonState = "offlineMaps";
+    Globals.setBackButtonState("offlineMaps");
     this.unlockView();
     DOM.$backTopLeftBtn.classList.remove("d-none");
     DOM.$tabClose.classList.remove("d-none");
@@ -298,7 +298,7 @@ class OfflineMaps {
   #startDownload() {
     DOM.$backTopLeftBtn.classList.add("d-none");
     DOM.$tabClose.classList.add("d-none");
-    Globals.backButtonState = "offlineMapsDownloading";
+    Globals.setBackButtonState("offlineMapsDownloading");
     Globals.currentScrollIndex = 2;
     Globals.menu.updateScrollAnchors();
 
@@ -320,7 +320,7 @@ class OfflineMaps {
   async #cancelDownload() {
     DOM.$backTopLeftBtn.classList.remove("d-none");
     DOM.$tabClose.classList.remove("d-none");
-    Globals.backButtonState = "offlineMaps";
+    Globals.setBackButtonState("offlineMaps");
 
     this.dom.downloadingScreen.classList.add("d-none");
     this.unlockView();
@@ -345,7 +345,7 @@ class OfflineMaps {
     this.dom.failedWindow.classList.add("d-none");
     this.dom.startDownloadScreen.classList.remove("d-none");
     this.map.getContainer().style.pointerEvents = "none";
-    Globals.backButtonState = "offlineMapsLocked";
+    Globals.setBackButtonState("offlineMapsLocked");
     Globals.currentScrollIndex = 2;
     Globals.menu.updateScrollAnchors();
     this.#getOfflineMapsBbox();
@@ -361,7 +361,7 @@ class OfflineMaps {
     this.dom.selectOnMapScreen.classList.remove("d-none");
     this.dom.startDownloadScreen.classList.add("d-none");
     this.map.getContainer().style.removeProperty("pointer-events");
-    Globals.backButtonState = "offlineMaps";
+    Globals.setBackButtonState("offlineMaps");
   }
 
   /**
@@ -371,7 +371,7 @@ class OfflineMaps {
     this.dom.downloadingScreen.classList.add("d-none");
     this.dom.nameScreen.classList.remove("d-none");
     this.dom.nameInput.value = this.currentName;
-    Globals.backButtonState = "offlineMapsName";
+    Globals.setBackButtonState("offlineMapsName");
     Globals.currentScrollIndex = 2;
     Globals.menu.updateScrollAnchors();
   }
@@ -382,7 +382,7 @@ class OfflineMaps {
   #openFailedWindow() {
     this.dom.downloadingScreen.classList.add("d-none");
     this.dom.failedWindow.classList.remove("d-none");
-    Globals.backButtonState = "offlineMapsFailed";
+    Globals.setBackButtonState("offlineMapsFailed");
     Globals.currentScrollIndex = 2;
     Globals.menu.updateScrollAnchors();
   }

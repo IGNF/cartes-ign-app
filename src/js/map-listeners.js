@@ -46,7 +46,7 @@ const addListeners = () => {
     // Repère placé uniquement en mode défaut, position, informations, couches ou filtres POI
     if (
       Globals.backButtonState !== "default" &&
-      Globals.backButtonState.split("-")[0] !== "position" &&
+      Globals.backButtonState.split("-")[0].split("%")[0] !== "position" &&
       Globals.backButtonState !== "informations" &&
       Globals.backButtonState !== "layerManager" &&
       Globals.backButtonState !== "poi" &&
@@ -58,11 +58,11 @@ const addListeners = () => {
       return;
     }
     contextMenuTimeout = setTimeout(() => {
-      if (Globals.backButtonState.split("-")[0] === "position") {
+      if (Globals.backButtonState.split("-")[0].split("%")[0] === "position") {
         Globals.menu.close("position");
       }
       Globals.position.compute({ lngLat: evt.lngLat, type: "context" }).then(() => {
-        Globals.menu.open("position");
+        Globals.menu.open("position%contexte");
       });
       Globals.searchResultMarker = new maplibregl.Marker({element: Globals.searchResultIcon, anchor: "bottom"})
         .setLngLat(evt.lngLat)
