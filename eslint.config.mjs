@@ -46,5 +46,11 @@ export default [
       "license-header/header": ["error", "./license-header.js"],
       "no-unused-vars": ["error", { "caughtErrors": "none" }]
     }
+  },
+  {
+    files: ["tests/**/*.js", "*.config.mjs"],
+    rules: {
+      "license-header/header": "off"
+    }
   }
 ];
