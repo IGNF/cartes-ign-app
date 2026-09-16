@@ -140,7 +140,7 @@
 #createCompareLandmarkBtn {
   position: absolute;
   right: 9px;
-  bottom: 66px;
+  bottom: 57px;
   z-index: 1000;
   justify-content: right;
 }
