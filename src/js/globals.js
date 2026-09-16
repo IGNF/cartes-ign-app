@@ -209,6 +209,7 @@ const BACK_BUTTON_STATE_TITLES_FR = {
   myaccount: "Enregistrés",
   informationsScreen: "Informations",
   informationsScreenLegal: "Mentions légales",
+  informationsScreenCookies: "Cookies",
   newsfeed: "Cartes thématiques",
   imageOverlay: "Image en plein écran",
   layerManager: "Cartes et données",

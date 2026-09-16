@@ -251,7 +251,7 @@ const onBackKeyDown = () => {
     Globals.offlineMaps.show();
     return;
   }
-  if (["informationsScreenLegal"].includes(backState)) {
+  if (["informationsScreenLegal", "informationsScreenCookies"].includes(backState)) {
     const $informationsScreenMenu = document.getElementById("informationsScreenMenu");
     $informationsScreenMenu.style.removeProperty("margin-left");
     setTimeout(() => {

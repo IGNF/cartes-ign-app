@@ -81,14 +81,14 @@ function getEditoPopup (map) {
 
 function getOnboardingModal(id = null, html = null) {
   if (
-    id === null && localStorage.getItem("lastOnboardId") !== null && localStorage.getItem("lastOnboardId") === `${OnboardingConfig.id}`
+    id === null && localStorage.getItem("lastOnboardId") !== null && localStorage.getItem("lastOnboardId") == `${OnboardingConfig.id}`
     && localStorage.getItem("dontShowOnboardAgain") === "true"
   ) {
     return 0;
   }
 
   if (
-    id && localStorage.getItem("lastOnboardEventId") !== null && localStorage.getItem("lastOnboardEventId") === id
+    id && localStorage.getItem("lastOnboardEventId") !== null && localStorage.getItem("lastOnboardEventId") == id
     && localStorage.getItem("dontShowOnboardEventAgain") === "true")
   {
     return 0;
@@ -107,6 +107,12 @@ function getOnboardingModal(id = null, html = null) {
     localStorage.setItem("lastOnboardEventId", id);
     localStorage.setItem("dontShowOnboardEventAgain", "true");
   } else {
+    if (
+      localStorage.getItem("lastOnboardId") !== null && localStorage.getItem("lastOnboardId") == `${OnboardingConfig.id}`
+      && localStorage.getItem("dontShowOnboardAgain") === "true"
+    ) {
+      return 0;
+    }
     const onboardingDom = domUtils.stringToHTML(OnboardingConfig.html);
     onboardingDom.querySelector("#onBoardingConfirm").addEventListener("click", () => {
       ActionSheet._closeElem.click();

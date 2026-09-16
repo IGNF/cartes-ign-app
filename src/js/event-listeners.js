@@ -170,6 +170,11 @@ function addListeners() {
     $informationsScreenMenu.style.marginLeft = "-100%";
     Globals.setBackButtonState("informationsScreenLegal");
   });
+  document.getElementById("informationsItemsCookies").addEventListener("click", () => {
+    document.getElementById("informationsContentCookies").classList.remove("d-none");
+    $informationsScreenMenu.style.marginLeft = "-100%";
+    Globals.setBackButtonState("informationsScreenCookies");
+  });
 
   // Action du backbutton
   document.addEventListener("backbutton", State.onBackKeyDown, false);
@@ -254,7 +259,7 @@ function addListeners() {
       }
     }
     // Pas de gestion du scroll sur les menus alternatifs scrollables
-    if (["newsfeed", "imageOverlay", "informationsScreenLegal"].includes(Globals.backButtonState.split("-")[0])) {
+    if (["newsfeed", "imageOverlay", "informationsScreenLegal", "informationsScreenCookies"].includes(Globals.backButtonState.split("-")[0])) {
       return;
     }
     Globals.menu.updateScrollAnchors();
