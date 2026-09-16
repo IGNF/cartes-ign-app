@@ -98,7 +98,7 @@
       <div class="informationsContentHeader">Cookies</div>
       <div id="matomo-opt-out"></div>
       <script>
-        var settings = { "showIntro": true, "divId": "matomo-opt-out", "useSecureCookies": true, "cookiePath": null, "cookieDomain": null, "cookieSameSite": "Lax", "OptOutComplete": "Cookie d'exclusion install\u00e9. Vos visites sur l'application ne seront PAS enregistr\u00e9es par notre outil d'analyse web.", "OptOutCompleteBis": "Note\u00a0: si vous videz le cache de l'application, ou bien si vous changez d'appareil, il vous faudra de nouveau effectuer la proc\u00e9dure d'exclusion.", "YouMayOptOut2": "Vous pouvez vous opposer au suivi de votre navigation sur l'application.", "YouMayOptOut3": "Cela prot\u00e9gera votre vie priv\u00e9e, mais emp\u00eachera \u00e9galement le propri\u00e9taire d'apprendre de vos actions et de cr\u00e9er une meilleure exp\u00e9rience pour vous et les autres utilisateurs.", "OptOutErrorNoCookies": "La fonctionnalit\u00e9 de d\u00e9sactivation du suivi n\u00e9cessite que les cookies soient autoris\u00e9s.", "YouAreNotOptedOut": "Vous n'\u00eates pas exclu(e).", "UncheckToOptOut": "D\u00e9cochez cette case pour vous exclure.", "YouAreOptedOut": "Vous n'\u00eates actuellement pas suivi(e).", "CheckToOptIn": "Cochez cette case si vous acceptez d'\u00eatre suivi." };
+        var settings = { "showIntro": true, "divId": "matomo-opt-out", "useSecureCookies": true, "cookiePath": null, "cookieDomain": null, "cookieSameSite": "Lax", "OptOutComplete": "Cookie d'exclusion install\u00e9. Vos visites sur l'application ne seront PAS enregistr\u00e9es par notre outil d'analyse web.", "OptOutCompleteBis": "Note\u00a0: si vous videz le cache de l'application, ou bien si vous changez d'appareil, il vous faudra de nouveau effectuer la proc\u00e9dure d'exclusion.", "YouMayOptOut2": "Vous pouvez vous opposer au suivi de votre navigation sur l'application.", "YouMayOptOut3": "Cela prot\u00e9gera votre vie priv\u00e9e, mais emp\u00eachera \u00e9galement le propri\u00e9taire d'apprendre de vos actions et de cr\u00e9er une meilleure exp\u00e9rience pour vous et les autres utilisateurs.", "OptOutErrorNoCookies": "La fonctionnalit\u00e9 de d\u00e9sactivation du suivi n\u00e9cessite que les cookies soient autoris\u00e9s.", "YouAreNotOptedOut": "Vous n'\u00eates pas exclu(e).", "UncheckToOptOut": "Cochez cette case pour vous exclure.", "YouAreOptedOut": "Vous n'\u00eates actuellement pas suivi(e).", "CheckToOptIn": "D\u00e9cochez cette case si vous acceptez d'\u00eatre suivi(e)." };
         document.addEventListener('DOMContentLoaded', function () {
           window.MatomoConsent.init(settings.useSecureCookies, settings.cookiePath, settings.cookieDomain, settings.cookieSameSite);
           showContent(window.MatomoConsent.hasConsent());
@@ -112,13 +112,13 @@
             if (settings.showIntro) {
               content += '<p>' + settings.YouMayOptOut2 + ' ' + settings.YouMayOptOut3 + '</p>';
             }
-            content += '<input id="trackVisits" type="checkbox" checked="checked" />';
+            content += '<input id="trackVisits" type="checkbox" />';
             content += '<label for="trackVisits"><strong><span>' + settings.YouAreNotOptedOut + ' ' + settings.UncheckToOptOut + '</span></strong></label>';
           } else {
             if (settings.showIntro) {
               content += '<p>' + settings.OptOutComplete + ' ' + settings.OptOutCompleteBis + '</p>';
             }
-            content += '<input id="trackVisits" type="checkbox" />';
+            content += '<input id="trackVisits" type="checkbox" checked="checked" />';
             content += '<label for="trackVisits"><strong><span>' + settings.YouAreOptedOut + ' ' + settings.CheckToOptIn + '</span></strong></label>';
           }
           div.innerHTML = content;
