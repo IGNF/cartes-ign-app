@@ -137,9 +137,9 @@
       <p>Bien que ces cookies Matomo soient exemptés de consentement, vous disposez d&#x27;un <strong>droit d&#x27;opposition total</strong> à leur utilisation. Si vous choisissez de vous opposer, un cookie technique anonyme sera déposé sur votre navigateur pour mémoriser votre choix de manière à ce qu&#x27;aucune donnée de navigation ne soit collectée lors de vos prochaines visites.</p>
       <p>Vous pouvez désactiver le suivi à partir du panneau de gestion des cookies (Enregistrés &gt; Informations &gt; Cookies).</p>
       <p><em>Note : </em><em>C</em><em>e choix est lié à l&#x27;appareil que vous utilisez actuellement. Si vous </em><em>videz le cache de l&#x27;application</em><em> ou utilisez un autre appareil, vous devrez renouveler votre opposition.</em></p>
-      <div id="matomo-opt-out"></div>
+      <div id="matomo-opt-out" style="padding: 10px; border: 1px solid #ccc;"></div>
       <script>
-        var settings = { "showIntro": true, "divId": "matomo-opt-out", "useSecureCookies": true, "cookiePath": null, "cookieDomain": null, "cookieSameSite": "Lax", "OptOutComplete": "Cookie d'exclusion install\u00e9. Vos visites sur l'application ne seront PAS enregistr\u00e9es par notre outil d'analyse web.", "OptOutCompleteBis": "Note\u00a0: si vous videz le cache de l'application, ou bien si vous changez d'appareil, il vous faudra de nouveau effectuer la proc\u00e9dure d'exclusion.", "YouMayOptOut2": "Vous pouvez vous opposer au suivi de votre navigation sur l'application.", "YouMayOptOut3": "Cela prot\u00e9gera votre vie priv\u00e9e, mais emp\u00eachera \u00e9galement le propri\u00e9taire d'apprendre de vos actions et de cr\u00e9er une meilleure exp\u00e9rience pour vous et les autres utilisateurs.", "OptOutErrorNoCookies": "La fonctionnalit\u00e9 de d\u00e9sactivation du suivi n\u00e9cessite que les cookies soient autoris\u00e9s.", "YouAreNotOptedOut": "Vous n'\u00eates pas exclu(e).", "UncheckToOptOut": "Cochez cette case pour vous exclure.", "YouAreOptedOut": "Vous n'\u00eates actuellement pas suivi(e).", "CheckToOptIn": "D\u00e9cochez cette case si vous acceptez d'\u00eatre suivi(e)." };
+        var settings = { "showIntro": true, "divId": "matomo-opt-out", "useSecureCookies": true, "cookiePath": null, "cookieDomain": null, "cookieSameSite": "Lax", "OptOutComplete": "Vous avez désactivé la mesure d’audience pour cet appareil.", "OptOutCompleteBis": "Votre utilisation de l’application ne contribue plus aux statistiques de fréquentation et d’usage..", "OptOutCompleteTer": "Cette préférence est conservée sur votre appareil. Si vous videz le cache de l’application ou utilisez un autre appareil, vous devrez exercer à nouveau cette option", "YouMayOptOut2": "Vous pouvez vous opposer à la collecte de données de navigation réalisée à des fins de mesure d’audience.", "YouMayOptOut3": "Si vous choisissez cette option, votre utilisation de l’application ne sera plus prise en compte dans les statistiques permettant d’analyser et d’améliorer le service.", "YouAreNotOptedOut": "", "UncheckToOptOut": "Cochez cette case pour vous opposer au suivi de votre navigation.", "YouAreOptedOut": "Vous avez choisi de vous opposer au suivi de votre navigation.", "CheckToOptIn": "Décochez cette case pour réactiver la mesure d’audience." };
         document.addEventListener('DOMContentLoaded', function () {
           window.MatomoConsent.init(settings.useSecureCookies, settings.cookiePath, settings.cookieDomain, settings.cookieSameSite);
           showContent(window.MatomoConsent.hasConsent());
@@ -151,13 +151,13 @@
           var content = '';
           if (consent) {
             if (settings.showIntro) {
-              content += '<p>' + settings.YouMayOptOut2 + ' ' + settings.YouMayOptOut3 + '</p>';
+              content += '<p style="margin-top: 0;">' + settings.YouMayOptOut2 + ' ' + settings.YouMayOptOut3 + '</p>';
             }
             content += '<input id="trackVisits" type="checkbox" />';
             content += '<label for="trackVisits"><strong><span>' + settings.YouAreNotOptedOut + ' ' + settings.UncheckToOptOut + '</span></strong></label>';
           } else {
             if (settings.showIntro) {
-              content += '<p>' + settings.OptOutComplete + ' ' + settings.OptOutCompleteBis + '</p>';
+              content += '<p style="margin-top: 0;"><strong>' + settings.OptOutComplete + '</strong><br/>' + settings.OptOutCompleteBis + '<br/>' + settings.OptOutCompleteTer + '</p>';
             }
             content += '<input id="trackVisits" type="checkbox" checked="checked" />';
             content += '<label for="trackVisits"><strong><span>' + settings.YouAreOptedOut + ' ' + settings.CheckToOptIn + '</span></strong></label>';
@@ -193,7 +193,7 @@
           },
           hasConsent: function () {
             if (window.localStorage.getItem(this.CONSENT_REMOVED_COOKIE_NAME)) {
-              this.setCookie(this.CONSENT_REMOVED_COOKIE_NAME, new Date().getTime(), 30000);
+              this.setCookie(this.CONSENT_REMOVED_COOKIE_NAME, new Date().getTime(), 946080000000);
               return false;
             }
             var consentCookie = this.getCookie(this.CONSENT_COOKIE_NAME);
@@ -209,12 +209,12 @@
           },
           consentGiven: function () {
             this.setCookie(this.CONSENT_REMOVED_COOKIE_NAME, '', -129600000);
-            this.setCookie(this.CONSENT_COOKIE_NAME, new Date().getTime(), 30000);
+            this.setCookie(this.CONSENT_COOKIE_NAME, new Date().getTime(), 946080000000);
             window.localStorage.removeItem(this.CONSENT_REMOVED_COOKIE_NAME);
           },
           consentRevoked: function () {
             this.setCookie(this.CONSENT_COOKIE_NAME, '', -129600000);
-            this.setCookie(this.CONSENT_REMOVED_COOKIE_NAME, new Date().getTime(), 30000);
+            this.setCookie(this.CONSENT_REMOVED_COOKIE_NAME, new Date().getTime(), 946080000000);
           },
           getCookie: function (cookieName) {
             var cookiePattern = new RegExp('(^|;)[ ]*' + cookieName + '=([^;]*)'), cookieMatch = cookiePattern.exec(document.cookie);
