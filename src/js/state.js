@@ -260,7 +260,9 @@ const onBackKeyDown = () => {
         left: 0,
         behavior: "smooth",
       });
-    }, 500);
+      document.getElementById("informationsContentLegal").classList.add("d-none");
+      document.getElementById("informationsContentCookies").classList.add("d-none");
+    }, 300);
     Globals.setBackButtonState("informationsScreen");
     return;
   }
