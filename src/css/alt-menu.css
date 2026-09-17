@@ -121,6 +121,10 @@
   padding: 20px 0 20px 60px;
 }
 
+#matomo-opt-out {
+  margin-bottom: 65px;
+}
+
 /* mode paysage et écrans larges */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
   #altMenuContainer {
