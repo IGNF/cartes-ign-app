@@ -252,6 +252,7 @@ function app() {
     locale: "fr",
     maxPitch: 60,
     crossSourceCollisions: false,
+    fadeDuration: 0,
   });
 
   // Enregistrement de la carte

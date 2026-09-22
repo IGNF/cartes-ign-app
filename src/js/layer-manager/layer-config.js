@@ -96,12 +96,25 @@ const getLayerProps = (id) => {
 };
 
 /**
+ * Une couche temporaire peut fournir en plus de sa donnée "normale" (layerUrl/layer)
+ * une variante clusterisée (layerUrlClustered/layerClustered). Les anciennes versions
+ * de l'app ne connaissent pas ces champs et continuent donc d'utiliser la donnée normale,
+ * tandis que les versions récentes privilégient la variante clusterisée si elle est fournie.
+ * @param {*} tempLayer
+ * @returns
+ */
+const hasClusteredTempLayer = (tempLayer) => {
+  return Boolean(tempLayer.layerUrlClustered && tempLayer.layerClustered);
+};
+
+/**
  * Obtenir la liste des propriétés d'une couche temporaire
  * @param {*} id
  * @returns
  */
 const getTempLayerProps = (id) => {
   var props = JSON.parse(JSON.stringify(config.tempLayers)).filter(elem => elem.id === id)[0];
+  let clustered = hasClusteredTempLayer(props);
   return {
     layer: props.id,
     base: false, // couche de fonds ou autre
@@ -113,7 +126,7 @@ const getTempLayerProps = (id) => {
     style: "",
     fallbackStyle: "",
     format: "",
-    url: props.layerUrl,
+    url: clustered ? props.layerUrlClustered : props.layerUrl,
     minNativeZoom: 0,
     maxNativeZoom: 20,
     interactive: true,
@@ -121,7 +134,7 @@ const getTempLayerProps = (id) => {
     beta: false,
     quickLookUrl: props.quickLookUrl,
     layerType: props.layerType,
-    layerDef: props.layer,
+    layerDef: clustered ? props.layerClustered : props.layer,
     tagConfigs: getTagConfigs(id),
   };
 };
@@ -341,7 +354,7 @@ const createTempVectorSource = (layer) => {
   // PM tiles uniquement pour les temp layers @see https://docs.protomaps.com/pmtiles/maplibre#installation
   return {
     type: "vector",
-    url: layer.layerUrl,
+    url: hasClusteredTempLayer(layer) ? layer.layerUrlClustered : layer.layerUrl,
   };
 };
 

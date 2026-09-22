@@ -242,6 +242,15 @@ class MapInteractivity {
       }
     }
     const tempLayers = LayersConfig.getTempLayers();
+    // Clic sur un cluster pré-calculé : on zoome jusqu'à son éclatement
+    if (features.length > 0 && features[0].properties.cluster && tempLayers.map(layer => layer.id).includes(features[0].source)) {
+      this.map.easeTo({
+        center: features[0].geometry.coordinates,
+        zoom: features[0].properties.expansion_zoom || this.map.getZoom() + 2,
+      });
+      this.map.once("click", this.handleInfoOnMapSafe);
+      return;
+    }
     if (features.length > 0) {
       const isRegularTMS = features[0].layer.id.includes("$TMS") && !["bdtopo", "poi_osm", "plan_ign"].includes(features[0].layer.source);
       const isRegularPMTiles = features[0].layer.id.includes("$PMTILES");
