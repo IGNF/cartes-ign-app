@@ -312,17 +312,20 @@ function app() {
         source.url = source.url + "?nocachetoken=" + Date.now();
       }
     }
-    map.addSource(layer, source);
+    if (!map.getSource(layer)) {
+      map.addSource(layer, source);
+    }
 
     const imageUrl = LayersConfig.getTempLayers().filter((config) => config.id === layer)[0].iconUrl;
     // Chargement de l'image d'évènement temporaire
     map.loadImage(imageUrl).then((image) => {
-      map.addImage(layer, image.data);
+      if (!map.hasImage(layer)) {
+        map.addImage(layer, image.data);
+      }
       // L'image d'évènement temporaire est ensuite chargée en noir et blanc pour le passage en noir et blanc via le layserSwitcher
       domUtils.convertToGreyscaleCanvas(image.data).then( (data) => {
         map.addImage(layer + "__bw", data);
       });
-
     });
   }
 
