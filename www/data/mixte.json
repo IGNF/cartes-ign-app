@@ -50,42 +50,21 @@
       ],
       "paint": {
         "line-color": "#AB81CC",
-        "line-opacity": {
-          "stops": [
-            [
-              7,
-              0.6
-            ],
-            [
-              14,
-              0.4
-            ]
-          ]
-        },
         "line-width": {
           "stops": [
-            [
-              14,
-              1.1
-            ],
-            [
-              15,
-              1.7
-            ],
-            [
-              16,
-              2
-            ],
-            [
-              17,
-              3.5
-            ]
+            [14, 1.1],
+            [15, 1.7],
+            [16, 2],
+            [17, 3.5]
           ]
         },
         "line-dasharray": [
           6,
           2
         ]
+      },
+      "metadata": {
+        "legend-title": "Piste cyclable souterraine"
       }
     },
     {
@@ -4154,7 +4133,7 @@
       }
     },
     {
-      "id": "liaison routiere - Bac",
+      "id": "liaison routiere - Bac Liaison Maritime",
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_liaison",
@@ -4169,7 +4148,8 @@
         "in",
         "symbo",
         "BAC_AUTO",
-        "BAC"
+        "BAC",
+        "LIAISON_MARITIME"
       ],
       "paint": {
         "line-color": "#5792C2",
@@ -4199,25 +4179,6 @@
         }
       }
     },
-    {
-      "id": "liaison routiere - Liaison Maritime",
-			"type": "line",
-			"source": "plan_ign",
-			"source-layer": "routier_liaison",
-			"minzoom": 12,
-			"layout": {
-				"visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-			},
-      "filter": ["==","symbo","LIAISON_MARITIME"],
-			"paint": {
-				"line-color": "#5792C2",
-        "line-width": {
-					"stops": [[8, 1], [13, 2.5]]
-        }
-			}
-		},
     {
       "id": "liaison routiere - Gue route",
       "type": "line",
@@ -10654,6 +10615,52 @@
                 "Source Sans Pro Regular"
               ]
             ]
+          ]
+        }
+      },
+      "paint": {
+        "text-color": "#FFFFFF",
+        "text-halo-color": "rgba(0, 0, 0, 0.5)",
+        "text-halo-width": 3
+      }
+    },
+    {
+      "id": "toponyme localite importance 2 capitale",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_localite_ponc",
+      "minzoom": 4,
+      "maxzoom": 13,
+      "filter": [
+        "in",
+        "txt_typo",
+        "commune 2 capitale",
+        "TYPO_A_2",
+        "BAT_COMMUNE_2",
+        "BAT_COMMUNE-2",
+        "BAT_COMMUNE_2_T"
+      ],
+      "layout": {
+        "visibility": "visible",
+        "symbol-placement": "point",
+        "icon-image": "Localite",
+        "icon-size": 0.25,
+        "text-field": "{texte}",
+        "text-size": {
+          "stops": [
+            [4, 10],
+            [6, 17]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-anchor": "bottom-left",
+        "text-offset": [0.3, 0.2],
+        "text-padding": 1,
+        "text-font": {
+          "stops": [
+            [1, ["Source Sans Pro Regular"]],
+            [7, ["Source Sans Pro Bold"]],
+            [10, ["Source Sans Pro Regular"]]
           ]
         }
       },
