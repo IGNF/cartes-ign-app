@@ -256,8 +256,8 @@
   "LANDUSE.AGRICULTURE.LATEST$WMTS": {
     "0" :{
       "titlePrefix": "Culture : ",
-      "title": "@libelle",
-      "subtitle": "Registre parcellaire graphique 2024 - Source : Agence de services et de paiements (ASP)"
+      "title": "@libelle_culture",
+      "subtitle": "Registre parcellaire graphique 2025 - Source : Agence de services et de paiements (ASP)"
     }
   },
 
