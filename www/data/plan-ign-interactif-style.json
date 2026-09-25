@@ -43,7 +43,7 @@
       }
     },
     {
-      "id": "orographie : relief - 0m",
+      "id": "orographie : relief - desert",
       "type": "fill",
       "source": "plan_ign",
       "source-layer": "oro_relief",
@@ -54,15 +54,15 @@
       "filter": [
         "==",
         "symbo",
-        "HYPSO_0"
+        "DESERT"
       ],
       "paint": {
-        "fill-color": "#D6E5BA",
+        "fill-color": "#FEF6DA",
         "fill-opacity": 1
       }
     },
     {
-      "id": "orographie : relief - 100m",
+      "id": "orographie : relief - zone boisee",
       "type": "fill",
       "source": "plan_ign",
       "source-layer": "oro_relief",
@@ -73,15 +73,15 @@
       "filter": [
         "==",
         "symbo",
-        "HYPSO_100"
+        "ZONE_BOISEE"
       ],
       "paint": {
-        "fill-color": "#F7F2DA",
+        "fill-color": "#DFE8D5",
         "fill-opacity": 1
       }
     },
     {
-      "id": "orographie : relief - 200m",
+      "id": "orographie : relief - 1500m",
       "type": "fill",
       "source": "plan_ign",
       "source-layer": "oro_relief",
@@ -92,15 +92,15 @@
       "filter": [
         "==",
         "symbo",
-        "HYPSO_200"
+        "HYPSO_1500"
       ],
       "paint": {
-        "fill-color": "#EBDEBF",
+        "fill-color": "#EADCC1",
         "fill-opacity": 1
       }
     },
     {
-      "id": "orographie : relief - 1000m",
+      "id": "orographie : relief - 2000m",
       "type": "fill",
       "source": "plan_ign",
       "source-layer": "oro_relief",
@@ -111,10 +111,10 @@
       "filter": [
         "==",
         "symbo",
-        "HYPSO_1000"
+        "HYPSO_2000"
       ],
       "paint": {
-        "fill-color": "#DABE97",
+        "fill-color": "#E4CBA7",
         "fill-opacity": 1
       }
     },
@@ -133,7 +133,7 @@
         "HYPSO_3000"
       ],
       "paint": {
-        "fill-color": "#B28773",
+        "fill-color": "#DABE97",
         "fill-opacity": 1
       }
     },
@@ -152,7 +152,7 @@
         "HYPSO_4000"
       ],
       "paint": {
-        "fill-color": "#9E6A54",
+        "fill-color": "#B28773",
         "fill-opacity": 1
       }
     },
@@ -171,7 +171,7 @@
         "HYPSO_5000"
       ],
       "paint": {
-        "fill-color": "#773A2B",
+        "fill-color": "#9E6A54",
         "fill-opacity": 1
       }
     },
@@ -318,26 +318,6 @@
       },
       "metadata": {
         "legend-title": "Canne à sucre, bananeraie"
-      }
-    },
-    {
-      "id": "ocs - vegetation - cocoteraie",
-      "type": "fill",
-      "source": "plan_ign",
-      "source-layer": "ocs_vegetation_surf",
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": [
-        "==",
-        "symbo",
-        "COCOTERAIE"
-      ],
-      "paint": {
-        "fill-color": "#CEDD93"
-      },
-      "metadata": {
-        "legend-title": "Cocoteraie"
       }
     },
     {
@@ -1477,26 +1457,6 @@
         "legend-title": "Zone d'eau temporaire"
       }
     },
-    {
-			"id": "hydro surfacique Lagon",
-			"type": "fill",
-			"source": "plan_ign",
-			"source-layer": "hydro_surf",
-			"layout": {
-				"visibility": "visible"
-			},
-      "filter": [
-        "==",
-        "symbo",
-        "LAGON"
-      ],
-			"paint": {
-				"fill-color": "#8EEBF2"
-			},
-      "metadata": {
-        "legend-title": "Lagon"
-      }
-		},
     {
 			"id": "ocs - Recif Corail",
 			"type": "fill",
@@ -3964,6 +3924,24 @@
       }
     },
     {
+      "id": "parcellaire - parcelle surface",
+      "type": "fill",
+      "source": "plan_ign",
+      "source-layer": "parcellaire_parcelle",
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "PARCELLE"
+      ],
+      "paint": {
+        "fill-color": "#FFFFD1",
+        "fill-opacity": 0.7
+      }
+    },
+    {
       "id": "cimetiere surfacique 2",
       "type": "fill",
       "source": "plan_ign",
@@ -5739,6 +5717,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 7,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5763,7 +5742,9 @@
           13,
           "#B4B4B4",
           17,
-          "#B4B4B4"
+          "#B4B4B4",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -5800,6 +5781,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -5828,7 +5810,9 @@
           13,
           "#FCF4A8",
           17,
-          "#FCF7C1"
+          "#FCF7C1",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -5978,6 +5962,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 8,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6002,7 +5987,9 @@
           10,
           "#B4B4B4",
           17,
-          "#B4B4B4"
+          "#B4B4B4",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -6043,6 +6030,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6071,7 +6059,9 @@
           10,
           "#FDF28B",
           17,
-          "#FCF6BD"
+          "#FCF6BD",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -6117,6 +6107,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 10,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6169,6 +6160,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 10,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -6241,6 +6233,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 8,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6296,6 +6289,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6322,7 +6316,9 @@
           9,
           "#F3C66D",
           17,
-          "#F2DDB3"
+          "#F2DDB3",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -6368,6 +6364,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 10,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6420,6 +6417,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 10,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -6490,6 +6488,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 8,
+      "maxzoom": 18,
       "metadata": {
         "legend-group": "routier_a_niveau_autoroute",
         "legend-title": "Autoroute"
@@ -6550,6 +6549,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
+      "maxzoom": 18,
       "metadata": {
         "legend-group": "routier_a_niveau_autoroute",
         "legend-title": "Autoroute"
@@ -6573,7 +6573,9 @@
           ],
           "#F18800",
           17,
-          "#F2B230"
+          "#F2B230",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -6664,6 +6666,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 8,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -6716,6 +6719,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 8,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -7199,7 +7203,7 @@
       }
     },
     {
-      "id": "liaison routiere - Bac",
+      "id": "liaison routiere - Bac Liaison Maritime",
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_liaison",
@@ -7213,7 +7217,8 @@
         "in",
         "symbo",
         "BAC_AUTO",
-        "BAC"
+        "BAC",
+        "LIAISON_MARITIME"
       ],
       "paint": {
         "line-color": "#5792C2",
@@ -7229,44 +7234,8 @@
             ]
           ]
         }
-      },
-      "metadata": {
-        "legend-title": "Bac - Liaison maritime"
       }
     },
-    {
-      "id": "liaison routiere - Liaison Maritime",
-			"type": "line",
-			"source": "plan_ign",
-			"source-layer": "routier_liaison",
-			"minzoom": 12,
-			"maxzoom": 18,
-			"layout": {
-				"visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-			},
-      "filter": [
-        "==",
-        "symbo",
-        "LIAISON_MARITIME"
-      ],
-			"paint": {
-				"line-color": "#5792C2",
-        "line-width": {
-					"stops": [
-            [
-              8,
-              1
-            ],
-            [
-              13,
-              2.5
-            ]
-          ]
-        }
-			}
-		},
     {
       "id": "liaison routiere - Gue route",
       "type": "line",
@@ -8530,6 +8499,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8554,7 +8524,9 @@
           13,
           "#B4B4B4",
           17,
-          "#B4B4B4"
+          "#B4B4B4",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -8591,6 +8563,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8615,7 +8588,9 @@
           13,
           "#FCF4A8",
           17,
-          "#FCF7C1"
+          "#FCF7C1",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -8763,6 +8738,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 8,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8787,7 +8763,9 @@
           10,
           "#B4B4B4",
           17,
-          "#B4B4B4"
+          "#B4B4B4",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -8828,6 +8806,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8852,7 +8831,9 @@
           10,
           "#FDF28B",
           17,
-          "#FCF6BD"
+          "#FCF6BD",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -8894,6 +8875,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -8946,6 +8928,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9012,6 +8995,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 8,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9067,6 +9051,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9089,7 +9074,9 @@
           ],
           "#F3C66D",
           17,
-          "#F2DDB3"
+          "#F2DDB3",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -9135,6 +9122,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9187,6 +9175,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9251,6 +9240,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 8,
+      "maxzoom": 18,
       "metadata": {
         "legend-group": "routier_superieur_autoroute",
         "legend-title": "Autoroute"
@@ -9311,6 +9301,7 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
+      "maxzoom": 18,
       "metadata": {
         "legend-group": "routier_superieur_autoroute",
         "legend-title": "Autoroute"
@@ -9334,7 +9325,9 @@
           ],
           "#F18800",
           17,
-          "#F2B230"
+          "#F2B230",
+          18,
+          "#FFFFFF"
         ],
         "line-width": {
           "stops": [
@@ -9425,6 +9418,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -9477,6 +9471,7 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
+      "maxzoom": 18,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -10406,6 +10401,107 @@
       }
     },
     {
+      "id": "parcellaire - parcelle bordure",
+      "type": "line",
+      "source": "plan_ign",
+      "source-layer": "parcellaire_parcelle",
+      "layout": {
+        "visibility": "visible",
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "PARCELLE"
+      ],
+      "paint": {
+        "line-color": "#9933FF",
+        "line-width": 1
+      }
+    },
+    {
+      "id": "parcellaire - section",
+      "type": "line",
+      "source": "plan_ign",
+      "source-layer": "parcellaire_section",
+      "layout": {
+        "visibility": "visible",
+        "line-cap": "butt",
+        "line-join": "round"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "SECTION"
+      ],
+      "paint": {
+        "line-color": "#287B00",
+        "line-width": 1.9,
+        "line-dasharray": [
+          2,
+          4,
+          2
+        ]
+      }
+    },
+    {
+      "id": "toponyme - parcellaire - section",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_parcellaire_section",
+      "filter": [
+        "==",
+        "txt_typo",
+        "SECTION"
+      ],
+      "layout": {
+        "symbol-placement": "line",
+        "text-offset": [
+          0,
+          0
+        ],
+        "text-field": "{texte}",
+        "text-size": 15,
+        "text-anchor": "center",
+        "text-keep-upright": true,
+        "text-max-angle": 45,
+        "text-font": [
+          "Source Sans Pro Regular"
+        ]
+      },
+      "paint": {
+        "text-color": "#287B00"
+      }
+    },
+    {
+      "id": "toponyme - parcellaire - parcelle",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_parcellaire_parcelle",
+      "filter": [
+        "==",
+        "txt_typo",
+        "PARCELLE"
+      ],
+      "layout": {
+        "symbol-placement": "point",
+        "text-field": "{texte}",
+        "text-size": 11,
+        "text-anchor": "center",
+        "text-keep-upright": true,
+        "text-max-angle": 45,
+        "text-font": [
+          "Source Sans Pro Bold"
+        ]
+      },
+      "paint": {
+        "text-color": "#9933FF",
+        "text-halo-width": 1,
+        "text-halo-color": "#FFFFFF"
+      }
+    },
+    {
       "id": "limite admin - limite de commune",
       "type": "line",
       "source": "plan_ign",
@@ -10717,6 +10813,62 @@
       }
     },
     {
+      "id": "limite etat conteste",
+      "type": "line",
+      "source": "plan_ign",
+      "source-layer": "limite_lin",
+      "minzoom": 2,
+      "layout": {
+        "visibility": "visible",
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "filter": [
+        "in",
+        "symbo",
+        "LIM_ETAT_CONTESTE"
+      ],
+      "paint": {
+        "line-color": "rgba(178, 175, 219, 0.6)",
+        "line-width": {
+          "stops": [
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3.5
+            ],
+            [
+              9,
+              5
+            ],
+            [
+              14,
+              13
+            ],
+            [
+              15,
+              20
+            ],
+            [
+              16,
+              24
+            ],
+            [
+              17,
+              42
+            ]
+          ]
+        },
+        "line-dasharray": [
+          4,
+          2
+        ]
+      }
+    },
+    {
       "id": "limite cote",
       "type": "line",
       "source": "plan_ign",
@@ -10807,32 +10959,10 @@
       }
     },
     {
-      "id": "autre construction linéaire - cable",
-			"type": "line",
-			"source": "plan_ign",
-			"source-layer": "bati_lin",
-			"minzoom": 14,
-			"layout": {
-				"visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-			},
-      "filter": [
-        "==",
-        "symbo",
-        "CABLE"
-      ],
-			"paint": {
-				"line-color": "#808080",
-        "line-width": 1
-			}
-		},
-    {
       "id": "autre construction linéaire - trait perpend cable",
       "type": "line",
       "source": "plan_ign",
       "source-layer": "bati_lin",
-			"minzoom": 14,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -10927,6 +11057,7 @@
       "filter": [
         "in",
         "symbo",
+        "CABLE",
         "HYDROCARBURES",
         "CONDUITE_MATIERES_P"
       ],
@@ -10948,7 +11079,7 @@
       "type": "symbol",
       "source": "plan_ign",
       "source-layer": "routier_ponc",
-      "minzoom": 14,
+      "minzoom": 12,
       "layout": {
         "visibility": "visible",
         "icon-image": "Barriere",
@@ -10987,11 +11118,43 @@
       }
     },
     {
+      "id": "routier ponctuel - peage ponctuel",
+      "type": "circle",
+      "source": "plan_ign",
+      "source-layer": "routier_ponc",
+      "minzoom": 8,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "PEAGE_PONC"
+      ],
+      "paint": {
+        "circle-radius": {
+          "stops": [
+            [
+              9,
+              3.5
+            ],
+            [
+              12,
+              6.5
+            ]
+          ]
+        },
+        "circle-color": "#E2A52A",
+        "circle-stroke-width": 1,
+        "circle-stroke-color": "#808080"
+      }
+    },
+    {
       "id": "hydro ponctuel",
       "type": "circle",
       "source": "plan_ign",
       "source-layer": "hydro_ponc",
-      "minzoom": 15,
+      "minzoom": 13,
       "layout": {
         "visibility": "visible"
       },
@@ -11137,6 +11300,50 @@
       },
       "metadata": {
         "legend-title": "Citerne - Station d'épuration"
+      }
+    },
+    {
+      "id": "bati ponctuel hydrographique - Réservoir d'eau",
+      "type": "circle",
+      "source": "plan_ign",
+      "source-layer": "bati_ponc",
+      "maxzoom": 15,
+      "layout": {
+        "visibility": "visible"
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "RESERVOIR_EAU_PONC"
+      ],
+      "paint": {
+        "circle-radius": {
+          "stops": [
+            [
+              14,
+              3
+            ],
+            [
+              17,
+              8
+            ]
+          ]
+        },
+        "circle-color": "#AAD5E9",
+        "circle-opacity": 1,
+        "circle-stroke-width": {
+          "stops": [
+            [
+              14,
+              1
+            ],
+            [
+              17,
+              2.5
+            ]
+          ]
+        },
+        "circle-stroke-color": "#1466B2"
       }
     },
     {
@@ -11298,23 +11505,12 @@
       "type": "symbol",
       "source": "plan_ign",
       "source-layer": "bati_ponc",
-      "minzoom": 14,
-      "maxzoom": 17,
+      "minzoom": 12,
+      "maxzoom": 15,
       "layout": {
         "visibility": "visible",
         "icon-image": "Ecluse",
-        "icon-size": {
-          "stops": [
-            [
-              15,
-              0.2
-            ],
-            [
-              17,
-              0.35
-            ]
-          ]
-        }
+        "icon-size": 0.2
       },
       "filter": [
         "==",
@@ -11333,23 +11529,12 @@
       "type": "symbol",
       "source": "plan_ign",
       "source-layer": "bati_ponc",
-      "minzoom": 14,
-      "maxzoom": 17,
+      "minzoom": 12,
+      "maxzoom": 14,
       "layout": {
         "visibility": "visible",
         "icon-image": "Barrage",
-        "icon-size": {
-          "stops": [
-            [
-              15,
-              0.25
-            ],
-            [
-              17,
-              0.45
-            ]
-          ]
-        }
+        "icon-size": 0.25
       },
       "filter": [
         "==",
@@ -11368,7 +11553,6 @@
       "type": "circle",
       "source": "plan_ign",
       "source-layer": "bati_ponc",
-      "minzoom": 14,
       "layout": {
         "visibility": "visible"
       },
@@ -11441,6 +11625,37 @@
       }
     },
     {
+      "id": "bati ponctuel infrastructure - Silo",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "bati_ponc",
+      "maxzoom": 15,
+      "layout": {
+        "visibility": "visible",
+        "icon-image": "Silo",
+        "icon-size": {
+          "stops": [
+            [
+              13,
+              0.22
+            ],
+            [
+              17,
+              0.5
+            ]
+          ]
+        }
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "SILO_PONC"
+      ],
+      "paint": {
+        "icon-color": "#646464"
+      }
+    },
+    {
       "id": "bati ponctuel infrastructure - Eolienne",
       "type": "symbol",
       "source": "plan_ign",
@@ -11475,6 +11690,37 @@
       },
       "metadata": {
         "legend-title": "Réservoir"
+      }
+    },
+    {
+      "id": "bati ponctuel infrastructure - Reservoir",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "bati_ponc",
+      "maxzoom": 15,
+      "layout": {
+        "visibility": "visible",
+        "icon-image": "Reservoir",
+        "icon-size": {
+          "stops": [
+            [
+              13,
+              0.26
+            ],
+            [
+              17,
+              0.5
+            ]
+          ]
+        }
+      },
+      "filter": [
+        "==",
+        "symbo",
+        "RESERVOIR_PONC"
+      ],
+      "paint": {
+        "icon-color": "#646464"
       }
     },
     {
@@ -15036,6 +15282,54 @@
       }
     },
     {
+      "id": "toponyme localite importance 3 capitale",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_localite_ponc",
+      "minzoom": 5,
+      "maxzoom": 13,
+      "filter": [
+        "in",
+        "txt_typo",
+        "commune 3 capitale"
+      ],
+      "layout": {
+        "visibility": "visible",
+        "symbol-placement": "point",
+        "icon-image": "Localite",
+        "icon-size": 0.21,
+        "text-field": "{texte}",
+        "text-size": {
+          "stops": [
+            [
+              5,
+              11
+            ],
+            [
+              6,
+              15
+            ]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-anchor": "bottom-left",
+        "text-offset": [
+          0.3,
+          0.1
+        ],
+        "text-padding": 1,
+        "text-transform": "uppercase",
+        "text-font": [
+          "Source Sans Pro Regular"
+        ]
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "rgba(255, 255, 255, 0.5)",
+        "text-halo-width": 2
+      }
+    },
+    {
       "id": "toponyme localite importance 3",
       "type": "symbol",
       "source": "plan_ign",
@@ -15060,7 +15354,7 @@
           "stops": [
             [
               5,
-              10
+              11
             ],
             [
               6,
@@ -15075,6 +15369,7 @@
           0.1
         ],
         "text-padding": 1,
+        "text-transform": "uppercase",
         "text-font": [
           "Source Sans Pro Regular"
         ]
@@ -15595,6 +15890,77 @@
       }
     },
     {
+      "id": "toponyme localite importance 2 capitale",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_localite_ponc",
+      "minzoom": 4,
+      "maxzoom": 13,
+      "filter": [
+        "in",
+        "txt_typo",
+        "commune 2 capitale",
+        "TYPO_A_2",
+        "BAT_COMMUNE_2",
+        "BAT_COMMUNE-2",
+        "BAT_COMMUNE_2_T"
+      ],
+      "layout": {
+        "visibility": "visible",
+        "symbol-placement": "point",
+        "icon-image": "Localite",
+        "icon-size": 0.25,
+        "text-field": "{texte}",
+        "text-size": {
+          "stops": [
+            [
+              4,
+              10
+            ],
+            [
+              6,
+              17
+            ]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-anchor": "bottom-left",
+        "text-offset": [
+          0.3,
+          0.2
+        ],
+        "text-padding": 1,
+        "text-transform": "uppercase",
+        "text-font": {
+          "stops": [
+            [
+              1,
+              [
+                "Source Sans Pro Regular"
+              ]
+            ],
+            [
+              7,
+              [
+                "Source Sans Pro Bold"
+              ]
+            ],
+            [
+              10,
+              [
+                "Source Sans Pro Regular"
+              ]
+            ]
+          ]
+        }
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "rgba(255, 255, 255, 0.5)",
+        "text-halo-width": 3
+      }
+    },
+    {
       "id": "toponyme localite importance 2",
       "type": "symbol",
       "source": "plan_ign",
@@ -15635,7 +16001,6 @@
           0.2
         ],
         "text-padding": 1,
-        "text-transform": "uppercase",
         "text-font": {
           "stops": [
             [
@@ -16216,6 +16581,36 @@
       }
     },
     {
+      "id": "toponyme pays 4",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_localite_ponc",
+      "minzoom": 4,
+      "maxzoom": 5,
+      "filter": [
+        "==",
+        "txt_typo",
+        "pays 4"
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-field": "{texte}",
+        "text-size": 9,
+        "text-allow-overlap": false,
+        "text-anchor": "center",
+        "text-padding": 1,
+        "text-transform": "uppercase",
+        "text-font": [
+          "Source Sans Pro Regular"
+        ]
+      },
+      "paint": {
+        "text-color": "#787878",
+        "text-halo-color": "rgba(255, 255, 255, 0.5)",
+        "text-halo-width": 4
+      }
+    },
+    {
       "id": "toponyme pays 3",
       "type": "symbol",
       "source": "plan_ign",
@@ -16250,7 +16645,7 @@
       "type": "symbol",
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
-      "minzoom": 2,
+      "minzoom": 3,
       "maxzoom": 5,
       "filter": [
         "==",
