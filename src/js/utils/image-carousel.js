@@ -171,9 +171,13 @@ class ImageCarousel {
 
     const slides = this.track.querySelectorAll(".newsfeedItemSlide");
     let cumulativeOffset = 0;
+    let additionalMargin = 0; // Add margin between slides
+    if (this.squareWidth) {
+      additionalMargin = 12; // No additional margin for square width slides
+    }
 
     slides.forEach((slide, index) => {
-      const width = slide.offsetWidth + 12;
+      const width = slide.offsetWidth + additionalMargin;
       this.slideWidths.push(width);
       if (index < slides.length - 1) {
         cumulativeOffset += width;
