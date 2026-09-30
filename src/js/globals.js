@@ -205,7 +205,7 @@ const Globals = {
 };
 
 const BACK_BUTTON_STATE_TITLES_FR = {
-  default: "Accueil",
+  default: "Application Cartes IGN",
   myaccount: "Enregistrés",
   informationsScreen: "Informations",
   informationsScreenLegal: "Mentions légales",
