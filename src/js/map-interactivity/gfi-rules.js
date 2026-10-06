@@ -8,6 +8,41 @@ import { config } from "../utils/config-utils";
 import { marked } from "marked";
 import DomUtils from "../utils/dom-utils";
 
+const EMPTY_TEMPLATE_VALUE = "";
+
+/**
+ * Format the template value for display, handling arrays and null/undefined values.
+ */
+function formatTemplateValue(value) {
+  if (value === null || value === undefined) {
+    return EMPTY_TEMPLATE_VALUE;
+  }
+
+  if (typeof value === "string" && value.startsWith("[")) {
+    try {
+      const parsedValue = JSON.parse(value);
+      if (Array.isArray(parsedValue)) {
+        value = parsedValue;
+      }
+    } catch {
+      // Keep malformed JSON strings as-is.
+    }
+  }
+
+  return Array.isArray(value) ? value.join(", ") : String(value);
+}
+
+/**
+ * Retrieve a property from feature properties, returning an empty string if it doesn't exist.
+ */
+function getTemplateProperty(featureProperties, propertyName) {
+  // Return an empty string if the property does not exist in the feature properties.
+  if (!Object.prototype.hasOwnProperty.call(featureProperties, propertyName)) {
+    return EMPTY_TEMPLATE_VALUE;
+  }
+  return formatTemplateValue(featureProperties[propertyName]);
+}
+
 /**
  * Process a template string by replacing placeholders with values
  * @param {string} str - The template string to process
@@ -16,7 +51,7 @@ import DomUtils from "../utils/dom-utils";
  * @param {boolean} options.includeMarkdown - Process {{{ }}} markdown placeholders (default: true)
  * @param {boolean} options.includeHelpers - Process ~~ ~~ helper function placeholders (default: true)
  * @param {Object} options.specialHandlers - Special property handlers {propName: handler function}
- * @returns {string|null} Processed string, or null if required property not found
+ * @returns {string} Processed string; missing properties are replaced with empty strings
  */
 function processTemplateString(str, featureProperties, options = {}) {
   const {
@@ -26,23 +61,16 @@ function processTemplateString(str, featureProperties, options = {}) {
   } = options;
   // Match markdown first: {{{ content }}}
   if (includeMarkdown) {
-    let match = str.match("{{{([^}]+)}}}");
-    while (match) {
-      if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
-        str = str.replace(match[0], marked(featureProperties[match[1]]));
-        match = str.match("{{{([^}]+)}}}");
-      } else {
-        break;
-      }
-    }
+    str = str.replace(/{{{([^}]+)}}}/g, (placeholder, propertyName) =>
+      marked(getTemplateProperty(featureProperties, propertyName.trim()))
+    );
   }
 
   // Then match operations: ~~ expression ~~
   if (includeHelpers) {
-    let match = str.match(/~~(.*?)~~/);
-    while (match) {
-      const expr = match[1].trim();
-      let result = "";
+    str = str.replace(/~~(.*?)~~/g, (placeholder, expression) => {
+      const expr = expression.trim();
+      let result = EMPTY_TEMPLATE_VALUE;
       try {
         // Match helper(arg)
         const fnMatch = expr.match(/^([a-zA-Z0-9_]+)\((.*?)\)$/);
@@ -51,51 +79,39 @@ function processTemplateString(str, featureProperties, options = {}) {
           const argName = fnMatch[2].trim();
           if (
             Object.prototype.hasOwnProperty.call(helpers, fnName) &&
-            Object.prototype.hasOwnProperty.call(featureProperties, argName)
+            Object.prototype.hasOwnProperty.call(featureProperties, argName) &&
+            featureProperties[argName] !== null &&
+            featureProperties[argName] !== undefined
           ) {
-            result = helpers[fnName](featureProperties[argName]);
+            result = formatTemplateValue(helpers[fnName](featureProperties[argName]));
           }
         }
       } catch (e) {
         console.error(e);
       }
-      str = str.replace(match[0], result);
-      match = str.match(/~~(.*?)~~/);
-    }
+      return result;
+    });
   }
 
   // Finally match raw properties: {{ property }}
-  let match = str.match("{{([^}]+)}}");
-  while (match) {
-    const propName = match[1];
+  let suppressString = false;
+  str = str.replace(/{{([^{}]+)}}/g, (placeholder, propertyName) => {
+    const propName = propertyName.trim();
 
     // Apply special handler if available
     if (specialHandlers[propName]) {
       const result = specialHandlers[propName](featureProperties);
-      if (result === null) {
-        str = "";
-      } else {
-        str = str.replace(match[0], result);
+      if (result === null || result === undefined) {
+        suppressString = true;
+        return EMPTY_TEMPLATE_VALUE;
       }
-    } else if (Object.prototype.hasOwnProperty.call(featureProperties, propName)) {
-      let propValue = featureProperties[propName];
-
-      // Parse JSON arrays if value starts with "["
-      if (typeof propValue === "string" && propValue[0] === "[") {
-        propValue = JSON.parse(propValue).join(", ");
-      } else if (Array.isArray(propValue)) {
-        propValue = propValue.join(", ");
-      }
-
-      str = str.replace(match[0], propValue);
-    } else {
-      str = "";
+      return formatTemplateValue(result);
     }
 
-    match = str.match("{{([^}]+)}}");
-  }
+    return getTemplateProperty(featureProperties, propName);
+  });
 
-  return str;
+  return suppressString ? EMPTY_TEMPLATE_VALUE : str;
 }
 
 function duration(hours) {
@@ -221,16 +237,7 @@ const gfiRules = {
           pretitle = "";
         }
       } else {
-        let match = pretitle.match("{{([^}]+)}}");
-        while (match) {
-          if (Object.prototype.hasOwnProperty.call(featureProperties, match[1])) {
-            if (Array.isArray(featureProperties[match[1]])) {
-              featureProperties[match[1]] = featureProperties[match[1]].join(", ");
-            }
-            pretitle = pretitle.replace(match[0], featureProperties[match[1]]);
-            match = pretitle.match("{{([^}]+)}}");
-          }
-        }
+        pretitle = processTemplateString(pretitle, featureProperties);
       }
       result.title = pretitle + `<div class="positionTitleWrapper">${result.title}</div>`;
     }
