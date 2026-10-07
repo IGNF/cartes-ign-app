@@ -1,0 +1,244 @@
+[
+  {
+    "id": "commerce",
+    "name": "Commerces",
+    "visible": true,
+    "filters": [
+      {
+        "field": "symbo",
+        "attributs": [
+          "alcohol",
+          "antiques",
+          "art",
+          "bakery",
+          "beauty",
+          "bicycle",
+          "books",
+          "butcher",
+          "car",
+          "car_parts",
+          "car_repair",
+          "cheese",
+          "chocolate",
+          "clothes",
+          "computer",
+          "confectionery",
+          "convenience",
+          "convenience;gas",
+          "cosmetics",
+          "deli",
+          "doityourself",
+          "dry_cleaning",
+          "e-cigarette",
+          "electronics",
+          "farm",
+          "florist",
+          "frozen_food",
+          "funeral_directors",
+          "furniture",
+          "garden_centre",
+          "gas",
+          "gift",
+          "greengrocer",
+          "hairdresser",
+          "hardware",
+          "hearing_aids",
+          "interior_decoration",
+          "jewelry",
+          "kiosk",
+          "kitchen",
+          "laundry",
+          "mall",
+          "marketplace",
+          "mobile_phone",
+          "motorcycle",
+          "newsagent",
+          "optician",
+          "pastry",
+          "seafood",
+          "shoes",
+          "sports",
+          "supermarket",
+          "tattoo",
+          "ticket",
+          "tobacco",
+          "toys",
+          "travel_agency",
+          "vacant",
+          "variety_store",
+          "wine",
+          "divers_magenta"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "culture_sports_loisirs",
+    "name": "Culture, sports et loisirs",
+    "visible": true,
+    "filters": [
+      {
+        "field": "symbo",
+        "attributs": [
+          "aquarium",
+          "casino",
+          "cave_entrance",
+          "cinema",
+          "conference_centre",
+          "golf_course",
+          "horse_riding",
+          "library",
+          "museum",
+          "sports_centre",
+          "swimming_pool",
+          "theatre",
+          "theme_park",
+          "zoo",
+          "divers_vert"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hebergement",
+    "name": "Hébergement",
+    "visible": true,
+    "filters": [
+      {
+        "field": "symbo",
+        "attributs": [
+          "camp_site",
+          "hotel",
+          "hut",
+          "divers_rouge"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lieux_remarquables",
+    "name": "Lieux remarquables",
+    "visible": true,
+    "filters": [
+      {
+        "field": "symbo",
+        "attributs": [
+          "autrereligion",
+          "castle",
+          "christian",
+          "church_histo",
+          "grave_yard",
+          "lighthouse",
+          "peak",
+          "saddle",
+          "jewish",
+          "muslim",
+          "viewpoint",
+          "waterway",
+          "divers_marron"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "restauration",
+    "name": "Restauration",
+    "visible": true,
+    "filters": [
+      {
+        "field": "symbo",
+        "attributs": [
+          "bar",
+          "restaurant",
+          "divers_orange"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sante",
+    "name": "Santé",
+    "visible": true,
+    "filters": [
+      {
+        "field": "symbo",
+        "attributs": [
+          "hospital",
+          "pharmacy"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "services_commodites",
+    "name": "Services et commodités",
+    "visible": true,
+    "filters": [
+      {
+        "field": "symbo",
+        "attributs": [
+          "atm",
+          "bank",
+          "information",
+          "picnic_site",
+          "post_office",
+          "toilets",
+          "charging_station",
+          "fuel",
+          "parking",
+          "recycling",
+          "rest_area",
+          "services",
+          "drinking_water",
+          "picnic_table",
+          "divers_gris",
+          "divers_bleu"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "services_publics",
+    "name": "Services publics",
+    "visible": true,
+    "filters": [
+      {
+        "field": "symbo",
+        "attributs": [
+          "college",
+          "courthouse",
+          "fire_station",
+          "police",
+          "prison",
+          "townhall",
+          "university",
+          "hospital"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "transports",
+    "name": "Transports",
+    "visible": true,
+    "filters": [
+      {
+        "field": "symbo",
+        "attributs": [
+          "aerodrome",
+          "bicycle_parking",
+          "bicycle_rental",
+          "bus_stop",
+          "charging_station",
+          "ferry_terminal",
+          "fuel",
+          "marina",
+          "parking",
+          "rest_area",
+          "services",
+          "station"
+        ]
+      }
+    ]
+  }
+]
