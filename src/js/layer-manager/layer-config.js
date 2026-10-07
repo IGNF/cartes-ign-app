@@ -23,6 +23,21 @@ import { config } from "../utils/config-utils";
  * @param {*} id
  * @returns
  */
+/**
+ * Obtenir la clef d'API GPF nécessaire aux ressources privées.
+ * Centralise l'accès à la variable d'environnement afin d'éviter sa
+ * duplication dans le bundle et d'échouer explicitement si elle est absente,
+ * plutôt que d'envoyer une requête avec un apikey="undefined".
+ * @returns {string}
+ */
+const getApiKey = () => {
+  if (!process.env.GPF_key) {
+    console.error("LayerConfig : GPF_key is not defined, private layers requests will fail.");
+    return "";
+  }
+  return process.env.GPF_key;
+};
+
 const getTagConfigs = (id) => {
   const result = [];
   for (const tagConfig in config.layerTags) {
@@ -280,7 +295,7 @@ const createRasterTileSource = (id) => {
     "TILECOL={x}";
   if (props.url.includes("/private/")) {
     // Ajout de la clef d'API de l'appli si l'URL est privée
-    url += `&apikey=${process.env.GPF_key}`;
+    url += `&apikey=${getApiKey()}`;
   }
   return {
     type: "raster",
@@ -388,7 +403,7 @@ const createRasterSource = (id) => {
     "HEIGHT=256";
   if (props.url.includes("/private/")) {
     // Ajout de la clef d'API de l'appli si l'URL est privée
-    url += `&apikey=${process.env.GPF_key}`;
+    url += `&apikey=${getApiKey()}`;
   }
   return {
     type: "raster",
