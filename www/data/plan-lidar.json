@@ -563,7 +563,9 @@
         "text-size": 11,
         "text-allow-overlap": false,
         "text-padding": 1,
-        "text-font": ["Source Sans Pro"]
+        "text-font": [
+          "Source Sans Pro"
+        ]
       },
       "paint": {
         "text-color": "#532A2A"
@@ -2751,6 +2753,52 @@
       }
     },
     {
+      "id": "toponyme localite importance 2 capitale",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_localite_ponc",
+      "minzoom": 4,
+      "maxzoom": 13,
+      "filter": [
+        "in",
+        "txt_typo",
+        "commune 2 capitale",
+        "TYPO_A_2",
+        "BAT_COMMUNE_2",
+        "BAT_COMMUNE-2",
+        "BAT_COMMUNE_2_T"
+      ],
+      "layout": {
+        "visibility": "visible",
+        "symbol-placement": "point",
+        "icon-image": "Localite",
+        "icon-size": 0.25,
+        "text-field": "{texte}",
+        "text-size": {
+          "stops": [
+            [4, 10],
+            [6, 17]
+          ]
+        },
+        "text-allow-overlap": false,
+        "text-anchor": "bottom-left",
+        "text-offset": [0.3, 0.2],
+        "text-padding": 1,
+        "text-font": {
+          "stops": [
+            [1, ["Source Sans Pro Regular"]],
+            [7, ["Source Sans Pro Bold"]],
+            [10, ["Source Sans Pro Regular"]]
+          ]
+        }
+      },
+      "paint": {
+        "text-color": "#FFFFFF",
+        "text-halo-color": "rgba(0, 0, 0, 0.5)",
+        "text-halo-width": 3
+      }
+    },
+    {
       "id": "toponyme localite importance 2",
       "type": "symbol",
       "source": "plan_ign",
@@ -2782,7 +2830,6 @@
         "text-anchor": "bottom-left",
         "text-offset": [0.3, 0.2],
         "text-padding": 1,
-        "text-transform": "uppercase",
         "text-font": {
           "stops": [
             [1, ["Source Sans Pro Regular"]],
