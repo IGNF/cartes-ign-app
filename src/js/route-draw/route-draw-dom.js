@@ -98,7 +98,7 @@ let RouteDrawDOM = {
           },
           {
             class: "tools-layer-visibility",
-            text: "Masquer",
+            text: "Masquer de la carte",
             value: "hide",
           },
           {
