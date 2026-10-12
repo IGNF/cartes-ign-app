@@ -65,7 +65,7 @@
     "@turf/point-to-line-distance": "^7.3.5",
     "@turf/points-within-polygon": "^7.3.5",
     "@turf/union": "^7.3.5",
-    "@xmldom/xmldom": "^0.9.10",
+    "@xmldom/xmldom": "^0.9.12",
     "capacitor-native-settings": "^8.1.0",
     "chart.js": "^4.5.1",
     "idb": "^8.0.3",
