@@ -113,6 +113,9 @@ function getOnboardingModal(id = null, html = null) {
     ) {
       return 0;
     }
+    if (OnboardingConfig.html === "") {
+      return 0;
+    }
     const onboardingDom = domUtils.stringToHTML(OnboardingConfig.html);
     onboardingDom.querySelector("#onBoardingConfirm").addEventListener("click", () => {
       ActionSheet._closeElem.click();
