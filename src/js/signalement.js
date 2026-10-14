@@ -172,7 +172,7 @@ class Signalement {
         description: this.data.description,
         theme: this.data.theme,
         mail: this.data.email,
-        center: this.data.location,
+        center: [this.data.location.lon, this.data.location.lat],
         zoom: mapZoom,
       },
       drawing: {
