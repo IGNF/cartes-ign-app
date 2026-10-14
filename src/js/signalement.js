@@ -82,7 +82,7 @@ class Signalement {
     this.dom.theme.addEventListener("input", checkFormValidity);
     this.dom.email.addEventListener("input", checkFormValidity);
 
-    this.dom.submitButton.addEventListener("click", () => {
+    this.dom.submitButton.addEventListener("click", async () => {
       this.data = {
         title: this.dom.title.value,
         description: this.dom.description.value,
@@ -107,13 +107,22 @@ class Signalement {
         console.warn("Signalement sans lieu !");
         return;
       }
-      this.#send();
-      Toast.show({
-        text: "Votre signalement a été transmis aux équipes concernées.",
-        duration: "long",
-        position: "top"
-      });
-      this.hide();
+      try {
+        await this.#send();
+        Toast.show({
+          text: "Votre signalement a été transmis aux équipes concernées.",
+          duration: "long",
+          position: "top"
+        });
+        this.hide();
+      } catch (error) {
+        console.error(error);
+        Toast.show({
+          text: "Le signalement n'a pas été transmis. Merci de réessayer.",
+          duration: "long",
+          position: "bottom"
+        });
+      }
     });
   }
 
@@ -139,6 +148,7 @@ class Signalement {
     return new Promise((resolve, reject) => {
       if (!window.geoCaptcha) {
         reject(new Error("GéoCaptcha non chargé"));
+        return;
       }
       window.geoCaptcha.launch({
         submit: resolve,
@@ -173,16 +183,16 @@ class Signalement {
       geocaptchaToken: token,
     };
 
-    await fetch(this.url + "anomaly", {
+    const response = await fetch(this.url + "/anomaly", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer undefined",
       },
-      mode: "cors",
-      credentials: "same-origin",
       body: JSON.stringify(anomaly),
     });
+    if (!response.ok) {
+      throw new Error(`Erreur lors de l'envoi du signalement : HTTP ${response.status}`);
+    }
   }
 
   /**
