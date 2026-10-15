@@ -61,6 +61,7 @@ class Signalement {
       email: this.target.querySelector("#signalement-email"),
       submitButton: this.target.querySelector(".signalement-submit"),
     };
+    this.#loadScript("https://geocaptcha.ign.fr/api/v1/lib.js");
     // TODO: remplir automatiquement email si connecté via Globals.myaccount
   }
 
@@ -81,7 +82,7 @@ class Signalement {
     this.dom.theme.addEventListener("input", checkFormValidity);
     this.dom.email.addEventListener("input", checkFormValidity);
 
-    this.dom.submitButton.addEventListener("click", () => {
+    this.dom.submitButton.addEventListener("click", async () => {
       this.data = {
         title: this.dom.title.value,
         description: this.dom.description.value,
@@ -106,13 +107,53 @@ class Signalement {
         console.warn("Signalement sans lieu !");
         return;
       }
-      this.#send();
-      Toast.show({
-        text: "Votre signalement a été transmis aux équipes concernées.",
-        duration: "long",
-        position: "top"
+      try {
+        await this.#send();
+        Toast.show({
+          text: "Votre signalement a été transmis aux équipes concernées.",
+          duration: "long",
+          position: "top"
+        });
+        this.hide();
+      } catch (error) {
+        console.error(error);
+        Toast.show({
+          text: "Le signalement n'a pas été transmis. Merci de réessayer.",
+          duration: "long",
+          position: "bottom"
+        });
+      }
+    });
+  }
+
+  #loadScript (url) {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src="${url}"]`)) {
+        resolve();
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = url;
+      script.async = true;
+
+      script.onload = resolve;
+      script.onerror = () => reject(new Error(`Impossible de charger ${url}`));
+
+      document.head.appendChild(script);
+    });
+  }
+
+  #getCaptchaToken () {
+    return new Promise((resolve, reject) => {
+      if (!window.geoCaptcha) {
+        reject(new Error("GéoCaptcha non chargé"));
+        return;
+      }
+      window.geoCaptcha.launch({
+        submit: resolve,
+        cancel: () => reject(new Error("GéoCaptcha non résolu")),
       });
-      this.hide();
     });
   }
 
@@ -121,50 +162,37 @@ class Signalement {
    * @private
    */
   async #send() {
-    const permalink = `https://www.geoportail.gouv.fr/carte?c=${this.data.location.lon},${this.data.location.lat}&z=${Math.floor(this.map.getZoom()) - 1}&l0=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2::GEOPORTAIL:OGC:WMTS(1)&permalink=yes`;
+    const token = await this.#getCaptchaToken(); // resolved uniquement si captcha ok
+    const layername = this.data.title + " (Anomalie) (application Cartes IGN)";
+    const mapZoom = Math.floor(this.map.getZoom());
+    const kml = `<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/kml/2.2 https://developers.google.com/kml/schema/kml22gx.xsd"><Placemark><name>location of an anomaly (${layername})</name><Point><coordinates>${this.data.location.lon},${this.data.location.lat}</coordinates></Point></Placemark></kml>`;
     const anomaly = {
-      name: this.data.title + " (Anomalie) (Appli mobile IGN)",
-      description: this.data.description,
-      theme: this.data.theme,
-      permalink: permalink,
-      id_drawing: "",
-      mail: this.data.email,
+      anomaly: {
+        name: layername,
+        description: this.data.description,
+        theme: this.data.theme,
+        mail: this.data.email,
+        center: [this.data.location.lon, this.data.location.lat],
+        zoom: mapZoom,
+      },
+      drawing: {
+        kml: kml,
+        layername: layername,
+        name: layername,
+      },
+      geocaptchaToken: token,
     };
 
-    const kml = `<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/kml/2.2 https://developers.google.com/kml/schema/kml22gx.xsd"><Placemark><name>location of an anomaly (${anomaly.name})</name><Point><coordinates>${this.data.location.lon},${this.data.location.lat}</coordinates></Point></Placemark></kml>`;
-    const drawing = {
-      is_anomaly: 1,
-      kml: kml,
-      layername: anomaly.name,
-      name: anomaly.name,
-    };
-
-    const drawingRequestBody = {drawing: drawing};
-    const drawingResponse = await fetch(this.url + "drawing", {
+    const response = await fetch(this.url + "/anomaly", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer undefined",
       },
-      mode: "cors",
-      credentials: "same-origin",
-      body: JSON.stringify(drawingRequestBody),
+      body: JSON.stringify(anomaly),
     });
-    const drawingResults = await drawingResponse.json();
-
-    anomaly.id_drawing = drawingResults.drawing[0].id;
-
-    const requestBody = {anomaly: anomaly};
-    await fetch(this.url + "anomaly", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer undefined",
-      },
-      mode: "cors",
-      credentials: "same-origin",
-      body: JSON.stringify(requestBody),
-    });
+    if (!response.ok) {
+      throw new Error(`Erreur lors de l'envoi du signalement : HTTP ${response.status}`);
+    }
   }
 
   /**
