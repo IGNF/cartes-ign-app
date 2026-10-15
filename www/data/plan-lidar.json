@@ -13,7 +13,7 @@
     "PLAN.LIDAR.SURSOL$WMTS": {
       "type": "raster",
       "tiles": [
-        "https://data.geopf.fr/private/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=IGNF_PLAN-IGN-HD&apikey={{GPF_key}}&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
+        "https://data.geopf.fr/private/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=PLAN-IGN-HD&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=IGNF_PLAN-IGN-HD&apikey={{GPF_key}}&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
       ],
       "tileSize": 256,
       "maxzoom": 20,
