@@ -12,6 +12,18 @@ Installation des dépendances :
 
 ```npm i```
 
+Lint et tests unitaires :
+
+```npm run lint```
+
+```npm run test:unit```
+
+Tests end-to-end sur l'application web compilée :
+
+```npx playwright install chromium```
+
+```npm run test:e2e```
+
 Serveur de test pour développement sur navigateur :
 
 ```npm run serve:dev```

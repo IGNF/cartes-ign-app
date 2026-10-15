@@ -57,6 +57,9 @@ function parseOsmOpeningHours(horaire) {
           result.push(", ");
         }
       }
+      if (result[result.length - 1] === ", ") {
+        result.pop();
+      }
     } else {
       result.push(`le ${days[daySplit[0]]} `);
     }
