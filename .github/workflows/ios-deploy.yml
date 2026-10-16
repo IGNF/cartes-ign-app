@@ -73,62 +73,18 @@ jobs:
           security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
-          import_certificate() {
-            local cert_path="$1"
-            local password="$2"
-            local label="$3"
-
-            if [ -z "$password" ]; then
-              echo "::error::Missing password for $label. Check the GitHub secret value."
-              exit 1
-            fi
-
-            echo "Importing $label certificate..."
-            if ! security import "$cert_path" -P "$password" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH" -T /usr/bin/codesign; then
-              echo "::error::Failed to import $label certificate. The password is likely wrong or the file is not the expected .p12 for this secret."
-              echo "Hint: $label should use the password that was used when exporting the certificate from Keychain Access."
-              exit 1
-            fi
-          }
-
-          import_certificate "$CERTIFICATE_PATH" "$P12_PASSWORD" "build"
-          import_certificate "$CERTIFICATE_DISTR_PATH" "$P12_PASSWORD_DISTR" "distribution"
-          security list-keychain -d user -s "$KEYCHAIN_PATH"
-          security default-keychain -d user -s "$KEYCHAIN_PATH"
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security import $CERTIFICATE_DISTR_PATH -P "" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
 
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp "$PP_PATH" ~/Library/MobileDevice/Provisioning\ Profiles
-          cp "$DPP_PATH" ~/Library/MobileDevice/Provisioning\ Profiles
-
-          echo "Codesigning identities after import:"
-          security find-identity -v -p codesigning "$KEYCHAIN_PATH" || true
-
-          echo "Validating provisioning profile capabilities for bundle fr.ign.geoportail:"
-          security cms -D -i "$PP_PATH" | grep -E "<key>Name</key>|<key>ApplicationIdentifierPrefix</key>|<key>com.apple.developer.associated-domains</key>|fr\.ign\.geoportail" -A3 -B2 || true
-          security cms -D -i "$DPP_PATH" | grep -E "<key>Name</key>|<key>ApplicationIdentifierPrefix</key>|<key>com.apple.developer.associated-domains</key>|fr\.ign\.geoportail" -A3 -B2 || true
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $DPP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: Build app
-        run: |
-          echo "Installed signing identities:"
-          security find-identity -v -p codesigning "$RUNNER_TEMP/app-signing.keychain-db" || true
-          echo "Installed provisioning profiles:"
-          ls -l ~/Library/MobileDevice/Provisioning\ Profiles || true
-
-          cd ios/App && xcodebuild \
-            -workspace "App.xcworkspace" \
-            -scheme "App" \
-            clean archive \
-            -archivePath "$GITHUB_WORKSPACE/ign.xcarchive" \
-            -configuration "Release Production" \
-            -destination "generic/platform=iOS" \
-            -sdk iphoneos \
-            DEVELOPMENT_TEAM="${{ secrets.APPSTORE_TEAM_ID }}" \
-            CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
-            CODE_SIGNING_ALLOWED=YES \
-            CODE_SIGNING_REQUIRED=YES \
-            -allowProvisioningUpdates
+        run: cd ios/App && xcodebuild -workspace "App.xcworkspace" -scheme "App" clean archive -archivePath $GITHUB_WORKSPACE/ign.xcarchive -configuration "Release Production" DEVELOPMENT_TEAM=${{ secrets.APPSTORE_TEAM_ID }} -destination generic/platform=iOS
 
       - name: export ipa
         env:
