@@ -73,9 +73,26 @@ jobs:
           security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
-          # import certificate to keychain
-          security import "$CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH" -T /usr/bin/codesign
-          security import "$CERTIFICATE_DISTR_PATH" -P "$P12_PASSWORD_DISTR" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH" -T /usr/bin/codesign
+          import_certificate() {
+            local cert_path="$1"
+            local password="$2"
+            local label="$3"
+
+            if [ -z "$password" ]; then
+              echo "::error::Missing password for $label. Check the GitHub secret value."
+              exit 1
+            fi
+
+            echo "Importing $label certificate..."
+            if ! security import "$cert_path" -P "$password" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH" -T /usr/bin/codesign; then
+              echo "::error::Failed to import $label certificate. The password is likely wrong or the file is not the expected .p12 for this secret."
+              echo "Hint: $label should use the password that was used when exporting the certificate from Keychain Access."
+              exit 1
+            fi
+          }
+
+          import_certificate "$CERTIFICATE_PATH" "$P12_PASSWORD" "build"
+          import_certificate "$CERTIFICATE_DISTR_PATH" "$P12_PASSWORD_DISTR" "distribution"
           security list-keychain -d user -s "$KEYCHAIN_PATH"
           security default-keychain -d user -s "$KEYCHAIN_PATH"
 
