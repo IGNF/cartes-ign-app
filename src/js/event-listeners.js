@@ -285,21 +285,24 @@ function addListeners() {
       `nocachetoken=${Date.now()}`
     );
 
-    const layer = map.getStyle().layers.filter(
-      l => l.source === sourceId
-    )[0];
-    if (!layer) {
+    const oldLayers = map.getStyle().layers;
+    const sourceLayers = oldLayers.filter(l => l.source === sourceId);
+    if (sourceLayers.length === 0) {
       return;
     }
-    const oldLayers = map.getStyle().layers;
-    const layerIndex = oldLayers.findIndex(l => l.id === layer.id);
-    const layerDef = oldLayers[layerIndex];
-    const before = oldLayers[layerIndex + 1] && oldLayers[layerIndex + 1].id;
 
-    map.removeLayer(layer.id);
+    const sourceLayerIds = new Set(sourceLayers.map(layer => layer.id));
+    sourceLayers.slice().reverse().forEach(layer => {
+      map.removeLayer(layer.id);
+    });
     map.removeSource(sourceId);
     map.addSource(sourceId, sourceDef);
-    map.addLayer(layerDef, before);
+    sourceLayers.forEach((layer, index) => {
+      const nextLayer = oldLayers
+        .slice(oldLayers.findIndex(candidate => candidate.id === layer.id) + 1)
+        .find(candidate => !sourceLayerIds.has(candidate.id) && map.getLayer(candidate.id));
+      map.addLayer(layer, nextLayer ? nextLayer.id : undefined);
+    });
   };
 
   // Screen dimentions change
