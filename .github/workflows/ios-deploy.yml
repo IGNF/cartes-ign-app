@@ -85,6 +85,11 @@ jobs:
 
       - name: Build app
         run: |
+          echo "Installed signing identities:"
+          security find-identity -v -p codesigning "$RUNNER_TEMP/app-signing.keychain-db" || true
+          echo "Installed provisioning profiles:"
+          ls -l ~/Library/MobileDevice/Provisioning\ Profiles || true
+
           cd ios/App && xcodebuild \
             -workspace "App.xcworkspace" \
             -scheme "App" \
@@ -94,6 +99,8 @@ jobs:
             -destination "generic/platform=iOS" \
             -sdk iphoneos \
             DEVELOPMENT_TEAM="${{ secrets.APPSTORE_TEAM_ID }}" \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
             CODE_SIGNING_ALLOWED=YES \
             CODE_SIGNING_REQUIRED=YES \
             -allowProvisioningUpdates
