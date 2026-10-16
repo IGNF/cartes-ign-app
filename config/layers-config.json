@@ -364,6 +364,7 @@
       "title": "Plan IGN HD",
       "description": "Le plan IGN HD cartographie les paysages de façon très détaillée. Il utilise des données précises comme le LiDAR HD ou les données COSIA pour la représentation de l'occupation du sol. Cette version met surtout en valeur ce qui est au-dessus du sol, comme la végétation, les bâtiments et leurs ombres. Pour plus d’informations sur le LiDAR HD : <a href='https://www.ign.fr/institut/programme-lidar-hd-vers-une-nouvelle-cartographie-3d-du-territoire' target='_blank'>Cartographie 3D France entière par LiDAR - Institut - IGN</a>",
       "source": "IGN",
+      "legendUrl": "https://data.geopf.fr/annexes/ressources/legendes/PLAN-IGN-HD.png",
       "maj": "Juin 2026",
       "format": "application/x-protobuf",
       "styles": [ "https://ignf.github.io/cartes-ign-app/plan-lidar.json", "data/plan-lidar.json"]
