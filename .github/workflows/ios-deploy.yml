@@ -84,7 +84,19 @@ jobs:
           cp $DPP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: Build app
-        run: cd ios/App && xcodebuild -workspace "App.xcworkspace" -scheme "App" clean archive -archivePath $GITHUB_WORKSPACE/ign.xcarchive -configuration "Release Production" DEVELOPMENT_TEAM=${{ secrets.APPSTORE_TEAM_ID }} -destination generic/platform=iOS
+        run: |
+          cd ios/App && xcodebuild \
+            -workspace "App.xcworkspace" \
+            -scheme "App" \
+            clean archive \
+            -archivePath "$GITHUB_WORKSPACE/ign.xcarchive" \
+            -configuration "Release Production" \
+            -destination "generic/platform=iOS" \
+            -sdk iphoneos \
+            DEVELOPMENT_TEAM="${{ secrets.APPSTORE_TEAM_ID }}" \
+            CODE_SIGNING_ALLOWED=YES \
+            CODE_SIGNING_REQUIRED=YES \
+            -allowProvisioningUpdates
 
       - name: export ipa
         env:
