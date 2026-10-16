@@ -74,14 +74,22 @@ jobs:
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
           # import certificate to keychain
-          security import $CERTIFICATE_PATH -P "" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security import $CERTIFICATE_DISTR_PATH -P "" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
+          security import "$CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH" -T /usr/bin/codesign
+          security import "$CERTIFICATE_DISTR_PATH" -P "$P12_PASSWORD_DISTR" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH" -T /usr/bin/codesign
+          security list-keychain -d user -s "$KEYCHAIN_PATH"
+          security default-keychain -d user -s "$KEYCHAIN_PATH"
 
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $DPP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          cp "$PP_PATH" ~/Library/MobileDevice/Provisioning\ Profiles
+          cp "$DPP_PATH" ~/Library/MobileDevice/Provisioning\ Profiles
+
+          echo "Codesigning identities after import:"
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH" || true
+
+          echo "Validating provisioning profile capabilities for bundle fr.ign.geoportail:"
+          security cms -D -i "$PP_PATH" | grep -E "<key>Name</key>|<key>ApplicationIdentifierPrefix</key>|<key>com.apple.developer.associated-domains</key>|fr\.ign\.geoportail" -A3 -B2 || true
+          security cms -D -i "$DPP_PATH" | grep -E "<key>Name</key>|<key>ApplicationIdentifierPrefix</key>|<key>com.apple.developer.associated-domains</key>|fr\.ign\.geoportail" -A3 -B2 || true
 
       - name: Build app
         run: |
