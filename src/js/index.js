@@ -183,51 +183,45 @@ function app() {
     }
 
     // Mise en place du bouton évènements
-    if (tempLayers.length > 0) {
-      let layer;
-      for (let i = 0; i < tempLayers.length; i++) {
-        layer = tempLayers[i];
-        if (layer.mainScreenBtn) {
-          break;
+    const eventLayer = tempLayers.find((tempLayer) => tempLayer.mainScreenBtn);
+    const eventButton = document.getElementById("eventMapBtn");
+    if (!eventLayer) {
+      eventButton.remove();
+    } else {
+      eventButton.classList.remove("d-none");
+      eventButton.title = eventLayer.mainScreenBtn.title;
+      eventButton.style.backgroundImage = `url(${eventLayer.mainScreenBtn.iconUrl})`;
+      const eventMapLayerId = `${eventLayer.id}$$$${eventLayer.id}`;
+      let eventButtonPending = false;
+      eventButton.addEventListener("click", () => {
+        // Le bouton reste inactif tant que la carte n'a pas fini d'appliquer le changement de couche
+        if (eventButtonPending) {
+          return;
         }
-      }
-      if (layer.mainScreenBtn) {
-        const eventButton = document.getElementById("eventMapBtn");
-        eventButton.classList.remove("d-none");
-        eventButton.title = layer.mainScreenBtn.title;
-        eventButton.style.backgroundImage = `url(${layer.mainScreenBtn.iconUrl})`;
-        const eventMapLayerId = `${layer.id}$$$${layer.id}`;
-        let eventButtonPending = false;
-        eventButton.addEventListener("click", () => {
-          // Le bouton reste inactif tant que la carte n'a pas fini d'appliquer le changement de couche
-          if (eventButtonPending) {
-            return;
+        eventButtonPending = true;
+        eventButton.setAttribute("aria-disabled", "true");
+        const wasDisplayed = !!Globals.map.getLayer(eventMapLayerId);
+        Globals.map.once("idle", () => {
+          if (!wasDisplayed && Globals.map.getLayer(eventMapLayerId) &&
+            Globals.map.queryRenderedFeatures({ layers: [eventMapLayerId] }).length === 0) {
+            Globals.map.flyTo({ zoom: 4, center: [2.0, 47.33] });
           }
-          eventButtonPending = true;
-          eventButton.setAttribute("aria-disabled", "true");
-          const wasDisplayed = !!Globals.map.getLayer(eventMapLayerId);
-          Globals.map.once("idle", () => {
-            if (!wasDisplayed && Globals.map.getLayer(eventMapLayerId) &&
-              Globals.map.queryRenderedFeatures({ layers: [eventMapLayerId] }).length === 0) {
-              Globals.map.flyTo({ zoom: 4, center: [2.0, 47.33] });
-            }
-            eventButtonPending = false;
-            eventButton.removeAttribute("aria-disabled");
-          });
-          document.querySelector(`#${layer.id}`).click();
+          eventButtonPending = false;
+          eventButton.removeAttribute("aria-disabled");
         });
-        const syncEventButtonState = () => {
-          const layerElement = document.getElementById(layer.id);
-          eventButton.classList.toggle("active", !!layerElement && layerElement.classList.contains("selectedLayer"));
-        };
-        syncEventButtonState();
-        Globals.manager.addEventListener("addlayer", syncEventButtonState);
-        Globals.manager.addEventListener("removelayer", syncEventButtonState);
-      }
-      if (layer.colors) {
-        document.documentElement.style.setProperty("--event-main", layer.colors.main);
-        document.documentElement.style.setProperty("--event-light", layer.colors.light);
-        document.documentElement.style.setProperty("--event-dark", layer.colors.dark);
+        document.querySelector(`#${eventLayer.id}`).click();
+      });
+      const syncEventButtonState = () => {
+        const layerElement = document.getElementById(eventLayer.id);
+        eventButton.classList.toggle("active", !!layerElement && layerElement.classList.contains("selectedLayer"));
+      };
+      syncEventButtonState();
+      Globals.manager.addEventListener("addlayer", syncEventButtonState);
+      Globals.manager.addEventListener("removelayer", syncEventButtonState);
+      if (eventLayer.colors) {
+        document.documentElement.style.setProperty("--event-main", eventLayer.colors.main);
+        document.documentElement.style.setProperty("--event-light", eventLayer.colors.light);
+        document.documentElement.style.setProperty("--event-dark", eventLayer.colors.dark);
       }
     }
   });
