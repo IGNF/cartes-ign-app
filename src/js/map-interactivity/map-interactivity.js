@@ -108,11 +108,23 @@ class MapInteractivity {
 
     // fonction d'event avec bind
     this.handleInfoOnMap = this.#getInfoOnMap.bind(this);
+    let clickTimeout = null;
     this.handleInfoOnMapSafe = (ev) => {
-      this.handleInfoOnMap(ev).catch((error) => {
-        console.error("Map click handler failed", error);
-        this.map.once("click", this.handleInfoOnMapSafe);
-      });
+      clickTimeout = setTimeout(() => {
+        clickTimeout = null;
+        this.map.off("click", this.handleInfoOnMapSafe);
+        this.handleInfoOnMap(ev).catch((error) => {
+          console.error("Map click handler failed", error);
+          this.map.once("click", this.handleInfoOnMapSafe);
+        });
+      }, 300);
+      this.map.once("click", this.handleInfoOnMapSafe);
+    };
+    this.handleCancelClick = () => {
+      if (clickTimeout !== null) {
+        clearTimeout(clickTimeout);
+        clickTimeout = null;
+      }
     };
     this.handleUpdateHighlightedGeom = throttle(this.#updateHighlightedGeom.bind(this), 200, {
       leading: true,
@@ -132,6 +144,7 @@ class MapInteractivity {
 
   #listeners() {
     this.map.once("click", this.handleInfoOnMapSafe);
+    this.map.on("touchstart", this.handleCancelClick);
   }
 
   async #getInfoOnMap(ev) {
