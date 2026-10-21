@@ -182,6 +182,10 @@ class OfflineMaps {
       this.dom.locationSelectBtn.classList.add("disabled");
       this.dom.areaTooLargeMsg.classList.remove("d-none");
     }
+    this.map.setBearing(0);
+    this.map.setPitch(0);
+    this.map.dragRotate.disable();
+    this.map.touchZoomRotate.disableRotation();
   }
 
   /**
@@ -190,6 +194,8 @@ class OfflineMaps {
   hide() {
     this.dom.selectOnMapScreen.classList.add("d-none");
     this.dom.startDownloadScreen.classList.add("d-none");
+    this.map.dragRotate.enable();
+    this.map.touchZoomRotate.enableRotation();
   }
 
   /**
