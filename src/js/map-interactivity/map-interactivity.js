@@ -109,22 +109,25 @@ class MapInteractivity {
     // fonction d'event avec bind
     this.handleInfoOnMap = this.#getInfoOnMap.bind(this);
     let clickTimeout = null;
-    this.handleInfoOnMapSafe = (ev) => {
-      clickTimeout = setTimeout(() => {
-        clickTimeout = null;
-        this.map.off("click", this.handleInfoOnMapSafe);
-        this.handleInfoOnMap(ev).catch((error) => {
-          console.error("Map click handler failed", error);
-          this.map.once("click", this.handleInfoOnMapSafe);
-        });
-      }, 300);
-      this.map.once("click", this.handleInfoOnMapSafe);
-    };
     this.handleCancelClick = () => {
+      clearTimeout(clickTimeout);
+      clickTimeout = null;
+    };
+    // MapLibre n'a pas de singleclick : on émule celui d'OpenLayers (250 ms, annulé par un 2e clic ou un 2e tap)
+    this.handleInfoOnMapSafe = (ev) => {
       if (clickTimeout !== null) {
-        clearTimeout(clickTimeout);
-        clickTimeout = null;
+        this.handleCancelClick();
+      } else {
+        clickTimeout = setTimeout(() => {
+          clickTimeout = null;
+          this.map.off("click", this.handleInfoOnMapSafe);
+          this.handleInfoOnMap(ev).catch((error) => {
+            console.error("Map click handler failed", error);
+            this.map.once("click", this.handleInfoOnMapSafe);
+          });
+        }, 250);
       }
+      this.map.once("click", this.handleInfoOnMapSafe);
     };
     this.handleUpdateHighlightedGeom = throttle(this.#updateHighlightedGeom.bind(this), 200, {
       leading: true,
