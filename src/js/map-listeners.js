@@ -26,7 +26,6 @@ const addListeners = () => {
     }
   };
   map.on("rotate", compassListener);
-
   map.on("pitch", compassListener);
 
   // Désactivation du tracking au déplacement non programmatique de la carte
