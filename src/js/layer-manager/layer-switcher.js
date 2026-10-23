@@ -583,7 +583,7 @@ class LayerSwitcher extends EventTarget {
       fallback = this.layers[id].fallbackStyle; // url !;
     } else if (type === "vector") {
       // PMtiles (temporary layer)
-      style.push(this.layers[id].layerDef);
+      style.push(...(Array.isArray(this.layers[id].layerDef) ? this.layers[id].layerDef : [this.layers[id].layerDef]));
     } else if (type === "geojson") {
       style.push({
         id : id,
