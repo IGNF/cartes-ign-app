@@ -87,6 +87,9 @@ test("keeps POI filters available on another basemap", async ({ page }) => {
   await expect(aerialBasemap).toHaveClass(/selectedLayer/);
   await expect(page.locator("#layer-switcher-number")).toHaveText("2");
 
+  await page.locator("#tabClose").click();
+  await expect(page.locator("#layerManagerWindow")).toHaveClass(/d-none/);
+
   await page.locator("#filterPoiBtn").click();
   const poiWindow = page.locator("#poiWindow");
   const displayPoi = poiWindow.locator("#displayPOI");
