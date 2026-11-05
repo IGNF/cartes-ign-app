@@ -9,6 +9,10 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - name: Install modules
-      run: npm i
+      run: npm ci
+    - name: Install Playwright browser
+      run: npx playwright install --with-deps chromium
     - name: Run ESLint
-      run: npx eslint ./src/
+      run: npm run lint
+    - name: Run automated tests
+      run: npm run test:ci

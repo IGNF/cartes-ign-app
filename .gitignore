@@ -9,3 +9,5 @@ www/css/assets
 .env
 
 .DS_Store
+playwright-report
+test-results
