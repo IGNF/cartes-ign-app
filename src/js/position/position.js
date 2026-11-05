@@ -15,7 +15,7 @@ import ImageCarousel from "../utils/image-carousel";
 import { Share } from "@capacitor/share";
 import { Toast } from "@capacitor/toast";
 import { Clipboard } from "@capacitor/clipboard";
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 import NearestPointOnLine from "@turf/nearest-point-on-line";
 
 import ActionSheet from "../action-sheet";

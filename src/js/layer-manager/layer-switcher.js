@@ -14,6 +14,7 @@ import Sortable from "sortablejs";
 import ImageNotFound from "../../html/img/image-not-found.png";
 import LegendNotFound from "../../html/img/legend-not-found.png";
 import DomUtils from "../utils/dom-utils";
+import { fetchJson } from "../utils/request-utils";
 
 import { Toast } from "@capacitor/toast";
 import { Capacitor } from "@capacitor/core";
@@ -611,8 +612,7 @@ class LayerSwitcher extends EventTarget {
       // Vecteur
       var fetchStyle = async (style, fallback) => {
         try {
-          const response = await fetch(style);
-          const data = await response.json();
+          const data = await fetchJson(style);
           // INFO
           // on ajoute les sources !
           // les sources des couches tuiles vectorielles ne sont pas pré chargées
@@ -652,7 +652,7 @@ class LayerSwitcher extends EventTarget {
           this.map.setSprite(data_1.sprite);
           this.map.setGlyphs(data_1.glyphs);
           // Fallback for offline glyphs
-          if (!Globals.online && Capacitor.isNativePlatform()) {
+          if ((!Globals.online || style === this.layers[id].fallbackStyle) && Capacitor.isNativePlatform()) {
             this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
           }
           const data_2 = data_1;

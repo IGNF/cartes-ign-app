@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 
 import Globals from "./globals";
 import Directions from "./directions/directions";

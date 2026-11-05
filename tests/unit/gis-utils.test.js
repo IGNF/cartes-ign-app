@@ -41,14 +41,21 @@ describe("gisUtils", () => {
             properties: { id: "step-1" },
             geometry: {
               type: "LineString",
-              coordinates: [[0, 0], [1, 1]],
+              coordinates: [[1, 1], [0, 0]],
             },
           },
           {
             properties: { id: "step-2" },
             geometry: {
               type: "LineString",
-              coordinates: [[0, 0], [1, 1]],
+              coordinates: [[0, 0], [0, 1]],
+            },
+          },
+          {
+            properties: { id: "step-3" },
+            geometry: {
+              type: "LineString",
+              coordinates: [[0, 1], [1, 0]],
             },
           },
         ],

@@ -18,6 +18,7 @@ import ComparePoiData from "../../../config/poi_rlt.json";
 
 import GfiRulesProps from "../../../config/gfi-rules.json";
 import { getCommuneWikiData } from "../services/commune-wiki-service";
+import { fetchJson } from "./request-utils";
 
 import LayerPopups from "../../../config/layer-popups.json";
 import IsochroneLayers from "../../../config/isochrone-layers.json";
@@ -130,7 +131,7 @@ async function loadConfigs() {
   // Run all fetches in parallel
   const results = await Promise.allSettled(
     keys.map((key) =>
-      fetch(urls[key].url).then((resp) => resp.json())
+      fetchJson(urls[key].url)
     )
   );
 

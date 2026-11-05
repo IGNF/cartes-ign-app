@@ -13,6 +13,7 @@ import { config } from "./utils/config-utils";
 import DomUtils from "./utils/dom-utils";
 import Globals from "./globals";
 import Location from "./services/location";
+import { fetchJson } from "./utils/request-utils";
 
 
 
@@ -71,13 +72,18 @@ class POI {
   async load() {
     var props = LayersConfig.getLayerProps(this.id);
     var style = props.style; // url !
+    let usingFallbackStyle = !Globals.online;
     if (!Globals.online) {
       style = props.fallbackStyle; // url !;
     }
 
-    return fetch(style)
-      .then((response) => {
-        return response.json();
+    return fetchJson(style)
+      .catch((error) => {
+        if (usingFallbackStyle || !props.fallbackStyle) {
+          throw error;
+        }
+        usingFallbackStyle = true;
+        return fetchJson(props.fallbackStyle);
       })
       .then((data) => {
         // INFO
@@ -110,7 +116,7 @@ class POI {
         this.map.setSprite(data.sprite);
         this.map.setGlyphs(data.glyphs);
         // Fallback for offline glyphs
-        if (!Globals.online && Capacitor.isNativePlatform()) {
+        if (usingFallbackStyle && Capacitor.isNativePlatform()) {
           this.map.setGlyphs("data/fallback_glyphs/{fontstack}/{range}.pbf");
         }
         this.#loadSprite(data.sprite);

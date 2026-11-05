@@ -110,6 +110,7 @@ class MapInteractivity {
     this.handleInfoOnMap = this.#getInfoOnMap.bind(this);
     let clickTimeout = null;
     this.handleCancelClick = () => {
+      console.log("ici ?")
       clearTimeout(clickTimeout);
       clickTimeout = null;
     };

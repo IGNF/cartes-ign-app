@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 
 import Globals from "./globals";
 
@@ -30,6 +30,8 @@ import PinchZoom from "pinch-zoom-js";
 
 import { loadImagesFromFolder } from "./utils/image-loader";
 import { handleIncomingUrl } from "./utils/url-intent-handler";
+
+maplibregl.setWorkerUrl(new URL("maplibre-gl/dist/maplibre-gl-worker.mjs", import.meta.url).href);
 
 /**
  * Factory function to lazily initialize comparison maps
@@ -114,17 +116,28 @@ defineCustomElements(window);
  * Fonction définissant l'application
  */
 function app() {
+  let splashHidden = false;
+  const hideSplash = () => {
+    if (splashHidden) {
+      return;
+    }
+    splashHidden = true;
+    SplashScreen.hide();
+    StatusPopups.getEditoPopup(map);
+  };
+  const splashTimeout = setTimeout(hideSplash, 6000);
+
   // Ajout du protocole PM Tiles
   let protocol = new Protocol();
   maplibregl.addProtocol("pmtiles", protocol.tile);
 
   // Ecouteur sur le chargement total des contrôles
   window.addEventListener("controlsloaded", async () => {
+    clearTimeout(splashTimeout);
     // Ajout d'autres ecouteurs
     EventListeners.addListeners();
-    SplashScreen.hide();
+    hideSplash();
     StatusPopups.getNetworkPopup(map);
-    StatusPopups.getEditoPopup(map);
     App.getLaunchUrl().then((launchData) => {
       handleIncomingUrl({
         url: launchData && launchData.url,
@@ -395,12 +408,6 @@ function app() {
       map.flyTo(map.getCenter());
       StatusPopups.getNetworkPopup(map);
     }
-    setTimeout(() => {
-      if (!Globals.mapLoaded) {
-        SplashScreen.hide();
-        StatusPopups.getEditoPopup(map);
-      }
-    }, 2000);
   }, 4000);
 
   // Pich zoom sur img overlay

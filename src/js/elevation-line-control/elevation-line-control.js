@@ -29,7 +29,7 @@ function loadChart() {
   return chartPromise;
 }
 
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 import ElevationLine from "../services/elevation-line";
 import ElevationLineLayers from "./elevation-line-styles";
 import Globals from "../globals";

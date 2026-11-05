@@ -34,6 +34,15 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /maplibre-gl[\\/]dist[\\/]maplibre-gl\.mjs$/,
+        parser: { url: false },
+      },
+      {
+        test: /maplibre-gl-worker\.mjs$/,
+        type: "asset/resource",
+        generator: { filename: "js/[name].[contenthash][ext]" },
+      },
+      {
         test: /\.(?:js|mjs|cjs)$/,
         include: path.resolve(__dirname, "src"),
         exclude: /node_modules/,

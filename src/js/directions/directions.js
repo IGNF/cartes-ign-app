@@ -6,7 +6,7 @@
 
 import { decode } from "@placemarkio/polyline";
 import MapLibreGlDirections from "@maplibre/maplibre-gl-directions";
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 import DirectionsDOM from "./directions-dom";
 import DirectionsResults from "./directions-results";
 import DirectionsLayers from "./directions-styles";

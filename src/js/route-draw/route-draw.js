@@ -14,7 +14,7 @@ import Reverse from "../services/reverse";
 
 import GisUtils from "../utils/gis-utils";
 
-import MapLibreGL from "maplibre-gl";
+import * as MapLibreGL from "maplibre-gl";
 import { Toast } from "@capacitor/toast";
 
 import turfLength from "@turf/length";

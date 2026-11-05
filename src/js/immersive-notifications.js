@@ -15,7 +15,7 @@ import Location from "./services/location";
 
 import requestUtils from "./utils/request-utils";
 
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 import PointToLineDistance from "@turf/point-to-line-distance";
 import CleanCoords from "@turf/clean-coords";
 

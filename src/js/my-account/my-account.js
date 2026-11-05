@@ -23,7 +23,7 @@ import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import { FilePicker } from "@capawesome/capacitor-file-picker";
 import { App } from "@capacitor/app";
 import { Preferences } from "@capacitor/preferences";
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 import Sortable from "sortablejs";
 import { kml, gpx } from "@tmcw/togeojson";
 import { DOMParser } from "@xmldom/xmldom";

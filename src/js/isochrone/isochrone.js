@@ -19,7 +19,7 @@ import Geocode from "../services/geocode";
 import Location from "../services/location";
 import Reverse from "../services/reverse";
 
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 
 /**
  * Interface sur le contrôle isochrone

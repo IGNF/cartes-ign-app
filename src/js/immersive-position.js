@@ -6,7 +6,7 @@
 
 import LayersConfig from "./layer-manager/layer-config";
 
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 
 import PointToLineDistance from "@turf/point-to-line-distance";
 import CleanCoords from "@turf/clean-coords";

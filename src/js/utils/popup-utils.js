@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available under the terms of the GPL License, Version 3.0.
  */
 
-import MapLibreGL from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 
 // Mode offline
 let popup = {
@@ -32,7 +32,7 @@ function showPopup(content, map, className, closeMethodName, object) {
     "bottom": [0, 100],
   };
   // ouverture d'une popup
-  object.popup = new MapLibreGL.Popup({
+  object.popup = new maplibregl.Popup({
     offset: popupOffsets,
     className: className,
     closeOnClick: true,

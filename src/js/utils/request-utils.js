@@ -7,6 +7,32 @@
 let proj4Instance = null;
 let proj4Promise = null;
 
+export async function fetchJson(url, timeout = 5000) {
+  const controller = new AbortController();
+  let timeoutId;
+  const deadline = new Promise((resolve, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error(`Request timed out: ${url}`));
+      controller.abort();
+    }, timeout);
+  });
+
+  try {
+    return await Promise.race([
+      (async () => {
+        const response = await fetch(url, { signal: controller.signal });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${url}`);
+        }
+        return response.json();
+      })(),
+      deadline,
+    ]);
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 /**
  * Lazy loader for proj4 - only loads when coordinate transformation is needed
  */
