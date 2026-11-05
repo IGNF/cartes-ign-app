@@ -1,6 +1,7 @@
 node_modules
 www/index.html
 www/js/*index.bundle.js*
+www/js/maplibre-gl-worker*
 www/css/*index.bundle.css*
 www/css/assets
 
