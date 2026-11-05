@@ -55,7 +55,7 @@ describe("fetchJson", () => {
 
   it("times out after three seconds even when fetch does not settle on abort", async () => {
     fetchMock.mockImplementation(() => new Promise(() => {}));
-    const result = expect(fetchJson("stalled-headers")).rejects.toThrow("Request timed out");
+    const result = expect(fetchJson("stalled-headers", 3000)).rejects.toThrow("Request timed out");
 
     await vi.advanceTimersByTimeAsync(2999);
     expect(fetchMock.mock.calls[0][1].signal.aborted).toBe(false);

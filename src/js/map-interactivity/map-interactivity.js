@@ -110,7 +110,6 @@ class MapInteractivity {
     this.handleInfoOnMap = this.#getInfoOnMap.bind(this);
     let clickTimeout = null;
     this.handleCancelClick = () => {
-      console.log("ici ?")
       clearTimeout(clickTimeout);
       clickTimeout = null;
     };
@@ -160,9 +159,6 @@ class MapInteractivity {
       this.map.once("click", this.handleInfoOnMapSafe);
       return;
     }
-    if (Globals.backButtonState.split("-")[0].split("%")[0] === "position") {
-      DOM.$backTopLeftBtn.click();
-    }
     let bbox = [
       {
         x: ev.point.x - 8,
@@ -201,6 +197,9 @@ class MapInteractivity {
       )){
       this.map.once("click", this.handleInfoOnMapSafe);
       return;
+    }
+    if (Globals.backButtonState.split("-")[0].split("%")[0] === "position") {
+      DOM.$backTopLeftBtn.click();
     }
     if (Globals.comparePoi.opened) {
       Globals.comparePoi.hideWindow();
