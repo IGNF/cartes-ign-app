@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
+    - uses: actions/setup-node@v5
+      with:
+        node-version: 24.11.0
+        cache: npm
     - name: Install modules
       run: npm ci
     - name: Install Playwright browser
