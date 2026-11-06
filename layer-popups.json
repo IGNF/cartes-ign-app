@@ -1,0 +1,10 @@
+{
+  "PLAN.LIDAR.SURSOL$TMS": {
+    "popupID": "lidarUncomplete",
+    "popupContent": "<div class='divPopupContent'>Le fond de plan «&nbsp;Plan IGN HD&nbsp;» ne couvre pas encore tout le territoire.<br>Les données seront enrichies ultérieurement.<br>Pensez à explorer d’autres régions !</div>"
+  },
+  "HIKING.GEOTREK$TMS": {
+    "popupID": "getrekUncomplete",
+    "popupContent": "<div class='divPopupContent'>Découvrez des parcours de randonnée proposés par des acteurs de référence (Parcs naturels, collectivités, offices de tourisme, etc.).<br>Ces parcours sont disponibles sur certains territoires et seront progressivement étendus à de nouvelles destinations.</div>"
+  }
+}
