@@ -110,11 +110,3 @@ test("starts a route with the current position as departure", async ({ page }) =
   await expect(departureInput).toHaveValue(positionName);
   await expect(departureInput).toHaveAttribute("data-coordinates", "[2.2945,48.8584]");
 });
-
-for (const channel of ["SMS", "WhatsApp", "Email", "Teams", "Messenger"]) {
-  test.skip(
-    `shares the current position via ${channel}`,
-    async () => {},
-    "The browser delegates channel selection to the native system share sheet."
-  );
-}

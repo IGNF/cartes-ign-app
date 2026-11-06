@@ -298,9 +298,3 @@ test("reverses the order of multiple intermediate steps", async ({ page }) => {
   const query = await calculateAndReadRequest(page);
   expect(query.get("intermediates")).toBe("2.295,48.8738|2.3553,48.8809");
 });
-
-test.skip(
-  "calculates fastest pedestrian routes with and without intermediate steps",
-  async () => {},
-  "The current directions adapter forces pedestrian optimization to shortest."
-);

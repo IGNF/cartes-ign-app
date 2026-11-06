@@ -3,6 +3,14 @@ import { configureAppTest, dismissStartupOverlay, openLayerManager, waitForMapLo
 
 const dataLayers = [
   {
+    id: "LANDUSE.AGRICULTURE.LATEST$WMTS",
+    title: "Registre parcellaire graphique",
+    theme: "Agriculture",
+    description: "Registre parcellaire graphique : zones de cultures",
+    source: "Agence de services et de paiement (ASP)",
+    legend: "LANDUSE.AGRICULTURE2023",
+  },
+  {
     id: "Aire-Parcellaire$WMTS",
     title: "Délimitation parcellaire AOC viticole",
     theme: "Agriculture",
@@ -67,9 +75,6 @@ for (const dataLayer of dataLayers) {
     await expect(informationWindow.locator("#informationsText")).toContainText(dataLayer.description);
     await expect(informationWindow.locator("#informationsText")).toContainText(dataLayer.source);
     await expect(informationWindow.locator("#informationsImg"))
-      .toHaveAttribute("src", new RegExp(dataLayer.id.split("$")[0].replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+      .toHaveAttribute("src", new RegExp((dataLayer.legend || dataLayer.id.split("$")[0]).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   });
 }
-
-test.skip("RPG affiche sa légende ou ses informations", async () => {}, "RPG.LATEST:parcelles_graphiques n’est pas déclarée comme couche du catalogue actuel.");
-test.skip("Parcs et jardins affiche sa légende ou ses informations", async () => {}, "Aucune couche Parcs et jardins n’est déclarée dans la configuration actuelle.");

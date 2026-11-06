@@ -90,9 +90,3 @@ test("caps the duration at 60 minutes", async ({ page }) => {
   await expect(durationInput).toHaveValue("60");
   await expectDurationRequests(page, "pedestrian", 60);
 });
-
-test.skip(
-  "accepts durations in hours and combined hours and minutes",
-  async () => {},
-  "The current form only accepts minutes and caps the duration at 60 minutes."
-);

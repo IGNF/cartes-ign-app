@@ -97,6 +97,12 @@ async function openPlanInteractiveFeature(page, featureCase) {
   }, { ...mapCenter, zoom: initialZoom });
 
   const tileResponses = { plan: 0, bdtopo: 0 };
+  await page.route(/\/OSM\.POI\/\d+\/\d+\/\d+\.pbf/, async (route) => {
+    await route.fulfill({
+      contentType: "application/x-protobuf",
+      body: Buffer.alloc(0),
+    });
+  });
   await page.route("https://ignf.github.io/cartes-ign-app/plan-ign-interactif-style.json", async (route) => {
     await route.fulfill({ contentType: "application/json", body: planIgnStyle });
   });
@@ -141,22 +147,13 @@ async function openPlanInteractiveFeature(page, featureCase) {
   await dismissStartupOverlay(page);
   await expect(page.locator("action-sheet")).toBeHidden();
   const canvas = page.locator("#map canvas");
-  await canvas.evaluate((element) => {
-    const bounds = element.getBoundingClientRect();
-    const eventOptions = {
-      bubbles: true,
-      cancelable: true,
-      clientX: bounds.left + bounds.width / 2,
-      clientY: bounds.top + bounds.height / 2,
-      button: 0,
-    };
-    element.dispatchEvent(new MouseEvent("mousedown", eventOptions));
-    element.dispatchEvent(new MouseEvent("mouseup", eventOptions));
-    element.dispatchEvent(new MouseEvent("click", eventOptions));
-  });
+  await expect(async () => {
+    await canvas.click();
+    await expect(page.locator("#positionWindow .divLegendDescription"))
+      .toContainText(featureCase.legend, { timeout: 2_000 });
+  }).toPass({ timeout: 15_000 });
 
   await expect(page.locator("#positionWindow")).not.toHaveClass(/d-none/);
-  await expect(page.locator("#positionWindow .divLegendDescription")).toContainText(featureCase.legend);
   await expect(page.locator("#positionWindow .positionHtmlBefore")).toContainText(featureCase.data);
   await expect(page.locator("#positionWindow")).toContainText("Source : BD Topo® - IGN");
 }
