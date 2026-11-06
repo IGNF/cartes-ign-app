@@ -3,26 +3,6 @@ import { configureAppTest, dismissStartupOverlay, openLayerManager, waitForMapLo
 
 test.use({ hasTouch: true });
 
-async function dismissAllStartupOverlays(page) {
-  const actionSheet = page.locator("action-sheet");
-  for (let attempt = 0; attempt < 4; attempt++) {
-    if (!await actionSheet.isVisible().catch(() => false)) {
-      return;
-    }
-    const onboardingConfirm = page.locator("#onBoardingConfirm");
-    const understood = page.getByText("J'ai compris").first();
-    if (await onboardingConfirm.isVisible().catch(() => false)) {
-      await onboardingConfirm.click({ force: true });
-    } else if (await understood.isVisible().catch(() => false)) {
-      await understood.click({ force: true });
-    } else {
-      await dismissStartupOverlay(page);
-    }
-    await expect(actionSheet).toBeHidden();
-  }
-  await expect(actionSheet).toBeHidden();
-}
-
 async function openRouteDraw(page) {
   await configureAppTest(page);
   await page.setViewportSize({ width: 390, height: 844 });
@@ -83,10 +63,10 @@ async function openRouteDraw(page) {
   });
 
   await page.goto("/");
-  await dismissAllStartupOverlays(page);
+  await dismissStartupOverlay(page);
   await waitForMapLoaded(page);
   await page.waitForFunction(() => window.__e2eControlsLoaded === true);
-  await dismissAllStartupOverlays(page);
+  await dismissStartupOverlay(page);
   await page.getByRole("button", { name: "Se déplacer" }).hover();
   await page.locator("#routeDraw").click();
   await expect(page.locator("#routeDrawResults")).toBeVisible();

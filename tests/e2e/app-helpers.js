@@ -3,9 +3,16 @@ import { expect } from "@playwright/test";
 export async function configureAppTest(page) {
   await page.addInitScript(() => {
     localStorage.setItem("hasBeenLaunched", "true");
-    localStorage.setItem("lastOnboardId", "4");
+    localStorage.setItem("lastOnboardId", "5");
     localStorage.setItem("dontShowOnboardAgain", "true");
     localStorage.setItem("dontShowEditoAgain", "true");
+  });
+
+  await page.route("**/cartes-ign-temp-layers/temp_layers_config.json", async (route) => {
+    await route.fulfill({
+      contentType: "application/json",
+      body: JSON.stringify([]),
+    });
   });
 
   await page.route("**/edito.json*", async (route) => {
@@ -33,36 +40,38 @@ export async function waitForMapLoaded(page) {
 
 export async function dismissStartupOverlay(page) {
   const actionSheet = page.locator("action-sheet");
-  const sheetClose = page.locator("#sheetClose");
   const onboardingConfirm = page.locator("#onBoardingConfirm");
   const onboardingUnderstood = page.getByText("J'ai compris").first();
 
-  if (await actionSheet.isVisible().catch(() => false)) {
-    if (await sheetClose.isVisible().catch(() => false)) {
-      await sheetClose.click({ force: true });
-    } else {
-      await page.evaluate(() => {
+  for (let attempt = 0; attempt < 5; attempt++) {
+    if (await actionSheet.isVisible().catch(() => false)) {
+      const dismissed = await page.evaluate(() => {
+        const close = document.getElementById("sheetClose");
         const confirm = document.getElementById("onBoardingConfirm");
-        if (confirm) {
-          confirm.click();
-          return;
-        }
         const understood = Array.from(document.querySelectorAll("div"))
-          .find((el) => el.textContent && el.textContent.includes("J'ai compris"));
-        if (understood) {
-          understood.click();
-        }
+          .find((element) => element.textContent?.includes("J'ai compris"));
+        const control = close || confirm || understood;
+        control?.click();
+        return Boolean(control);
       });
+      if (!dismissed) {
+        return;
+      }
+      await expect(actionSheet).toBeHidden();
+      continue;
+    }
+
+    for (const locator of [onboardingConfirm, onboardingUnderstood]) {
+      if (await locator.isVisible().catch(() => false)) {
+        await locator.evaluate((element) => element.click());
+        await expect(actionSheet).toBeHidden();
+        return;
+      }
     }
     return;
   }
 
-  for (const locator of [onboardingConfirm, onboardingUnderstood]) {
-    if (await locator.isVisible().catch(() => false)) {
-      await locator.click({ force: true });
-      break;
-    }
-  }
+  await expect(actionSheet).toBeHidden();
 }
 
 export async function openLayerManager(page) {

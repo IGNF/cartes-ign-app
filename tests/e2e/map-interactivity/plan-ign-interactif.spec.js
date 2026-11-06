@@ -139,8 +139,21 @@ async function openPlanInteractiveFeature(page, featureCase) {
   await expect.poll(() => tileResponses.bdtopo, { timeout: 15_000 }).toBeGreaterThan(0);
 
   await dismissStartupOverlay(page);
+  await expect(page.locator("action-sheet")).toBeHidden();
   const canvas = page.locator("#map canvas");
-  await canvas.click();
+  await canvas.evaluate((element) => {
+    const bounds = element.getBoundingClientRect();
+    const eventOptions = {
+      bubbles: true,
+      cancelable: true,
+      clientX: bounds.left + bounds.width / 2,
+      clientY: bounds.top + bounds.height / 2,
+      button: 0,
+    };
+    element.dispatchEvent(new MouseEvent("mousedown", eventOptions));
+    element.dispatchEvent(new MouseEvent("mouseup", eventOptions));
+    element.dispatchEvent(new MouseEvent("click", eventOptions));
+  });
 
   await expect(page.locator("#positionWindow")).not.toHaveClass(/d-none/);
   await expect(page.locator("#positionWindow .divLegendDescription")).toContainText(featureCase.legend);
