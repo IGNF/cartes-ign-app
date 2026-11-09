@@ -10,6 +10,11 @@ const Dotenv = require("dotenv-webpack");
 module.exports = {
   mode: "production",
   entry: "./src/js/index.js",
+  resolve: {
+    alias: {
+      "maplibre-gl$": path.resolve(__dirname, "node_modules", "maplibre-gl", "dist", "maplibre-gl.mjs"),
+    },
+  },
   output: {
     path: path.resolve(__dirname, "www"),
     filename: "js/index.bundle.js",
@@ -44,8 +49,11 @@ module.exports = {
       },
       {
         test: /\.(?:js|mjs|cjs)$/,
-        include: path.resolve(__dirname, "src"),
-        exclude: /node_modules/,
+        include: [
+          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "node_modules"),
+        ],
+        exclude: /maplibre-gl[\/]/,
         use: {
           loader: "babel-loader",
           options: {
