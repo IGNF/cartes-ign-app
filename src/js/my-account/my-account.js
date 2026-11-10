@@ -104,10 +104,10 @@ class MyAccount {
   #loadAndRenderData() {
     // REMOVEME : rétrocompatibilité des entités enregistrées : migration de préférences à fichier local (post-3.4.5)
     // récupération des itinéraires enregistrés en local
-    let promiseRoutes = Preferences.get( { key: "savedRoutes"} ).then( (resp) => {
+    let promiseRoutes = Preferences.get({ key: "savedRoutes" }).then((resp) => {
       if (resp.value) {
         var localRoutes = JSON.parse(resp.value);
-        localRoutes.forEach( (route) => {
+        localRoutes.forEach((route) => {
           fileStorage.save(route, `route-${route.id}`);
           this.routesOrder.push(route.id);
         });
@@ -116,10 +116,10 @@ class MyAccount {
     });
 
     // récupération des points de repère enregistrés en local
-    let promiseLandmarks = Preferences.get( { key: "savedLandmarks"} ).then( (resp) => {
+    let promiseLandmarks = Preferences.get({ key: "savedLandmarks" }).then((resp) => {
       if (resp.value) {
         var localLandmarks = JSON.parse(resp.value);
-        localLandmarks.forEach( (landmark) => {
+        localLandmarks.forEach((landmark) => {
           fileStorage.save(landmark, `landmark-${landmark.id}`);
           this.landmarksOrder.push(landmark.id);
         });
@@ -128,10 +128,10 @@ class MyAccount {
     });
 
     // récupération des points de repère comparer enregistrés en local
-    let promiseCompareLandmarks = Preferences.get( { key: "savedCompareLandmarks"} ).then( (resp) => {
+    let promiseCompareLandmarks = Preferences.get({ key: "savedCompareLandmarks" }).then((resp) => {
       if (resp.value) {
         var localCompareLandmarks = JSON.parse(resp.value);
-        localCompareLandmarks.forEach( (compareLandmark) => {
+        localCompareLandmarks.forEach((compareLandmark) => {
           fileStorage.save(compareLandmark, `comparelandmark-${compareLandmark.id}`);
           this.compareLandmarksOrder.push(compareLandmark.id);
         });
@@ -146,11 +146,11 @@ class MyAccount {
     let compareLandmarkOrderStoragePromise;
 
     // REMOVEME
-    Promise.allSettled([promiseCompareLandmarks, promiseLandmarks, promiseRoutes]).then( () => {
-    // END REMOVEME
+    Promise.allSettled([promiseCompareLandmarks, promiseLandmarks, promiseRoutes]).then(() => {
+      // END REMOVEME
       // chargement des enregistrements stockés en local
-      fileStoragePromise = fileStorage.list().then( (files) => {
-        files.forEach( (file) => {
+      fileStoragePromise = fileStorage.list().then((files) => {
+        files.forEach((file) => {
           if (file.id.startsWith("route-")) {
             if (!this.routes.some(r => String(r.id) === String(file.data.id))) {
               this.routes.push(file.data);
@@ -168,31 +168,31 @@ class MyAccount {
       });
 
       // chargement de l'ordre des routes, landmarks et compareLandmarks
-      routeOrderStoragePromise = Preferences.get( { key: "myaccount_routes_order"} ).then( (resp) => {
+      routeOrderStoragePromise = Preferences.get({ key: "myaccount_routes_order" }).then((resp) => {
         if (resp.value) {
           this.routesOrder = JSON.parse(resp.value);
         }
       });
-      landmarkOrderStoragePromise = Preferences.get( { key: "myaccount_landmarks_order"} ).then( (resp) => {
+      landmarkOrderStoragePromise = Preferences.get({ key: "myaccount_landmarks_order" }).then((resp) => {
         if (resp.value) {
           this.landmarksOrder = JSON.parse(resp.value);
         }
       });
-      compareLandmarkOrderStoragePromise = Preferences.get( { key: "myaccount_comparelandmarks_order"} ).then( (resp) => {
+      compareLandmarkOrderStoragePromise = Preferences.get({ key: "myaccount_comparelandmarks_order" }).then((resp) => {
         if (resp.value) {
           this.compareLandmarksOrder = JSON.parse(resp.value);
         }
       });
-    // REMOVEME
+      // REMOVEME
     }).then(() => {
-    // END REMOVEME
+      // END REMOVEME
       // récupération des infos et rendu graphique
       Promise.allSettled([
         this.compute(), fileStoragePromise,
         routeOrderStoragePromise, landmarkOrderStoragePromise, compareLandmarkOrderStoragePromise,
         Globals.offlineMaps.loadPromise,
       ]).then(() => {
-      // Mise en ordre des routes, landmarks et compareLandmarks
+        // Mise en ordre des routes, landmarks et compareLandmarks
         jsUtils.sortArrayByAnotherArray(this.routes, this.routesOrder, "id");
         jsUtils.sortArrayByAnotherArray(this.landmarks, this.landmarksOrder, "id");
         jsUtils.sortArrayByAnotherArray(this.compareLandmarks, this.compareLandmarksOrder, "id");
@@ -204,7 +204,7 @@ class MyAccount {
           this.#updateSources();
         });
       });
-    // REMOVEME
+      // REMOVEME
     });
     // END REMOVEME
   }
@@ -274,13 +274,13 @@ class MyAccount {
       if (this.map.getLayer("comparepoi")) {
         compareLayers.push("comparepoi");
       }
-      if (this.map.queryRenderedFeatures(e.point, {layers: compareLayers}).length > 0) {
+      if (this.map.queryRenderedFeatures(e.point, { layers: compareLayers }).length > 0) {
         return;
       }
       if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
         return;
       }
-      const landmarkMap = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]})[0];
+      const landmarkMap = this.map.queryRenderedFeatures(e.point, { layers: [MyAccountLayers["landmark-casing"].id] })[0];
       if (!landmarkMap.properties.visible) {
         return;
       }
@@ -306,7 +306,7 @@ class MyAccount {
         this.#updateSources();
       };
       Globals.position.compute({
-        lngLat: {lng: landmark.geometry.coordinates[0], lat: landmark.geometry.coordinates[1]},
+        lngLat: { lng: landmark.geometry.coordinates[0], lat: landmark.geometry.coordinates[1] },
         text: title,
         html: `<div class="positionHtmlBefore">${landmark.properties.description.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}</div>`,
         html2: "",
@@ -333,18 +333,18 @@ class MyAccount {
       if (["routeDraw", "routeDrawSave"].includes(Globals.backButtonState)) {
         return;
       }
-      if (this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["landmark-casing"].id]}).length > 0) {
+      if (this.map.queryRenderedFeatures(e.point, { layers: [MyAccountLayers["landmark-casing"].id] }).length > 0) {
         return;
       }
       if (DOM.$fullScreenBtn.querySelector("button").classList.contains("maplibregl-ctrl-shrink")) {
         return;
       }
-      const visibleRoutes = this.map.queryRenderedFeatures(e.point, {layers: [MyAccountLayers["line-casing"].id]}).filter((route) => route.properties.visible);
+      const visibleRoutes = this.map.queryRenderedFeatures(e.point, { layers: [MyAccountLayers["line-casing"].id] }).filter((route) => route.properties.visible);
       if (visibleRoutes.length === 0) {
         return;
       }
       const routeId = visibleRoutes[0].properties.id;
-      const route = this.routes.filter( route => route.id == routeId)[0];
+      const route = this.routes.filter(route => route.id == routeId)[0];
       if (route.visible) {
         this.showRouteDetails(route);
       }
@@ -392,7 +392,7 @@ class MyAccount {
       draggable: ".draggable-layer",
       animation: 200,
       forceFallback: true,
-      onEnd : (evt) => {
+      onEnd: (evt) => {
         this.setRoutePosition(evt.oldDraggableIndex, evt.newDraggableIndex);
       }
     });
@@ -401,7 +401,7 @@ class MyAccount {
       draggable: ".draggable-layer",
       animation: 200,
       forceFallback: true,
-      onEnd : (evt) => {
+      onEnd: (evt) => {
         this.setLandmarkPosition(evt.oldDraggableIndex, evt.newDraggableIndex);
       }
     });
@@ -410,7 +410,7 @@ class MyAccount {
       draggable: ".draggable-layer",
       animation: 200,
       forceFallback: true,
-      onEnd : (evt) => {
+      onEnd: (evt) => {
         this.setCompareLandmarkPosition(evt.oldDraggableIndex, evt.newDraggableIndex);
       }
     });
@@ -419,7 +419,7 @@ class MyAccount {
       draggable: ".draggable-layer",
       animation: 200,
       forceFallback: true,
-      onEnd : (evt) => {
+      onEnd: (evt) => {
         this.setOfflineMapPosition(parseInt(evt.item.id.split("_")[2]), evt.oldDraggableIndex, evt.newDraggableIndex);
       }
     });
@@ -475,7 +475,7 @@ class MyAccount {
       limit: 0,
       readData: true,
     });
-    result.files.forEach( (file) => {
+    result.files.forEach((file) => {
       this.#importData(file.data, file.name.split(".")[0], file.name.split(".")[1]);
     });
   }
@@ -491,9 +491,9 @@ class MyAccount {
       let gpxDesc = "";
       const xmlMimeType = "application/xml";
       // UTF-8 decoding https://stackoverflow.com/a/64752311
-      const rawData = decodeURIComponent(atob(data).split("").map(function(c) {
+      const rawData = decodeURIComponent(atob(data).split("").map(function (c) {
         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(""));
+      }).join("")).replace(/^\uFEFF/, "");
       if (rawData[0] === "<") {
         extension = "gpx";
       }
@@ -535,7 +535,7 @@ class MyAccount {
             if (Location.isTrackingActive()) {
               Location.disableTracking();
             }
-            this.map.flyTo({center: feature.geometry.coordinates});
+            this.map.flyTo({ center: feature.geometry.coordinates });
             Toast.show({
               duration: "long",
               text: `Point de repère Comparer "${feature.properties.accroche}" ajouté à 'Enregistrés' et à la carte`,
@@ -589,7 +589,7 @@ class MyAccount {
           if (Location.isTrackingActive()) {
             Location.disableTracking();
           }
-          this.map.flyTo({center: feature.geometry.coordinates});
+          this.map.flyTo({ center: feature.geometry.coordinates });
           Toast.show({
             duration: "long",
             text: `Point de repère "${feature.properties.title}" ajouté à 'Enregistrés' et à la carte`,
@@ -666,7 +666,7 @@ class MyAccount {
       this.routesOrder.unshift(drawRouteSaveOptions.id);
     } else {
       for (let i = 0; i < this.routes.length; i++) {
-        if (this.routes[i].id === drawRouteSaveOptions.id){
+        if (this.routes[i].id === drawRouteSaveOptions.id) {
           this.routes[i] = drawRouteSaveOptions;
           break;
         }
@@ -714,7 +714,7 @@ class MyAccount {
       this.landmarksOrder.unshift(landmarkGeojson.id);
     } else {
       for (let i = 0; i < this.landmarks.length; i++) {
-        if (this.landmarks[i].id === landmarkGeojson.id){
+        if (this.landmarks[i].id === landmarkGeojson.id) {
           this.landmarks[i] = JSON.parse(JSON.stringify(landmarkGeojson));
           break;
         }
@@ -737,7 +737,7 @@ class MyAccount {
       this.compareLandmarksOrder.unshift(compareLandmarkGeojson.id);
     } else {
       for (let i = 0; i < this.compareLandmarks.length; i++) {
-        if (this.compareLandmarks[i].id === compareLandmarkGeojson.id){
+        if (this.compareLandmarks[i].id === compareLandmarkGeojson.id) {
           this.compareLandmarks[i] = JSON.parse(JSON.stringify(compareLandmarkGeojson));
           break;
         }
@@ -964,7 +964,7 @@ class MyAccount {
       mapPadding.right = this.map.getContainer().offsetWidth / 2 - 85;
     } else {
       const paddingLeft = jsUtils.getSafeAreaInset("left") +
-                  Math.min(window.innerHeight, window.innerWidth / 2) + 42;
+        Math.min(window.innerHeight, window.innerWidth / 2) + 42;
       mapPadding.bottom = this.map.getContainer().offsetHeight / 2 - 85;
       mapPadding.top = this.map.getContainer().offsetHeight / 2 - 85;
       mapPadding.right = (this.map.getContainer().offsetWidth - paddingLeft) / 2 - 85;
@@ -973,7 +973,7 @@ class MyAccount {
     this.map.fitBounds(bounds, {
       padding: mapPadding,
     });
-    this.map.once("moveend", () => { this.map.setPadding({top: 0, right: 0, bottom: 0, left: 0}); });
+    this.map.once("moveend", () => { this.map.setPadding({ top: 0, right: 0, bottom: 0, left: 0 }); });
     this.hide();
     Globals.menu.open("offlineMaps");
     Globals.offlineMaps.currentName = route.name;
@@ -1053,7 +1053,7 @@ class MyAccount {
     if (Location.isTrackingActive()) {
       Location.disableTracking();
     }
-    this.map.flyTo({center: landmark.geometry.coordinates});
+    this.map.flyTo({ center: landmark.geometry.coordinates });
     this.hide();
     Globals.landmark.show();
     Globals.landmark.setData({
@@ -1075,7 +1075,7 @@ class MyAccount {
     if (Location.isTrackingActive()) {
       Location.disableTracking();
     }
-    this.map.flyTo({center: compareLandmark.geometry.coordinates, zoom: compareLandmark.properties.zoom});
+    this.map.flyTo({ center: compareLandmark.geometry.coordinates, zoom: compareLandmark.properties.zoom });
     this.hide();
     Globals.menu.open("compare");
     DOM.$tabContainer.classList.remove("compare");
@@ -1618,7 +1618,7 @@ ${props.text}`,
       if (Location.isTrackingActive()) {
         Location.disableTracking();
       }
-      this.map.flyTo({center: landmark.geometry.coordinates, zoom: 14});
+      this.map.flyTo({ center: landmark.geometry.coordinates, zoom: 14 });
     }
     if (isCompareLandmark) {
       fileStorage.save(landmark, `comparelandmark-${landmark.id}`);
@@ -1702,11 +1702,11 @@ ${props.text}`,
    * @param {*} route
    * @returns
    */
-  #routeToGeojson(route, linesStyle="default") {
+  #routeToGeojson(route, linesStyle = "default") {
     let steps = JSON.parse(JSON.stringify(route.data.steps));
     if (linesStyle === "gpx") {
       const coords = [];
-      steps.forEach( (step) => {
+      steps.forEach((step) => {
         coords.push(step.geometry.coordinates);
       });
       const dissolvedCoords = gisUtils.geoJsonMultiLineStringCoordsToSingleLineStringCoords(coords);
@@ -1744,7 +1744,7 @@ ${props.text}`,
       routeJson = {
         type: "FeatureCollection",
         features: [routeJson],
-        data : routeJson.data || {}
+        data: routeJson.data || {}
       };
     }
     routeJson.features.forEach(feature => {
@@ -1791,7 +1791,7 @@ ${props.text}`,
         step.properties.mode = 0;
       }
     });
-    for(let i = 0; i < points.length; i++) {
+    for (let i = 0; i < points.length; i++) {
       const point = points[i];
       point.properties.id = pointId;
       point.properties.order = i === 0 ? "departure" : i === points.length - 1 ? "destination" : "";
@@ -1868,14 +1868,14 @@ ${props.text}`,
               duration = Date.parse(newCoordinates[newCoordinates.length - 1][3]) - Date.parse(newCoordinates[0][3]);
               duration = Math.round(duration / 1000); // Convert to seconds
             }
-            const properties = {...feature.properties, id: pointId};
+            const properties = { ...feature.properties, id: pointId };
             if (duration !== null) {
               properties.duration = duration;
             }
-            properties.distance = turfLength(newFeature, {units: "meters"});
+            properties.distance = turfLength(newFeature, { units: "meters" });
             // Récupération de la durée si import depuis enregistrement de trace Cartes IGN au format JSON
             if (!properties.duration && feature.data && feature.data.duration) {
-              properties.duration = feature.data.duration * properties.distance / turfLength(feature, {units: "meters"}) ;
+              properties.duration = feature.data.duration * properties.distance / turfLength(feature, { units: "meters" });
             }
 
             newFeature.properties = properties;
@@ -1893,7 +1893,7 @@ ${props.text}`,
         const startPoint = points[i];
         const endPoint = points[i + 1];
         const newFeature = LineSlice(startPoint, endPoint, CleanCoords(step));
-        newFeature.properties.distance = turfLength(newFeature, {units: "meters"});
+        newFeature.properties.distance = turfLength(newFeature, { units: "meters" });
         newSteps.push(newFeature);
       }
       steps = newSteps;
@@ -2100,7 +2100,7 @@ ${props.text}`,
      * affiche le menu des résultats du calcul
      * @public
      */
-  show () {
+  show() {
     Globals.menu.open("myaccount");
   }
 
@@ -2108,7 +2108,7 @@ ${props.text}`,
    * ferme le menu des résultats du calcul
    * @public
    */
-  hide () {
+  hide() {
     Globals.menu.close("myaccount");
   }
 }
