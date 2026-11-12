@@ -290,7 +290,7 @@
       "source": "FFRandonnée, Club vosgien, IGN et acteurs locaux",
       "format": "application/x-protobuf",
       "styles": ["https://ignf.github.io/cartes-ign-app/sentiers-balises.json", "data/sentiers-balises.json"],
-      "maj": "Juin 2026, mise à jour mensuelle"
+      "maj": "Novembre 2026"
     },
     "HIKING.GEOTREK$TMS": {
       "new": true,
