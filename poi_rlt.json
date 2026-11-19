@@ -1,0 +1,3365 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.896852",
+          "43.632783"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-Martin- de-crau",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez comment l'agriculture irriguée redessine nos paysages",
+        "theme": "Agriculture",
+        "text": "Irriguer un champ permet d'apporter de l'eau artificiellement aux cultures pour optimiser les récoltes notamment en cas de sécheresse. L’irrigation agricole est une technique utilisée par la commune de Saint-Martin-de-Crau par exemple."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.035644",
+          "46.559096"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Brienne",
+        "departement": "Saône-et-Loire",
+        "accroche": "Observez l'impact de l'agriculture intensive sur nos paysages agricoles ",
+        "theme": "Agriculture",
+        "text": "Après la seconde guerre mondiale, les petites parcelles agricoles sont regroupées en exploitations plus grandes et mécanisées. Résultat ? Ce regroupement transforme les sols et le paysage français : des haies, des bosquets et des mares sont rayés de la carte. <br/>Source : agriculture.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "0.422775",
+          "48.119918"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-Célerin",
+        "departement": "Sarthe",
+        "accroche": "Observez l'impact de l'agriculture intensive sur nos paysages agricoles ",
+        "theme": "Agriculture",
+        "text": "Après la seconde guerre mondiale, les petites parcelles agricoles sont regroupées en exploitations plus grandes et mécanisées. Résultat ? Ce regroupement transforme les sols et le paysage français : des haies, des bosquets et des mares sont rayés de la carte. <br/>Source : agriculture.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.802013",
+          "48.140239"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Pacé",
+        "departement": "Ille-et-Vilaine",
+        "accroche": "Observez l'impact de l'agriculture intensive sur nos paysages agricoles ",
+        "theme": "Agriculture",
+        "text": "Après la seconde guerre mondiale, les petites parcelles agricoles sont regroupées en exploitations plus grandes et mécanisées. Résultat ? Ce regroupement transforme les sols et le paysage français : des haies, des bosquets et des mares sont rayés de la carte. <br/>Source : agriculture.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-0.744725",
+          "48.863525"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Valdallière",
+        "departement": "Calvados",
+        "accroche": "Observez l'impact de l'agriculture intensive sur nos paysages agricoles ",
+        "theme": "Agriculture",
+        "text": "Après la seconde guerre mondiale, les petites parcelles agricoles sont regroupées en exploitations plus grandes et mécanisées. Résultat ? Ce regroupement transforme les sols et le paysage français : des haies, des bosquets et des mares sont rayés de la carte. <br/>Source : agriculture.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.352470",
+          "48.860428"
+        ]
+      },
+      "properties": {
+        "zoom": "17",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Beaubourg - Paris",
+        "departement": "Ile de France",
+        "accroche": "Observez le quartier avant la construction du Centre Pompidou",
+        "theme": "Aménagement du territoire",
+        "text": "En 1969, le président Georges Pompidou décide de doter la France d'un centre d'art moderne et contemporain inédit. Des travaux de construction titanesques commencent en 1972 au coeur de la capitale. Le centre est inauguré en 1977 et devient rapidement l’un des cinq monuments parisiens les plus fréquentés. <br/>Source : centrepompidou.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.346381",
+          "48.861673"
+        ]
+      },
+      "properties": {
+        "zoom": "17",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Forum des Halles - Paris",
+        "departement": "Ile de France",
+        "accroche": "Savez-vous à quoi ressemblaient les anciennes Halles de Paris ?",
+        "theme": "Aménagement du territoire",
+        "text": "Situé au cœur de Paris, le quartier des Halles a connu plusieurs transformations. En 1969, les Halles sont transférées à Rungis entrainant dix ans de travaux de démolition et de réaménagement pour créer le forum des Halles. De 2010 à 2016, un vaste chantier de rénovation est lancé : c'est la création de la canopée. Jardin rénové, cours piéton, patio ouvert, ... la canopée redessine complètement le paysage urbain.<br/>Source : paris.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.238723",
+          "48.890845"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "La Défense",
+        "departement": "Hauts-de-Seine",
+        "accroche": "Savez-vous à quoi ressemblait le quartier de la Défense avant 1950 ?",
+        "theme": "Aménagement du territoire",
+        "text": "Difficile d'imaginer un rond-point à la place du deuxième quartier d'affaires d'Europe, et pourtant c'est bien là que Paris la Défense va prendre racine dans les années 50-60. Initialement prévu pour organiser de grandes expositions sous la voute spectaculaire du CNIT, le quartier se métamorphose rapidement : des tours, des immeubles, des commerces sortent de terre modifiant considérablement le paysage de l'Ouest parisien.<br/>Source : parisladefense.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.000842",
+          "49.221617"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Homécourt",
+        "departement": "Meurthe-et-Moselle",
+        "accroche": "Observez l'effet de la désindustrialisation sur le territoire français",
+        "theme": "Aménagement du territoire",
+        "text": "A partir des années 1970, la France connait une crise industrielle qui frappe notamment le secteur de la sidérurgie. Des usines ferment, c'est le cas du haut-fourneau d'Homécourt en 1983. Cette période de désindustrialisation marque la fin de l’acier fabriqué en Lorraine."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.785682",
+          "49.516083"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Herserange",
+        "departement": "Meurthe-et-Moselle",
+        "accroche": "Observez l'effet de la désindustrialisation sur le territoire français",
+        "theme": "Aménagement du territoire",
+        "text": "A partir des années 1970, la France connait une crise industrielle qui frappe notamment le secteur de la sidérurgie. Des usines ferment à l’exemple du haut-fourneau d'Herserange en 1988. Cette période de désindustrialisation marque la fin de l’acier fabriqué en Lorraine.<br/>Source : mairie-herserange.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.310292",
+          "51.039333"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Dunkerque",
+        "departement": "Nord",
+        "accroche": "Observez l'empreinte industrielle sur le littoral dunkerquois",
+        "theme": "Aménagement du territoire",
+        "text": "Dans les années 1950, l’État décide d’implanter une usine sidérurgique à Dunkerque. Le principe est simple : s’installer au bord de mer pour importer la matière et l’exploiter sur place.\nLe défi est colossal. Dix ans plus tard, une gigantesque usine (l’actuelle ArcelorMittal) est construite sur 450 hectares de sable en un temps record. <br/>Source : ville-dunkerque.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.361064",
+          "43.617067"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Blagnac - Site Airbus",
+        "departement": "Haute-Garonne",
+        "accroche": "Observez le développement du site d’Airbus au fil du temps",
+        "theme": "Aménagement du territoire",
+        "text": "Airbus est né d’une coopération européenne en 1969. 50 ans plus tard, le géant de l’aéronautique devient le premier site industriel français et s’étend sur près de 700 hectares à cheval sur les communes de Toulouse, Blagnac, Colomiers et Cornebarrieu. Si Airbus produit la moitié des grands avions commerciaux dans le monde, il intervient également dans les domaines de la défense et de l'espace.<br/>Source : Airbus"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.847035",
+          "47.960636"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Saran",
+        "departement": "Loiret",
+        "accroche": "Observez l'implantation d'Amazon dans la commune de Saran",
+        "theme": "Aménagement du territoire",
+        "text": "En 2007, le premier site logistique d'Amazon France est inauguré dans la commune de Saran par son PDG, Jeff Bezos. Ce gigantesque entrepôt s'étend sur 70 000 m², soit l'équivalent de 10 terrains de football !<br/>Source : amazon.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.082285",
+          "43.561391"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "La Grande Motte",
+        "departement": "Hérault",
+        "accroche": "Observez l'empreinte du tourisme sur la côte méditerranéenne",
+        "theme": "Aménagement du territoire",
+        "text": "L’exemple de la Grand-Motte illustre bien l’impact des activités touristiques sur le paysage, et le phénomène d’urbanisation du littoral qui s’est intensifié dans les années 1960. Cette station balnéaire est l’une des plus importantes réalisées en Europe pendant les Trente glorieuses.<br/>Source : IGN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.143648",
+          "43.515942"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Le Grau-du-Roi",
+        "departement": "Gard",
+        "accroche": "Observez l'empreinte du tourisme sur la côte méditerranéenne",
+        "theme": "Aménagement du territoire",
+        "text": "La station balnéaire de Grau-du-Roi illustre bien l’impact des activités touristiques sur le paysage, et le phénomène d’urbanisation du littoral qui s’est intensifié dans les années 1960. <br/>Source : IGN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.112611",
+          "43.099544"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Gruissan",
+        "departement": "Aude",
+        "accroche": "Observez l'empreinte du tourisme sur la côte méditerranéenne",
+        "theme": "Aménagement du territoire",
+        "text": "La station balnéaire de Gruissan illustre bien l’impact des activités touristiques sur le paysage, et le phénomène d’urbanisation du littoral qui s’est intensifié dans les années 1960. <br/>Source : IGN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.032209",
+          "42.829919"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Leucate",
+        "departement": "Aude",
+        "accroche": "Observez l'empreinte du tourisme sur la côte méditerranéenne",
+        "theme": "Aménagement du territoire",
+        "text": "La station balnéaire de Port-Leucate illustre bien l’impact des activités touristiques sur le paysage, et le phénomène d’urbanisation du littoral qui s’est intensifié dans les années 1960. <br/>Source : IGN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.031786",
+          "42.797564"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Le Barcarès",
+        "departement": "Pyrénées-Orientales",
+        "accroche": "Observez l'empreinte du tourisme sur la côte méditerranéenne",
+        "theme": "Aménagement du territoire",
+        "text": "La station balnéaire de Barcarès illustre bien l’impact des activités touristiques sur le paysage, et le phénomène d’urbanisation du littoral qui s’est intensifié dans les années 1960. <br/>Source : IGN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.434485",
+          "43.698876"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Seignosse",
+        "departement": "Landes",
+        "accroche": "Observez l'empreinte du tourisme sur la côte atlantique",
+        "theme": "Aménagement du territoire",
+        "text": "La station balnéaire de Seignosse illustre bien l’impact des activités touristiques sur le paysage, et le phénomène d’urbanisation du littoral qui s’est intensifié dans les années 1960. <br/>Source : IGN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.407172",
+          "43.778054"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Soustons",
+        "departement": "Landes",
+        "accroche": "Observez l'empreinte du tourisme sur la côte atlantique",
+        "theme": "Aménagement du territoire",
+        "text": "Le lac du port d'Albret est un lac artificiel créé dans les années 1970 sur une ancienne zone marécageuse pour répondre à l'essor du tourisme. Des travaux gigantesques qui vont durer 5 ans.<br/>Source : IGN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.029096",
+          "45.619292"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Royan",
+        "departement": "Charente-Maritime",
+        "accroche": "Observez la métamorphose du port de Royan au fil du temps",
+        "theme": "Aménagement du territoire",
+        "text": "Depuis sa reconstruction dans les années 1950, le port de Royan a constamment évolué pour répondre à l'essor des activités de plaisance et offrir de nouveaux services à ses usagers.<br/>Source : ville-royan.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.829616",
+          "45.570768"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Bourg-Saint-Maurice",
+        "departement": "Savoie",
+        "accroche": "Observez l'empreinte du tourisme dans les Alpes",
+        "theme": "Aménagement du territoire",
+        "text": "Espace encore vierge à la fin des années 1960, la montagne est devenue un lieu de loisirs et de résidence avec l’essor du ski. De 1968 à 2003, de grands travaux sont lancés pour construire quatre stations de ski dans les Alpes dont la station Arc 2000 qui voit le jour en 1979.<br />Le saviez-vous ? Arc 2000 se situe en fait à environ 2 100 m d’altitude.<br/>Source : lesarcs.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-2.895799",
+          "47.542714"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Crouesty",
+        "departement": "Morbihan",
+        "accroche": "Observez l'empreinte du tourisme sur la côte atlantique",
+        "theme": "Aménagement du territoire",
+        "text": "Le port de plaisance du Crouesty créé en 1973 dans le Golfe du Morbihan illustre bien l’impact des activités touristiques sur le paysage, et le phénomène d’urbanisation du littoral qui s’est intensifié dans les années 1960. <br/>Source : IGN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-2.544011",
+          "47.381743"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Piriac-sur-Mer",
+        "departement": "Loire-Atlantique",
+        "accroche": "Observez l'empreinte du tourisme sur la côte atlantique",
+        "theme": "Aménagement du territoire",
+        "text": "Piriac-sur-Mer a longtemps été un petit port d’échouage. Pour répondre aux nouvelles attentes des plaisanciers, le port connaît une première phase d’aménagement en 1997 : une partie du port est transformée en bassin à flot doté de 500 places. Fort de ce succès, le bassin est agrandi en 2003 modifiant encore le paysage du littoral.<br/>Source : nantesstnazaire.cci.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.941319",
+          "43.428116"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Fos-sur-Mer",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez l'empreinte du tourisme sur la côte méditerranéenne",
+        "theme": "Aménagement du territoire",
+        "text": "Le port de plaisance de Fos-sur-Mer illustre bien l’impact des activités touristiques sur le paysage, et le phénomène d’urbanisation du littoral qui s’est intensifié dans les années 1960. <br/>Source : IGN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.230096",
+          "48.675649"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Villejust",
+        "departement": "Essonne",
+        "accroche": "Observez la construction du poste de transformation électrique de Villejust",
+        "theme": "Aménagement du territoire",
+        "text": "Le saviez-vous ? Implanté dans les années 1960, le poste de transformation électrique de Villejust est le plus grand d'Europe"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.678086",
+          "45.521658"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "La Plagne",
+        "departement": "Savoie",
+        "accroche": "Observez la piste olympique de bobsleigh ",
+        "theme": "Aménagement du territoire",
+        "text": "L'organisation de jeux olympiques est l'occasion de construire de nouvelles infrastructures. C'est le cas de la piste de Bobsleigh de La Plagne construite en 1992 à l'occasion des jeux olympiques d'hiver d'Albertville. Cette piste est unique en France. Elle mesure 1,5 km et propose 19 virages.<br/>Source : la-plagne.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.569604",
+          "49.133112"
+        ]
+      },
+      "properties": {
+        "zoom": "17",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Plailly",
+        "departement": "Oise",
+        "accroche": "Observez la construction du Parc Asterix",
+        "theme": "Aménagement du territoire",
+        "text": "Le saviez-vous ? C'est au retour d'un voyage à Disneyland aux États-Unis qu'Uderzo eût l'idée de créer un parc de loisirs dédié à Astérix. Le parc voit le jour en 1989 à Plailly, à 35 km au Nord de Paris. <br/>Source : parcasterix.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.776322",
+          "48.871652"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Chessy",
+        "departement": "Seine et Mane",
+        "accroche": "Observez la construction de Disneyland Paris",
+        "theme": "Aménagement du territoire",
+        "text": "A l'origine du projet, l’Etat souhaitait développer la ville nouvelle de Marne-la-Vallée pour en faire un centre urbain dynamique et attractif dans l’Est parisien. Résultat : le parc d'attraction Disneyland Paris ouvre ses portes en 1992 et devient la première destination touristique d’Europe.<br/>Source : geo.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.331174",
+          "48.269702"
+        ]
+      },
+      "properties": {
+        "zoom": "12",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Lusigny-sur-Barse",
+        "departement": "Aube",
+        "accroche": "Des lacs-réservoirs apparaissent pour réguler les crues de la Seine",
+        "theme": "Aménagement du territoire",
+        "text": "Dans le bassin amont de la Seine, le lac d'Orient fait partie des cinq lacs de rétention artificiels construits entre 1949 et 1990. L'objectif : atténuer les dégâts causés par les inondations pendant les saisons humides et maintenir un niveau minimum des cours d’eau en période sèche. <br/>Source : ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.197380",
+          "47.370655"
+        ]
+      },
+      "properties": {
+        "zoom": "17",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Nançay",
+        "departement": "Cher",
+        "accroche": "Observez la naissance de l'observatoire de Radioastronomie de Nançay",
+        "theme": "Aménagement du territoire",
+        "text": "Inauguré en 1956, l'observatoire de Radioastronomie a été construit en pleine Sologne sur un terrain plat de 150 hectares, peu habité tout en restant proche de Paris.<br/>Source : obs-nancay.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.021251",
+          "44.088248"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Viaduc de Millau - Millau",
+        "departement": "Aveyron",
+        "accroche": "Observez la naissance du gigantesque viaduc de Millau",
+        "theme": "Aménagement du territoire",
+        "text": "Après seulement trois ans de travaux, le viaduc de Millau a permis de désenclaver le Massif central en franchissant la vallée du Tarn et en reliant Clermont-Ferrand à Béziers. Ce pont monumental représente l’un des plus importants chantiers du début du 21e siècle. <br/>Source : IGN - Atlas de l'anthropocène"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "0.162305",
+          "49.464429"
+        ]
+      },
+      "properties": {
+        "zoom": "13",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Le Havre",
+        "departement": "Seine-Maritime",
+        "accroche": "Observez les transformations du port du Havre au fil du temps",
+        "theme": "Aménagement du territoire",
+        "text": "Depuis sa création au 16e siècle, le port du Havre n'a cessé de se transformer. En ruine après la Seconde Guerre mondiale, 20 ans de travaux sont nécessaires pour le reconstruire. Pendant les années 1960, le port évolue pour accueillir les plus grands porte-conteneurs du monde modifiant encore le paysage de l'estuaire.<br/>Source : IGN - Atlas de l'anthropocène"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "7.214089",
+          "43.657382"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "L'aéroport de Nice - Nice",
+        "departement": "Alpes-Maritimes",
+        "accroche": "Observez l'extension de l'aéroport de Nice sur la mer",
+        "theme": "Aménagement du territoire",
+        "text": "Face à l'explosion de son trafic, l'aéroport de Nice est pris dans l'engrenage des extensions au cours du 20e siècle. En 1975, un projet très audacieux est lancé : gagner 200 hectares sur la mer et doubler la superficie de l'aéroport. Aujourd'hui, l’aéroport Nice Côte d'Azur est le deuxième aéroport de France après Paris.<br/>Source : nice.aeroport.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.549424",
+          "49.003697"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Aéroport Paris-Charles-de-Gaulle - Roissy-en-France",
+        "departement": "Val-d'Oise",
+        "accroche": "Observez l'extension du super-aéroport Charles-de-Gaulle",
+        "theme": "Aménagement du territoire",
+        "text": "Depuis sa création en 1974, l'aéroport parisien n'a cessé de s'étendre pour répondre au développement du trafic aérien. D'abord implanté dans les champs, le \"super-aéroport\" s'étend aujourd'hui sur 3 200 hectares répartis sur six communes et trois départements : Roissy-en-France et Épiais-lès-Louvres dans le Val d'Oise, Tremblay en France en Seine-Saint-Denis, puis Le Mesnil-Amelot, Mauregard et Mitry-Mory en Seine-et-Marne.<br/>Source : parisaeroport.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.373113",
+          "48.730870"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Aéroport d'Orly - Orly",
+        "departement": "Val-de-Marne",
+        "accroche": "Observez l'extension de l'aéroport d'Orly",
+        "theme": "Aménagement du territoire",
+        "text": "Depuis l'inauguration de l'aérogare par le général de Gaulle en 1961, l'aéroport d'Orly n'a cessé de se transformer pour répondre à un trafic aérien toujours croissant. Il a été construit sur un plateau complètement plat, et s'étend sur sept communes et deux départements.<br/>Source : parisaeroport.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.276651",
+          "48.953789"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Argentueil",
+        "departement": "Val-d'Oise",
+        "accroche": "Observez l'empreinte de l'autoroute A15 sur le paysage",
+        "theme": "Aménagement du territoire",
+        "text": "Construite dans les années 1970, l'autoroute A15 a été créée pour améliorer la circulation de l'Ouest parsien et desservir la ville nouvelle de Cergy-Pontoise. "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-0.551884",
+          "44.857563"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Pont Jacques Chaban-Delmas - Bordeaux",
+        "departement": "Gironde",
+        "accroche": "Observez le plus grand pont levant d'Europe ",
+        "theme": "Aménagement du territoire",
+        "text": "Inauguré en 2013, le pont levant Jacques Chaban-Delmas relie deux quartiers urbains sans gêner le passage des bateaux. Véritable prouesse technologique, il mesure 575 mètres de long et 77 mètres de haut. Pour l’anecdote, la couleur bleue des pylônes correspond à la marée haute tandis que la couleur verte indique la marée basse.<br/>Source : bordeaux-tourisme.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.323452",
+          "43.812066"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Pégairolles de l'Esacelette",
+        "departement": "Hérault",
+        "accroche": "Observez l’A75 qui serpente le Massif Central ",
+        "theme": "Aménagement du territoire",
+        "text": "La construction de l’autoroute A75 dite la \"Méridienne\" débute dans les années 80 avec l’objectif de désenclaver le Massif Central. L’A75 traverse six départements (l’Hérault, l’Aveyron, la Lozère, le Cantal, la Haute-Loire et le Puy de Dôme) et s’intègre parfaitement dans les paysages magnifiques.<br/>Source : a75lameridienne.com  "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.521153",
+          "46.985158"
+        ]
+      },
+      "properties": {
+        "zoom": "17",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Epinac",
+        "departement": "Saône-et-Loire",
+        "accroche": "Observez l’ancienne ligne ferroviaire française d’Epinac",
+        "theme": "Aménagement du territoire",
+        "text": "La ligne d’Épinac à Pouillenay est une ancienne ligne ferroviaire française inaugurée en 1891. Elle figurait parmi les toutes premières voies ferrées construites en France. D'abord fermée aux voyageurs en 1953, elle ferme définitivement en 1988, soit près d'un siècle après son ouverture."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.169605",
+          "48.946744"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Louvigny",
+        "departement": "Moselle",
+        "accroche": "Observez la création de la gare de Lorraine  TGV de la ligne Grand Est",
+        "theme": "Aménagement du territoire",
+        "text": "La gare de Lorraine TGV inaugurée en 2007 se situe à mi-chemin entre Metz et Nancy, en plein cœur de la campagne, dans la commune de Louvigny en Moselle. Elle se trouve sur la ligne à grande vitesse Paris-Strasbourg.<br/>Source : sncf.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.843620",
+          "44.852105"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Charmes-sur-Rhône",
+        "departement": "Ardèche",
+        "accroche": "Observez les transformations profondes du Rhône par la main de l'homme",
+        "theme": "Aménagement du territoire",
+        "text": "19 barrages ont été construits par la Compagnie nationale du Rhône entre 1948 et 1986. Objectifs de ces aménagements : la production d'hydroélectricité, la navigation et l'irrigation des champs.<br/>Le saviez-vous ? La volonté de canaliser le Rhône remonte au Moyen Âge. Puis de nombreux travaux ont lieu sous Napoléon III pour lutter contre les crues.<br/>Source : IGN - Atlas de l'anthropocène"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.829451",
+          "43.992643"
+        ]
+      },
+      "properties": {
+        "zoom": "13",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Avignon",
+        "departement": "Vaucluse",
+        "accroche": "Observez les transformations profondes du Rhône par la main de l'homme",
+        "theme": "Aménagement du territoire",
+        "text": "La centrale hydroélectrique-écluse d'Avignon est construite en 1973 sur le canal industriel du bras droit du Rhône. Elle relie désormais l’île de la Barthelasse à un îlot et le Rhône se divise en deux bras à hauteur de Sorgues, chacun doté d’un barrage.<br/>Le saviez-vous ? La volonté de canaliser le Rhône remonte au Moyen Âge. Puis de nombreux travaux ont lieu sous Napoléon III pour lutter contre les crues. <br/>Source : IGN - Atlas de l'anthropocène"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.555831",
+          "44.172789"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Monteils",
+        "departement": "Tarn-et-Garonne",
+        "accroche": "Observez la création d'un lac artificiel ",
+        "theme": "Eau",
+        "text": "Les retenues collinaires sont de petits réservoirs artificiels alimentés par les ruissellements d’eau. Le principe est simple : stocker l’eau de pluie ou de la fonte de neige en hiver pour disposer de cette eau en été. Ces réserves permettent d’irriguer les champs en période de sécheresse par exemple.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.468873",
+          "45.904280"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "La Clusaz",
+        "departement": "Haute-Savoie",
+        "accroche": "Observez la création d'un lac artificiel ",
+        "theme": "Eau",
+        "text": "Les retenues collinaires sont de petits réservoirs artificiels alimentés par les ruissellements d’eau. Le principe est simple : stocker l’eau de pluie ou de la fonte de neige en hiver pour disposer de cette eau en été. Ces réserves permettent d’irriguer les champs en période de sécheresse par exemple.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.448355",
+          "48.767127"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Coole",
+        "departement": "Marne",
+        "accroche": "Observez le parc éolien de Coole",
+        "theme": "Environnement",
+        "text": "Une éolienne est un dispositif qui convertit l’énergie du vent en électricité. La France possède le deuxième gisement éolien européen après la Grande-Bretagne, et porte une attention particulière à l’intégration paysagère de ses parcs éoliens.<br/>Le saviez-vous ? Une éolienne de deux mégawatts produit l’équivalent de la consommation électrique moyenne de plus de 800 ménages français.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-0.621533",
+          "44.617994"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saucats",
+        "departement": "Gironde",
+        "accroche": "Observez les panneaux solaires sur la commune de Saucats",
+        "theme": "Environnement",
+        "text": "Pour faire face aux défis environnementaux et écologiques, la France s'engage dans la transition énergétique. Le paysage français évolue avec l'émergence des énergies renouvelables. Ici, les panneaux solaires sur la commune de Saucats"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.013035",
+          "43.826894"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Valensole",
+        "departement": "Alpes-de-Haute-Provence",
+        "accroche": "Observez les panneaux solaires du plateau de Valensole",
+        "theme": "Environnement",
+        "text": "Pour faire face aux défis environnementaux et écologiques, la France s'engage dans la transition énergétique. Le paysage français évolue avec l'émergence des énergies renouvelables. Ici, les panneaux solaires du plateau de Valensole."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.037819",
+          "49.669264"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Lislet",
+        "departement": "Aisne",
+        "accroche": "Observez le parc éolien de Lislet ",
+        "theme": "Environnement",
+        "text": "Une éolienne est un dispositif qui convertit l’énergie du vent en électricité. La France possède le deuxième gisement éolien européen après la Grande-Bretagne, et porte une attention particulière à l’intégration paysagère de ses parcs éoliens.<br/>Le saviez-vous ? Une éolienne de deux mégawatts produit l’équivalent de la consommation électrique moyenne de plus de 800 ménages français.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-0.815256",
+          "44.723701"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Cestas",
+        "departement": "Gironde",
+        "accroche": "Observez les panneaux solaires du plateau de Cestas",
+        "theme": "Environnement",
+        "text": "Pour faire face aux défis environnementaux et écologiques, la France s'engage dans la transition énergétique. Le paysage français évolue avec l'émergence des énergies renouvelables. Ici, les panneaux solaires du plateau de Cestas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.976280",
+          "45.95214"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Chamonix-Mont-Blanc",
+        "departement": "Haute-Savoie",
+        "accroche": "Observez la fonte du Glacier d'Argentière",
+        "theme": "Environnement",
+        "text": "Des mesures permettent d'établir que le glacier d'Argentière a perdu 1150 mètres depuis 1870. Sous l'effet du réchauffement climatique, on constate, ces dernières années, une accélération de la fonte des glaciers au niveau mondial."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.244083",
+          "45.011750"
+        ]
+      },
+      "properties": {
+        "zoom": "13",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "La Grave",
+        "departement": "Hautes-Alpes",
+        "accroche": "Observez la fonte du Glacier de la Girose",
+        "theme": "Environnement",
+        "text": "En 2022, des mesures ont permis d'établir que le glacier de la Girose avait perdu 5 mètres d'épaisseur en un an. Sous l'effet du réchauffement climatique, on constate, ces dernières années, une accélération de la fonte des glaciers au niveau mondial. "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.366440",
+          "44.869468"
+        ]
+      },
+      "properties": {
+        "zoom": "13",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Vallouise Pelvoux",
+        "departement": "Hautes-Alpes",
+        "accroche": "Observez la fonte du Glacier du Sélé",
+        "theme": "Environnement",
+        "text": "Depuis 2008, le Glacier du Sélé a reculé de 45 mètres, dont 16 en 2011. Sous l'effet du réchauffement climatique, on constate, ces dernières années, une accélération de la fonte des glaciers au niveau mondial. "
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.568074",
+          "43.655919"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Peyrolles-en-Provence",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez l’une des plus grandes centrales solaires flottantes d’Europe à Peyrolles-en-Provence",
+        "theme": "Environnement",
+        "text": "En 2022, une centrale photovoltaïque flottante est implantée à Peyrolles-en-Provence sur une ancienne gravière transformée en lac. Les panneaux solaires qui s’étendent sur 15 hectares permettent à la commune de produire plus d’électricité qu’elle n’en consomme. <br/>Source : bouches-du-rhone.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.789596",
+          "48.939533"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Caharmentray",
+        "departement": "Seine et Mane",
+        "accroche": "Observez cette ancienne gravière transformée en site naturel",
+        "theme": "Environnement",
+        "text": "Le site naturel des Olivettes est une ancienne gravière qui couvre près de 119 hectares. Caractérisé par de larges plans d’eau et de nombreuses espèces d’oiseaux, le site a été revalorisé en 2022 pour offrir au visiteur une nouvelle manière de découvrir les Espaces naturels sensibles (ENS) ouverts au public<br/>Source : seine-et-marne.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-2.856412",
+          "48.652329"
+        ]
+      },
+      "properties": {
+        "zoom": "18",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Plourhan",
+        "departement": "Côtes-d'Armor",
+        "accroche": "Observez la reconquête des haies sur le paysage",
+        "theme": "Environnement",
+        "text": "Les haies sont des trésors de biodiversité et ont une fonction de régulation du climat. Elles protègent les cultures du vent et offrent un abri aux espèces animales et végétales. Ces avantages reconnus ont participé à la mise en place d’actions pour planter ou apprendre à restaurer des haies sur tout le territoire. <br/>Source : ofb.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.262269",
+          "43.447195"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Vitrolles",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez les dégâts causés par les incendies de forêt",
+        "theme": "Environnement",
+        "text": "Le saviez-vous ? 90 % des départs de feux de forêt et de végétation sont d’origine humaine. En 2022, 58 900 hectares de forêt et autres terres boisées ont brûlés. Le réchauffement climatique, le développement démographique, et les sécheresses accentuent les risques d'incendie. <br/>Source : Observatoire des forêts françaises"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.322610",
+          "43.124916"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Bormes-les Mimosas",
+        "departement": "Var",
+        "accroche": "Observez les dégâts causés par les incendies de forêt",
+        "theme": "Environnement",
+        "text": "Le saviez-vous ? 90 % des départs de feux de forêt et de végétation sont d’origine humaine. En 2022, 58 900 hectares de forêt et autres terres boisées ont brûlés. Le réchauffement climatique, le développement démographique, et les sécheresses accentuent les risques d'incendie. <br/>Source : Observatoire des forêts françaises"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.035166",
+          "43.339443"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Martigues",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez les dégâts causés par les incendies de forêt",
+        "theme": "Environnement",
+        "text": "Le saviez-vous ? 90 % des départs de feux de forêt et de végétation sont d’origine humaine. En 2022, 58 900 hectares de forêt et autres terres boisées ont brûlés. Le réchauffement climatique, le développement démographique, et les sécheresses accentuent les risques d'incendie. <br/>Source : Observatoire des forêts françaises"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.184845",
+          "43.339900"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Ensuès-la-Redonne",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez les dégâts causés par les incendies de forêt",
+        "theme": "Environnement",
+        "text": "Le saviez-vous ? 90 % des départs de feux de forêt et de végétation sont d’origine humaine. En 2022, 58 900 hectares de forêt et autres terres boisées ont brûlés. Le réchauffement climatique, le développement démographique, et les sécheresses accentuent les risques d'incendie. <br/>Source : Observatoire des forêts françaises"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.187639",
+          "46.308492"
+        ]
+      },
+      "properties": {
+        "zoom": "13",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "L'Aiguillon-sur-Mer",
+        "departement": "Vendée",
+        "accroche": "Observez la naissance d'un polder, cette terre conquise par la mer",
+        "theme": "Littoral",
+        "text": "Un polder est une étendue artificielle de terre gagnée sur l'eau dont le niveau est souvent inférieur à celui de la mer. La pointe de l'Aiguillon située sur le littoral sud de la Vendée abrite la Baie de l'Aiguillon. Elle permet de protéger les polders du Marais poitevin et constitue un lieu de passage et de stationnement pour de nombreux oiseaux en raison de sa forme en entonnoir.<br/>Source : guide-de-la-vendee.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.762732",
+          "50.447139"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Loos-en-Gohelle",
+        "departement": "Pas-de-Calais",
+        "accroche": "Observez la naissance d'un terril, cette montagne noire façonnée par l'homme",
+        "theme": "Environnement",
+        "text": "Les terrils sont des montagnes artificielles composés de résidus miniers. Ils ont été construits par l'homme lors de l'extraction du charbon au 20e s. Jadis dépréciés, les terrils sont considérés aujourd'hui comme des refuges exceptionnels pour une végétation sauvage avec des espèces souvent inconnues de la région.<br/>Le saviez-vous ? Certains terrils ont été réaménagés en lieux de promenade à l'exemple des terrils jumeaux de Loos-en-Gohelle qui comptent parmi les plus hauts d'Europe. <br/>Source : bassinminier-patrimoinemondial.org"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.172605",
+          "45.087226"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Carcans",
+        "departement": "Gironde",
+        "accroche": "Observez la forêt des Landes, la plus grande forêt artificielle d'Europe de l'Ouest",
+        "theme": "Forêt",
+        "text": "Avec un rythme d'exploitation de 10 000 ha par an en moyenne, la forêt landaise est avant tout une forêt cultivée de production. La culture du Pin maritime représente 87% des surfaces boisées."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.291864",
+          "45.950304"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Bonnac-la Côte",
+        "departement": "Haute-Vienne",
+        "accroche": "Observez l'expansion de la forêt à Bonnac-la-Côte",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.009868",
+          "44.804425"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Sagelat",
+        "departement": "Dordogne",
+        "accroche": "Observez l'expansion de la forêt à Sagelat",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "0.372326",
+          "48.102628"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Sillé-le-Philippe",
+        "departement": "Sarthe",
+        "accroche": "Observez l'expansion de la forêt à Sillé-le-Philippe",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.419965",
+          "43.740612"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Cépet",
+        "departement": "Haute-Garonne",
+        "accroche": "Observez l'expansion de la forêt à Cépet",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.349727",
+          "48.181396"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Uxegney",
+        "departement": "Vosges",
+        "accroche": "Observez l'expansion de la forêt à Uxegney",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.066865",
+          "45.250705"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Marcillac-la-Croisille",
+        "departement": "Corrèze",
+        "accroche": "Observez l'expansion de la forêt à Marcillac-la-Croisille",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.270501",
+          "43.925827"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Montbartier",
+        "departement": "Tarn-et-Garonne",
+        "accroche": "Observez l'expansion de la forêt à Montbartier",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.188548",
+          "43.922781"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Mas-Grenier",
+        "departement": "Tarn-et-Garonne",
+        "accroche": "Observez l'expansion de la forêt à Mas-Grenier",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.102824",
+          "48.540361"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Sermaise",
+        "departement": "Essonne",
+        "accroche": "Observez l'expansion de la forêt à Sermaise",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.168755",
+          "47.465651"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Souesmes",
+        "departement": "Loir-et-Cher",
+        "accroche": "Observez l'expansion de la forêt à Souesmes",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.851123",
+          "46.672914"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Mers-sur-indre",
+        "departement": "Indre",
+        "accroche": "Observez l'expansion de la forêt à Mers-sur-Indre",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.375445",
+          "45.883656"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-Priest-Taurion",
+        "departement": "Haute-Vienne",
+        "accroche": "Observez l'expansion de la forêt à Saint-Priest-Taurion",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.642730",
+          "48.133209"
+        ]
+      },
+      "properties": {
+        "zoom": "13",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "La Neuveville-devant-Lépanges",
+        "departement": "Vosges",
+        "accroche": "Observez l'expansion de la forêt à La Neuveville-devant-Lépanges",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.596293",
+          "45.792987"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Vollore-Ville",
+        "departement": "Puy-de-Dôme",
+        "accroche": "Observez l'expansion de la forêt à Vollore-Ville",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.082892",
+          "44.539963"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Gap",
+        "departement": "Hautes-Alpes",
+        "accroche": "Observez l'expansion de la forêt à Gap",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.715951",
+          "44.419156"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Jausiers",
+        "departement": "Alpes-de-Haute-Provence",
+        "accroche": "Observez l'expansion de la forêt à Jausiers",
+        "theme": "Forêt",
+        "text": "Contrairement à une idée reçue, la forêt est en augmentation depuis la moitié du 19e siècle. L’exode rural et la révolution agricole après-guerre, le (re)boisement de 2 millions d'hectares de terres (1947-1999) et la poursuite des reboisements en montagne ont grandement contribué à son expansion. Elle couvre désormais près d’un tiers de la France juste derrière les surfaces agricoles.<br/>Source : inventaire-forestier.ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.080761",
+          "45.560912"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Le Verdon-sur-Mer",
+        "departement": "Gironde",
+        "accroche": "Quand la terre avance sur la mer",
+        "theme": "Littoral",
+        "text": "A l'inverse de l'érosion, l'accrétion se traduit par l'avancée de la terre sur la mer sous l'effet d'une accumulation de matériaux marins. On peut observer ce phénomène à Verdon-sur-Mer en comparant deux photographies aériennes d'époques différentes"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-4.365554",
+          "47.893437"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Treogat",
+        "departement": "Finistère",
+        "accroche": "Quand la mer avance et gagne du terrain ",
+        "theme": "Littoral",
+        "text": "Le recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\", est un phénomène naturel lié à l'érosion mais il peut être accentué par les activités humaines. Pour surveiller son recul, les géographes comparent des photographies aériennes de plusieurs époques. <br/>Source : observatoires du trait de côte"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.213555",
+          "44.587712"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Dune du Pilat - La Teste-de-Buch",
+        "departement": "Gironde",
+        "accroche": "Observez le déplacement de la plus haute dune d'Europe, impressionnant !",
+        "theme": "Littoral",
+        "text": "Avec ses 103 m de haut, 600 m de large et 3 km de long, la dune du Pilat est particulièrement soumise au vent. Savez-vous que cette gigantesque montagne de sable se déplace au nord de 1 à 5 m par an ?<br/>Source : ladunedupilat.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.232700",
+          "45.806112"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-Trojan-les-Bains",
+        "departement": "Charente-Maritime",
+        "accroche": "Observez la métamorphose de la pointe de Gatseau (île d'Oléron)",
+        "theme": "Littoral",
+        "text": "La pointe de Gatseau, au sud de l’île d’Oléron, s'est complètement transformée au fil des décennies. La faute à l'érosion, ce phénomène naturel qui fait reculer la frontière entre la terre et la mer appelée aussi \"trait de côte\".<br/>Source : ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.140743",
+          "45.502046"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Soulac-sur-Mer",
+        "departement": "Gironde",
+        "accroche": "Quand la mer gagne du terrain à Soulac-sur-Mer, des images spectaculaires !",
+        "theme": "Littoral",
+        "text": "Soulac-sur-Mer est le symbole du recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\". En 2014, l’immeuble Le Signal est évacué alors que quelques dizaines de mètres seulement le séparent des eaux. Il avait été construit en 1967... à 200 m de l’océan !<br/>Source : ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-60.878570",
+          "14.402988"
+        ]
+      },
+      "properties": {
+        "zoom": "17",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Sainte-Anne",
+        "departement": "Martinique",
+        "accroche": "Quand la mer avance et gagne du terrain ",
+        "theme": "Littoral",
+        "text": "Le recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\", est un phénomène naturel lié à l'érosion mais il peut être accentué par les activités humaines. Pour surveiller son recul, les géographes comparent des photographies aériennes de plusieurs époques. <br/>Source : observatoires du trait de côte"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.466717",
+          "43.461087"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saintes-Maries-de-la-Mer",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Quand la mer avance et gagne du terrain ",
+        "theme": "Littoral",
+        "text": "Le recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\", est un phénomène naturel lié à l'érosion mais il peut être accentué par les activités humaines. Pour surveiller son recul, les géographes comparent des photographies aériennes de plusieurs époques. <br/>Source : observatoires du trait de côte"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.633866",
+          "43.357505"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Arles",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Quand la mer avance et gagne du terrain ",
+        "theme": "Littoral",
+        "text": "Le recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\", est un phénomène naturel lié à l'érosion mais il peut être accentué par les activités humaines. Pour surveiller son recul, les géographes comparent des photographies aériennes de plusieurs époques. <br/>Source : observatoires du trait de côte"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.538519",
+          "43.506338"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Anglet",
+        "departement": "Pyrénées-Atlantiques",
+        "accroche": "Quand la mer avance et gagne du terrain ",
+        "theme": "Littoral",
+        "text": "Le recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\", est un phénomène naturel lié à l'érosion mais il peut être accentué par les activités humaines. Pour surveiller son recul, les géographes comparent des photographies aériennes de plusieurs époques. <br/>Source : observatoires du trait de côte"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.597558",
+          "43.433872"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Bidart",
+        "departement": "Pyrénées-Atlantiques",
+        "accroche": "Quand la mer avance et gagne du terrain ",
+        "theme": "Littoral",
+        "text": "Le recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\", est un phénomène naturel lié à l'érosion mais il peut être accentué par les activités humaines. Pour surveiller son recul, les géographes comparent des photographies aériennes de plusieurs époques. <br/>Source : observatoires du trait de côte"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.250748",
+          "45.850997"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Le Grand-Village-Plage",
+        "departement": "Charente-Maritime",
+        "accroche": "Quand la mer avance et gagne du terrain ",
+        "theme": "Littoral",
+        "text": "Le recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\", est un phénomène naturel lié à l'érosion mais il peut être accentué par les activités humaines. Pour surveiller son recul, les géographes comparent des photographies aériennes de plusieurs époques. <br/>Source : observatoires du trait de côte"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.246936",
+          "44.550430"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "La Teste-de-Buch",
+        "departement": "Gironde",
+        "accroche": "Quand la mer avance et gagne du terrain ",
+        "theme": "Littoral",
+        "text": "Le recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\", est un phénomène naturel lié à l'érosion mais il peut être accentué par les activités humaines. Pour surveiller son recul, les géographes comparent des photographies aériennes de plusieurs époques. <br/>Source : observatoires du trait de côte"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-4.443177",
+          "48.640274"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Guissény",
+        "departement": "Finistère",
+        "accroche": "Quand la mer avance et gagne du terrain ",
+        "theme": "Littoral",
+        "text": "Le recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\", est un phénomène naturel lié à l'érosion mais il peut être accentué par les activités humaines. Pour surveiller son recul, les géographes comparent des photographies aériennes de plusieurs époques. <br/>Source : observatoires du trait de côte"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.646020",
+          "50.880986"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Wissant",
+        "departement": "Pas-de-Calais",
+        "accroche": "Quand la mer avance et gagne du terrain ",
+        "theme": "Littoral",
+        "text": "Le recul de la frontière entre la terre et la mer, appelée aussi \"trait de côte\", est un phénomène naturel lié à l'érosion mais il peut être accentué par les activités humaines. Pour surveiller son recul, les géographes comparent des photographies aériennes de plusieurs époques. <br/>Source : observatoires du trait de côte"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.738043",
+          "50.929943"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Sangatte",
+        "departement": "Pas-de-Calais",
+        "accroche": "Observez l’impact des bombes sur la ville de Sangatte",
+        "theme": "Traces de l'Histoire",
+        "text": "La Seconde Guerre Mondiale fut particulièrement éprouvante pour le Calaisis très touché par les destructions : 73 % du Vieux Calais, aujourd’hui quartier de Calais Nord, furent détruits. L’impact des bombardements visibles sur la carte des années 50 témoigne de la violence des combats menés en 1940.<br/>Source : calais-cotedopale.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-0.373810",
+          "49.184270"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Caen",
+        "departement": "Calvados",
+        "accroche": "Observez les traces de la seconde guerre mondiale sur la ville de Caen",
+        "theme": "Traces de l'Histoire",
+        "text": "À la suite des bombardements de 1944, Caen est en partie détruite. Le centre avec le quartier Saint-Jean est particulièrement touché. Il faut donc repenser la ville et la reconstruire en réaménageant cette \"vieille cité normande\" de l’entre-deux-guerres. C’est une épopée de 20 ans qui s’ouvre et qui aboutit à une transformation radicale de l’urbanisme. <br/>Source : caen.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-2.211649",
+          "47.275427"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint Nazaire",
+        "departement": "Loire-Atlantique",
+        "accroche": "Observez les traces de la seconde guerre mondiale sur la ville de Saint-Nazaire",
+        "theme": "Traces de l'Histoire",
+        "text": "Après la Seconde Guerre mondiale, 85% de la ville de Saint-Nazaire est détruite. Commence alors le titanesque chantier de la reconstruction. Tout en s’appuyant sur les qualités de la ville du 19e siècle, le plan de reconstruction de Saint-Nazaire laisse la part belle à un réseau de circulation aéré.<br/>Source : saint-nazaire-musees.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-0.890151",
+          "48.837421"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Vire de Normandie",
+        "departement": "Calvados",
+        "accroche": "Observez les traces de la seconde guerre mondiale sur la ville de Vire",
+        "theme": "Traces de l'Histoire",
+        "text": "Au sud du Calvados, la commune de Vire a subi de plein fouet les bombardements de juin 1944 entrainant la destruction quasi-totale de la ville. La Reconstruction qui a duré une vingtaine d’années s’est traduite par un nouveau plan d’aménagement et différents types architecturaux nourris par un esprit de modernité.<br/>Source : anah.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-4.489793",
+          "48.386244"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Brest",
+        "departement": "Finistère",
+        "accroche": "Observez les traces de la seconde guerre mondiale sur la ville de Brest",
+        "theme": "Traces de l'Histoire",
+        "text": "La Seconde Guerre mondiale est une période particulièrement éprouvante pour Brest. Les bombardements alliés aboutissent à la destruction quasiment totale de la ville intra-muros. Malgré l’ampleur des dégâts, la Reconstruction de Brest est menée très rapidement de 1945 à 1961 grâce à l’architecte Jean-Baptiste Mathon qui pose une véritable réflexion sur l’aménagement urbain moderne.<br/>Source : brest.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-52.639724",
+          "5.161322"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Kourou",
+        "departement": "Guyane",
+        "accroche": "Observez l'incroyable expansion de la ville de Kourou",
+        "theme": "Urbanisation",
+        "text": "Sur la vue aérienne des années 50, Kourou est encore un bourg paisible d’environ 200 habitants en bordure du fleuve. Aujourd’hui, le \"Vieux Bourg\" est noyé dans un vaste ensemble urbain de plus de 24 000 habitants (chiffres 2023). Une expansion urbaine très rapide due à la création du centre spatial guyanais en 1964.<br/>Source : franceguyane.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.051691",
+          "43.018808"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Port-la-Nouvelle",
+        "departement": "Aude",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.198432",
+          "45.001618"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Lacanau-Océan",
+        "departement": "Gironde",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.666060",
+          "43.402707"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Sète",
+        "departement": "Hérault",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.928523",
+          "43.529752"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Palavas-les-Flots ",
+        "departement": "Hérault",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.466717",
+          "43.461087"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saintes-Maries-de-la-Mer",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.289923",
+          "43.249008"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Valras-Plage",
+        "departement": "Hérault",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.190369",
+          "43.181838"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Fleury",
+        "departement": "Aude",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.163064",
+          "43.158994"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Narbonne",
+        "departement": "Aude",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.466717",
+          "43.461087"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saintes-Maries-de-la-Mer",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.022575",
+          "42.697230"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Canet-en-Roussillon",
+        "departement": "Pyrénées-Orientales",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.021520",
+          "42.626635"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Saint-Cyprien",
+        "departement": "Pyrénées-Orientales",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.024694",
+          "42.545174"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Argelès-sur-Mer",
+        "departement": "Pyrénées-Orientales",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.481742",
+          "43.528559"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Boucau",
+        "departement": "Pyrénées-Atlantiques",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.419499",
+          "43.658772"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "hSlider",
+        "commune": "Soorts-Hossegor",
+        "departement": "Landes",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-1.186588",
+          "44.649847"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Arcachon",
+        "departement": "Gironde",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.547838",
+          "48.835808"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Torcy",
+        "departement": "Seine et Mane",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "7.384445",
+          "47.772242"
+        ]
+      },
+      "properties": {
+        "zoom": "17",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "mode": "vSlider",
+        "commune": "Illzach",
+        "departement": "Haut-Rhin",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.<br/>Source : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.428749",
+          "49.217073"
+        ]
+      },
+      "properties": {
+        "zoom": "10.5",
+        "layer1": "BNF-IGNF_GEOGRAPHICALGRIDSYSTEMS.CASSINI",
+        "layer2": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+        "mode": "vSlider",
+        "commune": "Douaumont-Vaux",
+        "departement": "Meuse",
+        "accroche": "Observez le reboisement de la forêt de Verdun  depuis le 19e siècle",
+        "theme": "Forêt",
+        "text": "Fleury-devant-Douaumont, Louvemont-Côte-du-Poivre… ces villages entourés de champs (sur la carte de Cassini) seront détruits pendant la Grande Guerre. A partir de 1919, 10 000 hectares de forêt sont reboisés par l’État. La forêt domaniale de Verdun devient une Forêt d’Exception en 2013 pour la valeur mémorielle des lieux.<br/>Source : onf.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.255193",
+          "48.825957"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "mode": "vSlider",
+        "commune": "Issy-les-Moulineaux",
+        "departement": "Hauts-de-Seine",
+        "accroche": "Observez le reboisement de l'île Saint-Germain ",
+        "theme": "Forêt",
+        "text": "L’île Saint-Germain accueille aujourd'hui un parc de 22 hectares mais ce ne fut pas toujours le cas. Dans les années 1930, l'île subit une urbanisation rapide. Elle est transformée en parc en 1980, après la démolition de 35 bâtiments et le reboisement par 1 500 arbres.<br/>Source : IGN - Atlas de l'anthropocène"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.884742",
+          "48.070145"
+        ]
+      },
+      "properties": {
+        "zoom": "14.7",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "mode": "vSlider",
+        "commune": "Gérardmer",
+        "departement": "Vosges",
+        "accroche": "Observez l'expansion conjointe des forêts et des villes ",
+        "theme": "Forêt",
+        "text": "Depuis quelques décennies, la commune de Gérardmer est témoin d'un phénomène spectaculaire : la forêt et la ville s'étendent pour remplacer progressivement les terres agricoles. Ce phénomène s’observe dans de nombreux lieux en France.<br/>Source : ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.919016",
+          "48.078480"
+        ]
+      },
+      "properties": {
+        "zoom": "14.7",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "mode": "vSlider",
+        "commune": "Xonrupt-Longemer",
+        "departement": "Vosges",
+        "accroche": "Observez l'expansion conjointe des forêts et des villes ",
+        "theme": "Forêt",
+        "text": "Depuis quelques décennies, la commune de Xonrupt-Longemer est témoin d'un phénomène spectaculaire : la forêt et la ville s'étendent pour remplacer progressivement les terres agricoles. Ce phénomène s’observe dans de nombreux lieux en France. <br/>Source : ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "0.323724",
+          "42.821625"
+        ]
+      },
+      "properties": {
+        "zoom": "14.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-Lary-Soulan",
+        "departement": "Hautes-Pyrénées",
+        "accroche": "Observez l'expansion conjointe de la ville et de la forêt ",
+        "theme": "Forêt",
+        "text": "Depuis quelques décennies, la commune de Saint-Lary-Soulan est témoin d'un phénomène spectaculaire : la forêt et la ville s'étendent pour remplacer progressivement les terres agricoles. Ce phénomène s’observe dans de nombreux lieux en France.<br/>Source : ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.112847",
+          "45.745463"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Aubière",
+        "departement": " Puy-de-Dôme",
+        "accroche": "Observez l'expansion simultanée de la ville et de la forêt ",
+        "theme": "Forêt",
+        "text": "Depuis quelques décennies, la commune d'Aubière est témoin d'un phénomène spectaculaire : la forêt et la ville s'étendent pour remplacer progressivement les terres agricoles. Ce phénomène s’observe dans de nombreux lieux en France.<br/>Source : ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.059313",
+          "47.428220"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Salbris",
+        "departement": "Loir-et-Cher",
+        "accroche": "Observez l'expansion simultanée de la ville et de la forêt ",
+        "theme": "Forêt",
+        "text": "Depuis quelques décennies, la commune de Salbris est témoin d'un phénomène spectaculaire : la forêt et la ville s'étendent pour remplacer progressivement les terres agricoles. Ce phénomène s’observe dans de nombreux lieux en France. <br/>Source : ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.500520",
+          "50.402775"
+        ]
+      },
+      "properties": {
+        "zoom": "16",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Raismes",
+        "departement": "Nord",
+        "accroche": "Observez la naissance d'un terril, cette montagne noire façonnée par l'homme",
+        "theme": "Environnement",
+        "text": "Les terrils sont des montagnes artificielles composées de résidus miniers. Ils ont été construits par l'homme lors de l'extraction du charbon au 20e siècle. Jadis dépréciés, les terrils sont considérés aujourd'hui comme des refuges exceptionnels pour une végétation sauvage avec des espèces souvent inconnues de la région.<br/>Le saviez-vous ? Certains terrils ont été réaménagés en lieux de loisirs ou de détente.<br/>Source : bassinminier-patrimoinemondial.org"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.569296",
+          "50.459022"
+        ]
+      },
+      "properties": {
+        "zoom": "14.7",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Maisnil-lès-Ruitz",
+        "departement": "Pas-de-Calais",
+        "accroche": "Observez la naissance d'un terril, cette montagne noire façonnée par l'homme",
+        "theme": "Environnement",
+        "text": "Les terrils sont des montagnes artificielles composées de résidus miniers. Ils ont été construits par l'homme lors de l'extraction du charbon au 20e siècle. Jadis dépréciés, les terrils sont considérés aujourd'hui comme des refuges exceptionnels pour une végétation sauvage avec des espèces souvent inconnues de la région.<br/>Le saviez-vous ? Certains terrils ont été réaménagés en lieux de loisirs ou de détente.<br/>Source : bassinminier-patrimoinemondial.org"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.920116",
+          "50.482008"
+        ]
+      },
+      "properties": {
+        "zoom": "15.4",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Estevelles",
+        "departement": "Pas-de-Calais",
+        "accroche": "Observez la naissance d'un terril, cette montagne noire façonnée par l'homme",
+        "theme": "Environnement",
+        "text": "Les terrils sont des montagnes artificielles composés de résidus miniers. Ils ont été construits par l'homme lors de l'extraction du charbon au 20e siècle. Jadis dépréciés, les terrils sont considérés aujourd'hui comme des refuges exceptionnels pour une végétation sauvage avec des espèces souvent inconnues de la région.<br/>Le saviez-vous ? Certains terrils ont été réaménagés en lieux de loisirs ou de détente.<br/>Source : bassinminier-patrimoinemondial.org"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.408887",
+          "50.355039"
+        ]
+      },
+      "properties": {
+        "zoom": "16.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Haveluy",
+        "departement": "Nord",
+        "accroche": "Observez la naissance d'un terril, cette montagne noire façonnée par l'homme",
+        "theme": "Environnement",
+        "text": "Les terrils sont des montagnes artificielles composées de résidus miniers. Ils ont été construits par l'homme lors de l'extraction du charbon au 20e siècle. Jadis dépréciés, les terrils sont considérés aujourd'hui comme des refuges exceptionnels pour une végétation sauvage avec des espèces souvent inconnues de la région.<br/>Le saviez-vous ? Certains terrils ont été réaménagés en lieux de loisirs ou de détente.<br/>Source : bassinminier-patrimoinemondial.org"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.929691",
+          "50.404340"
+        ]
+      },
+      "properties": {
+        "zoom": "14.5",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Hénin-Beaumont",
+        "departement": "Pas-de-Calais",
+        "accroche": "Observez la naissance d'un terril, cette montagne noire façonnée par l'homme",
+        "theme": "Environnement",
+        "text": "Les terrils sont des montagnes artificielles composées de résidus miniers. Ils ont été construits par l'homme lors de l'extraction du charbon au 20e siècle. Jadis dépréciés, les terrils sont considérés aujourd'hui comme des refuges exceptionnels pour une végétation sauvage avec des espèces souvent inconnues de la région.<br/>Le saviez-vous ? Certains terrils ont été réaménagés en lieux de loisirs ou de détente.<br/>Source : bassinminier-patrimoinemondial.org"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.800306",
+          "50.403773"
+        ]
+      },
+      "properties": {
+        "zoom": "14.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Avion",
+        "departement": "Pas-de-Calais",
+        "accroche": "Observez la naissance d'un terril, cette montagne noire façonnée par l'homme",
+        "theme": "Environnement",
+        "text": "Les terrils sont des montagnes artificielles composés de résidus miniers. Ils ont été construits par l'homme lors de l'extraction du charbon au 20e siècle. Jadis dépréciés, les terrils sont considérés aujourd'hui comme des refuges exceptionnels pour une végétation sauvage avec des espèces souvent inconnues de la région. Le terril de Pinchonvalles à Avion compte plus de 200 espèces végétales abritant oiseaux et batraciens et propose des sentiers de découverte.<br/>Source : bassinminier-patrimoinemondial.org"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-52.320765",
+          "4.928348"
+        ]
+      },
+      "properties": {
+        "zoom": "14.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Cayenne",
+        "departement": "Guyane",
+        "accroche": "Observez le développement urbain de la ville de Cayenne",
+        "theme": "Urbanisation",
+        "text": "La ville de Cayenne concentre à elle seule 52 % des habitants de la Guyane française. Les cartes montrent bien comment cette ville construite sur une zone marécageuse a grignoté l'espace naturel en 70 ans seulement. <br/>Source : IGN - Atlas de l'anthropocène"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.994598",
+          "43.514428"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Istres",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez l'étalement urbain d'Istres (ex-l'Étang-de-Berre) au fil du temps",
+        "theme": "Urbanisation",
+        "text": "À partir de 1960, l’État développe la politique des villes nouvelles. Pour désengorger les métropoles et équilibrer les territoires, il crée neuf villes dotées de tous les équipements contrairement aux villes-dortoirs de banlieue. Cinq villes nouvelles naissent en Île-de-France et quatre en province dont celle d’Étang-de-Berre aujourd’hui intégrée à la métropole d’Aix-Marseille-Provence.<br/>Source : IGN - Atlas de l'anthropocène"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.570956",
+          "16.239606"
+        ]
+      },
+      "properties": {
+        "zoom": "15",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Baie-Mahault",
+        "departement": "Guadeloupe",
+        "accroche": "Observez l'extension de la zone industrielle de Jarry",
+        "theme": "Aménagement du territoire",
+        "text": "Situé sur le territoire de la commune de Baie-Mahault, Jarry est le plus grand bassin d’activités industrielles et commerciales de la Guadeloupe. Depuis le début des années 2000, ce poumon économique connaît une extension constante.\nSource : Région Guadeloupe"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.548952",
+          "16.252710"
+        ]
+      },
+      "properties": {
+        "zoom": "16.6",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Baie-Mahault",
+        "departement": "Guadeloupe",
+        "accroche": "Observez la construction du pont de la Gabarre qui enjambe la rivière Salée",
+        "theme": "Aménagement du territoire",
+        "text": "Dans les années 60, la croissance démographique et économique de la Guadeloupe entraine une augmentation très rapide du trafic automobile. Pour permettre la circulation entre la Grande-Terre et la Basse-Terre, le pont de la Gabarre est mis en service en 1973. Ce pont était le seul moyen de franchir la Rivière Salée jusqu'à la mise en service du pont mobile de l'Alliance en 1997.\nSource : media Franceinfo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.525391",
+          "16.263682"
+        ]
+      },
+      "properties": {
+        "zoom": "14.4",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Les Abymes",
+        "departement": "Guadeloupe",
+        "accroche": "Observez la construction de l'aéroport de Guadeloupe - Pôle Caraïbes",
+        "theme": "Aménagement du territoire",
+        "text": "C’est en 1948 que débute la construction de l'aéroport de Pointe-à-Pitre, les liaisons aériennes étant jusque-là effectuées par des hydravions qui se posaient sur la Darse. L’inauguration a lieu en 1953. L'arrivée du Boeing 747 et la croissance du trafic entraînent une quasi reconstruction de l’aérogare en 1972. Une route est aussi créée afin de relier l’aéroport à la ville.\nSource : Guadeloupe-aéroport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.692323",
+          "16.248026"
+        ]
+      },
+      "properties": {
+        "zoom": "15.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Sainte-Rose",
+        "departement": "Guadeloupe",
+        "accroche": "Observez le recul de la forêt dans la commune de Sainte-Rose",
+        "theme": "Forêt",
+        "text": "En 2019, la Guadeloupe présentait le plus fort taux de déforestation de l'outre-mer. Le développement urbain et agricole est en particulier responsable de la disparition progressive de nombreuses espèces des forêts de basse altitude. La destruction, la dégradation et la fragmentation des milieux naturels constituent les principales menaces affectant les espèces végétales.\nSource : MNHM"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.521553",
+          "16.251925"
+        ]
+      },
+      "properties": {
+        "zoom": "14",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Les Abymes",
+        "departement": "Guadeloupe",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.\nSource : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-52.692948",
+          "5.163970"
+        ]
+      },
+      "properties": {
+        "zoom": "14.5",
+        "layer1": "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950",
+        "layer2": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+        "mode": "vSlider",
+        "commune": "Kourou",
+        "departement": "Guyane",
+        "accroche": "Observez la création du Centre spatial guyanais",
+        "theme": "Aménagement du territoire",
+        "text": "Suite aux accords d'Evian, la France doit renoncer à sa base spatiale en Algérie. Le Centre national d'études spatiales retient alors La Guyane pour la construction d'une nouvelle base de lancements. Dès 1964, de gigantesques travaux d'aménagement sont alors entrepris sur le site de Kourou. Ils se concrétisent par le lancement réussi de la fusée-sonde Véronique en 1968.\nSource : Centre spatial guyanais"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-52.367430",
+          "4.905123"
+        ]
+      },
+      "properties": {
+        "zoom": "15.5",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Matoury",
+        "departement": "Guyane",
+        "accroche": "Observez la construction du pont qui enjambe la rivière Cayenne",
+        "theme": "Aménagement du territoire",
+        "text": "Construit dans les années 1970, le pont Larivot permet aux véhicules de traverser l'estuaire de la rivière Cayenne et relie les villes de Cayenne, Kourou et Saint-Laurent du Maroni. Long de 1 250 m, il accueille un trafic quotidien de 20 000 véhicules. Afin d'améliorer la circulation, un second pont est actuellement en construction.\nSource : Direction générale des territoires et de la mer\n"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-52.316006",
+          "4.924390"
+        ]
+      },
+      "properties": {
+        "zoom": "14.1",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Cayenne",
+        "departement": "Guyane",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.\nSource : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "55.440005",
+          "-21.320166"
+        ]
+      },
+      "properties": {
+        "zoom": "15.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-Pierre",
+        "departement": "La Réunion",
+        "accroche": "Observez l'installation de la centrale solaire de l'aéroport de Pierrefonds",
+        "theme": "Aménagement du territoire",
+        "text": "Inaugurée en 2023, la centrale solaire de Pierrefonds s'étend sur une dizaine d'hectares au sol sur des zones inexploitées de l'aéroport et comptabilise 20 000 modules de panneaux photovoltaïques. Elle permet de produire une électricité verte correspondant à la consommation annuelle de 8 400 personnes.\nSource : Actus Réunion"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "55.653807",
+          "-20.962371"
+        ]
+      },
+      "properties": {
+        "zoom": "14.2",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-André",
+        "departement": "La Réunion",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.\nSource : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.038546",
+          "14.607932"
+        ]
+      },
+      "properties": {
+        "zoom": "16.6",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Fort-de-France",
+        "departement": "Martinique",
+        "accroche": "Observez la transformation d'une décharge sauvage en site de recyclage",
+        "theme": "Aménagement du territoire",
+        "text": "En 2013, le Conseil Général de la Martinique décide de fermer la décharge de la Trompeuse. Des travaux de réhabilitation sont entrepris, permettant au Parc Technologique Environnemental de voir le jour. Ce site est désormais consacré à la réception, au traitement, au recyclage et à la valorisation des déchets.\nSource : Syndicat Martiniquais de Traitement et de Valorisation des Déchets"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-61.087110",
+          "14.609182"
+        ]
+      },
+      "properties": {
+        "zoom": "15.1",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Fort-de-France",
+        "departement": "Martinique",
+        "accroche": "Observez l'impact de l'extension de la ville sur le paysage",
+        "theme": "Urbanisation",
+        "text": "L’étalement urbain correspond à une extension excessive des villes sur des espaces naturels ou agricoles par artificialisation de leurs sols. Ce phénomène a un impact direct sur l’environnement et la consommation énergétique.\nSource : ecologie.gouv.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "45.118355",
+          "-12.729817"
+        ]
+      },
+      "properties": {
+        "zoom": "16.9",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2011-2015",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Dzoumogné",
+        "departement": "Mayotte",
+        "accroche": "Observez la transformation d’une décharge en centrale solaire",
+        "theme": "Environnement",
+        "text": "Implantée sur une ancienne décharge, la centrale solaire de Dzoumogné s'étend sur 4 hectares. Cet aménagement a contribué à la réhabilitation d'un espace jusque-là dédié au dépôt d’ordures ménagères. Au moment de sa construction, elle est la plus grande centrale photovoltaïque au sol de Mayotte. Sa production alimente plus de 2 000 foyers par jour.\nSource : mayotte.gouv.fr\n"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.968360",
+          "48.786480"
+        ]
+      },
+      "properties": {
+        "zoom": "15.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": " Élancourt",
+        "departement": "Yvelines",
+        "accroche": "Observez la revanche de la colline d'Elancourt",
+        "theme": "Aménagement du territoire",
+        "text": "La colline d’Elancourt baptisée \"colline de la Revanche\" porte bien son surnom ! Jadis petite carrière de pierres meulières (1950’), elle devient une décharge d'ordures ménagères (1970’) puis une casse automobile (1982). L'accumulation des matériaux va donner à la colline sa hauteur et son apparence actuelles pour en faire, de manière totalement artificielle, le point culminant de la région Ile-de-France soit 231m en 1992 !\nLes 28 et 29 juillet 2024, elle devient la plus célèbre des collines en accueillant l’épreuve VTT de Cross-country des Jeux Olympiques. Quel parcours pour ce tas de gravats !\nSource : ign.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "6.181653",
+          "49.107912"
+        ]
+      },
+      "properties": {
+        "zoom": "17.5",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Metz",
+        "departement": "Moselle",
+        "accroche": "Observez la construction du musée Beaubourg sur le terrain de l’ancienne gare",
+        "theme": "Aménagement du territoire",
+        "text": "La construction du musée débute en 2006 à la place de l'ancienne gare de marchandises. Inauguré en 2010, le Centre Pompidou-Metz fait partie du projet d’aménagement du quartier de l’Amphithéâtre. Son architecture unique est remarquable : l'ensemble de plus de 10 000 m² évoque un vaste chapiteau entouré d'un parvis et d'un jardin.\nLe saviez-vous ? La flèche centrale qui culmine à 77 m est un clin d’œil à la date de création du Centre Pompidou à Paris en 1977.\nSource : metz.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.361010",
+          "43.296465"
+        ]
+      },
+      "properties": {
+        "zoom": "18",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Marseille",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez la construction du MuCEM sur le port marseillais",
+        "theme": "Aménagement du territoire",
+        "text": "Le musée des civilisations de l’Europe et de la Méditerranée (MuCEM) a ouvert ses portes en juin 2013. Situé à l’entrée du port de Marseille, il bénéficie d'un cadre et d'une architecture exceptionnels : le fort Saint-Jean fait partie intégrante du musée auquel il est relié par une passerelle de 115 m. Une seconde passerelle de 70 m assure une continuité dans le parcours urbain entre l’ancien quartier du Panier et le nouveau quartier du \"J4\".  Sources : Mucem"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.370601",
+          "48.851688"
+        ]
+      },
+      "properties": {
+        "zoom": "17",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Paris",
+        "departement": "Paris",
+        "accroche": "Observez la construction de l’Opéra Bastille à la place de l’ancienne gare ",
+        "theme": "Aménagement du territoire",
+        "text": "Le saviez-vous ? L’Opéra Bastille a été construit à la place de l’ancienne gare de la Bastille, en activité de 1859 à 1969, du restaurant la Tour d’Argent et d’un cinéma. Commandé par le président François Mitterrand en 1982 au ministre de la Culture, Jack Lang, ce nouvel opéra moderne est inauguré en 1989 à l’occasion des festivités du bicentenaire de la Révolution française. La grande salle est l’une des plus grandes du monde avec 2 700 places.\nSource : operadeparis.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-0.569528",
+          "47.500203"
+        ]
+      },
+      "properties": {
+        "zoom": "15.8",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Angers",
+        "departement": "Maine-et-Loire",
+        "accroche": "Observez la transformation d’un golf et aérodrome en un parc à thème Terra Bonatica",
+        "theme": "Aménagement du territoire",
+        "text": "Terra Botanica est le premier parc à thème européen dédié au monde végétal. Il a été construit dans le quartier Les Hauts de Saint-Aubin, à la place d'un terrain de golf et de l’ancien aérodrome d’Angers-Avrillé. Ses 18 hectares de jardins, de serres et d’espaces\naquatiques offrent une balade ludique et pédagogique pour toute la famille.\nDominant les basses vallées angevines classées Natura 2000, le parc végétal ne cesse de se diversifier pour proposer des attractions et des spectacles grand public.\nSource : terrabotanica.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "0.366930",
+          "46.664349"
+        ]
+      },
+      "properties": {
+        "zoom": "14.8",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Chasseneuil-du-Poitou",
+        "departement": "Vienne",
+        "accroche": "Observez la naissance du célèbre Futuroscope",
+        "theme": "Aménagement du territoire",
+        "text": "Pensé dès sa création en 1987 comme un outil de développement du territoire par les élus du Département de la Vienne, le Futuroscope est devenu une formidable locomotive pour l’économie, l’emploi et le tourisme de cette terre rurale.\nLe saviez-vous ? Le Futuroscope est le premier grand parc d’attractions inauguré en France, avant le Parc Astérix (1989) et Disneyland (1992).\nSource : futuroscope.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.359585",
+          "43.659060"
+        ]
+      },
+      "properties": {
+        "zoom": "16.2",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Blagnac",
+        "departement": "Haute-Garonne",
+        "accroche": "Observez l’extension de Toulouse-Blagnac pour y construire l’Aeroscopia",
+        "theme": "Aménagement du territoire",
+        "text": "Aeroscopia est un musée dédié à l'aéronautique installé près des immenses hangars d'Airbus. Depuis 2015, il rassemble, sous une halle monumentale, une impressionnante collection d'avions retraçant l'histoire de l'aviation. Au total, une trentaine d'avions historiques, militaires et civils sont exposés sur un espace de 7 200 m², parmi lesquels le concorde, l'A380 et plus récemment l'A380-800.\nSource : metropole.toulouse.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.018656",
+          "43.178025"
+        ]
+      },
+      "properties": {
+        "zoom": "17.2",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2011-2015",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Narbonne",
+        "departement": "Aude",
+        "accroche": "Observez la construction du musée de Narbo Via le long du canal de la Robine",
+        "theme": "Aménagement du territoire",
+        "text": "Le musée Narbo Via est un musée archéologique qui retrace l’histoire romaine du narbonnais. Inauguré en 2021, le musée abrite une collection antique exceptionnelle d'environ 1 300 pièces.\nnarbovia.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.366558",
+          "43.310358"
+        ]
+      },
+      "properties": {
+        "zoom": "18.2",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Marseille ",
+        "departement": "Bouches-du-Rhône",
+        "accroche": "Observez la transformation d’un silo à grains en salle de spectacle",
+        "theme": "Aménagement du territoire",
+        "text": "Le CEPAC Silo est une salle de spectacle de 2 100 places inaugurée en 2011. Elle tire son nom de l’ancien silo à céréales d’Arenc construit en 1924, sauvé de la démolition en 2000 avant d'être reconverti en salle de diffusion. Bâtiment industriel emblématique de Marseille, il est labellisé patrimoine du 20ème siècle en 2004. Cette construction Art déco d’une surface de 16 000 m² participe à la revalorisation du quartier de la Joliette.\nSource : cepacsilo-marseille.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "1.279331",
+          "45.861844"
+        ]
+      },
+      "properties": {
+        "zoom": "17.5",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2000-2005",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Limoges",
+        "departement": "Haute-Vienne",
+        "accroche": "Observez la construction du Zénith de Limoges",
+        "theme": "Aménagement du territoire",
+        "text": "Le Zénith Limoges Métropole est une salle de spectacle construite sur un espace de 51 600 m² pouvant accueillir 6 800 spectateurs. Reconnaissable grâce à son architecture unique, le Zénith est un équipement majeur qui dynamise le territoire.\nLe saviez-vous ? Inauguré en 2007, c'est Michel Polnareff qui y assure le tout premier concert.\nSource : limoges-metropole.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "7.269372",
+          "43.708877"
+        ]
+      },
+      "properties": {
+        "zoom": "18.3",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Nice",
+        "departement": "Alpes-Maritimes",
+        "accroche": "Observez l’implantation du musée Chagall à Nice",
+        "theme": "Aménagement du territoire",
+        "text": "Le musée national Marc Chagall est inauguré en 1973 par le ministre des Affaires culturelles André Malraux, en présence de l'artiste qui a participé activement à sa conception. A l'origine, le musée accueille 17 toiles illustrant des épisodes de la Bible, puis la collection s'enrichit grâce aux diverses donations. Véritable œuvre d'art, le bâtiment est dessiné par l’ancien collaborateur de Le Corbusier, André Hermant.\nLe saviez-vous ? C'est le premier musée national consacré à un artiste vivant.\nSource : marcchagall.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "0.693292",
+          "47.391220"
+        ]
+      },
+      "properties": {
+        "zoom": "17.7",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Tours",
+        "departement": "Indre-et-Loire",
+        "accroche": "Observez la construction du Palais des Congrès de Tours",
+        "theme": "Aménagement du territoire",
+        "text": "Le projet de construction du Palais des Congrès de Tours remonte à la fin du 19e siècle et a subi de nombreuses modifications au fil du temps. Inauguré finalement en 1993, le bâtiment est un vaisseau de verre de 23 000 m² imaginé par l'architecte de renommée internationale Jean Nouvel. Il est idéalement situé au cœur de la ville de Tours, face à la gare TGV.\nSource : tours-evenements.com"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "-4.519874",
+          "48.387181"
+        ]
+      },
+      "properties": {
+        "zoom": "17.7",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Brest",
+        "departement": "Finistère",
+        "accroche": "Observez la naissance de l’Arena à Brest",
+        "theme": "Aménagement du territoire",
+        "text": "L’Arena de Brest est une salle de spectacle consacrée aux sports et aux loisirs pouvant accueillir jusqu'à 5 000 spectateurs. Son architecture moderne et futuriste est remarquable par sa toiture unique composée de cheminées de ventilation et d’éclairage évoquant la silhouette d'un paquebot.\nLa salle de spectacle ouvre ses portes en 2014 et joue un rôle essentiel dans le développement du quartier de la Rive Droite de Brest.\nSource : brestarena.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "5.029889",
+          "47.317192"
+        ]
+      },
+      "properties": {
+        "zoom": "17.9",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2011-2015",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Dijon",
+        "departement": "Côtes-d’Or",
+        "accroche": "Observez la naissance de la Cité Internationale de la Gastronomie et du Vin",
+        "theme": "Aménagement du territoire",
+        "text": "Ouverte en 2022, la Cité internationale de la gastronomie et du vin est un projet culturel et touristique majeur, visant à promouvoir l’art de vivre à la française. La Cité s'étend sur 6,5 ha et combine avec harmonie des bâtiments historiques rénovés avec des constructions plus modernes.\nLe saviez-vous ? Ce chantier ambitieux fait suite à la reconnnaissance internationale du Repas gastronomique des Français par l'Unesco en 2010.\nSource : dijon-metropole.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.804007",
+          "50.430250"
+        ]
+      },
+      "properties": {
+        "zoom": "16.7",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS2006-2010",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Lens",
+        "departement": "Pas-de-Calais",
+        "accroche": "Observez la construction du musée Louvre-Lens sur une ancienne mine de charbon",
+        "theme": "Aménagement du territoire",
+        "text": "Inauguré en 2021, le Louvre-Lens a pour premier objectif de proposer à tous l'accès aux collections nationales du Louvre. Le musée symbolise également la reconversion du bassin minier du Nord Pas-de-Calais puisqu'il a été construit sur une ancienne fosse de charbon.\nLe saviez-vous ? Le Louvre-Lens est devenu le deuxième musée le plus fréquenté en région après le Musée des Confluences à Lyon.\nSource : louvre.fr"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "4.374270",
+          "45.469096"
+        ]
+      },
+      "properties": {
+        "zoom": "17.8",
+        "layer1": "ORTHOIMAGERY.ORTHOPHOTOS.1950-1965",
+        "layer2": "ORTHOIMAGERY.ORTHOPHOTOS",
+        "mode": "vSlider",
+        "commune": "Saint-Priest-en-Jarez",
+        "departement": "Loire",
+        "accroche": "Observez la construction du musée d'Art moderne et contemporain de Saint-Étienne Métropole",
+        "theme": "Aménagement du territoire",
+        "text": "Le Musée d'art moderne et contemporain de Saint-Étienne Métropole (MAMC+) ouvre ses portes en 1987. Il est l’un des premiers musées d’art contemporain créé hors de Paris. Construit sur des terres cultivables, le musée dispose de volumes exceptionnels avec 3 000 m² de surfaces d’exposition sur une hauteur de 8 m sous plafond accueillant plus de 20 000 œuvres.\nLe saviez-vous ? La façade dessinée par l'architecte Didier Guichard est habillée d’un quadrillage de céramique noire en hommage au passé minier de la ville. Elle a inspiré l'actuel logo du musée.\nSource : mamc.saint-etienne.fr"
+      }
+    }
+  ]
+}
