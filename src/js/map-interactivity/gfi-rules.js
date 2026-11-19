@@ -9,6 +9,7 @@ import { marked } from "marked";
 import DomUtils from "../utils/dom-utils";
 
 const EMPTY_TEMPLATE_VALUE = "";
+const SUPPRESSED_TEMPLATE_VALUE = null;
 
 /**
  * Format the template value for display, handling arrays and null/undefined values.
@@ -43,6 +44,14 @@ function getTemplateProperty(featureProperties, propertyName) {
   return formatTemplateValue(featureProperties[propertyName]);
 }
 
+function hasTemplateProperty(featureProperties, propertyName) {
+  return (
+    Object.prototype.hasOwnProperty.call(featureProperties, propertyName) &&
+    featureProperties[propertyName] !== null &&
+    featureProperties[propertyName] !== undefined
+  );
+}
+
 /**
  * Process a template string by replacing placeholders with values
  * @param {string} str - The template string to process
@@ -51,19 +60,30 @@ function getTemplateProperty(featureProperties, propertyName) {
  * @param {boolean} options.includeMarkdown - Process {{{ }}} markdown placeholders (default: true)
  * @param {boolean} options.includeHelpers - Process ~~ ~~ helper function placeholders (default: true)
  * @param {Object} options.specialHandlers - Special property handlers {propName: handler function}
+ * @param {boolean} options.suppressOnMissingProperties - Suppress output when a referenced property is missing/null (default: true)
  * @returns {string} Processed string; missing properties are replaced with empty strings
  */
 function processTemplateString(str, featureProperties, options = {}) {
   const {
     includeMarkdown = true,
     includeHelpers = true,
-    specialHandlers = {}
+    specialHandlers = {},
+    suppressOnMissingProperties = true
   } = options;
+
+  let suppressString = false;
+
   // Match markdown first: {{{ content }}}
   if (includeMarkdown) {
-    str = str.replace(/{{{([^}]+)}}}/g, (placeholder, propertyName) =>
-      marked(getTemplateProperty(featureProperties, propertyName.trim()))
-    );
+    str = str.replace(/{{{([^}]+)}}}/g, (placeholder, propertyName) => {
+      const propName = propertyName.trim();
+      if (suppressOnMissingProperties && !hasTemplateProperty(featureProperties, propName)) {
+        suppressString = true;
+        return EMPTY_TEMPLATE_VALUE;
+      }
+      const value = getTemplateProperty(featureProperties, propName);
+      return value ? marked(value) : EMPTY_TEMPLATE_VALUE;
+    });
   }
 
   // Then match operations: ~~ expression ~~
@@ -77,6 +97,10 @@ function processTemplateString(str, featureProperties, options = {}) {
         if (fnMatch) {
           const fnName = fnMatch[1];
           const argName = fnMatch[2].trim();
+          if (suppressOnMissingProperties && !hasTemplateProperty(featureProperties, argName)) {
+            suppressString = true;
+            return EMPTY_TEMPLATE_VALUE;
+          }
           if (
             Object.prototype.hasOwnProperty.call(helpers, fnName) &&
             Object.prototype.hasOwnProperty.call(featureProperties, argName) &&
@@ -94,7 +118,6 @@ function processTemplateString(str, featureProperties, options = {}) {
   }
 
   // Finally match raw properties: {{ property }}
-  let suppressString = false;
   str = str.replace(/{{([^{}]+)}}/g, (placeholder, propertyName) => {
     const propName = propertyName.trim();
 
@@ -108,10 +131,15 @@ function processTemplateString(str, featureProperties, options = {}) {
       return formatTemplateValue(result);
     }
 
+    if (suppressOnMissingProperties && !hasTemplateProperty(featureProperties, propName)) {
+      suppressString = true;
+      return EMPTY_TEMPLATE_VALUE;
+    }
+
     return getTemplateProperty(featureProperties, propName);
   });
 
-  return suppressString ? EMPTY_TEMPLATE_VALUE : str;
+  return suppressString ? SUPPRESSED_TEMPLATE_VALUE : str;
 }
 
 function duration(hours) {
@@ -237,7 +265,7 @@ const gfiRules = {
           pretitle = "";
         }
       } else {
-        pretitle = processTemplateString(pretitle, featureProperties);
+        pretitle = processTemplateString(pretitle, featureProperties) ?? EMPTY_TEMPLATE_VALUE;
       }
       result.title = pretitle + `<div class="positionTitleWrapper">${result.title}</div>`;
     }
