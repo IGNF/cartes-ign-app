@@ -70,7 +70,13 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
-          "sass-loader"
+          {
+            loader: "sass-loader",
+            options: {
+              // Prevents Sass from emitting a BOM in compressed mode, which breaks the first selector once bundled
+              sassOptions: { charset: false },
+            },
+          },
         ]
       },
       {

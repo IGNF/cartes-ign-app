@@ -1,5 +1,5 @@
 PODS:
-  - Capacitor (8.4.2):
+  - Capacitor (8.6.0):
     - CapacitorCordova
   - CapacitorApp (8.1.1):
     - Capacitor
@@ -7,7 +7,7 @@ PODS:
     - Capacitor
   - CapacitorCommunityKeepAwake (8.0.1):
     - Capacitor
-  - CapacitorCordova (8.4.2)
+  - CapacitorCordova (8.6.0)
   - CapacitorDevice (8.0.3):
     - Capacitor
   - CapacitorFilesystem (8.1.2):
@@ -113,11 +113,11 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capgo/background-geolocation"
 
 SPEC CHECKSUMS:
-  Capacitor: 7a1ef4c3b846b5f32437a2b3e11803c1c702a6c5
+  Capacitor: c028c437d3074b3668803ed7f2e63fb28bbf9820
   CapacitorApp: 9fd99482b6536ddf1a54721ce678145fc7fa3418
   CapacitorClipboard: 1ba60616f1b2d3df52417000217ec810216bbbaf
   CapacitorCommunityKeepAwake: 4eaeafc83573f2520fac18e136254ef34694f75b
-  CapacitorCordova: 345eacdc4c8282415446aea4acd8c77d82480bd4
+  CapacitorCordova: 922f0a94dae286165215f0c7cf16fbde662d5ee4
   CapacitorDevice: e5599fa82274e59220170995826a16095ad20c40
   CapacitorFilesystem: 7d3e3df84be4f0d999a5d6baa23aeb30c2de6450
   CapacitorGeolocation: d3c56eb5285f46f55cd82d2b14f40c1d32d18437
