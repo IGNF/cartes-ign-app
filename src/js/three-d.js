@@ -7,6 +7,7 @@
 import Globals from "./globals";
 
 import PopupUtils from "./utils/popup-utils";
+import { trackEvent } from "./analytics";
 
 const hillsLayer = {
   id: "hills",
@@ -53,9 +54,7 @@ class ThreeD {
     if (!layerId) {
       return;
     }
-    const paq = window._paq || [];
-    window._paq = paq;
-    paq.push(["trackEvent", "Layer", "Add", layerId]);
+    trackEvent("Layer", "Add", layerId);
   }
 
   async #fetch3dBuildingsLayers() {

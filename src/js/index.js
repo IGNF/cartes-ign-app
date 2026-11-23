@@ -30,6 +30,9 @@ import PinchZoom from "pinch-zoom-js";
 
 import { loadImagesFromFolder } from "./utils/image-loader";
 import { handleIncomingUrl } from "./utils/url-intent-handler";
+import { initAnalytics } from "./analytics";
+
+initAnalytics(process.env.MATOMO_URL, process.env.MATOMO_SITE_ID);
 
 maplibregl.setWorkerUrl(new URL("maplibre-gl/dist/maplibre-gl-worker.mjs", import.meta.url).href);
 

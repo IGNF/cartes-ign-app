@@ -5,6 +5,7 @@
  */
 
 import { Network } from "@capacitor/network";
+import { trackPage } from "./analytics";
 
 /** global: map */
 let map = null;
@@ -266,11 +267,7 @@ const getBackButtonTitle = (state) => {
 };
 
 const trackBackButtonStateChange = (state) => {
-  const paq = window._paq || [];
-  window._paq = paq;
-  paq.push(["setCustomUrl", "/" + encodeURIComponent(state)]);
-  paq.push(["setDocumentTitle", getBackButtonTitle(state)]);
-  paq.push(["trackPageView"]);
+  trackPage(state, getBackButtonTitle(state));
 };
 
 const setBackButtonState = (state, track = true) => {
