@@ -1,0 +1,191 @@
+{
+  "version": 8,
+  "name": "Traces de randonnées hivernales",
+  "sprite": "data/poi-osm-sprite",
+  "sources": {
+    "trace": {
+      "type": "vector",
+      "tiles": [
+        "https://data.geopf.fr/tms/1.0.0/IGNF-TRACES-RANDO-HIVERNALE/{z}/{x}/{y}.pbf"
+      ]
+    }
+  },
+  "glyphs": "https://data.geopf.fr/annexes/ressources/vectorTiles/fonts/{fontstack}/{range}.pbf",
+  "transition": {
+    "duration": 300,
+    "delay": 0
+  },
+  "layers": [
+    {
+      "id": "randonnee-hivernale",
+      "type": "line",
+      "source": "trace",
+      "source-layer": "traces_rando_hivernale",
+      "filter": [
+        "!=",
+        [
+          "to-string",
+          [
+            "get",
+            "passage_delicat"
+          ]
+        ],
+        "true"
+      ],
+      "layout": {
+        "line-cap": "butt",
+        "line-join": "miter"
+      },
+      "paint": {
+        "line-color": "#003dc4",
+        "line-width": [
+          "step",
+          [
+            "zoom"
+          ],
+          0.25,
+          5.8,
+          0.5,
+          6.8,
+          1,
+          8.13,
+          1.5,
+          9.13,
+          2,
+          10.13,
+          2.5,
+          11.45,
+          3,
+          13.45,
+          3.5,
+          14.77,
+          4
+        ]
+      }
+    },
+    {
+      "id": "randonnee-hivernale-passage-delicat",
+      "type": "line",
+      "source": "trace",
+      "source-layer": "traces_rando_hivernale",
+      "filter": [
+        "!=",
+        [
+          "to-string",
+          [
+            "get",
+            "passage_delicat"
+          ]
+        ],
+        "false"
+      ],
+      "layout": {
+        "line-cap": "butt",
+        "line-join": "miter"
+      },
+      "paint": {
+        "line-color": "#003dc4",
+        "line-width": [
+          "step",
+          [
+            "zoom"
+          ],
+          0.25,
+          5.8,
+          0.5,
+          6.8,
+          1,
+          8.13,
+          1.5,
+          9.13,
+          2,
+          10.13,
+          2.5,
+          11.45,
+          3,
+          13.45,
+          3.5,
+          14.77,
+          4
+        ],
+        "line-dasharray": [
+          "step",
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              20,
+              12
+            ]
+          ],
+          5.8,
+          [
+            "literal",
+            [
+              10,
+              6
+            ]
+          ],
+          6.8,
+          [
+            "literal",
+            [
+              5,
+              3
+            ]
+          ],
+          8.13,
+          [
+            "literal",
+            [
+              3.33,
+              2
+            ]
+          ],
+          9.13,
+          [
+            "literal",
+            [
+              2.5,
+              1.5
+            ]
+          ],
+          10.13,
+          [
+            "literal",
+            [
+              2,
+              1.2
+            ]
+          ],
+          11.45,
+          [
+            "literal",
+            [
+              1.67,
+              1
+            ]
+          ],
+          13.45,
+          [
+            "literal",
+            [
+              1.43,
+              0.86
+            ]
+          ],
+          14.77,
+          [
+            "literal",
+            [
+              1.25,
+              0.75
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

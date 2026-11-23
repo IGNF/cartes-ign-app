@@ -74,7 +74,7 @@
       ]
     }
   },
-  "TRACES.RANDO.HIVERNALE$WMTS": {
+  "TRACES.RANDO.HIVERNALE$TMS": {
     "0": {
       "title": "@nom_de_la_trace",
       "subtitle": "Trace de randonnée hivernale (à ski, à raquette) - Source : Fondation Petzl",

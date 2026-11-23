@@ -65,11 +65,11 @@ const urls = {
     fallback: BaseLayers,
   },
   thematicLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/thematics-layer-config-new.json",
+    url: "https://ignf.github.io/cartes-ign-app/thematics-layer-config-new.json--",
     fallback: ThematicLayers,
   },
   configLayers: {
-    url: "https://ignf.github.io/cartes-ign-app/layers-config.json",
+    url: "https://ignf.github.io/cartes-ign-app/layers-config.json--",
     fallback: ConfigLayers,
   },
   tempLayers: {
@@ -101,7 +101,7 @@ const urls = {
     fallbackLoader: getCommuneWikiData,
   },
   gfiRulesProps: {
-    url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json",
+    url: "https://ignf.github.io/cartes-ign-app/gfi-rules.json--",
     fallback: GfiRulesProps,
   },
   layerPopups: {
@@ -113,7 +113,7 @@ const urls = {
     fallback: IsochroneLayers,
   },
   layerTags: {
-    url: "https://ignf.github.io/cartes-ign-app/layer-tags.json",
+    url: "https://ignf.github.io/cartes-ign-app/layer-tags.json--",
     fallback: LayerTags,
   },
   newsfeed: {

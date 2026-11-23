@@ -279,6 +279,8 @@ class MapInteractivity {
           const layerConfig = tempLayers.filter(layer => layer.id === features[0].source)[0];
           rules = layerConfig.gfiRules;
         }
+        console.log(features);
+
         const resp = gfiRules.parseGFI(rules, {features: features}, this.map.getZoom());
         let lngLat = ev.lngLat;
         if (features[0].geometry.type === "Point") {
