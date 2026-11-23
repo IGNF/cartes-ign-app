@@ -125,9 +125,11 @@ class FileStorage {
    * Deletes a file from storage.
    *
    * @param {string} id - The json ID.
+   * @param {object} [options]
+   * @param {boolean} [options.throwOnError=false] - Propagate native deletion errors.
    * @returns {Promise<void>}
    */
-  async delete(id) {
+  async delete(id, { throwOnError = false } = {}) {
     if (!this.isNative) {
       await Preferences.remove({ key: `${this.folder}_${id}` });
       return;
@@ -139,6 +141,9 @@ class FileStorage {
       });
     } catch (error) {
       console.error(`[FileStorage] Error deleting geometry ${id}:`, error);
+      if (throwOnError) {
+        throw error;
+      }
     }
   }
 

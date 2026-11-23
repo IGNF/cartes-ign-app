@@ -6,6 +6,10 @@
 
 Cartes IGN est l'application mobile développée par l'IGN pour découvrir la France autrement. Les fonctionnalités de l'application se basent sur les services web de la Géoplateforme. La cartographie est faite à l'aide de [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/), et la compilation sur mobile est réalisée à l'aide de [Webpack](https://webpack.js.org/) et [Capacitor](https://capacitorjs.com/).
 
+## Sauvegarde des traces GPS
+
+Une trace contenant au moins deux points est sauvegardée automatiquement toutes les minutes et lors du passage en arrière-plan. En cas d'interruption, la dernière sauvegarde est disponible dans « Enregistrés » au redémarrage. L'enregistrement définitif la remplace ; la suppression de la trace la supprime également. La sauvegarde en arrière-plan dépend de l'exécution de l'application par le système.
+
 ## Installation et tests en local
 
 Installation des dépendances :
