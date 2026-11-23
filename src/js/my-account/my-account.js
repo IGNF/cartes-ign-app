@@ -656,23 +656,23 @@ class MyAccount {
    * Ajout d'un itinéraire tracé à l'espace utilisateur
    * @param {*} drawRouteSaveOptions
    */
-  addRoute(drawRouteSaveOptions) {
+  addRoute(drawRouteSaveOptions, { persist = true } = {}) {
     if (typeof drawRouteSaveOptions.data.showOrientation === "undefined") {
       drawRouteSaveOptions.data.showOrientation = gisUtils.hasRouteLoop(drawRouteSaveOptions);
     }
     if (typeof drawRouteSaveOptions.id === "undefined" || drawRouteSaveOptions.id < 0) {
       drawRouteSaveOptions.id = uuidv4();
+    }
+    const routeIndex = this.routes.findIndex(route => route.id === drawRouteSaveOptions.id);
+    if (routeIndex === -1) {
       this.routes.unshift(drawRouteSaveOptions);
       this.routesOrder.unshift(drawRouteSaveOptions.id);
     } else {
-      for (let i = 0; i < this.routes.length; i++) {
-        if (this.routes[i].id === drawRouteSaveOptions.id) {
-          this.routes[i] = drawRouteSaveOptions;
-          break;
-        }
-      }
+      this.routes[routeIndex] = drawRouteSaveOptions;
     }
-    fileStorage.save(drawRouteSaveOptions, `route-${drawRouteSaveOptions.id}`);
+    if (persist) {
+      fileStorage.save(drawRouteSaveOptions, `route-${drawRouteSaveOptions.id}`);
+    }
     try {
       this.__updateAccountRoutesContainerDOMElement(this.routes);
     } catch (e) {
@@ -758,14 +758,16 @@ class MyAccount {
   /**
    * Supprime un itinéraire de l'epace utilisateur
    */
-  deleteRoute(routeId) {
+  deleteRoute(routeId, { persist = true } = {}) {
     for (let i = 0; i < this.routes.length; i++) {
       let route = this.routes[i];
       if (String(route.id) !== String(routeId)) {
         continue;
       }
       this.routes.splice(i, 1);
-      fileStorage.delete(`route-${routeId}`);
+      if (persist) {
+        fileStorage.delete(`route-${routeId}`);
+      }
       this.__updateAccountRoutesContainerDOMElement(this.routes);
       this.#updateSources();
       break;

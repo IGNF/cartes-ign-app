@@ -199,6 +199,9 @@ function addListeners() {
   App.addListener("appStateChange", (state) => {
     saveState();
     Location.handleAppStateChange(state);
+    if (!state.isActive && Globals.trackRecord) {
+      Globals.trackRecord.saveBackup();
+    }
   });
   document.addEventListener("pause", saveState);
   window.addEventListener("beforeunload", saveState);

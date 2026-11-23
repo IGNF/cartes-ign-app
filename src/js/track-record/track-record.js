@@ -6,6 +6,8 @@
 
 import { Capacitor } from "@capacitor/core";
 import { LocalNotifications } from "@capacitor/local-notifications";
+import { Toast } from "@capacitor/toast";
+import { v4 as uuidv4 } from "uuid";
 
 import Globals from "../globals";
 import DOM from "../dom";
@@ -15,6 +17,8 @@ import Location from "../services/location";
 import RouteDrawDOM from "../route-draw/route-draw-dom";
 import ActionSheet from "../action-sheet";
 import PopupUtils from "../utils/popup-utils";
+import fileStorage from "../utils/file-storage";
+import gisUtils from "../utils/gis-utils";
 
 import turfLength from "@turf/length";
 
@@ -188,7 +192,13 @@ class TrackRecord {
     this.duration = 0;
     this.startTime = null;
 
-    this.trackName = "Mon itinéraire";
+    this.trackName = "";
+    this.trackId = null;
+    this.backupIntervalId = null;
+    this.backupPromise = Promise.resolve();
+    this.backupWritten = false;
+    this.lastBackupAt = null;
+    this.finishing = false;
     this.currentPoints = {
       type: "FeatureCollection",
       features: [],
@@ -228,6 +238,13 @@ class TrackRecord {
     this.recording = true;
     this.activeRecord = true;
     this.startTime = new Date().getTime();
+    const startedAt = new Date(this.startTime);
+    const twoDigits = value => String(value).padStart(2, "0");
+    this.trackName = `Mon itinéraire - ${twoDigits(startedAt.getDate())}/${twoDigits(startedAt.getMonth() + 1)}/${twoDigits(startedAt.getFullYear() % 100)} ${twoDigits(startedAt.getHours())}:${twoDigits(startedAt.getMinutes())}`;
+    this.trackId = uuidv4();
+    this.backupWritten = false;
+    this.lastBackupAt = this.startTime;
+    this.backupIntervalId = setInterval(() => this.saveBackup(), 60000);
     if (!Location.isLocationActive()) {
       document.getElementById("geolocateBtn").click();
     }
@@ -262,6 +279,7 @@ class TrackRecord {
     }
     this.recording = false;
     this.duration += new Date().getTime() - this.startTime;
+    this.startTime = null;
     this.map.getSource("track-record-current-line").setData({
       "type": "FeatureCollection",
       "features": []
@@ -432,8 +450,10 @@ class TrackRecord {
     labelDMinus.textContent = `- ${this.currentFeature.data.elevationData.dminus} m`;
 
     // Actionsheet Button Event
-    nameTrackDom.querySelector("#nameTrackSave").addEventListener("click", () => {
-      this.saveRecording();
+    nameTrackDom.querySelector("#nameTrackSave").addEventListener("click", async () => {
+      if (!await this.saveRecording()) {
+        return;
+      }
       ActionSheet.dispatchEvent(
         new CustomEvent("optionSelect", {
           bubbles: true,
@@ -461,18 +481,23 @@ class TrackRecord {
   /**saveRecording
   * Save track
   */
-  saveRecording() {
-    if (this.activeRecord) {
-      this.currentFeature.data.name = this.trackName;
-      this.currentFeature.data.distance = turfLength(this.currentFeature, {units: "meters"});
-      this.currentFeature.data.duration = Math.round(this.duration / 1000);
-      if (turfLength(this.currentFeature) > 2) {
-        this.currentFeature.data.elevationData.unit = "km";
-        this.currentFeature.data.elevationData.elevationData.forEach((elevation) => {
-          elevation.x = elevation.x / 1000;
-        });
+  async saveRecording() {
+    if (this.activeRecord && !this.finishing) {
+      this.finishing = true;
+      clearInterval(this.backupIntervalId);
+      try {
+        await this.backupPromise;
+        const route = this.#createRouteSnapshot();
+        await fileStorage.save(route, `route-${this.trackId}`);
+        this.backupWritten = true;
+        Globals.myaccount.addRoute(route, { persist: false });
+      } catch (error) {
+        this.#reportSaveError(error);
+        this.backupIntervalId = setInterval(() => this.saveBackup(), 60000);
+        this.finishing = false;
+        return false;
       }
-      let id = Globals.myaccount.addTrack(this.currentFeature);
+      const id = this.trackId;
       this.dom.whileRecordingBtn.classList.add("d-none");
       this.dom.finishRecordBtn.classList.add("d-none");
       this.dom.pauseRecordBtn.classList.add("d-none");
@@ -504,6 +529,8 @@ class TrackRecord {
       };
       this.duration = 0;
       this.startTime = null;
+      this.trackId = null;
+      this.finishing = false;
       clearInterval(this.timerIntervalId);
       this.dom.timer.textContent = utils.convertSecondsToTime(0, true, "HH:MM:SS");
       this.dom.distance.textContent = "0 m";
@@ -512,7 +539,53 @@ class TrackRecord {
       this.#closeRecording();
       Globals.myaccount.showRouteDetailsFromID(id);
       ActionSheet.removeEventListener("closeSheet", this.saveRecording.bind(this));
+      return true;
     }
+    return false;
+  }
+
+  #createRouteSnapshot() {
+    const feature = JSON.parse(JSON.stringify(this.currentFeature));
+    feature.data.name = this.trackName;
+    feature.data.distance = turfLength(feature, {units: "meters"});
+    feature.data.duration = Math.round((this.duration + (this.recording ? Date.now() - this.startTime : 0)) / 1000);
+    if (turfLength(feature) > 2) {
+      feature.data.elevationData.unit = "km";
+      feature.data.elevationData.elevationData.forEach(elevation => {
+        elevation.x /= 1000;
+      });
+    }
+    const route = Globals.myaccount.geojsonToRoute(feature, "geojson", true);
+    route.id = this.trackId;
+    route.data.showOrientation = gisUtils.hasRouteLoop(route);
+    return route;
+  }
+
+  saveBackup() {
+    if (!this.activeRecord || this.finishing || this.currentFeature.geometry.coordinates.length < 2) {
+      return;
+    }
+    try {
+      const route = this.#createRouteSnapshot();
+      this.lastBackupAt = Date.now();
+      this.backupPromise = this.backupPromise
+        .then(async () => {
+          await fileStorage.save(route, `route-${route.id}`);
+          this.backupWritten = true;
+        })
+        .catch(error => this.#reportSaveError(error));
+    } catch (error) {
+      this.#reportSaveError(error);
+    }
+  }
+
+  #reportSaveError(error) {
+    console.error("Erreur lors de l'enregistrement de la trace :", error);
+    Toast.show({
+      text: "La sauvegarde de la trace a échoué.",
+      duration: "long",
+      position: "bottom",
+    });
   }
 
   /**
@@ -557,7 +630,24 @@ class TrackRecord {
   /**deleteRecording
   * delete track
   */
-  #deleteRecording() {
+  async #deleteRecording() {
+    if (this.finishing) {
+      return;
+    }
+    this.finishing = true;
+    clearInterval(this.backupIntervalId);
+    try {
+      await this.backupPromise;
+      if (this.backupWritten) {
+        await fileStorage.delete(`route-${this.trackId}`, { throwOnError: true });
+        Globals.myaccount.deleteRoute(this.trackId, { persist: false });
+      }
+    } catch (error) {
+      this.#reportSaveError(error);
+      this.backupIntervalId = setInterval(() => this.saveBackup(), 60000);
+      this.finishing = false;
+      return;
+    }
     this.dom.whileRecordingBtn.classList.add("d-none");
     this.dom.finishRecordBtn.classList.add("d-none");
     this.dom.pauseRecordBtn.classList.add("d-none");
@@ -588,6 +678,8 @@ class TrackRecord {
     };
     this.duration = 0;
     this.startTime = null;
+    this.trackId = null;
+    this.finishing = false;
     clearInterval(this.timerIntervalId);
     this.dom.timer.textContent = utils.convertSecondsToTime(0, true, "HH:MM:SS");
     this.dom.distance.textContent = utils.convertDistance(0);
@@ -615,8 +707,10 @@ class TrackRecord {
         order: this.currentPoints.length === 0 ? "departure" : "",
       },
     });
-    this.duration += new Date().getTime() - this.startTime;
-    this.startTime = new Date().getTime();
+    if (this.recording) {
+      this.duration += new Date().getTime() - this.startTime;
+      this.startTime = new Date().getTime();
+    }
     this.currentFeature.geometry.coordinates.push([e.detail.longitude, e.detail.latitude, e.detail.altitude || 0, (new Date()).toISOString()]);
     const currentDistance = turfLength(this.currentFeature, {units: "meters"});
     this.currentFeature.data.elevationData.elevationData.push({x: currentDistance, y: e.detail.altitude || 0});
@@ -636,6 +730,9 @@ class TrackRecord {
     this.dom.timer.textContent = utils.convertSecondsToTime(Math.round(this.duration / 1000), true, "HH:MM:SS");
     this.dom.distance.textContent = utils.convertDistance(currentDistance, 2);
     this.dom.dplus.textContent = `${Math.round(100 * this.currentFeature.data.elevationData.dplus) / 100} m`;
+    if (this.activeRecord && Date.now() - this.lastBackupAt >= 60000) {
+      this.saveBackup();
+    }
   }
 
   /**

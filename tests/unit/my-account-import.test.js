@@ -16,6 +16,10 @@ vi.mock("@capacitor/toast", () => ({ Toast: { show: vi.fn() } }));
 
 import { FilePicker } from "@capawesome/capacitor-file-picker";
 import { Toast } from "@capacitor/toast";
+import Globals from "../../src/js/globals";
+import gisUtils from "../../src/js/utils/gis-utils";
+import Location from "../../src/js/services/location";
+import fileStorage from "../../src/js/utils/file-storage";
 import MyAccount from "../../src/js/my-account/my-account";
 
 describe("MyAccount file import", () => {
@@ -26,6 +30,65 @@ describe("MyAccount file import", () => {
     vi.spyOn(MyAccount.prototype, "render").mockImplementation(() => {});
     account = new MyAccount({ addSource: vi.fn(), addLayer: vi.fn() });
     vi.spyOn(account, "addRoute").mockImplementation(() => {});
+  });
+
+  describe("MyAccount saved track routes", () => {
+    let account;
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+      vi.spyOn(MyAccount.prototype, "render").mockImplementation(() => {});
+      gisUtils.getRouteDisplayGeometry = vi.fn(route => route.data.steps[0].geometry);
+      Location.isTrackingActive = vi.fn(() => false);
+      fileStorage.save = vi.fn();
+      fileStorage.delete = vi.fn();
+      const map = {
+        addSource: vi.fn(), addLayer: vi.fn(), fitBounds: vi.fn(),
+        getSource: () => ({ setData: vi.fn() }), once: vi.fn(),
+      };
+      Globals.map = map;
+      account = new MyAccount(map);
+      account.__updateAccountRoutesContainerDOMElement = vi.fn();
+    });
+
+    afterEach(() => {
+      vi.clearAllTimers();
+      vi.useRealTimers();
+    });
+
+    it("adds and replaces a route with a preassigned ID without writing it again", () => {
+      const track = {
+        type: "Feature",
+        geometry: { type: "LineString", coordinates: [[2, 48, 10, "2026-01-02T03:04:00Z"], [2.01, 48, 20, "2026-01-02T03:05:00Z"]] },
+        properties: {},
+        data: { name: "Mon itinéraire - 02/01/26 03:04", distance: 100, duration: 60 },
+      };
+      const route = account.geojsonToRoute(track, "geojson", true);
+      route.id = "track-id";
+      route.data.showOrientation = false;
+      expect(route.data.isTrack).toBe(true);
+      expect(route.data.steps[0].geometry.coordinates).toEqual([[2, 48], [2.01, 48]]);
+      account.addRoute(route, { persist: false });
+      const updated = { ...route, name: "Ma trace" };
+      account.addRoute(updated, { persist: false });
+      expect(account.routes).toEqual([updated]);
+      expect(account.routesOrder).toEqual(["track-id"]);
+      expect(fileStorage.save).not.toHaveBeenCalled();
+      account.deleteRoute("track-id", { persist: false });
+      expect(account.routes).toEqual([]);
+      expect(fileStorage.delete).not.toHaveBeenCalled();
+    });
+
+    it("loads a previously persisted backup as a saved route on startup", async () => {
+      const route = {
+        id: "track-id", name: "Mon itinéraire - 02/01/26 03:04",
+        data: { isTrack: true, steps: [], points: [] },
+      };
+      fileStorage.list = vi.fn().mockResolvedValue([{ id: "route-track-id", data: route }]);
+      Globals.offlineMaps = { loadPromise: new Promise(() => {}) };
+      await vi.advanceTimersByTimeAsync(3000);
+      expect(account.routes).toEqual([route]);
+    });
   });
 
   afterEach(() => {
