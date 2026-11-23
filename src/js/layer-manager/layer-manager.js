@@ -8,6 +8,7 @@ import Globals from "../globals";
 import LayerSwitcher from "./layer-switcher";
 import LayerCatalogue from "./layer-catalogue";
 import LayersConfig from "./layer-config";
+import { trackEvent } from "../analytics";
 
 /**
  * Manager des couches avec l'initialisation des 2 modules suivants :
@@ -176,9 +177,7 @@ class LayerManager extends EventTarget {
     if (!layerId) {
       return;
     }
-    const paq = window._paq || [];
-    window._paq = paq;
-    paq.push(["trackEvent", "Layer", "Add", layerId]);
+    trackEvent("Layer", "Add", layerId);
   }
 
   /**

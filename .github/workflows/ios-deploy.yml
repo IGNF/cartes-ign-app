@@ -21,6 +21,8 @@ jobs:
           echo "GPF_key=${{ secrets.GPF_key }}" > .env
           echo "signalement_url=${{ secrets.SIGNALEMENT_URL }}" >> .env
           echo "osm_bearer_token=${{ secrets.OSM_BEARER_TOKEN }}" >> .env
+          echo "MATOMO_URL=${{ vars.MATOMO_URL }}" >> .env
+          echo "MATOMO_SITE_ID=${{ vars.MATOMO_SITE_ID }}" >> .env
 
       - name: Setup Node.js
         uses: actions/setup-node@v7

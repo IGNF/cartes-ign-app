@@ -21,6 +21,7 @@ import { TextZoom } from "@capacitor/text-zoom";
 import { App } from "@capacitor/app";
 import { Keyboard } from "@capacitor/keyboard";
 import { handleIncomingUrl } from "./utils/url-intent-handler";
+import { trackEvent } from "./analytics";
 
 const getClickedButtonElement = (target) => {
   if (!(target instanceof Element)) {
@@ -87,9 +88,7 @@ const trackButtonClick = (evt) => {
   const buttonLabel = getButtonTrackingLabel(buttonElement);
   const backButtonState = Globals.getBackButtonTitle(Globals.backButtonState);
 
-  const paq = window._paq || [];
-  window._paq = paq;
-  paq.push(["trackEvent", "UI", "Button click", `${backButtonState}:${buttonLabel}`]);
+  trackEvent("UI", "Button click", `${backButtonState}:${buttonLabel}`);
 };
 
 /**
