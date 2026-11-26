@@ -108,7 +108,7 @@
     "html-webpack-plugin": "^5.6.7",
     "http-server": "^14.1.1",
     "mini-css-extract-plugin": "^2.10.2",
-    "postcss-safe-parser": "^7.0.1",
+    "postcss-safe-parser": "^7.1.0",
     "sass": "^1.101.7",
     "sass-loader": "^17.0.0",
     "sortablejs": "^1.15.7",
