@@ -74,13 +74,12 @@
       ]
     }
   },
-  "TRACES.RANDO.HIVERNALE$WMTS": {
+  "TRACES.RANDO.HIVERNALE$TMS": {
     "0": {
       "title": "@nom_de_la_trace",
       "subtitle": "Trace de randonnée hivernale (à ski, à raquette) - Source : Fondation Petzl",
       "bodyAfter": [
-        ["<p><b>! Attention !</b><br><b>La pratique de la randonnée hivernale en montagne sauvage est une activité à risque. La planification et la conduite de vos activités de sports d'hiver demeurent sous votre entière responsabilité.</b></p>"],
-        ["<p class=\"monumentsHistoriquesContent\">Les traces oranges proposées par la Fondation Petzl, en partenariat avec Skitourenguru.ch, sont intégrées au fur et à mesure du cycle de production de la carte numérique au 1:25000 de l'IGN (SCAN 25®). Durant cette phase transitoire, les anciennes traces bleues, encore visibles sur le SCAN 25®, et celles proposées par la Fondation Petzl peuvent coexister. Pour préparer vos randonnées hivernales, nous vous conseillons de privilégier les traces oranges de la Fondation Petzl récemment mises à jour.</p>"],
+        ["<p><b>! Attention !</b><br><b>La pratique de la randonnée hivernale en montagne sauvage est une activité à risque. La planification et la conduite de vos activités de sports d’hiver demeurent sous votre entière responsabilité.<br>Les traces de randonnée hivernale sont produites et mises à jour par la <a href='https://fondation.petzl.com'>Fondation Petzl</a> en coopération avec <a href='https://www.skitourenguru.com/'>Skitourenguru</a>. Ces traces représentent la majorité des itinéraires empruntés chaque hiver par les pratiquants de sports de neige. Elles ont été dessinées afin d’éviter autant que possible les terrains les plus exposés aux avalanches. Les passages à pied, en pointillés, représentent les secteurs où le risque de glissade dangereuse est accru.</b></p>"],
         ["<p class=\"positionWeb positionInfo\"><a href=\"https://www.petzl.com/fondation/s/securite-avalanches-yeti-skitourenguru?language=fr\" target=\"_blank\">Plus d'informations</a></p>"]
       ]
     }

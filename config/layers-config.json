@@ -303,6 +303,14 @@
       "format": "application/vnd.pmtiles",
       "styles": ["https://ignf.github.io/cartes-ign-app/geotrek.json", "data/geotrek.json"]
     },
+    "TRACES.RANDO.HIVERNALE$TMS": {
+      "title": "Traces de randonnée hivernale",
+      "description": "Actuellement, seules les données relatives aux traces de randonnées hivernales dans les Alpes et les Pyrénées sont disponibles. Les données des autres massifs seront publiées ultérieurement.<br /><br />Les traces de randonnée hivernale sont produites et mises à jour par la <a href='https://fondation.petzl.com'>Fondation Petzl</a> en coopération avec <a href='https://www.skitourenguru.com/'>Skitourenguru</a>. Ces traces représentent la majorité des itinéraires empruntés chaque hiver par les pratiquants de sports de neige. Elles ont été dessinées afin d’éviter autant que possible les terrains les plus exposés aux avalanches. Les passages à pied, en pointillés, représentent les secteurs où le risque de glissade dangereuse est accru.<br />Pour signaler une erreur dans un tracé ou suggérer une modification, contactez la Fondation Petzl sur <a href='mailto:randohiver@fondation-petzl.org'>randohiver@fondation-petzl.org</a>.",
+      "source": "Fondation Petzl",
+      "format": "application/x-protobuf",
+      "styles": ["https://ignf.github.io/cartes-ign-app/rando-hivernale.json", "data/rando-hivernale.json"],
+      "maj": "Novembre 2026"
+    },
 
     "GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN25TOUR$WMTS": {
       "title": "Carte TOPO 25",

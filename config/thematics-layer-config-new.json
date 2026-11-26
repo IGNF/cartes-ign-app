@@ -17,6 +17,7 @@
     {
         "name": "Tourisme et loisirs",
         "layers": [
+          "TRACES.RANDO.HIVERNALE$TMS",
           "DATATOURISME.FMA$TMS",
           "IGNF_SENTIERS-RANDONNEE-BALISES$TMS",
           "HIKING.GEOTREK$TMS",
