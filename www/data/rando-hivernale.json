@@ -37,7 +37,7 @@
         "line-join": "miter"
       },
       "paint": {
-        "line-color": "#003dc4",
+        "line-color": "#F7350F",
         "line-width": [
           "step",
           [
@@ -84,7 +84,7 @@
         "line-join": "miter"
       },
       "paint": {
-        "line-color": "#003dc4",
+        "line-color": "#F7350F",
         "line-width": [
           "step",
           [
