@@ -5,6 +5,7 @@ const MinimizerPlugin = require("minimizer-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+const { DefinePlugin } = require("webpack");
 
 
 module.exports = {
@@ -21,6 +22,9 @@ module.exports = {
     assetModuleFilename: "css/assets/[hash][ext][query]"
   },
   plugins: [
+    new DefinePlugin({
+      "process.env.LOCAL_CONFIG": JSON.stringify(process.env.LOCAL_CONFIG || "false"),
+    }),
     new MiniCssExtractPlugin({
       filename: "css/index.bundle.css",
     }),

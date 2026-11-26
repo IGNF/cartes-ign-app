@@ -128,25 +128,33 @@ async function loadConfigs() {
   }
   const keys = Object.keys(urls);
 
-  // Run all fetches in parallel
-  const results = await Promise.allSettled(
-    keys.map((key) =>
-      fetchJson(urls[key].url)
-    )
-  );
+  if (process.env.NODE_ENV === "development" || process.env.LOCAL_CONFIG === "true") {
+    await Promise.all(keys.map(async (key) => {
+      config[key] = urls[key].fallbackLoader
+        ? await urls[key].fallbackLoader()
+        : urls[key].fallback;
+    }));
+  } else {
+    // Run all fetches in parallel
+    const results = await Promise.allSettled(
+      keys.map((key) =>
+        fetchJson(urls[key].url)
+      )
+    );
 
-  // Extract results with fallback if needed
-  for (let i = 0; i < keys.length; i++) {
-    const key = keys[i];
-    if (results[i].status === "fulfilled") {
-      config[key] = results[i].value;
-    } else {
-      console.warn(`Could not load ${key} from server, using fallback.`);
-      if (urls[key].fallbackLoader) {
-        // Lazy load the fallback if a loader function is provided
-        config[key] = await urls[key].fallbackLoader();
+    // Extract results with fallback if needed
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      if (results[i].status === "fulfilled") {
+        config[key] = results[i].value;
       } else {
-        config[key] = urls[key].fallback;
+        console.warn(`Could not load ${key} from server, using fallback.`);
+        if (urls[key].fallbackLoader) {
+          // Lazy load the fallback if a loader function is provided
+          config[key] = await urls[key].fallbackLoader();
+        } else {
+          config[key] = urls[key].fallback;
+        }
       }
     }
   }
