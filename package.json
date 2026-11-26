@@ -96,7 +96,7 @@
     "@eslint/js": "^10.0.1",
     "@vue/preload-webpack-plugin": "^2.0.0",
     "babel-loader": "^10.1.1",
-    "css-loader": "^7.1.4",
+    "css-loader": "^7.1.5",
     "css-minimizer-webpack-plugin": "^8.0.0",
     "dotenv-webpack": "^9.0.0",
     "eslint": "^10.7.0",
